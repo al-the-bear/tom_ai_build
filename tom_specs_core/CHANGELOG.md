@@ -1,5 +1,14 @@
 ## Unreleased
 
+- csra8: `CodeSpecPart.reporting` (CE-RP) is **active**, not deferred. Its doc
+  comment now carries the live mapping — the grouped projection built on
+  `TomReportDefinition` / `TomReportResult` (`tom_core_codespecs`) over the
+  `tom_core_server` query and rendering substrate, marked by `@CsReport`,
+  `@CsReportColumn`, `@CsReportChart` and `@CsReportParameter` — and records why
+  CE-RP is not a composition of `serverApi` + `dataAccess` + `form`. The enum is
+  unchanged at **28 values**; only the readiness split moves, to 26 active /
+  1 deferred (`workflow`, deferred permanently).
+
 - csm2r8: reserve the 9 deferred CodeSpecs element candidates (§4.3) in the
   `CodeSpecPart` enum — `identity`, `schemaMigration`, `workflow`,
   `notification`, `backgroundJob`, `auditLog`, `featureFlag`, `fileStorage`,

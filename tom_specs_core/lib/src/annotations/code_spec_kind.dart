@@ -70,8 +70,8 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **28 values**: the **25 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **2 deferred candidates** (§4.3). A
+/// The enum holds **28 values**: the **26 active parts** (§4.1), the **member
+/// kind [domainEnum]**, and the **1 deferred candidate** (§4.3). A
 /// deferred value is *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
@@ -190,22 +190,22 @@ enum CodeSpecPart {
   // ---------------------------------------------------------------------------
   // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
   //
-  // Two values here — [workflow] and [reporting] — are RESERVED so a SOM section
-  // can carry `@CodeSpecKind` now, but they are NOT active parts: each has NO
-  // `@Cs<Id>` annotation, NO built-on `tom_core` class and NO generated code
-  // until promoted into §4.1 (the promotion criterion: a concrete
-  // `tom_core`-family built-on class — or a decided `tom_core_codespecs` gap —
-  // plus a `Cs*` annotation are chosen). They are distinct and collision-free
-  // against the 25 active values, keeping the enum at 28 kind values.
+  // One value here — [workflow] — is RESERVED so a SOM section can carry
+  // `@CodeSpecKind` now, but it is NOT an active part: it has NO `@Cs<Id>`
+  // annotation, NO built-on `tom_core` class and NO generated code until
+  // promoted into §4.1 (the promotion criterion: a concrete `tom_core`-family
+  // built-on class — or a decided `tom_core_codespecs` gap — plus a `Cs*`
+  // annotation are chosen). It is distinct and collision-free against the 26
+  // active values, keeping the enum at 28 kind values.
   //
   // [workflow] is deferred **permanently**, not pending — the substrate survey
   // in §4.3.1 recommends against ever building a process runtime, and §4.3.1 §7
   // fixes the three conditions that would reopen it.
   //
-  // [notification], [backgroundJob] and [auditLog] below are ALREADY PROMOTED
-  // (active §4.1) but physically stay in their original enum position — kind
-  // values keep their enum position for enum-order stability (never reordered on
-  // promotion). Their doc comments carry the active mapping.
+  // [notification], [backgroundJob], [auditLog] and [reporting] below are
+  // ALREADY PROMOTED (active §4.1) but physically stay in their original enum
+  // position — kind values keep their enum position for enum-order stability
+  // (never reordered on promotion). Their doc comments carry the active mapping.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
@@ -243,17 +243,21 @@ enum CodeSpecPart {
   /// Server-only (§4.3).
   auditLog,
 
-  /// CE-RP — reporting: report definitions over the domain model — `@CsReport`
-  /// names a query/projection (built on the CE-DB query substrate:
-  /// `TomQueryBuilder` / `TomQuerySentenceCompiler` + the crud repositories,
-  /// `tom_core_server`), an output shape (tabular sections/columns, charts),
-  /// filters/parameters, an abstract delivery channel
-  /// (apiResponse | email | fileExport) and an optional schedule; delivered
-  /// via ordinary [serverApi] operations. Server (definition + execution) +
-  /// shared (tabular result envelope, parameter DTOs) (§5.28).
+  /// CE-RP — reporting: a **grouped projection over the domain model,
+  /// delivered as a rendered artifact** — `@CsReport` names the projection
+  /// (dimensions and measures), `@CsReportColumn` one projected output column,
+  /// `@CsReportChart` a chart over those columns and `@CsReportParameter` a
+  /// per-execution input, built on `TomReportDefinition` / `TomReportResult`
+  /// (`tom_core_codespecs`) over the `tom_core_server` query and rendering
+  /// substrate (`TomGroupedSelect` / `TomAggregate`, `TomTabularResult` and its
+  /// CSV / XLSX / PDF renderers). Server (definition + execution) + shared
+  /// (result envelope, parameter shapes) (§5.28).
   ///
-  /// Deferred (§4.3) — the sketch above is the intended shape, not a live
-  /// mapping: reporting is worked out in a specification of its own before it
-  /// is promoted, so it has no `Cs*` annotation and no generated code yet.
+  /// Not a composition of [serverApi] + [dataAccess] + [form]: none of those
+  /// can hold a dimension or a measure, and a report column is an *output
+  /// projection* carrying an aggregate and a format, not an input field.
+  /// Rendering engine, pagination and export file generation are
+  /// implementation-owned; the environment-wide print and export settings are
+  /// [serverConfiguration].
   reporting,
 }

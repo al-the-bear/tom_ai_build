@@ -18,7 +18,7 @@ section metadata, not by a parallel document type — see §9.
 This document is the **grounding reference** for the CodeSpecs derivation. It:
 
 1. states what CodeSpecs means,
-2. canonicalises the target element taxonomy (25 active parts, §4),
+2. canonicalises the target element taxonomy (26 active parts, §4),
 3. defines the three-project output structure (§4.2),
 4. compares the taxonomy against existing coverage and flags gaps (§5–§6),
 5. records the server-contract and configuration/settings decisions (§7, §11),
@@ -98,7 +98,13 @@ glossary, and nothing else:
 > Error result · Error code · Field-level error · Field · Field kind · Form ·
 > Subform · Layout node · Copy/Text · Message key · Validation rule (Field rule /
 > Form rule) · Action · Trigger · Server interaction · View state · Navigation
-> target · Configuration setting · Traceability link.**
+> target · Configuration setting · Traceability link · Report · Report section ·
+> Report column · Report dimension · Report measure · Report parameter · Chart ·
+> Delivery channel · Report schedule · Report recipient.**
+
+The last ten are CE-RP's (§5.28). **Report column** is deliberately the
+output-side peer of **Field**, not a use of it: a field is an input a user
+edits, a report column an output projection carrying an aggregate and a format.
 
 Every term maps onto a `tom_specs_model` section (§8). Adding a term is a
 deliberate act: a new neutral term means a new author-facing concept, so it must
@@ -186,13 +192,13 @@ first-level body either compiles against its abstract collaborator or throws.
 
 ## 4. Target element taxonomy
 
-The taxonomy has **25 active parts** spanning client, shared contract, server,
+The taxonomy has **26 active parts** spanning client, shared contract, server,
 and database. The Note column states
 how each part is planned to be realised: which `tom_core`-family classes it is
 built on, whether it is a pure annotation over existing classes, and where a
 concrete class is still missing in `tom_core` — such a gap lands in
 `tom_core_codespecs` and is still to be specified and implemented.
-Beyond these, **two deferred candidate parts** are reserved for *mapping only*
+Beyond these, **one deferred candidate part** is reserved for *mapping only*
 — see §4.3.
 
 | Code | Element | Locus | Note |
@@ -222,6 +228,7 @@ Beyond these, **two deferred candidate parts** are reserved for *mapping only*
 | **CE-JB** | BackgroundJob — scheduled / background / queued jobs (cron, calendar, event triggers) distinct from request-driven CE-API: trigger + work definition + target refs + retry/backoff/timeout/alerting | server | A **job base class** in `tom_core_codespecs` that lets the job's execution be plugged into any scheduling system. The job body is written as compilable **pseudo-code** calling a later-injected **abstract service class** (methods laid out with detailed doc-comments describing intended behaviour, §3). Built on `tom_core_kernel`'s `scheduling` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock` and `TomJobDispatcher` — over the `TomCommand`/`TomExecutor`/`TomWorker` isolate-pooling substrate, so the scheduler runtime, durable job queue and multi-node single-fire locking are all reused rather than specified (§5.29). |
 | **CE-LG** | Audit log — the business-relevant trail of who did what, when; distinct from diagnostic logging | server | **Pure reuse — no new class.** The `tom_core_server` `audit` module (`TomAuditTrail`/`TomAuditRecord`/`TomAuditSink`) records automatically at two chokepoints — the CE-API handler and the CE-DB write path — so a specification authors only the *declared* half, carried by the framework's own `@TomAudited` (`enabled`/`includeReads`/`redact`) alongside the `@CsAudited` marker. Retention and log format are CE-CF settings on the sink (§4.3.2). |
 | **CE-NT** | Notification — which outbound notification types exist, which channels each goes out on, and how user preferences narrow that set | shared (declarations) + server (delivery) | Delivery is pure reuse of the `tom_core_server` `messaging` module (`TomMessage`/`TomMessageRouter`/`TomSmtpTransport`/`TomMessageOutbox`), which takes an already-chosen channel. The layer that *chooses* is a new class family in `tom_core_codespecs` — `TomNotificationType`/`TomNotificationChannelDeclaration`/`TomNotificationPreferences`, resolved by `TomNotificationCatalog` (§4.3.2). |
+| **CE-RP** | Reporting — a grouped projection over the domain model (dimensions, measures, output columns, charts, parameters), delivered as a rendered artifact | server (definition + execution) + shared (result envelope) | Query execution (`TomGroupedSelect`/`TomAggregate`) and rendering (`TomTabularResult` + the CSV/XLSX/PDF renderers) are pure `tom_core_server` reuse. The **grouped projection** they leave unauthorable is a new class family in `tom_core_codespecs` — `TomReportDefinition` with `TomReportDimension`/`TomReportMeasure`/`TomReportColumn`/`TomReportParameter`/`TomReportChart`, plus the shared `TomReportResult` envelope (§5.28). |
 
 **Member kind — domain enums.** Domain enums are not a part in this table:
 `domainEnum` is a **member kind**. A domain enum is authored within its owning
@@ -271,6 +278,7 @@ surface — pillar (a)/(b)):
 | CE-JB | BackgroundJob | `backgroundJob` | `@CsJob` | `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`); a **job base class** → **gap** (`tom_core_codespecs`) that plugs into any scheduling system, its work body written as compilable **pseudo-code** over a later-injected **abstract service class** (§3, §5.29) |
 | CE-LG | AuditLog | `auditLog` | `@CsAudited` | `TomAuditTrail` / `TomAuditRecord` / `TomAuditSink` + the `@TomAudited` declaration (`tom_core_server` `audit`); **reuse, no gap** — the trail records automatically at the endpoint and repository chokepoints, and the spec authors only the declared half (§4.3) |
 | CE-NT | Notification | `notification` | `@CsNotification`, `@CsNotificationChannel` | `TomNotificationType` / `TomNotificationChannelDeclaration` / `TomNotificationPreferences` / `TomNotificationCatalog` (`tom_core_codespecs`) → **gap** for the choosing layer, over `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` (`tom_core_server` `messaging`) for delivery (§4.3) |
+| CE-RP | Reporting | `reporting` | `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | `TomReportDefinition` / `TomReportResult` (+ dimension / measure / column / parameter / chart) (`tom_core_codespecs`) → **gap** for the grouped projection and the shared result envelope, over `TomGroupedSelect` / `TomAggregate` (`tom_core_server` `object_persistence`) for execution and `TomTabularResult` + the CSV/XLSX/PDF renderers (`tom_core_server` `export`) for rendering (§5.28) |
 
 **Rules that make the catalogue authoritative:**
 
@@ -278,11 +286,11 @@ surface — pillar (a)/(b)):
   the permanent registry key (never reused, never renamed). `@CodeSpecKind` values
   are the camelCased canonical ids — **the `CodeSpecPart` enum is generated from
   this table**, so kind values and ids never drift.
-- **Collision-free.** All 25 active canonical ids are distinct nouns; all 25
+- **Collision-free.** All 26 active canonical ids are distinct nouns; all 26
   active kind values are distinct; all `Cs*`
-  annotation names are distinct. The **2 deferred candidate ids and kind values**
+  annotation names are distinct. The **1 deferred candidate id and kind value**
   of §4.3 and the member kind `domainEnum` are drawn from the same namespace and
-  are collision-free against these 25 — giving **28 distinct kind values** in
+  are collision-free against these 26 — giving **28 distinct kind values** in
   the `CodeSpecPart` enum.
 - **Promotion never moves an enum value.** A reserved `CodeSpecPart` value keeps
   its declared position when its part is promoted — the enum is append-only in
@@ -390,7 +398,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-SC** ServerCall | The client-side declaration of a call to a server operation. | **Built on:** `TomServerEndpoint<T, R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, `tombase/http_connection/server_connection.dart`); declared as typed endpoint fields in a client calls class (§7: all POST, the operation name carries the intent).<br>**Annotations:** `@CsServerCall(operation)`.<br>**Example:** `@CsServerCall('customer.save') final saveCustomer = TomServerEndpoint<CustomerSaveRequest, CustomerDto>(…);` | None. | Needs `CsOperationRef` (§5.23, not yet authored) so the call ties to its `@CsEndpoint` by **typed reference**, not by string; retry/timeout expectations as attributes where the spec states them. |
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** need field-level constraint annotations — maximum length, format restriction, required-ness — the classic beyond-code detail; plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
 | **CE-SU** ServiceUnit | A functional-group *closure* of the server API (§5.1 boundary: owned-aggregate primary, process cohesion, bounded context); id `<RootAggregate>Service`; membership **derived, not listed**. | **Built on:** ordinary **(abstract) classes** carrying the `tom_core_server` mapping annotations (`@tomService` / `TomApiImplementation`, discovered via `scanClasses` / `TomComponentReference`); methods are the operations, CodeSpecs-phase bodies **pseudo-code** / `UnsupportedError`.<br>**Annotations:** `@CsServiceUnit('CustomerService')`.<br>**Example:** `@CsServiceUnit('CustomerService') abstract class CustomerService { Future<CustomerDto> save(CustomerSaveRequest r); }` | None. | `@CsServiceUnit` needs a **boundary-rationale attribute** (which §5.1 criterion binds the unit) and a `CsServiceUnitRef` (§5.23, not yet authored) for cross-unit references. |
-| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for deferred CE-RP. | `@CsColumn` must express what Dart types cannot: **max length, precision/scale, format restriction, uniqueness, db-nullability** vs Dart-nullability, and the column-level access grade (**authKey**, §5.13); `@CsRepository` the derived-query intent. |
+| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). | `@CsColumn` must express what Dart types cannot: **max length, precision/scale, format restriction, uniqueness, db-nullability** vs Dart-nullability, and the column-level access grade (**authKey**, §5.13); `@CsRepository` the derived-query intent. |
 | **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | None. | Minor — `@CsViewModel` attributes linking state fields to their **source** server call / entity (derivation provenance) where the spec states it. |
 | **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute('customer/edit')` per route; `@CsScreenFlow` on flow declarations.<br>**Example:** `@CsRoute('customer/edit') static const customerEdit = CsRouteRef('customer/edit');` | **Gap filled in `tom_core_codespecs`** — `tom_core` has no route-id registry or screen-flow model, so `route_flow.dart` carries `TomRouteRegistry` / `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` over `TomScreenPresentation` + `TomFlowOutcome` (§5.11); the SOM authoring home is the **screen route map** (`SCRTMP`) under D09 XDS `ScreenFlowStructure`. | `@CsScreenFlow` must carry the **transition kind** (*replace* vs *popup overlay*), the trigger (`CsActionRef`) and conditional-target expressions; `CsRouteRef` typed refs (§5.23) not yet authored. |
 | **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` needs `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23, not yet authored) instead of raw strings; per-field **graded-access levels** (CE-EL / CE-DB grades) are annotation-only detail. |
@@ -404,7 +412,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: public\|encrypted)` per field — `placement` is a **required** named argument of the closed `IdentityAttributePlacement` enum, never defaulted, because §5.16's fail-safe rule forbids choosing a token-payload arm by omission.<br>**Example:** `@CsIdentity class EmployeeProfile { @CsIdentityAttribute(placement: encrypted) late String costCenter; }` | None — reuse; both carriers exist. | Per-field **placement** + format/length constraints — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class. Migration **filenames stay strings** (§5.23 exemption). | None — execution substrate is pure reuse, and the **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check) ships alongside it as `schema_model.dart` / `schema_ddl_reader.dart` / `schema_convergence.dart`. That check is the **only integrity guard** available over the string-exempt migration filenames, so it is the one every CE-MG spec relies on. | `@CsMigration` needs attributes tying a migration to the **entity-model version** it converges to. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob() class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | None — the runtime is reused wholesale from `tom_core_kernel`'s `scheduling` module (scheduler, durable job store, multi-node lease), and the deployment/ownership envelope `tom_core` has no place for is carried by `tom_core_codespecs`'s `TomJobDeclaration` (`jobId` / `displayName` / `enabled` / `environments` / `serviceUnitId` / `targetRefs`, with `runsIn(environment)`). Gating is **opt-out** and an empty `environments` list means *every* environment, so a spec states only the exceptions. | **Schedule expression**, **concurrency/single-fire policy** and **retry policy** are spec detail authored onto the reused `TomSchedule` / `TomRetryPolicy` surface. |
-| **CE-RP** Reporting *(deferred, §4.3)* | Tabular / aggregated reporting with export channels (screen, `fileExport` CSV/PDF/XLSX); SOM home REPENT (D09). | Mapping-only: the reserved `CodeSpecPart.reporting` kind — **no `Cs*` annotation, no built-on class, no generated code** until promoted. On promotion it would build on CE-DB queries + a **tabular result envelope**. | **One gap:** the **tabular result envelope** — a tom_specs-owned `tom_core_codespecs` gap still to design. Everything else promotion needs is in place: the `tom_core_server` `export` module renders CSV/XLSX/PDF through one streaming abstraction over both the `apiResponse` and `fileExport` channels (`doc/export.md`), the `file_storage` module backs the store seam via `TomBlobExportStore`, and the CE-DB aggregation grammar (`grouped_query.dart`) supplies the grouped results a report projects. The envelope is **adapted onto** the renderers' minimal tabular shape rather than replacing it; its one inherited constraint is that rows stay streamable. Charts stay unrendered by design. | Future `@CsReport` + the reserved `CsReportRef` (§5.23). |
+| **CE-RP** Reporting | A grouped projection over the domain model, delivered as a rendered artifact: dimensions, measures, output columns, charts and runtime parameters. SOM home REPENT (D09 XDS). | **Built on:** `TomReportDefinition` (+ `TomReportDimension` / `TomReportMeasure` / `TomReportColumn` / `TomReportParameter` / `TomReportChart`) and the shared `TomReportResult` envelope (`tom_core_codespecs`, `report_model.dart`), over `TomGroupedSelect` / `TomAggregate` for execution and `TomTabularResult` + the CSV/XLSX/PDF renderers for rendering (`tom_core_server`).<br>**Annotations:** `@CsReport` on the report, `@CsReportColumn` / `@CsReportChart` / `@CsReportParameter` on its members.<br>**Example:** `@CsReport() final salesByRegion = TomReportDefinition(reportId: 'sales_by_region', sourceEntityId: 'Order', …);` | **Gap filled in `tom_core_codespecs`** — the aggregation grammar and the renderers both exist, but neither offers a place to *author* a dimension or a measure: CE-DB's spec-authorable surface is row-shaped. `report_model.dart` carries the grouped projection and the shared result envelope, with the three generation-time consistency checks (§5.28). The envelope is **adapted onto** the renderers' minimal tabular shape rather than replacing it; its one inherited constraint is that rows stay streamable. Charts are declared, not rendered — an exporter that cannot draw one omits it. | `@CsReport` carries only an optional note so far; the `CsReportRef` const (§5.23) and typed refs for the source entity, the drill-through route and the schedule job are not yet authored. |
 | **CE-WF** Workflow *(deferred **permanently**, §4.3)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **No substrate, and none to be built** — the survey in **§4.3.1** found DEPRWO is free text with no machine-readable step graph, no driving system needing a durable wait or compensation, and the realistic cases already served by CE-JB jobs + CE-AC actions + CE-DB state. The one real gap — a one-shot timer schedule — is a small `TomSchedule` subclass (`csexb6`), not an engine. | Future annotation family undefined; §4.3.1 §6 fixes the **at-least-once, idempotent step body** guarantee any future surface must carry, and §4.3.1 §7 the three conditions that would reopen the decision. |
 | **CE-NT** Notification | Outbound user notifications, email first: which types exist, which channels each goes out on, and how user preferences narrow that set. SOM home NM (`introduction_and_scope.dart`). | **Built on:** `TomNotificationType` / `TomNotificationChannelDeclaration` / `TomNotificationPreferences` / `TomNotificationCatalog` (`tom_core_codespecs`, `notification_model.dart`) for the declarations, over `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` / `TomSmtpTransport` (`tom_core_server` `messaging`) for delivery. The catalogue is a **plain annotated model class**.<br>**Annotations:** `@CsNotification` per type, `@CsNotificationChannel` per channel.<br>**Example:** `@CsNotification() final orderShipped = TomNotificationType(typeId: 'order.shipped', urgency: high, defaultChannelIds: ['email']);` | **Gap filled in `tom_core_codespecs`** — `messaging` delivers a composed message on an already-chosen channel; the layer that *chooses* had no home, so `notification_model.dart` carries the type ⇄ channel ⇄ preference model (with the `channelsFor` / `deliveryChannelsFor` resolution and the essential-type compliance rule). Transport, SMTP and the durable outbox are pure reuse (`csex10`). | `@CsNotification` needs the trigger event as a typed ref rather than a string, and `contentTemplateKey` as a `CsMessageKey` (§5.23, not yet authored); `@CsNotificationChannel` a `CsNotificationRef` for the fallback edge. |
 | **CE-LG** AuditLog | Business-relevant audit trail — **distinct from diagnostic logging**; SOM home SAS (D08). | **Built on:** `TomAuditTrail` / `TomAuditRecord` / `TomAuditSink` + the `@TomAudited` declaration (`tom_core_server` `audit`; `doc/audit.md`). The CodeSpec is the *audited* endpoint or repository itself, carrying the framework's own `@TomAudited` alongside the part marker — the CE-SU shape (an ordinary class carrying `@tomService`, marked by `@CsServiceUnit`).<br>**Annotations:** `@CsAudited` on the audited element.<br>**Example:** `@CsEndpoint('customer.save') @CsAudited() @TomAudited(includeReads: false, redact: ['iban'])` | None — **pure reuse**. The trail records at two chokepoints no handler can opt out of (`TomEndpointHandler.handleMethodCall`; `TomSqlDatasourceRepository`'s write path), so there is nothing above them for a gap class to hold: the declared half is exactly `@TomAudited`'s three arguments (`csex9`). | `@CsAudited` carries no attributes of its own by design — the declaration rides `@TomAudited`. Retention, log format and the compliance report are **`@CsServerConfig`**, not CE-LG: they are deployment settings on the sink. |
@@ -422,15 +430,15 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   concrete gap class:** CE-LO (`layout_node.dart`), CE-TX (`message_key.dart`),
   CE-NV (`route_flow.dart`), CE-UP (`user_settings.dart`), CE-CL
   (`client_application.dart`), CE-JB (`job_declaration.dart`), **CE-NT**
-  (`notification_model.dart`). The gap classes carry only what `tom_core` has no
+  (`notification_model.dart`), **CE-RP** (`report_model.dart`). The gap classes
+  carry only what `tom_core` has no
   place for; everything below them is reuse. Nothing else is open inside this
   class — CE-LO's container-kind reconciliation against the ACL substrate closed
   with `csexb2`.
-- **Deferred:** **CE-RP** — one blocker left, the tabular result envelope; and
-  **CE-WF — deferred permanently**, the only part whose deferral is a decision
-  rather than a waiting state. §4.3.1 records why (no authored input, no driving
-  requirement, the realistic cases already covered) and §4.3.1 §7 the three
-  conditions that would reopen it.
+- **Deferred:** **CE-WF** alone, and **deferred permanently** — its deferral is
+  a decision rather than a waiting state. §4.3.1 records why (no authored input,
+  no driving requirement, the realistic cases already covered) and §4.3.1 §7 the
+  three conditions that would reopen it.
 - **Naming discrepancies:** resolved and tabulated in **§4.1.2**; all are
   document defects, none needed a framework change, and all are now corrected
   at their cited locations.
@@ -544,9 +552,9 @@ projects, per the multi-project architecture principle (§12):
 
 | Generated project | Holds | Parts |
 |-------------------|-------|-------|
-| **`<app>_codespec_shared`** | The contract both sides depend on | CE-API request/response types **and the operation-ref catalogue**, CE-ER error result **+ error-code catalogue**, domain enums referenced by shared contract types, CE-TX message keys, shared CE-VA rules, **CE-AZ role + resource-key catalogues** (§5.23 — cited from both sides), CE-AU reused kernel wire/token types, CE-ID identity-extension declarations, **CE-NT type + channel declarations** (the client renders the preference UI against the same catalogue the server dispatches from) |
+| **`<app>_codespec_shared`** | The contract both sides depend on | CE-API request/response types **and the operation-ref catalogue**, CE-ER error result **+ error-code catalogue**, domain enums referenced by shared contract types, CE-TX message keys, shared CE-VA rules, **CE-AZ role + resource-key catalogues** (§5.23 — cited from both sides), CE-AU reused kernel wire/token types, CE-ID identity-extension declarations, **CE-NT type + channel declarations** (the client renders the preference UI against the same catalogue the server dispatches from), **CE-RP result envelope + parameter shapes** (the client renders a report, the server exports it — §5.28) |
 | **`<app>_codespec_client`** | Client-only CodeSpecs | CE-EL, CE-FM, CE-LO, CE-TX (copy), CE-AC, CE-SC, CE-ST, CE-NV (routes + screen-flow), CE-CL, CE-CC, CE-DS, CE-UP (client shape), CE-AU (client flow) |
-| **`<app>_codespec_server`** | Server-only CodeSpecs | CE-SU, CE-DB, CE-API (handlers), CE-AZ, CE-CF, CE-UP (persistence), CE-AU (server flow), CE-ID attribute population (in the CE-AU flow), CE-MG (the migrations directory tree + numbered SQL skeleton artifacts — file assets shipped with the server project, not Dart classes, §5.27), CE-JB job definitions + work-body skeletons (§5.29), **CE-LG** audit declarations (the trail is a server chokepoint), **CE-NT delivery** — channel routing and the outbox, the half that never reaches the client |
+| **`<app>_codespec_server`** | Server-only CodeSpecs | CE-SU, CE-DB, CE-API (handlers), CE-AZ, CE-CF, CE-UP (persistence), CE-AU (server flow), CE-ID attribute population (in the CE-AU flow), CE-MG (the migrations directory tree + numbered SQL skeleton artifacts — file assets shipped with the server project, not Dart classes, §5.27), CE-JB job definitions + work-body skeletons (§5.29), **CE-LG** audit declarations (the trail is a server chokepoint), **CE-NT delivery** — channel routing and the outbox, the half that never reaches the client, **CE-RP report definitions + execution** (the definition is where the report runs; only its result and parameter shapes cross to the client, §5.28) |
 
 The **Phase-5/6 implementation** fills the skeletons in parallel projects that
 depend on the generated ones:
@@ -563,21 +571,21 @@ project by the **Locus** column of §4.
 
 ### 4.3 Deferred element candidates (mapping-only)
 
-Two further elements sit outside the 25 active parts. They are real system
-concerns, but neither is realised in CodeSpecs: each is **reserved for mapping
+One further element sits outside the 26 active parts. It is a real system
+concern, but it is not realised in CodeSpecs: it is **reserved for mapping
 only** — it keeps a stable `CE-*` key and a reserved `CodeSpecPart` value so its
 SOM section can carry `@CodeSpecKind` **immediately**, and its SOM home is
 recorded so the section is authored in the right place. It has **no `Cs*`
 annotation, no built-on `tom_core` class and no generated code**.
 
-The two are deferred for *different reasons*, and the difference matters:
-**CE-RP is waiting** (one substrate blocker left, and promotion is expected once
-it closes), while **CE-WF is decided** — permanently deferred on the merits, not
-pending anything.
+**CE-WF is decided, not waiting** — permanently deferred on the merits (§4.3.1),
+not pending a substrate that might arrive. That is the whole of the deferred set:
+every other candidate has been resolved, most recently CE-RP, promoted on the
+finding that a grouped projection has no authoring home in any active part
+(§5.28).
 
 | CE | Canonical id | `@CodeSpecKind` value | SOM home section (`@SectionId`) — file | What it will model |
 |----|--------------|-----------------------|-----------------|--------------------|
-| **CE-RP** | Reporting | `reporting` | `ReportEntry` (`REPENT`) — `experience_and_interface_design.dart` (D09 XDS) | **Reporting — deferred, worked out in a separate specification** (§5.28). A report is *"just another part of the UI specified differently"*: it is authored as part of DocSpecs and maps to a **UI to display and interact** with the result + a **server API** to fetch it + **graphs/charts**. Genuinely complex (query, projection, tabular + chart output, filters/parameters, delivery, scheduling), so it is deferred to its own spec rather than forced into the first CodeSpecs pass. |
 | **CE-WF** | Workflow | `workflow` | `DetailedProcessWorkflow` (`DEPRWO`, in `TargetBusinessProcessModel`) + `BusinessProcessEntry` — `business_process_model.dart` (D02 TOM) | Multi-step process / **workflow-engine** orchestration (state machines, long-running processes). **Deferred permanently** — see §4.3.1: DEPRWO is free text (an activity narrative plus a BPMN-style diagram), no driving system needs a durable wait or compensation, and what a process does need is already served by CE-JB jobs, CE-AC actions and CE-DB state. Basic workflows remain covered by CE-NV (the screen-flow). |
 
 **Homes are wired.** Each home section above already carries a **class-level**
@@ -998,7 +1006,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-AU | `TomAuthenticationServer` + `TomAuthenticationService` contract (`tom_core_server`); `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage`/`TomAuthenticationResult` (`tom_core_kernel`) | **Pure reuse — no gap class.** The mechanics (two-token JWT model, login orchestration, stateless Bearer verification, wire attachment, token store) are framework-fixed; the spec-authorable surface is the service binding, enabled methods/flows, per-client login flow, and session/token/credential policies. The app's `TomAuthenticationService` implementation **is** the `@CsAuth` CodeSpec (§5.25). |
 | CE-ID | `TomUser` + `TomPrincipal` (`tom_core_kernel`); both token-payload extension carriers exist in the substrate (public `attributes`, encrypted context) | **Reuse — no new class.** **App-declared identity-attribute extensions** over the fixed principal core: `@CsIdentity` (declaration holder) + `@CsIdentityAttribute(placement: public\|encrypted)` per extension; the profile extension is modelled as an **ordinary class**, directly reusable and carried as **JSON via reflection** in the user profile; shared (declaration) + server (population in the CE-AU flow) (§5.24). |
 | CE-MG | `TomDbMigrations` orchestrator + `TomDbMigrator` contract + `TomMigrationFileName` grammar + `@TomDbMigrationAdaptor` discovery + `MariadbMigrationAdaptor` (`tom_core_server`) | **Pure reuse — no gap class.** The engine (directory walk, filename grammar, numeric ordering, env filtering, applied-version verification) is framework-fixed; the spec-authorable surface is the SQL artifact set — initial DDL, base/seed data, iteration scripts — in the `<databaseMigrationsDirectory>/<datasource>/<schema>/` tree, `@CsMigration`-marked; the schema-convergence check against the CE-DB entity model is a named validator check (§5.27). |
-| CE-RP | `TomQueryBuilder` typed `TomOperator` expression trees + `TomQuerySentenceCompiler` (find/count/delete sentences → `TomSelect`/`TomCount`) + the crud repositories + the SQL dialect layer (`tom_core_server`); delivery via ordinary CE-API endpoints | **Deferred (§4.3) — worked out in a separate specification.** A report is *"just another part of the UI specified differently"*: authored as part of DocSpecs, it maps to a **UI to display and interact** with the result + a **server API** to fetch it + **graphs/charts** (query/projection over the CE-DB substrate + output shape + filters/parameters + delivery + optional schedule). Too complex to force into the first CodeSpecs pass, so it carries only a reserved `CodeSpecPart.reporting` value until its own spec is written (§5.28). |
+| CE-RP | `TomGroupedSelect` / `TomAggregate` / `TomGroupedRow` (`object_persistence/grouped_query.dart`) over `TomQueryBuilder` + `TomQuerySentenceCompiler` + the crud repositories; `TomTabularResult` and the CSV/XLSX/PDF renderers (`export`); delivery via ordinary CE-API endpoints (`tom_core_server`) | **Two gap classes** in `tom_core_codespecs` (`report_model.dart`): `TomReportDefinition` — the **grouped projection** a specification authors (dimensions, measures, output columns, charts, parameters, delivery channels), which the substrate can execute but has nowhere to author because CE-DB's spec surface is row-shaped; and `TomReportResult` — the **shared** result envelope, authored here rather than extending the server-side `TomTabularResult` so the client can read it, and adapted one way onto the tabular shape when exporting (§5.28). |
 | CE-JB | `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`) — the work-body engine that runs a unit of work off the request thread | **Job definitions over the operational model**: `@CsJob` names a trigger (`cron \| calendar \| event`) + a work definition + target refs (CE-DB entities / CE-RP reports the job acts on) + retry/backoff/timeout/failure-alerting, distinct from request-driven CE-API. A **job base class** (`tom_core_codespecs` gap) makes job execution pluggable into any scheduling system; the **work body is compilable pseudo-code** (§3) calling a later-injected **abstract service class** whose methods carry detailed doc-comments; server project. The scheduler runtime, job queue and multi-node locking are reused from `tom_core_kernel`'s `scheduling` module — `tom_process_monitor` is reference only, not a `tom_core`-family class (§5.29). |
 
 ### 5.1 CE-SU service-unit boundary criterion
@@ -2965,95 +2973,216 @@ it at server start. No further CE-MG-specific configuration exists.
 
 ### 5.28 CE-RP report definitions over the domain model
 
-> **Status: DEFERRED (§4.3) — worked out in a separate specification**
-> (decision (j)). Reporting is genuinely complex and is *"just another part of
-> the UI specified differently"*: authored as part of DocSpecs, a report maps to
-> a **UI to display and interact** with the result + a **server API** to fetch it
-> + **graphs/charts**. It is **not** part of the first CodeSpecs pass — CE-RP
-> carries only a reserved `CodeSpecPart.reporting` value (§4.3) until its own
-> specification is written. The material below is retained as the **seed for that
-> separate spec**, not as an active §4.1 part; there are **no `@CsReport`
-> annotation, no built-on class and no generated code** until CE-RP is promoted.
+A **report** is a *grouped projection over the domain model, delivered as a
+rendered artifact*. That one sentence carries the whole part: the projection is
+what a specification authors, and the rendering is what the framework does with
+it.
 
-**Design seed (for the separate reporting spec).** CE-RP would model **report
-definitions** as first-class spec elements — `@CsReport`-marked, server
-(definition + execution) + shared (result shapes) per §4.2. A report definition
-goes beyond a DTO or a CE-ST view-model: it may aggregate, precalculate and
-format. Kind value: `reporting`; likely SOM home: **D09 XDS** (the
-report/print/export definition family) with **D03 IMO** as the source-data
-reference.
+Marked by `@CsReport` (with `@CsReportColumn`, `@CsReportChart` and
+`@CsReportParameter` on its members), built on `TomReportDefinition` /
+`TomReportResult` (`tom_core_codespecs`). SOM home: **D09 XDS**, the
+report/print/export family under `PrintAndExportLayout`, with **D03 IMO** as the
+source-data reference.
 
-**Scope — what one report definition names.** A CE-RP definition =
+#### CE-RP is a part, not a composition
 
-1. **Query/projection** over the domain model — CE-DB entities, expressed on
-   the CE-DB query substrate (`TomQueryBuilder` typed `TomOperator` expression
-   trees, `TomQuerySentenceCompiler`, the crud repositories,
-   `tom_core_server`).
-2. **Output shape** — tabular sections with typed columns, plus charts (series
-   + axes).
-3. **Filters / parameters** — the runtime inputs a caller supplies, typed and
-   bounded.
-4. **Delivery channel, named abstractly** — `apiResponse | email | fileExport`
-   (CSV/PDF/…). The definition names the channel only. All three transports now
-   exist: `apiResponse` and `fileExport` in the `tom_core_server` `export`
-   module, `email` in its `messaging` module (below).
-5. **Optional schedule** — a precalculated / periodically distributed report
-   names its schedule; execution wiring is the CE-JB relationship (below).
+The obvious hypothesis is that a report is CE-API (an operation) over CE-DB (a
+query) rendered as CE-EL/CE-FM (a table). It fails on the thing that makes a
+report a report:
 
-**Gap (tom_core_codespecs concrete classes).** Two classes `tom_core` lacks:
+- **Dimensions and measures have no authoring home.** The runtime grammar
+  exists — `tom_core_server`'s `TomGroupedSelect` carries `groupBy`,
+  `TomAggregate` and `having` — but CE-DB's *spec-authorable* surface is
+  row-shaped: entities, attributes, filters, sorts. "Revenue is the sum of order
+  totals, by customer region and quarter" cannot be written in any active part.
+- **The artifact has no identity holder.** CE-API's authored identity is an
+  *operation*; a report has zero to three delivery channels and may have none
+  that is an endpoint at all (a scheduled email report is never called).
+- **A report column is not a form field.** It is an *output projection* carrying
+  an aggregate reference, a display format and an optional drill-through target.
+  CE-FM's field is an input the user edits.
+- **A chart has no home anywhere** in the active catalogue.
 
-- the typed **report-definition holder** (parameters, projection reference,
-  output shape, delivery-channel naming, schedule naming) — server project;
-- the **tabular report-result envelope** (sections/columns/rows) — the shared
-  wire shape a CE-API report operation returns, beside the report-parameter
-  DTOs, so clients can render/download.
+Schedule and recipients are genuinely *not* CE-RP's — they are relationships to
+CE-JB and CE-NT, and the definition names them rather than containing them. What
+is left after that subtraction is still irreducible, so the verdict is
+**promote**, not defer.
 
-Everything else is reuse: the query substrate and the CE-API delivery path are
-framework-fixed. The report-definition identity is declared once as a
-`CsReportRef` const on the CE-RP catalogue class (§5.23) — citations
-(e.g. CE-JB scheduled work) hold the typed const, never a string.
+#### Scope boundary — spec-authorable vs implementation-owned
 
-**Relationships.**
+**Spec-authorable** (this is the complete list; anything absent is not authored):
+report identity and title; the source entity; the grouping **dimensions**; the
+aggregated **measures**; the projected **output columns** with their type,
+format and drill-through; **chart** declarations; typed and bounded runtime
+**parameters**; the **delivery channels**; the CE-JB job that runs it on a
+schedule; the CE-AZ **authorization requirement**.
+
+**Implementation-owned** (a specification never authors these): the rendering
+engine and per-format mechanics, pagination and streaming strategy, export file
+naming and storage, scheduler infrastructure, and the query plan the dimensions
+and measures compile to.
+
+**And explicitly not CE-RP:** the environment-wide print and export settings —
+print strategy, paper size, orientation, page setup, branding, watermark,
+header/footer, archive policy. Those are deployment settings on the renderer and
+belong to **CE-CF**, the same boundary csra7 drew for CE-LG (retention and log
+format are CE-CF settings on the sink, not part of the audit declaration).
+
+#### Attribute surface
+
+| Attribute | `tom_core` source | Req? | Neutral DocSpecs term |
+|-----------|-------------------|------|-----------------------|
+| Report id | `TomReportDefinition.reportId` | Y | Report |
+| Report title | `TomReportDefinition.displayName` | N | Message key |
+| Source entity | `TomReportDefinition.sourceEntityId` | Y | Data entity |
+| Grouping key | `TomReportDimension.key` / `.columnName` | N | Report dimension |
+| Dimension type | `TomReportDimension.valueKind` | Y | Field kind |
+| Aggregate | `TomReportMeasure.function` (`count`/`sum`/`avg`/`min`/`max`) | Y | Report measure |
+| Aggregated column | `TomReportMeasure.columnName` | Y¹ | Data attribute |
+| Distinct operand | `TomReportMeasure.distinct` | N | Report measure |
+| Column name | `TomReportColumn.name` | Y | Report column |
+| Column source | `TomReportColumn.sourceKey` | Y | Report column |
+| Column type | `TomReportColumn.valueKind` | Y | Field kind |
+| Column header | `TomReportColumn.label` | N | Message key |
+| Display format | `TomReportColumn.formatPattern` | N | Report column |
+| Drill-through | `TomReportColumn.drillThroughRouteId` | N | Navigation target |
+| Chart form | `TomReportChart.kind` | Y | Chart |
+| Chart axes/series | `TomReportChart.categoryColumn` / `.valueColumns` / `.seriesColumn` | Y | Chart |
+| Parameter name/type | `TomReportParameter.name` / `.valueKind` | Y | Report parameter |
+| Parameter bound | `TomReportParameter.enumId` / `.entityId` | Y² | Domain enum / Data entity |
+| Parameter default | `TomReportParameter.defaultValue` / `.required` | N | Report parameter |
+| Delivery channel | `TomReportDefinition.deliveryChannels` | N³ | Delivery channel |
+| Schedule | `TomReportDefinition.scheduleJobId` | N | Report schedule |
+| Authorization | `TomReportDefinition.authorizationKey` | N | Authorization requirement |
+| Section columns/rows | `TomReportResultSection.columns` / `.rows` | D | Report section |
+| Result metadata | `TomReportResult.metadata` | D | Report |
+
+¹ Required for every aggregate except `count`, which may be the bare row count.
+² Required exactly when the parameter's type is `enumeration` or `entityRef`.
+³ Defaults to `apiResponse`.
+
+#### Neutral vocabulary added
+
+CE-RP adds **ten** terms to the §1.2 glossary: **Report · Report section ·
+Report column · Report dimension · Report measure · Report parameter · Chart ·
+Delivery channel · Report schedule · Report recipient**.
+
+Each was checked against the existing set. *Chart series* and *chart axis* were
+candidates and were **rejected** — they are a deeper level within **Chart**, not
+peers of it. Six existing terms are reused unchanged rather than shadowed:
+**Query/Filter** and **Sort** (a report's selection is an ordinary filter),
+**Data entity** / **Data attribute** (the source), **Operation** (the endpoint
+that returns it), **Message key** (every label), and **Navigation target**
+(drill-through). **Field** deliberately stays input-only: *Report column* is its
+output-side peer, and conflating them is exactly the composition error above.
+**Authorization requirement** is reused per §1.2 consequence 3 — authorization
+is an attribute, never a leaf — so report security authors as an attribute of
+the report, not as a term of its own.
+
+#### The two gap classes, and why the envelope is shared
+
+`tom_core_codespecs` holds both (`report_model.dart`):
+
+- **`TomReportDefinition`** (+ `TomReportDimension`, `TomReportMeasure`,
+  `TomReportColumn`, `TomReportParameter`, `TomReportChart`) — the authored
+  report. **Server locus:** the definition is where the report runs.
+- **`TomReportResult`** (+ `TomReportResultSection`) — the result envelope.
+  **Shared locus:** the client renders it and the server exports it.
+
+The envelope deliberately does **not** extend `tom_core_server`'s
+`TomTabularResult`, even though that is the shape the renderers consume. The
+envelope's locus is *shared*, and a shared type cannot depend on a server type.
+So the envelope is authored in the dependency-free gap package and the server
+**adapts it one way** onto the tabular shape when exporting — the same placement
+decision CE-DB records for entities (the field shape is authored once in the
+shared project; the server persistence facet derives from it).
+
+The adaptation constrains the envelope in exactly one way, inherited
+deliberately: **rows stay streamable** (`Stream<List<Object?>>`). A report
+exists for results too large to hold inline, and a materialised row list would
+put the whole result in memory before the first rendered byte.
+
+Three consistency checks run at **generation time**, because each is a
+specification defect that would otherwise emit code referring to something that
+does not exist: a column whose source key names neither a dimension nor a
+measure; one key claimed by both a dimension and a measure; and a chart plotting
+a column the report does not project.
+
+#### Charts — declared here, rendered by whoever can
+
+Charts are **spec-authorable**: the SOM authors chart type, axes and series as
+structured fields, so a generator has something to read. Chart *rendering* is
+**implementation-owned** and, unlike the tabular output, is not universally
+available — the client draws charts natively, CSV and XLSX cannot express one at
+all, and only PDF among the export formats could.
+
+The declaration therefore travels on **both** the definition and the envelope,
+and an exporter with no way to draw a chart **omits it rather than failing**.
+That is why the chart model sits beside `TomTabularResult` rather than inside
+it: putting it in the tabular shape would add a field only one renderer of three
+ever reads.
+
+#### Relationships
 
 | Part | Relationship |
 |------|--------------|
 | CE-API | Delivery — a report is returned by an ordinary endpoint (§7 contract); no special transport. |
-| CE-DB | Source — entities/repositories; the projection is built on the CE-DB query substrate. |
-| CE-JB | Scheduled precalculation — the definition *names* its schedule (SOM `ReportScheduleEntry`); the execution wiring is the CE-JB job that realises it (§5.29). |
-| CE-NT | Email delivery — the report definition names the channel abstractly and CE-NT resolves it: a scheduled report is delivered as a declared notification type, through the channels `TomNotificationCatalog.deliveryChannelsFor` yields, over the `tom_core_server` `messaging` transport. |
+| CE-DB | Source — entities and repositories; the dimensions and measures compile onto the CE-DB query substrate. |
+| CE-EN | A parameter of type `enumeration` names a domain enum, whose values bound the input. |
+| CE-TX | Every title, header and label is a message key, never inline copy (§1.2 consequence 1). |
+| CE-NV | A column's drill-through names a route; the route is CE-NV's. |
+| CE-AZ | The authorization requirement a caller must satisfy to run the report. |
+| CE-CF | The environment-wide print/export settings the renderer uses — *not* CE-RP. |
+| CE-JB | Scheduled precalculation — the definition *names* its schedule (SOM `ReportScheduleEntry`); the CE-JB job realises it (§5.29). |
+| CE-NT | Email delivery — the definition names the channel abstractly and CE-NT resolves it: a scheduled report is delivered as a declared notification type, through the channels `TomNotificationCatalog.deliveryChannelsFor` yields, over the `tom_core_server` `messaging` transport. |
 
-**Framework substrate.** Nothing CE-RP needs from `tom_core` is outstanding; the
-one remaining gap is the result envelope this section owns.
+The report identity is declared once as a `CsReportRef` const on the CE-RP
+catalogue class (§5.23) — a citation (CE-JB scheduled work, a CE-NV drill-through
+target) holds the typed const, never a string.
 
-Aggregation/grouping is available: `tom_core_server`'s
-`object_persistence/grouped_query.dart` carries `TomAggregateFunction`
-(`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key
-columns and a `having` group predicate, compiled through the query builder and
-sentence compiler — so a report's measures and dimensions map onto the CE-DB
-query substrate directly rather than onto pseudo-code.
+#### Framework substrate
 
-Rendering is likewise available: `tom_core_server` has an `export`
-module (`TomTabularRenderer` over `TomCsvRenderer` / `TomXlsxRenderer` /
-`TomPdfRenderer`, guide at `tom_ai/core/tom_core_server/doc/export.md`) that
-renders a tabular result to all three formats through one abstraction, streaming
-throughout. Both non-email delivery channels are wired: `TomExportService`
-`respondWith` is `apiResponse` and `storeAs` is `fileExport`, the latter over a
-narrow `TomExportStore` seam that `TomBlobExportStore` now backs with the
+Everything below CE-RP's own two gap classes is reuse.
+
+**Aggregation** — `tom_core_server`'s `object_persistence/grouped_query.dart`
+carries `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`,
+`distinct`-capable), `groupBy` key columns and a `having` group predicate,
+compiled through the query builder and sentence compiler. `TomReportMeasure`'s
+function set is **1:1 with `TomAggregateFunction`** by design: a measure the
+query layer cannot compile is a measure that cannot run, so the authorable set is
+exactly the compilable set.
+
+**Rendering** — the `export` module (`TomTabularRenderer` over
+`TomCsvRenderer` / `TomXlsxRenderer` / `TomPdfRenderer`, guide at
+`tom_ai/core/tom_core_server/doc/export.md`) renders to all three formats through
+one streaming abstraction. Both non-email channels are wired: `TomExportService`
+`respondWith` is `apiResponse`, `storeAs` is `fileExport` — the latter over a
+narrow `TomExportStore` seam that `TomBlobExportStore` backs with the
 `file_storage` module's blob stores (database / directory / S3 / memory, chosen
 in configuration; guide at
-`tom_ai/core/tom_core_server/doc/file_storage.md`). The renderers
-consume `TomTabularResult` — deliberately the *minimal* tabular shape, not this
-section's envelope, so that when the envelope class is authored it is adapted
-onto that shape rather than the renderers being rebuilt. **Charts (item 2) are
-not rendered**: two of the three formats cannot express one at all, so a chart
-model belongs beside the envelope rather than inside it.
+`tom_ai/core/tom_core_server/doc/file_storage.md`).
 
-Email delivery is **no longer a roadmap item**: `tom_core_server` has a
-`messaging` module (`TomMessage` / `TomMessageRouter` / `TomSmtpTransport` /
-`TomMessageOutbox`, guide at `tom_ai/core/tom_core_server/doc/messaging.md`), so
-a report definition naming the `email` channel is wired rather than merely
-named. Delivery is queued on the CE-JB job scheduler; SMTP credentials are
-secret-marked CE-CF fields per §5.16.
+**Email** — the `messaging` module (`TomMessage` / `TomMessageRouter` /
+`TomSmtpTransport` / `TomMessageOutbox`, guide at
+`tom_ai/core/tom_core_server/doc/messaging.md`) delivers, queued on the CE-JB job
+scheduler. SMTP credentials are secret-marked CE-CF fields per §5.16.
+
+#### Projection membership
+
+CE-RP's SOM home `PrintAndExportLayout` (XDS) is a **mixed subtree** in the §8.3
+sense: the section's own form fields and its export format / size / template
+entries are CE-CF renderer settings, while its child lists — `ReportEntry` and
+the section, column, chart, filter, schedule, distribution and recipient entries
+below it — are CE-RP. The section therefore carries **both** kinds, and it is
+**not** a `D13CodeSpecsProjection` field: projecting it wholesale would pull
+CE-CF settings into the CE-RP generation input.
+
+The report list cannot be lifted out on its own either, because its
+`@SectionId('REEN-REPO-LST')` / `@SectionIdPattern('REEN-REPO-xxx')` are declared
+on `PrintAndExportLayout` — a projection route needs the list *moved*, which is a
+Band-F-style split. Until that lands, CE-RP is an active part whose declarations
+reach generation through the endpoints and repositories they annotate, exactly as
+CE-LG's do (§4.3.2).
 
 ### 5.29 CE-JB background-job definitions over the operational model
 
@@ -3168,7 +3297,7 @@ Design constraints to encode in the CE-API / CE-ER derivation:
 | CE-DB, CE-ST | **D03 IMO** rich classes | Tables, columns, view-models, DAOs; domain enums are generated as member declarations of their owning part from DOMEN/DMENE + OBST (§4.1 member-kind rule). |
 | CE-CF | **D06 ATS**; **D08 SAS** | **Server/system** configuration only. |
 | CE-CC, CE-DS, CE-UP, CE-CL | **D06 ATS** (deployment/clients); **D09 XDS** (preferences surfaced in UI); **D02 TOM** (roles → whose settings) | Client apps + per-machine client config + device settings + user settings. |
-| CE-RP *(deferred, §4.3)* | **D09 XDS** (report/print/export definition family); **D03 IMO** (source data) | **Deferred** — worked out in a separate reporting specification; mapping-only (reserved `reporting` kind) until promoted (§4.3, §5.28). |
+| CE-RP | **D09 XDS** (report/print/export definition family, under `PrintAndExportLayout`); **D03 IMO** (source data) | Report definitions — the grouped projection, its output columns and charts, its parameters and its delivery channels (§5.28). The enclosing print/export *settings* are CE-CF, not CE-RP. |
 | CE-JB | **D06 ATS** (`BatchJobManagement` BAJOMA) | Background/scheduled jobs from the architecture's operational model; targets cite IMO entities and CE-RP reports (§5.29). |
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
@@ -3500,15 +3629,15 @@ a specification.
 | Todo | Open work |
 |------|-----------|
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra8` | Write the separate **CE-RP reporting specification** (§5.28) — the prerequisite to any promotion decision. |
-| `csra9` | Staleness sweep: fix the retired-`CE-EN` locus comment in the projection, and re-verify the **25 active / 2 deferred / 28 kind values** counts across every surface. (The three `code_spec_kind.dart` count-contradiction sites were corrected while promoting CE-NT and CE-LG.) |
+| `csra9` | Staleness sweep: fix the retired-`CE-EN` locus comment in the projection, and re-verify the **26 active / 1 deferred / 28 kind values** counts across every surface. (The three `code_spec_kind.dart` count-contradiction sites were corrected while promoting CE-NT and CE-LG.) |
 | `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. **Unblocked**: `tom_core_server`'s `file_storage` module ships the capability — `TomFileReference` is the server-side column annotation (key prefix, target store, cascade), `TomBlobStore` the streaming four-method contract with database / directory / S3 / memory backends selected from configuration, and the repository resolves `saveFile` / `openFile` / `describeFile` / `clearFile` plus cascade-on-delete under the same C-4 column grade as any other column. What remains here is the `@CsColumn` extension that derives it. See `tom_core_server/doc/file_storage.md`. |
-| `csra11` | Re-run the SOM coverage cross-check for all 25 active parts — every part must have a SOM home that can actually express its attribute surface. |
+| `csra11` | Re-run the SOM coverage cross-check for all 26 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
 | `csrb1` | Confirm the **CE-JB four-part scope** (§5.29) end to end against the landed `tom_core_kernel` scheduling module — each of schedule, body, failure policy and deployment envelope must resolve to exactly one owning class before the reuse verdict is final. |
 | `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
-| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 33 of the 35 annotations take a single optional `note`, so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
+| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 37 of the 39 annotations take a single optional `note`, so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
 | `csrb5` | Split the mixed `AuditAndLogging` (SAS) SOM subtree — the CE-LG authorable band, the CE-CF sink settings and the `ComplianceReporting` follow-up — so the promoted CE-LG part gets a `D13CodeSpecsProjection` field at the server locus (§4.3.2). |
+| `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 

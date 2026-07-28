@@ -5089,13 +5089,14 @@ class NavigationGuardEntry extends DocSpecsSection {
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @CodeSpecKind(
-  [CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration, CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'A mixed subtree, hence two kinds. This section own fields — print '
+      'strategy, paper size, orientation, page setup, branding, watermark, '
+      'header/footer, archive — are CE-CF renderer settings; its child lists '
+      'are CE-RP report definitions. §8.3 requires an isolated subtree before '
+      'a D13CodeSpecsProjection field can reach the CE-RP band, so the '
+      'reporting half is annotated but not yet projected (§5.28).',
 )
 class PrintAndExportLayout extends DocSpecsSection {
   @Form([
@@ -5399,11 +5400,13 @@ class PrintAndExportLayout extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-models / analytics projections over the '
-      'domain model. Active (§4.1): @CsReport, server (definition + execution) '
-      '+ shared (tabular result envelope, parameter DTOs); delivery channel '
-      'named abstractly (apiResponse | email | fileExport — email transport is '
-      'tom_core roadmap, CE-NT deferred); schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportEntry extends DocSpecsSection {
   @Form([
@@ -5909,11 +5912,13 @@ class ReportEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportSectionEntry extends DocSpecsSection {
   @Form([
@@ -6152,11 +6157,13 @@ class ReportSectionEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportColumnEntry extends DocSpecsSection {
   @Form([
@@ -6489,11 +6496,13 @@ class ReportColumnEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportChartEntry extends DocSpecsSection {
   @Form([
@@ -6668,11 +6677,13 @@ class ReportChartEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportChartAxes extends DocSpecsSection {
   @Form([
@@ -6763,11 +6774,13 @@ class ReportChartAxes extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportFilterEntry extends DocSpecsSection {
   @Form([
@@ -7122,11 +7135,13 @@ class ReportFilterEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportScheduleEntry extends DocSpecsSection {
   @Form([
@@ -7326,11 +7341,13 @@ class ReportScheduleEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportDistributionEntry extends DocSpecsSection {
   @Form([
@@ -7516,11 +7533,13 @@ class ReportDistributionEntry extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ReportRecipientEntry extends DocSpecsSection {
   @Form([
@@ -7676,13 +7695,13 @@ class ReportRecipientEntry extends DocSpecsSection {
 )
 @SectionId('EFE')
 @CodeSpecKind(
-  [CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'the rendering engine and its per-format mechanics on the '
+      'implementation side: what a specification authors about an export is '
+      'the projection (CE-RP), while the format catalogue, page geometry and '
+      'template assets are deployment settings on the renderer.',
 )
 class ExportFormatEntry extends DocSpecsSection {
   @Form([
@@ -8003,13 +8022,13 @@ class ExportFormatEntry extends DocSpecsSection {
 )
 @SectionId('EXSISE')
 @CodeSpecKind(
-  [CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'the rendering engine and its per-format mechanics on the '
+      'implementation side: what a specification authors about an export is '
+      'the projection (CE-RP), while the format catalogue, page geometry and '
+      'template assets are deployment settings on the renderer.',
 )
 class ExportSizeSettings extends DocSpecsSection {
   @Form([
@@ -8052,11 +8071,13 @@ class ExportSizeSettings extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-RP — a grouped projection over the domain model. Active (§4.1): '
+      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
+      'server (definition + execution) + shared (result envelope, parameter '
+      'shapes). All three delivery channels (apiResponse | email | '
+      'fileExport) are reused tom_core_server transports; a named schedule is '
+      'realised as a CE-JB job and email delivery resolves through CE-NT '
+      '(§5.28).',
 )
 class ExportFieldMappingEntry extends DocSpecsSection {
   @Form([
@@ -8367,13 +8388,13 @@ class ExportFieldMappingEntry extends DocSpecsSection {
 )
 @SectionId('ETE')
 @CodeSpecKind(
-  [CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration],
   note:
-      'CE-RP — reporting / read-model projection. Active (§4.1): @CsReport, '
-      'server (definition + execution) + shared (tabular result envelope, '
-      'parameter DTOs); delivery channel named abstractly (apiResponse | email '
-      '| fileExport — email transport is tom_core roadmap, CE-NT deferred); '
-      'schedule executes via CE-JB (§5.28).',
+      'CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts '
+      'the rendering engine and its per-format mechanics on the '
+      'implementation side: what a specification authors about an export is '
+      'the projection (CE-RP), while the format catalogue, page geometry and '
+      'template assets are deployment settings on the renderer.',
 )
 class ExportTemplateEntry extends DocSpecsSection {
   @Form([

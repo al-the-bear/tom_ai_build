@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.8.0
+
+- csra8: add the four markers for CE-RP, promoted out of §4.3 — `@CsReport`
+  (the grouped projection), `@CsReportColumn` (one projected output column),
+  `@CsReportChart` (a chart over those columns) and `@CsReportParameter` (a
+  runtime input). CE-RP is a part and **not** a composition of `@CsEndpoint` +
+  `@CsTable` + `@CsForm`: none of those can hold a dimension or a measure, a
+  report column is an *output projection* rather than an input field, and a
+  chart has no home anywhere else.
+- Four markers rather than one because the four are authored at different
+  levels and referenced independently — the same reason CE-DB carries three and
+  CE-NT two.
+- Charts are **declared here, rendered by whoever can**: the declaration is
+  authored input (chart type, series, axes), rendering is implementation-owned,
+  and an export format that cannot express a chart omits it rather than failing.
+- The deferred set is down to **CE-WF alone**, and it is deferred permanently:
+  its SOM section is a single free-text field plus a diagram, so it fails the
+  §8.1 authored-input test by construction. `CodeSpecPart` is unchanged at 28
+  values: promotion never moves a reserved kind out of its declared position.
+
 ## 0.7.0
 
 - csra7: add the three markers for the two parts promoted out of §4.3 —

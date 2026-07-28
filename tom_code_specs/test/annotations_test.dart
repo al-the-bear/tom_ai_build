@@ -264,6 +264,32 @@ void main() {
     });
   });
 
+  group('csra8: CE-RP promoted out of §4.3', () {
+    test('CsReport constructs with optional note', () {
+      expect(const CsReport().note, isNull);
+      expect(const CsReport(note: 'sales by region').note, 'sales by region');
+    });
+
+    // Four markers, because a report authors four independently-shaped things:
+    // the report itself, its output columns, its charts and its parameters.
+    test('the three member markers construct with optional notes', () {
+      expect(const CsReportColumn().note, isNull);
+      expect(const CsReportColumn(note: 'currency, 2dp').note, 'currency, 2dp');
+      expect(const CsReportChart().note, isNull);
+      expect(
+          const CsReportChart(note: 'bar, by quarter').note, 'bar, by quarter');
+      expect(const CsReportParameter().note, isNull);
+      expect(const CsReportParameter(note: 'date range').note, 'date range');
+    });
+
+    // Promotion is a readiness change, never a renumbering: CE-RP keeps the
+    // enum position it held while reserved (§4.1).
+    test('the reporting kind is reachable and unmoved', () {
+      expect(const CodeSpecKind([CodeSpecPart.reporting]).kinds,
+          [CodeSpecPart.reporting]);
+    });
+  });
+
   group('CSM2R1: kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
       const kind = CodeSpecKind([CodeSpecPart.form]);

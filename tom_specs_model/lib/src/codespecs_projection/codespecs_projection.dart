@@ -43,6 +43,15 @@
 /// first — until it lands, CE-LG is an active part whose declarations reach
 /// generation through the endpoints and repositories they annotate rather than
 /// through a projection field of their own.
+///
+/// **CE-RP is promoted but not yet projected, for the same reason.** Its SOM
+/// home `PrintAndExportLayout` (XDS) mixes CE-CF renderer and export settings —
+/// the section's own print/paper/branding fields plus the export format, size
+/// and template entries — with the CE-RP report band (`ReportEntry` and its
+/// subtree). The report list cannot simply be lifted into a projection field of
+/// its own, because its `@SectionId`/`@SectionIdPattern` are declared on
+/// `PrintAndExportLayout`; the split has to move it. Meanwhile CE-RP reaches
+/// generation the same way CE-LG does.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';

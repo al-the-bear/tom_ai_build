@@ -8,11 +8,13 @@
 ///
 /// The `CE-*` code named by each doc comment is the part's **stable registry
 /// key** (§4.1: never reused, never renamed); CE-DB is carried by three markers
-/// ([CsTable], [CsColumn], [CsRepository]) and CE-NT by two ([CsNotification],
-/// [CsNotificationChannel]).
+/// ([CsTable], [CsColumn], [CsRepository]), CE-NT by two ([CsNotification],
+/// [CsNotificationChannel]) and CE-RP by four ([CsReport], [CsReportColumn],
+/// [CsReportChart], [CsReportParameter]).
 ///
-/// This file covers the twelve server-side part markers. Client/UI markers live
-/// in `element_annotations.dart`; shared markers in `contract_annotations.dart`.
+/// This file covers the sixteen server-side part markers. Client/UI markers
+/// live in `element_annotations.dart`; shared markers in
+/// `contract_annotations.dart`.
 library;
 
 /// CE-API — a server endpoint: an operation name plus its request/response and
@@ -186,4 +188,79 @@ class CsNotificationChannel {
   final String? note;
 
   const CsNotificationChannel({this.note});
+}
+
+/// CE-RP — a report: a grouped projection over the domain model, delivered as
+/// a rendered artifact (`codespecs_mapping.md` §5.28).
+///
+/// Built on `TomReportDefinition` (`tom_core_codespecs`) for the definition and
+/// `TomReportResult` for the **shared** result envelope. Query execution
+/// (`TomGroupedSelect`, `TomAggregate`) and rendering (`TomTabularResult` and
+/// its CSV / XLSX / PDF renderers) are pure `tom_core_server` reuse; the gap
+/// they leave — the **grouped projection** a specification authors, dimension
+/// by dimension and measure by measure — is what this marker names.
+///
+/// CE-RP is a part and not a composition of [CsEndpoint] + [CsTable] +
+/// `CsForm`: none of those can hold a dimension or a measure, and a report
+/// column is an *output projection* carrying an aggregate and a format, not an
+/// input field.
+///
+/// The definition is **server-only** (that is where the report runs); the
+/// result envelope and the parameter shape are **shared**. Every label is a
+/// `CsText` message key, never inline text.
+class CsReport {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsReport({this.note});
+}
+
+/// CE-RP — one projected output column of a [CsReport] (§5.28).
+///
+/// Built on `TomReportColumn`. A column **displays** a declared dimension or
+/// measure — it never introduces data of its own, which is why it names a
+/// source key rather than an entity column: the grouped projection decides what
+/// exists, the column decides how it appears.
+///
+/// Separate from [CsColumn] (CE-DB), which is a stored attribute of an entity.
+/// The two are authored at different levels: a persisted column is part of the
+/// data model, a report column part of one report's output.
+class CsReportColumn {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsReportColumn({this.note});
+}
+
+/// CE-RP — a chart declared over a [CsReport]'s projected columns (§5.28).
+///
+/// Built on `TomReportChart`. **Declared here, rendered by whoever can:** the
+/// declaration is authored input (the SOM carries chart type, series and axes
+/// as structured fields), while rendering is implementation-owned — a client
+/// draws charts natively, and an export format that cannot express one omits it
+/// rather than failing.
+///
+/// A chart plots columns the report already projects, so it adds a view over
+/// the projection and never a second query.
+class CsReportChart {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsReportChart({this.note});
+}
+
+/// CE-RP — a runtime input a [CsReport] takes when it is run (§5.28).
+///
+/// Built on `TomReportParameter`. Distinct from a CE-DB row filter authored
+/// into the query: a parameter is **supplied per execution**, so it is part of
+/// the report's request shape and carries a type, a bound and a presentation.
+///
+/// Distinct from a `CsForm` field (CE-FM) for the same reason a report column
+/// is: a form field belongs to a form the user submits, a report parameter to
+/// the report's own request contract.
+class CsReportParameter {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsReportParameter({this.note});
 }
