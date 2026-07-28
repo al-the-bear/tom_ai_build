@@ -57,6 +57,15 @@ dependencies:
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6
+  # Test/tool-only. `tool/som_surface.dart` fingerprints the public API surface
+  # of the two SOM packages the bridges are generated from, so
+  # `test/som_bridge_freshness_test.dart` can fail when that surface has moved
+  # and the bridges have not been regenerated (see
+  # _copilot_guidelines/bridge_regeneration.md § "How staleness is caught").
+  # The parse is SYNTACTIC only — no resolution, no dependency graph — which is
+  # what keeps a ~10 MB scan to about a second.
+  analyzer: ">=8.0.0 <11.0.0"
+  crypto: ^3.0.0
   # Test-only. `test/support/vector_runtime.dart` probes whether this process
   # can actually register the bundled sqlite-vec (vec0) extension, which needs
   # the process-wide `sqlite3` instance to hand to `VecExtensionLoader.load`.

@@ -356,6 +356,19 @@ Future<void> main(List<String> arguments) async {
     }
   }
 
+  // Regenerating the Dart target moves `tom_som_dart_v0`'s public surface, and
+  // `tom_spec_engine` generates its D4rt bridges from exactly that surface.
+  // Nothing else prompts that regen, so say it here — at the point of editing —
+  // rather than leaving it to whoever next runs the engine's suite and meets the
+  // freshness failure. See tom_spec_engine/_copilot_guidelines/
+  // bridge_regeneration.md § "How staleness is caught".
+  if (config.languages.any((t) => t.language == SomLanguage.dart)) {
+    stdout.writeln('\nNOTE: tom_som_dart_v0 was regenerated, so the D4rt '
+        'bridges in tom_spec_engine are now stale.');
+    stdout.writeln('      cd ../tom_spec_engine && '
+        'dart run tool/regenerate_bridges.dart');
+  }
+
   stdout.writeln('\nDone.');
 }
 

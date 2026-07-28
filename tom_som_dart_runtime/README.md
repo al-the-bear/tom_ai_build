@@ -37,6 +37,22 @@ void main() {
 See **readme_howtointegrate.md** for full integration instructions — every
 dependency route and how to pin the version.
 
+## Changing the public surface
+
+This package's public surface is the source for the generated D4rt bridges in
+`tom_spec_engine` (`lib/src/bridges/som_runtime_bridges.b.dart`), which are
+generated **there**, not here. Adding, removing or re-signing anything reachable
+from the barrel makes those bridges stale, so follow the edit with:
+
+```bash
+cd ../tom_spec_engine && dart run tool/regenerate_bridges.dart
+```
+
+The engine's test suite fails until this is done — see
+`tom_spec_engine/_copilot_guidelines/bridge_regeneration.md` § "How staleness is
+caught" — but it fails only for whoever next runs *that* suite, which is why the
+regen belongs here, at the point of editing.
+
 ## Versioning
 
 The runtime version tracks the TomSpecs **model version**. The typed

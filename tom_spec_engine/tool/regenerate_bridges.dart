@@ -15,6 +15,8 @@ import 'dart:io';
 
 import 'package:tom_d4rt_generator/tom_d4rt_generator.dart';
 
+import 'som_surface.dart';
+
 Future<void> main() async {
   final projectPath = Directory.current.path;
   final configPath = '$projectPath/buildkit.yaml';
@@ -51,5 +53,28 @@ Future<void> main() async {
 
   if (!result.isSuccess) {
     exitCode = 1;
+    return;
+  }
+
+  // Record the SOM surface these bridges were generated from. This is what
+  // makes the staleness guard possible at all: `som_bridge_freshness_test.dart`
+  // recomputes the fingerprint and fails when it no longer matches, which is
+  // precisely the case "SOM moved, the bridges did not". Written only on
+  // success — stamping a failed run would certify bridges that were never
+  // produced.
+  final mismatch = somSurfaceModuleMismatch(engineRoot: projectPath);
+  if (mismatch != null) {
+    print('ERROR: cannot stamp the SOM surface — $mismatch');
+    exitCode = 1;
+    return;
+  }
+
+  final surface = computeSomSurface(engineRoot: projectPath);
+  writeSomSurfaceStamp(surface, engineRoot: projectPath);
+  print('');
+  print('SOM surface stamped in $somSurfaceStampPath');
+  print('  fingerprint: ${surface.fingerprint}');
+  for (final entry in surface.declarationCounts.entries) {
+    print('  ${entry.key}: ${entry.value} top-level declarations');
   }
 }

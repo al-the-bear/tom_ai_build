@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 19 files
-// Generated: 2026-07-28T14:01:51.692262
+// Generated: 2026-07-28T18:42:52.862817
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -1518,12 +1518,15 @@ BridgedClass _createSomNodeBridge() {
       'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').canHaveContent,
       '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId,
       '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline,
+      '\$codeSpec': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$codeSpec,
     },
     setters: {
       '\$sectionId': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
       '\$headline': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
+      '\$codeSpec': (visitor, target, value) => 
+        D4.validateTarget<$tom_som_dart_runtime_2.SomNode>(target, 'SomNode').$codeSpec = D4.extractBridgedArgOrNull<String>(value, '\$codeSpec'),
     },
     getterSignatures: {
       'doc': 'SpecDocument get doc',
@@ -1532,10 +1535,12 @@ BridgedClass _createSomNodeBridge() {
       'canHaveContent': 'bool get canHaveContent',
       '\$sectionId': 'String? get \$sectionId',
       '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String? value)',
       '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
     },
   );
 }
@@ -1565,6 +1570,7 @@ BridgedClass _createSomScalarBridge() {
       'canHaveContent': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').canHaveContent,
       '\$sectionId': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId,
       '\$headline': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline,
+      '\$codeSpec': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$codeSpec,
       'value': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value,
     },
     setters: {
@@ -1572,6 +1578,8 @@ BridgedClass _createSomScalarBridge() {
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$sectionId = D4.extractBridgedArgOrNull<String>(value, '\$sectionId'),
       '\$headline': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$headline = D4.extractBridgedArgOrNull<String>(value, '\$headline'),
+      '\$codeSpec': (visitor, target, value) => 
+        D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').$codeSpec = D4.extractBridgedArgOrNull<String>(value, '\$codeSpec'),
       'value': (visitor, target, value) => 
         D4.validateTarget<$tom_som_dart_runtime_2.SomScalar>(target, 'SomScalar').value = D4.extractBridgedArg<String>(value, 'value'),
     },
@@ -1585,11 +1593,13 @@ BridgedClass _createSomScalarBridge() {
       'canHaveContent': 'bool get canHaveContent',
       '\$sectionId': 'String? get \$sectionId',
       '\$headline': 'String? get \$headline',
+      '\$codeSpec': 'String? get \$codeSpec',
       'value': 'String get value',
     },
     setterSignatures: {
       '\$sectionId': 'set \$sectionId(String? value)',
       '\$headline': 'set \$headline(String? value)',
+      '\$codeSpec': 'set \$codeSpec(String? value)',
       'value': 'set value(String value)',
     },
   );
@@ -1728,6 +1738,7 @@ BridgedClass _createSpecDocumentBridge() {
     },
     getters: {
       'modelVersion': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').modelVersion,
+      'pathNormalizer': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').pathNormalizer,
       'headlinePaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').headlinePaths,
       'codeSpecPaths': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').codeSpecPaths,
       'isEmpty': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').isEmpty,
@@ -1740,6 +1751,16 @@ BridgedClass _createSpecDocumentBridge() {
         D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument').modelVersion = D4.extractBridgedArgOrNull<String>(value, 'modelVersion'),
     },
     methods: {
+      'installPathNormalizer': (visitor, target, positional, named, typeArgs) {
+        final t = D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument');
+        D4.requireMinArgs(positional, 1, 'installPathNormalizer');
+        if (positional.isEmpty) {
+          throw ArgumentError('installPathNormalizer: Missing required argument "normalizer" at position 0');
+        }
+        final normalizerRaw = positional[0];
+        t.installPathNormalizer(((String p0) { return D4.callInterpreterCallback(visitor!, normalizerRaw, [p0]) as String; }) as String Function(String));
+        return null;
+      },
       'toMarkdown': (visitor, target, positional, named, typeArgs) {
         final t = D4.validateTarget<$tom_som_dart_runtime_4.SpecDocument>(target, 'SpecDocument');
         D4.requireMinArgs(positional, 1, 'toMarkdown');
@@ -1916,6 +1937,7 @@ BridgedClass _createSpecDocumentBridge() {
       '': 'SpecDocument()',
     },
     methodSignatures: {
+      'installPathNormalizer': 'void installPathNormalizer(String Function(String path) normalizer)',
       'toMarkdown': 'String toMarkdown(SpecModel model, {String? rootType})',
       'content': 'String? content(String path)',
       'hasContent': 'bool hasContent(String path)',
@@ -1943,6 +1965,7 @@ BridgedClass _createSpecDocumentBridge() {
     },
     getterSignatures: {
       'modelVersion': 'String? get modelVersion',
+      'pathNormalizer': 'String Function(String path)? get pathNormalizer',
       'headlinePaths': 'Iterable<String> get headlinePaths',
       'codeSpecPaths': 'Iterable<String> get codeSpecPaths',
       'isEmpty': 'bool get isEmpty',
