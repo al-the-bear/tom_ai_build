@@ -1,20 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
+    show kProjectionExplanation;
 
 import '../model/review_store.dart';
-
-/// Badge text for a `@CodeSpecsProjection` root (`codespecs_mapping.md` §8.4).
-const String kProjectionLabel = 'projection';
-
-/// Why a projection is shallow, in the reviewer's own terms.
-///
-/// A projection re-references subtrees authored elsewhere rather than
-/// specifying anything itself, which is why the validator exempts it from the
-/// detail-count check. Stating that where the reviewer works turns the
-/// exemption from tribal knowledge into something visible on screen.
-const String kProjectionExplanation =
-    'CodeSpecs projection — this root re-references sections authored '
-    'elsewhere, so shallow nodes are correct by construction and the '
-    'detail-count check does not apply.';
 
 /// Replacement subtitle for the "Add details" control inside a projection.
 ///

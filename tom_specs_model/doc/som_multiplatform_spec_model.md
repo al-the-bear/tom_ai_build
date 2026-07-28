@@ -431,6 +431,15 @@ language mirrors it:
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
 
+The Dart runtime additionally carries **`spec_annotation_display.dart`** and the
+test-only `spec_display_fixture.dart`: the theme-free *display semantics* of the
+model's annotations — which markers a node carries, what each says, when one
+must be suppressed — shared by the two Flutter surfaces that render the class
+graph (`tom_specs_editor_specification.md` §4.4). They stay dependency-free of
+any UI framework like the rest of the runtime, but they are **not part of the
+mirrored surface**: no other language ships them, because no other language has
+a renderer to keep aligned.
+
 ### The generation stamp
 
 Every runtime's `SpecModel` reads the five stamp keys the exporter writes —

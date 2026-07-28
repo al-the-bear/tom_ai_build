@@ -106,6 +106,15 @@ passing unseen.
   standards, and inlining them would bury the structure),
   `@SerializationOrder` (a `#n` badge, behind the toolbar toggle).
 
+What each marker *says* is not the reviewer's own decision: the chip labels,
+tooltips and suppression rules live in `tom_som_dart_runtime`, shared with
+`tom_forge/tom_specs_editor`, which renders the same class graph in the Forge
+shell. The two apps paint them differently — opposite backgrounds — but may not
+disagree about their meaning. A showcase fixture in that package exercises every
+annotation, and both apps run a widget test asserting each marker reaches their
+screen, so a rendering dropped from one tree fails a test instead of drifting
+apart quietly.
+
 ## What you can record
 
 Per node:

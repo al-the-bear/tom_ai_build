@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import '../model/review_store.dart';
-import 'review_controls.dart';
 import 'spec_tree.dart';
 
 /// The application start page. Hosts a tab bar whose first tab is the

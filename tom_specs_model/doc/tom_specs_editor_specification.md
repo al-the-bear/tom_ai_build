@@ -4,7 +4,7 @@
 **Status:** Complete design specification — the single source for the TomSpecs Editor. Model-driven document editing over the generated Dart SOM API (`tom_som_dart_v0` typed facade over `tom_som_dart_runtime`), Claude Code integration through the Anthropic Agent SDK over the VS Code bridge, projection-root semantics with a pure-projection invariant, and a buildkit-driven cross-platform build.
 **Scope:** A full, Tom Forge–based specification editor with Claude Code integration through the Anthropic Agent SDK.
 
-> This document specifies the **TomSpecs Editor**, the specification-authoring app at `tom_forge/tom_specs_editor`. It is a separate application from `tom_ai/ai_build/tom_specs_reviewer`, the object-model structure reviewer, which has its own specification (`tom_specs_reviewer_specification.md`). The editor carries its own fork of the reviewer's tree renderer and review feature, restyled to the Forge shell (requirement *Q1*).
+> This document specifies the **TomSpecs Editor**, the specification-authoring app at `tom_forge/tom_specs_editor`. It is a separate application from `tom_ai/ai_build/tom_specs_reviewer`, the object-model structure reviewer, which has its own specification (`tom_specs_reviewer_specification.md`). The editor carries its own **rendering** of the structure tree and review feature, styled to the Forge shell, over the model *readers* and *display semantics* it shares with the reviewer (requirement *Q1*, §4.4).
 
 ---
 
@@ -36,7 +36,7 @@ Objectives (with the originating requirement letters):
 
 | # | Decision |
 | --- | --- |
-| Q1 | The editor is its own project, `tom_forge/tom_specs_editor`, separate from `tom_specs_reviewer`; the tree renderer + review feature are forked into it and restyled. |
+| Q1 | The editor is its own project, `tom_forge/tom_specs_editor`, separate from `tom_specs_reviewer`. The tree renderer + review feature are **rendered separately** in each app and styled to their host; the model readers and the *display semantics* of the annotations are shared through `tom_som_dart_runtime`, and a shared fixture guards the two renderings against drift (§4.4). |
 | Q2 | Shared agent code → **`tom_core_agentic`** (`tom_ai/core/tom_core_agentic`, exists, v1.5.0). |
 | Q3 | Placeholder engine ported/reimplemented in Dart — reuse `tom_core_agentic`'s `PlaceholderResolver`; **no JS** (`${{…}}` expression evaluator left unwired). |
 | Q4 | Assume a running VS Code CLI server. Port configurable; **scan 19900–19909 on startup**, show each live server's workspace, let user pick. Tests assume `19900`. |
@@ -199,12 +199,52 @@ The Agent SDK is wired behind a **generic provider abstraction**, not consumed d
 | --- | --- | --- |
 | `SpecsShellModule` | bootstrap | Registers the 3 `ForgeApplication`s; app switching; common layout skeleton. |
 | `SpecDocumentModule` | editor | Model-driven document editor (Col 1); opens `*.docspecs.yaml`; compact tree; md/d4rt/dart fields; undo/redo; agent change log. |
-| `SpecStructureModule` | editor/view | Ported structure browser + structural review (Q1), restyled. |
+| `SpecStructureModule` | editor/view | Structure browser + structural review, rendered for the Forge shell over the shared readers and display semantics (Q1, §4.4). |
 | `AgentChatModule` | views+service | **From `tom_forge_agentic`.** Chat composer (bottom), queue (Col 2), trail (Col 3); Agent-SDK client; mirrors Anthropic panel. |
 | `AgentToolsModule` | service | **From `tom_forge_agentic`** (host registers spec-specific tools). Navigation + mutation `SdkMcpTool`s; feeds the change log + three-way review. |
 | `SpecsConfigModule` | editors+configPanels | Custom editors (queue, templates, profiles, variables, timed, agent settings) with raw-file buttons; basic prefs as `ForgeConfigPanel`. Agent-generic editors reuse `tom_forge_agentic` widgets. |
 | `MarkdownFieldModule` | widget lib | Generic markdown display widget (reuses `MdPreviewPanel`) + field renderers. |
 | `RawFileModule` | editor | Plain YAML/Markdown text `ForgeEditor` opened by the "open raw file" buttons. |
+
+### 4.4 Structure tree — shared with the reviewer, rendered separately (Q1)
+
+`SpecStructureModule` and `tom_specs_reviewer` draw the same class graph, one in
+the dark Forge shell and one on a light standalone canvas. The boundary between
+them is drawn at **meaning versus paint**:
+
+| Layer | Home | Shared? |
+| --- | --- | --- |
+| Readers — `SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, `FormFieldSpec`, `SpecFieldKind` | `tom_som_dart_runtime` (re-exported by `src/structure/spec_model.dart`) | yes |
+| Display semantics — `SpecChip`, `SpecChipRole`, `SpecRowExtras`, the chip descriptor functions, `kRenderedAnnotations`, the structural-path segments | `tom_som_dart_runtime/src/spec_annotation_display.dart` | yes |
+| Rendering — `src/structure/spec_tree.dart`, the palette, the per-row affordances | this project | no |
+
+**The two surfaces may not disagree about what a marker *means*; they may
+disagree about what it *looks like*.** Whether `cs?` is suppressed on a
+follow-up-tagged node, whether a closed choice reports coverage, whether a
+`@SectionIdPattern` is a fallback for a section id — these are statements about
+the model, and one app answering them differently would make the same tree say
+two different things. Colour is the opposite: a value that reads as "attention"
+on a light canvas is illegible on the Forge shell's dark one. So chips name a
+`SpecChipRole` and each app maps roles to its own palette.
+
+The renderings stay **separate** rather than merging into a shared Flutter
+widget package. `tom_som_dart_runtime` is pure Dart and cannot host widgets, so
+convergence would need a new package — and what it would hold is two trees whose
+hosts (a four-region Forge layout versus a standalone `MaterialApp`) and per-row
+affordances (authoring actions versus the reviewer's `ReviewControls`) differ at
+every row. That widget would be a parameter list of differences rather than
+shared behaviour. What is genuinely common is the semantics, and that is what is
+extracted.
+
+**The divergence guard.** Separate renderings would otherwise drift silently, so
+`tom_som_dart_runtime/spec_display_fixture.dart` carries a class graph
+exercising **every** annotation in `kRenderedAnnotations`, plus
+`expectedShowcaseChipLabels`, which computes the labels the shared descriptors
+produce for it. Both apps render that fixture in
+`test/structure_annotation_rendering_test.dart` and assert every label reaches
+the screen. A new annotation therefore passes three gates — `kRenderedAnnotations`,
+the fixture, then **both** trees — and a rendering added to one tree alone fails
+the other app's test rather than accumulating unnoticed.
 
 ---
 
@@ -492,7 +532,8 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 > **`tom_forge/tom_specs_editor`** (the live document controller +
 > `AgentToolsModule` + §8 tools), and `tom_spec_engine` links into *that*
 > project. The paragraph below describes the reviewer's own runtime
-> consumption, not the editor's.
+> consumption, not the editor's; what the two apps share, and where the
+> boundary between them runs, is §4.4.
 
 `tom_specs_reviewer` consumes the **generic** meta-model access classes
 (`SpecModel` / `SpecRoot` / `SpecClass` / `SpecField` / `FormFieldSpec` /

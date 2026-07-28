@@ -20,6 +20,11 @@
 ///     ("reflection") loaded from the exported spec-model meta-data;
 ///   * [SpecReflection] — value-free enumeration and path resolution over a
 ///     [SpecModel];
+///   * [SpecChip] / [SpecRowExtras] / [kRenderedAnnotations] — the theme-free
+///     *display semantics* of the model's annotations: which markers a row
+///     carries, what each says, and when one must be suppressed. Shared so the
+///     editor and the reviewer cannot disagree about what a marker means while
+///     each renders it in its own idiom;
 ///   * [SpecEditor] — the generic, meta-validated modification API (YRD7):
 ///     typed value/form-field access (via the shared `somParse*`/`somFormat*`
 ///     boundary helpers), headline/id editing, list-item and clear-section
@@ -46,6 +51,7 @@
 library;
 
 export 'src/docspecs_validator.dart';
+export 'src/spec_annotation_display.dart';
 export 'src/som_facade.dart';
 export 'src/spec_document.dart';
 export 'src/spec_document_markdown.dart';

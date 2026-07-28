@@ -11,8 +11,10 @@ structural path. Those observations feed further development of
 > The reviewer is **not** a specification editor. The app that authors actual
 > specifications (DocSpecs / CodeSpecs / Implementation) is
 > `tom_forge/tom_specs_editor` — see `tom_specs_editor_specification.md`. The
-> two apps share their model *readers* (`tom_som_dart_runtime`) and nothing
-> else; the tree *rendering* is app-local in each.
+> two apps share their model *readers* **and the display semantics of the
+> annotations** (both in `tom_som_dart_runtime`); the tree *rendering* is
+> app-local in each, and a shared fixture keeps the two renderings from
+> drifting apart (§3).
 
 ---
 
@@ -97,15 +99,48 @@ Five source files, split by responsibility:
 | `lib/src/ui/review_controls.dart` | The per-node review dialog and its summary line |
 | `lib/src/model/review_store.dart` | `ReviewEntry`, `ReviewStore`, YAML persistence |
 
-**Readers are shared; rendering is not.** The meta-model access classes
-(`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, `FormFieldSpec`,
-`SpecFieldKind`) come from `tom_som_dart_runtime` — pure Dart, testable with
-`dart test`, and consumed by both this app and the editor. Only the widgets are
-app-local.
-
 Startup is synchronous and total: the snapshot is decoded and the review file
 loaded before the first frame, so no screen ever renders against a partially
 loaded model.
+
+### 3.1 What the reviewer shares with the editor
+
+Two Flutter surfaces render the same class graph — this reviewer on a light
+standalone canvas, `tom_forge/tom_specs_editor` inside the dark Forge shell.
+The boundary between them is drawn at **meaning versus paint**:
+
+| Layer | Home | Shared? |
+| --- | --- | --- |
+| Readers — `SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, `FormFieldSpec`, `SpecFieldKind` | `tom_som_dart_runtime/src/spec_model.dart` | yes |
+| Display semantics — `SpecChip`, `SpecChipRole`, `SpecRowExtras`, the chip descriptor functions, `kRenderedAnnotations`, the structural-path segments | `tom_som_dart_runtime/src/spec_annotation_display.dart` | yes |
+| Rendering — the widgets, the palette, the per-row affordances | each app's own tree | no |
+
+**The two surfaces may not disagree about what a marker *means*; they may
+disagree about what it *looks like*.** Whether `cs?` is suppressed on a
+follow-up-tagged node, whether a closed choice reports coverage, whether a
+`@SectionIdPattern` is a fallback for a section id — these are statements about
+the model, and one app answering them differently would make the same tree say
+two different things. Colour is the opposite: a value that reads as "attention"
+on a light canvas is illegible on a dark one. So chips name a `SpecChipRole` and
+each app maps roles to its own palette.
+
+The two renderings stay **separate** rather than being merged into a shared
+widget package. They sit in different hosts (a standalone `MaterialApp` versus a
+four-region Forge layout) and carry different per-row affordances (this app's
+`ReviewControls` versus the editor's authoring actions), so a common widget would
+be a parameter list of differences rather than shared behaviour. What is genuinely
+common is the semantics, and that is what has been extracted.
+
+**The divergence guard.** Separate renderings would otherwise drift silently, so
+`tom_som_dart_runtime/spec_display_fixture.dart` carries a class graph that
+exercises **every** annotation in `kRenderedAnnotations`, plus
+`expectedShowcaseChipLabels`, which computes the labels the shared descriptors
+produce for it. Both apps render that fixture in a widget test and assert every
+label reaches the screen (`test/structure_annotation_rendering_test.dart` in
+each). A new annotation therefore has to pass three gates: it must join
+`kRenderedAnnotations`, then the fixture, then **both** trees — and a rendering
+added to one tree alone fails the other app's test rather than accumulating
+unnoticed.
 
 ---
 
@@ -197,6 +232,9 @@ Every annotation the export emits reaches the screen:
 A `kRenderedAnnotations` set names them, and a test diffs it against the shipped
 asset. An annotation the model *starts* emitting therefore fails the suite
 rather than passing unseen — property 3 of §1, enforced rather than intended.
+The set lives in `tom_som_dart_runtime` alongside the chip descriptors that
+produce the renderings, so the reviewer and the editor cannot answer "is this
+annotation accounted for?" differently (§3.1).
 
 References sit behind a `refs` chip rather than inline because thousands of
 fields carry standards; inlining them would bury the structure the reviewer came
@@ -300,6 +338,12 @@ additions would cry wolf.
 
 - `flutter analyze` clean; the full widget suite green.
 - The coverage test diffs `kRenderedAnnotations` against the shipped asset.
+- `structure_annotation_rendering_test.dart` renders the shared annotation
+  showcase fixture and asserts every label the shared descriptors produce for it
+  reaches the screen — the reviewer's half of the §3.1 divergence guard. Its
+  expectations are *derived* from the descriptor functions, never written out,
+  so a chip the display layer starts producing fails here until this tree
+  renders it.
 - Several tests render the **shipped asset** rather than a fixture, deriving
   every expectation from it — because the risk they guard is precisely that the
   renderer handles a hand-made shape and not the real one. A snapshot refresh

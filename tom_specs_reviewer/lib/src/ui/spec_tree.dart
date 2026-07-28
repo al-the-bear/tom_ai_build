@@ -5,64 +5,55 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import '../model/review_store.dart';
 import 'review_controls.dart';
 
-/// Structural-path segment standing in for "any element of this list".
+/// The structural-path segments, the marker labels and the
+/// `kRenderedAnnotations` coverage contract come from `tom_som_dart_runtime`
+/// (`spec_annotation_display.dart`), shared with the spec editor so the two
+/// surfaces cannot disagree about what the model's annotations mean. Only the
+/// palette below — how each [SpecChipRole] is coloured on this light canvas —
+/// is the reviewer's own.
+
+/// The colour this surface gives each kind of statement a chip makes.
 ///
-/// All visual instances of a list element share this one segment so a review
-/// decision targets the *structure*, not a particular rendered instance.
-const String kListItemSegment = '§item';
+/// Kept here rather than in the shared layer because the two surfaces have
+/// opposite backgrounds: these values are chosen for the reviewer's light
+/// canvas and are illegible on the editor's dark shell.
+Color _roleColor(SpecChipRole role) {
+  switch (role) {
+    case SpecChipRole.caseValue:
+      return Colors.amber.shade800;
+    case SpecChipRole.codeSpecMapped:
+      return Colors.cyan.shade700;
+    case SpecChipRole.codeSpecNone:
+    case SpecChipRole.followUpNone:
+      return Colors.orange;
+    case SpecChipRole.codeSpecUnmapped:
+      return Colors.grey;
+    case SpecChipRole.followUpMapped:
+      return Colors.deepPurple.shade400;
+    case SpecChipRole.projection:
+      return Colors.teal;
+    case SpecChipRole.unused:
+      return Colors.pink;
+    case SpecChipRole.references:
+      return Colors.blueGrey;
+    case SpecChipRole.choiceComplete:
+      return Colors.green.shade700;
+    case SpecChipRole.choiceIncomplete:
+    case SpecChipRole.choiceUncovered:
+      return Colors.orange.shade800;
+    case SpecChipRole.choiceBroken:
+      return Colors.red;
+    case SpecChipRole.handoff:
+      return Colors.indigo;
+    case SpecChipRole.structural:
+      return Colors.grey;
+  }
+}
 
-/// Structural-path segment for a list section's own intro content.
-///
-/// In TomSpecs every list *is* a document section, so besides its repeated
-/// items it always carries an introductory content paragraph. This segment
-/// keys that paragraph for review, distinct from the list and its items.
-const String kSectionContentSegment = '§content';
-
-/// Chip marking a node whose `@Unused` annotation says it carries no authored
-/// content — the section is a structural container only.
-const String kUnusedChipLabel = 'unused';
-
-/// Chip opening a node's provenance panel (`@Reference` /
-/// `@StandardReferences`). Collapsed by default: over two thousand fields
-/// carry standards, and inlining them would bury the structure.
-const String kReferencesChipLabel = 'refs';
-
-/// Label of the toolbar switch revealing `@SerializationOrder` ordinals.
-const String kSerializationOrderToggleLabel = 'Show serialization order';
-
-/// Every annotation name the tree accounts for, and where it surfaces.
-///
-/// This is the contract behind the coverage test: an annotation the model
-/// starts emitting must be given a rendering (or a deliberate decision to
-/// suppress it) before it can be added here, so no structural statement can
-/// slip into the model unseen.
-const Set<String> kRenderedAnnotations = {
-  // Identity and headline.
-  'Document', // the root list on the start page
-  'SectionId', // grey badge on the row
-  'SectionIdPattern', // second badge, beside the section id
-  'Headline', // quoted secondary label
-  // Shape.
-  'Form', // the form panel under the row
-  'ContentType', // the row's type label
-  'Min', // the row's type label
-  'ContentHelp', // the row's doc line
-  // Hand-offs and taxonomies.
-  'MapsTo', // `maps→` chip
-  'DetailedIn', // `detail→` chip
-  'CodeSpecKind', // part chips
-  'FollowUpKind', // process chips
-  'CodeSpecsProjection', // projection chip
-  // Closed choices.
-  'OneOf', // the choice group node
-  'Case', // `case:` chips on the alternatives
-  // Markers, notes and provenance.
-  'Unused', // struck-through label + `unused` chip
-  'Comment', // inline `←` note
-  'Reference', // references panel
-  'StandardReferences', // references panel
-  'SerializationOrder', // `#n` badge, behind the toolbar toggle
-};
+/// Paints the shared [SpecChip] descriptors in this surface's palette.
+List<_Chip> _paint(List<SpecChip> chips) => [
+      for (final c in chips) _Chip(c.label, _roleColor(c.role), tooltip: c.tooltip),
+    ];
 
 /// Shared tree-wide state read by every node via the element tree.
 ///
@@ -193,109 +184,22 @@ Set<String> pathToType(SpecModel model, String rootType, String targetType) {
   return const {};
 }
 
-/// The chip row stating where a node's subject matter is headed.
-///
-/// The model splits that subject matter in two (`codespecs_mapping.md` §8.3):
-/// subtrees realised as CodeSpecs code, tagged `@CodeSpecKind` (§9.1), and
-/// subtrees that feed a downstream *process* — documentation, training,
-/// migration, … — tagged `@FollowUpKind`. Both are rendered from one function
-/// because they interact: a node tagged for a follow-up process **has** been
-/// classified, so it must not also carry the `cs?` "not yet mapped" marker,
-/// which would state the opposite and send a reviewer chasing a CodeSpecs
-/// mapping that by construction cannot exist.
-///
-/// `@CodeSpecKind` is three-state — mapped, explicitly mapped to nothing, or
-/// undeclared. All three are rendered because the third is the open question a
-/// structural reviewer is looking for; a blank row would hide it among the
-/// mapped ones. Both links are list-valued (one section can become several
-/// parts, or feed several processes), so every code gets its own chip.
 /// Marks the root of a `@CodeSpecsProjection` document in the tree, echoing the
 /// badge the root list shows, so the projection reads the same in both places.
-const _Chip _projectionChip =
-    _Chip(kProjectionLabel, Colors.teal, tooltip: kProjectionExplanation);
+List<_Chip> _projectionChips() => _paint(const [projectionChip]);
 
-List<_Chip> _kindChips(KindLink? codeSpec, KindLink? followUp) {
-  return [
-    ..._followUpKindChips(followUp),
-    ..._codeSpecKindChips(codeSpec, suppressUnmapped: followUp != null),
-  ];
-}
-
-List<_Chip> _codeSpecKindChips(KindLink? link,
-    {bool suppressUnmapped = false}) {
-  if (link == null) {
-    if (suppressUnmapped) return const [];
-    return const [
-      _Chip('cs?', Colors.grey,
-          tooltip: 'No @CodeSpecKind — not yet mapped to a CodeSpecs part'),
-    ];
-  }
-  if (link.kinds.isEmpty) {
-    return const [
-      _Chip('cs:none', Colors.orange,
-          tooltip: '@CodeSpecKind with no kinds — recorded as mapping to no '
-              'CodeSpecs part'),
-    ];
-  }
-  return [
-    for (final kind in link.kinds)
-      _Chip('cs:$kind', Colors.cyan.shade700, tooltip: link.note),
-  ];
-}
-
-/// `@FollowUpKind` process codes, in a colour deliberately far from the cyan
-/// `cs:` chips so the CodeSpecs/follow-up split reads at a glance.
-///
-/// There is no "not declared" chip here: the absence of a follow-up tag is not
-/// an open question — the overwhelming majority of the model is CodeSpecs-bound
-/// — so a `fu?` on every node would be noise, unlike its `cs?` counterpart.
-List<_Chip> _followUpKindChips(KindLink? link) {
-  if (link == null) return const [];
-  if (link.kinds.isEmpty) {
-    return const [
-      _Chip('fu:none', Colors.orange,
-          tooltip: '@FollowUpKind with no processes — recorded as feeding no '
-              'follow-up process'),
-    ];
-  }
-  return [
-    for (final process in link.kinds)
-      _Chip('fu:$process', Colors.deepPurple.shade400,
-          tooltip: link.note ??
-              'Follow-up process — this subtree becomes $process work, '
-                  'not CodeSpecs code'),
-  ];
-}
+/// The chips stating where a node's subject matter is headed — see
+/// `kindChips` in the shared display layer for why the two taxonomies interact.
+List<_Chip> _kindChips(KindLink? codeSpec, KindLink? followUp) =>
+    _paint(kindChips(codeSpec, followUp));
 
 /// The chips a field row carries: which alternative of a closed choice it is,
 /// then where its subtree is headed.
-///
-/// Case chips come first because they say *whether this row applies at all* —
-/// a stronger statement about the row than its CodeSpecs/follow-up mapping, and
-/// the one a reviewer scanning a choice group is reading for.
-List<_Chip> _fieldChips(SpecField f) => [
-      ..._caseChips(f),
-      ..._kindChips(f.codeSpecKind, f.followUpKind),
-    ];
+List<_Chip> _fieldChips(SpecField f) => _paint(fieldChips(f));
 
-/// One chip per discriminator value the field is bound to by `@Case`.
-///
-/// One chip *per value* rather than one listing them all, matching the `cs:` /
-/// `fu:` convention — and because `@Case` is repeatable, so a single chip would
-/// have to invent a joining syntax for something the model states as a list.
-List<_Chip> _caseChips(SpecField f) => [
-      for (final value in f.caseValues)
-        _Chip('case:$value', Colors.amber.shade800,
-            tooltip: 'Applies when the discriminator is "$value"'),
-    ];
-
-/// Structural-path segment for the closed-choice group a class declares.
-///
-/// The group carries its own path so the *closure decision* — is this case set
-/// complete, and is closing it right here? — is reviewable in its own right,
-/// without hijacking the entry of one of the alternatives (which keep their
-/// ordinary field paths).
-const String kOneOfSegment = '§oneof';
+/// The `@Case` bindings alone, for the merged field+class row of a complex
+/// alternative where the binding has nowhere else to be stated.
+List<_Chip> _caseChips(SpecField f) => _paint(caseChips(f));
 
 /// Renders the structure tree for a single document root.
 class SpecTree extends StatefulWidget {
@@ -539,7 +443,7 @@ class _ClassNodeState extends State<_ClassNode> {
               ),
             if (widget.recursive) _Chip('recursive', Colors.red),
             if (cut) _Chip('cut', Colors.red),
-            if (cls.isCodeSpecsProjection) _projectionChip,
+            if (cls.isCodeSpecsProjection) ..._projectionChips(),
             // A complex alternative collapses field and class into this one
             // row, so its `@Case` binding has nowhere else to be stated.
             if (widget.owningField != null) ..._caseChips(widget.owningField!),
@@ -552,7 +456,7 @@ class _ClassNodeState extends State<_ClassNode> {
           store: widget.store,
           path: widget.path,
           nodeLabel: cls.name,
-          extras: _RowExtras.of(field: widget.owningField, cls: cls),
+          extras: SpecRowExtras.of(field: widget.owningField, cls: cls),
         ),
         if (expanded) ...[
           if (injectContent)
@@ -672,8 +576,6 @@ class _OneOfGroupNodeState extends State<_OneOfGroupNode> {
   @override
   Widget build(BuildContext context) {
     final g = widget.group;
-    final total = g.discriminatorValues.length;
-    final uncovered = g.uncoveredValues;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -687,28 +589,7 @@ class _OneOfGroupNodeState extends State<_OneOfGroupNode> {
           label: 'one of: ${g.discriminator}',
           typeLabel: 'closed choice · ${widget.caseFields.length} alternatives',
           sectionId: null,
-          chips: [
-            if (total > 0)
-              _Chip(
-                'covers ${g.coveredValues.length}/$total',
-                g.isComplete ? Colors.green.shade700 : Colors.orange.shade800,
-                tooltip: '${g.discriminator} admits $total values; '
-                    '${g.coveredValues.length} have a subsection of their own',
-              ),
-            if (uncovered.isNotEmpty)
-              _Chip(
-                'uncovered: ${uncovered.join(', ')}',
-                Colors.orange.shade800,
-                // §8.2 makes this a warning, not an error — the reviewer judges
-                // whether the gap is deliberate.
-                tooltip: 'These discriminator values carry only the common '
-                    'sections. Legal, but worth confirming it is intended.',
-              ),
-            if (g.discriminatorField == null)
-              _Chip('discriminator not found', Colors.red,
-                  tooltip: 'No form field named "${g.discriminator}" on this '
-                      'class — the choice cannot be checked for completeness'),
-          ],
+          chips: _paint(oneOfChips(g)),
           doc: g.note,
           store: widget.store,
           path: widget.path,
@@ -831,7 +712,7 @@ class _FieldNodeState extends State<_FieldNode> {
           store: widget.store,
           path: widget.path,
           nodeLabel: '${f.name} (list)',
-          extras: _RowExtras.of(field: f),
+          extras: SpecRowExtras.of(field: f),
         ),
         if (_expanded) ...[
           // A list is itself a document section: show its intro content first.
@@ -915,7 +796,7 @@ class _FieldNodeState extends State<_FieldNode> {
         store: widget.store,
         path: widget.path,
         nodeLabel: f.name,
-        extras: _RowExtras.of(field: f),
+        extras: SpecRowExtras.of(field: f),
       );
     }
     // The field (variable) and the target class are the same element, so they
@@ -960,7 +841,7 @@ class _FieldNodeState extends State<_FieldNode> {
           store: widget.store,
           path: widget.path,
           nodeLabel: '${f.name} (form)',
-          extras: _RowExtras.of(field: f),
+          extras: SpecRowExtras.of(field: f),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -995,7 +876,7 @@ class _FieldNodeState extends State<_FieldNode> {
           store: widget.store,
           path: widget.path,
           nodeLabel: '${f.name} (content)',
-          extras: _RowExtras.of(field: f),
+          extras: SpecRowExtras.of(field: f),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -1032,7 +913,7 @@ class _FieldNodeState extends State<_FieldNode> {
       store: widget.store,
       path: widget.path,
       nodeLabel: '${f.name} (section)',
-      extras: _RowExtras.of(field: f),
+      extras: SpecRowExtras.of(field: f),
     );
   }
 
@@ -1053,7 +934,7 @@ class _FieldNodeState extends State<_FieldNode> {
       store: widget.store,
       path: widget.path,
       nodeLabel: '${f.name} (enum)',
-      extras: _RowExtras.of(field: f),
+      extras: SpecRowExtras.of(field: f),
     );
   }
 
@@ -1074,7 +955,7 @@ class _FieldNodeState extends State<_FieldNode> {
       store: widget.store,
       path: widget.path,
       nodeLabel: f.name,
-      extras: _RowExtras.of(field: f),
+      extras: SpecRowExtras.of(field: f),
     );
   }
 }
@@ -1091,53 +972,6 @@ class _Chip {
   final VoidCallback? onTap;
   final String? tooltip;
   const _Chip(this.text, this.color, {this.onTap, this.tooltip});
-}
-
-/// The annotations a row renders beside its structural label: the `@Unused`
-/// marker, the `@Comment` note, the `@Headline` default, the `@SectionIdPattern`
-/// badge, the provenance panel and the `@SerializationOrder` ordinal.
-///
-/// Gathered into one value so [_NodeRow] does not have to know whether its
-/// subject is a class, a field, or — at a complex subsection, where the tree
-/// collapses the two into a single row — both. Synthetic rows (item banners,
-/// injected content, the choice group) have no model node and use [none].
-class _RowExtras {
-  final bool unused;
-  final String? comment;
-  final String? headline;
-  final String? sectionIdPattern;
-  final String? reference;
-  final StandardReferences? standardReferences;
-  final int? serializationOrder;
-
-  const _RowExtras({
-    this.unused = false,
-    this.comment,
-    this.headline,
-    this.sectionIdPattern,
-    this.reference,
-    this.standardReferences,
-    this.serializationOrder,
-  });
-
-  static const none = _RowExtras();
-
-  /// Collects the extras of [field], of [cls], or of the merged pair.
-  ///
-  /// On a merged row the field's statement wins: it annotates *this* use of the
-  /// type, while the class's annotation describes every use of it.
-  factory _RowExtras.of({SpecField? field, SpecClass? cls}) => _RowExtras(
-        unused: (field?.isUnused ?? false) || (cls?.isUnused ?? false),
-        comment: field?.comment ?? cls?.comment,
-        headline: field?.headline ?? cls?.headline,
-        sectionIdPattern: field?.sectionIdPattern,
-        reference: field?.reference ?? cls?.reference,
-        standardReferences:
-            field?.standardReferences ?? cls?.standardReferences,
-        serializationOrder: field?.serializationOrder,
-      );
-
-  bool get hasReferences => reference != null || standardReferences != null;
 }
 
 /// The common single-line header used by every node kind.
@@ -1160,8 +994,8 @@ class _NodeRow extends StatefulWidget {
   final String nodeLabel;
 
   /// The annotations rendered beside the structural label. Defaults to
-  /// [_RowExtras.none] for the synthetic rows that have no model node.
-  final _RowExtras extras;
+  /// [SpecRowExtras.none] for the synthetic rows that have no model node.
+  final SpecRowExtras extras;
 
   const _NodeRow({
     this.rowKey,
@@ -1180,7 +1014,7 @@ class _NodeRow extends StatefulWidget {
     required this.store,
     required this.path,
     required this.nodeLabel,
-    this.extras = _RowExtras.none,
+    this.extras = SpecRowExtras.none,
   });
 
   @override
@@ -1265,22 +1099,16 @@ class _NodeRowState extends State<_NodeRow> {
                               color: Colors.blueGrey.shade50,
                               tooltip: 'Section-id pattern for each item'),
                         if (extras.unused)
-                          const _ChipWidget(_Chip(
-                            kUnusedChipLabel,
-                            Colors.pink,
-                            tooltip: 'No section text expected — this section '
-                                'is a structural container only',
-                          )),
+                          _ChipWidget(_Chip(unusedChip.label,
+                              _roleColor(unusedChip.role),
+                              tooltip: unusedChip.tooltip)),
                         for (final chip in widget.chips) _ChipWidget(chip),
                         if (extras.hasReferences)
-                          _ChipWidget(_Chip(
-                            kReferencesChipLabel,
-                            Colors.blueGrey,
-                            tooltip: 'Show the standards this section derives '
-                                'from',
-                            onTap: () =>
-                                setState(() => _refsOpen = !_refsOpen),
-                          )),
+                          _ChipWidget(_Chip(referencesChip.label,
+                              _roleColor(referencesChip.role),
+                              tooltip: referencesChip.tooltip,
+                              onTap: () =>
+                                  setState(() => _refsOpen = !_refsOpen))),
                         if (extras.comment != null)
                           Text('← ${extras.comment}',
                               style: TextStyle(
@@ -1346,7 +1174,7 @@ class _Badge extends StatelessWidget {
 /// on the 2285 fields that carry them would drown the structure the tree exists
 /// to show.
 class _ReferencesPanel extends StatelessWidget {
-  final _RowExtras extras;
+  final SpecRowExtras extras;
 
   const _ReferencesPanel({required this.extras});
 
