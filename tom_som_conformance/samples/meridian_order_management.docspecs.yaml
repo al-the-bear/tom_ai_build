@@ -80,12 +80,14 @@ document:
         FR functionalRequirements:
           headline: |2-
             Functional Requirements (FR)
-          codeSpec: CsFunctionalRequirements
+          codeSpec: |2-
+            CsFunctionalRequirements
           FRE-REQU-LST requirements:
             FRE-REQU-ORDER-CAPTURE:
               headline: |2-
                 FR-01 — Capture orders from EDI and REST channels
-              codeSpec: CsOrder,CsOrder.captureFromEdi,CsOrderRepository
+              codeSpec: |2-
+                CsOrder,CsOrder.captureFromEdi,CsOrderRepository
               content:
                 status: |2-
                   Approved
@@ -1772,7 +1774,7 @@ document:
                             elementName: |2-
                               State selector
                             elementType: |2-
-                              SegmentedControl
+                              selectField
                           SEER resources:
                             labelResource: |2-
                               screen.orders.filter.state
@@ -1800,13 +1802,13 @@ document:
                             elementName: |2-
                               Order ID column
                             elementType: |2-
-                              TextField
+                              textField
                           SEFS fieldSpec:
                             content:
                               fieldName: |2-
                                 orderId
                               dataType: |2-
-                                UUID
+                                string
                         SCREL-ELEM-2:
                           content:
                             elementId: |2-
@@ -1814,13 +1816,13 @@ document:
                             elementName: |2-
                               Status column
                             elementType: |2-
-                              StatusChip
+                              statusIndicator
                           SEFS fieldSpec:
                             content:
                               fieldName: |2-
                                 status
                               dataType: |2-
-                                Enum
+                                enumeration
                 SCAC actions:
                   SCRAC-ITEM-LST items:
                     SCRAC-ITEM-1:
@@ -1926,7 +1928,7 @@ document:
                             elementName: |2-
                               Quantity field
                             elementType: |2-
-                              NumberField
+                              numberField
                           SEEB behavior:
                             readonlyCondition: |2-
                               order.status == "Dispatched"
@@ -1935,7 +1937,7 @@ document:
                               fieldName: |2-
                                 quantity
                               dataType: |2-
-                                Integer
+                                integer
                 SCAC actions:
                   SCRAC-ITEM-LST items:
                     SCRAC-ITEM-1:

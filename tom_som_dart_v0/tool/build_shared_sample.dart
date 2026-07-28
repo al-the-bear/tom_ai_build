@@ -360,7 +360,19 @@ every downstream artifact traces back to a requirement.''');
   // --- Functional requirements (FR) --------------------------------------
   final fr = reqs.functionalRequirements.requirements;
 
+  // §9.2 concrete forward link (DocSpecs → CodeSpecs). This is the one place the
+  // shared sample exercises `codeSpec`, so the nine runtimes' `generic-codespecs`
+  // golden section has something to assert. It is authored through the generic
+  // `SpecDocument.setCodeSpec` store because the typed facade exposes `$sectionId`
+  // and `$headline` but no `$codeSpec` counterpart — the forward link has no typed
+  // surface. The store keys on the section PATH, so it is unaffected by the
+  // semantic `$sectionId` values the FR entries override below.
+  sbp.doc.setCodeSpec(
+      reqs.functionalRequirements.path, 'CsFunctionalRequirements');
+
   final fr1 = fr.add();
+  sbp.doc.setCodeSpec(
+      fr1.path, 'CsOrder,CsOrder.captureFromEdi,CsOrderRepository');
   // YRD6 (reversed): the entry's id is its stored section id — kept on the
   // @SectionIdPattern `FRE-REQU-` stem so it stays DR3-schema-valid — and its
   // human FR-nn title is the stored item headline. Neither is a form field any
@@ -724,12 +736,12 @@ void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
 
 // ---------------------------------------------------------------------------
 // Actors + Cockburn-style use cases with full main and extension flows.
-// These hang under SBP.7 Target Operating Model -> Target Business Process ->
-// Process Steps & Actor Interactions.
+// These hang under SBP.7 Target Operating Model -> Process Steps & Actor
+// Interactions, the CodeSpecs (CE-SU / CE-SC) half of the operating model.
 // ---------------------------------------------------------------------------
 void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
-  final psai = sbp.targetOperatingModelConcept.targetBusinessProcess
-      .processStepsAndActorInteractions;
+  final psai =
+      sbp.targetOperatingModelConcept.processStepsAndActorInteractions;
 
   // --- Actors ------------------------------------------------------------
   final actors = psai.actorOverview.actors;
@@ -1145,11 +1157,12 @@ void _rel(EntityRelationshipEntry r, String name, String type, String descriptio
 
 // ---------------------------------------------------------------------------
 // Screens: two fully-detailed screens (work list + order detail) with sections,
-// elements, actions, and empty/error states, under SBP.13 Experience & Design.
+// elements, actions, and empty/error states, under SBP.13 Experience &
+// Interface Design -> Experience CodeSpecs, the UI-generation subtree.
 // ---------------------------------------------------------------------------
 void _authorScreens(D00SolutionBlueprint sbp) {
-  final screens =
-      sbp.experienceAndInterfaceDesign.screens.screenInventory.items;
+  final screens = sbp.experienceAndInterfaceDesign.experienceCodeSpecs.screens
+      .screenInventory.items;
 
   // SCR-01 Order Work List.
   final wl = screens.add();
@@ -1186,7 +1199,7 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   stateFilter.content
     ..elementId = 'SCR-01-EL-1'
     ..elementName = 'State selector'
-    ..elementType = 'SegmentedControl';
+    ..elementType = ScreenElementKind.selectField;
   stateFilter.resources
     ..labelResource = 'screen.orders.filter.state'
     ..hintResource = 'screen.orders.filter.state.hint';
@@ -1204,18 +1217,18 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   idCol.content
     ..elementId = 'SCR-01-EL-2'
     ..elementName = 'Order ID column'
-    ..elementType = 'TextField';
+    ..elementType = ScreenElementKind.textField;
   idCol.fieldSpec.content
     ..fieldName = 'orderId'
-    ..dataType = 'UUID';
+    ..dataType = ScreenElementFieldKind.string;
   final statusCol = list.elements.add();
   statusCol.content
     ..elementId = 'SCR-01-EL-3'
     ..elementName = 'Status column'
-    ..elementType = 'StatusChip';
+    ..elementType = ScreenElementKind.statusIndicator;
   statusCol.fieldSpec.content
     ..fieldName = 'status'
-    ..dataType = 'Enum';
+    ..dataType = ScreenElementFieldKind.enumeration;
 
   final openAction = wl.actions.items.add();
   openAction.content
@@ -1281,10 +1294,10 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   qty.content
     ..elementId = 'SCR-02-EL-1'
     ..elementName = 'Quantity field'
-    ..elementType = 'NumberField';
+    ..elementType = ScreenElementKind.numberField;
   qty.fieldSpec.content
     ..fieldName = 'quantity'
-    ..dataType = 'Integer';
+    ..dataType = ScreenElementFieldKind.integer;
   qty.behavior.readonlyCondition = 'order.status == "Dispatched"';
 
   final amend = detail.actions.items.add();
@@ -1322,16 +1335,16 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 /// accessors and the generic string-path API and asserts they agree.
 void _authorTypedFormValues(D00SolutionBlueprint sbp) {
   // int form fields — the actor overview's headcount summary.
-  sbp.targetOperatingModelConcept.targetBusinessProcess
-      .processStepsAndActorInteractions.actorOverview.overview
+  sbp.targetOperatingModelConcept.processStepsAndActorInteractions.actorOverview
+      .overview
     ..totalActorCount = 4
     ..humanActorCount = 3
     ..systemActorCount = 1
     ..externalActorCount = 0;
 
   // bool form field — the accessibility overview statement flag.
-  sbp.experienceAndInterfaceDesign.accessibility.accessibilityOverviewContent
-      .accessibilityStatement = true;
+  sbp.experienceAndInterfaceDesign.designFollowUp.accessibility
+      .accessibilityOverviewContent.accessibilityStatement = true;
 
   // enum form field — ISO 25010 coverage entries with a natively-typed
   // characteristic (stored as the constant name, e.g.

@@ -1548,7 +1548,7 @@ DisplayOrder: 1
 
 ElementId: SCR-01-EL-1
 ElementName: State selector
-ElementType: SegmentedControl
+ElementType: selectField
 
 ############# <!--[SEER]--> Resources
 
@@ -1573,23 +1573,23 @@ DisplayOrder: 2
 
 ElementId: SCR-01-EL-2
 ElementName: Order ID column
-ElementType: TextField
+ElementType: textField
 
 ############# <!--[SEFS]--> Field Spec
 
 FieldName: orderId
-DataType: UUID
+DataType: string
 
 ############ <!--[SCREL-ELEM-2]--> Screen Element 2
 
 ElementId: SCR-01-EL-3
 ElementName: Status column
-ElementType: StatusChip
+ElementType: statusIndicator
 
 ############# <!--[SEFS]--> Field Spec
 
 FieldName: status
-DataType: Enum
+DataType: enumeration
 
 ######## <!--[SCAC]--> Actions
 
@@ -1683,7 +1683,7 @@ DisplayOrder: 2
 
 ElementId: SCR-02-EL-1
 ElementName: Quantity field
-ElementType: NumberField
+ElementType: numberField
 
 ############# <!--[SEEB]--> Behavior
 
@@ -1692,7 +1692,7 @@ ReadonlyCondition: order.status == "Dispatched"
 ############# <!--[SEFS]--> Field Spec
 
 FieldName: quantity
-DataType: Integer
+DataType: integer
 
 ######## <!--[SCAC]--> Actions
 
