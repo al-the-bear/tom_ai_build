@@ -2,17 +2,19 @@
 /// CodeSpecs part markers (`Cs*`) — `codespecs_mapping.md` §4.1, §5.16, §5.24,
 /// §11.
 ///
-/// Like every other `Cs*` marker these annotate a class **built on** an existing
-/// `tom_core`-family class; there is no `Cs*` base class to extend. They are
-/// grouped in one file because they share the *who owns this value* concern —
-/// the four owner-keyed configuration/settings scopes of §11 plus the identity
-/// and authentication surfaces that supply the owner.
+/// Like every other `Cs*` marker these annotate a class **built on** an
+/// existing `tom_core`-family class; there is no `Cs*` base class to extend.
+/// They are grouped in one file because they share the *who owns this value*
+/// concern — the four owner-keyed configuration/settings scopes of
+/// `codespecs_mapping.md` §11 plus the identity and authentication surfaces
+/// that supply the owner.
 ///
-/// Locus (which project of the three-project output trio they land in — §4.2):
+/// Locus (which project of the three-project output trio they land in —
+/// `codespecs_mapping.md` §4.2):
 ///
 /// - [CsClient] / [CsClientConfig] / [CsDeviceSetting] — client project.
 /// - [CsUserSetting] — client shape + server persistence (the value follows the
-///   user, §11).
+///   user, `codespecs_mapping.md` §11).
 /// - [CsIdentity] / [CsIdentityAttribute] — shared (the declaration is contract:
 ///   both sides read attributes from the token) + server (population).
 /// - [CsAuth] — shared + client + server (credential/token/session flow).
@@ -68,17 +70,18 @@ class CsDeviceSetting {
 /// **server-side**, so it follows the user onto any device they sign into
 /// (theme, language, notification prefs). See `codespecs_mapping.md` §11.
 ///
-/// **Single-moded — there is no persistence argument.** §11 splits configuration
-/// and settings into four parts, one per scope key, and the scope key alone
-/// decides where a value lives; the choice is therefore *which marker you use*,
-/// never a mode on one of them. A setting that must stay on the machine is
-/// [CsDeviceSetting] (keyed by user *and* device) or [CsClientConfig] (no user
-/// in the key at all).
+/// **Single-moded — there is no persistence argument.** `codespecs_mapping.md`
+/// §11 splits configuration and settings into four parts, one per scope key,
+/// and the scope key alone decides where a value lives; the choice is therefore
+/// *which marker you use*, never a mode on one of them. A setting that must
+/// stay on the machine is [CsDeviceSetting] (keyed by user *and* device) or
+/// [CsClientConfig] (no user in the key at all).
 ///
-/// A CE-UP setting spans two of the three generated projects (§4.2): its shape
-/// is declared in the client project, its persistence lives in the server
-/// project. Spec-authorable surface: the setting's key, type and default (§5.16)
-/// — the value is the user's persisted choice, never authored.
+/// A CE-UP setting spans two of the three generated projects
+/// (`codespecs_mapping.md` §4.2): its shape is declared in the client project,
+/// its persistence lives in the server project. Spec-authorable surface: the
+/// setting's key, type and default (`codespecs_mapping.md` §5.16) — the value
+/// is the user's persisted choice, never authored.
 class CsUserSetting {
   /// Optional part-specific note.
   final String? note;
@@ -127,12 +130,14 @@ class CsIdentity {
 }
 
 /// CE-ID — one declared identity-extension attribute; a **member marker** on a
-/// [CsIdentity] holder, the same pattern as `@CsColumn` (§5.24).
+/// [CsIdentity] holder, the same pattern as `@CsColumn` (`codespecs_mapping.md`
+/// §5.24).
 ///
 /// [placement] is **required**: it decides whether the attribute is readable by
-/// anything holding the token or only by the decrypting layers, and §5.16's
-/// fail-safe rule is that broadening a value's blast radius must be a deliberate
-/// authored act. Neither arm is therefore a default.
+/// anything holding the token or only by the decrypting layers, and
+/// `codespecs_mapping.md` §5.16's fail-safe rule is that broadening a value's
+/// blast radius must be a deliberate authored act. Neither arm is therefore a
+/// default.
 ///
 /// The rest of the per-attribute surface — the attribute's type, its access
 /// guard, its system of record and whether it is required — is carried by the

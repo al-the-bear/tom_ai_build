@@ -15,9 +15,10 @@
 /// alongside the other cross-phase link annotations (`@MapsTo`, `@DetailedIn`).
 ///
 /// The concrete, instance-level forward link (`codeSpec` on `DocSpecsSection`,
-/// §9.2) and the code-side back-trace (`@DocSpec`/`DocRef`, §9.3) are separate.
-/// The `@DocSpec`/`DocRef` annotations annotate CodeSpecs *code* and therefore
-/// live in the `tom_code_specs` framework package.
+/// `codespecs_mapping.md` §9.2) and the code-side back-trace
+/// (`@DocSpec`/`DocRef`, `codespecs_mapping.md` §9.3) are separate. The
+/// `@DocSpec`/`DocRef` annotations annotate CodeSpecs *code* and therefore live
+/// in the `tom_code_specs` framework package.
 ///
 /// "CodeSpecsMapping" (used in the csm todo descriptions) is the descriptive
 /// alias for this general type-level mapping concept; the annotation type itself
@@ -57,10 +58,11 @@ class CodeSpecKind {
 /// the single source of the kind vocabulary shared by:
 ///
 /// 1. `@CodeSpecKind([CodeSpecPart.x])` — the type-level mapping declared here;
-/// 2. the `@Cs<Id>` annotation that marks a CodeSpec class as realising the part
-///    (in `tom_code_specs`) — the framework carries **annotations only, no base
-///    classes** (`codespecs_mapping.md` §0). A CodeSpec is an ordinary class
-///    built on an existing `tom_core`-family class and enriched by that marker.
+/// 2. the `@Cs<Id>` annotation that marks a CodeSpec class as realising the
+///    part (in `tom_code_specs`) — the framework carries **annotations only, no
+///    base classes** (`codespecs_mapping.md` §0). A CodeSpec is an ordinary
+///    class built on an existing `tom_core`-family class and enriched by that
+///    marker.
 ///
 /// The cross-cutting **CE-TR (Traceability)** part is intentionally **absent**:
 /// traceability is not a mappable kind — it rides on every element via
@@ -70,12 +72,13 @@ class CodeSpecKind {
 /// `serviceUnit` (boundary criterion — csm-2-1) and `layout` (node model —
 /// csm-2-2). Those do not affect this enum's values.
 ///
-/// The enum holds **28 values**: the **26 active parts** (§4.1), the **member
-/// kind [domainEnum]**, and the **1 deferred candidate** (§4.3). A
-/// deferred value is *mapping-only* — a SOM section may carry
+/// The enum holds **28 values**: the **26 active parts**
+/// (`codespecs_mapping.md` §4.1), the **member kind [domainEnum]**, and the **1
+/// deferred candidate** (`codespecs_mapping.md` §4.3). A deferred value is
+/// *mapping-only* — a SOM section may carry
 /// `@CodeSpecKind([CodeSpecPart.<deferred>])` now, but the part has no `Cs*`
 /// annotation, no built-on `tom_core` class and no generated code until
-/// promoted into §4.1.
+/// promoted into `codespecs_mapping.md` §4.1.
 enum CodeSpecPart {
   /// CE-EL — screen element by semantic type, then concrete implementation.
   screenElement,
@@ -125,11 +128,11 @@ enum CodeSpecPart {
   /// (`codespecs_mapping.md` §4.1): a domain enum is a member declaration of
   /// the part that introduces it (a `dataAccess` entity column, a
   /// `serverConfiguration`/`clientConfiguration`/`deviceSettings`/`userSettings`
-  /// setting, a
-  /// `viewState` field, or a `serverApi` contract member), authored once as a
-  /// plain Dart `enum` marked `@CsEnum`. Placed in the shared project iff a
-  /// shared contract type references it, else in the owning part's project.
-  /// SOM sections (`DMENE`, `OBST`) carry this kind like any other value.
+  /// setting, a `viewState` field, or a `serverApi` contract member), authored
+  /// once as a plain Dart `enum` marked `@CsEnum`. Placed in the shared project
+  /// iff a shared contract type references it, else in the owning part's
+  /// project. SOM sections (`DMENE`, `OBST`) carry this kind like any other
+  /// value.
   domainEnum,
 
   /// CE-CF — **server / system** configuration; carries no user or
@@ -184,32 +187,36 @@ enum CodeSpecPart {
   /// base/seed data, iteration scripts) in the
   /// `<databaseMigrationsDirectory>/<datasource>/<schema>/` tree, driven by the
   /// `tom_core_server` migration engine (`TomDbMigrations` / `TomDbMigrator` /
-  /// `TomMigrationFileName`) — pure reuse (§5.27).
+  /// `TomMigrationFileName`) — pure reuse (`codespecs_mapping.md` §5.27).
   schemaMigration,
 
   // ---------------------------------------------------------------------------
-  // Deferred candidates — MAPPING-ONLY (§4.3, csm2r8).
+  // Deferred candidates — MAPPING-ONLY (`codespecs_mapping.md` §4.3, csm2r8).
   //
   // One value here — [workflow] — is RESERVED so a SOM section can carry
   // `@CodeSpecKind` now, but it is NOT an active part: it has NO `@Cs<Id>`
   // annotation, NO built-on `tom_core` class and NO generated code until
-  // promoted into §4.1 (the promotion criterion: a concrete `tom_core`-family
-  // built-on class — or a decided `tom_core_codespecs` gap — plus a `Cs*`
-  // annotation are chosen). It is distinct and collision-free against the 26
-  // active values, keeping the enum at 28 kind values.
+  // promoted into `codespecs_mapping.md` §4.1 (the promotion criterion: a
+  // concrete `tom_core`-family built-on class — or a decided
+  // `tom_core_codespecs` gap — plus a `Cs*` annotation are chosen). It is
+  // distinct and collision-free against the 26 active values, keeping the enum
+  // at 28 kind values.
   //
   // [workflow] is deferred **permanently**, not pending — the substrate survey
-  // in §4.3.1 recommends against ever building a process runtime, and §4.3.1 §7
-  // fixes the three conditions that would reopen it.
+  // in `codespecs_mapping.md` §4.3.1 recommends against ever building a process
+  // runtime, and `codespecs_mapping.md` §4.3.1 point 7 fixes the three
+  // conditions that would reopen it.
   //
   // [notification], [backgroundJob], [auditLog] and [reporting] below are
-  // ALREADY PROMOTED (active §4.1) but physically stay in their original enum
-  // position — kind values keep their enum position for enum-order stability
-  // (never reordered on promotion). Their doc comments carry the active mapping.
+  // ALREADY PROMOTED (active `codespecs_mapping.md` §4.1) but physically stay
+  // in their original enum position — kind values keep their enum position for
+  // enum-order stability (never reordered on promotion). Their doc comments
+  // carry the active mapping.
   // ---------------------------------------------------------------------------
 
   /// CE-WF — multi-step process / workflow orchestration (state machines,
-  /// long-running processes). Deferred **permanently** (§4.3, §4.3.1).
+  /// long-running processes). Deferred **permanently** (`codespecs_mapping.md`
+  /// §4.3, §4.3.1).
   workflow,
 
   /// CE-NT — notifications: outbound communications as a first-class effect —
@@ -220,7 +227,7 @@ enum CodeSpecPart {
   /// (`tom_core_codespecs`) over the `tom_core_server` `messaging` transport
   /// (`TomMessage` / `TomMessageRouter` / `TomMessageOutbox`). Shared
   /// (declarations, so the preference UI and the dispatcher read one catalogue)
-  /// + server (delivery) (§4.3).
+  /// + server (delivery) (`codespecs_mapping.md` §4.3).
   notification,
 
   /// CE-JB — background jobs: scheduled / background / queued work over the
@@ -230,7 +237,8 @@ enum CodeSpecPart {
   /// (CE-DB entities / CE-RP reports) and retry/backoff/timeout/alerting,
   /// distinct from request-driven [serverApi]. Server-only; the typed
   /// job-definition holder is a `tom_core_codespecs` gap; scheduler runtime /
-  /// job queue / multi-node locking are framework roadmap (§5.29).
+  /// job queue / multi-node locking are framework roadmap
+  /// (`codespecs_mapping.md` §5.29).
   backgroundJob,
 
   /// CE-LG — audit trail: who did what, when — `@CsAudited` marks the entity or
@@ -240,7 +248,7 @@ enum CodeSpecPart {
   /// repository chokepoints, so the spec authors only the *declared* half —
   /// which invocations are auditable, whether reads count, which fields are
   /// redacted. Retention and log format are [serverConfiguration], not CE-LG.
-  /// Server-only (§4.3).
+  /// Server-only (`codespecs_mapping.md` §4.3).
   auditLog,
 
   /// CE-RP — reporting: a **grouped projection over the domain model,
@@ -251,7 +259,7 @@ enum CodeSpecPart {
   /// (`tom_core_codespecs`) over the `tom_core_server` query and rendering
   /// substrate (`TomGroupedSelect` / `TomAggregate`, `TomTabularResult` and its
   /// CSV / XLSX / PDF renderers). Server (definition + execution) + shared
-  /// (result envelope, parameter shapes) (§5.28).
+  /// (result envelope, parameter shapes) (`codespecs_mapping.md` §5.28).
   ///
   /// Not a composition of [serverApi] + [dataAccess] + [form]: none of those
   /// can hold a dimension or a measure, and a report column is an *output

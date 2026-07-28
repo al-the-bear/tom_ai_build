@@ -14,8 +14,8 @@
 ///
 /// It also exports the annotation *parameter* vocabulary the markers are
 /// authored against: `cross_part_refs.dart`, the `Cs*Ref` typed cross-part
-/// reference family (§5.23), which makes a reference from one part to another a
-/// compiler-checked const rather than a string.
+/// reference family (`codespecs_mapping.md` §5.23), which makes a reference
+/// from one part to another a compiler-checked const rather than a string.
 library;
 
 export 'client_settings_annotations.dart';

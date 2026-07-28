@@ -3,14 +3,14 @@
 /// Each annotation marks a CodeSpec class (or member) as realising a
 /// *server-side* CodeSpecs part from the authoritative parts catalogue
 /// (`codespecs_mapping.md` §4.1). Like the client markers, these are pure
-/// markers on a class **built on** an existing `tom_core`-family class — there is
-/// no `Cs*` base class to extend.
+/// markers on a class **built on** an existing `tom_core`-family class — there
+/// is no `Cs*` base class to extend.
 ///
 /// The `CE-*` code named by each doc comment is the part's **stable registry
-/// key** (§4.1: never reused, never renamed); CE-DB is carried by three markers
-/// ([CsTable], [CsColumn], [CsRepository]), CE-NT by two ([CsNotification],
-/// [CsNotificationChannel]) and CE-RP by four ([CsReport], [CsReportColumn],
-/// [CsReportChart], [CsReportParameter]).
+/// key** (`codespecs_mapping.md` §4.1: never reused, never renamed); CE-DB is
+/// carried by three markers ([CsTable], [CsColumn], [CsRepository]), CE-NT by
+/// two ([CsNotification], [CsNotificationChannel]) and CE-RP by four
+/// ([CsReport], [CsReportColumn], [CsReportChart], [CsReportParameter]).
 ///
 /// This file covers the sixteen server-side part markers, plus the one facet
 /// value class a marker carries ([CsFileReference] on [CsColumn]). Client/UI
@@ -19,7 +19,8 @@
 library;
 
 /// CE-API — a server endpoint: an operation name plus its request/response and
-/// error contract (§5.6.1). All operations are POST (§7).
+/// error contract (`codespecs_mapping.md` §5.6.1). All operations are POST
+/// (`codespecs_mapping.md` §7).
 class CsEndpoint {
   /// Optional part-specific note.
   final String? note;
@@ -35,7 +36,8 @@ class CsServiceUnit {
   const CsServiceUnit({this.note});
 }
 
-/// CE-DB — a persistent table (a stored entity type, §5.13).
+/// CE-DB — a persistent table (a stored entity type, `codespecs_mapping.md`
+/// §5.13).
 class CsTable {
   /// Optional part-specific note.
   final String? note;
@@ -60,9 +62,10 @@ class CsTable {
 ///
 /// Built on `TomFileReference` (`tom_core_server`, `object_persistence`), whose
 /// four settings this facet mirrors one-for-one; storage is `TomBlobStore` and
-/// key generation `TomFileReferenceKeys`. Per §1.1 pillar (b) there is no
-/// CodeSpecs-local file-reference type — the substrate class is the one that is
-/// built on. See `tom_core_server/doc/file_storage.md`.
+/// key generation `TomFileReferenceKeys`. Per `codespecs_mapping.md` §1.1
+/// pillar (b) there is no CodeSpecs-local file-reference type — the substrate
+/// class is the one that is built on. See
+/// `tom_core_server/doc/file_storage.md`.
 ///
 /// **Boundaries drawn.** Three attributes a file cell might seem to need are
 /// deliberately *not* here:
@@ -72,8 +75,9 @@ class CsTable {
 ///   already gate it, and `openFile` resolves through `findById`. A second flag
 ///   would be a duplicate rule that could disagree with the first.
 /// - **Whether the cell renders a thumbnail or a link** is presentation, so it
-///   is CE-EL. CE-DB is server-only (§4.2); a rendering attribute declared here
-///   would be unreachable by the client that has to honour it.
+///   is CE-EL. CE-DB is server-only (`codespecs_mapping.md` §4.2); a rendering
+///   attribute declared here would be unreachable by the client that has to
+///   honour it.
 /// - **How a file is uploaded and served** is CE-API: `saveFile` / `openFile`
 ///   are called from an endpoint, which is also where [acceptedMediaTypes] is
 ///   enforced.
@@ -122,13 +126,14 @@ class CsFileReference {
   });
 }
 
-/// CE-DB — a table column: a stored field of a [CsTable] (§5.13).
+/// CE-DB — a table column: a stored field of a [CsTable]
+/// (`codespecs_mapping.md` §5.13).
 class CsColumn {
   /// Present when the column stores a file reference rather than a value.
   ///
-  /// Its **presence is the column kind** (§5.13): a column with no
-  /// [fileReference] is an ordinary stored attribute, described by its Dart type
-  /// and the entity's storage annotations.
+  /// Its **presence is the column kind** (`codespecs_mapping.md` §5.13): a
+  /// column with no [fileReference] is an ordinary stored attribute, described
+  /// by its Dart type and the entity's storage annotations.
   final CsFileReference? fileReference;
 
   /// Optional part-specific note.
@@ -146,7 +151,7 @@ class CsRepository {
 }
 
 /// CE-AZ — an authorization rule: a **modifier** applied to the [CsEndpoint] it
-/// gates (§5.6.3, §5.15).
+/// gates (`codespecs_mapping.md` §5.6.3, §5.15).
 class CsAuthorize {
   /// Optional part-specific note.
   final String? note;
@@ -183,7 +188,7 @@ class CsServerConfig {
 /// schema change is always a new numbered artifact. The cumulative DDL must
 /// converge on the shape the [CsTable] / [CsColumn] entity model declares — a
 /// named CodeSpecs validator check, since artifact filenames are one of the
-/// §5.23 string-reference exemptions.
+/// `codespecs_mapping.md` §5.23 string-reference exemptions.
 class CsMigration {
   /// Optional part-specific note.
   final String? note;
@@ -194,13 +199,15 @@ class CsMigration {
 /// CE-JB — a background-job definition (`codespecs_mapping.md` §5.29).
 ///
 /// Work that runs *off* the request thread — the axis that separates CE-JB from
-/// the request-driven [CsEndpoint]. Server-only (§4.2). One definition names:
+/// the request-driven [CsEndpoint]. Server-only (`codespecs_mapping.md` §4.2).
+/// One definition names:
 ///
 /// 1. a **trigger** — cron, calendar date/time, or a named system event;
 /// 2. a **work definition** — compilable pseudo-code over a later-injected
-///    abstract service class (the §3 first-level-implementation latitude), run on
-///    the `tom_core_kernel` isolate-pooling substrate (`TomCommand` dispatched
-///    through `TomExecutor` / `TomWorker`);
+///    abstract service class (the `codespecs_mapping.md` §3
+///    first-level-implementation latitude), run on the `tom_core_kernel`
+///    isolate-pooling substrate (`TomCommand` dispatched through `TomExecutor`
+///    / `TomWorker`);
 /// 3. **target references** — the entities and reports the job acts on, held as
 ///    typed const refs, never strings;
 /// 4. **retry / backoff / timeout / failure-alerting** policy.
@@ -302,7 +309,8 @@ class CsReport {
   const CsReport({this.note});
 }
 
-/// CE-RP — one projected output column of a [CsReport] (§5.28).
+/// CE-RP — one projected output column of a [CsReport] (`codespecs_mapping.md`
+/// §5.28).
 ///
 /// Built on `TomReportColumn`. A column **displays** a declared dimension or
 /// measure — it never introduces data of its own, which is why it names a
@@ -319,7 +327,8 @@ class CsReportColumn {
   const CsReportColumn({this.note});
 }
 
-/// CE-RP — a chart declared over a [CsReport]'s projected columns (§5.28).
+/// CE-RP — a chart declared over a [CsReport]'s projected columns
+/// (`codespecs_mapping.md` §5.28).
 ///
 /// Built on `TomReportChart`. **Declared here, rendered by whoever can:** the
 /// declaration is authored input (the SOM carries chart type, series and axes
@@ -336,7 +345,8 @@ class CsReportChart {
   const CsReportChart({this.note});
 }
 
-/// CE-RP — a runtime input a [CsReport] takes when it is run (§5.28).
+/// CE-RP — a runtime input a [CsReport] takes when it is run
+/// (`codespecs_mapping.md` §5.28).
 ///
 /// Built on `TomReportParameter`. Distinct from a CE-DB row filter authored
 /// into the query: a parameter is **supplied per execution**, so it is part of

@@ -6,9 +6,9 @@
 /// generated code) and one-or-more **purely follow-up subtrees** — the
 /// non-CodeSpecs work that a system-creation process still owns (documentation,
 /// training, org design, operations, capacity, compliance, migration,
-/// localization, acceptance). `@FollowUpKind` is applied to the **root** of each
-/// follow-up subtree to declare which downstream process(es) that subtree feeds,
-/// so each process can select exactly its slice of the blueprint.
+/// localization, acceptance). `@FollowUpKind` is applied to the **root** of
+/// each follow-up subtree to declare which downstream process(es) that subtree
+/// feeds, so each process can select exactly its slice of the blueprint.
 ///
 /// It lives in `tom_specs_core` — not the `tom_code_specs` framework — because it
 /// annotates the *model* (SOM) classes, and `tom_specs_model` already depends on
@@ -45,7 +45,8 @@ class FollowUpKind {
 
 /// The follow-up-taxonomy vocabulary (`codespecs_mapping.md` §8.3).
 ///
-/// The taxonomy is explicitly **extensible**: §3 lists the original eight codes
+/// The taxonomy is explicitly **extensible**: `codespecs_mapping.md` §8.3
+/// lists the original eight codes
 /// (DOC/TRN/ORG/OPS/CAP/CMP/MIG/L10N); [acc] is an admissible extension for the
 /// distinct Phase-5 quality/acceptance process (the Quality & Acceptance Model
 /// subtree is neither CodeSpecs nor any of the eight original codes).
@@ -81,7 +82,8 @@ enum FollowUpProcess {
   /// translation processes.
   l10n,
 
-  /// ACC — acceptance & quality (extension, §3 "extensible"): the Phase-5
+  /// ACC — acceptance & quality (extension, `codespecs_mapping.md` §8.3
+  /// "extensible"): the Phase-5
   /// quality/acceptance process (Quality & Acceptance Model). Distinct from the
   /// eight original codes and from any CodeSpecs part.
   acc,

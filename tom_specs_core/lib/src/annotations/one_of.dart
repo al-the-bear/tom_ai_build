@@ -8,8 +8,9 @@
 /// subsection with no `@Case` is *common* (present for every case, e.g.
 /// `resources` / `layout`).
 ///
-/// The [discriminator] **must be a model enum** `@Form` field (per §3.2 / the
-/// domain-enum registry, and YRD7 which already requires form-field enum types
+/// The [discriminator] **must be a model enum** `@Form` field (per
+/// `codespecs_mapping.md` §8.2 item 1 / the domain-enum registry, and YRD7
+/// which already requires form-field enum types
 /// to be model enums). Keeping the discriminator an enum is what lets the
 /// static validator check case coverage and lets the instance validator pick
 /// the single active alternative.

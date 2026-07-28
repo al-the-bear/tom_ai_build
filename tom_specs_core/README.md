@@ -17,12 +17,13 @@ the meta-data file (`spec_model.meta.json`) that every language runtime loads.
 
 > **Cross-references.**
 > [`tom_specs_model/doc/tom_specs_model_rules.md`](../tom_specs_model/doc/tom_specs_model_rules.md)
-> owns the annotation **vocabulary and authoring rules** (§9 — when to reach for
-> which annotation), the **mapping semantics** of each annotation (§9.2 — what it
-> does to the emitted document, schema and meta-data) and the **outline
-> rendering** notation (§11.2). This README is the catalogue of *what each
-> annotation is*; that document owns *how it maps*, *when to use it*, and *how it
-> renders*.
+> owns the annotation **vocabulary and authoring rules**
+> (`tom_specs_model_rules.md` §9 — when to reach for which annotation), the
+> **mapping semantics** of each annotation (`tom_specs_model_rules.md` §9.2 —
+> what it does to the emitted document, schema and meta-data) and the **outline
+> rendering** notation (`tom_specs_model_rules.md` §11.2). This README is the
+> catalogue of *what each annotation is*; that document owns *how it maps*,
+> *when to use it*, and *how it renders*.
 
 ---
 
@@ -138,8 +139,8 @@ target (class `C` / member `M`).
 
 ### Traceability (Solution Blueprint → Phase 3 DocSpecs)
 
-These four annotations encode how the `D00SolutionBlueprint` master model
-maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
+These four annotations encode how the `D00SolutionBlueprint` master model maps
+into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 `tom_specs_model_rules.md` §10.2 structural invariants in
 [`tom_specs_clitool/lib/src/validator.dart`](../tom_specs_clitool/lib/src/validator.dart).
 
@@ -152,14 +153,14 @@ maps into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 ### DocSpecs ↔ CodeSpecs link (general, type-level)
 
 The general type-level half of the bidirectional DocSpecs↔CodeSpecs link
-(`../tom_specs_model/doc/codespecs_mapping.md` §9.1/§9.5). It lives here because it
-annotates SOM model classes — the concrete forward `codeSpec` member is a
-`DocSpecsSection` field, and the code-side back-trace `@DocSpec`/`DocRef` lives in
-`tom_code_specs`.
+(`../tom_specs_model/doc/codespecs_mapping.md` §9.1/§9.5). It lives here because
+it annotates SOM model classes — the concrete forward `codeSpec` member is a
+`DocSpecsSection` field, and the code-side back-trace `@DocSpec`/`DocRef` lives
+in `tom_code_specs`.
 
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
-| `@CodeSpecKind` | `CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` | C | Declares which CodeSpecs part *type(s)* a section *type* (or form field) is realised as. **List-valued** since a section/field may map to several kinds; a single-kind mapping uses a one-element list. The kind enum is `CodeSpecPart` — **28 values**: the **26 active parts** (§4.1), the **member kind `domainEnum`**, and the **1 deferred candidate** (§4.3): `workflow`. `CE-TR`/Traceability is excluded — it is cross-cutting (§9), not a mappable kind. A deferred value is *mapping-only*: a SOM section may carry it now, but the part has no `Cs*` annotation, built-on `tom_core` class or generated code until promoted into §4.1. Kind values are drawn from the `codespecs_mapping.md` §4.1/§4.3 catalogues so they cannot drift. |
+| `@CodeSpecKind` | `CodeSpecKind(List<CodeSpecPart> kinds, {String? note})` | C | Declares which CodeSpecs part *type(s)* a section *type* (or form field) is realised as. **List-valued** since a section/field may map to several kinds; a single-kind mapping uses a one-element list. The kind enum is `CodeSpecPart` — **28 values**: the **26 active parts** (`codespecs_mapping.md` §4.1), the **member kind `domainEnum`**, and the **1 deferred candidate** (`codespecs_mapping.md` §4.3): `workflow`. `CE-TR`/Traceability is excluded — it is cross-cutting (`codespecs_mapping.md` §9), not a mappable kind. A deferred value is *mapping-only*: a SOM section may carry it now, but the part has no `Cs*` annotation, built-on `tom_core` class or generated code until promoted into `codespecs_mapping.md` §4.1. Kind values are drawn from the `codespecs_mapping.md` §4.1/§4.3 catalogues so they cannot drift. |
 | `@FollowUpKind` | `FollowUpKind(List<FollowUpProcess> processes, {String? note})` | C | The follow-up counterpart of `@CodeSpecKind`: tags a SOM follow-up subtree root (the descriptive, no-`@CodeSpecKind` content isolated by the Band-F splits) with the downstream **process(es)** it feeds. **List-valued** — a subtree can feed several processes. The kind enum is `FollowUpProcess` — the extensible taxonomy from `codespecs_mapping.md` §8.3: `doc` (documentation), `trn` (training), `org` (organisation), `ops` (operations), `cap` (capacity/data volume), `cmp` (compliance), `mig` (migration), `l10n` (localization), plus `acc` (acceptance/quality, added for SBP.14). Like `@CodeSpecKind`, it annotates SOM model classes and adds no classes to the graph; exported losslessly via the generic `annotations` block. |
 | `@CodeSpecsProjection` | `CodeSpecsProjection()` | C | Marks a `@Document` root as the **CodeSpecs generation projection** (`D13CodeSpecsProjection`, `@SectionId('CGP')`). Such a projection is `@CodeSpecKind`-driven, not `@DetailedIn`-driven — the single-valued `@DetailedIn`/`@MapsTo` pair is already spent on each section's Phase-3 document — so this marker exempts the document from the `tom_specs_model_rules.md` §10.2 detail-count check **only**. It does *not* relax the pure-projection invariant (the projection must still reach only types present in the `D00SolutionBlueprint` tree). |
 
@@ -169,12 +170,14 @@ annotates SOM model classes — the concrete forward `codeSpec` member is a
 
 - **`ModelReader`** (`tom_specs_clitool`) reads every annotation via the Dart
   analyzer — no marker annotation is needed; all model classes are scanned.
-- **`validator.dart`** enforces the model-design rules (§6) and the `tom_specs_model_rules.md` §10.2
+- **`validator.dart`** enforces the `tom_specs_model_rules.md` §6
+  model-design rules and the `tom_specs_model_rules.md` §10.2
   structural invariants (`@SectionId` uniqueness/coverage, `@SectionIdPattern`
   pairing, `@DetailedIn → ancestor @MapsTo`, per-`@Document` detail count,
   root-independent section-id resolution).
 - **`ModelJsonExporter`** serialises the resolved graph — including the lossless
   per-class / per-field `annotations` block — into `spec_model.meta.json`, which
   every `tom_som_<lang>_runtime` loads for the reflection access path.
-- **`outliner.dart`** renders the class tree; §4.13 of the outliner spec lists
-  which annotations are *visible* in the outline vs *schema-only*.
+- **`outliner.dart`** renders the class tree; `tom_specs_model_rules.md`
+  §11.2.13 lists which annotations are *visible* in the outline vs
+  *schema-only*.

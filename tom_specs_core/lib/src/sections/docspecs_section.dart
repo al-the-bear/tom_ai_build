@@ -71,7 +71,7 @@ class DocSpecsSection {
 /// generated SOM classes; this class is the generic model-side holder.
 class DocSpecsForm {
   DocSpecsForm({this.content, Map<String, Object?>? values})
-      : values = values ?? <String, Object?>{};
+    : values = values ?? <String, Object?>{};
 
   /// The section's free-text content before the first form field line.
   String? content;

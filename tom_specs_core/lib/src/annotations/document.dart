@@ -25,9 +25,5 @@ class Document {
   /// These represent upstream artifacts that feed into this document.
   final List<Type>? basedOn;
 
-  const Document({
-    required this.name,
-    required this.description,
-    this.basedOn,
-  });
+  const Document({required this.name, required this.description, this.basedOn});
 }

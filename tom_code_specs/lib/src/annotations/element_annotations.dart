@@ -2,22 +2,23 @@
 ///
 /// Each annotation in this file marks a CodeSpec class (or member) as realising
 /// a particular *client-side* CodeSpecs part from the authoritative parts
-/// catalogue (`codespecs_mapping.md` §4.1). They are pure markers: a CodeSpec is
-/// an ordinary class **built on** an existing `tom_core`-family class and
+/// catalogue (`codespecs_mapping.md` §4.1). They are pure markers: a CodeSpec
+/// is an ordinary class **built on** an existing `tom_core`-family class and
 /// *enriched* by one of these markers — there is no `Cs*` base class to extend.
 /// The optional [note] on each marker records part-specific intent inline.
 ///
 /// The `CE-*` code named by each doc comment is the part's **stable registry
-/// key** (§4.1: never reused, never renamed) — several markers share one key,
-/// because a part may be carried by more than one annotation (CE-EL by
-/// [CsElement] + [CsWidget], CE-AC by [CsAction] + [CsTrigger], CE-NV by
-/// [CsRoute] + [CsScreenFlow]).
+/// key** (`codespecs_mapping.md` §4.1: never reused, never renamed) — several
+/// markers share one key, because a part may be carried by more than one
+/// annotation (CE-EL by [CsElement] + [CsWidget], CE-AC by [CsAction] +
+/// [CsTrigger], CE-NV by [CsRoute] + [CsScreenFlow]).
 ///
 /// This file covers the fourteen client/UI part markers. Server-side markers live
 /// in `service_annotations.dart`; shared markers in `contract_annotations.dart`.
 library;
 
-/// CE-EL — a UI element by semantic type (the generic element part, §5.18).
+/// CE-EL — a UI element by semantic type (the generic element part,
+/// `codespecs_mapping.md` §5.18).
 class CsElement {
   /// Optional part-specific note.
   final String? note;
@@ -26,7 +27,7 @@ class CsElement {
 }
 
 /// CE-EL — the concrete `tom_flutter_ui` widget realising a [CsElement]'s
-/// semantic type (§5.7.1, §5.18).
+/// semantic type (`codespecs_mapping.md` §5.7.1, §5.18).
 class CsWidget {
   /// Optional part-specific note.
   final String? note;
@@ -42,7 +43,8 @@ class CsForm {
   const CsForm({this.note});
 }
 
-/// CE-LO — a screen layout (structural arrangement of elements, §5.2, §5.12).
+/// CE-LO — a screen layout (structural arrangement of elements,
+/// `codespecs_mapping.md` §5.2, §5.12).
 class CsLayout {
   /// Optional part-specific note.
   final String? note;
@@ -116,11 +118,12 @@ class CsAction {
 ///
 /// The taxonomy is **closed**: a new invocation path is an edit to this
 /// classification, not a free-form attribute — the same closed-catalogue
-/// discipline as §5.18 (elements) and §5.19 (validation rules). The kinds are a
-/// *documented framing* over the reused `tom_flutter_ui` action classes
-/// (`TomAction` has no trigger concept of its own), which is why the vocabulary
-/// lives on the annotation rather than in a new class: §5.10/§5.20 record CE-AC
-/// as "no gap — full action implementation reused".
+/// discipline as `codespecs_mapping.md` §5.18 (elements) and
+/// `codespecs_mapping.md` §5.19 (validation rules). The kinds are a *documented
+/// framing* over the reused `tom_flutter_ui` action classes (`TomAction` has no
+/// trigger concept of its own), which is why the vocabulary lives on the
+/// annotation rather than in a new class: `codespecs_mapping.md` §5.10/§5.20
+/// record CE-AC as "no gap — full action implementation reused".
 enum TriggerKind {
   /// Fired by a user acting on a CE-EL element (tap / press / long-press).
   userGesture,
@@ -139,18 +142,19 @@ enum TriggerKind {
   condition,
 }
 
-/// CE-AC — a trigger: the event that fires a [CsAction] (§5.10, §5.20).
+/// CE-AC — a trigger: the event that fires a [CsAction] (`codespecs_mapping.md`
+/// §5.10, §5.20).
 ///
 /// [kind] is **required**: it selects which per-kind attribute set the trigger
-/// carries (§5.20's five-row table), so it cannot be inferred from the annotated
-/// declaration and no arm is a sensible default. One [CsAction] may carry
-/// several triggers of different kinds.
+/// carries (`codespecs_mapping.md` §5.20's five-row table), so it cannot be
+/// inferred from the annotated declaration and no arm is a sensible default.
+/// One [CsAction] may carry several triggers of different kinds.
 ///
 /// The trigger is the **single authoring home** of the element→action edge
-/// (§5.10): it names both endpoints, and the element's action edge is derived
-/// from it rather than authored twice. Endpoints are typed references to the
-/// generated declarations (§5.23), never id strings, so a rename is a compile
-/// break.
+/// (`codespecs_mapping.md` §5.10): it names both endpoints, and the element's
+/// action edge is derived from it rather than authored twice. Endpoints are
+/// typed references to the generated declarations (`codespecs_mapping.md`
+/// §5.23), never id strings, so a rename is a compile break.
 class CsTrigger {
   /// Which of the five closed invocation paths fires the action.
   final TriggerKind kind;
@@ -204,9 +208,9 @@ class CsRoute {
 ///   confirmation screen or returns to the previous one; an error or validation
 ///   error reaches an error display.
 ///
-/// Lives in the client project (§4.2). The edge model itself is a
-/// `tom_core_codespecs` gap class; the authoring surface is the SOM screen-flow
-/// section.
+/// Lives in the client project (`codespecs_mapping.md` §4.2). The edge model
+/// itself is a `tom_core_codespecs` gap class; the authoring surface is the SOM
+/// screen-flow section.
 class CsScreenFlow {
   /// Optional part-specific note.
   final String? note;

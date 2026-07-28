@@ -20,11 +20,11 @@ class _OrderCodeSpec {}
 @CsValidation(note: 'total must be non-negative')
 @CodeSpec('UI-ORDER-LIST', source: ['UP-ORDER-LIST'])
 class _OrderListForm {
-  // CE-VA (§5.19): the two rule shapes differ by signature, not merely by
-  // scope. A field rule sees one value and nothing else — which is what makes
-  // it composable into the per-field declaration string. A form rule is a
-  // method on the form because it has to read siblings, which that string
-  // grammar cannot express.
+  // CE-VA (`codespecs_mapping.md` §5.19): the two rule shapes differ by
+  // signature, not merely by scope. A field rule sees one value and nothing
+  // else — which is what makes it composable into the per-field declaration
+  // string. A form rule is a method on the form because it has to read
+  // siblings, which that string grammar cannot express.
   @CsFieldRule(note: 'reference must carry the project prefix')
   static String? validateReference(String value) => null;
 
@@ -32,9 +32,9 @@ class _OrderListForm {
   String? validateDiscountAgainstTotal() => null;
 }
 
-// CE-ID (§5.24): the app's identity-extension holder is an ordinary class whose
-// members carry the placement discriminator — the same member-marker pattern as
-// @CsColumn.
+// CE-ID (`codespecs_mapping.md` §5.24): the app's identity-extension holder is
+// an ordinary class whose members carry the placement discriminator — the same
+// member-marker pattern as @CsColumn.
 @CsIdentity()
 @CodeSpec('ID-PROFILE', source: ['SAS-USATE'])
 class _ProfileExtension {
@@ -45,10 +45,11 @@ class _ProfileExtension {
   String? costCentre;
 }
 
-// CE-DB (§5.13): a file-reference column is ONE MORE COLUMN KIND, so it is a
-// facet of @CsColumn on an ordinary member — not a separate annotation and not a
-// second entity shape. The `attachment` member stores the storage key; the file
-// itself lives in the blob store the facet names.
+// CE-DB (`codespecs_mapping.md` §5.13): a file-reference column is ONE MORE
+// COLUMN KIND, so it is a facet of @CsColumn on an ordinary member — not a
+// separate annotation and not a second entity shape. The `attachment` member
+// stores the storage key; the file itself lives in the blob store the facet
+// names.
 @CsTable()
 @CodeSpec('DB-DOCUMENT', source: ['IMO-021'])
 class _DocumentCodeSpec {
@@ -67,8 +68,11 @@ class _DocumentCodeSpec {
 void main() {
   group('CSM2R1: id/trace annotations', () {
     test('CodeSpec carries id, source, requirements', () {
-      const spec = CodeSpec('DB-ORDER',
-          source: ['IMO-014'], requirements: ['RC-ORD-010']);
+      const spec = CodeSpec(
+        'DB-ORDER',
+        source: ['IMO-014'],
+        requirements: ['RC-ORD-010'],
+      );
       expect(spec.id, 'DB-ORDER');
       expect(spec.source, ['IMO-014']);
       expect(spec.requirements, ['RC-ORD-010']);
@@ -108,11 +112,13 @@ void main() {
       // The markers annotate declarations of different *signatures*: a field
       // rule takes a value and returns a verdict; a form rule takes nothing
       // because it reads the form it hangs on. Both tear-offs resolving is the
-      // assertion — it is what proves the annotations are usable where §5.19
-      // says the rules live.
+      // assertion — it is what proves the annotations are usable where
+      // `codespecs_mapping.md` §5.19 says the rules live.
       expect(_OrderListForm.validateReference, isA<String? Function(String)>());
-      expect(_OrderListForm().validateDiscountAgainstTotal,
-          isA<String? Function()>());
+      expect(
+        _OrderListForm().validateDiscountAgainstTotal,
+        isA<String? Function()>(),
+      );
     });
 
     test('server markers construct with optional note', () {
@@ -132,10 +138,11 @@ void main() {
   });
 
   group('csra2: CE-AC trigger taxonomy', () {
-    // §5.10/§5.20 record CE-AC as "no gap — full action implementation reused",
-    // so the closed 5-kind taxonomy lands on the annotation as a documented
-    // classification, NOT as a tom_core_codespecs class.
-    test('TriggerKind is the closed §5.20 five', () {
+    // `codespecs_mapping.md` §5.10/§5.20 record CE-AC as "no gap — full action
+    // implementation reused", so the closed 5-kind taxonomy lands on the
+    // annotation as a documented classification, NOT as a tom_core_codespecs
+    // class.
+    test('TriggerKind is the closed codespecs_mapping.md §5.20 five', () {
       expect(TriggerKind.values, [
         TriggerKind.userGesture,
         TriggerKind.inFormEvent,
@@ -145,16 +152,18 @@ void main() {
       ]);
     });
 
-    // `kind` selects which per-kind attribute set the trigger carries (§5.20's
-    // five-row table), so no arm can be a default — the csra1 `placement`
-    // precedent.
+    // `kind` selects which per-kind attribute set the trigger carries
+    // (`codespecs_mapping.md` §5.20's five-row table), so no arm can be a
+    // default — the csra1 `placement` precedent.
     test('CsTrigger requires an explicit kind', () {
-      expect(const CsTrigger(kind: TriggerKind.condition).kind,
-          TriggerKind.condition);
       expect(
-          const CsTrigger(kind: TriggerKind.inFormEvent, note: 'on submit')
-              .note,
-          'on submit');
+        const CsTrigger(kind: TriggerKind.condition).kind,
+        TriggerKind.condition,
+      );
+      expect(
+        const CsTrigger(kind: TriggerKind.inFormEvent, note: 'on submit').note,
+        'on submit',
+      );
     });
   });
 
@@ -165,17 +174,22 @@ void main() {
       expect(const CsAuth().note, isNull);
     });
 
-    test('csra3: CsUserSetting is single-moded — no persistence discriminator',
-        () {
-      // §11: the scope key alone decides where a value lives, so the four
-      // settings markers are distinguished by *which marker is used*, never by
-      // a mode argument on one of them. The device-persisted arm the old
-      // `SettingsPersistence.local` stood for is CE-DS `@CsDeviceSetting`.
-      expect(const CsUserSetting().note, isNull);
-      expect(const CsUserSetting(note: 'follows the user').note,
-          'follows the user');
-      expect(const CsDeviceSetting().note, isNull);
-    });
+    test(
+      'csra3: CsUserSetting is single-moded — no persistence discriminator',
+      () {
+        // `codespecs_mapping.md` §11: the scope key alone decides where a value
+        // lives, so the four settings markers are distinguished by *which marker
+        // is used*, never by a mode argument on one of them. The device-persisted
+        // arm the old `SettingsPersistence.local` stood for is CE-DS
+        // `@CsDeviceSetting`.
+        expect(const CsUserSetting().note, isNull);
+        expect(
+          const CsUserSetting(note: 'follows the user').note,
+          'follows the user',
+        );
+        expect(const CsDeviceSetting().note, isNull);
+      },
+    );
 
     test('the four new kind values are reachable and distinct', () {
       const kinds = <CodeSpecPart>[
@@ -189,7 +203,8 @@ void main() {
     });
   });
 
-  group('CSRA1: the six §4.1 parts that had no marker', () {
+  group('CSRA1: the six codespecs_mapping.md §4.1 parts that had no '
+      'marker', () {
     test('CsScreenFlow (CE-NV) constructs with optional note', () {
       expect(const CsScreenFlow().note, isNull);
       expect(const CsScreenFlow(note: 'popup overlay').note, 'popup overlay');
@@ -197,13 +212,18 @@ void main() {
 
     test('CsDeviceSetting (CE-DS) constructs with optional note', () {
       expect(const CsDeviceSetting().note, isNull);
-      expect(const CsDeviceSetting(note: 'window layout').note, 'window layout');
+      expect(
+        const CsDeviceSetting(note: 'window layout').note,
+        'window layout',
+      );
     });
 
     test('CsIdentity (CE-ID) constructs with optional note', () {
       expect(const CsIdentity().note, isNull);
-      expect(const CsIdentity(note: 'profile extension').note,
-          'profile extension');
+      expect(
+        const CsIdentity(note: 'profile extension').note,
+        'profile extension',
+      );
     });
 
     test('CsMigration (CE-MG) constructs with optional note', () {
@@ -213,23 +233,29 @@ void main() {
 
     test('CsJob (CE-JB) constructs with optional note', () {
       expect(const CsJob().note, isNull);
-      expect(const CsJob(note: 'nightly reconciliation').note,
-          'nightly reconciliation');
+      expect(
+        const CsJob(note: 'nightly reconciliation').note,
+        'nightly reconciliation',
+      );
     });
 
-    // §5.24: `placement` is the public/encrypted token-payload arm. It is a
-    // REQUIRED argument — §5.16's fail-safe rule says broadening a value's blast
-    // radius must be a deliberate authored act, so neither arm may be a default.
+    // `codespecs_mapping.md` §5.24: `placement` is the public/encrypted
+    // token-payload arm. It is a REQUIRED argument — `codespecs_mapping.md`
+    // §5.16's fail-safe rule says broadening a value's blast radius must be a
+    // deliberate authored act, so neither arm may be a default.
     test('CsIdentityAttribute requires an explicit placement', () {
       expect(
-          const CsIdentityAttribute(placement: IdentityAttributePlacement.public)
-              .placement,
-          IdentityAttributePlacement.public);
+        const CsIdentityAttribute(
+          placement: IdentityAttributePlacement.public,
+        ).placement,
+        IdentityAttributePlacement.public,
+      );
       expect(
-          const CsIdentityAttribute(
-                  placement: IdentityAttributePlacement.encrypted)
-              .placement,
-          IdentityAttributePlacement.encrypted);
+        const CsIdentityAttribute(
+          placement: IdentityAttributePlacement.encrypted,
+        ).placement,
+        IdentityAttributePlacement.encrypted,
+      );
     });
 
     test('IdentityAttributePlacement is the closed public|encrypted pair', () {
@@ -251,9 +277,10 @@ void main() {
     });
   });
 
-  group('csra7: the two parts promoted out of §4.3', () {
+  group('csra7: the two parts promoted out of codespecs_mapping.md §4.3', () {
     // CE-LG is pure reuse — @CsAudited marks the framework's own @TomAudited
-    // declaration, exactly as @CsServiceUnit marks a @tomService (§4.3.2).
+    // declaration, exactly as @CsServiceUnit marks a @tomService
+    // (`codespecs_mapping.md` §4.3.2).
     test('CsAudited (CE-LG) constructs with optional note', () {
       expect(const CsAudited().note, isNull);
       expect(const CsAudited(note: 'redacts iban').note, 'redacts iban');
@@ -266,24 +293,28 @@ void main() {
 
     test('CsNotificationChannel (CE-NT) constructs with optional note', () {
       expect(const CsNotificationChannel().note, isNull);
-      expect(const CsNotificationChannel(note: 'sms, critical only').note,
-          'sms, critical only');
+      expect(
+        const CsNotificationChannel(note: 'sms, critical only').note,
+        'sms, critical only',
+      );
     });
 
     // The promoted parts keep the enum positions they held while reserved —
-    // promotion is a readiness change, never a renumbering (§4.1).
+    // promotion is a readiness change, never a renumbering
+    // (`codespecs_mapping.md` §4.1).
     test('their kind values are reachable and distinct', () {
       const kinds = <CodeSpecPart>[
         CodeSpecPart.notification,
         CodeSpecPart.auditLog,
       ];
       expect(kinds.toSet().length, kinds.length);
-      expect(const CodeSpecKind([CodeSpecPart.auditLog]).kinds,
-          [CodeSpecPart.auditLog]);
+      expect(const CodeSpecKind([CodeSpecPart.auditLog]).kinds, [
+        CodeSpecPart.auditLog,
+      ]);
     });
   });
 
-  group('csra8: CE-RP promoted out of §4.3', () {
+  group('csra8: CE-RP promoted out of codespecs_mapping.md §4.3', () {
     test('CsReport constructs with optional note', () {
       expect(const CsReport().note, isNull);
       expect(const CsReport(note: 'sales by region').note, 'sales by region');
@@ -296,23 +327,26 @@ void main() {
       expect(const CsReportColumn(note: 'currency, 2dp').note, 'currency, 2dp');
       expect(const CsReportChart().note, isNull);
       expect(
-          const CsReportChart(note: 'bar, by quarter').note, 'bar, by quarter');
+        const CsReportChart(note: 'bar, by quarter').note,
+        'bar, by quarter',
+      );
       expect(const CsReportParameter().note, isNull);
       expect(const CsReportParameter(note: 'date range').note, 'date range');
     });
 
     // Promotion is a readiness change, never a renumbering: CE-RP keeps the
-    // enum position it held while reserved (§4.1).
+    // enum position it held while reserved (`codespecs_mapping.md` §4.1).
     test('the reporting kind is reachable and unmoved', () {
-      expect(const CodeSpecKind([CodeSpecPart.reporting]).kinds,
-          [CodeSpecPart.reporting]);
+      expect(const CodeSpecKind([CodeSpecPart.reporting]).kinds, [
+        CodeSpecPart.reporting,
+      ]);
     });
   });
 
   group('csra10: CE-DB file-reference column kind', () {
     // The facet mirrors TomFileReference one-for-one, so a spec author declares
     // exactly what the substrate annotation can receive — no CodeSpecs-local
-    // storage type (§1.1 pillar b).
+    // storage type (`codespecs_mapping.md` §1.1 pillar b).
     test('CsFileReference requires a keyPrefix and defaults the rest', () {
       const ref = CsFileReference(keyPrefix: 'documents/attachment');
       expect(ref.keyPrefix, 'documents/attachment');
@@ -327,9 +361,12 @@ void main() {
     test('cascadeDelete defaults to true and is overridable', () {
       expect(const CsFileReference(keyPrefix: 'a').cascadeDelete, isTrue);
       expect(
-          const CsFileReference(keyPrefix: 'a', cascadeDelete: false)
-              .cascadeDelete,
-          isFalse);
+        const CsFileReference(
+          keyPrefix: 'a',
+          cascadeDelete: false,
+        ).cascadeDelete,
+        isFalse,
+      );
     });
 
     test('the full surface is the four substrate settings plus the guard', () {
@@ -363,14 +400,16 @@ void main() {
       expect(_DocumentCodeSpec(), isA<_DocumentCodeSpec>());
     });
 
-    // §5.13 boundaries: CE-DB is server-only, so a thumbnail/link choice is
-    // CE-EL, and whether a file may be fetched is the column's own access key —
-    // never a second "downloadable" flag that could disagree with it. Both
-    // absences are asserted by the surface test above being exhaustive; what is
-    // pinned here is that the facet does not split CE-DB into a second part.
+    // `codespecs_mapping.md` §5.13 boundaries: CE-DB is server-only, so a
+    // thumbnail/link choice is CE-EL, and whether a file may be fetched is the
+    // column's own access key — never a second "downloadable" flag that could
+    // disagree with it. Both absences are asserted by the surface test above
+    // being exhaustive; what is pinned here is that the facet does not split
+    // CE-DB into a second part.
     test('CE-DB is reachable as one kind value, unsplit by the new facet', () {
-      expect(const CodeSpecKind([CodeSpecPart.dataAccess]).kinds,
-          [CodeSpecPart.dataAccess]);
+      expect(const CodeSpecKind([CodeSpecPart.dataAccess]).kinds, [
+        CodeSpecPart.dataAccess,
+      ]);
     });
   });
 
