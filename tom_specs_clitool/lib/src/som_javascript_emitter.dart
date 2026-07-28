@@ -21,6 +21,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_javascript_v0` module source for a [SpecModel].
 class SomJavaScriptEmitter {
   final SpecModel model;
@@ -588,12 +591,27 @@ class SomJavaScriptEmitter {
     'constructor', 'prototype', '__proto__',
   };
 
+  /// The structural `SomNode` members a generated accessor must not take
+  /// (`som_structural_accessors.dart`).
+  ///
+  /// The generated class `extends SomNode`, so a same-named accessor shadows the
+  /// inherited one — and its body's own `this.path` reference self-recurses —
+  /// rather than failing to load. JavaScript reports neither, so the guard is
+  /// the only thing standing between a model field named `path` and a wrong read.
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.javascript);
+
   /// Returns a JS-safe accessor identifier for [name].
   ///
   /// Only the emitted JS identifier changes — the document path segment and the
   /// stored enum token are derived independently and stay byte-identical to the
-  /// other facades, so cross-language documents remain compatible.
-  String _acc(String name) => _jsKeywords.contains(name) ? '${name}_' : name;
+  /// other facades, so cross-language documents remain compatible. (Generated
+  /// enum values are emitted as quoted object keys, not identifiers, so this
+  /// helper serves facade members only.)
+  String _acc(String name) =>
+      _jsKeywords.contains(name) || _structural.contains(name)
+          ? '${name}_'
+          : name;
 
   /// The lowerCamelCase form of a type name — names the per-root
   /// `<camelType>MetaTree` constant in the generated metadata module.

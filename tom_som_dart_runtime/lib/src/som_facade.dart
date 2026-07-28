@@ -38,9 +38,12 @@ abstract class SomNode {
   /// to `''` no longer disagrees with a generic `null`). Emptiness is defined
   /// once, in [SpecDocument.hasValuesUnder].
   ///
-  /// Named `isEmpty` (no `$` prefix) to match the proposed API; a model field
-  /// literally named `isEmpty` would collide with this getter, but the spec
-  /// model carries none.
+  /// Named `isEmpty` (no `$` prefix) to match the proposed API. A model field
+  /// literally named `isEmpty` would therefore shadow this getter, so the
+  /// emitters rename it (`isEmpty_`) from the shared structural-accessor table
+  /// in `tom_specs_clitool/lib/src/som_structural_accessors.dart` — which is
+  /// checked against this class, member for member, so adding a structural
+  /// accessor here turns that guard red until the table records it.
   bool get isEmpty => !doc.hasValuesUnder(path);
 
   /// Whether this section **type** declares the standard `content` text leaf —

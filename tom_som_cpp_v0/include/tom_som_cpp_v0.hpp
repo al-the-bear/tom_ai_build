@@ -59314,8 +59314,8 @@ class ReportSectionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string sectionId() const;
-  void setSectionId(const std::string& value);
+  std::string sectionId_() const;
+  void setSectionId_(const std::string& value);
   std::string title() const;
   void setTitle(const std::string& value);
   std::string sectionType() const;
@@ -62912,8 +62912,8 @@ class ScreenSectionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string sectionId() const;
-  void setSectionId(const std::string& value);
+  std::string sectionId_() const;
+  void setSectionId_(const std::string& value);
   std::string sectionName() const;
   void setSectionName(const std::string& value);
   std::string purpose() const;

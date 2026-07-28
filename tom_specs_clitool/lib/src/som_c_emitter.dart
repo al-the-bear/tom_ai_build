@@ -41,6 +41,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// The header include-guard macro and the generated file basenames.
 const String _headerGuard = 'TOM_SOM_C_V0_H';
 const String _headerBasename = 'tom_som_c_v0.h';
@@ -901,12 +904,25 @@ class SomCEmitter {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 
-  /// A snake-cased accessor base for [name]; C keywords gain a trailing
-  /// underscore. Empty ⇒ `field`.
+  /// The structural `SomNode` members a generated accessor must not take
+  /// (`som_structural_accessors.dart`).
+  ///
+  /// This set is **empty for C** and is read from the shared table anyway: the C
+  /// facade has no type to inherit from, and every emitted function name is
+  /// allocated as `<type>_<accessor>` from one flat, deduplicated namespace — so
+  /// a field named `can_have_content` is renamed rather than silently overriding
+  /// anything. Consulting the table costs nothing and means the guard is already
+  /// wired if C's shape ever changes.
+  static final Set<String> _structural = somReservedAccessorNames(SomLanguage.c);
+
+  /// A snake-cased accessor base for [name]; C keywords and structural member
+  /// names gain a trailing underscore. Empty ⇒ `field`.
   String _snakeAccessor(String name) {
     var base = _snake(name);
     if (base.isEmpty) base = 'field';
-    if (_cKeywords.contains(base)) base = '${base}_';
+    if (_cKeywords.contains(base) || _structural.contains(base)) {
+      base = '${base}_';
+    }
     return base;
   }
 

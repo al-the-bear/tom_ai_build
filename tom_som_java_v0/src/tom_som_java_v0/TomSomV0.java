@@ -108649,12 +108649,12 @@ public final class TomSomV0 {
       doc.setFormField(path, "httpMethod", value);
     }
 
-    public String path() {
+    public String path_() {
       String v = doc.formField(path, "path");
       return v == null ? "" : v;
     }
 
-    public void path(String value) {
+    public void path_(String value) {
       doc.setFormField(path, "path", value);
     }
 

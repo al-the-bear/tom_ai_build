@@ -782,7 +782,7 @@ next same-day item `…-CE2`, etc.
 | 4 | **The pattern prefix is the pattern minus its trailing `x` run** (`EXTSY-SYST-xxx` → `EXTSY-SYST-`). |
 | 5 | **Duplicate ids are rejected**, not silently accepted — the add-with-id path raises a section-id-collision error. |
 | 6 | **Serialization order is opt-in.** Emission order follows `@SerializationOrder`; nothing is reordered implicitly. |
-| 7 | **The structural accessor is `$`-namespaced** (or the nearest per-language equivalent) so it can never collide with a model member name. |
+| 7 | **Structural accessors never collide with a model member name.** The section id, headline and code-spec accessors are `$`-namespaced (or the nearest per-language equivalent); the plain-named ones (`doc`, `path`, `isEmpty`, `canHaveContent`) are protected by renaming the *generated* accessor instead. See `som_multiplatform_spec_model.md` §10.1. |
 | 8 | **Conformance is corpus-pinned** — the numbering behaviour has its own golden corpus files, separate from the document-format corpus. |
 
 **Add API — three variants per language:** a plain add (today's date, next

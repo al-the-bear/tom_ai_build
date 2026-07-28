@@ -17,6 +17,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_python_v0` package module source for a [SpecModel].
 class SomPythonEmitter {
   final SpecModel model;
@@ -322,7 +325,7 @@ class SomPythonEmitter {
     final seg = _ref.fieldSegment(f);
     final childPath = 'f"{self.path}/${_fstr(seg)}"';
     // Python-safe accessor identifier (the path segment above is untouched).
-    final acc = _acc(f.name);
+    final acc = _memberAcc(f.name);
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
@@ -454,7 +457,7 @@ class SomPythonEmitter {
     final field = '"${_pystr(ff.name)}"';
     // The form-field key string ($field) is preserved; only the Python accessor
     // identifier is keyword-sanitised.
-    final acc = _acc(ff.name);
+    final acc = _memberAcc(ff.name);
     b..writeln()..writeln('    @property');
     switch (_scalarType(ff.type)) {
       case 'int':
@@ -584,7 +587,25 @@ class SomPythonEmitter {
   /// emitted Python identifier changes — the document path segment and the
   /// stored enum token are derived independently and stay byte-identical to the
   /// Dart facade, so cross-language documents remain compatible.
+  ///
+  /// Enum members live on their own class and are sanitised with this alone;
+  /// **section-facade members** additionally go through [_memberAcc].
   String _acc(String name) => _pyKeywords.contains(name) ? '${name}_' : name;
+
+  /// The inherited `SomNode` members a generated `@property` must not shadow —
+  /// the structural surface, from the one table in
+  /// `som_structural_accessors.dart` all nine emitters share. A subclass
+  /// property of the same name silently replaces the base one in Python, so the
+  /// symptom would be a wrong read rather than an error.
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.python);
+
+  /// [_acc], additionally guarded against the inherited structural members.
+  /// Used for class-field and form-field accessors, never for enum members.
+  String _memberAcc(String name) {
+    final base = _acc(name);
+    return _structural.contains(base) ? '${base}_' : base;
+  }
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);

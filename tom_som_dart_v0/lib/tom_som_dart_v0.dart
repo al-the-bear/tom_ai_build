@@ -54537,8 +54537,8 @@ class InterfaceOperationEntryContentForm extends SomNode {
   String get httpMethod => doc.formField(path, 'httpMethod') ?? '';
   set httpMethod(String value) => doc.setFormField(path, 'httpMethod', value);
 
-  String get path => doc.formField(path, 'path') ?? '';
-  set path(String value) => doc.setFormField(path, 'path', value);
+  String get path_ => doc.formField(path, 'path') ?? '';
+  set path_(String value) => doc.setFormField(path, 'path', value);
 
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);

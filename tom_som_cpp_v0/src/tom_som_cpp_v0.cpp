@@ -83376,10 +83376,10 @@ std::string ReportSectionEntryContentForm::content() const {
 void ReportSectionEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ReportSectionEntryContentForm::sectionId() const {
+std::string ReportSectionEntryContentForm::sectionId_() const {
   return doc().formField(path(), "sectionId");
 }
-void ReportSectionEntryContentForm::setSectionId(const std::string& value) {
+void ReportSectionEntryContentForm::setSectionId_(const std::string& value) {
   doc().setFormField(path(), "sectionId", value);
 }
 std::string ReportSectionEntryContentForm::title() const {
@@ -90094,10 +90094,10 @@ std::string ScreenSectionEntryContentForm::content() const {
 void ScreenSectionEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ScreenSectionEntryContentForm::sectionId() const {
+std::string ScreenSectionEntryContentForm::sectionId_() const {
   return doc().formField(path(), "sectionId");
 }
-void ScreenSectionEntryContentForm::setSectionId(const std::string& value) {
+void ScreenSectionEntryContentForm::setSectionId_(const std::string& value) {
   doc().setFormField(path(), "sectionId", value);
 }
 std::string ScreenSectionEntryContentForm::sectionName() const {

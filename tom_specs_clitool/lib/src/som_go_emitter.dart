@@ -17,10 +17,12 @@
 ///   * each model class becomes a `struct` embedding `som.SomNode`, with
 ///     **exported (Pascal-cased) method accessors** (`Vision()` /
 ///     `SetVision(string)`);
-///   * the bound document/path are reached through the embedded node's exported
-///     `Doc()` / `Path()` methods — so a model field that Pascal-cases to `Doc`
-///     or `Path` would *shadow* those promoted methods and self-recurse, and is
-///     therefore reserved (the Go analogue of the TS `doc`/`path` guard);
+///   * the bound document/path, the section id, the headline, the CodeSpecs
+///     link and the two content predicates are reached through the embedded
+///     node's promoted methods — so a model field that Pascal-cases onto any of
+///     them would *shadow* the promoted method silently. The whole structural
+///     surface is reserved, from the one table in
+///     `som_structural_accessors.dart` that all nine emitters share;
 ///   * enums become exported string constants + an unexported `parse<Enum>`
 ///     helper (the stored token stays byte-identical across languages);
 ///   * the version check returns `*som.SomVersionError`, so root constructors
@@ -35,6 +37,9 @@
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
+
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
 
 import 'packaging.dart' show packageVersionFromModel;
 
@@ -781,22 +786,24 @@ class SomGoEmitter {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 
+  /// The promoted members of the embedded `som.SomNode` — see
+  /// [somStructuralAccessorNames]. Go embeds rather than inherits, so a
+  /// generated method of the same name shadows the promoted one **silently**.
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.go);
+
   /// Allocates a unique exported accessor base name for [name] within [used].
   ///
-  /// The base is the Pascal-cased field name. `Doc` / `Path` are reserved — a
-  /// generated method of either name would shadow the embedded [SomNode]'s
-  /// promoted `Doc()` / `Path()` and self-recurse. `SectionID` / `SetSectionID`
-  /// are likewise reserved: they are the structural section-id accessors on the
-  /// embedded [SomNode] (AA-6 decision AF-D1, the Go analogue of the Dart/TS
-  /// `$sectionId`), and a typed field of that name would shadow them. All gain a
-  /// trailing underscore. Both the getter base and its `Set<base>` setter form
-  /// are reserved so the getter and setter never collide across fields.
+  /// The base is the Pascal-cased field name. The structural accessors of the
+  /// embedded `som.SomNode` are reserved and gain a trailing underscore; the
+  /// set is not maintained here but in [somStructuralAccessorNames], so adding
+  /// a structural accessor to the runtime reaches all nine emitters at once.
+  /// Both the getter base and its `Set<base>` setter form are reserved so the
+  /// getter and setter never collide across fields.
   String _allocAccessor(Set<String> used, String name) {
     var base = _pascal(name);
     if (base.isEmpty) base = 'Field';
-    if (base == 'Doc' || base == 'Path' || base == 'SectionID') {
-      base = '${base}_';
-    }
+    if (_structural.contains(base)) base = '${base}_';
     var cand = base;
     var n = 2;
     while (used.contains(cand) || used.contains('Set$cand')) {

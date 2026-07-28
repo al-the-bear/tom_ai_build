@@ -100015,11 +100015,11 @@ class InterfaceOperationEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "httpMethod", value);
   }
 
-  get path() {
+  get path_() {
     return this.doc.formField(this.path, "path") || '';
   }
 
-  set path(value) {
+  set path_(value) {
     this.doc.setFormField(this.path, "path", value);
   }
 

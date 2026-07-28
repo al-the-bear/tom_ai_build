@@ -25,6 +25,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_java_v0` `TomSomV0.java` source for a [SpecModel].
 class SomJavaEmitter {
   final SpecModel model;
@@ -342,7 +345,7 @@ class SomJavaEmitter {
     final seg = _ref.fieldSegment(f);
     final childPath = 'path + "/${_jstr(seg)}"';
     // Java-safe accessor identifier (the path segment above is untouched).
-    final acc = _acc(f.name);
+    final acc = _memberAcc(f.name);
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
@@ -476,7 +479,7 @@ class SomJavaEmitter {
     final field = '"${_jstr(ff.name)}"';
     // The form-field key string ($field) is preserved; only the Java accessor
     // identifier is keyword-sanitised.
-    final acc = _acc(ff.name);
+    final acc = _memberAcc(ff.name);
     b.writeln();
     switch (_scalarType(ff.type)) {
       case 'int':
@@ -590,7 +593,25 @@ class SomJavaEmitter {
   /// emitted Java identifier changes — the document path segment and the stored
   /// enum token are derived independently and stay byte-identical to the Dart
   /// facade, so cross-language documents remain compatible.
+  ///
+  /// Enum constants live on their own nested type and are sanitised with this
+  /// alone; **section-facade members** additionally go through [_memberAcc].
   String _acc(String name) => _javaKeywords.contains(name) ? '${name}_' : name;
+
+  /// The structural `SomNode` members a generated facade method must not take
+  /// (`som_structural_accessors.dart`).
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.java);
+
+  /// Returns a Java-safe **facade member** identifier for [name].
+  ///
+  /// The generated class `extends SomNode`, so a member of a structural name
+  /// silently overrides the inherited one instead of failing to compile — the
+  /// same trailing-underscore convention resolves it to a distinct method.
+  String _memberAcc(String name) {
+    final base = _acc(name);
+    return _structural.contains(base) ? '${base}_' : base;
+  }
 
   String _pascal(String s) {
     final parts = s.split(RegExp(r'[_\s]+')).where((p) => p.isNotEmpty);

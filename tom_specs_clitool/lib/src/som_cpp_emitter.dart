@@ -32,6 +32,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// The header include-guard macro and the generated file basenames.
 const String _headerGuard = 'TOM_SOM_CPP_V0_HPP';
 const String _headerBasename = 'tom_som_cpp_v0.hpp';
@@ -769,14 +772,18 @@ class SomCppEmitter {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 
-  /// Member-function names inherited from `som::SomNode` that a generated getter
-  /// must not shadow. A field named `doc`/`path` would otherwise produce an
-  /// accessor that hides the base accessor — and, because the accessor body
-  /// calls `doc()`/`path()`, recurse infinitely. Reserving them (trailing
-  /// underscore, like the Go port's Doc/Path guard) keeps the base methods
-  /// reachable; the stored path segment / form-field key is derived
-  /// independently and stays byte-identical across languages.
-  static const Set<String> _reservedMethodNames = {'doc', 'path'};
+  /// Member-function names inherited from `som::SomNode` that a generated
+  /// accessor must not shadow — the structural surface, from the one table in
+  /// `som_structural_accessors.dart` all nine emitters share. The members are
+  /// non-virtual, so a same-named derived method **hides** rather than
+  /// overrides: the base stays reachable only through an explicit qualification
+  /// nothing generated performs, and an accessor body calling `doc()`/`path()`
+  /// would recurse infinitely. Reserving them (trailing underscore, like the Go
+  /// port) keeps the base methods reachable; the stored path segment /
+  /// form-field key is derived independently and stays byte-identical across
+  /// languages.
+  static final Set<String> _reservedMethodNames =
+      somReservedAccessorNames(SomLanguage.cpp);
 
   /// The member-function name for a getter on [name]; a C++ keyword or an
   /// inherited `som::SomNode` method name gains a trailing underscore. Empty ⇒
@@ -791,10 +798,15 @@ class SomCppEmitter {
   }
 
   /// The member-function name for a setter on [name]: `set` + Pascal(name). The
-  /// `set` prefix can never be a keyword, so no sanitising is needed.
+  /// `set` prefix can never be a keyword, but it *can* land on an inherited
+  /// `som::SomNode` setter (`setHeadline`, `setSectionId`, …), which is the same
+  /// silent-hiding hazard [_accessor] guards — so the result is checked against
+  /// the same reserved set.
   String _setter(String name) {
     final p = _pascal(name);
-    return p.isEmpty ? 'setField' : 'set$p';
+    if (p.isEmpty) return 'setField';
+    final base = 'set$p';
+    return _reservedMethodNames.contains(base) ? '${base}_' : base;
   }
 
   /// The enum-constant member name for [value] at [index]: the value itself when

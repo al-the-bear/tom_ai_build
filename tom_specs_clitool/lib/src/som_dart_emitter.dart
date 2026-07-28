@@ -16,6 +16,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_dart_v0` library source for a [SpecModel].
 class SomDartEmitter {
   final SpecModel model;
@@ -303,29 +306,30 @@ class SomDartEmitter {
   ) {
     final seg = _ref.fieldSegment(f);
     final childPath = "'\$path/${_escape(seg)}'";
+    // Structural-collision-safe accessor identifier; the path segment above is
+    // derived from the model and stays untouched.
+    final acc = _acc(f.name);
     _writeDoc(b, f.doc, '  ');
     switch (f.kind) {
       case SpecFieldKind.content:
       case SpecFieldKind.scalar:
         b
-          ..writeln('  String get ${f.name} => doc.content($childPath) ?? \'\';')
+          ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
           ..writeln(
-              '  set ${f.name}(String value) => doc.setContent($childPath, value);');
+              '  set $acc(String value) => doc.setContent($childPath, value);');
         break;
       case SpecFieldKind.enumValue:
         if (f.enumType == null) {
           // No enum type name available — fall back to a string leaf.
           b
+            ..writeln('  String get $acc => doc.content($childPath) ?? \'\';')
             ..writeln(
-                '  String get ${f.name} => doc.content($childPath) ?? \'\';')
-            ..writeln(
-                '  set ${f.name}(String value) => doc.setContent($childPath, value);');
+                '  set $acc(String value) => doc.setContent($childPath, value);');
         } else {
           final et = f.enumType!;
           b
-            ..writeln(
-                '  $et? get ${f.name} => _parse$et(doc.content($childPath));')
-            ..writeln('  set ${f.name}($et? value) => '
+            ..writeln('  $et? get $acc => _parse$et(doc.content($childPath));')
+            ..writeln('  set $acc($et? value) => '
                 'doc.setContent($childPath, value?.name ?? \'\');');
         }
         break;
@@ -335,7 +339,7 @@ class SomDartEmitter {
         if (target == null) {
           b.writeln('  // (skipped: ${f.name} has no target type)');
         } else {
-          b.writeln('  $target get ${f.name} => $target(doc, $childPath);');
+          b.writeln('  $target get $acc => $target(doc, $childPath);');
         }
         break;
       case SpecFieldKind.list:
@@ -344,10 +348,10 @@ class SomDartEmitter {
             : '';
         if (f.elementIsComplex && f.elementType != null) {
           final et = f.elementType!;
-          b.writeln('  SomList<$et> get ${f.name} => '
+          b.writeln('  SomList<$et> get $acc => '
               'SomList<$et>(doc, $childPath, (d, p) => $et(d, p)$patternArg);');
         } else {
-          b.writeln('  SomList<SomScalar> get ${f.name} => '
+          b.writeln('  SomList<SomScalar> get $acc => '
               'SomList<SomScalar>(doc, $childPath, (d, p) => SomScalar(d, p)'
               '$patternArg);');
         }
@@ -355,7 +359,7 @@ class SomDartEmitter {
       case SpecFieldKind.form:
         final formName = _allocFormName('${cls.name}${_pascal(f.name)}Form');
         collectForm(_FormClass(formName, _emitFormClass(formName, f)));
-        b.writeln('  $formName get ${f.name} => $formName(doc, $childPath);');
+        b.writeln('  $formName get $acc => $formName(doc, $childPath);');
         break;
     }
   }
@@ -403,8 +407,10 @@ class SomDartEmitter {
   /// and the generic reading are unchanged; only the facade's static type
   /// mirrors the declared form-field type.
   void _writeFormMember(StringBuffer b, FormFieldSpec ff) {
-    final n = ff.name;
-    final key = _escape(n);
+    // The stored form-field key keeps the model name; only the emitted Dart
+    // accessor identifier is guarded against the structural surface.
+    final n = _acc(ff.name);
+    final key = _escape(ff.name);
     // YRD7: enum-typed form fields expose the generated enum natively; the
     // stored value stays the constant name (`_parse<Enum>` / `.name`).
     if (ff.enumValues.isNotEmpty) {
@@ -484,6 +490,27 @@ class SomDartEmitter {
 
   String _escape(String s) =>
       s.replaceAll('\\', '\\\\').replaceAll("'", "\\'").replaceAll('\$', '\\\$');
+
+  /// The structural `SomNode` members a generated accessor must not take
+  /// (`som_structural_accessors.dart`).
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.dart);
+
+  /// Returns a Dart-safe **facade member** identifier for [name].
+  ///
+  /// Model field names originate in Dart source, so they are already valid Dart
+  /// identifiers and need no keyword sanitising. What they can still collide
+  /// with is the inherited [SomNode] surface: the generated class
+  /// `extends SomNode`, so a field named `path` emits a `get path` that
+  /// **overrides** the base field — and whose own body reads `$path`, recursing
+  /// — rather than failing to compile. A trailing underscore resolves the
+  /// collision to a distinct accessor, matching the other eight facades.
+  ///
+  /// Only the emitted identifier changes; the document path segment and the
+  /// stored token are derived independently, so documents stay cross-language
+  /// compatible.
+  String _acc(String name) =>
+      _structural.contains(name) ? '${name}_' : name;
 
   /// LowerCamel of a root type name — the generated meta library names its
   /// per-root `SomMetaTree` global `<camelType>MetaTree` (SomDartMetaEmitter).

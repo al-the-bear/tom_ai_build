@@ -494,27 +494,30 @@ never affected.
   `tomSom.runtimePath` hook.
 - **TypeScript** — strict, a fixed bare-specifier import, a `file:` dependency on
   its runtime, `ignoreDeprecations: "6.0"`, and accessor sanitization for
-  inherited members (`doc`, `path`).
+  language keywords and inherited members (§10.1).
 - **Go** — package `somruntime`, a `replace` directive onto the runtime, and
-  guards for three naming hazards: `Doc`/`Path` shadowing, per-struct member
-  dedup, and the `New<Type>` global allocator naming.
+  guards for three naming hazards: shadowing of the embedded node's promoted
+  methods (§10.1), per-struct member dedup, and the `New<Type>` global
+  allocator naming.
 - **Rust** — `Rc<RefCell<SpecDocument>>` sharing, a `path` dependency in both
   `[dependencies]` and `[dev-dependencies]`, a hand-rolled `json` module, and
   plain-comment emission for doc text.
 - **C** — an accessor-function API over a flat, deduplicated namespace;
   int-return + `char** err` error convention; a Makefile.
 - **C++** — RAII classes (`class X : public som::SomNode`), a `.hpp`/`.cpp`
-  split, a Doc/Path shadow guard, and `SomVersionError` on version mismatch.
+  split, a shadow guard over the inherited node methods (§10.1), and
+  `SomVersionError` on version mismatch.
 
 ### 10.1 Per-language structural-accessor surface
 
-`tom_specs_model_rules.md` §7 requires the structural accessor (the node's
-section id) to be **collision-proof against model member names**. Each language
-resolves that in its own idiomatic way; the names are fixed, not per-generator
-choices:
+`tom_specs_model_rules.md` §7 requires the structural accessors — the members
+every node carries regardless of the model (`doc`, `path`, the section id, the
+headline, the code-spec links, `isEmpty`, `canHaveContent`) — to be
+**collision-proof against model member names**. Each language resolves that in
+its own idiomatic way; the names are fixed, not per-generator choices:
 
-| Language | Accessor | Note |
-|----------|----------|------|
+| Language | Section-id accessor | Note |
+|----------|---------------------|------|
 | Dart | `SomNode.$sectionId` | `$` prefix — illegal as a generated member name |
 | Python | `spec_section_id` | reserved `spec_` prefix |
 | Java | `$sectionId` | `$` prefix |
@@ -523,6 +526,24 @@ choices:
 | Rust | named `node` field | struct field namespacing makes a guard unnecessary |
 | C | plain struct field | struct field namespacing makes a guard unnecessary |
 | C++ | `SomNode::sectionId()` / `setSectionId()` | method pair |
+
+A reserved prefix only protects the three accessors that carry one; `doc`,
+`path`, `isEmpty` and `canHaveContent` are plain names in every language that
+inherits or embeds the node, and a model field of that name would shadow them.
+Where the shadow is silent rather than a compile error — Go promotes the
+embedded node's methods, C++ hides non-virtual ones, and Dart/JavaScript accept
+an override whose body then calls itself — a wrong read, not a build failure, is
+the failure mode. So the emitters **rename the generated accessor** (appending
+`_`) rather than relying on the prefix.
+
+The reserved set is a single table, `SomStructuralMember` ×
+`SomLanguage` in `tom_specs_clitool/lib/src/som_structural_accessors.dart`, from
+which all nine emitters derive their guard; no emitter keeps its own literal
+list. Rust and C record an **empty** set deliberately: Rust composes the node as
+a named field and C allocates every function name from one flat deduplicated
+namespace, so neither can shadow. The table is checked against the reference
+Dart facade member for member, so a structural accessor added to `SomNode`
+without a table entry fails the build.
 
 ## 11. The `*.md` format — strict DocSpecs, full fidelity
 

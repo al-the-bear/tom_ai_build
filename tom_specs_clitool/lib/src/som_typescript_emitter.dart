@@ -23,6 +23,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_typescript_v0` module source for a [SpecModel].
 class SomTypeScriptEmitter {
   final SpecModel model;
@@ -551,21 +554,18 @@ class SomTypeScriptEmitter {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 
-  /// The TypeScript/JavaScript reserved words, the object-property names that are
-  /// unsafe to use as a class accessor (`constructor` is special-cased by the
-  /// language; `prototype` / `__proto__` shadow the prototype chain), **and the
-  /// inherited [SomNode] instance fields `doc` / `path`**.
+  /// The TypeScript/JavaScript reserved words and the object-property names that
+  /// are unsafe to use as a class accessor (`constructor` is special-cased by the
+  /// language; `prototype` / `__proto__` shadow the prototype chain).
   ///
   /// Dart field and form-field names are otherwise valid TS accessor names, but a
-  /// `get constructor()` is a syntax error and the others are footguns. The
-  /// `doc` / `path` cases are TypeScript-specific: a generated `get path()` /
-  /// `get doc()` would override the base **property** with an **accessor** (TS
-  /// error TS2611) and, worse, the accessor body's own `this.path` reference
-  /// would recurse — so a model field literally named `path` (e.g. an
-  /// `InterfaceOperationEntry` content form) must be sanitised. A
+  /// `get constructor()` is a syntax error and the others are footguns. A
   /// trailing-underscore convention is applied uniformly across the reserved set
-  /// — matching the Python/Java/JavaScript facades for the keywords, with the
-  /// extra base-member guard the static TS compiler requires.
+  /// — matching the Python/Java/JavaScript facades.
+  ///
+  /// The inherited [SomNode] members are **not** listed here: they come from
+  /// [_structural], the shared per-language table, so adding a structural
+  /// accessor does not have to be remembered in nine literal lists.
   static const Set<String> _tsKeywords = {
     'break', 'case', 'catch', 'class', 'const', 'continue', 'debugger',
     'default', 'delete', 'do', 'else', 'export', 'extends', 'finally', 'for',
@@ -574,17 +574,30 @@ class SomTypeScriptEmitter {
     'yield', 'enum', 'await', 'implements', 'interface', 'let', 'package',
     'private', 'protected', 'public', 'static', 'null', 'true', 'false',
     'constructor', 'prototype', '__proto__',
-    // Inherited SomNode instance fields — a typed accessor of the same name
-    // would shadow/override the base property (TS2611) and self-recurse.
-    'doc', 'path',
   };
+
+  /// The structural `SomNode` members a generated accessor must not take
+  /// (`som_structural_accessors.dart`).
+  ///
+  /// The generated class `extends SomNode`, so this is not merely a style rule:
+  /// a `get path()` / `get doc()` overrides the base **property** with an
+  /// **accessor** (TS error TS2611) and the accessor body's own `this.path`
+  /// reference self-recurses. A model field literally named `path` (e.g. an
+  /// `InterfaceOperationEntry` content form) exists, so the guard is load-bearing.
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.typescript);
 
   /// Returns a TS-safe accessor identifier for [name].
   ///
   /// Only the emitted TS identifier changes — the document path segment and the
   /// stored enum token are derived independently and stay byte-identical to the
-  /// other facades, so cross-language documents remain compatible.
-  String _acc(String name) => _tsKeywords.contains(name) ? '${name}_' : name;
+  /// other facades, so cross-language documents remain compatible. (Generated
+  /// enum values are emitted as quoted object keys, not identifiers, so this
+  /// helper serves facade members only.)
+  String _acc(String name) =>
+      _tsKeywords.contains(name) || _structural.contains(name)
+          ? '${name}_'
+          : name;
 
   /// The lowerCamelCase form of a type name — names the per-root
   /// `<camelType>MetaTree` constant in the generated metadata module.

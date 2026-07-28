@@ -37,6 +37,9 @@ library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
+import 'som_structural_accessors.dart';
+import 'spec_object_model_config.dart' show SomLanguage;
+
 /// Generates the `tom_som_rust_v0` crate-root source for a [SpecModel].
 class SomRustEmitter {
   final SpecModel model;
@@ -776,14 +779,24 @@ class SomRustEmitter {
       .replaceAll('\r', '\\r')
       .replaceAll('\t', '\\t');
 
+  /// The structural accessors a generated method must not take — empty for
+  /// Rust, because the generated struct *composes* the node (`pub node:
+  /// SomNode`) rather than inheriting it, so nothing can be shadowed. Read from
+  /// the shared table rather than hard-coded as `{}`, so that if the structural
+  /// surface ever moves onto the generated impl the guard is already wired.
+  static final Set<String> _structural =
+      somReservedAccessorNames(SomLanguage.rust);
+
   /// Allocates a unique snake-cased accessor base name for [name] within
-  /// [used]. Rust keywords gain a trailing underscore; both the getter base and
-  /// its `set_<base>` setter form are reserved so they never collide across
-  /// fields.
+  /// [used]. Rust keywords and reserved structural names gain a trailing
+  /// underscore; both the getter base and its `set_<base>` setter form are
+  /// reserved so they never collide across fields.
   String _allocAccessor(Set<String> used, String name) {
     var base = _snake(name);
     if (base.isEmpty) base = 'field';
-    if (_rustKeywords.contains(base)) base = '${base}_';
+    if (_rustKeywords.contains(base) || _structural.contains(base)) {
+      base = '${base}_';
+    }
     var cand = base;
     var n = 2;
     while (used.contains(cand) || used.contains('set_$cand')) {

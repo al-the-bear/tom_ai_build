@@ -96136,11 +96136,11 @@ class InterfaceOperationEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "httpMethod", value)
 
     @property
-    def path(self) -> str:
+    def path_(self) -> str:
         return self.doc.form_field(self.path, "path") or ""
 
-    @path.setter
-    def path(self, value):
+    @path_.setter
+    def path_(self, value):
         self.doc.set_form_field(self.path, "path", value)
 
     @property
