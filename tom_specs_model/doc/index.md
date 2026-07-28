@@ -16,6 +16,25 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 `_ai/quests/tom_specs/` and is deliberately **not** part of this folder. So does
 campaign history: these documents state the current design only.
 
+## How to cite these documents
+
+Code comments and documents cite a section of
+[som_multiplatform_spec_model.md](som_multiplatform_spec_model.md) as **`SOM §N`**
+— for example `SOM §11.4`, `SOM §8`. The short form exists because these
+citations appear inside fixed-width comment banners in generated source across
+nine languages, where a longer form would not fit. Spell the file name out in
+full at least once per file where it reads naturally, then use the short form.
+
+Every other document is cited by **file name plus section** —
+`codespecs_mapping.md §9.2`, `tom_specs_model_rules.md §6.1`. A bare `§N` with
+no document in front of it is unresolvable and is always a defect: the reader
+cannot tell which of twelve documents it means.
+
+Cite by **subject, not by number**. Section numbers move when a document is
+restructured, so a number carried mechanically from one document to another
+points at whatever heading now happens to hold that position. Confirm the target
+section says what the citation claims before writing it.
+
 ---
 
 ## The object model and how it is generated
