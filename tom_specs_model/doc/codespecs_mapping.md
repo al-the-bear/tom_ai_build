@@ -212,7 +212,7 @@ Beyond these, **four deferred candidate parts** are reserved for *mapping only*
 | **CE-AZ** | Authorization per operation | server | Modifier on CE-API. Reuses the kernel `TomAccessControl` family + the `tom_core_server` graded-authorization runtime; no new classes (§5.6.3, §5.15). |
 | **CE-ER** | Structured error-result contract | shared | One envelope for all operations. Reuses `TomResult<T>`/`TomErrorResult` + `TomFieldError`/`TomErrorSeverity` (`tom_core_kernel`) directly; no new classes (§7). |
 | **CE-CF** | Server / system configuration | server | Reuses `TomBaseServerConfiguration`/`TomServerConfigResourceProvider` (`tom_core_server`) directly; no new classes (§5.5, §5.16). |
-| **CE-CC** | Client configuration — per-machine settings of a client app | client | Builds on the `TomProperty<T>` family (`tom_core_flutter`); a dedicated client-settings holder is a candidate `tom_core_codespecs` gap class (§5.16, §11). |
+| **CE-CC** | Client configuration — per-machine settings of a client app | client | Reuses `TomBaseClientConfiguration`/`TomSetting<T>`/`TomClientConfigurationStore` (`tom_core_flutter`, `tomclient/configuration/`) directly; no new classes (§5.16, §11). |
 | **CE-DS** | Device settings — user-specific settings of a user-owned device, device-persisted | client | **Reuse — no new class.** Modelled with existing `tom_core` property/settings classes that can be directly reused; the (user, device) scope is expressed on those (§11, §5.16). |
 | **CE-UP** | User settings — user-scoped, server-persisted, follow the user | client + server | The round-trip carrier exists (`TomGetSettingsMessage`/`TomGetSettingsResult`, `tom_core_kernel`); **no typed user-settings holder and no server-side per-user persistence yet** — both a `tom_core_codespecs` gap to specify (§11, §5.16). |
 | **CE-CL** | Client application — which clients exist (Flutter app, CLI, other server) | client | **No `tom_core` basis yet** — the client-application descriptor is a new pure-Dart class (annotation-marked) in `tom_core_codespecs`; gap to specify. |
@@ -259,7 +259,7 @@ surface — pillar (a)/(b)):
 | CE-AZ | Authorization | `authorization` | `@CsAuthorize` | `TomAccessControl*` hierarchy + `TomPrincipal` (`tom_core_kernel`); enforcement `checkAccess` / graded auth (`tom_core_server`) (§5.6.3, §5.15) |
 | CE-ER | ErrorResult | `errorResult` | `@CsError` | `TomResult<T>` / `TomErrorResult` (`tom_core_kernel`) (§7) |
 | CE-CF | ServerConfiguration | `serverConfiguration` | `@CsServerConfig` | `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`) (§5.5, §5.16) |
-| CE-CC | ClientConfiguration | `clientConfiguration` | `@CsClientConfig` | `TomProperty<T>` family (`tom_core_flutter`) + `TomConfigResourceProvider` (`tom_core_kernel`) (§5.16) |
+| CE-CC | ClientConfiguration | `clientConfiguration` | `@CsClientConfig` | `TomBaseClientConfiguration` + `TomSetting<T>` + `TomClientConfigurationStore` (`tom_core_flutter`); baseline layer `TomConfigResourceProvider` (`tom_core_kernel`) (§5.16) |
 | CE-UP | UserSettings | `userSettings` | `@CsUserSetting` | typed user-settings holder + server-side per-user persistence → **gap** (`tom_core_codespecs`); round-trip substrate `TomGetSettings*` (`tom_core_kernel`) (§5.16) |
 | CE-DS | DeviceSettings | `deviceSettings` | `@CsDeviceSetting` | **reuse — no new class**; modelled with existing `tom_core` property/settings classes, directly reusable (§5.16, §11) |
 | CE-CL | Client | `client` | `@CsClient` | client-application descriptor → **gap** |
@@ -376,7 +376,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` needs `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23, not yet authored) instead of raw strings; per-field **graded-access levels** (CE-EL / CE-DB grades) are annotation-only detail. |
 | **CE-ER** ErrorResult | The shared error/result envelope + the error-code catalogue. | **Built on:** `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity` (`tom_core_kernel`, `tombase/result/result.dart`). The error catalogue is a **plain annotated constants class** in the shared project; texts keyed via CE-TX.<br>**Annotations:** `@CsError` per code.<br>**Example:** `@CsError(severity: error) static const custNotFound = CsErrorCode('CUST-404');` | None. | `CsErrorCode` (§5.23) not yet authored; `@CsError` attributes for **severity**, **message key**, and which operations raise the code. |
 | **CE-CF** ServerConfiguration | Server/system-scope configuration; precedence config-tree → env → `.env` → cmdline; secret marking. | **Built on:** subclass of `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`). A **plain typed config class**; config keys stay strings (§5.23 exemption).<br>**Annotations:** `@CsServerConfig` on the class; per-field attributes.<br>**Example:** `@CsServerConfig class AppServerConfig extends TomBaseServerConfiguration { @CsSecret late String smtpPassword; }` *(secret-marking attribute shape per §5.16)* | None. | Per-field annotations for **secret marking**, **default value**, **format restriction** and **allowed range** — spec detail beyond a Dart field declaration. The SMTP settings (`smtpHost`, `smtpPort`, `smtpSecurity`, `smtpUsername`, `smtpPassword`, `smtpFrom*`, `smtpClientName`) are the live exemplar: declared on `TomBaseServerConfiguration`, with `smtpPassword` secret-bearing — its *declaration* authored, its *value* supplied only through the precedence chain. |
-| **CE-CC** ClientConfiguration | Client-app + machine scope (no user); single-moded per §11. | **Built on:** the `TomProperty<T>` family (`tom_core_flutter`, `tomclient/resources/tom_properties.dart`) + `TomConfigResourceProvider` (`tom_core_kernel`).<br>**Annotations:** `@CsClientConfig` on the holder class; per-field constraint attributes.<br>**Example:** `@CsClientConfig class AppClientConfig { final serverUrl = TomProperty<String>(…); }` | **Candidate gap** — a dedicated **client-settings holder** class (aggregating `TomProperty` fields with load/persist) is not present; the confirm/reject decision is owned by `csex12` (outcomes: already expressible / holder in `tom_core_flutter` / `tom_core_codespecs` gap class). | Same per-field constraint attributes as CE-CF (defaults, formats, ranges). |
+| **CE-CC** ClientConfiguration | Client-app + machine scope (no user); single-moded per §11. | **Built on:** subclass of `TomBaseClientConfiguration` (`tom_core_flutter`, `tomclient/configuration/client_configuration.dart`) — settings declared in `declareSettings()` as `TomSetting<T>` under dotted keys, baselines resolved from `TomConfigResourceProvider` (`tom_core_kernel`), overrides persisted through a `TomClientConfigurationStore` (memory / JSON-file variants).<br>**Annotations:** `@CsClientConfig` on the holder class; per-field constraint attributes.<br>**Example:** `@CsClientConfig class AppClientConfig extends TomBaseClientConfiguration { late final TomSetting<String> serverUrl; @override void declareSettings() { serverUrl = stringSetting('client.server.url', 'https://…'); } }` | None — the holder was built by `csex12` (decision (b)): typed access, defaults, load-at-startup, persistence of **overrides only**, and observation both per field and holder-wide. | Same per-field constraint attributes as CE-CF (defaults, formats, ranges) — annotation-borne, not holder behaviour. |
 | **CE-UP** UserSettings | User-scope, **server-persisted** settings — follows the user (§11). | **Built on:** the round-trip substrate `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`, `tombase/settings/settings_client_authorization.dart`). The settings holder is a **plain annotated model class**.<br>**Annotations:** `@CsUserSetting` per field.<br>**Example:** `@CsUserSetting(defaultValue: 'de') late String preferredLanguage;` | **Gap** — the **typed user-settings holder + server-side per-user persistence** is missing; concrete classes land in `tom_core_codespecs` (`csra2`). Only the wire round-trip exists. | Per-field **default / format / visibility** attributes (incl. which settings surface in a settings form — the CE-FM link). |
 | **CE-DS** DeviceSettings | (user, device) scope, device-persisted (§11). | **Built on:** reuse — existing `tom_core` property/settings classes, directly reusable; no new class (§5.16).<br>**Annotations:** `@CsDeviceSetting` per field (not yet authored, `csra1`). | None. | `@CsDeviceSetting` must be authored; same constraint-attribute surface as CE-UP. |
 | **CE-CL** Client | A client application of the system: which screens/forms/flows it comprises, its platform targets, its entry route. | **No `tom_core` basis by design** — the client descriptor is a **pure plain annotated Dart class** (coding form 2).<br>**Annotations:** `@CsClient` on the descriptor.<br>**Example:** `@CsClient(platforms: […]) class BackofficeClient { … }` referencing routes (`CsRouteRef`) and forms. | **Gap** — the **client-application descriptor** class (a simple concrete data class) lands in `tom_core_codespecs`. | `@CsClient` attributes: **platform targets**, **entry route**, included flows — none expressible in plain code. |
@@ -392,7 +392,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 **Readiness classification** (derived from the gap columns):
 
 - **READY — pure reuse, no core gap:** CE-FM, CE-VA, CE-AC, CE-SC, CE-API,
-  CE-SU, CE-ST, CE-ER, CE-CF, CE-DS, CE-ID, CE-AZ.
+  CE-SU, CE-ST, CE-ER, CE-CF, CE-CC, CE-DS, CE-ID, CE-AZ.
 - **NEEDS-EXTENSION — substrate exists, a capability is missing:** CE-DB
   (aggregation, `csex5`), CE-AU (2FA second pass, `csex3`), CE-MG (schema-diff
   convergence, `csex6`), CE-EL (three uncarried per-kind attributes, `csexb1` —
@@ -401,8 +401,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   plus the `csexb2` container-kind reconciliation), CE-TX (message-key
   registry), CE-NV (route registry + screen flow), CE-UP (settings holder +
   persistence), CE-CL (client descriptor), CE-JB (job base class; plus the
-  `csex7`/`csex8` scheduler-runtime roadmap), CE-CC (candidate holder —
-  decision owned by `csex12`).
+  `csex7`/`csex8` scheduler-runtime roadmap).
 - **Deferred:** CE-RP (`csex5` — `csex11` is DONE, so of its three blockers only
   the aggregation grammar and the tabular envelope remain),
   CE-WF (substrate survey/recommendation owned by `csex13`). **CE-LG and CE-NT
@@ -691,7 +690,7 @@ instantiate or extend (§4.1); "Gate" is §4.4.4.
 | **3** | **Server persistence & configuration** | CE-DB entities/columns/repositories; CE-MG migration artifact tree; CE-CF | `<app>_codespec_server` | Tom persistence model + CRUD/MariaDB repositories + `TomQueryBuilder` (`tom_core_server`); `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`); `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`) |
 | **4** | **Server behaviour** | CE-SU units **co-emitting** the CE-API handler methods; operation-level CE-AZ; CE-AU server flow + CE-ID attribute population | `<app>_codespec_server` | `@tomService` / `TomApiImplementation` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` / `TomComponentReference` (`tom_core_server`); `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`), `TomResourceGrant` / graded authorization (`tom_core_server`); `TomAuthenticationServer` + the app's `TomAuthenticationService`, `TomServerJwtToken` (`tom_core_server`) |
 | **5** | **Client interaction core** | **SCC-B** = CE-ST + CE-EL + CE-FM + CE-AC + CE-SC + CE-NV; field-level CE-AZ (`authorizer`); CE-TX copy; CE-AU client login flow | `<app>_codespec_client` | `TomObservable` / `TomObject<T>` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel`) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`); `TomScreenElementsProvider` + the `Tom*` element/widget family, `TomForm<T>` / `TomFormChildContainer` / `TomField<T>`, `TomAction` / `TomActionController` / `TomActionTrigger` / `TomActionTransaction` / `TomActionContext`, `TomPageRoute<T>` / `TomNavigationDestination`, `TomText` / `TomLabelBase`, `TomGradedAccess` (`tom_flutter_ui`); `TomServerEndpoint<T,R>` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`) |
-| **6** | **Client presentation & shell** | CE-LO; CE-CL; CE-CC; CE-DS; CE-UP client shape | `<app>_codespec_client` | `AclContainer` / `AclRow` / `AclComponent` (`tom_flutter_ui`) rendered via `TomObservingWidget` (`tom_core_flutter`); `TomProperty<T>` family (`tom_core_flutter`) + `TomConfigResourceProvider` (`tom_core_kernel`); `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). CE-CL has **no** `tom_core` basis by design (§4.1.1). |
+| **6** | **Client presentation & shell** | CE-LO; CE-CL; CE-CC; CE-DS; CE-UP client shape | `<app>_codespec_client` | `AclContainer` / `AclRow` / `AclComponent` (`tom_flutter_ui`) rendered via `TomObservingWidget` (`tom_core_flutter`); `TomBaseClientConfiguration` / `TomSetting<T>` / `TomClientConfigurationStore` + the `TomProperty<T>` family (`tom_core_flutter`) over `TomConfigResourceProvider` (`tom_core_kernel`); `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). CE-CL has **no** `tom_core` basis by design (§4.1.1). |
 | **7** | **Server operational** | CE-UP server-side persistence; CE-JB job definitions + work-body skeletons | `<app>_codespec_server` | `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`); the CE-DB repositories of slice 3 for the settings store |
 
 **Why this order (the across-slice edges it satisfies).** 1 has no outbound part
@@ -728,7 +727,7 @@ therefore classified:
 | **3** | Server persistence & configuration | CE-DB (aggregation) · CE-MG (schema-diff; `@CsMigration` unauthored) | **R** · **V** + **E** | `csex5` (aggregation grammar) · `csex6` (schema-diff engine) · `csra1` (`@CsMigration`) |
 | **4** | Server behaviour | CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **E** | `csex3` · `csra6` |
 | **5** | Client interaction core | CE-NV (route registry + screen-flow model) · CE-EL (uncarried per-kind attributes) · CE-SC/CE-AC/CE-FM ref types | **E** · **E(lossy)** · **E** | `csra2` (flow-model class) · `csra5` (screen-flow SOM home) · `csexb1` · `csra1` (`@CsScreenFlow`) · `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
-| **6** | Client presentation & shell | CE-LO (node model + ACL container-kind reconciliation) · CE-CL (descriptor) · CE-UP (holder) · CE-CC (holder decision) · CE-DS (`@CsDeviceSetting`) | **E** | `csra2` (node model, descriptor, settings holder) · `csexb2` (ACL substrate) · `csex12` (CE-CC confirm/reject) · `csra1` (`@CsDeviceSetting`) |
+| **6** | Client presentation & shell | CE-LO (node model + ACL container-kind reconciliation) · CE-CL (descriptor) · CE-UP (holder) · CE-DS (`@CsDeviceSetting`) — CE-CC **unblocked**, its holder landed via `csex12` | **E** | `csra2` (node model, descriptor, settings holder) · `csexb2` (ACL substrate) · `csra1` (`@CsDeviceSetting`) |
 | **7** | Server operational | CE-JB (declaration envelope; scheduler runtime, job queue and multi-node lease have **landed** in `tom_core_kernel`) · CE-UP (server persistence) | **E** · **R** | `csra2` (job declaration, settings persistence) · `csrb1` (reconcile `csex7` / `csex8` against the landed scheduling module) · `csra1` (`@CsJob`) |
 
 **Critical-path consequence.** Every slice is currently **E**-blocked, and for
@@ -738,10 +737,10 @@ annotations) and `csra2` (the one CE-TX registry class). **The `tom_core`-quest
 items are not the critical path for the first four slices** — `csex3`–`csex6`
 are all **R**/**V**, i.e. they gate a *runnable* application, not a *generatable*
 one. `tom_core` becomes emission-critical only at slices 5–7, and even there the
-larger share is `csra2` gap classes, with `csexb1`, `csexb2`, `csex12`, `csex7`
+larger share is `csra2` gap classes, with `csexb1`, `csexb2`, `csex7`
 and `csex8` beside them. The implied framework sequence: typed refs and
-annotations first (`csra6`, `csra1`), gap classes second (`csra2`, `csexb2`,
-`csex12`), runtime capabilities third (`csex3`, `csex5`, `csex7`, `csex8`),
+annotations first (`csra6`, `csra1`), gap classes second (`csra2`, `csexb2`),
+runtime capabilities third (`csex3`, `csex5`, `csex7`, `csex8`),
 verification last (`csex6`).
 
 #### 4.4.5 What the reference directions corrected
@@ -784,7 +783,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-AZ | Auth/authz spec type | Role/permission per operation from SOM `SecurityAccessSpecification`: `@CsAuthorize` (reuse, no gap class) — a **modifier** on `@CsEndpoint` carrying a `TomAccessControl` (role/group/entitlement/resource-key/custom/graded four-state), enforced by the pipeline's `checkAccess`; server project (§5.6.3). Attribute surface: **§5.15** (six `@OneOf`/`@Case` requirement kinds + attribute-less presets + graded four-state levels + field-level authKey). |
 | CE-ER | `TomResult<T>` / `TomErrorResult` (`tom_core_kernel` `tombase/result/result.dart`, kernel 1.1.16) | The one canonical **success-or-error envelope** (§7): `@CsError` (reuse, no gap class) over `TomResult<T>` (success/failure arms, explicit `success` wire discriminator) + `TomErrorResult` (`code` — the CE-TX↔CE-ER join key — plus `message`, `fieldErrors`, `retryable`, `severity`) + `TomFieldError` + `TomErrorSeverity`; every CE-API operation returns it; shared project. |
 | CE-CF | `TomBaseServerConfiguration` (`tom_core_server`) | **Server/system config only** — client-machine, device and user settings are CE-CC/CE-DS/CE-UP. `@CsServerConfig` (reuse, no gap class) over `TomBaseServerConfiguration`/`TomServerConfigResourceProvider` (`tom_core_server`), server project; one config-value concept realised as four owner-keyed parts (CE-CF/CE-CC/CE-DS/CE-UP) (§5.5). Attribute surface + precedence: **§5.16** (per-scope spec-authorable split + opt-in most-specific-owner-wins cross-scope precedence). |
-| CE-CC | `TomProperty<T>` family (`tom_core_flutter`) | Model **per-machine client configuration** — settings scoped to the machine a client app runs on (endpoints, feature toggles, device options) (§5.16, §11). |
+| CE-CC | `TomBaseClientConfiguration` + `TomSetting<T>` (`tom_core_flutter`) | Model **per-machine client configuration** — settings scoped to the machine a client app runs on (endpoints, feature toggles, device options) (§5.16, §11). |
 | CE-UP | `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip (`tom_core_kernel`) | Model **user settings** — user-scoped, server-persisted preferences that follow the user (§11); the typed holder and the server-side per-user persistence are a `tom_core_codespecs` gap to specify. |
 | CE-DS | `TomProperty<T>` family + settings holders (`tom_core`) | **Reuse — no new class.** Model **device settings** — user-specific settings of a user-owned device, persisted on the device and keyed by the signed-in user (§11); modelled with existing `tom_core` property/settings classes that are directly reusable. |
 | CE-CL | — | Enumerate the **client applications** (Flutter app, CLI, other server) — each owns its CE-CC and hosts CE-DS/CE-UP; the descriptor class is a `tom_core_codespecs` gap to specify. |
@@ -1117,8 +1116,8 @@ single-moded: the scope key alone decides where a value lives:
   specific machine** (API base URL, device options, per-install toggles), keyed by
   the (client app, machine) pair. A value about *how the server runs* is CE-CF; a
   value about *how one client install talks to it* is CE-CC. CE-CC's substrate is
-  the `tom_core_flutter` `TomProperty<T>` family (per §4.1); its attribute
-  surface is §5.16.
+  the `tom_core_flutter` `TomBaseClientConfiguration` holder (per §4.1); its
+  attribute surface is §5.16.
 - **CE-CC ↔ CE-DS.** The discriminator is **user identity in the key**: a value
   that is the same for every user of an install is CE-CC; a value that differs
   per signed-in user on the same install is CE-DS. CE-DS persists on the device
@@ -1817,7 +1816,7 @@ secret, the user's chosen preference) is supplied at deploy/run time, never auth
 | Scope | Part | Spec-authorable (the declaration) | Value origin (not authored) | Framework-internal |
 |-------|------|-----------------------------------|-----------------------------|--------------------|
 | **Server / system** | CE-CF `@CsServerConfig` | typed setting fields (`appId`, `host`/`port`, `isolateCount`, `logLevel(s)`, `databaseMigrationsDirectory`, server feature flags); secret-bearing fields (`certificateChain`/`privateKey`, `jwtRsaPubKey`/`jwtRsaPrivKey`/`jwtSharedSecretKey`) declared **and marked secret**; per-field source key + precedence | deployment (config-tree/env/`.env`/cmdline) | middleware/handlers, `loggingMiddleware`, provider singletons, self-signed cert literals |
-| **Client install** | CE-CC `@CsClientConfig` | property `key` (dotted) · value type (`TomStringProperty`/`Int`/`Double`/`Bool`) · `withDefault` default | client app config resources (`TomConfigResourceProvider`) | the `TomProperty<T>` resolve/cast machinery |
+| **Client install** | CE-CC `@CsClientConfig` | setting `key` (dotted) · value type (`String`/`int`/`double`/`bool`) · declared default | client app config resources (`TomConfigResourceProvider`) **and** this install's persisted overrides (`TomClientConfigurationStore`) | `TomBaseClientConfiguration`'s declaration/baseline machinery, the coercion of loosely-typed external values, the store's write-then-rename |
 | **User + device** | CE-DS `@CsDeviceSetting` | setting `key` · type · default | the user's persisted choice on this device (the device store) | the device-local, user-scoped store |
 | **User** | CE-UP `@CsUserSetting` | setting `key` · type · default | the user's persisted choice (re-materialised via `TomGetSettings*`) | the `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip, the server-side per-user persistence store |
 
@@ -1831,8 +1830,12 @@ tooling supply them out-of-band.
 1. **Intra-scope** (within one part, already fixed by the substrate):
    - CE-CF: `TomBaseServerConfiguration` merges **config-tree → OS env → `.env` →
      cmdline**, *cmdline wins* (§5.5). A field may opt to be pinned to one source.
-   - CE-CC: `TomProperty<T>` resolves **the config-resources value, else the
-     `withDefault` default** (source-present > default). Single external source.
+   - CE-CC: `TomBaseClientConfiguration` resolves **this install's persisted
+     override → the config-resources value → the declared default**. The lower
+     two form the setting's *baseline*; a setting is *overridden* exactly when
+     it differs from that baseline, and only overrides are persisted — so a
+     default shipped in an app update still reaches installs that never touched
+     the key.
    - CE-DS: **persisted device value → default**.
    - CE-UP: **persisted user value → default**.
 
@@ -1863,7 +1866,7 @@ tooling supply them out-of-band.
   between them, it does not merge them.
 - **CE-CF ↔ CE-AZ / CE-AU** (unchanged from §5.5): config supplies keys/material, not
   the access policy or the credential flow.
-- The deeper CE-CC (`TomProperty` family), CE-DS (device store) and CE-UP
+- The deeper CE-CC (`TomBaseClientConfiguration` + its store), CE-DS (device store) and CE-UP
   (server-side persistence) per-attribute surfaces are separate (§5.5); this
   section fixes the spec-authorable classification and the cross-scope precedence
   they operate within. The realisation annotations are `@CsServerConfig` /
