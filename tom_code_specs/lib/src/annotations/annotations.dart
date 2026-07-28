@@ -11,11 +11,17 @@
 /// - `contract_annotations.dart` — the shared markers.
 /// - `client_settings_annotations.dart` — the client-application,
 ///   configuration/settings, identity and authentication group.
+///
+/// It also exports the annotation *parameter* vocabulary the markers are
+/// authored against: `cross_part_refs.dart`, the `Cs*Ref` typed cross-part
+/// reference family (§5.23), which makes a reference from one part to another a
+/// compiler-checked const rather than a string.
 library;
 
 export 'client_settings_annotations.dart';
 export 'code_spec.dart';
 export 'contract_annotations.dart';
+export 'cross_part_refs.dart';
 export 'doc_spec.dart';
 export 'element_annotations.dart';
 export 'service_annotations.dart';

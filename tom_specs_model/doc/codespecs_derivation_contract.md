@@ -18,10 +18,12 @@ plus the one facet value class a marker carries (`CsFileReference` on
 no marker and therefore no entry.
 
 **What this document decides and what authors it.** It **decides** each
-annotation's argument shape; `csrb4` **authors** those constructors, and
-`csra6` authors the `Cs*Ref` typed-reference family the arguments consume. Until
-both land, the shapes below are specified-but-not-yet-compilable — the same
-state §4.1.1 records for the attribute surfaces themselves.
+annotation's argument shape; `csrb4` **authors** those constructors. The
+`Cs*Ref` typed-reference family the arguments consume is already authored
+(`tom_code_specs/lib/src/annotations/cross_part_refs.dart`); until the
+constructors land, the shapes below are specified-but-not-yet-compilable — the
+same state `codespecs_mapping.md` §4.1.1 records for the attribute surfaces
+themselves.
 
 **Citing.** Sections of `som_multiplatform_spec_model.md` are cited as `SOM §N`;
 everything else by file name plus section — `codespecs_mapping.md §5.13`,
@@ -261,18 +263,20 @@ redundant; they answer different questions:
 ### 2.6 Cross-references — which type carries which edge
 
 Reference edges use the typed `Cs*Ref` family of `codespecs_mapping.md` §5.23 —
-never id strings. The eleven types and their edges:
+never id strings. The thirteen types and their edges:
 
 | Ref type | Points at | Declared in |
 |----------|-----------|-------------|
 | `CsOperationRef` | a CE-API operation | shared |
-| `CsCallRef` | a CE-SC server call | client |
-| `CsActionRef` | a CE-AC action | client |
-| `CsRouteRef` | a CE-NV route | client |
 | `CsMessageKey` | a CE-TX message key | shared |
 | `CsErrorCode` | a CE-ER error code | shared |
 | `CsRoleRef` | a CE-AZ role | shared |
 | `CsResourceKeyRef` | a CE-AZ resource key | shared |
+| `CsCallRef` | a CE-SC server call | client |
+| `CsActionRef` | a CE-AC action | client |
+| `CsRouteRef` | a CE-NV route | client |
+| `CsElementRef` | a CE-EL screen element | client |
+| `CsFormRef` | a CE-FM form | client |
 | `CsServiceUnitRef` | a CE-SU unit | server |
 | `CsReportRef` | a CE-RP report | server |
 | `CsJobRef` | a CE-JB job | server |
@@ -281,12 +285,15 @@ never id strings. The eleven types and their edges:
 referenced by `Type` literal (`rootAggregate: Customer`), with no ref const, per
 §5.23.
 
-**Two additions this contract requires.** The §5.20 trigger endpoints name a
-CE-EL element and a CE-FM form, and §5.10 makes the trigger the *single authoring
-home* of those edges with "typed references … never id strings". No ref type in
-§5.23's eleven can carry them, and neither target is a Dart type. The contract
-therefore specifies **`CsElementRef`** and **`CsFormRef`** (both client-declared)
-and requires §5.23 to adopt them — tracked as `csrb15`.
+**`CsElementRef` is the one qualifiable ref.** CE-EL's closed catalogue has both
+standalone kinds (*Button*, *MenuEntry*, *Label*, *FormHost*), which are
+class-level targets, and form-member kinds (*TextInput*, *Number*, *Toggle*,
+*DateInput*, *Choice*, *MultiChoice*), which are members of the `@CsForm` class.
+One type covers both, carrying an optional `form` qualifier, because §5.1's
+`@CsTrigger` takes a `CsElementRef` in **both** its element and its form-field
+slot — two types could not fill one parameter. Its N9 const-string form is the
+bare declaration name when standalone and the dotted `<form>.<element>` path
+when it is a form member.
 
 Declaration pattern for every ref const, unchanged from §5.23:
 
@@ -602,7 +609,7 @@ unit, which is why they share a slice rather than an order.
 | **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, label, button, menuEntry, formHost}` — §5.18's closed ten-kind catalogue. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here. |
 | **4 Naming** | camelCase of `SCREL`'s element-id field. |
 | **5 Locus** | `client`. |
-| **6 Cross-refs** | `CsMessageKey` for catalogued label/hint copy; `CsResourceKeyRef` via its field-level `@CsAuthorize`. Its **action edge is a derived back-reference** (§5.18) — read off the triggers, never authored here. Emits `CsElementRef` (§2.6, `csrb15`). |
+| **6 Cross-refs** | `CsMessageKey` for catalogued label/hint copy; `CsResourceKeyRef` via its field-level `@CsAuthorize`. Its **action edge is a derived back-reference** (§5.18) — read off the triggers, never authored here. Emits `CsElementRef` (§2.6). |
 | **7 Back-link** | `@DocSpec([DocRef('SCREL', 'supplies the element, its semantic kind and its value type')])`. |
 
 #### 3.5.3 `@CsWidget` — CE-EL concrete widget
@@ -626,7 +633,7 @@ unit, which is why they share a slice rather than an order.
 | **3 Arguments** | None; `@CsForm({String? note})` unchanged. The field list, the subform tree and the form's value type are the declaration (test **a**); everything else `TomForm` takes is its own constructor (test **b**). |
 | **4 Naming** | PascalCase of `SEFS`'s name field + `Form`. |
 | **5 Locus** | `client`. |
-| **6 Cross-refs** | Emits `CsFormRef` (§2.6, `csrb15`). Cites `CsMessageKey` for copy and its `@CsFormRule` methods for cross-field invariants. |
+| **6 Cross-refs** | Emits `CsFormRef` (§2.6). Cites `CsMessageKey` for copy and its `@CsFormRule` methods for cross-field invariants. |
 | **7 Back-link** | `@DocSpec([DocRef('SEFS', 'supplies the form, its subform tree and its fields')])`. |
 
 #### 3.5.5 `@CsAction` — CE-AC action
@@ -650,7 +657,7 @@ unit, which is why they share a slice rather than an order.
 | **3 Arguments** | `kind` (**required**, unchanged) ← `TriggerKind {userGesture, inFormEvent, lifecycle, serverEvent, condition}`; it selects which per-kind attribute set applies, so it cannot be inferred and no arm is a default. **Added by this contract:** `action: CsActionRef` (**required**) — the common head's target endpoint; then one optional slot per kind (§2.3), validated so only the declared kind's are non-null: `element: CsElementRef` + `gesture: CsGesture {tap, press, longPress}` for `userGesture`; `form: CsFormRef` + `formEvent: CsFormEvent {fieldChange, submit, validationPass, validationFail}` + `formField: CsElementRef` for `inFormEvent`; `scope: CsLifecycleScope` + `phase: CsLifecyclePhase {enter, leave, init, dispose}` for `lifecycle`; `channel` + `eventType: String` for `serverEvent`. The `condition` kind carries **no** slot: its predicate over CE-ST state is real Dart, so it is a closure the `TomActionTrigger` constructor takes (test **b**) — as is the optional guard on every kind. |
 | **4 Naming** | camelCase of the action name + the kind (`saveOnTap`, `saveOnSubmit`), so several triggers on one action cannot collide under N4. |
 | **5 Locus** | `client`. |
-| **6 Cross-refs** | `CsActionRef`, `CsElementRef`, `CsFormRef`. Endpoints are typed references to the generated declarations, never id strings (§5.10) — which is why `CsElementRef` / `CsFormRef` must be added to §5.23 (`csrb15`). |
+| **6 Cross-refs** | `CsActionRef`, `CsElementRef`, `CsFormRef`. Endpoints are typed references to the generated declarations, never id strings (§5.10) — which is why the §5.23 family carries `CsElementRef` / `CsFormRef` at all. |
 | **7 Back-link** | `@DocSpec([DocRef('SCELAC', 'supplies the invocation path and the action it fires')])`. |
 
 #### 3.5.7 `@CsServerCall` — CE-SC server call
@@ -1003,7 +1010,8 @@ class Customer {
 ## 5. Constructor-shape summary — the input to `csrb4`
 
 The 39 part markers, with the shape §3 decides for each. `csrb4` authors these
-constructors; `csra6` authors the `Cs*Ref` types they consume. Every marker keeps
+constructors; the `Cs*Ref` types they consume already ship in
+`tom_code_specs/lib/src/annotations/cross_part_refs.dart`. Every marker keeps
 `String? note` as its final parameter and it is omitted below.
 
 ### 5.1 Markers that gain arguments (24)
@@ -1076,9 +1084,10 @@ divergence.
 
 ### 5.4 Reference types this contract consumes
 
-The eleven of §5.23, **plus two this contract requires**: `CsElementRef` and
-`CsFormRef`, both client-declared, carrying the §5.20 trigger endpoints that
-§5.10 mandates be typed references rather than id strings. Tracked as `csrb15`.
+All thirteen of §5.23, enumerated with their edges in §2.6. Two of them serve
+this contract alone: `CsElementRef` and `CsFormRef`, both client-declared,
+carrying the §5.20 trigger endpoints that §5.10 mandates be typed references
+rather than id strings.
 
 ---
 
