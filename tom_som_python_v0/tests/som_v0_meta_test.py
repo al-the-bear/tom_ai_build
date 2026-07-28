@@ -4,7 +4,7 @@
 facade's ``test/generated_meta_test.dart``. Two guarantees over the *real*
 committed model:
 
-  1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+  1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
      generated static ``SomMetaTree`` is field-for-field identical (via
      ``som_meta_node_diff``) to the tree ``build_som_meta_tree`` derives from
      the committed ``meta/spec_model.meta.json`` at runtime. Since the emitter
@@ -77,6 +77,7 @@ _GENERATED_TREES = {
     "D10QualityAcceptancePlan": m.d10QualityAcceptancePlanMetaTree,
     "D11DeliveryRoadmap": m.d11DeliveryRoadmapMetaTree,
     "D12TransitionRolloutPlan": m.d12TransitionRolloutPlanMetaTree,
+    "D13CodeSpecsProjection": m.d13CodeSpecsProjectionMetaTree,
 }
 
 
@@ -180,6 +181,7 @@ def test_id_tree_surface() -> None:
         "D10QualityAcceptancePlan": m.QAP,
         "D11DeliveryRoadmap": m.DRM,
         "D12TransitionRolloutPlan": m.TRP,
+        "D13CodeSpecsProjection": m.CGP,
     }
     _check("id.roots-cover", set(id_roots) == set(_GENERATED_TREES))
     for root_type, ref in id_roots.items():

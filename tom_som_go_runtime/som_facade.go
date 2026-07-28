@@ -80,6 +80,16 @@ func (n SomNode) Headline() string { return n.doc.HeadlineOr(n.path) }
 // the stored headline, reverting to the derived default heading.
 func (n SomNode) SetHeadline(value string) { n.doc.SetHeadline(n.path, value) }
 
+// CodeSpec returns this section's CodeSpecs forward link
+// (codespecs_mapping.md §9.2) as the comma-joined list of code locations, or ""
+// when the section carries no mapping. Sparse exactly like Headline, and named
+// CodeSpec / SetCodeSpec for the same collision-proofing as SectionID (AF-D1).
+func (n SomNode) CodeSpec() string { return n.doc.CodeSpecOr(n.path) }
+
+// SetCodeSpec stores this section's CodeSpecs forward link (§9.2). An empty
+// value clears it, returning the section to "no code mapping".
+func (n SomNode) SetCodeSpec(value string) { n.doc.SetCodeSpec(n.path, value) }
+
 // IsEmpty reports whether this section holds no value at its path or nested
 // beneath it (delegates to HasValuesUnder). Promoted to every generated section
 // facade via the embedded SomNode. (SOM roadmap § item 5.)

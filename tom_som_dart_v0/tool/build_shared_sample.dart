@@ -362,17 +362,15 @@ every downstream artifact traces back to a requirement.''');
 
   // §9.2 concrete forward link (DocSpecs → CodeSpecs). This is the one place the
   // shared sample exercises `codeSpec`, so the nine runtimes' `generic-codespecs`
-  // golden section has something to assert. It is authored through the generic
-  // `SpecDocument.setCodeSpec` store because the typed facade exposes `$sectionId`
-  // and `$headline` but no `$codeSpec` counterpart — the forward link has no typed
-  // surface. The store keys on the section PATH, so it is unaffected by the
-  // semantic `$sectionId` values the FR entries override below.
-  sbp.doc.setCodeSpec(
-      reqs.functionalRequirements.path, 'CsFunctionalRequirements');
+  // golden section has something to assert. It is authored through the typed
+  // `$codeSpec` accessor — the third structural accessor alongside `$sectionId`
+  // and `$headline`, writing the same path-keyed store. The store keys on the
+  // section PATH, so it is unaffected by the semantic `$sectionId` values the FR
+  // entries override below.
+  reqs.functionalRequirements.$codeSpec = 'CsFunctionalRequirements';
 
   final fr1 = fr.add();
-  sbp.doc.setCodeSpec(
-      fr1.path, 'CsOrder,CsOrder.captureFromEdi,CsOrderRepository');
+  fr1.$codeSpec = 'CsOrder,CsOrder.captureFromEdi,CsOrderRepository';
   // YRD6 (reversed): the entry's id is its stored section id — kept on the
   // @SectionIdPattern `FRE-REQU-` stem so it stays schema-valid — and its
   // human FR-nn title is the stored item headline. Neither is a form field any

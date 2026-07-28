@@ -4,7 +4,7 @@
  * facade's `test/generated_meta_test.dart` (and the JavaScript
  * `som_v0_meta_test.js`). Two guarantees over the *real* committed model:
  *
- *   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+ *   1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
  *      generated static `SomMetaTree` is field-for-field identical (via
  *      `somMetaNodeDiff`) to the tree `buildSomMetaTree` derives from the
  *      committed `meta/spec_model.meta.json` at runtime. Since the emitter
@@ -64,6 +64,7 @@ const GENERATED_TREES: Record<string, SomMetaTree> = {
   D10QualityAcceptancePlan: m.d10QualityAcceptancePlanMetaTree,
   D11DeliveryRoadmap: m.d11DeliveryRoadmapMetaTree,
   D12TransitionRolloutPlan: m.d12TransitionRolloutPlanMetaTree,
+  D13CodeSpecsProjection: m.d13CodeSpecsProjectionMetaTree,
 };
 
 function loadModel(): SpecModel {
@@ -177,6 +178,7 @@ function testIdTreeSurface(): void {
     D10QualityAcceptancePlan: m.QAP,
     D11DeliveryRoadmap: m.DRM,
     D12TransitionRolloutPlan: m.TRP,
+    D13CodeSpecsProjection: m.CGP,
   };
   check(
     'id.roots-cover',

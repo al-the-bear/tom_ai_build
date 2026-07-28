@@ -3,7 +3,7 @@
  * `som_v0_meta_test.go` (and the Dart `generated_meta_test.dart`). Two
  * guarantees over the *real* committed model:
  *
- *  1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+ *  1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
  *     generated static SomMetaTree is field-for-field identical (via
  *     `som_meta_node_diff`) to the tree `som_build_meta_tree` derives from the
  *     committed `meta/spec_model.meta.json` at runtime. Because the emitter
@@ -78,16 +78,21 @@ static const SomMetaNode *meta_of(const SomMetaRef *ref) {
   return node;
 }
 
-/* One row of the 13-root registry: the model root type, the generated static
- * tree, and the ID-tree entry point resolved to its root ref. */
+/* One row of the document-root registry: the model root type, the generated
+ * static tree, and the ID-tree entry point resolved to its root ref. */
 typedef struct {
   const char *type;
   const SomMetaTree *tree;
   SomMetaRef id_ref; /* the section-id root accessor's ref */
 } RootRow;
 
-/* Builds the registry of all 13 roots. The ID entry points return distinct
- * struct types, so each is called explicitly and its `.ref` captured. */
+/* The number of document roots `build_rows` fills in. Named so the caller's
+ * stack array cannot silently be one short of the registry when a root is
+ * added (C has no bounds check to catch it). */
+#define ROOT_ROW_COUNT 14
+
+/* Builds the registry of all document roots. The ID entry points return
+ * distinct struct types, so each is called explicitly and its `.ref` captured. */
 static size_t build_rows(RootRow *rows) {
   size_t i = 0;
   rows[i++] = (RootRow){"D00SolutionBlueprint",
@@ -131,11 +136,14 @@ static size_t build_rows(RootRow *rows) {
   rows[i++] = (RootRow){"D12TransitionRolloutPlan",
                         d12_transition_rollout_plan_meta_tree(),
                         TRP(d12_transition_rollout_plan_meta_tree()).ref};
+  rows[i++] = (RootRow){"D13CodeSpecsProjection",
+                        d13_code_specs_projection_meta_tree(),
+                        CGP(d13_code_specs_projection_meta_tree()).ref};
   return i;
 }
 
 /* GUARANTEE 1: every generated static tree is field-for-field identical to the
- * bridge-built tree, and the 13 generated trees cover exactly the model roots. */
+ * bridge-built tree, and the generated trees cover exactly the model roots. */
 static void test_trees_agree_with_bridge(void) {
   char *data = read_file("meta/spec_model.meta.json");
   ok(data != NULL, "read meta/spec_model.meta.json");
@@ -150,7 +158,7 @@ static void test_trees_agree_with_bridge(void) {
     return;
   }
 
-  RootRow rows[13];
+  RootRow rows[ROOT_ROW_COUNT];
   size_t n = build_rows(rows);
   ok(model->roots_len == n, "model root count matches generated tree count");
 
@@ -176,7 +184,7 @@ static void test_trees_agree_with_bridge(void) {
     som_meta_tree_free(bridge);
   }
 
-  /* Every model root has a generated tree (same 13, by type). */
+  /* Every model root has a generated tree (same set, by type). */
   for (size_t r = 0; r < model->roots_len; r++) {
     const char *type = model->roots[r].type;
     int found = 0;
@@ -292,7 +300,7 @@ static void test_id_tree_surface(void) {
   som_meta_ref_free(&dot.ref);
 
   /* Every root has a distinct ID entry point resolving to its own tree root. */
-  RootRow rows[13];
+  RootRow rows[ROOT_ROW_COUNT];
   size_t n = build_rows(rows);
   for (size_t i = 0; i < n; i++) {
     ok(meta_of(&rows[i].id_ref) == rows[i].tree->root,

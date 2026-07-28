@@ -3,7 +3,7 @@
 // `test/generated_meta_test.dart` (and the TypeScript `som_v0_meta_test.ts`).
 // Two guarantees over the *real* committed model:
 //
-//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
 //     generated static SomMetaTree is field-for-field identical (via
 //     som.SomMetaNodeDiff) to the tree som.BuildSomMetaTree derives from the
 //     committed `meta/spec_model.meta.json` at runtime. Since the emitter
@@ -40,6 +40,7 @@ var generatedTrees = map[string]*som.SomMetaTree{
 	"D10QualityAcceptancePlan":               D10QualityAcceptancePlanMetaTree,
 	"D11DeliveryRoadmap":                     D11DeliveryRoadmapMetaTree,
 	"D12TransitionRolloutPlan":               D12TransitionRolloutPlanMetaTree,
+	"D13CodeSpecsProjection":                 D13CodeSpecsProjectionMetaTree,
 }
 
 // loadModel parses the committed language-agnostic meta-data next to the
@@ -69,7 +70,7 @@ func mustMeta(t *testing.T, name string, ref interface {
 	return node
 }
 
-// TestGeneratedTreesAgreeWithBridge proves exhaustive tree agreement: the 13
+// TestGeneratedTreesAgreeWithBridge proves exhaustive tree agreement: the
 // generated static trees cover exactly the model's roots, and each is
 // field-for-field identical to the bridge-built tree.
 func TestGeneratedTreesAgreeWithBridge(t *testing.T) {
@@ -191,6 +192,7 @@ func TestIdTreeSurface(t *testing.T) {
 		"D10QualityAcceptancePlan":               &QAP.SomMetaRef,
 		"D11DeliveryRoadmap":                     &DRM.SomMetaRef,
 		"D12TransitionRolloutPlan":               &TRP.SomMetaRef,
+		"D13CodeSpecsProjection":                 &CGP.SomMetaRef,
 	}
 	if len(idRoots) != len(generatedTrees) {
 		t.Errorf("idRoots has %d entries, generatedTrees %d",

@@ -87,6 +87,51 @@ void main() {
     });
   });
 
+  group(r'SomNode.$codeSpec (§9.2 forward link)', () {
+    test('unset on a fresh node — the store is sparse like the headline', () {
+      final doc = SpecDocument();
+      expect(_Root(doc, 'PD00').$codeSpec, isNull);
+    });
+
+    test('a typed write is visible through the generic path', () {
+      final doc = SpecDocument();
+      _Root(doc, 'PD00').$codeSpec = 'CsOrder,CsOrderRepository';
+      expect(doc.codeSpec('PD00'), 'CsOrder,CsOrderRepository');
+    });
+
+    test('a generic write is visible through the typed accessor', () {
+      final doc = SpecDocument();
+      doc.setCodeSpec('PD00', 'CsOrder');
+      expect(_Root(doc, 'PD00').$codeSpec, 'CsOrder');
+    });
+
+    test('null and the empty string both clear the mapping', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      root.$codeSpec = 'CsOrder';
+      root.$codeSpec = null;
+      expect(root.$codeSpec, isNull);
+      expect(doc.codeSpecPaths, isEmpty);
+
+      root.$codeSpec = 'CsOrder';
+      root.$codeSpec = '';
+      expect(root.$codeSpec, isNull);
+      expect(doc.codeSpecPaths, isEmpty);
+    });
+
+    test('it is keyed by path, so it is available on any node', () {
+      final doc = SpecDocument();
+      final root = _Root(doc, 'PD00');
+      final item = root.risks.add(date: DateTime(2026, 1, 2));
+      item.$codeSpec = 'CsOrder.captureFromEdi';
+      expect(item.$codeSpec, 'CsOrder.captureFromEdi');
+      expect(doc.codeSpec(item.path), 'CsOrder.captureFromEdi');
+      // Independent of the node's own section id and of the parent's link.
+      expect(item.$sectionId, 'RISK-ITEM-AB1');
+      expect(root.$codeSpec, isNull);
+    });
+  });
+
   group('SomList', () {
     test('add appends an item reachable both ways', () {
       final doc = SpecDocument();

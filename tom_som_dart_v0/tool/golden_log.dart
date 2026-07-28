@@ -109,6 +109,25 @@ void main(List<String> args) {
     out.add('CS\t$p\t${esc(doc.codeSpec(p) ?? '')}');
   }
 
+  // Typed cross-check of the same two mappings through the facade's structural
+  // `$codeSpec` accessor (§9.2). It emits nothing: the values are already in the
+  // `CS` lines above, so a duplicate line would add no information — what this
+  // adds is the assertion that the *typed* accessor reads the same store the
+  // generic API does, in every language. A divergence aborts the generator.
+  void typedCodeSpec(SomNode node) {
+    final typed = node.$codeSpec ?? '';
+    final generic = doc.codeSpec(node.path) ?? '';
+    if (typed != generic) {
+      stderr.writeln('CODESPEC MISMATCH at ${node.path}: '
+          'typed="$typed" generic="$generic"');
+      exit(2);
+    }
+  }
+
+  final typedFrs = sbp.introductionAndScope.requirements.functionalRequirements;
+  typedCodeSpec(typedFrs);
+  typedCodeSpec(typedFrs.requirements[0]);
+
   // --- Typed: a curated traversal of the facade that must agree with the
   // generic reads. Every emitted path/value is model-derived, so the lines are
   // identical across languages even though the accessor *names* differ. ---

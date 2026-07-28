@@ -153,6 +153,29 @@ int main(int argc, char** argv) {
     }
   }
 
+  // Typed cross-check of the same two mappings through the facade's structural
+  // codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+  // lines above, so a duplicate line would add no information — what this adds
+  // is the assertion that the typed accessor reads the same store the generic
+  // API does. A divergence aborts the generator.
+  auto typedCodeSpec = [&](const som::SomNode& node) {
+    const std::string typed = node.codeSpec();
+    const std::string generic = doc.codeSpec(node.path());
+    if (typed != generic) {
+      die("CODESPEC MISMATCH at " + node.path() + ": typed=\"" + typed +
+          "\" generic=\"" + generic + "\"");
+    }
+  };
+  {
+    auto intro = sbp.introductionAndScope();
+    auto reqs = intro.requirements();
+    tom_som_v0::FunctionalRequirements frs = reqs.functionalRequirements();
+    typedCodeSpec(frs);
+    som::SomList entries = frs.requirements();
+    tom_som_v0::FunctionalRequirementEntry first(typedDoc, entries.itemPathAt(0));
+    typedCodeSpec(first);
+  }
+
   // --- Typed: a curated traversal of the facade that must agree with the
   // generic reads. ---
   out.push_back("SECTION\ttyped");

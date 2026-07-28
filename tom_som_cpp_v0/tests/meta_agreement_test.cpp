@@ -4,7 +4,7 @@
 // Dart `generated_meta_test.dart`). Two guarantees over the *real* committed
 // model:
 //
-//   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+//   1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
 //      generated static som::SomMetaTree is field-for-field identical (via
 //      som::somMetaNodeDiff) to the tree som::somBuildMetaTree derives from the
 //      committed `meta/spec_model.meta.json` at runtime. Because the emitter
@@ -69,7 +69,7 @@ std::string readFile(const std::string& path, bool* okFlag) {
   return ss.str();
 }
 
-// One row of the 13-root registry: the model root type, the generated static
+// One row of the document-root registry: the model root type, the generated static
 // tree, and the ID-tree entry point resolved to its root ref.
 struct RootRow {
   std::string type;
@@ -77,7 +77,7 @@ struct RootRow {
   som::SomMetaRef idRef;  // the section-id root accessor's ref
 };
 
-// Builds the registry of all 13 roots. The ID entry points return distinct
+// Builds the registry of all document roots. The ID entry points return distinct
 // struct types, so each is called explicitly and its `.ref` captured.
 std::vector<RootRow> buildRows() {
   namespace m = tom_som_v0_meta;
@@ -143,11 +143,15 @@ std::vector<RootRow> buildRows() {
       {"D12TransitionRolloutPlan", &m::d12TransitionRolloutPlanMetaTree(),
        m::d12TransitionRolloutPlanMetaId(m::d12TransitionRolloutPlanMetaTree())
            .ref});
+  rows.push_back(
+      {"D13CodeSpecsProjection", &m::d13CodeSpecsProjectionMetaTree(),
+       m::d13CodeSpecsProjectionMetaId(m::d13CodeSpecsProjectionMetaTree())
+           .ref});
   return rows;
 }
 
 // GUARANTEE 1: every generated static tree is field-for-field identical to the
-// bridge-built tree, and the 13 generated trees cover exactly the model roots.
+// bridge-built tree, and the generated trees cover exactly the model roots.
 void testTreesAgreeWithBridge() {
   bool readOk = false;
   std::string data = readFile("meta/spec_model.meta.json", &readOk);
@@ -186,7 +190,7 @@ void testTreesAgreeWithBridge() {
     }
   }
 
-  // Every model root has a generated tree (same 13, by type).
+  // Every model root has a generated tree (same set, by type).
   for (const som::SpecRoot& r : model->roots) {
     bool found = false;
     for (const RootRow& row : rows) {

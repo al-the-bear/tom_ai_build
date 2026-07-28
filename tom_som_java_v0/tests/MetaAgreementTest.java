@@ -4,7 +4,7 @@
 // `test/generated_meta_test.dart`). Two guarantees over the *real* committed
 // model:
 //
-//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
 //     generated static SomMetaTree is field-for-field identical (via
 //     SpecMetaDiff.somMetaNodeDiff) to the tree SomMetaBridge.buildSomMetaTree
 //     derives from the committed `meta/spec_model.meta.json` at runtime. Since
@@ -71,6 +71,7 @@ public final class MetaAgreementTest {
     m.put("D10QualityAcceptancePlan", TomSomV0Meta.D10QualityAcceptancePlanMetaTree);
     m.put("D11DeliveryRoadmap", TomSomV0Meta.D11DeliveryRoadmapMetaTree);
     m.put("D12TransitionRolloutPlan", TomSomV0Meta.D12TransitionRolloutPlanMetaTree);
+    m.put("D13CodeSpecsProjection", TomSomV0Meta.D13CodeSpecsProjectionMetaTree);
     return m;
   }
 
@@ -98,7 +99,7 @@ public final class MetaAgreementTest {
   }
 
   /**
-   * Proves exhaustive tree agreement: the 13 generated static trees cover
+   * Proves exhaustive tree agreement: the generated static trees cover
    * exactly the model's roots, and each is field-for-field identical to the
    * bridge-built tree.
    */
@@ -222,6 +223,7 @@ public final class MetaAgreementTest {
     idRoots.put("D10QualityAcceptancePlan", TomSomV0Meta.QAP);
     idRoots.put("D11DeliveryRoadmap", TomSomV0Meta.DRM);
     idRoots.put("D12TransitionRolloutPlan", TomSomV0Meta.TRP);
+    idRoots.put("D13CodeSpecsProjection", TomSomV0Meta.CGP);
 
     Map<String, SomMetaTree> trees = generatedTrees();
     check("id.root-count", idRoots.size() == trees.size(),

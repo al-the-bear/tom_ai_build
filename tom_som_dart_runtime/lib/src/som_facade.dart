@@ -87,6 +87,16 @@ abstract class SomNode {
   /// Sets or clears this section's stored headline (YRD3). `null` or an empty
   /// string clears the store, returning the section to its default title.
   set $headline(String? value) => doc.setHeadline(path, value ?? '');
+
+  /// This section's **CodeSpecs forward link** (`codespecs_mapping.md` §9.2) as
+  /// the comma-joined list of code locations, or `null` when the section carries
+  /// no mapping. Sparse exactly like [$headline], available on every node, and
+  /// `$`-prefixed for the same collision-proofing as [$sectionId].
+  String? get $codeSpec => doc.codeSpec(path);
+
+  /// Sets or clears this section's CodeSpecs forward link (§9.2). `null` or an
+  /// empty string clears the store, returning the section to "no code mapping".
+  set $codeSpec(String? value) => doc.setCodeSpec(path, value ?? '');
 }
 
 /// A scalar list item — a bare string value held in the document's content

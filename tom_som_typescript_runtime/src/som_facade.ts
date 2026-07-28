@@ -107,6 +107,24 @@ export class SomNode {
       value !== null && value !== undefined ? value : '',
     );
   }
+
+  /**
+   * This section's CodeSpecs forward link (`codespecs_mapping.md` §9.2) as the
+   * comma-joined list of code locations, or `null` when the section carries no
+   * mapping. Sparse exactly like {@link $headline}, and named `$codeSpec` for
+   * the same collision-proofing reason as {@link $sectionId}.
+   */
+  get $codeSpec(): string | null {
+    return this.doc.codeSpec(this.path);
+  }
+
+  /** Sets the CodeSpecs forward link; `''`/`null` clears the mapping. */
+  set $codeSpec(value: string | null) {
+    this.doc.setCodeSpec(
+      this.path,
+      value !== null && value !== undefined ? value : '',
+    );
+  }
 }
 
 /**

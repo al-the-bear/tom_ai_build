@@ -4,7 +4,7 @@
 // `test/generated_meta_test.dart`). Two guarantees over the *real* committed
 // model:
 //
-//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the 13 document roots the
+//  1. EXHAUSTIVE TREE AGREEMENT — for every one of the document roots the
 //     generated per-call SomMetaTree is field-for-field identical (via
 //     som::som_meta_node_diff) to the tree som::build_som_meta_tree derives
 //     from the committed `meta/spec_model.meta.json` at runtime. Since the
@@ -74,6 +74,10 @@ fn generated_tree_builders() -> Vec<TreeBuilder> {
             "D12TransitionRolloutPlan",
             meta::d12_transition_rollout_plan_meta_tree,
         ),
+        (
+            "D13CodeSpecsProjection",
+            meta::d13_code_specs_projection_meta_tree,
+        ),
     ]
 }
 
@@ -89,7 +93,7 @@ fn same(a: &Rc<som::SomMetaNode>, b: &Rc<som::SomMetaNode>) -> bool {
     Rc::ptr_eq(a, b)
 }
 
-/// Proves exhaustive tree agreement: the 13 generated trees cover exactly the
+/// Proves exhaustive tree agreement: the generated trees cover exactly the
 /// model's roots, and each is field-for-field identical to the bridge-built
 /// tree.
 #[test]
@@ -194,7 +198,7 @@ fn dot_notation_surface() {
 }
 
 /// Asserts one root's ID entry point sits at its own section-id segment over
-/// the same generated tree root node — the per-root body of the 13-root loop.
+/// the same generated tree root node — the per-root body of the root loop.
 fn assert_id_root(
     root_type: &str,
     tree: &som::SomMetaTree,
@@ -338,4 +342,8 @@ fn id_tree_surface() {
     let t = meta::d12_transition_rollout_plan_meta_tree();
     let id = meta::TRP(&t);
     assert_id_root("D12TransitionRolloutPlan", &t, id.path(), id.meta().unwrap());
+
+    let t = meta::d13_code_specs_projection_meta_tree();
+    let id = meta::CGP(&t);
+    assert_id_root("D13CodeSpecsProjection", &t, id.path(), id.meta().unwrap());
 }

@@ -120,6 +120,22 @@ class SomNode:
         title."""
         self.doc.set_headline(self.path, value or "")
 
+    @property
+    def spec_code_spec(self) -> Optional[str]:
+        """This section's **CodeSpecs forward link** (``codespecs_mapping.md``
+        §9.2) as the comma-joined list of code locations, or ``None`` when the
+        section carries no mapping. Sparse exactly like :attr:`spec_headline`,
+        and ``spec_``-prefixed for the same collision-proofing as
+        :attr:`spec_section_id` (mirrors the Dart ``$codeSpec``)."""
+        return self.doc.code_spec(self.path)
+
+    @spec_code_spec.setter
+    def spec_code_spec(self, value: Optional[str]) -> None:
+        """Sets or clears this section's CodeSpecs forward link (§9.2). ``None``
+        or an empty string clears the store, returning the section to "no code
+        mapping"."""
+        self.doc.set_code_spec(self.path, value or "")
+
 
 class SomScalar(SomNode):
     """A scalar list item — a bare string value held in the document's content
