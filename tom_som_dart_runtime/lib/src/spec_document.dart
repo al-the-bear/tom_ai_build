@@ -37,6 +37,84 @@ import 'spec_section_id.dart';
 /// last item is deleted (criterion 6). Section ids live in [_itemSectionId],
 /// keyed by the internal item path.
 class SpecDocument {
+  /// An optional host-supplied **storage-key normalizer**: every path entering
+  /// this store is passed through it before a map is touched.
+  ///
+  /// The store itself is route-agnostic — it knows nothing about how a host
+  /// arrived at a path. A host whose object model reaches the *same* section
+  /// along several routes (the TomSpecs editor's projection roots, see
+  /// tom_specs_editor_specification.md §14) installs a normalizer that folds
+  /// those routes onto the one storage path, so an edit made along any route
+  /// mutates the identical entry. Unset means identity — the store keys by the
+  /// path it is given, which is what every non-projecting host wants.
+  ///
+  /// The normalizer must be **idempotent** (`f(f(p)) == f(p)`) and
+  /// **prefix-preserving** — `f` maps a subtree onto a subtree, so
+  /// `f('$p/$rest')` starts with `f(p)`. [hasValuesUnder] and [_purgeUnder] are
+  /// prefix scans over normalized keys; a normalizer that broke either property
+  /// would silently break the emptiness/purge invariant.
+  ///
+  /// Install it with [installPathNormalizer], which also migrates whatever the
+  /// store already holds.
+  String Function(String path)? get pathNormalizer => _pathNormalizer;
+
+  String Function(String path)? _pathNormalizer;
+
+  /// Installs [normalizer] as the storage-key normalizer and **re-keys every
+  /// value already held** onto the normalized keys.
+  ///
+  /// The migration matters because a host whose normalizer is derived from an
+  /// asynchronously-resolved model (the TomSpecs editor's projection mapping,
+  /// which needs the loaded object model) cannot install it at construction:
+  /// edits made in the gap are keyed raw and would become unreachable the moment
+  /// the normalizer arrived. Re-keying here folds them in instead.
+  ///
+  /// Where two raw keys collapse onto one, the first in sorted-key order wins —
+  /// a normalizer folds *routes to the same section*, so the loser is a
+  /// duplicate of the winner, not a distinct value.
+  void installPathNormalizer(String Function(String path) normalizer) {
+    _pathNormalizer = normalizer;
+    _migrate(_content, normalizer);
+    _migrate(_form, normalizer);
+    _migrate(_itemSectionId, normalizer);
+    _migrate(_headline, normalizer);
+    _migrate(_codeSpec, normalizer);
+    // List item paths are keys in their own right, so they move with their list.
+    _migrate(_listItems, normalizer);
+    for (final items in _listItems.values) {
+      for (var i = 0; i < items.length; i++) {
+        items[i] = normalizer(items[i]);
+      }
+    }
+    // The seq counter merges by **max**, not first-wins: it is the high-water
+    // mark that keeps [addListItem] from re-issuing a path a deleted item once
+    // held, so two folded lists must not lose the higher of their two marks.
+    final seqs = <String, int>{};
+    for (final e in _listSeq.entries) {
+      final key = normalizer(e.key);
+      final held = seqs[key];
+      if (held == null || e.value > held) seqs[key] = e.value;
+    }
+    _listSeq
+      ..clear()
+      ..addAll(seqs);
+  }
+
+  /// Re-keys [map] in place through [normalizer], first-in-sorted-order winning
+  /// a collision.
+  void _migrate<V>(Map<String, V> map, String Function(String) normalizer) {
+    final migrated = <String, V>{};
+    for (final key in map.keys.toList()..sort()) {
+      migrated.putIfAbsent(normalizer(key), () => map[key] as V);
+    }
+    map
+      ..clear()
+      ..addAll(migrated);
+  }
+
+  /// [path] as this store keys it (see [pathNormalizer]; identity when unset).
+  String _key(String path) => _pathNormalizer?.call(path) ?? path;
+
   final Map<String, String> _content = {};
   final Map<String, Map<String, String>> _form = {};
   final Map<String, List<String>> _listItems = {};
@@ -104,7 +182,7 @@ class SpecDocument {
   }
 
   /// The content string at [path], or `null` if unset.
-  String? content(String path) => _content[path];
+  String? content(String path) => _content[_key(path)];
 
   /// Whether a non-empty `content`/`scalar` leaf value exists at exactly
   /// [path] — the null-free companion to [content] (SOM §21).
@@ -115,28 +193,30 @@ class SpecDocument {
   /// section filled?" gets different-looking answers depending on the path.
   /// Routing both through [hasContent] removes that divergence — it is `true`
   /// exactly when [content] would return a non-empty string.
-  bool hasContent(String path) => (_content[path] ?? '').isNotEmpty;
+  bool hasContent(String path) => (_content[_key(path)] ?? '').isNotEmpty;
 
   /// Sets the content string at [path]. An empty value clears it (D4).
   void setContent(String path, String value) {
+    final key = _key(path);
     if (value.isEmpty) {
-      _content.remove(path);
+      _content.remove(key);
     } else {
-      _content[path] = value;
+      _content[key] = value;
     }
   }
 
   /// The stored headline at [path], or `null` when the section renders its
   /// effective default title (YRD3 — headlines are sparse like content).
-  String? headline(String path) => _headline[path];
+  String? headline(String path) => _headline[_key(path)];
 
   /// Sets the stored headline at [path]. An empty value clears it, returning
   /// the section to its effective default title (YRD3).
   void setHeadline(String path, String value) {
+    final key = _key(path);
     if (value.isEmpty) {
-      _headline.remove(path);
+      _headline.remove(key);
     } else {
-      _headline[path] = value;
+      _headline[key] = value;
     }
   }
 
@@ -147,16 +227,17 @@ class SpecDocument {
   /// The stored codeSpec mapping at [path] as the comma-joined list of
   /// CodeSpecs code locations, or `null` when the section carries no mapping
   /// (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline).
-  String? codeSpec(String path) => _codeSpec[path];
+  String? codeSpec(String path) => _codeSpec[_key(path)];
 
   /// Sets the stored codeSpec mapping at [path] (the comma-joined list of
   /// CodeSpecs code locations). An empty value clears it, returning the section
   /// to "no code mapping" (codespecs_mapping.md §9.2).
   void setCodeSpec(String path, String value) {
+    final key = _key(path);
     if (value.isEmpty) {
-      _codeSpec.remove(path);
+      _codeSpec.remove(key);
     } else {
-      _codeSpec[path] = value;
+      _codeSpec[key] = value;
     }
   }
 
@@ -165,23 +246,28 @@ class SpecDocument {
   Iterable<String> get codeSpecPaths => _codeSpec.keys;
 
   /// The value of form [field] at [path], or `null` if unset.
-  String? formField(String path, String field) => _form[path]?[field];
+  String? formField(String path, String field) => _form[_key(path)]?[field];
 
   /// Sets form [field] at [path]. An empty value clears that field (and the
   /// whole form entry once its last field is gone).
   void setFormField(String path, String field, String value) {
-    final fields = _form.putIfAbsent(path, () => {});
+    final key = _key(path);
+    final fields = _form.putIfAbsent(key, () => {});
     if (value.isEmpty) {
       fields.remove(field);
-      if (fields.isEmpty) _form.remove(path);
+      if (fields.isEmpty) _form.remove(key);
     } else {
       fields[field] = value;
     }
   }
 
   /// The ordered item paths of the list at [listPath] (empty if none).
+  ///
+  /// The returned item paths are **storage paths** (see [pathNormalizer]) — the
+  /// caller can feed them straight back into this store, and a normalizer is
+  /// idempotent so re-normalizing them is a no-op.
   List<String> listItems(String listPath) =>
-      List.unmodifiable(_listItems[listPath] ?? const []);
+      List.unmodifiable(_listItems[_key(listPath)] ?? const []);
 
   /// Appends a new item to the list at [listPath] and returns its stable path.
   ///
@@ -191,18 +277,19 @@ class SpecDocument {
   /// `@SectionIdPattern` lives in the caller (it needs the pattern); this layer
   /// only stores and guards uniqueness.
   String addListItem(String listPath, {String? sectionId}) {
-    if (sectionId != null) _assertSectionIdFree(listPath, sectionId, null);
-    final seq = (_listSeq[listPath] ?? 0) + 1;
-    _listSeq[listPath] = seq;
-    final itemPath = '$listPath-$seq';
-    _listItems.putIfAbsent(listPath, () => []).add(itemPath);
+    final key = _key(listPath);
+    if (sectionId != null) _assertSectionIdFree(key, sectionId, null);
+    final seq = (_listSeq[key] ?? 0) + 1;
+    _listSeq[key] = seq;
+    final itemPath = '$key-$seq';
+    _listItems.putIfAbsent(key, () => []).add(itemPath);
     if (sectionId != null) _itemSectionId[itemPath] = sectionId;
     return itemPath;
   }
 
   /// The section id assigned to the list item at [itemPath], or `null` if none
   /// has been set (AA1 criterion 1 read path).
-  String? itemSectionId(String itemPath) => _itemSectionId[itemPath];
+  String? itemSectionId(String itemPath) => _itemSectionId[_key(itemPath)];
 
   /// Overrides the section id of the list item at [itemPath] (AA1 criterion 5).
   ///
@@ -211,21 +298,22 @@ class SpecDocument {
   /// equal to the item's current id is a no-op. Throws [ArgumentError] if
   /// [itemPath] is not a live list item.
   void setItemSectionId(String itemPath, String id) {
-    final owningList = _owningListOf(itemPath);
+    final key = _key(itemPath);
+    final owningList = _owningListOf(key);
     if (owningList == null) {
       throw ArgumentError.value(
           itemPath, 'itemPath', 'not a live list item');
     }
-    if (_itemSectionId[itemPath] == id) return;
-    _assertSectionIdFree(owningList, id, itemPath);
-    _itemSectionId[itemPath] = id;
+    if (_itemSectionId[key] == id) return;
+    _assertSectionIdFree(owningList, id, key);
+    _itemSectionId[key] = id;
   }
 
   /// The section ids currently assigned within the list at [listPath], in item
   /// order (items without an id are skipped). Feeds both id generation
   /// (`existingIds`) and uniqueness checks.
   List<String> listItemSectionIds(String listPath) => [
-        for (final itemPath in _listItems[listPath] ?? const [])
+        for (final itemPath in _listItems[_key(listPath)] ?? const [])
           if (_itemSectionId[itemPath] != null) _itemSectionId[itemPath]!,
       ];
 
@@ -256,22 +344,20 @@ class SpecDocument {
   /// counter is deliberately left untouched so future items keep getting fresh
   /// sequence numbers (no renumbering — D3).
   bool removeListItem(String itemPath) {
-    String? owningList;
-    for (final entry in _listItems.entries) {
-      if (entry.value.contains(itemPath)) {
-        owningList = entry.key;
-        break;
-      }
-    }
+    final key = _key(itemPath);
+    final owningList = _owningListOf(key);
     if (owningList == null) return false;
-    _listItems[owningList]!.remove(itemPath);
+    _listItems[owningList]!.remove(key);
     if (_listItems[owningList]!.isEmpty) _listItems.remove(owningList);
-    _purgeUnder(itemPath);
+    _purgeUnder(key);
     return true;
   }
 
   /// Drops every content/form/list value at [prefix] or nested under it
   /// (`"$prefix/…"` for descendants, `"$prefix-…"` for the item's own lists).
+  ///
+  /// [prefix] must already be a **storage key** — every caller normalizes
+  /// first, because the scan is a raw prefix match over the stores.
   void _purgeUnder(String prefix) {
     bool isUnder(String key) =>
         key == prefix ||
@@ -294,7 +380,7 @@ class SpecDocument {
   /// `hasValuesUnder(prefix)` is `false`. Note this clears *values under a
   /// section path*; removing a single list item from its owning list is
   /// [removeListItem].
-  void removeValuesUnder(String prefix) => _purgeUnder(prefix);
+  void removeValuesUnder(String prefix) => _purgeUnder(_key(prefix));
 
   /// Whether the document holds no values at all.
   bool get isEmpty =>
@@ -312,11 +398,14 @@ class SpecDocument {
   /// (`"$prefix/…"` for a complex/section child), or a list item of the node
   /// (`"$prefix-…"`). This is the exact inverse of the predicate [_purgeUnder]
   /// uses, so emptiness and purge stay in lock-step.
+  ///
+  /// The scan runs in **storage space**: [prefix] is normalized first, and a
+  /// [pathNormalizer] is required to be prefix-preserving, so a subtree of the
+  /// caller's paths is still a subtree of the keys held here.
   bool hasValuesUnder(String prefix) {
+    final root = _key(prefix);
     bool isUnder(String key) =>
-        key == prefix ||
-        key.startsWith('$prefix/') ||
-        key.startsWith('$prefix-');
+        key == root || key.startsWith('$root/') || key.startsWith('$root-');
     return _content.keys.any(isUnder) ||
         _form.keys.any(isUnder) ||
         _listItems.keys.any(isUnder) ||
@@ -335,10 +424,11 @@ class SpecDocument {
 
   /// The form-field names currently set at [path] (unordered snapshot, empty
   /// when no form entry exists there).
-  Iterable<String> formFieldNames(String path) => _form[path]?.keys ?? const [];
+  Iterable<String> formFieldNames(String path) =>
+      _form[_key(path)]?.keys ?? const [];
 
   /// The number of items currently held by the list at [listPath].
-  int listItemCount(String listPath) => _listItems[listPath]?.length ?? 0;
+  int listItemCount(String listPath) => _listItems[_key(listPath)]?.length ?? 0;
 
   /// A plain-data view of every value held, for persistence
   /// (tom_specs_editor_specification.md §15.1 `document:` pass). Only non-empty
