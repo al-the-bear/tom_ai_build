@@ -542,11 +542,19 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
 `SpecFieldKind`) from the official `tom_som_dart_runtime` package — see
 `som_multiplatform_spec_model.md` §7 *The fixed (non-generated) runtime* — rather
 than an in-tree copy, plus `tom_specs_core` for the canonical `CodeSpecPart`
-vocabulary it proposes mappings from. Only the **generic** path is consumed:
-the typed `_v0` object model (`SolutionBlueprint` over a `SpecDocument`) is a
-later adoption, taken up when the reviewer grows document *editing*.
-`som_multiplatform_spec_model.md` §10 *Relationship to the editor* is the authority
-for this arrangement.
+vocabulary it proposes mappings from. `som_multiplatform_spec_model.md` §10
+*Relationship to the editor* is the authority for this arrangement.
+
+**The generic path is the reviewer's permanent shape, not a stage on the way to
+the typed one.** The typed `_v0` object model (`D00SolutionBlueprint` over a
+`SpecDocument`) exists to make document *edits* correctness-checked by the
+generated model, and the reviewer has no document to edit: its whole input is
+the exported **class graph**, and the only thing it writes is its review file.
+Adopting the typed facade there would not route existing writes through a safer
+door — there are none — it would mean giving the reviewer a document plane it
+deliberately does not have, which is the editor this specification describes.
+So `tom_specs_reviewer` carries no `tom_som_dart_v0` dependency by design, and
+the boundary in §4.4 is where document editing stops.
 
 ---
 

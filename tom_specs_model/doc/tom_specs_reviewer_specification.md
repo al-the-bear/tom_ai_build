@@ -85,6 +85,28 @@ case a reviewer needs to be able to record.
 Findings are written to `structure_review.yaml`. Its location is
 `$TOM_SPECS_REVIEW_FILE` when set, otherwise `<cwd>/review/structure_review.yaml`.
 
+### 2.4 What is deliberately not an input: the typed `_v0` facade
+
+The reviewer reads the **class graph** and writes its **review file**. It never
+loads a specification *document*, and that is the whole of the read-only
+property — not a restraint applied to an editing capability, but the absence of
+a document plane.
+
+That is why the reviewer depends on the generic runtime
+(`tom_som_dart_runtime`) and **not** on the typed `tom_som_dart_v0` facade. The
+typed model (`D00SolutionBlueprint` over a `SpecDocument`) earns its keep by
+making document *edits* correctness-checked by the generated model rather than
+by convention. With no document and no edits, it would check nothing here;
+adopting it would first require giving the reviewer the document plane it
+deliberately does not have — at which point the app would be
+`tom_forge/tom_specs_editor`, which already exists and already embeds this
+tree's structure browser (§3.1).
+
+So the dependency set is the reviewer's settled shape rather than a stage on
+the way to a richer one. The place this decision is most likely to be
+undone — the `dependencies:` block of `pubspec.yaml` — carries a comment saying
+so.
+
 ---
 
 ## 3. Architecture

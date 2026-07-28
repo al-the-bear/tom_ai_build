@@ -24,6 +24,13 @@ dependencies:
   # needs to be able to record.
   tom_specs_core:
     path: ../tom_specs_core
+  # NOT here, by design: `tom_som_dart_v0`, the typed facade
+  # (D00SolutionBlueprint over a SpecDocument). It earns its keep by making
+  # document EDITS correctness-checked by the generated model — and this app
+  # loads the class graph, never a document, so there is nothing for it to
+  # check. Adding it would mean first giving the reviewer a document plane it
+  # deliberately does not have, which is tom_forge/tom_specs_editor's job.
+  # See tom_specs_reviewer_specification.md §2.4.
 
 dev_dependencies:
   flutter_test:
