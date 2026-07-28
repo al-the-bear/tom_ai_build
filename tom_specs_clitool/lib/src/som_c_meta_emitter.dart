@@ -3,8 +3,10 @@
 /// the other language meta emitters): the populated `SomMetaTree`s built as
 /// generated data (SOM §7.2) plus the two discoverable access surfaces of SOM
 /// §8 — the **dot-notation tree** (model member names) and the **ID-tree**
-/// (section ids, SOM §8). This module replaces the retired flat path-constant
-/// `#define` holders (`SBP_PATHS_…`) of the C facade.
+/// (section ids, SOM §8). Together they are the facade's **only**
+/// path-addressing surface — there is no flat per-root `#define` constant
+/// holder, because a constant cannot express a dynamic path (typed prefix
+/// plus runtime-computed tail).
 ///
 /// The emitted node values mirror `tom_som_c_runtime`'s `som_build_meta_tree`
 /// (the meta-JSON bridge) **field for field**, sourced from the same

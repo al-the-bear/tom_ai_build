@@ -3,8 +3,10 @@
 /// other language meta emitters): the populated `SomMetaTree`s built as
 /// generated code (SOM §7.2) plus the two discoverable access surfaces of SOM
 /// §8 — the **dot-notation tree** (model member names) and the **ID-tree**
-/// (section ids, SOM §8). This module replaces the retired flat path-constant
-/// holders (`<Code>Paths`) of the C++ facade.
+/// (section ids, SOM §8). Together they are the facade's **only**
+/// path-addressing surface — there is no flat per-root constant holder,
+/// because a constant cannot express a dynamic path (typed prefix plus
+/// runtime-computed tail).
 ///
 /// The emitted node values mirror `tom_som_cpp_runtime`'s `somBuildMetaTree`
 /// (the meta-JSON bridge) **field for field**, sourced from the same

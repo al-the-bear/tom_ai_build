@@ -462,9 +462,9 @@ void main() {
       expect(justRoot, contains('pub struct CurrentLandscapeAssessment {'));
     });
 
-    test('the flat path-constant holders are retired (SOM §8)', () {
+    test('no flat path-constant holder is emitted (SOM §8)', () {
       final source = SomRustEmitter(_fixtureModel()).generateLibrary();
-      // The `Pd00Paths` holder is replaced by the meta module's navigation
+      // Path addressing lives solely in the meta module's navigation
       // surfaces (dot-notation + ID-tree) in `src/meta.rs`.
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, contains('pub mod meta;'));

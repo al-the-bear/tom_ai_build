@@ -365,11 +365,11 @@ void main() {
     });
 
     test(
-        'the flat path-constant holders are retired; the loaders thread the '
+        'no flat path-constant holder is emitted; the loaders thread the '
         'generated metadata trees', () {
       final source = SomJavaEmitter(_fixtureModel()).generateLibrary();
-      // The former § item 11 `Pd00Paths` holder is gone — the dot-notation /
-      // ID-tree surfaces of the sibling meta module supersede it.
+      // Path addressing lives solely in the dot-notation / ID-tree surfaces
+      // of the sibling meta module (SOM §8).
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('public static final String vision')));
       // The root loaders thread the root's generated SomMetaTree .

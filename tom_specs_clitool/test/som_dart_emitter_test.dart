@@ -310,11 +310,11 @@ dependencies:
       expect(tagsLine, isNot(contains('pattern:')));
     });
 
-    test('path-constant holders are retired; the meta library is exported '
-        '(SOM §8)', () {
+    test('no flat path-constant holder is emitted; the meta library is '
+        'exported (SOM §8)', () {
       final source = SomDartEmitter(_fixtureModel()).generateLibrary();
-      // SOM §8: the former per-root `<Code>Paths` holders are gone from the main
-      // facade library …
+      // SOM §8: the facade library carries no per-root `<Code>Paths` holder
+      // …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('static const String vision =')));
       // … replaced by the generated metadata library (dot-notation + ID tree),

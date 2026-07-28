@@ -571,11 +571,11 @@ void main() {
       expect(justRoot, contains('type CurrentLandscapeAssessment struct {'));
     });
 
-    test('path-constant holders are retired; the meta trees are threaded '
-        '(SOM §8)', () {
+    test('no flat path-constant holder is emitted; the meta trees are '
+        'threaded (SOM §8)', () {
       final source = SomGoEmitter(_fixtureModel()).generateLibrary();
-      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
-      // main facade module …
+      // SOM §8: the facade module carries no per-root `<Code>Paths` holder
+      // …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('Vision: "PD00/vision"')));
       // … replaced by the generated metadata module (dot-notation + ID tree,

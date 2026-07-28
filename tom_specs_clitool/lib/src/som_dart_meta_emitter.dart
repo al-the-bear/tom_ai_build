@@ -2,8 +2,9 @@
 /// the populated [`SomMetaTree`]s as generated static data structures in code
 /// (SOM §7.2) plus the two discoverable access surfaces of SOM §8 — the
 /// **dot-notation tree** (member names, SOM §8) and the **ID-tree** (section
-/// ids, SOM §8). This library replaces the retired flat path-constant holders
-/// (`SbpPaths.…`) in the Dart facade.
+/// ids, SOM §8). Together they are the facade's **only** path-addressing
+/// surface — there is no flat per-root constant holder, because a constant
+/// cannot express a dynamic path (typed prefix plus runtime-computed tail).
 ///
 /// The emitted node values mirror `tom_som_dart_runtime`'s
 /// `buildSomMetaTree` (the meta-JSON bridge) **field for field**, sourced
@@ -93,7 +94,7 @@ class SomDartMetaEmitter {
           'tree')
       ..writeln('// (model member names) and the ID-tree (section ids). Both')
       ..writeln('// resolve to the same SomMetaNode and byte-identical path')
-      ..writeln('// strings; the flat path-constant holders are retired.')
+      ..writeln('// strings; there is no flat path-constant holder.')
       ..writeln('// ignore_for_file: type=lint, non_constant_identifier_names')
       // Classes that are never instantiated as a field of another class
       // (abstract bases like `Requirement`) still get a children builder for

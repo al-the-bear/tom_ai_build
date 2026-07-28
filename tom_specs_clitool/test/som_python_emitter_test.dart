@@ -300,11 +300,11 @@ void main() {
       expect(tagsBody, isNot(contains('pattern=')));
     });
 
-    test('path-constant holders are retired; the meta module is re-exported '
-        '(SOM §8)', () {
+    test('no flat path-constant holder is emitted; the meta module is '
+        're-exported (SOM §8)', () {
       final source = SomPythonEmitter(_fixtureModel()).generateLibrary();
-      // SOM §8: the former per-root `<Code>Paths` holders are gone from the
-      // main facade module …
+      // SOM §8: the facade module carries no per-root `<Code>Paths` holder
+      // …
       expect(source, isNot(contains('Pd00Paths')));
       expect(source, isNot(contains('vision = "PD00/vision"')));
       // … replaced by the generated metadata module (dot-notation + ID tree),

@@ -4,7 +4,7 @@
 // generated access surfaces of SOM §8: the dot-notation tree
 // (model member names) and the ID-tree (section ids). Both
 // resolve to the same SomMetaNode and byte-identical path
-// strings; the flat path-constant holders are retired.
+// strings; there is no flat path-constant holder.
 //
 // `SomMetaTree` is `Rc`-based (not `Sync`/`Send`), so the trees cannot live in
 // statics: each `<root>_meta_tree()` builds its tree per call (mirroring how

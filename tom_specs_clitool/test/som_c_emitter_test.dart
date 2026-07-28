@@ -510,11 +510,11 @@ void main() {
               'MigrationRisksGovernanceContentForm_2;'));
     });
 
-    test('the flat path-constant holders are gone (SOM §8)', () {
-      // The generated metadata module retired the per-root `<CODE>_PATHS_*` path `#define`s in favour of
-      // the generated metadata module's populated trees + dot-notation / ID-tree
-      // access surfaces. No holder comment or path constant may leak into the
-      // facade header any more.
+    test('no flat path-constant holder is emitted (SOM §8)', () {
+      // Path addressing lives solely in the generated metadata module's
+      // populated trees + dot-notation / ID-tree access surfaces. No holder
+      // comment and no `<CODE>_PATHS_*` path `#define` may leak into the
+      // facade header.
       final header = SomCEmitter(_fixtureModel()).generateHeader();
       expect(header, isNot(contains('_PATHS_')),
           reason: 'no `<CODE>_PATHS_*` path macro may remain');

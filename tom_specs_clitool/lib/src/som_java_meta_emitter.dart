@@ -4,8 +4,10 @@
 /// `som_dart_meta_emitter.dart`): the populated `SomMetaTree`s as generated
 /// static data structures in code (SOM §7.2) plus the two discoverable access
 /// surfaces of SOM §8 — the **dot-notation tree** (model member names)
-/// and the **ID-tree** (section ids). This module replaces the retired
-/// flat path-constant holders (`Pd00Paths.…`) in the Java facade.
+/// and the **ID-tree** (section ids). Together they are the facade's **only**
+/// path-addressing surface — there is no flat per-root constant holder,
+/// because a constant cannot express a dynamic path (typed prefix plus
+/// runtime-computed tail).
 ///
 /// The emitted node values mirror `tom_som_java_runtime`'s
 /// `SomMetaBridge.buildSomMetaTree` (the meta-JSON bridge) **field for
@@ -135,7 +137,7 @@ class SomJavaMetaEmitter {
           'tree')
       ..writeln('// (model member names) and the ID-tree (section ids). Both')
       ..writeln('// resolve to the same SomMetaNode and byte-identical path')
-      ..writeln('// strings; the flat path-constant holders are retired.')
+      ..writeln('// strings; there is no flat path-constant holder.')
       ..writeln('package tom_som_java_v0;')
       ..writeln()
       ..writeln('import java.util.ArrayList;')

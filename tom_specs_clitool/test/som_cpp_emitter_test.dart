@@ -569,14 +569,14 @@ void main() {
           contains('class CurrentLandscapeAssessment : public som::SomNode {'));
     });
 
-    test('the flat path-constant holders are gone (SOM §8)', () {
-      // The generated metadata module retires the per-root `<Code>Paths` constexpr holders in favour of
-      // the generated metadata module's populated trees + dot-notation / ID-tree
-      // access surfaces. No holder struct or path constant may leak into the
-      // facade header any more.
+    test('no flat path-constant holder is emitted (SOM §8)', () {
+      // Path addressing lives solely in the generated metadata module's
+      // populated trees + dot-notation / ID-tree access surfaces. No
+      // `<Code>Paths` constexpr holder struct and no path constant may leak
+      // into the facade header.
       final header = SomCppEmitter(_fixtureModel()).generateHeader();
       expect(header, isNot(contains('struct Pd00Paths')),
-          reason: 'path-constant holder struct must be removed');
+          reason: 'no `<Code>Paths` holder struct may be emitted');
       expect(header, isNot(contains('Paths {')),
           reason: 'no `<Code>Paths` holder may remain');
       expect(header, isNot(contains('= "PD00/')),
