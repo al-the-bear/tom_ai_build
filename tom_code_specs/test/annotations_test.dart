@@ -19,7 +19,18 @@ class _OrderCodeSpec {}
 @CsForm()
 @CsValidation(note: 'total must be non-negative')
 @CodeSpec('UI-ORDER-LIST', source: ['UP-ORDER-LIST'])
-class _OrderListForm {}
+class _OrderListForm {
+  // CE-VA (§5.19): the two rule shapes differ by signature, not merely by
+  // scope. A field rule sees one value and nothing else — which is what makes
+  // it composable into the per-field declaration string. A form rule is a
+  // method on the form because it has to read siblings, which that string
+  // grammar cannot express.
+  @CsFieldRule(note: 'reference must carry the project prefix')
+  static String? validateReference(String value) => null;
+
+  @CsFormRule(note: 'discount may not exceed total')
+  String? validateDiscountAgainstTotal() => null;
+}
 
 // CE-ID (§5.24): the app's identity-extension holder is an ordinary class whose
 // members carry the placement discriminator — the same member-marker pattern as
@@ -65,11 +76,24 @@ void main() {
       expect(const CsLayout().note, isNull);
       expect(const CsText().note, isNull);
       expect(const CsValidation(note: 'v').note, 'v');
+      expect(const CsFieldRule().note, isNull);
+      expect(const CsFormRule(note: 'cross-field').note, 'cross-field');
       expect(const CsAction().note, isNull);
       expect(const CsTrigger(kind: TriggerKind.userGesture).note, isNull);
       expect(const CsServerCall().note, isNull);
       expect(const CsViewModel().note, isNull);
       expect(const CsRoute().note, isNull);
+    });
+
+    test('CE-VA marks both rule shapes on their real declarations', () {
+      // The markers annotate declarations of different *signatures*: a field
+      // rule takes a value and returns a verdict; a form rule takes nothing
+      // because it reads the form it hangs on. Both tear-offs resolving is the
+      // assertion — it is what proves the annotations are usable where §5.19
+      // says the rules live.
+      expect(_OrderListForm.validateReference, isA<String? Function(String)>());
+      expect(_OrderListForm().validateDiscountAgainstTotal,
+          isA<String? Function()>());
     });
 
     test('server markers construct with optional note', () {

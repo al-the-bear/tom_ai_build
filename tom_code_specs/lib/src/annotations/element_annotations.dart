@@ -59,11 +59,49 @@ class CsText {
 }
 
 /// CE-VA — a client-side validation rule.
+///
+/// The part marker. Where the spec distinguishes *which shape* of rule a code
+/// element is, [CsFieldRule] and [CsFormRule] mark it — see their doc comments
+/// for why the split is annotated rather than inferred.
 class CsValidation {
   /// Optional part-specific note.
   final String? note;
 
   const CsValidation({this.note});
+}
+
+/// CE-VA — a **single-field** validation rule (`codespecs_mapping.md` §5.19).
+///
+/// Marks a standalone `Validator<T>` — a typed value in, a `ValidationResult`
+/// out — or a registered custom entry in `TomValidatorRegistry`. The standard
+/// rules (`required`, `email`, `minLength`, `maxLength`, `pattern`, `min`,
+/// `max`, `minItems`, `maxItems`) are carried by `tom_flutter_ui`'s `Validators`
+/// and are authored as a declaration string on the field, so they need no
+/// marker; this annotation exists for the **project-specific** rule, which is
+/// real Dart code and would otherwise be indistinguishable from a form rule.
+///
+/// Split from [CsFormRule] because the two have different *signatures*, not
+/// merely different scopes: a field rule cannot see its siblings, which is
+/// precisely what makes it composable into the declaration string.
+class CsFieldRule {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsFieldRule({this.note});
+}
+
+/// CE-VA — a **cross-field** validation rule (`codespecs_mapping.md` §5.19).
+///
+/// Marks a form-level invariant: a method on the `TomForm` subclass that reads
+/// several fields and yields a `FormValidationError` naming the offending ones.
+/// A form rule is deliberately **not** expressible in the per-field declaration
+/// string — the grammar cannot name a second field — so it is authored on the
+/// form, and this marker is what says so.
+class CsFormRule {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsFormRule({this.note});
 }
 
 /// CE-AC — a user action (a command the user can invoke).
