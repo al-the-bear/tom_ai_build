@@ -384,7 +384,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: public\|encrypted)` per field (both not yet authored, `csra1`).<br>**Example:** `@CsIdentity class EmployeeProfile { @CsIdentityAttribute(placement: encrypted) late String costCenter; }` | None — reuse; both carriers exist. | The two annotations must be **authored**; per-field **placement** + format/length constraints — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class (not yet authored, `csra1`). Migration **filenames stay strings** (§5.23 exemption). | Execution substrate is pure reuse. **Convergence gap (`csex6`)** — no **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check); it is the **only integrity guard** available over the string-exempt migration filenames. Framework roadmap. | `@CsMigration` must be authored; attributes tying a migration to the **entity-model version** it converges to. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`, `tombase/isolate_pooling/tom_worker.dart`). A job is a concrete class over the gap **job base class**, its work body **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob(schedule: …)` (not yet authored, `csra1`).<br>**Example:** `@CsJob(schedule: '0 3 * * *') class NightlyCleanupJob extends TomJobBase { @override run() => throw UnsupportedError('purge expired sessions via SessionService'); }` | **Three gaps:** (1) the **job base class** → `tom_core_codespecs` (`csra2`); (2) **no scheduler runtime / durable job queue** in core — cron parsing, persistence, retries (`csex7`; `tom_process_monitor` is reference only); (3) **no multi-node single-fire lease locking** (`csex8`, depends on `csex7`, low priority). | `@CsJob` must be authored; **schedule expression**, **concurrency/single-fire policy** and **retry policy** are pure spec detail beyond code. |
-| **CE-RP** Reporting *(deferred, §4.3)* | Tabular / aggregated reporting with export channels (screen, `fileExport` CSV/PDF/XLSX); SOM home REPENT (D09). | Mapping-only: the reserved `CodeSpecPart.reporting` kind — **no `Cs*` annotation, no built-on class, no generated code** until promoted. On promotion it would build on CE-DB queries + a **tabular result envelope**. | Promotion is blocked on three roadmap items: the **aggregation grammar** (`csex5`, shared with CE-DB); the **tabular envelope** (a tom_specs-owned `tom_core_codespecs` gap); and **CSV/PDF/XLSX rendering** over that envelope for the `fileExport` channel (`csex11`; the stored-export path additionally depends on `csfs1`). | Future `@CsReport` + the reserved `CsReportRef` (§5.23). |
+| **CE-RP** Reporting *(deferred, §4.3)* | Tabular / aggregated reporting with export channels (screen, `fileExport` CSV/PDF/XLSX); SOM home REPENT (D09). | Mapping-only: the reserved `CodeSpecPart.reporting` kind — **no `Cs*` annotation, no built-on class, no generated code** until promoted. On promotion it would build on CE-DB queries + a **tabular result envelope**. | Promotion was blocked on three roadmap items; **rendering is done** — `csex11` shipped the `tom_core_server` `export` module (CSV/XLSX/PDF through one streaming abstraction, plus the `apiResponse` and `fileExport` channels; `doc/export.md`), built on a minimal tabular shape the envelope adapts onto, and a `csfs1`-backed blob store is now an adapter rather than a blocker. Two remain: the **aggregation grammar** (`csex5`, shared with CE-DB) and the **tabular envelope** itself (a tom_specs-owned `tom_core_codespecs` gap). Charts stay unrendered by design. | Future `@CsReport` + the reserved `CsReportRef` (§5.23). |
 | **CE-WF** Workflow *(deferred, §4.3)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **Full substrate missing** — no core state-machine or process-instance persistence exists; the largest-distance deferred part. The substrate survey + build/defer recommendation to `csra7` is owned by `csex13`. | Future annotation family undefined until a substrate exists. |
 | **CE-NT** Notification *(deferred, §4.3)* | Outbound user notifications, email first; SOM home NM (D06, ATS). | Mapping-only — reserved kind value; no surfaces. | **Transport substrate exists** — `tom_core_server` `messaging`: `TomMessage` (channel-neutral), `TomMessageTransport` / `TomMessageRouter`, `TomSmtpTransport` with secret-marked CE-CF credentials, and `TomMessageOutbox` (durable queue on the CE-JB scheduler). Stand-in transports make a spec naming `email` runnable without a mail server. **Remaining gap for promotion:** the notification *model* — notification type ⇄ channel ⇄ user preference — which `tom_core` does not have. | Future `@CsNotification`; message templates keyed via CE-TX (`CsMessageKey`). |
 | **CE-LG** AuditLog *(deferred, §4.3 — promotion criterion met)* | Business-relevant audit trail — **distinct from diagnostic logging**; SOM home SAS (D08). | Mapping-only — reserved kind value; no `Cs*` surfaces yet. Kernel logging is diagnostic, not audit. | **Audit-hook gap CLOSED (`csex9`)** — `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAudited` / `TomAuditSink`; `doc/audit.md`) writes at both chokepoints: the CE-API pipeline (`TomEndpointHandler` — denials automatic, declared invocations via `@TomAudited`) and the CE-DB write path (`TomSqlDatasourceRepository` — every mutation automatic). A concrete built-on class now exists, so `csra7` can decide CE-LG **on the merits**. | Future `@CsAudited` modifier on `@CsEndpoint` / repository writes — a spec-level alias over the existing `@TomAudited` (`enabled` / `includeReads` / `redact`). |
@@ -403,7 +403,8 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   persistence), CE-CL (client descriptor), CE-JB (job base class; plus the
   `csex7`/`csex8` scheduler-runtime roadmap), CE-CC (candidate holder —
   decision owned by `csex12`).
-- **Deferred:** CE-RP (`csex5`/`csex11`),
+- **Deferred:** CE-RP (`csex5` — `csex11` is DONE, so of its three blockers only
+  the aggregation grammar and the tabular envelope remain),
   CE-WF (substrate survey/recommendation owned by `csex13`). **CE-LG and CE-NT
   are deferred-but-decidable:** their blocking substrate gaps are closed —
   `csex9` gave CE-LG the `tom_core_server` `audit` module, `csex10` gave CE-NT
@@ -2711,8 +2712,9 @@ reference.
 3. **Filters / parameters** — the runtime inputs a caller supplies, typed and
    bounded.
 4. **Delivery channel, named abstractly** — `apiResponse | email | fileExport`
-   (CSV/PDF/…). The definition names the channel only; transports beyond the
-   CE-API response are framework roadmap (below).
+   (CSV/PDF/…). The definition names the channel only. All three transports now
+   exist: `apiResponse` and `fileExport` in the `tom_core_server` `export`
+   module, `email` in its `messaging` module (below).
 5. **Optional schedule** — a precalculated / periodically distributed report
    names its schedule; execution wiring is the CE-JB relationship (below).
 
@@ -2743,7 +2745,19 @@ gaps).**
 
 - **Aggregation/grouping in the query layer** — the `TomOperator` /
   `TomGeneratedQuery` surface has no GROUP BY / SUM / AVG yet.
-- **Rendering engines** — CSV/PDF/XLSX generation from the tabular envelope.
+
+Rendering is **no longer a roadmap item**: `tom_core_server` has an `export`
+module (`TomTabularRenderer` over `TomCsvRenderer` / `TomXlsxRenderer` /
+`TomPdfRenderer`, guide at `tom_ai/core/tom_core_server/doc/export.md`) that
+renders a tabular result to all three formats through one abstraction, streaming
+throughout. Both non-email delivery channels are wired: `TomExportService`
+`respondWith` is `apiResponse` and `storeAs` is `fileExport`, the latter over a
+narrow `TomExportStore` seam whose blob-store backing is `csfs1`. The renderers
+consume `TomTabularResult` — deliberately the *minimal* tabular shape, not this
+section's envelope, so that when the envelope class is authored it is adapted
+onto that shape rather than the renderers being rebuilt. **Charts (item 2) are
+not rendered**: two of the three formats cannot express one at all, so a chart
+model belongs beside the envelope rather than inside it.
 
 Email delivery is **no longer a roadmap item**: `tom_core_server` has a
 `messaging` module (`TomMessage` / `TomMessageRouter` / `TomSmtpTransport` /
