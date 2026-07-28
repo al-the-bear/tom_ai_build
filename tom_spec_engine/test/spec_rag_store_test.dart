@@ -17,9 +17,9 @@ import 'support/vector_runtime.dart';
 /// returns them.*
 ///
 /// Like the façade suite, these are **skipped** (not failed) when the host
-/// process has no vector runtime. `support/vector_runtime.dart` owns that
-/// precondition and explains why it is probed rather than inferred from the
-/// binary's presence.
+/// process has no vector runtime. `support/vector_runtime.dart` names that
+/// precondition — `package:tom_brain_memory` owns it — and explains why it is
+/// probed rather than inferred from the binary's presence.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [

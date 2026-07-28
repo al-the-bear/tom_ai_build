@@ -66,12 +66,6 @@ dev_dependencies:
   # what keeps a ~10 MB scan to about a second.
   analyzer: ">=8.0.0 <11.0.0"
   crypto: ^3.0.0
-  # Test-only. `test/support/vector_runtime.dart` probes whether this process
-  # can actually register the bundled sqlite-vec (vec0) extension, which needs
-  # the process-wide `sqlite3` instance to hand to `VecExtensionLoader.load`.
-  # Runtime code reaches sqlite3 only through tom_brain_memory; the engine's own
-  # library sources never import it.
-  sqlite3: ^2.9.0
   # The D4rt bridge generator that produces the SOM `*.b.dart` binding surface
   # from the `d4rtgen:` block in buildkit.yaml. Used only by
   # tool/regenerate_bridges.dart — see _copilot_guidelines/bridge_regeneration.md.

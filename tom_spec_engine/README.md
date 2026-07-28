@@ -73,27 +73,19 @@ is fine — it opens and its `sqlite3_vec_init` symbol resolves — but nothing 
 register it. Windows is in the same position when `winsqlite3.dll` is what
 resolves, since it omits the API too.
 
-**The tests do not depend on the default.** `test/support/vector_runtime.dart`
-looks for a `libsqlite3` that *does* support extension loading and points
-`package:sqlite3` at it through the public `open.overrideFor` seam before the
-first SQLite access. Search order:
+**The engine does not depend on the default, and does not own the fix.** Both
+the repair (`SqliteHostLibrary`, which points `package:sqlite3` at a capable
+`libsqlite3` through the public `open.overrideFor` seam, honouring
+`$TOM_SQLITE3_LIB` first and Homebrew's prefixes on macOS) and the gate
+(`VectorRuntimeProbe`, which runs the real load once rather than checking that
+a file exists) live in `package:tom_brain_memory` — the package that owns the
+store and therefore the precondition. Its README section **"Vector runtime
+precondition"** carries the search order, the rule that keeps the repair
+conditional, and the ordering hazard.
 
-1. `$TOM_SQLITE3_LIB` — an explicit path, honoured on every platform.
-2. Homebrew's `sqlite` formula, on macOS: `/opt/homebrew/opt/sqlite/lib/…`
-   then `/usr/local/opt/sqlite/lib/…`.
-
-A candidate is accepted only if it opens **and** exports
-`sqlite3_enable_load_extension`; otherwise the platform default stands
-untouched. On a macOS box with `brew install sqlite` the four store-touching
+`test/support/vector_runtime.dart` is nothing but the engine-side name for
+that probe. On a macOS box with `brew install sqlite` the four store-touching
 suites (`spec_memory`, `spec_rag_store`, `spec_recall_store`,
-`spec_brain_envelope`) therefore run the vector tier **for real** under a bare
-`dart test`. Without it they skip, as before.
-
-This is **test support only**. Production is deliberately untouched: the
-Flutter desktop host already bundles a working SQLite, and overriding there
-would trade correct behaviour for machine-dependent behaviour.
-
-The gate itself stays a **probe, not a proxy** — after any override,
-`VectorRuntime.probe()` still runs the real load once per test isolate and
-reports the outcome, so a host that still cannot register `vec0` yields
-**skipped tests with the reason stated** rather than a red suite.
+`spec_brain_envelope`) run the vector tier **for real** under a bare
+`dart test`; on a host that still cannot register `vec0` they report as
+**skipped with the reason stated** rather than as a red suite.
