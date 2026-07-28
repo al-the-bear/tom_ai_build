@@ -182,6 +182,8 @@ class SomGoMetaEmitter {
       _emitRoot(b, root);
     }
 
+    _emitRootRegistry(b);
+
     return '${b.toString().trimRight()}\n';
   }
 
@@ -222,7 +224,13 @@ class SomGoMetaEmitter {
         ..add('LoadFile${root.type}');
     }
 
-    final meta = <String>{'metaCx', 'metaIntPtr', 'mustMetaTree'};
+    final meta = <String>{
+      'metaCx',
+      'metaIntPtr',
+      'mustMetaTree',
+      'SomMetaRootEntry',
+      'SomMetaRoots',
+    };
     for (final name in classNames) {
       meta
         ..add('metaChildren$name')
@@ -247,7 +255,7 @@ class SomGoMetaEmitter {
           'facade identifiers in package $packageName: ${clash.join(', ')}');
     }
     if (meta.length !=
-        3 +
+        5 +
             classNames.length * 3 +
             idClasses.length * 2 +
             _roots.length * 3) {
@@ -571,6 +579,63 @@ class SomGoMetaEmitter {
       ..writeln('// `$idSymbol.<SECTION_ID>()….Path` / `.Meta()`.')
       ..writeln('var $idSymbol = new${root.type}ID(${root.type}MetaTree, '
           '${_str(seg)})')
+      ..writeln();
+  }
+
+  /// Emits the document-root registry: the same root list that produced the
+  /// trees above, in one enumerable place.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '───────────────────────────────────────')
+      ..writeln()
+      ..writeln('// SomMetaRootEntry is one document root of this model: its '
+          'class name and')
+      ..writeln('// section id, its populated metadata tree, and the two '
+          'access roots')
+      ..writeln('// (SOM §8) bound to it, as the common som.SomMetaRef base.')
+      ..writeln('type SomMetaRootEntry struct {')
+      ..writeln('\t// Type is the root class name, e.g. '
+          '`D00SolutionBlueprint`.')
+      ..writeln('\tType string')
+      ..writeln('\t// Segment is the path segment the two access roots are '
+          'bound at — the')
+      ..writeln('\t// root section id where the model gives one, else the '
+          'class name.')
+      ..writeln('\tSegment string')
+      ..writeln('\t// Tree is the populated metadata tree of this root '
+          '(SOM §7.2).')
+      ..writeln('\tTree *som.SomMetaTree')
+      ..writeln('\t// Nav is the dot-notation access root.')
+      ..writeln('\tNav *som.SomMetaRef')
+      ..writeln('\t// ID is the ID-tree access root.')
+      ..writeln('\tID *som.SomMetaRef')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('// SomMetaRoots is every document root this module '
+          'generates, keyed by root')
+      ..writeln('// class name. Emitted from the same root list that produced '
+          'the trees and')
+      ..writeln('// access roots above, so ranging over it is equivalent to '
+          'reading the')
+      ..writeln('// generator input — no consumer needs a hand-kept copy of '
+          'the root set.')
+      ..writeln('var SomMetaRoots = map[string]SomMetaRootEntry{');
+    for (final root in _roots) {
+      final seg = _rootSegment(root);
+      final idSymbol = _idName(seg);
+      b.writeln('\t${_str(root.type)}: {Type: ${_str(root.type)}, '
+          'Segment: ${_str(seg)}, Tree: ${root.type}MetaTree, '
+          'Nav: &${root.type}Meta.SomMetaRef, '
+          'ID: &$idSymbol.SomMetaRef},');
+    }
+    b
+      ..writeln('}')
       ..writeln();
   }
 

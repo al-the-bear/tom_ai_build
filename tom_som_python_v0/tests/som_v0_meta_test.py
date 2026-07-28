@@ -15,6 +15,12 @@ committed model:
      node instances for representative positions (root, nested section,
      content leaf, list, list element, hoisted id).
 
+The root set comes from the generated ``SOM_META_ROOTS`` registry, not a
+hand-list: adding a document root cannot leave this suite behind. That does not
+make the coverage check circular — ``meta/spec_model.meta.json`` is written by
+the model JSON exporter, a different code path from the meta emitter, so an
+emitter that drops a root still shows up as a mismatch.
+
 Run with ``python3 tests/som_v0_meta_test.py``; exit code 0 == all green.
 """
 
@@ -59,26 +65,10 @@ def _check(name: str, condition: bool, detail: str = "") -> None:
         _failed.append(f"{name}{(': ' + detail) if detail else ''}")
 
 
-#: Every generated per-root static tree, keyed by its root type.
-_GENERATED_TREES = {
-    "D00SolutionBlueprint": m.d00SolutionBlueprintMetaTree,
-    "D01CurrentLandscapeAssessment": m.d01CurrentLandscapeAssessmentMetaTree,
-    "D02TargetOperatingModel": m.d02TargetOperatingModelMetaTree,
-    "D03InformationModel": m.d03InformationModelMetaTree,
-    "D04RequirementsSpecification": m.d04RequirementsSpecificationMetaTree,
-    "D05InteractionScenarios": m.d05InteractionScenariosMetaTree,
-    "D06ArchitectureTechnologySpecification":
-        m.d06ArchitectureTechnologySpecificationMetaTree,
-    "D07IntegrationInterfaceSpecification":
-        m.d07IntegrationInterfaceSpecificationMetaTree,
-    "D08SecurityAccessSpecification": m.d08SecurityAccessSpecificationMetaTree,
-    "D09ExperienceDesignSpecification":
-        m.d09ExperienceDesignSpecificationMetaTree,
-    "D10QualityAcceptancePlan": m.d10QualityAcceptancePlanMetaTree,
-    "D11DeliveryRoadmap": m.d11DeliveryRoadmapMetaTree,
-    "D12TransitionRolloutPlan": m.d12TransitionRolloutPlanMetaTree,
-    "D13CodeSpecsProjection": m.d13CodeSpecsProjectionMetaTree,
-}
+#: Every generated per-root static tree, keyed by its root type — read from the
+#: generated ``SOM_META_ROOTS`` registry rather than hand-listed, so a new
+#: document root reaches this suite by regeneration instead of by recollection.
+_GENERATED_TREES = {k: e.tree for k, e in m.SOM_META_ROOTS.items()}
 
 
 def _model() -> SpecModel:
@@ -97,6 +87,15 @@ def test_generated_trees_agree_with_bridge(model: SpecModel) -> None:
         bridge = build_som_meta_tree(model, root_type=root_type)
         diff = som_meta_node_diff(tree.root, bridge.root)
         _check(f"trees.agree.{root_type}", diff is None, diff or "")
+
+
+def test_registry_entries_are_self_consistent() -> None:
+    for key, e in m.SOM_META_ROOTS.items():
+        _check(f"registry.key.{key}", e.type == key)
+        _check(f"registry.nav-segment.{key}", e.nav.path == e.segment)
+        _check(f"registry.id-segment.{key}", e.id.path == e.segment)
+        _check(f"registry.nav-meta.{key}", e.nav.meta is e.tree.root)
+        _check(f"registry.id-meta.{key}", e.id.meta is e.tree.root)
 
 
 def test_dot_notation_surface() -> None:
@@ -167,22 +166,7 @@ def test_id_tree_surface() -> None:
     )
 
     # Every root has a distinct Id entry point at its own segment.
-    id_roots = {
-        "D00SolutionBlueprint": m.SBP,
-        "D01CurrentLandscapeAssessment": m.CLA,
-        "D02TargetOperatingModel": m.TOM,
-        "D03InformationModel": m.IFM,
-        "D04RequirementsSpecification": m.RSP,
-        "D05InteractionScenarios": m.ISC,
-        "D06ArchitectureTechnologySpecification": m.ATS,
-        "D07IntegrationInterfaceSpecification": m.IIS,
-        "D08SecurityAccessSpecification": m.SAS,
-        "D09ExperienceDesignSpecification": m.XDS,
-        "D10QualityAcceptancePlan": m.QAP,
-        "D11DeliveryRoadmap": m.DRM,
-        "D12TransitionRolloutPlan": m.TRP,
-        "D13CodeSpecsProjection": m.CGP,
-    }
+    id_roots = {k: e.id for k, e in m.SOM_META_ROOTS.items()}
     _check("id.roots-cover", set(id_roots) == set(_GENERATED_TREES))
     for root_type, ref in id_roots.items():
         tree = _GENERATED_TREES[root_type]
@@ -197,6 +181,7 @@ def test_id_tree_surface() -> None:
 def main() -> int:
     model = _model()
     test_generated_trees_agree_with_bridge(model)
+    test_registry_entries_are_self_consistent()
     test_dot_notation_surface()
     test_id_tree_surface()
 

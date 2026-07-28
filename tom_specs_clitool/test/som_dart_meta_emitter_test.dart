@@ -115,6 +115,28 @@ Map<String, dynamic> _fixtureJson() => {
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
+/// [_fixtureJson] plus a **second** document root, so an assertion about the
+/// generated root registry (SOM §8) proves it carries one entry *per root*
+/// rather than a single hard-wired one.
+Map<String, dynamic> _twoRootJson() {
+  final json = _fixtureJson();
+  (json['roots'] as List)
+      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['classes'] as Map<String, dynamic>)['Aux'] = {
+    'name': 'Aux',
+    'sectionId': 'AX00',
+    'fields': [
+      {
+        'name': 'note',
+        'kind': 'content',
+        'sectionId': 'note',
+        'contentType': 'text',
+      },
+    ],
+  };
+  return json;
+}
+
 /// The functional agreement program compiled into the throwaway package: it
 /// compares the generated tree against `buildSomMetaTree` (field for field via
 /// `somMetaNodeDiff`) and asserts the dot-notation and ID-tree surfaces agree.
@@ -312,6 +334,22 @@ dependencies:
           documentRoots: ['SolutionBlueprint']).generateLibrary();
       expect(all, contains('solutionBlueprintMetaTree'));
       expect(subset, contains('solutionBlueprintMetaTree'));
+    });
+    // The nine v0 meta-agreement suites read their root set from this
+    // registry instead of hand-listing it, so an emitter that drops it
+    // silently un-gates fourteen roots in nine languages at once.
+    test('the document-root registry carries one entry per root (SOM §8)',
+        () {
+      final all = SomDartMetaEmitter(SpecModel.fromJson(_twoRootJson()))
+          .generateLibrary();
+      expect(all, contains("'SolutionBlueprint': SomMetaRootEntry('SolutionBlueprint', 'PD00', "
+              'solutionBlueprintMetaTree, solutionBlueprint, PD00)'));
+      expect(all, contains("'Aux': SomMetaRootEntry('Aux', 'AX00', auxMetaTree, aux, AX00)"));
+
+      final subset = SomDartMetaEmitter(SpecModel.fromJson(_twoRootJson()),
+              documentRoots: ['SolutionBlueprint'])
+          .generateLibrary();
+      expect(subset, isNot(contains("'Aux': SomMetaRootEntry(")));
     });
   });
 }

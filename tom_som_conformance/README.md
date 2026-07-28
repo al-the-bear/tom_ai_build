@@ -12,7 +12,7 @@ nine language APIs agree.
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
 | `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp) plus their expected outputs, consumed by each runtime's conformance runner. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
-| `tool/` | The golden harness: `regenerate_golden.sh` (driver) and `compare_golden.dart` (byte-identical assertion). |
+| `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
 ## Cross-language golden harness (roadmap item 7b)
 
@@ -152,6 +152,54 @@ the done-criteria: `dart analyze` clean, the `tom_specs_clitool` suite green, th
 nine language APIs green, and cross-language golden byte-identity unaffected (the
 `regenerate_golden.sh` run above). A green sweep proves the 18 packages are
 internally consistent, versioned to the model, and independently buildable.
+
+## The eighteen test suites — `run_all_suites.sh`
+
+The golden harness proves the nine APIs *read* the sample identically. It says
+nothing about the eighteen hand-authored test suites that sit in the nine
+runtime and nine `v0` packages — and for a long time nothing ran them together,
+so a suite could stay red without anyone noticing.
+
+`tool/run_all_suites.sh` closes that: every SOM package now carries a uniform
+`run_tests.sh` that runs everything hand-authored in it, whatever the ecosystem
+underneath, and this driver is the aggregate over all eighteen.
+
+```bash
+./tool/run_all_suites.sh                    # everything, skipping absent toolchains
+./tool/run_all_suites.sh --strict           # a skipped suite is a failure
+./tool/run_all_suites.sh rust_v0 c_runtime  # just these
+./tool/run_all_suites.sh --log-dir <dir>    # place the per-suite logs
+```
+
+Per-suite output goes to one log file each (default: a timestamped folder under
+the workspace `ztmp/`), with a PASS / FAIL / SKIP summary table at the end and a
+non-zero exit on any failure. A suite whose toolchain is absent is **skipped
+with the reason stated**, never reported as a pass — and `--strict` turns that
+skip into a failure for hosts that claim full coverage.
+
+The driver adds `~/.cargo/bin` to `PATH` when `cargo` is not already resolvable:
+rustup wires cargo up in the *interactive* shell profile only, so a
+non-interactive run would otherwise skip the two Rust suites on a host that can
+perfectly well run them. A skip that reflects a `PATH` quirk is nearly as bad as
+no gate at all. `regenerate_golden.sh` carries the same prepend.
+
+### The suites read their root set from the generated registry
+
+Each `tom_som_<lang>_v0` package's meta-agreement suite checks the generated
+metadata module against the tree the runtime bridge derives from
+`meta/spec_model.meta.json`. Those suites used to **hand-list** the document
+roots, so adding a fourteenth root left nine suites listing thirteen.
+
+They now read the root set from the generated module's own
+`SOM_META_ROOTS` registry (SOM §8) instead, which is emitted from the same root
+list that produced the trees — so a new document root reaches every suite by
+regeneration rather than by recollection.
+
+That does not make the coverage check circular. `meta/spec_model.meta.json` is
+written by the **model JSON exporter**, a different code path from the meta
+emitters, so a suite still fails loudly when an emitter drops a root — verified
+by seeding exactly that and watching the Dart and Rust suites go red with a
+root-count mismatch.
 
 ## Discoverable path access — metadata tree, nav, and ID-tree (SOM §8)
 

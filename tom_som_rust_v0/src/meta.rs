@@ -102702,3 +102702,268 @@ pub fn d13_code_specs_projection_meta(tree: &som::SomMetaTree) -> D13CodeSpecsPr
 pub fn CGP(tree: &som::SomMetaTree) -> D13CodeSpecsProjectionId<'_> {
     D13CodeSpecsProjectionId::new(tree, "CGP".to_string())
 }
+
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+/// Erases `d00_solution_blueprint_meta`'s accessor type to the common `SomMetaRef`.
+fn d00_solution_blueprint_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d00_solution_blueprint_meta(tree).meta_ref
+}
+
+/// Erases `SBP`'s accessor type to the common `SomMetaRef`.
+fn d00_solution_blueprint_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    SBP(tree).meta_ref
+}
+
+/// Erases `d01_current_landscape_assessment_meta`'s accessor type to the common `SomMetaRef`.
+fn d01_current_landscape_assessment_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d01_current_landscape_assessment_meta(tree).meta_ref
+}
+
+/// Erases `CLA`'s accessor type to the common `SomMetaRef`.
+fn d01_current_landscape_assessment_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    CLA(tree).meta_ref
+}
+
+/// Erases `d02_target_operating_model_meta`'s accessor type to the common `SomMetaRef`.
+fn d02_target_operating_model_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d02_target_operating_model_meta(tree).meta_ref
+}
+
+/// Erases `TOM`'s accessor type to the common `SomMetaRef`.
+fn d02_target_operating_model_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    TOM(tree).meta_ref
+}
+
+/// Erases `d03_information_model_meta`'s accessor type to the common `SomMetaRef`.
+fn d03_information_model_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d03_information_model_meta(tree).meta_ref
+}
+
+/// Erases `IFM`'s accessor type to the common `SomMetaRef`.
+fn d03_information_model_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    IFM(tree).meta_ref
+}
+
+/// Erases `d04_requirements_specification_meta`'s accessor type to the common `SomMetaRef`.
+fn d04_requirements_specification_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d04_requirements_specification_meta(tree).meta_ref
+}
+
+/// Erases `RSP`'s accessor type to the common `SomMetaRef`.
+fn d04_requirements_specification_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    RSP(tree).meta_ref
+}
+
+/// Erases `d05_interaction_scenarios_meta`'s accessor type to the common `SomMetaRef`.
+fn d05_interaction_scenarios_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d05_interaction_scenarios_meta(tree).meta_ref
+}
+
+/// Erases `ISC`'s accessor type to the common `SomMetaRef`.
+fn d05_interaction_scenarios_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    ISC(tree).meta_ref
+}
+
+/// Erases `d06_architecture_technology_specification_meta`'s accessor type to the common `SomMetaRef`.
+fn d06_architecture_technology_specification_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d06_architecture_technology_specification_meta(tree).meta_ref
+}
+
+/// Erases `ATS`'s accessor type to the common `SomMetaRef`.
+fn d06_architecture_technology_specification_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    ATS(tree).meta_ref
+}
+
+/// Erases `d07_integration_interface_specification_meta`'s accessor type to the common `SomMetaRef`.
+fn d07_integration_interface_specification_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d07_integration_interface_specification_meta(tree).meta_ref
+}
+
+/// Erases `IIS`'s accessor type to the common `SomMetaRef`.
+fn d07_integration_interface_specification_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    IIS(tree).meta_ref
+}
+
+/// Erases `d08_security_access_specification_meta`'s accessor type to the common `SomMetaRef`.
+fn d08_security_access_specification_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d08_security_access_specification_meta(tree).meta_ref
+}
+
+/// Erases `SAS`'s accessor type to the common `SomMetaRef`.
+fn d08_security_access_specification_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    SAS(tree).meta_ref
+}
+
+/// Erases `d09_experience_design_specification_meta`'s accessor type to the common `SomMetaRef`.
+fn d09_experience_design_specification_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d09_experience_design_specification_meta(tree).meta_ref
+}
+
+/// Erases `XDS`'s accessor type to the common `SomMetaRef`.
+fn d09_experience_design_specification_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    XDS(tree).meta_ref
+}
+
+/// Erases `d10_quality_acceptance_plan_meta`'s accessor type to the common `SomMetaRef`.
+fn d10_quality_acceptance_plan_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d10_quality_acceptance_plan_meta(tree).meta_ref
+}
+
+/// Erases `QAP`'s accessor type to the common `SomMetaRef`.
+fn d10_quality_acceptance_plan_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    QAP(tree).meta_ref
+}
+
+/// Erases `d11_delivery_roadmap_meta`'s accessor type to the common `SomMetaRef`.
+fn d11_delivery_roadmap_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d11_delivery_roadmap_meta(tree).meta_ref
+}
+
+/// Erases `DRM`'s accessor type to the common `SomMetaRef`.
+fn d11_delivery_roadmap_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    DRM(tree).meta_ref
+}
+
+/// Erases `d12_transition_rollout_plan_meta`'s accessor type to the common `SomMetaRef`.
+fn d12_transition_rollout_plan_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d12_transition_rollout_plan_meta(tree).meta_ref
+}
+
+/// Erases `TRP`'s accessor type to the common `SomMetaRef`.
+fn d12_transition_rollout_plan_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    TRP(tree).meta_ref
+}
+
+/// Erases `d13_code_specs_projection_meta`'s accessor type to the common `SomMetaRef`.
+fn d13_code_specs_projection_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    d13_code_specs_projection_meta(tree).meta_ref
+}
+
+/// Erases `CGP`'s accessor type to the common `SomMetaRef`.
+fn d13_code_specs_projection_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    CGP(tree).meta_ref
+}
+
+/// One document root: its class name, the path segment its access roots are
+/// bound at, the constructor of its populated metadata tree (SOM §7.2), and
+/// the two access roots (SOM §8) as constructors over that tree.
+pub struct SomMetaRootEntry {
+    /// The root class name, e.g. `D00SolutionBlueprint`.
+    pub type_name: &'static str,
+    /// The path segment the root's access surfaces are bound at.
+    pub segment: &'static str,
+    /// Builds this root's populated metadata tree.
+    pub tree: fn() -> som::SomMetaTree,
+    /// Binds the dot-notation access root to a built tree.
+    pub nav_ref: for<'a> fn(&'a som::SomMetaTree) -> som::SomMetaRef<'a>,
+    /// Binds the ID-tree access root to a built tree.
+    pub id_ref: for<'a> fn(&'a som::SomMetaTree) -> som::SomMetaRef<'a>,
+}
+
+/// Every document root this module generates, in model order. Emitted from the
+/// same root list that produced the trees above, so iterating it is equivalent
+/// to reading the generator input — no consumer needs a hand-kept copy of the
+/// root set.
+pub fn som_meta_roots() -> Vec<SomMetaRootEntry> {
+    vec![
+        SomMetaRootEntry {
+            type_name: "D00SolutionBlueprint",
+            segment: "SBP",
+            tree: d00_solution_blueprint_meta_tree,
+            nav_ref: d00_solution_blueprint_nav_ref,
+            id_ref: d00_solution_blueprint_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D01CurrentLandscapeAssessment",
+            segment: "CLA",
+            tree: d01_current_landscape_assessment_meta_tree,
+            nav_ref: d01_current_landscape_assessment_nav_ref,
+            id_ref: d01_current_landscape_assessment_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D02TargetOperatingModel",
+            segment: "TOM",
+            tree: d02_target_operating_model_meta_tree,
+            nav_ref: d02_target_operating_model_nav_ref,
+            id_ref: d02_target_operating_model_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D03InformationModel",
+            segment: "IFM",
+            tree: d03_information_model_meta_tree,
+            nav_ref: d03_information_model_nav_ref,
+            id_ref: d03_information_model_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D04RequirementsSpecification",
+            segment: "RSP",
+            tree: d04_requirements_specification_meta_tree,
+            nav_ref: d04_requirements_specification_nav_ref,
+            id_ref: d04_requirements_specification_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D05InteractionScenarios",
+            segment: "ISC",
+            tree: d05_interaction_scenarios_meta_tree,
+            nav_ref: d05_interaction_scenarios_nav_ref,
+            id_ref: d05_interaction_scenarios_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D06ArchitectureTechnologySpecification",
+            segment: "ATS",
+            tree: d06_architecture_technology_specification_meta_tree,
+            nav_ref: d06_architecture_technology_specification_nav_ref,
+            id_ref: d06_architecture_technology_specification_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D07IntegrationInterfaceSpecification",
+            segment: "IIS",
+            tree: d07_integration_interface_specification_meta_tree,
+            nav_ref: d07_integration_interface_specification_nav_ref,
+            id_ref: d07_integration_interface_specification_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D08SecurityAccessSpecification",
+            segment: "SAS",
+            tree: d08_security_access_specification_meta_tree,
+            nav_ref: d08_security_access_specification_nav_ref,
+            id_ref: d08_security_access_specification_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D09ExperienceDesignSpecification",
+            segment: "XDS",
+            tree: d09_experience_design_specification_meta_tree,
+            nav_ref: d09_experience_design_specification_nav_ref,
+            id_ref: d09_experience_design_specification_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D10QualityAcceptancePlan",
+            segment: "QAP",
+            tree: d10_quality_acceptance_plan_meta_tree,
+            nav_ref: d10_quality_acceptance_plan_nav_ref,
+            id_ref: d10_quality_acceptance_plan_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D11DeliveryRoadmap",
+            segment: "DRM",
+            tree: d11_delivery_roadmap_meta_tree,
+            nav_ref: d11_delivery_roadmap_nav_ref,
+            id_ref: d11_delivery_roadmap_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D12TransitionRolloutPlan",
+            segment: "TRP",
+            tree: d12_transition_rollout_plan_meta_tree,
+            nav_ref: d12_transition_rollout_plan_nav_ref,
+            id_ref: d12_transition_rollout_plan_id_ref,
+        },
+        SomMetaRootEntry {
+            type_name: "D13CodeSpecsProjection",
+            segment: "CGP",
+            tree: d13_code_specs_projection_meta_tree,
+            nav_ref: d13_code_specs_projection_nav_ref,
+            id_ref: d13_code_specs_projection_id_ref,
+        },
+    ]
+}

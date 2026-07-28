@@ -241,3 +241,25 @@ export const solutionBlueprint: SolutionBlueprint$Nav = new SolutionBlueprint$Na
 // `PD00.<SECTION-ID>….path` / `.meta`.
 export const PD00: SolutionBlueprint$Id = new SolutionBlueprint$Id(solutionBlueprintMetaTree, "PD00");
 
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+// One entry per document root this module generates: the root class name, the
+// path segment its access roots are bound at, the populated metadata tree
+// (SOM §7.2), and the two SOM §8 access roots (typed as the common base so
+// the entries are uniform).
+export interface SomMetaRootEntry {
+  readonly type: string;
+  readonly segment: string;
+  readonly tree: SomMetaTree;
+  readonly nav: SomMetaRef;
+  readonly id: SomMetaRef;
+}
+
+// Every document root, keyed by root class name and in model order. Emitted
+// from the same root list that produced the trees above, so enumerating this
+// object is equivalent to reading the generator input — no consumer needs a
+// hand-kept copy of the root set.
+export const SOM_META_ROOTS: Record<string, SomMetaRootEntry> = {
+  "SolutionBlueprint": {type: "SolutionBlueprint", segment: "PD00", tree: solutionBlueprintMetaTree, nav: solutionBlueprint, id: PD00},
+};
+

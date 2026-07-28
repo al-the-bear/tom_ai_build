@@ -171,6 +171,8 @@ class SomRustMetaEmitter {
       _emitRoot(b, root);
     }
 
+    _emitRootRegistry(b);
+
     // Emit with idiomatic 4-space indentation (see SomRustEmitter — the only
     // tabs in the buffer are indentation, string-literal tabs are escaped).
     return '${b.toString().trimRight().replaceAll('\t', '    ')}\n';
@@ -185,19 +187,19 @@ class SomRustMetaEmitter {
   /// marks a model hazard, not a runtime condition.
   void _guardModuleCollisions(
       List<String> classNames, List<String> idClasses) {
-    final types = <String>{};
+    final types = <String>{'SomMetaRootEntry'};
     for (final name in classNames) {
       types.add('${name}Nav');
     }
     for (final name in idClasses) {
       types.add('${name}Id');
     }
-    if (types.length != classNames.length + idClasses.length) {
+    if (types.length != 1 + classNames.length + idClasses.length) {
       throw StateError(
           'generated meta-module accessor type names collide with each other');
     }
 
-    final values = <String>{'meta_cx'};
+    final values = <String>{'meta_cx', 'som_meta_roots'};
     for (final name in classNames) {
       values.add('meta_children_${_snake(name)}');
     }
@@ -205,9 +207,11 @@ class SomRustMetaEmitter {
       values
         ..add('${_snake(root.type)}_meta_tree')
         ..add('${_snake(root.type)}_meta')
+        ..add('${_snake(root.type)}_nav_ref')
+        ..add('${_snake(root.type)}_id_ref')
         ..add(_idName(_rootSegment(root)));
     }
-    if (values.length != 1 + classNames.length + _roots.length * 3) {
+    if (values.length != 2 + classNames.length + _roots.length * 5) {
       throw StateError(
           'generated meta-module function names collide with each other');
     }
@@ -553,6 +557,95 @@ class SomRustMetaEmitter {
       ..writeln('pub fn $idSymbol(tree: &som::SomMetaTree) -> '
           '${root.type}Id<\'_> {')
       ..writeln('\t${root.type}Id::new(tree, ${_strLit(seg)})')
+      ..writeln('}')
+      ..writeln();
+  }
+
+  /// Emits the document-root registry: the full root set as generated data.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  ///
+  /// Rust's entry holds *constructors* rather than live values, unlike the
+  /// other languages': a `SomMetaTree` is `Rc`-based (not `Sync`, so it cannot
+  /// be a `static`) and both access roots borrow the tree they are bound to.
+  /// The two access-root fields are higher-ranked `fn` pointers over a
+  /// caller-owned tree, reached through small generated adapters that erase the
+  /// per-root `…Nav` / `…Id` type down to the common `som::SomMetaRef` — the
+  /// erasure is what lets a consumer loop over the roots at all.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '───────────────────────────────────────')
+      ..writeln();
+    // The adapters exist because the generated access roots are distinct
+    // per-root types: only their common `meta_ref` field is loopable.
+    for (final root in _roots) {
+      final snake = _snake(root.type);
+      final seg = _rootSegment(root);
+      b
+        ..writeln('/// Erases `${snake}_meta`\'s accessor type to the common '
+            '`SomMetaRef`.')
+        ..writeln('fn ${snake}_nav_ref(tree: &som::SomMetaTree) -> '
+            "som::SomMetaRef<'_> {")
+        ..writeln('\t${snake}_meta(tree).meta_ref')
+        ..writeln('}')
+        ..writeln()
+        ..writeln('/// Erases `${_idName(seg)}`\'s accessor type to the common '
+            '`SomMetaRef`.')
+        ..writeln('fn ${snake}_id_ref(tree: &som::SomMetaTree) -> '
+            "som::SomMetaRef<'_> {")
+        ..writeln('\t${_idName(seg)}(tree).meta_ref')
+        ..writeln('}')
+        ..writeln();
+    }
+    b
+      ..writeln('/// One document root: its class name, the path segment its '
+          'access roots are')
+      ..writeln('/// bound at, the constructor of its populated metadata tree '
+          '(SOM §7.2), and')
+      ..writeln('/// the two access roots (SOM §8) as constructors over that '
+          'tree.')
+      ..writeln('pub struct SomMetaRootEntry {')
+      ..writeln('\t/// The root class name, e.g. `D00SolutionBlueprint`.')
+      ..writeln('\tpub type_name: &\'static str,')
+      ..writeln('\t/// The path segment the root\'s access surfaces are bound '
+          'at.')
+      ..writeln('\tpub segment: &\'static str,')
+      ..writeln('\t/// Builds this root\'s populated metadata tree.')
+      ..writeln('\tpub tree: fn() -> som::SomMetaTree,')
+      ..writeln('\t/// Binds the dot-notation access root to a built tree.')
+      ..writeln("\tpub nav_ref: for<'a> fn(&'a som::SomMetaTree) -> "
+          "som::SomMetaRef<'a>,")
+      ..writeln('\t/// Binds the ID-tree access root to a built tree.')
+      ..writeln("\tpub id_ref: for<'a> fn(&'a som::SomMetaTree) -> "
+          "som::SomMetaRef<'a>,")
+      ..writeln('}')
+      ..writeln()
+      ..writeln('/// Every document root this module generates, in model '
+          'order. Emitted from the')
+      ..writeln('/// same root list that produced the trees above, so '
+          'iterating it is equivalent')
+      ..writeln('/// to reading the generator input — no consumer needs a '
+          'hand-kept copy of the')
+      ..writeln('/// root set.')
+      ..writeln('pub fn som_meta_roots() -> Vec<SomMetaRootEntry> {')
+      ..writeln('\tvec![');
+    for (final root in _roots) {
+      final snake = _snake(root.type);
+      b
+        ..writeln('\t\tSomMetaRootEntry {')
+        ..writeln('\t\t\ttype_name: ${_str(root.type)},')
+        ..writeln('\t\t\tsegment: ${_str(_rootSegment(root))},')
+        ..writeln('\t\t\ttree: ${snake}_meta_tree,')
+        ..writeln('\t\t\tnav_ref: ${snake}_nav_ref,')
+        ..writeln('\t\t\tid_ref: ${snake}_id_ref,')
+        ..writeln('\t\t},');
+    }
+    b
+      ..writeln('\t]')
       ..writeln('}')
       ..writeln();
   }

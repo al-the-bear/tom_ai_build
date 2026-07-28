@@ -166,6 +166,9 @@ class SomJavaScriptMetaEmitter {
       rootExports.addAll(_emitRoot(b, root));
     }
 
+    _emitRootRegistry(b);
+    rootExports.add('SOM_META_ROOTS');
+
     // ── module exports ─────────────────────────────────────────────────────
     b.writeln('module.exports = {');
     for (final name in classNames) {
@@ -454,6 +457,43 @@ class SomJavaScriptMetaEmitter {
           '${_str(seg)});')
       ..writeln();
     return ['${camel}MetaTree', camel, idSymbol];
+  }
+
+  /// Emits the document-root registry: the same root list that produced the
+  /// trees above, in one enumerable place.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '───────────────────────────────────────')
+      ..writeln()
+      ..writeln('// Every document root this module generates, keyed by root '
+          'class name and in')
+      ..writeln('// model order. Each entry carries the root class name, the '
+          'path segment its')
+      ..writeln('// access roots are bound at, the populated metadata tree '
+          '(SOM §7.2), and the')
+      ..writeln('// two SOM §8 access roots. Emitted from the same root list '
+          'that produced the')
+      ..writeln('// trees above, so enumerating this object is equivalent to '
+          'reading the')
+      ..writeln('// generator input — no consumer needs a hand-kept copy of '
+          'the root set.')
+      ..writeln('const SOM_META_ROOTS = {');
+    for (final root in _roots) {
+      final seg = _rootSegment(root);
+      final camel = _camel(root.type);
+      b.writeln('  ${_str(root.type)}: {type: ${_str(root.type)}, '
+          'segment: ${_str(seg)}, tree: ${camel}MetaTree, nav: $camel, '
+          'id: ${_idName(seg)}},');
+    }
+    b
+      ..writeln('};')
+      ..writeln();
   }
 
   List<String> _basedOn(SpecClass? cls) {

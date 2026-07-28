@@ -15,6 +15,12 @@
 //      *same* som::SomMetaNode instances for representative positions (root,
 //      nested section, content leaf, list, list element, hoisted id).
 //
+// The root set comes from the generated `somMetaRoots()` registry, not a
+// hand-list: adding a document root cannot leave this suite behind. That does
+// not make the coverage check circular — `meta/spec_model.meta.json` is written
+// by the model JSON exporter, a different code path from the meta emitter, so
+// an emitter that drops a root still shows up as a count mismatch.
+//
 // Build & run via `./run_tests.sh`. Exit 0 == all green; prints "OK: N checks".
 //
 // C++ RAII means there is nothing to free: the static trees are owned by the
@@ -69,90 +75,10 @@ std::string readFile(const std::string& path, bool* okFlag) {
   return ss.str();
 }
 
-// One row of the document-root registry: the model root type, the generated static
-// tree, and the ID-tree entry point resolved to its root ref.
-struct RootRow {
-  std::string type;
-  const som::SomMetaTree* tree;
-  som::SomMetaRef idRef;  // the section-id root accessor's ref
-};
-
-// Builds the registry of all document roots. The ID entry points return distinct
-// struct types, so each is called explicitly and its `.ref` captured.
-std::vector<RootRow> buildRows() {
-  namespace m = tom_som_v0_meta;
-  std::vector<RootRow> rows;
-  rows.push_back({"D00SolutionBlueprint", &m::d00SolutionBlueprintMetaTree(),
-                  m::d00SolutionBlueprintMetaId(m::d00SolutionBlueprintMetaTree())
-                      .ref});
-  rows.push_back(
-      {"D01CurrentLandscapeAssessment",
-       &m::d01CurrentLandscapeAssessmentMetaTree(),
-       m::d01CurrentLandscapeAssessmentMetaId(
-           m::d01CurrentLandscapeAssessmentMetaTree())
-           .ref});
-  rows.push_back(
-      {"D02TargetOperatingModel", &m::d02TargetOperatingModelMetaTree(),
-       m::d02TargetOperatingModelMetaId(m::d02TargetOperatingModelMetaTree())
-           .ref});
-  rows.push_back(
-      {"D03InformationModel", &m::d03InformationModelMetaTree(),
-       m::d03InformationModelMetaId(m::d03InformationModelMetaTree()).ref});
-  rows.push_back(
-      {"D04RequirementsSpecification",
-       &m::d04RequirementsSpecificationMetaTree(),
-       m::d04RequirementsSpecificationMetaId(
-           m::d04RequirementsSpecificationMetaTree())
-           .ref});
-  rows.push_back(
-      {"D05InteractionScenarios", &m::d05InteractionScenariosMetaTree(),
-       m::d05InteractionScenariosMetaId(m::d05InteractionScenariosMetaTree())
-           .ref});
-  rows.push_back(
-      {"D06ArchitectureTechnologySpecification",
-       &m::d06ArchitectureTechnologySpecificationMetaTree(),
-       m::d06ArchitectureTechnologySpecificationMetaId(
-           m::d06ArchitectureTechnologySpecificationMetaTree())
-           .ref});
-  rows.push_back(
-      {"D07IntegrationInterfaceSpecification",
-       &m::d07IntegrationInterfaceSpecificationMetaTree(),
-       m::d07IntegrationInterfaceSpecificationMetaId(
-           m::d07IntegrationInterfaceSpecificationMetaTree())
-           .ref});
-  rows.push_back(
-      {"D08SecurityAccessSpecification",
-       &m::d08SecurityAccessSpecificationMetaTree(),
-       m::d08SecurityAccessSpecificationMetaId(
-           m::d08SecurityAccessSpecificationMetaTree())
-           .ref});
-  rows.push_back(
-      {"D09ExperienceDesignSpecification",
-       &m::d09ExperienceDesignSpecificationMetaTree(),
-       m::d09ExperienceDesignSpecificationMetaId(
-           m::d09ExperienceDesignSpecificationMetaTree())
-           .ref});
-  rows.push_back(
-      {"D10QualityAcceptancePlan", &m::d10QualityAcceptancePlanMetaTree(),
-       m::d10QualityAcceptancePlanMetaId(m::d10QualityAcceptancePlanMetaTree())
-           .ref});
-  rows.push_back(
-      {"D11DeliveryRoadmap", &m::d11DeliveryRoadmapMetaTree(),
-       m::d11DeliveryRoadmapMetaId(m::d11DeliveryRoadmapMetaTree()).ref});
-  rows.push_back(
-      {"D12TransitionRolloutPlan", &m::d12TransitionRolloutPlanMetaTree(),
-       m::d12TransitionRolloutPlanMetaId(m::d12TransitionRolloutPlanMetaTree())
-           .ref});
-  rows.push_back(
-      {"D13CodeSpecsProjection", &m::d13CodeSpecsProjectionMetaTree(),
-       m::d13CodeSpecsProjectionMetaId(m::d13CodeSpecsProjectionMetaTree())
-           .ref});
-  return rows;
-}
-
 // GUARANTEE 1: every generated static tree is field-for-field identical to the
 // bridge-built tree, and the generated trees cover exactly the model roots.
 void testTreesAgreeWithBridge() {
+  namespace m = tom_som_v0_meta;
   bool readOk = false;
   std::string data = readFile("meta/spec_model.meta.json", &readOk);
   ok(readOk, "read meta/spec_model.meta.json");
@@ -164,11 +90,11 @@ void testTreesAgreeWithBridge() {
   ok(model != nullptr, "parse spec model");
   if (model == nullptr) return;
 
-  std::vector<RootRow> rows = buildRows();
+  std::vector<m::SomMetaRootEntry> rows = m::somMetaRoots();
   ok(model->roots.size() == rows.size(),
      "model root count matches generated tree count");
 
-  for (const RootRow& row : rows) {
+  for (const m::SomMetaRootEntry& row : rows) {
     std::string berr;
     std::unique_ptr<som::SomMetaTree> bridge =
         som::somBuildMetaTree(*model, row.type, &berr);
@@ -193,7 +119,7 @@ void testTreesAgreeWithBridge() {
   // Every model root has a generated tree (same set, by type).
   for (const som::SpecRoot& r : model->roots) {
     bool found = false;
-    for (const RootRow& row : rows) {
+    for (const m::SomMetaRootEntry& row : rows) {
       if (row.type == r.type) {
         found = true;
         break;
@@ -285,10 +211,26 @@ void testIdTreeSurface() {
   delete reinterpret_cast<m::NavRevisionEntry*>(idItem0);
   delete reinterpret_cast<m::NavRevisionEntry*>(dotItem0);
 
-  // Every root has a distinct ID entry point resolving to its own tree root.
-  std::vector<RootRow> rows = buildRows();
-  for (const RootRow& row : rows) {
-    ok(row.idRef.meta() == row.tree->root(), "ID root meta() == its tree root");
+  // Every root has a distinct ID entry point at its own section-id segment,
+  // resolving to its own tree root. The per-root Id types differ, so the
+  // generated registry's common-typed `id` is what makes this a loop rather
+  // than an unrolled block a fifteenth root could be left out of.
+  for (const m::SomMetaRootEntry& row : m::somMetaRoots()) {
+    eqStr(row.id.path, row.tree->root()->sectionId,
+          "ID root path == its tree root section id");
+    ok(row.id.meta() == row.tree->root(), "ID root meta() == its tree root");
+  }
+}
+
+// Each registry entry describes itself consistently: both access roots sit at
+// the declared segment and both resolve to the entry's own tree root.
+void testRegistryEntriesAreSelfConsistent() {
+  namespace m = tom_som_v0_meta;
+  for (const m::SomMetaRootEntry& row : m::somMetaRoots()) {
+    eqStr(row.nav.path, row.segment, "registry nav path == segment");
+    eqStr(row.id.path, row.segment, "registry id path == segment");
+    ok(row.nav.meta() == row.tree->root(), "registry nav meta() == tree root");
+    ok(row.id.meta() == row.tree->root(), "registry id meta() == tree root");
   }
 }
 
@@ -297,6 +239,7 @@ void testIdTreeSurface() {
 int main() {
   try {
     testTreesAgreeWithBridge();
+    testRegistryEntriesAreSelfConsistent();
     testDotNotationSurface();
     testIdTreeSurface();
   } catch (const std::exception& e) {

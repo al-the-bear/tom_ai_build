@@ -9,6 +9,7 @@ package tom_som_java_v0;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -128138,5 +128139,71 @@ public final class TomSomV0Meta {
   // `CGP.<SECTION_ID>()….path` / `.meta()`.
   public static final D13CodeSpecsProjectionId CGP =
       new D13CodeSpecsProjectionId(D13CodeSpecsProjectionMetaTree, "CGP");
+
+  // ── document-root registry (SOM §8) ─────────────────────────────────────
+
+  /** One document root: its class name, the path segment its access roots are
+   * bound at, the populated metadata tree (SOM §7.2) and the two SOM §8 access
+   * roots (typed as the common base so the entries are uniform). */
+  public static final class SomMetaRootEntry {
+    public final String type;
+    public final String segment;
+    public final SomMetaTree tree;
+    public final SomMetaRef nav;
+    public final SomMetaRef id;
+
+    SomMetaRootEntry(
+        String type,
+        String segment,
+        SomMetaTree tree,
+        SomMetaRef nav,
+        SomMetaRef id) {
+      this.type = type;
+      this.segment = segment;
+      this.tree = tree;
+      this.nav = nav;
+      this.id = id;
+    }
+  }
+
+  // SOM_META_ROOTS holds every document root this module generates, keyed by
+  // root class name and in model order. Emitted from the same root list that
+  // produced the trees above, so iterating it is equivalent to reading the
+  // generator input — no consumer needs a hand-kept copy of the root set.
+  public static final Map<String, SomMetaRootEntry> SOM_META_ROOTS =
+      buildSomMetaRoots();
+
+  private static Map<String, SomMetaRootEntry> buildSomMetaRoots() {
+    Map<String, SomMetaRootEntry> m = new LinkedHashMap<>();
+    m.put("D00SolutionBlueprint", new SomMetaRootEntry(
+        "D00SolutionBlueprint", "SBP", D00SolutionBlueprintMetaTree, D00SolutionBlueprintMeta, SBP));
+    m.put("D01CurrentLandscapeAssessment", new SomMetaRootEntry(
+        "D01CurrentLandscapeAssessment", "CLA", D01CurrentLandscapeAssessmentMetaTree, D01CurrentLandscapeAssessmentMeta, CLA));
+    m.put("D02TargetOperatingModel", new SomMetaRootEntry(
+        "D02TargetOperatingModel", "TOM", D02TargetOperatingModelMetaTree, D02TargetOperatingModelMeta, TOM));
+    m.put("D03InformationModel", new SomMetaRootEntry(
+        "D03InformationModel", "IFM", D03InformationModelMetaTree, D03InformationModelMeta, IFM));
+    m.put("D04RequirementsSpecification", new SomMetaRootEntry(
+        "D04RequirementsSpecification", "RSP", D04RequirementsSpecificationMetaTree, D04RequirementsSpecificationMeta, RSP));
+    m.put("D05InteractionScenarios", new SomMetaRootEntry(
+        "D05InteractionScenarios", "ISC", D05InteractionScenariosMetaTree, D05InteractionScenariosMeta, ISC));
+    m.put("D06ArchitectureTechnologySpecification", new SomMetaRootEntry(
+        "D06ArchitectureTechnologySpecification", "ATS", D06ArchitectureTechnologySpecificationMetaTree, D06ArchitectureTechnologySpecificationMeta, ATS));
+    m.put("D07IntegrationInterfaceSpecification", new SomMetaRootEntry(
+        "D07IntegrationInterfaceSpecification", "IIS", D07IntegrationInterfaceSpecificationMetaTree, D07IntegrationInterfaceSpecificationMeta, IIS));
+    m.put("D08SecurityAccessSpecification", new SomMetaRootEntry(
+        "D08SecurityAccessSpecification", "SAS", D08SecurityAccessSpecificationMetaTree, D08SecurityAccessSpecificationMeta, SAS));
+    m.put("D09ExperienceDesignSpecification", new SomMetaRootEntry(
+        "D09ExperienceDesignSpecification", "XDS", D09ExperienceDesignSpecificationMetaTree, D09ExperienceDesignSpecificationMeta, XDS));
+    m.put("D10QualityAcceptancePlan", new SomMetaRootEntry(
+        "D10QualityAcceptancePlan", "QAP", D10QualityAcceptancePlanMetaTree, D10QualityAcceptancePlanMeta, QAP));
+    m.put("D11DeliveryRoadmap", new SomMetaRootEntry(
+        "D11DeliveryRoadmap", "DRM", D11DeliveryRoadmapMetaTree, D11DeliveryRoadmapMeta, DRM));
+    m.put("D12TransitionRolloutPlan", new SomMetaRootEntry(
+        "D12TransitionRolloutPlan", "TRP", D12TransitionRolloutPlanMetaTree, D12TransitionRolloutPlanMeta, TRP));
+    m.put("D13CodeSpecsProjection", new SomMetaRootEntry(
+        "D13CodeSpecsProjection", "CGP", D13CodeSpecsProjectionMetaTree, D13CodeSpecsProjectionMeta, CGP));
+    return Collections.unmodifiableMap(m);
+  }
 
 }

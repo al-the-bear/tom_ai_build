@@ -148,6 +148,8 @@ class SomPythonMetaEmitter {
       _emitRoot(b, root);
     }
 
+    _emitRootRegistry(b);
+
     return b.toString();
   }
 
@@ -413,6 +415,67 @@ class SomPythonMetaEmitter {
       ..writeln('#: ID-tree access root of `${root.type}` (SOM §8):')
       ..writeln('#: `$idSymbol.<SECTION-ID>….path` / `.meta`.')
       ..writeln('$idSymbol = ${root.type}Id(${camel}MetaTree, ${_str(seg)})')
+      ..writeln();
+  }
+
+  /// Emits the document-root registry: the same root list that produced the
+  /// trees above, in one enumerable place.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('# ── document-root registry (SOM §8) '
+          '───────────────────────────────────────')
+      ..writeln()
+      ..writeln('class SomMetaRootEntry:')
+      ..writeln('    """One document root of this model: its class name and '
+          'section id, its')
+      ..writeln('    populated metadata tree, and the two access roots '
+          '(SOM §8) bound to it."""')
+      ..writeln()
+      ..writeln("    __slots__ = ('type', 'segment', 'tree', 'nav', 'id')")
+      ..writeln()
+      ..writeln('    def __init__(self, type, segment, tree, nav, id):')
+      ..writeln('        #: The root class name, e.g. '
+          '``D00SolutionBlueprint``.')
+      ..writeln('        self.type = type')
+      ..writeln('        #: The path segment the two access roots are bound '
+          'at — the root')
+      ..writeln('        #: section id where the model gives one, else the '
+          'class name.')
+      ..writeln('        self.segment = segment')
+      ..writeln('        #: The populated metadata tree of this root '
+          '(SOM §7.2).')
+      ..writeln('        self.tree = tree')
+      ..writeln('        #: The dot-notation access root '
+          '(a ``SomMetaRef``).')
+      ..writeln('        self.nav = nav')
+      ..writeln('        #: The ID-tree access root (a ``SomMetaRef``).')
+      ..writeln('        self.id = id')
+      ..writeln()
+      ..writeln()
+      ..writeln('#: Every document root this module generates, keyed by root '
+          'class name and')
+      ..writeln('#: in model order. Emitted from the same root list that '
+          'produced the trees')
+      ..writeln('#: and access roots above, so enumerating this mapping is '
+          'equivalent to')
+      ..writeln('#: reading the generator input — no consumer needs a '
+          'hand-kept copy of the')
+      ..writeln('#: root set.')
+      ..writeln('SOM_META_ROOTS = {');
+    for (final root in _roots) {
+      final seg = _rootSegment(root);
+      final camel = _camel(root.type);
+      b.writeln('    ${_str(root.type)}: SomMetaRootEntry('
+          '${_str(root.type)}, ${_str(seg)}, ${camel}MetaTree, $camel, '
+          '${_idName(seg)}),');
+    }
+    b
+      ..writeln('}')
       ..writeln();
   }
 

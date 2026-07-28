@@ -5,8 +5,8 @@
 // (`tom_som_dart_v0_meta.dart`, SOM §7.2/§8). Two guarantees over the *real*
 // committed model:
 //
-//   1. EXHAUSTIVE TREE AGREEMENT — for every one of the 14 document roots the
-//      generated static `SomMetaTree` is field-for-field identical (via
+//   1. EXHAUSTIVE TREE AGREEMENT — for every document root the generated
+//      static `SomMetaTree` is field-for-field identical (via
 //      `somMetaNodeDiff`) to the tree `buildSomMetaTree` derives from the
 //      committed `meta/spec_model.meta.json` at runtime. Since the emitter
 //      writes the dot-notation / ID-tree accessor paths from the same node
@@ -15,6 +15,12 @@
 //      points, and the dynamic `byPath` lookups all resolve to the *same*
 //      node instances for representative positions (root, nested section,
 //      content leaf, list, list element, hoisted id).
+//
+// The root set comes from the generated `somMetaRoots` registry, not a
+// hand-list: adding a document root cannot leave this suite behind. That does
+// not make the coverage check circular — `meta/spec_model.meta.json` is
+// written by the model JSON exporter, a different code path from the meta
+// emitter, so an emitter that drops a root still shows up as a count mismatch.
 //
 // Run with `dart test` from this package (`tom_som_dart_v0`).
 library;
@@ -31,30 +37,29 @@ void main() {
       jsonDecode(File('meta/spec_model.meta.json').readAsStringSync())
           as Map<String, dynamic>);
 
-  // Every generated per-root static tree, keyed by its root type.
-  final generatedTrees = <String, SomMetaTree>{
-    'D00SolutionBlueprint': d00SolutionBlueprintMetaTree,
-    'D01CurrentLandscapeAssessment': d01CurrentLandscapeAssessmentMetaTree,
-    'D02TargetOperatingModel': d02TargetOperatingModelMetaTree,
-    'D03InformationModel': d03InformationModelMetaTree,
-    'D04RequirementsSpecification': d04RequirementsSpecificationMetaTree,
-    'D05InteractionScenarios': d05InteractionScenariosMetaTree,
-    'D06ArchitectureTechnologySpecification':
-        d06ArchitectureTechnologySpecificationMetaTree,
-    'D07IntegrationInterfaceSpecification':
-        d07IntegrationInterfaceSpecificationMetaTree,
-    'D08SecurityAccessSpecification': d08SecurityAccessSpecificationMetaTree,
-    'D09ExperienceDesignSpecification': d09ExperienceDesignSpecificationMetaTree,
-    'D10QualityAcceptancePlan': d10QualityAcceptancePlanMetaTree,
-    'D11DeliveryRoadmap': d11DeliveryRoadmapMetaTree,
-    'D12TransitionRolloutPlan': d12TransitionRolloutPlanMetaTree,
-    'D13CodeSpecsProjection': d13CodeSpecsProjectionMetaTree,
+  // Every generated per-root static tree, keyed by its root type — read from
+  // the generated registry rather than hand-listed, so a new document root
+  // reaches this suite by regeneration instead of by recollection.
+  final generatedTrees = {
+    for (final e in somMetaRoots.entries) e.key: e.value.tree,
   };
 
-  group('generated metadata trees == bridge trees (all 14 roots)', () {
-    test('the generated map covers exactly the model roots', () {
+  group('generated metadata trees == bridge trees (every root)', () {
+    test('the generated registry covers exactly the model roots', () {
       expect(generatedTrees.keys.toSet(),
           model.roots.map((r) => r.type).toSet());
+    });
+
+    test('each registry entry is self-consistent', () {
+      for (final e in somMetaRoots.entries) {
+        expect(e.value.type, e.key, reason: 'key != entry.type');
+        expect(e.value.nav.path, e.value.segment, reason: e.key);
+        expect(e.value.id.path, e.value.segment, reason: e.key);
+        expect(identical(e.value.nav.meta, e.value.tree.root), isTrue,
+            reason: e.key);
+        expect(identical(e.value.id.meta, e.value.tree.root), isTrue,
+            reason: e.key);
+      }
     });
 
     for (final rootType in generatedTrees.keys) {
@@ -130,20 +135,7 @@ void main() {
 
     test('every root has a distinct Id entry point at its own segment', () {
       final idRoots = <String, SomMetaRef>{
-        'D00SolutionBlueprint': SBP,
-        'D01CurrentLandscapeAssessment': CLA,
-        'D02TargetOperatingModel': TOM,
-        'D03InformationModel': IFM,
-        'D04RequirementsSpecification': RSP,
-        'D05InteractionScenarios': ISC,
-        'D06ArchitectureTechnologySpecification': ATS,
-        'D07IntegrationInterfaceSpecification': IIS,
-        'D08SecurityAccessSpecification': SAS,
-        'D09ExperienceDesignSpecification': XDS,
-        'D10QualityAcceptancePlan': QAP,
-        'D11DeliveryRoadmap': DRM,
-        'D12TransitionRolloutPlan': TRP,
-        'D13CodeSpecsProjection': CGP,
+        for (final e in somMetaRoots.entries) e.key: e.value.id,
       };
       expect(idRoots.keys.toSet(), generatedTrees.keys.toSet());
       for (final e in idRoots.entries) {

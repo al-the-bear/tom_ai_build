@@ -240,8 +240,86 @@ class SomCMetaEmitter {
     }
     b.writeln();
 
+    _emitRootRegistryDecl(b);
+
     b.writeln('#endif /* $_headerGuard */');
     return b.toString().replaceAll('\t', '  ');
+  }
+
+  /// Declares the document-root registry: the full root set as generated data.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistryDecl(StringBuffer b) {
+    b
+      ..writeln('/* ── document-root registry (SOM §8) '
+          '──────────────────────────────────── */')
+      ..writeln('/* One document root: its class name, the path segment its '
+          'access roots are */')
+      ..writeln('/* bound at, the populated metadata tree (SOM §7.2), and the '
+          'two SOM §8 */')
+      ..writeln('/* access roots as the common SomMetaRef the accessor structs '
+          'wrap. */')
+      ..writeln('typedef struct {')
+      ..writeln('\tconst char *type;')
+      ..writeln('\tconst char *segment;')
+      ..writeln('\tconst SomMetaTree *tree;')
+      ..writeln('\tSomMetaRef nav;')
+      ..writeln('\tSomMetaRef id;')
+      ..writeln('} SomMetaRootEntry;')
+      ..writeln()
+      ..writeln('/* The number of document roots som_meta_roots fills in. '
+          'Named so a caller\'s */')
+      ..writeln('/* array cannot silently be one short of the registry when a '
+          'root is added — */')
+      ..writeln('/* C has no bounds check to catch it. */')
+      ..writeln('#define SOM_META_ROOT_COUNT ${_roots.length}')
+      ..writeln()
+      ..writeln('/* Fills `out` with every document root, in model order, and '
+          'returns the number */')
+      ..writeln('/* written — at most `cap`, so a caller sized to an older '
+          'SOM_META_ROOT_COUNT */')
+      ..writeln('/* truncates rather than overruns. Generated from the same '
+          'root list that */')
+      ..writeln('/* produced the trees above, so no consumer needs a hand-kept '
+          'copy of the */')
+      ..writeln('/* root set. */')
+      ..writeln('/* */')
+      ..writeln('/* OWNERSHIP: each filled entry\'s `nav` and `id` own their '
+          'path buffers — the */')
+      ..writeln('/* caller releases both with som_meta_ref_free. `tree` is '
+          'static and is not */')
+      ..writeln('/* freed. */')
+      ..writeln('size_t som_meta_roots(SomMetaRootEntry *out, size_t cap);')
+      ..writeln();
+  }
+
+  /// Defines the registry declared by [_emitRootRegistryDecl].
+  void _emitRootRegistryDef(StringBuffer b) {
+    b
+      ..writeln('/* ── document-root registry (SOM §8) '
+          '──────────────────────────────────── */')
+      ..writeln('size_t som_meta_roots(SomMetaRootEntry *out, size_t cap) {')
+      ..writeln('\tsize_t i = 0;');
+    for (final root in _roots) {
+      final seg = _ref.rootSegment(root);
+      b
+        ..writeln('\tif (i < cap) {')
+        ..writeln('\t\tconst SomMetaTree *t = ${_treeFn(root.type)}();')
+        ..writeln('\t\tout[i].type = "${_cStr(root.type)}";')
+        ..writeln('\t\tout[i].segment = "${_cStr(seg)}";')
+        ..writeln('\t\tout[i].tree = t;')
+        ..writeln('\t\tout[i].nav = ${_rootNavFn(root)}(t).ref;')
+        ..writeln('\t\tout[i].id = ${_rootIdFn(root)}(t).ref;')
+        ..writeln('\t\ti++;')
+        ..writeln('\t}');
+    }
+    b
+      ..writeln('\treturn i;')
+      ..writeln('}')
+      ..writeln();
   }
 
   // ── source ──────────────────────────────────────────────────────────────────
@@ -329,6 +407,8 @@ class SomCMetaEmitter {
     b.writeln('/* ── ID-tree accessors (SOM §8) '
         '──────────────────────────────────────────── */');
     b.write(idBuf.toString());
+
+    _emitRootRegistryDef(b);
 
     return b.toString().replaceAll('\t', '  ');
   }

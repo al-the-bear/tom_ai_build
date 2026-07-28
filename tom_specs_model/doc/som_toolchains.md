@@ -224,6 +224,27 @@ no root and are the only host gaps a fresh sign-off run hits:
   with `python3 -m pip install --user --break-system-packages build`. Verified
   `build 1.5.0`.
 
+## Exercising every toolchain at once
+
+Two drivers in `tom_som_conformance/tool/` reach every language
+([`som_multiplatform_spec_model.md`](som_multiplatform_spec_model.md) §19.1):
+`regenerate_golden.sh` (the nine golden logs) and `run_all_suites.sh` (the
+eighteen hand-authored suites — nine runtime + nine `v0` packages, each behind
+that package's uniform `run_tests.sh`). Together they are the fastest way to
+confirm a host's whole nine-language stack actually works:
+
+```bash
+cd tom_ai/ai_build/tom_som_conformance
+./tool/run_all_suites.sh --strict     # every suite must run and pass
+./tool/regenerate_golden.sh           # nine logs, then the byte-identity compare
+```
+
+`--strict` turns a *skipped* suite into a failure, which is what you want on a
+host that claims full coverage: without it a missing toolchain is reported as a
+skip with its reason, so the driver stays usable on partially-provisioned hosts.
+Both drivers add `~/.cargo/bin` to `PATH` when needed, because rustup wires
+cargo into the interactive profile only.
+
 ## Verification commands
 
 The exact checks used to populate the matrix (re-runnable on any host):

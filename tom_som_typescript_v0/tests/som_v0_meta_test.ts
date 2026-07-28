@@ -15,6 +15,12 @@
  *      node instances for representative positions (root, nested section,
  *      content leaf, list, list element, hoisted id).
  *
+ * The root set comes from the generated `SOM_META_ROOTS` registry, not a
+ * hand-list: adding a document root cannot leave this suite behind. That does
+ * not make the coverage check circular — `meta/spec_model.meta.json` is written
+ * by the model JSON exporter, a different code path from the meta emitter, so
+ * an emitter that drops a root still shows up as a mismatch.
+ *
  * Build with `tsc` then run `node dist/tests/som_v0_meta_test.js`; exit code
  * 0 == all green. The runtime resolves through the bare specifier
  * `tom_som_typescript_runtime` (wired by the `file:` dependency in
@@ -47,25 +53,12 @@ function check(name: string, condition: boolean, detail?: string): void {
   }
 }
 
-// Every generated per-root static tree, keyed by its root type.
-const GENERATED_TREES: Record<string, SomMetaTree> = {
-  D00SolutionBlueprint: m.d00SolutionBlueprintMetaTree,
-  D01CurrentLandscapeAssessment: m.d01CurrentLandscapeAssessmentMetaTree,
-  D02TargetOperatingModel: m.d02TargetOperatingModelMetaTree,
-  D03InformationModel: m.d03InformationModelMetaTree,
-  D04RequirementsSpecification: m.d04RequirementsSpecificationMetaTree,
-  D05InteractionScenarios: m.d05InteractionScenariosMetaTree,
-  D06ArchitectureTechnologySpecification:
-    m.d06ArchitectureTechnologySpecificationMetaTree,
-  D07IntegrationInterfaceSpecification:
-    m.d07IntegrationInterfaceSpecificationMetaTree,
-  D08SecurityAccessSpecification: m.d08SecurityAccessSpecificationMetaTree,
-  D09ExperienceDesignSpecification: m.d09ExperienceDesignSpecificationMetaTree,
-  D10QualityAcceptancePlan: m.d10QualityAcceptancePlanMetaTree,
-  D11DeliveryRoadmap: m.d11DeliveryRoadmapMetaTree,
-  D12TransitionRolloutPlan: m.d12TransitionRolloutPlanMetaTree,
-  D13CodeSpecsProjection: m.d13CodeSpecsProjectionMetaTree,
-};
+// Every generated per-root static tree, keyed by its root type — read from the
+// generated registry rather than hand-listed, so a new document root reaches
+// this suite by regeneration instead of by recollection.
+const GENERATED_TREES: Record<string, SomMetaTree> = Object.fromEntries(
+  Object.entries(m.SOM_META_ROOTS).map(([k, e]) => [k, e.tree]),
+);
 
 function loadModel(): SpecModel {
   const metaPath = path.join(_PROJECT, 'meta', 'spec_model.meta.json');
@@ -93,6 +86,16 @@ function testGeneratedTreesAgreeWithBridge(model: SpecModel): void {
     const bridge = buildSomMetaTree(model, rootType);
     const diff = somMetaNodeDiff(tree.root, bridge.root);
     check(`trees.agree.${rootType}`, diff === null, diff || '');
+  }
+}
+
+function testRegistryEntriesAreSelfConsistent(): void {
+  for (const [key, e] of Object.entries(m.SOM_META_ROOTS)) {
+    check(`registry.key.${key}`, e.type === key);
+    check(`registry.nav-segment.${key}`, e.nav.path === e.segment);
+    check(`registry.id-segment.${key}`, e.id.path === e.segment);
+    check(`registry.nav-meta.${key}`, e.nav.meta === e.tree.root);
+    check(`registry.id-meta.${key}`, e.id.meta === e.tree.root);
   }
 }
 
@@ -164,22 +167,9 @@ function testIdTreeSurface(): void {
   );
 
   // Every root has a distinct Id entry point at its own segment.
-  const idRoots: Record<string, SomMetaRef> = {
-    D00SolutionBlueprint: m.SBP,
-    D01CurrentLandscapeAssessment: m.CLA,
-    D02TargetOperatingModel: m.TOM,
-    D03InformationModel: m.IFM,
-    D04RequirementsSpecification: m.RSP,
-    D05InteractionScenarios: m.ISC,
-    D06ArchitectureTechnologySpecification: m.ATS,
-    D07IntegrationInterfaceSpecification: m.IIS,
-    D08SecurityAccessSpecification: m.SAS,
-    D09ExperienceDesignSpecification: m.XDS,
-    D10QualityAcceptancePlan: m.QAP,
-    D11DeliveryRoadmap: m.DRM,
-    D12TransitionRolloutPlan: m.TRP,
-    D13CodeSpecsProjection: m.CGP,
-  };
+  const idRoots: Record<string, SomMetaRef> = Object.fromEntries(
+    Object.entries(m.SOM_META_ROOTS).map(([k, e]) => [k, e.id]),
+  );
   check(
     'id.roots-cover',
     _setsEqual(
@@ -201,6 +191,7 @@ function testIdTreeSurface(): void {
 function main(): number {
   const model = loadModel();
   testGeneratedTreesAgreeWithBridge(model);
+  testRegistryEntriesAreSelfConsistent();
   testDotNotationSurface();
   testIdTreeSurface();
 

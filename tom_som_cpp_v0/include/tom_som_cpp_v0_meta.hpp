@@ -7,6 +7,7 @@
 #define TOM_SOM_CPP_V0_META_HPP
 
 #include <string>
+#include <vector>
 
 #include "tom_som_cpp_runtime.hpp"
 
@@ -11286,6 +11287,24 @@ const som::SomMetaTree& d13CodeSpecsProjectionMetaTree();
 NavD13CodeSpecsProjection d13CodeSpecsProjectionMetaNav(const som::SomMetaTree& tree);
 // The ID-tree access root of `D13CodeSpecsProjection` (SOM §8).
 IdD13CodeSpecsProjection d13CodeSpecsProjectionMetaId(const som::SomMetaTree& tree);
+
+// ── document-root registry (SOM §8) ──────────────────────────────────────
+// One document root: its class name, the path segment its access roots are
+// bound at, the populated metadata tree (SOM §7.2), and the two SOM §8
+// access roots as the common som::SomMetaRef the accessor structs wrap.
+struct SomMetaRootEntry {
+  std::string type;
+  std::string segment;
+  const som::SomMetaTree* tree;
+  som::SomMetaRef nav;
+  som::SomMetaRef id;
+};
+
+// Every document root this module generates, in model order. Emitted from the
+// same root list that produced the trees above, so iterating it is equivalent
+// to reading the generator input — no consumer needs a hand-kept copy of the
+// root set.
+std::vector<SomMetaRootEntry> somMetaRoots();
 
 }  // namespace tom_som_v0_meta
 

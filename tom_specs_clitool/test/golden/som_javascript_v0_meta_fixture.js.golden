@@ -239,6 +239,18 @@ const solutionBlueprint = new SolutionBlueprint$Nav(solutionBlueprintMetaTree, "
 // `PD00.<SECTION-ID>….path` / `.meta`.
 const PD00 = new SolutionBlueprint$Id(solutionBlueprintMetaTree, "PD00");
 
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+// Every document root this module generates, keyed by root class name and in
+// model order. Each entry carries the root class name, the path segment its
+// access roots are bound at, the populated metadata tree (SOM §7.2), and the
+// two SOM §8 access roots. Emitted from the same root list that produced the
+// trees above, so enumerating this object is equivalent to reading the
+// generator input — no consumer needs a hand-kept copy of the root set.
+const SOM_META_ROOTS = {
+  "SolutionBlueprint": {type: "SolutionBlueprint", segment: "PD00", tree: solutionBlueprintMetaTree, nav: solutionBlueprint, id: PD00},
+};
+
 module.exports = {
   CurrentLandscapeAssessment$Nav,
   Risk$Nav,
@@ -249,4 +261,5 @@ module.exports = {
   solutionBlueprintMetaTree,
   solutionBlueprint,
   PD00,
+  SOM_META_ROOTS,
 };

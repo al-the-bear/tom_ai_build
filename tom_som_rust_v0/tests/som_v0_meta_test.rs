@@ -15,6 +15,12 @@
 //     instances for representative positions (root, nested section, content
 //     leaf, list, list element, hoisted id).
 //
+// The root set comes from the generated `meta::som_meta_roots()` registry, not
+// a hand-list: adding a document root cannot leave this suite behind. That does
+// not make the coverage check circular — `meta/spec_model.meta.json` is written
+// by the model JSON exporter, a different code path from the meta emitter, so
+// an emitter that drops a root still shows up as a count mismatch.
+//
 // Run with `cargo test`. The runtime resolves through the `path` dependency in
 // this crate's Cargo.toml, so the test is portable across checkouts.
 
@@ -22,64 +28,6 @@ use std::rc::Rc;
 
 use tom_som_rust_runtime as som;
 use tom_som_rust_v0::meta;
-
-/// A generated per-root tree builder entry: the root type plus the per-call
-/// `<root>_meta_tree()` constructor.
-type TreeBuilder = (&'static str, fn() -> som::SomMetaTree);
-
-/// Every generated per-root tree builder, keyed by root type — `SomMetaTree`
-/// is `Rc`-based (no statics), so the suite constructs each tree per use.
-fn generated_tree_builders() -> Vec<TreeBuilder> {
-    vec![
-        ("D00SolutionBlueprint", meta::d00_solution_blueprint_meta_tree),
-        (
-            "D01CurrentLandscapeAssessment",
-            meta::d01_current_landscape_assessment_meta_tree,
-        ),
-        (
-            "D02TargetOperatingModel",
-            meta::d02_target_operating_model_meta_tree,
-        ),
-        ("D03InformationModel", meta::d03_information_model_meta_tree),
-        (
-            "D04RequirementsSpecification",
-            meta::d04_requirements_specification_meta_tree,
-        ),
-        (
-            "D05InteractionScenarios",
-            meta::d05_interaction_scenarios_meta_tree,
-        ),
-        (
-            "D06ArchitectureTechnologySpecification",
-            meta::d06_architecture_technology_specification_meta_tree,
-        ),
-        (
-            "D07IntegrationInterfaceSpecification",
-            meta::d07_integration_interface_specification_meta_tree,
-        ),
-        (
-            "D08SecurityAccessSpecification",
-            meta::d08_security_access_specification_meta_tree,
-        ),
-        (
-            "D09ExperienceDesignSpecification",
-            meta::d09_experience_design_specification_meta_tree,
-        ),
-        (
-            "D10QualityAcceptancePlan",
-            meta::d10_quality_acceptance_plan_meta_tree,
-        ),
-        ("D11DeliveryRoadmap", meta::d11_delivery_roadmap_meta_tree),
-        (
-            "D12TransitionRolloutPlan",
-            meta::d12_transition_rollout_plan_meta_tree,
-        ),
-        (
-            "D13CodeSpecsProjection",
-            meta::d13_code_specs_projection_meta_tree,
-        ),
-    ]
-}
 
 /// Parses the committed language-agnostic meta-data next to the generated
 /// crate (the same file the bridge builds trees from at runtime).
@@ -99,33 +47,64 @@ fn same(a: &Rc<som::SomMetaNode>, b: &Rc<som::SomMetaNode>) -> bool {
 #[test]
 fn generated_trees_agree_with_bridge() {
     let model = load_model();
-    let builders = generated_tree_builders();
+    let roots = meta::som_meta_roots();
 
     assert_eq!(
         model.roots.len(),
-        builders.len(),
-        "model has {} roots, generated list has {}",
+        roots.len(),
+        "model has {} roots, generated registry has {}",
         model.roots.len(),
-        builders.len()
+        roots.len()
     );
     for root in &model.roots {
         assert!(
-            builders.iter().any(|(t, _)| *t == root.type_),
+            roots.iter().any(|e| e.type_name == root.type_),
             "model root {:?} has no generated tree",
             root.type_
         );
     }
 
-    for (root_type, build) in builders {
-        let tree = build();
-        let bridge =
-            som::build_som_meta_tree(&model, root_type).expect("build_som_meta_tree");
+    for entry in &roots {
+        let tree = (entry.tree)();
+        let bridge = som::build_som_meta_tree(&model, entry.type_name)
+            .expect("build_som_meta_tree");
         let diff = som::som_meta_node_diff(&tree.root, &bridge.root);
         assert!(
             diff.is_empty(),
             "generated tree for {} disagrees with bridge:\n{}",
-            root_type,
+            entry.type_name,
             diff
+        );
+    }
+}
+
+/// Proves each registry entry describes itself consistently: both access roots
+/// sit at the declared segment and both resolve to the entry's own tree root.
+#[test]
+fn registry_entries_are_self_consistent() {
+    for entry in meta::som_meta_roots() {
+        let tree = (entry.tree)();
+        let nav = (entry.nav_ref)(&tree);
+        let id = (entry.id_ref)(&tree);
+        assert_eq!(
+            nav.path, entry.segment,
+            "{}: nav path != segment",
+            entry.type_name
+        );
+        assert_eq!(
+            id.path, entry.segment,
+            "{}: id path != segment",
+            entry.type_name
+        );
+        assert!(
+            same(&nav.meta().expect("nav meta()"), &tree.root),
+            "{}: nav meta() != tree root",
+            entry.type_name
+        );
+        assert!(
+            same(&id.meta().expect("id meta()"), &tree.root),
+            "{}: id meta() != tree root",
+            entry.type_name
         );
     }
 }
@@ -197,26 +176,6 @@ fn dot_notation_surface() {
     );
 }
 
-/// Asserts one root's ID entry point sits at its own section-id segment over
-/// the same generated tree root node — the per-root body of the root loop.
-fn assert_id_root(
-    root_type: &str,
-    tree: &som::SomMetaTree,
-    id_path: &str,
-    id_meta: Rc<som::SomMetaNode>,
-) {
-    assert_eq!(
-        id_path, tree.root.section_id,
-        "{} id path = {:?}, want {:?}",
-        root_type, id_path, tree.root.section_id
-    );
-    assert!(
-        same(&id_meta, &tree.root),
-        "{} id meta() != tree root",
-        root_type
-    );
-}
-
 /// Proves the ID-tree entry points (SOM §8) agree with the dot-notation
 /// positions and that every root's ID entry point sits at its own section-id
 /// segment over the same tree root node.
@@ -259,91 +218,21 @@ fn id_tree_surface() {
     );
 
     // Every root has a distinct ID entry point at its own segment, resolving
-    // to its generated tree's root node. (Each entry point returns its own
-    // generated Id type, so the loop body is unrolled per root.)
-    let t = meta::d00_solution_blueprint_meta_tree();
-    let id = meta::SBP(&t);
-    assert_id_root("D00SolutionBlueprint", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d01_current_landscape_assessment_meta_tree();
-    let id = meta::CLA(&t);
-    assert_id_root(
-        "D01CurrentLandscapeAssessment",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d02_target_operating_model_meta_tree();
-    let id = meta::TOM(&t);
-    assert_id_root("D02TargetOperatingModel", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d03_information_model_meta_tree();
-    let id = meta::IFM(&t);
-    assert_id_root("D03InformationModel", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d04_requirements_specification_meta_tree();
-    let id = meta::RSP(&t);
-    assert_id_root(
-        "D04RequirementsSpecification",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d05_interaction_scenarios_meta_tree();
-    let id = meta::ISC(&t);
-    assert_id_root("D05InteractionScenarios", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d06_architecture_technology_specification_meta_tree();
-    let id = meta::ATS(&t);
-    assert_id_root(
-        "D06ArchitectureTechnologySpecification",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d07_integration_interface_specification_meta_tree();
-    let id = meta::IIS(&t);
-    assert_id_root(
-        "D07IntegrationInterfaceSpecification",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d08_security_access_specification_meta_tree();
-    let id = meta::SAS(&t);
-    assert_id_root(
-        "D08SecurityAccessSpecification",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d09_experience_design_specification_meta_tree();
-    let id = meta::XDS(&t);
-    assert_id_root(
-        "D09ExperienceDesignSpecification",
-        &t,
-        id.path(),
-        id.meta().unwrap(),
-    );
-
-    let t = meta::d10_quality_acceptance_plan_meta_tree();
-    let id = meta::QAP(&t);
-    assert_id_root("D10QualityAcceptancePlan", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d11_delivery_roadmap_meta_tree();
-    let id = meta::DRM(&t);
-    assert_id_root("D11DeliveryRoadmap", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d12_transition_rollout_plan_meta_tree();
-    let id = meta::TRP(&t);
-    assert_id_root("D12TransitionRolloutPlan", &t, id.path(), id.meta().unwrap());
-
-    let t = meta::d13_code_specs_projection_meta_tree();
-    let id = meta::CGP(&t);
-    assert_id_root("D13CodeSpecsProjection", &t, id.path(), id.meta().unwrap());
+    // to its generated tree's root node. The per-root Id types differ, so the
+    // registry's `id_ref` adapter is what makes this a loop rather than an
+    // unrolled block that a fifteenth root could be left out of.
+    for entry in meta::som_meta_roots() {
+        let t = (entry.tree)();
+        let id = (entry.id_ref)(&t);
+        assert_eq!(
+            id.path, t.root.section_id,
+            "{} id path = {:?}, want {:?}",
+            entry.type_name, id.path, t.root.section_id
+        );
+        assert!(
+            same(&id.meta().expect("id meta()"), &t.root),
+            "{} id meta() != tree root",
+            entry.type_name
+        );
+    }
 }

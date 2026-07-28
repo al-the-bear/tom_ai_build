@@ -20,6 +20,14 @@ CONF="$(dirname "$HERE")"                        # tom_som_conformance
 ROOT="$(dirname "$CONF")"                         # ai_build (holds every project)
 cd "$ROOT"
 
+# rustup installs cargo into ~/.cargo/bin and wires it up in the *interactive*
+# shell profile, so a non-interactive run sees no cargo and dies at `run rust`
+# on a host that can perfectly well build it. Same prepend as run_all_suites.sh.
+if ! command -v cargo > /dev/null 2>&1 && [ -x "$HOME/.cargo/bin/cargo" ]; then
+  PATH="$HOME/.cargo/bin:$PATH"
+  export PATH
+fi
+
 run() { echo "== golden: $1 =="; }
 
 run dart

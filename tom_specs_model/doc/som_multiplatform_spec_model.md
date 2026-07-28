@@ -392,6 +392,31 @@ Rust, C, C++):
      statics; C nested `const` structs of pointers) follow the established
      generated-code conventions of each runtime.
 
+Alongside the two access surfaces, every generated meta module emits a
+**document-root registry** — `somMetaRoots` / `SOM_META_ROOTS` /
+`SomMetaRoots` / `som_meta_roots()` per language's naming convention — with one
+entry per document root carrying its `type`, its `segment` (the path the access
+roots are bound at), its metadata `tree`, and its two access roots `nav` and
+`id`. The registry is emitted from the same root list that produced the trees
+and access roots, so **iterating it is equivalent to reading the generator
+input**: no consumer needs a hand-kept copy of the root set. This is what lets
+the per-language agreement suites (§19) loop over the roots instead of
+hand-listing them, and it makes a fifteenth root reach every consumer by
+regeneration rather than by recollection.
+
+Two per-language shapes follow from the languages themselves rather than from
+choice:
+
+- **Rust** holds *constructors* rather than live values — a `SomMetaTree` is
+  `Rc`-based (not `Sync`, so it cannot be a `static`) and both access roots
+  borrow the tree they are bound to. `tree` is a `fn() -> SomMetaTree`, and the
+  access roots are higher-ranked `for<'a> fn(&'a SomMetaTree) -> SomMetaRef<'a>`
+  adapters that erase the per-root `…Nav` / `…Id` type down to the common
+  `SomMetaRef`. The erasure is what makes a consumer loop possible at all.
+- **C** hands out entries whose `nav` and `id` **own** their path buffers; the
+  caller releases both with `som_meta_ref_free`. The `tree` pointer is static
+  and is not freed. The emitted header states this contract inline.
+
 These two navigation surfaces are what let a generic consumer obtain a real
 `.path` by navigation instead of hard-coding a string literal like
 `'SBP/currentLandscape/CUOPME-OPER-LST'`. Navigation rather than flat path
@@ -1097,6 +1122,31 @@ every section of it through **both** APIs into a canonical log, and
 `tom_som_conformance` asserts all nine logs are byte-identical. That is the
 standing proof that the nine language APIs yield exactly the same reading of the
 same specification.
+
+### 19.1 Running everything: the two cross-language drivers
+
+The golden logs are only one of the two cross-language checks, and each has a
+driver in `tom_som_conformance/tool/`:
+
+| Driver | What it proves |
+| --- | --- |
+| `regenerate_golden.sh` | Rebuilds all nine golden logs and asserts they are byte-identical — the nine APIs read the same specification identically. |
+| `run_all_suites.sh` | Runs the **eighteen** hand-authored suites (nine runtime + nine `v0` packages), so a red suite surfaces the same way a golden mismatch does. |
+
+Every SOM package carries a uniform `run_tests.sh` that runs everything
+hand-authored in it, whatever the ecosystem underneath (`dart test`, `python3`,
+`npm test`, `go test`, `cargo test`, `javac` + `java`, `make` + `cc`/`g++`).
+`run_all_suites.sh` is the aggregate over those eighteen: it takes optional
+suite names to narrow the run, `--strict` to fail on a skipped suite,
+`--log-dir` to place the per-suite logs (default: a timestamped folder under the
+workspace `ztmp/`), and it skips a suite whose toolchain is absent with the
+reason stated rather than reporting a false pass.
+
+Both drivers prepend `~/.cargo/bin` to `PATH` when `cargo` is not already
+resolvable there: rustup wires cargo up in the *interactive* shell profile only,
+so a non-interactive run on a host that can perfectly well build Rust would
+otherwise skip or die on the two Rust suites. A gate that reflects a `PATH`
+quirk rather than the code is nearly as bad as no gate at all.
 
 ## 20. Backward compatibility
 

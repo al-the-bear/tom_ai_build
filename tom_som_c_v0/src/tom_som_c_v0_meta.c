@@ -251256,3 +251256,135 @@ SomMetaRef workplace_description_entry_id_wsri(som_id_workplace_description_entr
   free(path);
   return out;
 }
+/* ── document-root registry (SOM §8) ──────────────────────────────────── */
+size_t som_meta_roots(SomMetaRootEntry *out, size_t cap) {
+  size_t i = 0;
+  if (i < cap) {
+    const SomMetaTree *t = d00_solution_blueprint_meta_tree();
+    out[i].type = "D00SolutionBlueprint";
+    out[i].segment = "SBP";
+    out[i].tree = t;
+    out[i].nav = d00_solution_blueprint_meta(t).ref;
+    out[i].id = SBP(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d01_current_landscape_assessment_meta_tree();
+    out[i].type = "D01CurrentLandscapeAssessment";
+    out[i].segment = "CLA";
+    out[i].tree = t;
+    out[i].nav = d01_current_landscape_assessment_meta(t).ref;
+    out[i].id = CLA(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d02_target_operating_model_meta_tree();
+    out[i].type = "D02TargetOperatingModel";
+    out[i].segment = "TOM";
+    out[i].tree = t;
+    out[i].nav = d02_target_operating_model_meta(t).ref;
+    out[i].id = TOM(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d03_information_model_meta_tree();
+    out[i].type = "D03InformationModel";
+    out[i].segment = "IFM";
+    out[i].tree = t;
+    out[i].nav = d03_information_model_meta(t).ref;
+    out[i].id = IFM(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d04_requirements_specification_meta_tree();
+    out[i].type = "D04RequirementsSpecification";
+    out[i].segment = "RSP";
+    out[i].tree = t;
+    out[i].nav = d04_requirements_specification_meta(t).ref;
+    out[i].id = RSP(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d05_interaction_scenarios_meta_tree();
+    out[i].type = "D05InteractionScenarios";
+    out[i].segment = "ISC";
+    out[i].tree = t;
+    out[i].nav = d05_interaction_scenarios_meta(t).ref;
+    out[i].id = ISC(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d06_architecture_technology_specification_meta_tree();
+    out[i].type = "D06ArchitectureTechnologySpecification";
+    out[i].segment = "ATS";
+    out[i].tree = t;
+    out[i].nav = d06_architecture_technology_specification_meta(t).ref;
+    out[i].id = ATS(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d07_integration_interface_specification_meta_tree();
+    out[i].type = "D07IntegrationInterfaceSpecification";
+    out[i].segment = "IIS";
+    out[i].tree = t;
+    out[i].nav = d07_integration_interface_specification_meta(t).ref;
+    out[i].id = IIS(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d08_security_access_specification_meta_tree();
+    out[i].type = "D08SecurityAccessSpecification";
+    out[i].segment = "SAS";
+    out[i].tree = t;
+    out[i].nav = d08_security_access_specification_meta(t).ref;
+    out[i].id = SAS(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d09_experience_design_specification_meta_tree();
+    out[i].type = "D09ExperienceDesignSpecification";
+    out[i].segment = "XDS";
+    out[i].tree = t;
+    out[i].nav = d09_experience_design_specification_meta(t).ref;
+    out[i].id = XDS(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d10_quality_acceptance_plan_meta_tree();
+    out[i].type = "D10QualityAcceptancePlan";
+    out[i].segment = "QAP";
+    out[i].tree = t;
+    out[i].nav = d10_quality_acceptance_plan_meta(t).ref;
+    out[i].id = QAP(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d11_delivery_roadmap_meta_tree();
+    out[i].type = "D11DeliveryRoadmap";
+    out[i].segment = "DRM";
+    out[i].tree = t;
+    out[i].nav = d11_delivery_roadmap_meta(t).ref;
+    out[i].id = DRM(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d12_transition_rollout_plan_meta_tree();
+    out[i].type = "D12TransitionRolloutPlan";
+    out[i].segment = "TRP";
+    out[i].tree = t;
+    out[i].nav = d12_transition_rollout_plan_meta(t).ref;
+    out[i].id = TRP(t).ref;
+    i++;
+  }
+  if (i < cap) {
+    const SomMetaTree *t = d13_code_specs_projection_meta_tree();
+    out[i].type = "D13CodeSpecsProjection";
+    out[i].segment = "CGP";
+    out[i].tree = t;
+    out[i].nav = d13_code_specs_projection_meta(t).ref;
+    out[i].id = CGP(t).ref;
+    i++;
+  }
+  return i;
+}
+

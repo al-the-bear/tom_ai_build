@@ -14,6 +14,12 @@
  *     *same* SomMetaNode instances for representative positions (root, nested
  *     section, content leaf, list, list element, hoisted id).
  *
+ * The root set comes from the generated `som_meta_roots` registry, not a
+ * hand-list: adding a document root cannot leave this suite behind. That does
+ * not make the coverage check circular — `meta/spec_model.meta.json` is written
+ * by the model JSON exporter, a different code path from the meta emitter, so
+ * an emitter that drops a root still shows up as a count mismatch.
+ *
  * Build & run via `./run_tests.sh`. Exit 0 == all green; prints "OK: N checks".
  *
  * C has no test framework here, so this is a hand-rolled checker mirroring the
@@ -78,68 +84,13 @@ static const SomMetaNode *meta_of(const SomMetaRef *ref) {
   return node;
 }
 
-/* One row of the document-root registry: the model root type, the generated
- * static tree, and the ID-tree entry point resolved to its root ref. */
-typedef struct {
-  const char *type;
-  const SomMetaTree *tree;
-  SomMetaRef id_ref; /* the section-id root accessor's ref */
-} RootRow;
-
-/* The number of document roots `build_rows` fills in. Named so the caller's
- * stack array cannot silently be one short of the registry when a root is
- * added (C has no bounds check to catch it). */
-#define ROOT_ROW_COUNT 14
-
-/* Builds the registry of all document roots. The ID entry points return
- * distinct struct types, so each is called explicitly and its `.ref` captured. */
-static size_t build_rows(RootRow *rows) {
-  size_t i = 0;
-  rows[i++] = (RootRow){"D00SolutionBlueprint",
-                        d00_solution_blueprint_meta_tree(),
-                        SBP(d00_solution_blueprint_meta_tree()).ref};
-  rows[i++] = (RootRow){"D01CurrentLandscapeAssessment",
-                        d01_current_landscape_assessment_meta_tree(),
-                        CLA(d01_current_landscape_assessment_meta_tree()).ref};
-  rows[i++] = (RootRow){"D02TargetOperatingModel",
-                        d02_target_operating_model_meta_tree(),
-                        TOM(d02_target_operating_model_meta_tree()).ref};
-  rows[i++] = (RootRow){"D03InformationModel",
-                        d03_information_model_meta_tree(),
-                        IFM(d03_information_model_meta_tree()).ref};
-  rows[i++] = (RootRow){"D04RequirementsSpecification",
-                        d04_requirements_specification_meta_tree(),
-                        RSP(d04_requirements_specification_meta_tree()).ref};
-  rows[i++] = (RootRow){"D05InteractionScenarios",
-                        d05_interaction_scenarios_meta_tree(),
-                        ISC(d05_interaction_scenarios_meta_tree()).ref};
-  rows[i++] = (RootRow){"D06ArchitectureTechnologySpecification",
-                        d06_architecture_technology_specification_meta_tree(),
-                        ATS(d06_architecture_technology_specification_meta_tree())
-                            .ref};
-  rows[i++] = (RootRow){"D07IntegrationInterfaceSpecification",
-                        d07_integration_interface_specification_meta_tree(),
-                        IIS(d07_integration_interface_specification_meta_tree())
-                            .ref};
-  rows[i++] = (RootRow){"D08SecurityAccessSpecification",
-                        d08_security_access_specification_meta_tree(),
-                        SAS(d08_security_access_specification_meta_tree()).ref};
-  rows[i++] = (RootRow){"D09ExperienceDesignSpecification",
-                        d09_experience_design_specification_meta_tree(),
-                        XDS(d09_experience_design_specification_meta_tree()).ref};
-  rows[i++] = (RootRow){"D10QualityAcceptancePlan",
-                        d10_quality_acceptance_plan_meta_tree(),
-                        QAP(d10_quality_acceptance_plan_meta_tree()).ref};
-  rows[i++] = (RootRow){"D11DeliveryRoadmap",
-                        d11_delivery_roadmap_meta_tree(),
-                        DRM(d11_delivery_roadmap_meta_tree()).ref};
-  rows[i++] = (RootRow){"D12TransitionRolloutPlan",
-                        d12_transition_rollout_plan_meta_tree(),
-                        TRP(d12_transition_rollout_plan_meta_tree()).ref};
-  rows[i++] = (RootRow){"D13CodeSpecsProjection",
-                        d13_code_specs_projection_meta_tree(),
-                        CGP(d13_code_specs_projection_meta_tree()).ref};
-  return i;
+/* Releases the two owned refs of every filled registry entry (`som_meta_roots`
+ * hands out owned `nav` / `id` path buffers; `tree` is static). */
+static void free_roots(SomMetaRootEntry *rows, size_t n) {
+  for (size_t i = 0; i < n; i++) {
+    som_meta_ref_free(&rows[i].nav);
+    som_meta_ref_free(&rows[i].id);
+  }
 }
 
 /* GUARANTEE 1: every generated static tree is field-for-field identical to the
@@ -158,8 +109,8 @@ static void test_trees_agree_with_bridge(void) {
     return;
   }
 
-  RootRow rows[ROOT_ROW_COUNT];
-  size_t n = build_rows(rows);
+  SomMetaRootEntry rows[SOM_META_ROOT_COUNT];
+  size_t n = som_meta_roots(rows, SOM_META_ROOT_COUNT);
   ok(model->roots_len == n, "model root count matches generated tree count");
 
   for (size_t i = 0; i < n; i++) {
@@ -197,7 +148,26 @@ static void test_trees_agree_with_bridge(void) {
     ok(found, "model root has a generated tree");
   }
 
+  free_roots(rows, n);
   spec_model_free(model);
+}
+
+/* Each registry entry describes itself consistently: both access roots sit at
+ * the declared segment and both resolve to the entry's own tree root. */
+static void test_registry_entries_are_self_consistent(void) {
+  SomMetaRootEntry rows[SOM_META_ROOT_COUNT];
+  size_t n = som_meta_roots(rows, SOM_META_ROOT_COUNT);
+  ok(n == SOM_META_ROOT_COUNT, "registry fills every declared root");
+
+  for (size_t i = 0; i < n; i++) {
+    eq_str(rows[i].nav.path, rows[i].segment, "registry nav path == segment");
+    eq_str(rows[i].id.path, rows[i].segment, "registry id path == segment");
+    ok(meta_of(&rows[i].nav) == rows[i].tree->root,
+       "registry nav Meta() == its tree root");
+    ok(meta_of(&rows[i].id) == rows[i].tree->root,
+       "registry id Meta() == its tree root");
+  }
+  free_roots(rows, n);
 }
 
 /* GUARANTEE 2a: the dot-notation entry points resolve representative positions
@@ -299,18 +269,25 @@ static void test_id_tree_surface(void) {
   som_meta_ref_free(&sbp.ref);
   som_meta_ref_free(&dot.ref);
 
-  /* Every root has a distinct ID entry point resolving to its own tree root. */
-  RootRow rows[ROOT_ROW_COUNT];
-  size_t n = build_rows(rows);
+  /* Every root has a distinct ID entry point at its own section-id segment,
+   * resolving to its own tree root. The per-root ID entry points return
+   * distinct struct types, so the generated registry's common-typed `id` is
+   * what makes this a loop rather than an unrolled block a fifteenth root
+   * could be left out of. */
+  SomMetaRootEntry rows[SOM_META_ROOT_COUNT];
+  size_t n = som_meta_roots(rows, SOM_META_ROOT_COUNT);
   for (size_t i = 0; i < n; i++) {
-    ok(meta_of(&rows[i].id_ref) == rows[i].tree->root,
+    eq_str(rows[i].id.path, rows[i].tree->root->section_id,
+           "ID root path == its tree root section id");
+    ok(meta_of(&rows[i].id) == rows[i].tree->root,
        "ID root Meta() == its tree root");
-    som_meta_ref_free(&rows[i].id_ref);
   }
+  free_roots(rows, n);
 }
 
 int main(void) {
   test_trees_agree_with_bridge();
+  test_registry_entries_are_self_consistent();
   test_dot_notation_surface();
   test_id_tree_surface();
 

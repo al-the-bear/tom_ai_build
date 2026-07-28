@@ -350,3 +350,47 @@ pub fn solution_blueprint_meta(tree: &som::SomMetaTree) -> SolutionBlueprintNav<
 pub fn PD00(tree: &som::SomMetaTree) -> SolutionBlueprintId<'_> {
     SolutionBlueprintId::new(tree, "PD00".to_string())
 }
+
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+/// Erases `solution_blueprint_meta`'s accessor type to the common `SomMetaRef`.
+fn solution_blueprint_nav_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    solution_blueprint_meta(tree).meta_ref
+}
+
+/// Erases `PD00`'s accessor type to the common `SomMetaRef`.
+fn solution_blueprint_id_ref(tree: &som::SomMetaTree) -> som::SomMetaRef<'_> {
+    PD00(tree).meta_ref
+}
+
+/// One document root: its class name, the path segment its access roots are
+/// bound at, the constructor of its populated metadata tree (SOM §7.2), and
+/// the two access roots (SOM §8) as constructors over that tree.
+pub struct SomMetaRootEntry {
+    /// The root class name, e.g. `D00SolutionBlueprint`.
+    pub type_name: &'static str,
+    /// The path segment the root's access surfaces are bound at.
+    pub segment: &'static str,
+    /// Builds this root's populated metadata tree.
+    pub tree: fn() -> som::SomMetaTree,
+    /// Binds the dot-notation access root to a built tree.
+    pub nav_ref: for<'a> fn(&'a som::SomMetaTree) -> som::SomMetaRef<'a>,
+    /// Binds the ID-tree access root to a built tree.
+    pub id_ref: for<'a> fn(&'a som::SomMetaTree) -> som::SomMetaRef<'a>,
+}
+
+/// Every document root this module generates, in model order. Emitted from the
+/// same root list that produced the trees above, so iterating it is equivalent
+/// to reading the generator input — no consumer needs a hand-kept copy of the
+/// root set.
+pub fn som_meta_roots() -> Vec<SomMetaRootEntry> {
+    vec![
+        SomMetaRootEntry {
+            type_name: "SolutionBlueprint",
+            segment: "PD00",
+            tree: solution_blueprint_meta_tree,
+            nav_ref: solution_blueprint_nav_ref,
+            id_ref: solution_blueprint_id_ref,
+        },
+    ]
+}

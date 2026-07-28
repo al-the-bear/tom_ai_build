@@ -142,6 +142,7 @@ class SomJavaMetaEmitter {
       ..writeln()
       ..writeln('import java.util.ArrayList;')
       ..writeln('import java.util.Arrays;')
+      ..writeln('import java.util.Collections;')
       ..writeln('import java.util.HashSet;')
       ..writeln('import java.util.LinkedHashMap;')
       ..writeln('import java.util.List;')
@@ -196,6 +197,8 @@ class SomJavaMetaEmitter {
       _emitRoot(b, root);
     }
 
+    _emitRootRegistry(b);
+
     b.writeln('}');
     return b.toString();
   }
@@ -209,7 +212,7 @@ class SomJavaMetaEmitter {
   /// unique within it (all derive deterministically from the same model).
   void _guardIdentifierCollisions(
       List<String> classNames, List<String> idClasses) {
-    final types = <String>{};
+    final types = <String>{'SomMetaRootEntry'};
     final typeClashes = <String>[];
     for (final name in classNames) {
       if (!types.add('${name}Nav')) typeClashes.add('${name}Nav');
@@ -218,7 +221,7 @@ class SomJavaMetaEmitter {
       if (!types.add('${name}Id')) typeClashes.add('${name}Id');
     }
 
-    final fields = <String>{};
+    final fields = <String>{'SOM_META_ROOTS'};
     final fieldClashes = <String>[];
     for (final root in _roots) {
       for (final f in [
@@ -230,7 +233,7 @@ class SomJavaMetaEmitter {
       }
     }
 
-    final methods = <String>{'metaCx', 'metaArgs'};
+    final methods = <String>{'metaCx', 'metaArgs', 'buildSomMetaRoots'};
     final methodClashes = <String>[];
     for (final root in _roots) {
       final m = 'build${root.type}MetaTree';
@@ -580,6 +583,77 @@ class SomJavaMetaEmitter {
       ..writeln('${_i1}public static final ${root.type}Id $idSymbol =')
       ..writeln('${_i3}new ${root.type}Id(${root.type}MetaTree, '
           '${_str(seg)});')
+      ..writeln();
+  }
+
+  /// Emits the document-root registry: the full root set as generated data.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  ///
+  /// Emitted after the root fields so the class's static initialisers, which
+  /// run in textual order, have populated the trees and access roots by the
+  /// time `SOM_META_ROOTS` is built.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('$_i1// ── document-root registry (SOM §8) '
+          '─────────────────────────────────────')
+      ..writeln()
+      ..writeln('$_i1/** One document root: its class name, the path segment '
+          'its access roots are')
+      ..writeln('$_i1 * bound at, the populated metadata tree (SOM §7.2) and '
+          'the two SOM §8 access')
+      ..writeln('$_i1 * roots (typed as the common base so the entries are '
+          'uniform). */')
+      ..writeln('${_i1}public static final class SomMetaRootEntry {')
+      ..writeln('${_i2}public final String type;')
+      ..writeln('${_i2}public final String segment;')
+      ..writeln('${_i2}public final SomMetaTree tree;')
+      ..writeln('${_i2}public final SomMetaRef nav;')
+      ..writeln('${_i2}public final SomMetaRef id;')
+      ..writeln()
+      ..writeln('${_i2}SomMetaRootEntry(')
+      ..writeln('${_i4}String type,')
+      ..writeln('${_i4}String segment,')
+      ..writeln('${_i4}SomMetaTree tree,')
+      ..writeln('${_i4}SomMetaRef nav,')
+      ..writeln('${_i4}SomMetaRef id) {')
+      ..writeln('${_i3}this.type = type;')
+      ..writeln('${_i3}this.segment = segment;')
+      ..writeln('${_i3}this.tree = tree;')
+      ..writeln('${_i3}this.nav = nav;')
+      ..writeln('${_i3}this.id = id;')
+      ..writeln('$_i2}')
+      ..writeln('$_i1}')
+      ..writeln()
+      ..writeln('$_i1// SOM_META_ROOTS holds every document root this module '
+          'generates, keyed by')
+      ..writeln('$_i1// root class name and in model order. Emitted from the '
+          'same root list that')
+      ..writeln('$_i1// produced the trees above, so iterating it is '
+          'equivalent to reading the')
+      ..writeln('$_i1// generator input — no consumer needs a hand-kept copy '
+          'of the root set.')
+      ..writeln('${_i1}public static final Map<String, SomMetaRootEntry> '
+          'SOM_META_ROOTS =')
+      ..writeln('${_i3}buildSomMetaRoots();')
+      ..writeln()
+      ..writeln('${_i1}private static Map<String, SomMetaRootEntry> '
+          'buildSomMetaRoots() {')
+      ..writeln('${_i2}Map<String, SomMetaRootEntry> m = new '
+          'LinkedHashMap<>();');
+    for (final root in _roots) {
+      final seg = _rootSegment(root);
+      b
+        ..writeln('${_i2}m.put(${_str(root.type)}, new SomMetaRootEntry(')
+        ..writeln('$_i4${_str(root.type)}, ${_str(seg)}, '
+            '${root.type}MetaTree, ${root.type}Meta, ${_idName(seg)}));');
+    }
+    b
+      ..writeln('${_i2}return Collections.unmodifiableMap(m);')
+      ..writeln('$_i1}')
       ..writeln();
   }
 

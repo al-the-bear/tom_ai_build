@@ -168,6 +168,8 @@ class SomTypeScriptMetaEmitter {
       _emitRoot(b, root);
     }
 
+    _emitRootRegistry(b);
+
     return b.toString();
   }
 
@@ -447,6 +449,53 @@ class SomTypeScriptMetaEmitter {
       ..writeln('// `$idSymbol.<SECTION-ID>….path` / `.meta`.')
       ..writeln('export const $idSymbol: ${root.type}\$Id = '
           'new ${root.type}\$Id(${camel}MetaTree, ${_str(seg)});')
+      ..writeln();
+  }
+
+  /// Emits the document-root registry: the full root set as generated data.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistry(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '───────────────────────────────────────')
+      ..writeln()
+      ..writeln('// One entry per document root this module generates: the '
+          'root class name, the')
+      ..writeln('// path segment its access roots are bound at, the populated '
+          'metadata tree')
+      ..writeln('// (SOM §7.2), and the two SOM §8 access roots (typed as the '
+          'common base so')
+      ..writeln('// the entries are uniform).')
+      ..writeln('export interface SomMetaRootEntry {')
+      ..writeln('  readonly type: string;')
+      ..writeln('  readonly segment: string;')
+      ..writeln('  readonly tree: SomMetaTree;')
+      ..writeln('  readonly nav: SomMetaRef;')
+      ..writeln('  readonly id: SomMetaRef;')
+      ..writeln('}')
+      ..writeln()
+      ..writeln('// Every document root, keyed by root class name and in model '
+          'order. Emitted')
+      ..writeln('// from the same root list that produced the trees above, so '
+          'enumerating this')
+      ..writeln('// object is equivalent to reading the generator input — no '
+          'consumer needs a')
+      ..writeln('// hand-kept copy of the root set.')
+      ..writeln(
+          'export const SOM_META_ROOTS: Record<string, SomMetaRootEntry> = {');
+    for (final root in _roots) {
+      final seg = _rootSegment(root);
+      final camel = _camel(root.type);
+      b.writeln('  ${_str(root.type)}: {type: ${_str(root.type)}, '
+          'segment: ${_str(seg)}, tree: ${camel}MetaTree, nav: $camel, '
+          'id: ${_idName(seg)}},');
+    }
+    b
+      ..writeln('};')
       ..writeln();
   }
 

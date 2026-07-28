@@ -15,6 +15,12 @@
 //     instances for representative positions (root, nested section, content
 //     leaf, list, list element, hoisted id).
 //
+// The root set comes from the generated SOM_META_ROOTS registry, not a
+// hand-list: adding a document root cannot leave this suite behind. That does
+// not make the coverage check circular — `meta/spec_model.meta.json` is written
+// by the model JSON exporter, a different code path from the meta emitter, so
+// an emitter that drops a root still shows up as a count mismatch.
+//
 // Zero external deps: a plain `main()` that exits 0 on success (no JUnit), run
 // by `run_tests.sh` from the project directory (the meta JSON is read
 // relative to the cwd, matching GeneratedModelTest / GoldenLog).
@@ -53,25 +59,18 @@ public final class MetaAgreementTest {
     check(name, condition, "");
   }
 
-  /** Every generated per-root static tree, keyed by root type. */
+  /**
+   * Every generated per-root static tree, keyed by root type — read from the
+   * generated SOM_META_ROOTS registry rather than hand-listed, so a new
+   * document root reaches this suite by regeneration instead of by
+   * recollection.
+   */
   private static Map<String, SomMetaTree> generatedTrees() {
     Map<String, SomMetaTree> m = new LinkedHashMap<>();
-    m.put("D00SolutionBlueprint", TomSomV0Meta.D00SolutionBlueprintMetaTree);
-    m.put("D01CurrentLandscapeAssessment", TomSomV0Meta.D01CurrentLandscapeAssessmentMetaTree);
-    m.put("D02TargetOperatingModel", TomSomV0Meta.D02TargetOperatingModelMetaTree);
-    m.put("D03InformationModel", TomSomV0Meta.D03InformationModelMetaTree);
-    m.put("D04RequirementsSpecification", TomSomV0Meta.D04RequirementsSpecificationMetaTree);
-    m.put("D05InteractionScenarios", TomSomV0Meta.D05InteractionScenariosMetaTree);
-    m.put("D06ArchitectureTechnologySpecification",
-        TomSomV0Meta.D06ArchitectureTechnologySpecificationMetaTree);
-    m.put("D07IntegrationInterfaceSpecification",
-        TomSomV0Meta.D07IntegrationInterfaceSpecificationMetaTree);
-    m.put("D08SecurityAccessSpecification", TomSomV0Meta.D08SecurityAccessSpecificationMetaTree);
-    m.put("D09ExperienceDesignSpecification", TomSomV0Meta.D09ExperienceDesignSpecificationMetaTree);
-    m.put("D10QualityAcceptancePlan", TomSomV0Meta.D10QualityAcceptancePlanMetaTree);
-    m.put("D11DeliveryRoadmap", TomSomV0Meta.D11DeliveryRoadmapMetaTree);
-    m.put("D12TransitionRolloutPlan", TomSomV0Meta.D12TransitionRolloutPlanMetaTree);
-    m.put("D13CodeSpecsProjection", TomSomV0Meta.D13CodeSpecsProjectionMetaTree);
+    for (Map.Entry<String, TomSomV0Meta.SomMetaRootEntry> e :
+        TomSomV0Meta.SOM_META_ROOTS.entrySet()) {
+      m.put(e.getKey(), e.getValue().tree);
+    }
     return m;
   }
 
@@ -119,6 +118,30 @@ public final class MetaAgreementTest {
       String diff = SpecMetaDiff.somMetaNodeDiff(e.getValue().root, bridge.root);
       check("bridge.tree-agrees." + e.getKey(), diff.isEmpty(),
           "generated tree disagrees with bridge:\n" + diff);
+    }
+  }
+
+  /**
+   * Proves each registry entry describes itself consistently: the map key is
+   * the entry's own type, both access roots sit at the declared segment, and
+   * both resolve to the entry's own tree root.
+   */
+  private static void testRegistryEntriesAreSelfConsistent() {
+    for (Map.Entry<String, TomSomV0Meta.SomMetaRootEntry> e :
+        TomSomV0Meta.SOM_META_ROOTS.entrySet()) {
+      TomSomV0Meta.SomMetaRootEntry entry = e.getValue();
+      check("registry.key." + e.getKey(), entry.type.equals(e.getKey()),
+          entry.type + " != " + e.getKey());
+      check("registry.nav-segment." + e.getKey(), entry.nav.path.equals(entry.segment),
+          entry.nav.path + " != " + entry.segment);
+      check("registry.id-segment." + e.getKey(), entry.id.path.equals(entry.segment),
+          entry.id.path + " != " + entry.segment);
+      check("registry.nav-meta." + e.getKey(),
+          mustMeta("registry.nav." + e.getKey(), entry.nav) == entry.tree.root,
+          "nav meta() != tree root");
+      check("registry.id-meta." + e.getKey(),
+          mustMeta("registry.id." + e.getKey(), entry.id) == entry.tree.root,
+          "id meta() != tree root");
     }
   }
 
@@ -210,20 +233,10 @@ public final class MetaAgreementTest {
     // Every root has a distinct ID entry point at its own segment, resolving
     // to its generated tree's root node.
     Map<String, SomMetaRef> idRoots = new LinkedHashMap<>();
-    idRoots.put("D00SolutionBlueprint", TomSomV0Meta.SBP);
-    idRoots.put("D01CurrentLandscapeAssessment", TomSomV0Meta.CLA);
-    idRoots.put("D02TargetOperatingModel", TomSomV0Meta.TOM);
-    idRoots.put("D03InformationModel", TomSomV0Meta.IFM);
-    idRoots.put("D04RequirementsSpecification", TomSomV0Meta.RSP);
-    idRoots.put("D05InteractionScenarios", TomSomV0Meta.ISC);
-    idRoots.put("D06ArchitectureTechnologySpecification", TomSomV0Meta.ATS);
-    idRoots.put("D07IntegrationInterfaceSpecification", TomSomV0Meta.IIS);
-    idRoots.put("D08SecurityAccessSpecification", TomSomV0Meta.SAS);
-    idRoots.put("D09ExperienceDesignSpecification", TomSomV0Meta.XDS);
-    idRoots.put("D10QualityAcceptancePlan", TomSomV0Meta.QAP);
-    idRoots.put("D11DeliveryRoadmap", TomSomV0Meta.DRM);
-    idRoots.put("D12TransitionRolloutPlan", TomSomV0Meta.TRP);
-    idRoots.put("D13CodeSpecsProjection", TomSomV0Meta.CGP);
+    for (Map.Entry<String, TomSomV0Meta.SomMetaRootEntry> e :
+        TomSomV0Meta.SOM_META_ROOTS.entrySet()) {
+      idRoots.put(e.getKey(), e.getValue().id);
+    }
 
     Map<String, SomMetaTree> trees = generatedTrees();
     check("id.root-count", idRoots.size() == trees.size(),
@@ -243,6 +256,7 @@ public final class MetaAgreementTest {
 
   public static void main(String[] args) {
     testGeneratedTreesAgreeWithBridge();
+    testRegistryEntriesAreSelfConsistent();
     testDotNotationSurface();
     testIdTreeSurface();
 

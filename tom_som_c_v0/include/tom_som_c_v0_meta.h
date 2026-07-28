@@ -11283,4 +11283,32 @@ som_nav_d13_code_specs_projection d13_code_specs_projection_meta(const SomMetaTr
 /* The ID-tree access root of `D13CodeSpecsProjection` (SOM §8): `<root>_id_<SECTION_ID>`. */
 som_id_d13_code_specs_projection CGP(const SomMetaTree *tree);
 
+/* ── document-root registry (SOM §8) ──────────────────────────────────── */
+/* One document root: its class name, the path segment its access roots are */
+/* bound at, the populated metadata tree (SOM §7.2), and the two SOM §8 */
+/* access roots as the common SomMetaRef the accessor structs wrap. */
+typedef struct {
+  const char *type;
+  const char *segment;
+  const SomMetaTree *tree;
+  SomMetaRef nav;
+  SomMetaRef id;
+} SomMetaRootEntry;
+
+/* The number of document roots som_meta_roots fills in. Named so a caller's */
+/* array cannot silently be one short of the registry when a root is added — */
+/* C has no bounds check to catch it. */
+#define SOM_META_ROOT_COUNT 14
+
+/* Fills `out` with every document root, in model order, and returns the number */
+/* written — at most `cap`, so a caller sized to an older SOM_META_ROOT_COUNT */
+/* truncates rather than overruns. Generated from the same root list that */
+/* produced the trees above, so no consumer needs a hand-kept copy of the */
+/* root set. */
+/* */
+/* OWNERSHIP: each filled entry's `nav` and `id` own their path buffers — the */
+/* caller releases both with som_meta_ref_free. `tree` is static and is not */
+/* freed. */
+size_t som_meta_roots(SomMetaRootEntry *out, size_t cap);
+
 #endif /* TOM_SOM_C_V0_META_H */

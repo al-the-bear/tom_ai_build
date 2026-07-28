@@ -101,6 +101,28 @@ Map<String, dynamic> _fixtureJson() => {
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
+/// [_fixtureJson] plus a **second** document root, so an assertion about the
+/// generated root registry (SOM §8) proves it carries one entry *per root*
+/// rather than a single hard-wired one.
+Map<String, dynamic> _twoRootJson() {
+  final json = _fixtureJson();
+  (json['roots'] as List)
+      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['classes'] as Map<String, dynamic>)['Aux'] = {
+    'name': 'Aux',
+    'sectionId': 'AX00',
+    'fields': [
+      {
+        'name': 'note',
+        'kind': 'content',
+        'sectionId': 'note',
+        'contentType': 'text',
+      },
+    ],
+  };
+  return json;
+}
+
 /// A spec-model whose field name is a **C++ keyword** (`int`) — the hazard the
 /// emitter guards against by appending a trailing underscore to the member-
 /// function accessor. `type` is *not* a C++ keyword (unlike C's typedef-free
@@ -604,6 +626,24 @@ void main() {
       // tree accessor is defined by the generated meta module).
       _expectCppBuilds(emitter.generateHeader(), source,
           metaEmitter: SomCppMetaEmitter(_fixtureModel()));
+    });
+    // The nine v0 meta-agreement suites read their root set from this
+    // registry instead of hand-listing it, so an emitter that drops it
+    // silently un-gates fourteen roots in nine languages at once.
+    test('the document-root registry carries one entry per root (SOM §8)',
+        () {
+      final all = SomCppMetaEmitter(SpecModel.fromJson(_twoRootJson()))
+          .generateSource();
+      expect(all, contains('"SolutionBlueprint",'));
+      expect(all, contains('&solutionBlueprintMetaTree(),'));
+      expect(all, contains('solutionBlueprintMetaNav(solutionBlueprintMetaTree()).ref,'));
+      expect(all, contains('"Aux",'));
+      expect(all, contains('auxMetaId(auxMetaTree()).ref,'));
+
+      final subset = SomCppMetaEmitter(SpecModel.fromJson(_twoRootJson()),
+              documentRoots: ['SolutionBlueprint'])
+          .generateSource();
+      expect(subset, isNot(contains('&auxMetaTree(),')));
     });
   });
 }

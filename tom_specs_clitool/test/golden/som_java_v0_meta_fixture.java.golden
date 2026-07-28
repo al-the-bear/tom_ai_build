@@ -9,6 +9,7 @@ package tom_som_java_v0;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -302,5 +303,45 @@ public final class TomSomV0Meta {
   // `PD00.<SECTION_ID>()….path` / `.meta()`.
   public static final SolutionBlueprintId PD00 =
       new SolutionBlueprintId(SolutionBlueprintMetaTree, "PD00");
+
+  // ── document-root registry (SOM §8) ─────────────────────────────────────
+
+  /** One document root: its class name, the path segment its access roots are
+   * bound at, the populated metadata tree (SOM §7.2) and the two SOM §8 access
+   * roots (typed as the common base so the entries are uniform). */
+  public static final class SomMetaRootEntry {
+    public final String type;
+    public final String segment;
+    public final SomMetaTree tree;
+    public final SomMetaRef nav;
+    public final SomMetaRef id;
+
+    SomMetaRootEntry(
+        String type,
+        String segment,
+        SomMetaTree tree,
+        SomMetaRef nav,
+        SomMetaRef id) {
+      this.type = type;
+      this.segment = segment;
+      this.tree = tree;
+      this.nav = nav;
+      this.id = id;
+    }
+  }
+
+  // SOM_META_ROOTS holds every document root this module generates, keyed by
+  // root class name and in model order. Emitted from the same root list that
+  // produced the trees above, so iterating it is equivalent to reading the
+  // generator input — no consumer needs a hand-kept copy of the root set.
+  public static final Map<String, SomMetaRootEntry> SOM_META_ROOTS =
+      buildSomMetaRoots();
+
+  private static Map<String, SomMetaRootEntry> buildSomMetaRoots() {
+    Map<String, SomMetaRootEntry> m = new LinkedHashMap<>();
+    m.put("SolutionBlueprint", new SomMetaRootEntry(
+        "SolutionBlueprint", "PD00", SolutionBlueprintMetaTree, SolutionBlueprintMeta, PD00));
+    return Collections.unmodifiableMap(m);
+  }
 
 }

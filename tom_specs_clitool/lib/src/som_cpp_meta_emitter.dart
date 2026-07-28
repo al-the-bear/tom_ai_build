@@ -177,6 +177,7 @@ class SomCppMetaEmitter {
       ..writeln('#define $_headerGuard')
       ..writeln()
       ..writeln('#include <string>')
+      ..writeln('#include <vector>')
       ..writeln()
       ..writeln('#include "tom_som_cpp_runtime.hpp"')
       ..writeln()
@@ -255,11 +256,74 @@ class SomCppMetaEmitter {
     }
     b.writeln();
 
+    _emitRootRegistryDecl(b);
+
     b
       ..writeln('}  // namespace $_namespace')
       ..writeln()
       ..writeln('#endif  // $_headerGuard');
     return b.toString().replaceAll('\t', '  ');
+  }
+
+  /// Declares the document-root registry: the full root set as generated data.
+  ///
+  /// Without it every consumer has to hand-list the roots — and a hand-list is
+  /// only ever as current as the last person who remembered it. The registry
+  /// makes the root set a generated fact, so a new document root reaches every
+  /// consumer by regeneration rather than by recollection.
+  void _emitRootRegistryDecl(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '──────────────────────────────────────')
+      ..writeln('// One document root: its class name, the path segment its '
+          'access roots are')
+      ..writeln('// bound at, the populated metadata tree (SOM §7.2), and the '
+          'two SOM §8')
+      ..writeln('// access roots as the common som::SomMetaRef the accessor '
+          'structs wrap.')
+      ..writeln('struct SomMetaRootEntry {')
+      ..writeln('\tstd::string type;')
+      ..writeln('\tstd::string segment;')
+      ..writeln('\tconst som::SomMetaTree* tree;')
+      ..writeln('\tsom::SomMetaRef nav;')
+      ..writeln('\tsom::SomMetaRef id;')
+      ..writeln('};')
+      ..writeln()
+      ..writeln('// Every document root this module generates, in model order. '
+          'Emitted from the')
+      ..writeln('// same root list that produced the trees above, so iterating '
+          'it is equivalent')
+      ..writeln('// to reading the generator input — no consumer needs a '
+          'hand-kept copy of the')
+      ..writeln('// root set.')
+      ..writeln('std::vector<SomMetaRootEntry> somMetaRoots();')
+      ..writeln();
+  }
+
+  /// Defines the registry declared by [_emitRootRegistryDecl].
+  void _emitRootRegistryDef(StringBuffer b) {
+    b
+      ..writeln('// ── document-root registry (SOM §8) '
+          '──────────────────────────────────────')
+      ..writeln('std::vector<SomMetaRootEntry> somMetaRoots() {')
+      ..writeln('\tstd::vector<SomMetaRootEntry> out;')
+      ..writeln('\tout.reserve(${_roots.length});');
+    for (final root in _roots) {
+      final seg = _ref.rootSegment(root);
+      final treeFn = _treeFn(root.type);
+      b
+        ..writeln('\tout.push_back(SomMetaRootEntry{')
+        ..writeln('\t\t"${_cppStr(root.type)}",')
+        ..writeln('\t\t"${_cppStr(seg)}",')
+        ..writeln('\t\t&$treeFn(),')
+        ..writeln('\t\t${_rootNavFn(root)}($treeFn()).ref,')
+        ..writeln('\t\t${_rootIdFn(root)}($treeFn()).ref,')
+        ..writeln('\t});');
+    }
+    b
+      ..writeln('\treturn out;')
+      ..writeln('}')
+      ..writeln();
   }
 
   // ── source ──────────────────────────────────────────────────────────────────
@@ -336,6 +400,8 @@ class SomCppMetaEmitter {
     b.writeln('// ── ID-tree accessors (SOM §8) '
         '───────────────────────────────────────────');
     b.write(idBuf.toString());
+
+    _emitRootRegistryDef(b);
 
     b.writeln('}  // namespace $_namespace');
     return b.toString().replaceAll('\t', '  ');

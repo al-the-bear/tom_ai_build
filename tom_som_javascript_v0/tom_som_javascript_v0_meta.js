@@ -103499,6 +103499,31 @@ const d13CodeSpecsProjection = new D13CodeSpecsProjection$Nav(d13CodeSpecsProjec
 // `CGP.<SECTION-ID>….path` / `.meta`.
 const CGP = new D13CodeSpecsProjection$Id(d13CodeSpecsProjectionMetaTree, "CGP");
 
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+// Every document root this module generates, keyed by root class name and in
+// model order. Each entry carries the root class name, the path segment its
+// access roots are bound at, the populated metadata tree (SOM §7.2), and the
+// two SOM §8 access roots. Emitted from the same root list that produced the
+// trees above, so enumerating this object is equivalent to reading the
+// generator input — no consumer needs a hand-kept copy of the root set.
+const SOM_META_ROOTS = {
+  "D00SolutionBlueprint": {type: "D00SolutionBlueprint", segment: "SBP", tree: d00SolutionBlueprintMetaTree, nav: d00SolutionBlueprint, id: SBP},
+  "D01CurrentLandscapeAssessment": {type: "D01CurrentLandscapeAssessment", segment: "CLA", tree: d01CurrentLandscapeAssessmentMetaTree, nav: d01CurrentLandscapeAssessment, id: CLA},
+  "D02TargetOperatingModel": {type: "D02TargetOperatingModel", segment: "TOM", tree: d02TargetOperatingModelMetaTree, nav: d02TargetOperatingModel, id: TOM},
+  "D03InformationModel": {type: "D03InformationModel", segment: "IFM", tree: d03InformationModelMetaTree, nav: d03InformationModel, id: IFM},
+  "D04RequirementsSpecification": {type: "D04RequirementsSpecification", segment: "RSP", tree: d04RequirementsSpecificationMetaTree, nav: d04RequirementsSpecification, id: RSP},
+  "D05InteractionScenarios": {type: "D05InteractionScenarios", segment: "ISC", tree: d05InteractionScenariosMetaTree, nav: d05InteractionScenarios, id: ISC},
+  "D06ArchitectureTechnologySpecification": {type: "D06ArchitectureTechnologySpecification", segment: "ATS", tree: d06ArchitectureTechnologySpecificationMetaTree, nav: d06ArchitectureTechnologySpecification, id: ATS},
+  "D07IntegrationInterfaceSpecification": {type: "D07IntegrationInterfaceSpecification", segment: "IIS", tree: d07IntegrationInterfaceSpecificationMetaTree, nav: d07IntegrationInterfaceSpecification, id: IIS},
+  "D08SecurityAccessSpecification": {type: "D08SecurityAccessSpecification", segment: "SAS", tree: d08SecurityAccessSpecificationMetaTree, nav: d08SecurityAccessSpecification, id: SAS},
+  "D09ExperienceDesignSpecification": {type: "D09ExperienceDesignSpecification", segment: "XDS", tree: d09ExperienceDesignSpecificationMetaTree, nav: d09ExperienceDesignSpecification, id: XDS},
+  "D10QualityAcceptancePlan": {type: "D10QualityAcceptancePlan", segment: "QAP", tree: d10QualityAcceptancePlanMetaTree, nav: d10QualityAcceptancePlan, id: QAP},
+  "D11DeliveryRoadmap": {type: "D11DeliveryRoadmap", segment: "DRM", tree: d11DeliveryRoadmapMetaTree, nav: d11DeliveryRoadmap, id: DRM},
+  "D12TransitionRolloutPlan": {type: "D12TransitionRolloutPlan", segment: "TRP", tree: d12TransitionRolloutPlanMetaTree, nav: d12TransitionRolloutPlan, id: TRP},
+  "D13CodeSpecsProjection": {type: "D13CodeSpecsProjection", segment: "CGP", tree: d13CodeSpecsProjectionMetaTree, nav: d13CodeSpecsProjection, id: CGP},
+};
+
 module.exports = {
   AcceptanceCriteriaList$Nav,
   AcceptanceCriteriaSummary$Nav,
@@ -105296,4 +105321,5 @@ module.exports = {
   d13CodeSpecsProjectionMetaTree,
   d13CodeSpecsProjection,
   CGP,
+  SOM_META_ROOTS,
 };

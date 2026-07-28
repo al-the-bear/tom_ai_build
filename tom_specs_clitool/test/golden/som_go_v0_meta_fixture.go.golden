@@ -242,3 +242,30 @@ var SolutionBlueprintMeta = newSolutionBlueprintNav(SolutionBlueprintMetaTree, "
 // PD00 is the ID-tree access root of `SolutionBlueprint` (SOM §8):
 // `PD00.<SECTION_ID>()….Path` / `.Meta()`.
 var PD00 = newSolutionBlueprintID(SolutionBlueprintMetaTree, "PD00")
+
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+// SomMetaRootEntry is one document root of this model: its class name and
+// section id, its populated metadata tree, and the two access roots
+// (SOM §8) bound to it, as the common som.SomMetaRef base.
+type SomMetaRootEntry struct {
+	// Type is the root class name, e.g. `D00SolutionBlueprint`.
+	Type string
+	// Segment is the path segment the two access roots are bound at — the
+	// root section id where the model gives one, else the class name.
+	Segment string
+	// Tree is the populated metadata tree of this root (SOM §7.2).
+	Tree *som.SomMetaTree
+	// Nav is the dot-notation access root.
+	Nav *som.SomMetaRef
+	// ID is the ID-tree access root.
+	ID *som.SomMetaRef
+}
+
+// SomMetaRoots is every document root this module generates, keyed by root
+// class name. Emitted from the same root list that produced the trees and
+// access roots above, so ranging over it is equivalent to reading the
+// generator input — no consumer needs a hand-kept copy of the root set.
+var SomMetaRoots = map[string]SomMetaRootEntry{
+	"SolutionBlueprint": {Type: "SolutionBlueprint", Segment: "PD00", Tree: SolutionBlueprintMetaTree, Nav: &SolutionBlueprintMeta.SomMetaRef, ID: &PD00.SomMetaRef},
+}

@@ -105505,3 +105505,47 @@ d13CodeSpecsProjection = D13CodeSpecsProjectionNav(d13CodeSpecsProjectionMetaTre
 #: `CGP.<SECTION-ID>….path` / `.meta`.
 CGP = D13CodeSpecsProjectionId(d13CodeSpecsProjectionMetaTree, "CGP")
 
+# ── document-root registry (SOM §8) ───────────────────────────────────────
+
+class SomMetaRootEntry:
+    """One document root of this model: its class name and section id, its
+    populated metadata tree, and the two access roots (SOM §8) bound to it."""
+
+    __slots__ = ('type', 'segment', 'tree', 'nav', 'id')
+
+    def __init__(self, type, segment, tree, nav, id):
+        #: The root class name, e.g. ``D00SolutionBlueprint``.
+        self.type = type
+        #: The path segment the two access roots are bound at — the root
+        #: section id where the model gives one, else the class name.
+        self.segment = segment
+        #: The populated metadata tree of this root (SOM §7.2).
+        self.tree = tree
+        #: The dot-notation access root (a ``SomMetaRef``).
+        self.nav = nav
+        #: The ID-tree access root (a ``SomMetaRef``).
+        self.id = id
+
+
+#: Every document root this module generates, keyed by root class name and
+#: in model order. Emitted from the same root list that produced the trees
+#: and access roots above, so enumerating this mapping is equivalent to
+#: reading the generator input — no consumer needs a hand-kept copy of the
+#: root set.
+SOM_META_ROOTS = {
+    "D00SolutionBlueprint": SomMetaRootEntry("D00SolutionBlueprint", "SBP", d00SolutionBlueprintMetaTree, d00SolutionBlueprint, SBP),
+    "D01CurrentLandscapeAssessment": SomMetaRootEntry("D01CurrentLandscapeAssessment", "CLA", d01CurrentLandscapeAssessmentMetaTree, d01CurrentLandscapeAssessment, CLA),
+    "D02TargetOperatingModel": SomMetaRootEntry("D02TargetOperatingModel", "TOM", d02TargetOperatingModelMetaTree, d02TargetOperatingModel, TOM),
+    "D03InformationModel": SomMetaRootEntry("D03InformationModel", "IFM", d03InformationModelMetaTree, d03InformationModel, IFM),
+    "D04RequirementsSpecification": SomMetaRootEntry("D04RequirementsSpecification", "RSP", d04RequirementsSpecificationMetaTree, d04RequirementsSpecification, RSP),
+    "D05InteractionScenarios": SomMetaRootEntry("D05InteractionScenarios", "ISC", d05InteractionScenariosMetaTree, d05InteractionScenarios, ISC),
+    "D06ArchitectureTechnologySpecification": SomMetaRootEntry("D06ArchitectureTechnologySpecification", "ATS", d06ArchitectureTechnologySpecificationMetaTree, d06ArchitectureTechnologySpecification, ATS),
+    "D07IntegrationInterfaceSpecification": SomMetaRootEntry("D07IntegrationInterfaceSpecification", "IIS", d07IntegrationInterfaceSpecificationMetaTree, d07IntegrationInterfaceSpecification, IIS),
+    "D08SecurityAccessSpecification": SomMetaRootEntry("D08SecurityAccessSpecification", "SAS", d08SecurityAccessSpecificationMetaTree, d08SecurityAccessSpecification, SAS),
+    "D09ExperienceDesignSpecification": SomMetaRootEntry("D09ExperienceDesignSpecification", "XDS", d09ExperienceDesignSpecificationMetaTree, d09ExperienceDesignSpecification, XDS),
+    "D10QualityAcceptancePlan": SomMetaRootEntry("D10QualityAcceptancePlan", "QAP", d10QualityAcceptancePlanMetaTree, d10QualityAcceptancePlan, QAP),
+    "D11DeliveryRoadmap": SomMetaRootEntry("D11DeliveryRoadmap", "DRM", d11DeliveryRoadmapMetaTree, d11DeliveryRoadmap, DRM),
+    "D12TransitionRolloutPlan": SomMetaRootEntry("D12TransitionRolloutPlan", "TRP", d12TransitionRolloutPlanMetaTree, d12TransitionRolloutPlan, TRP),
+    "D13CodeSpecsProjection": SomMetaRootEntry("D13CodeSpecsProjection", "CGP", d13CodeSpecsProjectionMetaTree, d13CodeSpecsProjection, CGP),
+}
+

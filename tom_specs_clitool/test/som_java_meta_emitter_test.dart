@@ -116,6 +116,28 @@ Map<String, dynamic> _fixtureJson() => {
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
+/// [_fixtureJson] plus a **second** document root, so an assertion about the
+/// generated root registry (SOM §8) proves it carries one entry *per root*
+/// rather than a single hard-wired one.
+Map<String, dynamic> _twoRootJson() {
+  final json = _fixtureJson();
+  (json['roots'] as List)
+      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['classes'] as Map<String, dynamic>)['Aux'] = {
+    'name': 'Aux',
+    'sectionId': 'AX00',
+    'fields': [
+      {
+        'name': 'note',
+        'kind': 'content',
+        'sectionId': 'note',
+        'contentType': 'text',
+      },
+    ],
+  };
+  return json;
+}
+
 /// The functional agreement program run against the generated module: it
 /// compares the generated tree against `SomMetaBridge.buildSomMetaTree`
 /// (field for field via `SpecMetaDiff.somMetaNodeDiff`) and asserts the
@@ -414,6 +436,22 @@ void main() {
           documentRoots: ['SolutionBlueprint']).generateLibrary();
       expect(all, contains('SolutionBlueprintMetaTree'));
       expect(subset, contains('SolutionBlueprintMetaTree'));
+    });
+    // The nine v0 meta-agreement suites read their root set from this
+    // registry instead of hand-listing it, so an emitter that drops it
+    // silently un-gates fourteen roots in nine languages at once.
+    test('the document-root registry carries one entry per root (SOM §8)',
+        () {
+      final all = SomJavaMetaEmitter(SpecModel.fromJson(_twoRootJson()))
+          .generateLibrary();
+      expect(all, contains('"SolutionBlueprint", "PD00", SolutionBlueprintMetaTree, '
+              'SolutionBlueprintMeta, PD00)'));
+      expect(all, contains('"Aux", "AX00", AuxMetaTree, AuxMeta, AX00)'));
+
+      final subset = SomJavaMetaEmitter(SpecModel.fromJson(_twoRootJson()),
+              documentRoots: ['SolutionBlueprint'])
+          .generateLibrary();
+      expect(subset, isNot(contains('m.put("Aux", new SomMetaRootEntry(')));
     });
   });
 }

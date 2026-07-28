@@ -81281,3 +81281,43 @@ var D13CodeSpecsProjectionMeta = newD13CodeSpecsProjectionNav(D13CodeSpecsProjec
 // CGP is the ID-tree access root of `D13CodeSpecsProjection` (SOM §8):
 // `CGP.<SECTION_ID>()….Path` / `.Meta()`.
 var CGP = newD13CodeSpecsProjectionID(D13CodeSpecsProjectionMetaTree, "CGP")
+
+// ── document-root registry (SOM §8) ───────────────────────────────────────
+
+// SomMetaRootEntry is one document root of this model: its class name and
+// section id, its populated metadata tree, and the two access roots
+// (SOM §8) bound to it, as the common som.SomMetaRef base.
+type SomMetaRootEntry struct {
+	// Type is the root class name, e.g. `D00SolutionBlueprint`.
+	Type string
+	// Segment is the path segment the two access roots are bound at — the
+	// root section id where the model gives one, else the class name.
+	Segment string
+	// Tree is the populated metadata tree of this root (SOM §7.2).
+	Tree *som.SomMetaTree
+	// Nav is the dot-notation access root.
+	Nav *som.SomMetaRef
+	// ID is the ID-tree access root.
+	ID *som.SomMetaRef
+}
+
+// SomMetaRoots is every document root this module generates, keyed by root
+// class name. Emitted from the same root list that produced the trees and
+// access roots above, so ranging over it is equivalent to reading the
+// generator input — no consumer needs a hand-kept copy of the root set.
+var SomMetaRoots = map[string]SomMetaRootEntry{
+	"D00SolutionBlueprint": {Type: "D00SolutionBlueprint", Segment: "SBP", Tree: D00SolutionBlueprintMetaTree, Nav: &D00SolutionBlueprintMeta.SomMetaRef, ID: &SBP.SomMetaRef},
+	"D01CurrentLandscapeAssessment": {Type: "D01CurrentLandscapeAssessment", Segment: "CLA", Tree: D01CurrentLandscapeAssessmentMetaTree, Nav: &D01CurrentLandscapeAssessmentMeta.SomMetaRef, ID: &CLA.SomMetaRef},
+	"D02TargetOperatingModel": {Type: "D02TargetOperatingModel", Segment: "TOM", Tree: D02TargetOperatingModelMetaTree, Nav: &D02TargetOperatingModelMeta.SomMetaRef, ID: &TOM.SomMetaRef},
+	"D03InformationModel": {Type: "D03InformationModel", Segment: "IFM", Tree: D03InformationModelMetaTree, Nav: &D03InformationModelMeta.SomMetaRef, ID: &IFM.SomMetaRef},
+	"D04RequirementsSpecification": {Type: "D04RequirementsSpecification", Segment: "RSP", Tree: D04RequirementsSpecificationMetaTree, Nav: &D04RequirementsSpecificationMeta.SomMetaRef, ID: &RSP.SomMetaRef},
+	"D05InteractionScenarios": {Type: "D05InteractionScenarios", Segment: "ISC", Tree: D05InteractionScenariosMetaTree, Nav: &D05InteractionScenariosMeta.SomMetaRef, ID: &ISC.SomMetaRef},
+	"D06ArchitectureTechnologySpecification": {Type: "D06ArchitectureTechnologySpecification", Segment: "ATS", Tree: D06ArchitectureTechnologySpecificationMetaTree, Nav: &D06ArchitectureTechnologySpecificationMeta.SomMetaRef, ID: &ATS.SomMetaRef},
+	"D07IntegrationInterfaceSpecification": {Type: "D07IntegrationInterfaceSpecification", Segment: "IIS", Tree: D07IntegrationInterfaceSpecificationMetaTree, Nav: &D07IntegrationInterfaceSpecificationMeta.SomMetaRef, ID: &IIS.SomMetaRef},
+	"D08SecurityAccessSpecification": {Type: "D08SecurityAccessSpecification", Segment: "SAS", Tree: D08SecurityAccessSpecificationMetaTree, Nav: &D08SecurityAccessSpecificationMeta.SomMetaRef, ID: &SAS.SomMetaRef},
+	"D09ExperienceDesignSpecification": {Type: "D09ExperienceDesignSpecification", Segment: "XDS", Tree: D09ExperienceDesignSpecificationMetaTree, Nav: &D09ExperienceDesignSpecificationMeta.SomMetaRef, ID: &XDS.SomMetaRef},
+	"D10QualityAcceptancePlan": {Type: "D10QualityAcceptancePlan", Segment: "QAP", Tree: D10QualityAcceptancePlanMetaTree, Nav: &D10QualityAcceptancePlanMeta.SomMetaRef, ID: &QAP.SomMetaRef},
+	"D11DeliveryRoadmap": {Type: "D11DeliveryRoadmap", Segment: "DRM", Tree: D11DeliveryRoadmapMetaTree, Nav: &D11DeliveryRoadmapMeta.SomMetaRef, ID: &DRM.SomMetaRef},
+	"D12TransitionRolloutPlan": {Type: "D12TransitionRolloutPlan", Segment: "TRP", Tree: D12TransitionRolloutPlanMetaTree, Nav: &D12TransitionRolloutPlanMeta.SomMetaRef, ID: &TRP.SomMetaRef},
+	"D13CodeSpecsProjection": {Type: "D13CodeSpecsProjection", Segment: "CGP", Tree: D13CodeSpecsProjectionMetaTree, Nav: &D13CodeSpecsProjectionMeta.SomMetaRef, ID: &CGP.SomMetaRef},
+}

@@ -14,6 +14,12 @@
 //     instances for representative positions (root, nested section, content
 //     leaf, list, list element, hoisted id).
 //
+// The root set comes from the generated SomMetaRoots registry, not a hand-list:
+// adding a document root cannot leave this suite behind. That does not make the
+// coverage check circular — `meta/spec_model.meta.json` is written by the model
+// JSON exporter, a different code path from the meta emitter, so an emitter
+// that drops a root still shows up as a count mismatch.
+//
 // Run with `go test ./...`. The runtime resolves through the `replace`
 // directive in this module's go.mod, so the test is portable across checkouts.
 package somv0
@@ -25,23 +31,17 @@ import (
 	som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 )
 
-// generatedTrees is every generated per-root static tree, keyed by root type.
-var generatedTrees = map[string]*som.SomMetaTree{
-	"D00SolutionBlueprint":                   D00SolutionBlueprintMetaTree,
-	"D01CurrentLandscapeAssessment":          D01CurrentLandscapeAssessmentMetaTree,
-	"D02TargetOperatingModel":                D02TargetOperatingModelMetaTree,
-	"D03InformationModel":                    D03InformationModelMetaTree,
-	"D04RequirementsSpecification":           D04RequirementsSpecificationMetaTree,
-	"D05InteractionScenarios":                D05InteractionScenariosMetaTree,
-	"D06ArchitectureTechnologySpecification": D06ArchitectureTechnologySpecificationMetaTree,
-	"D07IntegrationInterfaceSpecification":   D07IntegrationInterfaceSpecificationMetaTree,
-	"D08SecurityAccessSpecification":         D08SecurityAccessSpecificationMetaTree,
-	"D09ExperienceDesignSpecification":       D09ExperienceDesignSpecificationMetaTree,
-	"D10QualityAcceptancePlan":               D10QualityAcceptancePlanMetaTree,
-	"D11DeliveryRoadmap":                     D11DeliveryRoadmapMetaTree,
-	"D12TransitionRolloutPlan":               D12TransitionRolloutPlanMetaTree,
-	"D13CodeSpecsProjection":                 D13CodeSpecsProjectionMetaTree,
-}
+// generatedTrees is every generated per-root static tree, keyed by root type —
+// read from the generated SomMetaRoots registry rather than hand-listed, so a
+// new document root reaches this suite by regeneration instead of by
+// recollection.
+var generatedTrees = func() map[string]*som.SomMetaTree {
+	m := make(map[string]*som.SomMetaTree, len(SomMetaRoots))
+	for k, e := range SomMetaRoots {
+		m[k] = e.Tree
+	}
+	return m
+}()
 
 // loadModel parses the committed language-agnostic meta-data next to the
 // generated module (the same file the bridge builds trees from at runtime).
@@ -94,6 +94,29 @@ func TestGeneratedTreesAgreeWithBridge(t *testing.T) {
 		if diff := som.SomMetaNodeDiff(tree.Root, bridge.Root); diff != "" {
 			t.Errorf("generated tree for %s disagrees with bridge:\n%s",
 				rootType, diff)
+		}
+	}
+}
+
+// TestRegistryEntriesAreSelfConsistent proves each registry entry describes
+// itself consistently: the map key is the entry's own Type, both access roots
+// sit at the declared Segment, and both resolve to the entry's own tree root.
+func TestRegistryEntriesAreSelfConsistent(t *testing.T) {
+	for key, e := range SomMetaRoots {
+		if e.Type != key {
+			t.Errorf("registry key %q != entry.Type %q", key, e.Type)
+		}
+		if e.Nav.Path != e.Segment {
+			t.Errorf("%s: Nav.Path = %q, want segment %q", key, e.Nav.Path, e.Segment)
+		}
+		if e.ID.Path != e.Segment {
+			t.Errorf("%s: ID.Path = %q, want segment %q", key, e.ID.Path, e.Segment)
+		}
+		if mustMeta(t, key+".Nav", e.Nav) != e.Tree.Root {
+			t.Errorf("%s: Nav.Meta() != tree root", key)
+		}
+		if mustMeta(t, key+".ID", e.ID) != e.Tree.Root {
+			t.Errorf("%s: ID.Meta() != tree root", key)
 		}
 	}
 }
@@ -178,21 +201,9 @@ func TestIdTreeSurface(t *testing.T) {
 
 	// Every root has a distinct ID entry point at its own segment, resolving
 	// to its generated tree's root node.
-	idRoots := map[string]*som.SomMetaRef{
-		"D00SolutionBlueprint":                   &SBP.SomMetaRef,
-		"D01CurrentLandscapeAssessment":          &CLA.SomMetaRef,
-		"D02TargetOperatingModel":                &TOM.SomMetaRef,
-		"D03InformationModel":                    &IFM.SomMetaRef,
-		"D04RequirementsSpecification":           &RSP.SomMetaRef,
-		"D05InteractionScenarios":                &ISC.SomMetaRef,
-		"D06ArchitectureTechnologySpecification": &ATS.SomMetaRef,
-		"D07IntegrationInterfaceSpecification":   &IIS.SomMetaRef,
-		"D08SecurityAccessSpecification":         &SAS.SomMetaRef,
-		"D09ExperienceDesignSpecification":       &XDS.SomMetaRef,
-		"D10QualityAcceptancePlan":               &QAP.SomMetaRef,
-		"D11DeliveryRoadmap":                     &DRM.SomMetaRef,
-		"D12TransitionRolloutPlan":               &TRP.SomMetaRef,
-		"D13CodeSpecsProjection":                 &CGP.SomMetaRef,
+	idRoots := make(map[string]*som.SomMetaRef, len(SomMetaRoots))
+	for rootType, e := range SomMetaRoots {
+		idRoots[rootType] = e.ID
 	}
 	if len(idRoots) != len(generatedTrees) {
 		t.Errorf("idRoots has %d entries, generatedTrees %d",

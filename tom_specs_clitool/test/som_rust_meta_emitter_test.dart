@@ -128,6 +128,28 @@ Map<String, dynamic> _fixtureJson() => {
 
 SpecModel _fixtureModel() => SpecModel.fromJson(_fixtureJson());
 
+/// [_fixtureJson] plus a **second** document root, so an assertion about the
+/// generated root registry (SOM §8) proves it carries one entry *per root*
+/// rather than a single hard-wired one.
+Map<String, dynamic> _twoRootJson() {
+  final json = _fixtureJson();
+  (json['roots'] as List)
+      .add({'type': 'Aux', 'title': 'Aux', 'sectionId': 'AX00'});
+  (json['classes'] as Map<String, dynamic>)['Aux'] = {
+    'name': 'Aux',
+    'sectionId': 'AX00',
+    'fields': [
+      {
+        'name': 'note',
+        'kind': 'content',
+        'sectionId': 'note',
+        'contentType': 'text',
+      },
+    ],
+  };
+  return json;
+}
+
 /// A model whose member name collides with a reserved accessor method name of
 /// the generated Nav structs (`path`) — generation must fail loudly.
 Map<String, dynamic> _reservedNameJson() => {
@@ -418,6 +440,24 @@ void main() {
       expect(subset, contains('pub fn solution_blueprint_meta_tree()'));
       expect(subset, isNot(contains('pub fn aux_meta_tree()')));
       expect(subset, isNot(contains('pub fn AX00(')));
+    });
+    // The nine v0 meta-agreement suites read their root set from this
+    // registry instead of hand-listing it, so an emitter that drops it
+    // silently un-gates fourteen roots in nine languages at once.
+    test('the document-root registry carries one entry per root (SOM §8)',
+        () {
+      final all = SomRustMetaEmitter(SpecModel.fromJson(_twoRootJson()))
+          .generateLibrary();
+      expect(all, contains('type_name: "SolutionBlueprint"'));
+      expect(all, contains('type_name: "Aux"'));
+      expect(all, contains('tree: solution_blueprint_meta_tree'));
+      expect(all, contains('nav_ref: aux_nav_ref'));
+      expect(all, contains('id_ref: aux_id_ref'));
+
+      final subset = SomRustMetaEmitter(SpecModel.fromJson(_twoRootJson()),
+              documentRoots: ['SolutionBlueprint'])
+          .generateLibrary();
+      expect(subset, isNot(contains('type_name: "Aux"')));
     });
   });
 }

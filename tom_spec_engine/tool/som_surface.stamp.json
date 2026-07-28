@@ -1,11 +1,11 @@
 {
-  "fingerprint": "46bbb5690067548962d3aa78b0142cf83c6f9894b67d583531b89d45d24310cc",
+  "fingerprint": "7fa9230d4f5579bf055e3cb38adeec6d66c087f92f4035d6a4e8fd0592f69033",
   "perPackage": {
     "tom_som_dart_runtime": "c159aa708c016a2db48ef0275be0aad2dbaa5d2dfdf3287daac5f3c9aea9496d",
-    "tom_som_dart_v0": "2f537cd810c1fb300611c4824141fe47f3330ffe6cc1708c9f34bf56973e3efa"
+    "tom_som_dart_v0": "d48c3c8869442153ec5ad772266ee83491b1f91d4285c483d722248efdf03b8f"
   },
   "declarationCounts": {
     "tom_som_dart_runtime": 154,
-    "tom_som_dart_v0": 7008
+    "tom_som_dart_v0": 7010
   }
 }

@@ -122039,4 +122039,109 @@ som::SomMetaRef idWorkplaceDescriptionEntry_WSRSS(IdWorkplaceDescriptionEntry x)
 som::SomMetaRef idWorkplaceDescriptionEntry_WSRI(IdWorkplaceDescriptionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "supportResources/WSRI"));
 }
+// ── document-root registry (SOM §8) ──────────────────────────────────────
+std::vector<SomMetaRootEntry> somMetaRoots() {
+  std::vector<SomMetaRootEntry> out;
+  out.reserve(14);
+  out.push_back(SomMetaRootEntry{
+    "D00SolutionBlueprint",
+    "SBP",
+    &d00SolutionBlueprintMetaTree(),
+    d00SolutionBlueprintMetaNav(d00SolutionBlueprintMetaTree()).ref,
+    d00SolutionBlueprintMetaId(d00SolutionBlueprintMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D01CurrentLandscapeAssessment",
+    "CLA",
+    &d01CurrentLandscapeAssessmentMetaTree(),
+    d01CurrentLandscapeAssessmentMetaNav(d01CurrentLandscapeAssessmentMetaTree()).ref,
+    d01CurrentLandscapeAssessmentMetaId(d01CurrentLandscapeAssessmentMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D02TargetOperatingModel",
+    "TOM",
+    &d02TargetOperatingModelMetaTree(),
+    d02TargetOperatingModelMetaNav(d02TargetOperatingModelMetaTree()).ref,
+    d02TargetOperatingModelMetaId(d02TargetOperatingModelMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D03InformationModel",
+    "IFM",
+    &d03InformationModelMetaTree(),
+    d03InformationModelMetaNav(d03InformationModelMetaTree()).ref,
+    d03InformationModelMetaId(d03InformationModelMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D04RequirementsSpecification",
+    "RSP",
+    &d04RequirementsSpecificationMetaTree(),
+    d04RequirementsSpecificationMetaNav(d04RequirementsSpecificationMetaTree()).ref,
+    d04RequirementsSpecificationMetaId(d04RequirementsSpecificationMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D05InteractionScenarios",
+    "ISC",
+    &d05InteractionScenariosMetaTree(),
+    d05InteractionScenariosMetaNav(d05InteractionScenariosMetaTree()).ref,
+    d05InteractionScenariosMetaId(d05InteractionScenariosMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D06ArchitectureTechnologySpecification",
+    "ATS",
+    &d06ArchitectureTechnologySpecificationMetaTree(),
+    d06ArchitectureTechnologySpecificationMetaNav(d06ArchitectureTechnologySpecificationMetaTree()).ref,
+    d06ArchitectureTechnologySpecificationMetaId(d06ArchitectureTechnologySpecificationMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D07IntegrationInterfaceSpecification",
+    "IIS",
+    &d07IntegrationInterfaceSpecificationMetaTree(),
+    d07IntegrationInterfaceSpecificationMetaNav(d07IntegrationInterfaceSpecificationMetaTree()).ref,
+    d07IntegrationInterfaceSpecificationMetaId(d07IntegrationInterfaceSpecificationMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D08SecurityAccessSpecification",
+    "SAS",
+    &d08SecurityAccessSpecificationMetaTree(),
+    d08SecurityAccessSpecificationMetaNav(d08SecurityAccessSpecificationMetaTree()).ref,
+    d08SecurityAccessSpecificationMetaId(d08SecurityAccessSpecificationMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D09ExperienceDesignSpecification",
+    "XDS",
+    &d09ExperienceDesignSpecificationMetaTree(),
+    d09ExperienceDesignSpecificationMetaNav(d09ExperienceDesignSpecificationMetaTree()).ref,
+    d09ExperienceDesignSpecificationMetaId(d09ExperienceDesignSpecificationMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D10QualityAcceptancePlan",
+    "QAP",
+    &d10QualityAcceptancePlanMetaTree(),
+    d10QualityAcceptancePlanMetaNav(d10QualityAcceptancePlanMetaTree()).ref,
+    d10QualityAcceptancePlanMetaId(d10QualityAcceptancePlanMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D11DeliveryRoadmap",
+    "DRM",
+    &d11DeliveryRoadmapMetaTree(),
+    d11DeliveryRoadmapMetaNav(d11DeliveryRoadmapMetaTree()).ref,
+    d11DeliveryRoadmapMetaId(d11DeliveryRoadmapMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D12TransitionRolloutPlan",
+    "TRP",
+    &d12TransitionRolloutPlanMetaTree(),
+    d12TransitionRolloutPlanMetaNav(d12TransitionRolloutPlanMetaTree()).ref,
+    d12TransitionRolloutPlanMetaId(d12TransitionRolloutPlanMetaTree()).ref,
+  });
+  out.push_back(SomMetaRootEntry{
+    "D13CodeSpecsProjection",
+    "CGP",
+    &d13CodeSpecsProjectionMetaTree(),
+    d13CodeSpecsProjectionMetaNav(d13CodeSpecsProjectionMetaTree()).ref,
+    d13CodeSpecsProjectionMetaId(d13CodeSpecsProjectionMetaTree()).ref,
+  });
+  return out;
+}
+
 }  // namespace tom_som_v0_meta
