@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.6.0
+
+- csra3: drop the `SettingsPersistence` enum and the `persistence` argument on
+  `@CsUserSetting`. `codespecs_mapping.md` §11 makes each of the four
+  configuration/settings parts single-moded — the scope key alone decides where
+  a value lives — so the choice is *which marker you use*, never a mode on one
+  of them. The `local` arm the enum offered is CE-DS `@CsDeviceSetting` (keyed
+  by user *and* device); `@CsClientConfig` covers the no-user-in-the-key case.
+  Keeping a mode argument on `@CsUserSetting` gave every scope decision two
+  spellings, one of which contradicted §11.
+- `@CsUserSetting`'s doc-comment now states the §4.2 locus (client shape +
+  server persistence) and the §5.16 authorable surface (key · type · default)
+  rather than a roaming/local choice.
+
+**Breaking:** `SettingsPersistence` is gone and `@CsUserSetting(persistence: …)`
+no longer compiles. `@CsUserSetting()` and `@CsUserSetting(note: …)` are
+unchanged.
+
 ## 0.5.0
 
 - csra2: add `TriggerKind` and make it a **required** argument on `@CsTrigger`

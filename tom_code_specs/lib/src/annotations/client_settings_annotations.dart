@@ -18,18 +18,6 @@
 /// - [CsAuth] — shared + client + server (credential/token/session flow).
 library;
 
-/// Where a [CsUserSetting] is persisted (`codespecs_mapping.md` §11).
-enum SettingsPersistence {
-  /// Machine-persisted: the setting lives on the client machine and does **not**
-  /// follow the user across machines (e.g. window layout, last-opened,
-  /// machine-local caches).
-  local,
-
-  /// Server-persisted: the setting follows the user and is re-materialised on
-  /// any machine they sign into (e.g. theme, language, notification prefs).
-  roaming,
-}
-
 /// CE-CL — a client application (which clients exist: Flutter app, CLI, other
 /// server). The client-application descriptor.
 class CsClient {
@@ -76,24 +64,26 @@ class CsDeviceSetting {
   const CsDeviceSetting({this.note});
 }
 
-/// CE-UP — a user setting / profile value.
+/// CE-UP — a user setting / profile value, keyed by the **user** and persisted
+/// **server-side**, so it follows the user onto any device they sign into
+/// (theme, language, notification prefs). See `codespecs_mapping.md` §11.
 ///
-/// The [persistence] discriminator decides storage: [SettingsPersistence.local]
-/// persists on the client machine; [SettingsPersistence.roaming] persists on the
-/// server and follows the user across machines. A roaming setting therefore has
-/// both a client-side shape and a server-side persistence (`§11`).
+/// **Single-moded — there is no persistence argument.** §11 splits configuration
+/// and settings into four parts, one per scope key, and the scope key alone
+/// decides where a value lives; the choice is therefore *which marker you use*,
+/// never a mode on one of them. A setting that must stay on the machine is
+/// [CsDeviceSetting] (keyed by user *and* device) or [CsClientConfig] (no user
+/// in the key at all).
+///
+/// A CE-UP setting spans two of the three generated projects (§4.2): its shape
+/// is declared in the client project, its persistence lives in the server
+/// project. Spec-authorable surface: the setting's key, type and default (§5.16)
+/// — the value is the user's persisted choice, never authored.
 class CsUserSetting {
-  /// Where this user setting is persisted. Defaults to
-  /// [SettingsPersistence.roaming] (follows the user).
-  final SettingsPersistence persistence;
-
   /// Optional part-specific note.
   final String? note;
 
-  const CsUserSetting({
-    this.persistence = SettingsPersistence.roaming,
-    this.note,
-  });
+  const CsUserSetting({this.note});
 }
 
 /// Where a [CsIdentityAttribute] rides in the token payload

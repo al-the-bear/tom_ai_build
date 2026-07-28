@@ -122,12 +122,16 @@ void main() {
       expect(const CsAuth().note, isNull);
     });
 
-    test('CsUserSetting carries a persistence discriminator (default roaming)',
+    test('csra3: CsUserSetting is single-moded — no persistence discriminator',
         () {
-      expect(const CsUserSetting().persistence, SettingsPersistence.roaming);
-      expect(
-          const CsUserSetting(persistence: SettingsPersistence.local).persistence,
-          SettingsPersistence.local);
+      // §11: the scope key alone decides where a value lives, so the four
+      // settings markers are distinguished by *which marker is used*, never by
+      // a mode argument on one of them. The device-persisted arm the old
+      // `SettingsPersistence.local` stood for is CE-DS `@CsDeviceSetting`.
+      expect(const CsUserSetting().note, isNull);
+      expect(const CsUserSetting(note: 'follows the user').note,
+          'follows the user');
+      expect(const CsDeviceSetting().note, isNull);
     });
 
     test('the four new kind values are reachable and distinct', () {

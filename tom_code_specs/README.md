@@ -73,7 +73,11 @@ declared — one marker (or marker group) for every active part in the §4.1
 catalogue, with no marker for a deferred one. `@CodeSpecKind` is list-valued.
 
 The markers are still **pure markers**: apart from the required `placement` on
-`@CsIdentityAttribute`, each carries only an optional `note`. The per-part
-attribute surfaces (§5) and the typed `Cs*Ref` cross-part reference consts
-(§5.23) are separate work, as is the per-annotation derivation contract that
-says exactly which generated Dart each annotation produces.
+`@CsIdentityAttribute` and the required `kind` on `@CsTrigger`, each carries only
+an optional `note`. `@CsUserSetting` lost its `persistence` argument in csra3 —
+§11 makes each of the four configuration/settings parts single-moded, so a scope
+decision is expressed by *which marker you use*, never by a mode on one of them.
+
+The per-part attribute surfaces (§5) and the typed `Cs*Ref` cross-part reference
+consts (§5.23) are separate work, as is the per-annotation derivation contract
+that says exactly which generated Dart each annotation produces.
