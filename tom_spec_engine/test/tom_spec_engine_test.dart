@@ -4,11 +4,11 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecDocumen
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart' show D00SolutionBlueprint;
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// Phase-A scaffold smoke tests: the package builds and every named dependency
+/// Dependency smoke tests: the package builds and every named dependency
 /// resolves and is reachable. Behavioural tests for the scope host, search,
 /// memory, and agent substrate live in their own suites.
 void main() {
-  group('tom_spec_engine scaffold smoke', () {
+  group('tom_spec_engine dependency smoke', () {
     test('package metadata is present and self-consistent', () {
       expect(tomSpecEngineName, 'tom_spec_engine');
       expect(tomSpecEngineVersion, isNotEmpty);

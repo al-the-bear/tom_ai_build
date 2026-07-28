@@ -1,21 +1,27 @@
 /// TomSpecs scripting/engine plane.
 ///
 /// The pure-Dart host behind the TomSpecs editor's D4rt scripting & LLM
-/// tooling. As the implementation lands (see
-/// `tom_ai/ai_build/tom_specs_model/doc/llm_and_d4rt_tools.md`) this package
-/// will own:
+/// tooling, specified by
+/// `tom_ai/ai_build/tom_specs_model/doc/llm_and_d4rt_tools.md`. The package
+/// owns:
 ///
 ///   * the D4rt **scope registry** and the three base scopes
 ///     (`spec` / `files` / `memory`);
 ///   * the restricted **`dcli` file facade** (read-any / write-`agent/scratchpad`);
 ///   * the structural/lexical **search index** + cursor iteration;
-///   * the **RAG memory** and **agent substrate**, both built on the embeddable
-///     Tom Brain (profiles / named sessions / named memory).
+///   * the **tool surface** behind the `script_*` / `doc_*` / `mem_*` /
+///     `file_*` MCP tools;
+///   * the **RAG memory**, the **agent substrate** and the per-application
+///     **agent context**, all built on the embeddable Tom Brain (profiles /
+///     named sessions / named memory).
 ///
 /// It is factored as its own pure-Dart project so it stays reusable headless
 /// (CLI, tests), and is linked **in-process** by the Flutter editor.
 ///
-/// Phase A is landing step by step. Exported so far:
+/// This barrel is the **full** surface, memory plane included. An editor that
+/// must keep `tom_brain_memory` (sqlite3 FFI / `vec0`) out of its Flutter
+/// compile links the memory-free scripting subset through `scripting.dart`
+/// instead. The exports:
 ///   * package metadata (`engine_meta.dart`);
 ///   * the **Tom Brain memory façade** (`memory/`) — `SpecMemory` /
 ///     `MemoryScope` over the embeddable, profile-isolated, in-process memory

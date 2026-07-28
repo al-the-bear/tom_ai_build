@@ -5,20 +5,24 @@ editor's D4rt scripting & LLM tooling. It is factored as its own project so it
 stays usable headless (CLI, tests) and is linked **in-process** by the Flutter
 editor.
 
-> **Status: Phase-A scaffold.** Only package metadata ships today. The
-> capabilities below are the target surface; they land step by step per
-> [`llm_and_d4rt_tools.md`](../tom_specs_model/doc/llm_and_d4rt_tools.md).
+> **Specification:**
+> [`llm_and_d4rt_tools.md`](../tom_specs_model/doc/llm_and_d4rt_tools.md) is the
+> authority for this plane. The `Spec §` column below cites it section by
+> section.
 
-## What it will own
+## What it owns
 
 | Area | Role | Spec § |
 | --- | --- | --- |
 | **Scope registry** | Named, immutable sets of bridged D4rt libraries + globals + permission grants; the three base scopes `spec` / `files` / `memory`. | §4 |
 | **`spec` scope** | The `tom_som` document API (generic / reflection / typed `tom_som_dart_v0`) bound to the live `SpecDocumentController`, plus search. | §5 |
-| **`files` scope** | A restricted `dcli` facade — read anywhere, write only under `agent/scratchpad`. | §7 |
 | **Search index** | Structural/lexical (BM25/FTS + facets) over the object model, zero-LLM, incremental refresh; backs grep-like cursor search. | §6 |
+| **`files` scope** | A restricted `dcli` facade — read anywhere, write only under `agent/scratchpad`. | §7 |
+| **Tool surface** | The engine logic behind the MCP tools: `script_*` (author / validate / run a named D4rt script under granted scopes) and the in-memory `doc_*` / `mem_*` / `file_*` tools, each returning a typed result with a compact `toJson`. | §8 |
 | **RAG memory** | Section-level nodes in **Tom Brain named memory**; tier-1 lexical + tier-2 incremental vectors (Tom Brain embedding API); fused recall. | §9 |
-| **Agent substrate** | Pluggable `AgentSubstrate` — direct Agent SDK (mode a) and Agent-SDK-through-Tom-Brain (mode b) — over profiles / named sessions / named memory. | §10 |
+| **`memory` scope** | A read-only recall facade over the fused recall — one injected `memory` global, no permission grant, so a sandboxed script can recall but has no mutation path. | §4 · §9 |
+| **Agent substrate** | Pluggable `AgentSubstrate` — direct (mode a) and Agent-SDK-through-Tom-Brain (mode b, the default) — over profiles / named sessions / named memory, plus the multi-turn conversational layer that composes on either mode through an injected driver port. | §10 |
+| **Agent context** | The per-application `{guidelines, toolset, scope profile}` triple as a Tom Brain profile, with the *toolset ⊆ scopes* invariant enforced at construction, and the registry that swaps all three together. | §11 |
 
 ## Dependencies
 
