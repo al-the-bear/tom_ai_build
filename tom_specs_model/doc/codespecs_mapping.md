@@ -199,7 +199,7 @@ Beyond these, **four deferred candidate parts** are reserved for *mapping only*
 |------|---------|-------|------|
 | **CE-EL** | Standalone screen elements — what remains after input elements are grouped into forms (static display, action-trigger elements, form-hosting containers); semantic type, then concrete implementation | client | **Pure reuse — no new class.** Built on `TomScreenElementsProvider` + the `Tom*` `tom_flutter_ui` element/widget family; forms already have their semantic classes. The semantic element kinds are the existing `Tom*` widget types — a documented catalogue over reused classes, not a new `tom_core_codespecs` class (§5.7.1, §5.18). |
 | **CE-FM** | Form / subform tree **including its member input elements** — forms are part of the screen-element description | client | Reuses `TomForm<T>` / `TomFormChildContainer` / `TomField<T>` (`tom_flutter_ui`) directly; no new classes (§5.7.2). |
-| **CE-LO** | Screen layout (Flutter layout) | client | Containers/slots reuse the ACL substrate (`AclRow`/`AclContainer`/`AclComponent`, `tom_flutter_ui`); the override-separable two-layer node model is a new class in `tom_core_codespecs` (§5.2, §5.12, §5.22). |
+| **CE-LO** | Screen layout (Flutter layout) | client | Containers/slots reuse the ACL substrate (`AclRow`/`AclContainer`/`AclComponent` plus `AclFlowContainer` for the `wrap`/`grid` kinds, `tom_flutter_ui`); the override-separable two-layer node model is a new class in `tom_core_codespecs` (§5.2, §5.12, §5.22). |
 | **CE-TX** | Texts **other than** screen-element texts — server/error copy, notification/email bodies, report copy, and any message not owned by an element. (A screen element's own placeholder/label/help/error copy is **not** catalogued here: it is derived from the element's `basePath` — see below.) | client + shared | i18n keys shared with server error codes. Reuses `TomText`/`TomLabelBase` (`tom_flutter_ui`) + `TomTextResourceProvider` (`tom_core_kernel`); the message/i18n-key catalogue for these *other* texts is a new class in `tom_core_codespecs` (§5.8, §5.21). |
 | **CE-VA** | Validation — per-field + cross-field (form) rules | client + shared | **No new class.** Provided as **Dart code** — standalone validator classes with validation methods, or validation methods on the `TomForm` subclass (the first-level-implementation latitude, §3). Reuses `Validators`/`TomValidatorRegistry`/`ValidationResult`/`FormValidationError` (`tom_flutter_ui`); the field-vs-form distinction is a code convention, not a `tom_core_codespecs` class (§5.9, §5.19). |
 | **CE-AC** | Actions and their triggers | client | **Pure reuse — no new class.** Actions have a full implementation in `tom_flutter_ui`: `TomAction`/`TomActionController`/`TomActionTrigger`. The trigger taxonomy is documented over these existing classes (§5.10, §5.20). |
@@ -349,14 +349,24 @@ code needs **additional annotations** so the code carries the specification
 details *completely* — beyond what simple code can express (element kinds,
 maximum lengths, format restrictions, placement, schedules, grades, …).
 
-**Annotation authoring state.** 30 annotations exist in `tom_code_specs` today —
+**Annotation authoring state.** 32 annotations exist in `tom_code_specs` today —
 one per part, plus the several markers a part may own (CE-EL, CE-AC, CE-NV,
-CE-DB). The §4.3 deferred candidates deliberately have **no** annotation: a
+CE-DB, CE-VA). The §4.3 deferred candidates deliberately have **no** annotation: a
 deferred part's `CodeSpecPart` value is reserved so a SOM section can already
-carry `@CodeSpecKind`, but the marker is authored only on promotion. The
-finer-grained validation members `@CsFieldRule` / `@CsFormRule` are catalogued
-but **not yet authored**, and the entire §5.23 `Cs*Ref` typed-reference family is
-designed but unimplemented (`csra6`, §10). The gap columns
+carry `@CodeSpecKind`, but the marker is authored only on promotion.
+
+**The family is a marker set, not an attribute surface.** 30 of the 32
+annotations take a single optional `note`; only `@CsIdentityAttribute`
+(`placement`) and `@CsTrigger` (`kind`) carry a real attribute, and both do so
+because §5.16's fail-safe rule forbids choosing their arm by omission. The
+per-part attribute surfaces this document specifies in §5 are therefore
+**designed but not yet expressible in code**: an example such as
+`@CsValidation('required, maxLength:80')` or `@CsTable('customer')` states the
+intent, not a constructor that exists. Closing that gap — deciding per
+annotation which attributes become constructor parameters and which stay
+carried by the annotated class's own members — is what the per-annotation
+derivation contract (`csra12`, §10) produces. The §5.23 `Cs*Ref` typed-reference
+family is likewise designed but unimplemented (`csra6`, §10). The gap columns
 cite the owning open-work todos: `csra*` in `todos.tom_specs.todo.yaml` (§10)
 and `csex*` in `_ai/quests/tom_core/todos.tom_core.todo.yaml` — the `tom_core`
 quest's framework-readiness series, which owns the core-side roadmap items.
@@ -367,7 +377,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm(id)` on the class; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | None — full reuse. | `@CsForm` needs form-level spec detail code omits: the bound view-model type link, the submit target as a typed `CsCallRef`/`CsActionRef` (§5.23, not yet authored), form-level authorization-grade defaults. |
 | **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class; the concrete node-model class lands in `tom_core_codespecs` (§5.2, §5.12; `csra2`). The runtime `Acl*` classes themselves are ready. | `@CsLayout` needs attributes for node **ids**, **slot hints** and per-node **override deltas** — the delta grammar is a pure specification concern that cannot ride in plain widget code. |
 | **CE-TX** Text | User-visible text: message/i18n **keys** (shared), per-client **copy**. | **Built on:** `TomTextResourceProvider` (`tom_core_kernel`, `tombase/resources/tom_resource_provider.dart`) resolves keys; copy is basePath-derived client-side.<br>**Annotations:** `@CsText` on a plain constants class in the shared project; keys as §5.23 `CsMessageKey` consts.<br>**Example:** `@CsText class Messages { static const custNameLabel = CsMessageKey('customer.name.label'); }` | **Gap** — the typed **message-key registry** model (the catalogue of keys, SOM home MSGKR) has no core class; the concrete registry class lands in `tom_core_codespecs` (§5.8, §5.21). | `CsMessageKey` (§5.23) not yet authored; `@CsText` needs attributes for key namespace/basePath and **placeholder arity/format** of message parameters — pure spec detail. |
-| **CE-VA** Validation | Field + form validation; closed **10-rule catalogue**: *required, email, minLength, maxLength, pattern, min, max, minItems, maxItems, compose*. | **Built on:** `Validators` static catalogue + `TomValidatorRegistry` declaration strings (`'required, minLength:8, pattern:^[A-Z]'`) + the sealed `ValidationResult` family and `FormValidationError` (`tom_flutter_ui/lib/src/forms/validation/`). Coded as **Dart validation methods** on the form or standalone validator classes (the §3 first-level-implementation latitude); cross-field form rules as **compilable pseudo-code** methods.<br>**Annotations:** `@CsValidation` on the method/field.<br>**Example:** `@CsValidation('required, maxLength:80') late final TomString name;` | None — the 10-rule catalogue is shipped 1:1 in `Validators`. | `@CsFieldRule` / `@CsFormRule` are catalogued but **not yet authored** (`qr3`, §10) — needed to state rule kind + parameters (max length, format regex, numeric ranges) *declaratively*, so the constraint is not only inside a method body; error texts keyed via `CsMessageKey`. |
+| **CE-VA** Validation | Field + form validation; closed **10-rule catalogue**: *required, email, minLength, maxLength, pattern, min, max, minItems, maxItems, compose*. | **Built on:** `Validators` static catalogue + `TomValidatorRegistry` declaration strings (`'required, minLength:8, pattern:^[A-Z]'`) + the sealed `ValidationResult` family and `FormValidationError` (`tom_flutter_ui/lib/src/forms/validation/`). Coded as **Dart validation methods** on the form or standalone validator classes (the §3 first-level-implementation latitude); cross-field form rules as **compilable pseudo-code** methods.<br>**Annotations:** `@CsValidation` on the method/field.<br>**Example:** `@CsValidation('required, maxLength:80') late final TomString name;` | None — the 10-rule catalogue is shipped 1:1 in `Validators`. | All three markers are authored. `@CsFieldRule` and `@CsFormRule` mark the two rule *shapes* — a standalone `Validator<T>` versus a cross-field method on the form — because they differ in signature, not merely in scope, and `@CsValidation` alone cannot tell them apart. The **standard** rules need no marker: they are authored as a declaration string on the field, so only project-specific rules are annotated. Rule kind + parameters (max length, format regex, numeric ranges) are still to become annotation *attributes* rather than method-body detail (`csra12`); error texts keyed via `CsMessageKey`. |
 | **CE-AC** Action | A user-triggerable action with undo/transaction support; closed **5-kind trigger taxonomy**: *user-gesture, in-form event, lifecycle, server-event, condition*. | **Built on:** subclass of `TomAction<TContext, TUndo>`, registered on `TomActionController`, wired by `TomActionTrigger` (the single authoring home of the element→action edge), with `TomActionTransaction` / `TomActionContext` (`tom_flutter_ui/lib/src/actions/`). CodeSpecs-phase bodies are **pseudo-code**.<br>**Annotations:** `@CsAction` on the class; `@CsTrigger(kind: …)` on the trigger declaration.<br>**Example:** `@CsAction('save_customer') class SaveCustomerAction extends TomAction<…> { @override perform(ctx) => throw UnsupportedError('persist via CustomerService.save'); }` | None — the full action implementation is reused. | `@CsTrigger` must carry the trigger **kind**, source element and guard-condition text; `@CsAction` the undo contract and its server-call target as a `CsCallRef` — the two-hop CE-AC → CE-SC → CE-API edge is spec detail beyond code. |
 | **CE-SC** ServerCall | The client-side declaration of a call to a server operation. | **Built on:** `TomServerEndpoint<T, R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, `tombase/http_connection/server_connection.dart`); declared as typed endpoint fields in a client calls class (§7: all POST, the operation name carries the intent).<br>**Annotations:** `@CsServerCall(operation)`.<br>**Example:** `@CsServerCall('customer.save') final saveCustomer = TomServerEndpoint<CustomerSaveRequest, CustomerDto>(…);` | None. | Needs `CsOperationRef` (§5.23, not yet authored) so the call ties to its `@CsEndpoint` by **typed reference**, not by string; retry/timeout expectations as attributes where the spec states them. |
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(kind: role, key: 'sales')` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** need field-level constraint annotations — maximum length, format restriction, required-ness — the classic beyond-code detail; plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
@@ -403,8 +413,8 @@ quest's framework-readiness series, which owns the core-side roadmap items.
   CE-NV (`route_flow.dart`), CE-UP (`user_settings.dart`), CE-CL
   (`client_application.dart`), CE-JB (`job_declaration.dart`). The gap classes
   carry only what `tom_core` has no place for; everything below them is reuse.
-  One item is still open inside this class: CE-LO's container-kind
-  reconciliation against the ACL substrate (`csexb2`).
+  Nothing else is open inside this class — CE-LO's container-kind
+  reconciliation against the ACL substrate closed with `csexb2`.
 - **Deferred:** CE-RP — one blocker left, the tabular result envelope. **CE-WF, CE-LG and
   CE-NT are deferred-but-decidable.** CE-WF's substrate survey is recorded in
   **§4.3.1** and **recommends permanent deferral** — no built-on class is
@@ -485,20 +495,24 @@ enforceable only if every entry has a carrier.
   `TomCustomAccess`, `TomGradedAccess` all exist in
   `tombase/security/access_controls.dart` at the line numbers §5.15 already
   cites, as do the four presets. No drift remains.
-- **§5.22 CE-LO — id addressing carried, container kinds not.** The 5-op delta
-  grammar needs stable node ids, and the ACL substrate has **native string
-  id-addressing**: `AclComponent.id` (l. 174), `AclRow.id` (l. 290),
+- **§5.22 CE-LO — id addressing carried; the container kinds now are too.** The
+  5-op delta grammar needs stable node ids, and the ACL substrate has **native
+  string id-addressing**: `AclComponent.id` (l. 174), `AclRow.id` (l. 290),
   `AclContainer.aclId` + `parentIdPath` + `idScope`; every slot hint the grammar
   sets (`preferredSize`/`minimumSize`/`maximumSize`, `alignXToKey`/`alignYToKey`
   + axis points and gaps, `group`) is a public final. The delta grammar is
-  therefore realisable over the shipped substrate. **However** §5.22's closed
-  container-kind set {row, column, wrap, stack, flex, grid, padding, align,
-  sizedBox} exceeds what ACL can express: an `AclContainer` is an ordered list
-  of `AclRow`s (so *row* = `AclRow`, *column* = the row list) and
-  `AclContainer.direction` is `AclDirection.ltr`/`rtl` — **text** direction, not
-  a main-axis switch. *padding* / *align* / *sizedBox* are expressible as
-  container/slot properties rather than node kinds; *wrap*, *stack*, *flex* and
-  *grid* have no ACL node kind at all. See `csexb2`.
+  therefore realisable over the shipped substrate. The audit's second finding —
+  that the then-declared nine-kind set {row, column, wrap, stack, flex, grid,
+  padding, align, sizedBox} exceeded what ACL could express — was resolved by
+  `csexb2` **on both sides**. The set was narrowed to the four kinds a driving
+  SOM can actually author (D09 XDS `ssel-form.layoutDirection` is the closed
+  enum *Horizontal/Vertical/Wrap/Grid*): *padding*, *align* and *sizedBox* were
+  demoted to the container/slot properties they already were, and *stack* and
+  *flex* dropped as unauthorable and unsubstantiated. The substrate was then
+  extended to cover the remainder — `AclFlowContainer` (`acl_flow.dart`) adds
+  the `wrap` and `grid` kinds as row-generating containers over the existing
+  engine, one widget test each. Every kind in §5.22's table now names an ACL
+  source.
 - **§5.18 CE-EL — 10 kinds and all per-kind attributes carried.** Every kind
   resolves to a shipped widget/field and every base attribute has a carrier
   (`tomId`, `validators`, `authorizer`, `autoValidate`, `form`). The three
@@ -515,8 +529,8 @@ enforceable only if every entry has a carrier.
 shipped widgets and every declared per-kind attribute is realisable, so no spec
 detail is dropped in rendering. CE-VA and CE-AZ keep their classifications —
 CE-VA's catalogue grew from eight rules to ten to absorb the selection bounds.
-CE-LO stays MISSING with a second, substrate-level item (`csexb2`) alongside the
-node-model gap class.
+CE-LO's substrate-level item is **closed** (`csexb2`): its only remaining
+dependency is the node-model gap class in `tom_core_codespecs`.
 
 ### 4.2 CodeSpecs output structure — three generated projects + implementation
 
@@ -841,11 +855,11 @@ therefore classified:
 | # | Slice | Non-READY parts | Mode | Unblocked by |
 |---|-------|-----------------|------|--------------|
 | **1** | Shared const catalogues | CE-ER, CE-TX; CE-AZ catalogues | **E** | `csra6` (`CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` unimplemented) |
-| **2** | Shared contract | CE-API, CE-VA, CE-ID | **E** | `csra6` (`CsOperationRef`) · `qr3` (`@CsFieldRule` / `@CsFormRule` unauthored) |
+| **2** | Shared contract | CE-API, CE-VA, CE-ID | **E** | `csra6` (`CsOperationRef`) |
 | **3** | Server persistence & configuration | — (CE-DB and CE-MG are READY: the aggregation grammar and the schema-diff engine both ship) | — | — |
 | **4** | Server behaviour | CE-SU (`CsServiceUnitRef`) — CE-AU is READY, the two-pass 2FA flow is complete | **E** | `csra6` |
 | **5** | Client interaction core | CE-SC/CE-AC/CE-FM ref types (CE-EL is READY — `csexb1` carried its last three per-kind attributes) | **E** | `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
-| **6** | Client presentation & shell | CE-LO (ACL container-kind reconciliation) · CE-CC (two holders standing) | **E** | `csexb2` (ACL substrate) · `csrb2` (retire or justify `TomClientConfiguration`) |
+| **6** | Client presentation & shell | CE-CC (two holders standing) — CE-LO is unblocked, `csexb2` reconciled the container-kind set with the ACL substrate | — | `csrb2` (retire or justify `TomClientConfiguration`) |
 | **7** | Server operational | CE-JB (todo reconciliation only — the declaration envelope, scheduler runtime, job queue and multi-node lease have all **landed**) | — | `csrb1` (reconcile `csex7` / `csex8` against the landed scheduling module) |
 
 **Critical-path consequence.** The `Cs*` annotation family and the
@@ -853,10 +867,10 @@ therefore classified:
 runtime- or verification-blocked any more** — slice 3 is clear outright and
 slice 4 keeps only an emission item. What remains is concentrated in **one**
 tom_specs-owned item: `csra6`, the §5.23 `Cs*Ref` typed-reference family, which
-alone gates slices 1, 2, 4 and 5. The only `tom_core`-side blocker left anywhere
-is `csexb2` at slice 6, and it too is **E**. The implied sequence: typed refs
-first (`csra6`), then the two standing ownership questions (`csrb1`, `csrb2`)
-and the ACL substrate (`csexb2`).
+alone gates slices 1, 2, 4 and 5. **No `tom_core`-side blocker remains anywhere**
+— `csexb2` closed the last one by reconciling the CE-LO container-kind set with
+the ACL substrate at slice 6. The implied sequence: typed refs first (`csra6`),
+then the two standing ownership questions (`csrb1`, `csrb2`).
 
 #### 4.4.5 What the reference directions corrected
 
@@ -885,7 +899,7 @@ part (detailed in the referenced §5.x subsections).
 |------|-------------------|--------------|
 | CE-EL | UI Elements; semantic + widget-behaviour layers | **Reuse — no new class.** Two-step **"semantic type → concrete widget"**: `@CsElement` (semantic, over `TomField<T>`) + `@CsWidget` (concrete widget binding, over the `TomButtonBase` variants / `TomText` / inputs) in the client project; covered by `TomScreenElementsProvider` + the existing `Tom*` `tom_flutter_ui` element/widget family + the form semantic classes — a documented catalogue over reused classes, **not** a `tom_core_codespecs` class (§5.7.1). Attribute surface + closed catalogue contents: **§5.18** (field base + 10-kind catalogue + semantic→widget two-step). |
 | CE-FM | `TomForm`; annotated fields | **Subforms** (nested/repeated) mirror the SOM `@Form` field-group structure: `@CsForm` (reuse, no gap class) over `TomForm<T>` + `TomFormChildContainer` (nested/repeated subform fan-out) + `TomField<T>`; SOM `@Form` field-group → nested `TomForm` / repeated `TomFormChildContainer`; client project (§5.7.2). |
-| CE-LO | Layout, separated for manual override | A **Flutter-faithful, override-separable layout-node** model: the §5.2 two-layer id-addressed node model grounded on the `tom_flutter_ui` ACL substrate — container node ← `AclRow`/`AclContainer`, slot node ← `AclComponent` (native `id`/`referenceKey`/alignment-by-key + per-slot hints), reactive rebind via `TomObservingWidget` (`tom_core_flutter`); the override-separable node model lands in `tom_core_codespecs`; client project (§5.12). Attribute surface + override-delta grammar: **§5.22** (closed container-kind + slot attribute sets + closed 5-op id-addressed override deltas). |
+| CE-LO | Layout, separated for manual override | An **override-separable layout-node** model: the §5.2 two-layer id-addressed node model grounded on the `tom_flutter_ui` ACL substrate — container node ← `AclRow`/`AclContainer` (kinds `row`/`column`) and `AclFlowContainer` (kinds `wrap`/`grid`), slot node ← `AclComponent` (native `id`/`referenceKey`/alignment-by-key + per-slot hints), reactive rebind via `TomObservingWidget` (`tom_core_flutter`); the override-separable node model lands in `tom_core_codespecs`; client project (§5.12). Attribute surface + override-delta grammar: **§5.22** (closed container-kind + slot attribute sets + closed 5-op id-addressed override deltas). |
 | CE-TX | Texts implied in UI/RC | Placeholder/help derived **directly from SOM content** (`@ContentHelp`, `@Form` hint, doc-comments); error texts keyed by CE-ER codes. `@CsText` (reuse) over `TomText`/`TomLabelBase` (field `labelText`/`hintText`/`descriptionText`, `resolveErrorMessage`) bound to `TomTextResourceProvider`/`TomConfigResourceProvider` (kernel i18n backend, dot-notation keys); the CodeSpecs-only **message / i18n-key model** lands in `tom_core_codespecs`; spans shared (message keys) + client (copy) projects (§5.8). Attribute surface + error-copy keying: **§5.21** (message-key attribute set + locale model + error copy keyed by CE-ER codes). |
 | CE-VA | Rules-from-RC | **No new class — provided as Dart code** (§3 first-level-implementation latitude). **Field rules vs form (cross-field) rules**, each traceable to a requirement: `@CsValidation` umbrella + `@CsFieldRule` (single-field, over `Validator<T>`/`ValidationResult`) + `@CsFormRule` (cross-field, over `FormValidationError`); realised as **standalone validator classes with validation methods, or validation methods on the `TomForm` subclass**, reusing `Validators`/`TomValidatorRegistry` (`tom_flutter_ui`); `ValidationError.errorKey` ties error copy to CE-TX/CE-ER; spans client + shared projects (§5.9). Attribute surface + declaration language: **§5.19** (closed 10-rule field catalogue + `TomValidatorRegistry` declaration grammar + form-rule scope/reference/error-key). |
 | CE-AC | UI Actions | **Reuse — no new class.** Actions have a full implementation in `tom_flutter_ui`. **Trigger taxonomy** — one action, several triggers: `@CsAction` (reuse) over `TomAction<Ctx,Undo>` + `TomActionContext`/`TomActionController`/`TomActionTransaction`; `@CsTrigger` names one invocation, with `TomActionTrigger` the widget-gesture realization; a triggered action drives the §5.3 CE-AC→CE-SC edge; client project (§5.10). Attribute surface: **§5.20** (action set + closed 5-kind trigger attribute surface: user-gesture / in-form event / lifecycle / server-event / condition). |
@@ -949,10 +963,12 @@ id-keyed deltas that survives regeneration.
 
 **Node model.** The layout is a tree of `LayoutNode`s of two kinds:
 
-- **Container node** — a Flutter-faithful layout primitive (`row`, `column`,
-  `wrap`, `stack`, `flex`, `grid`, `padding`, `align`, `sizedBox`) carrying only
-  *layout* properties (direction, main/cross-axis alignment, spacing, flex weights,
-  padding, constraints) and an ordered list of children. It carries **no** semantics.
+- **Container node** — a layout primitive of the closed kind set
+  (`row`, `column`, `wrap`, `grid` — §5.22 derives the set from D09 XDS's
+  `layoutDirection` enum) carrying only *layout* properties (main/cross-axis
+  alignment, spacing, grid column count, padding, constraints) and an ordered
+  list of children. It carries **no** semantics. Padding, alignment and fixed
+  sizing are container/slot **properties**, not kinds of their own.
 - **Slot node (leaf)** — a **reference by stable id** to the semantic element it
   positions: a CE-EL element id or a CE-FM (sub)form id. The slot holds only
   per-slot layout hints (flex, alignment). The element's definition and behaviour
@@ -1718,7 +1734,8 @@ onto the surveyed classes:
 
 | §5.2 node kind | Surveyed class | Package | Role |
 |----------------|----------------|---------|------|
-| **Container node** (row/column/wrap/…; layout-only props + ordered children) | `AclRow` / `AclContainer` / `Acl`/`AclLayout` | `tom_flutter_ui` (`advanced_container_layout/acl_container.dart`) | The fluent row/column container: `AclRow.components` (ordered children) + `alignment`; `AclFlags` carries the AWT-mirrored **layout-only** constraint flags. Realises the §5.2 container node's direction/alignment/spacing + children. |
+| **Container node** — kinds `row` / `column` (layout-only props + ordered children) | `AclRow` / `AclContainer` / `Acl`/`AclLayout` | `tom_flutter_ui` (`advanced_container_layout/acl_container.dart`) | The fluent row/column container: an `AclRow` **is** the `row` kind and an `AclContainer`'s row list **is** the `column` kind; `AclRow.components` (ordered children) + `alignment`; `AclFlags` carries the AWT-mirrored **layout-only** constraint flags. Realises the §5.2 container node's alignment/spacing + children. |
+| **Container node** — kinds `wrap` / `grid` (flow a flat child list into rows) | `AclFlowKind` / `aclWrapRows` / `aclGridRows` / `AclFlowContainer` | `tom_flutter_ui` (`advanced_container_layout/acl_flow.dart`) | Added by `csexb2` for the two D09 XDS `layoutDirection` values the row list cannot express. **Row-generating**, not a second engine: each computes an `AclRow` list from one flat child sequence (wrap breaks on fit, grid every *n* cells with breakpointed `columns`) and renders it through `AclContainer`, so ids, anchors, variants and the auth pass are inherited. Generated rows are addressable as `<containerId>.r<n>`. |
 | **Slot node (leaf)** (reference-by-id to a CE-EL/CE-FM element + per-slot hints) | `AclComponent` | `tom_flutter_ui` (same file) | A layout component wrapping a `child` widget (= the CE-EL element it positions), already carrying a stable **`id`**, `referenceKey` / `alignXToKey` / `alignYToKey` (**id-addressed alignment**), `flags`, `gapBefore`, and preferred/min/max sizes — the per-slot layout hints. The substrate's native id-addressing is exactly what the §5.2 override layer keys against. |
 | **Reactive rebind** (layout responds to CE-ST observable state) | `TomObservingWidget<T extends TomObservable>` | **`tom_core_flutter`** (`tomclient/observing/tom_observing_widget.dart`) | Bridges the kernel observation model to Flutter — rebuilds on every notification. Wires responsive/visibility layout to CE-ST state. |
 
@@ -2445,25 +2462,56 @@ override deltas*.
 
 | Attribute | ACL source | Req? | Neutral DocSpecs term |
 |-----------|-----------|------|-----------------------|
-| **Container kind** | closed set {row, column, wrap, stack, flex, grid, padding, align, sizedBox} | Y | Layout node (container kind) |
+| **Container kind** | closed set {row, column, wrap, grid} → `AclRow` / `AclContainer.rows` / `AclFlowContainer` with `AclFlowKind.wrap` / `.grid` | Y | Layout node (container kind) |
 | **Ordered children** | `AclRow.components` / `AclContainer.rows` | Y | Layout node (children) |
 | **Main / cross alignment** | `AclRow.alignment` + cross-alignment | N | Layout node (alignment) |
-| **Spacing / gaps** | `gapBefore` / `defaultAppendGap` / `isGapRow` | N | Layout node (spacing) |
+| **Spacing / gaps** | `gapBefore` / `defaultAppendGap` / `isGapRow`; `gutterWidth` / `runSpacing` for the flow kinds | N | Layout node (spacing) |
+| **Columns** (`grid` only) | `AclFlowContainer.columns` + `columnsBpOverrides` (D09 `brenla-form.columns`) | N | Layout node (column count) |
 | **Padding / constraints** | `padding` + `AclFlags` (expandX/Y, sizing) | N | Layout node (box) |
 | **Presentation** | `scrollableX/Y`, `borderStyle`, `backgroundColor` | N | Layout node (presentation) |
 
 A container carries **only** layout properties — no semantics (§5.2). The kind set is
-**closed** (Flutter-faithful primitives): a new primitive is a node-model edit, not a
+**closed**: a new primitive is a node-model edit, not a
 free-form attribute — same discipline as §5.18/§5.19/§5.20.
 
-**Substrate reconciliation pending (`csexb2`, §4.1.2).** The kind set is the only
-row of this table with no ACL source, and it is **not yet renderable in full**:
-an `AclContainer` is an ordered list of `AclRow`s (*row* = `AclRow`, *column* =
-the row list) and `AclContainer.direction` is `AclDirection.ltr`/`rtl` — text
-direction, not a main-axis switch. *padding* / *align* / *sizedBox* are
-container/slot **properties** rather than node kinds; *wrap*, *stack*, *flex*
-and *grid* have no ACL counterpart. `csexb2` decides between narrowing the set
-to ACL-renderable kinds and extending the ACL substrate.
+**Why these four kinds.** The set is drawn from what a **driving SOM actually
+authors**, not from Flutter's primitive catalogue. D09 XDS states section
+layout in `ssel-form.layoutDirection`, a closed enum of **Horizontal /
+Vertical / Wrap / Grid**, with the grid's per-breakpoint column count in
+`brenla-form.columns`. Those four map one-to-one onto the kinds above —
+*Horizontal* → `row`, *Vertical* → `column`, *Wrap* → `wrap`, *Grid* → `grid` —
+so the vocabulary is exactly as wide as the specifications that feed it.
+
+Three earlier entries were **demoted, not dropped**: *padding*, *align* and
+*sizedBox* are container/slot **properties**, already carried by the "Padding /
+constraints" and "Main / cross alignment" rows above and the slot-sizing row
+below; making them node kinds would have expressed the same thing twice. Two
+were **dropped**: *stack* and *flex* appear nowhere in XDS's enum — no driving
+specification can request them — and neither has an ACL counterpart.
+Overlaying is a *shell* concern (D09's `Modal-Overlay` navigation mode, CE-CC),
+not a form-layout one. Should a future SOM genuinely require stacking, adding
+it is a node-model edit plus a substrate kind, exactly as this decision was.
+
+**Substrate — all four render today.** *row* is an `AclRow` and *column* is an
+`AclContainer`'s row list, so those two needed nothing. *wrap* and *grid* were
+**added to `tom_flutter_ui`** for this decision (`acl_flow.dart`:
+`AclFlowKind`, `aclWrapRows`, `aclGridRows`, `AclFlowContainer`; one widget
+test per kind in `test/advanced_container_layout/acl_flow_test.dart`). They are
+**row-generating** containers: they flow one flat child sequence into ordinary
+`AclRow`s and hand those to the existing `AclContainer` engine, so they add a
+row-assignment *rule* rather than a second layout engine — id addressing,
+alignment anchors, gap rows, responsive variants and the hide-unauthorized pass
+all keep working unchanged. Generated rows stay addressable as
+`<containerId>.r<n>`, which is what the delta grammar below needs in order to
+target a row no author wrote by hand. `AclContainer.direction` remains
+`AclDirection.ltr`/`rtl` — **text** direction, not a main-axis switch; the main
+axis is the kind.
+
+One honest limitation: the wrap pass runs *before* layout, so it cannot measure
+a child's natural width the way the engine's pre-calculation pass can. It
+resolves widths as preferred → minimum → `kAclDefaultFlowItemWidth`, so a
+`wrap` section whose children declare no size breaks on the assumed width
+rather than the rendered one.
 
 **Slot-node attribute surface (final, reference + hints).** Over `AclComponent`
 (§5.12) — the leaf that *references* a semantic element and holds only per-slot hints:
@@ -2494,7 +2542,7 @@ operations**, each targeting a **node id**:
 | Delta op | Effect | Target |
 |----------|--------|--------|
 | **reparent** | move a slot/container under a different container | node id |
-| **set-container-prop** | change a container's kind / direction / alignment / spacing / padding | container id |
+| **set-container-prop** | change a container's kind (`row`/`column`/`wrap`/`grid`) / alignment / spacing / grid columns / padding | container id |
 | **set-slot-hint** | change a slot's flex / sizing / alignment anchor / gap | slot id |
 | **insert-container** | add a new container node | parent id + position |
 | **remove-container** | drop a container (children reflow to parent) | container id |
@@ -3375,13 +3423,13 @@ a specification.
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
 | `csra7` | Promote or **permanently defer** CE-WF, CE-NT and CE-LG (§4.3), recording the rationale either way. Their SOM homes and `@CodeSpecKind` tags already exist; what is missing is a built-on class + `Cs*` annotation. All three inputs are now in hand: the `audit` module for CE-LG, the `messaging` module for CE-NT, and the **§4.3.1 workflow-substrate survey recommending permanent deferral** for CE-WF. |
 | `csra8` | Write the separate **CE-RP reporting specification** (§5.28) — the prerequisite to any promotion decision. |
-| `csra9` | Staleness sweep: mark `reporting` as deferred in the `CodeSpecPart` enum doc-comments; fix the retired-`CE-EN` locus comment in the projection; re-verify the **23 active / 4 deferred / 28 kind values** counts across every surface. |
+| `csra9` | Staleness sweep: `code_spec_kind.dart` contradicts itself about the counts at **three** sites — the class doc comment, the `reporting` block comment and the `reporting` member's missing deferred marker. Also fix the retired-`CE-EN` locus comment in the projection, and re-verify the **23 active / 4 deferred / 28 kind values** counts across every surface. |
 | `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. **Unblocked**: `tom_core_server`'s `file_storage` module ships the capability — `TomFileReference` is the server-side column annotation (key prefix, target store, cascade), `TomBlobStore` the streaming four-method contract with database / directory / S3 / memory backends selected from configuration, and the repository resolves `saveFile` / `openFile` / `describeFile` / `clearFile` plus cascade-on-delete under the same C-4 column grade as any other column. What remains here is the `@CsColumn` extension that derives it. See `tom_core_server/doc/file_storage.md`. |
 | `csra11` | Re-run the SOM coverage cross-check for all 23 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
-| `csrb1` | Reconcile `csex7` / `csex8` against the **landed** `tom_core_kernel` scheduling module — `TomScheduler`, `TomJobStore` and `TomLeaseLock` now cover what §5.29 once listed as framework roadmap, so those todos need an accurate status and the CE-JB reuse verdict needs an end-to-end confirmation. |
+| `csrb1` | Confirm the **CE-JB four-part scope** (§5.29) end to end against the landed `tom_core_kernel` scheduling module — each of schedule, body, failure policy and deployment envelope must resolve to exactly one owning class before the reuse verdict is final. |
 | `csrb2` | Retire or justify `TomClientConfiguration` (`tom_core_codespecs`) — §4.1/§5.16 now record CE-CC as a **reuse** verdict over the landed `TomBaseClientConfiguration`, so the part currently has two holders. Exactly one must be authoritative. |
-| `qr3` | Author `@CsFieldRule` / `@CsFormRule`, or record why CE-VA does not need them. They are the only catalogued annotations still unauthored: the family bring-up added the six part-level markers but deliberately left these two finer-grained members, and `@CsValidation` may already carry their surface. Whichever way it resolves, §4.1 CE-VA must stop describing them as pending. |
+| `csrb4` | Give the `Cs*` family its **attribute surfaces**. 30 of the 32 annotations take a single optional `note`, so every per-part attribute surface specified in §5 is designed but not expressible in code. `csra12`'s derivation contract decides the constructor shape; this todo authors it. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 
