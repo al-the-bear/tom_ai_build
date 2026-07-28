@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **TypeScript** and writes
-/// the committed artefact tree (spec §2.3): the `tom_som_typescript_<label>`
+/// the committed artefact tree (SOM §4.3): the `tom_som_typescript_<label>`
 /// project (a `package.json` + a `tsconfig.json` + the generated typed TypeScript
 /// module), the lossless object-model **meta-data file**, and the **DocSpecs
 /// schemas**.

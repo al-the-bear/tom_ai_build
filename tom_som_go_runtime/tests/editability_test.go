@@ -1,5 +1,5 @@
-// Unit tests for the §2.2 version-check classifier SomEditabilityFor and its
-// error-returning companion CheckSomModelVersion (SOM roadmap § item 8).
+// Unit tests for the SOM §4.2 version-check classifier SomEditabilityFor and
+// its error-returning companion CheckSomModelVersion (SOM §21).
 //
 // These mirror the Dart reference cases in
 // tom_som_dart_runtime/lib/src/som_facade.dart (somEditabilityFor /

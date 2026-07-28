@@ -140,9 +140,10 @@ bool matchHeadingLine(const std::string& s, int* level, std::string* rest) {
 }
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Three-group
- * (§9.2): group 1 = the section id, group 2 = the raw key=value region between
- * the id bracket and the closing `-->` (possibly empty), group 3 = the heading
- * title. The middle region is `[^>]*` — safe because its only values are quoted
+ * (codespecs_mapping.md §9.2): group 1 = the section id, group 2 = the raw
+ * key=value region between the id bracket and the closing `-->` (possibly
+ * empty), group 3 = the heading title. The middle region is `[^>]*` — safe
+ * because its only values are quoted
  * code locations. `s` should already be TrimSpace'd. */
 bool matchHeadlineComment(const std::string& s, std::string* id,
                           std::string* region, std::string* title) {
@@ -181,8 +182,9 @@ bool matchHeadlineComment(const std::string& s, std::string* id,
 }
 
 /* mdCodeSpecPattern = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`. Extracts
- * the `codeSpec="…"` value from a heading-comment key=value region (§9.2),
- * mirroring the tom_doc_scanner key=value grammar. Returns "" when the region
+ * the `codeSpec="…"` value from a heading-comment key=value region
+ * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value grammar.
+ * Returns "" when the region
  * carries no `codeSpec` key. */
 std::string codeSpecOf(const std::string& region) {
   std::size_t pos = region.find("codeSpec=");
@@ -655,8 +657,9 @@ std::string headingTitle(MdCodec& c, const std::string& path,
 }
 
 /* Emits `#… <!--[ID]--> Title`. When `codeSpec` is non-empty it is emitted as a
- * `codeSpec="…"` key inside the same headline comment (§9.2):
- * `## <!--[ID] codeSpec="A,B"--> Title`. Byte-identical to the id-only form when
+ * `codeSpec="…"` key inside the same headline comment (codespecs_mapping.md
+ * §9.2): `## <!--[ID] codeSpec="A,B"--> Title`. Byte-identical to the id-only
+ * form when
  * `codeSpec` is empty. */
 void mdWriteHeading(std::string& b, int depth, const std::string& id,
                     const std::string& title,
@@ -1322,13 +1325,14 @@ void MdParser::openItem(int level, const std::string& listPath,
   if (!hasN) {
     state.ids.push_back({itemPath, storedId});
   }
-  // YRD3 §8.7: stage a non-default item heading text against the effective
+  // SOM §11.7: stage a non-default item heading text against the effective
   // `<stem> <pos>` default (YRD4: element-class @Headline wins in the stem).
   std::string stem = mdItemStemOf(listNode);
   if (!title.empty() && title != stem + " " + formatI64(number)) {
     staged_.headlines[itemPath] = title;
   }
-  // §9.2: stage the item codeSpec mapping whenever present (no default).
+  // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever present
+  // (no default).
   if (!codeSpec.empty()) {
     staged_.codeSpecs[itemPath] = codeSpec;
   }
@@ -1502,8 +1506,8 @@ void MdParser::openHeading(int level, const std::string& rest,
     pushIgnoredFrame(level, line);
     return;
   }
-  // §9.2: the codeSpec mapping parsed from the heading comment's key=value
-  // region, "" when the heading carries no `codeSpec` key.
+  // codespecs_mapping.md §9.2: the codeSpec mapping parsed from the heading
+  // comment's key=value region, "" when the heading carries no `codeSpec` key.
   std::string codeSpec = codeSpecOf(region);
 
   if (stack_.empty()) {
@@ -1543,12 +1547,13 @@ void MdParser::openHeading(int level, const std::string& rest,
     const SomMetaNode* en = nr.node;
     if (headingIdOf(codec_, *en) == id) {
       std::string path = specPathJoin(parentPath, nr.rel);
-      // YRD3 §8.7: stage the heading text as a stored headline ONLY when it
+      // SOM §11.7: stage the heading text as a stored headline ONLY when it
       // differs from the derived default (byte-stability).
       if (!title.empty() && title != mdTitleOf(*en)) {
         staged_.headlines[path] = title;
       }
-      // §9.2: stage the codeSpec mapping whenever present (no default).
+      // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever present
+      // (no default).
       if (!codeSpec.empty()) {
         staged_.codeSpecs[path] = codeSpec;
       }
@@ -1589,7 +1594,7 @@ void MdParser::openRoot(int level, const std::string& id,
       if (tree == nullptr) {
         break;
       }
-      // YRD3 §8.7: stage a non-default root heading text — "non-default"
+      // SOM §11.7: stage a non-default root heading text — "non-default"
       // relative to the effective default (YRD4: `@Headline` default, else
       // the `@Document` title).
       const std::string& rootDefault = !tree->root()->headline.empty()
@@ -1598,7 +1603,8 @@ void MdParser::openRoot(int level, const std::string& id,
       if (!title.empty() && title != rootDefault) {
         staged_.headlines[seg] = title;
       }
-      // §9.2: stage the root codeSpec mapping whenever present (no default).
+      // codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever
+      // present (no default).
       if (!codeSpec.empty()) {
         staged_.codeSpecs[seg] = codeSpec;
       }

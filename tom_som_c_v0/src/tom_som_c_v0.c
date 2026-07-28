@@ -11361,6 +11361,13 @@ MessageKeyRegistry d13_code_specs_projection_message_key_registry(const D13CodeS
   free(path);
   return out;
 }
+NotificationModel d13_code_specs_projection_notification_model(const D13CodeSpecsProjection *self) {
+  char *path = spec_path_join(self->node.path, "notificationModel");
+  NotificationModel out;
+  notification_model_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 DataModel d13_code_specs_projection_data_model(const D13CodeSpecsProjection *self) {
   char *path = spec_path_join(self->node.path, "dataModel");
   DataModel out;
@@ -11654,6 +11661,13 @@ DataAttributeEntryBinaryTypeOptionsForm data_attribute_entry_binary_type_options
   char *path = spec_path_join(self->node.path, "DAATT-DTBI");
   DataAttributeEntryBinaryTypeOptionsForm out;
   data_attribute_entry_binary_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+DataAttributeEntryFileReferenceOptionsForm data_attribute_entry_file_reference_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTFR");
+  DataAttributeEntryFileReferenceOptionsForm out;
+  data_attribute_entry_file_reference_options_form_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -68045,12 +68059,12 @@ char *component_variant_entry_behavior_form_implementation_note(const ComponentV
 void component_variant_entry_behavior_form_set_implementation_note(ComponentVariantEntryBehaviorForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "implementationNote", value);
 }
-char *component_variant_entry_behavior_form_flutter_variant(const ComponentVariantEntryBehaviorForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "flutterVariant");
+char *component_variant_entry_behavior_form_library_variant(const ComponentVariantEntryBehaviorForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "libraryVariant");
   return som_strdup(v != NULL ? v : "");
 }
-void component_variant_entry_behavior_form_set_flutter_variant(ComponentVariantEntryBehaviorForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "flutterVariant", value);
+void component_variant_entry_behavior_form_set_library_variant(ComponentVariantEntryBehaviorForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "libraryVariant", value);
 }
 
 void component_variant_entry_content_form_init(ComponentVariantEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -71349,13 +71363,6 @@ char *data_attribute_entry_binary_type_options_form_max_size_bytes(const DataAtt
 void data_attribute_entry_binary_type_options_form_set_max_size_bytes(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "maxSizeBytes", value);
 }
-char *data_attribute_entry_binary_type_options_form_storage_mode(const DataAttributeEntryBinaryTypeOptionsForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "storageMode");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_binary_type_options_form_set_storage_mode(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "storageMode", value);
-}
 
 void data_attribute_entry_data_type_spec_form_init(DataAttributeEntryDataTypeSpecForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -71432,6 +71439,62 @@ char *data_attribute_entry_derivation_form_derivation_logic(const DataAttributeE
 }
 void data_attribute_entry_derivation_form_set_derivation_logic(DataAttributeEntryDerivationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "derivationLogic", value);
+}
+
+void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_file_reference_options_form_free(DataAttributeEntryFileReferenceOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_file_reference_options_form_content(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_content(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_file_reference_options_form_storage_group(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "storageGroup");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_storage_group(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "storageGroup", value);
+}
+char *data_attribute_entry_file_reference_options_form_file_store(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "fileStore");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_file_store(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "fileStore", value);
+}
+char *data_attribute_entry_file_reference_options_form_delete_with_record(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deleteWithRecord");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_delete_with_record(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "deleteWithRecord", value);
+}
+char *data_attribute_entry_file_reference_options_form_accepted_content_kinds(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "acceptedContentKinds");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_accepted_content_kinds(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "acceptedContentKinds", value);
+}
+char *data_attribute_entry_file_reference_options_form_default_content_kind(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "defaultContentKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_default_content_kind(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "defaultContentKind", value);
+}
+char *data_attribute_entry_file_reference_options_form_max_file_size_bytes(const DataAttributeEntryFileReferenceOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maxFileSizeBytes");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_file_reference_options_form_set_max_file_size_bytes(DataAttributeEntryFileReferenceOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "maxFileSizeBytes", value);
 }
 
 void data_attribute_entry_identity_form_init(DataAttributeEntryIdentityForm *self, SpecDocument *doc, const char *path) {
@@ -102008,26 +102071,26 @@ char *language_country_selection_persistence_form_content(const LanguageCountryS
 void language_country_selection_persistence_form_set_content(LanguageCountrySelectionPersistenceForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *language_country_selection_persistence_form_persistence_method(const LanguageCountrySelectionPersistenceForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "persistenceMethod");
+char *language_country_selection_persistence_form_guest_retention(const LanguageCountrySelectionPersistenceForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "guestRetention");
   return som_strdup(v != NULL ? v : "");
 }
-void language_country_selection_persistence_form_set_persistence_method(LanguageCountrySelectionPersistenceForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "persistenceMethod", value);
+void language_country_selection_persistence_form_set_guest_retention(LanguageCountrySelectionPersistenceForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "guestRetention", value);
 }
-bool language_country_selection_persistence_form_cross_device_sync(const LanguageCountrySelectionPersistenceForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "crossDeviceSync");
-  return v != NULL && strcmp(v, "true") == 0;
-}
-void language_country_selection_persistence_form_set_cross_device_sync(LanguageCountrySelectionPersistenceForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "crossDeviceSync", value ? "true" : "false");
-}
-char *language_country_selection_persistence_form_anonymous_persistence(const LanguageCountrySelectionPersistenceForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "anonymousPersistence");
+char *language_country_selection_persistence_form_sign_in_carry_over(const LanguageCountrySelectionPersistenceForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "signInCarryOver");
   return som_strdup(v != NULL ? v : "");
 }
-void language_country_selection_persistence_form_set_anonymous_persistence(LanguageCountrySelectionPersistenceForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "anonymousPersistence", value);
+void language_country_selection_persistence_form_set_sign_in_carry_over(LanguageCountrySelectionPersistenceForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "signInCarryOver", value);
+}
+char *language_country_selection_persistence_form_reselection_prompt(const LanguageCountrySelectionPersistenceForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reselectionPrompt");
+  return som_strdup(v != NULL ? v : "");
+}
+void language_country_selection_persistence_form_set_reselection_prompt(LanguageCountrySelectionPersistenceForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "reselectionPrompt", value);
 }
 
 void language_country_selection_ux_form_init(LanguageCountrySelectionUxForm *self, SpecDocument *doc, const char *path) {
@@ -160258,12 +160321,12 @@ char *ui_component_entry_identity_form_component_family(const UiComponentEntryId
 void ui_component_entry_identity_form_set_component_family(UiComponentEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentFamily", value);
 }
-char *ui_component_entry_identity_form_flutter_widget_base(const UiComponentEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "flutterWidgetBase");
+char *ui_component_entry_identity_form_base_component(const UiComponentEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "baseComponent");
   return som_strdup(v != NULL ? v : "");
 }
-void ui_component_entry_identity_form_set_flutter_widget_base(UiComponentEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "flutterWidgetBase", value);
+void ui_component_entry_identity_form_set_base_component(UiComponentEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "baseComponent", value);
 }
 
 void ui_component_entry_input_behavior_form_init(UiComponentEntryInputBehaviorForm *self, SpecDocument *doc, const char *path) {
@@ -160755,12 +160818,12 @@ char *ui_components_component_library_overview_form_based_on_framework(const UiC
 void ui_components_component_library_overview_form_set_based_on_framework(UiComponentsComponentLibraryOverviewForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "basedOnFramework", value);
 }
-bool ui_components_component_library_overview_form_tom_flutter_ui_integration(const UiComponentsComponentLibraryOverviewForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "tomFlutterUiIntegration");
+bool ui_components_component_library_overview_form_shared_library_integration(const UiComponentsComponentLibraryOverviewForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sharedLibraryIntegration");
   return v != NULL && strcmp(v, "true") == 0;
 }
-void ui_components_component_library_overview_form_set_tom_flutter_ui_integration(UiComponentsComponentLibraryOverviewForm *self, bool value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "tomFlutterUiIntegration", value ? "true" : "false");
+void ui_components_component_library_overview_form_set_shared_library_integration(UiComponentsComponentLibraryOverviewForm *self, bool value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "sharedLibraryIntegration", value ? "true" : "false");
 }
 
 void ui_components_customization_form_init(UiComponentsCustomizationForm *self, SpecDocument *doc, const char *path) {
@@ -163329,12 +163392,12 @@ void utility_navigation_item_entry_display_form_set_display_order(UtilityNavigat
   snprintf(buf, sizeof(buf), "%ld", value);
   spec_document_set_form_field(self->node.doc, self->node.path, "displayOrder", buf);
 }
-char *utility_navigation_item_entry_display_form_widget_type(const UtilityNavigationItemEntryDisplayForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "widgetType");
+char *utility_navigation_item_entry_display_form_display_kind(const UtilityNavigationItemEntryDisplayForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayKind");
   return som_strdup(v != NULL ? v : "");
 }
-void utility_navigation_item_entry_display_form_set_widget_type(UtilityNavigationItemEntryDisplayForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "widgetType", value);
+void utility_navigation_item_entry_display_form_set_display_kind(UtilityNavigationItemEntryDisplayForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "displayKind", value);
 }
 char *utility_navigation_item_entry_display_form_visibility_condition(const UtilityNavigationItemEntryDisplayForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "visibilityCondition");

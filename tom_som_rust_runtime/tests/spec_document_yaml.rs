@@ -531,8 +531,8 @@ fn yaml_test_class_level_only_key(c: &mut Checker, tree: &SomMetaTree) {
     );
 }
 
-/// csmc8 (§9.2): a stored codeSpec survives the yaml round-trip; a sibling
-/// without a codeSpec keeps no entry.
+/// csmc8 (codespecs_mapping.md §9.2): a stored codeSpec survives the yaml
+/// round-trip; a sibling without a codeSpec keeps no entry.
 fn yaml_test_code_spec_round_trip(c: &mut Checker, tree: &SomMetaTree) {
     let mut doc = yaml_populated();
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
@@ -552,7 +552,8 @@ fn yaml_test_code_spec_round_trip(c: &mut Checker, tree: &SomMetaTree) {
     );
 }
 
-/// csmc8 (§9.2): encode is byte-stable with codeSpec across decode → re-encode.
+/// csmc8 (codespecs_mapping.md §9.2): encode is byte-stable with codeSpec
+/// across decode → re-encode.
 fn yaml_test_code_spec_byte_stable(c: &mut Checker, tree: &SomMetaTree) {
     let mut doc = yaml_populated();
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total");

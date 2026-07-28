@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavioural test for the § item 9 content-only list conveniences
+"""Behavioural test for the SOM §21 content-only list conveniences
 (:meth:`SomList.add_content` and the :attr:`SomList.contents` view).
 
 Exercises the runtime base directly (no golden facade needed) against a

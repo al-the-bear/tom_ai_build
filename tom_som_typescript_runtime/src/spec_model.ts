@@ -593,7 +593,7 @@ export class SpecModel {
   }
 
   /**
-   * The document root whose {@link SpecRoot.type} equals `type` (§ item 12).
+   * The document root whose {@link SpecRoot.type} equals `type` (SOM §21).
    *
    * Replaces the recurring `roots.find((r) => r.type === …)` boilerplate.
    * Throws a {@link TypeError} when no root carries that type — with a message

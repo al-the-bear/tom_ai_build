@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **Python** and writes the
-/// committed artefact tree (spec §2.3): the `tom_som_python_<label>` project
+/// committed artefact tree (SOM §4.3): the `tom_som_python_<label>` project
 /// (`pyproject.toml` + generated typed module), the lossless object-model
 /// **meta-data file**, and the **DocSpecs schemas**.
 ///

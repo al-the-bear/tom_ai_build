@@ -58,20 +58,22 @@ public final class SpecDocumentMarkdown {
   // Shared with the parser and the DocSpecs validator.
   static final Pattern HEADING_LINE = Pattern.compile("^(#+)\\s+(.*)$");
   // Three-group heading comment: g1 = section id, g2 = the key=value region
-  // between the id bracket and the closing `-->` (§9.2 `codeSpec`), g3 = title.
+  // between the id bracket and the closing `-->` (codespecs_mapping.md §9.2
+  // `codeSpec`), g3 = title.
   static final Pattern HEADLINE_COMMENT =
       Pattern.compile("^<!--\\[([^\\]]+)\\]([^>]*)-->\\s*(.*)$");
   static final Pattern DOCSPEC_COMMENT = Pattern.compile("^<!--\\s*docspec:.*-->\\s*$");
 
   // The `codeSpec="…"` (single/double-quoted or bare) key inside a heading
-  // comment's key=value region (§9.2).
+  // comment's key=value region (codespecs_mapping.md §9.2).
   static final Pattern CODE_SPEC_PATTERN =
       Pattern.compile("codeSpec=(?:\"([^\"]*)\"|'([^']*)'|([^,\\s>]+))");
 
   /**
    * Extracts the {@code codeSpec="…"} value from a heading-comment key=value
-   * region (§9.2), returning the first non-null quoted/bare group trimmed, or
-   * the empty string when the region carries no {@code codeSpec} key.
+   * region (codespecs_mapping.md §9.2), returning the first non-null
+   * quoted/bare group trimmed, or the empty string when the region carries no
+   * {@code codeSpec} key.
    */
   static String codeSpecOf(String region) {
     Matcher m = CODE_SPEC_PATTERN.matcher(region);
@@ -544,8 +546,9 @@ public final class SpecDocumentMarkdown {
    */
   private static void writeHeading(
       StringBuilder b, int depth, String id, String title, String codeSpec) {
-    // §9.2: emit ` codeSpec="…"` inside the same comment when a mapping is
-    // stored; byte-identical to the plain form when absent/empty.
+    // codespecs_mapping.md §9.2: emit ` codeSpec="…"` inside the same comment
+    // when a mapping is stored; byte-identical to the plain form when
+    // absent/empty.
     String cs = (codeSpec != null && !codeSpec.isEmpty())
         ? " codeSpec=\"" + codeSpec + "\""
         : "";
@@ -716,11 +719,12 @@ public final class SpecDocumentMarkdown {
     final Map<String, String> content = new LinkedHashMap<>();
     final Map<String, Map<String, String>> forms = new LinkedHashMap<>();
     // Stored headlines staged from heading titles that differ from their
-    // effective default (YRD3 §8.7) — byte-stability: a default title stages
+    // effective default (SOM §11.7) — byte-stability: a default title stages
     // nothing.
     final Map<String, String> headlines = new LinkedHashMap<>();
     // Stored codeSpec mappings staged from the `codeSpec="…"` key in heading
-    // comments (§9.2) — staged whenever present (no effective default).
+    // comments (codespecs_mapping.md §9.2) — staged whenever present (no
+    // effective default).
     final Map<String, String> codeSpecs = new LinkedHashMap<>();
     final Map<String, MdListState> lists = new LinkedHashMap<>();
     final List<String> listOrder = new ArrayList<>();
@@ -841,11 +845,12 @@ public final class SpecDocumentMarkdown {
         if (codec.headingIdOf(entry.node).equals(id)) {
           String childPath = parent.path + "/" + entry.rel;
           // Stage the heading text as a stored headline ONLY when it differs
-          // from the effective default title (YRD3 §8.7, byte-stability).
+          // from the effective default title (SOM §11.7, byte-stability).
           if (!title.isEmpty() && !title.equals(titleOf(entry.node))) {
             headlines.put(childPath, title);
           }
-          // §9.2: stage the codeSpec mapping whenever present (no default).
+          // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
+          // present (no default).
           if (!codeSpec.isEmpty()) {
             codeSpecs.put(childPath, codeSpec);
           }
@@ -932,7 +937,7 @@ public final class SpecDocumentMarkdown {
           }
           rootPrefixes.add(seg);
           // Stage the root heading text as a stored headline when it differs
-          // from the effective default (YRD3 §8.7): the @Headline default
+          // from the effective default (SOM §11.7): the @Headline default
           // (YRD4), else the document title.
           String defaultTitle = tree.root.headline != null && !tree.root.headline.isEmpty()
               ? tree.root.headline
@@ -940,7 +945,8 @@ public final class SpecDocumentMarkdown {
           if (!title.isEmpty() && !title.equals(defaultTitle)) {
             headlines.put(seg, title);
           }
-          // §9.2: stage the root codeSpec mapping whenever present.
+          // codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever
+          // present.
           if (!codeSpec.isEmpty()) {
             codeSpecs.put(seg, codeSpec);
           }
@@ -989,12 +995,13 @@ public final class SpecDocumentMarkdown {
         state.ids.put(itemPath, storedId);
       }
       // Stage the item heading text as a stored headline when it differs from
-      // the derived `<stem> <n>` default (YRD3 §8.7).
+      // the derived `<stem> <n>` default (SOM §11.7).
       String stem = itemStemOf(listNode);
       if (!title.isEmpty() && !title.equals(stem + " " + number)) {
         headlines.put(itemPath, title);
       }
-      // §9.2: stage the item codeSpec mapping whenever present.
+      // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
+      // present.
       if (!codeSpec.isEmpty()) {
         codeSpecs.put(itemPath, codeSpec);
       }

@@ -9,7 +9,7 @@
  * 1. {@link DocSpecsDocument} — a schema-free structural parse of a DocSpecs
  *    markdown document into a heading tree (fence-aware, never throws).
  * 2. {@link DocSpecsSchema} — loader for `*.docspecs-schema.yaml` files with
- *    §7-style warnings for unsupported keys (never fails on extra keys).
+ *    SOM §14-style warnings for unsupported keys (never fails on extra keys).
  * 3. {@link DocSpecsValidator} — never-fail-fast validation of a parsed
  *    document against a schema, emitting {@link DocSpecsViolation}s whose
  *    messages are golden-identical to the Dart implementation.
@@ -347,7 +347,7 @@ export class DocSpecsSchema {
   sectionTypesByName: Record<string, DocSpecsSectionType> = {};
   formTypes: Record<string, DocSpecsFormType> = {};
   documentSections: Record<string, DocSpecsDocumentSection> = {};
-  /** §7 warnings for unsupported keys. */
+  /** SOM §14 warnings for unsupported keys. */
   warnings: string[] = [];
 
   /** The section id embedded in `title-format`, or null. */

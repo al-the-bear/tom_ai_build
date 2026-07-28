@@ -5,13 +5,13 @@ package somruntime
 // `tom_som_dart_runtime/lib/src/som_facade.dart` (and the TypeScript
 // `som_facade.ts`).
 //
-// The generated structs are a thin editing facade over the generic SpecDocument:
-// every typed accessor reads or writes the path-keyed memory representation
-// directly, so a mutation made through the typed surface is immediately visible
-// through the generic path and vice-versa (§3 — the two access paths share one
-// document). These base types (SomNode, SomList, SomScalar) hold no state of
-// their own beyond the document and a path; the generated structs embed SomNode
-// and only add typed accessors.
+// The generated structs are a thin editing facade over the generic
+// SpecDocument: every typed accessor reads or writes the path-keyed memory
+// representation directly, so a mutation made through the typed surface is
+// immediately visible through the generic path and vice-versa (SOM §6 — the two
+// access paths share one document). These base types (SomNode, SomList,
+// SomScalar) hold no state of their own beyond the document and a path; the
+// generated structs embed SomNode and only add typed accessors.
 //
 // Go has no classes or inheritance: the generated structs embed SomNode (value)
 // and reach the bound document/path through the exported Doc() / Path() methods.
@@ -86,18 +86,19 @@ func (n SomNode) SetHeadline(value string) { n.doc.SetHeadline(n.path, value) }
 // CodeSpec / SetCodeSpec for the same collision-proofing as SectionID (AF-D1).
 func (n SomNode) CodeSpec() string { return n.doc.CodeSpecOr(n.path) }
 
-// SetCodeSpec stores this section's CodeSpecs forward link (§9.2). An empty
-// value clears it, returning the section to "no code mapping".
+// SetCodeSpec stores this section's CodeSpecs forward link
+// (codespecs_mapping.md §9.2). An empty value clears it, returning the section
+// to "no code mapping".
 func (n SomNode) SetCodeSpec(value string) { n.doc.SetCodeSpec(n.path, value) }
 
 // IsEmpty reports whether this section holds no value at its path or nested
 // beneath it (delegates to HasValuesUnder). Promoted to every generated section
-// facade via the embedded SomNode. (SOM roadmap § item 5.)
+// facade via the embedded SomNode. (SOM §21.)
 func (n SomNode) IsEmpty() bool { return !n.doc.HasValuesUnder(n.path) }
 
 // CanHaveContent reports whether this section *type* declares the standard
 // `content` text leaf — i.e. whether its typed facade carries a Content()
-// accessor (SOM roadmap § item 10).
+// accessor (SOM §21).
 //
 // This is a structural / schema predicate: a per-type constant answering "*can*
 // this section hold body text?" without probing Content(). Container-only
@@ -201,9 +202,9 @@ func (l *SomList[T]) AddOn(month, day int) T {
 	return l.factory(l.doc, l.addItemPath(month, day))
 }
 
-// AddContent appends a content-only item and sets its nested content leaf in one
-// call, then returns the new item's element facade — the Go port of the Dart
-// SomList.addContent (SOM roadmap § item 9).
+// AddContent appends a content-only item and sets its nested content leaf in
+// one call, then returns the new item's element facade — the Go port of the
+// Dart SomList.addContent (SOM §21).
 //
 // The item's section id follows the same rules as Add: when the list has a
 // @SectionIdPattern the id is generated from that pattern using today's date for
@@ -232,7 +233,7 @@ func (l *SomList[T]) AddContentOn(content string, month, day int) T {
 
 // Contents returns an ordered, read-only view of every item's nested content
 // leaf ("<itemPath>/content"), in item order — the Go port of the Dart
-// SomList.contents (SOM roadmap § item 9). A missing leaf reads as "" (the Go
+// SomList.contents (SOM §21). A missing leaf reads as "" (the Go
 // empty-string sentinel for absent content, so this is natural). Scalar/string
 // lists are out of scope (their value lives at the item path itself).
 func (l *SomList[T]) Contents() []string {
@@ -277,7 +278,7 @@ func (l *SomList[T]) RemoveAt(index int) {
 }
 
 // SomVersionError is raised when a generated object model is instantiated
-// against a document whose authoring model version it must not edit (§2.2).
+// against a document whose authoring model version it must not edit (SOM §4.2).
 type SomVersionError struct {
 	Message string
 }
@@ -322,9 +323,9 @@ func tryInt(raw string) (int, bool) {
 	return atoi(raw), true
 }
 
-// SomEditability is the outcome of the §2.2 version check, as a value a
+// SomEditability is the outcome of the SOM §4.2 version check, as a value a
 // read-only viewer can branch on instead of handling the error returned by
-// CheckSomModelVersion (§ item 8).
+// CheckSomModelVersion (SOM §21).
 //
 // It is the non-error-returning companion to CheckSomModelVersion:
 // CheckSomModelVersion returns an error on any value other than
@@ -351,9 +352,9 @@ const (
 	SomEditabilityInvalidVersion
 )
 
-// SomEditabilityFor classifies a document's editability under the §2.2 rules
-// without returning an error (§ item 8). generated is the object model's own
-// major.minor version; documentVersion is the document's recorded authoring
+// SomEditabilityFor classifies a document's editability under the SOM §4.2
+// rules without returning an error (SOM §21). generated is the object model's
+// own major.minor version; documentVersion is the document's recorded authoring
 // stamp ("" for a brand-new, never-stamped document — the Go empty-string
 // sentinel, CS4-D2).
 //
@@ -378,9 +379,9 @@ func SomEditabilityFor(generated, documentVersion string) SomEditability {
 }
 
 // CheckSomModelVersion is the instantiation-time version check every generated
-// root facade performs (§2.2). generated is the object model's own major.minor
-// version; documentVersion is the document's recorded authoring stamp ("" for a
-// brand-new, never-stamped document).
+// root facade performs (SOM §4.2). generated is the object model's own
+// major.minor version; documentVersion is the document's recorded authoring
+// stamp ("" for a brand-new, never-stamped document).
 //
 // Rules (see SomEditabilityFor, which this delegates to):
 //   - an empty document stamp is always accepted — a new document is stamped on

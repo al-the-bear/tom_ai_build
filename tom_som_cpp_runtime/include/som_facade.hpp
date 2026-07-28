@@ -45,12 +45,12 @@ class SomNode {
 
   /* True iff this section holds no value at its path or nested beneath it —
    * the typed-facade fill check, delegating to the generic hasValuesUnder so
-   * both surfaces agree (§ item 5). Inherited by every generated section. */
+   * both surfaces agree (SOM §21). Inherited by every generated section. */
   bool isEmpty() const { return !doc_.hasValuesUnder(path_); }
 
   /* Whether this section TYPE declares the standard `content` text leaf — "*can*
    * this section hold body text?" answered structurally, at the type level,
-   * WITHOUT probing the document (§ item 10). This is the base default: a
+   * WITHOUT probing the document (SOM §21). This is the base default: a
    * container-only section (e.g. `SystemsToReplace`, which has no `content`
    * leaf) inherits this `false`; a content-bearing section (e.g. `Goals`)
    * overrides it to `true`. `virtual` so the per-type answer resolves
@@ -86,7 +86,7 @@ class SomNode {
    * mapping — sparse exactly like the stored headline. */
   std::string codeSpec() const { return doc_.codeSpec(path_); }
 
-  /* Stores this section's CodeSpecs forward link (§9.2); an empty value clears
+  /* Stores this section's CodeSpecs forward link (codespecs_mapping.md §9.2); an empty value clears
    * it, returning the section to "no code mapping". */
   void setCodeSpec(const std::string& value) {
     doc_.setCodeSpec(path_, value);
@@ -206,10 +206,10 @@ class SomVersionError : public std::exception {
   std::string message_;
 };
 
-/* The outcome of the §2.2 version check, as a value a read-only viewer can
- * branch on instead of catching SomVersionError (§ item 8). It is the
- * non-throwing companion to checkSomModelVersion: the root constructor throws on
- * any value other than editable, while somEditabilityFor returns the same
+/* The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+ * branch on instead of catching SomVersionError (SOM §21). It is the
+ * non-throwing companion to checkSomModelVersion: the root constructor throws
+ * on any value other than editable, while somEditabilityFor returns the same
  * classification without throwing so a consumer can decide *open for edit* vs
  * *open read-only* up front. */
 enum class SomEditability {
@@ -226,8 +226,8 @@ enum class SomEditability {
   invalidVersion,
 };
 
-/* Classifies a document's editability under the §2.2 rules WITHOUT throwing
- * (§ item 8). `generated` is the object model's own major.minor; the empty
+/* Classifies a document's editability under the SOM §4.2 rules WITHOUT throwing
+ * (SOM §21). `generated` is the object model's own major.minor; the empty
  * string is the absent-stamp sentinel (CS4-D2) for `documentVersion` — a
  * brand-new, never-stamped document — and classifies as editable.
  *

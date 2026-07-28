@@ -4,10 +4,10 @@
 /// The generated classes are an **editing facade** over the generic
 /// `tom_som_python_runtime` `SpecDocument`: every typed accessor delegates to
 /// the path-keyed memory representation, so a typed mutation is visible through
-/// the generic path and vice-versa (spec §3). Each document-root class performs
+/// the generic path and vice-versa (SOM §6). Each document-root class performs
 /// the **instantiation-time version check** (`check_som_model_version`) against
-/// the document's authoring stamp (§2.2) and exposes its own generated model
-/// version (§2.1).
+/// the document's authoring stamp (SOM §4.2) and exposes its own generated
+/// model version (SOM §4.2).
 ///
 /// This is the Python counterpart of [SomDartEmitter] — the same reachability
 /// walk, the same deterministic ordering, the same field-kind mapping — only the
@@ -36,10 +36,10 @@ class SomPythonEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
@@ -231,7 +231,7 @@ class SomPythonEmitter {
       final seg = _ref.rootSegment(root);
       b
         ..writeln('    #: The model version this object model was generated '
-            'against (§2.1).')
+            'against (SOM §4.2).')
         ..writeln("    model_version = '$modelVersionString'")
         ..writeln()
         ..writeln('    def __init__(self, doc, document_version=None):')
@@ -243,7 +243,7 @@ class SomPythonEmitter {
         ..writeln('    def load_yaml(cls, yaml):')
         ..writeln('        """Loads a `*.docspecs.yaml` document and returns the '
             'typed root with the')
-        ..writeln("        document's authoring stamp already applied (§ item 4) "
+        ..writeln("        document's authoring stamp already applied (SOM §21) "
             '— one call for')
         ..writeln('        the former decode → load_json → thread-'
             '`document_version` sequence."""')
@@ -263,7 +263,7 @@ class SomPythonEmitter {
         ..writeln('    @property')
         ..writeln('    def object_model_version(self):')
         ..writeln("        \"\"\"This object model's own model version "
-            "(major.minor), per §2.1.\"\"\"")
+            "(major.minor), per SOM §4.2.\"\"\"")
         ..writeln('        return ${cls.name}.model_version')
         ..writeln()
         ..writeln('    @classmethod')
@@ -271,8 +271,8 @@ class SomPythonEmitter {
         ..writeln('        """Classifies whether a document authored under '
             '*document_version* is')
         ..writeln('        editable by this object model, **without raising** '
-            '(§ item 8) — the')
-        ..writeln("        non-throwing companion to the constructor's §2.2 "
+            '(SOM §21) — the')
+        ..writeln("        non-throwing companion to the constructor's SOM §4.2 "
             'check, so a read-only')
         ..writeln('        viewer can branch instead of catching '
             'SomVersionError."""')
@@ -284,7 +284,7 @@ class SomPythonEmitter {
         ..writeln('        super().__init__(doc, path)');
     }
 
-    // § item 10: a content-bearing section overrides the `SomNode`
+    // SOM §21: a content-bearing section overrides the `SomNode`
     // `can_have_content` structural default (`False`) to `True`, so "can this
     // section hold body text?" is answerable at the type level without probing
     // `.content`.
@@ -309,7 +309,7 @@ class SomPythonEmitter {
   }
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
-  /// signal that its generated facade carries a `.content` accessor (§ item 10).
+  /// signal that its generated facade carries a `.content` accessor (SOM §21).
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 

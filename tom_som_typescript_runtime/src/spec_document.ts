@@ -59,9 +59,10 @@ export class SpecDocument {
   private _headline: Map<string, string> = new Map();
 
   /**
-   * The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
-   * section path → the comma-joined list of CodeSpecs code locations that
-   * section maps to. Sparse like `_headline`: unset means "no code mapping".
+   * The concrete instance-level forward DocSpecs→CodeSpecs link
+   * (codespecs_mapping.md §9.2): any section path → the comma-joined list of
+   * CodeSpecs code locations that section maps to. Sparse like `_headline`:
+   * unset means "no code mapping".
    */
   private _codeSpec: Map<string, string> = new Map();
 
@@ -79,7 +80,7 @@ export class SpecDocument {
    * the YAML against the document's {@link SomMetaTree} and return the
    * populated document (with {@link modelVersion} already threaded by the
    * codec). Collapses the former three-step `decode` → `loadJson` →
-   * thread-`documentVersion` incantation (§ item 4).
+   * thread-`documentVersion` incantation (SOM §21).
    *
    * The yaml codec is required lazily to sidestep any load-order/circular
    * require between this module and `spec_document_yaml.ts`.
@@ -100,7 +101,7 @@ export class SpecDocument {
   }
 
   /**
-   * Renders this document to Markdown in one call (§ item 12).
+   * Renders this document to Markdown in one call (SOM §21).
    *
    * Collapses the former `new SpecDocumentMarkdown(model, doc).exportRoot(
    * model.roots.find((r) => r.type === …))` incantation. When `rootType` is
@@ -153,7 +154,7 @@ export class SpecDocument {
 
   /**
    * Whether a non-empty content-leaf value exists at *exactly* `path` — the
-   * leaf-exact "is this section filled?" test (§ item 5). A value nested beneath
+   * leaf-exact "is this section filled?" test (SOM §21). A value nested beneath
    * `path` does **not** count (that is {@link hasValuesUnder}); this is the
    * null-free companion to {@link content}.
    */
@@ -229,12 +230,13 @@ export class SpecDocument {
     return this._headline.keys();
   }
 
-  // --- codeSpec (§9.2) ------------------------------------------------------
+  // --- codeSpec (codespecs_mapping.md §9.2)
+  // ------------------------------------------------------
 
   /**
    * The stored codeSpec mapping at `path` as the comma-joined list of
    * CodeSpecs code locations, or `null` when the section carries no mapping
-   * (§9.2 — codeSpec is sparse like the headline).
+   * (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline).
    */
   codeSpec(path: string): string | null {
     return this._codeSpec.has(path)
@@ -245,7 +247,7 @@ export class SpecDocument {
   /**
    * Sets the stored codeSpec mapping at `path` (the comma-joined list of
    * CodeSpecs code locations). An empty value clears it, returning the section
-   * to "no code mapping" (§9.2).
+   * to "no code mapping" (codespecs_mapping.md §9.2).
    */
   setCodeSpec(path: string, value: string): void {
     if (value === '') {

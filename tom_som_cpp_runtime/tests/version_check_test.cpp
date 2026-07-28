@@ -1,4 +1,4 @@
-/* Unit tests for the §2.2 model-version guard in `som_facade`
+/* Unit tests for the SOM §4.2 model-version guard in `som_facade`
  * (`somEditabilityFor` + `checkSomModelVersion`), an idiomatic-C++ port mirror
  * of the Dart reference cases in `tom_som_dart_runtime`'s `som_facade.dart`.
  *

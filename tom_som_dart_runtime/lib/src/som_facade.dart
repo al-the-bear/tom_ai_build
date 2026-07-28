@@ -4,10 +4,10 @@
 /// The generated classes are a thin **editing facade** over the generic
 /// [SpecDocument]: every typed getter/setter reads or writes the path-keyed
 /// memory representation directly, so a mutation made through the typed surface
-/// is immediately visible through the generic path and vice-versa (§3 — the two
-/// access paths share one document). These base types ([SomNode], [SomList],
-/// [SomScalar]) hold no state of their own beyond the document and a path; the
-/// generated subclasses only add typed accessors.
+/// is immediately visible through the generic path and vice-versa (SOM §6 — the
+/// two access paths share one document). These base types ([SomNode],
+/// [SomList], [SomScalar]) hold no state of their own beyond the document and a
+/// path; the generated subclasses only add typed accessors.
 library;
 
 import 'spec_document.dart';
@@ -30,7 +30,7 @@ abstract class SomNode {
 
   /// Whether this section holds no value at all — neither a
   /// `content`/`scalar`/`enum` leaf, a `@Form` entry, a child section, nor a
-  /// list item — at its [path] or nested beneath it (§ item 5).
+  /// list item — at its [path] or nested beneath it (SOM §21).
   ///
   /// The typed counterpart of the generic [SpecDocument.hasValuesUnder], so
   /// "is this section filled?" answers identically through the typed facade and
@@ -44,7 +44,7 @@ abstract class SomNode {
   bool get isEmpty => !doc.hasValuesUnder(path);
 
   /// Whether this section **type** declares the standard `content` text leaf —
-  /// i.e. whether the `.content` getter/setter exists on it (§ item 10).
+  /// i.e. whether the `.content` getter/setter exists on it (SOM §21).
   ///
   /// This is a **structural / schema** predicate: a compile-time constant of the
   /// section's type, answering "*can* this section hold body text?" without a
@@ -94,8 +94,9 @@ abstract class SomNode {
   /// `$`-prefixed for the same collision-proofing as [$sectionId].
   String? get $codeSpec => doc.codeSpec(path);
 
-  /// Sets or clears this section's CodeSpecs forward link (§9.2). `null` or an
-  /// empty string clears the store, returning the section to "no code mapping".
+  /// Sets or clears this section's CodeSpecs forward link (codespecs_mapping.md
+  /// §9.2). `null` or an empty string clears the store, returning the section
+  /// to "no code mapping".
   set $codeSpec(String? value) => doc.setCodeSpec(path, value ?? '');
 }
 
@@ -158,7 +159,7 @@ class SomList<T> {
       _factory(doc, _addItemPath(sectionId: sectionId, date: date));
 
   /// Appends a **content-only** item, sets its standard `content` leaf, and
-  /// returns the element facade — in one call (§ item 9).
+  /// returns the element facade — in one call (SOM §21).
   ///
   /// The convenience for element types whose sole field is the standard
   /// `content` leaf (e.g. operational metrics): collapses the recurring
@@ -175,7 +176,7 @@ class SomList<T> {
     return _factory(doc, itemPath);
   }
 
-  /// A read-only view of every item's `content` leaf, in order (§ item 9).
+  /// A read-only view of every item's `content` leaf, in order (SOM §21).
   ///
   /// The content-only companion to [addContent]: yields each element's standard
   /// `content` value (a missing leaf coalesces to `''`, matching the generated
@@ -202,7 +203,7 @@ class SomList<T> {
 }
 
 /// Raised when a generated object model is instantiated against a document
-/// whose authoring model version it must not edit (§2.2).
+/// whose authoring model version it must not edit (SOM §4.2).
 class SomVersionException implements Exception {
   final String message;
   const SomVersionException(this.message);
@@ -211,8 +212,8 @@ class SomVersionException implements Exception {
   String toString() => 'SomVersionException: $message';
 }
 
-/// The outcome of the §2.2 version check, as a value a read-only viewer can
-/// branch on instead of catching [SomVersionException] (§ item 8).
+/// The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+/// branch on instead of catching [SomVersionException] (SOM §21).
 ///
 /// It is the non-throwing companion to [checkSomModelVersion]: the constructor
 /// throws on any value other than [editable], while [somEditabilityFor] returns
@@ -235,8 +236,8 @@ enum SomEditability {
   invalidVersion,
 }
 
-/// Classifies a document's editability under the §2.2 rules **without
-/// throwing** (§ item 8). [generated] is the object model's own `major.minor`
+/// Classifies a document's editability under the SOM §4.2 rules **without
+/// throwing** (SOM §21). [generated] is the object model's own `major.minor`
 /// version; [documentVersion] is the document's recorded authoring stamp
 /// (`null`/empty for a brand-new, never-stamped document).
 ///
@@ -255,7 +256,7 @@ SomEditability somEditabilityFor(String generated, String? documentVersion) {
 }
 
 /// The instantiation-time version check every generated root facade performs
-/// (§2.2). [generated] is the object model's own `major.minor` version;
+/// (SOM §4.2). [generated] is the object model's own `major.minor` version;
 /// [documentVersion] is the document's recorded authoring stamp (`null`/empty
 /// for a brand-new, never-stamped document).
 ///

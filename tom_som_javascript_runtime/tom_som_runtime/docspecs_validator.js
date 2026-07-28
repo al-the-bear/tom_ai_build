@@ -10,7 +10,7 @@
  * 1. {@link DocSpecsDocument} — a schema-free structural parse of a DocSpecs
  *    markdown document into a heading tree (fence-aware, never throws).
  * 2. {@link DocSpecsSchema} — loader for `*.docspecs-schema.yaml` files with
- *    §7-style warnings for unsupported keys (never fails on extra keys).
+ *    SOM §14-style warnings for unsupported keys (never fails on extra keys).
  * 3. {@link DocSpecsValidator} — never-fail-fast validation of a parsed
  *    document against a schema, emitting {@link DocSpecsViolation}s whose
  *    messages are golden-identical to the Dart implementation.
@@ -133,8 +133,8 @@ class DocSpecsDocument {
           if (c) {
             section = new DocSpecsSection(
               c[1] || null,
-              // csmc8 (§9.2): the heading-comment regex is now 3-group
-              // (id, meta region, title) — the title is group 3.
+              // csmc8 (codespecs_mapping.md §9.2): the heading-comment regex is
+              // now 3-group (id, meta region, title) — the title is group 3.
               (c[3] || '').trim() || rest,
               level,
               lineNo,
@@ -296,7 +296,7 @@ class DocSpecsSchema {
     this.formTypes = {};
     /** @type {Object<string, DocSpecsDocumentSection>} */
     this.documentSections = {};
-    /** @type {string[]} §7 warnings for unsupported keys. */
+    /** @type {string[]} SOM §14 warnings for unsupported keys. */
     this.warnings = [];
   }
 

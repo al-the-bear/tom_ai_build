@@ -62,9 +62,9 @@ type SpecDocument struct {
 	itemSectionID map[string]string
 	headline      map[string]string
 	// codeSpec is the concrete instance-level forward DocSpecs→CodeSpecs link
-	// (§9.2): any section path → the comma-joined list of CodeSpecs code
-	// locations that section maps to. Sparse like headline: unset means "no code
-	// mapping".
+	// (codespecs_mapping.md §9.2): any section path → the comma-joined list of
+	// CodeSpecs code locations that section maps to. Sparse like headline: unset
+	// means "no code mapping".
 	codeSpec map[string]string
 
 	// ModelVersion is the authoring object-model version (major.minor) this
@@ -94,7 +94,7 @@ func NewSpecDocument() *SpecDocument {
 // FromYaml loads a hierarchical `*.docspecs.yaml` document in one call: decode
 // the YAML against the document's metadata tree (SOM §12) and retain the parsed
 // ModelVersion on the document. Collapses the former DecodeYaml →
-// thread-documentVersion incantation (§ item 4). Format problems surface as a
+// thread-documentVersion incantation (SOM §21). Format problems surface as a
 // *SpecYamlFormatException.
 func FromYaml(yaml string, tree *SomMetaTree) (*SpecDocument, error) {
 	decoded, err := DecodeYaml(yaml, tree)
@@ -154,7 +154,7 @@ func (d *SpecDocument) ContentOr(path string) string {
 
 // HasContent reports whether a non-empty content-leaf value exists at exactly
 // path (leaf-exact; a value nested under path does not count). It is the
-// null-free companion to ContentOr. (SOM roadmap § item 5.)
+// null-free companion to ContentOr. (SOM §21.)
 func (d *SpecDocument) HasContent(path string) bool {
 	return d.ContentOr(path) != ""
 }
@@ -244,11 +244,12 @@ func (d *SpecDocument) HeadlinePaths() []string {
 	return out
 }
 
-// --- codeSpec (§9.2) --------------------------------------------------------
+// --- codeSpec (codespecs_mapping.md §9.2)
+// --------------------------------------------------------
 
-// CodeSpec returns the stored codeSpec mapping at path (the comma-joined list of
-// CodeSpecs code locations), and ok=false when the section carries no mapping
-// (§9.2 — codeSpec is sparse like the headline).
+// CodeSpec returns the stored codeSpec mapping at path (the comma-joined list
+// of CodeSpecs code locations), and ok=false when the section carries no
+// mapping (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline).
 func (d *SpecDocument) CodeSpec(path string) (string, bool) {
 	v, ok := d.codeSpec[path]
 	return v, ok
@@ -259,9 +260,9 @@ func (d *SpecDocument) CodeSpecOr(path string) string {
 	return d.codeSpec[path]
 }
 
-// SetCodeSpec sets the stored codeSpec mapping at path (the comma-joined list of
-// CodeSpecs code locations). An empty value clears it, returning the section to
-// "no code mapping" (§9.2).
+// SetCodeSpec sets the stored codeSpec mapping at path (the comma-joined list
+// of CodeSpecs code locations). An empty value clears it, returning the section
+// to "no code mapping" (codespecs_mapping.md §9.2).
 func (d *SpecDocument) SetCodeSpec(path, value string) {
 	d.ensure()
 	if value == "" {
@@ -493,7 +494,7 @@ func (e *notLiveItemError) Error() string {
 
 // --- markdown --------------------------------------------------------------
 
-// ToMarkdown renders this document to Markdown in one call (SOM § item 12).
+// ToMarkdown renders this document to Markdown in one call (SOM §21).
 //
 // It collapses the former
 // `NewSpecDocumentMarkdown(model, doc).ExportRoot(model.RootByType(…))`

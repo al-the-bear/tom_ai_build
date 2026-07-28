@@ -1,4 +1,4 @@
-//! `can_have_content` suite for the § item 10 structural predicate.
+//! `can_have_content` suite for the SOM §21 structural predicate.
 //!
 //! `can_have_content` answers "does this section **type** declare the standard
 //! `content` text leaf?" — can this section hold body text? — as a compile-time
@@ -7,13 +7,13 @@
 //! value present at this leaf *now*?") and [`SomNode::is_empty`] ("is this
 //! subtree empty *now*?").
 //!
-//! Rust facades hold a [`SomNode`] but do not inherit from it, so — mirroring the
-//! per-type `editability_for` emission (§ item 8) — the emitter bakes
-//! `can_have_content` onto **every** generated section type as a literal boolean
-//! (`true` for content-bearing types, `false` for container-only ones). The
-//! generated crate is regenerated centrally, so here we exercise two stand-in
-//! facades that reproduce the exact per-type emission the emitter produces, plus
-//! the invariant that the predicate never consults the document.
+//! Rust facades hold a [`SomNode`] but do not inherit from it, so — mirroring
+//! the per-type `editability_for` emission (SOM §21) — the emitter bakes
+//! `can_have_content` onto **every** generated section type as a literal
+//! boolean (`true` for content-bearing types, `false` for container-only ones).
+//! The generated crate is regenerated centrally, so here we exercise two
+//! stand-in facades that reproduce the exact per-type emission the emitter
+//! produces, plus the invariant that the predicate never consults the document.
 
 use tom_som_rust_runtime::som_facade::{doc_ref, DocRef, SomNode};
 use tom_som_rust_runtime::spec_document::SpecDocument;
@@ -31,7 +31,7 @@ impl ContentBearingFacade {
         }
     }
 
-    /// The literal the emitter bakes onto a content-bearing type (§ item 10).
+    /// The literal the emitter bakes onto a content-bearing type (SOM §21).
     fn can_have_content(&self) -> bool {
         true
     }
@@ -60,7 +60,7 @@ impl ContainerOnlyFacade {
         }
     }
 
-    /// The literal the emitter bakes onto a container-only type (§ item 10).
+    /// The literal the emitter bakes onto a container-only type (SOM §21).
     fn can_have_content(&self) -> bool {
         false
     }

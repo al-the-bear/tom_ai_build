@@ -7,7 +7,7 @@
 //!  1. [`DocSpecsDocument`] — a schema-free structural parse of a DocSpecs
 //!     markdown document into a heading tree (fence-aware, never fails).
 //!  2. [`DocSpecsSchema`] — loader for `*.docspecs-schema.yaml` files with
-//!     §7-style warnings for unsupported keys (never fails on extra keys).
+//!     SOM §14-style warnings for unsupported keys (never fails on extra keys).
 //!  3. [`DocSpecsValidator`] — never-fail-fast validation of a parsed document
 //!     against a schema, emitting [`DocSpecsViolation`]s whose messages are
 //!     golden-identical to the Dart implementation.
@@ -152,10 +152,11 @@ fn dv_docspec_header(line: &str) -> Option<&str> {
     Some(token)
 }
 
-/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1 the
-/// id, g2 the optional key=value region (§9.2 `codeSpec`), and g3 the title
-/// text after the comment. The validator only needs the id and title; g2 is
-/// discarded here (the codec stages the codeSpec).
+/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1
+/// the id, g2 the optional key=value region (codespecs_mapping.md §9.2
+/// `codeSpec`), and g3 the title text after the comment. The validator only
+/// needs the id and title; g2 is discarded here (the codec stages the
+/// codeSpec).
 fn dv_headline_comment(rest: &str) -> Option<(&str, &str)> {
     let r = rest.strip_prefix("<!--[")?;
     let close = r.find(']')?;
@@ -421,7 +422,7 @@ pub struct DocSpecsSchema {
     pub form_types: HashMap<String, DocSpecsFormType>,
     /// The `document.sections` slots in file order.
     pub document_sections: Vec<(String, DocSpecsDocumentSection)>,
-    /// §7 warnings for unsupported keys.
+    /// SOM §14 warnings for unsupported keys.
     pub warnings: Vec<String>,
 }
 

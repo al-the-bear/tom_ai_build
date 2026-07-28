@@ -407,7 +407,8 @@ impl SpecModel {
         self.classes.get(name)
     }
 
-    /// Returns the document root whose [`SpecRoot::type_`] equals `ty` (§ item 12).
+    /// Returns the document root whose [`SpecRoot::type_`] equals `ty` (SOM
+    /// §21).
     ///
     /// Replaces the recurring `roots.iter().find(|r| r.type_ == …)` boilerplate.
     /// Returns `Err` when no root carries that type — the message names the

@@ -46,10 +46,10 @@ class SpecDocument:
         self._list_seq: dict[str, int] = {}
         self._item_section_id: dict[str, str] = {}
         self._headline: dict[str, str] = {}
-        #: The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2):
-        #: any section path → the comma-joined list of CodeSpecs code locations
-        #: that section maps to. Sparse like :attr:`_headline`: unset means
-        #: "no code mapping".
+        #: The concrete instance-level forward DocSpecs→CodeSpecs link
+        #(codespecs_mapping.md §9.2): : any section path → the comma-joined list
+        #of CodeSpecs code locations : that section maps to. Sparse like
+        #:attr:`_headline`: unset means : "no code mapping".
         self._code_spec: dict[str, str] = {}
         #: The authoring object-model version (``major.minor``) this document was
         #: loaded from, or ``None`` for a brand-new / unstamped document. Retained
@@ -59,13 +59,13 @@ class SpecDocument:
         #: classmethods apply it automatically.
         self.model_version: Optional[str] = None
 
-    # --- one-call loading (§ item 4) ---------------------------------------
+    # --- one-call loading (SOM §21) ---------------------------------------
 
     @classmethod
     def from_yaml(cls, yaml: str, tree: Any) -> "SpecDocument":
         """Loads a hierarchical ``*.docspecs.yaml`` (v2) document in one call:
         decode the YAML against the :class:`SomMetaTree` *tree*, populate the
-        sparse stores, and retain the parsed :attr:`model_version` (§ item 4;
+        sparse stores, and retain the parsed :attr:`model_version` (SOM §21;
         The tree-based signature — mirrors Dart's
         ``SpecDocument.fromYaml(yaml, tree)``)."""
         from .spec_document_yaml import decode
@@ -80,12 +80,12 @@ class SpecDocument:
         with open(path, "r", encoding="utf-8") as f:
             return cls.from_yaml(f.read(), tree)
 
-    # --- one-call Markdown export (§ item 12) ------------------------------
+    # --- one-call Markdown export (SOM §21) ------------------------------
 
     def to_markdown(
         self, model: "SpecModel", root_type: Optional[str] = None
     ) -> str:
-        """Renders this document to Markdown in one call (§ item 12).
+        """Renders this document to Markdown in one call (SOM §21).
 
         Collapses the former ``SpecDocumentMarkdown(model, doc).export_root(
         model.root_by_type(…))`` incantation. When *root_type* is given, that
@@ -138,7 +138,7 @@ class SpecDocument:
 
     def has_content(self, path: str) -> bool:
         """Whether a non-empty content/scalar leaf value exists at exactly
-        *path* — the ``None``-free companion to :meth:`content` (§ item 5).
+        *path* — the ``None``-free companion to :meth:`content` (SOM §21).
 
         The one shared definition of "is this content leaf filled?": the typed
         facade's ``content`` getter coalesces a missing value to ``''`` while
@@ -178,18 +178,19 @@ class SpecDocument:
         snapshot)."""
         return self._headline.keys()
 
-    # --- codeSpec (§9.2) ----------------------------------------------------
+    # --- codeSpec (codespecs_mapping.md §9.2)
+    # ----------------------------------------------------
 
     def code_spec(self, path: str) -> Optional[str]:
         """The stored codeSpec mapping at *path* as the comma-joined list of
         CodeSpecs code locations, or ``None`` when the section carries no
-        mapping (§9.2 — codeSpec is sparse like the headline)."""
+        mapping (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline)."""
         return self._code_spec.get(path)
 
     def set_code_spec(self, path: str, value: str) -> None:
         """Sets the stored codeSpec mapping at *path* (the comma-joined list of
         CodeSpecs code locations). An empty value clears it, returning the
-        section to "no code mapping" (§9.2)."""
+        section to "no code mapping" (codespecs_mapping.md §9.2)."""
         if value == "":
             self._code_spec.pop(path, None)
         else:

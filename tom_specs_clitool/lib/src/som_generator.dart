@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for a single language and
-/// writes the committed artefact tree (spec §2.3): the `tom_som_<slug>_<label>`
+/// writes the committed artefact tree (SOM §4.3): the `tom_som_<slug>_<label>`
 /// project (`pubspec.yaml` + generated typed `lib/`), the lossless object-model
 /// **meta-data file**, and the **DocSpecs schemas**.
 ///

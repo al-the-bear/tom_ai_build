@@ -1,8 +1,8 @@
 /* Behavioural test for a generated root facade's static `editabilityFor`
- * (§ item 8). The facade cannot be regenerated here (the generator runs
+ * (SOM §21). The facade cannot be regenerated here (the generator runs
  * centrally, once, for all languages), so this hand-writes the exact shape the
- * `som_cpp_emitter` now emits per root — a static `editabilityFor` delegating to
- * `som::somEditabilityFor(kModelVersion, documentVersion)` — and asserts it
+ * `som_cpp_emitter` now emits per root — a static `editabilityFor` delegating
+ * to `som::somEditabilityFor(kModelVersion, documentVersion)` — and asserts it
  * classifies correctly. This pins the emitter contract independently of a full
  * regeneration.
  */

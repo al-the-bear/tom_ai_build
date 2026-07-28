@@ -6,7 +6,8 @@ import 'spec_meta.dart';
 import 'spec_model.dart';
 import 'spec_section_id.dart';
 
-/// A sparse, live instance of a TomSpecs document (§8, §13).
+/// A sparse, live instance of a TomSpecs document
+/// (tom_specs_editor_specification.md §8, §13).
 ///
 /// The structure is defined by the `SpecModel` class graph; this holds only the
 /// *values* the user/agent has actually set, keyed by the globally-unique
@@ -43,9 +44,10 @@ class SpecDocument {
   final Map<String, String> _itemSectionId = {};
   final Map<String, String> _headline = {};
 
-  /// The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
-  /// section path → the comma-joined list of CodeSpecs code locations that
-  /// section maps to. Sparse like [_headline]: unset means "no code mapping".
+  /// The concrete instance-level forward DocSpecs→CodeSpecs link
+  /// (codespecs_mapping.md §9.2): any section path → the comma-joined list of
+  /// CodeSpecs code locations that section maps to. Sparse like [_headline]:
+  /// unset means "no code mapping".
   final Map<String, String> _codeSpec = {};
 
   /// The authoring object-model version (`major.minor`) this document was loaded
@@ -68,7 +70,7 @@ class SpecDocument {
   static SpecDocument fromFile(String path, SomMetaTree tree) =>
       fromYaml(File(path).readAsStringSync(), tree);
 
-  /// Renders this document to Markdown in one call (§ item 12).
+  /// Renders this document to Markdown in one call (SOM §21).
   ///
   /// Collapses the former `SpecDocumentMarkdown(model, doc).exportRoot(
   /// model.roots.firstWhere((r) => r.type == …))` incantation. When [rootType]
@@ -105,7 +107,7 @@ class SpecDocument {
   String? content(String path) => _content[path];
 
   /// Whether a non-empty `content`/`scalar` leaf value exists at exactly
-  /// [path] — the null-free companion to [content] (§ item 5).
+  /// [path] — the null-free companion to [content] (SOM §21).
   ///
   /// This is the one shared definition of "is this content leaf filled?": the
   /// typed facade's `.content` getter coalesces a missing value to `''` while
@@ -144,12 +146,12 @@ class SpecDocument {
 
   /// The stored codeSpec mapping at [path] as the comma-joined list of
   /// CodeSpecs code locations, or `null` when the section carries no mapping
-  /// (§9.2 — codeSpec is sparse like the headline).
+  /// (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline).
   String? codeSpec(String path) => _codeSpec[path];
 
   /// Sets the stored codeSpec mapping at [path] (the comma-joined list of
   /// CodeSpecs code locations). An empty value clears it, returning the section
-  /// to "no code mapping" (§9.2).
+  /// to "no code mapping" (codespecs_mapping.md §9.2).
   void setCodeSpec(String path, String value) {
     if (value.isEmpty) {
       _codeSpec.remove(path);
@@ -303,7 +305,7 @@ class SpecDocument {
       _codeSpec.isEmpty;
 
   /// Whether any value exists at [prefix] or nested beneath it — the structural
-  /// "empty = no value" test (§13.1, D4).
+  /// "empty = no value" test (tom_specs_editor_specification.md §13.1, D4).
   ///
   /// A node's path is the prefix; a value counts when its key is the path
   /// itself (a `content`/`scalar`/`enum` leaf or a `@Form` entry), a descendant
@@ -338,10 +340,10 @@ class SpecDocument {
   /// The number of items currently held by the list at [listPath].
   int listItemCount(String listPath) => _listItems[listPath]?.length ?? 0;
 
-  /// A plain-data view of every value held, for persistence (§15.1 `document:`
-  /// pass). Only non-empty stores are included, and each is sorted by full
-  /// section-ID path so the saved file diffs/merges cleanly. The shape is the
-  /// inverse of [loadJson]:
+  /// A plain-data view of every value held, for persistence
+  /// (tom_specs_editor_specification.md §15.1 `document:` pass). Only non-empty
+  /// stores are included, and each is sorted by full section-ID path so the
+  /// saved file diffs/merges cleanly. The shape is the inverse of [loadJson]:
   ///
   /// ```
   /// {
@@ -390,10 +392,11 @@ class SpecDocument {
     };
   }
 
-  /// Replaces every store from a [toJson]-shaped map (§15.1 load pass). Tolerant
-  /// of the YAML parser's `Map`/`List` views and coerces leaf values to strings
-  /// (block scalars always parse back as strings). Unknown/empty entries are
-  /// skipped so a hand-edited file can't smuggle in malformed state.
+  /// Replaces every store from a [toJson]-shaped map
+  /// (tom_specs_editor_specification.md §15.1 load pass). Tolerant of the YAML
+  /// parser's `Map`/`List` views and coerces leaf values to strings (block
+  /// scalars always parse back as strings). Unknown/empty entries are skipped
+  /// so a hand-edited file can't smuggle in malformed state.
   void loadJson(Map<dynamic, dynamic> json) {
     _content.clear();
     _form.clear();
@@ -464,7 +467,8 @@ class SpecDocument {
     }
   }
 
-  /// A deep-copied snapshot of the whole document, for the undo stack (§10).
+  /// A deep-copied snapshot of the whole document, for the undo stack
+  /// (tom_specs_editor_specification.md §10).
   ///
   /// Every map is copied so the returned state is independent of subsequent
   /// edits — restoring it returns the document to exactly this picture.
@@ -479,8 +483,9 @@ class SpecDocument {
       );
 
   /// Replaces the document's contents with a previously [captureState]d
-  /// snapshot (§10). The restore is absolute: every store is overwritten, so a
-  /// snapshot can be applied regardless of intervening edits.
+  /// snapshot (tom_specs_editor_specification.md §10). The restore is absolute:
+  /// every store is overwritten, so a snapshot can be applied regardless of
+  /// intervening edits.
   void restoreState(SpecDocumentState state) {
     _content
       ..clear()
@@ -507,7 +512,8 @@ class SpecDocument {
   }
 }
 
-/// An immutable deep-copied snapshot of a [SpecDocument] (§10 undo stack).
+/// An immutable deep-copied snapshot of a [SpecDocument]
+/// (tom_specs_editor_specification.md §10 undo stack).
 ///
 /// Produced by [SpecDocument.captureState] and consumed by
 /// [SpecDocument.restoreState]; the maps are private so a state can only be
@@ -544,7 +550,8 @@ class SpecDocumentState {
   String? formFieldAt(String path, String field) => _form[path]?[field];
 
   /// A stable fingerprint of the snapshot's values, used to tell whether an
-  /// edit actually changed anything (no-op edits must not snapshot, §10).
+  /// edit actually changed anything (no-op edits must not snapshot,
+  /// tom_specs_editor_specification.md §10).
   String get fingerprint {
     String enc(Map<String, Object?> m) {
       final keys = m.keys.toList()..sort();

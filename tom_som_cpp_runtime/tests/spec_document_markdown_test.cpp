@@ -651,7 +651,7 @@ void testMarkdownFenceShieldedHeadingsStayBody() {
           stagedContent(report, "D00/D00-ST") == nullptr);
 }
 
-/* ---- §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
+/* ---- codespecs_mapping.md §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
 
 /* The stored codeSpec of a section rides inside its heading comment as a
  * `codeSpec="…"` key, and untouched sections stay byte-stable. */

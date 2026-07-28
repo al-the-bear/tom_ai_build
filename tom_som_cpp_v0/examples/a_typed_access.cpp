@@ -23,7 +23,7 @@
 
 int main() {
   // A typed root over a fresh, empty document. The constructor also runs the
-  // §2.2 instantiation-time version check (an empty stamp is editable).
+  // SOM §4.2 instantiation-time version check (an empty stamp is editable).
   som::SpecDocument doc;
   tom_som_v0::D00SolutionBlueprint pd(doc);
 

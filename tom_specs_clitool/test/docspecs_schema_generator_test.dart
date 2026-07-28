@@ -162,7 +162,7 @@ void main() {
     });
     tearDown(() => dir.deleteSync(recursive: true));
 
-    test('§5.2: section-types are named by lower-cased section id with the '
+    test('SOM §13: section-types are named by lower-cased section id with the '
         'exact id (dashes → underscores) as prefix', () {
       final schema = gen.generateFor('DemoDoc');
       // Root id (D00) is the document, not a section-type.
@@ -181,7 +181,7 @@ void main() {
       expect(schema.sectionTypes['d00-itm']!.prefix, 'D00_ITM_');
     });
 
-    test('§5.2: subsection-types carry nearest section-bearing children with '
+    test('SOM §13: subsection-types carry nearest section-bearing children with '
         'min/max cardinality', () {
       final schema = gen.generateFor('DemoDoc');
       // The list element's child content section is its subsection.
@@ -195,7 +195,7 @@ void main() {
       expect(schema.sectionTypes['d00-ovr']!.subsectionTypes, isNull);
     });
 
-    test('§5.2: list-element pattern-check-id compiles the exact '
+    test('SOM §13: list-element pattern-check-id compiles the exact '
         '@SectionIdPattern with xxx → .+ (YRD3 stem check)', () {
       final schema = gen.generateFor('DemoDoc');
       final check = schema.sectionTypes['d00-itm']!.patternCheckId;
@@ -211,7 +211,7 @@ void main() {
       expect(schema.sectionTypes['d00-hdr']!.patternCheckId, isNull);
     });
 
-    test('§5.2: text-required from @TextRequired or @Min(1) on content; '
+    test('SOM §13: text-required from @TextRequired or @Min(1) on content; '
         'min/max-text-length from @MinLength/@MaxLength', () {
       final schema = gen.generateFor('DemoDoc');
       // @Min(1) on the overview content member → text-required.
@@ -224,7 +224,7 @@ void main() {
       expect(schema.sectionTypes['d00-det']!.maxTextLength, 500);
     });
 
-    test('§5.2: description from @ContentHelp first, doc comment fallback; '
+    test('SOM §13: description from @ContentHelp first, doc comment fallback; '
         'validation-prompt from @ValidationPrompt', () {
       final schema = gen.generateFor('DemoDoc');
       expect(schema.sectionTypes['d00-ovr']!.description,
@@ -266,7 +266,7 @@ void main() {
       expect(reloaded.sectionTypes['q00-diag']!.description, guidance);
     });
 
-    test('§5.3: @Form sections get format <type>-form; fields keep model '
+    test('SOM §13: @Form sections get format <type>-form; fields keep model '
         'field names with required/description/pattern-check', () {
       final schema = gen.generateFor('DemoDoc');
       expect(schema.sectionTypes['d00-hdr']!.format, 'd00-hdr-form');
@@ -281,7 +281,7 @@ void main() {
       expect(approvedBy.patternCheck!.errorMessage, 'Name-cased');
     });
 
-    test('§5.4: document lists top-level sections keyed by type name; '
+    test('SOM §13: document lists top-level sections keyed by type name; '
         '@Min ≥ 1 makes a slot required; title-format is a custom tag', () {
       final schema = gen.generateFor('DemoDoc');
       // Required sections (@Min(1)): optional is unset (defaults to false).
@@ -322,7 +322,7 @@ void main() {
           '# <!--[HD00]--> Headlined Document');
     });
 
-    test('§5.5: @Unused nodes are omitted from the schema entirely', () {
+    test('SOM §13: @Unused nodes are omitted from the schema entirely', () {
       final schema = gen.generateFor('DemoDoc');
       expect(schema.sectionTypes.keys, isNot(contains('d00-old')));
       expect(schema.document.sections.keys, isNot(contains('d00-old')));
@@ -338,7 +338,7 @@ void main() {
       expect(prefixLens, sorted);
     });
 
-    test('§5.7: the emitted YAML reloads through the DocSpecs loader with all '
+    test('SOM §13: the emitted YAML reloads through the DocSpecs loader with all '
         'constructs intact', () {
       final schema = gen.generateFor('DemoDoc');
       final reloaded = _writeAndReload(dir, schema);
@@ -471,7 +471,7 @@ void main() {
       }
     });
 
-    test('§5.7: every generated schema round-trips through the DocSpecs '
+    test('SOM §13: every generated schema round-trips through the DocSpecs '
         'loader (the existing consumer can parse them)', () {
       final schemas = DocSpecsSchemaGenerator(classes).generateAll();
       for (final schema in schemas.values) {

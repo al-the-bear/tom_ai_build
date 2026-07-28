@@ -5,7 +5,7 @@
 The generated classes are a thin **editing facade** over the generic
 :class:`SpecDocument`: every typed getter/setter reads or writes the path-keyed
 memory representation directly, so a mutation made through the typed surface is
-immediately visible through the generic path and vice-versa (§3 — the two access
+immediately visible through the generic path and vice-versa (SOM §6 — the two access
 paths share one document). These base types (:class:`SomNode`,
 :class:`SomList`, :class:`SomScalar`) hold no state of their own beyond the
 document and a path; the generated subclasses only add typed accessors.
@@ -47,7 +47,7 @@ class SomNode:
     def is_empty(self) -> bool:
         """Whether this section holds no value at all — neither a
         content/scalar/enum leaf, a ``@Form`` entry, a child section, nor a list
-        item — at its :attr:`path` or nested beneath it (§ item 5).
+        item — at its :attr:`path` or nested beneath it (SOM §21).
 
         The typed counterpart of the generic
         :meth:`SpecDocument.has_values_under`, so "is this section filled?"
@@ -64,8 +64,8 @@ class SomNode:
     @property
     def can_have_content(self) -> bool:
         """Whether this section **type** declares the standard ``content`` text
-        leaf — i.e. whether the ``content`` getter/setter exists on it (§ item
-        10).
+        leaf — i.e. whether the ``content`` getter/setter exists on it
+        (SOM §21).
 
         This is a **structural / schema** predicate: a per-type constant of the
         section's type, answering "*can* this section hold body text?" without
@@ -123,7 +123,7 @@ class SomNode:
     @property
     def spec_code_spec(self) -> Optional[str]:
         """This section's **CodeSpecs forward link** (``codespecs_mapping.md``
-        §9.2) as the comma-joined list of code locations, or ``None`` when the
+        codespecs_mapping.md §9.2) as the comma-joined list of code locations, or ``None`` when the
         section carries no mapping. Sparse exactly like :attr:`spec_headline`,
         and ``spec_``-prefixed for the same collision-proofing as
         :attr:`spec_section_id` (mirrors the Dart ``$codeSpec``)."""
@@ -131,7 +131,7 @@ class SomNode:
 
     @spec_code_spec.setter
     def spec_code_spec(self, value: Optional[str]) -> None:
-        """Sets or clears this section's CodeSpecs forward link (§9.2). ``None``
+        """Sets or clears this section's CodeSpecs forward link (codespecs_mapping.md §9.2). ``None``
         or an empty string clears the store, returning the section to "no code
         mapping"."""
         self.doc.set_code_spec(self.path, value or "")
@@ -254,7 +254,7 @@ class SomList(Generic[_T]):
         date: Optional[_DateLike] = None,
     ) -> _T:
         """Appends a content-only item and sets its content leaf in one call,
-        returning the new item's element facade (§ item 9).
+        returning the new item's element facade (SOM §21).
 
         A convenience over :meth:`add`: it appends with the *same* section-id
         logic (*section_id* override / pattern generation / pattern-less — see
@@ -272,7 +272,7 @@ class SomList(Generic[_T]):
     @property
     def contents(self) -> List[str]:
         """An ordered, read-only view of every item's ``<item_path>/content``
-        leaf, coalescing a missing leaf to ``''`` (§ item 9).
+        leaf, coalescing a missing leaf to ``''`` (SOM §21).
 
         Mirrors the element ``content`` getter's ``None`` → ``''`` coalescing so
         the list-level view agrees with reading each item individually. Reads
@@ -290,7 +290,7 @@ class SomList(Generic[_T]):
 
 class SomVersionError(Exception):
     """Raised when a generated object model is instantiated against a document
-    whose authoring model version it must not edit (§2.2)."""
+    whose authoring model version it must not edit (SOM §4.2)."""
 
     def __init__(self, message: str) -> None:
         super().__init__(message)
@@ -334,8 +334,8 @@ def _try_int(raw: str) -> Optional[int]:
 
 
 class SomEditability(enum.Enum):
-    """The outcome of the §2.2 version check, as a value a read-only viewer can
-    branch on instead of catching :class:`SomVersionError` (§ item 8).
+    """The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+    branch on instead of catching :class:`SomVersionError` (SOM §21).
 
     It is the non-throwing companion to :func:`check_som_model_version`: the
     constructor throws on any value other than :attr:`EDITABLE`, while
@@ -362,8 +362,8 @@ class SomEditability(enum.Enum):
 def som_editability_for(
     generated: str, document_version: Optional[str]
 ) -> SomEditability:
-    """Classifies a document's editability under the §2.2 rules **without
-    raising** (§ item 8). ``generated`` is the object model's own
+    """Classifies a document's editability under the SOM §4.2 rules **without
+    raising** (SOM §21). ``generated`` is the object model's own
     ``major.minor`` version; ``document_version`` is the document's recorded
     authoring stamp (``None``/empty for a brand-new, never-stamped document).
 
@@ -386,7 +386,7 @@ def som_editability_for(
 
 def check_som_model_version(generated: str, document_version: Optional[str]) -> None:
     """The instantiation-time version check every generated root facade performs
-    (§2.2). ``generated`` is the object model's own ``major.minor`` version;
+    (SOM §4.2). ``generated`` is the object model's own ``major.minor`` version;
     ``document_version`` is the document's recorded authoring stamp
     (``None``/empty for a brand-new, never-stamped document).
 

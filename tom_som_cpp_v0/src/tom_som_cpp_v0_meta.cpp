@@ -16084,7 +16084,7 @@ void buildComponentVariantEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"behaviorDifferences", "String", "Behavior Differences", false, "How behavior differs from the base component", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseDifferences", "String", "Use Case Differences", false, "When to use this variant", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"implementationNote", "String", "Implementation Note", false, "How variant is implemented", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"flutterVariant", "String", "Flutter Variant", false, "Corresponding Flutter variant", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"libraryVariant", "String", "Library Variant", false, "Corresponding variant in the shared component library, if one exists", 3, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Material Design — component variants may adjust behavior in addition to appearance\",\"ISO/IEC 25010:2023 — variant behavior differences are captured to preserve modularity and reusability\",\"ISO 9241-110:2020 — variant behavior remains consistent with user expectations\"],\"connotation\":\"The variant behavior definition describing how a component variant differs in behavior and implementation.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -19496,8 +19496,8 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "DomainEnumRegistry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 14;
-        n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.docComment = "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -19544,8 +19544,8 @@ void buildD03InformationModelChildren(som::SomMetaNode& parent, std::vector<std:
         n.typeName = "MessageKeyRegistry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 17;
-        n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -21560,9 +21560,9 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.typeName = "DomainEnumRegistry";
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
-        n.comment = "locus: shared — CE-EN";
-        n.docComment = "Domain enum registry — CE-EN closed value sets, shared by client & server.";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.comment = "locus: shared — domainEnum (member kind)";
+        n.docComment = "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -21613,9 +21613,26 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.serializationOrder = 5;
         n.comment = "locus: shared — CE-TX";
         n.docComment = "Message key registry — CE-TX author-copy-once keys, shared.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("NotificationModel", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "NotificationModel";
+        n.memberName = "notificationModel";
+        n.classSectionId = "NM";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "NotificationModel";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 6;
+        n.comment = "locus: shared — CE-NT";
+        n.docComment = "Notification model — CE-NT type / channel / preference declarations.\n\nThe declarations are **shared**: the client renders the preference UI\nagainst the same catalogue the server dispatches from. Delivery is\nserver-only, but it is not authored here — it rides the reused\n`tom_core_server` messaging transport.";
+        n.classDocComment = "4.1.5.5. Notification Model.\n\nDefines how the system notifies users of events, updates, and actions\nacross different channels.";
+      },
+      buildNotificationModelChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -21627,7 +21644,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataModel";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.comment = "locus: server — CE-DB/CE-VA";
         n.docComment = "Data model — CE-DB persistence + CE-VA server-side rules.";
         n.classDocComment = "7.1. Data Model.";
@@ -21645,7 +21662,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TechnicalFrameworkConcept";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.comment = "locus: server — CE-CF";
         n.docComment = "Technical framework — CE-CF platform/config foundation.";
         n.classDocComment = "8. Technical Framework Concept. Seeds → ATS.";
@@ -21663,7 +21680,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AccessControlModel";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.comment = "locus: server — CE-AZ";
         n.docComment = "Access control model — CE-AZ authorization/identity seed.";
         n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
@@ -21680,7 +21697,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessStepsAndActorInteractions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
         n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
@@ -21698,7 +21715,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExperienceCodeSpecs";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
@@ -22088,7 +22105,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "DataAttributeKind", "Data Type", false, "The logical type — selects the promoted options subsection.", 0, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "binary", "boolean", "uuid", "json", "enumeration"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataType", "DataAttributeKind", "Data Type", false, "The logical type — selects the promoted options subsection.", 0, std::vector<std::string>{"string", "integer", "decimal", "date", "dateTime", "binary", "fileReference", "boolean", "uuid", "json", "enumeration"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"physicalType", "String", "Physical Type", false, "Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format", false, "Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", 2, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -22154,12 +22171,32 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 5;
-    (*n).docComment = "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.";
+    (*n).docComment = "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxSizeBytes", "String", "Max Size (Bytes)", false, "Maximum stored size in bytes", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"storageMode", "String", "Storage Mode", false, "Inline | External-Reference | Blob-Store", 1, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The stored size constraints for a binary attribute.\"}", nullptr)});
     (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.binary\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "fileReferenceOptions";
+    (*n).sectionId = "DAATT-DTFR";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 6;
+    (*n).docComment = "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"storageGroup", "String", "Storage Group", true, "Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fileStore", "String", "File Store", false, "Name of the configured file store holding the files; empty means the deployment default store", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deleteWithRecord", "String", "Delete With Record", false, "Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)", 2, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptedContentKinds", "String", "Accepted Content Kinds", false, "Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultContentKind", "String", "Default Content Kind", false, "Content kind recorded when an upload declares none", 4, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"maxFileSizeBytes", "String", "Max File Size (Bytes)", false, "Maximum accepted file size in bytes", 5, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"RFC 6838 — media type specifications and registration procedures\"],\"connotation\":\"Where a referenced file is stored, how long it lives and what may be uploaded into it.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.fileReference\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -22171,7 +22208,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DataAttributeConstraintEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
+    (*ln).serializationOrder = 7;
     (*ln).contentHelp = "Add one entry per attribute constraint.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SBVR — business rule statements\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.\"}", nullptr)});
     ln->elementNode = metaCx("DataAttributeConstraintEntry", stack,
@@ -22194,7 +22231,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 7;
+    (*n).serializationOrder = 8;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1, std::vector<std::string>{}});
@@ -22210,7 +22247,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 8;
+    (*n).serializationOrder = 9;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1, std::vector<std::string>{}});
@@ -22227,7 +22264,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 9;
+    (*n).serializationOrder = 10;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1, std::vector<std::string>{}});
@@ -22245,7 +22282,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DisplayPropertyEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 10;
+    (*ln).serializationOrder = 11;
     (*ln).contentHelp = "Add one entry per display property.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.\"}", nullptr)});
     ln->elementNode = metaCx("DisplayPropertyEntry", stack,
@@ -30508,7 +30545,7 @@ void buildDomainEnumRegistryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).contentHelp = "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n";
+    (*n).contentHelp = "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n";
     parent.addChild(std::move(n));
   }
   {
@@ -30530,8 +30567,8 @@ void buildDomainEnumRegistryChildren(som::SomMetaNode& parent, std::vector<std::
         n.classSectionId = "DMENE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DomainEnumEntry";
-        n.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
-        n.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+        n.docComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
+        n.classDocComment = "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.";
       },
       buildDomainEnumEntryChildren);
     parent.addChild(std::move(ln));
@@ -39836,7 +39873,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
         n.docComment = "7.5. Domain Enum Registry.";
-        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
+        n.classDocComment = "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.";
       },
       buildDomainEnumRegistryChildren);
     parent.addChild(std::move(n));
@@ -39884,7 +39921,7 @@ void buildInformationAndDataModelChildren(som::SomMetaNode& parent, std::vector<
         n.hasSerializationOrder = true;
         n.serializationOrder = 8;
         n.docComment = "7.8. Message Key Registry.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
       },
       buildMessageKeyRegistryChildren);
     parent.addChild(std::move(n));
@@ -44057,12 +44094,12 @@ void buildLanguageCountrySelectionChildren(som::SomMetaNode& parent, std::vector
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 2;
-    (*n).docComment = "Persistence rules.";
+    (*n).docComment = "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"persistenceMethod", "String", "Persistence Method", false, "Cookie, localStorage, user profile", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"crossDeviceSync", "bool", "Cross-Device Sync", false, "Sync preference across devices", 1, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"anonymousPersistence", "String", "Anonymous Persistence", false, "How preference persists for guests", 2, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag\",\"ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices\"],\"connotation\":\"How the chosen language and country preference is stored and synchronized across sessions and devices.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"guestRetention", "String", "Guest Retention", false, "Whether and for how long a preference chosen before sign-in is retained", 0, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"signInCarryOver", "String", "Sign-In Carry-Over", false, "What happens to a guest-chosen locale when the user signs in and a stored preference applies", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reselectionPrompt", "String", "Re-Selection Prompt", false, "When the user is asked to confirm or re-pick the retained preference", 2, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag\",\"ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions\"],\"connotation\":\"How a chosen language and country preference is retained across sessions, before and after the user is identified.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -46470,7 +46507,7 @@ void buildMessageKeyRegistryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).contentHelp = "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n";
+    (*n).contentHelp = "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n";
     parent.addChild(std::move(n));
   }
   {
@@ -85497,7 +85534,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"componentId", "String", "Component ID", true, "Unique identifier (e.g., CMP-DTT-001)", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"componentName", "String", "Component Name", true, "Human-readable name", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"flutterWidgetBase", "String", "Flutter Widget Base", false, "Base Flutter widget (DataTable, TextField)", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 3, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85938,7 +85975,7 @@ void buildUiComponentsChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designSystemName", "String", "Design System Name", false, "Name of the design system (e.g., \"Acme Design System\")", 0, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designSystemVersion", "String", "Design System Version", false, "Semantic version of the design system (e.g., \"2.1.0\")", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"basedOnFramework", "String", "Based On Framework", false, "Material Design 3, Cupertino, Custom", 2, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tomFlutterUiIntegration", "bool", "Tom Flutter UI Integration", false, "Uses tom_flutter_ui component library", 3, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedLibraryIntegration", "bool", "Shared Library Integration", false, "Builds on the organisation-wide shared component library rather than bespoke components", 3, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -88509,10 +88546,10 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).docComment = "Ordering, rendering, and access rules.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Sort position", 0, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"widgetType", "String", "Widget Type", false, "Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", 1, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayKind", "String", "Display Kind", false, "Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", 1, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "When shown", 2, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Access control", 3, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, widget rendering, and access rules governing a utility navigation item.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, presentation kind, and access rules governing a utility navigation item.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -97182,6 +97219,9 @@ NavResultEnvelope navD13CodeSpecsProjection_resultEnvelope(NavD13CodeSpecsProjec
 NavMessageKeyRegistry navD13CodeSpecsProjection_messageKeyRegistry(NavD13CodeSpecsProjection x) {
   return NavMessageKeyRegistry{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "messageKeyRegistry"))};
 }
+NavNotificationModel navD13CodeSpecsProjection_notificationModel(NavD13CodeSpecsProjection x) {
+  return NavNotificationModel{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notificationModel"))};
+}
 NavDataModel navD13CodeSpecsProjection_dataModel(NavD13CodeSpecsProjection x) {
   return NavDataModel{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataModel"))};
 }
@@ -97274,6 +97314,9 @@ som::SomMetaRef navDataAttributeEntry_temporalTypeOptions(NavDataAttributeEntry 
 }
 som::SomMetaRef navDataAttributeEntry_binaryTypeOptions(NavDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTBI"));
+}
+som::SomMetaRef navDataAttributeEntry_fileReferenceOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTFR"));
 }
 som::SomListMetaRef navDataAttributeEntry_constraints(NavDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaNavFactoryDataAttributeConstraintEntry);
@@ -116731,6 +116774,15 @@ som::SomListMetaRef idD13CodeSpecsProjection_RSFDE_FLDD_LST(IdD13CodeSpecsProjec
 som::SomListMetaRef idD13CodeSpecsProjection_MSGKE_MKEY_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "messageKeyRegistry/MSGKE-MKEY-LST"), metaIdFactoryMessageKeyEntry);
 }
+som::SomListMetaRef idD13CodeSpecsProjection_NTFCH_CHAN_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notificationModel/NTFCH-CHAN-LST"), metaIdFactoryNotificationChannelEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_NTFTY_NOTI_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notificationModel/NTFTY-NOTI-LST"), metaIdFactoryNotificationTypeEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_UNP_PREF_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notificationModel/UNP-PREF-LST"), metaIdFactoryUserNotificationPreferences);
+}
 som::SomListMetaRef idD13CodeSpecsProjection_DAENT_ENTI_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataModel/DAENT-ENTI-LST"), metaIdFactoryDataEntityEntry);
 }
@@ -118941,6 +118993,9 @@ som::SomMetaRef idDataAttributeEntry_DAATT_DTTM(IdDataAttributeEntry x) {
 }
 som::SomMetaRef idDataAttributeEntry_DAATT_DTBI(IdDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTBI"));
+}
+som::SomMetaRef idDataAttributeEntry_DAATT_DTFR(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTFR"));
 }
 som::SomListMetaRef idDataAttributeEntry_DATAA_CONS_LST(IdDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaIdFactoryDataAttributeConstraintEntry);

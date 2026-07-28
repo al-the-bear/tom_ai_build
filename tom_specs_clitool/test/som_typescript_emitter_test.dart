@@ -329,8 +329,8 @@ void main() {
 
     test('the model version comes from the model stamp, not the version label',
         () {
-      // A stamped model reports its real major.minor (§2.1) regardless of the
-      // project version label — the label only names the output project.
+      // A stamped model reports its real major.minor (SOM §4.2) regardless of
+      // the project version label — the label only names the output project.
       final stamped = SpecModel.fromJson({
         ..._fixtureJson(),
         'modelVersion': 1,

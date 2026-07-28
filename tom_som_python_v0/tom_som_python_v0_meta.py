@@ -9126,7 +9126,7 @@ def _mc_ComponentVariantEntry(s):
             type_name="String",
             serialization_order=2,
             doc_comment="Behavioral and implementation notes.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="behaviorDifferences", type_name="String", description="Behavior Differences", hint="How behavior differs from the base component", order=0), SomFormFieldMeta(name="useCaseDifferences", type_name="String", description="Use Case Differences", hint="When to use this variant", order=1), SomFormFieldMeta(name="implementationNote", type_name="String", description="Implementation Note", hint="How variant is implemented", order=2), SomFormFieldMeta(name="flutterVariant", type_name="String", description="Flutter Variant", hint="Corresponding Flutter variant", order=3)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="behaviorDifferences", type_name="String", description="Behavior Differences", hint="How behavior differs from the base component", order=0), SomFormFieldMeta(name="useCaseDifferences", type_name="String", description="Use Case Differences", hint="When to use this variant", order=1), SomFormFieldMeta(name="implementationNote", type_name="String", description="Implementation Note", hint="How variant is implemented", order=2), SomFormFieldMeta(name="libraryVariant", type_name="String", description="Library Variant", hint="Corresponding variant in the shared component library, if one exists", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Material Design — component variants may adjust behavior in addition to appearance", "ISO/IEC 25010:2023 — variant behavior differences are captured to preserve modularity and reusability", "ISO 9241-110:2020 — variant behavior remains consistent with user expectations"], "connotation": "The variant behavior definition describing how a component variant differs in behavior and implementation."})]),
          SomMetaNode(
             class_name="ComponentVariantEntry",
@@ -11344,8 +11344,8 @@ def _mc_D03InformationModel(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="DomainEnumRegistry",
                 serialization_order=14,
-                doc_comment="Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).",
-                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+                doc_comment="Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
                 recursive=r,
                 children=c)),
          _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -11380,8 +11380,8 @@ def _mc_D03InformationModel(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="MessageKeyRegistry",
                 serialization_order=17,
-                doc_comment="Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).",
-                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                doc_comment="Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).",
+                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
                 recursive=r,
                 children=c)),
     ]
@@ -12888,9 +12888,9 @@ def _mc_D13CodeSpecsProjection(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="DomainEnumRegistry",
                 serialization_order=2,
-                comment="locus: shared — CE-EN",
-                doc_comment="Domain enum registry — CE-EN closed value sets, shared by client & server.",
-                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+                comment="locus: shared — domainEnum (member kind)",
+                doc_comment="Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
                 recursive=r,
                 children=c)),
          _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -12929,7 +12929,20 @@ def _mc_D13CodeSpecsProjection(s):
                 serialization_order=5,
                 comment="locus: shared — CE-TX",
                 doc_comment="Message key registry — CE-TX author-copy-once keys, shared.",
-                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                recursive=r,
+                children=c)),
+         _cx("NotificationModel", s, _mc_NotificationModel,
+            lambda r, c: SomMetaNode(
+                class_name="NotificationModel",
+                member_name="notificationModel",
+                class_section_id="NM",
+                kind=SomMetaKind.COMPLEX,
+                type_name="NotificationModel",
+                serialization_order=6,
+                comment="locus: shared — CE-NT",
+                doc_comment="Notification model — CE-NT type / channel / preference declarations.\n\nThe declarations are **shared**: the client renders the preference UI\nagainst the same catalogue the server dispatches from. Delivery is\nserver-only, but it is not authored here — it rides the reused\n`tom_core_server` messaging transport.",
+                class_doc_comment="4.1.5.5. Notification Model.\n\nDefines how the system notifies users of events, updates, and actions\nacross different channels.",
                 recursive=r,
                 children=c)),
          _cx("DataModel", s, _mc_DataModel,
@@ -12939,7 +12952,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="DATMD",
                 kind=SomMetaKind.COMPLEX,
                 type_name="DataModel",
-                serialization_order=6,
+                serialization_order=7,
                 comment="locus: server — CE-DB/CE-VA",
                 doc_comment="Data model — CE-DB persistence + CE-VA server-side rules.",
                 class_doc_comment="7.1. Data Model.",
@@ -12953,7 +12966,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="TECH",
                 kind=SomMetaKind.COMPLEX,
                 type_name="TechnicalFrameworkConcept",
-                serialization_order=7,
+                serialization_order=8,
                 comment="locus: server — CE-CF",
                 doc_comment="Technical framework — CE-CF platform/config foundation.",
                 class_doc_comment="8. Technical Framework Concept. Seeds → ATS.",
@@ -12967,7 +12980,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="ACCM",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AccessControlModel",
-                serialization_order=8,
+                serialization_order=9,
                 comment="locus: server — CE-AZ",
                 doc_comment="Access control model — CE-AZ authorization/identity seed.",
                 class_doc_comment="SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
@@ -12980,7 +12993,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="PSAAI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessStepsAndActorInteractions",
-                serialization_order=9,
+                serialization_order=10,
                 comment="locus: server(CE-SU)+client(CE-SC)",
                 doc_comment="Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
                 class_doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
@@ -12994,7 +13007,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="XCS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExperienceCodeSpecs",
-                serialization_order=10,
+                serialization_order=11,
                 comment="locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER",
                 doc_comment="Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
                 class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
@@ -13230,7 +13243,7 @@ def _mc_DataAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=1,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="DataAttributeKind", description="Data Type", hint="The logical type — selects the promoted options subsection.", order=0, enum_values=["string", "integer", "decimal", "date", "dateTime", "binary", "boolean", "uuid", "json", "enumeration"]), SomFormFieldMeta(name="physicalType", type_name="String", description="Physical Type", hint="Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format", hint="Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="DataAttributeKind", description="Data Type", hint="The logical type — selects the promoted options subsection.", order=0, enum_values=["string", "integer", "decimal", "date", "dateTime", "binary", "fileReference", "boolean", "uuid", "json", "enumeration"]), SomFormFieldMeta(name="physicalType", type_name="String", description="Physical Type", hint="Database type: VARCHAR(255), BIGINT, DECIMAL(10,2), TIMESTAMP", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format", hint="Display or storage format (e.g., YYYY-MM-DD, E.164 for phone)", order=2)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
             member_name="textTypeOptions",
@@ -13268,9 +13281,19 @@ def _mc_DataAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=5,
-            doc_comment="Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="maxSizeBytes", type_name="String", description="Max Size (Bytes)", hint="Maximum stored size in bytes", order=0), SomFormFieldMeta(name="storageMode", type_name="String", description="Storage Mode", hint="Inline | External-Reference | Blob-Store", order=1)]),
+            doc_comment="Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="maxSizeBytes", type_name="String", description="Max Size (Bytes)", hint="Maximum stored size in bytes", order=0)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element"], "connotation": "The stored size constraints for a binary attribute."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.binary"})]),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
+            member_name="fileReferenceOptions",
+            section_id="DAATT-DTFR",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=6,
+            doc_comment="File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="storageGroup", type_name="String", description="Storage Group", required=True, hint="Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)", order=0), SomFormFieldMeta(name="fileStore", type_name="String", description="File Store", hint="Name of the configured file store holding the files; empty means the deployment default store", order=1), SomFormFieldMeta(name="deleteWithRecord", type_name="String", description="Delete With Record", hint="Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)", order=2), SomFormFieldMeta(name="acceptedContentKinds", type_name="String", description="Accepted Content Kinds", hint="Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted", order=3), SomFormFieldMeta(name="defaultContentKind", type_name="String", description="Default Content Kind", hint="Content kind recorded when an upload declares none", order=4), SomFormFieldMeta(name="maxFileSizeBytes", type_name="String", description="Max File Size (Bytes)", hint="Maximum accepted file size in bytes", order=5)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "RFC 6838 — media type specifications and registration procedures"], "connotation": "Where a referenced file is stored, how long it lives and what may be uploaded into it."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.fileReference"})]),
          SomMetaNode(
             class_name="DataAttributeEntry",
             member_name="constraints",
@@ -13278,7 +13301,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DATAA-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeConstraintEntry",
-            serialization_order=6,
+            serialization_order=7,
             content_help="Add one entry per attribute constraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."})],
             element_node=_cx("DataAttributeConstraintEntry", s, _mc_DataAttributeConstraintEntry, lambda r, c: SomMetaNode(class_name="DataAttributeConstraintEntry", class_section_id="DATAA", kind=SomMetaKind.COMPLEX, type_name="DataAttributeConstraintEntry", doc_comment="A single constraint entry.", class_doc_comment="A single constraint entry.", recursive=r, children=c))),
@@ -13288,7 +13311,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DERI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=7,
+            serialization_order=8,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="isComputed", type_name="String", description="Is Computed", hint="Whether value is computed: Yes | No", order=0), SomFormFieldMeta(name="computeFormula", type_name="String", description="Compute Formula", hint="Formula or expression for computed fields", order=1), SomFormFieldMeta(name="isDerived", type_name="String", description="Is Derived", hint="Whether derived from other attributes: Yes | No", order=2), SomFormFieldMeta(name="derivationLogic", type_name="String", description="Derivation Logic", hint="How derived value is calculated", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13296,7 +13319,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-SECU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sensitivityLevel", type_name="String", description="Sensitivity Level", hint="Public | Internal | Confidential | Restricted | PII | PHI", order=0), SomFormFieldMeta(name="isPii", type_name="String", description="Is PII", hint="Personally identifiable information: Yes | No", order=1), SomFormFieldMeta(name="maskingRule", type_name="String", description="Masking Rule", hint="How to mask in logs/displays: None | Partial | Full | Hash", order=2), SomFormFieldMeta(name="encryptionLevel", type_name="String", description="Encryption Level", hint="Field-level encryption: None | Encrypted | Tokenized", order=3), SomFormFieldMeta(name="auditLevel", type_name="String", description="Audit Level", hint="Change tracking: None | ValueChanges | FullHistory", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13304,7 +13327,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-MIGR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="Originating system for data lineage", order=0), SomFormFieldMeta(name="sourceAttribute", type_name="String", description="Source Attribute", hint="Source field name for migration mapping", order=1), SomFormFieldMeta(name="transformationRule", type_name="String", description="Transformation Rule", hint="Transformation applied during migration/ETL", order=2), SomFormFieldMeta(name="dataLineage", type_name="String", description="Data Lineage", hint="Upstream sources that feed this attribute", order=3), SomFormFieldMeta(name="qualityRules", type_name="String", description="Quality Rules", hint="Data quality checks (e.g., completeness, accuracy)", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13313,7 +13336,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DISPL-DISP-xxx",
             kind=SomMetaKind.LIST,
             type_name="DisplayPropertyEntry",
-            serialization_order=10,
+            serialization_order=11,
             content_help="Add one entry per display property.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."})],
             element_node=_cx("DisplayPropertyEntry", s, _mc_DisplayPropertyEntry, lambda r, c: SomMetaNode(class_name="DisplayPropertyEntry", class_section_id="DISPL", kind=SomMetaKind.COMPLEX, type_name="DisplayPropertyEntry", doc_comment="A single display property entry.", class_doc_comment="A single display property entry.", recursive=r, children=c))),
@@ -18551,7 +18574,7 @@ def _mc_DomainEnumRegistry(s):
             type_name="String",
             serialization_order=0,
             content_type=SomContentTypeMeta(type="text", description=""),
-            content_help="Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"),
+            content_help="Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n"),
          SomMetaNode(
             class_name="DomainEnumRegistry",
             member_name="enums",
@@ -18563,7 +18586,7 @@ def _mc_DomainEnumRegistry(s):
             content_help="Add one entry per domain enum (closed value set).",
             doc_comment="7.5.1. Domain Enums — one entry per closed value set.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / value-domain enumerations"], "connotation": "The catalogued domain enums, each a named closed value set."})],
-            element_node=_cx("DomainEnumEntry", s, _mc_DomainEnumEntry, lambda r, c: SomMetaNode(class_name="DomainEnumEntry", class_section_id="DMENE", kind=SomMetaKind.COMPLEX, type_name="DomainEnumEntry", doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", class_doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", recursive=r, children=c))),
+            element_node=_cx("DomainEnumEntry", s, _mc_DomainEnumEntry, lambda r, c: SomMetaNode(class_name="DomainEnumEntry", class_section_id="DMENE", kind=SomMetaKind.COMPLEX, type_name="DomainEnumEntry", doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", class_doc_comment="A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.", recursive=r, children=c))),
     ]
 
 
@@ -24249,7 +24272,7 @@ def _mc_InformationAndDataModel(s):
                 type_name="DomainEnumRegistry",
                 serialization_order=5,
                 doc_comment="7.5. Domain Enum Registry.",
-                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
+                class_doc_comment="7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.",
                 recursive=r,
                 children=c)),
          _cx("ErrorCodeRegistry", s, _mc_ErrorCodeRegistry,
@@ -24285,7 +24308,7 @@ def _mc_InformationAndDataModel(s):
                 type_name="MessageKeyRegistry",
                 serialization_order=8,
                 doc_comment="7.8. Message Key Registry.",
-                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+                class_doc_comment="7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
                 recursive=r,
                 children=c)),
          _cx("DataModelFollowUp", s, _mc_DataModelFollowUp,
@@ -26815,9 +26838,9 @@ def _mc_LanguageCountrySelection(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=2,
-            doc_comment="Persistence rules.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="persistenceMethod", type_name="String", description="Persistence Method", hint="Cookie, localStorage, user profile", order=0), SomFormFieldMeta(name="crossDeviceSync", type_name="bool", description="Cross-Device Sync", hint="Sync preference across devices", order=1), SomFormFieldMeta(name="anonymousPersistence", type_name="String", description="Anonymous Persistence", hint="How preference persists for guests", order=2)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag", "ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices"], "connotation": "How the chosen language and country preference is stored and synchronized across sessions and devices."})]),
+            doc_comment="Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="guestRetention", type_name="String", description="Guest Retention", hint="Whether and for how long a preference chosen before sign-in is retained", order=0), SomFormFieldMeta(name="signInCarryOver", type_name="String", description="Sign-In Carry-Over", hint="What happens to a guest-chosen locale when the user signs in and a stored preference applies", order=1), SomFormFieldMeta(name="reselectionPrompt", type_name="String", description="Re-Selection Prompt", hint="When the user is asked to confirm or re-pick the retained preference", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag", "ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions"], "connotation": "How a chosen language and country preference is retained across sessions, before and after the user is identified."})]),
          SomMetaNode(
             class_name="LanguageCountrySelection",
             member_name="fallback",
@@ -28312,7 +28335,7 @@ def _mc_MessageKeyRegistry(s):
             type_name="String",
             serialization_order=0,
             content_type=SomContentTypeMeta(type="text", description=""),
-            content_help="Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"),
+            content_help="Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n"),
          SomMetaNode(
             class_name="MessageKeyRegistry",
             member_name="messageKeys",
@@ -52119,7 +52142,7 @@ def _mc_UiComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier (e.g., CMP-DTT-001)", order=0), SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Human-readable name", order=1), SomFormFieldMeta(name="componentFamily", type_name="String", description="Component Family", hint="Button, Input, Table, Navigation, etc.", order=2), SomFormFieldMeta(name="flutterWidgetBase", type_name="String", description="Flutter Widget Base", hint="Base Flutter widget (DataTable, TextField)", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier (e.g., CMP-DTT-001)", order=0), SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Human-readable name", order=1), SomFormFieldMeta(name="componentFamily", type_name="String", description="Component Family", hint="Button, Input, Table, Navigation, etc.", order=2), SomFormFieldMeta(name="baseComponent", type_name="String", description="Base Component", hint="Base component of the shared library this one specialises (Data Table, Text Input)", order=3)])),
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="purposeProfile",
@@ -52346,7 +52369,7 @@ def _mc_UiComponents(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="designSystemName", type_name="String", description="Design System Name", hint="Name of the design system (e.g., \"Acme Design System\")", order=0), SomFormFieldMeta(name="designSystemVersion", type_name="String", description="Design System Version", hint="Semantic version of the design system (e.g., \"2.1.0\")", order=1), SomFormFieldMeta(name="basedOnFramework", type_name="String", description="Based On Framework", hint="Material Design 3, Cupertino, Custom", order=2), SomFormFieldMeta(name="tomFlutterUiIntegration", type_name="bool", description="Tom Flutter UI Integration", hint="Uses tom_flutter_ui component library", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="designSystemName", type_name="String", description="Design System Name", hint="Name of the design system (e.g., \"Acme Design System\")", order=0), SomFormFieldMeta(name="designSystemVersion", type_name="String", description="Design System Version", hint="Semantic version of the design system (e.g., \"2.1.0\")", order=1), SomFormFieldMeta(name="basedOnFramework", type_name="String", description="Based On Framework", hint="Material Design 3, Cupertino, Custom", order=2), SomFormFieldMeta(name="sharedLibraryIntegration", type_name="bool", description="Shared Library Integration", hint="Builds on the organisation-wide shared component library rather than bespoke components", order=3)])),
          SomMetaNode(
             class_name="UiComponents",
             member_name="visualLanguage",
@@ -54006,8 +54029,8 @@ def _mc_UtilityNavigationItemEntry(s):
             type_name="String",
             serialization_order=1,
             doc_comment="Ordering, rendering, and access rules.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Sort position", order=0), SomFormFieldMeta(name="widgetType", type_name="String", description="Widget Type", hint="Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", order=1), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When shown", order=2), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Access control", order=3)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options", "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"], "connotation": "The display order, widget rendering, and access rules governing a utility navigation item."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Sort position", order=0), SomFormFieldMeta(name="displayKind", type_name="String", description="Display Kind", hint="Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", order=1), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When shown", order=2), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Access control", order=3)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options", "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"], "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."})]),
          SomMetaNode(
             class_name="UtilityNavigationItemEntry",
             member_name="behavior",
@@ -61477,6 +61500,10 @@ class D13CodeSpecsProjectionNav(SomMetaRef):
         return MessageKeyRegistryNav(self.tree, f"{self.path}/messageKeyRegistry")
 
     @property
+    def notificationModel(self):
+        return NotificationModelNav(self.tree, f"{self.path}/notificationModel")
+
+    @property
     def dataModel(self):
         return DataModelNav(self.tree, f"{self.path}/dataModel")
 
@@ -61655,6 +61682,10 @@ class DataAttributeEntryNav(SomMetaRef):
     @property
     def binaryTypeOptions(self):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DTBI")
+
+    @property
+    def fileReferenceOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTFR")
 
     @property
     def constraints(self):
@@ -95312,6 +95343,18 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/messageKeyRegistry/MSGKE-MKEY-LST", MessageKeyEntryId)
 
     @property
+    def NTFCH_CHAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/notificationModel/NTFCH-CHAN-LST", NotificationChannelEntryId)
+
+    @property
+    def NTFTY_NOTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/notificationModel/NTFTY-NOTI-LST", NotificationTypeEntryId)
+
+    @property
+    def UNP_PREF_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/notificationModel/UNP-PREF-LST", UserNotificationPreferencesId)
+
+    @property
     def DAENT_ENTI_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/dataModel/DAENT-ENTI-LST", DataEntityEntryId)
 
@@ -98286,6 +98329,10 @@ class DataAttributeEntryId(SomMetaRef):
     @property
     def DAATT_DTBI(self):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DTBI")
+
+    @property
+    def DAATT_DTFR(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTFR")
 
     @property
     def DATAA_CONS_LST(self):

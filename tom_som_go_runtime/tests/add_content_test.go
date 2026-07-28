@@ -1,5 +1,5 @@
 // Behavioural tests for the SomList content conveniences AddContent / Contents
-// (SOM roadmap § item 9) — the Go port of the Dart SomList.addContent /
+// (SOM §21) — the Go port of the Dart SomList.addContent /
 // SomList.contents.
 //
 // AddContent appends a content-only item and writes its nested "<itemPath>/content"

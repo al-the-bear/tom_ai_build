@@ -653,8 +653,9 @@ fn test_markdown_fence_shielded_headings_stay_body(c: &mut Checker) {
     );
 }
 
-/// §9.2: a stored codeSpec mapping rides inside the same headline comment as a
-/// `codeSpec="…"` key; untouched sections stay byte-stable (no empty attr).
+/// codespecs_mapping.md §9.2: a stored codeSpec mapping rides inside the same
+/// headline comment as a `codeSpec="…"` key; untouched sections stay
+/// byte-stable (no empty attr).
 fn test_markdown_code_spec_rides_in_headline_comment(c: &mut Checker) {
     let mut doc = populated_demo_doc();
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
@@ -674,7 +675,8 @@ fn test_markdown_code_spec_rides_in_headline_comment(c: &mut Checker) {
     );
 }
 
-/// §9.2: the codeSpec mapping is parsed back out of the heading comment.
+/// codespecs_mapping.md §9.2: the codeSpec mapping is parsed back out of the
+/// heading comment.
 fn test_markdown_code_spec_parsed_back_out(c: &mut Checker) {
     let mut doc = populated_demo_doc();
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total");
@@ -687,8 +689,9 @@ fn test_markdown_code_spec_parsed_back_out(c: &mut Checker) {
     );
 }
 
-/// §9.2: a stored codeSpec + headline round-trips byte-identically through
-/// `load_json` (with the `code_specs` store) and re-export.
+/// codespecs_mapping.md §9.2: a stored codeSpec + headline round-trips
+/// byte-identically through `load_json` (with the `code_specs` store) and
+/// re-export.
 fn test_markdown_code_spec_and_headline_round_trip_byte_stable(c: &mut Checker) {
     let mut doc = populated_demo_doc();
     doc.set_headline("D00/D00-OVR", "Custom Overview");

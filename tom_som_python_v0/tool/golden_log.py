@@ -114,13 +114,13 @@ def main() -> None:
     for p in sorted(doc.headline_paths):
         out.append("H\t%s\t%s" % (p, esc(doc.headline(p) or "")))
 
-    # Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+    # Generic: every stored codeSpec, sorted by path (FORMAT 8, codespecs_mapping.md §9.2 mirror of headline).
     out.append("SECTION\tgeneric-codespecs")
     for p in sorted(doc.code_spec_paths):
         out.append("CS\t%s\t%s" % (p, esc(doc.code_spec(p) or "")))
 
     # Typed cross-check of the same two mappings through the facade's structural
-    # codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+    # codeSpec accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in the CS
     # lines above, so a duplicate line would add no information — what this adds
     # is the assertion that the typed accessor reads the same store the generic
     # API does. A divergence aborts the generator.

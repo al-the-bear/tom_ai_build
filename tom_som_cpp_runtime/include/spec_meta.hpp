@@ -215,7 +215,7 @@ bool matchesSectionIdPattern(const std::string& pattern, const std::string& id);
 /* ---- generated accessor support (SOM §8) -------------------------------- */
 
 /* One position of the generated dot-notation / ID-tree access surfaces (SOM
- * §8): an absolute document path bound to the tree it belongs to. */
+ * SOM §8): an absolute document path bound to the tree it belongs to. */
 class SomMetaRef {
  public:
   const SomMetaTree* tree = nullptr;  // borrowed

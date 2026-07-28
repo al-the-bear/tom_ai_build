@@ -145,7 +145,7 @@ char *spec_markdown_export_root(const SpecModel *model,
                                 const SpecDocument *document,
                                 const SpecRoot *root, char **err);
 
-/* Renders `document` to Markdown in one call (SOM § item 12), returning the
+/* Renders `document` to Markdown in one call (SOM §21), returning the
  * owned output of `spec_markdown_export_root` (caller frees with `free`).
  *
  * When `root_type` is non-NULL and non-empty, that root is exported (via

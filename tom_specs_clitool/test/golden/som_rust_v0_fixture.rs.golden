@@ -15,7 +15,7 @@ use tom_som_rust_runtime as som;
 /// Error surfaced by the generated one-call loaders (`load_yaml` / `load_file`):
 /// either the metadata-driven decode failed (`som::SpecYamlError`) or the
 /// document's authoring stamp is not editable by this object model
-/// (`som::SomVersionError`, §2.2).
+/// (`som::SomVersionError`, SOM §4.2).
 #[derive(Debug)]
 pub enum SomLoadError {
     Yaml(som::SpecYamlError),
@@ -58,7 +58,7 @@ impl CurrentLandscapeAssessment {
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
         false
@@ -85,7 +85,7 @@ impl Risk {
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
         false
@@ -115,33 +115,33 @@ pub struct SolutionBlueprint {
     pub node: som::SomNode,
 }
 
-/// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (§2.1).
+/// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version this object model was generated against (SOM §4.2).
 pub const SOLUTION_BLUEPRINT_MODEL_VERSION: &str = "0.0";
 
 impl SolutionBlueprint {
     /// Creates the typed facade at the document root and verifies the
-    /// document's authoring `document_version` is editable (§2.2). A non-editable
+    /// document's authoring `document_version` is editable (SOM §4.2). A non-editable
     /// stamp yields a `som::SomVersionError`.
     pub fn new(doc: som::DocRef, document_version: &str) -> Result<SolutionBlueprint, som::SomVersionError> {
         som::check_som_model_version(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)?;
         Ok(SolutionBlueprint { node: som::SomNode::new(doc, "PD00".to_string()) })
     }
 
-    /// Returns this object model's own model version (major.minor), per §2.1.
+    /// Returns this object model's own model version (major.minor), per SOM §4.2.
     pub fn object_model_version(&self) -> &'static str {
         SOLUTION_BLUEPRINT_MODEL_VERSION
     }
 
     /// Classifies whether a document authored under `document_version` is
-    /// editable by this object model **without erroring** (§ item 8) — the
-    /// non-erroring companion to the constructor's §2.2 check, so a read-only
+    /// editable by this object model **without erroring** (SOM §21) — the
+    /// non-erroring companion to the constructor's SOM §4.2 check, so a read-only
     /// viewer can branch instead of handling a `som::SomVersionError`.
     pub fn editability_for(document_version: &str) -> som::SomEditability {
         som::som_editability_for(SOLUTION_BLUEPRINT_MODEL_VERSION, document_version)
     }
 
     /// Loads a `*.docspecs.yaml` document and returns the typed root with the
-    /// document's authoring stamp already applied (§ item 4) — one call for
+    /// document's authoring stamp already applied (SOM §21) — one call for
     /// the former decode → load_json → thread-`document_version` sequence.
     /// Decoding is metadata-driven (SOM §7.2): the generated tree from `meta` guides
     /// the tree-based codec.
@@ -162,7 +162,7 @@ impl SolutionBlueprint {
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
         false
@@ -218,7 +218,7 @@ impl SolutionBlueprintOwnerForm {
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
-    /// (§ item 10) — a **structural** predicate answering "can this section hold
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
         true

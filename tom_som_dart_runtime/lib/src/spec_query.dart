@@ -14,12 +14,12 @@
 ///     `@MapsTo` / `@DetailedIn` target on the node's class;
 ///   * **state** — empty / non-empty (the structural "empty = no value" test).
 ///
-/// [SpecQueryEngine.query] returns a [SpecQueryCursor] the caller iterates lazily
-/// (`next` / `take` / `count`). The cursor captures the **structural** candidate
-/// set when it is created, then **re-validates each path against the live
-/// document on every step** — so a result whose list-item ancestor was removed
-/// after the cursor was made is silently skipped (stable against concurrent
-/// edits, §6).
+/// [SpecQueryEngine.query] returns a [SpecQueryCursor] the caller iterates
+/// lazily (`next` / `take` / `count`). The cursor captures the **structural**
+/// candidate set when it is created, then **re-validates each path against the
+/// live document on every step** — so a result whose list-item ancestor was
+/// removed after the cursor was made is silently skipped (stable against
+/// concurrent edits, llm_and_d4rt_tools.md §6).
 library;
 
 import 'spec_document.dart';
@@ -67,8 +67,8 @@ class SpecMatchSpan {
 ///
 /// Produced by [SpecQueryEngine.projectNodes] / [SpecQueryEngine.projectNode],
 /// which reuse the same structural-closure walk and value-extraction the live
-/// query uses — so the index and the live §6 search agree on what a node is and
-/// what text it carries — with no model (LLM) calls.
+/// query uses — so the index and the live llm_and_d4rt_tools.md §6 search agree
+/// on what a node is and what text it carries — with no model (LLM) calls.
 class SpecNodeProjection {
   /// The globally-unique section-id path the node lives at.
   final String path;
@@ -117,7 +117,8 @@ class SpecNodeProjection {
   String toString() => 'SpecNodeProjection($path, $kind)';
 }
 
-/// One node matched by a [SpecQuery] (the §6 cursor record).
+/// One node matched by a [SpecQuery] (the llm_and_d4rt_tools.md §6 cursor
+/// record).
 class SpecQueryMatch {
   /// The globally-unique section-ID path the node lives at.
   final String path;
@@ -153,9 +154,9 @@ class SpecQueryMatch {
   String toString() => 'SpecQueryMatch($path, $kind)';
 }
 
-/// An AND-combined lexical/structural query (§6). Every supplied dimension must
-/// hold for a node to match; an all-`null` query matches every node in the
-/// document's structural closure.
+/// An AND-combined lexical/structural query (llm_and_d4rt_tools.md §6). Every
+/// supplied dimension must hold for a node to match; an all-`null` query
+/// matches every node in the document's structural closure.
 class SpecQuery {
   /// Substring (or [regex]) to find in content + form values and the headline.
   final String? text;
@@ -239,11 +240,12 @@ class SpecQueryEngine {
 
   // --- flat node projection (tier-1 index source) -------------------------
 
-  /// Projects every indexable node of the live document (the §6 structural
-  /// closure) as a flat [SpecNodeProjection], in document order. Reuses the same
-  /// walk and value extraction the query uses, so the index built from these
-  /// projections and the live §6 search agree on what a node is and what text it
-  /// carries. Pure object-model traversal — no model (LLM) calls.
+  /// Projects every indexable node of the live document (the
+  /// llm_and_d4rt_tools.md §6 structural closure) as a flat
+  /// [SpecNodeProjection], in document order. Reuses the same walk and value
+  /// extraction the query uses, so the index built from these projections and
+  /// the live llm_and_d4rt_tools.md §6 search agree on what a node is and what
+  /// text it carries. Pure object-model traversal — no model (LLM) calls.
   Iterable<SpecNodeProjection> projectNodes() sync* {
     for (final path in _enumeratePaths()) {
       final projection = projectNode(path);
@@ -504,7 +506,8 @@ class SpecQueryEngine {
   }
 }
 
-/// A lazy, forward-only cursor over the nodes matching a [SpecQuery] (§6).
+/// A lazy, forward-only cursor over the nodes matching a [SpecQuery]
+/// (llm_and_d4rt_tools.md §6).
 ///
 /// The cursor holds the structural candidate paths captured when it was created;
 /// each step re-validates the path against the **live** document and re-applies

@@ -431,7 +431,8 @@ public final class SpecDocumentYaml {
         writeText(b, indent, "headline", ownHeadline);
       }
 
-      // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+      // The node's own codeSpec mapping — the literal `codeSpec` key
+      // (codespecs_mapping.md §9.2).
       if (codeSpecs.containsKey(path)) {
         String ownCodeSpec = codeSpecs.remove(path);
         for (SomMetaNode c : node.children) {
@@ -512,12 +513,12 @@ public final class SpecDocumentYaml {
     }
 
     /**
-     * Emits a scalar-valued node (content/scalar/enum leaf or scalar list
-     * item) that carries a stored headline and/or a codeSpec mapping as a
-     * {@code {headline?: …, codeSpec?: …, content?: …}} mapping (YRD3 + §9.2).
-     * At least one of {@code headline}/{@code codeSpec} is non-null at every
-     * call site; {@code null} means "absent". {@code value == null} means "no
-     * content".
+     * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
+     * that carries a stored headline and/or a codeSpec mapping as a {@code
+     * {headline?: …, codeSpec?: …, content?: …}} mapping (YRD3 +
+     * codespecs_mapping.md §9.2). At least one of {@code headline}/{@code
+     * codeSpec} is non-null at every call site; {@code null} means "absent".
+     * {@code value == null} means "no content".
      */
     private void writeScalarWithMeta(StringBuilder b, int indent, String key,
         String headline, String codeSpec, String value, boolean text) {
@@ -888,8 +889,9 @@ public final class SpecDocumentYaml {
                 continue;
               }
               if (name.equals("codeSpec")) {
-                // The form's own codeSpec mapping (§9.2) — only reachable when
-                // the model declares no field literally named `codeSpec`.
+                // The form's own codeSpec mapping (codespecs_mapping.md §9.2) —
+                // only reachable when the model declares no field literally
+                // named `codeSpec`.
                 doc.setCodeSpec(path, scalarOf(fe.getValue(), path + " (codeSpec)"));
                 continue;
               }
@@ -939,7 +941,8 @@ public final class SpecDocumentYaml {
           continue;
         }
         if (key.equals("codeSpec")) {
-          // The list container's own codeSpec mapping (§9.2), not an item.
+          // The list container's own codeSpec mapping (codespecs_mapping.md
+          // §9.2), not an item.
           doc.setCodeSpec(path, scalarOf(value, path + " (codeSpec)"));
           continue;
         }
@@ -959,8 +962,9 @@ public final class SpecDocumentYaml {
           }
           if (value instanceof Map) {
             if (!((Map<?, ?>) value).isEmpty()) {
-              // A populated mapping is the YRD3 + §9.2 `{headline?: …,
-              // codeSpec?: …, content?: …}` extension for scalar list items.
+              // A populated mapping is the YRD3 + codespecs_mapping.md §9.2
+              // `{headline?: …, codeSpec?: …, content?: …}` extension for
+              // scalar list items.
               loadScalarWithMeta(itemPath, key, (Map<String, Object>) value);
               continue;
             }
@@ -984,9 +988,9 @@ public final class SpecDocumentYaml {
     }
 
     /**
-     * Loads a scalar-valued node written as the YRD3 + §9.2
-     * {@code {headline?: …, codeSpec?: …, content?: …}} mapping — only those
-     * three keys are legal.
+     * Loads a scalar-valued node written as the YRD3 + codespecs_mapping.md
+     * §9.2 {@code {headline?: …, codeSpec?: …, content?: …}} mapping — only
+     * those three keys are legal.
      */
     private void loadScalarWithMeta(String path, String key, Map<String, Object> value) {
       for (Map.Entry<String, Object> entry : value.entrySet()) {

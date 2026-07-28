@@ -101,7 +101,7 @@ fn main() {
         out.push(format!("H\t{}\t{}", p, esc(&doc.headline_or(p))));
     }
 
-    // Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+    // Generic: every stored codeSpec, sorted by path (FORMAT 8, codespecs_mapping.md §9.2 mirror of headline).
     out.push("SECTION\tgeneric-codespecs".to_string());
     let mut code_spec_paths = doc.code_spec_paths();
     code_spec_paths.sort();
@@ -110,7 +110,7 @@ fn main() {
     }
 
     // Typed cross-check of the same two mappings through the facade's structural
-    // `code_spec` accessor (§9.2). Emits nothing: the values are already in the
+    // `code_spec` accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in the
     // `CS` lines above, so a duplicate line would add no information — what this
     // adds is the assertion that the typed accessor reads the same store the
     // generic API does. A divergence aborts the generator.

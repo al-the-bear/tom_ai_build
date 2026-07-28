@@ -71,19 +71,20 @@ public class SomNode {
   }
 
   /**
-   * This section's CodeSpecs forward link ({@code codespecs_mapping.md} §9.2) as
-   * the comma-joined list of code locations, or {@code null} when the section
-   * carries no mapping. Sparse exactly like {@link #$headline()}, and named
-   * {@code $codeSpec} for the same collision-proofing reason as
-   * {@link #$sectionId()}.
+   * This section's CodeSpecs forward link ({@code codespecs_mapping.md}
+   * codespecs_mapping.md §9.2) as the comma-joined list of code locations, or
+   * {@code null} when the section carries no mapping. Sparse exactly like
+   * {@link #$headline()}, and named {@code $codeSpec} for the same
+   * collision-proofing reason as {@link #$sectionId()}.
    */
   public String $codeSpec() {
     return doc.codeSpec(path);
   }
 
   /**
-   * Sets this section's CodeSpecs forward link (§9.2). An empty value clears it,
-   * returning the section to "no code mapping". A {@code null} value is ignored.
+   * Sets this section's CodeSpecs forward link (codespecs_mapping.md §9.2). An
+   * empty value clears it, returning the section to "no code mapping". A {@code
+   * null} value is ignored.
    */
   public void $codeSpec(String value) {
     if (value != null) {
@@ -93,7 +94,7 @@ public class SomNode {
 
   /**
    * True iff this section holds no value at its {@link #path} or nested beneath
-   * it (SOM § item 5) — delegates to {@link SpecDocument#hasValuesUnder}.
+   * it (SOM §21) — delegates to {@link SpecDocument#hasValuesUnder}.
    * Inherited by every generated section facade.
    */
   public boolean isEmpty() {
@@ -103,7 +104,7 @@ public class SomNode {
   /**
    * Whether this section <b>type</b> declares the standard {@code content} text
    * leaf — i.e. whether the {@code content()} getter/setter exists on it
-   * (SOM § item 10).
+   * (SOM §21).
    *
    * <p>This is a <b>structural / schema</b> predicate: a compile-time constant of
    * the section's type, answering "<em>can</em> this section hold body text?"

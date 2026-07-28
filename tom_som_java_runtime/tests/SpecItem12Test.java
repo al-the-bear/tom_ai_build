@@ -11,7 +11,7 @@ import tom_som_runtime.SpecRoot;
 
 /**
  * Dependency-free unit tests for {@link SpecModel#rootByType} and
- * {@link SpecDocument#toMarkdown} (SOM § item 12). Mirrors the Dart reference
+ * {@link SpecDocument#toMarkdown} (SOM §21). Mirrors the Dart reference
  * groups {@code SpecModel.rootByType (item 12)} and
  * {@code SpecDocument.toMarkdown (item 12)}: JUnit is unavailable on the build
  * host, so this is a plain {@code main()} that exits 0 on success and 1 on

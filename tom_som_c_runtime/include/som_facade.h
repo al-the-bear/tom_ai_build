@@ -38,9 +38,9 @@ SpecDocument *som_node_doc(const SomNode *n);
  * id is the fixed `@SectionId` already embedded in the path). AA1 criterion 1. */
 char *som_node_section_id(const SomNode *n);
 /* Returns 1 iff this section holds no value at its path or nested beneath it
- * (delegates to `spec_document_has_values_under`) (§ item 5). */
+ * (delegates to `spec_document_has_values_under`) (SOM §21). */
 int som_node_is_empty(const SomNode *n);
-/* `can_have_content` (§ item 10) — the per-TYPE structural predicate answering
+/* `can_have_content` (SOM §21) — the per-TYPE structural predicate answering
  * "does this section type declare the standard `content` text leaf?", i.e. "can
  * this section hold body text?" — has **no base runtime helper**. C has no
  * inheritance or method promotion, so (following the item-8 `editability_for`
@@ -68,7 +68,7 @@ void som_node_set_headline(const SomNode *n, const char *value);
  * sparse exactly like the stored headline (codespecs_mapping.md §9.2). */
 char *som_node_code_spec(const SomNode *n);
 /* Sets the stored CodeSpecs forward link; an empty value clears it, returning
- * the section to "no code mapping" (§9.2). */
+ * the section to "no code mapping" (codespecs_mapping.md §9.2). */
 void som_node_set_code_spec(const SomNode *n, const char *value);
 
 /* ---- SomScalar — a bare string list item -------------------------------- */
@@ -123,7 +123,7 @@ char *som_list_add_on(SomList *l, long long month, long long day);
 int som_list_add_with_id(SomList *l, const char *section_id,
                          char **out_item_path, SpecSectionIdError *err);
 /* Appends a content-only item and sets its nested `<item>/content` leaf in one
- * call (SOM convenience item 9). Delegates to `som_list_add` for the append —
+ * call (SOM §21). Delegates to `som_list_add` for the append —
  * so a pattern-carrying list assigns a section id from today's date just as a
  * bare add does — then writes `content` to the item's nested `<item>/content`
  * leaf via `spec_document_set_content`. Returns the item's stable path (owned;
@@ -148,11 +148,12 @@ void som_list_remove_at(SomList *l, size_t index);
 
 /* ---- model-version guard ------------------------------------------------ */
 
-/* The outcome of the §2.2 version check, as a value a read-only viewer can
+/* The outcome of the SOM §4.2 version check, as a value a read-only viewer can
  * branch on instead of handling the error `check_som_model_version` reports
- * (§ item 8). It is the non-erroring companion to `check_som_model_version`:
- * that function reports an error on any value other than SOM_EDITABILITY_EDITABLE,
- * while `som_editability_for` returns the same classification without an error so
+ * (SOM §21). It is the non-erroring companion to `check_som_model_version`:
+ * that function reports an error on any value other than
+ * SOM_EDITABILITY_EDITABLE, while `som_editability_for` returns the same
+ * classification without an error so
  * a consumer can decide *open for edit* vs *open read-only* up front. */
 typedef enum {
   /* The object model may edit the document in place: an empty stamp (a
@@ -168,8 +169,8 @@ typedef enum {
   SOM_EDITABILITY_INVALID_VERSION
 } SomEditability;
 
-/* Classifies a document's editability under the §2.2 rules without reporting an
- * error (§ item 8). `generated` is the object model's own major.minor version;
+/* Classifies a document's editability under the SOM §4.2 rules without reporting an
+ * error (SOM §21). `generated` is the object model's own major.minor version;
  * `document_version` is the document's recorded authoring stamp (NULL or "" for
  * a brand-new, never-stamped document — the C empty-string sentinel, CS4-D2).
  *

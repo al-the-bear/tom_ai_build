@@ -143,7 +143,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  // --- Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror
+  // --- Generic: every stored codeSpec, sorted by path (FORMAT 8, codespecs_mapping.md §9.2 mirror
   // of headline). ---
   out.push_back("SECTION\tgeneric-codespecs");
   {
@@ -154,7 +154,7 @@ int main(int argc, char** argv) {
   }
 
   // Typed cross-check of the same two mappings through the facade's structural
-  // codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+  // codeSpec accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in the CS
   // lines above, so a duplicate line would add no information — what this adds
   // is the assertion that the typed accessor reads the same store the generic
   // API does. A divergence aborts the generator.

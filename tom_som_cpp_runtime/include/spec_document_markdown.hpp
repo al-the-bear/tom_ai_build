@@ -139,7 +139,7 @@ std::string markdownExportRoot(const SpecModel& model,
                                const SpecDocument& document,
                                const SpecRoot& root);
 
-/* Renders `document` to Markdown in one call (SOM § item 12).
+/* Renders `document` to Markdown in one call (SOM §21).
  *
  * When `rootType` is non-empty, that root is exported (via
  * SpecModel::rootByType). Otherwise the document's single *populated* root is

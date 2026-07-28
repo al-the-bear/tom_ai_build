@@ -39,7 +39,7 @@ class SpecFieldKind(Enum):
 @dataclass(frozen=True)
 class SpecAnnotation:
     """A single annotation captured losslessly from the model source (spec
-    §3.1): its name and the resolved argument map."""
+    SOM §5.3): its name and the resolved argument map."""
 
     name: str
     arguments: dict[str, Any] = field(default_factory=dict)
@@ -467,8 +467,8 @@ class SpecModel:
         return self.classes.get(name)
 
     def root_by_type(self, type: str) -> SpecRoot:
-        """The document root whose :attr:`SpecRoot.type` equals *type* (§ item
-        12).
+        """The document root whose :attr:`SpecRoot.type` equals *type*
+        (SOM §21).
 
         Replaces the recurring ``next(r for r in roots if r.type == …)``
         boilerplate. Raises :class:`ValueError` when no root carries that type,

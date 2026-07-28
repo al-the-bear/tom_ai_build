@@ -3,14 +3,14 @@
 // Unlike the emitter's golden test (which compiles the small emitter fixture),
 // this suite exercises the real, full `tom_som_go_v0` module (3000+ types)
 // against the generic `tom_som_go_runtime` and proves the typed facade is a
-// faithful editing surface over the shared document (spec §3):
+// faithful editing surface over the shared document (SOM §6):
 //
 //   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
 //   - the generated model-version accessor / constant return `1.0`;
-//   - the instantiation-time version check (§2.2) accepts an editable stamp and
+//   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp with a *som.SomVersionError;
 //   - the live-document conformance case (YRD8 / dsa11): the shared Meridian
 //     sample round-trips (content + lists), its markdown twin validates clean
@@ -227,7 +227,7 @@ func TestVersionCheck(t *testing.T) {
 }
 
 // TestAlignedAbsenceSemantics ports the Dart "aligned absence semantics
-// (§ item 5)" group: a section's structural emptiness stays in lock-step with
+// (SOM §21)" group: a section's structural emptiness stays in lock-step with
 // the generic HasValuesUnder / HasContent predicates as values are written and
 // cleared. The Go emptiness convention is the empty string (never nil).
 func TestAlignedAbsenceSemantics(t *testing.T) {
@@ -293,7 +293,7 @@ func TestAlignedAbsenceSemantics(t *testing.T) {
 }
 
 // TestCanHaveContent ports the Dart "canHaveContent (structural content-slot
-// predicate, § item 10)" behaviour against the real generated facade: the
+// predicate, SOM §21)" behaviour against the real generated facade: the
 // per-type predicate answers "does this section TYPE declare the standard
 // `content` text leaf?" without probing Content() and without looking at the
 // document.
@@ -346,7 +346,7 @@ func TestCanHaveContent(t *testing.T) {
 	}
 }
 
-// TestOneCallLoading ports the Dart "one-call loading (§ item 4)" group: the
+// TestOneCallLoading ports the Dart "one-call loading (SOM §21)" group: the
 // LoadYaml / LoadFile / FromYaml convenience loaders collapse the former
 // decode → LoadJSON → thread-version incantation into a single call while
 // retaining the document's parsed model version (empty-string sentinel when

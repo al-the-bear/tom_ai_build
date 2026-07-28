@@ -10,8 +10,9 @@ import java.util.regex.Pattern;
 
 /**
  * A loaded {@code *.docspecs-schema.yaml} schema — a faithful port of the Go
- * {@code DocSpecsSchema} (Dart / JavaScript / TypeScript parity chain). Unsupported keys are
- * collected as §7 warnings; loading never fails on extra keys.
+ * {@code DocSpecsSchema} (Dart / JavaScript / TypeScript parity chain).
+ * Unsupported keys are collected as SOM §14 warnings; loading never fails on
+ * extra keys.
  *
  * <p>Java conventions: {@code null} stands in for Go's {@code ""} on the
  * absent {@link #titleFormat}; the one throwing entry point
@@ -46,7 +47,7 @@ public final class DocSpecsSchema {
   public final Map<String, DocSpecsFormType> formTypes = new LinkedHashMap<>();
   public final Map<String, DocSpecsDocumentSection> documentSections = new LinkedHashMap<>();
 
-  /** §7 warnings for unsupported keys. */
+  /** SOM §14 warnings for unsupported keys. */
   public final List<String> warnings = new ArrayList<>();
 
   private DocSpecsSchema() {}

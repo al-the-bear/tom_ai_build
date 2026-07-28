@@ -523,7 +523,8 @@ function testFenceShieldedHeadingsStayBody(): void {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
-// --- §9.2 codeSpec forward-link (csmc8) --------------------------------------
+// --- codespecs_mapping.md §9.2 codeSpec forward-link (csmc8)
+// --------------------------------------
 
 const _CODE_SPEC = 'CsOrder,CsOrder.total,CsOrderRepository';
 

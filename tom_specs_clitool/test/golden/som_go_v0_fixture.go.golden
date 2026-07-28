@@ -15,7 +15,7 @@ import som "github.com/al-the-bear/tom_ai_build/tom_som_go_runtime"
 
 // Version is the semantic version of this generated facade module, matching the
 // object-model version it was generated against (vMAJOR.MINOR.PATCH). It is the
-// in-source counterpart of the VCS tag used to pin the module (§2.1).
+// in-source counterpart of the VCS tag used to pin the module (SOM §4.2).
 const Version = "v0.0.0"
 
 // Generated enum constants for `Probability` values. The stored token is byte-
@@ -83,11 +83,11 @@ type SolutionBlueprint struct {
 }
 
 // SolutionBlueprintModelVersion is the model version this object model was generated
-// against (§2.1).
+// against (SOM §4.2).
 const SolutionBlueprintModelVersion = "0.0"
 
 // NewSolutionBlueprint creates the typed facade at the document root and verifies the
-// document's authoring documentVersion is editable (§2.2). A non-editable
+// document's authoring documentVersion is editable (SOM §4.2). A non-editable
 // stamp yields a *som.SomVersionError.
 func NewSolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*SolutionBlueprint, error) {
 	if err := som.CheckSomModelVersion(SolutionBlueprintModelVersion, documentVersion); err != nil {
@@ -97,14 +97,14 @@ func NewSolutionBlueprint(doc *som.SpecDocument, documentVersion string) (*Solut
 }
 
 // ObjectModelVersion returns this object model's own model version (major.minor),
-// per §2.1.
+// per SOM §4.2.
 func (x *SolutionBlueprint) ObjectModelVersion() string {
 	return SolutionBlueprintModelVersion
 }
 
 // EditabilityFor classifies whether a document authored under documentVersion
-// is editable by this object model, without returning an error (§ item 8) — the
-// non-error-returning companion to NewSolutionBlueprint's §2.2 check, so a read-only viewer
+// is editable by this object model, without returning an error (SOM §21) — the
+// non-error-returning companion to NewSolutionBlueprint's SOM §4.2 check, so a read-only viewer
 // can branch instead of handling the constructor error.
 func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditability {
 	return som.SomEditabilityFor(SolutionBlueprintModelVersion, documentVersion)
@@ -113,8 +113,8 @@ func (x *SolutionBlueprint) EditabilityFor(documentVersion string) som.SomEditab
 // LoadYamlSolutionBlueprint loads a `*.docspecs.yaml` document in one call: decode the
 // YAML, populate the sparse stores, and construct the typed root at the document
 // root with the document's retained authoring stamp — one call for the former
-// decode → loadJson → thread-documentVersion sequence (§ item 4). Returns a
-// *som.SomVersionError when the stamp is not editable (§2.2). Decoding runs
+// decode → loadJson → thread-documentVersion sequence (SOM §21). Returns a
+// *som.SomVersionError when the stamp is not editable (SOM §4.2). Decoding runs
 // against the generated SolutionBlueprintMetaTree, so v2 hierarchical documents
 // resolve their section paths through the metadata tree (SOM §8).
 func LoadYamlSolutionBlueprint(yaml string) (*SolutionBlueprint, error) {
@@ -177,7 +177,7 @@ func NewSolutionBlueprintOwnerForm(doc *som.SpecDocument, path string) *Solution
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
-// form fields (§ item 10) — it shadows the embedded som.SomNode false default.
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
 func (x *SolutionBlueprintOwnerForm) CanHaveContent() bool {
 	return true
 }

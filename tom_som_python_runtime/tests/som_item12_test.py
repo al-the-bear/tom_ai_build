@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavioural tests for § item 12: :meth:`SpecModel.root_by_type` and
+"""Behavioural tests for SOM §21: :meth:`SpecModel.root_by_type` and
 :meth:`SpecDocument.to_markdown`.
 
 A faithful port of the Dart reference item-12 groups:

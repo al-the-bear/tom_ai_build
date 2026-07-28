@@ -293,7 +293,7 @@ const SomMetaNode *som_meta_ref_meta(const SomMetaRef *r, char **err);
 typedef void *(*SomMetaRefFactory)(const SomMetaTree *tree, const char *path);
 
 /* SomListMetaRef is the generated accessor for a **list** position (SOM
- * §8): `ref.path` is the list container path; `som_list_meta_ref_item`
+ * SOM §8): `ref.path` is the list container path; `som_list_meta_ref_item`
  * returns the accessor for the seq-th item position (`<path>-<seq>`), whose
  * children are the element class's accessors. */
 typedef struct {

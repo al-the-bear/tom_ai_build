@@ -262,7 +262,7 @@ public final class SpecModel {
 
   /**
    * The document root whose {@link SpecRoot#type} equals {@code type} (SOM
-   * § item 12).
+   * SOM §21).
    *
    * <p>Replaces the recurring {@code roots.firstWhere((r) => r.type == …)}
    * boilerplate. Throws {@link IllegalArgumentException} when no root carries

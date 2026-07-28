@@ -613,7 +613,7 @@ static void yaml_test_class_level_only_key(void) {
   spec_document_free(&doc);
 }
 
-/* csmc8 (§9.2): a stored codeSpec — the forward DocSpecs→CodeSpecs link,
+/* csmc8 (codespecs_mapping.md §9.2): a stored codeSpec — the forward DocSpecs→CodeSpecs link,
  * structurally a byte-for-byte mirror of the stored headline — survives the
  * yaml round-trip and re-encode is byte-stable. Mirrors the Python
  * `test_code_spec_round_trip` / `test_code_spec_byte_stable`. */

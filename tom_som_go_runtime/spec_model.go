@@ -390,10 +390,11 @@ func (m *SpecModel) ModelVersionString() string {
 	return SomModelVersionString(m.ModelVersion, m.ModelVersionLabel)
 }
 
-// RootByType returns the document root whose Type equals the argument (SOM
-// § item 12). It replaces the recurring "range Roots looking for r.Type == …"
-// boilerplate. When no root carries that type it returns a rootTypeNotFoundError
-// whose message names the missing type and the ones that do exist.
+// RootByType returns the document root whose Type equals the argument (SOM §21).
+// It replaces the recurring "range Roots looking for r.Type == …"
+// boilerplate. When no root carries that type it returns a
+// rootTypeNotFoundError whose message names the missing type and the ones that
+// do exist.
 func (m *SpecModel) RootByType(rootType string) (*SpecRoot, error) {
 	for _, r := range m.Roots {
 		if r.Type == rootType {

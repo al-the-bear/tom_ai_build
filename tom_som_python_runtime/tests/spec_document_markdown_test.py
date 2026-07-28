@@ -535,7 +535,8 @@ def test_fence_shielded_headings_stay_body() -> None:
     _check("fenceShield.noStatus", "D00/D00-ST" not in report.content)
 
 
-# --- csmc8: stored codeSpec rides in the headline comment (§9.2) -------------
+# --- csmc8: stored codeSpec rides in the headline comment (codespecs_mapping.md
+# §9.2) -------------
 
 
 def test_code_spec_rides_in_headline_comment() -> None:

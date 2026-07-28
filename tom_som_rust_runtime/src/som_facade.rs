@@ -86,45 +86,47 @@ impl SomNode {
     }
 
     /// Returns this section's CodeSpecs forward link (`codespecs_mapping.md`
-    /// §9.2) as the comma-joined list of code locations, or `""` when the
-    /// section carries no mapping. Sparse exactly like
+    /// codespecs_mapping.md §9.2) as the comma-joined list of code locations,
+    /// or `""` when the section carries no mapping. Sparse exactly like
     /// [`SomNode::headline`].
     pub fn code_spec(&self) -> String {
         self.doc.borrow().code_spec_or(&self.path)
     }
 
-    /// Stores this section's CodeSpecs forward link (§9.2). An empty value
-    /// clears it, returning the section to "no code mapping".
+    /// Stores this section's CodeSpecs forward link (codespecs_mapping.md
+    /// §9.2). An empty value clears it, returning the section to "no code
+    /// mapping".
     pub fn set_code_spec(&self, value: &str) {
         self.doc.borrow_mut().set_code_spec(&self.path, value);
     }
 
     /// Returns `true` iff this section holds no value at its path or nested
     /// beneath it — delegates to [`SpecDocument::has_values_under`] (SOM
-    /// roadmap § item 5).
+    /// SOM §21).
     pub fn is_empty(&self) -> bool {
         !self.doc.borrow().has_values_under(&self.path)
     }
 
-    // § item 10 — `can_have_content`.
+    // SOM §21 — `can_have_content`.
     //
     // "Does this section **type** declare the standard `content` text leaf?" —
     // i.e. can this section hold body text? — a **structural / schema** predicate
     // that is a compile-time constant of the section's type and never looks at
     // the document.
     //
-    // Unlike [`SomNode::is_empty`] (SOM roadmap § item 5) and the version §2.2
-    // checks, this is **not** carried on the base node. Rust's generated facades
-    // hold a [`SomNode`] but do not inherit from it, so there is no base default
-    // to override (the Dart port's `SomNode.canHaveContent => false` + per-class
-    // override has no Rust analogue). Instead — following the exact precedent set
-    // by the root facade's per-type `editability_for` (§ item 8) — the emitter
-    // emits `can_have_content` on **every** generated section type as a literal
-    // boolean: `true` for content-bearing types (a `content` content-leaf field)
-    // and `false` for container-only types. It is deliberately distinct from the
-    // two **state** predicates: [`SpecDocument::has_content`] answers "is a value
-    // present at this leaf *now*?" and [`SomNode::is_empty`] answers "is this
-    // subtree empty *now*?"; `can_have_content` describes the model, not the data.
+    // Unlike [`SomNode::is_empty`] (SOM §21) and the SOM §4.2 version checks, this
+    // is **not** carried on the base node. Rust's generated facades hold a
+    // [`SomNode`] but do not inherit from it, so there is no base default to
+    // override (the Dart port's `SomNode.canHaveContent => false` + per-class
+    // override has no Rust analogue). Instead — following the exact precedent
+    // set by the root facade's per-type `editability_for` (SOM §21) — the
+    // emitter emits `can_have_content` on **every** generated section type as a
+    // literal boolean: `true` for content-bearing types (a `content`
+    // content-leaf field) and `false` for container-only types. It is
+    // deliberately distinct from the two **state** predicates:
+    // [`SpecDocument::has_content`] answers "is a value present at this leaf
+    // *now*?" and [`SomNode::is_empty`] answers "is this subtree empty *now*?";
+    // `can_have_content` describes the model, not the data.
 }
 
 /// A scalar list item — a bare string value held in the document's content store
@@ -390,8 +392,8 @@ fn try_int(raw: &str) -> Option<i64> {
     raw.parse::<i64>().ok()
 }
 
-/// The outcome of the §2.2 version check, as a value a read-only viewer can
-/// branch on instead of matching on [`SomVersionError`] (SOM roadmap § item 8).
+/// The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+/// branch on instead of matching on [`SomVersionError`] (SOM §21).
 ///
 /// It is the non-erroring companion to [`check_som_model_version`]: the
 /// generated root constructor returns `Err` on any value other than
@@ -416,8 +418,8 @@ pub enum SomEditability {
     InvalidVersion,
 }
 
-/// Classifies a document's editability under the §2.2 rules **without producing
-/// an error** (SOM roadmap § item 8). `generated` is the object model's own
+/// Classifies a document's editability under the SOM §4.2 rules **without
+/// producing an error** (SOM §21). `generated` is the object model's own
 /// `major.minor` version; `document_version` is the document's recorded
 /// authoring stamp (`""` for a brand-new, never-stamped document — the
 /// empty-string sentinel, CS4-D2).

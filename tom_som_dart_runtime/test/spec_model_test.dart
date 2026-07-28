@@ -50,7 +50,7 @@ void main() {
     });
   });
 
-  group('model version string (§2.1)', () {
+  group('model version string (SOM §4.2)', () {
     test('somModelVersionString takes major.minor from the label', () {
       expect(somModelVersionString(1, '1.0.0+7.1f49ac3'), '1.0');
       // A genuine authoring minor in the stamp is preserved, not flattened.
@@ -274,7 +274,7 @@ void main() {
     });
   });
 
-  group('CodeSpecKind link (§9.1)', () {
+  group('CodeSpecKind link (codespecs_mapping.md §9.1)', () {
     /// A class optionally carrying `@CodeSpecKind`, with a field that may carry
     /// its own — the two places the annotation can appear.
     SpecModel modelWith({
@@ -377,7 +377,7 @@ void main() {
     });
   });
 
-  group('FollowUpKind link (§8.3)', () {
+  group('FollowUpKind link (codespecs_mapping.md §8.3)', () {
     /// `@FollowUpKind` marks a subtree that becomes a downstream *process*
     /// rather than CodeSpecs code. It is the same shape as `@CodeSpecKind` —
     /// enum-code list plus optional note — so it is read through the same type.
@@ -433,7 +433,7 @@ void main() {
 
     test('the two links are read independently of one another', () {
       // A subtree is CodeSpecs *or* follow-up; reading one must never satisfy
-      // the other, or the §8.3 split becomes invisible.
+      // the other, or the codespecs_mapping.md §8.3 split becomes invisible.
       final model = SpecModel.fromJson(<String, dynamic>{
         'roots': <dynamic>[],
         'classes': <String, dynamic>{
@@ -456,7 +456,7 @@ void main() {
     });
   });
 
-  group('CodeSpecsProjection marker (§8.4)', () {
+  group('CodeSpecsProjection marker (codespecs_mapping.md §8.4)', () {
     SpecModel modelWith({required bool projection}) =>
         SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[],
@@ -503,7 +503,7 @@ void main() {
     });
   });
 
-  group('OneOf / Case closed choice (§8.2)', () {
+  group('OneOf / Case closed choice (codespecs_mapping.md §8.2)', () {
     /// A container class shaped like the real `ScreenElementEntry`: a `@Form`
     /// `content` section holding the discriminator form-field, some common
     /// subsections, and the `@Case`-annotated alternatives.
@@ -630,8 +630,8 @@ void main() {
     });
 
     test('covered and uncovered values partition the discriminator enum', () {
-      // The review question §8.2 poses — "is this set complete?" — is only
-      // answerable if the uncovered values are named.
+      // The review question codespecs_mapping.md §8.2 poses — "is this set
+      // complete?" — is only answerable if the uncovered values are named.
       final group = classOf(modelWith(
         oneOfArgs: {'discriminator': 'elementType'},
         cases: {

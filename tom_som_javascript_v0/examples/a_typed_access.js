@@ -31,7 +31,7 @@ const m = require(path.join(_PROJECT, 'tom_som_javascript_v0.js'));
 
 function main() {
   // A typed root over a fresh, empty document. The constructor also runs the
-  // §2.2 instantiation-time version check (an unstamped document is editable).
+  // SOM §4.2 instantiation-time version check (an unstamped document is editable).
   const doc = new SpecDocument();
   const pd = new m.D00SolutionBlueprint(doc);
 

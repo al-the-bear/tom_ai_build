@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
- * Behavioural test for the root facade's `static editabilityFor(...)` (§ item 8).
+ * Behavioural test for the root facade's `static editabilityFor(...)` (SOM
+ * §21).
  *
  * The real facade is generated centrally (this test cannot run the generator),
  * so this stand-in `_FakeRoot` reproduces *verbatim* what
- * `SomTypeScriptEmitter` emits on a root class — a `MODEL_VERSION`, a §2.2
+ * `SomTypeScriptEmitter` emits on a root class — a `MODEL_VERSION`, a SOM §4.2
  * constructor check, and the new `static editabilityFor` delegating to
  * `somEditabilityFor(MODEL_VERSION, documentVersion)`. It asserts the emitted
  * shape classifies documents identically to the pure classifier.

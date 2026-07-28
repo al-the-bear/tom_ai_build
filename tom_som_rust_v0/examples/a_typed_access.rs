@@ -20,7 +20,7 @@ use tom_som_rust_v0::D00SolutionBlueprint;
 
 fn main() {
     // A typed root over a fresh, empty document. The constructor also runs the
-    // §2.2 instantiation-time version check (an empty stamp is editable).
+    // SOM §4.2 instantiation-time version check (an empty stamp is editable).
     let doc = som::doc_ref(som::SpecDocument::new());
     let pd = D00SolutionBlueprint::new(doc.clone(), "").expect("new D00SolutionBlueprint");
 

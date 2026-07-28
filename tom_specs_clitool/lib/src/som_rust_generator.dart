@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **Rust** and writes the
-/// committed artefact tree (spec §2.3): the `tom_som_rust_<label>` crate (a
+/// committed artefact tree (SOM §4.3): the `tom_som_rust_<label>` crate (a
 /// `Cargo.toml` + the generated typed crate root `src/lib.rs`), the lossless
 /// object-model **meta-data file**, and the **DocSpecs schemas**.
 ///
@@ -57,8 +57,8 @@ class SomRustGenerationResult {
   final String cargoTomlPath;
   final String libPath;
 
-  /// The generated metadata module (`src/meta.rs`): populated §3.2 metadata
-  /// trees plus the dot-notation (§4.1) and ID-tree (§4.2) navigation surfaces.
+  /// The generated metadata module (`src/meta.rs`): populated SOM §7.2 metadata
+  /// trees plus the dot-notation and ID-tree navigation surfaces (SOM §8).
   final String metaModulePath;
   final String metaJsonPath;
   final List<String> schemaPaths;
@@ -162,7 +162,7 @@ SomRustGenerationResult writeSomRustProject({
     ..parent.createSync(recursive: true)
     ..writeAsStringSync(source);
 
-  // ── metadata module (populated §3.2 trees + §4.1/§4.2 navigation) ──────────
+  // ── metadata module (populated SOM §7.2 trees + SOM §8 navigation) ─────────
   // A sibling file-module declared `pub mod meta;` by the generated lib.rs.
   final metaSource = SomRustMetaEmitter(
     model,

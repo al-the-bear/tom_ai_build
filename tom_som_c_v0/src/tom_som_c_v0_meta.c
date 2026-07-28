@@ -2561,6 +2561,7 @@ static void meta_build_d13_code_specs_projection_domain_enum_registry(SomMetaNod
 static void meta_build_d13_code_specs_projection_error_code_registry(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_result_envelope(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_notification_model(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n);
@@ -2592,6 +2593,7 @@ static void meta_build_data_attribute_entry_text_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_numeric_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_temporal_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n);
+static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints_elem(SomMetaNode *n);
 static void meta_build_data_attribute_entry_derivation(SomMetaNode *n);
@@ -35188,11 +35190,11 @@ static void meta_build_component_variant_entry_behavior(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("How variant is implemented");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("flutterVariant");
+  n->form->fields[3].name = som_strdup("libraryVariant");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Flutter Variant");
+  n->form->fields[3].description = som_strdup("Library Variant");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Corresponding Flutter variant");
+  n->form->fields[3].hint = som_strdup("Corresponding variant in the shared component library, if one exists");
   n->form->fields[3].order = 3;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -39383,8 +39385,8 @@ static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n
   meta_set(&n->type_name, "DomainEnumRegistry");
   n->has_serialization_order = 1;
   n->serialization_order = 14;
-  meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(CE-EN home + closed-choice discriminator source, csmb3).");
-  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->doc_comment, "Domain enum registry — the closed value sets the data model relies on\n(`domainEnum` home + closed-choice discriminator source, csmb3).");
+  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
 static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -39416,8 +39418,8 @@ static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n
   meta_set(&n->type_name, "MessageKeyRegistry");
   n->has_serialization_order = 1;
   n->serialization_order = 17;
-  meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes\n(csmb7).");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
@@ -40878,9 +40880,9 @@ static void meta_build_d13_code_specs_projection_domain_enum_registry(SomMetaNod
   meta_set(&n->type_name, "DomainEnumRegistry");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->comment, "locus: shared — CE-EN");
-  meta_set(&n->doc_comment, "Domain enum registry — CE-EN closed value sets, shared by client & server.");
-  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->comment, "locus: shared — domainEnum (member kind)");
+  meta_set(&n->doc_comment, "Domain enum registry — the closed value sets, shared by client & server.\n\n`domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`\n§4.1): each enum is authored once here and realised as a plain Dart `enum`\nmarked `@CsEnum`, placed in the shared project iff a shared contract type\nreferences it — which is what this registry's shared locus assumes —\notherwise in the project of the part that introduces it.");
+  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
 static void meta_build_d13_code_specs_projection_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -40916,7 +40918,19 @@ static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNod
   n->serialization_order = 5;
   meta_set(&n->comment, "locus: shared — CE-TX");
   meta_set(&n->doc_comment, "Message key registry — CE-TX author-copy-once keys, shared.");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+}
+static void meta_build_d13_code_specs_projection_notification_model(SomMetaNode *n) {
+  meta_set(&n->class_name, "NotificationModel");
+  meta_set(&n->member_name, "notificationModel");
+  meta_set(&n->class_section_id, "NM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "NotificationModel");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->comment, "locus: shared — CE-NT");
+  meta_set(&n->doc_comment, "Notification model — CE-NT type / channel / preference declarations.\n\nThe declarations are **shared**: the client renders the preference UI\nagainst the same catalogue the server dispatches from. Delivery is\nserver-only, but it is not authored here — it rides the reused\n`tom_core_server` messaging transport.");
+  meta_set(&n->class_doc_comment, "4.1.5.5. Notification Model.\n\nDefines how the system notifies users of events, updates, and actions\nacross different channels.");
 }
 static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModel");
@@ -40925,7 +40939,7 @@ static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataModel");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->comment, "locus: server — CE-DB/CE-VA");
   meta_set(&n->doc_comment, "Data model — CE-DB persistence + CE-VA server-side rules.");
   meta_set(&n->class_doc_comment, "7.1. Data Model.");
@@ -40938,7 +40952,7 @@ static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TechnicalFrameworkConcept");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->comment, "locus: server — CE-CF");
   meta_set(&n->doc_comment, "Technical framework — CE-CF platform/config foundation.");
   meta_set(&n->class_doc_comment, "8. Technical Framework Concept. Seeds → ATS.");
@@ -40951,7 +40965,7 @@ static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n) 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AccessControlModel");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->comment, "locus: server — CE-AZ");
   meta_set(&n->doc_comment, "Access control model — CE-AZ authorization/identity seed.");
   meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
@@ -40963,7 +40977,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsAndActorInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
@@ -40976,7 +40990,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceCodeSpecs");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.");
@@ -41742,18 +41756,19 @@ static void meta_build_data_attribute_entry_data_type_spec(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("The logical type — selects the promoted options subsection.");
   n->form->fields[0].order = 0;
-  n->form->fields[0].enum_values_len = 10;
-  n->form->fields[0].enum_values = (char **)calloc(10, sizeof(char *));
+  n->form->fields[0].enum_values_len = 11;
+  n->form->fields[0].enum_values = (char **)calloc(11, sizeof(char *));
   n->form->fields[0].enum_values[0] = som_strdup("string");
   n->form->fields[0].enum_values[1] = som_strdup("integer");
   n->form->fields[0].enum_values[2] = som_strdup("decimal");
   n->form->fields[0].enum_values[3] = som_strdup("date");
   n->form->fields[0].enum_values[4] = som_strdup("dateTime");
   n->form->fields[0].enum_values[5] = som_strdup("binary");
-  n->form->fields[0].enum_values[6] = som_strdup("boolean");
-  n->form->fields[0].enum_values[7] = som_strdup("uuid");
-  n->form->fields[0].enum_values[8] = som_strdup("json");
-  n->form->fields[0].enum_values[9] = som_strdup("enumeration");
+  n->form->fields[0].enum_values[6] = som_strdup("fileReference");
+  n->form->fields[0].enum_values[7] = som_strdup("boolean");
+  n->form->fields[0].enum_values[8] = som_strdup("uuid");
+  n->form->fields[0].enum_values[9] = som_strdup("json");
+  n->form->fields[0].enum_values[10] = som_strdup("enumeration");
   n->form->fields[1].name = som_strdup("physicalType");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Physical Type");
@@ -41866,28 +41881,77 @@ static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n) 
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
-  meta_set(&n->doc_comment, "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type; carries only the stored size\nattributes. Separated from the text `length` because a byte size and a\ncharacter length are different constraints on different types.");
+  meta_set(&n->doc_comment, "Binary-kind type options — a promoted `@OneOf` case (csra4).\n\nPresent only for the `binary` logical type — the record holds the **bytes\nthemselves** — so it carries only the stored size. Separated from the text\n`length` because a byte size and a character length are different\nconstraints on different types. An attribute that holds a file's *address*\ninstead is `DataAttributeKind.fileReference` (csra10), not a storage mode\nof this one: a mode field would restate the logical type and could then\ndisagree with it.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 2;
-  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("maxSizeBytes");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Max Size (Bytes)");
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Maximum stored size in bytes");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("storageMode");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Storage Mode");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Inline | External-Reference | Blob-Store");
-  n->form->fields[1].order = 1;
   n->extra_len = 2;
   n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The stored size constraints for a binary attribute.\"}", NULL);
   n->extra[1].annotation = som_strdup("Case");
   n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.binary\"}", NULL);
+}
+static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "fileReferenceOptions");
+  meta_set(&n->section_id, "DAATT-DTFR");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "File-reference type options — a promoted `@OneOf` case (csra10).\n\nPresent only for the `fileReference` logical type: the attribute stores the\n**address of a stored file**, so what a specification must say is where the\nfile is filed, which store holds it, whether it dies with its record, and\nwhat may be uploaded into it.\n\nThe address itself is never authored — it is generated when the file is\nstored, so a specification chooses only the group it is filed under. The\nvocabulary here is deliberately storage-neutral (`codespecs_mapping.md`\n§1.2): a *file store* is named, never a storage technology.\n\nTwo decisions that look like they belong here are elsewhere by design:\n**who may fetch the file** is the attribute's own access classification —\nthe address is an ordinary attribute, so its security classification\nalready governs it — and **how the file appears on screen** (a thumbnail,\na link, a download) is a screen-element concern, authored where the\nelement is.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("storageGroup");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Storage Group");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("fileStore");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("File Store");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Name of the configured file store holding the files; empty means the deployment default store");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("deleteWithRecord");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Delete With Record");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("acceptedContentKinds");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Accepted Content Kinds");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("defaultContentKind");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Default Content Kind");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Content kind recorded when an upload declares none");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("maxFileSizeBytes");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Max File Size (Bytes)");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("Maximum accepted file size in bytes");
+  n->form->fields[5].order = 5;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\",\"RFC 6838 — media type specifications and registration procedures\"],\"connotation\":\"Where a referenced file is stored, how long it lives and what may be uploaded into it.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.fileReference\"}", NULL);
 }
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
@@ -41897,7 +41961,7 @@ static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataAttributeConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per attribute constraint.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -41919,7 +41983,7 @@ static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -41955,7 +42019,7 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -41997,7 +42061,7 @@ static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42040,7 +42104,7 @@ static void meta_build_data_attribute_entry_display_properties(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DisplayPropertyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->content_help, "Add one entry per display property.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -55550,7 +55614,7 @@ static void meta_build_domain_enum_registry_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- CE-EN (`domainEnum`) code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n");
+  meta_set(&n->content_help, "Catalogue the domain enums — the closed value sets the data model relies on\n(e.g. OrderStatus, Currency, AccountType). Add one entry per enum; each enum\nlists its members with a stable value id, an optional backing value (the\npersisted/serialized code) and a copy reference for the display label.\n\nDomain enums authored here are the single source for:\n- `domainEnum` code generation — an enum type per entry;\n- the closed-choice (`@OneOf`) discriminator — an enum entry names the choice\n  set, its value ids are the cases.\n");
 }
 static void meta_build_domain_enum_registry_enums(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumRegistry");
@@ -55573,8 +55637,8 @@ static void meta_build_domain_enum_registry_enums_elem(SomMetaNode *n) {
   meta_set(&n->class_section_id, "DMENE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DomainEnumEntry");
-  meta_set(&n->doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
-  meta_set(&n->class_doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the CE-EN `domainEnum` part — the enum\nname becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+  meta_set(&n->doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
+  meta_set(&n->class_doc_comment, "A single domain enum (form + values).\n\nOne named closed value set: its name, backing value type, default value and\nthe ordered list of members. Maps to the `domainEnum` **member kind** — the\nenum name becomes the generated enum type and each member becomes a constant —\nand doubles as a closed-choice discriminator source (csm-7-4): the enum\nname identifies the choice set and [values] supply the cases.");
 }
 static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumValueEntry");
@@ -70604,7 +70668,7 @@ static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "7.5. Domain Enum Registry.");
-  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
+  meta_set(&n->class_doc_comment, "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.");
 }
 static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -70637,7 +70701,7 @@ static void meta_build_information_and_data_model_message_key_registry(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "7.8. Message Key Registry.");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -77624,32 +77688,32 @@ static void meta_build_language_country_selection_persistence(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Persistence rules.");
+  meta_set(&n->doc_comment, "Retention rules — how a chosen preference survives, without naming a store.\n\nWhere the preference lives is *not* authored here: it follows from the\nsettings scope the preference is declared in (user setting vs device\nsetting), never from a local/roaming-style flag on this section.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
   n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("persistenceMethod");
+  n->form->fields[0].name = som_strdup("guestRetention");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Persistence Method");
+  n->form->fields[0].description = som_strdup("Guest Retention");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Cookie, localStorage, user profile");
+  n->form->fields[0].hint = som_strdup("Whether and for how long a preference chosen before sign-in is retained");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("crossDeviceSync");
-  n->form->fields[1].type_name = som_strdup("bool");
-  n->form->fields[1].description = som_strdup("Cross-Device Sync");
+  n->form->fields[1].name = som_strdup("signInCarryOver");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Sign-In Carry-Over");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Sync preference across devices");
+  n->form->fields[1].hint = som_strdup("What happens to a guest-chosen locale when the user signs in and a stored preference applies");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("anonymousPersistence");
+  n->form->fields[2].name = som_strdup("reselectionPrompt");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Anonymous Persistence");
+  n->form->fields[2].description = som_strdup("Re-Selection Prompt");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("How preference persists for guests");
+  n->form->fields[2].hint = som_strdup("When the user is asked to confirm or re-pick the retained preference");
   n->form->fields[2].order = 2;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"BCP 47 (W3C Internationalization) — the persisted preference is stored as a language tag\",\"ISO/IEC 25010:2023 — usability requires the chosen locale to persist across sessions and devices\"],\"connotation\":\"How the chosen language and country preference is stored and synchronized across sessions and devices.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"BCP 47 (W3C Internationalization) — the retained preference is expressed as a language tag\",\"ISO/IEC 25010:2023 — usability requires the chosen locale to survive across sessions\"],\"connotation\":\"How a chosen language and country preference is retained across sessions, before and after the user is identified.\"}", NULL);
 }
 static void meta_build_language_country_selection_fallback(SomMetaNode *n) {
   meta_set(&n->class_name, "LanguageCountrySelection");
@@ -81544,7 +81608,7 @@ static void meta_build_message_key_registry_content(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->content_help, "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n");
+  meta_set(&n->content_help, "Catalogue the user-facing copy as message keys. Add one entry per key; each key\ncarries its default (base-locale) copy and any per-locale variants.\n\nAuthor each string **once here** and reference it by key everywhere it appears:\n- CE-EL/CE-AC element and action labels, placeholders and help text,\n- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),\n- CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),\n- CE-VA validation-failure messages.\n\nReferencing the registry by key keeps copy consistent, translatable and\nvalidated — no more free-text `*Resource` keys that can silently diverge.\n");
 }
 static void meta_build_message_key_registry_message_keys(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -145817,11 +145881,11 @@ static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Button, Input, Table, Navigation, etc.");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("flutterWidgetBase");
+  n->form->fields[3].name = som_strdup("baseComponent");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Flutter Widget Base");
+  n->form->fields[3].description = som_strdup("Base Component");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Base Flutter widget (DataTable, TextField)");
+  n->form->fields[3].hint = som_strdup("Base component of the shared library this one specialises (Data Table, Text Input)");
   n->form->fields[3].order = 3;
 }
 static void meta_build_ui_component_entry_purpose_profile(SomMetaNode *n) {
@@ -146669,11 +146733,11 @@ static void meta_build_ui_components_component_library_overview(SomMetaNode *n) 
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Material Design 3, Cupertino, Custom");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("tomFlutterUiIntegration");
+  n->form->fields[3].name = som_strdup("sharedLibraryIntegration");
   n->form->fields[3].type_name = som_strdup("bool");
-  n->form->fields[3].description = som_strdup("Tom Flutter UI Integration");
+  n->form->fields[3].description = som_strdup("Shared Library Integration");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Uses tom_flutter_ui component library");
+  n->form->fields[3].hint = som_strdup("Builds on the organisation-wide shared component library rather than bespoke components");
   n->form->fields[3].order = 3;
 }
 static void meta_build_ui_components_visual_language(SomMetaNode *n) {
@@ -150290,9 +150354,9 @@ static void meta_build_utility_navigation_item_entry_display(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Sort position");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("widgetType");
+  n->form->fields[1].name = som_strdup("displayKind");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Widget Type");
+  n->form->fields[1].description = som_strdup("Display Kind");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon");
   n->form->fields[1].order = 1;
@@ -150311,7 +150375,7 @@ static void meta_build_utility_navigation_item_entry_display(SomMetaNode *n) {
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, widget rendering, and access rules governing a utility navigation item.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, presentation kind, and access rules governing a utility navigation item.\"}", NULL);
 }
 static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigationItemEntry");
@@ -159999,6 +160063,7 @@ static SomMetaNode **meta_children_d13_code_specs_projection(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_d13_code_specs_projection_error_code_registry));
   meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_d13_code_specs_projection_result_envelope));
   meta_push(&arr, len, &cap, meta_cx("MessageKeyRegistry", stack, meta_children_message_key_registry, meta_build_d13_code_specs_projection_message_key_registry));
+  meta_push(&arr, len, &cap, meta_cx("NotificationModel", stack, meta_children_notification_model, meta_build_d13_code_specs_projection_notification_model));
   meta_push(&arr, len, &cap, meta_cx("DataModel", stack, meta_children_data_model, meta_build_d13_code_specs_projection_data_model));
   meta_push(&arr, len, &cap, meta_cx("TechnicalFrameworkConcept", stack, meta_children_technical_framework_concept, meta_build_d13_code_specs_projection_technical_framework));
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_d13_code_specs_projection_access_control));
@@ -160195,6 +160260,11 @@ static SomMetaNode **meta_children_data_attribute_entry(SomStrList *stack, size_
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_data_attribute_entry_binary_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_file_reference_options(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -193285,6 +193355,13 @@ som_nav_message_key_registry d13_code_specs_projection_nav_message_key_registry(
   free(path);
   return out;
 }
+som_nav_notification_model d13_code_specs_projection_nav_notification_model(som_nav_d13_code_specs_projection x) {
+  som_nav_notification_model out;
+  char *path = spec_path_join(x.ref.path, "notificationModel");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_data_model d13_code_specs_projection_nav_data_model(som_nav_d13_code_specs_projection x) {
   som_nav_data_model out;
   char *path = spec_path_join(x.ref.path, "dataModel");
@@ -193498,6 +193575,13 @@ SomMetaRef data_attribute_entry_nav_temporal_type_options(som_nav_data_attribute
 SomMetaRef data_attribute_entry_nav_binary_type_options(som_nav_data_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DAATT-DTBI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_nav_file_reference_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTFR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -238898,6 +238982,27 @@ SomListMetaRef d13_code_specs_projection_id_msgke_mkey_lst(som_id_d13_code_specs
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_ntfch_chan_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "notificationModel/NTFCH-CHAN-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_notification_channel_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_ntfty_noti_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "notificationModel/NTFTY-NOTI-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_notification_type_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_unp_pref_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "notificationModel/UNP-PREF-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_notification_preferences);
+  free(path);
+  return out;
+}
 SomListMetaRef d13_code_specs_projection_id_daent_enti_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "dataModel/DAENT-ENTI-LST");
@@ -244053,6 +244158,13 @@ SomMetaRef data_attribute_entry_id_daatt_dttm(som_id_data_attribute_entry x) {
 SomMetaRef data_attribute_entry_id_daatt_dtbi(som_id_data_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DAATT-DTBI");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_dtfr(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTFR");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

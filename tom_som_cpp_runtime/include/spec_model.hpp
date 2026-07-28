@@ -186,7 +186,7 @@ class SpecModel {
   /* Returns the class named `name`, or null. */
   const SpecClass* classNamed(const std::string& name) const;
 
-  /* Returns the document root whose `type` equals `type` (§ item 12).
+  /* Returns the document root whose `type` equals `type` (SOM §21).
    * Replaces the recurring firstWhere((r) => r.type == …) boilerplate. Throws
    * std::invalid_argument when no root carries that type, with a message that
    * names the missing type and the ones that do exist. */

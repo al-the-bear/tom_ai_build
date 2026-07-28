@@ -50,7 +50,7 @@ typedef struct {
   size_t lists_len;
   size_t lists_cap;
   SomMap headlines; /* path → stored headline (YRD3) */
-  SomMap code_specs; /* path → stored codeSpec, comma-joined code locations (§9.2) */
+  SomMap code_specs; /* path → stored codeSpec, comma-joined code locations (codespecs_mapping.md §9.2) */
 } DocumentJson;
 
 void document_json_init(DocumentJson *d);
@@ -87,7 +87,7 @@ typedef struct {
   SomMap list_seq;         /* list path → decimal seq counter */
   SomMap item_section_id;  /* item path → assigned section id (criteria 3–6) */
   SomMap headline;         /* path → stored headline (YRD3), sparse */
-  SomMap code_spec;        /* path → stored codeSpec (§9.2), sparse like headline;
+  SomMap code_spec;        /* path → stored codeSpec (codespecs_mapping.md §9.2), sparse like headline;
                             * the comma-joined list of CodeSpecs code locations */
   char *model_version;     /* owned; the authoring object-model version
                             * (major.minor) this document was loaded from, "" for
@@ -103,8 +103,8 @@ void spec_document_free(SpecDocument *d);
 
 /* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
  * YAML against `tree` (the metadata tree of the document's root), populate the
- * sparse stores, and retain the parsed model version on the document (§ item
- * 4). Returns an owned heap document (free with `spec_document_free` +
+ * sparse stores, and retain the parsed model version on the document
+ * (SOM §21). Returns an owned heap document (free with `spec_document_free` +
  * `free`); on a format error returns NULL and, when `err` is non-NULL, writes
  * an owned message. */
 SpecDocument *spec_document_from_yaml(const char *yaml,
@@ -122,7 +122,7 @@ void spec_document_set_content(SpecDocument *d, const char *path,
                                const char *value);
 /* Returns 1 iff a non-empty content leaf exists at exactly `path` (leaf-exact;
  * a value nested beneath `path` does not count). The null-free companion to
- * `spec_document_content` (§ item 5). */
+ * `spec_document_content` (SOM §21). */
 int spec_document_has_content(const SpecDocument *d, const char *path);
 
 /* forms: returns form `field_name` at `path` or NULL; empty value clears it. */
@@ -170,7 +170,7 @@ void spec_document_set_headline(SpecDocument *d, const char *path,
  * (initialised by callee). */
 void spec_document_headline_paths(const SpecDocument *d, SomStrList *out);
 
-/* codeSpec (§9.2): the stored per-section forward DocSpecs→CodeSpecs link at
+/* codeSpec (codespecs_mapping.md §9.2): the stored per-section forward DocSpecs→CodeSpecs link at
  * `path` (the comma-joined list of code locations), or NULL when unset. Set
  * with an empty value to clear. Sparse like the headline. */
 const char *spec_document_code_spec(const SpecDocument *d, const char *path);

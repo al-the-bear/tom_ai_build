@@ -12,7 +12,7 @@ how to run the generators, what is produced, how the generated code is used, and
 the versioning rules. Deeper references are linked inline.
 
 - Architecture & rationale: [`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
-  (the quest spec; section numbers below, e.g. *§2.2*, refer to it).
+  (the quest spec; section numbers below, e.g. *SOM §4.2*, refer to it).
 - Config grammar in full: [`../tom_specs_model/doc/som_generator_config.md`](../tom_specs_model/doc/som_generator_config.md).
 - Toolchain inventory per language: [`../tom_specs_model/doc/som_toolchains.md`](../tom_specs_model/doc/som_toolchains.md).
 
@@ -28,7 +28,7 @@ The component is split into a **fixed, hand-written runtime** and a
 | **Generic runtime** | `tom_som_<lang>_runtime` | by hand | Memory representation (`SpecDocument`), the meta-model "reflection" classes (`SpecModel` & friends), validation, and YAML/Markdown load-save. No version suffix. |
 | **Typed facade** | `tom_som_<lang>_v0` | generated | Typed, code-completed document-editing API (`D00SolutionBlueprint` etc.) **over** the runtime's memory representation. Carries the version suffix (`_v0`, `_v1`, …). |
 
-Both expose the **same document** through two parallel access paths (§3): the
+Both expose the **same document** through two parallel access paths (SOM §6): the
 **type-safe** path (the generated classes) and the **generic / meta-model** path
 (the runtime + the meta-data file). The typed path is optional ergonomics; the
 generic path alone can read, write, validate, load, and save any document.
@@ -123,8 +123,8 @@ Only the runtime options for languages actually listed in the config's
 the model's `lib/src/version.versioner.dart` (`version`, `buildNumber`,
 `gitCommit`, `buildTime`). The `buildTime` is reused as the meta-data's
 `generatedAt`, so re-running the generator without rebuilding the model produces
-a **byte-identical** tree (idempotent; §2.3). The committed artefacts are the
-authoritative output — consumers never run the generator (§2.3).
+a **byte-identical** tree (idempotent; SOM §4.3). The committed artefacts are the
+authoritative output — consumers never run the generator (SOM §4.3).
 
 > The generator only **writes** the module/`lib`, `meta/`, `schemas/`, and the
 > manifest; it **never deletes** files. Hand-authored `test/`, `example/`, and
@@ -183,7 +183,7 @@ language-native manifest that declares the runtime dependency:
 | C++ | header + source | `Makefile` | `RUNTIME_DIR` → `tom_som_cpp_runtime` |
 
 - **Meta-data file** (`meta/spec_model.meta.json`) — the resolved model graph
-  the generic runtime loads. Lossless per §3.1: it carries `modelVersion`
+  the generic runtime loads. Lossless per SOM §5.3: it carries `modelVersion`
   (integer major), `modelVersionLabel` (build stamp), `containerRoot`, and for
   every reachable class its name, doc-comment, identity annotations, and for
   every field its type, nullability, list/enum-ness, render classification, and
@@ -204,7 +204,7 @@ mirror — `field.element_type`, `kind.value`, `SpecModel.from_json`, etc.)
 
 The typed classes are an **editing facade** over the runtime's `SpecDocument`.
 They are instantiated **with the memory root** and perform a version check at
-construction time (§2.2). Loading/saving is always done through the document,
+construction time (SOM §4.2). Loading/saving is always done through the document,
 never through the facade.
 
 ```dart
@@ -212,7 +212,7 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_som_dart_v0/tom_som_dart_v0.dart';
 
 final doc = SpecDocument();
-final sbp = D00SolutionBlueprint(doc);       // instantiation-time §2.2 check
+final sbp = D00SolutionBlueprint(doc);       // instantiation-time SOM §4.2 check
 sbp.content = 'The system vision …';          // typed setter → writes the store
 final csa = sbp.currentLandscape;            // nested section navigation
 final metrics = csa.operationalMetrics;      // typed SomList: add()/length/[i]/items
@@ -266,7 +266,7 @@ targets — without compiling against the typed classes.
 
 ---
 
-## 6. Versioning rules (§2.2)
+## 6. Versioning rules (SOM §4.2)
 
 - The generated typed projects carry a **version-label suffix**
   (`tom_som_<slug>_v0`). Projects are generated **per major version** of the
@@ -322,4 +322,4 @@ three access paths visibly converge across every language.
 The per-language project layout and emitter conventions this table reports on
 are specified in
 [`som_multiplatform_spec_model.md`](../tom_specs_model/doc/som_multiplatform_spec_model.md)
-§3 and §8.
+SOM §6 and SOM §8.

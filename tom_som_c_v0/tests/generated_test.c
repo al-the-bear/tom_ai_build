@@ -3,14 +3,14 @@
  * Unlike the emitter's golden test (which compiles the small emitter fixture),
  * this harness exercises the real, full `tom_som_c_v0` translation unit (3000+
  * typed facade structs) against the generic `tom_som_c_runtime` and proves the
- * typed facade is a faithful editing surface over the shared document (spec §3):
+ * typed facade is a faithful editing surface over the shared document (SOM §6):
  *
  *   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   - a content leaf round-trips typed -> generic and generic -> typed;
  *   - a nested complex section derives its path under the root;
  *   - the path-based `SomList` collection maps onto the generic list store;
  *   - the generated model-version accessor / macro return "1.0";
- *   - the instantiation-time version check (§2.2) accepts an editable stamp and
+ *   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp with a non-zero return + message.
  *
  * Build & run via `./run_tests.sh` (compiles against the relative runtime
@@ -296,7 +296,7 @@ static void test_section_ids(void) {
   }
 }
 
-/* Aligned absence semantics (§ item 5): the typed `is_empty` on a section, its
+/* Aligned absence semantics (SOM §21): the typed `is_empty` on a section, its
  * agreement with the generic `has_values_under`, and `has_content` on the leaf
  * mirroring the typed `.content` answer. Mirrors the Dart "aligned absence
  * semantics" group. Uses the SBP `requirements` section. */
@@ -398,7 +398,7 @@ static char *read_file(const char *path) {
   return buf;
 }
 
-/* One-call loading (§ item 4): the generated `load_yaml` / `load_file`
+/* One-call loading (SOM §21): the generated `load_yaml` / `load_file`
  * collapse the former decode -> load_json -> thread-version incantation, and the
  * generic `spec_document_from_yaml` retains the parsed model version. Mirrors the
  * Dart "one-call loading" group. */
@@ -575,7 +575,7 @@ static void test_one_call_loading(void) {
   }
 }
 
-/* The per-type structural `can_have_content` predicate (§ item 10): every
+/* The per-type structural `can_have_content` predicate (SOM §21): every
  * generated type emits a `<type>_can_have_content` accessor returning the
  * literal answer to "does this section TYPE declare the standard `content` text
  * leaf?" — WITHOUT probing the document (mirrors the item-8 `editability_for` /
@@ -631,7 +631,7 @@ static void test_model_version(void) {
   spec_document_free(&doc);
 }
 
-/* The instantiation-time §2.2 version check accepts editable stamps and rejects
+/* The instantiation-time SOM §4.2 version check accepts editable stamps and rejects
  * newer-minor / cross-major stamps with a non-zero return and an owned message. */
 static void test_version_check(void) {
   SpecDocument doc;

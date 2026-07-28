@@ -109,10 +109,10 @@ class SpecMarkdownResult:
     #: parsed heading text differs from the effective default title (keeping
     #: untouched documents byte-stable).
     headlines: dict[str, str] = dataclass_field(default_factory=dict)
-    #: Stored codeSpec mappings (§9.2): path → the comma-joined list of
-    #: CodeSpecs code locations parsed from the ``codeSpec="…"`` key in the
-    #: heading comment. Staged whenever present (codeSpec has no effective
-    #: default).
+    #: Stored codeSpec mappings (codespecs_mapping.md §9.2): path → the
+    #comma-joined list of : CodeSpecs code locations parsed from the
+    #``codeSpec="…"`` key in the : heading comment. Staged whenever present
+    #(codeSpec has no effective : default).
     code_specs: dict[str, str] = dataclass_field(default_factory=dict)
     #: Every rejected block, in source order.
     rejections: list[SpecMarkdownRejection] = dataclass_field(
@@ -189,16 +189,17 @@ class SpecDocumentMarkdown:
 
     # Shared with the parser and the DocSpecs validator.
     heading_line = re.compile(r"^(#+)\s+(.*)$")
-    #: The heading HTML comment: ``<!--[ID]--> Title`` with an optional
-    #: key=value region between the id bracket and the closing ``-->`` (§9.2
-    #: ``codeSpec``). Group 1 = the section id, group 2 = the raw key=value
-    #: region (possibly empty), group 3 = the heading title. The middle group
-    #: is ``[^>]*`` — safe because the region's only values are quoted code
-    #: locations / identifiers, never a raw ``>``.
+    #: The heading HTML comment: ``<!--[ID]--> Title`` with an optional :
+    #key=value region between the id bracket and the closing ``-->``
+    #(codespecs_mapping.md §9.2 : ``codeSpec``). Group 1 = the section id, group
+    #2 = the raw key=value : region (possibly empty), group 3 = the heading
+    #title. The middle group : is ``[^>]*`` — safe because the region's only
+    #values are quoted code : locations / identifiers, never a raw ``>``.
     headline_comment = re.compile(r"^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$")
     docspec_comment = re.compile(r"^<!--\s*docspec:.*-->\s*$")
-    #: Extracts the ``codeSpec="…"`` value from a heading-comment key=value
-    #: region (§9.2), mirroring the tom_doc_scanner key=value grammar.
+    #: Extracts the ``codeSpec="…"`` value from a heading-comment key=value :
+    #region (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+    #grammar.
     _code_spec_pattern = re.compile(
         r"""codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))"""
     )
@@ -274,7 +275,7 @@ class SpecDocumentMarkdown:
     @staticmethod
     def code_spec_of(region: str) -> str:
         """Extracts the ``codeSpec="…"`` value from a heading-comment key=value
-        region (§9.2). Returns the empty string when the region carries no
+        region (codespecs_mapping.md §9.2). Returns the empty string when the region carries no
         ``codeSpec`` key."""
         m = SpecDocumentMarkdown._code_spec_pattern.search(region)
         if m is None:
@@ -581,7 +582,7 @@ class SpecDocumentMarkdown:
         break schema validation.
 
         When *code_spec* is non-empty it is emitted as a ``codeSpec="…"`` key
-        inside the same headline comment (§9.2):
+        inside the same headline comment (codespecs_mapping.md §9.2):
         ``## <!--[ID] codeSpec="A,B"--> Title``."""
         code = f' codeSpec="{code_spec}"' if code_spec else ""
         b.writeln(f"{'#' * depth} <!--[{id}]{code}--> {title}")
@@ -840,8 +841,8 @@ class _Parser:
                 # (byte-stability).
                 if title and title != SpecDocumentMarkdown._title_of(c):
                     self.headlines[path] = title
-                # §9.2: stage the codeSpec mapping whenever present (no
-                # default).
+                # codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
+                # present (no default).
                 if code_spec:
                     self.code_specs[path] = code_spec
                 self._stack.append(
@@ -906,7 +907,7 @@ class _Parser:
         if pattern is not None:
             # Canonical anonymous id: the pattern with `xxx` as a number —
             # parses back as item <n>, NOT as a stored id (YRD3 round-trip,
-            # §8.5).
+            # SOM §11.5).
             numbered_re = (
                 "^"
                 + "([0-9]+)".join(re.escape(p) for p in pattern.split("xxx"))
@@ -957,7 +958,8 @@ class _Parser:
                 # `@Headline` default, else the `@Document` title).
                 if title and title != (tree.root.headline or root.title):
                     self.headlines[seg] = title
-                # §9.2: stage the root codeSpec mapping whenever present.
+                # codespecs_mapping.md §9.2: stage the root codeSpec mapping
+                # whenever present.
                 if code_spec:
                     self.code_specs[seg] = code_spec
                 self._stack.append(
@@ -1010,7 +1012,8 @@ class _Parser:
         stem = SpecDocumentMarkdown._item_stem_of(list_node)
         if title and title != f"{stem} {number}":
             self.headlines[item_path] = title
-        # §9.2: stage the item codeSpec mapping whenever present.
+        # codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
+        # present.
         if code_spec:
             self.code_specs[item_path] = code_spec
         self._stack.append(

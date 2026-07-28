@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **C** and writes the
-/// committed artefact tree (spec §2.3): the `tom_som_c_<label>` project (a
+/// committed artefact tree (SOM §4.3): the `tom_som_c_<label>` project (a
 /// `Makefile` + the generated typed header/source pair), the lossless
 /// object-model **meta-data file**, and the **DocSpecs schemas**.
 ///

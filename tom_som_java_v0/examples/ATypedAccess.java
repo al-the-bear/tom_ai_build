@@ -22,7 +22,7 @@ public final class ATypedAccess {
 
   public static void main(String[] args) {
     // A typed root over a fresh, empty document. The constructor also runs the
-    // §2.2 instantiation-time version check (an unstamped document is editable).
+    // SOM §4.2 instantiation-time version check (an unstamped document is editable).
     SpecDocument doc = new SpecDocument();
     TomSomV0.D00SolutionBlueprint pd = new TomSomV0.D00SolutionBlueprint(doc);
 

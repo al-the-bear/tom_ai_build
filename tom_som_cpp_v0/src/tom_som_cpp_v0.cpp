@@ -4700,6 +4700,9 @@ ResultEnvelope D13CodeSpecsProjection::resultEnvelope() const {
 MessageKeyRegistry D13CodeSpecsProjection::messageKeyRegistry() const {
   return MessageKeyRegistry(doc(), som::joinPath(path(), "messageKeyRegistry"));
 }
+NotificationModel D13CodeSpecsProjection::notificationModel() const {
+  return NotificationModel(doc(), som::joinPath(path(), "notificationModel"));
+}
 DataModel D13CodeSpecsProjection::dataModel() const {
   return DataModel(doc(), som::joinPath(path(), "dataModel"));
 }
@@ -4813,6 +4816,9 @@ DataAttributeEntryTemporalTypeOptionsForm DataAttributeEntry::temporalTypeOption
 }
 DataAttributeEntryBinaryTypeOptionsForm DataAttributeEntry::binaryTypeOptions() const {
   return DataAttributeEntryBinaryTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTBI"));
+}
+DataAttributeEntryFileReferenceOptionsForm DataAttributeEntry::fileReferenceOptions() const {
+  return DataAttributeEntryFileReferenceOptionsForm(doc(), som::joinPath(path(), "DAATT-DTFR"));
 }
 som::SomList DataAttributeEntry::constraints() const {
   return som::SomList(doc(), som::joinPath(path(), "DATAA-CONS-LST"), "DATAA-CONS-xxx");
@@ -34827,11 +34833,11 @@ std::string ComponentVariantEntryBehaviorForm::implementationNote() const {
 void ComponentVariantEntryBehaviorForm::setImplementationNote(const std::string& value) {
   doc().setFormField(path(), "implementationNote", value);
 }
-std::string ComponentVariantEntryBehaviorForm::flutterVariant() const {
-  return doc().formField(path(), "flutterVariant");
+std::string ComponentVariantEntryBehaviorForm::libraryVariant() const {
+  return doc().formField(path(), "libraryVariant");
 }
-void ComponentVariantEntryBehaviorForm::setFlutterVariant(const std::string& value) {
-  doc().setFormField(path(), "flutterVariant", value);
+void ComponentVariantEntryBehaviorForm::setLibraryVariant(const std::string& value) {
+  doc().setFormField(path(), "libraryVariant", value);
 }
 
 ComponentVariantEntryContentForm::ComponentVariantEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -37477,12 +37483,6 @@ std::string DataAttributeEntryBinaryTypeOptionsForm::maxSizeBytes() const {
 void DataAttributeEntryBinaryTypeOptionsForm::setMaxSizeBytes(const std::string& value) {
   doc().setFormField(path(), "maxSizeBytes", value);
 }
-std::string DataAttributeEntryBinaryTypeOptionsForm::storageMode() const {
-  return doc().formField(path(), "storageMode");
-}
-void DataAttributeEntryBinaryTypeOptionsForm::setStorageMode(const std::string& value) {
-  doc().setFormField(path(), "storageMode", value);
-}
 
 DataAttributeEntryDataTypeSpecForm::DataAttributeEntryDataTypeSpecForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -37542,6 +37542,51 @@ std::string DataAttributeEntryDerivationForm::derivationLogic() const {
 }
 void DataAttributeEntryDerivationForm::setDerivationLogic(const std::string& value) {
   doc().setFormField(path(), "derivationLogic", value);
+}
+
+DataAttributeEntryFileReferenceOptionsForm::DataAttributeEntryFileReferenceOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryFileReferenceOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryFileReferenceOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::storageGroup() const {
+  return doc().formField(path(), "storageGroup");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setStorageGroup(const std::string& value) {
+  doc().setFormField(path(), "storageGroup", value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::fileStore() const {
+  return doc().formField(path(), "fileStore");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setFileStore(const std::string& value) {
+  doc().setFormField(path(), "fileStore", value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::deleteWithRecord() const {
+  return doc().formField(path(), "deleteWithRecord");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setDeleteWithRecord(const std::string& value) {
+  doc().setFormField(path(), "deleteWithRecord", value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::acceptedContentKinds() const {
+  return doc().formField(path(), "acceptedContentKinds");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setAcceptedContentKinds(const std::string& value) {
+  doc().setFormField(path(), "acceptedContentKinds", value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::defaultContentKind() const {
+  return doc().formField(path(), "defaultContentKind");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setDefaultContentKind(const std::string& value) {
+  doc().setFormField(path(), "defaultContentKind", value);
+}
+std::string DataAttributeEntryFileReferenceOptionsForm::maxFileSizeBytes() const {
+  return doc().formField(path(), "maxFileSizeBytes");
+}
+void DataAttributeEntryFileReferenceOptionsForm::setMaxFileSizeBytes(const std::string& value) {
+  doc().setFormField(path(), "maxFileSizeBytes", value);
 }
 
 DataAttributeEntryIdentityForm::DataAttributeEntryIdentityForm(som::SpecDocument& doc, std::string path)
@@ -61863,25 +61908,23 @@ std::string LanguageCountrySelectionPersistenceForm::content() const {
 void LanguageCountrySelectionPersistenceForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string LanguageCountrySelectionPersistenceForm::persistenceMethod() const {
-  return doc().formField(path(), "persistenceMethod");
+std::string LanguageCountrySelectionPersistenceForm::guestRetention() const {
+  return doc().formField(path(), "guestRetention");
 }
-void LanguageCountrySelectionPersistenceForm::setPersistenceMethod(const std::string& value) {
-  doc().setFormField(path(), "persistenceMethod", value);
+void LanguageCountrySelectionPersistenceForm::setGuestRetention(const std::string& value) {
+  doc().setFormField(path(), "guestRetention", value);
 }
-std::optional<bool> LanguageCountrySelectionPersistenceForm::crossDeviceSync() const {
-  const std::string v = doc().formField(path(), "crossDeviceSync");
-  if (v.empty()) return std::nullopt;
-  return v == "true";
+std::string LanguageCountrySelectionPersistenceForm::signInCarryOver() const {
+  return doc().formField(path(), "signInCarryOver");
 }
-void LanguageCountrySelectionPersistenceForm::setCrossDeviceSync(std::optional<bool> value) {
-  doc().setFormField(path(), "crossDeviceSync", value.has_value() ? (*value ? "true" : "false") : "");
+void LanguageCountrySelectionPersistenceForm::setSignInCarryOver(const std::string& value) {
+  doc().setFormField(path(), "signInCarryOver", value);
 }
-std::string LanguageCountrySelectionPersistenceForm::anonymousPersistence() const {
-  return doc().formField(path(), "anonymousPersistence");
+std::string LanguageCountrySelectionPersistenceForm::reselectionPrompt() const {
+  return doc().formField(path(), "reselectionPrompt");
 }
-void LanguageCountrySelectionPersistenceForm::setAnonymousPersistence(const std::string& value) {
-  doc().setFormField(path(), "anonymousPersistence", value);
+void LanguageCountrySelectionPersistenceForm::setReselectionPrompt(const std::string& value) {
+  doc().setFormField(path(), "reselectionPrompt", value);
 }
 
 LanguageCountrySelectionUxForm::LanguageCountrySelectionUxForm(som::SpecDocument& doc, std::string path)
@@ -108329,11 +108372,11 @@ std::string UiComponentEntryIdentityForm::componentFamily() const {
 void UiComponentEntryIdentityForm::setComponentFamily(const std::string& value) {
   doc().setFormField(path(), "componentFamily", value);
 }
-std::string UiComponentEntryIdentityForm::flutterWidgetBase() const {
-  return doc().formField(path(), "flutterWidgetBase");
+std::string UiComponentEntryIdentityForm::baseComponent() const {
+  return doc().formField(path(), "baseComponent");
 }
-void UiComponentEntryIdentityForm::setFlutterWidgetBase(const std::string& value) {
-  doc().setFormField(path(), "flutterWidgetBase", value);
+void UiComponentEntryIdentityForm::setBaseComponent(const std::string& value) {
+  doc().setFormField(path(), "baseComponent", value);
 }
 
 UiComponentEntryInputBehaviorForm::UiComponentEntryInputBehaviorForm(som::SpecDocument& doc, std::string path)
@@ -108722,13 +108765,13 @@ std::string UiComponentsComponentLibraryOverviewForm::basedOnFramework() const {
 void UiComponentsComponentLibraryOverviewForm::setBasedOnFramework(const std::string& value) {
   doc().setFormField(path(), "basedOnFramework", value);
 }
-std::optional<bool> UiComponentsComponentLibraryOverviewForm::tomFlutterUiIntegration() const {
-  const std::string v = doc().formField(path(), "tomFlutterUiIntegration");
+std::optional<bool> UiComponentsComponentLibraryOverviewForm::sharedLibraryIntegration() const {
+  const std::string v = doc().formField(path(), "sharedLibraryIntegration");
   if (v.empty()) return std::nullopt;
   return v == "true";
 }
-void UiComponentsComponentLibraryOverviewForm::setTomFlutterUiIntegration(std::optional<bool> value) {
-  doc().setFormField(path(), "tomFlutterUiIntegration", value.has_value() ? (*value ? "true" : "false") : "");
+void UiComponentsComponentLibraryOverviewForm::setSharedLibraryIntegration(std::optional<bool> value) {
+  doc().setFormField(path(), "sharedLibraryIntegration", value.has_value() ? (*value ? "true" : "false") : "");
 }
 
 UiComponentsCustomizationForm::UiComponentsCustomizationForm(som::SpecDocument& doc, std::string path)
@@ -110781,11 +110824,11 @@ std::optional<long> UtilityNavigationItemEntryDisplayForm::displayOrder() const 
 void UtilityNavigationItemEntryDisplayForm::setDisplayOrder(std::optional<long> value) {
   doc().setFormField(path(), "displayOrder", value.has_value() ? std::to_string(*value) : "");
 }
-std::string UtilityNavigationItemEntryDisplayForm::widgetType() const {
-  return doc().formField(path(), "widgetType");
+std::string UtilityNavigationItemEntryDisplayForm::displayKind() const {
+  return doc().formField(path(), "displayKind");
 }
-void UtilityNavigationItemEntryDisplayForm::setWidgetType(const std::string& value) {
-  doc().setFormField(path(), "widgetType", value);
+void UtilityNavigationItemEntryDisplayForm::setDisplayKind(const std::string& value) {
+  doc().setFormField(path(), "displayKind", value);
 }
 std::string UtilityNavigationItemEntryDisplayForm::visibilityCondition() const {
   return doc().formField(path(), "visibilityCondition");

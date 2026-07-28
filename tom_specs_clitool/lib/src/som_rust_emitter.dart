@@ -4,10 +4,10 @@
 /// The generated structs are an **editing facade** over the generic
 /// `tom_som_rust_runtime` `SpecDocument`: every typed accessor delegates to the
 /// path-keyed memory representation, so a typed mutation is visible through the
-/// generic path and vice-versa (spec §3). Each document-root struct performs the
-/// **instantiation-time version check** (`som::check_som_model_version`) against
-/// the document's authoring stamp (§2.2) and exposes its own generated model
-/// version (§2.1).
+/// generic path and vice-versa (SOM §6). Each document-root struct performs
+/// the **instantiation-time version check** (`som::check_som_model_version`)
+/// against the document's authoring stamp (SOM §4.2) and exposes its own
+/// generated model version (SOM §4.2).
 ///
 /// This is the Rust counterpart of [SomDartEmitter] / `SomPythonEmitter` /
 /// `SomJavaEmitter` / `SomJavaScriptEmitter` / `SomTypeScriptEmitter` /
@@ -56,10 +56,10 @@ class SomRustEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
@@ -338,14 +338,14 @@ class SomRustEmitter {
           _modelVersionConst[cls.name] ?? '${_screamingSnake(cls.name)}_MODEL_VERSION';
       b
         ..writeln('/// $mvConst is the model version this object '
-            'model was generated against (§2.1).')
+            'model was generated against (SOM §4.2).')
         ..writeln('pub const $mvConst: &str = "$modelVersionString";')
         ..writeln()
         ..writeln('impl ${cls.name} {')
         ..writeln('\t/// Creates the typed facade at the document root and '
             'verifies the')
         ..writeln("\t/// document's authoring `document_version` is editable "
-            '(§2.2). A non-editable')
+            '(SOM §4.2). A non-editable')
         ..writeln('\t/// stamp yields a `som::SomVersionError`.')
         ..writeln('\tpub fn new(doc: som::DocRef, document_version: &str) '
             '-> Result<${cls.name}, som::SomVersionError> {')
@@ -356,16 +356,16 @@ class SomRustEmitter {
         ..writeln('\t}')
         ..writeln()
         ..writeln("\t/// Returns this object model's own model version "
-            '(major.minor), per §2.1.')
+            '(major.minor), per SOM §4.2.')
         ..writeln('\tpub fn object_model_version(&self) -> &\'static str {')
         ..writeln('\t\t$mvConst')
         ..writeln('\t}')
         ..writeln()
         ..writeln('\t/// Classifies whether a document authored under '
             '`document_version` is')
-        ..writeln('\t/// editable by this object model **without erroring** (§ '
-            'item 8) — the')
-        ..writeln("\t/// non-erroring companion to the constructor's §2.2 check, "
+        ..writeln('\t/// editable by this object model **without erroring** '
+            '(SOM §21) — the')
+        ..writeln("\t/// non-erroring companion to the constructor's SOM §4.2 check, "
             'so a read-only')
         ..writeln('\t/// viewer can branch instead of handling a '
             '`som::SomVersionError`.')
@@ -376,7 +376,7 @@ class SomRustEmitter {
         ..writeln()
         ..writeln('\t/// Loads a `*.docspecs.yaml` document and returns the '
             'typed root with the')
-        ..writeln("\t/// document's authoring stamp already applied (§ item 4) "
+        ..writeln("\t/// document's authoring stamp already applied (SOM §21) "
             '— one call for')
         ..writeln('\t/// the former decode → load_json → thread-'
             '`document_version` sequence.')
@@ -415,11 +415,11 @@ class SomRustEmitter {
         ..writeln('\t}');
     }
 
-    // § item 10: a per-type `can_have_content` structural predicate answering
+    // SOM §21: a per-type `can_have_content` structural predicate answering
     // "does this section TYPE declare the standard `content` text leaf?" — can
     // this section hold body text? — without probing the document. Rust facades
     // do not inherit a base node, so — mirroring the per-type `editability_for`
-    // emission (§ item 8) — it is emitted on every generated type as a literal
+    // emission (SOM §21) — it is emitted on every generated type as a literal
     // boolean (`true` for content-bearing types, `false` otherwise).
     _emitCanHaveContent(b, _hasContentLeaf(cls));
 
@@ -434,15 +434,15 @@ class SomRustEmitter {
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
   /// signal that its generated facade carries a `.content` accessor, so
-  /// `can_have_content` is `true` (§ item 10). Same predicate as the Dart port's
+  /// `can_have_content` is `true` (SOM §21). Same predicate as the Dart port's
   /// `_hasContentLeaf`.
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
-  /// Emits the per-type `can_have_content` structural predicate (§ item 10),
+  /// Emits the per-type `can_have_content` structural predicate (SOM §21),
   /// returning the literal [value] — `true` for a content-bearing type, `false`
   /// for a container-only one. Mirrors the per-type `editability_for` emission
-  /// (§ item 8): Rust facades hold a `som::SomNode` but do not inherit from it,
+  /// (SOM §21): Rust facades hold a `som::SomNode` but do not inherit from it,
   /// so the predicate is a compile-time constant baked onto each generated type
   /// rather than a base-node override.
   void _emitCanHaveContent(StringBuffer b, bool value) {
@@ -450,7 +450,7 @@ class SomRustEmitter {
       ..writeln()
       ..writeln('\t/// Whether this section **type** declares the standard '
           '`content` text leaf')
-      ..writeln('\t/// (§ item 10) — a **structural** predicate answering "can '
+      ..writeln('\t/// (SOM §21) — a **structural** predicate answering "can '
           'this section hold')
       ..writeln('\t/// body text?" as a compile-time constant, without probing '
           'the document.')
@@ -586,7 +586,7 @@ class SomRustEmitter {
       ..writeln('\t\t$name { node: som::SomNode::new(doc, path) }')
       ..writeln('\t}');
     // A @Form section holds body text before its form fields, so it can have
-    // content (§ item 10 analogue).
+    // content (SOM §21 analogue).
     _emitCanHaveContent(b, true);
     final usedAcc = <String>{};
     if (!hasContentMember) {
@@ -700,7 +700,7 @@ class SomRustEmitter {
   }
 
   /// Emits the generated loader error enum: the tree-based codec fails
-  /// with a `som::SpecYamlError` while the §2.2 version check fails with a
+  /// with a `som::SpecYamlError` while the SOM §4.2 version check fails with a
   /// `som::SomVersionError`, so the one-call loaders surface both through a
   /// single crate-level sum type.
   String _emitLoadError() {
@@ -711,7 +711,7 @@ class SomRustEmitter {
           '(`som::SpecYamlError`) or the')
       ..writeln("/// document's authoring stamp is not editable by this object "
           'model')
-      ..writeln('/// (`som::SomVersionError`, §2.2).')
+      ..writeln('/// (`som::SomVersionError`, SOM §4.2).')
       ..writeln('#[derive(Debug)]')
       ..writeln('pub enum SomLoadError {')
       ..writeln('\tYaml(som::SpecYamlError),')

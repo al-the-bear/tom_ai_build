@@ -27,12 +27,12 @@ char *som_node_section_id(const SomNode *n) {
   return som_strdup(id != NULL ? id : "");
 }
 
-/* True when no value lives at this node's path or beneath it (§ item 5). */
+/* True when no value lives at this node's path or beneath it (SOM §21). */
 int som_node_is_empty(const SomNode *n) {
   return !spec_document_has_values_under(n->doc, n->path);
 }
 
-/* NOTE (§ item 10): the `can_have_content` structural predicate ("does this
+/* NOTE (SOM §21): the `can_have_content` structural predicate ("does this
  * section TYPE declare the standard `content` text leaf?") has no base helper
  * here. Unlike `som_node_is_empty` / `som_editability_for`, it is a compile-time
  * property of each generated type, not a runtime computation over the document,

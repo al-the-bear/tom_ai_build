@@ -212,13 +212,13 @@ const SpecChip referencesChip = SpecChip(
 /// The chips stating where a node's subject matter is headed.
 ///
 /// The model splits that subject matter in two (`codespecs_mapping.md` §8.3):
-/// subtrees realised as CodeSpecs code, tagged `@CodeSpecKind` (§9.1), and
-/// subtrees that feed a downstream *process* — documentation, training,
-/// migration, … — tagged `@FollowUpKind`. Both are produced by one function
-/// because they interact: a node tagged for a follow-up process **has** been
-/// classified, so it must not also carry the "not yet mapped" marker, which
-/// would state the opposite and send a reviewer chasing a CodeSpecs mapping
-/// that by construction cannot exist.
+/// subtrees realised as CodeSpecs code, tagged `@CodeSpecKind`
+/// (codespecs_mapping.md §9.1), and subtrees that feed a downstream *process* —
+/// documentation, training, migration, … — tagged `@FollowUpKind`. Both are
+/// produced by one function because they interact: a node tagged for a
+/// follow-up process **has** been classified, so it must not also carry the
+/// "not yet mapped" marker, which would state the opposite and send a reviewer
+/// chasing a CodeSpecs mapping that by construction cannot exist.
 List<SpecChip> kindChips(KindLink? codeSpec, KindLink? followUp) => [
       ...followUpKindChips(followUp),
       ...codeSpecKindChips(codeSpec, suppressUnmapped: followUp != null),
@@ -320,8 +320,8 @@ List<SpecChip> oneOfChips(OneOfGroup group) {
       SpecChip(
         'uncovered: ${uncovered.join(', ')}',
         SpecChipRole.choiceUncovered,
-        // §8.2 makes this a warning, not an error — the reviewer judges
-        // whether the gap is deliberate.
+        // codespecs_mapping.md §8.2 makes this a warning, not an error — the
+        // reviewer judges whether the gap is deliberate.
         tooltip: 'These discriminator values carry only the common sections. '
             'Legal, but worth confirming it is intended.',
       ),

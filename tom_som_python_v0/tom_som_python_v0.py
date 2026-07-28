@@ -7046,7 +7046,7 @@ class D00SolutionBlueprint(SomNode):
     Contains a [DocumentControl] header block and the SBP sections, sequenced
     per the public-standards order (§4 of the redesign proposal).
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7056,7 +7056,7 @@ class D00SolutionBlueprint(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d00SolutionBlueprintMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7070,14 +7070,14 @@ class D00SolutionBlueprint(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D00SolutionBlueprint.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7170,7 +7170,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     processes, pain points, data landscape, operational metrics, risks,
     and the inventory / migration plan for the systems being replaced.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7180,7 +7180,7 @@ class D01CurrentLandscapeAssessment(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d01CurrentLandscapeAssessmentMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7194,14 +7194,14 @@ class D01CurrentLandscapeAssessment(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D01CurrentLandscapeAssessment.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7269,7 +7269,7 @@ class D02TargetOperatingModel(SomNode):
     diagrams, improvements, relationships, detailed workflows,
     cross-process analysis, exception handling, and KPIs.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7279,7 +7279,7 @@ class D02TargetOperatingModel(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d02TargetOperatingModelMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7293,14 +7293,14 @@ class D02TargetOperatingModel(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D02TargetOperatingModel.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7379,7 +7379,7 @@ class D03InformationModel(SomNode):
     to-data matrix, business rules, data dictionary, and validation /
     integrity constraints.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7389,7 +7389,7 @@ class D03InformationModel(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d03InformationModelMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7403,14 +7403,14 @@ class D03InformationModel(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D03InformationModel.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7499,7 +7499,7 @@ class D03InformationModel(SomNode):
         return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
 
     # Domain enum registry — the closed value sets the data model relies on
-    # (CE-EN home + closed-choice discriminator source, csmb3).
+    # (`domainEnum` home + closed-choice discriminator source, csmb3).
     @property
     def domainEnumRegistry(self):
         return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
@@ -7518,7 +7518,7 @@ class D03InformationModel(SomNode):
         return ResultEnvelope(self.doc, f"{self.path}/resultEnvelope")
 
     # Message key registry — the single author-copy-once home for user-facing
-    # copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+    # copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
     # (csmb7).
     @property
     def messageKeyRegistry(self):
@@ -7531,7 +7531,7 @@ class D04RequirementsSpecification(SomNode):
     and organizational requirements, plus traceability, relationships,
     and coverage analysis.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7541,7 +7541,7 @@ class D04RequirementsSpecification(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d04RequirementsSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7555,14 +7555,14 @@ class D04RequirementsSpecification(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D04RequirementsSpecification.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7633,7 +7633,7 @@ class D05InteractionScenarios(SomNode):
     interactions — Cockburn-style catalog, scenarios, end-to-end tests,
     and traceability.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7643,7 +7643,7 @@ class D05InteractionScenarios(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d05InteractionScenariosMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7657,14 +7657,14 @@ class D05InteractionScenarios(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D05InteractionScenarios.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7728,7 +7728,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     / security / architecture, plus components, framework conditions,
     and translation handling.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7738,7 +7738,7 @@ class D06ArchitectureTechnologySpecification(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d06ArchitectureTechnologySpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7752,14 +7752,14 @@ class D06ArchitectureTechnologySpecification(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D06ArchitectureTechnologySpecification.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7847,7 +7847,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     external systems: inventory, patterns, testing, dependencies,
     migration, operational concerns, and cross-boundary error handling.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7857,7 +7857,7 @@ class D07IntegrationInterfaceSpecification(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d07IntegrationInterfaceSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7871,14 +7871,14 @@ class D07IntegrationInterfaceSpecification(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D07IntegrationInterfaceSpecification.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -7957,7 +7957,7 @@ class D08SecurityAccessSpecification(SomNode):
     authorization, encryption, audit/logging, role matrix, and
     compliance framework.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -7967,7 +7967,7 @@ class D08SecurityAccessSpecification(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d08SecurityAccessSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -7981,14 +7981,14 @@ class D08SecurityAccessSpecification(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D08SecurityAccessSpecification.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8057,7 +8057,7 @@ class D09ExperienceDesignSpecification(SomNode):
     components, language/country selection, prototype, wireframes and
     mockups.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -8067,7 +8067,7 @@ class D09ExperienceDesignSpecification(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d09ExperienceDesignSpecificationMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -8081,14 +8081,14 @@ class D09ExperienceDesignSpecification(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D09ExperienceDesignSpecification.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8177,7 +8177,7 @@ class D10QualityAcceptancePlan(SomNode):
     
     Full quality plan combining quality goals and the acceptance plan.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -8187,7 +8187,7 @@ class D10QualityAcceptancePlan(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d10QualityAcceptancePlanMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -8201,14 +8201,14 @@ class D10QualityAcceptancePlan(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D10QualityAcceptancePlan.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8332,7 +8332,7 @@ class D11DeliveryRoadmap(SomNode):
     decision processes, initial development flow, and upgrade cycle
     framework.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -8342,7 +8342,7 @@ class D11DeliveryRoadmap(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d11DeliveryRoadmapMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -8356,14 +8356,14 @@ class D11DeliveryRoadmap(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D11DeliveryRoadmap.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8437,7 +8437,7 @@ class D12TransitionRolloutPlan(SomNode):
     user manuals, training materials, pilot, cutover, knowledge
     transfer, and warranty/support.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -8447,7 +8447,7 @@ class D12TransitionRolloutPlan(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d12TransitionRolloutPlanMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -8461,14 +8461,14 @@ class D12TransitionRolloutPlan(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D12TransitionRolloutPlan.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8567,7 +8567,7 @@ class D13CodeSpecsProjection(SomNode):
     splits: the shared registries, the server-side data / framework / access
     models, the process-step interactions, and the client-side experience seed.
     """
-    #: The model version this object model was generated against (§2.1).
+    #: The model version this object model was generated against (SOM §4.2).
     model_version = '1.0'
 
     def __init__(self, doc, document_version=None):
@@ -8577,7 +8577,7 @@ class D13CodeSpecsProjection(SomNode):
     @classmethod
     def load_yaml(cls, yaml):
         """Loads a `*.docspecs.yaml` document and returns the typed root with the
-        document's authoring stamp already applied (§ item 4) — one call for
+        document's authoring stamp already applied (SOM §21) — one call for
         the former decode → load_json → thread-`document_version` sequence."""
         doc = SpecDocument.from_yaml(yaml, d13CodeSpecsProjectionMetaTree)
         return cls(doc, document_version=doc.model_version)
@@ -8591,14 +8591,14 @@ class D13CodeSpecsProjection(SomNode):
 
     @property
     def object_model_version(self):
-        """This object model's own model version (major.minor), per §2.1."""
+        """This object model's own model version (major.minor), per SOM §4.2."""
         return D13CodeSpecsProjection.model_version
 
     @classmethod
     def editability_for(cls, document_version):
         """Classifies whether a document authored under *document_version* is
-        editable by this object model, **without raising** (§ item 8) — the
-        non-throwing companion to the constructor's §2.2 check, so a read-only
+        editable by this object model, **without raising** (SOM §21) — the
+        non-throwing companion to the constructor's SOM §4.2 check, so a read-only
         viewer can branch instead of catching SomVersionError."""
         return som_editability_for(cls.model_version, document_version)
 
@@ -8619,7 +8619,13 @@ class D13CodeSpecsProjection(SomNode):
     def header(self):
         return DocumentHeader(self.doc, f"{self.path}/header")
 
-    # Domain enum registry — CE-EN closed value sets, shared by client & server.
+    # Domain enum registry — the closed value sets, shared by client & server.
+    #
+    # `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+    # §4.1): each enum is authored once here and realised as a plain Dart `enum`
+    # marked `@CsEnum`, placed in the shared project iff a shared contract type
+    # references it — which is what this registry's shared locus assumes —
+    # otherwise in the project of the part that introduces it.
     @property
     def domainEnumRegistry(self):
         return DomainEnumRegistry(self.doc, f"{self.path}/domainEnumRegistry")
@@ -8638,6 +8644,16 @@ class D13CodeSpecsProjection(SomNode):
     @property
     def messageKeyRegistry(self):
         return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
+    # Notification model — CE-NT type / channel / preference declarations.
+    #
+    # The declarations are **shared**: the client renders the preference UI
+    # against the same catalogue the server dispatches from. Delivery is
+    # server-only, but it is not authored here — it rides the reused
+    # `tom_core_server` messaging transport.
+    @property
+    def notificationModel(self):
+        return NotificationModel(self.doc, f"{self.path}/notificationModel")
 
     # Data model — CE-DB persistence + CE-VA server-side rules.
     @property
@@ -8850,12 +8866,38 @@ class DataAttributeEntry(SomNode):
 
     # Binary-kind type options — a promoted `@OneOf` case (csra4).
     #
-    # Present only for the `binary` logical type; carries only the stored size
-    # attributes. Separated from the text `length` because a byte size and a
-    # character length are different constraints on different types.
+    # Present only for the `binary` logical type — the record holds the **bytes
+    # themselves** — so it carries only the stored size. Separated from the text
+    # `length` because a byte size and a character length are different
+    # constraints on different types. An attribute that holds a file's *address*
+    # instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+    # of this one: a mode field would restate the logical type and could then
+    # disagree with it.
     @property
     def binaryTypeOptions(self):
         return DataAttributeEntryBinaryTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTBI")
+
+    # File-reference type options — a promoted `@OneOf` case (csra10).
+    #
+    # Present only for the `fileReference` logical type: the attribute stores the
+    # **address of a stored file**, so what a specification must say is where the
+    # file is filed, which store holds it, whether it dies with its record, and
+    # what may be uploaded into it.
+    #
+    # The address itself is never authored — it is generated when the file is
+    # stored, so a specification chooses only the group it is filed under. The
+    # vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+    # §1.2): a *file store* is named, never a storage technology.
+    #
+    # Two decisions that look like they belong here are elsewhere by design:
+    # **who may fetch the file** is the attribute's own access classification —
+    # the address is an ordinary attribute, so its security classification
+    # already governs it — and **how the file appears on screen** (a thumbnail,
+    # a link, a download) is a screen-element concern, authored where the
+    # element is.
+    @property
+    def fileReferenceOptions(self):
+        return DataAttributeEntryFileReferenceOptionsForm(self.doc, f"{self.path}/DAATT-DTFR")
 
     @property
     def constraints(self):
@@ -12172,8 +12214,8 @@ class DomainEnumEntry(SomNode):
     """A single domain enum (form + values).
     
     One named closed value set: its name, backing value type, default value and
-    the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-    name becomes the generated enum type and each member becomes a constant —
+    the ordered list of members. Maps to the `domainEnum` **member kind** — the
+    enum name becomes the generated enum type and each member becomes a constant —
     and doubles as a closed-choice discriminator source (csm-7-4): the enum
     name identifies the choice set and [values] supply the cases.
     """
@@ -12196,13 +12238,13 @@ class DomainEnumRegistry(SomNode):
     value sets the business data model relies on (order status, currency,
     account type, …). Before this registry existed, closed value sets could
     only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-    inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+    inline option lists, so the `domainEnum` CodeSpecs member kind had no
     expressible home and the closed-choice mechanism had no real enum to use as
     a discriminator.
     
     This registry serves **two** roles:
     
-    1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+    1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
        type and default, and its [DomainEnumEntry.values] each carry a value id,
        a backing value and a copy reference into the CE-TX message registry.
     2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -17766,7 +17808,11 @@ class LanguageCountrySelection(SomNode):
     def defaults(self):
         return LanguageCountrySelectionDefaultsForm(self.doc, f"{self.path}/LCSD")
 
-    # Persistence rules.
+    # Retention rules — how a chosen preference survives, without naming a store.
+    #
+    # Where the preference lives is *not* authored here: it follows from the
+    # settings scope the preference is declared in (user setting vs device
+    # setting), never from a local/roaming-style flag on this section.
     @property
     def persistence(self):
         return LanguageCountrySelectionPersistenceForm(self.doc, f"{self.path}/LCSP")
@@ -18738,7 +18784,7 @@ class MessageKeyRegistry(SomNode):
     carrying inline copy and instead reference a key here:
     
     - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-    - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+    - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
     - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
     - **CE-VA** validation-failure messages.
     
@@ -59344,12 +59390,12 @@ class ComponentVariantEntryBehaviorForm(SomNode):
         self.doc.set_form_field(self.path, "implementationNote", value)
 
     @property
-    def flutterVariant(self) -> str:
-        return self.doc.form_field(self.path, "flutterVariant") or ""
+    def libraryVariant(self) -> str:
+        return self.doc.form_field(self.path, "libraryVariant") or ""
 
-    @flutterVariant.setter
-    def flutterVariant(self, value):
-        self.doc.set_form_field(self.path, "flutterVariant", value)
+    @libraryVariant.setter
+    def libraryVariant(self, value):
+        self.doc.set_form_field(self.path, "libraryVariant", value)
 
 class ComponentVariantEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -63248,14 +63294,6 @@ class DataAttributeEntryBinaryTypeOptionsForm(SomNode):
     def maxSizeBytes(self, value):
         self.doc.set_form_field(self.path, "maxSizeBytes", value)
 
-    @property
-    def storageMode(self) -> str:
-        return self.doc.form_field(self.path, "storageMode") or ""
-
-    @storageMode.setter
-    def storageMode(self, value):
-        self.doc.set_form_field(self.path, "storageMode", value)
-
 class DataAttributeEntryDataTypeSpecForm(SomNode):
     """Generated section facade for the `dataTypeSpec` @Form section: its own content text followed by one typed member per form field."""
 
@@ -63345,6 +63383,71 @@ class DataAttributeEntryDerivationForm(SomNode):
     @derivationLogic.setter
     def derivationLogic(self, value):
         self.doc.set_form_field(self.path, "derivationLogic", value)
+
+class DataAttributeEntryFileReferenceOptionsForm(SomNode):
+    """Generated section facade for the `fileReferenceOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def storageGroup(self) -> str:
+        return self.doc.form_field(self.path, "storageGroup") or ""
+
+    @storageGroup.setter
+    def storageGroup(self, value):
+        self.doc.set_form_field(self.path, "storageGroup", value)
+
+    @property
+    def fileStore(self) -> str:
+        return self.doc.form_field(self.path, "fileStore") or ""
+
+    @fileStore.setter
+    def fileStore(self, value):
+        self.doc.set_form_field(self.path, "fileStore", value)
+
+    @property
+    def deleteWithRecord(self) -> str:
+        return self.doc.form_field(self.path, "deleteWithRecord") or ""
+
+    @deleteWithRecord.setter
+    def deleteWithRecord(self, value):
+        self.doc.set_form_field(self.path, "deleteWithRecord", value)
+
+    @property
+    def acceptedContentKinds(self) -> str:
+        return self.doc.form_field(self.path, "acceptedContentKinds") or ""
+
+    @acceptedContentKinds.setter
+    def acceptedContentKinds(self, value):
+        self.doc.set_form_field(self.path, "acceptedContentKinds", value)
+
+    @property
+    def defaultContentKind(self) -> str:
+        return self.doc.form_field(self.path, "defaultContentKind") or ""
+
+    @defaultContentKind.setter
+    def defaultContentKind(self, value):
+        self.doc.set_form_field(self.path, "defaultContentKind", value)
+
+    @property
+    def maxFileSizeBytes(self) -> str:
+        return self.doc.form_field(self.path, "maxFileSizeBytes") or ""
+
+    @maxFileSizeBytes.setter
+    def maxFileSizeBytes(self, value):
+        self.doc.set_form_field(self.path, "maxFileSizeBytes", value)
 
 class DataAttributeEntryIdentityForm(SomNode):
     """Generated section facade for the `identity` @Form section: its own content text followed by one typed member per form field."""
@@ -99317,29 +99420,28 @@ class LanguageCountrySelectionPersistenceForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def persistenceMethod(self) -> str:
-        return self.doc.form_field(self.path, "persistenceMethod") or ""
+    def guestRetention(self) -> str:
+        return self.doc.form_field(self.path, "guestRetention") or ""
 
-    @persistenceMethod.setter
-    def persistenceMethod(self, value):
-        self.doc.set_form_field(self.path, "persistenceMethod", value)
-
-    @property
-    def crossDeviceSync(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "crossDeviceSync")
-        return None if v is None else (v == "true")
-
-    @crossDeviceSync.setter
-    def crossDeviceSync(self, value):
-        self.doc.set_form_field(self.path, "crossDeviceSync", "" if value is None else ("true" if value else "false"))
+    @guestRetention.setter
+    def guestRetention(self, value):
+        self.doc.set_form_field(self.path, "guestRetention", value)
 
     @property
-    def anonymousPersistence(self) -> str:
-        return self.doc.form_field(self.path, "anonymousPersistence") or ""
+    def signInCarryOver(self) -> str:
+        return self.doc.form_field(self.path, "signInCarryOver") or ""
 
-    @anonymousPersistence.setter
-    def anonymousPersistence(self, value):
-        self.doc.set_form_field(self.path, "anonymousPersistence", value)
+    @signInCarryOver.setter
+    def signInCarryOver(self, value):
+        self.doc.set_form_field(self.path, "signInCarryOver", value)
+
+    @property
+    def reselectionPrompt(self) -> str:
+        return self.doc.form_field(self.path, "reselectionPrompt") or ""
+
+    @reselectionPrompt.setter
+    def reselectionPrompt(self, value):
+        self.doc.set_form_field(self.path, "reselectionPrompt", value)
 
 class LanguageCountrySelectionUxForm(SomNode):
     """Generated section facade for the `ux` @Form section: its own content text followed by one typed member per form field."""
@@ -167975,12 +168077,12 @@ class UiComponentEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "componentFamily", value)
 
     @property
-    def flutterWidgetBase(self) -> str:
-        return self.doc.form_field(self.path, "flutterWidgetBase") or ""
+    def baseComponent(self) -> str:
+        return self.doc.form_field(self.path, "baseComponent") or ""
 
-    @flutterWidgetBase.setter
-    def flutterWidgetBase(self, value):
-        self.doc.set_form_field(self.path, "flutterWidgetBase", value)
+    @baseComponent.setter
+    def baseComponent(self, value):
+        self.doc.set_form_field(self.path, "baseComponent", value)
 
 class UiComponentEntryInputBehaviorForm(SomNode):
     """Generated section facade for the `inputBehavior` @Form section: its own content text followed by one typed member per form field."""
@@ -168554,13 +168656,13 @@ class UiComponentsComponentLibraryOverviewForm(SomNode):
         self.doc.set_form_field(self.path, "basedOnFramework", value)
 
     @property
-    def tomFlutterUiIntegration(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "tomFlutterUiIntegration")
+    def sharedLibraryIntegration(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "sharedLibraryIntegration")
         return None if v is None else (v == "true")
 
-    @tomFlutterUiIntegration.setter
-    def tomFlutterUiIntegration(self, value):
-        self.doc.set_form_field(self.path, "tomFlutterUiIntegration", "" if value is None else ("true" if value else "false"))
+    @sharedLibraryIntegration.setter
+    def sharedLibraryIntegration(self, value):
+        self.doc.set_form_field(self.path, "sharedLibraryIntegration", "" if value is None else ("true" if value else "false"))
 
 class UiComponentsCustomizationForm(SomNode):
     """Generated section facade for the `customization` @Form section: its own content text followed by one typed member per form field."""
@@ -171621,12 +171723,12 @@ class UtilityNavigationItemEntryDisplayForm(SomNode):
         self.doc.set_form_field(self.path, "displayOrder", "" if value is None else str(value))
 
     @property
-    def widgetType(self) -> str:
-        return self.doc.form_field(self.path, "widgetType") or ""
+    def displayKind(self) -> str:
+        return self.doc.form_field(self.path, "displayKind") or ""
 
-    @widgetType.setter
-    def widgetType(self, value):
-        self.doc.set_form_field(self.path, "widgetType", value)
+    @displayKind.setter
+    def displayKind(self, value):
+        self.doc.set_form_field(self.path, "displayKind", value)
 
     @property
     def visibilityCondition(self) -> str:

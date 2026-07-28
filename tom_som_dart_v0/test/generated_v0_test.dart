@@ -5,9 +5,9 @@
 // (`tom_som_dart_v0`), as opposed to the emitter-golden *fixture* exercised by
 // `tom_specs_clitool/test/som_dart_emitter_test.dart`. It instantiates the real
 // `D00SolutionBlueprint` root over a generic `SpecDocument` and proves the typed
-// facade is a faithful editing surface over the shared document (spec §3):
+// facade is a faithful editing surface over the shared document (SOM §6):
 // typed↔generic parity, nested-section path derivation, the generated model
-// version, and the instantiation-time version check (§2.2).
+// version, and the instantiation-time version check (SOM §4.2).
 //
 // Run with `dart test` from this package (`tom_som_dart_v0`).
 library;
@@ -67,7 +67,7 @@ void main() {
     });
   });
 
-  group('tom_som_dart_v0 instantiation-time version check (§2.2)', () {
+  group('tom_som_dart_v0 instantiation-time version check (SOM §4.2)', () {
     test('a new / unstamped document is editable', () {
       expect(() => D00SolutionBlueprint(SpecDocument()), returnsNormally);
       expect(() => D00SolutionBlueprint(SpecDocument(), documentVersion: '1.0'),
@@ -85,8 +85,8 @@ void main() {
     });
   });
 
-  group('tom_som_dart_v0 non-throwing editabilityFor (§ item 8)', () {
-    test('classifies every §2.2 outcome without throwing', () {
+  group('tom_som_dart_v0 non-throwing editabilityFor (SOM §21)', () {
+    test('classifies every SOM §4.2 outcome without throwing', () {
       expect(D00SolutionBlueprint.editabilityFor(null), SomEditability.editable);
       expect(
           D00SolutionBlueprint.editabilityFor('1.0'), SomEditability.editable);
@@ -180,7 +180,7 @@ void main() {
     });
   });
 
-  group('content-only list convenience (§ item 9)', () {
+  group('content-only list convenience (SOM §21)', () {
     test('addContent appends and fills a content-only element in one call', () {
       final doc = SpecDocument();
       final sbp = D00SolutionBlueprint(doc);
@@ -207,7 +207,7 @@ void main() {
     });
   });
 
-  group('aligned absence semantics (§ item 5)', () {
+  group('aligned absence semantics (SOM §21)', () {
     test('a section isEmpty until any value is written under it', () {
       final doc = SpecDocument();
       final sbp = D00SolutionBlueprint(doc);
@@ -243,7 +243,7 @@ void main() {
     });
   });
 
-  group('canHaveContent structural content-slot predicate (§ item 10)', () {
+  group('canHaveContent structural content-slot predicate (SOM §21)', () {
     test('a content-bearing section reports true', () {
       final sbp = D00SolutionBlueprint(SpecDocument());
       // Goals declares the standard `content` leaf.

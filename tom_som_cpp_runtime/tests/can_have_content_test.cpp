@@ -1,4 +1,4 @@
-/* Behavioural test for the structural `canHaveContent()` predicate (§ item 10):
+/* Behavioural test for the structural `canHaveContent()` predicate (SOM §21):
  * "does this section TYPE declare the standard `content` text leaf?" — answered
  * at the type level, WITHOUT probing the document.
  *

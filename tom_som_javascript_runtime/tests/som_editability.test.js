@@ -1,11 +1,11 @@
 'use strict';
 
 /**
- * Unit tests for the non-throwing §2.2 editability classifier (§ item 8) — the
- * JavaScript port of the Dart `somEditabilityFor` tests. Mirrors the Dart cases:
- * null/'' → editable; same-major older/equal → editable; newer minor → rejected;
- * different major → cross-major; unparseable → invalid; and it never throws where
- * `checkSomModelVersion` throws.
+ * Unit tests for the non-throwing SOM §4.2 editability classifier (SOM §21) —
+ * the JavaScript port of the Dart `somEditabilityFor` tests. Mirrors the Dart
+ * cases: null/'' → editable; same-major older/equal → editable; newer minor →
+ * rejected; different major → cross-major; unparseable → invalid; and it never
+ * throws where `checkSomModelVersion` throws.
  *
  * Also a facade behavioural check for a root's static `editabilityFor(...)` — the
  * generated root facade cannot be regenerated here, so we stand up a minimal

@@ -385,6 +385,8 @@ section-types:
         max-count: 1
       daatt-dtbi:
         max-count: 1
+      daatt-dtfr:
+        max-count: 1
       dataa-cons-lst:
         max-count: 1
       daatt-deri:
@@ -677,6 +679,10 @@ section-types:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
     description: "Binary-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dtfr:
+    prefix: DAATT_DTFR
+    format: daatt-dtfr-form
+    description: "File-reference type options — a promoted `@OneOf` case (csra10)."
   daatt-dtnu:
     prefix: DAATT_DTNU
     format: daatt-dtnu-form
@@ -990,8 +996,21 @@ form-types:
     fields:
       - fieldname: maxSizeBytes
         description: Maximum stored size in bytes
-      - fieldname: storageMode
-        description: "Inline | External-Reference | Blob-Store"
+  daatt-dtfr-form:
+    fields:
+      - fieldname: storageGroup
+        required: true
+        description: Naming group the files are filed under — sets their retention and access partition (e.g. documents/attachment)
+      - fieldname: fileStore
+        description: Name of the configured file store holding the files; empty means the deployment default store
+      - fieldname: deleteWithRecord
+        description: "Yes | No — whether deleting the record also deletes the file (Yes unless the file outlives its reference by design)"
+      - fieldname: acceptedContentKinds
+        description: "Comma-separated content kinds accepted on upload (e.g. PDF, PNG); empty means unrestricted"
+      - fieldname: defaultContentKind
+        description: Content kind recorded when an upload declares none
+      - fieldname: maxFileSizeBytes
+        description: Maximum accepted file size in bytes
   daatt-deri-form:
     fields:
       - fieldname: isComputed

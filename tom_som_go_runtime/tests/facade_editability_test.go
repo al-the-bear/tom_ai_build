@@ -1,5 +1,5 @@
 // Behavioural test for the root facade's generated EditabilityFor method
-// (SOM roadmap § item 8).
+// (SOM §21).
 //
 // The generated facade (tom_som_go_v0) cannot be regenerated here (that must run
 // centrally, once, for all nine languages), so this test hand-writes a minimal
@@ -11,7 +11,7 @@
 //	}
 //
 // It asserts the delegating method returns the same classification as the
-// underlying SomEditabilityFor for every §2.2 case.
+// underlying SomEditabilityFor for every SOM §4.2 case.
 package tests
 
 import (

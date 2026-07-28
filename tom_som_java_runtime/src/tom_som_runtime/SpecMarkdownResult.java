@@ -18,14 +18,14 @@ public final class SpecMarkdownResult {
 
   /**
    * Stored headlines staged from heading titles that differ from their
-   * effective default (YRD3 §8.7) — path → headline.
+   * effective default (SOM §11.7) — path → headline.
    */
   public final Map<String, String> headlines = new LinkedHashMap<>();
 
   /**
    * Stored codeSpec mappings staged from the {@code codeSpec="…"} key in
-   * heading comments (§9.2) — path → comma-joined code locations. Staged
-   * whenever present (codeSpec has no effective default).
+   * heading comments (codespecs_mapping.md §9.2) — path → comma-joined code
+   * locations. Staged whenever present (codeSpec has no effective default).
    */
   public final Map<String, String> codeSpecs = new LinkedHashMap<>();
   public final List<SpecMarkdownRejection> rejections = new ArrayList<>();

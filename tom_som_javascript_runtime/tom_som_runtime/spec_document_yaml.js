@@ -393,7 +393,7 @@ class _Encoder {
       const h = doc.headline(p);
       this._headlines.set(p, h !== null ? h : '');
     }
-    /** csmc8 (§9.2): the stored codeSpec per path — mirror of _headlines.
+    /** csmc8 (codespecs_mapping.md §9.2): the stored codeSpec per path — mirror of _headlines.
      *  @type {Map<string, string>} */
     this._codeSpecs = new Map();
     for (const p of doc.codeSpecPaths) {
@@ -437,7 +437,7 @@ class _Encoder {
     }
 
     // The node's own stored codeSpec — the literal `codeSpec` key (csmc8,
-    // §9.2). Mirror of the own-headline branch above.
+    // codespecs_mapping.md §9.2). Mirror of the own-headline branch above.
     if (this._codeSpecs.has(path)) {
       const ownCodeSpec = this._codeSpecs.get(path);
       this._codeSpecs.delete(path);
@@ -523,8 +523,8 @@ class _Encoder {
 
   /**
    * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline and/or codeSpec (csmc8, §9.2) as a
-   * `{headline: …, codeSpec: …, content: …}` mapping (YRD3).
+   * that carries a stored headline and/or codeSpec (csmc8, codespecs_mapping.md
+   * §9.2) as a `{headline: …, codeSpec: …, content: …}` mapping (YRD3).
    */
   _writeScalarWithMeta(b, indent, key, headline, codeSpec, value, text) {
     b.writeln(`${' '.repeat(indent)}${plainKey(key)}:`);
@@ -618,7 +618,8 @@ class _Encoder {
       this._writeText(b, indent + 2, 'codeSpec', codeSpec);
     }
     // Seed with both literal container keys so a list item can never collide
-    // with the `headline`/`codeSpec` container keys (csmc8, §9.2).
+    // with the `headline`/`codeSpec` container keys (csmc8,
+    // codespecs_mapping.md §9.2).
     const used = new Set(['headline', 'codeSpec']);
     let pos = 0;
     for (const itemPath of items) {
@@ -931,7 +932,8 @@ class _Decoder {
         continue;
       }
       if (key === 'codeSpec') {
-        // The list container's own stored codeSpec (csmc8, §9.2), not an item.
+        // The list container's own stored codeSpec (csmc8, codespecs_mapping.md
+        // §9.2), not an item.
         this.doc.setCodeSpec(
           path, _Decoder._scalarOf(value, `${path} (codeSpec)`),
         );
@@ -976,8 +978,9 @@ class _Decoder {
   }
 
   /**
-   * Loads a meta-extended scalar node (YRD3 / csmc8 §9.2): a mapping holding
-   * only the literal keys `headline`, `codeSpec` and `content`.
+   * Loads a meta-extended scalar node (YRD3 / csmc8 codespecs_mapping.md §9.2):
+   * a mapping holding only the literal keys `headline`, `codeSpec` and
+   * `content`.
    */
   _loadScalarWithMeta(path, key, value) {
     for (const [k, v] of Object.entries(value)) {

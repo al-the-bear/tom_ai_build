@@ -7414,18 +7414,18 @@ class CutoverProcedure extends SomNode {
 // Contains a [DocumentControl] header block and the SBP sections, sequenced
 // per the public-standards order (§4 of the redesign proposal).
 class D00SolutionBlueprint extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "SBP");
     checkSomModelVersion(D00SolutionBlueprint.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d00SolutionBlueprintMetaTree);
@@ -7439,14 +7439,14 @@ class D00SolutionBlueprint extends SomNode {
     return new D00SolutionBlueprint(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D00SolutionBlueprint.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D00SolutionBlueprint.MODEL_VERSION, documentVersion);
@@ -7541,18 +7541,18 @@ class D00SolutionBlueprint extends SomNode {
 // processes, pain points, data landscape, operational metrics, risks,
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "CLA");
     checkSomModelVersion(D01CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d01CurrentLandscapeAssessmentMetaTree);
@@ -7566,14 +7566,14 @@ class D01CurrentLandscapeAssessment extends SomNode {
     return new D01CurrentLandscapeAssessment(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D01CurrentLandscapeAssessment.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D01CurrentLandscapeAssessment.MODEL_VERSION, documentVersion);
@@ -7643,18 +7643,18 @@ class D01CurrentLandscapeAssessment extends SomNode {
 // diagrams, improvements, relationships, detailed workflows,
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "TOM");
     checkSomModelVersion(D02TargetOperatingModel.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d02TargetOperatingModelMetaTree);
@@ -7668,14 +7668,14 @@ class D02TargetOperatingModel extends SomNode {
     return new D02TargetOperatingModel(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D02TargetOperatingModel.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D02TargetOperatingModel.MODEL_VERSION, documentVersion);
@@ -7756,18 +7756,18 @@ class D02TargetOperatingModel extends SomNode {
 // to-data matrix, business rules, data dictionary, and validation /
 // integrity constraints.
 class D03InformationModel extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "IFM");
     checkSomModelVersion(D03InformationModel.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d03InformationModelMetaTree);
@@ -7781,14 +7781,14 @@ class D03InformationModel extends SomNode {
     return new D03InformationModel(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D03InformationModel.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D03InformationModel.MODEL_VERSION, documentVersion);
@@ -7879,7 +7879,7 @@ class D03InformationModel extends SomNode {
   }
 
   // Domain enum registry — the closed value sets the data model relies on
-  // (CE-EN home + closed-choice discriminator source, csmb3).
+  // (`domainEnum` home + closed-choice discriminator source, csmb3).
   get domainEnumRegistry() {
     return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
   }
@@ -7898,7 +7898,7 @@ class D03InformationModel extends SomNode {
   }
 
   // Message key registry — the single author-copy-once home for user-facing
-  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
   // (csmb7).
   get messageKeyRegistry() {
     return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
@@ -7911,18 +7911,18 @@ class D03InformationModel extends SomNode {
 // and organizational requirements, plus traceability, relationships,
 // and coverage analysis.
 class D04RequirementsSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "RSP");
     checkSomModelVersion(D04RequirementsSpecification.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d04RequirementsSpecificationMetaTree);
@@ -7936,14 +7936,14 @@ class D04RequirementsSpecification extends SomNode {
     return new D04RequirementsSpecification(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D04RequirementsSpecification.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D04RequirementsSpecification.MODEL_VERSION, documentVersion);
@@ -8016,18 +8016,18 @@ class D04RequirementsSpecification extends SomNode {
 // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
 // and traceability.
 class D05InteractionScenarios extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "ISC");
     checkSomModelVersion(D05InteractionScenarios.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d05InteractionScenariosMetaTree);
@@ -8041,14 +8041,14 @@ class D05InteractionScenarios extends SomNode {
     return new D05InteractionScenarios(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D05InteractionScenarios.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D05InteractionScenarios.MODEL_VERSION, documentVersion);
@@ -8114,18 +8114,18 @@ class D05InteractionScenarios extends SomNode {
 // / security / architecture, plus components, framework conditions,
 // and translation handling.
 class D06ArchitectureTechnologySpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "ATS");
     checkSomModelVersion(D06ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d06ArchitectureTechnologySpecificationMetaTree);
@@ -8139,14 +8139,14 @@ class D06ArchitectureTechnologySpecification extends SomNode {
     return new D06ArchitectureTechnologySpecification(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D06ArchitectureTechnologySpecification.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D06ArchitectureTechnologySpecification.MODEL_VERSION, documentVersion);
@@ -8236,18 +8236,18 @@ class D06ArchitectureTechnologySpecification extends SomNode {
 // external systems: inventory, patterns, testing, dependencies,
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "IIS");
     checkSomModelVersion(D07IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d07IntegrationInterfaceSpecificationMetaTree);
@@ -8261,14 +8261,14 @@ class D07IntegrationInterfaceSpecification extends SomNode {
     return new D07IntegrationInterfaceSpecification(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D07IntegrationInterfaceSpecification.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D07IntegrationInterfaceSpecification.MODEL_VERSION, documentVersion);
@@ -8349,18 +8349,18 @@ class D07IntegrationInterfaceSpecification extends SomNode {
 // authorization, encryption, audit/logging, role matrix, and
 // compliance framework.
 class D08SecurityAccessSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "SAS");
     checkSomModelVersion(D08SecurityAccessSpecification.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d08SecurityAccessSpecificationMetaTree);
@@ -8374,14 +8374,14 @@ class D08SecurityAccessSpecification extends SomNode {
     return new D08SecurityAccessSpecification(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D08SecurityAccessSpecification.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D08SecurityAccessSpecification.MODEL_VERSION, documentVersion);
@@ -8452,18 +8452,18 @@ class D08SecurityAccessSpecification extends SomNode {
 // components, language/country selection, prototype, wireframes and
 // mockups.
 class D09ExperienceDesignSpecification extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "XDS");
     checkSomModelVersion(D09ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d09ExperienceDesignSpecificationMetaTree);
@@ -8477,14 +8477,14 @@ class D09ExperienceDesignSpecification extends SomNode {
     return new D09ExperienceDesignSpecification(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D09ExperienceDesignSpecification.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D09ExperienceDesignSpecification.MODEL_VERSION, documentVersion);
@@ -8575,18 +8575,18 @@ class D09ExperienceDesignSpecification extends SomNode {
 //
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "QAP");
     checkSomModelVersion(D10QualityAcceptancePlan.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d10QualityAcceptancePlanMetaTree);
@@ -8600,14 +8600,14 @@ class D10QualityAcceptancePlan extends SomNode {
     return new D10QualityAcceptancePlan(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D10QualityAcceptancePlan.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D10QualityAcceptancePlan.MODEL_VERSION, documentVersion);
@@ -8733,18 +8733,18 @@ class D10QualityAcceptancePlan extends SomNode {
 // decision processes, initial development flow, and upgrade cycle
 // framework.
 class D11DeliveryRoadmap extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "DRM");
     checkSomModelVersion(D11DeliveryRoadmap.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d11DeliveryRoadmapMetaTree);
@@ -8758,14 +8758,14 @@ class D11DeliveryRoadmap extends SomNode {
     return new D11DeliveryRoadmap(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D11DeliveryRoadmap.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D11DeliveryRoadmap.MODEL_VERSION, documentVersion);
@@ -8841,18 +8841,18 @@ class D11DeliveryRoadmap extends SomNode {
 // user manuals, training materials, pilot, cutover, knowledge
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "TRP");
     checkSomModelVersion(D12TransitionRolloutPlan.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d12TransitionRolloutPlanMetaTree);
@@ -8866,14 +8866,14 @@ class D12TransitionRolloutPlan extends SomNode {
     return new D12TransitionRolloutPlan(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D12TransitionRolloutPlan.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D12TransitionRolloutPlan.MODEL_VERSION, documentVersion);
@@ -8974,18 +8974,18 @@ class D12TransitionRolloutPlan extends SomNode {
 // splits: the shared registries, the server-side data / framework / access
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection extends SomNode {
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static MODEL_VERSION = "1.0";
 
   // Creates the typed facade at the document root and verifies the
-  // document's authoring documentVersion is editable (§2.2).
+  // document's authoring documentVersion is editable (SOM §4.2).
   constructor(doc, documentVersion = null) {
     super(doc, "CGP");
     checkSomModelVersion(D13CodeSpecsProjection.MODEL_VERSION, documentVersion);
   }
 
   // Loads a `*.docspecs.yaml` document and returns the typed root with the
-  // document's authoring stamp already applied (§ item 4) — one call for
+  // document's authoring stamp already applied (SOM §21) — one call for
   // the former decode → loadJson → thread-`documentVersion` sequence.
   static loadYaml(yaml) {
     const doc = SpecDocument.fromYaml(yaml, _meta.d13CodeSpecsProjectionMetaTree);
@@ -8999,14 +8999,14 @@ class D13CodeSpecsProjection extends SomNode {
     return new D13CodeSpecsProjection(doc, doc.modelVersion);
   }
 
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   get objectModelVersion() {
     return D13CodeSpecsProjection.MODEL_VERSION;
   }
 
   // Classifies whether a document authored under `documentVersion` is
-  // editable by this object model, **without throwing** (§ item 8) — the
-  // non-throwing companion to the constructor's §2.2 check, so a read-only
+  // editable by this object model, **without throwing** (SOM §21) — the
+  // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   // viewer can branch instead of catching a SomVersionError.
   static editabilityFor(documentVersion) {
     return somEditabilityFor(D13CodeSpecsProjection.MODEL_VERSION, documentVersion);
@@ -9029,7 +9029,13 @@ class D13CodeSpecsProjection extends SomNode {
     return new DocumentHeader(this.doc, this.path + "/header");
   }
 
-  // Domain enum registry — CE-EN closed value sets, shared by client & server.
+  // Domain enum registry — the closed value sets, shared by client & server.
+  //
+  // `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+  // §4.1): each enum is authored once here and realised as a plain Dart `enum`
+  // marked `@CsEnum`, placed in the shared project iff a shared contract type
+  // references it — which is what this registry's shared locus assumes —
+  // otherwise in the project of the part that introduces it.
   get domainEnumRegistry() {
     return new DomainEnumRegistry(this.doc, this.path + "/domainEnumRegistry");
   }
@@ -9047,6 +9053,16 @@ class D13CodeSpecsProjection extends SomNode {
   // Message key registry — CE-TX author-copy-once keys, shared.
   get messageKeyRegistry() {
     return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
+
+  // Notification model — CE-NT type / channel / preference declarations.
+  //
+  // The declarations are **shared**: the client renders the preference UI
+  // against the same catalogue the server dispatches from. Delivery is
+  // server-only, but it is not authored here — it rides the reused
+  // `tom_core_server` messaging transport.
+  get notificationModel() {
+    return new NotificationModel(this.doc, this.path + "/notificationModel");
   }
 
   // Data model — CE-DB persistence + CE-VA server-side rules.
@@ -9273,11 +9289,37 @@ class DataAttributeEntry extends SomNode {
 
   // Binary-kind type options — a promoted `@OneOf` case (csra4).
   //
-  // Present only for the `binary` logical type; carries only the stored size
-  // attributes. Separated from the text `length` because a byte size and a
-  // character length are different constraints on different types.
+  // Present only for the `binary` logical type — the record holds the **bytes
+  // themselves** — so it carries only the stored size. Separated from the text
+  // `length` because a byte size and a character length are different
+  // constraints on different types. An attribute that holds a file's *address*
+  // instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+  // of this one: a mode field would restate the logical type and could then
+  // disagree with it.
   get binaryTypeOptions() {
     return new DataAttributeEntryBinaryTypeOptionsForm(this.doc, this.path + "/DAATT-DTBI");
+  }
+
+  // File-reference type options — a promoted `@OneOf` case (csra10).
+  //
+  // Present only for the `fileReference` logical type: the attribute stores the
+  // **address of a stored file**, so what a specification must say is where the
+  // file is filed, which store holds it, whether it dies with its record, and
+  // what may be uploaded into it.
+  //
+  // The address itself is never authored — it is generated when the file is
+  // stored, so a specification chooses only the group it is filed under. The
+  // vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+  // §1.2): a *file store* is named, never a storage technology.
+  //
+  // Two decisions that look like they belong here are elsewhere by design:
+  // **who may fetch the file** is the attribute's own access classification —
+  // the address is an ordinary attribute, so its security classification
+  // already governs it — and **how the file appears on screen** (a thumbnail,
+  // a link, a download) is a screen-element concern, authored where the
+  // element is.
+  get fileReferenceOptions() {
+    return new DataAttributeEntryFileReferenceOptionsForm(this.doc, this.path + "/DAATT-DTFR");
   }
 
   get constraints() {
@@ -12767,8 +12809,8 @@ class DomainBusinessRules extends SomNode {
 // A single domain enum (form + values).
 //
 // One named closed value set: its name, backing value type, default value and
-// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-// name becomes the generated enum type and each member becomes a constant —
+// the ordered list of members. Maps to the `domainEnum` **member kind** — the
+// enum name becomes the generated enum type and each member becomes a constant —
 // and doubles as a closed-choice discriminator source (csm-7-4): the enum
 // name identifies the choice set and [values] supply the cases.
 class DomainEnumEntry extends SomNode {
@@ -12792,13 +12834,13 @@ class DomainEnumEntry extends SomNode {
 // value sets the business data model relies on (order status, currency,
 // account type, …). Before this registry existed, closed value sets could
 // only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// inline option lists, so the `domainEnum` CodeSpecs member kind had no
 // expressible home and the closed-choice mechanism had no real enum to use as
 // a discriminator.
 //
 // This registry serves **two** roles:
 //
-// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+// 1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
 //    type and default, and its [DomainEnumEntry.values] each carry a value id,
 //    a backing value and a copy reference into the CE-TX message registry.
 // 2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -18657,7 +18699,11 @@ class LanguageCountrySelection extends SomNode {
     return new LanguageCountrySelectionDefaultsForm(this.doc, this.path + "/LCSD");
   }
 
-  // Persistence rules.
+  // Retention rules — how a chosen preference survives, without naming a store.
+  //
+  // Where the preference lives is *not* authored here: it follows from the
+  // settings scope the preference is declared in (user setting vs device
+  // setting), never from a local/roaming-style flag on this section.
   get persistence() {
     return new LanguageCountrySelectionPersistenceForm(this.doc, this.path + "/LCSP");
   }
@@ -19680,7 +19726,7 @@ class MessageKeyEntry extends SomNode {
 // carrying inline copy and instead reference a key here:
 //
 // - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
 // - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
 // - **CE-VA** validation-failure messages.
 //
@@ -62049,12 +62095,12 @@ class ComponentVariantEntryBehaviorForm extends SomNode {
     this.doc.setFormField(this.path, "implementationNote", value);
   }
 
-  get flutterVariant() {
-    return this.doc.formField(this.path, "flutterVariant") || '';
+  get libraryVariant() {
+    return this.doc.formField(this.path, "libraryVariant") || '';
   }
 
-  set flutterVariant(value) {
-    this.doc.setFormField(this.path, "flutterVariant", value);
+  set libraryVariant(value) {
+    this.doc.setFormField(this.path, "libraryVariant", value);
   }
 }
 
@@ -66074,14 +66120,6 @@ class DataAttributeEntryBinaryTypeOptionsForm extends SomNode {
   set maxSizeBytes(value) {
     this.doc.setFormField(this.path, "maxSizeBytes", value);
   }
-
-  get storageMode() {
-    return this.doc.formField(this.path, "storageMode") || '';
-  }
-
-  set storageMode(value) {
-    this.doc.setFormField(this.path, "storageMode", value);
-  }
 }
 
 // Generated section facade for the `dataTypeSpec` @Form section: its own content text followed by one typed member per form field.
@@ -66175,6 +66213,73 @@ class DataAttributeEntryDerivationForm extends SomNode {
 
   set derivationLogic(value) {
     this.doc.setFormField(this.path, "derivationLogic", value);
+  }
+}
+
+// Generated section facade for the `fileReferenceOptions` @Form section: its own content text followed by one typed member per form field.
+class DataAttributeEntryFileReferenceOptionsForm extends SomNode {
+  constructor(doc, path) {
+    super(doc, path);
+  }
+
+  get canHaveContent() {
+    return true;
+  }
+
+  get content() {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get storageGroup() {
+    return this.doc.formField(this.path, "storageGroup") || '';
+  }
+
+  set storageGroup(value) {
+    this.doc.setFormField(this.path, "storageGroup", value);
+  }
+
+  get fileStore() {
+    return this.doc.formField(this.path, "fileStore") || '';
+  }
+
+  set fileStore(value) {
+    this.doc.setFormField(this.path, "fileStore", value);
+  }
+
+  get deleteWithRecord() {
+    return this.doc.formField(this.path, "deleteWithRecord") || '';
+  }
+
+  set deleteWithRecord(value) {
+    this.doc.setFormField(this.path, "deleteWithRecord", value);
+  }
+
+  get acceptedContentKinds() {
+    return this.doc.formField(this.path, "acceptedContentKinds") || '';
+  }
+
+  set acceptedContentKinds(value) {
+    this.doc.setFormField(this.path, "acceptedContentKinds", value);
+  }
+
+  get defaultContentKind() {
+    return this.doc.formField(this.path, "defaultContentKind") || '';
+  }
+
+  set defaultContentKind(value) {
+    this.doc.setFormField(this.path, "defaultContentKind", value);
+  }
+
+  get maxFileSizeBytes() {
+    return this.doc.formField(this.path, "maxFileSizeBytes") || '';
+  }
+
+  set maxFileSizeBytes(value) {
+    this.doc.setFormField(this.path, "maxFileSizeBytes", value);
   }
 }
 
@@ -103315,29 +103420,28 @@ class LanguageCountrySelectionPersistenceForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get persistenceMethod() {
-    return this.doc.formField(this.path, "persistenceMethod") || '';
+  get guestRetention() {
+    return this.doc.formField(this.path, "guestRetention") || '';
   }
 
-  set persistenceMethod(value) {
-    this.doc.setFormField(this.path, "persistenceMethod", value);
+  set guestRetention(value) {
+    this.doc.setFormField(this.path, "guestRetention", value);
   }
 
-  get crossDeviceSync() {
-    const v = this.doc.formField(this.path, "crossDeviceSync");
-    return v == null ? null : v === 'true';
+  get signInCarryOver() {
+    return this.doc.formField(this.path, "signInCarryOver") || '';
   }
 
-  set crossDeviceSync(value) {
-    this.doc.setFormField(this.path, "crossDeviceSync", value == null ? '' : (value ? 'true' : 'false'));
+  set signInCarryOver(value) {
+    this.doc.setFormField(this.path, "signInCarryOver", value);
   }
 
-  get anonymousPersistence() {
-    return this.doc.formField(this.path, "anonymousPersistence") || '';
+  get reselectionPrompt() {
+    return this.doc.formField(this.path, "reselectionPrompt") || '';
   }
 
-  set anonymousPersistence(value) {
-    this.doc.setFormField(this.path, "anonymousPersistence", value);
+  set reselectionPrompt(value) {
+    this.doc.setFormField(this.path, "reselectionPrompt", value);
   }
 }
 
@@ -173833,12 +173937,12 @@ class UiComponentEntryIdentityForm extends SomNode {
     this.doc.setFormField(this.path, "componentFamily", value);
   }
 
-  get flutterWidgetBase() {
-    return this.doc.formField(this.path, "flutterWidgetBase") || '';
+  get baseComponent() {
+    return this.doc.formField(this.path, "baseComponent") || '';
   }
 
-  set flutterWidgetBase(value) {
-    this.doc.setFormField(this.path, "flutterWidgetBase", value);
+  set baseComponent(value) {
+    this.doc.setFormField(this.path, "baseComponent", value);
   }
 }
 
@@ -174434,13 +174538,13 @@ class UiComponentsComponentLibraryOverviewForm extends SomNode {
     this.doc.setFormField(this.path, "basedOnFramework", value);
   }
 
-  get tomFlutterUiIntegration() {
-    const v = this.doc.formField(this.path, "tomFlutterUiIntegration");
+  get sharedLibraryIntegration() {
+    const v = this.doc.formField(this.path, "sharedLibraryIntegration");
     return v == null ? null : v === 'true';
   }
 
-  set tomFlutterUiIntegration(value) {
-    this.doc.setFormField(this.path, "tomFlutterUiIntegration", value == null ? '' : (value ? 'true' : 'false'));
+  set sharedLibraryIntegration(value) {
+    this.doc.setFormField(this.path, "sharedLibraryIntegration", value == null ? '' : (value ? 'true' : 'false'));
   }
 }
 
@@ -177558,12 +177662,12 @@ class UtilityNavigationItemEntryDisplayForm extends SomNode {
     this.doc.setFormField(this.path, "displayOrder", value == null ? '' : String(value));
   }
 
-  get widgetType() {
-    return this.doc.formField(this.path, "widgetType") || '';
+  get displayKind() {
+    return this.doc.formField(this.path, "displayKind") || '';
   }
 
-  set widgetType(value) {
-    this.doc.setFormField(this.path, "widgetType", value);
+  set displayKind(value) {
+    this.doc.setFormField(this.path, "displayKind", value);
   }
 
   get visibilityCondition() {
@@ -182688,6 +182792,7 @@ module.exports = {
   DataAttributeEntryBinaryTypeOptionsForm,
   DataAttributeEntryDataTypeSpecForm,
   DataAttributeEntryDerivationForm,
+  DataAttributeEntryFileReferenceOptionsForm,
   DataAttributeEntryIdentityForm,
   DataAttributeEntryMigrationLineageForm,
   DataAttributeEntryNumericTypeOptionsForm,

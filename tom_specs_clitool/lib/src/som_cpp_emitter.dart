@@ -4,10 +4,10 @@
 /// The generated classes are an **editing facade** over the generic
 /// `tom_som_cpp_runtime` `som::SpecDocument`: every typed accessor delegates to
 /// the path-keyed memory representation, so a typed mutation is visible through
-/// the generic path and vice-versa (spec §3). Each document-root class performs
-/// the **instantiation-time version check** (`som::checkSomModelVersion`) against
-/// the document's authoring stamp (§2.2) and exposes its own generated model
-/// version (§2.1).
+/// the generic path and vice-versa (SOM §6). Each document-root class performs
+/// the **instantiation-time version check** (`som::checkSomModelVersion`)
+/// against the document's authoring stamp (SOM §4.2) and exposes its own
+/// generated model version (SOM §4.2).
 ///
 /// This is the C++ counterpart of [SomDartEmitter] / `SomJavaEmitter` /
 /// `SomCEmitter` — the same reachability walk, the same deterministic ordering,
@@ -65,10 +65,10 @@ class SomCppEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   List<SpecRoot> get _selectedRoots {
@@ -268,12 +268,12 @@ class SomCppEmitter {
     if (plan.isRoot) {
       b
         ..writeln('  // The model version this object model was generated '
-            'against (§2.1).')
+            'against (SOM §4.2).')
         ..writeln('  static constexpr const char* kModelVersion = '
             '"$modelVersionString";')
         ..writeln('  // Creates the typed facade at the document root and '
             "verifies the document's")
-        ..writeln('  // authoring documentVersion is editable (§2.2); throws '
+        ..writeln('  // authoring documentVersion is editable (SOM §4.2); throws '
             'som::SomVersionError')
         ..writeln('  // when it is not.')
         ..writeln('  explicit $t(som::SpecDocument& doc, '
@@ -282,7 +282,7 @@ class SomCppEmitter {
             'caller-owned `doc` and')
         ..writeln('  // returns the typed root with the document\'s authoring '
             'stamp already')
-        ..writeln('  // applied (§ item 4) — one call for the former decode → '
+        ..writeln('  // applied (SOM §21) — one call for the former decode → '
             'loadJson →')
         ..writeln('  // thread-documentVersion sequence. `doc` is borrowed by '
             'the returned')
@@ -295,12 +295,12 @@ class SomCppEmitter {
         ..writeln('  static $t loadFile(som::SpecDocument& doc, '
             'const std::string& path);')
         ..writeln("  // This object model's own model version (major.minor), "
-            'per §2.1.')
+            'per SOM §4.2.')
         ..writeln('  std::string objectModelVersion() const;')
         ..writeln("  // Classifies a document's editability against this object "
             'model without')
         ..writeln('  // throwing — the non-throwing companion to the '
-            'constructor check (§ item 8):')
+            'constructor check (SOM §21):')
         ..writeln('  // a read-only viewer can branch on the result instead of '
             'catching')
         ..writeln('  // som::SomVersionError. An empty documentVersion is the '
@@ -315,15 +315,15 @@ class SomCppEmitter {
       _declField(b, plan, f);
     }
 
-    // § item 10: a content-bearing section overrides the virtual
-    // `som::SomNode::canHaveContent` structural default (`false`) with an inline
-    // `true`, so "can this section hold body text?" is answerable at the type
-    // level without probing content(). Emitted inline in the header (a trivial
-    // constant), matching the base's inline form.
+    // SOM §21: a content-bearing section overrides the virtual
+    // `som::SomNode::canHaveContent` structural default (`false`) with an
+    // inline `true`, so "can this section hold body text?" is answerable at the
+    // type level without probing content(). Emitted inline in the header (a
+    // trivial constant), matching the base's inline form.
     if (_hasContentLeaf(plan.cls)) {
       b
         ..writeln('  // This section type declares the standard `content` text '
-            'leaf (§ item 10):')
+            'leaf (SOM §21):')
         ..writeln('  // a structural, document-independent override of the '
             '`som::SomNode`')
         ..writeln('  // `canHaveContent` default (`false`).')
@@ -334,7 +334,7 @@ class SomCppEmitter {
   }
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
-  /// signal that its generated facade carries a `content()` accessor (§ item 10).
+  /// signal that its generated facade carries a `content()` accessor (SOM §21).
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 

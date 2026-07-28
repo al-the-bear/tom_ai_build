@@ -1,8 +1,8 @@
 package tom_som_runtime;
 
 /**
- * Hand-written runtime support for the generated typed object model
- * ({@code tom_som_java_v0}) — the instantiation-time version check (§2.2) every
+ * Hand-written runtime support for the generated typed object model ({@code
+ * tom_som_java_v0}) — the instantiation-time version check (SOM §4.2) every
  * generated root facade performs. A faithful port of {@code som_facade.dart} /
  * {@code som_facade.py}.
  */
@@ -61,8 +61,8 @@ public final class SomFacade {
   }
 
   /**
-   * Classifies a document's editability under the §2.2 rules <b>without
-   * throwing</b> (§ item 8). {@code generated} is the object model's own
+   * Classifies a document's editability under the SOM §4.2 rules <b>without
+   * throwing</b> (SOM §21). {@code generated} is the object model's own
    * {@code major.minor} version; {@code documentVersion} is the document's
    * recorded authoring stamp ({@code null}/empty for a brand-new, never-stamped
    * document).
@@ -91,7 +91,7 @@ public final class SomFacade {
 
   /**
    * The instantiation-time version check every generated root facade performs
-   * (§2.2). {@code generated} is the object model's own {@code major.minor}
+   * (SOM §4.2). {@code generated} is the object model's own {@code major.minor}
    * version; {@code documentVersion} is the document's recorded authoring stamp
    * ({@code null}/empty for a brand-new, never-stamped document).
    *

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * Unit tests for the non-throwing §2.2 editability classifier
- * ({@link somEditabilityFor}) and its throwing companion
- * ({@link checkSomModelVersion}) — a faithful port of the Dart reference cases in
- * `tom_som_dart_runtime` (§ item 8).
+ * Unit tests for the non-throwing SOM §4.2 editability classifier ({@link
+ * somEditabilityFor}) and its throwing companion ({@link checkSomModelVersion})
+ * — a faithful port of the Dart reference cases in `tom_som_dart_runtime` (SOM
+ * §21).
  *
  * Build with `tsc`, then run `node dist/tests/som_editability_test.js`. Exit code
  * 0 == all green.

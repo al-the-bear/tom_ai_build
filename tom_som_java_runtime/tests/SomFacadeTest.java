@@ -7,7 +7,7 @@ import tom_som_runtime.SomVersionError;
 
 /**
  * Dependency-free unit tests for {@link SomFacade#somEditabilityFor} and its
- * throwing companion {@link SomFacade#checkModelVersion} (§ item 8). Mirrors the
+ * throwing companion {@link SomFacade#checkModelVersion} (SOM §21). Mirrors the
  * Dart reference cases in {@code som_facade_test.dart}: JUnit is unavailable on
  * the build host, so this is a plain {@code main()} that exits 0 on success and
  * 1 on failure — the same shape as {@code ConformanceRunner}.

@@ -326,7 +326,7 @@ function testMarkdownRoundTrip(model: SpecModel): void {
 
 // Plan item #9: parsing `expected.md` and applying it must reproduce
 // `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (§4.1).
+// on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model: SpecModel): void {
   const golden = _read('expected.md');
   const canonical = _readJson('state.json');

@@ -2,7 +2,7 @@
 /// counterpart of `som_c_meta_emitter.dart` / `som_go_meta_emitter.dart` / the
 /// other language meta emitters): the populated `SomMetaTree`s built as
 /// generated code (SOM §7.2) plus the two discoverable access surfaces of SOM
-/// §8 — the **dot-notation tree** (model member names) and the **ID-tree**
+/// SOM §8 — the **dot-notation tree** (model member names) and the **ID-tree**
 /// (section ids, SOM §8). Together they are the facade's **only**
 /// path-addressing surface — there is no flat per-root constant holder,
 /// because a constant cannot express a dynamic path (typed prefix plus

@@ -673,7 +673,7 @@ Map<String, dynamic> _buildMeta() => {
             {
               // A class-level-only `@SectionId`: the `control` field itself has
               // NO id, so its key resolves to the TARGET CLASS's id — the SOM
-              // §12.2 field-id-else-class-id fallback (YR01). Pins that a
+              // SOM §12.2 field-id-else-class-id fallback (YR01). Pins that a
               // section/complex node heads under `CTRL control:` (yaml) /
               // `<!--[CTRL]-->` (markdown) even without a field id, while its
               // leaves keep field-level (or bare) content keys.

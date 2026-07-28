@@ -457,7 +457,8 @@ public final class SpecDocumentYamlTest {
     check("classKey.rt.owner", "the owner".equals(out.content("D00/control/owner")), "");
   }
 
-  // --- csmc8: stored codeSpec round-trips through yaml (§9.2) -----------------
+  // --- csmc8: stored codeSpec round-trips through yaml (codespecs_mapping.md
+  // §9.2) -----------------
 
   private static void yamlTestCodeSpecRoundTrip(SomMetaTree tree) {
     SpecDocument doc = populated();

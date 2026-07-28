@@ -47,25 +47,25 @@ class Risk : public som::SomNode {
 // Root of a project definition document.
 class SolutionBlueprint : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "0.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static SolutionBlueprint loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static SolutionBlueprint loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.

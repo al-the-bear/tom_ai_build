@@ -4,10 +4,10 @@
 /// The generated accessors are an **editing facade** over the generic
 /// `tom_som_c_runtime` `SpecDocument`: every typed accessor delegates to the
 /// path-keyed memory representation, so a typed mutation is visible through the
-/// generic path and vice-versa (spec §3). Each document-root performs the
+/// generic path and vice-versa (SOM §6). Each document-root performs the
 /// **instantiation-time version check** (`check_som_model_version`) against the
-/// document's authoring stamp (§2.2) and exposes its own generated model version
-/// (§2.1).
+/// document's authoring stamp (SOM §4.2) and exposes its own generated model
+/// version (SOM §4.2).
 ///
 /// This is the C counterpart of [SomDartEmitter] / `SomPythonEmitter` /
 /// `SomJavaEmitter` / `SomJavaScriptEmitter` / `SomTypeScriptEmitter` /
@@ -63,10 +63,10 @@ class SomCEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   List<SpecRoot> get _selectedRoots {
@@ -330,7 +330,7 @@ class SomCEmitter {
       for (final r in roots) {
         b
           ..writeln('// ${r.mvConst} is the model version the ${r.name} object '
-              'model was generated against (§2.1).')
+              'model was generated against (SOM §4.2).')
           ..writeln('#define ${r.mvConst} "$modelVersionString"');
       }
       b.writeln();
@@ -372,20 +372,20 @@ class SomCEmitter {
       b
         ..writeln('// Creates the typed facade at the document root and verifies '
             "the document's")
-        ..writeln('// authoring version is editable (§2.2). Returns 0 on '
+        ..writeln('// authoring version is editable (SOM §4.2). Returns 0 on '
             'success; on a non-editable')
         ..writeln('// stamp returns non-zero and, when `err` is non-NULL, '
             'writes an owned message.')
         ..writeln('int ${plan.lifecycleFn}($t *self, SpecDocument *doc, '
             'const char *document_version, char **err);')
         ..writeln("// Returns this object model's own model version "
-            '(major.minor), per §2.1.')
+            '(major.minor), per SOM §4.2.')
         ..writeln('const char *${plan.omvFn}(const $t *self);')
         ..writeln('// Classifies whether a document authored under '
             '`document_version` is editable')
         ..writeln('// by this object model, without reporting an error '
-            "(§ item 8) — the non-erroring")
-        ..writeln("// companion to ${plan.lifecycleFn}'s §2.2 check, so a "
+            "(SOM §21) — the non-erroring")
+        ..writeln("// companion to ${plan.lifecycleFn}'s SOM §4.2 check, so a "
             'read-only viewer can branch')
         ..writeln('// instead of handling the constructor error. `document_version`'
             ' may be NULL/"".')
@@ -397,7 +397,7 @@ class SomCEmitter {
             "root with the document's")
         ..writeln('// retained authoring stamp — one call for the former decode '
             '→ load_json →')
-        ..writeln('// thread-`document_version` sequence (§ item 4). The owned '
+        ..writeln('// thread-`document_version` sequence (SOM §21). The owned '
             'heap document is')
         ..writeln('// written to `*out_doc` (which the facade borrows; free it '
             'with')
@@ -421,17 +421,18 @@ class SomCEmitter {
           'const char *path);');
     }
     b.writeln('void ${plan.freeFn}($t *self);');
-    // § item 10: a per-type structural predicate answering "does this section
+    // SOM §21: a per-type structural predicate answering "does this section
     // TYPE declare the standard `content` text leaf?" — "can this section hold
     // body text?" — without probing the document. C has no inheritance or
     // method promotion, so (following the item-8 `editability_for` / item-5
     // `is_empty` per-type C precedent) every generated type emits its own
     // accessor returning the literal answer: 1 for content-bearing types, 0 for
-    // container-only ones. It is deliberately distinct from the STATE predicates
-    // `spec_document_has_content` ("value present now?") and `som_node_is_empty`
-    // ("subtree empty now?"): it describes the model, not the data.
+    // container-only ones. It is deliberately distinct from the STATE
+    // predicates `spec_document_has_content` ("value present now?") and
+    // `som_node_is_empty` ("subtree empty now?"): it describes the model, not
+    // the data.
     b.writeln('// Returns 1 iff this section type declares the standard `content`'
-        ' text leaf (§ item 10).');
+        ' text leaf (SOM §21).');
     b.writeln('int ${plan.canHaveContentFn}(const $t *self);');
     for (final f in plan.cls.fields) {
       _declField(b, plan, f);
@@ -439,7 +440,7 @@ class SomCEmitter {
   }
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
-  /// signal that its generated facade carries a `content` accessor (§ item 10).
+  /// signal that its generated facade carries a `content` accessor (SOM §21).
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
@@ -640,7 +641,7 @@ class SomCEmitter {
       ..writeln('void ${plan.freeFn}($t *self) {')
       ..writeln('\tsom_node_free(&self->node);')
       ..writeln('}');
-    // § item 10: per-type structural `content`-leaf predicate — a compile-time
+    // SOM §21: per-type structural `content`-leaf predicate — a compile-time
     // literal per generated type (see `_declClass`), mirroring the item-8
     // `editability_for` / item-5 `is_empty` per-type C emission.
     final literal = _hasContentLeaf(plan.cls) ? '1' : '0';

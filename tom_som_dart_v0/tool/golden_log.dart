@@ -99,8 +99,8 @@ void main(List<String> args) {
     out.add('H\t$p\t${esc(doc.headline(p) ?? '')}');
   }
 
-  // --- Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2). The
-  // codeSpec is the §9.2 DocSpecs→CodeSpecs forward link — a byte-for-byte
+  // --- Generic: every stored codeSpec, sorted by path (FORMAT 8, codespecs_mapping.md §9.2). The
+  // codeSpec is the codespecs_mapping.md §9.2 DocSpecs→CodeSpecs forward link — a byte-for-byte
   // structural mirror of the stored headline (YRD3), stored per path as a
   // comma-joined list of CodeSpecs code locations. ---
   out.add('SECTION\tgeneric-codespecs');
@@ -110,7 +110,7 @@ void main(List<String> args) {
   }
 
   // Typed cross-check of the same two mappings through the facade's structural
-  // `$codeSpec` accessor (§9.2). It emits nothing: the values are already in the
+  // `$codeSpec` accessor (codespecs_mapping.md §9.2). It emits nothing: the values are already in the
   // `CS` lines above, so a duplicate line would add no information — what this
   // adds is the assertion that the *typed* accessor reads the same store the
   // generic API does, in every language. A divergence aborts the generator.

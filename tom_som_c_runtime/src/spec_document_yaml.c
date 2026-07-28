@@ -388,7 +388,7 @@ typedef struct {
   SomStrList form_paths;  /* remaining unconsumed form paths */
   SomStrList list_paths;  /* remaining unconsumed list paths */
   SomMap headlines;       /* snapshot of stored headlines (YRD3), consumed */
-  SomMap code_specs;      /* snapshot of stored codeSpecs (§9.2), consumed */
+  SomMap code_specs;      /* snapshot of stored codeSpecs (codespecs_mapping.md §9.2), consumed */
 } YamlEncoder;
 
 static void encoder_init(YamlEncoder *e, const SpecDocument *doc) {
@@ -459,7 +459,7 @@ static int encoder_take_headline(YamlEncoder *e, const char *path, char **out) {
 }
 
 /* Consumes the codeSpec snapshot entry at `path`; 1 when present (writing the
- * owned value to `*out`) (§9.2). */
+ * owned value to `*out`) (codespecs_mapping.md §9.2). */
 static int encoder_take_code_spec(YamlEncoder *e, const char *path,
                                   char **out) {
   const char *v = som_map_get(&e->code_specs, path);
@@ -507,9 +507,10 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
 
 /* writeScalarWithMeta: emits a scalar-valued node (content/scalar/enum leaf or
  * scalar list item) that carries a stored headline and/or codeSpec as a
- * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). The
- * headline/codeSpec entries are emitted only when the matching has_* flag is
- * set (at least one is at every call site); the content entry is omitted when
+ * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 +
+ * codespecs_mapping.md §9.2). The headline/codeSpec entries are emitted only
+ * when the matching has_* flag is set (at least one is at every call site); the
+ * content entry is omitted when
  * has_value is 0; `text` selects the text vs value path for content. */
 static void encoder_write_scalar_with_meta(SomBuf *b, size_t indent,
                                            const char *key,
@@ -682,7 +683,7 @@ static int encoder_write_list(YamlEncoder *e, SomBuf *b, size_t indent,
     if (node->element_node == NULL) {
       /* Scalar list: the item is a direct value — unless it carries a stored
        * headline and/or codeSpec, in which case it becomes a
-       * `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + §9.2). */
+       * `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md §9.2). */
       char *v = NULL;
       int has_v = encoder_take_content(e, item_path, &v);
       char *ih = NULL;
@@ -758,7 +759,7 @@ static int encoder_mapping_body(YamlEncoder *e, const SomMetaNode *node,
     free(own_headline);
   }
 
-  /* The node's own stored codeSpec — the literal `codeSpec` key (§9.2). */
+  /* The node's own stored codeSpec — the literal `codeSpec` key (codespecs_mapping.md §9.2). */
   char *own_code_spec = NULL;
   if (encoder_take_code_spec(e, path, &own_code_spec)) {
     for (size_t i = 0; i < node->children_len; i++) {
@@ -1070,7 +1071,8 @@ static int decoder_load_mapping(YamlDecoder *d, const SomMetaNode *node,
                                 char **err);
 
 /* loadScalarWithMeta: loads a headline-/codeSpec-extended scalar node
- * (YRD3 + §9.2): a mapping holding only the literal keys `headline`,
+ * (YRD3 + codespecs_mapping.md §9.2): a mapping holding only the literal keys
+ * `headline`,
  * `codeSpec` and `content`. */
 static int decoder_load_scalar_with_meta(YamlDecoder *d, const char *path,
                                          const char *key,
@@ -1140,7 +1142,7 @@ static int decoder_load_list(YamlDecoder *d, const SomMetaNode *node,
       continue;
     }
     if (strcmp(key, "codeSpec") == 0) {
-      /* The list container's own stored codeSpec (§9.2), not an item. */
+      /* The list container's own stored codeSpec (codespecs_mapping.md §9.2), not an item. */
       char *where = vcat(path, " (codeSpec)", NULL);
       char *v = NULL;
       int ok = decoder_scalar_of(value, where, &v, err);
@@ -1225,8 +1227,9 @@ static int decoder_load_child(YamlDecoder *d, const SomMetaNode *child,
       strcmp(child->kind, SOM_META_KIND_SCALAR) == 0 ||
       strcmp(child->kind, SOM_META_KIND_ENUM_VALUE) == 0) {
     /* A populated mapping is a headline-/codeSpec-extended scalar node
-     * (YRD3 + §9.2): `{headline: …, codeSpec: …, content: …}`. An empty
-     * mapping is the hand-rolled parser's spelling of a bare `key:` and stays
+     * (YRD3 + codespecs_mapping.md §9.2): `{headline: …, codeSpec: …, content:
+     * …}`. An empty mapping is the hand-rolled parser's spelling of a bare
+     * `key:` and stays
      * the empty scalar. */
     if (value != NULL && value->type == YAML_MAP && value->as.map.len > 0) {
       return decoder_load_scalar_with_meta(d, path, key, value, err);
@@ -1265,7 +1268,7 @@ static int decoder_load_child(YamlDecoder *d, const SomMetaNode *child,
           continue;
         }
         if (strcmp(name, "codeSpec") == 0) {
-          /* The form section's own stored codeSpec (§9.2). */
+          /* The form section's own stored codeSpec (codespecs_mapping.md §9.2). */
           char *where = vcat(path, " (codeSpec)", NULL);
           char *cv = NULL;
           int ok = decoder_scalar_of(value->as.map.entries[i].value, where,

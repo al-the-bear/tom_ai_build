@@ -7429,11 +7429,11 @@ public final class TomSomV0 {
   // Contains a [DocumentControl] header block and the SBP sections, sequenced
   // per the public-standards order (§4 of the redesign proposal).
   public static final class D00SolutionBlueprint extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D00SolutionBlueprint(SpecDocument doc, String documentVersion) {
       super(doc, "SBP");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -7444,7 +7444,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -7460,14 +7460,14 @@ public final class TomSomV0 {
       return new D00SolutionBlueprint(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -7564,11 +7564,11 @@ public final class TomSomV0 {
   // processes, pain points, data landscape, operational metrics, risks,
   // and the inventory / migration plan for the systems being replaced.
   public static final class D01CurrentLandscapeAssessment extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D01CurrentLandscapeAssessment(SpecDocument doc, String documentVersion) {
       super(doc, "CLA");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -7579,7 +7579,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -7595,14 +7595,14 @@ public final class TomSomV0 {
       return new D01CurrentLandscapeAssessment(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -7674,11 +7674,11 @@ public final class TomSomV0 {
   // diagrams, improvements, relationships, detailed workflows,
   // cross-process analysis, exception handling, and KPIs.
   public static final class D02TargetOperatingModel extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D02TargetOperatingModel(SpecDocument doc, String documentVersion) {
       super(doc, "TOM");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -7689,7 +7689,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -7705,14 +7705,14 @@ public final class TomSomV0 {
       return new D02TargetOperatingModel(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -7795,11 +7795,11 @@ public final class TomSomV0 {
   // to-data matrix, business rules, data dictionary, and validation /
   // integrity constraints.
   public static final class D03InformationModel extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D03InformationModel(SpecDocument doc, String documentVersion) {
       super(doc, "IFM");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -7810,7 +7810,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -7826,14 +7826,14 @@ public final class TomSomV0 {
       return new D03InformationModel(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -7922,7 +7922,7 @@ public final class TomSomV0 {
     }
 
     // Domain enum registry — the closed value sets the data model relies on
-    // (CE-EN home + closed-choice discriminator source, csmb3).
+    // (`domainEnum` home + closed-choice discriminator source, csmb3).
     public DomainEnumRegistry domainEnumRegistry() {
       return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
     }
@@ -7941,7 +7941,7 @@ public final class TomSomV0 {
     }
 
     // Message key registry — the single author-copy-once home for user-facing
-    // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+    // copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
     // (csmb7).
     public MessageKeyRegistry messageKeyRegistry() {
       return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
@@ -7954,11 +7954,11 @@ public final class TomSomV0 {
   // and organizational requirements, plus traceability, relationships,
   // and coverage analysis.
   public static final class D04RequirementsSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D04RequirementsSpecification(SpecDocument doc, String documentVersion) {
       super(doc, "RSP");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -7969,7 +7969,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -7985,14 +7985,14 @@ public final class TomSomV0 {
       return new D04RequirementsSpecification(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8068,11 +8068,11 @@ public final class TomSomV0 {
   // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
   // and traceability.
   public static final class D05InteractionScenarios extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D05InteractionScenarios(SpecDocument doc, String documentVersion) {
       super(doc, "ISC");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8083,7 +8083,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8099,14 +8099,14 @@ public final class TomSomV0 {
       return new D05InteractionScenarios(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8174,11 +8174,11 @@ public final class TomSomV0 {
   // / security / architecture, plus components, framework conditions,
   // and translation handling.
   public static final class D06ArchitectureTechnologySpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D06ArchitectureTechnologySpecification(SpecDocument doc, String documentVersion) {
       super(doc, "ATS");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8189,7 +8189,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8205,14 +8205,14 @@ public final class TomSomV0 {
       return new D06ArchitectureTechnologySpecification(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8304,11 +8304,11 @@ public final class TomSomV0 {
   // external systems: inventory, patterns, testing, dependencies,
   // migration, operational concerns, and cross-boundary error handling.
   public static final class D07IntegrationInterfaceSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D07IntegrationInterfaceSpecification(SpecDocument doc, String documentVersion) {
       super(doc, "IIS");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8319,7 +8319,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8335,14 +8335,14 @@ public final class TomSomV0 {
       return new D07IntegrationInterfaceSpecification(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8425,11 +8425,11 @@ public final class TomSomV0 {
   // authorization, encryption, audit/logging, role matrix, and
   // compliance framework.
   public static final class D08SecurityAccessSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D08SecurityAccessSpecification(SpecDocument doc, String documentVersion) {
       super(doc, "SAS");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8440,7 +8440,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8456,14 +8456,14 @@ public final class TomSomV0 {
       return new D08SecurityAccessSpecification(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8536,11 +8536,11 @@ public final class TomSomV0 {
   // components, language/country selection, prototype, wireframes and
   // mockups.
   public static final class D09ExperienceDesignSpecification extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D09ExperienceDesignSpecification(SpecDocument doc, String documentVersion) {
       super(doc, "XDS");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8551,7 +8551,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8567,14 +8567,14 @@ public final class TomSomV0 {
       return new D09ExperienceDesignSpecification(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8667,11 +8667,11 @@ public final class TomSomV0 {
   //
   // Full quality plan combining quality goals and the acceptance plan.
   public static final class D10QualityAcceptancePlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D10QualityAcceptancePlan(SpecDocument doc, String documentVersion) {
       super(doc, "QAP");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8682,7 +8682,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8698,14 +8698,14 @@ public final class TomSomV0 {
       return new D10QualityAcceptancePlan(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8833,11 +8833,11 @@ public final class TomSomV0 {
   // decision processes, initial development flow, and upgrade cycle
   // framework.
   public static final class D11DeliveryRoadmap extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D11DeliveryRoadmap(SpecDocument doc, String documentVersion) {
       super(doc, "DRM");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8848,7 +8848,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8864,14 +8864,14 @@ public final class TomSomV0 {
       return new D11DeliveryRoadmap(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -8949,11 +8949,11 @@ public final class TomSomV0 {
   // user manuals, training materials, pilot, cutover, knowledge
   // transfer, and warranty/support.
   public static final class D12TransitionRolloutPlan extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D12TransitionRolloutPlan(SpecDocument doc, String documentVersion) {
       super(doc, "TRP");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -8964,7 +8964,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -8980,14 +8980,14 @@ public final class TomSomV0 {
       return new D12TransitionRolloutPlan(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -9090,11 +9090,11 @@ public final class TomSomV0 {
   // splits: the shared registries, the server-side data / framework / access
   // models, the process-step interactions, and the client-side experience seed.
   public static final class D13CodeSpecsProjection extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "1.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public D13CodeSpecsProjection(SpecDocument doc, String documentVersion) {
       super(doc, "CGP");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -9105,7 +9105,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -9121,14 +9121,14 @@ public final class TomSomV0 {
       return new D13CodeSpecsProjection(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);
@@ -9153,7 +9153,13 @@ public final class TomSomV0 {
       return new DocumentHeader(doc, path + "/header");
     }
 
-    // Domain enum registry — CE-EN closed value sets, shared by client & server.
+    // Domain enum registry — the closed value sets, shared by client & server.
+    //
+    // `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+    // §4.1): each enum is authored once here and realised as a plain Dart `enum`
+    // marked `@CsEnum`, placed in the shared project iff a shared contract type
+    // references it — which is what this registry's shared locus assumes —
+    // otherwise in the project of the part that introduces it.
     public DomainEnumRegistry domainEnumRegistry() {
       return new DomainEnumRegistry(doc, path + "/domainEnumRegistry");
     }
@@ -9171,6 +9177,16 @@ public final class TomSomV0 {
     // Message key registry — CE-TX author-copy-once keys, shared.
     public MessageKeyRegistry messageKeyRegistry() {
       return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
+
+    // Notification model — CE-NT type / channel / preference declarations.
+    //
+    // The declarations are **shared**: the client renders the preference UI
+    // against the same catalogue the server dispatches from. Delivery is
+    // server-only, but it is not authored here — it rides the reused
+    // `tom_core_server` messaging transport.
+    public NotificationModel notificationModel() {
+      return new NotificationModel(doc, path + "/notificationModel");
     }
 
     // Data model — CE-DB persistence + CE-VA server-side rules.
@@ -9395,11 +9411,37 @@ public final class TomSomV0 {
 
     // Binary-kind type options — a promoted `@OneOf` case (csra4).
     //
-    // Present only for the `binary` logical type; carries only the stored size
-    // attributes. Separated from the text `length` because a byte size and a
-    // character length are different constraints on different types.
+    // Present only for the `binary` logical type — the record holds the **bytes
+    // themselves** — so it carries only the stored size. Separated from the text
+    // `length` because a byte size and a character length are different
+    // constraints on different types. An attribute that holds a file's *address*
+    // instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+    // of this one: a mode field would restate the logical type and could then
+    // disagree with it.
     public DataAttributeEntryBinaryTypeOptionsForm binaryTypeOptions() {
       return new DataAttributeEntryBinaryTypeOptionsForm(doc, path + "/DAATT-DTBI");
+    }
+
+    // File-reference type options — a promoted `@OneOf` case (csra10).
+    //
+    // Present only for the `fileReference` logical type: the attribute stores the
+    // **address of a stored file**, so what a specification must say is where the
+    // file is filed, which store holds it, whether it dies with its record, and
+    // what may be uploaded into it.
+    //
+    // The address itself is never authored — it is generated when the file is
+    // stored, so a specification chooses only the group it is filed under. The
+    // vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+    // §1.2): a *file store* is named, never a storage technology.
+    //
+    // Two decisions that look like they belong here are elsewhere by design:
+    // **who may fetch the file** is the attribute's own access classification —
+    // the address is an ordinary attribute, so its security classification
+    // already governs it — and **how the file appears on screen** (a thumbnail,
+    // a link, a download) is a screen-element concern, authored where the
+    // element is.
+    public DataAttributeEntryFileReferenceOptionsForm fileReferenceOptions() {
+      return new DataAttributeEntryFileReferenceOptionsForm(doc, path + "/DAATT-DTFR");
     }
 
     public SomList<DataAttributeConstraintEntry> constraints() {
@@ -12931,8 +12973,8 @@ public final class TomSomV0 {
   // A single domain enum (form + values).
   //
   // One named closed value set: its name, backing value type, default value and
-  // the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-  // name becomes the generated enum type and each member becomes a constant —
+  // the ordered list of members. Maps to the `domainEnum` **member kind** — the
+  // enum name becomes the generated enum type and each member becomes a constant —
   // and doubles as a closed-choice discriminator source (csm-7-4): the enum
   // name identifies the choice set and [values] supply the cases.
   public static final class DomainEnumEntry extends SomNode {
@@ -12956,13 +12998,13 @@ public final class TomSomV0 {
   // value sets the business data model relies on (order status, currency,
   // account type, …). Before this registry existed, closed value sets could
   // only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-  // inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+  // inline option lists, so the `domainEnum` CodeSpecs member kind had no
   // expressible home and the closed-choice mechanism had no real enum to use as
   // a discriminator.
   //
   // This registry serves **two** roles:
   //
-  // 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+  // 1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
   //    type and default, and its [DomainEnumEntry.values] each carry a value id,
   //    a backing value and a copy reference into the CE-TX message registry.
   // 2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -18854,7 +18896,11 @@ public final class TomSomV0 {
       return new LanguageCountrySelectionDefaultsForm(doc, path + "/LCSD");
     }
 
-    // Persistence rules.
+    // Retention rules — how a chosen preference survives, without naming a store.
+    //
+    // Where the preference lives is *not* authored here: it follows from the
+    // settings scope the preference is declared in (user setting vs device
+    // setting), never from a local/roaming-style flag on this section.
     public LanguageCountrySelectionPersistenceForm persistence() {
       return new LanguageCountrySelectionPersistenceForm(doc, path + "/LCSP");
     }
@@ -19869,7 +19915,7 @@ public final class TomSomV0 {
   // carrying inline copy and instead reference a key here:
   //
   // - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-  // - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+  // - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
   // - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
   // - **CE-VA** validation-failure messages.
   //
@@ -65509,13 +65555,13 @@ public final class TomSomV0 {
       doc.setFormField(path, "implementationNote", value);
     }
 
-    public String flutterVariant() {
-      String v = doc.formField(path, "flutterVariant");
+    public String libraryVariant() {
+      String v = doc.formField(path, "libraryVariant");
       return v == null ? "" : v;
     }
 
-    public void flutterVariant(String value) {
-      doc.setFormField(path, "flutterVariant", value);
+    public void libraryVariant(String value) {
+      doc.setFormField(path, "libraryVariant", value);
     }
   }
 
@@ -70082,15 +70128,6 @@ public final class TomSomV0 {
     public void maxSizeBytes(String value) {
       doc.setFormField(path, "maxSizeBytes", value);
     }
-
-    public String storageMode() {
-      String v = doc.formField(path, "storageMode");
-      return v == null ? "" : v;
-    }
-
-    public void storageMode(String value) {
-      doc.setFormField(path, "storageMode", value);
-    }
   }
 
   // Generated section facade for the `dataTypeSpec` @Form section: its own content
@@ -70197,6 +70234,82 @@ public final class TomSomV0 {
 
     public void derivationLogic(String value) {
       doc.setFormField(path, "derivationLogic", value);
+    }
+  }
+
+  // Generated section facade for the `fileReferenceOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryFileReferenceOptionsForm extends SomNode {
+    public DataAttributeEntryFileReferenceOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String storageGroup() {
+      String v = doc.formField(path, "storageGroup");
+      return v == null ? "" : v;
+    }
+
+    public void storageGroup(String value) {
+      doc.setFormField(path, "storageGroup", value);
+    }
+
+    public String fileStore() {
+      String v = doc.formField(path, "fileStore");
+      return v == null ? "" : v;
+    }
+
+    public void fileStore(String value) {
+      doc.setFormField(path, "fileStore", value);
+    }
+
+    public String deleteWithRecord() {
+      String v = doc.formField(path, "deleteWithRecord");
+      return v == null ? "" : v;
+    }
+
+    public void deleteWithRecord(String value) {
+      doc.setFormField(path, "deleteWithRecord", value);
+    }
+
+    public String acceptedContentKinds() {
+      String v = doc.formField(path, "acceptedContentKinds");
+      return v == null ? "" : v;
+    }
+
+    public void acceptedContentKinds(String value) {
+      doc.setFormField(path, "acceptedContentKinds", value);
+    }
+
+    public String defaultContentKind() {
+      String v = doc.formField(path, "defaultContentKind");
+      return v == null ? "" : v;
+    }
+
+    public void defaultContentKind(String value) {
+      doc.setFormField(path, "defaultContentKind", value);
+    }
+
+    public String maxFileSizeBytes() {
+      String v = doc.formField(path, "maxFileSizeBytes");
+      return v == null ? "" : v;
+    }
+
+    public void maxFileSizeBytes(String value) {
+      doc.setFormField(path, "maxFileSizeBytes", value);
     }
   }
 
@@ -112404,32 +112517,31 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String persistenceMethod() {
-      String v = doc.formField(path, "persistenceMethod");
+    public String guestRetention() {
+      String v = doc.formField(path, "guestRetention");
       return v == null ? "" : v;
     }
 
-    public void persistenceMethod(String value) {
-      doc.setFormField(path, "persistenceMethod", value);
+    public void guestRetention(String value) {
+      doc.setFormField(path, "guestRetention", value);
     }
 
-    public Boolean crossDeviceSync() {
-      String v = doc.formField(path, "crossDeviceSync");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
-    }
-
-    public void crossDeviceSync(Boolean value) {
-      doc.setFormField(path, "crossDeviceSync", value == null ? "" : (value ? "true" : "false"));
-    }
-
-    public String anonymousPersistence() {
-      String v = doc.formField(path, "anonymousPersistence");
+    public String signInCarryOver() {
+      String v = doc.formField(path, "signInCarryOver");
       return v == null ? "" : v;
     }
 
-    public void anonymousPersistence(String value) {
-      doc.setFormField(path, "anonymousPersistence", value);
+    public void signInCarryOver(String value) {
+      doc.setFormField(path, "signInCarryOver", value);
+    }
+
+    public String reselectionPrompt() {
+      String v = doc.formField(path, "reselectionPrompt");
+      return v == null ? "" : v;
+    }
+
+    public void reselectionPrompt(String value) {
+      doc.setFormField(path, "reselectionPrompt", value);
     }
   }
 
@@ -192510,13 +192622,13 @@ public final class TomSomV0 {
       doc.setFormField(path, "componentFamily", value);
     }
 
-    public String flutterWidgetBase() {
-      String v = doc.formField(path, "flutterWidgetBase");
+    public String baseComponent() {
+      String v = doc.formField(path, "baseComponent");
       return v == null ? "" : v;
     }
 
-    public void flutterWidgetBase(String value) {
-      doc.setFormField(path, "flutterWidgetBase", value);
+    public void baseComponent(String value) {
+      doc.setFormField(path, "baseComponent", value);
     }
   }
 
@@ -193193,14 +193305,14 @@ public final class TomSomV0 {
       doc.setFormField(path, "basedOnFramework", value);
     }
 
-    public Boolean tomFlutterUiIntegration() {
-      String v = doc.formField(path, "tomFlutterUiIntegration");
+    public Boolean sharedLibraryIntegration() {
+      String v = doc.formField(path, "sharedLibraryIntegration");
       if (v == null) return null;
       return Boolean.valueOf("true".equals(v));
     }
 
-    public void tomFlutterUiIntegration(Boolean value) {
-      doc.setFormField(path, "tomFlutterUiIntegration", value == null ? "" : (value ? "true" : "false"));
+    public void sharedLibraryIntegration(Boolean value) {
+      doc.setFormField(path, "sharedLibraryIntegration", value == null ? "" : (value ? "true" : "false"));
     }
   }
 
@@ -196742,13 +196854,13 @@ public final class TomSomV0 {
       doc.setFormField(path, "displayOrder", value == null ? "" : String.valueOf(value));
     }
 
-    public String widgetType() {
-      String v = doc.formField(path, "widgetType");
+    public String displayKind() {
+      String v = doc.formField(path, "displayKind");
       return v == null ? "" : v;
     }
 
-    public void widgetType(String value) {
-      doc.setFormField(path, "widgetType", value);
+    public void displayKind(String value) {
+      doc.setFormField(path, "displayKind", value);
     }
 
     public String visibilityCondition() {

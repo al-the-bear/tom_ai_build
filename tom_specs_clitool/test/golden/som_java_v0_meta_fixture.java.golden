@@ -59,7 +59,7 @@ public final class TomSomV0Meta {
     return m;
   }
 
-  // ── dot-notation accessor classes (SOM §8) + metadata builders (§7.2) ────
+  // ── dot-notation accessor classes + metadata builders (SOM §8, §7.2) ─────
 
   // CurrentLandscapeAssessmentNav holds the dot-notation accessors of `CurrentLandscapeAssessment` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document

@@ -40,8 +40,8 @@ enum SpecFieldKind {
   }
 }
 
-/// A single annotation captured losslessly from the model source (§3.1): its
-/// name and the resolved argument map (`{ '<arg>': <value> }`). This is the
+/// A single annotation captured losslessly from the model source (SOM §5.3):
+/// its name and the resolved argument map (`{ '<arg>': <value> }`). This is the
 /// `annotations[]` block emitted by `ModelJsonExporter` — the superset the
 /// curated convenience accessors ([SpecClass.sectionId], [SpecField.min], …)
 /// are projected from.
@@ -106,10 +106,11 @@ class FormFieldSpec {
 /// The model states where a subtree is headed with two such annotations, which
 /// share this shape exactly — `@CodeSpecKind(List<CodeSpecPart>, {note})` names
 /// the CodeSpecs part(s) a section type must be realised as
-/// (`codespecs_mapping.md` §9.1/§9.5), and `@FollowUpKind(List<FollowUpProcess>,
-/// {note})` names the downstream *process(es)* a non-code subtree feeds (§8.3).
-/// One reader serves both; which annotation a link came from is expressed by
-/// which accessor produced it.
+/// (`codespecs_mapping.md` §9.1/§9.5), and
+/// `@FollowUpKind(List<FollowUpProcess>, {note})` names the downstream
+/// *process(es)* a non-code subtree feeds (codespecs_mapping.md §8.3). One
+/// reader serves both; which annotation a link came from is expressed by which
+/// accessor produced it.
 ///
 /// Obtaining a link at all means the annotation is present. That matters: a
 /// node with no link has not been classified yet, whereas a link with empty
@@ -195,7 +196,7 @@ class StandardReferences {
 /// Shared behaviour of the two model nodes that carry annotations — classes and
 /// fields. Keeps the annotation lookups defined once instead of per node type.
 mixin AnnotatedSpecNode {
-  /// The lossless annotation list captured on this node (§3.1).
+  /// The lossless annotation list captured on this node (SOM §5.3).
   List<SpecAnnotation> get annotations;
 
   /// The `@StandardReferences` provenance block, or `null` when unannotated.
@@ -250,7 +251,7 @@ mixin AnnotatedSpecNode {
 
   /// The `@FollowUpKind` link, or `null` when this node carries no such
   /// annotation — which downstream process(es) this subtree feeds instead of
-  /// becoming CodeSpecs code (§8.3).
+  /// becoming CodeSpecs code (codespecs_mapping.md §8.3).
   KindLink? get followUpKind => _link('FollowUpKind', 'processes');
 
   KindLink? _link(String name, String listArgument) {
@@ -300,7 +301,7 @@ class SpecField with AnnotatedSpecNode {
   // form
   final List<FormFieldSpec> formFields;
 
-  /// The lossless annotation list captured on this field (§3.1).
+  /// The lossless annotation list captured on this field (SOM §5.3).
   @override
   final List<SpecAnnotation> annotations;
 
@@ -433,9 +434,9 @@ class OneOfGroup {
 
   /// The discriminator values no case field claims, in enum order.
   ///
-  /// §8.2 makes an uncovered case a *warning*, not an error — a kind with no
-  /// attributes yet is legal — so this is information for the reviewer to
-  /// judge, not a defect to flag.
+  /// codespecs_mapping.md §8.2 makes an uncovered case a *warning*, not an
+  /// error — a kind with no attributes yet is legal — so this is information
+  /// for the reviewer to judge, not a defect to flag.
   List<String> get uncoveredValues {
     final claimed = {for (final f in caseFields) ...f.caseValues};
     return [
@@ -462,7 +463,7 @@ class SpecClass with AnnotatedSpecNode {
   final String? detailedIn;
   final List<SpecField> fields;
 
-  /// The lossless annotation list captured on this class (§3.1).
+  /// The lossless annotation list captured on this class (SOM §5.3).
   @override
   final List<SpecAnnotation> annotations;
 
@@ -825,7 +826,7 @@ class SpecModel {
 
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
 
-  /// The document root whose [SpecRoot.type] equals [type] (§ item 12).
+  /// The document root whose [SpecRoot.type] equals [type] (SOM §21).
   ///
   /// Replaces the recurring `roots.firstWhere((r) => r.type == …)` boilerplate.
   /// Throws [ArgumentError] when no root carries that type — the same failure
@@ -842,7 +843,7 @@ class SpecModel {
             '${roots.map((r) => r.type).join(', ')})');
   }
 
-  /// The model version the generated object model reports (§2.1), as a
+  /// The model version the generated object model reports (SOM §4.2), as a
   /// `major.minor` string derived from the `tom_specs_model` project version
   /// stamp.
   ///

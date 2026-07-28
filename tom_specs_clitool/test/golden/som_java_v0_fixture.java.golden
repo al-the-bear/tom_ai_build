@@ -78,11 +78,11 @@ public final class TomSomV0 {
 
   // Root of a project definition document.
   public static final class SolutionBlueprint extends SomNode {
-    // The model version this object model was generated against (§2.1).
+    // The model version this object model was generated against (SOM §4.2).
     public static final String MODEL_VERSION = "0.0";
 
     // Creates the typed facade over doc at the document root and verifies the
-    // document's authoring documentVersion is editable (§2.2).
+    // document's authoring documentVersion is editable (SOM §4.2).
     public SolutionBlueprint(SpecDocument doc, String documentVersion) {
       super(doc, "PD00");
       SomFacade.checkModelVersion(MODEL_VERSION, documentVersion);
@@ -93,7 +93,7 @@ public final class TomSomV0 {
     }
 
     // Loads a *.docspecs.yaml document and returns the typed root with the
-    // document's authoring stamp already applied (§ item 4) — one call for
+    // document's authoring stamp already applied (SOM §21) — one call for
     // the former decode → loadJson → thread-documentVersion sequence. The
     // root's generated metadata tree is threaded into the runtime,
     // keying the YAML mapping off SomMetaTree instead of the meta-JSON model.
@@ -109,14 +109,14 @@ public final class TomSomV0 {
       return new SolutionBlueprint(doc, doc.modelVersion());
     }
 
-    // This object model's own model version (major.minor), per §2.1.
+    // This object model's own model version (major.minor), per SOM §4.2.
     public String objectModelVersion() {
       return MODEL_VERSION;
     }
 
     // Classifies whether a document authored under documentVersion is
-    // editable by this object model, without throwing (§ item 8) — the
-    // non-throwing companion to the constructor's §2.2 check, so a read-only
+    // editable by this object model, without throwing (SOM §21) — the
+    // non-throwing companion to the constructor's SOM §4.2 check, so a read-only
     // viewer can branch instead of catching SomVersionError.
     public static SomEditability editabilityFor(String documentVersion) {
       return SomFacade.somEditabilityFor(MODEL_VERSION, documentVersion);

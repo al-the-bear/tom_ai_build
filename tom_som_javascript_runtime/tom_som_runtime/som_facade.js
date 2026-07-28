@@ -7,11 +7,11 @@ const { generateListItemSectionId } = require('./spec_section_id');
  * (`tom_som_javascript_v0`) — a faithful port of
  * `tom_som_dart_runtime/lib/src/som_facade.dart` (and `som_facade.py`).
  *
- * The generated classes are a thin **editing facade** over the generic
- * {@link SpecDocument}: every typed getter/setter reads or writes the path-keyed
- * memory representation directly, so a mutation made through the typed surface is
- * immediately visible through the generic path and vice-versa (§3 — the two
- * access paths share one document). These base types ({@link SomNode},
+ * The generated classes are a thin **editing facade** over the generic {@link
+ * SpecDocument}: every typed getter/setter reads or writes the path-keyed
+ * memory representation directly, so a mutation made through the typed surface
+ * is immediately visible through the generic path and vice-versa (SOM §6 — the
+ * two access paths share one document). These base types ({@link SomNode},
  * {@link SomList}, {@link SomScalar}) hold no state of their own beyond the
  * document and a path; the generated subclasses only add typed accessors.
  */
@@ -97,8 +97,8 @@ class SomNode {
   }
 
   /**
-   * Sets this section's CodeSpecs forward link (§9.2). Assigning
-   * `null`/`undefined`/`''` clears the mapping.
+   * Sets this section's CodeSpecs forward link (codespecs_mapping.md §9.2).
+   * Assigning `null`/`undefined`/`''` clears the mapping.
    *
    * @param {string|null} value
    */
@@ -110,7 +110,7 @@ class SomNode {
    * Whether this section holds no value at its {@link path} or nested beneath
    * it — the typed-facade view of "is this section filled?", kept in agreement
    * with the generic API by delegating to {@link SpecDocument#hasValuesUnder}
-   * (§ item 5). Inherited by every generated section facade — intentional.
+   * (SOM §21). Inherited by every generated section facade — intentional.
    *
    * @returns {boolean}
    */
@@ -121,7 +121,7 @@ class SomNode {
   /**
    * Whether this section **type** declares the standard `content` text leaf —
    * i.e. whether the `.content` getter/setter exists on it: "can this section
-   * hold body text?" (§ item 10). A **structural / schema** predicate answered
+   * hold body text?" (SOM §21). A **structural / schema** predicate answered
    * at the type level, without probing `.content`.
    *
    * The base returns `false`; content-bearing generated subclasses (e.g.
@@ -287,7 +287,7 @@ class SomList {
 
 /**
  * Raised when a generated object model is instantiated against a document whose
- * authoring model version it must not edit (§2.2).
+ * authoring model version it must not edit (SOM §4.2).
  */
 class SomVersionError extends Error {
   constructor(message) {
@@ -302,8 +302,8 @@ class SomVersionError extends Error {
 }
 
 /**
- * The outcome of the §2.2 version check, as a value a read-only viewer can
- * branch on instead of catching {@link SomVersionError} (§ item 8).
+ * The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+ * branch on instead of catching {@link SomVersionError} (SOM §21).
  *
  * It is the non-throwing companion to {@link checkSomModelVersion}: the
  * constructor throws on any value other than `editable`, while
@@ -362,10 +362,10 @@ class _SomVersion {
 }
 
 /**
- * Classifies a document's editability under the §2.2 rules **without throwing**
- * (§ item 8). `generated` is the object model's own `major.minor` version;
- * `documentVersion` is the document's recorded authoring stamp (`null`/empty for
- * a brand-new, never-stamped document).
+ * Classifies a document's editability under the SOM §4.2 rules **without
+ * throwing** (SOM §21). `generated` is the object model's own `major.minor`
+ * version; `documentVersion` is the document's recorded authoring stamp
+ * (`null`/empty for a brand-new, never-stamped document).
  *
  * This is the single definition of the version rules; {@link checkSomModelVersion}
  * throws based on the value returned here, so the two never diverge.
@@ -394,9 +394,9 @@ function somEditabilityFor(generated, documentVersion) {
 
 /**
  * The instantiation-time version check every generated root facade performs
- * (§2.2). `generated` is the object model's own `major.minor` version;
- * `documentVersion` is the document's recorded authoring stamp (`null`/empty for
- * a brand-new, never-stamped document).
+ * (SOM §4.2). `generated` is the object model's own `major.minor` version;
+ * `documentVersion` is the document's recorded authoring stamp (`null`/empty
+ * for a brand-new, never-stamped document).
  *
  * Rules (see {@link somEditabilityFor}, which this delegates to):
  *   * a `null`/empty document stamp is always accepted — a new document is

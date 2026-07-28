@@ -400,7 +400,8 @@ func yamlTestClassLevelOnlyKey(c *checker, t *testing.T, tree *som.SomMetaTree) 
 		out.ContentOr("D00/control/owner") == "the owner", "")
 }
 
-// --- csmc8: stored codeSpec (§9.2) --------------------------------------------
+// --- csmc8: stored codeSpec (codespecs_mapping.md §9.2)
+// --------------------------------------------
 
 // TestSpecDocumentYamlCodeSpecRoundTrip verifies a stored codeSpec survives the
 // yaml round-trip and a sibling without one keeps no entry.

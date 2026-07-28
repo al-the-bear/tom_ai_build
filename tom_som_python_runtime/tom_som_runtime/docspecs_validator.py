@@ -166,9 +166,10 @@ class DocSpecsDocument:
                     c = SpecDocumentMarkdown.headline_comment.match(rest)
                     section = DocSpecsSection(
                         id=c.group(1) if c is not None else None,
-                        # group(2) is the optional key=value region (§9.2
-                        # codeSpec); the title is group(3). For a bare heading
-                        # with no comment, the whole rest is the title.
+                        # group(2) is the optional key=value region
+                        # (codespecs_mapping.md §9.2 codeSpec); the title is
+                        # group(3). For a bare heading with no comment, the
+                        # whole rest is the title.
                         title=c.group(3).strip() if c is not None else rest,
                         level=level,
                         line=line_no,

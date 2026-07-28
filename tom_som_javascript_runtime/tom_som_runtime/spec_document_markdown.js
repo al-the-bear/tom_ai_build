@@ -105,7 +105,7 @@ class SpecMarkdownResult {
      *  staged, so a default-rendered document stays byte-stable.
      *  @type {Object<string, string>} */
     this.headlines = {};
-    /** Stored codeSpecs recovered from heading comments (csmc8, §9.2):
+    /** Stored codeSpecs recovered from heading comments (csmc8, codespecs_mapping.md §9.2):
      *  path → codeSpec. Structural mirror of {@link headlines}.
      *  @type {Object<string, string>} */
     this.codeSpecs = {};
@@ -622,9 +622,9 @@ class SpecDocumentMarkdown {
    * distinct nesting positions into siblings and break schema validation.
    */
   static _writeHeading(b, depth, id, title, codeSpec) {
-    // csmc8 (§9.2): a stored codeSpec rides inside the heading comment as
-    // `codeSpec="A,B"`. Byte-stable: when there is none, the comment is
-    // emitted exactly as before (`<!--[ID]-->`).
+    // csmc8 (codespecs_mapping.md §9.2): a stored codeSpec rides inside the
+    // heading comment as `codeSpec="A,B"`. Byte-stable: when there is none, the
+    // comment is emitted exactly as before (`<!--[ID]-->`).
     const meta =
       codeSpec !== null && codeSpec !== undefined && codeSpec !== ''
         ? ` codeSpec="${codeSpec}"`
@@ -635,7 +635,8 @@ class SpecDocumentMarkdown {
 
   /**
    * Extracts the `codeSpec="..."` value from a heading-comment key=value region
-   * (group 2 of {@link headlineComment}), or `null` when absent (csmc8, §9.2).
+   * (group 2 of {@link headlineComment}), or `null` when absent (csmc8,
+   * codespecs_mapping.md §9.2).
    *
    * @returns {string|null}
    */
@@ -743,8 +744,9 @@ class SpecDocumentMarkdown {
 
 // Shared with the parser and the DocSpecs validator.
 SpecDocumentMarkdown.headingLine = /^(#+)\s+(.*)$/;
-// 3-group (csmc8, §9.2): group 1 = section id, group 2 = the optional key=value
-// meta region inside the comment (e.g. ` codeSpec="A,B"`), group 3 = title.
+// 3-group (csmc8, codespecs_mapping.md §9.2): group 1 = section id, group 2 =
+// the optional key=value meta region inside the comment (e.g. `
+// codeSpec="A,B"`), group 3 = title.
 SpecDocumentMarkdown.headlineComment = /^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$/;
 // The `codeSpec=` value inside the meta region: double-quoted, single-quoted,
 // or a bare comma/space/`>`-terminated token.
@@ -794,7 +796,7 @@ class _Parser {
     /** Stored headlines staged from heading text (YRD3): path → headline.
      *  @type {Object<string, string>} */
     this.headlines = {};
-    /** Stored codeSpecs staged from heading comments (csmc8, §9.2).
+    /** Stored codeSpecs staged from heading comments (csmc8, codespecs_mapping.md §9.2).
      *  @type {Object<string, string>} */
     this.codeSpecs = {};
     /** @type {SpecMarkdownRejection[]} */
@@ -875,8 +877,8 @@ class _Parser {
       return;
     }
     const id = m[1];
-    // csmc8 (§9.2): group 2 is the meta region (codeSpec="..."); group 3 the
-    // title.
+    // csmc8 (codespecs_mapping.md §9.2): group 2 is the meta region
+    // (codeSpec="..."); group 3 the title.
     const codeSpec = SpecDocumentMarkdown.codeSpecOf(m[2]);
     const title = m[3].trim();
 
@@ -929,11 +931,12 @@ class _Parser {
     for (const [c, rel] of effective) {
       if (this.codec._headingIdOf(c) === id) {
         // Stage the heading text as a stored headline only when it differs
-        // from the effective default title (YRD3 §8.7 — byte-stability).
+        // from the effective default title (SOM §11.7 — byte-stability).
         if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
           this.headlines[`${parent.path}/${rel}`] = title;
         }
-        // csmc8 (§9.2): stage any codeSpec ridden in the heading comment.
+        // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the
+        // heading comment.
         if (codeSpec) {
           this.codeSpecs[`${parent.path}/${rel}`] = codeSpec;
         }
@@ -1025,7 +1028,8 @@ class _Parser {
         if (title && title !== (tree.root.headline || root.title)) {
           this.headlines[seg] = title;
         }
-        // csmc8 (§9.2): stage any codeSpec ridden in the root heading comment.
+        // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the
+        // root heading comment.
         if (codeSpec) {
           this.codeSpecs[seg] = codeSpec;
         }
@@ -1064,12 +1068,13 @@ class _Parser {
     const itemPath = `${listPath}-${number}`;
     state.items.push(itemPath);
     // Stage the item heading text as a stored headline only when it differs
-    // from the effective default `<stem> <n>` title (YRD3 §8.7).
+    // from the effective default `<stem> <n>` title (SOM §11.7).
     const stem = SpecDocumentMarkdown._itemStemOf(listNode);
     if (title && title !== `${stem} ${number}`) {
       this.headlines[itemPath] = title;
     }
-    // csmc8 (§9.2): stage any codeSpec ridden in the item heading comment.
+    // csmc8 (codespecs_mapping.md §9.2): stage any codeSpec ridden in the item
+    // heading comment.
     if (codeSpec) {
       this.codeSpecs[itemPath] = codeSpec;
     }

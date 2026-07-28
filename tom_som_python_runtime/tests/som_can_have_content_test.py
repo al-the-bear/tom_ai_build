@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Behavioural test for the § item 10 structural content-slot predicate
+"""Behavioural test for the SOM §21 structural content-slot predicate
 (:attr:`SomNode.can_have_content`).
 
 Exercises the runtime base directly (no golden facade needed) against local
@@ -62,7 +62,7 @@ class _Metric(SomNode):
     @property
     def can_have_content(self) -> bool:
         """A content-bearing section overrides the structural default
-        (§ item 10)."""
+        (SOM §21)."""
         return True
 
 

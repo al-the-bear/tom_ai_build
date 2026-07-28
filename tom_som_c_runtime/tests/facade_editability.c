@@ -1,4 +1,4 @@
-/* Unit tests for the §2.2 model-version editability classifier (§ item 8),
+/* Unit tests for the SOM §4.2 model-version editability classifier (SOM §21),
  * the C port of the Dart `somEditabilityFor` reference in
  * `tom_som_dart_runtime/lib/src/som_facade.dart`.
  *

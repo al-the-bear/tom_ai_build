@@ -453,7 +453,8 @@ func TestMarkdownFenceShieldedHeadingsStayBody(t *testing.T) {
 	mdCheck(t, "fenceShield.noStatus", !hasStatus)
 }
 
-// --- csmc8: stored codeSpec rides in the headline comment (§9.2) --------------
+// --- csmc8: stored codeSpec rides in the headline comment
+// (codespecs_mapping.md §9.2) --------------
 
 func TestMarkdownCodeSpecRidesInHeadlineComment(t *testing.T) {
 	doc := populatedDemoDoc()

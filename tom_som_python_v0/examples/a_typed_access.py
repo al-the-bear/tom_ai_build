@@ -44,7 +44,7 @@ import tom_som_python_v0 as m  # noqa: E402
 
 def main() -> int:
     # A typed root over a fresh, empty document. The constructor also runs the
-    # §2.2 instantiation-time version check (an unstamped document is editable).
+    # SOM §4.2 instantiation-time version check (an unstamped document is editable).
     doc = SpecDocument()
     pd = m.D00SolutionBlueprint(doc)
 

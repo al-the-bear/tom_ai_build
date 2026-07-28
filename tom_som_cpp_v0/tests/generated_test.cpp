@@ -4,14 +4,14 @@
 // this harness exercises the real, full `tom_som_cpp_v0` translation unit
 // (3000+ typed facade classes) against the generic `tom_som_cpp_runtime` and
 // proves the typed facade is a faithful editing surface over the shared document
-// (spec §3):
+// (SOM §6):
 //
 //   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
 //   - a content leaf round-trips typed -> generic and generic -> typed;
 //   - a nested complex section derives its path under the root;
 //   - the path-based `som::SomList` collection maps onto the generic list store;
 //   - the generated model-version accessor / constant return "1.0";
-//   - the instantiation-time version check (§2.2) accepts an editable stamp and
+//   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp by throwing som::SomVersionError.
 //
 // Build & run via `./run_tests.sh` (compiles against the relative runtime
@@ -229,7 +229,7 @@ void testModelVersion() {
   eqStr(pd.objectModelVersion(), "1.0", "objectModelVersion accessor");
 }
 
-// The instantiation-time §2.2 version check accepts editable stamps and rejects
+// The instantiation-time SOM §4.2 version check accepts editable stamps and rejects
 // newer-minor / cross-major stamps by throwing som::SomVersionError.
 void testVersionCheck() {
   som::SpecDocument doc;
@@ -280,7 +280,7 @@ std::string readFile(const std::string& path) {
   return ss.str();
 }
 
-// § item 5: a section's `isEmpty()` tracks subtree emptiness, agrees with the
+// SOM §21: a section's `isEmpty()` tracks subtree emptiness, agrees with the
 // generic `hasValuesUnder`, and the content leaf's `hasContent` mirrors the
 // typed `.content` answer. Mirrors the Dart "aligned absence semantics" group.
 void testAlignedAbsence() {
@@ -321,7 +321,7 @@ void testAlignedAbsence() {
   }
 }
 
-// § item 10: `canHaveContent()` is the structural per-type predicate — "does
+// SOM §21: `canHaveContent()` is the structural per-type predicate — "does
 // this section TYPE declare the standard `content` text leaf?" — answered
 // without probing the document. Goals (which has a content leaf) and the root
 // report true; the container-only SystemsToReplace reports false. It is
@@ -354,7 +354,7 @@ void testCanHaveContent() {
   }
 }
 
-// § item 4: the one-call `loadYaml` / `loadFile` facades collapse the former
+// SOM §21: the one-call `loadYaml` / `loadFile` facades collapse the former
 // decode -> loadJson -> thread-version sequence, and the generic
 // `SpecDocument::fromYaml` retains the parsed model version (or the empty-string
 // sentinel when absent). Mirrors the Dart "one-call loading" group.

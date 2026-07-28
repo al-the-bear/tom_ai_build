@@ -376,7 +376,8 @@ class _Encoder:
                 )
             self._write_text(b, indent, "headline", own_headline)
 
-        # The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+        # The node's own codeSpec mapping — the literal `codeSpec` key
+        # (codespecs_mapping.md §9.2).
         own_code_spec = self._code_specs.pop(path, None)
         if own_code_spec is not None:
             if any(node_key(c) == "codeSpec" for c in node.children):
@@ -443,7 +444,7 @@ class _Encoder:
     ) -> None:
         """Emits a scalar-valued node (content/scalar/enum leaf) that carries a
         stored headline and/or a codeSpec mapping as a
-        ``{headline?: …, codeSpec?: …, content?: …}`` mapping (YRD3 + §9.2). At
+        ``{headline?: …, codeSpec?: …, content?: …}`` mapping (YRD3 + codespecs_mapping.md §9.2). At
         least one of *headline*/*code_spec* is non-``None`` at every call
         site."""
         b.writeln(f"{' ' * indent}{plain_key(key)}:")
@@ -537,7 +538,7 @@ class _Encoder:
                 # Scalar list: the item is a direct value — unless it carries
                 # a stored headline and/or codeSpec, in which case it becomes a
                 # `{headline?: …, codeSpec?: …, content: …}` mapping
-                # (YRD3 + §9.2).
+                # (YRD3 + codespecs_mapping.md §9.2).
                 v = self._content.pop(item_path, None)
                 ih = self._headlines.pop(item_path, None)
                 ics = self._code_specs.pop(item_path, None)
@@ -731,8 +732,9 @@ class _Decoder:
             SomMetaKind.ENUM_VALUE,
         ):
             if isinstance(value, dict):
-                # Headline-/codeSpec-extended scalar node (YRD3 + §9.2):
-                # `{headline?: …, codeSpec?: …, content: …}`.
+                # Headline-/codeSpec-extended scalar node (YRD3 +
+                # codespecs_mapping.md §9.2): `{headline?: …, codeSpec?: …,
+                # content: …}`.
                 self._load_scalar_with_meta(path, key, value)
             else:
                 self.doc.set_content(path, self._scalar_of(value, path))
@@ -796,8 +798,8 @@ class _Decoder:
                 )
                 continue
             if key == "codeSpec":
-                # The list container's own codeSpec mapping (§9.2), not an
-                # item.
+                # The list container's own codeSpec mapping
+                # (codespecs_mapping.md §9.2), not an item.
                 self.doc.set_code_spec(
                     path, self._scalar_of(value, f"{path} (codeSpec)")
                 )
@@ -809,7 +811,8 @@ class _Decoder:
             if element is None:
                 # Scalar list item: the value is the item itself — or a
                 # `{headline?: …, codeSpec?: …, content: …}` mapping when it
-                # carries a stored headline and/or codeSpec (YRD3 + §9.2).
+                # carries a stored headline and/or codeSpec (YRD3 +
+                # codespecs_mapping.md §9.2).
                 if isinstance(value, dict):
                     self._load_scalar_with_meta(item_path, key, value)
                     continue
@@ -833,7 +836,7 @@ class _Decoder:
     def _load_scalar_with_meta(
         self, path: str, key: str, value: dict
     ) -> None:
-        """Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a
+        """Loads a headline-/codeSpec-extended scalar node (YRD3 + codespecs_mapping.md §9.2): a
         mapping holding only the literal keys ``headline``, ``codeSpec`` and
         ``content``."""
         for k, v in value.items():

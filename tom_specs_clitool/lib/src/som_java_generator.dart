@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **Java** and writes the
-/// committed artefact tree (spec §2.3): the `tom_som_java_<label>` project (a
+/// committed artefact tree (SOM §4.3): the `tom_som_java_<label>` project (a
 /// build manifest + the generated typed `src/` source), the lossless
 /// object-model **meta-data file**, and the **DocSpecs schemas**.
 ///

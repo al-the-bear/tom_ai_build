@@ -7,8 +7,8 @@ import tom_som_runtime.SomNode;
 import tom_som_runtime.SpecDocument;
 
 /**
- * Dependency-free unit tests for {@link SomList#addContent} and
- * {@link SomList#contents} (§ item 9). Mirrors the Dart reference cases: JUnit is
+ * Dependency-free unit tests for {@link SomList#addContent} and {@link
+ * SomList#contents} (SOM §21). Mirrors the Dart reference cases: JUnit is
  * unavailable on the build host, so this is a plain {@code main()} that exits 0
  * on success and 1 on failure — the same shape as {@code SomFacadeTest}.
  */

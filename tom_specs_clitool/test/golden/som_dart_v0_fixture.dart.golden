@@ -41,18 +41,18 @@ class Risk extends SomNode {
 
 /// Root of a project definition document.
 class SolutionBlueprint extends SomNode {
-  /// The model version this object model was generated against (§2.1).
+  /// The model version this object model was generated against (SOM §4.2).
   static const String modelVersion = '0.0';
 
   /// Creates the typed facade over [doc] at the document root and verifies
-  /// the document's authoring [documentVersion] is editable (§2.2).
+  /// the document's authoring [documentVersion] is editable (SOM §4.2).
   SolutionBlueprint(SpecDocument doc, {String? documentVersion})
       : super(doc, 'PD00') {
     checkSomModelVersion(modelVersion, documentVersion);
   }
 
   /// Loads a `*.docspecs.yaml` document and returns the typed root with the
-  /// document's authoring stamp already applied (§ item 4) — one call for
+  /// document's authoring stamp already applied (SOM §21) — one call for
   /// the former decode → loadJson → thread-`documentVersion` sequence.
   static SolutionBlueprint loadYaml(String yaml) {
     final doc = SpecDocument.fromYaml(yaml, solutionBlueprintMetaTree);
@@ -66,12 +66,12 @@ class SolutionBlueprint extends SomNode {
     return SolutionBlueprint(doc, documentVersion: doc.modelVersion);
   }
 
-  /// This object model's own model version (`major.minor`), per spec §2.1.
+  /// This object model's own model version (`major.minor`), per SOM §4.2.
   String get objectModelVersion => modelVersion;
 
   /// Classifies whether a document authored under [documentVersion] is
-  /// editable by this object model, **without throwing** (§ item 8) — the
-  /// non-throwing companion to the constructor's §2.2 check, so a read-only
+  /// editable by this object model, **without throwing** (SOM §21) — the
+  /// non-throwing companion to the constructor's SOM §4.2 check, so a read-only
   /// viewer can branch instead of catching [SomVersionException].
   static SomEditability editabilityFor(String? documentVersion) =>
       somEditabilityFor(modelVersion, documentVersion);

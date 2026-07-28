@@ -8,7 +8,7 @@ package somruntime
 //
 //  1. DocSpecsDocument — a schema-free structural parse of a DocSpecs markdown
 //     document into a heading tree (fence-aware, never fails).
-//  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with §7-style
+//  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with SOM §14-style
 //     warnings for unsupported keys (never fails on extra keys).
 //  3. DocSpecsValidator — never-fail-fast validation of a parsed document
 //     against a schema, emitting DocSpecsViolations whose messages are
@@ -131,8 +131,8 @@ func ParseDocSpecsDocument(text string) *DocSpecsDocument {
 				rest := m[2]
 				var section *DocSpecsSection
 				if c := mdHeadlineCommentRE.FindStringSubmatch(rest); c != nil {
-					// c[2] is the optional key=value region (§9.2 codeSpec); the
-					// title is c[3]. For a bare heading comment with no title,
+					// c[2] is the optional key=value region (codespecs_mapping.md §9.2
+					// codeSpec); the title is c[3]. For a bare heading comment with no title,
 					// fall back to the whole heading text.
 					title := strings.TrimSpace(c[3])
 					if title == "" {
@@ -290,7 +290,7 @@ type DocSpecsSchema struct {
 	DocumentSections   map[string]*DocSpecsDocumentSection
 	// documentSectionOrder keeps the file order of DocumentSections keys.
 	documentSectionOrder []string
-	// Warnings holds §7 warnings for unsupported keys.
+	// Warnings holds SOM §14 warnings for unsupported keys.
 	Warnings []string
 }
 

@@ -171,8 +171,8 @@ class SomJavaMetaEmitter {
 
     // ── dot-notation accessor classes + per-class metadata builders ─────────
     b
-      ..writeln('$_i1// ── dot-notation accessor classes (SOM §8) + '
-          'metadata builders (§7.2) ────')
+      ..writeln('$_i1// ── dot-notation accessor classes + '
+          'metadata builders (SOM §8, §7.2) ─────')
       ..writeln();
     for (final name in classNames) {
       _emitNavClass(b, model.classes[name]!);

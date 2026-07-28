@@ -1,4 +1,4 @@
-//! Version-editability suite for the §2.2 checks (SOM roadmap § item 8).
+//! Version-editability suite for the SOM §4.2 checks (SOM §21).
 //!
 //! Mirrors the Dart reference `som_facade_test.dart` cases for both the
 //! non-erroring classifier [`som_editability_for`] and the erroring
@@ -12,7 +12,8 @@
 
 use tom_som_rust_runtime::{check_som_model_version, som_editability_for, SomEditability};
 
-// --- som_editability_for (non-erroring §2.2 classification) ----------------
+// --- som_editability_for (non-erroring SOM §4.2 classification)
+// ----------------
 
 #[test]
 fn empty_stamp_is_editable() {

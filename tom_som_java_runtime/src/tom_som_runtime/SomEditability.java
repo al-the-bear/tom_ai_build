@@ -1,8 +1,8 @@
 package tom_som_runtime;
 
 /**
- * The outcome of the §2.2 version check, as a value a read-only viewer can
- * branch on instead of catching {@link SomVersionError} (§ item 8).
+ * The outcome of the SOM §4.2 version check, as a value a read-only viewer can
+ * branch on instead of catching {@link SomVersionError} (SOM §21).
  *
  * <p>It is the non-throwing companion to
  * {@link SomFacade#checkModelVersion(String, String)}: the constructor throws on

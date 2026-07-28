@@ -37,9 +37,10 @@ public final class SpecDocument {
   // that section. Sparse like content — absent means "render the effective
   // default title".
   private final Map<String, String> headline = new LinkedHashMap<>();
-  // The concrete instance-level forward DocSpecs→CodeSpecs link (§9.2): any
-  // section path → the comma-joined list of CodeSpecs code locations that
-  // section maps to. Sparse like `headline`: absent means "no code mapping".
+  // The concrete instance-level forward DocSpecs→CodeSpecs link
+  // (codespecs_mapping.md §9.2): any section path → the comma-joined list of
+  // CodeSpecs code locations that section maps to. Sparse like `headline`:
+  // absent means "no code mapping".
   private final Map<String, String> codeSpec = new LinkedHashMap<>();
 
   // The authoring object-model version (`major.minor`) this document was loaded
@@ -112,7 +113,7 @@ public final class SpecDocument {
   // --- markdown export ----------------------------------------------------
 
   /**
-   * Renders this document to Markdown in one call (SOM § item 12), using the
+   * Renders this document to Markdown in one call (SOM §21), using the
    * document's single <b>populated</b> root.
    *
    * <p>Companion to {@link #toMarkdown(SpecModel, String)} with a null
@@ -125,7 +126,7 @@ public final class SpecDocument {
   }
 
   /**
-   * Renders this document to Markdown in one call (SOM § item 12).
+   * Renders this document to Markdown in one call (SOM §21).
    *
    * <p>Collapses the former {@code new SpecDocumentMarkdown(model, doc)
    * .exportRoot(model.rootByType(…))} incantation. When {@code rootType} is
@@ -178,7 +179,7 @@ public final class SpecDocument {
 
   /**
    * True iff a non-empty content-leaf value exists at exactly {@code path} (SOM
-   * § item 5). Leaf-exact: a value nested beneath {@code path} does not count.
+   * SOM §21). Leaf-exact: a value nested beneath {@code path} does not count.
    * Null-free companion to {@link #content(String)}.
    */
   public boolean hasContent(String path) {
@@ -223,12 +224,13 @@ public final class SpecDocument {
     return headline.keySet();
   }
 
-  // --- codeSpecs (§9.2) -----------------------------------------------------
+  // --- codeSpecs (codespecs_mapping.md §9.2)
+  // -----------------------------------------------------
 
   /**
    * The stored codeSpec mapping at {@code path} as the comma-joined list of
    * CodeSpecs code locations, or {@code null} when the section carries no
-   * mapping (§9.2 — codeSpec is sparse like the headline).
+   * mapping (codespecs_mapping.md §9.2 — codeSpec is sparse like the headline).
    */
   public String codeSpec(String path) {
     return codeSpec.get(path);

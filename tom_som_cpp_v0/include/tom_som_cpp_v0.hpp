@@ -1794,6 +1794,7 @@ class DataAttributeConstraintEntryContentForm;
 class DataAttributeEntryBinaryTypeOptionsForm;
 class DataAttributeEntryDataTypeSpecForm;
 class DataAttributeEntryDerivationForm;
+class DataAttributeEntryFileReferenceOptionsForm;
 class DataAttributeEntryIdentityForm;
 class DataAttributeEntryMigrationLineageForm;
 class DataAttributeEntryNumericTypeOptionsForm;
@@ -3961,7 +3962,7 @@ class AcceptanceCriteriaList : public som::SomNode {
   // Contains 0+× DeliveryAcceptanceCriterion.
   // Returns the list view; element type: DeliveryAcceptanceCriterionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4023,7 +4024,7 @@ class AcceptancePlan : public som::SomNode {
   SignOffProcess signOffProcess() const;
   // 14.2.6. Warranty.
   WarrantyTerms warranty() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4086,7 +4087,7 @@ class AccessChannels : public som::SomNode {
   // Channel entries — contains 1+× InteractionChannelEntry.
   // Returns the list view; element type: InteractionChannelEntry (construct from item paths).
   som::SomList channels() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4104,7 +4105,7 @@ class AccessConstraintPolicies : public som::SomNode {
   void setContent(const std::string& value);
   // Access Constraint Details (text).
   // (skipped: accessConstraintDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4134,7 +4135,7 @@ class AccessControlModel : public som::SomNode {
   UserAuthorization authorization() const;
   // 9.1.5. Role Matrix.
   RoleMatrix roleMatrix() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4151,7 +4152,7 @@ class AccessControlModelSelection : public som::SomNode {
   void setContent(const std::string& value);
   // Access Control Model Details (text).
   // (skipped: accessControlModelDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4188,7 +4189,7 @@ class AccessLevels : public som::SomNode {
   // Permission matrix linking access levels to features.
   std::string permissionMatrix() const;
   void setPermissionMatrix(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4212,7 +4213,7 @@ class AccessUserCategories : public som::SomNode {
   // Contains 0+× UserCategoryDefinition.
   // Returns the list view; element type: UserCategoryDefinition (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4299,7 +4300,7 @@ class AccountActivationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Activation Flow Description (text).
   // (skipped: activationFlowDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4316,7 +4317,7 @@ class AccountDeactivationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Deactivation Process Description (text).
   // (skipped: deactivationProcessDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4333,7 +4334,7 @@ class AccountDeletionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Deletion Process Description (text).
   // (skipped: deletionProcessDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4351,7 +4352,7 @@ class AccountLockoutPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Account Lockout Details (text).
   // (skipped: accountLockoutDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4368,7 +4369,7 @@ class AccountModificationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Modification Rules Description (text).
   // (skipped: modificationRulesDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4437,7 +4438,7 @@ class ActorOverview : public som::SomNode {
   som::SomList actors() const;
   // Actor categorization summary.
   ActorOverviewCategorizationForm categorization() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4495,7 +4496,7 @@ class AdministrationRequirementsSection : public som::SomNode {
   AdministrationRequirementsSectionEnvironmentManagementForm environmentManagement() const;
   // System diagnostic tools.
   SystemDiagnosticTools diagnosticTools() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4680,7 +4681,7 @@ class ApiAbuseProtection : public som::SomNode {
   void setContent(const std::string& value);
   // Abuse Protection Details (text).
   // (skipped: abuseProtectionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4697,7 +4698,7 @@ class ApiAuthenticationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // API Authentication Details (text).
   // (skipped: apiAuthenticationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4715,7 +4716,7 @@ class ApiAuthorizationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // API Authorization Details (text).
   // (skipped: apiAuthorizationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4749,7 +4750,7 @@ class ApiCorsSecurity : public som::SomNode {
   void setContent(const std::string& value);
   // CORS Security Details (text).
   // (skipped: corsSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4766,7 +4767,7 @@ class ApiKeyManagementPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // API Key Management Details (text).
   // (skipped: apiKeyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4785,7 +4786,7 @@ class ApiRequestValidationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Request Validation Details (text).
   // (skipped: requestValidationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4816,7 +4817,7 @@ class ApiSecurity : public som::SomNode {
   ApiAbuseProtection apiAbuseProtection() const;
   // API Security Monitoring.
   ApiSecurityMonitoring apiSecurityMonitoring() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -4836,7 +4837,7 @@ class ApiSecurityMonitoring : public som::SomNode {
   void setContent(const std::string& value);
   // API Security Monitoring Details (text).
   // (skipped: apiSecurityMonitoringDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5017,7 +5018,7 @@ class ArchitectureStyle : public som::SomNode {
   // Architecture decision records.
   // Returns the list view; element type: ArchitectureDecisionRecord (construct from item paths).
   som::SomList decisionRecords() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5039,7 +5040,7 @@ class AssumptionConstraintDependencyRegister : public som::SomNode {
   // prerequisite deliverables, framework conditions).
   // Returns the list view; element type: DependencyRegisterEntry (construct from item paths).
   som::SomList dependencies() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5063,7 +5064,7 @@ class AssumptionsConstraintsDependencies : public som::SomNode {
   void setContent(const std::string& value);
   // The consolidated assumption / constraint register.
   AssumptionConstraintDependencyRegister register_() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5086,7 +5087,7 @@ class AuditAndLogging : public som::SomNode {
   AuditLogFormat auditLogFormat() const;
   // 9.6.3. Compliance Reporting.
   ComplianceReporting complianceReporting() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5135,7 +5136,7 @@ class AuditLogFormat : public som::SomNode {
   LogRetentionPolicy logRetention() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5154,7 +5155,7 @@ class AuditRequirements : public som::SomNode {
   som::SomList audits() const;
   // Audit evidence requirements.
   AuditEvidenceRequirements evidenceRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5174,7 +5175,7 @@ class Authentication : public som::SomNode {
   PasswordAndCredentialPolicy passwordAndCredentialPolicy() const;
   // 9.2.4. Session Management.
   SessionManagement sessionManagement() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5191,7 +5192,7 @@ class AuthenticationErrorHandling : public som::SomNode {
   void setContent(const std::string& value);
   // Error Handling Details (text).
   // (skipped: errorHandlingDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5238,7 +5239,7 @@ class AuthenticationFlow : public som::SomNode {
   // Contains 0+× Login Flow Step.
   // Returns the list view; element type: LoginFlowStepEntry (construct from item paths).
   som::SomList loginFlowSteps() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5288,7 +5289,7 @@ class AuthenticationMethods : public som::SomNode {
   // Contains 0+× AuthenticationMethod.
   // Returns the list view; element type: AuthenticationMethodEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5308,7 +5309,7 @@ class AuthorizationComplianceFollowUp : public som::SomNode {
   void setContent(const std::string& value);
   // 10.4.1. Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5358,7 +5359,7 @@ class AuthorizationModel : public som::SomNode {
   PermissionEvaluationBehavior permissionEvaluation() const;
   // Authorization Model Notes (text).
   // (skipped: authorizationModelNotes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5446,7 +5447,7 @@ class BackupAndRecoverySection : public som::SomNode {
   BackupVerification verification() const;
   // Compliance and audit requirements.
   BackupCompliance compliance() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5488,7 +5489,7 @@ class BackupEncryptionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Backup Encryption Details (text).
   // (skipped: backupEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5579,7 +5580,7 @@ class BasicTechnicalRequirements : public som::SomNode {
   ArchitectureStyle architectureStyle() const;
   // 8.1.3. Design Patterns and Standards.
   DesignPatternsAndStandards designPatternsAndStandards() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5617,7 +5618,7 @@ class BiometricAuthenticationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Biometric Implementation Details (text).
   // (skipped: biometricDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5660,7 +5661,7 @@ class BoundaryInteractionPatterns : public som::SomNode {
   BoundaryInteractionPatterns(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5810,7 +5811,7 @@ class BusinessDomain : public som::SomNode {
   DomainProcesses domainProcesses() const;
   // 4.1.3.7. Domain Events.
   DomainEvents domainEvents() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5857,7 +5858,7 @@ class BusinessGoals : public som::SomNode {
   // Business goals list — contains 1+× Business Goal.
   // Returns the list view; element type: BusinessGoalEntry (construct from item paths).
   som::SomList goals() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5940,7 +5941,7 @@ class BusinessObjectModel : public som::SomNode {
   som::SomList objects() const;
   // 7.2.2. Business Object Diagram (mermaid).
   // (skipped: objectDiagram has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5960,7 +5961,7 @@ class BusinessPainPoints : public som::SomNode {
   // Contains 0+× PainPoint.
   // Returns the list view; element type: PainPointEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -5998,7 +5999,7 @@ class BusinessProcessDescriptions : public som::SomNode {
   // 6.1.10. Process Metrics and KPIs.
   // Returns the list view; element type: ProcessMetric (construct from item paths).
   som::SomList processMetricsAndKpis() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6086,7 +6087,7 @@ class CapacityPlanningSection : public som::SomNode {
   ResourceCapacityBaselines resourceCapacity() const;
   // Capacity review process.
   CapacityReviewProcess capacityReview() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6123,7 +6124,7 @@ class CertificateAuthenticationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Certificate Authentication Details (text).
   // (skipped: certificateDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6156,7 +6157,7 @@ class CertificateManagementPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Certificate Management Details (text).
   // (skipped: certificateManagementDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6242,7 +6243,7 @@ class ChangeImpactCriteria : public som::SomNode {
   // Contains 0+× ChangeImpactCriterion.
   // Returns the list view; element type: ChangeImpactCriterionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6293,7 +6294,7 @@ class ChangeProcedure : public som::SomNode {
   // 3.4.4. Change Categories — contains 0+× Category.
   // Returns the list view; element type: ChangeCategoryEntry (construct from item paths).
   som::SomList changeCategories() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6461,7 +6462,7 @@ class ChannelIntegrations : public som::SomNode {
   // Integration requirements content.
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6594,7 +6595,7 @@ class ClientRequirementsSection : public som::SomNode {
   ClientConfiguration clientConfiguration() const;
   // User-specific settings of a user-owned device (CE-DS).
   DeviceSettings deviceSettings() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6725,7 +6726,7 @@ class ColumnLevelSecurityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Column-Level Security Details (text).
   // (skipped: columnLevelSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6821,7 +6822,7 @@ class CommunicationRequirements : public som::SomNode {
   ProtocolsAndStandardsSection protocolsAndStandards() const;
   // 8.6.2. External Connectivity.
   ExternalConnectivitySection externalConnectivity() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6896,7 +6897,7 @@ class CompatibilityRequirementsSection : public som::SomNode {
   BackwardsCompatibilityRequirements backwardsCompatibility() const;
   // Interoperability requirements.
   InteroperabilityRequirements interoperability() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6956,7 +6957,7 @@ class ComplianceFramework : public som::SomNode {
   ComplianceFramework(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -6988,7 +6989,7 @@ class ComplianceReporting : public som::SomNode {
   RegulatoryAuditSupport regulatoryAuditSupport() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7248,7 +7249,7 @@ class ComponentRiskAssessment : public som::SomNode {
   som::SomList risks() const;
   // 12.6.2. Contingency Plans.
   ContingencyPlans contingencyPlans() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7365,7 +7366,7 @@ class ComponentsAndDependencies : public som::SomNode {
   MaintenanceDependencies maintenanceDependencies() const;
   // 12.6. Risk Assessment.
   ComponentRiskAssessment riskAssessment() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7409,7 +7410,7 @@ class ConcurrentSessionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Concurrent Session Details (text).
   // (skipped: concurrentSessionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7503,7 +7504,7 @@ class ContentScanningPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Content Scanning Details (text).
   // (skipped: contentScanningDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7524,7 +7525,7 @@ class ContextDiagram : public som::SomNode {
   // Diagram legend and conventions.
   std::string legend() const;
   void setLegend(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7564,7 +7565,7 @@ class ContextualNavigation : public som::SomNode {
   // (skipped: backNavigation has no target type)
   // Related links behavior.
   // (skipped: relatedLinks has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7601,7 +7602,7 @@ class ContingencyPlans : public som::SomNode {
   // Contains 0+× ContingencyPlan.
   // Returns the list view; element type: ContingencyPlanEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7633,7 +7634,7 @@ class CredentialCompromiseDetectionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Compromise Detection Details (text).
   // (skipped: compromiseDetectionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7650,7 +7651,7 @@ class CredentialRecoveryPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Credential Recovery Details (text).
   // (skipped: credentialRecoveryDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7665,7 +7666,7 @@ class CrossBoundaryErrorHandling : public som::SomNode {
   CrossBoundaryErrorHandling(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7681,7 +7682,7 @@ class CrossBoundaryOperationalConsiderations : public som::SomNode {
   CrossBoundaryOperationalConsiderations(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7713,7 +7714,7 @@ class CrossProcessAnalysis : public som::SomNode {
   CrossProcessAnalysis(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7732,7 +7733,7 @@ class CrossTenantAccessPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Cross-Tenant Access Policy Details (text).
   // (skipped: crossTenantAccessPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7759,7 +7760,7 @@ class CurrentArchitecture : public som::SomNode {
   // Shared services inventory.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList sharedServices() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7806,7 +7807,7 @@ class CurrentBusinessProcesses : public som::SomNode {
   // 1.2.nn. Business Processes — contains 1+× Business Process.
   // Returns the list view; element type: CurrentBusinessProcess (construct from item paths).
   som::SomList processes() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7829,7 +7830,7 @@ class CurrentDataClassification : public som::SomNode {
   // Classification status by data domain.
   // Returns the list view; element type: DataClassificationStatusEntry (construct from item paths).
   som::SomList classificationStatus() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7873,7 +7874,7 @@ class CurrentDataLandscape : public som::SomNode {
   DataIntegrationPoints dataIntegrationPoints() const;
   // 1.4.10. Master Data Management.
   MasterDataManagement masterDataManagement() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7901,7 +7902,7 @@ class CurrentLandscape : public som::SomNode {
   som::SomList operationalMetrics() const;
   // 1.6. Current State Risks.
   CurrentStateRiskAssessment currentStateRisks() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7917,7 +7918,7 @@ class CurrentOperationalMetric : public som::SomNode {
   CurrentOperationalMetric(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -7939,7 +7940,7 @@ class CurrentStateRiskAssessment : public som::SomNode {
   CurrentStateRiskAssessment(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8014,7 +8015,7 @@ class CutoverProcedure : public som::SomNode {
   CutoverProcedure(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8026,25 +8027,25 @@ class CutoverProcedure : public som::SomNode {
 // per the public-standards order (§4 of the redesign proposal).
 class D00SolutionBlueprint : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D00SolutionBlueprint(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D00SolutionBlueprint loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D00SolutionBlueprint loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8079,7 +8080,7 @@ class D00SolutionBlueprint : public som::SomNode {
   QualityAndAcceptanceModel qualityAndAcceptanceModel() const;
   // SBP.15 Delivery, Transition & Rollout. Seeds → DRM, TRP.
   DeliveryTransitionAndRollout deliveryTransitionAndRollout() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8092,25 +8093,25 @@ class D00SolutionBlueprint : public som::SomNode {
 // and the inventory / migration plan for the systems being replaced.
 class D01CurrentLandscapeAssessment : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D01CurrentLandscapeAssessment(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D01CurrentLandscapeAssessment loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D01CurrentLandscapeAssessment loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8136,7 +8137,7 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
   ReplacementInventory replacementInventory() const;
   // Migration considerations.
   MigrationConsiderations migrationConsiderations() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8149,25 +8150,25 @@ class D01CurrentLandscapeAssessment : public som::SomNode {
 // cross-process analysis, exception handling, and KPIs.
 class D02TargetOperatingModel : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D02TargetOperatingModel(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D02TargetOperatingModel loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D02TargetOperatingModel loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8198,7 +8199,7 @@ class D02TargetOperatingModel : public som::SomNode {
   // Process metrics and KPIs.
   // Returns the list view; element type: ProcessMetric (construct from item paths).
   som::SomList processMetricsAndKpis() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8212,25 +8213,25 @@ class D02TargetOperatingModel : public som::SomNode {
 // integrity constraints.
 class D03InformationModel : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D03InformationModel(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D03InformationModel loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D03InformationModel loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8276,7 +8277,7 @@ class D03InformationModel : public som::SomNode {
   // `List<IntegrityConstraints>` (L34C-12 SR-25).
   IntegrityConstraints integrityConstraints() const;
   // Domain enum registry — the closed value sets the data model relies on
-  // (CE-EN home + closed-choice discriminator source, csmb3).
+  // (`domainEnum` home + closed-choice discriminator source, csmb3).
   DomainEnumRegistry domainEnumRegistry() const;
   // Error code registry — the shared application error-code vocabulary
   // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
@@ -8286,10 +8287,10 @@ class D03InformationModel : public som::SomNode {
   // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
   ResultEnvelope resultEnvelope() const;
   // Message key registry — the single author-copy-once home for user-facing
-  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  // copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
   // (csmb7).
   MessageKeyRegistry messageKeyRegistry() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8302,25 +8303,25 @@ class D03InformationModel : public som::SomNode {
 // and coverage analysis.
 class D04RequirementsSpecification : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D04RequirementsSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D04RequirementsSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D04RequirementsSpecification loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8349,7 +8350,7 @@ class D04RequirementsSpecification : public som::SomNode {
   som::SomList requirementRelationships() const;
   // Requirement coverage.
   RequirementCoverage requirementCoverage() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8362,25 +8363,25 @@ class D04RequirementsSpecification : public som::SomNode {
 // and traceability.
 class D05InteractionScenarios : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D05InteractionScenarios(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D05InteractionScenarios loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D05InteractionScenarios loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8404,7 +8405,7 @@ class D05InteractionScenarios : public som::SomNode {
   som::SomList endToEndTestScenarios() const;
   // Use case traceability.
   UseCaseTraceability useCaseTraceability() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8418,25 +8419,25 @@ class D05InteractionScenarios : public som::SomNode {
 // and translation handling.
 class D06ArchitectureTechnologySpecification : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D06ArchitectureTechnologySpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D06ArchitectureTechnologySpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D06ArchitectureTechnologySpecification loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8469,7 +8470,7 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
   TechnicalEnvironment technicalEnvironment() const;
   // Translation handling requirements (whole).
   TranslationRequirements translationRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8482,25 +8483,25 @@ class D06ArchitectureTechnologySpecification : public som::SomNode {
 // migration, operational concerns, and cross-boundary error handling.
 class D07IntegrationInterfaceSpecification : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D07IntegrationInterfaceSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D07IntegrationInterfaceSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D07IntegrationInterfaceSpecification loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8532,7 +8533,7 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
   som::SomList operationalConsiderations() const;
   // Cross-boundary error handling.
   CrossBoundaryErrorHandling crossBoundaryErrorHandling() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8546,25 +8547,25 @@ class D07IntegrationInterfaceSpecification : public som::SomNode {
 // compliance framework.
 class D08SecurityAccessSpecification : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D08SecurityAccessSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D08SecurityAccessSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D08SecurityAccessSpecification loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8589,7 +8590,7 @@ class D08SecurityAccessSpecification : public som::SomNode {
   RoleMatrix roleMatrix() const;
   // Compliance framework.
   ComplianceFramework complianceFramework() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8603,25 +8604,25 @@ class D08SecurityAccessSpecification : public som::SomNode {
 // mockups.
 class D09ExperienceDesignSpecification : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D09ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D09ExperienceDesignSpecification loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D09ExperienceDesignSpecification loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8657,7 +8658,7 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
   WireframesAndMockups wireframesAndMockups() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8668,25 +8669,25 @@ class D09ExperienceDesignSpecification : public som::SomNode {
 // Full quality plan combining quality goals and the acceptance plan.
 class D10QualityAcceptancePlan : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D10QualityAcceptancePlan(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D10QualityAcceptancePlan loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D10QualityAcceptancePlan loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8733,7 +8734,7 @@ class D10QualityAcceptancePlan : public som::SomNode {
   SignOffProcess signOffProcess() const;
   // Warranty terms.
   WarrantyTerms warranty() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8747,25 +8748,25 @@ class D10QualityAcceptancePlan : public som::SomNode {
 // framework.
 class D11DeliveryRoadmap : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D11DeliveryRoadmap(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D11DeliveryRoadmap loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D11DeliveryRoadmap loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8793,7 +8794,7 @@ class D11DeliveryRoadmap : public som::SomNode {
   InitialDevelopmentFlow initialDevelopmentFlow() const;
   // Upgrade cycle framework (links tom_specs_project_flow.md §PF-UPG).
   UpgradeCycleFramework upgradeCycleFramework() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8807,25 +8808,25 @@ class D11DeliveryRoadmap : public som::SomNode {
 // transfer, and warranty/support.
 class D12TransitionRolloutPlan : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D12TransitionRolloutPlan(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D12TransitionRolloutPlan loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D12TransitionRolloutPlan loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8869,7 +8870,7 @@ class D12TransitionRolloutPlan : public som::SomNode {
   KnowledgeTransfer knowledgeTransfer() const;
   // Warranty and support.
   WarrantyAndSupport warrantyAndSupport() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8882,25 +8883,25 @@ class D12TransitionRolloutPlan : public som::SomNode {
 // models, the process-step interactions, and the client-side experience seed.
 class D13CodeSpecsProjection : public som::SomNode {
  public:
-  // The model version this object model was generated against (§2.1).
+  // The model version this object model was generated against (SOM §4.2).
   static constexpr const char* kModelVersion = "1.0";
   // Creates the typed facade at the document root and verifies the document's
-  // authoring documentVersion is editable (§2.2); throws som::SomVersionError
+  // authoring documentVersion is editable (SOM §4.2); throws som::SomVersionError
   // when it is not.
   explicit D13CodeSpecsProjection(som::SpecDocument& doc, const std::string& documentVersion = "");
   // Loads a `*.docspecs.yaml` document into the caller-owned `doc` and
   // returns the typed root with the document's authoring stamp already
-  // applied (§ item 4) — one call for the former decode → loadJson →
+  // applied (SOM §21) — one call for the former decode → loadJson →
   // thread-documentVersion sequence. `doc` is borrowed by the returned
   // root and must outlive it (RAII ownership model).
   static D13CodeSpecsProjection loadYaml(som::SpecDocument& doc, const std::string& yaml);
   // Loads a `*.docspecs.yaml` document from the file at `path` into the
   // caller-owned `doc` — the file companion to loadYaml.
   static D13CodeSpecsProjection loadFile(som::SpecDocument& doc, const std::string& path);
-  // This object model's own model version (major.minor), per §2.1.
+  // This object model's own model version (major.minor), per SOM §4.2.
   std::string objectModelVersion() const;
   // Classifies a document's editability against this object model without
-  // throwing — the non-throwing companion to the constructor check (§ item 8):
+  // throwing — the non-throwing companion to the constructor check (SOM §21):
   // a read-only viewer can branch on the result instead of catching
   // som::SomVersionError. An empty documentVersion is the absent-stamp
   // sentinel and classifies as editable.
@@ -8909,7 +8910,13 @@ class D13CodeSpecsProjection : public som::SomNode {
   void setContent(const std::string& value);
   // Standard TomSpecs document header.
   DocumentHeader header() const;
-  // Domain enum registry — CE-EN closed value sets, shared by client & server.
+  // Domain enum registry — the closed value sets, shared by client & server.
+  //
+  // `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+  // §4.1): each enum is authored once here and realised as a plain Dart `enum`
+  // marked `@CsEnum`, placed in the shared project iff a shared contract type
+  // references it — which is what this registry's shared locus assumes —
+  // otherwise in the project of the part that introduces it.
   DomainEnumRegistry domainEnumRegistry() const;
   // Error code registry — CE-ER shared error-code vocabulary.
   ErrorCodeRegistry errorCodeRegistry() const;
@@ -8917,6 +8924,13 @@ class D13CodeSpecsProjection : public som::SomNode {
   ResultEnvelope resultEnvelope() const;
   // Message key registry — CE-TX author-copy-once keys, shared.
   MessageKeyRegistry messageKeyRegistry() const;
+  // Notification model — CE-NT type / channel / preference declarations.
+  //
+  // The declarations are **shared**: the client renders the preference UI
+  // against the same catalogue the server dispatches from. Delivery is
+  // server-only, but it is not authored here — it rides the reused
+  // `tom_core_server` messaging transport.
+  NotificationModel notificationModel() const;
   // Data model — CE-DB persistence + CE-VA server-side rules.
   DataModel dataModel() const;
   // Technical framework — CE-CF platform/config foundation.
@@ -8928,7 +8942,7 @@ class D13CodeSpecsProjection : public som::SomNode {
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
   // Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   ExperienceCodeSpecs experienceCodeSpecs() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -8978,7 +8992,7 @@ class DataAccessAuditPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Data Access Audit Details (text).
   // (skipped: dataAccessAuditDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9044,10 +9058,33 @@ class DataAttributeEntry : public som::SomNode {
   DataAttributeEntryTemporalTypeOptionsForm temporalTypeOptions() const;
   // Binary-kind type options — a promoted `@OneOf` case (csra4).
   //
-  // Present only for the `binary` logical type; carries only the stored size
-  // attributes. Separated from the text `length` because a byte size and a
-  // character length are different constraints on different types.
+  // Present only for the `binary` logical type — the record holds the **bytes
+  // themselves** — so it carries only the stored size. Separated from the text
+  // `length` because a byte size and a character length are different
+  // constraints on different types. An attribute that holds a file's *address*
+  // instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+  // of this one: a mode field would restate the logical type and could then
+  // disagree with it.
   DataAttributeEntryBinaryTypeOptionsForm binaryTypeOptions() const;
+  // File-reference type options — a promoted `@OneOf` case (csra10).
+  //
+  // Present only for the `fileReference` logical type: the attribute stores the
+  // **address of a stored file**, so what a specification must say is where the
+  // file is filed, which store holds it, whether it dies with its record, and
+  // what may be uploaded into it.
+  //
+  // The address itself is never authored — it is generated when the file is
+  // stored, so a specification chooses only the group it is filed under. The
+  // vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+  // §1.2): a *file store* is named, never a storage technology.
+  //
+  // Two decisions that look like they belong here are elsewhere by design:
+  // **who may fetch the file** is the attribute's own access classification —
+  // the address is an ordinary attribute, so its security classification
+  // already governs it — and **how the file appears on screen** (a thumbnail,
+  // a link, a download) is a screen-element concern, authored where the
+  // element is.
+  DataAttributeEntryFileReferenceOptionsForm fileReferenceOptions() const;
   // Returns the list view; element type: DataAttributeConstraintEntry (construct from item paths).
   som::SomList constraints() const;
   DataAttributeEntryDerivationForm derivation() const;
@@ -9109,7 +9146,7 @@ class DataDictionary : public som::SomNode {
   DataDictionary(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9132,7 +9169,7 @@ class DataDuplicationAnalysis : public som::SomNode {
   // Individual duplication instances.
   // Returns the list view; element type: DataDuplicationEntry (construct from item paths).
   som::SomList duplicationInstances() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9223,7 +9260,7 @@ class DataGovernance : public som::SomNode {
   // Data governance policies.
   // Returns the list view; element type: DataGovernancePolicyEntry (construct from item paths).
   som::SomList governancePolicies() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9287,7 +9324,7 @@ class DataIntegrationPoints : public som::SomNode {
   // Data integration points inventory.
   // Returns the list view; element type: DataIntegrationEntry (construct from item paths).
   som::SomList integrationPoints() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9318,7 +9355,7 @@ class DataLevelSecurity : public som::SomNode {
   DataMaskingPolicy dataMaskingPolicy() const;
   // Data Access Audit Policy.
   DataAccessAuditPolicy dataAccessAuditPolicy() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9336,7 +9373,7 @@ class DataMaskingPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Data Masking Details (text).
   // (skipped: dataMaskingDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9416,7 +9453,7 @@ class DataModel : public som::SomNode {
   // One whole-catalog content section (mirrors `dataDictionary`); collapsed
   // from `List<IntegrityConstraints>` (L34C-12 SR-25).
   IntegrityConstraints integrityConstraints() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9440,7 +9477,7 @@ class DataModelFollowUp : public som::SomNode {
   // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
   // Returns the list view; element type: EntityFollowUpEntry (construct from item paths).
   som::SomList entityFollowUps() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9463,7 +9500,7 @@ class DataOwnership : public som::SomNode {
   // Data ownership assignments by domain.
   // Returns the list view; element type: DataOwnershipEntry (construct from item paths).
   som::SomList ownershipAssignments() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9522,7 +9559,7 @@ class DataProtectionAndPrivacySection : public som::SomNode {
   DataProcessingAgreementRequirements dataProcessingAgreements() const;
   // Data protection classification and handling rules.
   DataProtectionClassification dataClassification() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9566,7 +9603,7 @@ class DataQualityAssessment : public som::SomNode {
   // Quality improvement initiatives in progress.
   // Returns the list view; element type: DataQualityInitiativeEntry (construct from item paths).
   som::SomList improvementInitiatives() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9619,7 +9656,7 @@ class DataRetentionPolicies : public som::SomNode {
   // Retention policies by data category.
   // Returns the list view; element type: RetentionPolicyEntry (construct from item paths).
   som::SomList retentionPolicies() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9676,7 +9713,7 @@ class DataSourceInventory : public som::SomNode {
   // Contains 0+× DataSource.
   // Returns the list view; element type: DataSourceEntry (construct from item paths).
   som::SomList dataSources() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9741,7 +9778,7 @@ class DataVolumesAndGrowth : public som::SomNode {
   // Volume details by data source.
   // Returns the list view; element type: DataVolumeEntry (construct from item paths).
   som::SomList volumeBySource() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9759,7 +9796,7 @@ class DatabaseAccessPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Database Access Policy Details (text).
   // (skipped: databaseAccessDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9792,7 +9829,7 @@ class DatabaseEncryptionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Database Encryption Details (text).
   // (skipped: databaseEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -9915,7 +9952,7 @@ class DeepLinking : public som::SomNode {
   // Contains 0+× DeepLinkPattern.
   // Returns the list view; element type: DeepLinkPatternEntry (construct from item paths).
   som::SomList patterns() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10019,7 +10056,7 @@ class DeliveryScope : public som::SomNode {
   TrainingDeliverables trainingDeliverables() const;
   // 14.1.4. Support Deliverables.
   SupportDeliverables supportDeliverables() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10035,7 +10072,7 @@ class DeliveryScopeAndAcceptance : public som::SomNode {
   DeliveryScope deliveryScope() const;
   // 14.2. Acceptance Plan. Seeds → QAP.
   AcceptancePlan acceptancePlan() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10057,7 +10094,7 @@ class DeliveryTransitionAndRollout : public som::SomNode {
   LocalizationTranslationProcess localizationTranslationProcess() const;
   // Multi-language rollout sequencing by region and time (re-homed from MLAR).
   DeliveryTransitionAndRolloutLocaleRolloutPlanForm localeRolloutPlan() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10086,7 +10123,7 @@ class DependenciesAndIntegrations : public som::SomNode {
   Integrations integrations() const;
   // 1.1.3.5. Integration Health Summary.
   IntegrationHealthSummary healthSummary() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10176,7 +10213,7 @@ class DeploymentContext : public som::SomNode {
   void setContent(const std::string& value);
   // Deployment Context Details (form).
   DeploymentContextDeploymentDetailsForm deploymentDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10252,7 +10289,7 @@ class DeploymentStrategySection : public som::SomNode {
   InfrastructureAsCode infrastructureAsCode() const;
   // Deployment security requirements.
   DeploymentSecurity deploymentSecurity() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10322,7 +10359,7 @@ class DesignGoals : public som::SomNode {
   // Contains 0+× DesignGoal.
   // Returns the list view; element type: DesignGoalEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10376,7 +10413,7 @@ class DesignPatternsAndStandards : public som::SomNode {
   ErrorHandlingStandards errorHandlingStandards() const;
   // Testing standards and requirements.
   TestingStandards testingStandards() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10405,7 +10442,7 @@ class DesignPrinciples : public som::SomNode {
   // Contains 0+× UiDesignPrinciple.
   // Returns the list view; element type: DesignPrincipleEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10426,7 +10463,7 @@ class DesignVision : public som::SomNode {
   DesignPrinciples designPrinciples() const;
   // 10.1.3. User Personas.
   UserPersonas personas() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10456,7 +10493,7 @@ class DetailedProcessWorkflow : public som::SomNode {
   DetailedProcessWorkflow(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10528,7 +10565,7 @@ class DevelopmentEnvironment : public som::SomNode {
   DeveloperOnboarding developerOnboarding() const;
   // Development metrics and quality gates.
   DevelopmentQualityGates qualityGates() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10655,7 +10692,7 @@ class DistributionList : public som::SomNode {
   // 3.3.3. Custom Distribution Groups — contains 0+× Group.
   // Returns the list view; element type: CustomDistributionGroup (construct from item paths).
   som::SomList customGroups() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10764,7 +10801,7 @@ class DocumentControl : public som::SomNode {
   // the former §3 `Administrative` wrapper in L34C-5: referenced documents are
   // ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
   ReferenceDocuments referenceDocuments() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10791,7 +10828,7 @@ class DocumentRelationships : public som::SomNode {
   // Related document entries.
   // Returns the list view; element type: RelatedDocumentEntry (construct from item paths).
   som::SomList relatedDocuments() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10816,7 +10853,7 @@ class DocumentationDeliverables : public som::SomNode {
   // Contains 0+× Deliverable.
   // Returns the list view; element type: DeliverableEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10900,7 +10937,7 @@ class DomainBoundaries : public som::SomNode {
   // Domain interfaces — contains 0+× DomainInterfaceEntry.
   // Returns the list view; element type: DomainInterfaceEntry (construct from item paths).
   som::SomList interfaces() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10929,7 +10966,7 @@ class DomainBusinessRules : public som::SomNode {
   // Business rule entries — contains 0+× BusinessRuleEntry.
   // Returns the list view; element type: DomainBusinessRuleEntry (construct from item paths).
   som::SomList rules() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -10938,8 +10975,8 @@ class DomainBusinessRules : public som::SomNode {
 // A single domain enum (form + values).
 //
 // One named closed value set: its name, backing value type, default value and
-// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-// name becomes the generated enum type and each member becomes a constant —
+// the ordered list of members. Maps to the `domainEnum` **member kind** — the
+// enum name becomes the generated enum type and each member becomes a constant —
 // and doubles as a closed-choice discriminator source (csm-7-4): the enum
 // name identifies the choice set and [values] supply the cases.
 class DomainEnumEntry : public som::SomNode {
@@ -10957,13 +10994,13 @@ class DomainEnumEntry : public som::SomNode {
 // value sets the business data model relies on (order status, currency,
 // account type, …). Before this registry existed, closed value sets could
 // only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// inline option lists, so the `domainEnum` CodeSpecs member kind had no
 // expressible home and the closed-choice mechanism had no real enum to use as
 // a discriminator.
 //
 // This registry serves **two** roles:
 //
-// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+// 1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
 //    type and default, and its [DomainEnumEntry.values] each carry a value id,
 //    a backing value and a copy reference into the CE-TX message registry.
 // 2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -10980,7 +11017,7 @@ class DomainEnumRegistry : public som::SomNode {
   // 7.5.1. Domain Enums — one entry per closed value set.
   // Returns the list view; element type: DomainEnumEntry (construct from item paths).
   som::SomList enums() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11019,7 +11056,7 @@ class DomainEvents : public som::SomNode {
   // Domain event entries — contains 0+× DomainEventEntry.
   // Returns the list view; element type: DomainEventEntry (construct from item paths).
   som::SomList events() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11043,7 +11080,7 @@ class DomainOverview : public som::SomNode {
   void setContent(const std::string& value);
   // Domain Overview Details (form).
   DomainOverviewDomainDetailsForm domainDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11077,7 +11114,7 @@ class DomainProcesses : public som::SomNode {
   // Domain process entries — contains 0+× DomainProcessEntry.
   // Returns the list view; element type: DomainProcessEntry (construct from item paths).
   som::SomList processes() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11102,7 +11139,7 @@ class DomainVocabulary : public som::SomNode {
   // Vocabulary entries — contains 1+× DomainTermEntry.
   // Returns the list view; element type: DomainTermEntry (construct from item paths).
   som::SomList terms() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11180,7 +11217,7 @@ class EncryptionAtRest : public som::SomNode {
   BackupEncryptionPolicy backupEncryption() const;
   // Encryption At Rest Notes (text).
   // (skipped: encryptionAtRestNotes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11198,7 +11235,7 @@ class EncryptionAtRestPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Encryption At Rest Policy Details (text).
   // (skipped: encryptionAtRestPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11228,7 +11265,7 @@ class EncryptionInTransit : public som::SomNode {
   TransportSecurityPolicy transportSecurityPolicy() const;
   // Encryption In Transit Notes (text).
   // (skipped: encryptionInTransitNotes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11243,7 +11280,7 @@ class EndToEndTestScenario : public som::SomNode {
   EndToEndTestScenario(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11346,7 +11383,7 @@ class EntityRelationships : public som::SomNode {
   // Contains 0+× EntityRelationship.
   // Returns the list view; element type: EntityRelationshipEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11521,7 +11558,7 @@ class ErrorCodeRegistry : public som::SomNode {
   // 7.6.1. Error Codes — one entry per shared application error code.
   // Returns the list view; element type: ErrorCodeEntry (construct from item paths).
   som::SomList errorCodes() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11613,7 +11650,7 @@ class EvaluationCriteria : public som::SomNode {
   // Contains 0+× EvaluationCriterion.
   // Returns the list view; element type: EvaluationCriterionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11660,7 +11697,7 @@ class ExecutiveSummaryDistribution : public som::SomNode {
   // Contains 0+× DistributionRecipient.
   // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11708,7 +11745,7 @@ class ExistingSystemsLandscape : public som::SomNode {
   CurrentArchitecture currentArchitecture() const;
   // 1.1.3. Dependencies and Integrations.
   DependenciesAndIntegrations dependenciesAndIntegrations() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11735,7 +11772,7 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   ExperienceLocalizationFollowUp localizationFollowUp() const;
   // 10.4. Authorization Compliance — CMP follow-up subtree.
   AuthorizationComplianceFollowUp authorizationComplianceFollowUp() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11768,7 +11805,7 @@ class ExperienceCodeSpecs : public som::SomNode {
   ResponsiveDesign responsiveDesign() const;
   // 10.1.6. UI Components. Seeds → XDS.
   UiComponents uiComponents() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11802,7 +11839,7 @@ class ExperienceDesignFollowUp : public som::SomNode {
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
   WireframesAndMockups wireframesAndMockups() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11820,7 +11857,7 @@ class ExperienceLocalizationFollowUp : public som::SomNode {
   void setContent(const std::string& value);
   // 10.3.1. Multi-language Support.
   MultiLanguageSupport multiLanguageSupport() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11959,7 +11996,7 @@ class ExternalActors : public som::SomNode {
   // Actor entries — contains 1+× ExternalActorEntry.
   // Returns the list view; element type: ExternalActorEntry (construct from item paths).
   som::SomList actors() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -11986,7 +12023,7 @@ class ExternalConnectivitySection : public som::SomNode {
   ServiceMeshAndGateway serviceMeshAndGateway() const;
   // Connectivity resilience requirements.
   ConnectivityResilience resilience() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12096,7 +12133,7 @@ class ExternalServiceDependencies : public som::SomNode {
   // Contains 0+× External Service Dependency.
   // Returns the list view; element type: ExternalServiceDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12146,7 +12183,7 @@ class ExternalSystemsContext : public som::SomNode {
   // External system entries — contains 0+× ExternalSystemContextEntry.
   // Returns the list view; element type: ExternalSystemContextEntry (construct from item paths).
   som::SomList systems() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12356,7 +12393,7 @@ class FileAccessControlPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // File Access Control Details (text).
   // (skipped: fileAccessControlDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12387,7 +12424,7 @@ class FileAndStorageSecurity : public som::SomNode {
   FileDownloadSecurityPolicy fileDownloadSecurityPolicy() const;
   // Storage Lifecycle Policy.
   StorageLifecyclePolicy storageLifecyclePolicy() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12405,7 +12442,7 @@ class FileDownloadSecurityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Download Security Details (text).
   // (skipped: downloadSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12423,7 +12460,7 @@ class FileStorageEncryptionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // File Storage Encryption Details (text).
   // (skipped: fileStorageEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12442,7 +12479,7 @@ class FileUploadValidationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Upload Validation Details (text).
   // (skipped: uploadValidationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12535,7 +12572,7 @@ class FullDistribution : public som::SomNode {
   // Contains 0+× DistributionRecipient.
   // Returns the list view; element type: DistributionRecipientEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12649,7 +12686,7 @@ class FunctionalRequirements : public som::SomNode {
   // Functional requirements list — contains 1+× Functional Requirement.
   // Returns the list view; element type: FunctionalRequirementEntry (construct from item paths).
   som::SomList requirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12742,7 +12779,7 @@ class GlossaryAndAbbreviations : public som::SomNode {
   // The set of defined terms and abbreviations.
   // Returns the list view; element type: GlossaryEntry (construct from item paths).
   som::SomList glossary() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12766,7 +12803,7 @@ class GoalDependencies : public som::SomNode {
   // Dependency entries — contains 0+× GoalDependencyEntry.
   // Returns the list view; element type: GoalDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12794,7 +12831,7 @@ class GoalKeyResults : public som::SomNode {
   // Key result entries — contains 0+× KeyResultEntry.
   // Returns the list view; element type: KeyResultEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12818,7 +12855,7 @@ class GoalMilestones : public som::SomNode {
   // Milestone entries — contains 0+× GoalMilestoneEntry.
   // Returns the list view; element type: GoalMilestoneEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12837,7 +12874,7 @@ class GoalResources : public som::SomNode {
   // Resource allocation entries — contains 0+× ResourceAllocationEntry.
   // Returns the list view; element type: ResourceAllocationEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12865,7 +12902,7 @@ class GoalRisks : public som::SomNode {
   // Risk entries — contains 0+× GoalRiskEntry.
   // Returns the list view; element type: GoalRiskEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12891,7 +12928,7 @@ class Goals : public som::SomNode {
   TechnicalGoals technicalGoals() const;
   // 4.2.3. Success Criteria.
   SuccessCriteria successCriteria() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12928,7 +12965,7 @@ class HardwareRequirements : public som::SomNode {
   ClientRequirementsSection clientRequirements() const;
   // 8.4.3. Network Requirements.
   NetworkRequirementsSection networkRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -12965,7 +13002,7 @@ class HealthChecksAndDiagnosticsSection : public som::SomNode {
   TroubleshootingCapabilities troubleshooting() const;
   // Dependency health monitoring.
   DependencyHealthMonitoring dependencyHealth() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13036,7 +13073,7 @@ class IdentificationAndAuthentication : public som::SomNode {
   Identification identification() const;
   // 9.2.2. Authentication.
   Authentication authentication() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13231,7 +13268,7 @@ class InformationAndDataModel : public som::SomNode {
   // CE-DB / CE-VA generation-owned while these follow-up facets are authored
   // alongside, keyed back to their source entity.
   DataModelFollowUp dataModelFollowUp() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13258,7 +13295,7 @@ class InformationArchitecture : public som::SomNode {
   som::SomList globalEntryPoints() const;
   // 10.2.2.5. Information Architecture Diagram.
   // (skipped: architectureDiagram has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13279,7 +13316,7 @@ class InformationForUseRequirements : public som::SomNode {
   void setContent(const std::string& value);
   // User documentation requirements (doc half of the former DOANTR).
   UserDocumentationRequirements userDocumentation() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13353,7 +13390,7 @@ class InitialDevelopmentFlow : public som::SomNode {
   InitialDevelopmentFlow(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13404,7 +13441,7 @@ class InsuranceLiabilityRequirements : public som::SomNode {
   // Liability limitations.
   // Returns the list view; element type: LiabilityLimitations (construct from item paths).
   som::SomList liabilityLimitations() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13476,7 +13513,7 @@ class Integrations : public som::SomNode {
   // Contains 0+× SystemIntegration.
   // Returns the list view; element type: SystemIntegrationEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13490,7 +13527,7 @@ class IntegrityConstraints : public som::SomNode {
   IntegrityConstraints(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13547,7 +13584,7 @@ class InteractionCatalog : public som::SomNode {
   som::SomList interactions() const;
   // Interaction prioritization matrix.
   InteractionCatalogPrioritizationForm prioritization() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13585,7 +13622,7 @@ class InteractionDependencyAnalysis : public som::SomNode {
   InteractionDependencyAnalysis(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13661,7 +13698,7 @@ class InteractionPatterns : public som::SomNode {
   // Pattern entries — contains 1+× InteractionPatternEntry.
   // Returns the list view; element type: InteractionPatternEntry (construct from item paths).
   som::SomList patterns() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13676,7 +13713,7 @@ class InteractionTestingStrategy : public som::SomNode {
   InteractionTestingStrategy(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13852,7 +13889,7 @@ class InternalDependencies : public som::SomNode {
   // Contains 0+× Internal System Dependency.
   // Returns the list view; element type: SystemDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13917,7 +13954,7 @@ class IntroductionAndScope : public som::SomNode {
   OperatingEnvironment operatingEnvironment() const;
   // 4.7. Risks and Assumptions.
   RisksAndAssumptions risksAndAssumptions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13947,7 +13984,7 @@ class Iso25010Coverage : public som::SomNode {
   // One entry per ISO/IEC 25010:2023 characteristic addressed.
   // Returns the list view; element type: Iso25010CoverageEntry (construct from item paths).
   som::SomList characteristics() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -13971,7 +14008,7 @@ class ItLandscapePosition : public som::SomNode {
   void setContent(const std::string& value);
   // IT Landscape Position Details (form).
   ItLandscapePositionPositionDetailsForm positionDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14015,7 +14052,7 @@ class ItSecurityStandardsSection : public som::SomNode {
   VulnerabilityManagementPolicy vulnerabilityManagement() const;
   // Incident response plan.
   IncidentResponsePlan incidentResponse() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14126,7 +14163,7 @@ class KeyConcepts : public som::SomNode {
   // Key concept entries — contains 1+× KeyConceptEntry.
   // Returns the list view; element type: KeyConceptEntry (construct from item paths).
   som::SomList concepts() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14181,7 +14218,7 @@ class KeyManagement : public som::SomNode {
   KeyCompromiseRecoveryPolicy keyCompromiseRecoveryPolicy() const;
   // Additional Notes (text).
   // (skipped: notes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14220,7 +14257,7 @@ class KeyScenarios : public som::SomNode {
   // Contains 1+× Scenario.
   // Returns the list view; element type: ScenarioEntry (construct from item paths).
   som::SomList scenarios() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14249,7 +14286,7 @@ class KnowledgeTransfer : public som::SomNode {
   KnowledgeTransfer(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14264,7 +14301,11 @@ class LanguageCountrySelection : public som::SomNode {
   LanguageCountrySelectionLanguageSelectionContentForm languageSelectionContent() const;
   // Default locale behavior.
   LanguageCountrySelectionDefaultsForm defaults() const;
-  // Persistence rules.
+  // Retention rules — how a chosen preference survives, without naming a store.
+  //
+  // Where the preference lives is *not* authored here: it follows from the
+  // settings scope the preference is declared in (user setting vs device
+  // setting), never from a local/roaming-style flag on this section.
   LanguageCountrySelectionPersistenceForm persistence() const;
   // Fallback behavior.
   LanguageCountrySelectionFallbackForm fallback() const;
@@ -14325,7 +14366,7 @@ class LayeringAndModuleStructure : public som::SomNode {
   som::SomList featureModules() const;
   // Module versioning and compatibility strategy.
   ModuleVersioningStrategy moduleVersioningStrategy() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14369,7 +14410,7 @@ class LegalAndContractualRequirements : public som::SomNode {
   // 3.6.6. Other Agreements — contains 0+× Agreement.
   // Returns the list view; element type: OtherAgreementEntry (construct from item paths).
   som::SomList otherAgreements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14474,7 +14515,7 @@ class LocalizationTranslationProcess : public som::SomNode {
   LocalizationProcess localizationProcess() const;
   // Translation workflow (TMS, translation memory, vendors, QA).
   TranslationProcess translationProcess() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14492,7 +14533,7 @@ class LocalizationTranslationRequirements : public som::SomNode {
   TranslationRequirements translationRequirements() const;
   // Locale modeling and fallback requirements (re-homed from MLAR).
   LocaleHandlingRequirements localeHandling() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14571,7 +14612,7 @@ class LoginFlowConfiguration : public som::SomNode {
   void setContent(const std::string& value);
   // Login Flow Details (text).
   // (skipped: loginFlowDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14670,7 +14711,7 @@ class MaintenanceDependencies : public som::SomNode {
   // Contains 0+× Maintenance Dependency.
   // Returns the list view; element type: MaintenanceDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14744,7 +14785,7 @@ class MaintenanceWindowsSection : public som::SomNode {
   MaintenanceUserImpact userImpact() const;
   // Post-maintenance validation.
   PostMaintenanceValidation postMaintenance() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14777,7 +14818,7 @@ class MasterDataManagement : public som::SomNode {
   // Master data domains.
   // Returns the list view; element type: MasterDataDomainEntry (construct from item paths).
   som::SomList masterDataDomains() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14830,7 +14871,7 @@ class MessageKeyEntry : public som::SomNode {
 // carrying inline copy and instead reference a key here:
 //
 // - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
 // - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
 // - **CE-VA** validation-failure messages.
 //
@@ -14845,7 +14886,7 @@ class MessageKeyRegistry : public som::SomNode {
   // 7.8.1. Message Keys — one entry per author-once copy string.
   // Returns the list view; element type: MessageKeyEntry (construct from item paths).
   som::SomList messageKeys() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14901,7 +14942,7 @@ class MetricsBaselineTable : public som::SomNode {
   // Baseline entries.
   // Returns the list view; element type: MetricsBaselineEntry (construct from item paths).
   som::SomList entries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -14957,7 +14998,7 @@ class MfaConfiguration : public som::SomNode {
   // MFA Implementation Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList mfaDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15015,7 +15056,7 @@ class MigrationInteractions : public som::SomNode {
   MigrationInteractions(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15120,7 +15161,7 @@ class MigrationPlan : public som::SomNode {
   MigrationPlan(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15364,7 +15405,7 @@ class MonitoringAndAlertingSection : public som::SomNode {
   IncidentManagementRequirements incidentManagement() const;
   // SLA monitoring.
   SlaMonitoringRequirements slaMonitoring() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15444,7 +15485,7 @@ class MultiChannelExperience : public som::SomNode {
   void setContent(const std::string& value);
   // Multi-channel configuration.
   MultiChannelExperienceMultiChannelConfigurationForm multiChannelConfiguration() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15513,7 +15554,7 @@ class MutualTlsPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Mutual TLS Policy Details (text).
   // (skipped: mutualTlsPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15576,7 +15617,7 @@ class NavigationGuards : public som::SomNode {
   // Contains 0+× NavigationGuard.
   // Returns the list view; element type: NavigationGuardEntry (construct from item paths).
   som::SomList guards() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15595,7 +15636,7 @@ class NavigationHierarchy : public som::SomNode {
   // Contains 0+× NavigationGroup.
   // Returns the list view; element type: NavigationGroupEntry (construct from item paths).
   som::SomList groups() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15645,7 +15686,7 @@ class NavigationModel : public som::SomNode {
   DeepLinking deepLinking() const;
   // 10.3.1.8. Navigation Guards.
   NavigationGuards navigationGuards() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15741,7 +15782,7 @@ class NetworkRequirementsSection : public som::SomNode {
   NetworkLoadBalancingRequirements loadBalancing() const;
   // Network security requirements.
   NetworkSecurityRequirements networkSecurity() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -15872,7 +15913,7 @@ class NotificationModel : public som::SomNode {
   // User notification preferences.
   // Returns the list view; element type: UserNotificationPreferences (construct from item paths).
   som::SomList preferences() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16032,7 +16073,7 @@ class OperationalPainPoints : public som::SomNode {
   // Contains 0+× PainPoint.
   // Returns the list view; element type: PainPointEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16052,7 +16093,7 @@ class OperationsRequirements : public som::SomNode {
   MonitoringAndAlertingSection monitoringAndAlerting() const;
   // 8.5.4. Maintenance Windows.
   MaintenanceWindowsSection maintenanceWindows() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16069,7 +16110,7 @@ class OpportunityStatement : public som::SomNode {
   void setContent(const std::string& value);
   // Opportunity Details Form.
   OpportunityStatementOpportunityDetailsForm opportunityDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16102,7 +16143,7 @@ class OrgRequirementImplementationPlan : public som::SomNode {
   // Implementation activities — contains 0+× OrgImplementationActivity.
   // Returns the list view; element type: OrgImplementationActivity (construct from item paths).
   som::SomList activities() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16125,7 +16166,7 @@ class OrganizationAndProcessConcept : public som::SomNode {
   OrganizationalFramework organizationalFramework() const;
   // Business-process descriptions and narrative. Seeds → TOM.
   BusinessProcessDescriptions businessProcessDescriptions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16141,7 +16182,7 @@ class OrganizationStructure : public som::SomNode {
   GovernanceModel governanceModel() const;
   // Organization chart diagram (e.g. Mermaid or image reference).
   // (skipped: orgChartDiagram has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16187,7 +16228,7 @@ class OrganizationalContext : public som::SomNode {
   // Business process coverage.
   std::string businessProcessCoverage() const;
   void setBusinessProcessCoverage(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16293,7 +16334,7 @@ class OrganizationalRequirements : public som::SomNode {
   // Organizational requirements list — contains 0+× Organizational Requirement.
   // Returns the list view; element type: OrganizationalRequirementEntry (construct from item paths).
   som::SomList requirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16436,7 +16477,7 @@ class PainPointGapCorrelation : public som::SomNode {
   // Tabular correlation data.
   // Returns the list view; element type: PainPointGapCorrelationEntry (construct from item paths).
   som::SomList correlationEntries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16485,7 +16526,7 @@ class PainPointsAndGaps : public som::SomNode {
   som::SomList gaps() const;
   // Cross-reference between pain points and gaps.
   PainPointGapCorrelation painPointGapCorrelation() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16528,7 +16569,7 @@ class PasswordAndCredentialPolicy : public som::SomNode {
   // Contains 0+× MFA Enforcement per User Category.
   // Returns the list view; element type: MfaCategoryRequirementEntry (construct from item paths).
   som::SomList mfaCategoryRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16546,7 +16587,7 @@ class PasswordLifecyclePolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Password Lifecycle Details (text).
   // (skipped: passwordLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16564,7 +16605,7 @@ class PasswordRequirementsPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Password Requirements Details (text).
   // (skipped: passwordRequirementsDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16581,7 +16622,7 @@ class PasswordStoragePolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Password Storage Details (text).
   // (skipped: passwordStorageDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16658,7 +16699,7 @@ class PermissionCompositionStrategy : public som::SomNode {
   void setContent(const std::string& value);
   // Permission Composition Details (text).
   // (skipped: permissionCompositionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16675,7 +16716,7 @@ class PermissionEvaluationBehavior : public som::SomNode {
   void setContent(const std::string& value);
   // Permission Evaluation Details (text).
   // (skipped: permissionEvaluationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16692,7 +16733,7 @@ class PermissionGranularityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Permission Granularity Details (text).
   // (skipped: permissionGranularityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16742,7 +16783,7 @@ class PersonaGoals : public som::SomNode {
   // Contains 0+× PersonaGoal.
   // Returns the list view; element type: PersonaGoalEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16764,7 +16805,7 @@ class PersonaPainPoints : public som::SomNode {
   // Contains 0+× PersonaPainPoint.
   // Returns the list view; element type: PersonaPainPointEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16788,7 +16829,7 @@ class PersonaScenarios : public som::SomNode {
   // Contains 0+× PersonaScenario.
   // Returns the list view; element type: PersonaScenarioEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16860,7 +16901,7 @@ class PilotPlan : public som::SomNode {
   PilotPlan(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -16926,7 +16967,7 @@ class PlatformAndLanguage : public som::SomNode {
   DependencyManagement dependencyManagement() const;
   // Runtime environment constraints.
   RuntimeEnvironment runtimeEnvironment() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17063,7 +17104,7 @@ class ProblemStatement : public som::SomNode {
   // Related pain points from Current State Analysis.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList relatedPainPoints() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17118,7 +17159,7 @@ class ProcessAdjustments : public som::SomNode {
   // Contains 0+× ProcessAdjustment.
   // Returns the list view; element type: ProcessAdjustmentEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17225,7 +17266,7 @@ class ProcessExceptionHandling : public som::SomNode {
   ProcessExceptionHandling(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17314,7 +17355,7 @@ class ProcessInterdependencyMatrix : public som::SomNode {
   // Individual process dependencies.
   // Returns the list view; element type: ProcessDependencyEntry (construct from item paths).
   som::SomList dependencies() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17339,7 +17380,7 @@ class ProcessMetric : public som::SomNode {
   ProcessMetric(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17354,7 +17395,7 @@ class ProcessMetricCategory : public som::SomNode {
   // Metrics in this category.
   // Returns the list view; element type: ProcessMetricEntry (construct from item paths).
   som::SomList metrics() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17405,7 +17446,7 @@ class ProcessMetrics : public som::SomNode {
   som::SomList items() const;
   // Baseline comparison table.
   MetricsBaselineTable baselineTable() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17443,7 +17484,7 @@ class ProcessPainPoints : public som::SomNode {
   // Process improvement opportunities.
   // Returns the list view; element type: CurrentProcessImprovementEntry (construct from item paths).
   som::SomList improvements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17489,7 +17530,7 @@ class ProcessRelationships : public som::SomNode {
   // Contains 0+× process relationship.
   // Returns the list view; element type: ProcessRelationshipEntry (construct from item paths).
   som::SomList relationships() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17569,7 +17610,7 @@ class ProcessStepsAndActorInteractions : public som::SomNode {
   som::SomList endToEndTestScenarios() const;
   // 6.2.5. Use Case Traceability.
   UseCaseTraceability useCaseTraceability() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17658,7 +17699,7 @@ class ProjectOrganization : public som::SomNode {
   OrganizationStructure organizationStructure() const;
   // 3.1.2. Steering Committee.
   SteeringCommittee steeringCommittee() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17687,7 +17728,7 @@ class ProjectOrganizationAndProcess : public som::SomNode {
   ProcessAdjustments processAdjustments() const;
   // 2.4. Tooling and Environments.
   ToolingAndEnvironments toolingAndEnvironments() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17710,7 +17751,7 @@ class ProjectTeamStaffing : public som::SomNode {
   // Resource requirements not yet filled.
   // Returns the list view; element type: ResourceRequirementEntry (construct from item paths).
   som::SomList openRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17759,7 +17800,7 @@ class ProtocolsAndStandardsSection : public som::SomNode {
   RateLimitingPolicy rateLimiting() const;
   // Protocol compliance requirements.
   ProtocolComplianceRequirements compliance() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17883,7 +17924,7 @@ class QualityAndAcceptanceModel : public som::SomNode {
   DeliveryScopeAndAcceptance deliveryAcceptance() const;
   // ISO/IEC 25010:2023 product-quality cross-map (§5 completeness addition).
   Iso25010Coverage iso25010Coverage() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -17980,7 +18021,7 @@ class QualityGateAdjustments : public som::SomNode {
   // Contains 0+× QualityGateAdjustment.
   // Returns the list view; element type: QualityGateAdjustmentEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18052,7 +18093,7 @@ class QualityScenarios : public som::SomNode {
   // Quality scenario entries — contains 0+× QualityScenarioEntry.
   // Returns the list view; element type: QualityScenarioEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18152,7 +18193,7 @@ class RedirectHandlingPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Redirect Handling Details (text).
   // (skipped: redirectDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18191,7 +18232,7 @@ class ReferenceDocuments : public som::SomNode {
   // Reference document entries — contains 0+× Reference Document.
   // Returns the list view; element type: ReferenceDocumentEntry (construct from item paths).
   som::SomList documents() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18237,7 +18278,7 @@ class RegulatoryComplianceRequirements : public som::SomNode {
   // Compliance milestones.
   // Returns the list view; element type: ComplianceMilestoneEntry (construct from item paths).
   som::SomList milestones() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18255,7 +18296,7 @@ class RegulatoryContext : public som::SomNode {
   // Applicable regulations — contains 0+× ApplicableRegulationEntry.
   // Returns the list view; element type: ApplicableRegulationEntry (construct from item paths).
   som::SomList regulations() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18357,7 +18398,7 @@ class RememberMePolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Remember-Me Policy Details (text).
   // (skipped: rememberMeDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18642,7 +18683,7 @@ class RequirementAcceptanceCriteria : public som::SomNode {
   // Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
   // Returns the list view; element type: AcceptanceCriterionEntry (construct from item paths).
   som::SomList criteria() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18666,7 +18707,7 @@ class RequirementBusinessRules : public som::SomNode {
   // Business rule entries — contains 0+× RequirementBusinessRuleEntry.
   // Returns the list view; element type: RequirementBusinessRuleEntry (construct from item paths).
   som::SomList rules() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18680,7 +18721,7 @@ class RequirementCoverage : public som::SomNode {
   RequirementCoverage(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18697,7 +18738,7 @@ class RequirementDataRequirements : public som::SomNode {
   // Data entity entries — contains 0+× DataEntityReferenceEntry.
   // Returns the list view; element type: DataEntityReferenceEntry (construct from item paths).
   som::SomList entities() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18714,7 +18755,7 @@ class RequirementDependencies : public som::SomNode {
   // Dependency entries — contains 0+× RequirementDependencyEntry.
   // Returns the list view; element type: RequirementDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18737,7 +18778,7 @@ class RequirementRelationships : public som::SomNode {
   RequirementRelationships(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18779,7 +18820,7 @@ class RequirementTestCases : public som::SomNode {
   // Test case entries — contains 0+× RequirementTestCaseEntry.
   // Returns the list view; element type: RequirementTestCaseEntry (construct from item paths).
   som::SomList testCases() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18799,7 +18840,7 @@ class RequirementTraceability : public som::SomNode {
   RequirementTraceabilityArtifactsForm artifacts() const;
   // Implementation and deployment tracking.
   RequirementTraceabilityImplementationForm implementation() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18832,7 +18873,7 @@ class RequirementUiSpecification : public som::SomNode {
   // Screen behavior entries — contains 0+× ScreenBehaviorEntry.
   // Returns the list view; element type: ScreenBehaviorEntry (construct from item paths).
   som::SomList behaviors() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18857,7 +18898,7 @@ class Requirements : public som::SomNode {
   void setContent(const std::string& value);
   // Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.
   RequirementsFollowUp requirementsFollowUp() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18885,7 +18926,7 @@ class RequirementsFollowUp : public som::SomNode {
   InformationForUseRequirements informationForUse() const;
   // Training & Enablement requirements (NFR-TRN-NNN).
   TrainingEnablementRequirements trainingEnablement() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18921,7 +18962,7 @@ class RequirementsOverview : public som::SomNode {
   som::SomList requirementRelationships() const;
   // 4.3.6. Requirement Coverage.
   RequirementCoverage requirementCoverage() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -18975,7 +19016,7 @@ class ResourceProtection : public som::SomNode {
   ApiSecurity apiSecurity() const;
   // 9.3.3. File and Storage Security.
   FileAndStorageSecurity fileAndStorageSecurity() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19196,7 +19237,7 @@ class ReusableComponentsSection : public som::SomNode {
   ComponentGovernance governance() const;
   // Component discovery and registry.
   ComponentRegistry registry() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19410,7 +19451,7 @@ class RoleAdjustments : public som::SomNode {
   // Contains 0+× RoleAdjustment.
   // Returns the list view; element type: RoleAdjustmentEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19427,7 +19468,7 @@ class RoleCertificationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Role Certification Details (text).
   // (skipped: roleCertificationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19492,7 +19533,7 @@ class RoleHierarchy : public som::SomNode {
   RoleCertificationPolicy roleCertification() const;
   // Role Hierarchy Notes (text).
   // (skipped: roleHierarchyNotes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19509,7 +19550,7 @@ class RoleHierarchyPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Role Hierarchy Policy Details (text).
   // (skipped: roleHierarchyPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19541,7 +19582,7 @@ class RoleMatrix : public som::SomNode {
   RoleMatrix(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19592,7 +19633,7 @@ class RolloutPlan : public som::SomNode {
   RolloutPlan(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19612,7 +19653,7 @@ class RolloutTrainingMaterial : public som::SomNode {
   RolloutTrainingMaterial(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19630,7 +19671,7 @@ class RowLevelSecurityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Row-Level Security Details (text).
   // (skipped: rowLevelSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19670,7 +19711,7 @@ class RuntimeDependencies : public som::SomNode {
   // Contains 0+× Runtime Dependency.
   // Returns the list view; element type: RuntimeDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19864,7 +19905,7 @@ class ScopeBoundaries : public som::SomNode {
   // Scope Assumptions.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList scopeAssumptions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19903,7 +19944,7 @@ class ScreenActions : public som::SomNode {
   // Contains 0+× ScreenAction.
   // Returns the list view; element type: ScreenActionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -19929,7 +19970,7 @@ class ScreenDescriptions : public som::SomNode {
   ScreenInventory screenInventory() const;
   // 10.2.2. Information Architecture.
   InformationArchitecture informationArchitecture() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20104,7 +20145,7 @@ class ScreenFlowStructure : public som::SomNode {
   // (skipped: screenFlowDiagram has no target type)
   // 10.3.3. Screen Route Map.
   ScreenRouteMap screenRouteMap() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20124,7 +20165,7 @@ class ScreenInventory : public som::SomNode {
   // Contains 1+× Screen.
   // Returns the list view; element type: ScreenEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20173,7 +20214,7 @@ class ScreenRouteMap : public som::SomNode {
   // Contains 0+× ScreenTransitionEntry.
   // Returns the list view; element type: ScreenTransitionEntry (construct from item paths).
   som::SomList transitions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20206,7 +20247,7 @@ class ScreenSections : public som::SomNode {
   // Contains 0+× ScreenSection.
   // Returns the list view; element type: ScreenSectionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20232,7 +20273,7 @@ class ScreenStates : public som::SomNode {
   // Contains 0+× ScreenState.
   // Returns the list view; element type: ScreenStateEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20265,7 +20306,7 @@ class SecondaryNavigation : public som::SomNode {
   // Contains 0+× TabBarDefinition.
   // Returns the list view; element type: TabBarDefinitionEntry (construct from item paths).
   som::SomList tabBars() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20300,7 +20341,7 @@ class SecurityAndAccessModel : public som::SomNode {
   SecurityOperationsFollowUp securityOperations() const;
   // 9.3. Compliance — CMP follow-up subtree.
   SecurityComplianceFollowUp compliance() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20346,7 +20387,7 @@ class SecurityAuditRequirementsSection : public som::SomNode {
   // Individual security audit requirement entries — contains 0+× SecurityAudit.
   // Returns the list view; element type: SecurityAuditEntry (construct from item paths).
   som::SomList auditEntries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20414,7 +20455,7 @@ class SecurityComplianceFollowUp : public som::SomNode {
   void setContent(const std::string& value);
   // 9.3.1. Compliance Framework.
   ComplianceFramework complianceFramework() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20442,7 +20483,7 @@ class SecurityControls : public som::SomNode {
   // Security control entries — contains 0+× SecurityControlEntry.
   // Returns the list view; element type: SecurityControlEntry (construct from item paths).
   som::SomList controls() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20506,7 +20547,7 @@ class SecurityEventsDefinition : public som::SomNode {
   // Custom Security Events — contains 0+× Security Event Entry.
   // Returns the list view; element type: SecurityEventEntry (construct from item paths).
   som::SomList customEvents() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20527,7 +20568,7 @@ class SecurityOperationsFollowUp : public som::SomNode {
   SensitiveDataEncryption encryption() const;
   // 9.2.2. Audit and Logging.
   AuditAndLogging auditAndLogging() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20575,7 +20616,7 @@ class SecurityRequirements : public som::SomNode {
   // Security requirements list — contains 0+× Security Requirement.
   // Returns the list view; element type: SecurityRequirementEntry (construct from item paths).
   som::SomList requirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20662,7 +20703,7 @@ class SelfServiceAccountManagement : public som::SomNode {
   void setContent(const std::string& value);
   // Self-Service Capabilities Description (text).
   // (skipped: selfServiceDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20680,7 +20721,7 @@ class SensitiveDataEncryption : public som::SomNode {
   EncryptionInTransit encryptionInTransit() const;
   // 9.5.3. Key Management.
   KeyManagement keyManagement() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20749,7 +20790,7 @@ class ServerRequirementsSection : public som::SomNode {
   CloudProviderRequirements cloudProvider() const;
   // Operating system requirements.
   ServerOsRequirements osRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20796,7 +20837,7 @@ class ServiceAccountCredentialPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Service Account Credential Details (text).
   // (skipped: serviceAccountDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20813,7 +20854,7 @@ class ServiceAccountLifecycle : public som::SomNode {
   void setContent(const std::string& value);
   // Service Account Management Description (text).
   // (skipped: serviceAccountDescription has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20883,7 +20924,7 @@ class SessionCreationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Session Creation Details (text).
   // (skipped: sessionCreationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20901,7 +20942,7 @@ class SessionLifecycleMonitoring : public som::SomNode {
   void setContent(const std::string& value);
   // Session Lifecycle Monitoring Details (text).
   // (skipped: sessionLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20933,7 +20974,7 @@ class SessionManagement : public som::SomNode {
   SessionSecurityPolicy sessionSecurityPolicy() const;
   // Session Lifecycle Monitoring.
   SessionLifecycleMonitoring sessionLifecycleMonitoring() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20954,7 +20995,7 @@ class SessionModel : public som::SomNode {
   SessionModelLifecycleForm lifecycle() const;
   // Convenience features and security-trigger handling.
   SessionModelSecurityForm security() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20972,7 +21013,7 @@ class SessionRevocationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Session Revocation Details (text).
   // (skipped: sessionRevocationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -20990,7 +21031,7 @@ class SessionSecurityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Session Security Details (text).
   // (skipped: sessionSecurityDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21009,7 +21050,7 @@ class SessionTimeoutPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Session Timeout Details (text).
   // (skipped: sessionTimeoutDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21026,7 +21067,7 @@ class SharedInfrastructureDependencies : public som::SomNode {
   // Contains 0+× Shared Infrastructure Component.
   // Returns the list view; element type: SharedInfrastructureEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21171,7 +21212,7 @@ class SoftwareDeliverables : public som::SomNode {
   // Contains 0+× Deliverable.
   // Returns the list view; element type: DeliverableEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21189,7 +21230,7 @@ class SoftwareDesignRequirements : public som::SomNode {
   DevelopmentEnvironment developmentEnvironment() const;
   // 8.2.3. Reusable Components.
   ReusableComponentsSection reusableComponents() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21221,7 +21262,7 @@ class SolutionArchitectureAndTechnology : public som::SomNode {
   TechnicalFrameworkConcept technicalFramework() const;
   // Architecture / component-reuse DOC follow-up subtree.
   SolutionArchitectureFollowUp architectureFollowUp() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21242,7 +21283,7 @@ class SolutionArchitectureFollowUp : public som::SomNode {
   void setContent(const std::string& value);
   // Components, libraries, and services to reuse.
   ComponentsAndDependencies componentsToUse() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21270,7 +21311,7 @@ class SsoPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // SSO Implementation Details (text).
   // (skipped: ssoDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21690,7 +21731,7 @@ class StakeholdersAndBeneficiaries : public som::SomNode {
   // Secondary stakeholders — contains 0+× StakeholderEntry (benefits lens).
   // Returns the list view; element type: StakeholderEntry (construct from item paths).
   som::SomList secondaryStakeholders() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21721,7 +21762,7 @@ class StakeholdersAndGovernance : public som::SomNode {
   // Stakeholder register (§5 completeness addition).
   // Returns the list view; element type: StakeholderRegisterEntry (construct from item paths).
   som::SomList stakeholderRegister() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21744,7 +21785,7 @@ class StandardSoftwareRequirements : public som::SomNode {
   CompatibilityRequirementsSection compatibilityRequirements() const;
   // 8.3.2. Standards Compliance.
   StandardsComplianceSection standardsCompliance() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21790,7 +21831,7 @@ class StandardsComplianceSection : public som::SomNode {
   CertificationRequirementsSection certificationRequirements() const;
   // Compliance verification and auditing.
   ComplianceVerificationSection complianceVerification() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21809,7 +21850,7 @@ class SteeringCommittee : public som::SomNode {
   // Steering committee members — contains 1+× Committee Member.
   // Returns the list view; element type: CommitteeMemberEntry (construct from item paths).
   som::SomList members() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21827,7 +21868,7 @@ class StepUpAuthenticationPolicy : public som::SomNode {
   // Step-Up Authentication Details (text).
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList stepUpDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21845,7 +21886,7 @@ class StorageEncryptionPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Storage Encryption Details (text).
   // (skipped: storageEncryptionDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21863,7 +21904,7 @@ class StorageLifecyclePolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Storage Lifecycle Details (text).
   // (skipped: storageLifecycleDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21880,7 +21921,7 @@ class StrategicAlignment : public som::SomNode {
   void setContent(const std::string& value);
   // Strategic Alignment Details (form).
   StrategicAlignmentAlignmentDetailsForm alignmentDetails() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -21941,7 +21982,7 @@ class SuccessCriteria : public som::SomNode {
   void setSuccessCriteriaMatrix(const std::string& value);
   // Post-implementation review plan.
   SuccessCriteriaPostImplementationReviewForm postImplementationReview() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22026,7 +22067,7 @@ class SupportDeliverables : public som::SomNode {
   // Contains 0+× Deliverable.
   // Returns the list view; element type: DeliverableEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22055,7 +22096,7 @@ class SystemArchitectureSpec : public som::SomNode {
   SystemArchitectureSpec(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22167,7 +22208,7 @@ class SystemContext : public som::SomNode {
   DeploymentContext deploymentContext() const;
   // 4.1.2.8. Regulatory Context.
   RegulatoryContext regulatoryContext() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22252,7 +22293,7 @@ class SystemDescription : public som::SomNode {
   som::SomList userCategories() const;
   // 4.1.5. User Interaction Model.
   UserInteractionModel userInteractionModel() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22345,7 +22386,7 @@ class SystemInventory : public som::SomNode {
   // Contains 1+× Existing System.
   // Returns the list view; element type: ExistingSystemEntry (construct from item paths).
   som::SomList systems() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22371,7 +22412,7 @@ class SystemLandscapeInventory : public som::SomNode {
   SystemLandscapeInventory(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22413,7 +22454,7 @@ class SystemOperation : public som::SomNode {
   // Maintenance Procedures.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList maintenanceProcedures() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22431,7 +22472,7 @@ class SystemOperationAndMonitoring : public som::SomNode {
   Monitoring monitoring() const;
   // 8.7.3. Capacity Planning.
   CapacityPlanningSection capacityPlanning() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22462,7 +22503,7 @@ class SystemPurpose : public som::SomNode {
   StrategicAlignment strategicAlignment() const;
   // 4.1.1.6. Scope Boundaries.
   ScopeBoundaries scopeBoundaries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22579,7 +22620,7 @@ class SystemRollout : public som::SomNode {
   KnowledgeTransfer knowledgeTransfer() const;
   // 15.8. Warranty and Support.
   WarrantyAndSupport warrantyAndSupport() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22798,7 +22839,7 @@ class TargetOperatingModel : public som::SomNode {
   OrganizationAndProcessConcept organizationAndProcess() const;
   // CodeSpecs subtree: process steps and actor interactions (CE-SU / CE-SC).
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22973,7 +23014,7 @@ class TechnicalFrameworkConcept : public som::SomNode {
   TechnicalSecurityRequirements security() const;
   // 8.9. System Architecture..
   SystemArchitectureSpec systemArchitecture() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -22990,7 +23031,7 @@ class TechnicalGoalConstraints : public som::SomNode {
   // Constraint entries — contains 0+× TechnicalConstraintEntry.
   // Returns the list view; element type: TechnicalConstraintEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23007,7 +23048,7 @@ class TechnicalGoalDependencies : public som::SomNode {
   // Dependency entries — contains 0+× TechnicalDependencyEntry.
   // Returns the list view; element type: TechnicalDependencyEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23055,7 +23096,7 @@ class TechnicalGoalTestCriteria : public som::SomNode {
   // Test case entries — contains 0+× TechnicalGoalTestCaseEntry.
   // Returns the list view; element type: TechnicalGoalTestCaseEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23074,7 +23115,7 @@ class TechnicalGoals : public som::SomNode {
   // Technical goals list — contains 1+× Technical Goal.
   // Returns the list view; element type: TechnicalGoalEntry (construct from item paths).
   som::SomList goals() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23110,7 +23151,7 @@ class TechnicalPainPoints : public som::SomNode {
   // Contains 0+× PainPoint.
   // Returns the list view; element type: PainPointEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23158,7 +23199,7 @@ class TechnicalRequirements : public som::SomNode {
   // Technical requirements list — contains 0+× Technical Requirement.
   // Returns the list view; element type: TechnicalRequirementEntry (construct from item paths).
   som::SomList requirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23176,7 +23217,7 @@ class TechnicalSecurityRequirements : public som::SomNode {
   DataProtectionAndPrivacySection dataProtectionAndPrivacy() const;
   // 8.8.3. Security Audit Requirements.
   SecurityAuditRequirementsSection securityAuditRequirements() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23220,7 +23261,7 @@ class TenantBoundaryEnforcementPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Tenant Boundary Enforcement Details (text).
   // (skipped: boundaryEnforcementDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23240,7 +23281,7 @@ class TenantContextPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Tenant Context Policy Details (text).
   // (skipped: tenantContextPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23268,7 +23309,7 @@ class TenantDataIsolationPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Tenant Data Isolation Details (text).
   // (skipped: tenantDataIsolationDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23301,7 +23342,7 @@ class TenantIsolation : public som::SomNode {
   TenantBoundaryEnforcementPolicy boundaryEnforcement() const;
   // Tenant Isolation Notes (text).
   // (skipped: tenantIsolationNotes has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23320,7 +23361,7 @@ class TenantOnboardingPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Tenant Onboarding Policy Details (text).
   // (skipped: tenantOnboardingPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23371,7 +23412,7 @@ class TestStrategy : public som::SomNode {
   TestStrategy(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23472,7 +23513,7 @@ class TlsProtocolPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // TLS Protocol Policy Details (text).
   // (skipped: tlsProtocolPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23504,7 +23545,7 @@ class TokenManagementPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Token Management Details (text).
   // (skipped: tokenManagementDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23586,7 +23627,7 @@ class ToolingAndEnvironments : public som::SomNode {
   Tooling tooling() const;
   // 2.4.2. Environments.
   Environments environments() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23674,7 +23715,7 @@ class TrainingDeliverables : public som::SomNode {
   // Contains 0+× Deliverable.
   // Returns the list view; element type: DeliverableEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -23973,7 +24014,7 @@ class TransportSecurityPolicy : public som::SomNode {
   void setContent(const std::string& value);
   // Transport Security Policy Details (text).
   // (skipped: transportSecurityPolicyDetails has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24004,7 +24045,7 @@ class TrustBoundaries : public som::SomNode {
   // Trust boundary entries — contains 0+× TrustBoundaryEntry.
   // Returns the list view; element type: TrustBoundaryEntry (construct from item paths).
   som::SomList boundaries() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24147,7 +24188,7 @@ class UpgradeCycleFramework : public som::SomNode {
   UpgradeCycleFramework(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24190,7 +24231,7 @@ class UseCaseTraceability : public som::SomNode {
   UseCaseTraceability(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24255,7 +24296,7 @@ class UserAccessPermissions : public som::SomNode {
   // Permission matrix entries — contains 0+× PermissionMatrixEntry.
   // Returns the list view; element type: PermissionMatrixEntry (construct from item paths).
   som::SomList permissionMatrix() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24271,7 +24312,7 @@ class UserAccessibilityNeeds : public som::SomNode {
   void setContent(const std::string& value);
   // Accessibility Needs Form.
   UserAccessibilityNeedsAccessibilityFormForm accessibilityForm() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24288,7 +24329,7 @@ class UserAccountStatesDefinition : public som::SomNode {
   void setContent(const std::string& value);
   // State Transition Diagram (mermaid).
   // (skipped: stateTransitionDiagram has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24334,7 +24375,7 @@ class UserAttributes : public som::SomNode {
   // Contains 0+× UserAttribute.
   // Returns the list view; element type: UserAttributeEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24366,7 +24407,7 @@ class UserAuthorization : public som::SomNode {
   RoleHierarchy roleHierarchy() const;
   // 9.4.7. Tenant Isolation.
   TenantIsolation tenantIsolation() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24472,7 +24513,7 @@ class UserInteractionModel : public som::SomNode {
   NotificationModel notificationModel() const;
   // 4.1.5.6. Multi-Channel Experience.
   MultiChannelExperience multiChannelExperience() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24485,7 +24526,7 @@ class UserInteractionModelSummary : public som::SomNode {
   // Summary content for interaction model.
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24514,7 +24555,7 @@ class UserJourney : public som::SomNode {
   // Opportunities for delight.
   std::string opportunitiesForDelight() const;
   void setOpportunitiesForDelight(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24551,7 +24592,7 @@ class UserLifecycle : public som::SomNode {
   // 9.1.2.9. Service Account Lifecycle.
   // Returns the list view; element type: ServiceAccountLifecycle (construct from item paths).
   som::SomList serviceAccounts() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24589,7 +24630,7 @@ class UserLifecycleTransitions : public som::SomNode {
   // Contains 0+× UserLifecycleTransitionEntry.
   // Returns the list view; element type: UserLifecycleTransitionEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24607,7 +24648,7 @@ class UserManagement : public som::SomNode {
   UserLifecycle userLifecycle() const;
   // 9.1.3. User Attributes.
   UserAttributes userAttributes() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24627,7 +24668,7 @@ class UserManual : public som::SomNode {
   UserManual(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24640,7 +24681,7 @@ class UserNotificationPreferences : public som::SomNode {
   // Preferences content.
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24669,7 +24710,7 @@ class UserPersonaDetails : public som::SomNode {
   // Key quotes that represent this persona's mindset.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList representativeQuotes() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24689,7 +24730,7 @@ class UserPersonas : public som::SomNode {
   // Contains 1+× Persona.
   // Returns the list view; element type: PersonaEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24721,7 +24762,7 @@ class UserRegistrationProcess : public som::SomNode {
   // (skipped: registrationFlowDescription has no target type)
   // Registration Flow Diagram (mermaid-sequence).
   // (skipped: registrationFlowDiagram has no target type)
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24740,7 +24781,7 @@ class UserTrainingRequirements : public som::SomNode {
   // Training topics — contains 0+× TrainingTopicEntry.
   // Returns the list view; element type: TrainingTopicEntry (construct from item paths).
   som::SomList trainingTopics() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24770,7 +24811,7 @@ class UtilityNavigation : public som::SomNode {
   // Contains 0+× UtilityNavigationItem.
   // Returns the list view; element type: UtilityNavigationItemEntry (construct from item paths).
   som::SomList items() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24803,7 +24844,7 @@ class ValidationConstraints : public som::SomNode {
   ValidationConstraints(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24859,7 +24900,7 @@ class ValueProposition : public som::SomNode {
   // Key Performance Indicators for value measurement.
   // Returns the list view; element type: scalar (construct from item paths).
   som::SomList kpis() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -24939,7 +24980,7 @@ class WarrantyAndSupport : public som::SomNode {
   WarrantyAndSupport(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -25025,7 +25066,7 @@ class WireframesAndMockups : public som::SomNode {
   WireframesAndMockups(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -25077,7 +25118,7 @@ class WorkflowDescriptions : public som::SomNode {
   // Individual workflow entries.
   // Returns the list view; element type: CurrentWorkflowEntry (construct from item paths).
   som::SomList workflows() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -25099,7 +25140,7 @@ class WorkflowExceptions : public som::SomNode {
   // Exception entries.
   // Returns the list view; element type: WorkflowExceptionEntry (construct from item paths).
   som::SomList exceptions() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -25191,7 +25232,7 @@ class WorkflowTriggers : public som::SomNode {
   // Trigger entries.
   // Returns the list view; element type: WorkflowTriggerEntry (construct from item paths).
   som::SomList triggers() const;
-  // This section type declares the standard `content` text leaf (§ item 10):
+  // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
@@ -33587,8 +33628,8 @@ class ComponentVariantEntryBehaviorForm : public som::SomNode {
   void setUseCaseDifferences(const std::string& value);
   std::string implementationNote() const;
   void setImplementationNote(const std::string& value);
-  std::string flutterVariant() const;
-  void setFlutterVariant(const std::string& value);
+  std::string libraryVariant() const;
+  void setLibraryVariant(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -34995,8 +35036,6 @@ class DataAttributeEntryBinaryTypeOptionsForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string maxSizeBytes() const;
   void setMaxSizeBytes(const std::string& value);
-  std::string storageMode() const;
-  void setStorageMode(const std::string& value);
 };
 
 // Generated section facade for the `dataTypeSpec` @Form section: its own `content` text followed by one typed member per form field.
@@ -35031,6 +35070,28 @@ class DataAttributeEntryDerivationForm : public som::SomNode {
   void setIsDerived(const std::string& value);
   std::string derivationLogic() const;
   void setDerivationLogic(const std::string& value);
+};
+
+// Generated section facade for the `fileReferenceOptions` @Form section: its own `content` text followed by one typed member per form field.
+class DataAttributeEntryFileReferenceOptionsForm : public som::SomNode {
+ public:
+  DataAttributeEntryFileReferenceOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string storageGroup() const;
+  void setStorageGroup(const std::string& value);
+  std::string fileStore() const;
+  void setFileStore(const std::string& value);
+  std::string deleteWithRecord() const;
+  void setDeleteWithRecord(const std::string& value);
+  std::string acceptedContentKinds() const;
+  void setAcceptedContentKinds(const std::string& value);
+  std::string defaultContentKind() const;
+  void setDefaultContentKind(const std::string& value);
+  std::string maxFileSizeBytes() const;
+  void setMaxFileSizeBytes(const std::string& value);
 };
 
 // Generated section facade for the `identity` @Form section: its own `content` text followed by one typed member per form field.
@@ -48021,12 +48082,12 @@ class LanguageCountrySelectionPersistenceForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string persistenceMethod() const;
-  void setPersistenceMethod(const std::string& value);
-  std::optional<bool> crossDeviceSync() const;
-  void setCrossDeviceSync(std::optional<bool> value);
-  std::string anonymousPersistence() const;
-  void setAnonymousPersistence(const std::string& value);
+  std::string guestRetention() const;
+  void setGuestRetention(const std::string& value);
+  std::string signInCarryOver() const;
+  void setSignInCarryOver(const std::string& value);
+  std::string reselectionPrompt() const;
+  void setReselectionPrompt(const std::string& value);
 };
 
 // Generated section facade for the `ux` @Form section: its own `content` text followed by one typed member per form field.
@@ -72437,8 +72498,8 @@ class UiComponentEntryIdentityForm : public som::SomNode {
   void setComponentName(const std::string& value);
   std::string componentFamily() const;
   void setComponentFamily(const std::string& value);
-  std::string flutterWidgetBase() const;
-  void setFlutterWidgetBase(const std::string& value);
+  std::string baseComponent() const;
+  void setBaseComponent(const std::string& value);
 };
 
 // Generated section facade for the `inputBehavior` @Form section: its own `content` text followed by one typed member per form field.
@@ -72645,8 +72706,8 @@ class UiComponentsComponentLibraryOverviewForm : public som::SomNode {
   void setDesignSystemVersion(const std::string& value);
   std::string basedOnFramework() const;
   void setBasedOnFramework(const std::string& value);
-  std::optional<bool> tomFlutterUiIntegration() const;
-  void setTomFlutterUiIntegration(std::optional<bool> value);
+  std::optional<bool> sharedLibraryIntegration() const;
+  void setSharedLibraryIntegration(std::optional<bool> value);
 };
 
 // Generated section facade for the `customization` @Form section: its own `content` text followed by one typed member per form field.
@@ -73739,8 +73800,8 @@ class UtilityNavigationItemEntryDisplayForm : public som::SomNode {
   void setContent(const std::string& value);
   std::optional<long> displayOrder() const;
   void setDisplayOrder(std::optional<long> value);
-  std::string widgetType() const;
-  void setWidgetType(const std::string& value);
+  std::string displayKind() const;
+  void setDisplayKind(const std::string& value);
   std::string visibilityCondition() const;
   void setVisibilityCondition(const std::string& value);
   std::string requiredRoles() const;

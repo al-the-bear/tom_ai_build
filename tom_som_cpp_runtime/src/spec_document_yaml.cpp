@@ -404,9 +404,10 @@ class YamlEncoder {
   }
 
   /* Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline and/or a codeSpec mapping as a
-   * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). At least
-   * one of headline/codeSpec is present at every call site. The content entry is
+   * that carries a stored headline and/or a codeSpec mapping as a `{headline?:
+   * …, codeSpec?: …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2).
+   * At least one of headline/codeSpec is present at every call site. The
+   * content entry is
    * omitted when hasValue is false. */
   void writeScalarWithMeta(std::string& b, std::size_t indent,
                            const std::string& key, bool hasHeadline,
@@ -539,9 +540,10 @@ class YamlEncoder {
         used.push_back(itemKey);
       }
       if (!node.elementNode) {
-        // Scalar list: the item is a direct value — unless it carries a
-        // stored headline and/or codeSpec, in which case it becomes a
-        // `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + §9.2).
+        // Scalar list: the item is a direct value — unless it carries a stored
+        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
+        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
+        // §9.2).
         std::string v;
         bool hasV = takeContent(itemPath, &v);
         if (!hasV) {
@@ -598,7 +600,8 @@ class YamlEncoder {
       writeText(b, indent, "headline", ownHeadline);
     }
 
-    // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+    // The node's own codeSpec mapping — the literal `codeSpec` key
+    // (codespecs_mapping.md §9.2).
     std::string ownCodeSpec;
     if (takeCodeSpec(path, &ownCodeSpec)) {
       for (const auto& child : node.children) {
@@ -812,7 +815,7 @@ class YamlDecoder {
     return joined;
   }
 
-  /* Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
+  /* Loads a headline-/codeSpec-extended scalar node (YRD3 + codespecs_mapping.md §9.2): a mapping
    * holding only the literal keys `headline`, `codeSpec`, and `content`. */
   bool loadScalarWithMeta(const std::string& path, const std::string& key,
                           const YamlRef& value, std::string* err) {
@@ -863,7 +866,8 @@ class YamlDecoder {
         continue;
       }
       if (key == "codeSpec") {
-        // The list container's own codeSpec mapping (§9.2), not an item.
+        // The list container's own codeSpec mapping (codespecs_mapping.md
+        // §9.2), not an item.
         std::string v;
         if (!decoderScalarOf(value, path + " (codeSpec)", &v, err)) {
           return false;
@@ -890,11 +894,11 @@ class YamlDecoder {
         }
       }
       if (!node.elementNode) {
-        // Scalar list item: the value is the item itself — or a
-        // `{headline?: …, codeSpec?: …, content: …}` mapping when it carries a
-        // stored headline and/or codeSpec (YRD3 + §9.2). The hand-rolled parser
-        // cannot distinguish a bare `key:` (null) from `key: {}`, so an empty
-        // mapping counts as "no value" here.
+        // Scalar list item: the value is the item itself — or a `{headline?: …,
+        // codeSpec?: …, content: …}` mapping when it carries a stored headline
+        // and/or codeSpec (YRD3 + codespecs_mapping.md §9.2). The hand-rolled
+        // parser cannot distinguish a bare `key:` (null) from `key: {}`, so an
+        // empty mapping counts as "no value" here.
         if (value != nullptr && value->type == YamlType::Seq) {
           setErr(err, "scalar list item `" + key + "` at `" + path +
                           "` must hold a scalar");
@@ -930,10 +934,10 @@ class YamlDecoder {
     const std::string& kind = child.kind;
     if (kind == kSomMetaKindContent || kind == kSomMetaKindScalar ||
         kind == kSomMetaKindEnumValue) {
-      // A populated mapping is a headline-/codeSpec-extended scalar node (YRD3 +
-      // §9.2): `{headline?: …, codeSpec?: …, content: …}`. An empty mapping is
-      // the hand-rolled parser's spelling of a bare `key:` and stays the empty
-      // scalar.
+      // A populated mapping is a headline-/codeSpec-extended scalar node (YRD3
+      // + codespecs_mapping.md §9.2): `{headline?: …, codeSpec?: …, content:
+      // …}`. An empty mapping is the hand-rolled parser's spelling of a bare
+      // `key:` and stays the empty scalar.
       if (value != nullptr && value->type == YamlType::Map &&
           !value->map.empty()) {
         return loadScalarWithMeta(path, key, value, err);

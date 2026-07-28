@@ -858,7 +858,7 @@ static void test_markdown_fence_shielded_headings_stay_body(void) {
   spec_model_free(m);
 }
 
-/* ---- codeSpec (§9.2, csmc8) ---------------------------------------------- */
+/* ---- codeSpec (codespecs_mapping.md §9.2, csmc8) ---------------------------------------------- */
 
 /* A stored codeSpec rides inside the heading comment as a ` codeSpec="…"`
  * attribute; untouched sections stay byte-stable (no empty attribute).

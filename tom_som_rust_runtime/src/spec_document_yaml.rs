@@ -552,7 +552,8 @@ impl<'a> YamlEncoder<'a> {
             self.write_text(&mut b, indent, "headline", &own_headline);
         }
 
-        // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+        // The node's own codeSpec mapping — the literal `codeSpec` key
+        // (codespecs_mapping.md §9.2).
         if let Some(own_code_spec) = self.code_specs.remove(path) {
             for c in &node.children {
                 if node_key(c) == "codeSpec" {
@@ -625,9 +626,9 @@ impl<'a> YamlEncoder<'a> {
 
     /// Emits a scalar-valued node (content/scalar/enum leaf or scalar list
     /// item) that carries a stored headline and/or a codeSpec mapping as a
-    /// `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). Each
-    /// entry is emitted only when its value is `Some`; at least one of
-    /// `headline`/`code_spec` is `Some` at every call.
+    /// `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 +
+    /// codespecs_mapping.md §9.2). Each entry is emitted only when its value is
+    /// `Some`; at least one of `headline`/`code_spec` is `Some` at every call.
     #[allow(clippy::too_many_arguments)]
     fn write_scalar_with_meta(
         &self,
@@ -1016,9 +1017,10 @@ impl YamlDecoder<'_> {
         match child.kind.as_str() {
             SOM_META_KIND_CONTENT | SOM_META_KIND_SCALAR | SOM_META_KIND_ENUM_VALUE => {
                 // A populated mapping is a headline-/codeSpec-extended scalar
-                // node (YRD3 + §9.2): `{headline?: …, codeSpec?: …, content: …}`.
-                // An empty mapping is the hand-rolled parser's spelling of a
-                // bare `key:` and stays the empty scalar.
+                // node (YRD3 + codespecs_mapping.md §9.2): `{headline?: …,
+                // codeSpec?: …, content: …}`. An empty mapping is the
+                // hand-rolled parser's spelling of a bare `key:` and stays the
+                // empty scalar.
                 if let Some(m) = value.as_map() {
                     if !m.is_empty() {
                         return self.load_scalar_with_meta(path, key, m);
@@ -1104,7 +1106,8 @@ impl YamlDecoder<'_> {
                 continue;
             }
             if key == "codeSpec" {
-                // The list container's own codeSpec mapping (§9.2), not an item.
+                // The list container's own codeSpec mapping
+                // (codespecs_mapping.md §9.2), not an item.
                 let v = decoder_scalar_of(value, &format!("{} (codeSpec)", path))?;
                 self.doc.set_code_spec(path, &v);
                 continue;
@@ -1119,11 +1122,11 @@ impl YamlDecoder<'_> {
             match &node.element_node {
                 None => {
                     // Scalar list item: the value is the item itself — or a
-                    // `{headline?: …, codeSpec?: …, content: …}` mapping when it
-                    // carries a stored headline and/or codeSpec (YRD3 + §9.2).
-                    // The hand-rolled parser cannot distinguish a bare `key:`
-                    // (null) from `key: {}`, so an empty mapping counts as "no
-                    // value" here.
+                    // `{headline?: …, codeSpec?: …, content: …}` mapping when
+                    // it carries a stored headline and/or codeSpec (YRD3 +
+                    // codespecs_mapping.md §9.2). The hand-rolled parser cannot
+                    // distinguish a bare `key:` (null) from `key: {}`, so an
+                    // empty mapping counts as "no value" here.
                     match value {
                         YamlValue::Seq(_) => {
                             return Err(yaml_format_err(format!(
@@ -1159,8 +1162,9 @@ impl YamlDecoder<'_> {
         Ok(())
     }
 
-    /// Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
-    /// holding only the literal keys `headline`, `codeSpec` and `content`.
+    /// Loads a headline-/codeSpec-extended scalar node (YRD3 +
+    /// codespecs_mapping.md §9.2): a mapping holding only the literal keys
+    /// `headline`, `codeSpec` and `content`.
     fn load_scalar_with_meta(
         &mut self,
         path: &str,

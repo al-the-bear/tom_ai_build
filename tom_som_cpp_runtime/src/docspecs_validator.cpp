@@ -343,8 +343,9 @@ bool matchHeadingLine(const std::string& s, int* level, std::string* rest) {
 }
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Three-group
- * (§9.2): group 1 = the section id, group 2 = the optional key=value region
- * (`codeSpec`), group 3 = the heading title. Writes group 1 to `id` and group 3
+ * (codespecs_mapping.md §9.2): group 1 = the section id, group 2 = the optional
+ * key=value region (`codeSpec`), group 3 = the heading title. Writes group 1 to
+ * `id` and group 3
  * (the title) to `title`; the middle region is skipped. Returns true. */
 bool matchHeadlineComment(const std::string& s, std::string* id,
                           std::string* title) {
@@ -698,8 +699,9 @@ DocSpecsDocument docspecsParseDocument(const std::string& text) {
           std::string cid;
           std::string ctitle;
           if (matchHeadlineComment(rest, &cid, &ctitle)) {
-            // §9.2: the title is group 3 (the region between `]…-->` is the
-            // optional codeSpec key=value, not part of the title).
+            // codespecs_mapping.md §9.2: the title is group 3 (the region
+            // between `]…-->` is the optional codeSpec key=value, not part of
+            // the title).
             section->id = cid;
             section->title = ctitle;
             section->level = level;

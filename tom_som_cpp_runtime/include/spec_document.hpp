@@ -47,7 +47,7 @@ struct DocumentJson {
   /* path -> stored headline (YRD3). Emitted in canonical JSON only when
    * non-empty, after `lists`. */
   std::map<std::string, std::string> headlines;
-  /* path -> stored codeSpec mapping (§9.2), the comma-joined list of code
+  /* path -> stored codeSpec mapping (codespecs_mapping.md §9.2), the comma-joined list of code
    * locations. Byte-for-byte structural mirror of `headlines`: emitted in
    * canonical JSON only when non-empty, after `headlines`. */
   std::map<std::string, std::string> codeSpecs;
@@ -79,10 +79,10 @@ class SpecDocument {
   std::string modelVersion;
 
   /* Loads a `*.docspecs.yaml` document in one call: decode the hierarchical v2
-   * YAML against `tree` (the metadata tree of the document's root), populate the
-   * sparse stores, and retain the parsed model version on the document (§ item
-   * 4). Returns std::nullopt on a format error and, when `err` is non-null,
-   * writes a message — nothing is silently dropped. */
+   * YAML against `tree` (the metadata tree of the document's root), populate
+   * the sparse stores, and retain the parsed model version on the document (SOM
+   * §21). Returns std::nullopt on a format error and, when `err` is
+   * non-null, writes a message — nothing is silently dropped. */
   static std::optional<SpecDocument> fromYaml(const std::string& yaml,
                                               const SomMetaTree& tree,
                                               std::string* err);
@@ -95,7 +95,7 @@ class SpecDocument {
                                               const SomMetaTree& tree,
                                               std::string* err);
 
-  /* Renders this document to Markdown in one call (§ item 12).
+  /* Renders this document to Markdown in one call (SOM §21).
    *
    * Collapses the former markdownExportRoot(model, doc,
    * model.rootByType(...)) sequence. When `rootType` is non-empty, that root is
@@ -121,7 +121,7 @@ class SpecDocument {
   /* True iff a non-empty content leaf exists at EXACTLY `path` (leaf-exact; a
    * value nested beneath `path` does NOT count). Null-free companion to
    * content() — aligns the typed facade's fill check with the generic API
-   * (§ item 5). */
+   * (SOM §21). */
   bool hasContent(const std::string& path) const;
 
   // form fields
@@ -166,7 +166,8 @@ class SpecDocument {
   /* All paths carrying a stored headline, byte-sorted. */
   std::vector<std::string> headlinePaths() const;
 
-  // stored codeSpec mappings (§9.2) — structural mirror of stored headlines
+  // stored codeSpec mappings (codespecs_mapping.md §9.2) — structural mirror of
+  // stored headlines
   /* The stored codeSpec mapping at `path`, or "" when unset. */
   std::string codeSpec(const std::string& path) const;
   /* NULL-aware companion: nullptr when no codeSpec is stored at `path`. */

@@ -1,5 +1,5 @@
 /// Runs the full `v0` Spec-Object-Model generation for **Go** and writes the
-/// committed artefact tree (spec §2.3): the `tom_som_go_<label>` module (a
+/// committed artefact tree (SOM §4.3): the `tom_som_go_<label>` module (a
 /// `go.mod` + the generated typed Go source file), the lossless object-model
 /// **meta-data file**, and the **DocSpecs schemas**.
 ///

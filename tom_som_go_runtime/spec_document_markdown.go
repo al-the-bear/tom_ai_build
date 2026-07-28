@@ -107,14 +107,14 @@ type SpecMarkdownResult struct {
 	// purges first.
 	RootPrefixes map[string]bool
 	// Headlines holds stored headlines staged from heading titles (YRD3
-	// §8.7): path → headline, populated ONLY when the parsed heading text
+	// SOM §11.7): path → headline, populated ONLY when the parsed heading text
 	// differs from the effective default derivation (byte-stability — a
 	// default title stages nothing).
 	Headlines map[string]string
-	// CodeSpecs holds stored codeSpec mappings (§9.2): path → the comma-joined
-	// list of CodeSpecs code locations parsed from the `codeSpec="…"` key in
-	// the heading comment. Staged whenever present (codeSpec has no effective
-	// default).
+	// CodeSpecs holds stored codeSpec mappings (codespecs_mapping.md §9.2): path →
+	// the comma-joined list of CodeSpecs code locations parsed from the
+	// `codeSpec="…"` key in the heading comment. Staged whenever present (codeSpec
+	// has no effective default).
 	CodeSpecs map[string]string
 }
 
@@ -186,15 +186,16 @@ func (b *mdBuffer) String() string {
 var (
 	mdHeadingLineRE = regexp.MustCompile(`^(#+)\s+(.*)$`)
 	// The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
-	// region between the id bracket and the closing `-->` (§9.2 codeSpec).
-	// Group 1 = the section id, group 2 = the raw key=value region (possibly
-	// empty), group 3 = the heading title. The middle group is `[^>]*` — safe
-	// because the region's only values are quoted code locations / identifiers,
-	// never a raw `>`.
+	// region between the id bracket and the closing `-->` (codespecs_mapping.md
+	// §9.2 codeSpec). Group 1 = the section id, group 2 = the raw key=value region
+	// (possibly empty), group 3 = the heading title. The middle group is `[^>]*` —
+	// safe because the region's only values are quoted code locations /
+	// identifiers, never a raw `>`.
 	mdHeadlineCommentRE = regexp.MustCompile(`^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`)
 	mdDocspecCommentRE  = regexp.MustCompile(`^<!--\s*docspec:.*-->\s*$`)
 	// Extracts the `codeSpec="…"` value from a heading-comment key=value region
-	// (§9.2), mirroring the tom_doc_scanner key=value grammar.
+	// (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+	// grammar.
 	mdCodeSpecRE = regexp.MustCompile(`codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`)
 )
 
@@ -314,8 +315,8 @@ func SpecMarkdownItemTitleStem(elementClassName string) string {
 }
 
 // mdCodeSpecOf extracts the `codeSpec="…"` value from a heading-comment
-// key=value region (§9.2). Returns the empty string when the region carries no
-// `codeSpec` key (first non-empty submatch, trimmed).
+// key=value region (codespecs_mapping.md §9.2). Returns the empty string when
+// the region carries no `codeSpec` key (first non-empty submatch, trimmed).
 func mdCodeSpecOf(region string) string {
 	m := mdCodeSpecRE.FindStringSubmatch(region)
 	if m == nil {
@@ -691,8 +692,8 @@ func (c *SpecDocumentMarkdown) writeForm(b *mdBuffer, node *SomMetaNode, path st
 // validation.
 //
 // When codeSpec is non-empty it is emitted as a `codeSpec="…"` key inside the
-// same headline comment (§9.2): `## <!--[ID] codeSpec="A,B"--> Title`.
-// Byte-identical to before when empty.
+// same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
+// codeSpec="A,B"--> Title`. Byte-identical to before when empty.
 func mdWriteHeading(b *mdBuffer, depth int, id, title, codeSpec string) {
 	code := ""
 	if codeSpec != "" {
@@ -836,12 +837,13 @@ type mdParser struct {
 	content map[string]string
 	forms   map[string]map[string]string
 	lists   map[string]*mdListState
-	// headlines stages stored headlines (YRD3 §8.7): a heading's title is
+	// headlines stages stored headlines (SOM §11.7): a heading's title is
 	// stored ONLY when it differs from the effective default derivation, so
 	// default-titled documents stay byte-stable.
 	headlines map[string]string
-	// codeSpecs stages stored codeSpec mappings (§9.2): a heading's
-	// `codeSpec="…"` key is staged whenever present (no effective default).
+	// codeSpecs stages stored codeSpec mappings (codespecs_mapping.md §9.2): a
+	// heading's `codeSpec="…"` key is staged whenever present (no effective
+	// default).
 	codeSpecs    map[string]string
 	listOrder    []string
 	rejections   []*SpecMarkdownRejection
@@ -973,13 +975,14 @@ func (p *mdParser) openHeading(level int, rest string, lineNo int) {
 	//    the transparent segments.
 	for _, entry := range p.codec.effectiveChildren(pNode) {
 		if p.codec.headingIdOf(entry.node) == id {
-			// YRD3 §8.7: stage the heading text as a stored headline ONLY when
+			// SOM §11.7: stage the heading text as a stored headline ONLY when
 			// it differs from the derived default (byte-stability).
 			path := parent.path + "/" + entry.rel
 			if title != "" && title != mdTitleOf(entry.node) {
 				p.headlines[path] = title
 			}
-			// §9.2: stage the codeSpec mapping whenever present (no default).
+			// codespecs_mapping.md §9.2: stage the codeSpec mapping whenever present (no
+			// default).
 			if codeSpec != "" {
 				p.codeSpecs[path] = codeSpec
 			}
@@ -1063,7 +1066,7 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
 			if err != nil {
 				break
 			}
-			// YRD3 §8.7: stage a non-default root heading text — "non-default"
+			// SOM §11.7: stage a non-default root heading text — "non-default"
 			// relative to the effective default (YRD4: `@Headline` default,
 			// else the `@Document` title).
 			defaultTitle := tree.Root.Headline
@@ -1073,7 +1076,8 @@ func (p *mdParser) openRoot(level int, id, title, codeSpec string, lineNo int) {
 			if title != "" && title != defaultTitle {
 				p.headlines[seg] = title
 			}
-			// §9.2: stage the root codeSpec mapping whenever present.
+			// codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever
+			// present.
 			if codeSpec != "" {
 				p.codeSpecs[seg] = codeSpec
 			}
@@ -1130,13 +1134,13 @@ func (p *mdParser) openItem(
 	if !hasN {
 		state.ids[itemPath] = storedID
 	}
-	// YRD3 §8.7: stage a non-default item heading text against the derived
+	// SOM §11.7: stage a non-default item heading text against the derived
 	// `<stem> <pos>` default.
 	stem := mdItemStemOf(listNode)
 	if title != "" && title != stem+" "+itoa(number) {
 		p.headlines[itemPath] = title
 	}
-	// §9.2: stage the item codeSpec mapping whenever present.
+	// codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever present.
 	if codeSpec != "" {
 		p.codeSpecs[itemPath] = codeSpec
 	}

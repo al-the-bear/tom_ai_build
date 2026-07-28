@@ -455,7 +455,8 @@ def test_class_level_only_key() -> None:
 
 
 def test_code_spec_round_trip() -> None:
-    # csmc8 (§9.2): a stored codeSpec survives the yaml round-trip.
+    # csmc8 (codespecs_mapping.md §9.2): a stored codeSpec survives the yaml
+    # round-trip.
     doc = _populated()
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository")
     yaml = _enc(doc)
@@ -476,8 +477,8 @@ def test_code_spec_round_trip() -> None:
 
 
 def test_code_spec_byte_stable() -> None:
-    # csmc8 (§9.2): encode is byte-stable with codeSpec across
-    # decode → re-encode.
+    # csmc8 (codespecs_mapping.md §9.2): encode is byte-stable with codeSpec
+    # across decode → re-encode.
     doc = _populated()
     doc.set_code_spec("D00/D00-OVR", "CsOrder,CsOrder.total")
     yaml1 = _enc(doc, stamp="1.2")

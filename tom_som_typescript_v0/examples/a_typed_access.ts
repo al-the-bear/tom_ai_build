@@ -22,7 +22,7 @@ import { D00SolutionBlueprint } from '../tom_som_typescript_v0';
 
 function main(): number {
   // A typed root over a fresh, empty document. The constructor also runs the
-  // §2.2 instantiation-time version check (an unstamped document is editable).
+  // SOM §4.2 instantiation-time version check (an unstamped document is editable).
   const doc = new SpecDocument();
   const pd = new D00SolutionBlueprint(doc);
 

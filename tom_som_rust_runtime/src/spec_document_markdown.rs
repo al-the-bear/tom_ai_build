@@ -122,14 +122,15 @@ pub struct SpecMarkdownResult {
     /// The root segment(s) the import covers (the first segment of each
     /// accepted path) — the scope a full-overwrite apply purges first.
     pub root_prefixes: BTreeSet<String>,
-    /// Stored headlines staged from heading titles (YRD3 §8.7): path →
+    /// Stored headlines staged from heading titles (SOM §11.7): path →
     /// headline, populated ONLY when the parsed heading text differs from the
     /// effective default derivation (byte-stability — a default title stages
     /// nothing).
     pub headlines: BTreeMap<String, String>,
     /// Stored codeSpec mappings staged from the `codeSpec="…"` key in the
-    /// heading comment (§9.2): path → comma-joined code locations, populated
-    /// whenever present (codeSpec has no effective default).
+    /// heading comment (codespecs_mapping.md §9.2): path → comma-joined code
+    /// locations, populated whenever present (codeSpec has no effective
+    /// default).
     pub code_specs: BTreeMap<String, String>,
 }
 
@@ -268,10 +269,11 @@ pub(crate) fn md_heading_line(line: &str) -> Option<(usize, &str)> {
     Some((n, stripped))
 }
 
-/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1 the
-/// id, g2 the raw key=value region between the id bracket and the closing
-/// `-->` (§9.2 `codeSpec`), and g3 the heading title text after the comment
-/// (YRD3 §8.7). `[^>]*` means the region cannot itself contain `>`.
+/// `mdHeadlineCommentRE`: `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$` — returns g1
+/// the id, g2 the raw key=value region between the id bracket and the closing
+/// `-->` (codespecs_mapping.md §9.2 `codeSpec`), and g3 the heading title text
+/// after the comment (SOM §11.7). `[^>]*` means the region cannot itself
+/// contain `>`.
 pub(crate) fn md_headline_comment(rest: &str) -> Option<(&str, &str, &str)> {
     let r = rest.strip_prefix("<!--[")?;
     let close = r.find(']')?;
@@ -293,7 +295,7 @@ pub(crate) fn md_headline_comment(rest: &str) -> Option<(&str, &str, &str)> {
 /// Extracts the `codeSpec="…"` value from a heading-comment key=value region
 /// (`mdCodeSpecRE`: `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))`), the first
 /// matching group trimmed; the empty string when the region carries no
-/// `codeSpec` key (§9.2).
+/// `codeSpec` key (codespecs_mapping.md §9.2).
 pub(crate) fn md_code_spec_of(region: &str) -> String {
     // Find `codeSpec=` then read a double-quoted, single-quoted, or bare value.
     let mut search = region;
@@ -981,9 +983,9 @@ it cannot be represented in the DocSpecs markdown format",
 /// accepts `#{7,}` accordingly. Capping would silently flatten distinct
 /// nesting positions into siblings and break schema validation.
 fn md_write_heading(b: &mut MdBuffer, depth: usize, id: &str, title: &str, code_spec: &str) {
-    // §9.2: when a codeSpec mapping is present it rides inside the same
-    // headline comment as a `codeSpec="…"` key: `## <!--[ID] codeSpec="A,B"-->
-    // Title`. Byte-identical to the id-only form when empty.
+    // codespecs_mapping.md §9.2: when a codeSpec mapping is present it rides
+    // inside the same headline comment as a `codeSpec="…"` key: `## <!--[ID]
+    // codeSpec="A,B"--> Title`. Byte-identical to the id-only form when empty.
     let code = if code_spec.is_empty() {
         String::new()
     } else {
@@ -1156,10 +1158,11 @@ struct MdParser<'c, 'a> {
     lists: HashMap<String, MdListState>,
     list_order: Vec<String>,
     /// Stored headlines staged from heading titles that differ from their
-    /// effective default (YRD3 §8.7) — path → headline.
+    /// effective default (SOM §11.7) — path → headline.
     headlines: BTreeMap<String, String>,
     /// Stored codeSpec mappings staged from the `codeSpec="…"` heading-comment
-    /// key (§9.2) — path → comma-joined code locations, staged whenever present.
+    /// key (codespecs_mapping.md §9.2) — path → comma-joined code locations,
+    /// staged whenever present.
     code_specs: BTreeMap<String, String>,
     rejections: Vec<SpecMarkdownRejection>,
     root_prefixes: BTreeSet<String>,
@@ -1294,11 +1297,12 @@ impl<'c, 'a> MdParser<'c, 'a> {
             if self.codec.heading_id_of(&entry.node) == id {
                 let path = format!("{}/{}", parent_path, entry.rel);
                 // Stage the heading title as a stored headline only when it
-                // differs from the effective default (YRD3 §8.7).
+                // differs from the effective default (SOM §11.7).
                 if !title.is_empty() && title != md_title_of(&entry.node) {
                     self.headlines.insert(path.clone(), title);
                 }
-                // §9.2: stage the codeSpec mapping whenever present (no default).
+                // codespecs_mapping.md §9.2: stage the codeSpec mapping
+                // whenever present (no default).
                 if !code_spec.is_empty() {
                     self.code_specs.insert(path.clone(), code_spec.clone());
                 }
@@ -1340,7 +1344,7 @@ position (under \"{}\")",
                     Err(_) => break,
                 };
                 // Stage a stored headline when the root title differs from
-                // the effective default (YRD3 §8.7): the `@Headline` default
+                // the effective default (SOM §11.7): the `@Headline` default
                 // (YRD4), else the model's document title.
                 let default_title = if tree.root.headline.is_empty() {
                     root.title.as_str()
@@ -1350,7 +1354,8 @@ position (under \"{}\")",
                 if !title.is_empty() && title != default_title {
                     self.headlines.insert(seg.to_string(), title.to_string());
                 }
-                // §9.2: stage the root codeSpec mapping whenever present.
+                // codespecs_mapping.md §9.2: stage the root codeSpec mapping
+                // whenever present.
                 if !code_spec.is_empty() {
                     self.code_specs.insert(seg.to_string(), code_spec.to_string());
                 }
@@ -1474,12 +1479,13 @@ position (under \"{}\")",
             state.ids.insert(item_path.clone(), stored_id.to_string());
         }
         // Stage the heading title as a stored headline only when it differs
-        // from the derived `<stem> <n>` default (YRD3 §8.7).
+        // from the derived `<stem> <n>` default (SOM §11.7).
         let stem = md_item_stem_of(&list_node);
         if !title.is_empty() && title != format!("{} {}", stem, number) {
             self.headlines.insert(item_path.clone(), title.to_string());
         }
-        // §9.2: stage the item codeSpec mapping whenever present (no default).
+        // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
+        // present (no default).
         if !code_spec.is_empty() {
             self.code_specs.insert(item_path.clone(), code_spec.to_string());
         }

@@ -326,7 +326,7 @@ std::string SpecDocument::content(const std::string& path) const {
 
 bool SpecDocument::hasContent(const std::string& path) const {
   // content() returns "" when unset, so a non-empty result means a filled
-  // leaf exists at exactly `path` (§ item 5).
+  // leaf exists at exactly `path` (SOM §21).
   return !content(path).empty();
 }
 
@@ -509,7 +509,7 @@ std::vector<std::string> SpecDocument::headlinePaths() const {
   return out;
 }
 
-/* --- stored codeSpec mappings (§9.2) — mirror of stored headlines --- */
+/* --- stored codeSpec mappings (codespecs_mapping.md §9.2) — mirror of stored headlines --- */
 
 const std::string* SpecDocument::codeSpecOpt(const std::string& path) const {
   auto it = codeSpec_.find(path);

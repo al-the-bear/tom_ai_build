@@ -203,10 +203,11 @@ static int match_heading_line(const char *s, int *level, char **rest) {
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. On match writes
  * owned group 1 (id) to `*id`, owned group 2 (the raw key=value region between
- * the id bracket and the closing `-->`, "" when absent — §9.2 `codeSpec`) to
- * `*region`, and owned TrimSpace'd group 3 (the heading title, "" when absent —
- * YRD3) to `*title`, returns 1. `s` should already be TrimSpace'd. `region` /
- * `title` may each be NULL when the caller does not need it.
+ * the id bracket and the closing `-->`, "" when absent — codespecs_mapping.md
+ * §9.2 `codeSpec`) to `*region`, and owned TrimSpace'd group 3 (the heading
+ * title, "" when absent — YRD3) to `*title`, returns 1. `s` should already be
+ * TrimSpace'd. `region` / `title` may each be NULL when the caller does not
+ * need it.
  *
  * The middle group is `[^>]*` — safe because the region's only values are
  * quoted code locations / identifiers, never a raw `>`; so the closing `-->`
@@ -252,8 +253,9 @@ static int match_headline_comment(const char *s, char **id, char **region,
 
 /* mdCodeSpecRE = `codeSpec=(?:"([^"]*)"|'([^']*)'|([^,\s>]+))` — extracts the
  * `codeSpec="…"` (or `'…'`, or bare) value from a heading-comment key=value
- * region (§9.2), mirroring the tom_doc_scanner key=value grammar. Returns an
- * owned trimmed value, or an owned "" when the region carries no `codeSpec`
+ * region (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+ * grammar. Returns an owned trimmed value, or an owned "" when the region
+ * carries no `codeSpec`
  * key. */
 static char *md_code_spec_of(const char *region) {
   const char *p = strstr(region, "codeSpec=");
@@ -835,7 +837,7 @@ static char *heading_title(MdCodec *c, const char *path,
 
 /* Emits `#{depth} <!--[id]{ codeSpec="…"}--> title`. When `code_spec` is
  * non-NULL and non-empty it is written as a ` codeSpec="…"` key inside the
- * headline comment (§9.2); byte-identical to before when empty/NULL. */
+ * headline comment (codespecs_mapping.md §9.2); byte-identical to before when empty/NULL. */
 static void md_write_heading(SomBuf *b, int depth, const char *id,
                              const char *title, const char *code_spec) {
   for (int i = 0; i < depth; i++) {
@@ -1752,7 +1754,7 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
   if (!has_n) {
     som_map_set(&state->ids, item_path, stored_id != NULL ? stored_id : "");
   }
-  /* YRD3 §8.7: stage the heading title as a stored headline only when it
+  /* SOM §11.7: stage the heading title as a stored headline only when it
      differs from the effective default "<stem> <n>". */
   if (title != NULL && title[0] != '\0') {
     char *stem = md_item_stem_of(list_node);
@@ -1763,7 +1765,7 @@ static void parser_open_item(MdParser *p, int level, const char *list_path,
     free(deflt);
     free(stem);
   }
-  /* §9.2: stage the item codeSpec mapping whenever present (no default). */
+  /* codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever present (no default). */
   if (code_spec != NULL && code_spec[0] != '\0') {
     som_map_set(&p->staged.code_specs, item_path, code_spec);
   }
@@ -1951,7 +1953,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     return;
   }
   free(trimmed);
-  /* §9.2: the optional key=value region (group 2) carries the codeSpec. */
+  /* codespecs_mapping.md §9.2: the optional key=value region (group 2) carries the codeSpec. */
   char *code_spec = md_code_spec_of(region);
   free(region);
 
@@ -2012,7 +2014,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
     free(hid);
     if (hit) {
       char *path = spec_path_join(parent_path, eff.items[i].rel);
-      /* YRD3 §8.7: stage the heading title as a stored headline only when it
+      /* SOM §11.7: stage the heading title as a stored headline only when it
          differs from the derived default title of this node. */
       if (title[0] != '\0') {
         char *deflt = md_title_of(en);
@@ -2021,7 +2023,7 @@ static void parser_open_heading(MdParser *p, int level, const char *rest,
         }
         free(deflt);
       }
-      /* §9.2: stage the codeSpec mapping whenever present (no default). */
+      /* codespecs_mapping.md §9.2: stage the codeSpec mapping whenever present (no default). */
       if (code_spec[0] != '\0') {
         som_map_set(&p->staged.code_specs, path, code_spec);
       }
@@ -2071,7 +2073,7 @@ static void parser_open_root(MdParser *p, int level, const char *id,
         break;
       }
       root_prefix_insert(p, seg);
-      /* YRD3 §8.7: stage the root heading title as a stored headline only
+      /* SOM §11.7: stage the root heading title as a stored headline only
          when it differs from the effective default (YRD4: `@Headline`
          default, else the root's declared title). */
       const char *root_default = tree->root->headline[0] != '\0'
@@ -2081,7 +2083,7 @@ static void parser_open_root(MdParser *p, int level, const char *id,
           strcmp(title, root_default) != 0) {
         som_map_set(&p->staged.headlines, seg, title);
       }
-      /* §9.2: stage the root codeSpec mapping whenever present. */
+      /* codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever present. */
       if (code_spec != NULL && code_spec[0] != '\0') {
         som_map_set(&p->staged.code_specs, seg, code_spec);
       }

@@ -450,7 +450,8 @@ class _Encoder {
       this._writeText(b, indent, 'headline', ownHeadline);
     }
 
-    // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+    // The node's own codeSpec mapping — the literal `codeSpec` key
+    // (codespecs_mapping.md §9.2).
     if (this._codeSpecs.has(path)) {
       const ownCodeSpec = this._codeSpecs.get(path) as string;
       this._codeSpecs.delete(path);
@@ -532,9 +533,9 @@ class _Encoder {
 
   /**
    * Emits a scalar-valued node (content/scalar/enum leaf or scalar list item)
-   * that carries a stored headline and/or a codeSpec mapping as a
-   * `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). At
-   * least one of `headline`/`codeSpec` is non-null at every call site.
+   * that carries a stored headline and/or a codeSpec mapping as a `{headline?:
+   * …, codeSpec?: …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2).
+   * At least one of `headline`/`codeSpec` is non-null at every call site.
    */
   private _writeScalarWithMeta(
     b: _Buffer,
@@ -670,9 +671,10 @@ class _Encoder {
       }
       const element = node.elementNode;
       if (element === null || element === undefined) {
-        // Scalar list: the item is a direct value — unless it carries a
-        // stored headline and/or codeSpec, in which case it becomes a
-        // `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + §9.2).
+        // Scalar list: the item is a direct value — unless it carries a stored
+        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
+        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
+        // §9.2).
         const hasV = this._content.has(itemPath);
         const v = hasV ? (this._content.get(itemPath) as string) : null;
         this._content.delete(itemPath);
@@ -882,10 +884,10 @@ class _Decoder {
       child.kind === SomMetaKind.SCALAR ||
       child.kind === SomMetaKind.ENUM_VALUE
     ) {
-      // A populated mapping is a headline-/codeSpec-extended scalar node
-      // (YRD3 + §9.2): `{headline?: …, codeSpec?: …, content: …}`. An empty
-      // mapping is the hand-rolled parser's spelling of a bare `key:` and
-      // stays the empty scalar.
+      // A populated mapping is a headline-/codeSpec-extended scalar node (YRD3
+      // + codespecs_mapping.md §9.2): `{headline?: …, codeSpec?: …, content:
+      // …}`. An empty mapping is the hand-rolled parser's spelling of a bare
+      // `key:` and stays the empty scalar.
       if (_isMapping(value) && Object.keys(value).length > 0) {
         this._loadScalarWithMeta(path, key, value);
       } else {
@@ -968,7 +970,8 @@ class _Decoder {
         continue;
       }
       if (key === 'codeSpec') {
-        // The list container's own codeSpec mapping (§9.2), not an item.
+        // The list container's own codeSpec mapping (codespecs_mapping.md
+        // §9.2), not an item.
         this.doc.setCodeSpec(
           path,
           _Decoder._scalarOf(value, `${path} (codeSpec)`),
@@ -981,12 +984,12 @@ class _Decoder {
       );
       const element = node.elementNode;
       if (element === null || element === undefined) {
-        // Scalar list item: the value is the item itself — or a
-        // `{headline?: …, codeSpec?: …, content: …}` mapping when it carries a
-        // stored headline and/or codeSpec (YRD3 + §9.2). The hand-rolled
+        // Scalar list item: the value is the item itself — or a `{headline?: …,
+        // codeSpec?: …, content: …}` mapping when it carries a stored headline
+        // and/or codeSpec (YRD3 + codespecs_mapping.md §9.2). The hand-rolled
         // parser cannot distinguish a bare `key:` (null) from `key: {}`, so an
-        // empty mapping counts as "no value" here (Python raises on an
-        // explicit `{}`).
+        // empty mapping counts as "no value" here (Python raises on an explicit
+        // `{}`).
         if (Array.isArray(value)) {
           throw new SpecYamlFormatException(
             `scalar list item \`${key}\` at \`${path}\` must hold a scalar`,
@@ -1015,8 +1018,9 @@ class _Decoder {
   }
 
   /**
-   * Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
-   * holding only the literal keys `headline`, `codeSpec` and `content`.
+   * Loads a headline-/codeSpec-extended scalar node (YRD3 +
+   * codespecs_mapping.md §9.2): a mapping holding only the literal keys
+   * `headline`, `codeSpec` and `content`.
    */
   private _loadScalarWithMeta(path: string, key: string, value: any): void {
     for (const [k, v] of Object.entries(value)) {

@@ -8,11 +8,11 @@ and proves, against the *real* ``tom_som_runtime`` facade base, that:
   * the generated module imports cleanly against the runtime (a stronger check
     than the emitter package's ``py_compile`` syntax gate);
   * a typed mutation is visible through the generic document path and a generic
-    mutation is visible through the typed surface (§3 — one shared document);
+    mutation is visible through the typed surface (SOM §6 — one shared document);
   * every field kind round-trips (content, form, complex, scalar list, complex
     list, enum);
   * the model-version accessor returns the generated ``v0`` version (``0.0``)
-    and the instantiation-time version check (§2.2) accepts an editable stamp
+    and the instantiation-time version check (SOM §4.2) accepts an editable stamp
     and rejects a newer one.
 
 This mirrors the sibling-corpus pattern in ``conformance_runner.py`` — the
@@ -243,14 +243,14 @@ def test_version_check(mod) -> None:
 
 
 def test_editability_for(mod) -> None:
-    """The generated root's non-throwing ``editability_for`` classmethod (§ item
-    8) classifies each §2.2 outcome without raising — the companion to the
-    throwing constructor check exercised in :func:`test_version_check`.
+    """The generated root's non-throwing ``editability_for`` classmethod
+    (SOM §21) classifies each SOM §4.2 outcome without raising — the companion
+    to the throwing constructor check exercised in :func:`test_version_check`.
 
-    Skips cleanly if the golden predates § item 8 regeneration (the emitter
+    Skips cleanly if the golden predates SOM §21 regeneration (the emitter
     change lands centrally; this test is authored now, verified after regen)."""
     if not hasattr(mod.SolutionBlueprint, "editability_for"):
-        print("SKIP: golden predates editability_for (§ item 8 not yet regenerated)")
+        print("SKIP: golden predates editability_for (SOM §21 not yet regenerated)")
         return
     ef = mod.SolutionBlueprint.editability_for
     # None / empty stamp → editable.

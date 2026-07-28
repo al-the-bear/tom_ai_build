@@ -26,7 +26,7 @@ class _Root extends SomNode {
 
   /// A content-only element list (the operational-metrics shape) whose element
   /// carries only the standard `content` leaf — exercises [SomList.addContent]
-  /// and [SomList.contents] (§ item 9).
+  /// and [SomList.contents] (SOM §21).
   SomList<_Metric> get metrics => SomList<_Metric>(
         doc,
         '$path/METR',
@@ -51,7 +51,7 @@ class _Metric extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String v) => doc.setContent('$path/content', v);
 
-  /// A content-bearing section overrides the structural default (§ item 10).
+  /// A content-bearing section overrides the structural default (SOM §21).
   @override
   bool get canHaveContent => true;
 }
@@ -87,7 +87,7 @@ void main() {
     });
   });
 
-  group(r'SomNode.$codeSpec (§9.2 forward link)', () {
+  group(r'SomNode.$codeSpec (codespecs_mapping.md §9.2 forward link)', () {
     test('unset on a fresh node — the store is sparse like the headline', () {
       final doc = SpecDocument();
       expect(_Root(doc, 'PD00').$codeSpec, isNull);
@@ -336,7 +336,7 @@ void main() {
     });
   });
 
-  group('somEditabilityFor (non-throwing §2.2 classification, item 8)', () {
+  group('somEditabilityFor (non-throwing SOM §4.2 classification, item 8)', () {
     test('a null/empty document stamp is editable', () {
       expect(somEditabilityFor('0.0', null), SomEditability.editable);
       expect(somEditabilityFor('0.0', ''), SomEditability.editable);

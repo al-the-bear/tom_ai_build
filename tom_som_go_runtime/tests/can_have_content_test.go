@@ -1,5 +1,5 @@
 // Unit tests for the structural content-slot predicate CanHaveContent (SOM
-// roadmap § item 10) — the Go port of the Dart SomNode.canHaveContent.
+// SOM §21) — the Go port of the Dart SomNode.canHaveContent.
 //
 // CanHaveContent is a per-type / schema predicate: it answers "*can* this
 // section type hold body text?" (does it declare the standard `content` leaf?)
@@ -32,8 +32,8 @@ func (m metricNode) Content() string { return m.Doc().ContentOr(m.Path() + "/con
 // SetContent writes this section's `content` leaf.
 func (m metricNode) SetContent(v string) { m.Doc().SetContent(m.Path()+"/content", v) }
 
-// CanHaveContent shadows the promoted SomNode false default — this type declares
-// the `content` leaf (§ item 10).
+// CanHaveContent shadows the promoted SomNode false default — this type
+// declares the `content` leaf (SOM §21).
 func (m metricNode) CanHaveContent() bool { return true }
 
 // containerNode is a container-only section facade fixture: it holds only child

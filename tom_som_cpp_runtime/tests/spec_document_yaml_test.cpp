@@ -439,10 +439,11 @@ void yamlTestStrictDecode() {
   }
 }
 
-/* ---- §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
+/* ---- codespecs_mapping.md §9.2 codeSpec forward-link (mirror of stored headline) -------------- */
 
 void yamlTestCodeSpecRoundTrip() {
-  // csmc8 (§9.2): a stored codeSpec survives the yaml round-trip.
+  // csmc8 (codespecs_mapping.md §9.2): a stored codeSpec survives the yaml
+  // round-trip.
   som::SpecDocument doc = yamlPopulated();
   doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total,CsOrderRepository");
   std::string yaml = yamlEnc(doc, "");
@@ -459,7 +460,8 @@ void yamlTestCodeSpecRoundTrip() {
 }
 
 void yamlTestCodeSpecByteStable() {
-  // csmc8 (§9.2): encode is byte-stable with codeSpec across decode → re-encode.
+  // csmc8 (codespecs_mapping.md §9.2): encode is byte-stable with codeSpec
+  // across decode → re-encode.
   som::SpecDocument doc = yamlPopulated();
   doc.setCodeSpec("D00/D00-OVR", "CsOrder,CsOrder.total");
   std::string yaml1 = yamlEnc(doc, "1.2");

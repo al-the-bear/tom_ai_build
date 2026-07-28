@@ -1,4 +1,4 @@
-// Tests for SOM roadmap § item 12 — the two one-call conveniences ported from
+// Tests for SOM §21 — the two one-call conveniences ported from
 // the Dart reference runtime:
 //
 //   - SpecModel.RootByType(type) — the root whose Type matches, else an error

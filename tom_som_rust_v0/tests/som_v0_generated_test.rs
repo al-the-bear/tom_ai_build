@@ -3,14 +3,14 @@
 // Unlike the emitter's golden test (which compiles the small emitter fixture),
 // this suite exercises the real, full `tom_som_rust_v0` crate (3000+ types)
 // against the generic `tom_som_rust_runtime` and proves the typed facade is a
-// faithful editing surface over the shared document (spec §3):
+// faithful editing surface over the shared document (SOM §6):
 //
 //   - the `D00SolutionBlueprint` root is anchored at the `PD` segment;
 //   - a content leaf round-trips typed → generic and generic → typed;
 //   - a nested complex section derives its path under the root;
 //   - the typed `SomList` collection maps onto the generic list store;
 //   - the generated model-version accessor / constant return `1.0`;
-//   - the instantiation-time version check (§2.2) accepts an editable stamp and
+//   - the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp with a `SomVersionError`.
 //
 // Run with `cargo test`. The runtime resolves through the `path` dev-dependency
@@ -181,7 +181,7 @@ fn version_check() {
     );
 }
 
-// --- aligned absence semantics (§ item 5) ----------------------------------
+// --- aligned absence semantics (SOM §21) ----------------------------------
 
 /// A section is empty (subtree-empty) until any value is written under it, and
 /// becomes empty again once cleared. Emptiness tracks the whole subtree, not a
@@ -252,7 +252,7 @@ fn has_content_matches_typed_content() {
     assert!(doc.borrow().has_content(&leaf), "filled leaf has content");
 }
 
-// --- structural content predicate (§ item 10) ------------------------------
+// --- structural content predicate (SOM §21) ------------------------------
 
 /// `can_have_content` is a **structural / schema** predicate baked onto every
 /// generated section type: `true` for a content-bearing type (one carrying the
@@ -303,7 +303,7 @@ fn can_have_content_ignores_document_state() {
     );
 }
 
-// --- one-call loading (§ item 4) -------------------------------------------
+// --- one-call loading (SOM §21) -------------------------------------------
 
 /// The shared conformance sample, resolved relative to the crate root (which is
 /// `cargo test`'s cwd).

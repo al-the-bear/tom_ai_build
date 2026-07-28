@@ -517,9 +517,10 @@ static int match_heading_line(const char *s, int *level, char **rest) {
 
 /* mdHeadlineCommentRE = `^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$`. Writes owned
  * group 1 (id) to `*id` and owned group 3 (the heading title) to `*rest`,
- * returns 1. Group 2 — the optional key=value region (§9.2 `codeSpec`) between
- * the id bracket and the closing `-->` — is skipped; the validator only needs
- * the title, which is now the third part. The middle group is `[^>]*` (the
+ * returns 1. Group 2 — the optional key=value region (codespecs_mapping.md §9.2
+ * `codeSpec`) between the id bracket and the closing `-->` — is skipped; the
+ * validator only needs the title, which is now the third part. The middle group
+ * is `[^>]*` (the
  * closing `-->` is the first `>` after the id bracket). */
 static int match_headline_comment(const char *s, char **id, char **rest) {
   if (strncmp(s, "<!--[", 5) != 0) {

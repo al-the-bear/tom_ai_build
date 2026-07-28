@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Unit tests for the structural `canHaveContent` predicate (§ item 10) — the
+ * Unit tests for the structural `canHaveContent` predicate (SOM §21) — the
  * JavaScript port of the Dart `SomNode.canHaveContent` runtime tests.
  *
  * `canHaveContent` answers, at the **type** level, "does this section type
@@ -32,7 +32,7 @@ class ContentItem extends SomNode {
     this.doc.setContent(`${this.path}/content`, v);
   }
 
-  // A content-bearing section overrides the structural default (§ item 10).
+  // A content-bearing section overrides the structural default (SOM §21).
   get canHaveContent() {
     return true;
   }

@@ -129,7 +129,7 @@ func main() {
 		out = append(out, "H\t"+p+"\t"+esc(doc.HeadlineOr(p)))
 	}
 
-	// Generic: every stored codeSpec, sorted by path (FORMAT 8, §9.2 mirror of headline).
+	// Generic: every stored codeSpec, sorted by path (FORMAT 8, codespecs_mapping.md §9.2 mirror of headline).
 	out = append(out, "SECTION\tgeneric-codespecs")
 	codeSpecPaths := doc.CodeSpecPaths()
 	sort.Strings(codeSpecPaths)
@@ -138,7 +138,7 @@ func main() {
 	}
 
 	// Typed cross-check of the same two mappings through the facade's structural
-	// CodeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+	// CodeSpec accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in the CS
 	// lines above, so a duplicate line would add no information — what this adds
 	// is the assertion that the typed accessor reads the same store the generic
 	// API does. A divergence aborts the generator.

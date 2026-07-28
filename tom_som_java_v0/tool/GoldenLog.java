@@ -115,7 +115,7 @@ public final class GoldenLog {
       out.add("H\t" + p + "\t" + esc(h == null ? "" : h));
     }
 
-    // Generic: stored codeSpecs (FORMAT 8, §9.2 mirror of headline), sorted by path.
+    // Generic: stored codeSpecs (FORMAT 8, codespecs_mapping.md §9.2 mirror of headline), sorted by path.
     out.add("SECTION\tgeneric-codespecs");
     List<String> codeSpecPaths = new ArrayList<>(doc.codeSpecPaths());
     Collections.sort(codeSpecPaths);
@@ -125,7 +125,7 @@ public final class GoldenLog {
     }
 
     // Typed cross-check of the same two mappings through the facade's structural
-    // $codeSpec accessor (§9.2). Emits nothing: the values are already in the CS
+    // $codeSpec accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in the CS
     // lines above, so a duplicate line would add no information — what this adds
     // is the assertion that the typed accessor reads the same store the generic
     // API does. A divergence aborts the generator.
@@ -408,7 +408,7 @@ public final class GoldenLog {
 
   /**
    * Asserts a node's typed {@code $codeSpec} read equals the generic
-   * {@code doc.codeSpec(path)} read (§9.2). Emits nothing — the assertion is the
+   * {@code doc.codeSpec(path)} read (codespecs_mapping.md §9.2). Emits nothing — the assertion is the
    * point; the values themselves are already in the {@code CS} lines.
    */
   static void typedCodeSpec(SpecDocument doc, SomNode node) {

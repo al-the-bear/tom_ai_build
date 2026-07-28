@@ -27,7 +27,7 @@
 
 int main(void) {
   /* A typed root over a fresh, empty document. The constructor also runs the
-   * §2.2 instantiation-time version check (an empty stamp is editable). */
+   * SOM §4.2 instantiation-time version check (an empty stamp is editable). */
   SpecDocument doc;
   spec_document_init(&doc);
 

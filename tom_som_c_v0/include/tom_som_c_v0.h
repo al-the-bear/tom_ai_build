@@ -8,33 +8,33 @@
 #include "tom_som_c_v0_meta.h"
 #include <stdbool.h>
 
-// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (§2.1).
+// D00_SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the D00SolutionBlueprint object model was generated against (SOM §4.2).
 #define D00_SOLUTION_BLUEPRINT_MODEL_VERSION "1.0"
-// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (§2.1).
+// D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION is the model version the D01CurrentLandscapeAssessment object model was generated against (SOM §4.2).
 #define D01_CURRENT_LANDSCAPE_ASSESSMENT_MODEL_VERSION "1.0"
-// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (§2.1).
+// D02_TARGET_OPERATING_MODEL_MODEL_VERSION is the model version the D02TargetOperatingModel object model was generated against (SOM §4.2).
 #define D02_TARGET_OPERATING_MODEL_MODEL_VERSION "1.0"
-// D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (§2.1).
+// D03_INFORMATION_MODEL_MODEL_VERSION is the model version the D03InformationModel object model was generated against (SOM §4.2).
 #define D03_INFORMATION_MODEL_MODEL_VERSION "1.0"
-// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (§2.1).
+// D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION is the model version the D04RequirementsSpecification object model was generated against (SOM §4.2).
 #define D04_REQUIREMENTS_SPECIFICATION_MODEL_VERSION "1.0"
-// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (§2.1).
+// D05_INTERACTION_SCENARIOS_MODEL_VERSION is the model version the D05InteractionScenarios object model was generated against (SOM §4.2).
 #define D05_INTERACTION_SCENARIOS_MODEL_VERSION "1.0"
-// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (§2.1).
+// D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION is the model version the D06ArchitectureTechnologySpecification object model was generated against (SOM §4.2).
 #define D06_ARCHITECTURE_TECHNOLOGY_SPECIFICATION_MODEL_VERSION "1.0"
-// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (§2.1).
+// D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION is the model version the D07IntegrationInterfaceSpecification object model was generated against (SOM §4.2).
 #define D07_INTEGRATION_INTERFACE_SPECIFICATION_MODEL_VERSION "1.0"
-// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (§2.1).
+// D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION is the model version the D08SecurityAccessSpecification object model was generated against (SOM §4.2).
 #define D08_SECURITY_ACCESS_SPECIFICATION_MODEL_VERSION "1.0"
-// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (§2.1).
+// D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION is the model version the D09ExperienceDesignSpecification object model was generated against (SOM §4.2).
 #define D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION "1.0"
-// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (§2.1).
+// D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION is the model version the D10QualityAcceptancePlan object model was generated against (SOM §4.2).
 #define D10_QUALITY_ACCEPTANCE_PLAN_MODEL_VERSION "1.0"
-// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (§2.1).
+// D11_DELIVERY_ROADMAP_MODEL_VERSION is the model version the D11DeliveryRoadmap object model was generated against (SOM §4.2).
 #define D11_DELIVERY_ROADMAP_MODEL_VERSION "1.0"
-// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (§2.1).
+// D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION is the model version the D12TransitionRolloutPlan object model was generated against (SOM §4.2).
 #define D12_TRANSITION_ROLLOUT_PLAN_MODEL_VERSION "1.0"
-// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (§2.1).
+// D13_CODE_SPECS_PROJECTION_MODEL_VERSION is the model version the D13CodeSpecsProjection object model was generated against (SOM §4.2).
 #define D13_CODE_SPECS_PROJECTION_MODEL_VERSION "1.0"
 
 // Typed facade structs — each binds a node (document + path).
@@ -1820,6 +1820,7 @@ typedef struct { SomNode node; } DataAttributeConstraintEntryContentForm;
 typedef struct { SomNode node; } DataAttributeEntryBinaryTypeOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryDataTypeSpecForm;
 typedef struct { SomNode node; } DataAttributeEntryDerivationForm;
+typedef struct { SomNode node; } DataAttributeEntryFileReferenceOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryIdentityForm;
 typedef struct { SomNode node; } DataAttributeEntryMigrationLineageForm;
 typedef struct { SomNode node; } DataAttributeEntryNumericTypeOptionsForm;
@@ -3982,7 +3983,7 @@ typedef struct { SomNode node; } WorkplaceSupportResourcesSelfServiceForm;
 // Binds a AcceptanceCriteriaList facade to a document and a path (path copied).
 void acceptance_criteria_list_init(AcceptanceCriteriaList *self, SpecDocument *doc, const char *path);
 void acceptance_criteria_list_free(AcceptanceCriteriaList *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_criteria_list_can_have_content(const AcceptanceCriteriaList *self);
 char *acceptance_criteria_list_content(const AcceptanceCriteriaList *self);
 void acceptance_criteria_list_set_content(AcceptanceCriteriaList *self, const char *value);
@@ -4002,7 +4003,7 @@ SomList acceptance_criteria_list_items(const AcceptanceCriteriaList *self);
 // Binds a AcceptanceCriteriaSummary facade to a document and a path (path copied).
 void acceptance_criteria_summary_init(AcceptanceCriteriaSummary *self, SpecDocument *doc, const char *path);
 void acceptance_criteria_summary_free(AcceptanceCriteriaSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_criteria_summary_can_have_content(const AcceptanceCriteriaSummary *self);
 AcceptanceCriteriaSummaryAcceptanceFrameworkContentForm acceptance_criteria_summary_acceptance_framework_content(const AcceptanceCriteriaSummary *self);
 // Acceptance criteria overview.
@@ -4026,7 +4027,7 @@ AcceptanceCriteriaList acceptance_criteria_summary_detailed_criteria(const Accep
 // Binds a AcceptanceCriterionEntry facade to a document and a path (path copied).
 void acceptance_criterion_entry_init(AcceptanceCriterionEntry *self, SpecDocument *doc, const char *path);
 void acceptance_criterion_entry_free(AcceptanceCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_criterion_entry_can_have_content(const AcceptanceCriterionEntry *self);
 AcceptanceCriterionEntryContentForm acceptance_criterion_entry_content(const AcceptanceCriterionEntry *self);
 
@@ -4034,7 +4035,7 @@ AcceptanceCriterionEntryContentForm acceptance_criterion_entry_content(const Acc
 // Binds a AcceptancePlan facade to a document and a path (path copied).
 void acceptance_plan_init(AcceptancePlan *self, SpecDocument *doc, const char *path);
 void acceptance_plan_free(AcceptancePlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_plan_can_have_content(const AcceptancePlan *self);
 char *acceptance_plan_content(const AcceptancePlan *self);
 void acceptance_plan_set_content(AcceptancePlan *self, const char *value);
@@ -4059,7 +4060,7 @@ WarrantyTerms acceptance_plan_warranty(const AcceptancePlan *self);
 // Binds a AcceptanceProcess facade to a document and a path (path copied).
 void acceptance_process_init(AcceptanceProcess *self, SpecDocument *doc, const char *path);
 void acceptance_process_free(AcceptanceProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_process_can_have_content(const AcceptanceProcess *self);
 AcceptanceProcessContentForm acceptance_process_content(const AcceptanceProcess *self);
 // Process overview.
@@ -4087,7 +4088,7 @@ SomList acceptance_process_steps(const AcceptanceProcess *self);
 // Binds a AcceptanceStepEntry facade to a document and a path (path copied).
 void acceptance_step_entry_init(AcceptanceStepEntry *self, SpecDocument *doc, const char *path);
 void acceptance_step_entry_free(AcceptanceStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int acceptance_step_entry_can_have_content(const AcceptanceStepEntry *self);
 AcceptanceStepEntryContentForm acceptance_step_entry_content(const AcceptanceStepEntry *self);
 // Participants and execution flow.
@@ -4102,7 +4103,7 @@ AcceptanceStepEntryOutcomeForm acceptance_step_entry_outcome(const AcceptanceSte
 // Binds a AccessChannels facade to a document and a path (path copied).
 void access_channels_init(AccessChannels *self, SpecDocument *doc, const char *path);
 void access_channels_free(AccessChannels *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_channels_can_have_content(const AccessChannels *self);
 char *access_channels_content(const AccessChannels *self);
 void access_channels_set_content(AccessChannels *self, const char *value);
@@ -4121,7 +4122,7 @@ SomList access_channels_channels(const AccessChannels *self);
 // Binds a AccessConstraintPolicies facade to a document and a path (path copied).
 void access_constraint_policies_init(AccessConstraintPolicies *self, SpecDocument *doc, const char *path);
 void access_constraint_policies_free(AccessConstraintPolicies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_constraint_policies_can_have_content(const AccessConstraintPolicies *self);
 char *access_constraint_policies_content(const AccessConstraintPolicies *self);
 void access_constraint_policies_set_content(AccessConstraintPolicies *self, const char *value);
@@ -4140,7 +4141,7 @@ void access_constraint_policies_set_content(AccessConstraintPolicies *self, cons
 // Binds a AccessControlModel facade to a document and a path (path copied).
 void access_control_model_init(AccessControlModel *self, SpecDocument *doc, const char *path);
 void access_control_model_free(AccessControlModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_control_model_can_have_content(const AccessControlModel *self);
 char *access_control_model_content(const AccessControlModel *self);
 void access_control_model_set_content(AccessControlModel *self, const char *value);
@@ -4162,7 +4163,7 @@ RoleMatrix access_control_model_role_matrix(const AccessControlModel *self);
 // Binds a AccessControlModelSelection facade to a document and a path (path copied).
 void access_control_model_selection_init(AccessControlModelSelection *self, SpecDocument *doc, const char *path);
 void access_control_model_selection_free(AccessControlModelSelection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_control_model_selection_can_have_content(const AccessControlModelSelection *self);
 char *access_control_model_selection_content(const AccessControlModelSelection *self);
 void access_control_model_selection_set_content(AccessControlModelSelection *self, const char *value);
@@ -4173,7 +4174,7 @@ void access_control_model_selection_set_content(AccessControlModelSelection *sel
 // Binds a AccessLevelEntry facade to a document and a path (path copied).
 void access_level_entry_init(AccessLevelEntry *self, SpecDocument *doc, const char *path);
 void access_level_entry_free(AccessLevelEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_level_entry_can_have_content(const AccessLevelEntry *self);
 AccessLevelEntryContentForm access_level_entry_content(const AccessLevelEntry *self);
 // Scope and hierarchy of this access level.
@@ -4190,7 +4191,7 @@ AccessLevelEntryGovernanceForm access_level_entry_governance(const AccessLevelEn
 // Binds a AccessLevels facade to a document and a path (path copied).
 void access_levels_init(AccessLevels *self, SpecDocument *doc, const char *path);
 void access_levels_free(AccessLevels *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_levels_can_have_content(const AccessLevels *self);
 char *access_levels_content(const AccessLevels *self);
 void access_levels_set_content(AccessLevels *self, const char *value);
@@ -4210,7 +4211,7 @@ void access_levels_set_permission_matrix(AccessLevels *self, const char *value);
 // Binds a AccessRestrictionEntry facade to a document and a path (path copied).
 void access_restriction_entry_init(AccessRestrictionEntry *self, SpecDocument *doc, const char *path);
 void access_restriction_entry_free(AccessRestrictionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_restriction_entry_can_have_content(const AccessRestrictionEntry *self);
 AccessRestrictionEntryContentForm access_restriction_entry_content(const AccessRestrictionEntry *self);
 
@@ -4218,7 +4219,7 @@ AccessRestrictionEntryContentForm access_restriction_entry_content(const AccessR
 // Binds a AccessUserCategories facade to a document and a path (path copied).
 void access_user_categories_init(AccessUserCategories *self, SpecDocument *doc, const char *path);
 void access_user_categories_free(AccessUserCategories *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int access_user_categories_can_have_content(const AccessUserCategories *self);
 char *access_user_categories_content(const AccessUserCategories *self);
 void access_user_categories_set_content(AccessUserCategories *self, const char *value);
@@ -4233,7 +4234,7 @@ SomList access_user_categories_items(const AccessUserCategories *self);
 // Binds a Accessibility facade to a document and a path (path copied).
 void accessibility_init(Accessibility *self, SpecDocument *doc, const char *path);
 void accessibility_free(Accessibility *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_can_have_content(const Accessibility *self);
 AccessibilityAccessibilityOverviewContentForm accessibility_accessibility_overview_content(const Accessibility *self);
 // Ownership and inclusive design philosophy.
@@ -4259,7 +4260,7 @@ AccessibilityChecklist accessibility_accessibility_checklist(const Accessibility
 // Binds a AccessibilityCheckEntry facade to a document and a path (path copied).
 void accessibility_check_entry_init(AccessibilityCheckEntry *self, SpecDocument *doc, const char *path);
 void accessibility_check_entry_free(AccessibilityCheckEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_check_entry_can_have_content(const AccessibilityCheckEntry *self);
 AccessibilityCheckEntryContentForm accessibility_check_entry_content(const AccessibilityCheckEntry *self);
 // WCAG mapping and compliance classification.
@@ -4275,7 +4276,7 @@ AccessibilityCheckEntryRemediationForm accessibility_check_entry_remediation(con
 // Binds a AccessibilityChecklist facade to a document and a path (path copied).
 void accessibility_checklist_init(AccessibilityChecklist *self, SpecDocument *doc, const char *path);
 void accessibility_checklist_free(AccessibilityChecklist *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_checklist_can_have_content(const AccessibilityChecklist *self);
 AccessibilityChecklistChecklistOverviewContentForm accessibility_checklist_checklist_overview_content(const AccessibilityChecklist *self);
 // Accessibility checklist overview.
@@ -4288,7 +4289,7 @@ SomList accessibility_checklist_items(const AccessibilityChecklist *self);
 // Binds a AccessibilityStandardEntry facade to a document and a path (path copied).
 void accessibility_standard_entry_init(AccessibilityStandardEntry *self, SpecDocument *doc, const char *path);
 void accessibility_standard_entry_free(AccessibilityStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int accessibility_standard_entry_can_have_content(const AccessibilityStandardEntry *self);
 AccessibilityStandardEntryContentForm accessibility_standard_entry_content(const AccessibilityStandardEntry *self);
 // Scope and affected users.
@@ -4307,7 +4308,7 @@ AccessibilityStandardEntryDocumentationForm accessibility_standard_entry_documen
 // Binds a AccountActivationPolicy facade to a document and a path (path copied).
 void account_activation_policy_init(AccountActivationPolicy *self, SpecDocument *doc, const char *path);
 void account_activation_policy_free(AccountActivationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int account_activation_policy_can_have_content(const AccountActivationPolicy *self);
 char *account_activation_policy_content(const AccountActivationPolicy *self);
 void account_activation_policy_set_content(AccountActivationPolicy *self, const char *value);
@@ -4321,7 +4322,7 @@ void account_activation_policy_set_content(AccountActivationPolicy *self, const 
 // Binds a AccountDeactivationPolicy facade to a document and a path (path copied).
 void account_deactivation_policy_init(AccountDeactivationPolicy *self, SpecDocument *doc, const char *path);
 void account_deactivation_policy_free(AccountDeactivationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int account_deactivation_policy_can_have_content(const AccountDeactivationPolicy *self);
 char *account_deactivation_policy_content(const AccountDeactivationPolicy *self);
 void account_deactivation_policy_set_content(AccountDeactivationPolicy *self, const char *value);
@@ -4335,7 +4336,7 @@ void account_deactivation_policy_set_content(AccountDeactivationPolicy *self, co
 // Binds a AccountDeletionPolicy facade to a document and a path (path copied).
 void account_deletion_policy_init(AccountDeletionPolicy *self, SpecDocument *doc, const char *path);
 void account_deletion_policy_free(AccountDeletionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int account_deletion_policy_can_have_content(const AccountDeletionPolicy *self);
 char *account_deletion_policy_content(const AccountDeletionPolicy *self);
 void account_deletion_policy_set_content(AccountDeletionPolicy *self, const char *value);
@@ -4350,7 +4351,7 @@ void account_deletion_policy_set_content(AccountDeletionPolicy *self, const char
 // Binds a AccountLockoutPolicy facade to a document and a path (path copied).
 void account_lockout_policy_init(AccountLockoutPolicy *self, SpecDocument *doc, const char *path);
 void account_lockout_policy_free(AccountLockoutPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int account_lockout_policy_can_have_content(const AccountLockoutPolicy *self);
 char *account_lockout_policy_content(const AccountLockoutPolicy *self);
 void account_lockout_policy_set_content(AccountLockoutPolicy *self, const char *value);
@@ -4364,7 +4365,7 @@ void account_lockout_policy_set_content(AccountLockoutPolicy *self, const char *
 // Binds a AccountModificationPolicy facade to a document and a path (path copied).
 void account_modification_policy_init(AccountModificationPolicy *self, SpecDocument *doc, const char *path);
 void account_modification_policy_free(AccountModificationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int account_modification_policy_can_have_content(const AccountModificationPolicy *self);
 char *account_modification_policy_content(const AccountModificationPolicy *self);
 void account_modification_policy_set_content(AccountModificationPolicy *self, const char *value);
@@ -4375,7 +4376,7 @@ void account_modification_policy_set_content(AccountModificationPolicy *self, co
 // Binds a ActionParameterEntry facade to a document and a path (path copied).
 void action_parameter_entry_init(ActionParameterEntry *self, SpecDocument *doc, const char *path);
 void action_parameter_entry_free(ActionParameterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int action_parameter_entry_can_have_content(const ActionParameterEntry *self);
 ActionParameterEntryContentForm action_parameter_entry_content(const ActionParameterEntry *self);
 
@@ -4383,7 +4384,7 @@ ActionParameterEntryContentForm action_parameter_entry_content(const ActionParam
 // Binds a ActorCharacteristics facade to a document and a path (path copied).
 void actor_characteristics_init(ActorCharacteristics *self, SpecDocument *doc, const char *path);
 void actor_characteristics_free(ActorCharacteristics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_characteristics_can_have_content(const ActorCharacteristics *self);
 ActorCharacteristicsContentForm actor_characteristics_content(const ActorCharacteristics *self);
 // Usage patterns and decision scope.
@@ -4397,7 +4398,7 @@ ActorCharacteristicsSupportForm actor_characteristics_support(const ActorCharact
 // Binds a ActorEntry facade to a document and a path (path copied).
 void actor_entry_init(ActorEntry *self, SpecDocument *doc, const char *path);
 void actor_entry_free(ActorEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_entry_can_have_content(const ActorEntry *self);
 // Actor identification.
 ActorEntryIdentificationForm actor_entry_identification(const ActorEntry *self);
@@ -4418,7 +4419,7 @@ ActorEntryInteractionsForm actor_entry_interactions(const ActorEntry *self);
 // Binds a ActorGoals facade to a document and a path (path copied).
 void actor_goals_init(ActorGoals *self, SpecDocument *doc, const char *path);
 void actor_goals_free(ActorGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_goals_can_have_content(const ActorGoals *self);
 ActorGoalsContentForm actor_goals_content(const ActorGoals *self);
 
@@ -4429,7 +4430,7 @@ ActorGoalsContentForm actor_goals_content(const ActorGoals *self);
 // Binds a ActorOverview facade to a document and a path (path copied).
 void actor_overview_init(ActorOverview *self, SpecDocument *doc, const char *path);
 void actor_overview_free(ActorOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_overview_can_have_content(const ActorOverview *self);
 char *actor_overview_content(const ActorOverview *self);
 void actor_overview_set_content(ActorOverview *self, const char *value);
@@ -4445,7 +4446,7 @@ ActorOverviewCategorizationForm actor_overview_categorization(const ActorOvervie
 // Binds a ActorPermissions facade to a document and a path (path copied).
 void actor_permissions_init(ActorPermissions *self, SpecDocument *doc, const char *path);
 void actor_permissions_free(ActorPermissions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_permissions_can_have_content(const ActorPermissions *self);
 ActorPermissionsContentForm actor_permissions_content(const ActorPermissions *self);
 
@@ -4453,7 +4454,7 @@ ActorPermissionsContentForm actor_permissions_content(const ActorPermissions *se
 // Binds a ActorRelationshipDiagram facade to a document and a path (path copied).
 void actor_relationship_diagram_init(ActorRelationshipDiagram *self, SpecDocument *doc, const char *path);
 void actor_relationship_diagram_free(ActorRelationshipDiagram *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int actor_relationship_diagram_can_have_content(const ActorRelationshipDiagram *self);
 // Diagram overview.
 ActorRelationshipDiagramOverviewForm actor_relationship_diagram_overview(const ActorRelationshipDiagram *self);
@@ -4466,7 +4467,7 @@ ActorRelationshipDiagramOverviewForm actor_relationship_diagram_overview(const A
 // Binds a AdminInterfaceRequirements facade to a document and a path (path copied).
 void admin_interface_requirements_init(AdminInterfaceRequirements *self, SpecDocument *doc, const char *path);
 void admin_interface_requirements_free(AdminInterfaceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int admin_interface_requirements_can_have_content(const AdminInterfaceRequirements *self);
 AdminInterfaceRequirementsContentForm admin_interface_requirements_content(const AdminInterfaceRequirements *self);
 // Dashboard widget requirements.
@@ -4480,7 +4481,7 @@ AdminInterfaceRequirementsOperationsForm admin_interface_requirements_operations
 // Binds a AdministrationRequirementsSection facade to a document and a path (path copied).
 void administration_requirements_section_init(AdministrationRequirementsSection *self, SpecDocument *doc, const char *path);
 void administration_requirements_section_free(AdministrationRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int administration_requirements_section_can_have_content(const AdministrationRequirementsSection *self);
 char *administration_requirements_section_content(const AdministrationRequirementsSection *self);
 void administration_requirements_section_set_content(AdministrationRequirementsSection *self, const char *value);
@@ -4505,7 +4506,7 @@ SystemDiagnosticTools administration_requirements_section_diagnostic_tools(const
 // Binds a AdministrativeEventPolicy facade to a document and a path (path copied).
 void administrative_event_policy_init(AdministrativeEventPolicy *self, SpecDocument *doc, const char *path);
 void administrative_event_policy_free(AdministrativeEventPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int administrative_event_policy_can_have_content(const AdministrativeEventPolicy *self);
 AdministrativeEventPolicyContentForm administrative_event_policy_content(const AdministrativeEventPolicy *self);
 // Additional Notes (text).
@@ -4515,7 +4516,7 @@ AdministrativeEventPolicyContentForm administrative_event_policy_content(const A
 // Binds a AffectedDepartmentEntry facade to a document and a path (path copied).
 void affected_department_entry_init(AffectedDepartmentEntry *self, SpecDocument *doc, const char *path);
 void affected_department_entry_free(AffectedDepartmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int affected_department_entry_can_have_content(const AffectedDepartmentEntry *self);
 AffectedDepartmentEntryContentForm affected_department_entry_content(const AffectedDepartmentEntry *self);
 
@@ -4525,7 +4526,7 @@ AffectedDepartmentEntryContentForm affected_department_entry_content(const Affec
 // Binds a AffectedFunctionEntry facade to a document and a path (path copied).
 void affected_function_entry_init(AffectedFunctionEntry *self, SpecDocument *doc, const char *path);
 void affected_function_entry_free(AffectedFunctionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int affected_function_entry_can_have_content(const AffectedFunctionEntry *self);
 AffectedFunctionEntryContentForm affected_function_entry_content(const AffectedFunctionEntry *self);
 char *affected_function_entry_function_ref(const AffectedFunctionEntry *self);
@@ -4537,7 +4538,7 @@ void affected_function_entry_set_function_ref(AffectedFunctionEntry *self, const
 // Binds a AffectedObjectEntry facade to a document and a path (path copied).
 void affected_object_entry_init(AffectedObjectEntry *self, SpecDocument *doc, const char *path);
 void affected_object_entry_free(AffectedObjectEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int affected_object_entry_can_have_content(const AffectedObjectEntry *self);
 AffectedObjectEntryContentForm affected_object_entry_content(const AffectedObjectEntry *self);
 char *affected_object_entry_object_ref(const AffectedObjectEntry *self);
@@ -4547,7 +4548,7 @@ void affected_object_entry_set_object_ref(AffectedObjectEntry *self, const char 
 // Binds a AlertDefinitionEntry facade to a document and a path (path copied).
 void alert_definition_entry_init(AlertDefinitionEntry *self, SpecDocument *doc, const char *path);
 void alert_definition_entry_free(AlertDefinitionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alert_definition_entry_can_have_content(const AlertDefinitionEntry *self);
 AlertDefinitionEntryContentForm alert_definition_entry_content(const AlertDefinitionEntry *self);
 // Trigger conditions.
@@ -4561,7 +4562,7 @@ AlertDefinitionEntryNotificationForm alert_definition_entry_notification(const A
 // Binds a AlertEscalationPolicies facade to a document and a path (path copied).
 void alert_escalation_policies_init(AlertEscalationPolicies *self, SpecDocument *doc, const char *path);
 void alert_escalation_policies_free(AlertEscalationPolicies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alert_escalation_policies_can_have_content(const AlertEscalationPolicies *self);
 AlertEscalationPoliciesContentForm alert_escalation_policies_content(const AlertEscalationPolicies *self);
 // Management escalation path and timing thresholds.
@@ -4575,7 +4576,7 @@ AlertEscalationPoliciesSchedulesForm alert_escalation_policies_schedules(const A
 // Binds a AlertNotificationChannels facade to a document and a path (path copied).
 void alert_notification_channels_init(AlertNotificationChannels *self, SpecDocument *doc, const char *path);
 void alert_notification_channels_free(AlertNotificationChannels *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alert_notification_channels_can_have_content(const AlertNotificationChannels *self);
 AlertNotificationChannelsContentForm alert_notification_channels_content(const AlertNotificationChannels *self);
 // Secondary and escalation delivery methods.
@@ -4589,7 +4590,7 @@ AlertNotificationChannelsFormattingForm alert_notification_channels_formatting(c
 // Binds a AlertRuleEntry facade to a document and a path (path copied).
 void alert_rule_entry_init(AlertRuleEntry *self, SpecDocument *doc, const char *path);
 void alert_rule_entry_free(AlertRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alert_rule_entry_can_have_content(const AlertRuleEntry *self);
 AlertRuleEntryContentForm alert_rule_entry_content(const AlertRuleEntry *self);
 // Trigger conditions.
@@ -4603,7 +4604,7 @@ AlertRuleEntryOwnershipForm alert_rule_entry_ownership(const AlertRuleEntry *sel
 // Binds a AlertSuppressionRules facade to a document and a path (path copied).
 void alert_suppression_rules_init(AlertSuppressionRules *self, SpecDocument *doc, const char *path);
 void alert_suppression_rules_free(AlertSuppressionRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alert_suppression_rules_can_have_content(const AlertSuppressionRules *self);
 AlertSuppressionRulesContentForm alert_suppression_rules_content(const AlertSuppressionRules *self);
 
@@ -4614,7 +4615,7 @@ AlertSuppressionRulesContentForm alert_suppression_rules_content(const AlertSupp
 // Binds a AlertingConfiguration facade to a document and a path (path copied).
 void alerting_configuration_init(AlertingConfiguration *self, SpecDocument *doc, const char *path);
 void alerting_configuration_free(AlertingConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alerting_configuration_can_have_content(const AlertingConfiguration *self);
 AlertingConfigurationAlertingOverviewForm alerting_configuration_alerting_overview(const AlertingConfiguration *self);
 // Alerting overview narrative.
@@ -4636,7 +4637,7 @@ OnCallScheduleConfig alerting_configuration_on_call_schedule(const AlertingConfi
 // Binds a AlertingRequirements facade to a document and a path (path copied).
 void alerting_requirements_init(AlertingRequirements *self, SpecDocument *doc, const char *path);
 void alerting_requirements_free(AlertingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alerting_requirements_can_have_content(const AlertingRequirements *self);
 AlertingRequirementsContentForm alerting_requirements_content(const AlertingRequirements *self);
 // Routing rules.
@@ -4652,7 +4653,7 @@ AlertingRequirementsResponseForm alerting_requirements_response(const AlertingRe
 // Binds a AlternativeFlowEntry facade to a document and a path (path copied).
 void alternative_flow_entry_init(AlternativeFlowEntry *self, SpecDocument *doc, const char *path);
 void alternative_flow_entry_free(AlternativeFlowEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alternative_flow_entry_can_have_content(const AlternativeFlowEntry *self);
 AlternativeFlowEntryContentForm alternative_flow_entry_content(const AlternativeFlowEntry *self);
 // Contains 0+× Scenario Step.
@@ -4663,7 +4664,7 @@ SomList alternative_flow_entry_steps(const AlternativeFlowEntry *self);
 // Binds a AlternativeStepEntry facade to a document and a path (path copied).
 void alternative_step_entry_init(AlternativeStepEntry *self, SpecDocument *doc, const char *path);
 void alternative_step_entry_free(AlternativeStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int alternative_step_entry_can_have_content(const AlternativeStepEntry *self);
 AlternativeStepEntryContentForm alternative_step_entry_content(const AlternativeStepEntry *self);
 
@@ -4673,7 +4674,7 @@ AlternativeStepEntryContentForm alternative_step_entry_content(const Alternative
 // Binds a AnomalyDetectionPolicy facade to a document and a path (path copied).
 void anomaly_detection_policy_init(AnomalyDetectionPolicy *self, SpecDocument *doc, const char *path);
 void anomaly_detection_policy_free(AnomalyDetectionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int anomaly_detection_policy_can_have_content(const AnomalyDetectionPolicy *self);
 AnomalyDetectionPolicyContentForm anomaly_detection_policy_content(const AnomalyDetectionPolicy *self);
 // Additional Notes (text).
@@ -4688,7 +4689,7 @@ AnomalyDetectionPolicyContentForm anomaly_detection_policy_content(const Anomaly
 // Binds a ApiAbuseProtection facade to a document and a path (path copied).
 void api_abuse_protection_init(ApiAbuseProtection *self, SpecDocument *doc, const char *path);
 void api_abuse_protection_free(ApiAbuseProtection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_abuse_protection_can_have_content(const ApiAbuseProtection *self);
 char *api_abuse_protection_content(const ApiAbuseProtection *self);
 void api_abuse_protection_set_content(ApiAbuseProtection *self, const char *value);
@@ -4702,7 +4703,7 @@ void api_abuse_protection_set_content(ApiAbuseProtection *self, const char *valu
 // Binds a ApiAuthenticationPolicy facade to a document and a path (path copied).
 void api_authentication_policy_init(ApiAuthenticationPolicy *self, SpecDocument *doc, const char *path);
 void api_authentication_policy_free(ApiAuthenticationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_authentication_policy_can_have_content(const ApiAuthenticationPolicy *self);
 char *api_authentication_policy_content(const ApiAuthenticationPolicy *self);
 void api_authentication_policy_set_content(ApiAuthenticationPolicy *self, const char *value);
@@ -4717,7 +4718,7 @@ void api_authentication_policy_set_content(ApiAuthenticationPolicy *self, const 
 // Binds a ApiAuthorizationPolicy facade to a document and a path (path copied).
 void api_authorization_policy_init(ApiAuthorizationPolicy *self, SpecDocument *doc, const char *path);
 void api_authorization_policy_free(ApiAuthorizationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_authorization_policy_can_have_content(const ApiAuthorizationPolicy *self);
 char *api_authorization_policy_content(const ApiAuthorizationPolicy *self);
 void api_authorization_policy_set_content(ApiAuthorizationPolicy *self, const char *value);
@@ -4728,7 +4729,7 @@ void api_authorization_policy_set_content(ApiAuthorizationPolicy *self, const ch
 // Binds a ApiCompatibilityEntry facade to a document and a path (path copied).
 void api_compatibility_entry_init(ApiCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void api_compatibility_entry_free(ApiCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_compatibility_entry_can_have_content(const ApiCompatibilityEntry *self);
 ApiCompatibilityEntryContentForm api_compatibility_entry_content(const ApiCompatibilityEntry *self);
 // Compatibility policy.
@@ -4749,7 +4750,7 @@ ApiCompatibilityEntrySpecificationForm api_compatibility_entry_specification(con
 // Binds a ApiCorsSecurity facade to a document and a path (path copied).
 void api_cors_security_init(ApiCorsSecurity *self, SpecDocument *doc, const char *path);
 void api_cors_security_free(ApiCorsSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_cors_security_can_have_content(const ApiCorsSecurity *self);
 char *api_cors_security_content(const ApiCorsSecurity *self);
 void api_cors_security_set_content(ApiCorsSecurity *self, const char *value);
@@ -4763,7 +4764,7 @@ void api_cors_security_set_content(ApiCorsSecurity *self, const char *value);
 // Binds a ApiKeyManagementPolicy facade to a document and a path (path copied).
 void api_key_management_policy_init(ApiKeyManagementPolicy *self, SpecDocument *doc, const char *path);
 void api_key_management_policy_free(ApiKeyManagementPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_key_management_policy_can_have_content(const ApiKeyManagementPolicy *self);
 char *api_key_management_policy_content(const ApiKeyManagementPolicy *self);
 void api_key_management_policy_set_content(ApiKeyManagementPolicy *self, const char *value);
@@ -4779,7 +4780,7 @@ void api_key_management_policy_set_content(ApiKeyManagementPolicy *self, const c
 // Binds a ApiRequestValidationPolicy facade to a document and a path (path copied).
 void api_request_validation_policy_init(ApiRequestValidationPolicy *self, SpecDocument *doc, const char *path);
 void api_request_validation_policy_free(ApiRequestValidationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_request_validation_policy_can_have_content(const ApiRequestValidationPolicy *self);
 char *api_request_validation_policy_content(const ApiRequestValidationPolicy *self);
 void api_request_validation_policy_set_content(ApiRequestValidationPolicy *self, const char *value);
@@ -4795,7 +4796,7 @@ void api_request_validation_policy_set_content(ApiRequestValidationPolicy *self,
 // Binds a ApiSecurity facade to a document and a path (path copied).
 void api_security_init(ApiSecurity *self, SpecDocument *doc, const char *path);
 void api_security_free(ApiSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_security_can_have_content(const ApiSecurity *self);
 char *api_security_content(const ApiSecurity *self);
 void api_security_set_content(ApiSecurity *self, const char *value);
@@ -4824,7 +4825,7 @@ ApiSecurityMonitoring api_security_api_security_monitoring(const ApiSecurity *se
 // Binds a ApiSecurityMonitoring facade to a document and a path (path copied).
 void api_security_monitoring_init(ApiSecurityMonitoring *self, SpecDocument *doc, const char *path);
 void api_security_monitoring_free(ApiSecurityMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_security_monitoring_can_have_content(const ApiSecurityMonitoring *self);
 char *api_security_monitoring_content(const ApiSecurityMonitoring *self);
 void api_security_monitoring_set_content(ApiSecurityMonitoring *self, const char *value);
@@ -4835,7 +4836,7 @@ void api_security_monitoring_set_content(ApiSecurityMonitoring *self, const char
 // Binds a ApiVersioningStrategy facade to a document and a path (path copied).
 void api_versioning_strategy_init(ApiVersioningStrategy *self, SpecDocument *doc, const char *path);
 void api_versioning_strategy_free(ApiVersioningStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int api_versioning_strategy_can_have_content(const ApiVersioningStrategy *self);
 ApiVersioningStrategyContentForm api_versioning_strategy_content(const ApiVersioningStrategy *self);
 // Supported versions and deprecation commitments.
@@ -4849,7 +4850,7 @@ ApiVersioningStrategyDocumentationForm api_versioning_strategy_documentation(con
 // Binds a ApplicableRegulationEntry facade to a document and a path (path copied).
 void applicable_regulation_entry_init(ApplicableRegulationEntry *self, SpecDocument *doc, const char *path);
 void applicable_regulation_entry_free(ApplicableRegulationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int applicable_regulation_entry_can_have_content(const ApplicableRegulationEntry *self);
 ApplicableRegulationEntryContentForm applicable_regulation_entry_content(const ApplicableRegulationEntry *self);
 // Specific compliance measures for this regulation.
@@ -4860,7 +4861,7 @@ SomList applicable_regulation_entry_compliance_measures(const ApplicableRegulati
 // Binds a ApplicationDiagnostics facade to a document and a path (path copied).
 void application_diagnostics_init(ApplicationDiagnostics *self, SpecDocument *doc, const char *path);
 void application_diagnostics_free(ApplicationDiagnostics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int application_diagnostics_can_have_content(const ApplicationDiagnostics *self);
 ApplicationDiagnosticsContentForm application_diagnostics_content(const ApplicationDiagnostics *self);
 // On-demand profiling and slow-request tracing.
@@ -4874,7 +4875,7 @@ ApplicationDiagnosticsFeatureStatusForm application_diagnostics_feature_status(c
 // Binds a ApplicationMetricsSpec facade to a document and a path (path copied).
 void application_metrics_spec_init(ApplicationMetricsSpec *self, SpecDocument *doc, const char *path);
 void application_metrics_spec_free(ApplicationMetricsSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int application_metrics_spec_can_have_content(const ApplicationMetricsSpec *self);
 ApplicationMetricsSpecContentForm application_metrics_spec_content(const ApplicationMetricsSpec *self);
 // USE metrics.
@@ -4888,7 +4889,7 @@ ApplicationMetricsSpecLabelsForm application_metrics_spec_labels(const Applicati
 // Binds a ApplicationPerformanceMonitoring facade to a document and a path (path copied).
 void application_performance_monitoring_init(ApplicationPerformanceMonitoring *self, SpecDocument *doc, const char *path);
 void application_performance_monitoring_free(ApplicationPerformanceMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int application_performance_monitoring_can_have_content(const ApplicationPerformanceMonitoring *self);
 ApplicationPerformanceMonitoringContentForm application_performance_monitoring_content(const ApplicationPerformanceMonitoring *self);
 // Tracing settings.
@@ -4904,7 +4905,7 @@ ApplicationPerformanceMonitoringUserSignalsForm application_performance_monitori
 // Binds a ApplicationSecurityRequirements facade to a document and a path (path copied).
 void application_security_requirements_init(ApplicationSecurityRequirements *self, SpecDocument *doc, const char *path);
 void application_security_requirements_free(ApplicationSecurityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int application_security_requirements_can_have_content(const ApplicationSecurityRequirements *self);
 ApplicationSecurityRequirementsContentForm application_security_requirements_content(const ApplicationSecurityRequirements *self);
 // Core protection controls.
@@ -4918,7 +4919,7 @@ ApplicationSecurityRequirementsApiForm application_security_requirements_api(con
 // Binds a ApprovalRecord facade to a document and a path (path copied).
 void approval_record_init(ApprovalRecord *self, SpecDocument *doc, const char *path);
 void approval_record_free(ApprovalRecord *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int approval_record_can_have_content(const ApprovalRecord *self);
 ApprovalRecordContentForm approval_record_content(const ApprovalRecord *self);
 
@@ -4926,7 +4927,7 @@ ApprovalRecordContentForm approval_record_content(const ApprovalRecord *self);
 // Binds a ArchitectureComponentEntry facade to a document and a path (path copied).
 void architecture_component_entry_init(ArchitectureComponentEntry *self, SpecDocument *doc, const char *path);
 void architecture_component_entry_free(ArchitectureComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int architecture_component_entry_can_have_content(const ArchitectureComponentEntry *self);
 ArchitectureComponentEntryContentForm architecture_component_entry_content(const ArchitectureComponentEntry *self);
 // Purpose and ownership boundaries.
@@ -4944,7 +4945,7 @@ ArchitectureComponentEntryOwnershipForm architecture_component_entry_ownership(c
 // Binds a ArchitectureDecisionRecord facade to a document and a path (path copied).
 void architecture_decision_record_init(ArchitectureDecisionRecord *self, SpecDocument *doc, const char *path);
 void architecture_decision_record_free(ArchitectureDecisionRecord *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int architecture_decision_record_can_have_content(const ArchitectureDecisionRecord *self);
 ArchitectureDecisionRecordContentForm architecture_decision_record_content(const ArchitectureDecisionRecord *self);
 // Decision context and constraints.
@@ -4960,7 +4961,7 @@ ArchitectureDecisionRecordRelationsForm architecture_decision_record_relations(c
 // Binds a ArchitectureOverview facade to a document and a path (path copied).
 void architecture_overview_init(ArchitectureOverview *self, SpecDocument *doc, const char *path);
 void architecture_overview_free(ArchitectureOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int architecture_overview_can_have_content(const ArchitectureOverview *self);
 ArchitectureOverviewContentForm architecture_overview_content(const ArchitectureOverview *self);
 // Architecture drivers.
@@ -4976,7 +4977,7 @@ ArchitectureOverviewComplianceForm architecture_overview_compliance(const Archit
 // Binds a ArchitecturePrincipleEntry facade to a document and a path (path copied).
 void architecture_principle_entry_init(ArchitecturePrincipleEntry *self, SpecDocument *doc, const char *path);
 void architecture_principle_entry_free(ArchitecturePrincipleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int architecture_principle_entry_can_have_content(const ArchitecturePrincipleEntry *self);
 ArchitecturePrincipleEntryContentForm architecture_principle_entry_content(const ArchitecturePrincipleEntry *self);
 // Rationale and practical implications.
@@ -4992,7 +4993,7 @@ ArchitecturePrincipleEntryGovernanceForm architecture_principle_entry_governance
 // Binds a ArchitectureStyle facade to a document and a path (path copied).
 void architecture_style_init(ArchitectureStyle *self, SpecDocument *doc, const char *path);
 void architecture_style_free(ArchitectureStyle *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int architecture_style_can_have_content(const ArchitectureStyle *self);
 char *architecture_style_content(const ArchitectureStyle *self);
 void architecture_style_set_content(ArchitectureStyle *self, const char *value);
@@ -5024,7 +5025,7 @@ SomList architecture_style_decision_records(const ArchitectureStyle *self);
 // Binds a AssumptionConstraintDependencyRegister facade to a document and a path (path copied).
 void assumption_constraint_dependency_register_init(AssumptionConstraintDependencyRegister *self, SpecDocument *doc, const char *path);
 void assumption_constraint_dependency_register_free(AssumptionConstraintDependencyRegister *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int assumption_constraint_dependency_register_can_have_content(const AssumptionConstraintDependencyRegister *self);
 char *assumption_constraint_dependency_register_content(const AssumptionConstraintDependencyRegister *self);
 void assumption_constraint_dependency_register_set_content(AssumptionConstraintDependencyRegister *self, const char *value);
@@ -5046,7 +5047,7 @@ SomList assumption_constraint_dependency_register_dependencies(const AssumptionC
 // Binds a AssumptionRegisterEntry facade to a document and a path (path copied).
 void assumption_register_entry_init(AssumptionRegisterEntry *self, SpecDocument *doc, const char *path);
 void assumption_register_entry_free(AssumptionRegisterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int assumption_register_entry_can_have_content(const AssumptionRegisterEntry *self);
 AssumptionRegisterEntryContentForm assumption_register_entry_content(const AssumptionRegisterEntry *self);
 
@@ -5054,7 +5055,7 @@ AssumptionRegisterEntryContentForm assumption_register_entry_content(const Assum
 // Binds a AssumptionsConstraintsDependencies facade to a document and a path (path copied).
 void assumptions_constraints_dependencies_init(AssumptionsConstraintsDependencies *self, SpecDocument *doc, const char *path);
 void assumptions_constraints_dependencies_free(AssumptionsConstraintsDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int assumptions_constraints_dependencies_can_have_content(const AssumptionsConstraintsDependencies *self);
 char *assumptions_constraints_dependencies_content(const AssumptionsConstraintsDependencies *self);
 void assumptions_constraints_dependencies_set_content(AssumptionsConstraintsDependencies *self, const char *value);
@@ -5070,7 +5071,7 @@ AssumptionConstraintDependencyRegister assumptions_constraints_dependencies_regi
 // Binds a AuditAndLogging facade to a document and a path (path copied).
 void audit_and_logging_init(AuditAndLogging *self, SpecDocument *doc, const char *path);
 void audit_and_logging_free(AuditAndLogging *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_and_logging_can_have_content(const AuditAndLogging *self);
 char *audit_and_logging_content(const AuditAndLogging *self);
 void audit_and_logging_set_content(AuditAndLogging *self, const char *value);
@@ -5085,7 +5086,7 @@ ComplianceReporting audit_and_logging_compliance_reporting(const AuditAndLogging
 // Binds a AuditEntry facade to a document and a path (path copied).
 void audit_entry_init(AuditEntry *self, SpecDocument *doc, const char *path);
 void audit_entry_free(AuditEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_entry_can_have_content(const AuditEntry *self);
 AuditEntryContentForm audit_entry_content(const AuditEntry *self);
 
@@ -5093,7 +5094,7 @@ AuditEntryContentForm audit_entry_content(const AuditEntry *self);
 // Binds a AuditEvidenceRequirements facade to a document and a path (path copied).
 void audit_evidence_requirements_init(AuditEvidenceRequirements *self, SpecDocument *doc, const char *path);
 void audit_evidence_requirements_free(AuditEvidenceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_evidence_requirements_can_have_content(const AuditEvidenceRequirements *self);
 AuditEvidenceRequirementsContentForm audit_evidence_requirements_content(const AuditEvidenceRequirements *self);
 // Evidence types required.
@@ -5104,7 +5105,7 @@ SomList audit_evidence_requirements_evidence_types(const AuditEvidenceRequiremen
 // Binds a AuditEvidenceTypeEntry facade to a document and a path (path copied).
 void audit_evidence_type_entry_init(AuditEvidenceTypeEntry *self, SpecDocument *doc, const char *path);
 void audit_evidence_type_entry_free(AuditEvidenceTypeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_evidence_type_entry_can_have_content(const AuditEvidenceTypeEntry *self);
 AuditEvidenceTypeEntryContentForm audit_evidence_type_entry_content(const AuditEvidenceTypeEntry *self);
 
@@ -5115,7 +5116,7 @@ AuditEvidenceTypeEntryContentForm audit_evidence_type_entry_content(const AuditE
 // Binds a AuditLogFormat facade to a document and a path (path copied).
 void audit_log_format_init(AuditLogFormat *self, SpecDocument *doc, const char *path);
 void audit_log_format_free(AuditLogFormat *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_log_format_can_have_content(const AuditLogFormat *self);
 char *audit_log_format_content(const AuditLogFormat *self);
 void audit_log_format_set_content(AuditLogFormat *self, const char *value);
@@ -5136,7 +5137,7 @@ LogRetentionPolicy audit_log_format_log_retention(const AuditLogFormat *self);
 // Binds a AuditRequirements facade to a document and a path (path copied).
 void audit_requirements_init(AuditRequirements *self, SpecDocument *doc, const char *path);
 void audit_requirements_free(AuditRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int audit_requirements_can_have_content(const AuditRequirements *self);
 char *audit_requirements_content(const AuditRequirements *self);
 void audit_requirements_set_content(AuditRequirements *self, const char *value);
@@ -5150,7 +5151,7 @@ AuditEvidenceRequirements audit_requirements_evidence_requirements(const AuditRe
 // Binds a Authentication facade to a document and a path (path copied).
 void authentication_init(Authentication *self, SpecDocument *doc, const char *path);
 void authentication_free(Authentication *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_can_have_content(const Authentication *self);
 char *authentication_content(const Authentication *self);
 void authentication_set_content(Authentication *self, const char *value);
@@ -5170,7 +5171,7 @@ SessionManagement authentication_session_management(const Authentication *self);
 // Binds a AuthenticationErrorHandling facade to a document and a path (path copied).
 void authentication_error_handling_init(AuthenticationErrorHandling *self, SpecDocument *doc, const char *path);
 void authentication_error_handling_free(AuthenticationErrorHandling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_error_handling_can_have_content(const AuthenticationErrorHandling *self);
 char *authentication_error_handling_content(const AuthenticationErrorHandling *self);
 void authentication_error_handling_set_content(AuthenticationErrorHandling *self, const char *value);
@@ -5183,7 +5184,7 @@ void authentication_error_handling_set_content(AuthenticationErrorHandling *self
 // Binds a AuthenticationEventPolicy facade to a document and a path (path copied).
 void authentication_event_policy_init(AuthenticationEventPolicy *self, SpecDocument *doc, const char *path);
 void authentication_event_policy_free(AuthenticationEventPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_event_policy_can_have_content(const AuthenticationEventPolicy *self);
 AuthenticationEventPolicyContentForm authentication_event_policy_content(const AuthenticationEventPolicy *self);
 // Additional Notes (text).
@@ -5198,7 +5199,7 @@ AuthenticationEventPolicyContentForm authentication_event_policy_content(const A
 // Binds a AuthenticationFlow facade to a document and a path (path copied).
 void authentication_flow_init(AuthenticationFlow *self, SpecDocument *doc, const char *path);
 void authentication_flow_free(AuthenticationFlow *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_flow_can_have_content(const AuthenticationFlow *self);
 char *authentication_flow_content(const AuthenticationFlow *self);
 void authentication_flow_set_content(AuthenticationFlow *self, const char *value);
@@ -5229,7 +5230,7 @@ SomList authentication_flow_login_flow_steps(const AuthenticationFlow *self);
 // Binds a AuthenticationMethodEntry facade to a document and a path (path copied).
 void authentication_method_entry_init(AuthenticationMethodEntry *self, SpecDocument *doc, const char *path);
 void authentication_method_entry_free(AuthenticationMethodEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_method_entry_can_have_content(const AuthenticationMethodEntry *self);
 AuthenticationMethodEntryContentForm authentication_method_entry_content(const AuthenticationMethodEntry *self);
 // Security posture of the authentication method.
@@ -5250,7 +5251,7 @@ AuthenticationMethodEntryOperationsForm authentication_method_entry_operations(c
 // Binds a AuthenticationMethods facade to a document and a path (path copied).
 void authentication_methods_init(AuthenticationMethods *self, SpecDocument *doc, const char *path);
 void authentication_methods_free(AuthenticationMethods *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authentication_methods_can_have_content(const AuthenticationMethods *self);
 char *authentication_methods_content(const AuthenticationMethods *self);
 void authentication_methods_set_content(AuthenticationMethods *self, const char *value);
@@ -5280,7 +5281,7 @@ SomList authentication_methods_items(const AuthenticationMethods *self);
 // Binds a AuthorizationComplianceFollowUp facade to a document and a path (path copied).
 void authorization_compliance_follow_up_init(AuthorizationComplianceFollowUp *self, SpecDocument *doc, const char *path);
 void authorization_compliance_follow_up_free(AuthorizationComplianceFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authorization_compliance_follow_up_can_have_content(const AuthorizationComplianceFollowUp *self);
 char *authorization_compliance_follow_up_content(const AuthorizationComplianceFollowUp *self);
 void authorization_compliance_follow_up_set_content(AuthorizationComplianceFollowUp *self, const char *value);
@@ -5293,7 +5294,7 @@ void authorization_compliance_follow_up_set_content(AuthorizationComplianceFollo
 // Binds a AuthorizationEventPolicy facade to a document and a path (path copied).
 void authorization_event_policy_init(AuthorizationEventPolicy *self, SpecDocument *doc, const char *path);
 void authorization_event_policy_free(AuthorizationEventPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authorization_event_policy_can_have_content(const AuthorizationEventPolicy *self);
 AuthorizationEventPolicyContentForm authorization_event_policy_content(const AuthorizationEventPolicy *self);
 // Additional Notes (text).
@@ -5303,7 +5304,7 @@ AuthorizationEventPolicyContentForm authorization_event_policy_content(const Aut
 // Binds a AuthorizationGroupEntry facade to a document and a path (path copied).
 void authorization_group_entry_init(AuthorizationGroupEntry *self, SpecDocument *doc, const char *path);
 void authorization_group_entry_free(AuthorizationGroupEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authorization_group_entry_can_have_content(const AuthorizationGroupEntry *self);
 AuthorizationGroupEntryContentForm authorization_group_entry_content(const AuthorizationGroupEntry *self);
 // Contains 0+× RoleReference.
@@ -5319,7 +5320,7 @@ SomList authorization_group_entry_contained_roles(const AuthorizationGroupEntry 
 // Binds a AuthorizationModel facade to a document and a path (path copied).
 void authorization_model_init(AuthorizationModel *self, SpecDocument *doc, const char *path);
 void authorization_model_free(AuthorizationModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authorization_model_can_have_content(const AuthorizationModel *self);
 char *authorization_model_content(const AuthorizationModel *self);
 void authorization_model_set_content(AuthorizationModel *self, const char *value);
@@ -5344,7 +5345,7 @@ PermissionEvaluationBehavior authorization_model_permission_evaluation(const Aut
 // Binds a AuthorizationRoleEntry facade to a document and a path (path copied).
 void authorization_role_entry_init(AuthorizationRoleEntry *self, SpecDocument *doc, const char *path);
 void authorization_role_entry_free(AuthorizationRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int authorization_role_entry_can_have_content(const AuthorizationRoleEntry *self);
 AuthorizationRoleEntryContentForm authorization_role_entry_content(const AuthorizationRoleEntry *self);
 // Scope and inheritance metadata.
@@ -5378,7 +5379,7 @@ SomList authorization_role_entry_typical_holders(const AuthorizationRoleEntry *s
 // Binds a Availability facade to a document and a path (path copied).
 void availability_init(Availability *self, SpecDocument *doc, const char *path);
 void availability_free(Availability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int availability_can_have_content(const Availability *self);
 AvailabilityContentForm availability_content(const Availability *self);
 // Operating-hour expectations.
@@ -5399,7 +5400,7 @@ AvailabilityVerificationForm availability_verification(const Availability *self)
 // Binds a BackupAndRecoverySection facade to a document and a path (path copied).
 void backup_and_recovery_section_init(BackupAndRecoverySection *self, SpecDocument *doc, const char *path);
 void backup_and_recovery_section_free(BackupAndRecoverySection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_and_recovery_section_can_have_content(const BackupAndRecoverySection *self);
 char *backup_and_recovery_section_content(const BackupAndRecoverySection *self);
 void backup_and_recovery_section_set_content(BackupAndRecoverySection *self, const char *value);
@@ -5427,7 +5428,7 @@ BackupCompliance backup_and_recovery_section_compliance(const BackupAndRecoveryS
 // Binds a BackupCompliance facade to a document and a path (path copied).
 void backup_compliance_init(BackupCompliance *self, SpecDocument *doc, const char *path);
 void backup_compliance_free(BackupCompliance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_compliance_can_have_content(const BackupCompliance *self);
 BackupComplianceContentForm backup_compliance_content(const BackupCompliance *self);
 // Audit controls.
@@ -5441,7 +5442,7 @@ BackupComplianceLegalHoldForm backup_compliance_legal_hold(const BackupComplianc
 // Binds a BackupDataClassification facade to a document and a path (path copied).
 void backup_data_classification_init(BackupDataClassification *self, SpecDocument *doc, const char *path);
 void backup_data_classification_free(BackupDataClassification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_data_classification_can_have_content(const BackupDataClassification *self);
 BackupDataClassificationContentForm backup_data_classification_content(const BackupDataClassification *self);
 // Included data categories.
@@ -5457,7 +5458,7 @@ BackupDataClassificationExclusionsForm backup_data_classification_exclusions(con
 // Binds a BackupEncryptionPolicy facade to a document and a path (path copied).
 void backup_encryption_policy_init(BackupEncryptionPolicy *self, SpecDocument *doc, const char *path);
 void backup_encryption_policy_free(BackupEncryptionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_encryption_policy_can_have_content(const BackupEncryptionPolicy *self);
 char *backup_encryption_policy_content(const BackupEncryptionPolicy *self);
 void backup_encryption_policy_set_content(BackupEncryptionPolicy *self, const char *value);
@@ -5468,7 +5469,7 @@ void backup_encryption_policy_set_content(BackupEncryptionPolicy *self, const ch
 // Binds a BackupInfrastructure facade to a document and a path (path copied).
 void backup_infrastructure_init(BackupInfrastructure *self, SpecDocument *doc, const char *path);
 void backup_infrastructure_free(BackupInfrastructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_infrastructure_can_have_content(const BackupInfrastructure *self);
 BackupInfrastructureContentForm backup_infrastructure_content(const BackupInfrastructure *self);
 // Performance and secondary storage.
@@ -5484,7 +5485,7 @@ BackupInfrastructureSecurityForm backup_infrastructure_security(const BackupInfr
 // Binds a BackupPolicyEntry facade to a document and a path (path copied).
 void backup_policy_entry_init(BackupPolicyEntry *self, SpecDocument *doc, const char *path);
 void backup_policy_entry_free(BackupPolicyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_policy_entry_can_have_content(const BackupPolicyEntry *self);
 BackupPolicyEntryContentForm backup_policy_entry_content(const BackupPolicyEntry *self);
 // Backup type configuration.
@@ -5500,7 +5501,7 @@ BackupPolicyEntryStorageForm backup_policy_entry_storage(const BackupPolicyEntry
 // Binds a BackupVerification facade to a document and a path (path copied).
 void backup_verification_init(BackupVerification *self, SpecDocument *doc, const char *path);
 void backup_verification_free(BackupVerification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backup_verification_can_have_content(const BackupVerification *self);
 BackupVerificationContentForm backup_verification_content(const BackupVerification *self);
 // Recovery testing.
@@ -5514,7 +5515,7 @@ BackupVerificationDocumentationForm backup_verification_documentation(const Back
 // Binds a BackwardsCompatibilityRequirements facade to a document and a path (path copied).
 void backwards_compatibility_requirements_init(BackwardsCompatibilityRequirements *self, SpecDocument *doc, const char *path);
 void backwards_compatibility_requirements_free(BackwardsCompatibilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int backwards_compatibility_requirements_can_have_content(const BackwardsCompatibilityRequirements *self);
 BackwardsCompatibilityRequirementsContentForm backwards_compatibility_requirements_content(const BackwardsCompatibilityRequirements *self);
 // Data compatibility requirements.
@@ -5530,7 +5531,7 @@ BackwardsCompatibilityRequirementsCommunicationForm backwards_compatibility_requ
 // Binds a BandwidthRequirements facade to a document and a path (path copied).
 void bandwidth_requirements_init(BandwidthRequirements *self, SpecDocument *doc, const char *path);
 void bandwidth_requirements_free(BandwidthRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int bandwidth_requirements_can_have_content(const BandwidthRequirements *self);
 BandwidthRequirementsContentForm bandwidth_requirements_content(const BandwidthRequirements *self);
 // Directional bandwidth requirements.
@@ -5546,7 +5547,7 @@ BandwidthRequirementsQosForm bandwidth_requirements_qos(const BandwidthRequireme
 // Binds a BasicTechnicalRequirements facade to a document and a path (path copied).
 void basic_technical_requirements_init(BasicTechnicalRequirements *self, SpecDocument *doc, const char *path);
 void basic_technical_requirements_free(BasicTechnicalRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int basic_technical_requirements_can_have_content(const BasicTechnicalRequirements *self);
 char *basic_technical_requirements_content(const BasicTechnicalRequirements *self);
 void basic_technical_requirements_set_content(BasicTechnicalRequirements *self, const char *value);
@@ -5561,7 +5562,7 @@ DesignPatternsAndStandards basic_technical_requirements_design_patterns_and_stan
 // Binds a BatchJobManagement facade to a document and a path (path copied).
 void batch_job_management_init(BatchJobManagement *self, SpecDocument *doc, const char *path);
 void batch_job_management_free(BatchJobManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int batch_job_management_can_have_content(const BatchJobManagement *self);
 BatchJobManagementContentForm batch_job_management_content(const BatchJobManagement *self);
 // Supported job categories.
@@ -5575,7 +5576,7 @@ BatchJobManagementMonitoringForm batch_job_management_monitoring(const BatchJobM
 // Binds a BehaviorRuleEntry facade to a document and a path (path copied).
 void behavior_rule_entry_init(BehaviorRuleEntry *self, SpecDocument *doc, const char *path);
 void behavior_rule_entry_free(BehaviorRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int behavior_rule_entry_can_have_content(const BehaviorRuleEntry *self);
 BehaviorRuleEntryContentForm behavior_rule_entry_content(const BehaviorRuleEntry *self);
 
@@ -5587,7 +5588,7 @@ BehaviorRuleEntryContentForm behavior_rule_entry_content(const BehaviorRuleEntry
 // Binds a BiometricAuthenticationPolicy facade to a document and a path (path copied).
 void biometric_authentication_policy_init(BiometricAuthenticationPolicy *self, SpecDocument *doc, const char *path);
 void biometric_authentication_policy_free(BiometricAuthenticationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int biometric_authentication_policy_can_have_content(const BiometricAuthenticationPolicy *self);
 char *biometric_authentication_policy_content(const BiometricAuthenticationPolicy *self);
 void biometric_authentication_policy_set_content(BiometricAuthenticationPolicy *self, const char *value);
@@ -5598,7 +5599,7 @@ void biometric_authentication_policy_set_content(BiometricAuthenticationPolicy *
 // Binds a BoundaryAssumptionEntry facade to a document and a path (path copied).
 void boundary_assumption_entry_init(BoundaryAssumptionEntry *self, SpecDocument *doc, const char *path);
 void boundary_assumption_entry_free(BoundaryAssumptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int boundary_assumption_entry_can_have_content(const BoundaryAssumptionEntry *self);
 BoundaryAssumptionEntryContentForm boundary_assumption_entry_content(const BoundaryAssumptionEntry *self);
 // Validation ownership and confidence.
@@ -5615,7 +5616,7 @@ BoundaryAssumptionEntryRiskForm boundary_assumption_entry_risk(const BoundaryAss
 // Binds a BoundaryAssumptions facade to a document and a path (path copied).
 void boundary_assumptions_init(BoundaryAssumptions *self, SpecDocument *doc, const char *path);
 void boundary_assumptions_free(BoundaryAssumptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int boundary_assumptions_can_have_content(const BoundaryAssumptions *self);
 // Overview of assumption categories and validation approach.
 // (skipped: assumptionApproach has no target type)
@@ -5631,7 +5632,7 @@ SomList boundary_assumptions_items(const BoundaryAssumptions *self);
 // Binds a BoundaryInteractionPatterns facade to a document and a path (path copied).
 void boundary_interaction_patterns_init(BoundaryInteractionPatterns *self, SpecDocument *doc, const char *path);
 void boundary_interaction_patterns_free(BoundaryInteractionPatterns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int boundary_interaction_patterns_can_have_content(const BoundaryInteractionPatterns *self);
 char *boundary_interaction_patterns_content(const BoundaryInteractionPatterns *self);
 void boundary_interaction_patterns_set_content(BoundaryInteractionPatterns *self, const char *value);
@@ -5640,7 +5641,7 @@ void boundary_interaction_patterns_set_content(BoundaryInteractionPatterns *self
 // Binds a BoundedContextEntry facade to a document and a path (path copied).
 void bounded_context_entry_init(BoundedContextEntry *self, SpecDocument *doc, const char *path);
 void bounded_context_entry_free(BoundedContextEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int bounded_context_entry_can_have_content(const BoundedContextEntry *self);
 BoundedContextEntryContentForm bounded_context_entry_content(const BoundedContextEntry *self);
 // Scope and language definitions.
@@ -5658,7 +5659,7 @@ BoundedContextEntryIntegrationForm bounded_context_entry_integration(const Bound
 // Binds a BreakpointConfiguration facade to a document and a path (path copied).
 void breakpoint_configuration_init(BreakpointConfiguration *self, SpecDocument *doc, const char *path);
 void breakpoint_configuration_free(BreakpointConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int breakpoint_configuration_can_have_content(const BreakpointConfiguration *self);
 BreakpointConfigurationBreakpointOverviewForm breakpoint_configuration_breakpoint_overview(const BreakpointConfiguration *self);
 // Breakpoint entries.
@@ -5669,7 +5670,7 @@ SomList breakpoint_configuration_breakpoints(const BreakpointConfiguration *self
 // Binds a BreakpointEntry facade to a document and a path (path copied).
 void breakpoint_entry_init(BreakpointEntry *self, SpecDocument *doc, const char *path);
 void breakpoint_entry_free(BreakpointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int breakpoint_entry_can_have_content(const BreakpointEntry *self);
 BreakpointEntryContentForm breakpoint_entry_content(const BreakpointEntry *self);
 // Grid and layout rules for this breakpoint.
@@ -5681,7 +5682,7 @@ BreakpointEntryScalingForm breakpoint_entry_scaling(const BreakpointEntry *self)
 // Binds a BrowserCompatibilityEntry facade to a document and a path (path copied).
 void browser_compatibility_entry_init(BrowserCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void browser_compatibility_entry_free(BrowserCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int browser_compatibility_entry_can_have_content(const BrowserCompatibilityEntry *self);
 BrowserCompatibilityEntryContentForm browser_compatibility_entry_content(const BrowserCompatibilityEntry *self);
 // Support level and priority.
@@ -5697,7 +5698,7 @@ BrowserCompatibilityEntryTestingForm browser_compatibility_entry_testing(const B
 // Binds a BrowserRequirementEntry facade to a document and a path (path copied).
 void browser_requirement_entry_init(BrowserRequirementEntry *self, SpecDocument *doc, const char *path);
 void browser_requirement_entry_free(BrowserRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int browser_requirement_entry_can_have_content(const BrowserRequirementEntry *self);
 BrowserRequirementEntryContentForm browser_requirement_entry_content(const BrowserRequirementEntry *self);
 // Support level and user share.
@@ -5713,7 +5714,7 @@ BrowserRequirementEntryIssuesForm browser_requirement_entry_issues(const Browser
 // Binds a BuildToolchainEntry facade to a document and a path (path copied).
 void build_toolchain_entry_init(BuildToolchainEntry *self, SpecDocument *doc, const char *path);
 void build_toolchain_entry_free(BuildToolchainEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int build_toolchain_entry_can_have_content(const BuildToolchainEntry *self);
 BuildToolchainEntryContentForm build_toolchain_entry_content(const BuildToolchainEntry *self);
 // Version requirements.
@@ -5733,7 +5734,7 @@ BuildToolchainEntryOperationsForm build_toolchain_entry_operations(const BuildTo
 // Binds a BuildToolsConfiguration facade to a document and a path (path copied).
 void build_tools_configuration_init(BuildToolsConfiguration *self, SpecDocument *doc, const char *path);
 void build_tools_configuration_free(BuildToolsConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int build_tools_configuration_can_have_content(const BuildToolsConfiguration *self);
 BuildToolsConfigurationContentForm build_tools_configuration_content(const BuildToolsConfiguration *self);
 // Build system settings.
@@ -5749,7 +5750,7 @@ BuildToolsConfigurationArtifactsForm build_tools_configuration_artifacts(const B
 // Binds a BusinessComponentEntry facade to a document and a path (path copied).
 void business_component_entry_init(BusinessComponentEntry *self, SpecDocument *doc, const char *path);
 void business_component_entry_free(BusinessComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_component_entry_can_have_content(const BusinessComponentEntry *self);
 BusinessComponentEntryContentForm business_component_entry_content(const BusinessComponentEntry *self);
 // Purpose and business rules.
@@ -5772,7 +5773,7 @@ BusinessComponentEntryReuseForm business_component_entry_reuse(const BusinessCom
 // Binds a BusinessDomain facade to a document and a path (path copied).
 void business_domain_init(BusinessDomain *self, SpecDocument *doc, const char *path);
 void business_domain_free(BusinessDomain *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_domain_can_have_content(const BusinessDomain *self);
 char *business_domain_content(const BusinessDomain *self);
 void business_domain_set_content(BusinessDomain *self, const char *value);
@@ -5798,7 +5799,7 @@ DomainEvents business_domain_domain_events(const BusinessDomain *self);
 // Binds a BusinessGoalEntry facade to a document and a path (path copied).
 void business_goal_entry_init(BusinessGoalEntry *self, SpecDocument *doc, const char *path);
 void business_goal_entry_free(BusinessGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_goal_entry_can_have_content(const BusinessGoalEntry *self);
 BusinessGoalEntryContentForm business_goal_entry_content(const BusinessGoalEntry *self);
 // Goal definition and priority.
@@ -5828,7 +5829,7 @@ GoalResources business_goal_entry_resources(const BusinessGoalEntry *self);
 // Binds a BusinessGoals facade to a document and a path (path copied).
 void business_goals_init(BusinessGoals *self, SpecDocument *doc, const char *path);
 void business_goals_free(BusinessGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_goals_can_have_content(const BusinessGoals *self);
 char *business_goals_content(const BusinessGoals *self);
 void business_goals_set_content(BusinessGoals *self, const char *value);
@@ -5840,7 +5841,7 @@ SomList business_goals_goals(const BusinessGoals *self);
 // Binds a BusinessMetricsSpec facade to a document and a path (path copied).
 void business_metrics_spec_init(BusinessMetricsSpec *self, SpecDocument *doc, const char *path);
 void business_metrics_spec_free(BusinessMetricsSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_metrics_spec_can_have_content(const BusinessMetricsSpec *self);
 BusinessMetricsSpecContentForm business_metrics_spec_content(const BusinessMetricsSpec *self);
 // Transaction and revenue metrics.
@@ -5858,7 +5859,7 @@ BusinessMetricsSpecOperationsForm business_metrics_spec_operations(const Busines
 // Binds a BusinessObjectAttributeEntry facade to a document and a path (path copied).
 void business_object_attribute_entry_init(BusinessObjectAttributeEntry *self, SpecDocument *doc, const char *path);
 void business_object_attribute_entry_free(BusinessObjectAttributeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_object_attribute_entry_can_have_content(const BusinessObjectAttributeEntry *self);
 BusinessObjectAttributeEntryContentForm business_object_attribute_entry_content(const BusinessObjectAttributeEntry *self);
 // Format and requirement details.
@@ -5876,7 +5877,7 @@ BusinessObjectAttributeEntryGovernanceForm business_object_attribute_entry_gover
 // Binds a BusinessObjectEntry facade to a document and a path (path copied).
 void business_object_entry_init(BusinessObjectEntry *self, SpecDocument *doc, const char *path);
 void business_object_entry_free(BusinessObjectEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_object_entry_can_have_content(const BusinessObjectEntry *self);
 BusinessObjectEntryIdentityForm business_object_entry_identity(const BusinessObjectEntry *self);
 BusinessObjectEntryDomainContextForm business_object_entry_domain_context(const BusinessObjectEntry *self);
@@ -5909,7 +5910,7 @@ SomList business_object_entry_invariants(const BusinessObjectEntry *self);
 // Binds a BusinessObjectModel facade to a document and a path (path copied).
 void business_object_model_init(BusinessObjectModel *self, SpecDocument *doc, const char *path);
 void business_object_model_free(BusinessObjectModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_object_model_can_have_content(const BusinessObjectModel *self);
 char *business_object_model_content(const BusinessObjectModel *self);
 void business_object_model_set_content(BusinessObjectModel *self, const char *value);
@@ -5926,7 +5927,7 @@ SomList business_object_model_objects(const BusinessObjectModel *self);
 // Binds a BusinessPainPoints facade to a document and a path (path copied).
 void business_pain_points_init(BusinessPainPoints *self, SpecDocument *doc, const char *path);
 void business_pain_points_free(BusinessPainPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_pain_points_can_have_content(const BusinessPainPoints *self);
 char *business_pain_points_content(const BusinessPainPoints *self);
 void business_pain_points_set_content(BusinessPainPoints *self, const char *value);
@@ -5944,7 +5945,7 @@ SomList business_pain_points_items(const BusinessPainPoints *self);
 // Binds a BusinessProcessDescriptions facade to a document and a path (path copied).
 void business_process_descriptions_init(BusinessProcessDescriptions *self, SpecDocument *doc, const char *path);
 void business_process_descriptions_free(BusinessProcessDescriptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_process_descriptions_can_have_content(const BusinessProcessDescriptions *self);
 char *business_process_descriptions_content(const BusinessProcessDescriptions *self);
 void business_process_descriptions_set_content(BusinessProcessDescriptions *self, const char *value);
@@ -5977,7 +5978,7 @@ SomList business_process_descriptions_process_metrics_and_kpis(const BusinessPro
 // Binds a BusinessProcessEntry facade to a document and a path (path copied).
 void business_process_entry_init(BusinessProcessEntry *self, SpecDocument *doc, const char *path);
 void business_process_entry_free(BusinessProcessEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_process_entry_can_have_content(const BusinessProcessEntry *self);
 // Process identification.
 ProcessIdentification business_process_entry_identification(const BusinessProcessEntry *self);
@@ -6006,7 +6007,7 @@ ProcessExceptions business_process_entry_exceptions(const BusinessProcessEntry *
 // Binds a BusinessRuleEntry facade to a document and a path (path copied).
 void business_rule_entry_init(BusinessRuleEntry *self, SpecDocument *doc, const char *path);
 void business_rule_entry_free(BusinessRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_rule_entry_can_have_content(const BusinessRuleEntry *self);
 BusinessRuleEntryIdentityForm business_rule_entry_identity(const BusinessRuleEntry *self);
 BusinessRuleEntryClassificationForm business_rule_entry_classification(const BusinessRuleEntry *self);
@@ -6030,7 +6031,7 @@ SomList business_rule_entry_examples(const BusinessRuleEntry *self);
 // Binds a BusinessRuleReferenceEntry facade to a document and a path (path copied).
 void business_rule_reference_entry_init(BusinessRuleReferenceEntry *self, SpecDocument *doc, const char *path);
 void business_rule_reference_entry_free(BusinessRuleReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int business_rule_reference_entry_can_have_content(const BusinessRuleReferenceEntry *self);
 BusinessRuleReferenceEntryContentForm business_rule_reference_entry_content(const BusinessRuleReferenceEntry *self);
 char *business_rule_reference_entry_rule_ref(const BusinessRuleReferenceEntry *self);
@@ -6040,7 +6041,7 @@ void business_rule_reference_entry_set_rule_ref(BusinessRuleReferenceEntry *self
 // Binds a CapacityPlanningSection facade to a document and a path (path copied).
 void capacity_planning_section_init(CapacityPlanningSection *self, SpecDocument *doc, const char *path);
 void capacity_planning_section_free(CapacityPlanningSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int capacity_planning_section_can_have_content(const CapacityPlanningSection *self);
 char *capacity_planning_section_content(const CapacityPlanningSection *self);
 void capacity_planning_section_set_content(CapacityPlanningSection *self, const char *value);
@@ -6063,7 +6064,7 @@ CapacityReviewProcess capacity_planning_section_capacity_review(const CapacityPl
 // Binds a CapacityReviewProcess facade to a document and a path (path copied).
 void capacity_review_process_init(CapacityReviewProcess *self, SpecDocument *doc, const char *path);
 void capacity_review_process_free(CapacityReviewProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int capacity_review_process_can_have_content(const CapacityReviewProcess *self);
 CapacityReviewProcessContentForm capacity_review_process_content(const CapacityReviewProcess *self);
 // Monitoring and forecasting inputs.
@@ -6077,7 +6078,7 @@ CapacityReviewProcessPlanningForm capacity_review_process_planning(const Capacit
 // Binds a CcbMemberEntry facade to a document and a path (path copied).
 void ccb_member_entry_init(CcbMemberEntry *self, SpecDocument *doc, const char *path);
 void ccb_member_entry_free(CcbMemberEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ccb_member_entry_can_have_content(const CcbMemberEntry *self);
 CcbMemberEntryContentForm ccb_member_entry_content(const CcbMemberEntry *self);
 
@@ -6088,7 +6089,7 @@ CcbMemberEntryContentForm ccb_member_entry_content(const CcbMemberEntry *self);
 // Binds a CertificateAuthenticationPolicy facade to a document and a path (path copied).
 void certificate_authentication_policy_init(CertificateAuthenticationPolicy *self, SpecDocument *doc, const char *path);
 void certificate_authentication_policy_free(CertificateAuthenticationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int certificate_authentication_policy_can_have_content(const CertificateAuthenticationPolicy *self);
 char *certificate_authentication_policy_content(const CertificateAuthenticationPolicy *self);
 void certificate_authentication_policy_set_content(CertificateAuthenticationPolicy *self, const char *value);
@@ -6099,7 +6100,7 @@ void certificate_authentication_policy_set_content(CertificateAuthenticationPoli
 // Binds a CertificateManagement facade to a document and a path (path copied).
 void certificate_management_init(CertificateManagement *self, SpecDocument *doc, const char *path);
 void certificate_management_free(CertificateManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int certificate_management_can_have_content(const CertificateManagement *self);
 CertificateManagementContentForm certificate_management_content(const CertificateManagement *self);
 // Key specifications.
@@ -6119,7 +6120,7 @@ CertificateManagementMonitoringForm certificate_management_monitoring(const Cert
 // Binds a CertificateManagementPolicy facade to a document and a path (path copied).
 void certificate_management_policy_init(CertificateManagementPolicy *self, SpecDocument *doc, const char *path);
 void certificate_management_policy_free(CertificateManagementPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int certificate_management_policy_can_have_content(const CertificateManagementPolicy *self);
 char *certificate_management_policy_content(const CertificateManagementPolicy *self);
 void certificate_management_policy_set_content(CertificateManagementPolicy *self, const char *value);
@@ -6130,7 +6131,7 @@ void certificate_management_policy_set_content(CertificateManagementPolicy *self
 // Binds a CertificationEntry facade to a document and a path (path copied).
 void certification_entry_init(CertificationEntry *self, SpecDocument *doc, const char *path);
 void certification_entry_free(CertificationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int certification_entry_can_have_content(const CertificationEntry *self);
 CertificationEntryContentForm certification_entry_content(const CertificationEntry *self);
 // Description and audience.
@@ -6148,7 +6149,7 @@ CertificationEntrySupportForm certification_entry_support(const CertificationEnt
 // Binds a CertificationRequirementsSection facade to a document and a path (path copied).
 void certification_requirements_section_init(CertificationRequirementsSection *self, SpecDocument *doc, const char *path);
 void certification_requirements_section_free(CertificationRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int certification_requirements_section_can_have_content(const CertificationRequirementsSection *self);
 CertificationRequirementsSectionContentForm certification_requirements_section_content(const CertificationRequirementsSection *self);
 // Certification process.
@@ -6166,7 +6167,7 @@ CertificationRequirementsSectionMarketingForm certification_requirements_section
 // Binds a ChangeCategoryEntry facade to a document and a path (path copied).
 void change_category_entry_init(ChangeCategoryEntry *self, SpecDocument *doc, const char *path);
 void change_category_entry_free(ChangeCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_category_entry_can_have_content(const ChangeCategoryEntry *self);
 ChangeCategoryEntryContentForm change_category_entry_content(const ChangeCategoryEntry *self);
 // Scope and example changes.
@@ -6182,7 +6183,7 @@ ChangeCategoryEntryGovernanceForm change_category_entry_governance(const ChangeC
 // Binds a ChangeControlBoard facade to a document and a path (path copied).
 void change_control_board_init(ChangeControlBoard *self, SpecDocument *doc, const char *path);
 void change_control_board_free(ChangeControlBoard *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_control_board_can_have_content(const ChangeControlBoard *self);
 ChangeControlBoardContentForm change_control_board_content(const ChangeControlBoard *self);
 // Regular meeting cadence details.
@@ -6202,7 +6203,7 @@ SomList change_control_board_members(const ChangeControlBoard *self);
 // Binds a ChangeImpactCriteria facade to a document and a path (path copied).
 void change_impact_criteria_init(ChangeImpactCriteria *self, SpecDocument *doc, const char *path);
 void change_impact_criteria_free(ChangeImpactCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_impact_criteria_can_have_content(const ChangeImpactCriteria *self);
 char *change_impact_criteria_content(const ChangeImpactCriteria *self);
 void change_impact_criteria_set_content(ChangeImpactCriteria *self, const char *value);
@@ -6219,7 +6220,7 @@ SomList change_impact_criteria_items(const ChangeImpactCriteria *self);
 // Binds a ChangeImpactCriterionEntry facade to a document and a path (path copied).
 void change_impact_criterion_entry_init(ChangeImpactCriterionEntry *self, SpecDocument *doc, const char *path);
 void change_impact_criterion_entry_free(ChangeImpactCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_impact_criterion_entry_can_have_content(const ChangeImpactCriterionEntry *self);
 ChangeImpactCriterionEntryContentForm change_impact_criterion_entry_content(const ChangeImpactCriterionEntry *self);
 // Threshold levels.
@@ -6235,7 +6236,7 @@ ChangeImpactCriterionEntryGovernanceForm change_impact_criterion_entry_governanc
 // Binds a ChangeNotificationRules facade to a document and a path (path copied).
 void change_notification_rules_init(ChangeNotificationRules *self, SpecDocument *doc, const char *path);
 void change_notification_rules_free(ChangeNotificationRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_notification_rules_can_have_content(const ChangeNotificationRules *self);
 ChangeNotificationRulesContentForm change_notification_rules_content(const ChangeNotificationRules *self);
 
@@ -6247,7 +6248,7 @@ ChangeNotificationRulesContentForm change_notification_rules_content(const Chang
 // Binds a ChangeProcedure facade to a document and a path (path copied).
 void change_procedure_init(ChangeProcedure *self, SpecDocument *doc, const char *path);
 void change_procedure_free(ChangeProcedure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_procedure_can_have_content(const ChangeProcedure *self);
 char *change_procedure_content(const ChangeProcedure *self);
 void change_procedure_set_content(ChangeProcedure *self, const char *value);
@@ -6270,7 +6271,7 @@ SomList change_procedure_change_categories(const ChangeProcedure *self);
 // Binds a ChangeProcess facade to a document and a path (path copied).
 void change_process_init(ChangeProcess *self, SpecDocument *doc, const char *path);
 void change_process_free(ChangeProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_process_can_have_content(const ChangeProcess *self);
 ChangeProcessContentForm change_process_content(const ChangeProcess *self);
 // Overview diagram (e.g. Mermaid or image reference).
@@ -6291,7 +6292,7 @@ SomList change_process_notification_rules(const ChangeProcess *self);
 // Binds a ChangeReadinessAssessment facade to a document and a path (path copied).
 void change_readiness_assessment_init(ChangeReadinessAssessment *self, SpecDocument *doc, const char *path);
 void change_readiness_assessment_free(ChangeReadinessAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_readiness_assessment_can_have_content(const ChangeReadinessAssessment *self);
 // Overview of readiness assessment approach.
 ChangeReadinessAssessmentOverviewForm change_readiness_assessment_overview(const ChangeReadinessAssessment *self);
@@ -6303,7 +6304,7 @@ SomList change_readiness_assessment_readiness_criteria(const ChangeReadinessAsse
 // Binds a ChangeRoleEntry facade to a document and a path (path copied).
 void change_role_entry_init(ChangeRoleEntry *self, SpecDocument *doc, const char *path);
 void change_role_entry_free(ChangeRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_role_entry_can_have_content(const ChangeRoleEntry *self);
 ChangeRoleEntryContentForm change_role_entry_content(const ChangeRoleEntry *self);
 
@@ -6313,7 +6314,7 @@ ChangeRoleEntryContentForm change_role_entry_content(const ChangeRoleEntry *self
 // Binds a ChangeStepEntry facade to a document and a path (path copied).
 void change_step_entry_init(ChangeStepEntry *self, SpecDocument *doc, const char *path);
 void change_step_entry_free(ChangeStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int change_step_entry_can_have_content(const ChangeStepEntry *self);
 ChangeStepEntryContentForm change_step_entry_content(const ChangeStepEntry *self);
 // Responsibility assignments.
@@ -6331,7 +6332,7 @@ ChangeStepEntryDecisionForm change_step_entry_decision(const ChangeStepEntry *se
 // Binds a ChangedRoleCompetencies facade to a document and a path (path copied).
 void changed_role_competencies_init(ChangedRoleCompetencies *self, SpecDocument *doc, const char *path);
 void changed_role_competencies_free(ChangedRoleCompetencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_competencies_can_have_content(const ChangedRoleCompetencies *self);
 // New competencies required.
 // Returns the list view; element type: RoleCompetencyEntry (construct from item paths).
@@ -6352,7 +6353,7 @@ ChangedRoleCompetenciesGapAssessmentForm changed_role_competencies_gap_assessmen
 // Binds a ChangedRoleEntry facade to a document and a path (path copied).
 void changed_role_entry_init(ChangedRoleEntry *self, SpecDocument *doc, const char *path);
 void changed_role_entry_free(ChangedRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_entry_can_have_content(const ChangedRoleEntry *self);
 // Changed role identification.
 ChangedRoleIdentification changed_role_entry_identification(const ChangedRoleEntry *self);
@@ -6371,7 +6372,7 @@ ChangedRoleTransition changed_role_entry_transition(const ChangedRoleEntry *self
 // Binds a ChangedRoleIdentification facade to a document and a path (path copied).
 void changed_role_identification_init(ChangedRoleIdentification *self, SpecDocument *doc, const char *path);
 void changed_role_identification_free(ChangedRoleIdentification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_identification_can_have_content(const ChangedRoleIdentification *self);
 ChangedRoleIdentificationContentForm changed_role_identification_content(const ChangedRoleIdentification *self);
 // Current and future organizational placement.
@@ -6383,7 +6384,7 @@ ChangedRoleIdentificationTransitionForm changed_role_identification_transition(c
 // Binds a ChangedRoleResponsibilities facade to a document and a path (path copied).
 void changed_role_responsibilities_init(ChangedRoleResponsibilities *self, SpecDocument *doc, const char *path);
 void changed_role_responsibilities_free(ChangedRoleResponsibilities *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_responsibilities_can_have_content(const ChangedRoleResponsibilities *self);
 // Responsibilities being added.
 // Returns the list view; element type: ResponsibilityChangeEntry (construct from item paths).
@@ -6401,7 +6402,7 @@ ChangedRoleResponsibilitiesImpactSummaryForm changed_role_responsibilities_impac
 // Binds a ChangedRoleTransition facade to a document and a path (path copied).
 void changed_role_transition_init(ChangedRoleTransition *self, SpecDocument *doc, const char *path);
 void changed_role_transition_free(ChangedRoleTransition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changed_role_transition_can_have_content(const ChangedRoleTransition *self);
 ChangedRoleTransitionContentForm changed_role_transition_content(const ChangedRoleTransition *self);
 // Training preparation for the transition.
@@ -6417,7 +6418,7 @@ ChangedRoleTransitionSupportForm changed_role_transition_support(const ChangedRo
 // Binds a ChangesFromCurrentStructure facade to a document and a path (path copied).
 void changes_from_current_structure_init(ChangesFromCurrentStructure *self, SpecDocument *doc, const char *path);
 void changes_from_current_structure_free(ChangesFromCurrentStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int changes_from_current_structure_can_have_content(const ChangesFromCurrentStructure *self);
 ChangesFromCurrentStructureOverviewContentForm changes_from_current_structure_overview_content(const ChangesFromCurrentStructure *self);
 // Detailed description of structural changes.
@@ -6432,7 +6433,7 @@ SomList changes_from_current_structure_items(const ChangesFromCurrentStructure *
 // Binds a ChannelIntegrations facade to a document and a path (path copied).
 void channel_integrations_init(ChannelIntegrations *self, SpecDocument *doc, const char *path);
 void channel_integrations_free(ChannelIntegrations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int channel_integrations_can_have_content(const ChannelIntegrations *self);
 // Integration requirements content.
 char *channel_integrations_content(const ChannelIntegrations *self);
@@ -6442,7 +6443,7 @@ void channel_integrations_set_content(ChannelIntegrations *self, const char *val
 // Binds a CiCdPipelineConfiguration facade to a document and a path (path copied).
 void ci_cd_pipeline_configuration_init(CiCdPipelineConfiguration *self, SpecDocument *doc, const char *path);
 void ci_cd_pipeline_configuration_free(CiCdPipelineConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ci_cd_pipeline_configuration_can_have_content(const CiCdPipelineConfiguration *self);
 CiCdPipelineConfigurationContentForm ci_cd_pipeline_configuration_content(const CiCdPipelineConfiguration *self);
 // Pipeline stages.
@@ -6459,7 +6460,7 @@ SomList ci_cd_pipeline_configuration_environments(const CiCdPipelineConfiguratio
 // Binds a CiCdPipelineRequirements facade to a document and a path (path copied).
 void ci_cd_pipeline_requirements_init(CiCdPipelineRequirements *self, SpecDocument *doc, const char *path);
 void ci_cd_pipeline_requirements_free(CiCdPipelineRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ci_cd_pipeline_requirements_can_have_content(const CiCdPipelineRequirements *self);
 CiCdPipelineRequirementsContentForm ci_cd_pipeline_requirements_content(const CiCdPipelineRequirements *self);
 // Build stage settings.
@@ -6475,7 +6476,7 @@ CiCdPipelineRequirementsNotificationsForm ci_cd_pipeline_requirements_notificati
 // Binds a ClientAccessibilityRequirements facade to a document and a path (path copied).
 void client_accessibility_requirements_init(ClientAccessibilityRequirements *self, SpecDocument *doc, const char *path);
 void client_accessibility_requirements_free(ClientAccessibilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_accessibility_requirements_can_have_content(const ClientAccessibilityRequirements *self);
 ClientAccessibilityRequirementsContentForm client_accessibility_requirements_content(const ClientAccessibilityRequirements *self);
 // Visual accessibility support.
@@ -6497,7 +6498,7 @@ ClientAccessibilityRequirementsStandardsForm client_accessibility_requirements_s
 // Binds a ClientConfiguration facade to a document and a path (path copied).
 void client_configuration_init(ClientConfiguration *self, SpecDocument *doc, const char *path);
 void client_configuration_free(ClientConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_configuration_can_have_content(const ClientConfiguration *self);
 ClientConfigurationContentForm client_configuration_content(const ClientConfiguration *self);
 
@@ -6505,7 +6506,7 @@ ClientConfigurationContentForm client_configuration_content(const ClientConfigur
 // Binds a ClientHardwareRequirements facade to a document and a path (path copied).
 void client_hardware_requirements_init(ClientHardwareRequirements *self, SpecDocument *doc, const char *path);
 void client_hardware_requirements_free(ClientHardwareRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_hardware_requirements_can_have_content(const ClientHardwareRequirements *self);
 ClientHardwareRequirementsContentForm client_hardware_requirements_content(const ClientHardwareRequirements *self);
 // Memory requirements.
@@ -6521,7 +6522,7 @@ ClientHardwareRequirementsPeripheralsForm client_hardware_requirements_periphera
 // Binds a ClientNetworkRequirements facade to a document and a path (path copied).
 void client_network_requirements_init(ClientNetworkRequirements *self, SpecDocument *doc, const char *path);
 void client_network_requirements_free(ClientNetworkRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_network_requirements_can_have_content(const ClientNetworkRequirements *self);
 ClientNetworkRequirementsContentForm client_network_requirements_content(const ClientNetworkRequirements *self);
 // Latency requirements.
@@ -6540,7 +6541,7 @@ ClientNetworkRequirementsProxyForm client_network_requirements_proxy(const Clien
 // Binds a ClientRequirementsSection facade to a document and a path (path copied).
 void client_requirements_section_init(ClientRequirementsSection *self, SpecDocument *doc, const char *path);
 void client_requirements_section_free(ClientRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_requirements_section_can_have_content(const ClientRequirementsSection *self);
 char *client_requirements_section_content(const ClientRequirementsSection *self);
 void client_requirements_section_set_content(ClientRequirementsSection *self, const char *value);
@@ -6578,7 +6579,7 @@ DeviceSettings client_requirements_section_device_settings(const ClientRequireme
 // Binds a ClientSecurityRequirements facade to a document and a path (path copied).
 void client_security_requirements_init(ClientSecurityRequirements *self, SpecDocument *doc, const char *path);
 void client_security_requirements_free(ClientSecurityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_security_requirements_can_have_content(const ClientSecurityRequirements *self);
 ClientSecurityRequirementsContentForm client_security_requirements_content(const ClientSecurityRequirements *self);
 // Authentication requirements.
@@ -6594,7 +6595,7 @@ ClientSecurityRequirementsCodeProtectionForm client_security_requirements_code_p
 // Binds a CloudProviderRequirements facade to a document and a path (path copied).
 void cloud_provider_requirements_init(CloudProviderRequirements *self, SpecDocument *doc, const char *path);
 void cloud_provider_requirements_free(CloudProviderRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cloud_provider_requirements_can_have_content(const CloudProviderRequirements *self);
 CloudProviderRequirementsContentForm cloud_provider_requirements_content(const CloudProviderRequirements *self);
 // Account-structure requirements.
@@ -6610,7 +6611,7 @@ CloudProviderRequirementsGovernanceForm cloud_provider_requirements_governance(c
 // Binds a CloudServiceIntegrations facade to a document and a path (path copied).
 void cloud_service_integrations_init(CloudServiceIntegrations *self, SpecDocument *doc, const char *path);
 void cloud_service_integrations_free(CloudServiceIntegrations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cloud_service_integrations_can_have_content(const CloudServiceIntegrations *self);
 CloudServiceIntegrationsContentForm cloud_service_integrations_content(const CloudServiceIntegrations *self);
 // Managed services catalog.
@@ -6624,7 +6625,7 @@ CloudServiceIntegrationsComplianceForm cloud_service_integrations_compliance(con
 // Binds a CodeQualityMetrics facade to a document and a path (path copied).
 void code_quality_metrics_init(CodeQualityMetrics *self, SpecDocument *doc, const char *path);
 void code_quality_metrics_free(CodeQualityMetrics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int code_quality_metrics_can_have_content(const CodeQualityMetrics *self);
 CodeQualityMetricsContentForm code_quality_metrics_content(const CodeQualityMetrics *self);
 // Complexity limits.
@@ -6642,7 +6643,7 @@ CodeQualityMetricsToolingForm code_quality_metrics_tooling(const CodeQualityMetr
 // Binds a CodeReviewProcess facade to a document and a path (path copied).
 void code_review_process_init(CodeReviewProcess *self, SpecDocument *doc, const char *path);
 void code_review_process_free(CodeReviewProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int code_review_process_can_have_content(const CodeReviewProcess *self);
 CodeReviewProcessContentForm code_review_process_content(const CodeReviewProcess *self);
 // Reviewer requirements.
@@ -6658,7 +6659,7 @@ CodeReviewProcessMergeForm code_review_process_merge(const CodeReviewProcess *se
 // Binds a CodingStandardEntry facade to a document and a path (path copied).
 void coding_standard_entry_init(CodingStandardEntry *self, SpecDocument *doc, const char *path);
 void coding_standard_entry_free(CodingStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int coding_standard_entry_can_have_content(const CodingStandardEntry *self);
 CodingStandardEntryContentForm coding_standard_entry_content(const CodingStandardEntry *self);
 // Rule description.
@@ -6674,7 +6675,7 @@ CodingStandardEntryEnforcementForm coding_standard_entry_enforcement(const Codin
 // Binds a CodingStandardsSection facade to a document and a path (path copied).
 void coding_standards_section_init(CodingStandardsSection *self, SpecDocument *doc, const char *path);
 void coding_standards_section_free(CodingStandardsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int coding_standards_section_can_have_content(const CodingStandardsSection *self);
 CodingStandardsSectionContentForm coding_standards_section_content(const CodingStandardsSection *self);
 // Formatting and layout rules.
@@ -6692,7 +6693,7 @@ CodingStandardsSectionReviewForm coding_standards_section_review(const CodingSta
 // Binds a ColorPaletteEntry facade to a document and a path (path copied).
 void color_palette_entry_init(ColorPaletteEntry *self, SpecDocument *doc, const char *path);
 void color_palette_entry_free(ColorPaletteEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int color_palette_entry_can_have_content(const ColorPaletteEntry *self);
 ColorPaletteEntryContentForm color_palette_entry_content(const ColorPaletteEntry *self);
 
@@ -6703,7 +6704,7 @@ ColorPaletteEntryContentForm color_palette_entry_content(const ColorPaletteEntry
 // Binds a ColumnLevelSecurityPolicy facade to a document and a path (path copied).
 void column_level_security_policy_init(ColumnLevelSecurityPolicy *self, SpecDocument *doc, const char *path);
 void column_level_security_policy_free(ColumnLevelSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int column_level_security_policy_can_have_content(const ColumnLevelSecurityPolicy *self);
 char *column_level_security_policy_content(const ColumnLevelSecurityPolicy *self);
 void column_level_security_policy_set_content(ColumnLevelSecurityPolicy *self, const char *value);
@@ -6714,7 +6715,7 @@ void column_level_security_policy_set_content(ColumnLevelSecurityPolicy *self, c
 // Binds a CommitteeCharter facade to a document and a path (path copied).
 void committee_charter_init(CommitteeCharter *self, SpecDocument *doc, const char *path);
 void committee_charter_free(CommitteeCharter *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int committee_charter_can_have_content(const CommitteeCharter *self);
 CommitteeCharterContentForm committee_charter_content(const CommitteeCharter *self);
 
@@ -6724,7 +6725,7 @@ CommitteeCharterContentForm committee_charter_content(const CommitteeCharter *se
 // Binds a CommitteeMemberEntry facade to a document and a path (path copied).
 void committee_member_entry_init(CommitteeMemberEntry *self, SpecDocument *doc, const char *path);
 void committee_member_entry_free(CommitteeMemberEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int committee_member_entry_can_have_content(const CommitteeMemberEntry *self);
 CommitteeMemberEntryContentForm committee_member_entry_content(const CommitteeMemberEntry *self);
 // Specific responsibilities of this member.
@@ -6735,7 +6736,7 @@ SomList committee_member_entry_responsibilities(const CommitteeMemberEntry *self
 // Binds a CommitteeResponsibilityEntry facade to a document and a path (path copied).
 void committee_responsibility_entry_init(CommitteeResponsibilityEntry *self, SpecDocument *doc, const char *path);
 void committee_responsibility_entry_free(CommitteeResponsibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int committee_responsibility_entry_can_have_content(const CommitteeResponsibilityEntry *self);
 CommitteeResponsibilityEntryContentForm committee_responsibility_entry_content(const CommitteeResponsibilityEntry *self);
 
@@ -6749,7 +6750,7 @@ CommitteeResponsibilityEntryContentForm committee_responsibility_entry_content(c
 // Binds a CommunicationChannelEncryptionEntry facade to a document and a path (path copied).
 void communication_channel_encryption_entry_init(CommunicationChannelEncryptionEntry *self, SpecDocument *doc, const char *path);
 void communication_channel_encryption_entry_free(CommunicationChannelEncryptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_channel_encryption_entry_can_have_content(const CommunicationChannelEncryptionEntry *self);
 CommunicationChannelEncryptionEntryContentForm communication_channel_encryption_entry_content(const CommunicationChannelEncryptionEntry *self);
 
@@ -6757,7 +6758,7 @@ CommunicationChannelEncryptionEntryContentForm communication_channel_encryption_
 // Binds a CommunicationEventEntry facade to a document and a path (path copied).
 void communication_event_entry_init(CommunicationEventEntry *self, SpecDocument *doc, const char *path);
 void communication_event_entry_free(CommunicationEventEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_event_entry_can_have_content(const CommunicationEventEntry *self);
 CommunicationEventEntryContentForm communication_event_entry_content(const CommunicationEventEntry *self);
 // Delivery ownership.
@@ -6769,7 +6770,7 @@ CommunicationEventEntryOutcomeForm communication_event_entry_outcome(const Commu
 // Binds a CommunicationMatrix facade to a document and a path (path copied).
 void communication_matrix_init(CommunicationMatrix *self, SpecDocument *doc, const char *path);
 void communication_matrix_free(CommunicationMatrix *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_matrix_can_have_content(const CommunicationMatrix *self);
 CommunicationMatrixContentForm communication_matrix_content(const CommunicationMatrix *self);
 // Communication matrix diagram.
@@ -6783,7 +6784,7 @@ SomList communication_matrix_communication_types(const CommunicationMatrix *self
 // Binds a CommunicationPatterns facade to a document and a path (path copied).
 void communication_patterns_init(CommunicationPatterns *self, SpecDocument *doc, const char *path);
 void communication_patterns_free(CommunicationPatterns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_patterns_can_have_content(const CommunicationPatterns *self);
 CommunicationPatternsContentForm communication_patterns_content(const CommunicationPatterns *self);
 // Synchronous communication details.
@@ -6801,7 +6802,7 @@ CommunicationPatternsObservabilityForm communication_patterns_observability(cons
 // Binds a CommunicationRequirements facade to a document and a path (path copied).
 void communication_requirements_init(CommunicationRequirements *self, SpecDocument *doc, const char *path);
 void communication_requirements_free(CommunicationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_requirements_can_have_content(const CommunicationRequirements *self);
 char *communication_requirements_content(const CommunicationRequirements *self);
 void communication_requirements_set_content(CommunicationRequirements *self, const char *value);
@@ -6814,7 +6815,7 @@ ExternalConnectivitySection communication_requirements_external_connectivity(con
 // Binds a CommunicationToolsRequirements facade to a document and a path (path copied).
 void communication_tools_requirements_init(CommunicationToolsRequirements *self, SpecDocument *doc, const char *path);
 void communication_tools_requirements_free(CommunicationToolsRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_tools_requirements_can_have_content(const CommunicationToolsRequirements *self);
 CommunicationToolsRequirementsContentForm communication_tools_requirements_content(const CommunicationToolsRequirements *self);
 
@@ -6822,7 +6823,7 @@ CommunicationToolsRequirementsContentForm communication_tools_requirements_conte
 // Binds a CommunicationTypeEntry facade to a document and a path (path copied).
 void communication_type_entry_init(CommunicationTypeEntry *self, SpecDocument *doc, const char *path);
 void communication_type_entry_free(CommunicationTypeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int communication_type_entry_can_have_content(const CommunicationTypeEntry *self);
 CommunicationTypeEntryContentForm communication_type_entry_content(const CommunicationTypeEntry *self);
 
@@ -6835,7 +6836,7 @@ CommunicationTypeEntryContentForm communication_type_entry_content(const Communi
 // Binds a CompatibilityCharacteristic facade to a document and a path (path copied).
 void compatibility_characteristic_init(CompatibilityCharacteristic *self, SpecDocument *doc, const char *path);
 void compatibility_characteristic_free(CompatibilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compatibility_characteristic_can_have_content(const CompatibilityCharacteristic *self);
 CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic_compatibility_content(const CompatibilityCharacteristic *self);
 // Compatibility overview.
@@ -6848,7 +6849,7 @@ CompatibilityCharacteristicCompatibilityContentForm compatibility_characteristic
 // Binds a CompatibilityRequirementsSection facade to a document and a path (path copied).
 void compatibility_requirements_section_init(CompatibilityRequirementsSection *self, SpecDocument *doc, const char *path);
 void compatibility_requirements_section_free(CompatibilityRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compatibility_requirements_section_can_have_content(const CompatibilityRequirementsSection *self);
 char *compatibility_requirements_section_content(const CompatibilityRequirementsSection *self);
 void compatibility_requirements_section_set_content(CompatibilityRequirementsSection *self, const char *value);
@@ -6889,7 +6890,7 @@ InteroperabilityRequirements compatibility_requirements_section_interoperability
 // Binds a CompetencyEntry facade to a document and a path (path copied).
 void competency_entry_init(CompetencyEntry *self, SpecDocument *doc, const char *path);
 void competency_entry_free(CompetencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int competency_entry_can_have_content(const CompetencyEntry *self);
 CompetencyEntryContentForm competency_entry_content(const CompetencyEntry *self);
 
@@ -6897,7 +6898,7 @@ CompetencyEntryContentForm competency_entry_content(const CompetencyEntry *self)
 // Binds a CompetencyFramework facade to a document and a path (path copied).
 void competency_framework_init(CompetencyFramework *self, SpecDocument *doc, const char *path);
 void competency_framework_free(CompetencyFramework *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int competency_framework_can_have_content(const CompetencyFramework *self);
 // Framework overview.
 CompetencyFrameworkOverviewForm competency_framework_overview(const CompetencyFramework *self);
@@ -6915,7 +6916,7 @@ SomList competency_framework_leadership_competencies(const CompetencyFramework *
 // Binds a CompetencyLevelChangeEntry facade to a document and a path (path copied).
 void competency_level_change_entry_init(CompetencyLevelChangeEntry *self, SpecDocument *doc, const char *path);
 void competency_level_change_entry_free(CompetencyLevelChangeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int competency_level_change_entry_can_have_content(const CompetencyLevelChangeEntry *self);
 CompetencyLevelChangeEntryContentForm competency_level_change_entry_content(const CompetencyLevelChangeEntry *self);
 
@@ -6923,7 +6924,7 @@ CompetencyLevelChangeEntryContentForm competency_level_change_entry_content(cons
 // Binds a ComplianceAuditSchedule facade to a document and a path (path copied).
 void compliance_audit_schedule_init(ComplianceAuditSchedule *self, SpecDocument *doc, const char *path);
 void compliance_audit_schedule_free(ComplianceAuditSchedule *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_audit_schedule_can_have_content(const ComplianceAuditSchedule *self);
 ComplianceAuditScheduleContentForm compliance_audit_schedule_content(const ComplianceAuditSchedule *self);
 // Annual planning and scoping rules.
@@ -6941,7 +6942,7 @@ ComplianceAuditScheduleReportingForm compliance_audit_schedule_reporting(const C
 // Binds a ComplianceFramework facade to a document and a path (path copied).
 void compliance_framework_init(ComplianceFramework *self, SpecDocument *doc, const char *path);
 void compliance_framework_free(ComplianceFramework *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_framework_can_have_content(const ComplianceFramework *self);
 char *compliance_framework_content(const ComplianceFramework *self);
 void compliance_framework_set_content(ComplianceFramework *self, const char *value);
@@ -6950,7 +6951,7 @@ void compliance_framework_set_content(ComplianceFramework *self, const char *val
 // Binds a ComplianceMilestoneEntry facade to a document and a path (path copied).
 void compliance_milestone_entry_init(ComplianceMilestoneEntry *self, SpecDocument *doc, const char *path);
 void compliance_milestone_entry_free(ComplianceMilestoneEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_milestone_entry_can_have_content(const ComplianceMilestoneEntry *self);
 ComplianceMilestoneEntryContentForm compliance_milestone_entry_content(const ComplianceMilestoneEntry *self);
 
@@ -6961,7 +6962,7 @@ ComplianceMilestoneEntryContentForm compliance_milestone_entry_content(const Com
 // Binds a ComplianceReporting facade to a document and a path (path copied).
 void compliance_reporting_init(ComplianceReporting *self, SpecDocument *doc, const char *path);
 void compliance_reporting_free(ComplianceReporting *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_reporting_can_have_content(const ComplianceReporting *self);
 char *compliance_reporting_content(const ComplianceReporting *self);
 void compliance_reporting_set_content(ComplianceReporting *self, const char *value);
@@ -6980,7 +6981,7 @@ RegulatoryAuditSupport compliance_reporting_regulatory_audit_support(const Compl
 // Binds a ComplianceRequirementEntry facade to a document and a path (path copied).
 void compliance_requirement_entry_init(ComplianceRequirementEntry *self, SpecDocument *doc, const char *path);
 void compliance_requirement_entry_free(ComplianceRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_requirement_entry_can_have_content(const ComplianceRequirementEntry *self);
 ComplianceRequirementEntryContentForm compliance_requirement_entry_content(const ComplianceRequirementEntry *self);
 
@@ -6988,7 +6989,7 @@ ComplianceRequirementEntryContentForm compliance_requirement_entry_content(const
 // Binds a ComplianceVerificationSection facade to a document and a path (path copied).
 void compliance_verification_section_init(ComplianceVerificationSection *self, SpecDocument *doc, const char *path);
 void compliance_verification_section_free(ComplianceVerificationSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compliance_verification_section_can_have_content(const ComplianceVerificationSection *self);
 ComplianceVerificationSectionContentForm compliance_verification_section_content(const ComplianceVerificationSection *self);
 // Manual review procedures.
@@ -7008,7 +7009,7 @@ ComplianceVerificationSectionContinuousForm compliance_verification_section_cont
 // Binds a ComponentActionEntry facade to a document and a path (path copied).
 void component_action_entry_init(ComponentActionEntry *self, SpecDocument *doc, const char *path);
 void component_action_entry_free(ComponentActionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_action_entry_can_have_content(const ComponentActionEntry *self);
 ComponentActionEntryContentForm component_action_entry_content(const ComponentActionEntry *self);
 // Authorization and confirmation behavior.
@@ -7020,7 +7021,7 @@ ComponentActionEntryExecutionForm component_action_entry_execution(const Compone
 // Binds a ComponentDocs facade to a document and a path (path copied).
 void component_docs_init(ComponentDocs *self, SpecDocument *doc, const char *path);
 void component_docs_free(ComponentDocs *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_docs_can_have_content(const ComponentDocs *self);
 ComponentDocsContentForm component_docs_content(const ComponentDocs *self);
 
@@ -7032,7 +7033,7 @@ ComponentDocsContentForm component_docs_content(const ComponentDocs *self);
 // Binds a ComponentEntry facade to a document and a path (path copied).
 void component_entry_init(ComponentEntry *self, SpecDocument *doc, const char *path);
 void component_entry_free(ComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_entry_can_have_content(const ComponentEntry *self);
 ComponentEntryContentForm component_entry_content(const ComponentEntry *self);
 // Vendor information.
@@ -7071,7 +7072,7 @@ SomList component_entry_responsibilities(const ComponentEntry *self);
 // Binds a ComponentFamilyEntry facade to a document and a path (path copied).
 void component_family_entry_init(ComponentFamilyEntry *self, SpecDocument *doc, const char *path);
 void component_family_entry_free(ComponentFamilyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_family_entry_can_have_content(const ComponentFamilyEntry *self);
 ComponentFamilyEntryContentForm component_family_entry_content(const ComponentFamilyEntry *self);
 // Family narrative.
@@ -7084,7 +7085,7 @@ SomList component_family_entry_components(const ComponentFamilyEntry *self);
 // Binds a ComponentGovernance facade to a document and a path (path copied).
 void component_governance_init(ComponentGovernance *self, SpecDocument *doc, const char *path);
 void component_governance_free(ComponentGovernance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_governance_can_have_content(const ComponentGovernance *self);
 ComponentGovernanceContentForm component_governance_content(const ComponentGovernance *self);
 // Contribution governance.
@@ -7103,7 +7104,7 @@ ComponentGovernanceMetricsForm component_governance_metrics(const ComponentGover
 // Binds a ComponentInterfaceEntry facade to a document and a path (path copied).
 void component_interface_entry_init(ComponentInterfaceEntry *self, SpecDocument *doc, const char *path);
 void component_interface_entry_free(ComponentInterfaceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_interface_entry_can_have_content(const ComponentInterfaceEntry *self);
 ComponentInterfaceEntryContentForm component_interface_entry_content(const ComponentInterfaceEntry *self);
 // Network configuration.
@@ -7123,7 +7124,7 @@ ComponentInterfaceEntryOperationsForm component_interface_entry_operations(const
 // Binds a ComponentLibrary facade to a document and a path (path copied).
 void component_library_init(ComponentLibrary *self, SpecDocument *doc, const char *path);
 void component_library_free(ComponentLibrary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_library_can_have_content(const ComponentLibrary *self);
 // Returns the list view; element type: DesignFoundationEntry (construct from item paths).
 SomList component_library_design_foundations(const ComponentLibrary *self);
@@ -7155,7 +7156,7 @@ SomList component_library_typography_styles(const ComponentLibrary *self);
 // Binds a ComponentLicensingEntry facade to a document and a path (path copied).
 void component_licensing_entry_init(ComponentLicensingEntry *self, SpecDocument *doc, const char *path);
 void component_licensing_entry_free(ComponentLicensingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_licensing_entry_can_have_content(const ComponentLicensingEntry *self);
 ComponentLicensingEntryContentForm component_licensing_entry_content(const ComponentLicensingEntry *self);
 // Cost and renewal details.
@@ -7173,7 +7174,7 @@ ComponentLicensingEntryContractForm component_licensing_entry_contract(const Com
 // Binds a ComponentOrganization facade to a document and a path (path copied).
 void component_organization_init(ComponentOrganization *self, SpecDocument *doc, const char *path);
 void component_organization_free(ComponentOrganization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_organization_can_have_content(const ComponentOrganization *self);
 ComponentOrganizationContentForm component_organization_content(const ComponentOrganization *self);
 // Layering rules.
@@ -7191,7 +7192,7 @@ ComponentOrganizationDependenciesForm component_organization_dependencies(const 
 // Binds a ComponentPropertyEntry facade to a document and a path (path copied).
 void component_property_entry_init(ComponentPropertyEntry *self, SpecDocument *doc, const char *path);
 void component_property_entry_free(ComponentPropertyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_property_entry_can_have_content(const ComponentPropertyEntry *self);
 ComponentPropertyEntryContentForm component_property_entry_content(const ComponentPropertyEntry *self);
 
@@ -7199,7 +7200,7 @@ ComponentPropertyEntryContentForm component_property_entry_content(const Compone
 // Binds a ComponentRegistry facade to a document and a path (path copied).
 void component_registry_init(ComponentRegistry *self, SpecDocument *doc, const char *path);
 void component_registry_free(ComponentRegistry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_registry_can_have_content(const ComponentRegistry *self);
 ComponentRegistryContentForm component_registry_content(const ComponentRegistry *self);
 // Metadata requirements.
@@ -7218,7 +7219,7 @@ ComponentRegistryUpdatesForm component_registry_updates(const ComponentRegistry 
 // Binds a ComponentResponsibilitiesEntry facade to a document and a path (path copied).
 void component_responsibilities_entry_init(ComponentResponsibilitiesEntry *self, SpecDocument *doc, const char *path);
 void component_responsibilities_entry_free(ComponentResponsibilitiesEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_responsibilities_entry_can_have_content(const ComponentResponsibilitiesEntry *self);
 ComponentResponsibilitiesEntryContentForm component_responsibilities_entry_content(const ComponentResponsibilitiesEntry *self);
 // Vendor support details.
@@ -7237,7 +7238,7 @@ ComponentResponsibilitiesEntryGovernanceForm component_responsibilities_entry_go
 // Binds a ComponentRiskAssessment facade to a document and a path (path copied).
 void component_risk_assessment_init(ComponentRiskAssessment *self, SpecDocument *doc, const char *path);
 void component_risk_assessment_free(ComponentRiskAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_risk_assessment_can_have_content(const ComponentRiskAssessment *self);
 char *component_risk_assessment_content(const ComponentRiskAssessment *self);
 void component_risk_assessment_set_content(ComponentRiskAssessment *self, const char *value);
@@ -7254,7 +7255,7 @@ ContingencyPlans component_risk_assessment_contingency_plans(const ComponentRisk
 // Binds a ComponentRiskEntry facade to a document and a path (path copied).
 void component_risk_entry_init(ComponentRiskEntry *self, SpecDocument *doc, const char *path);
 void component_risk_entry_free(ComponentRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_risk_entry_can_have_content(const ComponentRiskEntry *self);
 ComponentRiskEntryContentForm component_risk_entry_content(const ComponentRiskEntry *self);
 // Risk description and categorization.
@@ -7274,7 +7275,7 @@ ComponentRiskEntryGovernanceForm component_risk_entry_governance(const Component
 // Binds a ComponentSlotEntry facade to a document and a path (path copied).
 void component_slot_entry_init(ComponentSlotEntry *self, SpecDocument *doc, const char *path);
 void component_slot_entry_free(ComponentSlotEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_slot_entry_can_have_content(const ComponentSlotEntry *self);
 ComponentSlotEntryContentForm component_slot_entry_content(const ComponentSlotEntry *self);
 
@@ -7284,7 +7285,7 @@ ComponentSlotEntryContentForm component_slot_entry_content(const ComponentSlotEn
 // Binds a ComponentStateEntry facade to a document and a path (path copied).
 void component_state_entry_init(ComponentStateEntry *self, SpecDocument *doc, const char *path);
 void component_state_entry_free(ComponentStateEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_state_entry_can_have_content(const ComponentStateEntry *self);
 ComponentStateEntryContentForm component_state_entry_content(const ComponentStateEntry *self);
 // Visual appearance in this state.
@@ -7304,7 +7305,7 @@ ComponentStateEntryTransitionsForm component_state_entry_transitions(const Compo
 // Binds a ComponentStrategy facade to a document and a path (path copied).
 void component_strategy_init(ComponentStrategy *self, SpecDocument *doc, const char *path);
 void component_strategy_free(ComponentStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_strategy_can_have_content(const ComponentStrategy *self);
 ComponentStrategyContentForm component_strategy_content(const ComponentStrategy *self);
 // Vendor preferences and exceptions.
@@ -7329,7 +7330,7 @@ EvaluationCriteria component_strategy_evaluation_criteria(const ComponentStrateg
 // Binds a ComponentVariantEntry facade to a document and a path (path copied).
 void component_variant_entry_init(ComponentVariantEntry *self, SpecDocument *doc, const char *path);
 void component_variant_entry_free(ComponentVariantEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int component_variant_entry_can_have_content(const ComponentVariantEntry *self);
 ComponentVariantEntryContentForm component_variant_entry_content(const ComponentVariantEntry *self);
 // Visual styling details.
@@ -7348,7 +7349,7 @@ ComponentVariantEntryBehaviorForm component_variant_entry_behavior(const Compone
 // Binds a ComponentsAndDependencies facade to a document and a path (path copied).
 void components_and_dependencies_init(ComponentsAndDependencies *self, SpecDocument *doc, const char *path);
 void components_and_dependencies_free(ComponentsAndDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int components_and_dependencies_can_have_content(const ComponentsAndDependencies *self);
 char *components_and_dependencies_content(const ComponentsAndDependencies *self);
 void components_and_dependencies_set_content(ComponentsAndDependencies *self, const char *value);
@@ -7370,7 +7371,7 @@ ComponentRiskAssessment components_and_dependencies_risk_assessment(const Compon
 // Binds a ComputeResourceRequirements facade to a document and a path (path copied).
 void compute_resource_requirements_init(ComputeResourceRequirements *self, SpecDocument *doc, const char *path);
 void compute_resource_requirements_free(ComputeResourceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int compute_resource_requirements_can_have_content(const ComputeResourceRequirements *self);
 ComputeResourceRequirementsContentForm compute_resource_requirements_content(const ComputeResourceRequirements *self);
 // Memory requirements.
@@ -7384,7 +7385,7 @@ ComputeResourceRequirementsSpecialForm compute_resource_requirements_special(con
 // Binds a ComputingEquipmentEntry facade to a document and a path (path copied).
 void computing_equipment_entry_init(ComputingEquipmentEntry *self, SpecDocument *doc, const char *path);
 void computing_equipment_entry_free(ComputingEquipmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int computing_equipment_entry_can_have_content(const ComputingEquipmentEntry *self);
 ComputingEquipmentEntryContentForm computing_equipment_entry_content(const ComputingEquipmentEntry *self);
 // Hardware specifications.
@@ -7402,7 +7403,7 @@ ComputingEquipmentEntryPlanningForm computing_equipment_entry_planning(const Com
 // Binds a ConcurrentSessionPolicy facade to a document and a path (path copied).
 void concurrent_session_policy_init(ConcurrentSessionPolicy *self, SpecDocument *doc, const char *path);
 void concurrent_session_policy_free(ConcurrentSessionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int concurrent_session_policy_can_have_content(const ConcurrentSessionPolicy *self);
 char *concurrent_session_policy_content(const ConcurrentSessionPolicy *self);
 void concurrent_session_policy_set_content(ConcurrentSessionPolicy *self, const char *value);
@@ -7413,7 +7414,7 @@ void concurrent_session_policy_set_content(ConcurrentSessionPolicy *self, const 
 // Binds a ConfidentialInfoCategoryEntry facade to a document and a path (path copied).
 void confidential_info_category_entry_init(ConfidentialInfoCategoryEntry *self, SpecDocument *doc, const char *path);
 void confidential_info_category_entry_free(ConfidentialInfoCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int confidential_info_category_entry_can_have_content(const ConfidentialInfoCategoryEntry *self);
 ConfidentialInfoCategoryEntryContentForm confidential_info_category_entry_content(const ConfidentialInfoCategoryEntry *self);
 
@@ -7423,7 +7424,7 @@ ConfidentialInfoCategoryEntryContentForm confidential_info_category_entry_conten
 // Binds a ConfidentialityRequirements facade to a document and a path (path copied).
 void confidentiality_requirements_init(ConfidentialityRequirements *self, SpecDocument *doc, const char *path);
 void confidentiality_requirements_free(ConfidentialityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int confidentiality_requirements_can_have_content(const ConfidentialityRequirements *self);
 ConfidentialityRequirementsContentForm confidentiality_requirements_content(const ConfidentialityRequirements *self);
 // Confidential information categories.
@@ -7436,7 +7437,7 @@ ConfidentialityRequirementsDataHandlingForm confidentiality_requirements_data_ha
 // Binds a ConfigurationManagement facade to a document and a path (path copied).
 void configuration_management_init(ConfigurationManagement *self, SpecDocument *doc, const char *path);
 void configuration_management_free(ConfigurationManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int configuration_management_can_have_content(const ConfigurationManagement *self);
 ConfigurationManagementContentForm configuration_management_content(const ConfigurationManagement *self);
 // Environment-configuration rules.
@@ -7452,7 +7453,7 @@ ConfigurationManagementSecurityForm configuration_management_security(const Conf
 // Binds a ConnectivityResilience facade to a document and a path (path copied).
 void connectivity_resilience_init(ConnectivityResilience *self, SpecDocument *doc, const char *path);
 void connectivity_resilience_free(ConnectivityResilience *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int connectivity_resilience_can_have_content(const ConnectivityResilience *self);
 ConnectivityResilienceContentForm connectivity_resilience_content(const ConnectivityResilience *self);
 // Circuit breaking and isolation strategy.
@@ -7466,7 +7467,7 @@ ConnectivityResilienceOperationsForm connectivity_resilience_operations(const Co
 // Binds a ConsentManagementRequirements facade to a document and a path (path copied).
 void consent_management_requirements_init(ConsentManagementRequirements *self, SpecDocument *doc, const char *path);
 void consent_management_requirements_free(ConsentManagementRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int consent_management_requirements_can_have_content(const ConsentManagementRequirements *self);
 ConsentManagementRequirementsContentForm consent_management_requirements_content(const ConsentManagementRequirements *self);
 // Collection requirements.
@@ -7487,7 +7488,7 @@ ConsentManagementRequirementsComplianceForm consent_management_requirements_comp
 // Binds a ConstraintRegisterEntry facade to a document and a path (path copied).
 void constraint_register_entry_init(ConstraintRegisterEntry *self, SpecDocument *doc, const char *path);
 void constraint_register_entry_free(ConstraintRegisterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int constraint_register_entry_can_have_content(const ConstraintRegisterEntry *self);
 ConstraintRegisterEntryContentForm constraint_register_entry_content(const ConstraintRegisterEntry *self);
 
@@ -7499,7 +7500,7 @@ ConstraintRegisterEntryContentForm constraint_register_entry_content(const Const
 // Binds a ContentScanningPolicy facade to a document and a path (path copied).
 void content_scanning_policy_init(ContentScanningPolicy *self, SpecDocument *doc, const char *path);
 void content_scanning_policy_free(ContentScanningPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int content_scanning_policy_can_have_content(const ContentScanningPolicy *self);
 char *content_scanning_policy_content(const ContentScanningPolicy *self);
 void content_scanning_policy_set_content(ContentScanningPolicy *self, const char *value);
@@ -7513,7 +7514,7 @@ void content_scanning_policy_set_content(ContentScanningPolicy *self, const char
 // Binds a ContextDiagram facade to a document and a path (path copied).
 void context_diagram_init(ContextDiagram *self, SpecDocument *doc, const char *path);
 void context_diagram_free(ContextDiagram *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int context_diagram_can_have_content(const ContextDiagram *self);
 char *context_diagram_content(const ContextDiagram *self);
 void context_diagram_set_content(ContextDiagram *self, const char *value);
@@ -7528,7 +7529,7 @@ void context_diagram_set_legend(ContextDiagram *self, const char *value);
 // Binds a ContextualHelp facade to a document and a path (path copied).
 void contextual_help_init(ContextualHelp *self, SpecDocument *doc, const char *path);
 void contextual_help_free(ContextualHelp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int contextual_help_can_have_content(const ContextualHelp *self);
 ContextualHelpContextualHelpContentForm contextual_help_contextual_help_content(const ContextualHelp *self);
 // Inline help behavior.
@@ -7551,7 +7552,7 @@ SomList contextual_help_field_help_catalog(const ContextualHelp *self);
 // Binds a ContextualNavigation facade to a document and a path (path copied).
 void contextual_navigation_init(ContextualNavigation *self, SpecDocument *doc, const char *path);
 void contextual_navigation_free(ContextualNavigation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int contextual_navigation_can_have_content(const ContextualNavigation *self);
 char *contextual_navigation_content(const ContextualNavigation *self);
 void contextual_navigation_set_content(ContextualNavigation *self, const char *value);
@@ -7569,7 +7570,7 @@ ContextualNavigationBreadcrumbsForm contextual_navigation_breadcrumbs(const Cont
 // Binds a ContingencyPlanEntry facade to a document and a path (path copied).
 void contingency_plan_entry_init(ContingencyPlanEntry *self, SpecDocument *doc, const char *path);
 void contingency_plan_entry_free(ContingencyPlanEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int contingency_plan_entry_can_have_content(const ContingencyPlanEntry *self);
 ContingencyPlanEntryContentForm contingency_plan_entry_content(const ContingencyPlanEntry *self);
 // Reference links to risk and component.
@@ -7589,7 +7590,7 @@ ContingencyPlanEntryTestingForm contingency_plan_entry_testing(const Contingency
 // Binds a ContingencyPlans facade to a document and a path (path copied).
 void contingency_plans_init(ContingencyPlans *self, SpecDocument *doc, const char *path);
 void contingency_plans_free(ContingencyPlans *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int contingency_plans_can_have_content(const ContingencyPlans *self);
 char *contingency_plans_content(const ContingencyPlans *self);
 void contingency_plans_set_content(ContingencyPlans *self, const char *value);
@@ -7601,7 +7602,7 @@ SomList contingency_plans_items(const ContingencyPlans *self);
 // Binds a Correctness facade to a document and a path (path copied).
 void correctness_init(Correctness *self, SpecDocument *doc, const char *path);
 void correctness_free(Correctness *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int correctness_can_have_content(const Correctness *self);
 CorrectnessContentForm correctness_content(const Correctness *self);
 // Data integrity expectations.
@@ -7620,7 +7621,7 @@ CorrectnessVerificationForm correctness_verification(const Correctness *self);
 // Binds a CredentialCompromiseDetectionPolicy facade to a document and a path (path copied).
 void credential_compromise_detection_policy_init(CredentialCompromiseDetectionPolicy *self, SpecDocument *doc, const char *path);
 void credential_compromise_detection_policy_free(CredentialCompromiseDetectionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int credential_compromise_detection_policy_can_have_content(const CredentialCompromiseDetectionPolicy *self);
 char *credential_compromise_detection_policy_content(const CredentialCompromiseDetectionPolicy *self);
 void credential_compromise_detection_policy_set_content(CredentialCompromiseDetectionPolicy *self, const char *value);
@@ -7634,7 +7635,7 @@ void credential_compromise_detection_policy_set_content(CredentialCompromiseDete
 // Binds a CredentialRecoveryPolicy facade to a document and a path (path copied).
 void credential_recovery_policy_init(CredentialRecoveryPolicy *self, SpecDocument *doc, const char *path);
 void credential_recovery_policy_free(CredentialRecoveryPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int credential_recovery_policy_can_have_content(const CredentialRecoveryPolicy *self);
 char *credential_recovery_policy_content(const CredentialRecoveryPolicy *self);
 void credential_recovery_policy_set_content(CredentialRecoveryPolicy *self, const char *value);
@@ -7648,7 +7649,7 @@ void credential_recovery_policy_set_content(CredentialRecoveryPolicy *self, cons
 // Binds a CrossBoundaryErrorHandling facade to a document and a path (path copied).
 void cross_boundary_error_handling_init(CrossBoundaryErrorHandling *self, SpecDocument *doc, const char *path);
 void cross_boundary_error_handling_free(CrossBoundaryErrorHandling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cross_boundary_error_handling_can_have_content(const CrossBoundaryErrorHandling *self);
 char *cross_boundary_error_handling_content(const CrossBoundaryErrorHandling *self);
 void cross_boundary_error_handling_set_content(CrossBoundaryErrorHandling *self, const char *value);
@@ -7661,7 +7662,7 @@ void cross_boundary_error_handling_set_content(CrossBoundaryErrorHandling *self,
 // Binds a CrossBoundaryOperationalConsiderations facade to a document and a path (path copied).
 void cross_boundary_operational_considerations_init(CrossBoundaryOperationalConsiderations *self, SpecDocument *doc, const char *path);
 void cross_boundary_operational_considerations_free(CrossBoundaryOperationalConsiderations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cross_boundary_operational_considerations_can_have_content(const CrossBoundaryOperationalConsiderations *self);
 char *cross_boundary_operational_considerations_content(const CrossBoundaryOperationalConsiderations *self);
 void cross_boundary_operational_considerations_set_content(CrossBoundaryOperationalConsiderations *self, const char *value);
@@ -7670,7 +7671,7 @@ void cross_boundary_operational_considerations_set_content(CrossBoundaryOperatio
 // Binds a CrossCuttingConcerns facade to a document and a path (path copied).
 void cross_cutting_concerns_init(CrossCuttingConcerns *self, SpecDocument *doc, const char *path);
 void cross_cutting_concerns_free(CrossCuttingConcerns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cross_cutting_concerns_can_have_content(const CrossCuttingConcerns *self);
 CrossCuttingConcernsContentForm cross_cutting_concerns_content(const CrossCuttingConcerns *self);
 // Error handling concerns.
@@ -7691,7 +7692,7 @@ CrossCuttingConcernsSharedForm cross_cutting_concerns_shared(const CrossCuttingC
 // Binds a CrossProcessAnalysis facade to a document and a path (path copied).
 void cross_process_analysis_init(CrossProcessAnalysis *self, SpecDocument *doc, const char *path);
 void cross_process_analysis_free(CrossProcessAnalysis *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cross_process_analysis_can_have_content(const CrossProcessAnalysis *self);
 char *cross_process_analysis_content(const CrossProcessAnalysis *self);
 void cross_process_analysis_set_content(CrossProcessAnalysis *self, const char *value);
@@ -7705,7 +7706,7 @@ void cross_process_analysis_set_content(CrossProcessAnalysis *self, const char *
 // Binds a CrossTenantAccessPolicy facade to a document and a path (path copied).
 void cross_tenant_access_policy_init(CrossTenantAccessPolicy *self, SpecDocument *doc, const char *path);
 void cross_tenant_access_policy_free(CrossTenantAccessPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cross_tenant_access_policy_can_have_content(const CrossTenantAccessPolicy *self);
 char *cross_tenant_access_policy_content(const CrossTenantAccessPolicy *self);
 void cross_tenant_access_policy_set_content(CrossTenantAccessPolicy *self, const char *value);
@@ -7719,7 +7720,7 @@ void cross_tenant_access_policy_set_content(CrossTenantAccessPolicy *self, const
 // Binds a CurrentArchitecture facade to a document and a path (path copied).
 void current_architecture_init(CurrentArchitecture *self, SpecDocument *doc, const char *path);
 void current_architecture_free(CurrentArchitecture *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_architecture_can_have_content(const CurrentArchitecture *self);
 char *current_architecture_content(const CurrentArchitecture *self);
 void current_architecture_set_content(CurrentArchitecture *self, const char *value);
@@ -7743,7 +7744,7 @@ SomList current_architecture_shared_services(const CurrentArchitecture *self);
 // Binds a CurrentBusinessProcess facade to a document and a path (path copied).
 void current_business_process_init(CurrentBusinessProcess *self, SpecDocument *doc, const char *path);
 void current_business_process_free(CurrentBusinessProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_business_process_can_have_content(const CurrentBusinessProcess *self);
 CurrentBusinessProcessContentForm current_business_process_content(const CurrentBusinessProcess *self);
 // Process context and purpose.
@@ -7764,7 +7765,7 @@ ProcessPainPoints current_business_process_process_pain_points(const CurrentBusi
 // Binds a CurrentBusinessProcesses facade to a document and a path (path copied).
 void current_business_processes_init(CurrentBusinessProcesses *self, SpecDocument *doc, const char *path);
 void current_business_processes_free(CurrentBusinessProcesses *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_business_processes_can_have_content(const CurrentBusinessProcesses *self);
 char *current_business_processes_content(const CurrentBusinessProcesses *self);
 void current_business_processes_set_content(CurrentBusinessProcesses *self, const char *value);
@@ -7788,7 +7789,7 @@ SomList current_business_processes_processes(const CurrentBusinessProcesses *sel
 // Binds a CurrentDataClassification facade to a document and a path (path copied).
 void current_data_classification_init(CurrentDataClassification *self, SpecDocument *doc, const char *path);
 void current_data_classification_free(CurrentDataClassification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_data_classification_can_have_content(const CurrentDataClassification *self);
 char *current_data_classification_content(const CurrentDataClassification *self);
 void current_data_classification_set_content(CurrentDataClassification *self, const char *value);
@@ -7809,7 +7810,7 @@ SomList current_data_classification_classification_status(const CurrentDataClass
 // Binds a CurrentDataLandscape facade to a document and a path (path copied).
 void current_data_landscape_init(CurrentDataLandscape *self, SpecDocument *doc, const char *path);
 void current_data_landscape_free(CurrentDataLandscape *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_data_landscape_can_have_content(const CurrentDataLandscape *self);
 char *current_data_landscape_content(const CurrentDataLandscape *self);
 void current_data_landscape_set_content(CurrentDataLandscape *self, const char *value);
@@ -7849,7 +7850,7 @@ MasterDataManagement current_data_landscape_master_data_management(const Current
 // Binds a CurrentLandscape facade to a document and a path (path copied).
 void current_landscape_init(CurrentLandscape *self, SpecDocument *doc, const char *path);
 void current_landscape_free(CurrentLandscape *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_landscape_can_have_content(const CurrentLandscape *self);
 char *current_landscape_content(const CurrentLandscape *self);
 void current_landscape_set_content(CurrentLandscape *self, const char *value);
@@ -7875,7 +7876,7 @@ CurrentStateRiskAssessment current_landscape_current_state_risks(const CurrentLa
 // Binds a CurrentOperationalMetric facade to a document and a path (path copied).
 void current_operational_metric_init(CurrentOperationalMetric *self, SpecDocument *doc, const char *path);
 void current_operational_metric_free(CurrentOperationalMetric *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_operational_metric_can_have_content(const CurrentOperationalMetric *self);
 char *current_operational_metric_content(const CurrentOperationalMetric *self);
 void current_operational_metric_set_content(CurrentOperationalMetric *self, const char *value);
@@ -7884,7 +7885,7 @@ void current_operational_metric_set_content(CurrentOperationalMetric *self, cons
 // Binds a CurrentProcessImprovementEntry facade to a document and a path (path copied).
 void current_process_improvement_entry_init(CurrentProcessImprovementEntry *self, SpecDocument *doc, const char *path);
 void current_process_improvement_entry_free(CurrentProcessImprovementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_process_improvement_entry_can_have_content(const CurrentProcessImprovementEntry *self);
 CurrentProcessImprovementEntryContentForm current_process_improvement_entry_content(const CurrentProcessImprovementEntry *self);
 
@@ -7895,7 +7896,7 @@ CurrentProcessImprovementEntryContentForm current_process_improvement_entry_cont
 // Binds a CurrentStateRiskAssessment facade to a document and a path (path copied).
 void current_state_risk_assessment_init(CurrentStateRiskAssessment *self, SpecDocument *doc, const char *path);
 void current_state_risk_assessment_free(CurrentStateRiskAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_state_risk_assessment_can_have_content(const CurrentStateRiskAssessment *self);
 char *current_state_risk_assessment_content(const CurrentStateRiskAssessment *self);
 void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self, const char *value);
@@ -7907,7 +7908,7 @@ void current_state_risk_assessment_set_content(CurrentStateRiskAssessment *self,
 // Binds a CurrentWorkflowEntry facade to a document and a path (path copied).
 void current_workflow_entry_init(CurrentWorkflowEntry *self, SpecDocument *doc, const char *path);
 void current_workflow_entry_free(CurrentWorkflowEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_workflow_entry_can_have_content(const CurrentWorkflowEntry *self);
 CurrentWorkflowEntryContentForm current_workflow_entry_content(const CurrentWorkflowEntry *self);
 // Workflow diagram.
@@ -7948,7 +7949,7 @@ WorkflowExceptions current_workflow_entry_exceptions(const CurrentWorkflowEntry 
 // Binds a CustomDistributionGroup facade to a document and a path (path copied).
 void custom_distribution_group_init(CustomDistributionGroup *self, SpecDocument *doc, const char *path);
 void custom_distribution_group_free(CustomDistributionGroup *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int custom_distribution_group_can_have_content(const CustomDistributionGroup *self);
 CustomDistributionGroupContentForm custom_distribution_group_content(const CustomDistributionGroup *self);
 // Group members.
@@ -7959,7 +7960,7 @@ SomList custom_distribution_group_members(const CustomDistributionGroup *self);
 // Binds a CustomMetricEntry facade to a document and a path (path copied).
 void custom_metric_entry_init(CustomMetricEntry *self, SpecDocument *doc, const char *path);
 void custom_metric_entry_free(CustomMetricEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int custom_metric_entry_can_have_content(const CustomMetricEntry *self);
 CustomMetricEntryContentForm custom_metric_entry_content(const CustomMetricEntry *self);
 
@@ -7970,7 +7971,7 @@ CustomMetricEntryContentForm custom_metric_entry_content(const CustomMetricEntry
 // Binds a CutoverProcedure facade to a document and a path (path copied).
 void cutover_procedure_init(CutoverProcedure *self, SpecDocument *doc, const char *path);
 void cutover_procedure_free(CutoverProcedure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int cutover_procedure_can_have_content(const CutoverProcedure *self);
 char *cutover_procedure_content(const CutoverProcedure *self);
 void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
@@ -7980,20 +7981,20 @@ void cutover_procedure_set_content(CutoverProcedure *self, const char *value);
 // Contains a [DocumentControl] header block and the SBP sections, sequenced
 // per the public-standards order (§4 of the redesign proposal).
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d00_solution_blueprint_new(D00SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d00_solution_blueprint_object_model_version(const D00SolutionBlueprint *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d00_solution_blueprint_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d00_solution_blueprint_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d00_solution_blueprint_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8004,7 +8005,7 @@ int d00_solution_blueprint_load_yaml(D00SolutionBlueprint *self, const char *yam
 // file cannot be read.
 int d00_solution_blueprint_load_file(D00SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);
 void d00_solution_blueprint_free(D00SolutionBlueprint *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d00_solution_blueprint_can_have_content(const D00SolutionBlueprint *self);
 char *d00_solution_blueprint_content(const D00SolutionBlueprint *self);
 void d00_solution_blueprint_set_content(D00SolutionBlueprint *self, const char *value);
@@ -8043,20 +8044,20 @@ DeliveryTransitionAndRollout d00_solution_blueprint_delivery_transition_and_roll
 // processes, pain points, data landscape, operational metrics, risks,
 // and the inventory / migration plan for the systems being replaced.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d01_current_landscape_assessment_new(D01CurrentLandscapeAssessment *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d01_current_landscape_assessment_object_model_version(const D01CurrentLandscapeAssessment *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d01_current_landscape_assessment_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d01_current_landscape_assessment_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d01_current_landscape_assessment_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8067,7 +8068,7 @@ int d01_current_landscape_assessment_load_yaml(D01CurrentLandscapeAssessment *se
 // file cannot be read.
 int d01_current_landscape_assessment_load_file(D01CurrentLandscapeAssessment *self, const char *path, SpecDocument **out_doc, char **err);
 void d01_current_landscape_assessment_free(D01CurrentLandscapeAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d01_current_landscape_assessment_can_have_content(const D01CurrentLandscapeAssessment *self);
 char *d01_current_landscape_assessment_content(const D01CurrentLandscapeAssessment *self);
 void d01_current_landscape_assessment_set_content(D01CurrentLandscapeAssessment *self, const char *value);
@@ -8097,20 +8098,20 @@ MigrationConsiderations d01_current_landscape_assessment_migration_consideration
 // diagrams, improvements, relationships, detailed workflows,
 // cross-process analysis, exception handling, and KPIs.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d02_target_operating_model_new(D02TargetOperatingModel *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d02_target_operating_model_object_model_version(const D02TargetOperatingModel *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d02_target_operating_model_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d02_target_operating_model_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d02_target_operating_model_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8121,7 +8122,7 @@ int d02_target_operating_model_load_yaml(D02TargetOperatingModel *self, const ch
 // file cannot be read.
 int d02_target_operating_model_load_file(D02TargetOperatingModel *self, const char *path, SpecDocument **out_doc, char **err);
 void d02_target_operating_model_free(D02TargetOperatingModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d02_target_operating_model_can_have_content(const D02TargetOperatingModel *self);
 char *d02_target_operating_model_content(const D02TargetOperatingModel *self);
 void d02_target_operating_model_set_content(D02TargetOperatingModel *self, const char *value);
@@ -8157,20 +8158,20 @@ SomList d02_target_operating_model_process_metrics_and_kpis(const D02TargetOpera
 // to-data matrix, business rules, data dictionary, and validation /
 // integrity constraints.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d03_information_model_new(D03InformationModel *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d03_information_model_object_model_version(const D03InformationModel *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d03_information_model_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d03_information_model_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d03_information_model_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8181,7 +8182,7 @@ int d03_information_model_load_yaml(D03InformationModel *self, const char *yaml,
 // file cannot be read.
 int d03_information_model_load_file(D03InformationModel *self, const char *path, SpecDocument **out_doc, char **err);
 void d03_information_model_free(D03InformationModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d03_information_model_can_have_content(const D03InformationModel *self);
 char *d03_information_model_content(const D03InformationModel *self);
 void d03_information_model_set_content(D03InformationModel *self, const char *value);
@@ -8224,7 +8225,7 @@ ValidationConstraints d03_information_model_validation_constraints(const D03Info
 // `List<IntegrityConstraints>` (L34C-12 SR-25).
 IntegrityConstraints d03_information_model_integrity_constraints(const D03InformationModel *self);
 // Domain enum registry — the closed value sets the data model relies on
-// (CE-EN home + closed-choice discriminator source, csmb3).
+// (`domainEnum` home + closed-choice discriminator source, csmb3).
 DomainEnumRegistry d03_information_model_domain_enum_registry(const D03InformationModel *self);
 // Error code registry — the shared application error-code vocabulary
 // referenced by CE-VA rules, the CE-ER Result envelope, and CE-TX copy
@@ -8234,7 +8235,7 @@ ErrorCodeRegistry d03_information_model_error_code_registry(const D03Information
 // (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
 ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *self);
 // Message key registry — the single author-copy-once home for user-facing
-// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+// copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
 // (csmb7).
 MessageKeyRegistry d03_information_model_message_key_registry(const D03InformationModel *self);
 
@@ -8244,20 +8245,20 @@ MessageKeyRegistry d03_information_model_message_key_registry(const D03Informati
 // and organizational requirements, plus traceability, relationships,
 // and coverage analysis.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d04_requirements_specification_new(D04RequirementsSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d04_requirements_specification_object_model_version(const D04RequirementsSpecification *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d04_requirements_specification_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d04_requirements_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d04_requirements_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8268,7 +8269,7 @@ int d04_requirements_specification_load_yaml(D04RequirementsSpecification *self,
 // file cannot be read.
 int d04_requirements_specification_load_file(D04RequirementsSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d04_requirements_specification_free(D04RequirementsSpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d04_requirements_specification_can_have_content(const D04RequirementsSpecification *self);
 char *d04_requirements_specification_content(const D04RequirementsSpecification *self);
 void d04_requirements_specification_set_content(D04RequirementsSpecification *self, const char *value);
@@ -8301,20 +8302,20 @@ RequirementCoverage d04_requirements_specification_requirement_coverage(const D0
 // interactions — Cockburn-style catalog, scenarios, end-to-end tests,
 // and traceability.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d05_interaction_scenarios_new(D05InteractionScenarios *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d05_interaction_scenarios_object_model_version(const D05InteractionScenarios *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d05_interaction_scenarios_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d05_interaction_scenarios_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d05_interaction_scenarios_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8325,7 +8326,7 @@ int d05_interaction_scenarios_load_yaml(D05InteractionScenarios *self, const cha
 // file cannot be read.
 int d05_interaction_scenarios_load_file(D05InteractionScenarios *self, const char *path, SpecDocument **out_doc, char **err);
 void d05_interaction_scenarios_free(D05InteractionScenarios *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d05_interaction_scenarios_can_have_content(const D05InteractionScenarios *self);
 char *d05_interaction_scenarios_content(const D05InteractionScenarios *self);
 void d05_interaction_scenarios_set_content(D05InteractionScenarios *self, const char *value);
@@ -8354,20 +8355,20 @@ UseCaseTraceability d05_interaction_scenarios_use_case_traceability(const D05Int
 // / security / architecture, plus components, framework conditions,
 // and translation handling.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d06_architecture_technology_specification_new(D06ArchitectureTechnologySpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d06_architecture_technology_specification_object_model_version(const D06ArchitectureTechnologySpecification *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d06_architecture_technology_specification_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d06_architecture_technology_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d06_architecture_technology_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8378,7 +8379,7 @@ int d06_architecture_technology_specification_load_yaml(D06ArchitectureTechnolog
 // file cannot be read.
 int d06_architecture_technology_specification_load_file(D06ArchitectureTechnologySpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d06_architecture_technology_specification_free(D06ArchitectureTechnologySpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d06_architecture_technology_specification_can_have_content(const D06ArchitectureTechnologySpecification *self);
 char *d06_architecture_technology_specification_content(const D06ArchitectureTechnologySpecification *self);
 void d06_architecture_technology_specification_set_content(D06ArchitectureTechnologySpecification *self, const char *value);
@@ -8415,20 +8416,20 @@ TranslationRequirements d06_architecture_technology_specification_translation_re
 // external systems: inventory, patterns, testing, dependencies,
 // migration, operational concerns, and cross-boundary error handling.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d07_integration_interface_specification_new(D07IntegrationInterfaceSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d07_integration_interface_specification_object_model_version(const D07IntegrationInterfaceSpecification *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d07_integration_interface_specification_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d07_integration_interface_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d07_integration_interface_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8439,7 +8440,7 @@ int d07_integration_interface_specification_load_yaml(D07IntegrationInterfaceSpe
 // file cannot be read.
 int d07_integration_interface_specification_load_file(D07IntegrationInterfaceSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d07_integration_interface_specification_free(D07IntegrationInterfaceSpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d07_integration_interface_specification_can_have_content(const D07IntegrationInterfaceSpecification *self);
 char *d07_integration_interface_specification_content(const D07IntegrationInterfaceSpecification *self);
 void d07_integration_interface_specification_set_content(D07IntegrationInterfaceSpecification *self, const char *value);
@@ -8476,20 +8477,20 @@ CrossBoundaryErrorHandling d07_integration_interface_specification_cross_boundar
 // authorization, encryption, audit/logging, role matrix, and
 // compliance framework.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d08_security_access_specification_new(D08SecurityAccessSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d08_security_access_specification_object_model_version(const D08SecurityAccessSpecification *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d08_security_access_specification_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d08_security_access_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d08_security_access_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8500,7 +8501,7 @@ int d08_security_access_specification_load_yaml(D08SecurityAccessSpecification *
 // file cannot be read.
 int d08_security_access_specification_load_file(D08SecurityAccessSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d08_security_access_specification_free(D08SecurityAccessSpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d08_security_access_specification_can_have_content(const D08SecurityAccessSpecification *self);
 char *d08_security_access_specification_content(const D08SecurityAccessSpecification *self);
 void d08_security_access_specification_set_content(D08SecurityAccessSpecification *self, const char *value);
@@ -8530,20 +8531,20 @@ ComplianceFramework d08_security_access_specification_compliance_framework(const
 // components, language/country selection, prototype, wireframes and
 // mockups.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d09_experience_design_specification_object_model_version(const D09ExperienceDesignSpecification *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d09_experience_design_specification_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d09_experience_design_specification_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d09_experience_design_specification_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8554,7 +8555,7 @@ int d09_experience_design_specification_load_yaml(D09ExperienceDesignSpecificati
 // file cannot be read.
 int d09_experience_design_specification_load_file(D09ExperienceDesignSpecification *self, const char *path, SpecDocument **out_doc, char **err);
 void d09_experience_design_specification_free(D09ExperienceDesignSpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d09_experience_design_specification_can_have_content(const D09ExperienceDesignSpecification *self);
 char *d09_experience_design_specification_content(const D09ExperienceDesignSpecification *self);
 void d09_experience_design_specification_set_content(D09ExperienceDesignSpecification *self, const char *value);
@@ -8592,20 +8593,20 @@ WireframesAndMockups d09_experience_design_specification_wireframes_and_mockups(
 //
 // Full quality plan combining quality goals and the acceptance plan.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d10_quality_acceptance_plan_new(D10QualityAcceptancePlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d10_quality_acceptance_plan_object_model_version(const D10QualityAcceptancePlan *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d10_quality_acceptance_plan_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d10_quality_acceptance_plan_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d10_quality_acceptance_plan_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8616,7 +8617,7 @@ int d10_quality_acceptance_plan_load_yaml(D10QualityAcceptancePlan *self, const 
 // file cannot be read.
 int d10_quality_acceptance_plan_load_file(D10QualityAcceptancePlan *self, const char *path, SpecDocument **out_doc, char **err);
 void d10_quality_acceptance_plan_free(D10QualityAcceptancePlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d10_quality_acceptance_plan_can_have_content(const D10QualityAcceptancePlan *self);
 char *d10_quality_acceptance_plan_content(const D10QualityAcceptancePlan *self);
 void d10_quality_acceptance_plan_set_content(D10QualityAcceptancePlan *self, const char *value);
@@ -8668,20 +8669,20 @@ WarrantyTerms d10_quality_acceptance_plan_warranty(const D10QualityAcceptancePla
 // decision processes, initial development flow, and upgrade cycle
 // framework.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d11_delivery_roadmap_new(D11DeliveryRoadmap *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d11_delivery_roadmap_object_model_version(const D11DeliveryRoadmap *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d11_delivery_roadmap_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d11_delivery_roadmap_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d11_delivery_roadmap_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8692,7 +8693,7 @@ int d11_delivery_roadmap_load_yaml(D11DeliveryRoadmap *self, const char *yaml, S
 // file cannot be read.
 int d11_delivery_roadmap_load_file(D11DeliveryRoadmap *self, const char *path, SpecDocument **out_doc, char **err);
 void d11_delivery_roadmap_free(D11DeliveryRoadmap *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d11_delivery_roadmap_can_have_content(const D11DeliveryRoadmap *self);
 char *d11_delivery_roadmap_content(const D11DeliveryRoadmap *self);
 void d11_delivery_roadmap_set_content(D11DeliveryRoadmap *self, const char *value);
@@ -8725,20 +8726,20 @@ UpgradeCycleFramework d11_delivery_roadmap_upgrade_cycle_framework(const D11Deli
 // user manuals, training materials, pilot, cutover, knowledge
 // transfer, and warranty/support.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d12_transition_rollout_plan_new(D12TransitionRolloutPlan *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d12_transition_rollout_plan_object_model_version(const D12TransitionRolloutPlan *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d12_transition_rollout_plan_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d12_transition_rollout_plan_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d12_transition_rollout_plan_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8749,7 +8750,7 @@ int d12_transition_rollout_plan_load_yaml(D12TransitionRolloutPlan *self, const 
 // file cannot be read.
 int d12_transition_rollout_plan_load_file(D12TransitionRolloutPlan *self, const char *path, SpecDocument **out_doc, char **err);
 void d12_transition_rollout_plan_free(D12TransitionRolloutPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d12_transition_rollout_plan_can_have_content(const D12TransitionRolloutPlan *self);
 char *d12_transition_rollout_plan_content(const D12TransitionRolloutPlan *self);
 void d12_transition_rollout_plan_set_content(D12TransitionRolloutPlan *self, const char *value);
@@ -8797,20 +8798,20 @@ WarrantyAndSupport d12_transition_rollout_plan_warranty_and_support(const D12Tra
 // splits: the shared registries, the server-side data / framework / access
 // models, the process-step interactions, and the client-side experience seed.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int d13_code_specs_projection_new(D13CodeSpecsProjection *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *d13_code_specs_projection_object_model_version(const D13CodeSpecsProjection *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to d13_code_specs_projection_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to d13_code_specs_projection_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability d13_code_specs_projection_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -8821,13 +8822,19 @@ int d13_code_specs_projection_load_yaml(D13CodeSpecsProjection *self, const char
 // file cannot be read.
 int d13_code_specs_projection_load_file(D13CodeSpecsProjection *self, const char *path, SpecDocument **out_doc, char **err);
 void d13_code_specs_projection_free(D13CodeSpecsProjection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int d13_code_specs_projection_can_have_content(const D13CodeSpecsProjection *self);
 char *d13_code_specs_projection_content(const D13CodeSpecsProjection *self);
 void d13_code_specs_projection_set_content(D13CodeSpecsProjection *self, const char *value);
 // Standard TomSpecs document header.
 DocumentHeader d13_code_specs_projection_header(const D13CodeSpecsProjection *self);
-// Domain enum registry — CE-EN closed value sets, shared by client & server.
+// Domain enum registry — the closed value sets, shared by client & server.
+//
+// `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+// §4.1): each enum is authored once here and realised as a plain Dart `enum`
+// marked `@CsEnum`, placed in the shared project iff a shared contract type
+// references it — which is what this registry's shared locus assumes —
+// otherwise in the project of the part that introduces it.
 DomainEnumRegistry d13_code_specs_projection_domain_enum_registry(const D13CodeSpecsProjection *self);
 // Error code registry — CE-ER shared error-code vocabulary.
 ErrorCodeRegistry d13_code_specs_projection_error_code_registry(const D13CodeSpecsProjection *self);
@@ -8835,6 +8842,13 @@ ErrorCodeRegistry d13_code_specs_projection_error_code_registry(const D13CodeSpe
 ResultEnvelope d13_code_specs_projection_result_envelope(const D13CodeSpecsProjection *self);
 // Message key registry — CE-TX author-copy-once keys, shared.
 MessageKeyRegistry d13_code_specs_projection_message_key_registry(const D13CodeSpecsProjection *self);
+// Notification model — CE-NT type / channel / preference declarations.
+//
+// The declarations are **shared**: the client renders the preference UI
+// against the same catalogue the server dispatches from. Delivery is
+// server-only, but it is not authored here — it rides the reused
+// `tom_core_server` messaging transport.
+NotificationModel d13_code_specs_projection_notification_model(const D13CodeSpecsProjection *self);
 // Data model — CE-DB persistence + CE-VA server-side rules.
 DataModel d13_code_specs_projection_data_model(const D13CodeSpecsProjection *self);
 // Technical framework — CE-CF platform/config foundation.
@@ -8851,7 +8865,7 @@ ExperienceCodeSpecs d13_code_specs_projection_experience_code_specs(const D13Cod
 // Binds a DashboardEntry facade to a document and a path (path copied).
 void dashboard_entry_init(DashboardEntry *self, SpecDocument *doc, const char *path);
 void dashboard_entry_free(DashboardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dashboard_entry_can_have_content(const DashboardEntry *self);
 DashboardEntryContentForm dashboard_entry_content(const DashboardEntry *self);
 // Refresh and data composition details.
@@ -8863,7 +8877,7 @@ DashboardEntryOperationsForm dashboard_entry_operations(const DashboardEntry *se
 // Binds a DashboardRequirements facade to a document and a path (path copied).
 void dashboard_requirements_init(DashboardRequirements *self, SpecDocument *doc, const char *path);
 void dashboard_requirements_free(DashboardRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dashboard_requirements_can_have_content(const DashboardRequirements *self);
 DashboardRequirementsContentForm dashboard_requirements_content(const DashboardRequirements *self);
 // Standard dashboards.
@@ -8879,7 +8893,7 @@ DashboardRequirementsMobileForm dashboard_requirements_mobile(const DashboardReq
 // Binds a DashboardTemplates facade to a document and a path (path copied).
 void dashboard_templates_init(DashboardTemplates *self, SpecDocument *doc, const char *path);
 void dashboard_templates_free(DashboardTemplates *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dashboard_templates_can_have_content(const DashboardTemplates *self);
 DashboardTemplatesContentForm dashboard_templates_content(const DashboardTemplates *self);
 
@@ -8890,7 +8904,7 @@ DashboardTemplatesContentForm dashboard_templates_content(const DashboardTemplat
 // Binds a DataAccessAuditPolicy facade to a document and a path (path copied).
 void data_access_audit_policy_init(DataAccessAuditPolicy *self, SpecDocument *doc, const char *path);
 void data_access_audit_policy_free(DataAccessAuditPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_access_audit_policy_can_have_content(const DataAccessAuditPolicy *self);
 char *data_access_audit_policy_content(const DataAccessAuditPolicy *self);
 void data_access_audit_policy_set_content(DataAccessAuditPolicy *self, const char *value);
@@ -8903,7 +8917,7 @@ void data_access_audit_policy_set_content(DataAccessAuditPolicy *self, const cha
 // Binds a DataAccessEventPolicy facade to a document and a path (path copied).
 void data_access_event_policy_init(DataAccessEventPolicy *self, SpecDocument *doc, const char *path);
 void data_access_event_policy_free(DataAccessEventPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_access_event_policy_can_have_content(const DataAccessEventPolicy *self);
 DataAccessEventPolicyContentForm data_access_event_policy_content(const DataAccessEventPolicy *self);
 // Additional Notes (text).
@@ -8913,7 +8927,7 @@ DataAccessEventPolicyContentForm data_access_event_policy_content(const DataAcce
 // Binds a DataArchitecture facade to a document and a path (path copied).
 void data_architecture_init(DataArchitecture *self, SpecDocument *doc, const char *path);
 void data_architecture_free(DataArchitecture *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_architecture_can_have_content(const DataArchitecture *self);
 DataArchitectureContentForm data_architecture_content(const DataArchitecture *self);
 // Storage decisions.
@@ -8931,7 +8945,7 @@ DataArchitectureSecurityForm data_architecture_security(const DataArchitecture *
 // Binds a DataAttributeConstraintEntry facade to a document and a path (path copied).
 void data_attribute_constraint_entry_init(DataAttributeConstraintEntry *self, SpecDocument *doc, const char *path);
 void data_attribute_constraint_entry_free(DataAttributeConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_attribute_constraint_entry_can_have_content(const DataAttributeConstraintEntry *self);
 DataAttributeConstraintEntryContentForm data_attribute_constraint_entry_content(const DataAttributeConstraintEntry *self);
 
@@ -8941,7 +8955,7 @@ DataAttributeConstraintEntryContentForm data_attribute_constraint_entry_content(
 // Binds a DataAttributeEntry facade to a document and a path (path copied).
 void data_attribute_entry_init(DataAttributeEntry *self, SpecDocument *doc, const char *path);
 void data_attribute_entry_free(DataAttributeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_attribute_entry_can_have_content(const DataAttributeEntry *self);
 DataAttributeEntryIdentityForm data_attribute_entry_identity(const DataAttributeEntry *self);
 DataAttributeEntryDataTypeSpecForm data_attribute_entry_data_type_spec(const DataAttributeEntry *self);
@@ -8962,10 +8976,33 @@ DataAttributeEntryNumericTypeOptionsForm data_attribute_entry_numeric_type_optio
 DataAttributeEntryTemporalTypeOptionsForm data_attribute_entry_temporal_type_options(const DataAttributeEntry *self);
 // Binary-kind type options — a promoted `@OneOf` case (csra4).
 //
-// Present only for the `binary` logical type; carries only the stored size
-// attributes. Separated from the text `length` because a byte size and a
-// character length are different constraints on different types.
+// Present only for the `binary` logical type — the record holds the **bytes
+// themselves** — so it carries only the stored size. Separated from the text
+// `length` because a byte size and a character length are different
+// constraints on different types. An attribute that holds a file's *address*
+// instead is `DataAttributeKind.fileReference` (csra10), not a storage mode
+// of this one: a mode field would restate the logical type and could then
+// disagree with it.
 DataAttributeEntryBinaryTypeOptionsForm data_attribute_entry_binary_type_options(const DataAttributeEntry *self);
+// File-reference type options — a promoted `@OneOf` case (csra10).
+//
+// Present only for the `fileReference` logical type: the attribute stores the
+// **address of a stored file**, so what a specification must say is where the
+// file is filed, which store holds it, whether it dies with its record, and
+// what may be uploaded into it.
+//
+// The address itself is never authored — it is generated when the file is
+// stored, so a specification chooses only the group it is filed under. The
+// vocabulary here is deliberately storage-neutral (`codespecs_mapping.md`
+// §1.2): a *file store* is named, never a storage technology.
+//
+// Two decisions that look like they belong here are elsewhere by design:
+// **who may fetch the file** is the attribute's own access classification —
+// the address is an ordinary attribute, so its security classification
+// already governs it — and **how the file appears on screen** (a thumbnail,
+// a link, a download) is a screen-element concern, authored where the
+// element is.
+DataAttributeEntryFileReferenceOptionsForm data_attribute_entry_file_reference_options(const DataAttributeEntry *self);
 // Returns the list view; element type: DataAttributeConstraintEntry (construct from item paths).
 SomList data_attribute_entry_constraints(const DataAttributeEntry *self);
 DataAttributeEntryDerivationForm data_attribute_entry_derivation(const DataAttributeEntry *self);
@@ -8978,7 +9015,7 @@ SomList data_attribute_entry_display_properties(const DataAttributeEntry *self);
 // Binds a DataClassification facade to a document and a path (path copied).
 void data_classification_init(DataClassification *self, SpecDocument *doc, const char *path);
 void data_classification_free(DataClassification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_can_have_content(const DataClassification *self);
 DataClassificationOverviewForm data_classification_overview(const DataClassification *self);
 // Contains 0+× DataClassificationEntry.
@@ -8991,7 +9028,7 @@ SomList data_classification_items(const DataClassification *self);
 // Binds a DataClassificationEntry facade to a document and a path (path copied).
 void data_classification_entry_init(DataClassificationEntry *self, SpecDocument *doc, const char *path);
 void data_classification_entry_free(DataClassificationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_entry_can_have_content(const DataClassificationEntry *self);
 DataClassificationEntryIdentityForm data_classification_entry_identity(const DataClassificationEntry *self);
 DataClassificationEntryStorageTransmissionForm data_classification_entry_storage_transmission(const DataClassificationEntry *self);
@@ -9009,7 +9046,7 @@ SomList data_classification_entry_access_restrictions(const DataClassificationEn
 // Binds a DataClassificationLevelEntry facade to a document and a path (path copied).
 void data_classification_level_entry_init(DataClassificationLevelEntry *self, SpecDocument *doc, const char *path);
 void data_classification_level_entry_free(DataClassificationLevelEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_level_entry_can_have_content(const DataClassificationLevelEntry *self);
 DataClassificationLevelEntryContentForm data_classification_level_entry_content(const DataClassificationLevelEntry *self);
 
@@ -9017,7 +9054,7 @@ DataClassificationLevelEntryContentForm data_classification_level_entry_content(
 // Binds a DataClassificationStatusEntry facade to a document and a path (path copied).
 void data_classification_status_entry_init(DataClassificationStatusEntry *self, SpecDocument *doc, const char *path);
 void data_classification_status_entry_free(DataClassificationStatusEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_classification_status_entry_can_have_content(const DataClassificationStatusEntry *self);
 DataClassificationStatusEntryContentForm data_classification_status_entry_content(const DataClassificationStatusEntry *self);
 
@@ -9028,7 +9065,7 @@ DataClassificationStatusEntryContentForm data_classification_status_entry_conten
 // Binds a DataDictionary facade to a document and a path (path copied).
 void data_dictionary_init(DataDictionary *self, SpecDocument *doc, const char *path);
 void data_dictionary_free(DataDictionary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_dictionary_can_have_content(const DataDictionary *self);
 char *data_dictionary_content(const DataDictionary *self);
 void data_dictionary_set_content(DataDictionary *self, const char *value);
@@ -9040,7 +9077,7 @@ void data_dictionary_set_content(DataDictionary *self, const char *value);
 // Binds a DataDuplicationAnalysis facade to a document and a path (path copied).
 void data_duplication_analysis_init(DataDuplicationAnalysis *self, SpecDocument *doc, const char *path);
 void data_duplication_analysis_free(DataDuplicationAnalysis *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_duplication_analysis_can_have_content(const DataDuplicationAnalysis *self);
 char *data_duplication_analysis_content(const DataDuplicationAnalysis *self);
 void data_duplication_analysis_set_content(DataDuplicationAnalysis *self, const char *value);
@@ -9057,7 +9094,7 @@ SomList data_duplication_analysis_duplication_instances(const DataDuplicationAna
 // Binds a DataDuplicationEntry facade to a document and a path (path copied).
 void data_duplication_entry_init(DataDuplicationEntry *self, SpecDocument *doc, const char *path);
 void data_duplication_entry_free(DataDuplicationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_duplication_entry_can_have_content(const DataDuplicationEntry *self);
 DataDuplicationEntryContentForm data_duplication_entry_content(const DataDuplicationEntry *self);
 // Sources and duplication shape.
@@ -9074,7 +9111,7 @@ DataDuplicationEntryGovernanceForm data_duplication_entry_governance(const DataD
 // Binds a DataEntityEntry facade to a document and a path (path copied).
 void data_entity_entry_init(DataEntityEntry *self, SpecDocument *doc, const char *path);
 void data_entity_entry_free(DataEntityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_entity_entry_can_have_content(const DataEntityEntry *self);
 DataEntityEntryIdentityForm data_entity_entry_identity(const DataEntityEntry *self);
 DataEntityEntryClassificationForm data_entity_entry_classification(const DataEntityEntry *self);
@@ -9097,7 +9134,7 @@ SomList data_entity_entry_constraints(const DataEntityEntry *self);
 // Binds a DataEntityMigrationEntry facade to a document and a path (path copied).
 void data_entity_migration_entry_init(DataEntityMigrationEntry *self, SpecDocument *doc, const char *path);
 void data_entity_migration_entry_free(DataEntityMigrationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_entity_migration_entry_can_have_content(const DataEntityMigrationEntry *self);
 DataEntityMigrationEntryContentForm data_entity_migration_entry_content(const DataEntityMigrationEntry *self);
 
@@ -9105,7 +9142,7 @@ DataEntityMigrationEntryContentForm data_entity_migration_entry_content(const Da
 // Binds a DataEntityReferenceEntry facade to a document and a path (path copied).
 void data_entity_reference_entry_init(DataEntityReferenceEntry *self, SpecDocument *doc, const char *path);
 void data_entity_reference_entry_free(DataEntityReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_entity_reference_entry_can_have_content(const DataEntityReferenceEntry *self);
 DataEntityReferenceEntryContentForm data_entity_reference_entry_content(const DataEntityReferenceEntry *self);
 char *data_entity_reference_entry_related_entity(const DataEntityReferenceEntry *self);
@@ -9115,7 +9152,7 @@ void data_entity_reference_entry_set_related_entity(DataEntityReferenceEntry *se
 // Binds a DataFormatCompatibility facade to a document and a path (path copied).
 void data_format_compatibility_init(DataFormatCompatibility *self, SpecDocument *doc, const char *path);
 void data_format_compatibility_free(DataFormatCompatibility *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_format_compatibility_can_have_content(const DataFormatCompatibility *self);
 DataFormatCompatibilityContentForm data_format_compatibility_content(const DataFormatCompatibility *self);
 // Data format compatibility.
@@ -9133,7 +9170,7 @@ DataFormatCompatibilityLocaleForm data_format_compatibility_locale(const DataFor
 // Binds a DataGovernance facade to a document and a path (path copied).
 void data_governance_init(DataGovernance *self, SpecDocument *doc, const char *path);
 void data_governance_free(DataGovernance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_governance_can_have_content(const DataGovernance *self);
 char *data_governance_content(const DataGovernance *self);
 void data_governance_set_content(DataGovernance *self, const char *value);
@@ -9150,7 +9187,7 @@ SomList data_governance_governance_policies(const DataGovernance *self);
 // Binds a DataGovernancePolicyEntry facade to a document and a path (path copied).
 void data_governance_policy_entry_init(DataGovernancePolicyEntry *self, SpecDocument *doc, const char *path);
 void data_governance_policy_entry_free(DataGovernancePolicyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_governance_policy_entry_can_have_content(const DataGovernancePolicyEntry *self);
 DataGovernancePolicyEntryContentForm data_governance_policy_entry_content(const DataGovernancePolicyEntry *self);
 // Policy lifecycle and applicability.
@@ -9162,7 +9199,7 @@ DataGovernancePolicyEntryGovernanceForm data_governance_policy_entry_governance(
 // Binds a DataGrowthProjections facade to a document and a path (path copied).
 void data_growth_projections_init(DataGrowthProjections *self, SpecDocument *doc, const char *path);
 void data_growth_projections_free(DataGrowthProjections *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_growth_projections_can_have_content(const DataGrowthProjections *self);
 DataGrowthProjectionsContentForm data_growth_projections_content(const DataGrowthProjections *self);
 // Growth-rate assumptions.
@@ -9178,7 +9215,7 @@ DataGrowthProjectionsThresholdsForm data_growth_projections_thresholds(const Dat
 // Binds a DataIntegrationEntry facade to a document and a path (path copied).
 void data_integration_entry_init(DataIntegrationEntry *self, SpecDocument *doc, const char *path);
 void data_integration_entry_free(DataIntegrationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_integration_entry_can_have_content(const DataIntegrationEntry *self);
 DataIntegrationEntryContentForm data_integration_entry_content(const DataIntegrationEntry *self);
 // Endpoints and type.
@@ -9197,7 +9234,7 @@ DataIntegrationEntryOwnershipForm data_integration_entry_ownership(const DataInt
 // Binds a DataIntegrationPoints facade to a document and a path (path copied).
 void data_integration_points_init(DataIntegrationPoints *self, SpecDocument *doc, const char *path);
 void data_integration_points_free(DataIntegrationPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_integration_points_can_have_content(const DataIntegrationPoints *self);
 char *data_integration_points_content(const DataIntegrationPoints *self);
 void data_integration_points_set_content(DataIntegrationPoints *self, const char *value);
@@ -9219,7 +9256,7 @@ SomList data_integration_points_integration_points(const DataIntegrationPoints *
 // Binds a DataLevelSecurity facade to a document and a path (path copied).
 void data_level_security_init(DataLevelSecurity *self, SpecDocument *doc, const char *path);
 void data_level_security_free(DataLevelSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_level_security_can_have_content(const DataLevelSecurity *self);
 char *data_level_security_content(const DataLevelSecurity *self);
 void data_level_security_set_content(DataLevelSecurity *self, const char *value);
@@ -9246,7 +9283,7 @@ DataAccessAuditPolicy data_level_security_data_access_audit_policy(const DataLev
 // Binds a DataMaskingPolicy facade to a document and a path (path copied).
 void data_masking_policy_init(DataMaskingPolicy *self, SpecDocument *doc, const char *path);
 void data_masking_policy_free(DataMaskingPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_masking_policy_can_have_content(const DataMaskingPolicy *self);
 char *data_masking_policy_content(const DataMaskingPolicy *self);
 void data_masking_policy_set_content(DataMaskingPolicy *self, const char *value);
@@ -9263,7 +9300,7 @@ void data_masking_policy_set_content(DataMaskingPolicy *self, const char *value)
 // Binds a DataMigrationStrategy facade to a document and a path (path copied).
 void data_migration_strategy_init(DataMigrationStrategy *self, SpecDocument *doc, const char *path);
 void data_migration_strategy_free(DataMigrationStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_migration_strategy_can_have_content(const DataMigrationStrategy *self);
 DataMigrationStrategyContentForm data_migration_strategy_content(const DataMigrationStrategy *self);
 // Strategic approach details.
@@ -9307,7 +9344,7 @@ StageMigrationRisks data_migration_strategy_migration_risks(const DataMigrationS
 // Binds a DataModel facade to a document and a path (path copied).
 void data_model_init(DataModel *self, SpecDocument *doc, const char *path);
 void data_model_free(DataModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_model_can_have_content(const DataModel *self);
 char *data_model_content(const DataModel *self);
 void data_model_set_content(DataModel *self, const char *value);
@@ -9342,7 +9379,7 @@ IntegrityConstraints data_model_integrity_constraints(const DataModel *self);
 // Binds a DataModelFollowUp facade to a document and a path (path copied).
 void data_model_follow_up_init(DataModelFollowUp *self, SpecDocument *doc, const char *path);
 void data_model_follow_up_free(DataModelFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_model_follow_up_can_have_content(const DataModelFollowUp *self);
 char *data_model_follow_up_content(const DataModelFollowUp *self);
 void data_model_follow_up_set_content(DataModelFollowUp *self, const char *value);
@@ -9359,7 +9396,7 @@ SomList data_model_follow_up_entity_follow_ups(const DataModelFollowUp *self);
 // Binds a DataOwnership facade to a document and a path (path copied).
 void data_ownership_init(DataOwnership *self, SpecDocument *doc, const char *path);
 void data_ownership_free(DataOwnership *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_ownership_can_have_content(const DataOwnership *self);
 char *data_ownership_content(const DataOwnership *self);
 void data_ownership_set_content(DataOwnership *self, const char *value);
@@ -9376,7 +9413,7 @@ SomList data_ownership_ownership_assignments(const DataOwnership *self);
 // Binds a DataOwnershipEntry facade to a document and a path (path copied).
 void data_ownership_entry_init(DataOwnershipEntry *self, SpecDocument *doc, const char *path);
 void data_ownership_entry_free(DataOwnershipEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_ownership_entry_can_have_content(const DataOwnershipEntry *self);
 DataOwnershipEntryContentForm data_ownership_entry_content(const DataOwnershipEntry *self);
 // Stewardship and custodianship assignments.
@@ -9388,7 +9425,7 @@ DataOwnershipEntryGovernanceForm data_ownership_entry_governance(const DataOwner
 // Binds a DataProcessingAgreementRequirements facade to a document and a path (path copied).
 void data_processing_agreement_requirements_init(DataProcessingAgreementRequirements *self, SpecDocument *doc, const char *path);
 void data_processing_agreement_requirements_free(DataProcessingAgreementRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_processing_agreement_requirements_can_have_content(const DataProcessingAgreementRequirements *self);
 DataProcessingAgreementRequirementsContentForm data_processing_agreement_requirements_content(const DataProcessingAgreementRequirements *self);
 // Agreement-management details.
@@ -9409,7 +9446,7 @@ DataProcessingAgreementRequirementsTransfersForm data_processing_agreement_requi
 // Binds a DataProtectionAndPrivacySection facade to a document and a path (path copied).
 void data_protection_and_privacy_section_init(DataProtectionAndPrivacySection *self, SpecDocument *doc, const char *path);
 void data_protection_and_privacy_section_free(DataProtectionAndPrivacySection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_protection_and_privacy_section_can_have_content(const DataProtectionAndPrivacySection *self);
 char *data_protection_and_privacy_section_content(const DataProtectionAndPrivacySection *self);
 void data_protection_and_privacy_section_set_content(DataProtectionAndPrivacySection *self, const char *value);
@@ -9437,7 +9474,7 @@ DataProtectionClassification data_protection_and_privacy_section_data_classifica
 // Binds a DataProtectionClassification facade to a document and a path (path copied).
 void data_protection_classification_init(DataProtectionClassification *self, SpecDocument *doc, const char *path);
 void data_protection_classification_free(DataProtectionClassification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_protection_classification_can_have_content(const DataProtectionClassification *self);
 DataProtectionClassificationContentForm data_protection_classification_content(const DataProtectionClassification *self);
 // Handling rules.
@@ -9456,7 +9493,7 @@ DataProtectionClassificationIncidentForm data_protection_classification_incident
 // Binds a DataQualityAssessment facade to a document and a path (path copied).
 void data_quality_assessment_init(DataQualityAssessment *self, SpecDocument *doc, const char *path);
 void data_quality_assessment_free(DataQualityAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_quality_assessment_can_have_content(const DataQualityAssessment *self);
 char *data_quality_assessment_content(const DataQualityAssessment *self);
 void data_quality_assessment_set_content(DataQualityAssessment *self, const char *value);
@@ -9476,7 +9513,7 @@ SomList data_quality_assessment_improvement_initiatives(const DataQualityAssessm
 // Binds a DataQualityInitiativeEntry facade to a document and a path (path copied).
 void data_quality_initiative_entry_init(DataQualityInitiativeEntry *self, SpecDocument *doc, const char *path);
 void data_quality_initiative_entry_free(DataQualityInitiativeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_quality_initiative_entry_can_have_content(const DataQualityInitiativeEntry *self);
 DataQualityInitiativeEntryContentForm data_quality_initiative_entry_content(const DataQualityInitiativeEntry *self);
 
@@ -9484,7 +9521,7 @@ DataQualityInitiativeEntryContentForm data_quality_initiative_entry_content(cons
 // Binds a DataQualityIssueEntry facade to a document and a path (path copied).
 void data_quality_issue_entry_init(DataQualityIssueEntry *self, SpecDocument *doc, const char *path);
 void data_quality_issue_entry_free(DataQualityIssueEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_quality_issue_entry_can_have_content(const DataQualityIssueEntry *self);
 DataQualityIssueEntryContentForm data_quality_issue_entry_content(const DataQualityIssueEntry *self);
 // Classification and severity.
@@ -9498,7 +9535,7 @@ DataQualityIssueEntryResolutionForm data_quality_issue_entry_resolution(const Da
 // Binds a DataResidencyRequirements facade to a document and a path (path copied).
 void data_residency_requirements_init(DataResidencyRequirements *self, SpecDocument *doc, const char *path);
 void data_residency_requirements_free(DataResidencyRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_residency_requirements_can_have_content(const DataResidencyRequirements *self);
 DataResidencyRequirementsContentForm data_residency_requirements_content(const DataResidencyRequirements *self);
 // Governing regulation and sovereignty constraints.
@@ -9515,7 +9552,7 @@ DataResidencyRequirementsVerificationForm data_residency_requirements_verificati
 // Binds a DataRetentionPolicies facade to a document and a path (path copied).
 void data_retention_policies_init(DataRetentionPolicies *self, SpecDocument *doc, const char *path);
 void data_retention_policies_free(DataRetentionPolicies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_retention_policies_can_have_content(const DataRetentionPolicies *self);
 char *data_retention_policies_content(const DataRetentionPolicies *self);
 void data_retention_policies_set_content(DataRetentionPolicies *self, const char *value);
@@ -9529,7 +9566,7 @@ SomList data_retention_policies_retention_policies(const DataRetentionPolicies *
 // Binds a DataSourceEntityEntry facade to a document and a path (path copied).
 void data_source_entity_entry_init(DataSourceEntityEntry *self, SpecDocument *doc, const char *path);
 void data_source_entity_entry_free(DataSourceEntityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_source_entity_entry_can_have_content(const DataSourceEntityEntry *self);
 DataSourceEntityEntryContentForm data_source_entity_entry_content(const DataSourceEntityEntry *self);
 
@@ -9540,7 +9577,7 @@ DataSourceEntityEntryContentForm data_source_entity_entry_content(const DataSour
 // Binds a DataSourceEntry facade to a document and a path (path copied).
 void data_source_entry_init(DataSourceEntry *self, SpecDocument *doc, const char *path);
 void data_source_entry_free(DataSourceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_source_entry_can_have_content(const DataSourceEntry *self);
 DataSourceEntryContentForm data_source_entry_content(const DataSourceEntry *self);
 // Classification.
@@ -9570,7 +9607,7 @@ SomList data_source_entry_key_entities(const DataSourceEntry *self);
 // Binds a DataSourceInventory facade to a document and a path (path copied).
 void data_source_inventory_init(DataSourceInventory *self, SpecDocument *doc, const char *path);
 void data_source_inventory_free(DataSourceInventory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_source_inventory_can_have_content(const DataSourceInventory *self);
 char *data_source_inventory_content(const DataSourceInventory *self);
 void data_source_inventory_set_content(DataSourceInventory *self, const char *value);
@@ -9588,7 +9625,7 @@ SomList data_source_inventory_data_sources(const DataSourceInventory *self);
 // Binds a DataSubjectRightsManagement facade to a document and a path (path copied).
 void data_subject_rights_management_init(DataSubjectRightsManagement *self, SpecDocument *doc, const char *path);
 void data_subject_rights_management_free(DataSubjectRightsManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_subject_rights_management_can_have_content(const DataSubjectRightsManagement *self);
 DataSubjectRightsManagementContentForm data_subject_rights_management_content(const DataSubjectRightsManagement *self);
 // Access and rectification handling.
@@ -9608,7 +9645,7 @@ DataSubjectRightsManagementOperationsForm data_subject_rights_management_operati
 // Binds a DataVolumeEntry facade to a document and a path (path copied).
 void data_volume_entry_init(DataVolumeEntry *self, SpecDocument *doc, const char *path);
 void data_volume_entry_free(DataVolumeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_volume_entry_can_have_content(const DataVolumeEntry *self);
 DataVolumeEntryContentForm data_volume_entry_content(const DataVolumeEntry *self);
 
@@ -9616,7 +9653,7 @@ DataVolumeEntryContentForm data_volume_entry_content(const DataVolumeEntry *self
 // Binds a DataVolumeSummary facade to a document and a path (path copied).
 void data_volume_summary_init(DataVolumeSummary *self, SpecDocument *doc, const char *path);
 void data_volume_summary_free(DataVolumeSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_volume_summary_can_have_content(const DataVolumeSummary *self);
 DataVolumeSummaryContentForm data_volume_summary_content(const DataVolumeSummary *self);
 // Historical growth behavior.
@@ -9633,7 +9670,7 @@ DataVolumeSummaryCapacityForm data_volume_summary_capacity(const DataVolumeSumma
 // Binds a DataVolumesAndGrowth facade to a document and a path (path copied).
 void data_volumes_and_growth_init(DataVolumesAndGrowth *self, SpecDocument *doc, const char *path);
 void data_volumes_and_growth_free(DataVolumesAndGrowth *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int data_volumes_and_growth_can_have_content(const DataVolumesAndGrowth *self);
 char *data_volumes_and_growth_content(const DataVolumesAndGrowth *self);
 void data_volumes_and_growth_set_content(DataVolumesAndGrowth *self, const char *value);
@@ -9654,7 +9691,7 @@ SomList data_volumes_and_growth_volume_by_source(const DataVolumesAndGrowth *sel
 // Binds a DatabaseAccessPolicy facade to a document and a path (path copied).
 void database_access_policy_init(DatabaseAccessPolicy *self, SpecDocument *doc, const char *path);
 void database_access_policy_free(DatabaseAccessPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int database_access_policy_can_have_content(const DatabaseAccessPolicy *self);
 char *database_access_policy_content(const DatabaseAccessPolicy *self);
 void database_access_policy_set_content(DatabaseAccessPolicy *self, const char *value);
@@ -9665,7 +9702,7 @@ void database_access_policy_set_content(DatabaseAccessPolicy *self, const char *
 // Binds a DatabaseCompatibilityEntry facade to a document and a path (path copied).
 void database_compatibility_entry_init(DatabaseCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void database_compatibility_entry_free(DatabaseCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int database_compatibility_entry_can_have_content(const DatabaseCompatibilityEntry *self);
 DatabaseCompatibilityEntryContentForm database_compatibility_entry_content(const DatabaseCompatibilityEntry *self);
 // Support options.
@@ -9685,7 +9722,7 @@ DatabaseCompatibilityEntryPerformanceForm database_compatibility_entry_performan
 // Binds a DatabaseEncryptionPolicy facade to a document and a path (path copied).
 void database_encryption_policy_init(DatabaseEncryptionPolicy *self, SpecDocument *doc, const char *path);
 void database_encryption_policy_free(DatabaseEncryptionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int database_encryption_policy_can_have_content(const DatabaseEncryptionPolicy *self);
 char *database_encryption_policy_content(const DatabaseEncryptionPolicy *self);
 void database_encryption_policy_set_content(DatabaseEncryptionPolicy *self, const char *value);
@@ -9696,7 +9733,7 @@ void database_encryption_policy_set_content(DatabaseEncryptionPolicy *self, cons
 // Binds a DebuggingConfiguration facade to a document and a path (path copied).
 void debugging_configuration_init(DebuggingConfiguration *self, SpecDocument *doc, const char *path);
 void debugging_configuration_free(DebuggingConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int debugging_configuration_can_have_content(const DebuggingConfiguration *self);
 DebuggingConfigurationContentForm debugging_configuration_content(const DebuggingConfiguration *self);
 // Breakpoint and watch setup.
@@ -9714,7 +9751,7 @@ DebuggingConfigurationErrorsForm debugging_configuration_errors(const DebuggingC
 // Binds a DecisionAuthorityEntry facade to a document and a path (path copied).
 void decision_authority_entry_init(DecisionAuthorityEntry *self, SpecDocument *doc, const char *path);
 void decision_authority_entry_free(DecisionAuthorityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_authority_entry_can_have_content(const DecisionAuthorityEntry *self);
 DecisionAuthorityEntryContentForm decision_authority_entry_content(const DecisionAuthorityEntry *self);
 
@@ -9722,7 +9759,7 @@ DecisionAuthorityEntryContentForm decision_authority_entry_content(const Decisio
 // Binds a DecisionMakerEntry facade to a document and a path (path copied).
 void decision_maker_entry_init(DecisionMakerEntry *self, SpecDocument *doc, const char *path);
 void decision_maker_entry_free(DecisionMakerEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_maker_entry_can_have_content(const DecisionMakerEntry *self);
 DecisionMakerEntryContentForm decision_maker_entry_content(const DecisionMakerEntry *self);
 
@@ -9733,7 +9770,7 @@ DecisionMakerEntryContentForm decision_maker_entry_content(const DecisionMakerEn
 // Binds a DecisionOptionEntry facade to a document and a path (path copied).
 void decision_option_entry_init(DecisionOptionEntry *self, SpecDocument *doc, const char *path);
 void decision_option_entry_free(DecisionOptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_option_entry_can_have_content(const DecisionOptionEntry *self);
 DecisionOptionEntryContentForm decision_option_entry_content(const DecisionOptionEntry *self);
 // Recommendation flags.
@@ -9753,7 +9790,7 @@ DecisionOptionEntryTradeOffsForm decision_option_entry_trade_offs(const Decision
 // Binds a DecisionPointEntry facade to a document and a path (path copied).
 void decision_point_entry_init(DecisionPointEntry *self, SpecDocument *doc, const char *path);
 void decision_point_entry_free(DecisionPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_point_entry_can_have_content(const DecisionPointEntry *self);
 DecisionPointEntryContentForm decision_point_entry_content(const DecisionPointEntry *self);
 // Context and timing information.
@@ -9769,7 +9806,7 @@ DecisionPointEntryResolution decision_point_entry_resolution(const DecisionPoint
 // Binds a DecisionPointEntryResolution facade to a document and a path (path copied).
 void decision_point_entry_resolution_init(DecisionPointEntryResolution *self, SpecDocument *doc, const char *path);
 void decision_point_entry_resolution_free(DecisionPointEntryResolution *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_point_entry_resolution_can_have_content(const DecisionPointEntryResolution *self);
 DecisionPointEntryResolutionContentForm decision_point_entry_resolution_content(const DecisionPointEntryResolution *self);
 // Decision context narrative.
@@ -9787,7 +9824,7 @@ SomList decision_point_entry_resolution_options(const DecisionPointEntryResoluti
 // Binds a DecisionPoints facade to a document and a path (path copied).
 void decision_points_init(DecisionPoints *self, SpecDocument *doc, const char *path);
 void decision_points_free(DecisionPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int decision_points_can_have_content(const DecisionPoints *self);
 DecisionPointsContentForm decision_points_content(const DecisionPoints *self);
 // Decision framework narrative.
@@ -9800,7 +9837,7 @@ SomList decision_points_items(const DecisionPoints *self);
 // Binds a DeepLinkPatternEntry facade to a document and a path (path copied).
 void deep_link_pattern_entry_init(DeepLinkPatternEntry *self, SpecDocument *doc, const char *path);
 void deep_link_pattern_entry_free(DeepLinkPatternEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deep_link_pattern_entry_can_have_content(const DeepLinkPatternEntry *self);
 DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPatternEntry *self);
 
@@ -9810,7 +9847,7 @@ DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPa
 // Binds a DeepLinking facade to a document and a path (path copied).
 void deep_linking_init(DeepLinking *self, SpecDocument *doc, const char *path);
 void deep_linking_free(DeepLinking *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deep_linking_can_have_content(const DeepLinking *self);
 char *deep_linking_content(const DeepLinking *self);
 void deep_linking_set_content(DeepLinking *self, const char *value);
@@ -9828,7 +9865,7 @@ SomList deep_linking_patterns(const DeepLinking *self);
 // Binds a DefectResolution facade to a document and a path (path copied).
 void defect_resolution_init(DefectResolution *self, SpecDocument *doc, const char *path);
 void defect_resolution_free(DefectResolution *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int defect_resolution_can_have_content(const DefectResolution *self);
 DefectResolutionContentForm defect_resolution_content(const DefectResolution *self);
 // Classification refinement and SLA targets.
@@ -9846,7 +9883,7 @@ DefectResolutionReportingForm defect_resolution_reporting(const DefectResolution
 // Binds a DeferredScopeItemEntry facade to a document and a path (path copied).
 void deferred_scope_item_entry_init(DeferredScopeItemEntry *self, SpecDocument *doc, const char *path);
 void deferred_scope_item_entry_free(DeferredScopeItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deferred_scope_item_entry_can_have_content(const DeferredScopeItemEntry *self);
 DeferredScopeItemEntryContentForm deferred_scope_item_entry_content(const DeferredScopeItemEntry *self);
 
@@ -9854,7 +9891,7 @@ DeferredScopeItemEntryContentForm deferred_scope_item_entry_content(const Deferr
 // Binds a DeliverableDependencies facade to a document and a path (path copied).
 void deliverable_dependencies_init(DeliverableDependencies *self, SpecDocument *doc, const char *path);
 void deliverable_dependencies_free(DeliverableDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deliverable_dependencies_can_have_content(const DeliverableDependencies *self);
 DeliverableDependenciesContentForm deliverable_dependencies_content(const DeliverableDependencies *self);
 
@@ -9866,7 +9903,7 @@ DeliverableDependenciesContentForm deliverable_dependencies_content(const Delive
 // Binds a DeliverableEntry facade to a document and a path (path copied).
 void deliverable_entry_init(DeliverableEntry *self, SpecDocument *doc, const char *path);
 void deliverable_entry_free(DeliverableEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deliverable_entry_can_have_content(const DeliverableEntry *self);
 DeliverableEntryContentForm deliverable_entry_content(const DeliverableEntry *self);
 // Identification details.
@@ -9895,7 +9932,7 @@ DeliverableEntryDocumentationForm deliverable_entry_documentation(const Delivera
 // Binds a DeliveryAcceptanceCriterionEntry facade to a document and a path (path copied).
 void delivery_acceptance_criterion_entry_init(DeliveryAcceptanceCriterionEntry *self, SpecDocument *doc, const char *path);
 void delivery_acceptance_criterion_entry_free(DeliveryAcceptanceCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int delivery_acceptance_criterion_entry_can_have_content(const DeliveryAcceptanceCriterionEntry *self);
 DeliveryAcceptanceCriterionEntryContentForm delivery_acceptance_criterion_entry_content(const DeliveryAcceptanceCriterionEntry *self);
 // Priority and description.
@@ -9913,7 +9950,7 @@ DeliveryAcceptanceCriterionEntryStatusForm delivery_acceptance_criterion_entry_s
 // Binds a DeliveryScope facade to a document and a path (path copied).
 void delivery_scope_init(DeliveryScope *self, SpecDocument *doc, const char *path);
 void delivery_scope_free(DeliveryScope *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int delivery_scope_can_have_content(const DeliveryScope *self);
 char *delivery_scope_content(const DeliveryScope *self);
 void delivery_scope_set_content(DeliveryScope *self, const char *value);
@@ -9930,7 +9967,7 @@ SupportDeliverables delivery_scope_support_deliverables(const DeliveryScope *sel
 // Binds a DeliveryScopeAndAcceptance facade to a document and a path (path copied).
 void delivery_scope_and_acceptance_init(DeliveryScopeAndAcceptance *self, SpecDocument *doc, const char *path);
 void delivery_scope_and_acceptance_free(DeliveryScopeAndAcceptance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int delivery_scope_and_acceptance_can_have_content(const DeliveryScopeAndAcceptance *self);
 char *delivery_scope_and_acceptance_content(const DeliveryScopeAndAcceptance *self);
 void delivery_scope_and_acceptance_set_content(DeliveryScopeAndAcceptance *self, const char *value);
@@ -9943,7 +9980,7 @@ AcceptancePlan delivery_scope_and_acceptance_acceptance_plan(const DeliveryScope
 // Binds a DeliveryTransitionAndRollout facade to a document and a path (path copied).
 void delivery_transition_and_rollout_init(DeliveryTransitionAndRollout *self, SpecDocument *doc, const char *path);
 void delivery_transition_and_rollout_free(DeliveryTransitionAndRollout *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int delivery_transition_and_rollout_can_have_content(const DeliveryTransitionAndRollout *self);
 char *delivery_transition_and_rollout_content(const DeliveryTransitionAndRollout *self);
 void delivery_transition_and_rollout_set_content(DeliveryTransitionAndRollout *self, const char *value);
@@ -9966,7 +10003,7 @@ DeliveryTransitionAndRolloutLocaleRolloutPlanForm delivery_transition_and_rollou
 // Binds a DependenciesAndIntegrations facade to a document and a path (path copied).
 void dependencies_and_integrations_init(DependenciesAndIntegrations *self, SpecDocument *doc, const char *path);
 void dependencies_and_integrations_free(DependenciesAndIntegrations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependencies_and_integrations_can_have_content(const DependenciesAndIntegrations *self);
 char *dependencies_and_integrations_content(const DependenciesAndIntegrations *self);
 void dependencies_and_integrations_set_content(DependenciesAndIntegrations *self, const char *value);
@@ -9988,7 +10025,7 @@ IntegrationHealthSummary dependencies_and_integrations_health_summary(const Depe
 // Binds a DependencyHealthMonitoring facade to a document and a path (path copied).
 void dependency_health_monitoring_init(DependencyHealthMonitoring *self, SpecDocument *doc, const char *path);
 void dependency_health_monitoring_free(DependencyHealthMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependency_health_monitoring_can_have_content(const DependencyHealthMonitoring *self);
 DependencyHealthMonitoringContentForm dependency_health_monitoring_content(const DependencyHealthMonitoring *self);
 // Cache subsystem checks.
@@ -10004,7 +10041,7 @@ DependencyHealthMonitoringThresholdsForm dependency_health_monitoring_thresholds
 // Binds a DependencyInjectionStructure facade to a document and a path (path copied).
 void dependency_injection_structure_init(DependencyInjectionStructure *self, SpecDocument *doc, const char *path);
 void dependency_injection_structure_free(DependencyInjectionStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependency_injection_structure_can_have_content(const DependencyInjectionStructure *self);
 DependencyInjectionStructureContentForm dependency_injection_structure_content(const DependencyInjectionStructure *self);
 // Registration organization.
@@ -10020,7 +10057,7 @@ DependencyInjectionStructureTroubleshootingForm dependency_injection_structure_t
 // Binds a DependencyManagement facade to a document and a path (path copied).
 void dependency_management_init(DependencyManagement *self, SpecDocument *doc, const char *path);
 void dependency_management_free(DependencyManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependency_management_can_have_content(const DependencyManagement *self);
 DependencyManagementContentForm dependency_management_content(const DependencyManagement *self);
 // Versioning and update policy.
@@ -10042,7 +10079,7 @@ DependencyManagementOperationsForm dependency_management_operations(const Depend
 // Binds a DependencyRegisterEntry facade to a document and a path (path copied).
 void dependency_register_entry_init(DependencyRegisterEntry *self, SpecDocument *doc, const char *path);
 void dependency_register_entry_free(DependencyRegisterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependency_register_entry_can_have_content(const DependencyRegisterEntry *self);
 DependencyRegisterEntryContentForm dependency_register_entry_content(const DependencyRegisterEntry *self);
 
@@ -10050,7 +10087,7 @@ DependencyRegisterEntryContentForm dependency_register_entry_content(const Depen
 // Binds a DependencyScanningRequirements facade to a document and a path (path copied).
 void dependency_scanning_requirements_init(DependencyScanningRequirements *self, SpecDocument *doc, const char *path);
 void dependency_scanning_requirements_free(DependencyScanningRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dependency_scanning_requirements_can_have_content(const DependencyScanningRequirements *self);
 DependencyScanningRequirementsContentForm dependency_scanning_requirements_content(const DependencyScanningRequirements *self);
 // Vulnerability-management rules.
@@ -10069,7 +10106,7 @@ DependencyScanningRequirementsSupplyChainForm dependency_scanning_requirements_s
 // Binds a DeploymentContext facade to a document and a path (path copied).
 void deployment_context_init(DeploymentContext *self, SpecDocument *doc, const char *path);
 void deployment_context_free(DeploymentContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_context_can_have_content(const DeploymentContext *self);
 char *deployment_context_content(const DeploymentContext *self);
 void deployment_context_set_content(DeploymentContext *self, const char *value);
@@ -10080,7 +10117,7 @@ DeploymentContextDeploymentDetailsForm deployment_context_deployment_details(con
 // Binds a DeploymentEnvironmentEntry facade to a document and a path (path copied).
 void deployment_environment_entry_init(DeploymentEnvironmentEntry *self, SpecDocument *doc, const char *path);
 void deployment_environment_entry_free(DeploymentEnvironmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_environment_entry_can_have_content(const DeploymentEnvironmentEntry *self);
 DeploymentEnvironmentEntryContentForm deployment_environment_entry_content(const DeploymentEnvironmentEntry *self);
 // Deployment method and rollback controls.
@@ -10096,7 +10133,7 @@ DeploymentEnvironmentEntryMonitoringForm deployment_environment_entry_monitoring
 // Binds a DeploymentModelRequirements facade to a document and a path (path copied).
 void deployment_model_requirements_init(DeploymentModelRequirements *self, SpecDocument *doc, const char *path);
 void deployment_model_requirements_free(DeploymentModelRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_model_requirements_can_have_content(const DeploymentModelRequirements *self);
 DeploymentModelRequirementsContentForm deployment_model_requirements_content(const DeploymentModelRequirements *self);
 // Container image policies.
@@ -10112,7 +10149,7 @@ DeploymentModelRequirementsStorageForm deployment_model_requirements_storage(con
 // Binds a DeploymentSecurity facade to a document and a path (path copied).
 void deployment_security_init(DeploymentSecurity *self, SpecDocument *doc, const char *path);
 void deployment_security_free(DeploymentSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_security_can_have_content(const DeploymentSecurity *self);
 DeploymentSecurityContentForm deployment_security_content(const DeploymentSecurity *self);
 // Supply-chain security.
@@ -10129,7 +10166,7 @@ DeploymentSecurityAccessForm deployment_security_access(const DeploymentSecurity
 // Binds a DeploymentStrategySection facade to a document and a path (path copied).
 void deployment_strategy_section_init(DeploymentStrategySection *self, SpecDocument *doc, const char *path);
 void deployment_strategy_section_free(DeploymentStrategySection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_strategy_section_can_have_content(const DeploymentStrategySection *self);
 char *deployment_strategy_section_content(const DeploymentStrategySection *self);
 void deployment_strategy_section_set_content(DeploymentStrategySection *self, const char *value);
@@ -10156,7 +10193,7 @@ DeploymentSecurity deployment_strategy_section_deployment_security(const Deploym
 // Binds a DeploymentTargetEntry facade to a document and a path (path copied).
 void deployment_target_entry_init(DeploymentTargetEntry *self, SpecDocument *doc, const char *path);
 void deployment_target_entry_free(DeploymentTargetEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_target_entry_can_have_content(const DeploymentTargetEntry *self);
 DeploymentTargetEntryContentForm deployment_target_entry_content(const DeploymentTargetEntry *self);
 // Platform specifics.
@@ -10174,7 +10211,7 @@ DeploymentTargetEntryComplianceForm deployment_target_entry_compliance(const Dep
 // Binds a DeploymentTopology facade to a document and a path (path copied).
 void deployment_topology_init(DeploymentTopology *self, SpecDocument *doc, const char *path);
 void deployment_topology_free(DeploymentTopology *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deployment_topology_can_have_content(const DeploymentTopology *self);
 DeploymentTopologyContentForm deployment_topology_content(const DeploymentTopology *self);
 // Infrastructure layout.
@@ -10192,7 +10229,7 @@ DeploymentTopologyInfrastructureAsCodeForm deployment_topology_infrastructure_as
 // Binds a DesignFoundationEntry facade to a document and a path (path copied).
 void design_foundation_entry_init(DesignFoundationEntry *self, SpecDocument *doc, const char *path);
 void design_foundation_entry_free(DesignFoundationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_foundation_entry_can_have_content(const DesignFoundationEntry *self);
 DesignFoundationEntryContentForm design_foundation_entry_content(const DesignFoundationEntry *self);
 
@@ -10202,7 +10239,7 @@ DesignFoundationEntryContentForm design_foundation_entry_content(const DesignFou
 // Binds a DesignGoalEntry facade to a document and a path (path copied).
 void design_goal_entry_init(DesignGoalEntry *self, SpecDocument *doc, const char *path);
 void design_goal_entry_free(DesignGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_goal_entry_can_have_content(const DesignGoalEntry *self);
 DesignGoalEntryContentForm design_goal_entry_content(const DesignGoalEntry *self);
 
@@ -10213,7 +10250,7 @@ DesignGoalEntryContentForm design_goal_entry_content(const DesignGoalEntry *self
 // Binds a DesignGoals facade to a document and a path (path copied).
 void design_goals_init(DesignGoals *self, SpecDocument *doc, const char *path);
 void design_goals_free(DesignGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_goals_can_have_content(const DesignGoals *self);
 char *design_goals_content(const DesignGoals *self);
 void design_goals_set_content(DesignGoals *self, const char *value);
@@ -10227,7 +10264,7 @@ SomList design_goals_items(const DesignGoals *self);
 // Binds a DesignPatternEntry facade to a document and a path (path copied).
 void design_pattern_entry_init(DesignPatternEntry *self, SpecDocument *doc, const char *path);
 void design_pattern_entry_free(DesignPatternEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_pattern_entry_can_have_content(const DesignPatternEntry *self);
 DesignPatternEntryContentForm design_pattern_entry_content(const DesignPatternEntry *self);
 // Applicability guidance.
@@ -10248,7 +10285,7 @@ DesignPatternEntryEnforcementForm design_pattern_entry_enforcement(const DesignP
 // Binds a DesignPatternsAndStandards facade to a document and a path (path copied).
 void design_patterns_and_standards_init(DesignPatternsAndStandards *self, SpecDocument *doc, const char *path);
 void design_patterns_and_standards_free(DesignPatternsAndStandards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_patterns_and_standards_can_have_content(const DesignPatternsAndStandards *self);
 char *design_patterns_and_standards_content(const DesignPatternsAndStandards *self);
 void design_patterns_and_standards_set_content(DesignPatternsAndStandards *self, const char *value);
@@ -10281,7 +10318,7 @@ TestingStandards design_patterns_and_standards_testing_standards(const DesignPat
 // Binds a DesignPrincipleEntry facade to a document and a path (path copied).
 void design_principle_entry_init(DesignPrincipleEntry *self, SpecDocument *doc, const char *path);
 void design_principle_entry_free(DesignPrincipleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_principle_entry_can_have_content(const DesignPrincipleEntry *self);
 DesignPrincipleEntryContentForm design_principle_entry_content(const DesignPrincipleEntry *self);
 
@@ -10292,7 +10329,7 @@ DesignPrincipleEntryContentForm design_principle_entry_content(const DesignPrinc
 // Binds a DesignPrinciples facade to a document and a path (path copied).
 void design_principles_init(DesignPrinciples *self, SpecDocument *doc, const char *path);
 void design_principles_free(DesignPrinciples *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_principles_can_have_content(const DesignPrinciples *self);
 char *design_principles_content(const DesignPrinciples *self);
 void design_principles_set_content(DesignPrinciples *self, const char *value);
@@ -10309,7 +10346,7 @@ SomList design_principles_items(const DesignPrinciples *self);
 // Binds a DesignVision facade to a document and a path (path copied).
 void design_vision_init(DesignVision *self, SpecDocument *doc, const char *path);
 void design_vision_free(DesignVision *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int design_vision_can_have_content(const DesignVision *self);
 char *design_vision_content(const DesignVision *self);
 void design_vision_set_content(DesignVision *self, const char *value);
@@ -10324,7 +10361,7 @@ UserPersonas design_vision_personas(const DesignVision *self);
 // Binds a DesktopOsRequirementEntry facade to a document and a path (path copied).
 void desktop_os_requirement_entry_init(DesktopOsRequirementEntry *self, SpecDocument *doc, const char *path);
 void desktop_os_requirement_entry_free(DesktopOsRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int desktop_os_requirement_entry_can_have_content(const DesktopOsRequirementEntry *self);
 DesktopOsRequirementEntryContentForm desktop_os_requirement_entry_content(const DesktopOsRequirementEntry *self);
 // Support prioritization.
@@ -10343,7 +10380,7 @@ DesktopOsRequirementEntryTestingForm desktop_os_requirement_entry_testing(const 
 // Binds a DetailedProcessWorkflow facade to a document and a path (path copied).
 void detailed_process_workflow_init(DetailedProcessWorkflow *self, SpecDocument *doc, const char *path);
 void detailed_process_workflow_free(DetailedProcessWorkflow *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int detailed_process_workflow_can_have_content(const DetailedProcessWorkflow *self);
 char *detailed_process_workflow_content(const DetailedProcessWorkflow *self);
 void detailed_process_workflow_set_content(DetailedProcessWorkflow *self, const char *value);
@@ -10352,7 +10389,7 @@ void detailed_process_workflow_set_content(DetailedProcessWorkflow *self, const 
 // Binds a DeveloperOnboarding facade to a document and a path (path copied).
 void developer_onboarding_init(DeveloperOnboarding *self, SpecDocument *doc, const char *path);
 void developer_onboarding_free(DeveloperOnboarding *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int developer_onboarding_can_have_content(const DeveloperOnboarding *self);
 DeveloperOnboardingContentForm developer_onboarding_content(const DeveloperOnboarding *self);
 // Setup expectations.
@@ -10370,7 +10407,7 @@ DeveloperOnboardingVerificationForm developer_onboarding_verification(const Deve
 // Binds a DevelopmentConventionEntry facade to a document and a path (path copied).
 void development_convention_entry_init(DevelopmentConventionEntry *self, SpecDocument *doc, const char *path);
 void development_convention_entry_free(DevelopmentConventionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int development_convention_entry_can_have_content(const DevelopmentConventionEntry *self);
 DevelopmentConventionEntryContentForm development_convention_entry_content(const DevelopmentConventionEntry *self);
 // Background and workflow.
@@ -10391,7 +10428,7 @@ DevelopmentConventionEntryEnforcementForm development_convention_entry_enforceme
 // Binds a DevelopmentEnvironment facade to a document and a path (path copied).
 void development_environment_init(DevelopmentEnvironment *self, SpecDocument *doc, const char *path);
 void development_environment_free(DevelopmentEnvironment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int development_environment_can_have_content(const DevelopmentEnvironment *self);
 char *development_environment_content(const DevelopmentEnvironment *self);
 void development_environment_set_content(DevelopmentEnvironment *self, const char *value);
@@ -10423,7 +10460,7 @@ DevelopmentQualityGates development_environment_quality_gates(const DevelopmentE
 // Binds a DevelopmentQualityGates facade to a document and a path (path copied).
 void development_quality_gates_init(DevelopmentQualityGates *self, SpecDocument *doc, const char *path);
 void development_quality_gates_free(DevelopmentQualityGates *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int development_quality_gates_can_have_content(const DevelopmentQualityGates *self);
 DevelopmentQualityGatesContentForm development_quality_gates_content(const DevelopmentQualityGates *self);
 // Coverage requirements.
@@ -10449,7 +10486,7 @@ DevelopmentQualityGatesPerformanceForm development_quality_gates_performance(con
 // Binds a DeviceSettings facade to a document and a path (path copied).
 void device_settings_init(DeviceSettings *self, SpecDocument *doc, const char *path);
 void device_settings_free(DeviceSettings *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int device_settings_can_have_content(const DeviceSettings *self);
 DeviceSettingsContentForm device_settings_content(const DeviceSettings *self);
 
@@ -10457,7 +10494,7 @@ DeviceSettingsContentForm device_settings_content(const DeviceSettings *self);
 // Binds a DisasterRecoveryRequirements facade to a document and a path (path copied).
 void disaster_recovery_requirements_init(DisasterRecoveryRequirements *self, SpecDocument *doc, const char *path);
 void disaster_recovery_requirements_free(DisasterRecoveryRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int disaster_recovery_requirements_can_have_content(const DisasterRecoveryRequirements *self);
 DisasterRecoveryRequirementsContentForm disaster_recovery_requirements_content(const DisasterRecoveryRequirements *self);
 // Failover execution.
@@ -10473,7 +10510,7 @@ DisasterRecoveryRequirementsContinuityForm disaster_recovery_requirements_contin
 // Binds a DisplayEquipmentEntry facade to a document and a path (path copied).
 void display_equipment_entry_init(DisplayEquipmentEntry *self, SpecDocument *doc, const char *path);
 void display_equipment_entry_free(DisplayEquipmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int display_equipment_entry_can_have_content(const DisplayEquipmentEntry *self);
 DisplayEquipmentEntryContentForm display_equipment_entry_content(const DisplayEquipmentEntry *self);
 // Display quality and connection properties.
@@ -10487,7 +10524,7 @@ DisplayEquipmentEntryPlanningForm display_equipment_entry_planning(const Display
 // Binds a DisplayPropertyEntry facade to a document and a path (path copied).
 void display_property_entry_init(DisplayPropertyEntry *self, SpecDocument *doc, const char *path);
 void display_property_entry_free(DisplayPropertyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int display_property_entry_can_have_content(const DisplayPropertyEntry *self);
 DisplayPropertyEntryContentForm display_property_entry_content(const DisplayPropertyEntry *self);
 
@@ -10495,7 +10532,7 @@ DisplayPropertyEntryContentForm display_property_entry_content(const DisplayProp
 // Binds a DisplayRequirements facade to a document and a path (path copied).
 void display_requirements_init(DisplayRequirements *self, SpecDocument *doc, const char *path);
 void display_requirements_free(DisplayRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int display_requirements_can_have_content(const DisplayRequirements *self);
 DisplayRequirementsContentForm display_requirements_content(const DisplayRequirements *self);
 // Aspect ratio and layout support.
@@ -10511,7 +10548,7 @@ DisplayRequirementsMultiDisplayForm display_requirements_multi_display(const Dis
 // Binds a DistributedTracingSpec facade to a document and a path (path copied).
 void distributed_tracing_spec_init(DistributedTracingSpec *self, SpecDocument *doc, const char *path);
 void distributed_tracing_spec_free(DistributedTracingSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int distributed_tracing_spec_can_have_content(const DistributedTracingSpec *self);
 DistributedTracingSpecContentForm distributed_tracing_spec_content(const DistributedTracingSpec *self);
 // Sampling strategy.
@@ -10525,7 +10562,7 @@ DistributedTracingSpecOperationsForm distributed_tracing_spec_operations(const D
 // Binds a DistributionGroupSummary facade to a document and a path (path copied).
 void distribution_group_summary_init(DistributionGroupSummary *self, SpecDocument *doc, const char *path);
 void distribution_group_summary_free(DistributionGroupSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int distribution_group_summary_can_have_content(const DistributionGroupSummary *self);
 DistributionGroupSummaryContentForm distribution_group_summary_content(const DistributionGroupSummary *self);
 
@@ -10537,7 +10574,7 @@ DistributionGroupSummaryContentForm distribution_group_summary_content(const Dis
 // Binds a DistributionList facade to a document and a path (path copied).
 void distribution_list_init(DistributionList *self, SpecDocument *doc, const char *path);
 void distribution_list_free(DistributionList *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int distribution_list_can_have_content(const DistributionList *self);
 char *distribution_list_content(const DistributionList *self);
 void distribution_list_set_content(DistributionList *self, const char *value);
@@ -10558,7 +10595,7 @@ SomList distribution_list_custom_groups(const DistributionList *self);
 // Binds a DistributionRecipientEntry facade to a document and a path (path copied).
 void distribution_recipient_entry_init(DistributionRecipientEntry *self, SpecDocument *doc, const char *path);
 void distribution_recipient_entry_free(DistributionRecipientEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int distribution_recipient_entry_can_have_content(const DistributionRecipientEntry *self);
 DistributionRecipientEntryContentForm distribution_recipient_entry_content(const DistributionRecipientEntry *self);
 // Contact information.
@@ -10577,7 +10614,7 @@ DistributionRecipientEntryBackupForm distribution_recipient_entry_backup(const D
 // Binds a DistributionRecipientPreferences facade to a document and a path (path copied).
 void distribution_recipient_preferences_init(DistributionRecipientPreferences *self, SpecDocument *doc, const char *path);
 void distribution_recipient_preferences_free(DistributionRecipientPreferences *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int distribution_recipient_preferences_can_have_content(const DistributionRecipientPreferences *self);
 DistributionRecipientPreferencesContentForm distribution_recipient_preferences_content(const DistributionRecipientPreferences *self);
 
@@ -10585,7 +10622,7 @@ DistributionRecipientPreferencesContentForm distribution_recipient_preferences_c
 // Binds a DnsRequirements facade to a document and a path (path copied).
 void dns_requirements_init(DnsRequirements *self, SpecDocument *doc, const char *path);
 void dns_requirements_free(DnsRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int dns_requirements_can_have_content(const DnsRequirements *self);
 DnsRequirementsContentForm dns_requirements_content(const DnsRequirements *self);
 // Zone requirements.
@@ -10601,7 +10638,7 @@ DnsRequirementsHealthChecksForm dns_requirements_health_checks(const DnsRequirem
 // Binds a DocChangeability facade to a document and a path (path copied).
 void doc_changeability_init(DocChangeability *self, SpecDocument *doc, const char *path);
 void doc_changeability_free(DocChangeability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int doc_changeability_can_have_content(const DocChangeability *self);
 DocChangeabilityContentForm doc_changeability_content(const DocChangeability *self);
 // Extensibility and localization readiness.
@@ -10617,7 +10654,7 @@ DocChangeabilityMaintenanceForm doc_changeability_maintenance(const DocChangeabi
 // Binds a DocCompleteness facade to a document and a path (path copied).
 void doc_completeness_init(DocCompleteness *self, SpecDocument *doc, const char *path);
 void doc_completeness_free(DocCompleteness *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int doc_completeness_can_have_content(const DocCompleteness *self);
 DocCompletenessContentForm doc_completeness_content(const DocCompleteness *self);
 // Detailed completeness requirements narrative.
@@ -10627,7 +10664,7 @@ DocCompletenessContentForm doc_completeness_content(const DocCompleteness *self)
 // Binds a DocCorrectness facade to a document and a path (path copied).
 void doc_correctness_init(DocCorrectness *self, SpecDocument *doc, const char *path);
 void doc_correctness_free(DocCorrectness *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int doc_correctness_can_have_content(const DocCorrectness *self);
 DocCorrectnessContentForm doc_correctness_content(const DocCorrectness *self);
 // Formatting and implementation alignment.
@@ -10645,7 +10682,7 @@ DocCorrectnessVerificationForm doc_correctness_verification(const DocCorrectness
 // Binds a DocumentControl facade to a document and a path (path copied).
 void document_control_init(DocumentControl *self, SpecDocument *doc, const char *path);
 void document_control_free(DocumentControl *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int document_control_can_have_content(const DocumentControl *self);
 char *document_control_content(const DocumentControl *self);
 void document_control_set_content(DocumentControl *self, const char *value);
@@ -10672,7 +10709,7 @@ ReferenceDocuments document_control_reference_documents(const DocumentControl *s
 // Binds a DocumentHeader facade to a document and a path (path copied).
 void document_header_init(DocumentHeader *self, SpecDocument *doc, const char *path);
 void document_header_free(DocumentHeader *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int document_header_can_have_content(const DocumentHeader *self);
 DocumentHeaderContentForm document_header_content(const DocumentHeader *self);
 
@@ -10680,7 +10717,7 @@ DocumentHeaderContentForm document_header_content(const DocumentHeader *self);
 // Binds a DocumentRelationships facade to a document and a path (path copied).
 void document_relationships_init(DocumentRelationships *self, SpecDocument *doc, const char *path);
 void document_relationships_free(DocumentRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int document_relationships_can_have_content(const DocumentRelationships *self);
 char *document_relationships_content(const DocumentRelationships *self);
 void document_relationships_set_content(DocumentRelationships *self, const char *value);
@@ -10692,7 +10729,7 @@ SomList document_relationships_related_documents(const DocumentRelationships *se
 // Binds a DocumentRelevantSections facade to a document and a path (path copied).
 void document_relevant_sections_init(DocumentRelevantSections *self, SpecDocument *doc, const char *path);
 void document_relevant_sections_free(DocumentRelevantSections *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int document_relevant_sections_can_have_content(const DocumentRelevantSections *self);
 DocumentRelevantSectionsContentForm document_relevant_sections_content(const DocumentRelevantSections *self);
 // Individual relevant section entries.
@@ -10703,7 +10740,7 @@ SomList document_relevant_sections_sections(const DocumentRelevantSections *self
 // Binds a DocumentationDeliverables facade to a document and a path (path copied).
 void documentation_deliverables_init(DocumentationDeliverables *self, SpecDocument *doc, const char *path);
 void documentation_deliverables_free(DocumentationDeliverables *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int documentation_deliverables_can_have_content(const DocumentationDeliverables *self);
 char *documentation_deliverables_content(const DocumentationDeliverables *self);
 void documentation_deliverables_set_content(DocumentationDeliverables *self, const char *value);
@@ -10723,7 +10760,7 @@ SomList documentation_deliverables_items(const DocumentationDeliverables *self);
 // Binds a DocumentationQualityCriteria facade to a document and a path (path copied).
 void documentation_quality_criteria_init(DocumentationQualityCriteria *self, SpecDocument *doc, const char *path);
 void documentation_quality_criteria_free(DocumentationQualityCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int documentation_quality_criteria_can_have_content(const DocumentationQualityCriteria *self);
 DocumentationQualityCriteriaDocumentationOverviewContentForm documentation_quality_criteria_documentation_overview_content(const DocumentationQualityCriteria *self);
 // Documentation quality overview narrative.
@@ -10741,7 +10778,7 @@ DocChangeability documentation_quality_criteria_changeability(const Documentatio
 // Binds a DocumentationStandards facade to a document and a path (path copied).
 void documentation_standards_init(DocumentationStandards *self, SpecDocument *doc, const char *path);
 void documentation_standards_free(DocumentationStandards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int documentation_standards_can_have_content(const DocumentationStandards *self);
 DocumentationStandardsContentForm documentation_standards_content(const DocumentationStandards *self);
 // Code documentation requirements.
@@ -10759,7 +10796,7 @@ DocumentationStandardsProcessForm documentation_standards_process(const Document
 // Binds a DocumentationStandardsSection facade to a document and a path (path copied).
 void documentation_standards_section_init(DocumentationStandardsSection *self, SpecDocument *doc, const char *path);
 void documentation_standards_section_free(DocumentationStandardsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int documentation_standards_section_can_have_content(const DocumentationStandardsSection *self);
 DocumentationStandardsSectionContentForm documentation_standards_section_content(const DocumentationStandardsSection *self);
 // Technical documentation standards.
@@ -10778,7 +10815,7 @@ DocumentationStandardsSectionQualityForm documentation_standards_section_quality
 // Binds a DomainBoundaries facade to a document and a path (path copied).
 void domain_boundaries_init(DomainBoundaries *self, SpecDocument *doc, const char *path);
 void domain_boundaries_free(DomainBoundaries *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_boundaries_can_have_content(const DomainBoundaries *self);
 char *domain_boundaries_content(const DomainBoundaries *self);
 void domain_boundaries_set_content(DomainBoundaries *self, const char *value);
@@ -10799,7 +10836,7 @@ SomList domain_boundaries_interfaces(const DomainBoundaries *self);
 // Binds a DomainBusinessRuleEntry facade to a document and a path (path copied).
 void domain_business_rule_entry_init(DomainBusinessRuleEntry *self, SpecDocument *doc, const char *path);
 void domain_business_rule_entry_free(DomainBusinessRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_business_rule_entry_can_have_content(const DomainBusinessRuleEntry *self);
 DomainBusinessRuleEntryContentForm domain_business_rule_entry_content(const DomainBusinessRuleEntry *self);
 // Formal definition and applicability.
@@ -10814,7 +10851,7 @@ DomainBusinessRuleEntryGovernanceForm domain_business_rule_entry_governance(cons
 // Binds a DomainBusinessRules facade to a document and a path (path copied).
 void domain_business_rules_init(DomainBusinessRules *self, SpecDocument *doc, const char *path);
 void domain_business_rules_free(DomainBusinessRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_business_rules_can_have_content(const DomainBusinessRules *self);
 char *domain_business_rules_content(const DomainBusinessRules *self);
 void domain_business_rules_set_content(DomainBusinessRules *self, const char *value);
@@ -10825,14 +10862,14 @@ SomList domain_business_rules_rules(const DomainBusinessRules *self);
 // A single domain enum (form + values).
 //
 // One named closed value set: its name, backing value type, default value and
-// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-// name becomes the generated enum type and each member becomes a constant —
+// the ordered list of members. Maps to the `domainEnum` **member kind** — the
+// enum name becomes the generated enum type and each member becomes a constant —
 // and doubles as a closed-choice discriminator source (csm-7-4): the enum
 // name identifies the choice set and [values] supply the cases.
 // Binds a DomainEnumEntry facade to a document and a path (path copied).
 void domain_enum_entry_init(DomainEnumEntry *self, SpecDocument *doc, const char *path);
 void domain_enum_entry_free(DomainEnumEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_enum_entry_can_have_content(const DomainEnumEntry *self);
 DomainEnumEntryContentForm domain_enum_entry_content(const DomainEnumEntry *self);
 // 7.5.x. Enum Values — one entry per member of the value set.
@@ -10845,13 +10882,13 @@ SomList domain_enum_entry_values(const DomainEnumEntry *self);
 // value sets the business data model relies on (order status, currency,
 // account type, …). Before this registry existed, closed value sets could
 // only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+// inline option lists, so the `domainEnum` CodeSpecs member kind had no
 // expressible home and the closed-choice mechanism had no real enum to use as
 // a discriminator.
 //
 // This registry serves **two** roles:
 //
-// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+// 1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
 //    type and default, and its [DomainEnumEntry.values] each carry a value id,
 //    a backing value and a copy reference into the CE-TX message registry.
 // 2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -10863,7 +10900,7 @@ SomList domain_enum_entry_values(const DomainEnumEntry *self);
 // Binds a DomainEnumRegistry facade to a document and a path (path copied).
 void domain_enum_registry_init(DomainEnumRegistry *self, SpecDocument *doc, const char *path);
 void domain_enum_registry_free(DomainEnumRegistry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_enum_registry_can_have_content(const DomainEnumRegistry *self);
 char *domain_enum_registry_content(const DomainEnumRegistry *self);
 void domain_enum_registry_set_content(DomainEnumRegistry *self, const char *value);
@@ -10882,7 +10919,7 @@ SomList domain_enum_registry_enums(const DomainEnumRegistry *self);
 // Binds a DomainEnumValueEntry facade to a document and a path (path copied).
 void domain_enum_value_entry_init(DomainEnumValueEntry *self, SpecDocument *doc, const char *path);
 void domain_enum_value_entry_free(DomainEnumValueEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_enum_value_entry_can_have_content(const DomainEnumValueEntry *self);
 DomainEnumValueEntryContentForm domain_enum_value_entry_content(const DomainEnumValueEntry *self);
 
@@ -10890,7 +10927,7 @@ DomainEnumValueEntryContentForm domain_enum_value_entry_content(const DomainEnum
 // Binds a DomainEventEntry facade to a document and a path (path copied).
 void domain_event_entry_init(DomainEventEntry *self, SpecDocument *doc, const char *path);
 void domain_event_entry_free(DomainEventEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_event_entry_can_have_content(const DomainEventEntry *self);
 DomainEventEntryContentForm domain_event_entry_content(const DomainEventEntry *self);
 
@@ -10901,7 +10938,7 @@ DomainEventEntryContentForm domain_event_entry_content(const DomainEventEntry *s
 // Binds a DomainEvents facade to a document and a path (path copied).
 void domain_events_init(DomainEvents *self, SpecDocument *doc, const char *path);
 void domain_events_free(DomainEvents *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_events_can_have_content(const DomainEvents *self);
 char *domain_events_content(const DomainEvents *self);
 void domain_events_set_content(DomainEvents *self, const char *value);
@@ -10913,7 +10950,7 @@ SomList domain_events_events(const DomainEvents *self);
 // Binds a DomainInterfaceEntry facade to a document and a path (path copied).
 void domain_interface_entry_init(DomainInterfaceEntry *self, SpecDocument *doc, const char *path);
 void domain_interface_entry_free(DomainInterfaceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_interface_entry_can_have_content(const DomainInterfaceEntry *self);
 DomainInterfaceEntryContentForm domain_interface_entry_content(const DomainInterfaceEntry *self);
 
@@ -10924,7 +10961,7 @@ DomainInterfaceEntryContentForm domain_interface_entry_content(const DomainInter
 // Binds a DomainOverview facade to a document and a path (path copied).
 void domain_overview_init(DomainOverview *self, SpecDocument *doc, const char *path);
 void domain_overview_free(DomainOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_overview_can_have_content(const DomainOverview *self);
 char *domain_overview_content(const DomainOverview *self);
 void domain_overview_set_content(DomainOverview *self, const char *value);
@@ -10935,7 +10972,7 @@ DomainOverviewDomainDetailsForm domain_overview_domain_details(const DomainOverv
 // Binds a DomainProcessEntry facade to a document and a path (path copied).
 void domain_process_entry_init(DomainProcessEntry *self, SpecDocument *doc, const char *path);
 void domain_process_entry_free(DomainProcessEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_process_entry_can_have_content(const DomainProcessEntry *self);
 DomainProcessEntryContentForm domain_process_entry_content(const DomainProcessEntry *self);
 // Inputs, outputs, and participant flow.
@@ -10952,7 +10989,7 @@ DomainProcessEntryOperationsForm domain_process_entry_operations(const DomainPro
 // Binds a DomainProcesses facade to a document and a path (path copied).
 void domain_processes_init(DomainProcesses *self, SpecDocument *doc, const char *path);
 void domain_processes_free(DomainProcesses *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_processes_can_have_content(const DomainProcesses *self);
 char *domain_processes_content(const DomainProcesses *self);
 void domain_processes_set_content(DomainProcesses *self, const char *value);
@@ -10967,7 +11004,7 @@ SomList domain_processes_processes(const DomainProcesses *self);
 // Binds a DomainTermEntry facade to a document and a path (path copied).
 void domain_term_entry_init(DomainTermEntry *self, SpecDocument *doc, const char *path);
 void domain_term_entry_free(DomainTermEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_term_entry_can_have_content(const DomainTermEntry *self);
 DomainTermEntryContentForm domain_term_entry_content(const DomainTermEntry *self);
 
@@ -10978,7 +11015,7 @@ DomainTermEntryContentForm domain_term_entry_content(const DomainTermEntry *self
 // Binds a DomainVocabulary facade to a document and a path (path copied).
 void domain_vocabulary_init(DomainVocabulary *self, SpecDocument *doc, const char *path);
 void domain_vocabulary_free(DomainVocabulary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int domain_vocabulary_can_have_content(const DomainVocabulary *self);
 char *domain_vocabulary_content(const DomainVocabulary *self);
 void domain_vocabulary_set_content(DomainVocabulary *self, const char *value);
@@ -10990,7 +11027,7 @@ SomList domain_vocabulary_terms(const DomainVocabulary *self);
 // Binds a Efficiency facade to a document and a path (path copied).
 void efficiency_init(Efficiency *self, SpecDocument *doc, const char *path);
 void efficiency_free(Efficiency *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int efficiency_can_have_content(const Efficiency *self);
 EfficiencyContentForm efficiency_content(const Efficiency *self);
 // Throughput and scale targets.
@@ -11006,7 +11043,7 @@ EfficiencyVerificationForm efficiency_verification(const Efficiency *self);
 // Binds a ElementValidationRuleEntry facade to a document and a path (path copied).
 void element_validation_rule_entry_init(ElementValidationRuleEntry *self, SpecDocument *doc, const char *path);
 void element_validation_rule_entry_free(ElementValidationRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int element_validation_rule_entry_can_have_content(const ElementValidationRuleEntry *self);
 ElementValidationRuleEntryContentForm element_validation_rule_entry_content(const ElementValidationRuleEntry *self);
 
@@ -11014,7 +11051,7 @@ ElementValidationRuleEntryContentForm element_validation_rule_entry_content(cons
 // Binds a EmergencyMaintenanceProcedures facade to a document and a path (path copied).
 void emergency_maintenance_procedures_init(EmergencyMaintenanceProcedures *self, SpecDocument *doc, const char *path);
 void emergency_maintenance_procedures_free(EmergencyMaintenanceProcedures *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int emergency_maintenance_procedures_can_have_content(const EmergencyMaintenanceProcedures *self);
 EmergencyMaintenanceProceduresContentForm emergency_maintenance_procedures_content(const EmergencyMaintenanceProcedures *self);
 // Approval and documentation workflow.
@@ -11033,7 +11070,7 @@ EmergencyMaintenanceProceduresExecutionForm emergency_maintenance_procedures_exe
 // Binds a EncryptedDataCategoryEntry facade to a document and a path (path copied).
 void encrypted_data_category_entry_init(EncryptedDataCategoryEntry *self, SpecDocument *doc, const char *path);
 void encrypted_data_category_entry_free(EncryptedDataCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int encrypted_data_category_entry_can_have_content(const EncryptedDataCategoryEntry *self);
 EncryptedDataCategoryEntryContentForm encrypted_data_category_entry_content(const EncryptedDataCategoryEntry *self);
 
@@ -11047,7 +11084,7 @@ EncryptedDataCategoryEntryContentForm encrypted_data_category_entry_content(cons
 // Binds a EncryptionAtRest facade to a document and a path (path copied).
 void encryption_at_rest_init(EncryptionAtRest *self, SpecDocument *doc, const char *path);
 void encryption_at_rest_free(EncryptionAtRest *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int encryption_at_rest_can_have_content(const EncryptionAtRest *self);
 char *encryption_at_rest_content(const EncryptionAtRest *self);
 void encryption_at_rest_set_content(EncryptionAtRest *self, const char *value);
@@ -11073,7 +11110,7 @@ BackupEncryptionPolicy encryption_at_rest_backup_encryption(const EncryptionAtRe
 // Binds a EncryptionAtRestPolicy facade to a document and a path (path copied).
 void encryption_at_rest_policy_init(EncryptionAtRestPolicy *self, SpecDocument *doc, const char *path);
 void encryption_at_rest_policy_free(EncryptionAtRestPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int encryption_at_rest_policy_can_have_content(const EncryptionAtRestPolicy *self);
 char *encryption_at_rest_policy_content(const EncryptionAtRestPolicy *self);
 void encryption_at_rest_policy_set_content(EncryptionAtRestPolicy *self, const char *value);
@@ -11089,7 +11126,7 @@ void encryption_at_rest_policy_set_content(EncryptionAtRestPolicy *self, const c
 // Binds a EncryptionInTransit facade to a document and a path (path copied).
 void encryption_in_transit_init(EncryptionInTransit *self, SpecDocument *doc, const char *path);
 void encryption_in_transit_free(EncryptionInTransit *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int encryption_in_transit_can_have_content(const EncryptionInTransit *self);
 char *encryption_in_transit_content(const EncryptionInTransit *self);
 void encryption_in_transit_set_content(EncryptionInTransit *self, const char *value);
@@ -11114,7 +11151,7 @@ TransportSecurityPolicy encryption_in_transit_transport_security_policy(const En
 // Binds a EndToEndTestScenario facade to a document and a path (path copied).
 void end_to_end_test_scenario_init(EndToEndTestScenario *self, SpecDocument *doc, const char *path);
 void end_to_end_test_scenario_free(EndToEndTestScenario *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int end_to_end_test_scenario_can_have_content(const EndToEndTestScenario *self);
 char *end_to_end_test_scenario_content(const EndToEndTestScenario *self);
 void end_to_end_test_scenario_set_content(EndToEndTestScenario *self, const char *value);
@@ -11123,7 +11160,7 @@ void end_to_end_test_scenario_set_content(EndToEndTestScenario *self, const char
 // Binds a EnterpriseSystemCompatibilityEntry facade to a document and a path (path copied).
 void enterprise_system_compatibility_entry_init(EnterpriseSystemCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void enterprise_system_compatibility_entry_free(EnterpriseSystemCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int enterprise_system_compatibility_entry_can_have_content(const EnterpriseSystemCompatibilityEntry *self);
 EnterpriseSystemCompatibilityEntryContentForm enterprise_system_compatibility_entry_content(const EnterpriseSystemCompatibilityEntry *self);
 // Integration details.
@@ -11139,7 +11176,7 @@ EnterpriseSystemCompatibilityEntryTestingForm enterprise_system_compatibility_en
 // Binds a EntitlementEntry facade to a document and a path (path copied).
 void entitlement_entry_init(EntitlementEntry *self, SpecDocument *doc, const char *path);
 void entitlement_entry_free(EntitlementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entitlement_entry_can_have_content(const EntitlementEntry *self);
 EntitlementEntryContentForm entitlement_entry_content(const EntitlementEntry *self);
 // Contains 0+× ResourceKeyReference.
@@ -11150,7 +11187,7 @@ SomList entitlement_entry_resource_key_references(const EntitlementEntry *self);
 // Binds a EntitlementReferenceEntry facade to a document and a path (path copied).
 void entitlement_reference_entry_init(EntitlementReferenceEntry *self, SpecDocument *doc, const char *path);
 void entitlement_reference_entry_free(EntitlementReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entitlement_reference_entry_can_have_content(const EntitlementReferenceEntry *self);
 EntitlementReferenceEntryContentForm entitlement_reference_entry_content(const EntitlementReferenceEntry *self);
 
@@ -11160,7 +11197,7 @@ EntitlementReferenceEntryContentForm entitlement_reference_entry_content(const E
 // Binds a EntityConstraintEntry facade to a document and a path (path copied).
 void entity_constraint_entry_init(EntityConstraintEntry *self, SpecDocument *doc, const char *path);
 void entity_constraint_entry_free(EntityConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_constraint_entry_can_have_content(const EntityConstraintEntry *self);
 EntityConstraintEntryContentForm entity_constraint_entry_content(const EntityConstraintEntry *self);
 
@@ -11171,7 +11208,7 @@ EntityConstraintEntryContentForm entity_constraint_entry_content(const EntityCon
 // Binds a EntityFollowUpEntry facade to a document and a path (path copied).
 void entity_follow_up_entry_init(EntityFollowUpEntry *self, SpecDocument *doc, const char *path);
 void entity_follow_up_entry_free(EntityFollowUpEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_follow_up_entry_can_have_content(const EntityFollowUpEntry *self);
 EntityFollowUpEntryEntityRefForm entity_follow_up_entry_entity_ref(const EntityFollowUpEntry *self);
 // Returns the list view; element type: VolumeMetricEntry (construct from item paths).
@@ -11189,7 +11226,7 @@ SomList entity_follow_up_entry_migration_mappings(const EntityFollowUpEntry *sel
 // Binds a EntityIndexEntry facade to a document and a path (path copied).
 void entity_index_entry_init(EntityIndexEntry *self, SpecDocument *doc, const char *path);
 void entity_index_entry_free(EntityIndexEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_index_entry_can_have_content(const EntityIndexEntry *self);
 EntityIndexEntryContentForm entity_index_entry_content(const EntityIndexEntry *self);
 
@@ -11199,7 +11236,7 @@ EntityIndexEntryContentForm entity_index_entry_content(const EntityIndexEntry *s
 // Binds a EntityRelationshipEntry facade to a document and a path (path copied).
 void entity_relationship_entry_init(EntityRelationshipEntry *self, SpecDocument *doc, const char *path);
 void entity_relationship_entry_free(EntityRelationshipEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_relationship_entry_can_have_content(const EntityRelationshipEntry *self);
 EntityRelationshipEntryIdentityForm entity_relationship_entry_identity(const EntityRelationshipEntry *self);
 // Returns the list view; element type: ParticipantEntry (construct from item paths).
@@ -11218,7 +11255,7 @@ void entity_relationship_entry_set_target_entity_ref(EntityRelationshipEntry *se
 // Binds a EntityRelationships facade to a document and a path (path copied).
 void entity_relationships_init(EntityRelationships *self, SpecDocument *doc, const char *path);
 void entity_relationships_free(EntityRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entity_relationships_can_have_content(const EntityRelationships *self);
 char *entity_relationships_content(const EntityRelationships *self);
 void entity_relationships_set_content(EntityRelationships *self, const char *value);
@@ -11230,7 +11267,7 @@ SomList entity_relationships_items(const EntityRelationships *self);
 // Binds a EntryPointEntry facade to a document and a path (path copied).
 void entry_point_entry_init(EntryPointEntry *self, SpecDocument *doc, const char *path);
 void entry_point_entry_free(EntryPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int entry_point_entry_can_have_content(const EntryPointEntry *self);
 EntryPointEntryContentForm entry_point_entry_content(const EntryPointEntry *self);
 
@@ -11244,7 +11281,7 @@ EntryPointEntryContentForm entry_point_entry_content(const EntryPointEntry *self
 // Binds a EnvironmentEntry facade to a document and a path (path copied).
 void environment_entry_init(EnvironmentEntry *self, SpecDocument *doc, const char *path);
 void environment_entry_free(EnvironmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int environment_entry_can_have_content(const EnvironmentEntry *self);
 EnvironmentEntryContentForm environment_entry_content(const EnvironmentEntry *self);
 // Identity and classification details.
@@ -11276,7 +11313,7 @@ EnvironmentEntryComplianceForm environment_entry_compliance(const EnvironmentEnt
 // Binds a EnvironmentManagement facade to a document and a path (path copied).
 void environment_management_init(EnvironmentManagement *self, SpecDocument *doc, const char *path);
 void environment_management_free(EnvironmentManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int environment_management_can_have_content(const EnvironmentManagement *self);
 EnvironmentManagementContentForm environment_management_content(const EnvironmentManagement *self);
 // Configuration settings.
@@ -11292,7 +11329,7 @@ EnvironmentManagementParityForm environment_management_parity(const EnvironmentM
 // Binds a EnvironmentStrategy facade to a document and a path (path copied).
 void environment_strategy_init(EnvironmentStrategy *self, SpecDocument *doc, const char *path);
 void environment_strategy_free(EnvironmentStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int environment_strategy_can_have_content(const EnvironmentStrategy *self);
 EnvironmentStrategyContentForm environment_strategy_content(const EnvironmentStrategy *self);
 // Development environment setup.
@@ -11315,7 +11352,7 @@ EnvironmentStrategyEphemeralForm environment_strategy_ephemeral(const Environmen
 // Binds a Environments facade to a document and a path (path copied).
 void environments_init(Environments *self, SpecDocument *doc, const char *path);
 void environments_free(Environments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int environments_can_have_content(const Environments *self);
 EnvironmentsContentForm environments_content(const Environments *self);
 // Contains 0+× Environment.
@@ -11328,7 +11365,7 @@ SomList environments_items(const Environments *self);
 // Binds a EquipmentRequirements facade to a document and a path (path copied).
 void equipment_requirements_init(EquipmentRequirements *self, SpecDocument *doc, const char *path);
 void equipment_requirements_free(EquipmentRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int equipment_requirements_can_have_content(const EquipmentRequirements *self);
 // Equipment overview.
 EquipmentRequirementsOverviewForm equipment_requirements_overview(const EquipmentRequirements *self);
@@ -11355,7 +11392,7 @@ SomList equipment_requirements_specialized_equipment(const EquipmentRequirements
 // Binds a ErrorBudgetTracking facade to a document and a path (path copied).
 void error_budget_tracking_init(ErrorBudgetTracking *self, SpecDocument *doc, const char *path);
 void error_budget_tracking_free(ErrorBudgetTracking *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_budget_tracking_can_have_content(const ErrorBudgetTracking *self);
 ErrorBudgetTrackingContentForm error_budget_tracking_content(const ErrorBudgetTracking *self);
 // Burn-rate monitoring thresholds.
@@ -11374,7 +11411,7 @@ ErrorBudgetTrackingGovernanceForm error_budget_tracking_governance(const ErrorBu
 // Binds a ErrorCodeEntry facade to a document and a path (path copied).
 void error_code_entry_init(ErrorCodeEntry *self, SpecDocument *doc, const char *path);
 void error_code_entry_free(ErrorCodeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_code_entry_can_have_content(const ErrorCodeEntry *self);
 ErrorCodeEntryContentForm error_code_entry_content(const ErrorCodeEntry *self);
 
@@ -11398,7 +11435,7 @@ ErrorCodeEntryContentForm error_code_entry_content(const ErrorCodeEntry *self);
 // Binds a ErrorCodeRegistry facade to a document and a path (path copied).
 void error_code_registry_init(ErrorCodeRegistry *self, SpecDocument *doc, const char *path);
 void error_code_registry_free(ErrorCodeRegistry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_code_registry_can_have_content(const ErrorCodeRegistry *self);
 char *error_code_registry_content(const ErrorCodeRegistry *self);
 void error_code_registry_set_content(ErrorCodeRegistry *self, const char *value);
@@ -11414,7 +11451,7 @@ SomList error_code_registry_error_codes(const ErrorCodeRegistry *self);
 // Binds a ErrorHandling facade to a document and a path (path copied).
 void error_handling_init(ErrorHandling *self, SpecDocument *doc, const char *path);
 void error_handling_free(ErrorHandling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_handling_can_have_content(const ErrorHandling *self);
 ErrorHandlingErrorPhilosophyContentForm error_handling_error_philosophy_content(const ErrorHandling *self);
 // Error categorization and display priority.
@@ -11440,7 +11477,7 @@ ErrorRecovery error_handling_error_recovery(const ErrorHandling *self);
 // Binds a ErrorHandlingStandards facade to a document and a path (path copied).
 void error_handling_standards_init(ErrorHandlingStandards *self, SpecDocument *doc, const char *path);
 void error_handling_standards_free(ErrorHandlingStandards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_handling_standards_can_have_content(const ErrorHandlingStandards *self);
 ErrorHandlingStandardsContentForm error_handling_standards_content(const ErrorHandlingStandards *self);
 // Exception type conventions.
@@ -11461,7 +11498,7 @@ ErrorHandlingStandardsRecoveryForm error_handling_standards_recovery(const Error
 // Binds a ErrorRecovery facade to a document and a path (path copied).
 void error_recovery_init(ErrorRecovery *self, SpecDocument *doc, const char *path);
 void error_recovery_free(ErrorRecovery *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int error_recovery_can_have_content(const ErrorRecovery *self);
 ErrorRecoveryRecoveryMechanismsContentForm error_recovery_recovery_mechanisms_content(const ErrorRecovery *self);
 // Data preservation: draft auto-save settings.
@@ -11490,7 +11527,7 @@ SomList error_recovery_recovery_scenarios(const ErrorRecovery *self);
 // Binds a EvaluationCriteria facade to a document and a path (path copied).
 void evaluation_criteria_init(EvaluationCriteria *self, SpecDocument *doc, const char *path);
 void evaluation_criteria_free(EvaluationCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int evaluation_criteria_can_have_content(const EvaluationCriteria *self);
 char *evaluation_criteria_content(const EvaluationCriteria *self);
 void evaluation_criteria_set_content(EvaluationCriteria *self, const char *value);
@@ -11505,7 +11542,7 @@ SomList evaluation_criteria_items(const EvaluationCriteria *self);
 // Binds a EvaluationCriterionEntry facade to a document and a path (path copied).
 void evaluation_criterion_entry_init(EvaluationCriterionEntry *self, SpecDocument *doc, const char *path);
 void evaluation_criterion_entry_free(EvaluationCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int evaluation_criterion_entry_can_have_content(const EvaluationCriterionEntry *self);
 EvaluationCriterionEntryContentForm evaluation_criterion_entry_content(const EvaluationCriterionEntry *self);
 // Scoring settings.
@@ -11522,7 +11559,7 @@ EvaluationCriterionEntryGuidelinesForm evaluation_criterion_entry_guidelines(con
 // Binds a EventAttributePolicy facade to a document and a path (path copied).
 void event_attribute_policy_init(EventAttributePolicy *self, SpecDocument *doc, const char *path);
 void event_attribute_policy_free(EventAttributePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int event_attribute_policy_can_have_content(const EventAttributePolicy *self);
 EventAttributePolicyContentForm event_attribute_policy_content(const EventAttributePolicy *self);
 // Additional Notes (text).
@@ -11534,7 +11571,7 @@ EventAttributePolicyContentForm event_attribute_policy_content(const EventAttrib
 // Binds a ExecutiveSummaryDistribution facade to a document and a path (path copied).
 void executive_summary_distribution_init(ExecutiveSummaryDistribution *self, SpecDocument *doc, const char *path);
 void executive_summary_distribution_free(ExecutiveSummaryDistribution *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int executive_summary_distribution_can_have_content(const ExecutiveSummaryDistribution *self);
 char *executive_summary_distribution_content(const ExecutiveSummaryDistribution *self);
 void executive_summary_distribution_set_content(ExecutiveSummaryDistribution *self, const char *value);
@@ -11551,7 +11588,7 @@ SomList executive_summary_distribution_items(const ExecutiveSummaryDistribution 
 // Binds a ExistingSystemEntry facade to a document and a path (path copied).
 void existing_system_entry_init(ExistingSystemEntry *self, SpecDocument *doc, const char *path);
 void existing_system_entry_free(ExistingSystemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int existing_system_entry_can_have_content(const ExistingSystemEntry *self);
 ExistingSystemEntryContentForm existing_system_entry_content(const ExistingSystemEntry *self);
 // Technology stack details.
@@ -11579,7 +11616,7 @@ ExistingSystemEntryQualityForm existing_system_entry_quality(const ExistingSyste
 // Binds a ExistingSystemsLandscape facade to a document and a path (path copied).
 void existing_systems_landscape_init(ExistingSystemsLandscape *self, SpecDocument *doc, const char *path);
 void existing_systems_landscape_free(ExistingSystemsLandscape *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int existing_systems_landscape_can_have_content(const ExistingSystemsLandscape *self);
 char *existing_systems_landscape_content(const ExistingSystemsLandscape *self);
 void existing_systems_landscape_set_content(ExistingSystemsLandscape *self, const char *value);
@@ -11594,7 +11631,7 @@ DependenciesAndIntegrations existing_systems_landscape_dependencies_and_integrat
 // Binds a ExpectedImprovements facade to a document and a path (path copied).
 void expected_improvements_init(ExpectedImprovements *self, SpecDocument *doc, const char *path);
 void expected_improvements_free(ExpectedImprovements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int expected_improvements_can_have_content(const ExpectedImprovements *self);
 ExpectedImprovementsContentForm expected_improvements_content(const ExpectedImprovements *self);
 
@@ -11602,7 +11639,7 @@ ExpectedImprovementsContentForm expected_improvements_content(const ExpectedImpr
 // Binds a ExperienceAndInterfaceDesign facade to a document and a path (path copied).
 void experience_and_interface_design_init(ExperienceAndInterfaceDesign *self, SpecDocument *doc, const char *path);
 void experience_and_interface_design_free(ExperienceAndInterfaceDesign *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int experience_and_interface_design_can_have_content(const ExperienceAndInterfaceDesign *self);
 char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign *self);
 void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
@@ -11628,7 +11665,7 @@ AuthorizationComplianceFollowUp experience_and_interface_design_authorization_co
 // Binds a ExperienceCodeSpecs facade to a document and a path (path copied).
 void experience_code_specs_init(ExperienceCodeSpecs *self, SpecDocument *doc, const char *path);
 void experience_code_specs_free(ExperienceCodeSpecs *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int experience_code_specs_can_have_content(const ExperienceCodeSpecs *self);
 char *experience_code_specs_content(const ExperienceCodeSpecs *self);
 void experience_code_specs_set_content(ExperienceCodeSpecs *self, const char *value);
@@ -11656,7 +11693,7 @@ UiComponents experience_code_specs_ui_components(const ExperienceCodeSpecs *self
 // Binds a ExperienceDesignFollowUp facade to a document and a path (path copied).
 void experience_design_follow_up_init(ExperienceDesignFollowUp *self, SpecDocument *doc, const char *path);
 void experience_design_follow_up_free(ExperienceDesignFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int experience_design_follow_up_can_have_content(const ExperienceDesignFollowUp *self);
 char *experience_design_follow_up_content(const ExperienceDesignFollowUp *self);
 void experience_design_follow_up_set_content(ExperienceDesignFollowUp *self, const char *value);
@@ -11684,7 +11721,7 @@ WireframesAndMockups experience_design_follow_up_wireframes_and_mockups(const Ex
 // Binds a ExperienceLocalizationFollowUp facade to a document and a path (path copied).
 void experience_localization_follow_up_init(ExperienceLocalizationFollowUp *self, SpecDocument *doc, const char *path);
 void experience_localization_follow_up_free(ExperienceLocalizationFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int experience_localization_follow_up_can_have_content(const ExperienceLocalizationFollowUp *self);
 char *experience_localization_follow_up_content(const ExperienceLocalizationFollowUp *self);
 void experience_localization_follow_up_set_content(ExperienceLocalizationFollowUp *self, const char *value);
@@ -11695,7 +11732,7 @@ MultiLanguageSupport experience_localization_follow_up_multi_language_support(co
 // Binds a ExportFieldMappingEntry facade to a document and a path (path copied).
 void export_field_mapping_entry_init(ExportFieldMappingEntry *self, SpecDocument *doc, const char *path);
 void export_field_mapping_entry_free(ExportFieldMappingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int export_field_mapping_entry_can_have_content(const ExportFieldMappingEntry *self);
 ExportFieldMappingEntryContentForm export_field_mapping_entry_content(const ExportFieldMappingEntry *self);
 // Ordering and formatting settings.
@@ -11737,7 +11774,7 @@ ExportFieldMappingEntryLayoutForm export_field_mapping_entry_layout(const Export
 // Binds a ExportFormatEntry facade to a document and a path (path copied).
 void export_format_entry_init(ExportFormatEntry *self, SpecDocument *doc, const char *path);
 void export_format_entry_free(ExportFormatEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int export_format_entry_can_have_content(const ExportFormatEntry *self);
 ExportFormatEntryContentForm export_format_entry_content(const ExportFormatEntry *self);
 // Identity and data source.
@@ -11765,7 +11802,7 @@ SomList export_format_entry_field_mappings(const ExportFormatEntry *self);
 // Binds a ExportSizeSettings facade to a document and a path (path copied).
 void export_size_settings_init(ExportSizeSettings *self, SpecDocument *doc, const char *path);
 void export_size_settings_free(ExportSizeSettings *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int export_size_settings_can_have_content(const ExportSizeSettings *self);
 ExportSizeSettingsContentForm export_size_settings_content(const ExportSizeSettings *self);
 
@@ -11773,7 +11810,7 @@ ExportSizeSettingsContentForm export_size_settings_content(const ExportSizeSetti
 // Binds a ExportTemplateEntry facade to a document and a path (path copied).
 void export_template_entry_init(ExportTemplateEntry *self, SpecDocument *doc, const char *path);
 void export_template_entry_free(ExportTemplateEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int export_template_entry_can_have_content(const ExportTemplateEntry *self);
 ExportTemplateEntryContentForm export_template_entry_content(const ExportTemplateEntry *self);
 // Format configuration.
@@ -11789,7 +11826,7 @@ ExportTemplateEntryAccessForm export_template_entry_access(const ExportTemplateE
 // Binds a ExtensionEntry facade to a document and a path (path copied).
 void extension_entry_init(ExtensionEntry *self, SpecDocument *doc, const char *path);
 void extension_entry_free(ExtensionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int extension_entry_can_have_content(const ExtensionEntry *self);
 ExtensionEntryContentForm extension_entry_content(const ExtensionEntry *self);
 // Extension steps — contains 0+× Scenario Step.
@@ -11800,7 +11837,7 @@ SomList extension_entry_steps(const ExtensionEntry *self);
 // Binds a ExtensionStepEntry facade to a document and a path (path copied).
 void extension_step_entry_init(ExtensionStepEntry *self, SpecDocument *doc, const char *path);
 void extension_step_entry_free(ExtensionStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int extension_step_entry_can_have_content(const ExtensionStepEntry *self);
 ExtensionStepEntryContentForm extension_step_entry_content(const ExtensionStepEntry *self);
 
@@ -11808,7 +11845,7 @@ ExtensionStepEntryContentForm extension_step_entry_content(const ExtensionStepEn
 // Binds a ExternalActorEntry facade to a document and a path (path copied).
 void external_actor_entry_init(ExternalActorEntry *self, SpecDocument *doc, const char *path);
 void external_actor_entry_free(ExternalActorEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_actor_entry_can_have_content(const ExternalActorEntry *self);
 ExternalActorEntryContentForm external_actor_entry_content(const ExternalActorEntry *self);
 // Interaction cadence and exchanged information.
@@ -11826,7 +11863,7 @@ SomList external_actor_entry_interaction_scenarios(const ExternalActorEntry *sel
 // Binds a ExternalActors facade to a document and a path (path copied).
 void external_actors_init(ExternalActors *self, SpecDocument *doc, const char *path);
 void external_actors_free(ExternalActors *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_actors_can_have_content(const ExternalActors *self);
 char *external_actors_content(const ExternalActors *self);
 void external_actors_set_content(ExternalActors *self, const char *value);
@@ -11838,7 +11875,7 @@ SomList external_actors_actors(const ExternalActors *self);
 // Binds a ExternalConnectivitySection facade to a document and a path (path copied).
 void external_connectivity_section_init(ExternalConnectivitySection *self, SpecDocument *doc, const char *path);
 void external_connectivity_section_free(ExternalConnectivitySection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_connectivity_section_can_have_content(const ExternalConnectivitySection *self);
 char *external_connectivity_section_content(const ExternalConnectivitySection *self);
 void external_connectivity_section_set_content(ExternalConnectivitySection *self, const char *value);
@@ -11868,7 +11905,7 @@ ConnectivityResilience external_connectivity_section_resilience(const ExternalCo
 // Binds a ExternalInterfaceEntry facade to a document and a path (path copied).
 void external_interface_entry_init(ExternalInterfaceEntry *self, SpecDocument *doc, const char *path);
 void external_interface_entry_free(ExternalInterfaceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_interface_entry_can_have_content(const ExternalInterfaceEntry *self);
 ExternalInterfaceEntryIdentificationContentForm external_interface_entry_identification_content(const ExternalInterfaceEntry *self);
 // Business purpose and value of this interface.
@@ -11898,7 +11935,7 @@ InterfaceTesting external_interface_entry_testing(const ExternalInterfaceEntry *
 // Binds a ExternalInterfaces facade to a document and a path (path copied).
 void external_interfaces_init(ExternalInterfaces *self, SpecDocument *doc, const char *path);
 void external_interfaces_free(ExternalInterfaces *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_interfaces_can_have_content(const ExternalInterfaces *self);
 // Summary of the integration landscape.
 // (skipped: integrationSummary has no target type)
@@ -11914,7 +11951,7 @@ SomList external_interfaces_interfaces(const ExternalInterfaces *self);
 // Binds a ExternalNetworkRequirements facade to a document and a path (path copied).
 void external_network_requirements_init(ExternalNetworkRequirements *self, SpecDocument *doc, const char *path);
 void external_network_requirements_free(ExternalNetworkRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_network_requirements_can_have_content(const ExternalNetworkRequirements *self);
 ExternalNetworkRequirementsContentForm external_network_requirements_content(const ExternalNetworkRequirements *self);
 // Public endpoint requirements.
@@ -11930,7 +11967,7 @@ ExternalNetworkRequirementsSecurityForm external_network_requirements_security(c
 // Binds a ExternalPartnerConnectionEntry facade to a document and a path (path copied).
 void external_partner_connection_entry_init(ExternalPartnerConnectionEntry *self, SpecDocument *doc, const char *path);
 void external_partner_connection_entry_free(ExternalPartnerConnectionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_partner_connection_entry_can_have_content(const ExternalPartnerConnectionEntry *self);
 ExternalPartnerConnectionEntryContentForm external_partner_connection_entry_content(const ExternalPartnerConnectionEntry *self);
 // Protocol and endpoint.
@@ -11951,7 +11988,7 @@ SomList external_partner_connection_entry_operations(const ExternalPartnerConnec
 // Binds a ExternalPartnerOperations facade to a document and a path (path copied).
 void external_partner_operations_init(ExternalPartnerOperations *self, SpecDocument *doc, const char *path);
 void external_partner_operations_free(ExternalPartnerOperations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_partner_operations_can_have_content(const ExternalPartnerOperations *self);
 ExternalPartnerOperationsContentForm external_partner_operations_content(const ExternalPartnerOperations *self);
 
@@ -11962,7 +11999,7 @@ ExternalPartnerOperationsContentForm external_partner_operations_content(const E
 // Binds a ExternalServiceDependencies facade to a document and a path (path copied).
 void external_service_dependencies_init(ExternalServiceDependencies *self, SpecDocument *doc, const char *path);
 void external_service_dependencies_free(ExternalServiceDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_service_dependencies_can_have_content(const ExternalServiceDependencies *self);
 char *external_service_dependencies_content(const ExternalServiceDependencies *self);
 void external_service_dependencies_set_content(ExternalServiceDependencies *self, const char *value);
@@ -11977,7 +12014,7 @@ SomList external_service_dependencies_items(const ExternalServiceDependencies *s
 // Binds a ExternalServiceDependencyEntry facade to a document and a path (path copied).
 void external_service_dependency_entry_init(ExternalServiceDependencyEntry *self, SpecDocument *doc, const char *path);
 void external_service_dependency_entry_free(ExternalServiceDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_service_dependency_entry_can_have_content(const ExternalServiceDependencyEntry *self);
 ExternalServiceDependencyEntryContentForm external_service_dependency_entry_content(const ExternalServiceDependencyEntry *self);
 // Internal dependency and contract details.
@@ -11992,7 +12029,7 @@ ExistingSystemEntry external_service_dependency_entry_primary_dependent_system(c
 // Binds a ExternalSystemContextEntry facade to a document and a path (path copied).
 void external_system_context_entry_init(ExternalSystemContextEntry *self, SpecDocument *doc, const char *path);
 void external_system_context_entry_free(ExternalSystemContextEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_system_context_entry_can_have_content(const ExternalSystemContextEntry *self);
 ExternalSystemContextEntryContentForm external_system_context_entry_content(const ExternalSystemContextEntry *self);
 // Integration intent and exchanged information.
@@ -12011,7 +12048,7 @@ void external_system_context_entry_set_data_mapping(ExternalSystemContextEntry *
 // Binds a ExternalSystemsContext facade to a document and a path (path copied).
 void external_systems_context_init(ExternalSystemsContext *self, SpecDocument *doc, const char *path);
 void external_systems_context_free(ExternalSystemsContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int external_systems_context_can_have_content(const ExternalSystemsContext *self);
 char *external_systems_context_content(const ExternalSystemsContext *self);
 void external_systems_context_set_content(ExternalSystemsContext *self, const char *value);
@@ -12023,7 +12060,7 @@ SomList external_systems_context_systems(const ExternalSystemsContext *self);
 // Binds a FamilyComponentRef facade to a document and a path (path copied).
 void family_component_ref_init(FamilyComponentRef *self, SpecDocument *doc, const char *path);
 void family_component_ref_free(FamilyComponentRef *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int family_component_ref_can_have_content(const FamilyComponentRef *self);
 FamilyComponentRefContentForm family_component_ref_content(const FamilyComponentRef *self);
 
@@ -12034,7 +12071,7 @@ FamilyComponentRefContentForm family_component_ref_content(const FamilyComponent
 // Binds a FeatureDependencies facade to a document and a path (path copied).
 void feature_dependencies_init(FeatureDependencies *self, SpecDocument *doc, const char *path);
 void feature_dependencies_free(FeatureDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_dependencies_can_have_content(const FeatureDependencies *self);
 FeatureDependenciesContentForm feature_dependencies_content(const FeatureDependencies *self);
 // Dependency analysis narrative.
@@ -12050,7 +12087,7 @@ SomList feature_dependencies_items(const FeatureDependencies *self);
 // Binds a FeatureDependencyEntry facade to a document and a path (path copied).
 void feature_dependency_entry_init(FeatureDependencyEntry *self, SpecDocument *doc, const char *path);
 void feature_dependency_entry_free(FeatureDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_dependency_entry_can_have_content(const FeatureDependencyEntry *self);
 FeatureDependencyEntryContentForm feature_dependency_entry_content(const FeatureDependencyEntry *self);
 
@@ -12058,7 +12095,7 @@ FeatureDependencyEntryContentForm feature_dependency_entry_content(const Feature
 // Binds a FeatureModuleEntry facade to a document and a path (path copied).
 void feature_module_entry_init(FeatureModuleEntry *self, SpecDocument *doc, const char *path);
 void feature_module_entry_free(FeatureModuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_module_entry_can_have_content(const FeatureModuleEntry *self);
 FeatureModuleEntryContentForm feature_module_entry_content(const FeatureModuleEntry *self);
 // Purpose and value.
@@ -12082,7 +12119,7 @@ FeatureModuleEntryNavigationForm feature_module_entry_navigation(const FeatureMo
 // Binds a FeaturePrioritization facade to a document and a path (path copied).
 void feature_prioritization_init(FeaturePrioritization *self, SpecDocument *doc, const char *path);
 void feature_prioritization_free(FeaturePrioritization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_prioritization_can_have_content(const FeaturePrioritization *self);
 FeaturePrioritizationContentForm feature_prioritization_content(const FeaturePrioritization *self);
 // Methodology and scoring.
@@ -12116,7 +12153,7 @@ FeatureDependencies feature_prioritization_feature_dependencies(const FeaturePri
 // Binds a FeaturePriorityEntry facade to a document and a path (path copied).
 void feature_priority_entry_init(FeaturePriorityEntry *self, SpecDocument *doc, const char *path);
 void feature_priority_entry_free(FeaturePriorityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_priority_entry_can_have_content(const FeaturePriorityEntry *self);
 FeaturePriorityEntryContentForm feature_priority_entry_content(const FeaturePriorityEntry *self);
 // Feature identity.
@@ -12147,7 +12184,7 @@ FeaturePriorityEntryStatusForm feature_priority_entry_status(const FeaturePriori
 // Binds a FeaturePriorityRegister facade to a document and a path (path copied).
 void feature_priority_register_init(FeaturePriorityRegister *self, SpecDocument *doc, const char *path);
 void feature_priority_register_free(FeaturePriorityRegister *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_priority_register_can_have_content(const FeaturePriorityRegister *self);
 FeaturePriorityRegisterContentForm feature_priority_register_content(const FeaturePriorityRegister *self);
 // Contains 1+× FeaturePriorityEntry.
@@ -12161,7 +12198,7 @@ SomList feature_priority_register_items(const FeaturePriorityRegister *self);
 // Binds a FeatureStageMapping facade to a document and a path (path copied).
 void feature_stage_mapping_init(FeatureStageMapping *self, SpecDocument *doc, const char *path);
 void feature_stage_mapping_free(FeatureStageMapping *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_stage_mapping_can_have_content(const FeatureStageMapping *self);
 FeatureStageMappingContentForm feature_stage_mapping_content(const FeatureStageMapping *self);
 // Stage assignment details.
@@ -12180,7 +12217,7 @@ FeatureStageMappingAcceptanceForm feature_stage_mapping_acceptance(const Feature
 // Binds a FeatureStageMatrix facade to a document and a path (path copied).
 void feature_stage_matrix_init(FeatureStageMatrix *self, SpecDocument *doc, const char *path);
 void feature_stage_matrix_free(FeatureStageMatrix *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_stage_matrix_can_have_content(const FeatureStageMatrix *self);
 FeatureStageMatrixContentForm feature_stage_matrix_content(const FeatureStageMatrix *self);
 // Feature-Stage matrix narrative.
@@ -12193,7 +12230,7 @@ SomList feature_stage_matrix_items(const FeatureStageMatrix *self);
 // Binds a FeatureStakeholders facade to a document and a path (path copied).
 void feature_stakeholders_init(FeatureStakeholders *self, SpecDocument *doc, const char *path);
 void feature_stakeholders_free(FeatureStakeholders *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_stakeholders_can_have_content(const FeatureStakeholders *self);
 FeatureStakeholdersContentForm feature_stakeholders_content(const FeatureStakeholders *self);
 
@@ -12201,7 +12238,7 @@ FeatureStakeholdersContentForm feature_stakeholders_content(const FeatureStakeho
 // Binds a FeatureTourEntry facade to a document and a path (path copied).
 void feature_tour_entry_init(FeatureTourEntry *self, SpecDocument *doc, const char *path);
 void feature_tour_entry_free(FeatureTourEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int feature_tour_entry_can_have_content(const FeatureTourEntry *self);
 FeatureTourEntryContentForm feature_tour_entry_content(const FeatureTourEntry *self);
 // Tour steps.
@@ -12212,7 +12249,7 @@ SomList feature_tour_entry_steps(const FeatureTourEntry *self);
 // Binds a FieldHelpEntry facade to a document and a path (path copied).
 void field_help_entry_init(FieldHelpEntry *self, SpecDocument *doc, const char *path);
 void field_help_entry_free(FieldHelpEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int field_help_entry_can_have_content(const FieldHelpEntry *self);
 FieldHelpEntryContentForm field_help_entry_content(const FieldHelpEntry *self);
 
@@ -12220,7 +12257,7 @@ FieldHelpEntryContentForm field_help_entry_content(const FieldHelpEntry *self);
 // Binds a FieldValidationRule facade to a document and a path (path copied).
 void field_validation_rule_init(FieldValidationRule *self, SpecDocument *doc, const char *path);
 void field_validation_rule_free(FieldValidationRule *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int field_validation_rule_can_have_content(const FieldValidationRule *self);
 FieldValidationRuleContentForm field_validation_rule_content(const FieldValidationRule *self);
 
@@ -12232,7 +12269,7 @@ FieldValidationRuleContentForm field_validation_rule_content(const FieldValidati
 // Binds a FileAccessControlPolicy facade to a document and a path (path copied).
 void file_access_control_policy_init(FileAccessControlPolicy *self, SpecDocument *doc, const char *path);
 void file_access_control_policy_free(FileAccessControlPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int file_access_control_policy_can_have_content(const FileAccessControlPolicy *self);
 char *file_access_control_policy_content(const FileAccessControlPolicy *self);
 void file_access_control_policy_set_content(FileAccessControlPolicy *self, const char *value);
@@ -12248,7 +12285,7 @@ void file_access_control_policy_set_content(FileAccessControlPolicy *self, const
 // Binds a FileAndStorageSecurity facade to a document and a path (path copied).
 void file_and_storage_security_init(FileAndStorageSecurity *self, SpecDocument *doc, const char *path);
 void file_and_storage_security_free(FileAndStorageSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int file_and_storage_security_can_have_content(const FileAndStorageSecurity *self);
 char *file_and_storage_security_content(const FileAndStorageSecurity *self);
 void file_and_storage_security_set_content(FileAndStorageSecurity *self, const char *value);
@@ -12275,7 +12312,7 @@ StorageLifecyclePolicy file_and_storage_security_storage_lifecycle_policy(const 
 // Binds a FileDownloadSecurityPolicy facade to a document and a path (path copied).
 void file_download_security_policy_init(FileDownloadSecurityPolicy *self, SpecDocument *doc, const char *path);
 void file_download_security_policy_free(FileDownloadSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int file_download_security_policy_can_have_content(const FileDownloadSecurityPolicy *self);
 char *file_download_security_policy_content(const FileDownloadSecurityPolicy *self);
 void file_download_security_policy_set_content(FileDownloadSecurityPolicy *self, const char *value);
@@ -12290,7 +12327,7 @@ void file_download_security_policy_set_content(FileDownloadSecurityPolicy *self,
 // Binds a FileStorageEncryptionPolicy facade to a document and a path (path copied).
 void file_storage_encryption_policy_init(FileStorageEncryptionPolicy *self, SpecDocument *doc, const char *path);
 void file_storage_encryption_policy_free(FileStorageEncryptionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int file_storage_encryption_policy_can_have_content(const FileStorageEncryptionPolicy *self);
 char *file_storage_encryption_policy_content(const FileStorageEncryptionPolicy *self);
 void file_storage_encryption_policy_set_content(FileStorageEncryptionPolicy *self, const char *value);
@@ -12306,7 +12343,7 @@ void file_storage_encryption_policy_set_content(FileStorageEncryptionPolicy *sel
 // Binds a FileUploadValidationPolicy facade to a document and a path (path copied).
 void file_upload_validation_policy_init(FileUploadValidationPolicy *self, SpecDocument *doc, const char *path);
 void file_upload_validation_policy_free(FileUploadValidationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int file_upload_validation_policy_can_have_content(const FileUploadValidationPolicy *self);
 char *file_upload_validation_policy_content(const FileUploadValidationPolicy *self);
 void file_upload_validation_policy_set_content(FileUploadValidationPolicy *self, const char *value);
@@ -12317,7 +12354,7 @@ void file_upload_validation_policy_set_content(FileUploadValidationPolicy *self,
 // Binds a FirewallRequirements facade to a document and a path (path copied).
 void firewall_requirements_init(FirewallRequirements *self, SpecDocument *doc, const char *path);
 void firewall_requirements_free(FirewallRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int firewall_requirements_can_have_content(const FirewallRequirements *self);
 FirewallRequirementsContentForm firewall_requirements_content(const FirewallRequirements *self);
 // Rule definitions.
@@ -12333,7 +12370,7 @@ FirewallRequirementsLoggingForm firewall_requirements_logging(const FirewallRequ
 // Binds a Flexibility facade to a document and a path (path copied).
 void flexibility_init(Flexibility *self, SpecDocument *doc, const char *path);
 void flexibility_free(Flexibility *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int flexibility_can_have_content(const Flexibility *self);
 FlexibilityContentForm flexibility_content(const Flexibility *self);
 // Modularity and reuse goals.
@@ -12354,7 +12391,7 @@ FlexibilityExtensibilityForm flexibility_extensibility(const Flexibility *self);
 // Binds a FlexibilityCharacteristic facade to a document and a path (path copied).
 void flexibility_characteristic_init(FlexibilityCharacteristic *self, SpecDocument *doc, const char *path);
 void flexibility_characteristic_free(FlexibilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int flexibility_characteristic_can_have_content(const FlexibilityCharacteristic *self);
 FlexibilityCharacteristicFlexibilityContentForm flexibility_characteristic_flexibility_content(const FlexibilityCharacteristic *self);
 // Flexibility overview.
@@ -12368,7 +12405,7 @@ Portability flexibility_characteristic_portability(const FlexibilityCharacterist
 // Binds a FormScreenAssignmentEntry facade to a document and a path (path copied).
 void form_screen_assignment_entry_init(FormScreenAssignmentEntry *self, SpecDocument *doc, const char *path);
 void form_screen_assignment_entry_free(FormScreenAssignmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int form_screen_assignment_entry_can_have_content(const FormScreenAssignmentEntry *self);
 FormScreenAssignmentEntryContentForm form_screen_assignment_entry_content(const FormScreenAssignmentEntry *self);
 
@@ -12376,7 +12413,7 @@ FormScreenAssignmentEntryContentForm form_screen_assignment_entry_content(const 
 // Binds a FrameworkRequirementEntry facade to a document and a path (path copied).
 void framework_requirement_entry_init(FrameworkRequirementEntry *self, SpecDocument *doc, const char *path);
 void framework_requirement_entry_free(FrameworkRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int framework_requirement_entry_can_have_content(const FrameworkRequirementEntry *self);
 FrameworkRequirementEntryContentForm framework_requirement_entry_content(const FrameworkRequirementEntry *self);
 // Identity details.
@@ -12398,7 +12435,7 @@ FrameworkRequirementEntryJustificationForm framework_requirement_entry_justifica
 // Binds a FullDistribution facade to a document and a path (path copied).
 void full_distribution_init(FullDistribution *self, SpecDocument *doc, const char *path);
 void full_distribution_free(FullDistribution *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int full_distribution_can_have_content(const FullDistribution *self);
 char *full_distribution_content(const FullDistribution *self);
 void full_distribution_set_content(FullDistribution *self, const char *value);
@@ -12414,7 +12451,7 @@ SomList full_distribution_items(const FullDistribution *self);
 // Binds a FunctionDataMatrixEntry facade to a document and a path (path copied).
 void function_data_matrix_entry_init(FunctionDataMatrixEntry *self, SpecDocument *doc, const char *path);
 void function_data_matrix_entry_free(FunctionDataMatrixEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int function_data_matrix_entry_can_have_content(const FunctionDataMatrixEntry *self);
 FunctionDataMatrixEntryContentForm function_data_matrix_entry_content(const FunctionDataMatrixEntry *self);
 
@@ -12424,7 +12461,7 @@ FunctionDataMatrixEntryContentForm function_data_matrix_entry_content(const Func
 // Binds a FunctionEntry facade to a document and a path (path copied).
 void function_entry_init(FunctionEntry *self, SpecDocument *doc, const char *path);
 void function_entry_free(FunctionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int function_entry_can_have_content(const FunctionEntry *self);
 FunctionEntryContentForm function_entry_content(const FunctionEntry *self);
 // Decomposition position and classification.
@@ -12443,7 +12480,7 @@ SomList function_entry_sub_functions(const FunctionEntry *self);
 // Binds a FunctionModel facade to a document and a path (path copied).
 void function_model_init(FunctionModel *self, SpecDocument *doc, const char *path);
 void function_model_free(FunctionModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int function_model_can_have_content(const FunctionModel *self);
 FunctionModelDecompositionOverviewForm function_model_decomposition_overview(const FunctionModel *self);
 FunctionModelMatrixOverviewForm function_model_matrix_overview(const FunctionModel *self);
@@ -12461,7 +12498,7 @@ SomList function_model_business_rules(const FunctionModel *self);
 // Binds a FunctionalCompleteness facade to a document and a path (path copied).
 void functional_completeness_init(FunctionalCompleteness *self, SpecDocument *doc, const char *path);
 void functional_completeness_free(FunctionalCompleteness *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_completeness_can_have_content(const FunctionalCompleteness *self);
 FunctionalCompletenessContentForm functional_completeness_content(const FunctionalCompleteness *self);
 // Detailed functional completeness narrative.
@@ -12475,7 +12512,7 @@ FunctionalCompletenessContentForm functional_completeness_content(const Function
 // Binds a FunctionalRequirementEntry facade to a document and a path (path copied).
 void functional_requirement_entry_init(FunctionalRequirementEntry *self, SpecDocument *doc, const char *path);
 void functional_requirement_entry_free(FunctionalRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_requirement_entry_can_have_content(const FunctionalRequirementEntry *self);
 FunctionalRequirementEntryContentForm functional_requirement_entry_content(const FunctionalRequirementEntry *self);
 // Requirement details: description, type, category.
@@ -12514,7 +12551,7 @@ RequirementTestCases functional_requirement_entry_test_cases(const FunctionalReq
 // Binds a FunctionalRequirements facade to a document and a path (path copied).
 void functional_requirements_init(FunctionalRequirements *self, SpecDocument *doc, const char *path);
 void functional_requirements_free(FunctionalRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_requirements_can_have_content(const FunctionalRequirements *self);
 char *functional_requirements_content(const FunctionalRequirements *self);
 void functional_requirements_set_content(FunctionalRequirements *self, const char *value);
@@ -12533,7 +12570,7 @@ SomList functional_requirements_requirements(const FunctionalRequirements *self)
 // Binds a FunctionalResponsibilities facade to a document and a path (path copied).
 void functional_responsibilities_init(FunctionalResponsibilities *self, SpecDocument *doc, const char *path);
 void functional_responsibilities_free(FunctionalResponsibilities *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_responsibilities_can_have_content(const FunctionalResponsibilities *self);
 FunctionalResponsibilitiesContentForm functional_responsibilities_content(const FunctionalResponsibilities *self);
 // Responsibility matrix overview narrative.
@@ -12550,7 +12587,7 @@ SomList functional_responsibilities_items(const FunctionalResponsibilities *self
 // Binds a FunctionalSuitabilityCharacteristic facade to a document and a path (path copied).
 void functional_suitability_characteristic_init(FunctionalSuitabilityCharacteristic *self, SpecDocument *doc, const char *path);
 void functional_suitability_characteristic_free(FunctionalSuitabilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int functional_suitability_characteristic_can_have_content(const FunctionalSuitabilityCharacteristic *self);
 FunctionalSuitabilityCharacteristicFunctionalSuitabilityContentForm functional_suitability_characteristic_functional_suitability_content(const FunctionalSuitabilityCharacteristic *self);
 // Functional suitability overview.
@@ -12568,7 +12605,7 @@ Correctness functional_suitability_characteristic_correctness(const FunctionalSu
 // Binds a GapEntry facade to a document and a path (path copied).
 void gap_entry_init(GapEntry *self, SpecDocument *doc, const char *path);
 void gap_entry_free(GapEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int gap_entry_can_have_content(const GapEntry *self);
 GapEntryContentForm gap_entry_content(const GapEntry *self);
 // Gap description and business impact.
@@ -12584,7 +12621,7 @@ GapEntryResolutionForm gap_entry_resolution(const GapEntry *self);
 // Binds a GeographicDistributionRequirements facade to a document and a path (path copied).
 void geographic_distribution_requirements_init(GeographicDistributionRequirements *self, SpecDocument *doc, const char *path);
 void geographic_distribution_requirements_free(GeographicDistributionRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int geographic_distribution_requirements_can_have_content(const GeographicDistributionRequirements *self);
 GeographicDistributionRequirementsContentForm geographic_distribution_requirements_content(const GeographicDistributionRequirements *self);
 // CDN requirements.
@@ -12603,7 +12640,7 @@ GeographicDistributionRequirementsPerformanceForm geographic_distribution_requir
 // Binds a GlobalRoleExclusionEntry facade to a document and a path (path copied).
 void global_role_exclusion_entry_init(GlobalRoleExclusionEntry *self, SpecDocument *doc, const char *path);
 void global_role_exclusion_entry_free(GlobalRoleExclusionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int global_role_exclusion_entry_can_have_content(const GlobalRoleExclusionEntry *self);
 GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const GlobalRoleExclusionEntry *self);
 
@@ -12611,7 +12648,7 @@ GlobalRoleExclusionEntryContentForm global_role_exclusion_entry_content(const Gl
 // Binds a GlossaryAndAbbreviations facade to a document and a path (path copied).
 void glossary_and_abbreviations_init(GlossaryAndAbbreviations *self, SpecDocument *doc, const char *path);
 void glossary_and_abbreviations_free(GlossaryAndAbbreviations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int glossary_and_abbreviations_can_have_content(const GlossaryAndAbbreviations *self);
 char *glossary_and_abbreviations_content(const GlossaryAndAbbreviations *self);
 void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, const char *value);
@@ -12623,7 +12660,7 @@ SomList glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self
 // Binds a GlossaryEntry facade to a document and a path (path copied).
 void glossary_entry_init(GlossaryEntry *self, SpecDocument *doc, const char *path);
 void glossary_entry_free(GlossaryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int glossary_entry_can_have_content(const GlossaryEntry *self);
 GlossaryEntryContentForm glossary_entry_content(const GlossaryEntry *self);
 
@@ -12633,7 +12670,7 @@ GlossaryEntryContentForm glossary_entry_content(const GlossaryEntry *self);
 // Binds a GoalDependencies facade to a document and a path (path copied).
 void goal_dependencies_init(GoalDependencies *self, SpecDocument *doc, const char *path);
 void goal_dependencies_free(GoalDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_dependencies_can_have_content(const GoalDependencies *self);
 char *goal_dependencies_content(const GoalDependencies *self);
 void goal_dependencies_set_content(GoalDependencies *self, const char *value);
@@ -12645,7 +12682,7 @@ SomList goal_dependencies_items(const GoalDependencies *self);
 // Binds a GoalDependencyEntry facade to a document and a path (path copied).
 void goal_dependency_entry_init(GoalDependencyEntry *self, SpecDocument *doc, const char *path);
 void goal_dependency_entry_free(GoalDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_dependency_entry_can_have_content(const GoalDependencyEntry *self);
 GoalDependencyEntryContentForm goal_dependency_entry_content(const GoalDependencyEntry *self);
 char *goal_dependency_entry_related_goal(const GoalDependencyEntry *self);
@@ -12659,7 +12696,7 @@ void goal_dependency_entry_set_related_goal(GoalDependencyEntry *self, const cha
 // Binds a GoalKeyResults facade to a document and a path (path copied).
 void goal_key_results_init(GoalKeyResults *self, SpecDocument *doc, const char *path);
 void goal_key_results_free(GoalKeyResults *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_key_results_can_have_content(const GoalKeyResults *self);
 char *goal_key_results_content(const GoalKeyResults *self);
 void goal_key_results_set_content(GoalKeyResults *self, const char *value);
@@ -12671,7 +12708,7 @@ SomList goal_key_results_items(const GoalKeyResults *self);
 // Binds a GoalMilestoneEntry facade to a document and a path (path copied).
 void goal_milestone_entry_init(GoalMilestoneEntry *self, SpecDocument *doc, const char *path);
 void goal_milestone_entry_free(GoalMilestoneEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_milestone_entry_can_have_content(const GoalMilestoneEntry *self);
 GoalMilestoneEntryContentForm goal_milestone_entry_content(const GoalMilestoneEntry *self);
 
@@ -12681,7 +12718,7 @@ GoalMilestoneEntryContentForm goal_milestone_entry_content(const GoalMilestoneEn
 // Binds a GoalMilestones facade to a document and a path (path copied).
 void goal_milestones_init(GoalMilestones *self, SpecDocument *doc, const char *path);
 void goal_milestones_free(GoalMilestones *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_milestones_can_have_content(const GoalMilestones *self);
 char *goal_milestones_content(const GoalMilestones *self);
 void goal_milestones_set_content(GoalMilestones *self, const char *value);
@@ -12695,7 +12732,7 @@ SomList goal_milestones_items(const GoalMilestones *self);
 // Binds a GoalResources facade to a document and a path (path copied).
 void goal_resources_init(GoalResources *self, SpecDocument *doc, const char *path);
 void goal_resources_free(GoalResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_resources_can_have_content(const GoalResources *self);
 char *goal_resources_content(const GoalResources *self);
 void goal_resources_set_content(GoalResources *self, const char *value);
@@ -12709,7 +12746,7 @@ SomList goal_resources_items(const GoalResources *self);
 // Binds a GoalRiskEntry facade to a document and a path (path copied).
 void goal_risk_entry_init(GoalRiskEntry *self, SpecDocument *doc, const char *path);
 void goal_risk_entry_free(GoalRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_risk_entry_can_have_content(const GoalRiskEntry *self);
 GoalRiskEntryContentForm goal_risk_entry_content(const GoalRiskEntry *self);
 // Risk assessment details.
@@ -12723,7 +12760,7 @@ GoalRiskEntryResponseForm goal_risk_entry_response(const GoalRiskEntry *self);
 // Binds a GoalRisks facade to a document and a path (path copied).
 void goal_risks_init(GoalRisks *self, SpecDocument *doc, const char *path);
 void goal_risks_free(GoalRisks *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goal_risks_can_have_content(const GoalRisks *self);
 char *goal_risks_content(const GoalRisks *self);
 void goal_risks_set_content(GoalRisks *self, const char *value);
@@ -12740,7 +12777,7 @@ SomList goal_risks_items(const GoalRisks *self);
 // Binds a Goals facade to a document and a path (path copied).
 void goals_init(Goals *self, SpecDocument *doc, const char *path);
 void goals_free(Goals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int goals_can_have_content(const Goals *self);
 char *goals_content(const Goals *self);
 void goals_set_content(Goals *self, const char *value);
@@ -12758,7 +12795,7 @@ SuccessCriteria goals_success_criteria(const Goals *self);
 // Binds a GovernanceModel facade to a document and a path (path copied).
 void governance_model_init(GovernanceModel *self, SpecDocument *doc, const char *path);
 void governance_model_free(GovernanceModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int governance_model_can_have_content(const GovernanceModel *self);
 GovernanceModelContentForm governance_model_content(const GovernanceModel *self);
 // Decision authority matrix.
@@ -12771,7 +12808,7 @@ SomList governance_model_decision_authorities(const GovernanceModel *self);
 // Binds a HandlingRequirementEntry facade to a document and a path (path copied).
 void handling_requirement_entry_init(HandlingRequirementEntry *self, SpecDocument *doc, const char *path);
 void handling_requirement_entry_free(HandlingRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int handling_requirement_entry_can_have_content(const HandlingRequirementEntry *self);
 HandlingRequirementEntryContentForm handling_requirement_entry_content(const HandlingRequirementEntry *self);
 
@@ -12779,7 +12816,7 @@ HandlingRequirementEntryContentForm handling_requirement_entry_content(const Han
 // Binds a HardwareRequirements facade to a document and a path (path copied).
 void hardware_requirements_init(HardwareRequirements *self, SpecDocument *doc, const char *path);
 void hardware_requirements_free(HardwareRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int hardware_requirements_can_have_content(const HardwareRequirements *self);
 char *hardware_requirements_content(const HardwareRequirements *self);
 void hardware_requirements_set_content(HardwareRequirements *self, const char *value);
@@ -12794,7 +12831,7 @@ NetworkRequirementsSection hardware_requirements_network_requirements(const Hard
 // Binds a HealthCheckEndpoints facade to a document and a path (path copied).
 void health_check_endpoints_init(HealthCheckEndpoints *self, SpecDocument *doc, const char *path);
 void health_check_endpoints_free(HealthCheckEndpoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int health_check_endpoints_can_have_content(const HealthCheckEndpoints *self);
 HealthCheckEndpointsContentForm health_check_endpoints_content(const HealthCheckEndpoints *self);
 // Response configuration.
@@ -12808,7 +12845,7 @@ HealthCheckEndpointsContentSettingsForm health_check_endpoints_content_settings(
 // Binds a HealthChecksAndDiagnosticsSection facade to a document and a path (path copied).
 void health_checks_and_diagnostics_section_init(HealthChecksAndDiagnosticsSection *self, SpecDocument *doc, const char *path);
 void health_checks_and_diagnostics_section_free(HealthChecksAndDiagnosticsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int health_checks_and_diagnostics_section_can_have_content(const HealthChecksAndDiagnosticsSection *self);
 char *health_checks_and_diagnostics_section_content(const HealthChecksAndDiagnosticsSection *self);
 void health_checks_and_diagnostics_section_set_content(HealthChecksAndDiagnosticsSection *self, const char *value);
@@ -12829,7 +12866,7 @@ DependencyHealthMonitoring health_checks_and_diagnostics_section_dependency_heal
 // Binds a HighAvailabilityRequirements facade to a document and a path (path copied).
 void high_availability_requirements_init(HighAvailabilityRequirements *self, SpecDocument *doc, const char *path);
 void high_availability_requirements_free(HighAvailabilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int high_availability_requirements_can_have_content(const HighAvailabilityRequirements *self);
 HighAvailabilityRequirementsContentForm high_availability_requirements_content(const HighAvailabilityRequirements *self);
 // Redundancy model.
@@ -12845,7 +12882,7 @@ HighAvailabilityRequirementsDisasterRecoveryForm high_availability_requirements_
 // Binds a IdeRequirementEntry facade to a document and a path (path copied).
 void ide_requirement_entry_init(IdeRequirementEntry *self, SpecDocument *doc, const char *path);
 void ide_requirement_entry_free(IdeRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ide_requirement_entry_can_have_content(const IdeRequirementEntry *self);
 IdeRequirementEntryContentForm ide_requirement_entry_content(const IdeRequirementEntry *self);
 // Extension and workspace configuration.
@@ -12864,7 +12901,7 @@ IdeRequirementEntryStandardizationForm ide_requirement_entry_standardization(con
 // Binds a Identification facade to a document and a path (path copied).
 void identification_init(Identification *self, SpecDocument *doc, const char *path);
 void identification_free(Identification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identification_can_have_content(const Identification *self);
 IdentificationContentForm identification_content(const Identification *self);
 // Identity Sources — contains 0+× Identity Source.
@@ -12887,7 +12924,7 @@ SomList identification_attribute_mappings(const Identification *self);
 // Binds a IdentificationAndAuthentication facade to a document and a path (path copied).
 void identification_and_authentication_init(IdentificationAndAuthentication *self, SpecDocument *doc, const char *path);
 void identification_and_authentication_free(IdentificationAndAuthentication *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identification_and_authentication_can_have_content(const IdentificationAndAuthentication *self);
 char *identification_and_authentication_content(const IdentificationAndAuthentication *self);
 void identification_and_authentication_set_content(IdentificationAndAuthentication *self, const char *value);
@@ -12903,7 +12940,7 @@ Authentication identification_and_authentication_authentication(const Identifica
 // Binds a IdentityAttributeMappingEntry facade to a document and a path (path copied).
 void identity_attribute_mapping_entry_init(IdentityAttributeMappingEntry *self, SpecDocument *doc, const char *path);
 void identity_attribute_mapping_entry_free(IdentityAttributeMappingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_attribute_mapping_entry_can_have_content(const IdentityAttributeMappingEntry *self);
 IdentityAttributeMappingEntryContentForm identity_attribute_mapping_entry_content(const IdentityAttributeMappingEntry *self);
 // Transformation and defaulting behavior.
@@ -12917,7 +12954,7 @@ IdentityAttributeMappingEntryGovernanceForm identity_attribute_mapping_entry_gov
 // Binds a IdentityProviderDetails facade to a document and a path (path copied).
 void identity_provider_details_init(IdentityProviderDetails *self, SpecDocument *doc, const char *path);
 void identity_provider_details_free(IdentityProviderDetails *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_provider_details_can_have_content(const IdentityProviderDetails *self);
 IdentityProviderDetailsContentForm identity_provider_details_content(const IdentityProviderDetails *self);
 
@@ -12925,7 +12962,7 @@ IdentityProviderDetailsContentForm identity_provider_details_content(const Ident
 // Binds a IdentityProviderEndpoints facade to a document and a path (path copied).
 void identity_provider_endpoints_init(IdentityProviderEndpoints *self, SpecDocument *doc, const char *path);
 void identity_provider_endpoints_free(IdentityProviderEndpoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_provider_endpoints_can_have_content(const IdentityProviderEndpoints *self);
 IdentityProviderEndpointsContentForm identity_provider_endpoints_content(const IdentityProviderEndpoints *self);
 
@@ -12936,7 +12973,7 @@ IdentityProviderEndpointsContentForm identity_provider_endpoints_content(const I
 // Binds a IdentityProviderEntry facade to a document and a path (path copied).
 void identity_provider_entry_init(IdentityProviderEntry *self, SpecDocument *doc, const char *path);
 void identity_provider_entry_free(IdentityProviderEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_provider_entry_can_have_content(const IdentityProviderEntry *self);
 IdentityProviderEntryContentForm identity_provider_entry_content(const IdentityProviderEntry *self);
 // Provider details.
@@ -12959,7 +12996,7 @@ IdentityProviderEntrySecurityForm identity_provider_entry_security(const Identit
 // Binds a IdentitySourceEntry facade to a document and a path (path copied).
 void identity_source_entry_init(IdentitySourceEntry *self, SpecDocument *doc, const char *path);
 void identity_source_entry_free(IdentitySourceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_source_entry_can_have_content(const IdentitySourceEntry *self);
 IdentitySourceEntryContentForm identity_source_entry_content(const IdentitySourceEntry *self);
 // Connectivity and trust details.
@@ -12978,7 +13015,7 @@ IdentitySourceEntryOperationsForm identity_source_entry_operations(const Identit
 // Binds a IdentityVerificationPolicy facade to a document and a path (path copied).
 void identity_verification_policy_init(IdentityVerificationPolicy *self, SpecDocument *doc, const char *path);
 void identity_verification_policy_free(IdentityVerificationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int identity_verification_policy_can_have_content(const IdentityVerificationPolicy *self);
 IdentityVerificationPolicyContentForm identity_verification_policy_content(const IdentityVerificationPolicy *self);
 // Required proofing artifacts.
@@ -12998,7 +13035,7 @@ IdentityVerificationPolicyFailureForm identity_verification_policy_failure(const
 // Binds a ImpactLevelDefinitions facade to a document and a path (path copied).
 void impact_level_definitions_init(ImpactLevelDefinitions *self, SpecDocument *doc, const char *path);
 void impact_level_definitions_free(ImpactLevelDefinitions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int impact_level_definitions_can_have_content(const ImpactLevelDefinitions *self);
 ImpactLevelDefinitionsContentForm impact_level_definitions_content(const ImpactLevelDefinitions *self);
 
@@ -13006,7 +13043,7 @@ ImpactLevelDefinitionsContentForm impact_level_definitions_content(const ImpactL
 // Binds a IncidentManagementRequirements facade to a document and a path (path copied).
 void incident_management_requirements_init(IncidentManagementRequirements *self, SpecDocument *doc, const char *path);
 void incident_management_requirements_free(IncidentManagementRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int incident_management_requirements_can_have_content(const IncidentManagementRequirements *self);
 IncidentManagementRequirementsContentForm incident_management_requirements_content(const IncidentManagementRequirements *self);
 // Communication requirements.
@@ -13022,7 +13059,7 @@ IncidentManagementRequirementsMetricsForm incident_management_requirements_metri
 // Binds a IncidentResponsePlan facade to a document and a path (path copied).
 void incident_response_plan_init(IncidentResponsePlan *self, SpecDocument *doc, const char *path);
 void incident_response_plan_free(IncidentResponsePlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int incident_response_plan_can_have_content(const IncidentResponsePlan *self);
 IncidentResponsePlanContentForm incident_response_plan_content(const IncidentResponsePlan *self);
 // Response process.
@@ -13036,7 +13073,7 @@ IncidentResponsePlanPostIncidentForm incident_response_plan_post_incident(const 
 // Binds a IndustryProtocolComplianceEntry facade to a document and a path (path copied).
 void industry_protocol_compliance_entry_init(IndustryProtocolComplianceEntry *self, SpecDocument *doc, const char *path);
 void industry_protocol_compliance_entry_free(IndustryProtocolComplianceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int industry_protocol_compliance_entry_can_have_content(const IndustryProtocolComplianceEntry *self);
 IndustryProtocolComplianceEntryContentForm industry_protocol_compliance_entry_content(const IndustryProtocolComplianceEntry *self);
 // Compliance scope and features.
@@ -13052,7 +13089,7 @@ IndustryProtocolComplianceEntryInteroperabilityForm industry_protocol_compliance
 // Binds a IndustryStandardEntry facade to a document and a path (path copied).
 void industry_standard_entry_init(IndustryStandardEntry *self, SpecDocument *doc, const char *path);
 void industry_standard_entry_free(IndustryStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int industry_standard_entry_can_have_content(const IndustryStandardEntry *self);
 IndustryStandardEntryContentForm industry_standard_entry_content(const IndustryStandardEntry *self);
 // Scope details.
@@ -13070,7 +13107,7 @@ IndustryStandardEntryReferenceForm industry_standard_entry_reference(const Indus
 // Binds a InformationAndDataModel facade to a document and a path (path copied).
 void information_and_data_model_init(InformationAndDataModel *self, SpecDocument *doc, const char *path);
 void information_and_data_model_free(InformationAndDataModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int information_and_data_model_can_have_content(const InformationAndDataModel *self);
 char *information_and_data_model_content(const InformationAndDataModel *self);
 void information_and_data_model_set_content(InformationAndDataModel *self, const char *value);
@@ -13107,7 +13144,7 @@ DataModelFollowUp information_and_data_model_data_model_follow_up(const Informat
 // Binds a InformationArchitecture facade to a document and a path (path copied).
 void information_architecture_init(InformationArchitecture *self, SpecDocument *doc, const char *path);
 void information_architecture_free(InformationArchitecture *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int information_architecture_can_have_content(const InformationArchitecture *self);
 char *information_architecture_content(const InformationArchitecture *self);
 void information_architecture_set_content(InformationArchitecture *self, const char *value);
@@ -13134,7 +13171,7 @@ SomList information_architecture_global_entry_points(const InformationArchitectu
 // Binds a InformationForUseRequirements facade to a document and a path (path copied).
 void information_for_use_requirements_init(InformationForUseRequirements *self, SpecDocument *doc, const char *path);
 void information_for_use_requirements_free(InformationForUseRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int information_for_use_requirements_can_have_content(const InformationForUseRequirements *self);
 char *information_for_use_requirements_content(const InformationForUseRequirements *self);
 void information_for_use_requirements_set_content(InformationForUseRequirements *self, const char *value);
@@ -13145,7 +13182,7 @@ UserDocumentationRequirements information_for_use_requirements_user_documentatio
 // Binds a InfrastructureAsCode facade to a document and a path (path copied).
 void infrastructure_as_code_init(InfrastructureAsCode *self, SpecDocument *doc, const char *path);
 void infrastructure_as_code_free(InfrastructureAsCode *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int infrastructure_as_code_can_have_content(const InfrastructureAsCode *self);
 InfrastructureAsCodeContentForm infrastructure_as_code_content(const InfrastructureAsCode *self);
 // State management.
@@ -13161,7 +13198,7 @@ InfrastructureAsCodeSecurityForm infrastructure_as_code_security(const Infrastru
 // Binds a InfrastructureComponentEntry facade to a document and a path (path copied).
 void infrastructure_component_entry_init(InfrastructureComponentEntry *self, SpecDocument *doc, const char *path);
 void infrastructure_component_entry_free(InfrastructureComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int infrastructure_component_entry_can_have_content(const InfrastructureComponentEntry *self);
 InfrastructureComponentEntryContentForm infrastructure_component_entry_content(const InfrastructureComponentEntry *self);
 // Purpose and technology choices.
@@ -13179,7 +13216,7 @@ InfrastructureComponentEntryResiliencyForm infrastructure_component_entry_resili
 // Binds a InfrastructureMetricsSpec facade to a document and a path (path copied).
 void infrastructure_metrics_spec_init(InfrastructureMetricsSpec *self, SpecDocument *doc, const char *path);
 void infrastructure_metrics_spec_free(InfrastructureMetricsSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int infrastructure_metrics_spec_can_have_content(const InfrastructureMetricsSpec *self);
 InfrastructureMetricsSpecContentForm infrastructure_metrics_spec_content(const InfrastructureMetricsSpec *self);
 // Container and orchestration metrics.
@@ -13193,7 +13230,7 @@ InfrastructureMetricsSpecCostForm infrastructure_metrics_spec_cost(const Infrast
 // Binds a InfrastructureSecurityHardening facade to a document and a path (path copied).
 void infrastructure_security_hardening_init(InfrastructureSecurityHardening *self, SpecDocument *doc, const char *path);
 void infrastructure_security_hardening_free(InfrastructureSecurityHardening *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int infrastructure_security_hardening_can_have_content(const InfrastructureSecurityHardening *self);
 InfrastructureSecurityHardeningContentForm infrastructure_security_hardening_content(const InfrastructureSecurityHardening *self);
 // Container security.
@@ -13211,7 +13248,7 @@ InfrastructureSecurityHardeningAccessForm infrastructure_security_hardening_acce
 // Binds a InitialDevelopmentFlow facade to a document and a path (path copied).
 void initial_development_flow_init(InitialDevelopmentFlow *self, SpecDocument *doc, const char *path);
 void initial_development_flow_free(InitialDevelopmentFlow *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int initial_development_flow_can_have_content(const InitialDevelopmentFlow *self);
 char *initial_development_flow_content(const InitialDevelopmentFlow *self);
 void initial_development_flow_set_content(InitialDevelopmentFlow *self, const char *value);
@@ -13220,7 +13257,7 @@ void initial_development_flow_set_content(InitialDevelopmentFlow *self, const ch
 // Binds a InitialTrainingEntry facade to a document and a path (path copied).
 void initial_training_entry_init(InitialTrainingEntry *self, SpecDocument *doc, const char *path);
 void initial_training_entry_free(InitialTrainingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int initial_training_entry_can_have_content(const InitialTrainingEntry *self);
 InitialTrainingEntryContentForm initial_training_entry_content(const InitialTrainingEntry *self);
 // Target and prerequisites.
@@ -13238,7 +13275,7 @@ InitialTrainingEntryAssessmentForm initial_training_entry_assessment(const Initi
 // Binds a InputDeviceEntry facade to a document and a path (path copied).
 void input_device_entry_init(InputDeviceEntry *self, SpecDocument *doc, const char *path);
 void input_device_entry_free(InputDeviceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int input_device_entry_can_have_content(const InputDeviceEntry *self);
 InputDeviceEntryContentForm input_device_entry_content(const InputDeviceEntry *self);
 
@@ -13246,7 +13283,7 @@ InputDeviceEntryContentForm input_device_entry_content(const InputDeviceEntry *s
 // Binds a InsuranceEntry facade to a document and a path (path copied).
 void insurance_entry_init(InsuranceEntry *self, SpecDocument *doc, const char *path);
 void insurance_entry_free(InsuranceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int insurance_entry_can_have_content(const InsuranceEntry *self);
 InsuranceEntryContentForm insurance_entry_content(const InsuranceEntry *self);
 
@@ -13256,7 +13293,7 @@ InsuranceEntryContentForm insurance_entry_content(const InsuranceEntry *self);
 // Binds a InsuranceLiabilityRequirements facade to a document and a path (path copied).
 void insurance_liability_requirements_init(InsuranceLiabilityRequirements *self, SpecDocument *doc, const char *path);
 void insurance_liability_requirements_free(InsuranceLiabilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int insurance_liability_requirements_can_have_content(const InsuranceLiabilityRequirements *self);
 char *insurance_liability_requirements_content(const InsuranceLiabilityRequirements *self);
 void insurance_liability_requirements_set_content(InsuranceLiabilityRequirements *self, const char *value);
@@ -13271,7 +13308,7 @@ SomList insurance_liability_requirements_liability_limitations(const InsuranceLi
 // Binds a IntegrationArchitecture facade to a document and a path (path copied).
 void integration_architecture_init(IntegrationArchitecture *self, SpecDocument *doc, const char *path);
 void integration_architecture_free(IntegrationArchitecture *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integration_architecture_can_have_content(const IntegrationArchitecture *self);
 IntegrationArchitectureContentForm integration_architecture_content(const IntegrationArchitecture *self);
 // External system landscape.
@@ -13292,7 +13329,7 @@ IntegrationArchitectureOperationsForm integration_architecture_operations(const 
 // Binds a IntegrationConstraintEntry facade to a document and a path (path copied).
 void integration_constraint_entry_init(IntegrationConstraintEntry *self, SpecDocument *doc, const char *path);
 void integration_constraint_entry_free(IntegrationConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integration_constraint_entry_can_have_content(const IntegrationConstraintEntry *self);
 IntegrationConstraintEntryContentForm integration_constraint_entry_content(const IntegrationConstraintEntry *self);
 // Constraint details.
@@ -13310,7 +13347,7 @@ IntegrationConstraintEntryComplianceForm integration_constraint_entry_compliance
 // Binds a IntegrationHealthSummary facade to a document and a path (path copied).
 void integration_health_summary_init(IntegrationHealthSummary *self, SpecDocument *doc, const char *path);
 void integration_health_summary_free(IntegrationHealthSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integration_health_summary_can_have_content(const IntegrationHealthSummary *self);
 IntegrationHealthSummaryContentForm integration_health_summary_content(const IntegrationHealthSummary *self);
 // Fragile integration points requiring attention.
@@ -13321,7 +13358,7 @@ SomList integration_health_summary_fragile_points(const IntegrationHealthSummary
 // Binds a IntegrationPointEntry facade to a document and a path (path copied).
 void integration_point_entry_init(IntegrationPointEntry *self, SpecDocument *doc, const char *path);
 void integration_point_entry_free(IntegrationPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integration_point_entry_can_have_content(const IntegrationPointEntry *self);
 IntegrationPointEntryContentForm integration_point_entry_content(const IntegrationPointEntry *self);
 
@@ -13332,7 +13369,7 @@ IntegrationPointEntryContentForm integration_point_entry_content(const Integrati
 // Binds a Integrations facade to a document and a path (path copied).
 void integrations_init(Integrations *self, SpecDocument *doc, const char *path);
 void integrations_free(Integrations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integrations_can_have_content(const Integrations *self);
 char *integrations_content(const Integrations *self);
 void integrations_set_content(Integrations *self, const char *value);
@@ -13346,7 +13383,7 @@ SomList integrations_items(const Integrations *self);
 // Binds a IntegrityConstraints facade to a document and a path (path copied).
 void integrity_constraints_init(IntegrityConstraints *self, SpecDocument *doc, const char *path);
 void integrity_constraints_free(IntegrityConstraints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int integrity_constraints_can_have_content(const IntegrityConstraints *self);
 char *integrity_constraints_content(const IntegrityConstraints *self);
 void integrity_constraints_set_content(IntegrityConstraints *self, const char *value);
@@ -13357,7 +13394,7 @@ void integrity_constraints_set_content(IntegrityConstraints *self, const char *v
 // Binds a IntellectualPropertyRequirements facade to a document and a path (path copied).
 void intellectual_property_requirements_init(IntellectualPropertyRequirements *self, SpecDocument *doc, const char *path);
 void intellectual_property_requirements_free(IntellectualPropertyRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int intellectual_property_requirements_can_have_content(const IntellectualPropertyRequirements *self);
 IntellectualPropertyRequirementsContentForm intellectual_property_requirements_content(const IntellectualPropertyRequirements *self);
 // IP ownership details — contains 0+× IP Ownership Entry.
@@ -13368,7 +13405,7 @@ SomList intellectual_property_requirements_ownership_details(const IntellectualP
 // Binds a InteractionBusinessRules facade to a document and a path (path copied).
 void interaction_business_rules_init(InteractionBusinessRules *self, SpecDocument *doc, const char *path);
 void interaction_business_rules_free(InteractionBusinessRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_business_rules_can_have_content(const InteractionBusinessRules *self);
 InteractionBusinessRulesContentForm interaction_business_rules_content(const InteractionBusinessRules *self);
 
@@ -13381,7 +13418,7 @@ InteractionBusinessRulesContentForm interaction_business_rules_content(const Int
 // Binds a InteractionCapabilityCharacteristic facade to a document and a path (path copied).
 void interaction_capability_characteristic_init(InteractionCapabilityCharacteristic *self, SpecDocument *doc, const char *path);
 void interaction_capability_characteristic_free(InteractionCapabilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_capability_characteristic_can_have_content(const InteractionCapabilityCharacteristic *self);
 InteractionCapabilityCharacteristicInteractionCapabilityContentForm interaction_capability_characteristic_interaction_capability_content(const InteractionCapabilityCharacteristic *self);
 // Interaction capability overview.
@@ -13396,7 +13433,7 @@ Usability interaction_capability_characteristic_usability(const InteractionCapab
 // Binds a InteractionCatalog facade to a document and a path (path copied).
 void interaction_catalog_init(InteractionCatalog *self, SpecDocument *doc, const char *path);
 void interaction_catalog_free(InteractionCatalog *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_catalog_can_have_content(const InteractionCatalog *self);
 char *interaction_catalog_content(const InteractionCatalog *self);
 void interaction_catalog_set_content(InteractionCatalog *self, const char *value);
@@ -13415,7 +13452,7 @@ InteractionCatalogPrioritizationForm interaction_catalog_prioritization(const In
 // Binds a InteractionChannelEntry facade to a document and a path (path copied).
 void interaction_channel_entry_init(InteractionChannelEntry *self, SpecDocument *doc, const char *path);
 void interaction_channel_entry_free(InteractionChannelEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_channel_entry_can_have_content(const InteractionChannelEntry *self);
 InteractionChannelEntryContentForm interaction_channel_entry_content(const InteractionChannelEntry *self);
 // Platform and targeting.
@@ -13439,7 +13476,7 @@ SomList interaction_channel_entry_integrations(const InteractionChannelEntry *se
 // Binds a InteractionDependencyAnalysis facade to a document and a path (path copied).
 void interaction_dependency_analysis_init(InteractionDependencyAnalysis *self, SpecDocument *doc, const char *path);
 void interaction_dependency_analysis_free(InteractionDependencyAnalysis *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_dependency_analysis_can_have_content(const InteractionDependencyAnalysis *self);
 char *interaction_dependency_analysis_content(const InteractionDependencyAnalysis *self);
 void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *self, const char *value);
@@ -13451,7 +13488,7 @@ void interaction_dependency_analysis_set_content(InteractionDependencyAnalysis *
 // Binds a InteractionEntry facade to a document and a path (path copied).
 void interaction_entry_init(InteractionEntry *self, SpecDocument *doc, const char *path);
 void interaction_entry_free(InteractionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_entry_can_have_content(const InteractionEntry *self);
 // Interaction identification (use case header).
 InteractionEntryIdentificationForm interaction_entry_identification(const InteractionEntry *self);
@@ -13492,7 +13529,7 @@ InteractionEntryTraceabilityForm interaction_entry_traceability(const Interactio
 // Binds a InteractionPatternEntry facade to a document and a path (path copied).
 void interaction_pattern_entry_init(InteractionPatternEntry *self, SpecDocument *doc, const char *path);
 void interaction_pattern_entry_free(InteractionPatternEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_pattern_entry_can_have_content(const InteractionPatternEntry *self);
 InteractionPatternEntryContentForm interaction_pattern_entry_content(const InteractionPatternEntry *self);
 // Narrative summary and typical scenarios.
@@ -13511,7 +13548,7 @@ InteractionPatternEntryUsageForm interaction_pattern_entry_usage(const Interacti
 // Binds a InteractionPatterns facade to a document and a path (path copied).
 void interaction_patterns_init(InteractionPatterns *self, SpecDocument *doc, const char *path);
 void interaction_patterns_free(InteractionPatterns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_patterns_can_have_content(const InteractionPatterns *self);
 char *interaction_patterns_content(const InteractionPatterns *self);
 void interaction_patterns_set_content(InteractionPatterns *self, const char *value);
@@ -13526,7 +13563,7 @@ SomList interaction_patterns_patterns(const InteractionPatterns *self);
 // Binds a InteractionTestingStrategy facade to a document and a path (path copied).
 void interaction_testing_strategy_init(InteractionTestingStrategy *self, SpecDocument *doc, const char *path);
 void interaction_testing_strategy_free(InteractionTestingStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interaction_testing_strategy_can_have_content(const InteractionTestingStrategy *self);
 char *interaction_testing_strategy_content(const InteractionTestingStrategy *self);
 void interaction_testing_strategy_set_content(InteractionTestingStrategy *self, const char *value);
@@ -13535,7 +13572,7 @@ void interaction_testing_strategy_set_content(InteractionTestingStrategy *self, 
 // Binds a InterfaceBusinessContext facade to a document and a path (path copied).
 void interface_business_context_init(InterfaceBusinessContext *self, SpecDocument *doc, const char *path);
 void interface_business_context_free(InterfaceBusinessContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_business_context_can_have_content(const InterfaceBusinessContext *self);
 InterfaceBusinessContextContentForm interface_business_context_content(const InterfaceBusinessContext *self);
 // Business processes that depend on this interface.
@@ -13546,7 +13583,7 @@ SomList interface_business_context_dependent_processes(const InterfaceBusinessCo
 // Binds a InterfaceBusinessProcessEntry facade to a document and a path (path copied).
 void interface_business_process_entry_init(InterfaceBusinessProcessEntry *self, SpecDocument *doc, const char *path);
 void interface_business_process_entry_free(InterfaceBusinessProcessEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_business_process_entry_can_have_content(const InterfaceBusinessProcessEntry *self);
 InterfaceBusinessProcessEntryContentForm interface_business_process_entry_content(const InterfaceBusinessProcessEntry *self);
 
@@ -13554,7 +13591,7 @@ InterfaceBusinessProcessEntryContentForm interface_business_process_entry_conten
 // Binds a InterfaceDataEntityEntry facade to a document and a path (path copied).
 void interface_data_entity_entry_init(InterfaceDataEntityEntry *self, SpecDocument *doc, const char *path);
 void interface_data_entity_entry_free(InterfaceDataEntityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_data_entity_entry_can_have_content(const InterfaceDataEntityEntry *self);
 InterfaceDataEntityEntryContentForm interface_data_entity_entry_content(const InterfaceDataEntityEntry *self);
 
@@ -13562,7 +13599,7 @@ InterfaceDataEntityEntryContentForm interface_data_entity_entry_content(const In
 // Binds a InterfaceDataSpec facade to a document and a path (path copied).
 void interface_data_spec_init(InterfaceDataSpec *self, SpecDocument *doc, const char *path);
 void interface_data_spec_free(InterfaceDataSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_data_spec_can_have_content(const InterfaceDataSpec *self);
 InterfaceDataSpecContentForm interface_data_spec_content(const InterfaceDataSpec *self);
 // Data entities exchanged.
@@ -13579,7 +13616,7 @@ SomList interface_data_spec_validation_rules(const InterfaceDataSpec *self);
 // Binds a InterfaceErrorHandling facade to a document and a path (path copied).
 void interface_error_handling_init(InterfaceErrorHandling *self, SpecDocument *doc, const char *path);
 void interface_error_handling_free(InterfaceErrorHandling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_error_handling_can_have_content(const InterfaceErrorHandling *self);
 InterfaceErrorHandlingContentForm interface_error_handling_content(const InterfaceErrorHandling *self);
 // Non-retryable errors and retry strategy.
@@ -13596,7 +13633,7 @@ SomList interface_error_handling_error_procedures(const InterfaceErrorHandling *
 // Binds a InterfaceGovernance facade to a document and a path (path copied).
 void interface_governance_init(InterfaceGovernance *self, SpecDocument *doc, const char *path);
 void interface_governance_free(InterfaceGovernance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_governance_can_have_content(const InterfaceGovernance *self);
 InterfaceGovernanceContentForm interface_governance_content(const InterfaceGovernance *self);
 // Contract and commercial terms.
@@ -13610,7 +13647,7 @@ InterfaceGovernanceLifecycleForm interface_governance_lifecycle(const InterfaceG
 // Binds a InterfaceOperationEntry facade to a document and a path (path copied).
 void interface_operation_entry_init(InterfaceOperationEntry *self, SpecDocument *doc, const char *path);
 void interface_operation_entry_free(InterfaceOperationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_operation_entry_can_have_content(const InterfaceOperationEntry *self);
 InterfaceOperationEntryContentForm interface_operation_entry_content(const InterfaceOperationEntry *self);
 
@@ -13618,7 +13655,7 @@ InterfaceOperationEntryContentForm interface_operation_entry_content(const Inter
 // Binds a InterfaceOperational facade to a document and a path (path copied).
 void interface_operational_init(InterfaceOperational *self, SpecDocument *doc, const char *path);
 void interface_operational_free(InterfaceOperational *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_operational_can_have_content(const InterfaceOperational *self);
 InterfaceOperationalContentForm interface_operational_content(const InterfaceOperational *self);
 // Rate limiting rules.
@@ -13635,7 +13672,7 @@ SomList interface_operational_dependencies(const InterfaceOperational *self);
 // Binds a InterfaceSecurity facade to a document and a path (path copied).
 void interface_security_init(InterfaceSecurity *self, SpecDocument *doc, const char *path);
 void interface_security_free(InterfaceSecurity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_security_can_have_content(const InterfaceSecurity *self);
 InterfaceSecurityContentForm interface_security_content(const InterfaceSecurity *self);
 // Authorization boundaries.
@@ -13651,7 +13688,7 @@ InterfaceSecurityComplianceForm interface_security_compliance(const InterfaceSec
 // Binds a InterfaceSpecificationEntry facade to a document and a path (path copied).
 void interface_specification_entry_init(InterfaceSpecificationEntry *self, SpecDocument *doc, const char *path);
 void interface_specification_entry_free(InterfaceSpecificationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_specification_entry_can_have_content(const InterfaceSpecificationEntry *self);
 InterfaceSpecificationEntryContentForm interface_specification_entry_content(const InterfaceSpecificationEntry *self);
 // Definition storage and validation.
@@ -13667,7 +13704,7 @@ InterfaceSpecificationEntryToolingForm interface_specification_entry_tooling(con
 // Binds a InterfaceTechnicalSpec facade to a document and a path (path copied).
 void interface_technical_spec_init(InterfaceTechnicalSpec *self, SpecDocument *doc, const char *path);
 void interface_technical_spec_free(InterfaceTechnicalSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_technical_spec_can_have_content(const InterfaceTechnicalSpec *self);
 InterfaceTechnicalSpecContentForm interface_technical_spec_content(const InterfaceTechnicalSpec *self);
 // Directionality and messaging pattern.
@@ -13684,7 +13721,7 @@ InterfaceTechnicalSpecWebhookSpecForm interface_technical_spec_webhook_spec(cons
 // Binds a InterfaceTestScenarioEntry facade to a document and a path (path copied).
 void interface_test_scenario_entry_init(InterfaceTestScenarioEntry *self, SpecDocument *doc, const char *path);
 void interface_test_scenario_entry_free(InterfaceTestScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_test_scenario_entry_can_have_content(const InterfaceTestScenarioEntry *self);
 InterfaceTestScenarioEntryContentForm interface_test_scenario_entry_content(const InterfaceTestScenarioEntry *self);
 
@@ -13692,7 +13729,7 @@ InterfaceTestScenarioEntryContentForm interface_test_scenario_entry_content(cons
 // Binds a InterfaceTesting facade to a document and a path (path copied).
 void interface_testing_init(InterfaceTesting *self, SpecDocument *doc, const char *path);
 void interface_testing_free(InterfaceTesting *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interface_testing_can_have_content(const InterfaceTesting *self);
 InterfaceTestingContentForm interface_testing_content(const InterfaceTesting *self);
 // Test data strategy.
@@ -13709,7 +13746,7 @@ SomList interface_testing_test_scenarios(const InterfaceTesting *self);
 // Binds a InternalDependencies facade to a document and a path (path copied).
 void internal_dependencies_init(InternalDependencies *self, SpecDocument *doc, const char *path);
 void internal_dependencies_free(InternalDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int internal_dependencies_can_have_content(const InternalDependencies *self);
 char *internal_dependencies_content(const InternalDependencies *self);
 void internal_dependencies_set_content(InternalDependencies *self, const char *value);
@@ -13721,7 +13758,7 @@ SomList internal_dependencies_items(const InternalDependencies *self);
 // Binds a InternalNetworkRequirements facade to a document and a path (path copied).
 void internal_network_requirements_init(InternalNetworkRequirements *self, SpecDocument *doc, const char *path);
 void internal_network_requirements_free(InternalNetworkRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int internal_network_requirements_can_have_content(const InternalNetworkRequirements *self);
 InternalNetworkRequirementsContentForm internal_network_requirements_content(const InternalNetworkRequirements *self);
 // Segmentation and isolation.
@@ -13737,7 +13774,7 @@ InternalNetworkRequirementsMonitoringForm internal_network_requirements_monitori
 // Binds a InteroperabilityRequirements facade to a document and a path (path copied).
 void interoperability_requirements_init(InteroperabilityRequirements *self, SpecDocument *doc, const char *path);
 void interoperability_requirements_free(InteroperabilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int interoperability_requirements_can_have_content(const InteroperabilityRequirements *self);
 InteroperabilityRequirementsContentForm interoperability_requirements_content(const InteroperabilityRequirements *self);
 // Data-exchange definitions.
@@ -13757,7 +13794,7 @@ InteroperabilityRequirementsGovernanceForm interoperability_requirements_governa
 // Binds a IntroductionAndScope facade to a document and a path (path copied).
 void introduction_and_scope_init(IntroductionAndScope *self, SpecDocument *doc, const char *path);
 void introduction_and_scope_free(IntroductionAndScope *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int introduction_and_scope_can_have_content(const IntroductionAndScope *self);
 char *introduction_and_scope_content(const IntroductionAndScope *self);
 void introduction_and_scope_set_content(IntroductionAndScope *self, const char *value);
@@ -13785,7 +13822,7 @@ RisksAndAssumptions introduction_and_scope_risks_and_assumptions(const Introduct
 // Binds a IpOwnershipEntry facade to a document and a path (path copied).
 void ip_ownership_entry_init(IpOwnershipEntry *self, SpecDocument *doc, const char *path);
 void ip_ownership_entry_free(IpOwnershipEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ip_ownership_entry_can_have_content(const IpOwnershipEntry *self);
 IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *self);
 
@@ -13801,7 +13838,7 @@ IpOwnershipEntryContentForm ip_ownership_entry_content(const IpOwnershipEntry *s
 // Binds a Iso25010Coverage facade to a document and a path (path copied).
 void iso25010_coverage_init(Iso25010Coverage *self, SpecDocument *doc, const char *path);
 void iso25010_coverage_free(Iso25010Coverage *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int iso25010_coverage_can_have_content(const Iso25010Coverage *self);
 char *iso25010_coverage_content(const Iso25010Coverage *self);
 void iso25010_coverage_set_content(Iso25010Coverage *self, const char *value);
@@ -13813,7 +13850,7 @@ SomList iso25010_coverage_characteristics(const Iso25010Coverage *self);
 // Binds a Iso25010CoverageEntry facade to a document and a path (path copied).
 void iso25010_coverage_entry_init(Iso25010CoverageEntry *self, SpecDocument *doc, const char *path);
 void iso25010_coverage_entry_free(Iso25010CoverageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int iso25010_coverage_entry_can_have_content(const Iso25010CoverageEntry *self);
 Iso25010CoverageEntryContentForm iso25010_coverage_entry_content(const Iso25010CoverageEntry *self);
 
@@ -13824,7 +13861,7 @@ Iso25010CoverageEntryContentForm iso25010_coverage_entry_content(const Iso25010C
 // Binds a ItLandscapePosition facade to a document and a path (path copied).
 void it_landscape_position_init(ItLandscapePosition *self, SpecDocument *doc, const char *path);
 void it_landscape_position_free(ItLandscapePosition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int it_landscape_position_can_have_content(const ItLandscapePosition *self);
 char *it_landscape_position_content(const ItLandscapePosition *self);
 void it_landscape_position_set_content(ItLandscapePosition *self, const char *value);
@@ -13835,7 +13872,7 @@ ItLandscapePositionPositionDetailsForm it_landscape_position_position_details(co
 // Binds a ItSecurityOperations facade to a document and a path (path copied).
 void it_security_operations_init(ItSecurityOperations *self, SpecDocument *doc, const char *path);
 void it_security_operations_free(ItSecurityOperations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int it_security_operations_can_have_content(const ItSecurityOperations *self);
 ItSecurityOperationsContentForm it_security_operations_content(const ItSecurityOperations *self);
 // Access protection controls.
@@ -13853,7 +13890,7 @@ ItSecurityOperationsIncidentForm it_security_operations_incident(const ItSecurit
 // Binds a ItSecurityStandardsSection facade to a document and a path (path copied).
 void it_security_standards_section_init(ItSecurityStandardsSection *self, SpecDocument *doc, const char *path);
 void it_security_standards_section_free(ItSecurityStandardsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int it_security_standards_section_can_have_content(const ItSecurityStandardsSection *self);
 char *it_security_standards_section_content(const ItSecurityStandardsSection *self);
 void it_security_standards_section_set_content(ItSecurityStandardsSection *self, const char *value);
@@ -13877,7 +13914,7 @@ IncidentResponsePlan it_security_standards_section_incident_response(const ItSec
 // Binds a ItStandardComplianceEntry facade to a document and a path (path copied).
 void it_standard_compliance_entry_init(ItStandardComplianceEntry *self, SpecDocument *doc, const char *path);
 void it_standard_compliance_entry_free(ItStandardComplianceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int it_standard_compliance_entry_can_have_content(const ItStandardComplianceEntry *self);
 ItStandardComplianceEntryContentForm it_standard_compliance_entry_content(const ItStandardComplianceEntry *self);
 // Applicability and priority.
@@ -13899,7 +13936,7 @@ ItStandardComplianceEntryEvidenceForm it_standard_compliance_entry_evidence(cons
 // Binds a JobDescriptionsAndStaffing facade to a document and a path (path copied).
 void job_descriptions_and_staffing_init(JobDescriptionsAndStaffing *self, SpecDocument *doc, const char *path);
 void job_descriptions_and_staffing_free(JobDescriptionsAndStaffing *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int job_descriptions_and_staffing_can_have_content(const JobDescriptionsAndStaffing *self);
 // Overview of the job architecture and role design approach.
 JobDescriptionsAndStaffingOverviewForm job_descriptions_and_staffing_overview(const JobDescriptionsAndStaffing *self);
@@ -13921,7 +13958,7 @@ CompetencyFramework job_descriptions_and_staffing_competency_framework(const Job
 // Binds a JourneyStageEntry facade to a document and a path (path copied).
 void journey_stage_entry_init(JourneyStageEntry *self, SpecDocument *doc, const char *path);
 void journey_stage_entry_free(JourneyStageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int journey_stage_entry_can_have_content(const JourneyStageEntry *self);
 JourneyStageEntryContentForm journey_stage_entry_content(const JourneyStageEntry *self);
 
@@ -13931,7 +13968,7 @@ JourneyStageEntryContentForm journey_stage_entry_content(const JourneyStageEntry
 // Binds a KeyAttributeEntry facade to a document and a path (path copied).
 void key_attribute_entry_init(KeyAttributeEntry *self, SpecDocument *doc, const char *path);
 void key_attribute_entry_free(KeyAttributeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_attribute_entry_can_have_content(const KeyAttributeEntry *self);
 KeyAttributeEntryContentForm key_attribute_entry_content(const KeyAttributeEntry *self);
 // Key generation settings.
@@ -13951,7 +13988,7 @@ void key_attribute_entry_set_referenced_entity_ref(KeyAttributeEntry *self, cons
 // Binds a KeyCompromiseRecoveryPolicy facade to a document and a path (path copied).
 void key_compromise_recovery_policy_init(KeyCompromiseRecoveryPolicy *self, SpecDocument *doc, const char *path);
 void key_compromise_recovery_policy_free(KeyCompromiseRecoveryPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_compromise_recovery_policy_can_have_content(const KeyCompromiseRecoveryPolicy *self);
 KeyCompromiseRecoveryPolicyContentForm key_compromise_recovery_policy_content(const KeyCompromiseRecoveryPolicy *self);
 // Additional Notes (text).
@@ -13961,7 +13998,7 @@ KeyCompromiseRecoveryPolicyContentForm key_compromise_recovery_policy_content(co
 // Binds a KeyConceptEntry facade to a document and a path (path copied).
 void key_concept_entry_init(KeyConceptEntry *self, SpecDocument *doc, const char *path);
 void key_concept_entry_free(KeyConceptEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_concept_entry_can_have_content(const KeyConceptEntry *self);
 KeyConceptEntryContentForm key_concept_entry_content(const KeyConceptEntry *self);
 // Detailed attribute definitions for this concept.
@@ -13976,7 +14013,7 @@ KeyConceptEntryContentForm key_concept_entry_content(const KeyConceptEntry *self
 // Binds a KeyConcepts facade to a document and a path (path copied).
 void key_concepts_init(KeyConcepts *self, SpecDocument *doc, const char *path);
 void key_concepts_free(KeyConcepts *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_concepts_can_have_content(const KeyConcepts *self);
 char *key_concepts_content(const KeyConcepts *self);
 void key_concepts_set_content(KeyConcepts *self, const char *value);
@@ -13995,7 +14032,7 @@ SomList key_concepts_concepts(const KeyConcepts *self);
 // Binds a KeyEscrowAndBackupPolicy facade to a document and a path (path copied).
 void key_escrow_and_backup_policy_init(KeyEscrowAndBackupPolicy *self, SpecDocument *doc, const char *path);
 void key_escrow_and_backup_policy_free(KeyEscrowAndBackupPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_escrow_and_backup_policy_can_have_content(const KeyEscrowAndBackupPolicy *self);
 KeyEscrowAndBackupPolicyContentForm key_escrow_and_backup_policy_content(const KeyEscrowAndBackupPolicy *self);
 // Additional Notes (text).
@@ -14009,7 +14046,7 @@ KeyEscrowAndBackupPolicyContentForm key_escrow_and_backup_policy_content(const K
 // Binds a KeyGenerationPolicy facade to a document and a path (path copied).
 void key_generation_policy_init(KeyGenerationPolicy *self, SpecDocument *doc, const char *path);
 void key_generation_policy_free(KeyGenerationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_generation_policy_can_have_content(const KeyGenerationPolicy *self);
 KeyGenerationPolicyContentForm key_generation_policy_content(const KeyGenerationPolicy *self);
 // Additional Notes (text).
@@ -14024,7 +14061,7 @@ KeyGenerationPolicyContentForm key_generation_policy_content(const KeyGeneration
 // Binds a KeyManagement facade to a document and a path (path copied).
 void key_management_init(KeyManagement *self, SpecDocument *doc, const char *path);
 void key_management_free(KeyManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_management_can_have_content(const KeyManagement *self);
 char *key_management_content(const KeyManagement *self);
 void key_management_set_content(KeyManagement *self, const char *value);
@@ -14045,7 +14082,7 @@ KeyCompromiseRecoveryPolicy key_management_key_compromise_recovery_policy(const 
 // Binds a KeyResultEntry facade to a document and a path (path copied).
 void key_result_entry_init(KeyResultEntry *self, SpecDocument *doc, const char *path);
 void key_result_entry_free(KeyResultEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_result_entry_can_have_content(const KeyResultEntry *self);
 KeyResultEntryContentForm key_result_entry_content(const KeyResultEntry *self);
 
@@ -14056,7 +14093,7 @@ KeyResultEntryContentForm key_result_entry_content(const KeyResultEntry *self);
 // Binds a KeyRotationPolicy facade to a document and a path (path copied).
 void key_rotation_policy_init(KeyRotationPolicy *self, SpecDocument *doc, const char *path);
 void key_rotation_policy_free(KeyRotationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_rotation_policy_can_have_content(const KeyRotationPolicy *self);
 KeyRotationPolicyContentForm key_rotation_policy_content(const KeyRotationPolicy *self);
 // Additional Notes (text).
@@ -14069,7 +14106,7 @@ KeyRotationPolicyContentForm key_rotation_policy_content(const KeyRotationPolicy
 // Binds a KeyScenarios facade to a document and a path (path copied).
 void key_scenarios_init(KeyScenarios *self, SpecDocument *doc, const char *path);
 void key_scenarios_free(KeyScenarios *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_scenarios_can_have_content(const KeyScenarios *self);
 char *key_scenarios_content(const KeyScenarios *self);
 void key_scenarios_set_content(KeyScenarios *self, const char *value);
@@ -14088,7 +14125,7 @@ SomList key_scenarios_scenarios(const KeyScenarios *self);
 // Binds a KeyStoragePolicy facade to a document and a path (path copied).
 void key_storage_policy_init(KeyStoragePolicy *self, SpecDocument *doc, const char *path);
 void key_storage_policy_free(KeyStoragePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int key_storage_policy_can_have_content(const KeyStoragePolicy *self);
 KeyStoragePolicyContentForm key_storage_policy_content(const KeyStoragePolicy *self);
 // Additional Notes (text).
@@ -14101,7 +14138,7 @@ KeyStoragePolicyContentForm key_storage_policy_content(const KeyStoragePolicy *s
 // Binds a KnowledgeTransfer facade to a document and a path (path copied).
 void knowledge_transfer_init(KnowledgeTransfer *self, SpecDocument *doc, const char *path);
 void knowledge_transfer_free(KnowledgeTransfer *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int knowledge_transfer_can_have_content(const KnowledgeTransfer *self);
 char *knowledge_transfer_content(const KnowledgeTransfer *self);
 void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value);
@@ -14112,12 +14149,16 @@ void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value);
 // Binds a LanguageCountrySelection facade to a document and a path (path copied).
 void language_country_selection_init(LanguageCountrySelection *self, SpecDocument *doc, const char *path);
 void language_country_selection_free(LanguageCountrySelection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int language_country_selection_can_have_content(const LanguageCountrySelection *self);
 LanguageCountrySelectionLanguageSelectionContentForm language_country_selection_language_selection_content(const LanguageCountrySelection *self);
 // Default locale behavior.
 LanguageCountrySelectionDefaultsForm language_country_selection_defaults(const LanguageCountrySelection *self);
-// Persistence rules.
+// Retention rules — how a chosen preference survives, without naming a store.
+//
+// Where the preference lives is *not* authored here: it follows from the
+// settings scope the preference is declared in (user setting vs device
+// setting), never from a local/roaming-style flag on this section.
 LanguageCountrySelectionPersistenceForm language_country_selection_persistence(const LanguageCountrySelection *self);
 // Fallback behavior.
 LanguageCountrySelectionFallbackForm language_country_selection_fallback(const LanguageCountrySelection *self);
@@ -14132,7 +14173,7 @@ LanguageCountrySelectionUxForm language_country_selection_ux(const LanguageCount
 // Binds a LayerCommunicationRules facade to a document and a path (path copied).
 void layer_communication_rules_init(LayerCommunicationRules *self, SpecDocument *doc, const char *path);
 void layer_communication_rules_free(LayerCommunicationRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int layer_communication_rules_can_have_content(const LayerCommunicationRules *self);
 LayerCommunicationRulesContentForm layer_communication_rules_content(const LayerCommunicationRules *self);
 // Interface requirements between layers.
@@ -14149,7 +14190,7 @@ LayerCommunicationRulesGovernanceForm layer_communication_rules_governance(const
 // Binds a LayeringAndModuleStructure facade to a document and a path (path copied).
 void layering_and_module_structure_init(LayeringAndModuleStructure *self, SpecDocument *doc, const char *path);
 void layering_and_module_structure_free(LayeringAndModuleStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int layering_and_module_structure_can_have_content(const LayeringAndModuleStructure *self);
 char *layering_and_module_structure_content(const LayeringAndModuleStructure *self);
 void layering_and_module_structure_set_content(LayeringAndModuleStructure *self, const char *value);
@@ -14185,7 +14226,7 @@ ModuleVersioningStrategy layering_and_module_structure_module_versioning_strateg
 // Binds a LegacyCompatibilityEntry facade to a document and a path (path copied).
 void legacy_compatibility_entry_init(LegacyCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void legacy_compatibility_entry_free(LegacyCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int legacy_compatibility_entry_can_have_content(const LegacyCompatibilityEntry *self);
 LegacyCompatibilityEntryContentForm legacy_compatibility_entry_content(const LegacyCompatibilityEntry *self);
 // Integration approach.
@@ -14205,7 +14246,7 @@ LegacyCompatibilityEntryRiskForm legacy_compatibility_entry_risk(const LegacyCom
 // Binds a LegalAndContractualRequirements facade to a document and a path (path copied).
 void legal_and_contractual_requirements_init(LegalAndContractualRequirements *self, SpecDocument *doc, const char *path);
 void legal_and_contractual_requirements_free(LegalAndContractualRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int legal_and_contractual_requirements_can_have_content(const LegalAndContractualRequirements *self);
 char *legal_and_contractual_requirements_content(const LegalAndContractualRequirements *self);
 void legal_and_contractual_requirements_set_content(LegalAndContractualRequirements *self, const char *value);
@@ -14227,7 +14268,7 @@ SomList legal_and_contractual_requirements_other_agreements(const LegalAndContra
 // Binds a LiabilityLimitations facade to a document and a path (path copied).
 void liability_limitations_init(LiabilityLimitations *self, SpecDocument *doc, const char *path);
 void liability_limitations_free(LiabilityLimitations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int liability_limitations_can_have_content(const LiabilityLimitations *self);
 LiabilityLimitationsContentForm liability_limitations_content(const LiabilityLimitations *self);
 
@@ -14237,7 +14278,7 @@ LiabilityLimitationsContentForm liability_limitations_content(const LiabilityLim
 // Binds a LifecycleTransitionEntry facade to a document and a path (path copied).
 void lifecycle_transition_entry_init(LifecycleTransitionEntry *self, SpecDocument *doc, const char *path);
 void lifecycle_transition_entry_free(LifecycleTransitionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int lifecycle_transition_entry_can_have_content(const LifecycleTransitionEntry *self);
 LifecycleTransitionEntryContentForm lifecycle_transition_entry_content(const LifecycleTransitionEntry *self);
 // Triggering event details.
@@ -14251,7 +14292,7 @@ LifecycleTransitionEntryExecutionForm lifecycle_transition_entry_execution(const
 // Binds a LimitationEntry facade to a document and a path (path copied).
 void limitation_entry_init(LimitationEntry *self, SpecDocument *doc, const char *path);
 void limitation_entry_free(LimitationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int limitation_entry_can_have_content(const LimitationEntry *self);
 LimitationEntryContentForm limitation_entry_content(const LimitationEntry *self);
 
@@ -14259,7 +14300,7 @@ LimitationEntryContentForm limitation_entry_content(const LimitationEntry *self)
 // Binds a LoadProfileRequirements facade to a document and a path (path copied).
 void load_profile_requirements_init(LoadProfileRequirements *self, SpecDocument *doc, const char *path);
 void load_profile_requirements_free(LoadProfileRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int load_profile_requirements_can_have_content(const LoadProfileRequirements *self);
 LoadProfileRequirementsContentForm load_profile_requirements_content(const LoadProfileRequirements *self);
 // Request volume assumptions.
@@ -14273,7 +14314,7 @@ LoadProfileRequirementsPerformanceTargetsForm load_profile_requirements_performa
 // Binds a LocalDevelopmentSetup facade to a document and a path (path copied).
 void local_development_setup_init(LocalDevelopmentSetup *self, SpecDocument *doc, const char *path);
 void local_development_setup_free(LocalDevelopmentSetup *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int local_development_setup_can_have_content(const LocalDevelopmentSetup *self);
 LocalDevelopmentSetupContentForm local_development_setup_content(const LocalDevelopmentSetup *self);
 // Setup workflow.
@@ -14291,7 +14332,7 @@ LocalDevelopmentSetupTroubleshootingForm local_development_setup_troubleshooting
 // Binds a LocaleHandlingRequirements facade to a document and a path (path copied).
 void locale_handling_requirements_init(LocaleHandlingRequirements *self, SpecDocument *doc, const char *path);
 void locale_handling_requirements_free(LocaleHandlingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int locale_handling_requirements_can_have_content(const LocaleHandlingRequirements *self);
 LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const LocaleHandlingRequirements *self);
 
@@ -14301,7 +14342,7 @@ LocaleHandlingRequirementsContentForm locale_handling_requirements_content(const
 // Binds a LocalizationProcess facade to a document and a path (path copied).
 void localization_process_init(LocalizationProcess *self, SpecDocument *doc, const char *path);
 void localization_process_free(LocalizationProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int localization_process_can_have_content(const LocalizationProcess *self);
 LocalizationProcessLocalizationProcessContentForm localization_process_localization_process_content(const LocalizationProcess *self);
 // Review process.
@@ -14323,7 +14364,7 @@ LocalizationProcessDeploymentForm localization_process_deployment(const Localiza
 // Binds a LocalizationTranslationProcess facade to a document and a path (path copied).
 void localization_translation_process_init(LocalizationTranslationProcess *self, SpecDocument *doc, const char *path);
 void localization_translation_process_free(LocalizationTranslationProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int localization_translation_process_can_have_content(const LocalizationTranslationProcess *self);
 char *localization_translation_process_content(const LocalizationTranslationProcess *self);
 void localization_translation_process_set_content(LocalizationTranslationProcess *self, const char *value);
@@ -14338,7 +14379,7 @@ TranslationProcess localization_translation_process_translation_process(const Lo
 // Binds a LocalizationTranslationRequirements facade to a document and a path (path copied).
 void localization_translation_requirements_init(LocalizationTranslationRequirements *self, SpecDocument *doc, const char *path);
 void localization_translation_requirements_free(LocalizationTranslationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int localization_translation_requirements_can_have_content(const LocalizationTranslationRequirements *self);
 char *localization_translation_requirements_content(const LocalizationTranslationRequirements *self);
 void localization_translation_requirements_set_content(LocalizationTranslationRequirements *self, const char *value);
@@ -14351,7 +14392,7 @@ LocaleHandlingRequirements localization_translation_requirements_locale_handling
 // Binds a LogAggregationRequirements facade to a document and a path (path copied).
 void log_aggregation_requirements_init(LogAggregationRequirements *self, SpecDocument *doc, const char *path);
 void log_aggregation_requirements_free(LogAggregationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int log_aggregation_requirements_can_have_content(const LogAggregationRequirements *self);
 LogAggregationRequirementsContentForm log_aggregation_requirements_content(const LogAggregationRequirements *self);
 // Dynamic configuration and collection settings.
@@ -14365,7 +14406,7 @@ LogAggregationRequirementsAnalysisForm log_aggregation_requirements_analysis(con
 // Binds a LogManagementRequirements facade to a document and a path (path copied).
 void log_management_requirements_init(LogManagementRequirements *self, SpecDocument *doc, const char *path);
 void log_management_requirements_free(LogManagementRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int log_management_requirements_can_have_content(const LogManagementRequirements *self);
 LogManagementRequirementsContentForm log_management_requirements_content(const LogManagementRequirements *self);
 // Collection method.
@@ -14383,7 +14424,7 @@ LogManagementRequirementsComplianceForm log_management_requirements_compliance(c
 // Binds a LogProtectionPolicy facade to a document and a path (path copied).
 void log_protection_policy_init(LogProtectionPolicy *self, SpecDocument *doc, const char *path);
 void log_protection_policy_free(LogProtectionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int log_protection_policy_can_have_content(const LogProtectionPolicy *self);
 LogProtectionPolicyContentForm log_protection_policy_content(const LogProtectionPolicy *self);
 // Additional Notes (text).
@@ -14395,7 +14436,7 @@ LogProtectionPolicyContentForm log_protection_policy_content(const LogProtection
 // Binds a LogRetentionPolicy facade to a document and a path (path copied).
 void log_retention_policy_init(LogRetentionPolicy *self, SpecDocument *doc, const char *path);
 void log_retention_policy_free(LogRetentionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int log_retention_policy_can_have_content(const LogRetentionPolicy *self);
 LogRetentionPolicyContentForm log_retention_policy_content(const LogRetentionPolicy *self);
 // Additional Notes (text).
@@ -14407,7 +14448,7 @@ LogRetentionPolicyContentForm log_retention_policy_content(const LogRetentionPol
 // Binds a LogStoragePolicy facade to a document and a path (path copied).
 void log_storage_policy_init(LogStoragePolicy *self, SpecDocument *doc, const char *path);
 void log_storage_policy_free(LogStoragePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int log_storage_policy_can_have_content(const LogStoragePolicy *self);
 LogStoragePolicyContentForm log_storage_policy_content(const LogStoragePolicy *self);
 // Additional Notes (text).
@@ -14421,7 +14462,7 @@ LogStoragePolicyContentForm log_storage_policy_content(const LogStoragePolicy *s
 // Binds a LoginFlowConfiguration facade to a document and a path (path copied).
 void login_flow_configuration_init(LoginFlowConfiguration *self, SpecDocument *doc, const char *path);
 void login_flow_configuration_free(LoginFlowConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int login_flow_configuration_can_have_content(const LoginFlowConfiguration *self);
 char *login_flow_configuration_content(const LoginFlowConfiguration *self);
 void login_flow_configuration_set_content(LoginFlowConfiguration *self, const char *value);
@@ -14436,7 +14477,7 @@ void login_flow_configuration_set_content(LoginFlowConfiguration *self, const ch
 // Binds a LoginFlowStepEntry facade to a document and a path (path copied).
 void login_flow_step_entry_init(LoginFlowStepEntry *self, SpecDocument *doc, const char *path);
 void login_flow_step_entry_free(LoginFlowStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int login_flow_step_entry_can_have_content(const LoginFlowStepEntry *self);
 LoginFlowStepEntryContentForm login_flow_step_entry_content(const LoginFlowStepEntry *self);
 // Inputs and validation behavior.
@@ -14450,7 +14491,7 @@ LoginFlowStepEntryProtocolForm login_flow_step_entry_protocol(const LoginFlowSte
 // Binds a MainScenarioStepEntry facade to a document and a path (path copied).
 void main_scenario_step_entry_init(MainScenarioStepEntry *self, SpecDocument *doc, const char *path);
 void main_scenario_step_entry_free(MainScenarioStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int main_scenario_step_entry_can_have_content(const MainScenarioStepEntry *self);
 MainScenarioStepEntryContentForm main_scenario_step_entry_content(const MainScenarioStepEntry *self);
 
@@ -14458,7 +14499,7 @@ MainScenarioStepEntryContentForm main_scenario_step_entry_content(const MainScen
 // Binds a MainSuccessScenario facade to a document and a path (path copied).
 void main_success_scenario_init(MainSuccessScenario *self, SpecDocument *doc, const char *path);
 void main_success_scenario_free(MainSuccessScenario *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int main_success_scenario_can_have_content(const MainSuccessScenario *self);
 MainSuccessScenarioContentForm main_success_scenario_content(const MainSuccessScenario *self);
 // Main scenario steps — contains 1+× Scenario Step.
@@ -14469,7 +14510,7 @@ SomList main_success_scenario_steps(const MainSuccessScenario *self);
 // Binds a Maintainability facade to a document and a path (path copied).
 void maintainability_init(Maintainability *self, SpecDocument *doc, const char *path);
 void maintainability_free(Maintainability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintainability_can_have_content(const Maintainability *self);
 MaintainabilityContentForm maintainability_content(const Maintainability *self);
 // Analyzability requirements.
@@ -14491,7 +14532,7 @@ MaintainabilityGovernanceForm maintainability_governance(const Maintainability *
 // Binds a MaintainabilityCharacteristic facade to a document and a path (path copied).
 void maintainability_characteristic_init(MaintainabilityCharacteristic *self, SpecDocument *doc, const char *path);
 void maintainability_characteristic_free(MaintainabilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintainability_characteristic_can_have_content(const MaintainabilityCharacteristic *self);
 MaintainabilityCharacteristicMaintainabilityContentForm maintainability_characteristic_maintainability_content(const MaintainabilityCharacteristic *self);
 // Maintainability overview.
@@ -14503,7 +14544,7 @@ Maintainability maintainability_characteristic_maintainability(const Maintainabi
 // Binds a MaintenanceChangeManagement facade to a document and a path (path copied).
 void maintenance_change_management_init(MaintenanceChangeManagement *self, SpecDocument *doc, const char *path);
 void maintenance_change_management_free(MaintenanceChangeManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_change_management_can_have_content(const MaintenanceChangeManagement *self);
 MaintenanceChangeManagementContentForm maintenance_change_management_content(const MaintenanceChangeManagement *self);
 // CAB cadence and documentation prerequisites.
@@ -14522,7 +14563,7 @@ MaintenanceChangeManagementAuditForm maintenance_change_management_audit(const M
 // Binds a MaintenanceDependencies facade to a document and a path (path copied).
 void maintenance_dependencies_init(MaintenanceDependencies *self, SpecDocument *doc, const char *path);
 void maintenance_dependencies_free(MaintenanceDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_dependencies_can_have_content(const MaintenanceDependencies *self);
 char *maintenance_dependencies_content(const MaintenanceDependencies *self);
 void maintenance_dependencies_set_content(MaintenanceDependencies *self, const char *value);
@@ -14537,7 +14578,7 @@ SomList maintenance_dependencies_items(const MaintenanceDependencies *self);
 // Binds a MaintenanceDependencyEntry facade to a document and a path (path copied).
 void maintenance_dependency_entry_init(MaintenanceDependencyEntry *self, SpecDocument *doc, const char *path);
 void maintenance_dependency_entry_free(MaintenanceDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_dependency_entry_can_have_content(const MaintenanceDependencyEntry *self);
 MaintenanceDependencyEntryContentForm maintenance_dependency_entry_content(const MaintenanceDependencyEntry *self);
 // Classification and purpose.
@@ -14551,7 +14592,7 @@ MaintenanceDependencyEntryRiskForm maintenance_dependency_entry_risk(const Maint
 // Binds a MaintenanceUserImpact facade to a document and a path (path copied).
 void maintenance_user_impact_init(MaintenanceUserImpact *self, SpecDocument *doc, const char *path);
 void maintenance_user_impact_free(MaintenanceUserImpact *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_user_impact_can_have_content(const MaintenanceUserImpact *self);
 MaintenanceUserImpactContentForm maintenance_user_impact_content(const MaintenanceUserImpact *self);
 // Communication during maintenance.
@@ -14565,7 +14606,7 @@ MaintenanceUserImpactPostForm maintenance_user_impact_post(const MaintenanceUser
 // Binds a MaintenanceWindowEntry facade to a document and a path (path copied).
 void maintenance_window_entry_init(MaintenanceWindowEntry *self, SpecDocument *doc, const char *path);
 void maintenance_window_entry_free(MaintenanceWindowEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_window_entry_can_have_content(const MaintenanceWindowEntry *self);
 MaintenanceWindowEntryContentForm maintenance_window_entry_content(const MaintenanceWindowEntry *self);
 // Schedule details.
@@ -14584,7 +14625,7 @@ MaintenanceWindowEntryRollbackForm maintenance_window_entry_rollback(const Maint
 // Binds a MaintenanceWindowsSection facade to a document and a path (path copied).
 void maintenance_windows_section_init(MaintenanceWindowsSection *self, SpecDocument *doc, const char *path);
 void maintenance_windows_section_free(MaintenanceWindowsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int maintenance_windows_section_can_have_content(const MaintenanceWindowsSection *self);
 char *maintenance_windows_section_content(const MaintenanceWindowsSection *self);
 void maintenance_windows_section_set_content(MaintenanceWindowsSection *self, const char *value);
@@ -14608,7 +14649,7 @@ PostMaintenanceValidation maintenance_windows_section_post_maintenance(const Mai
 // Binds a MasterDataDomainEntry facade to a document and a path (path copied).
 void master_data_domain_entry_init(MasterDataDomainEntry *self, SpecDocument *doc, const char *path);
 void master_data_domain_entry_free(MasterDataDomainEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int master_data_domain_entry_can_have_content(const MasterDataDomainEntry *self);
 MasterDataDomainEntryContentForm master_data_domain_entry_content(const MasterDataDomainEntry *self);
 // Volume and quality indicators.
@@ -14625,7 +14666,7 @@ MasterDataDomainEntryGovernanceForm master_data_domain_entry_governance(const Ma
 // Binds a MasterDataManagement facade to a document and a path (path copied).
 void master_data_management_init(MasterDataManagement *self, SpecDocument *doc, const char *path);
 void master_data_management_free(MasterDataManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int master_data_management_can_have_content(const MasterDataManagement *self);
 char *master_data_management_content(const MasterDataManagement *self);
 void master_data_management_set_content(MasterDataManagement *self, const char *value);
@@ -14639,7 +14680,7 @@ SomList master_data_management_master_data_domains(const MasterDataManagement *s
 // Binds a MessageFormatStandards facade to a document and a path (path copied).
 void message_format_standards_init(MessageFormatStandards *self, SpecDocument *doc, const char *path);
 void message_format_standards_free(MessageFormatStandards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int message_format_standards_can_have_content(const MessageFormatStandards *self);
 MessageFormatStandardsContentForm message_format_standards_content(const MessageFormatStandards *self);
 // Schema standards.
@@ -14661,7 +14702,7 @@ MessageFormatStandardsTransportForm message_format_standards_transport(const Mes
 // Binds a MessageKeyEntry facade to a document and a path (path copied).
 void message_key_entry_init(MessageKeyEntry *self, SpecDocument *doc, const char *path);
 void message_key_entry_free(MessageKeyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int message_key_entry_can_have_content(const MessageKeyEntry *self);
 MessageKeyEntryContentForm message_key_entry_content(const MessageKeyEntry *self);
 // 7.8.x. Locale Variants — one entry per non-default locale.
@@ -14684,7 +14725,7 @@ SomList message_key_entry_locale_variants(const MessageKeyEntry *self);
 // carrying inline copy and instead reference a key here:
 //
 // - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+// - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
 // - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
 // - **CE-VA** validation-failure messages.
 //
@@ -14694,7 +14735,7 @@ SomList message_key_entry_locale_variants(const MessageKeyEntry *self);
 // Binds a MessageKeyRegistry facade to a document and a path (path copied).
 void message_key_registry_init(MessageKeyRegistry *self, SpecDocument *doc, const char *path);
 void message_key_registry_free(MessageKeyRegistry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int message_key_registry_can_have_content(const MessageKeyRegistry *self);
 char *message_key_registry_content(const MessageKeyRegistry *self);
 void message_key_registry_set_content(MessageKeyRegistry *self, const char *value);
@@ -14710,7 +14751,7 @@ SomList message_key_registry_message_keys(const MessageKeyRegistry *self);
 // Binds a MessageLocaleVariantEntry facade to a document and a path (path copied).
 void message_locale_variant_entry_init(MessageLocaleVariantEntry *self, SpecDocument *doc, const char *path);
 void message_locale_variant_entry_free(MessageLocaleVariantEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int message_locale_variant_entry_can_have_content(const MessageLocaleVariantEntry *self);
 MessageLocaleVariantEntryContentForm message_locale_variant_entry_content(const MessageLocaleVariantEntry *self);
 
@@ -14721,7 +14762,7 @@ MessageLocaleVariantEntryContentForm message_locale_variant_entry_content(const 
 // Binds a MetricsAndObservability facade to a document and a path (path copied).
 void metrics_and_observability_init(MetricsAndObservability *self, SpecDocument *doc, const char *path);
 void metrics_and_observability_free(MetricsAndObservability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_and_observability_can_have_content(const MetricsAndObservability *self);
 MetricsAndObservabilityMetricsOverviewForm metrics_and_observability_metrics_overview(const MetricsAndObservability *self);
 // Observability overview narrative.
@@ -14742,7 +14783,7 @@ SomList metrics_and_observability_custom_metrics(const MetricsAndObservability *
 // Binds a MetricsBaselineEntry facade to a document and a path (path copied).
 void metrics_baseline_entry_init(MetricsBaselineEntry *self, SpecDocument *doc, const char *path);
 void metrics_baseline_entry_free(MetricsBaselineEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_baseline_entry_can_have_content(const MetricsBaselineEntry *self);
 MetricsBaselineEntryContentForm metrics_baseline_entry_content(const MetricsBaselineEntry *self);
 
@@ -14750,7 +14791,7 @@ MetricsBaselineEntryContentForm metrics_baseline_entry_content(const MetricsBase
 // Binds a MetricsBaselineTable facade to a document and a path (path copied).
 void metrics_baseline_table_init(MetricsBaselineTable *self, SpecDocument *doc, const char *path);
 void metrics_baseline_table_free(MetricsBaselineTable *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_baseline_table_can_have_content(const MetricsBaselineTable *self);
 char *metrics_baseline_table_content(const MetricsBaselineTable *self);
 void metrics_baseline_table_set_content(MetricsBaselineTable *self, const char *value);
@@ -14762,7 +14803,7 @@ SomList metrics_baseline_table_entries(const MetricsBaselineTable *self);
 // Binds a MetricsCollectionRequirements facade to a document and a path (path copied).
 void metrics_collection_requirements_init(MetricsCollectionRequirements *self, SpecDocument *doc, const char *path);
 void metrics_collection_requirements_free(MetricsCollectionRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_collection_requirements_can_have_content(const MetricsCollectionRequirements *self);
 MetricsCollectionRequirementsContentForm metrics_collection_requirements_content(const MetricsCollectionRequirements *self);
 // Container and cluster metrics.
@@ -14778,7 +14819,7 @@ MetricsCollectionRequirementsCustomForm metrics_collection_requirements_custom(c
 // Binds a MetricsDashboardSummary facade to a document and a path (path copied).
 void metrics_dashboard_summary_init(MetricsDashboardSummary *self, SpecDocument *doc, const char *path);
 void metrics_dashboard_summary_free(MetricsDashboardSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int metrics_dashboard_summary_can_have_content(const MetricsDashboardSummary *self);
 MetricsDashboardSummaryContentForm metrics_dashboard_summary_content(const MetricsDashboardSummary *self);
 
@@ -14789,7 +14830,7 @@ MetricsDashboardSummaryContentForm metrics_dashboard_summary_content(const Metri
 // Binds a MfaCategoryRequirementEntry facade to a document and a path (path copied).
 void mfa_category_requirement_entry_init(MfaCategoryRequirementEntry *self, SpecDocument *doc, const char *path);
 void mfa_category_requirement_entry_free(MfaCategoryRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mfa_category_requirement_entry_can_have_content(const MfaCategoryRequirementEntry *self);
 MfaCategoryRequirementEntryContentForm mfa_category_requirement_entry_content(const MfaCategoryRequirementEntry *self);
 // Allowed authenticators and phishing-resistance rules.
@@ -14806,7 +14847,7 @@ MfaCategoryRequirementEntryOperationsForm mfa_category_requirement_entry_operati
 // Binds a MfaConfiguration facade to a document and a path (path copied).
 void mfa_configuration_init(MfaConfiguration *self, SpecDocument *doc, const char *path);
 void mfa_configuration_free(MfaConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mfa_configuration_can_have_content(const MfaConfiguration *self);
 char *mfa_configuration_content(const MfaConfiguration *self);
 void mfa_configuration_set_content(MfaConfiguration *self, const char *value);
@@ -14822,7 +14863,7 @@ SomList mfa_configuration_mfa_details(const MfaConfiguration *self);
 // Binds a MigrationConsiderations facade to a document and a path (path copied).
 void migration_considerations_init(MigrationConsiderations *self, SpecDocument *doc, const char *path);
 void migration_considerations_free(MigrationConsiderations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_considerations_can_have_content(const MigrationConsiderations *self);
 MigrationConsiderationsStrategyContentForm migration_considerations_strategy_content(const MigrationConsiderations *self);
 // Detailed strategy narrative.
@@ -14854,7 +14895,7 @@ SomList migration_considerations_escalation_procedures(const MigrationConsiderat
 // Binds a MigrationEnvironments facade to a document and a path (path copied).
 void migration_environments_init(MigrationEnvironments *self, SpecDocument *doc, const char *path);
 void migration_environments_free(MigrationEnvironments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_environments_can_have_content(const MigrationEnvironments *self);
 MigrationEnvironmentsContentForm migration_environments_content(const MigrationEnvironments *self);
 
@@ -14866,7 +14907,7 @@ MigrationEnvironmentsContentForm migration_environments_content(const MigrationE
 // Binds a MigrationInteractions facade to a document and a path (path copied).
 void migration_interactions_init(MigrationInteractions *self, SpecDocument *doc, const char *path);
 void migration_interactions_free(MigrationInteractions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_interactions_can_have_content(const MigrationInteractions *self);
 char *migration_interactions_content(const MigrationInteractions *self);
 void migration_interactions_set_content(MigrationInteractions *self, const char *value);
@@ -14877,7 +14918,7 @@ void migration_interactions_set_content(MigrationInteractions *self, const char 
 // Binds a MigrationMappingEntry facade to a document and a path (path copied).
 void migration_mapping_entry_init(MigrationMappingEntry *self, SpecDocument *doc, const char *path);
 void migration_mapping_entry_free(MigrationMappingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_mapping_entry_can_have_content(const MigrationMappingEntry *self);
 MigrationMappingEntryContentForm migration_mapping_entry_content(const MigrationMappingEntry *self);
 
@@ -14885,7 +14926,7 @@ MigrationMappingEntryContentForm migration_mapping_entry_content(const Migration
 // Binds a MigrationMilestoneEntry facade to a document and a path (path copied).
 void migration_milestone_entry_init(MigrationMilestoneEntry *self, SpecDocument *doc, const char *path);
 void migration_milestone_entry_free(MigrationMilestoneEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_milestone_entry_can_have_content(const MigrationMilestoneEntry *self);
 MigrationMilestoneEntryContentForm migration_milestone_entry_content(const MigrationMilestoneEntry *self);
 
@@ -14893,7 +14934,7 @@ MigrationMilestoneEntryContentForm migration_milestone_entry_content(const Migra
 // Binds a MigrationPhaseDryRuns facade to a document and a path (path copied).
 void migration_phase_dry_runs_init(MigrationPhaseDryRuns *self, SpecDocument *doc, const char *path);
 void migration_phase_dry_runs_free(MigrationPhaseDryRuns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_phase_dry_runs_can_have_content(const MigrationPhaseDryRuns *self);
 MigrationPhaseDryRunsContentForm migration_phase_dry_runs_content(const MigrationPhaseDryRuns *self);
 
@@ -14907,7 +14948,7 @@ MigrationPhaseDryRunsContentForm migration_phase_dry_runs_content(const Migratio
 // Binds a MigrationPhaseEntry facade to a document and a path (path copied).
 void migration_phase_entry_init(MigrationPhaseEntry *self, SpecDocument *doc, const char *path);
 void migration_phase_entry_free(MigrationPhaseEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_phase_entry_can_have_content(const MigrationPhaseEntry *self);
 MigrationPhaseEntryContentForm migration_phase_entry_content(const MigrationPhaseEntry *self);
 // Phase identity details.
@@ -14939,7 +14980,7 @@ MigrationPhaseEntryStatusForm migration_phase_entry_status(const MigrationPhaseE
 // Binds a MigrationPhaseResources facade to a document and a path (path copied).
 void migration_phase_resources_init(MigrationPhaseResources *self, SpecDocument *doc, const char *path);
 void migration_phase_resources_free(MigrationPhaseResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_phase_resources_can_have_content(const MigrationPhaseResources *self);
 MigrationPhaseResourcesContentForm migration_phase_resources_content(const MigrationPhaseResources *self);
 
@@ -14952,7 +14993,7 @@ MigrationPhaseResourcesContentForm migration_phase_resources_content(const Migra
 // Binds a MigrationPhases facade to a document and a path (path copied).
 void migration_phases_init(MigrationPhases *self, SpecDocument *doc, const char *path);
 void migration_phases_free(MigrationPhases *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_phases_can_have_content(const MigrationPhases *self);
 MigrationPhasesContentForm migration_phases_content(const MigrationPhases *self);
 // Phase overview narrative.
@@ -14974,7 +15015,7 @@ SomList migration_phases_items(const MigrationPhases *self);
 // Binds a MigrationPlan facade to a document and a path (path copied).
 void migration_plan_init(MigrationPlan *self, SpecDocument *doc, const char *path);
 void migration_plan_free(MigrationPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_plan_can_have_content(const MigrationPlan *self);
 char *migration_plan_content(const MigrationPlan *self);
 void migration_plan_set_content(MigrationPlan *self, const char *value);
@@ -14983,7 +15024,7 @@ void migration_plan_set_content(MigrationPlan *self, const char *value);
 // Binds a MigrationResources facade to a document and a path (path copied).
 void migration_resources_init(MigrationResources *self, SpecDocument *doc, const char *path);
 void migration_resources_free(MigrationResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_resources_can_have_content(const MigrationResources *self);
 MigrationResourcesContentForm migration_resources_content(const MigrationResources *self);
 // Resource timeline by phase.
@@ -14997,7 +15038,7 @@ MigrationResourcesContentForm migration_resources_content(const MigrationResourc
 // Binds a MigrationRiskEntry facade to a document and a path (path copied).
 void migration_risk_entry_init(MigrationRiskEntry *self, SpecDocument *doc, const char *path);
 void migration_risk_entry_free(MigrationRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_risk_entry_can_have_content(const MigrationRiskEntry *self);
 MigrationRiskEntryContentForm migration_risk_entry_content(const MigrationRiskEntry *self);
 // Risk identification details.
@@ -15030,7 +15071,7 @@ MigrationRiskEntryHistoryForm migration_risk_entry_history(const MigrationRiskEn
 // Binds a MigrationRiskIndicators facade to a document and a path (path copied).
 void migration_risk_indicators_init(MigrationRiskIndicators *self, SpecDocument *doc, const char *path);
 void migration_risk_indicators_free(MigrationRiskIndicators *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_risk_indicators_can_have_content(const MigrationRiskIndicators *self);
 MigrationRiskIndicatorsContentForm migration_risk_indicators_content(const MigrationRiskIndicators *self);
 
@@ -15043,7 +15084,7 @@ MigrationRiskIndicatorsContentForm migration_risk_indicators_content(const Migra
 // Binds a MigrationRisks facade to a document and a path (path copied).
 void migration_risks_init(MigrationRisks *self, SpecDocument *doc, const char *path);
 void migration_risks_free(MigrationRisks *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_risks_can_have_content(const MigrationRisks *self);
 MigrationRisksGovernanceContentForm migration_risks_governance_content(const MigrationRisks *self);
 // Governance and decision authority.
@@ -15084,7 +15125,7 @@ SomList migration_risks_items(const MigrationRisks *self);
 // Binds a MigrationStakeholders facade to a document and a path (path copied).
 void migration_stakeholders_init(MigrationStakeholders *self, SpecDocument *doc, const char *path);
 void migration_stakeholders_free(MigrationStakeholders *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_stakeholders_can_have_content(const MigrationStakeholders *self);
 MigrationStakeholdersContentForm migration_stakeholders_content(const MigrationStakeholders *self);
 
@@ -15092,7 +15133,7 @@ MigrationStakeholdersContentForm migration_stakeholders_content(const MigrationS
 // Binds a MigrationSystems facade to a document and a path (path copied).
 void migration_systems_init(MigrationSystems *self, SpecDocument *doc, const char *path);
 void migration_systems_free(MigrationSystems *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_systems_can_have_content(const MigrationSystems *self);
 MigrationSystemsContentForm migration_systems_content(const MigrationSystems *self);
 
@@ -15100,7 +15141,7 @@ MigrationSystemsContentForm migration_systems_content(const MigrationSystems *se
 // Binds a MobileCompatibilityEntry facade to a document and a path (path copied).
 void mobile_compatibility_entry_init(MobileCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void mobile_compatibility_entry_free(MobileCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mobile_compatibility_entry_can_have_content(const MobileCompatibilityEntry *self);
 MobileCompatibilityEntryContentForm mobile_compatibility_entry_content(const MobileCompatibilityEntry *self);
 // Supported devices.
@@ -15116,7 +15157,7 @@ MobileCompatibilityEntryDistributionForm mobile_compatibility_entry_distribution
 // Binds a MobileDeviceEntry facade to a document and a path (path copied).
 void mobile_device_entry_init(MobileDeviceEntry *self, SpecDocument *doc, const char *path);
 void mobile_device_entry_free(MobileDeviceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mobile_device_entry_can_have_content(const MobileDeviceEntry *self);
 MobileDeviceEntryContentForm mobile_device_entry_content(const MobileDeviceEntry *self);
 // Technical and management requirements.
@@ -15128,7 +15169,7 @@ MobileDeviceEntryPlanningForm mobile_device_entry_planning(const MobileDeviceEnt
 // Binds a MobileDeviceRequirementEntry facade to a document and a path (path copied).
 void mobile_device_requirement_entry_init(MobileDeviceRequirementEntry *self, SpecDocument *doc, const char *path);
 void mobile_device_requirement_entry_free(MobileDeviceRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mobile_device_requirement_entry_can_have_content(const MobileDeviceRequirementEntry *self);
 MobileDeviceRequirementEntryContentForm mobile_device_requirement_entry_content(const MobileDeviceRequirementEntry *self);
 // Support prioritization.
@@ -15144,7 +15185,7 @@ MobileDeviceRequirementEntryCapabilitiesForm mobile_device_requirement_entry_cap
 // Binds a ModuleEntry facade to a document and a path (path copied).
 void module_entry_init(ModuleEntry *self, SpecDocument *doc, const char *path);
 void module_entry_free(ModuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int module_entry_can_have_content(const ModuleEntry *self);
 ModuleEntryContentForm module_entry_content(const ModuleEntry *self);
 // Purpose and API.
@@ -15162,7 +15203,7 @@ ModuleEntryTestingForm module_entry_testing(const ModuleEntry *self);
 // Binds a ModuleVersioningStrategy facade to a document and a path (path copied).
 void module_versioning_strategy_init(ModuleVersioningStrategy *self, SpecDocument *doc, const char *path);
 void module_versioning_strategy_free(ModuleVersioningStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int module_versioning_strategy_can_have_content(const ModuleVersioningStrategy *self);
 ModuleVersioningStrategyContentForm module_versioning_strategy_content(const ModuleVersioningStrategy *self);
 // Compatibility policy.
@@ -15181,7 +15222,7 @@ ModuleVersioningStrategyCoordinationForm module_versioning_strategy_coordination
 // Binds a Monitoring facade to a document and a path (path copied).
 void monitoring_init(Monitoring *self, SpecDocument *doc, const char *path);
 void monitoring_free(Monitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_can_have_content(const Monitoring *self);
 MonitoringMonitoringOverviewForm monitoring_monitoring_overview(const Monitoring *self);
 // Monitoring strategy narrative.
@@ -15204,7 +15245,7 @@ SlaAndSloMonitoring monitoring_sla_and_slo_monitoring(const Monitoring *self);
 // Binds a MonitoringAndAlertingSection facade to a document and a path (path copied).
 void monitoring_and_alerting_section_init(MonitoringAndAlertingSection *self, SpecDocument *doc, const char *path);
 void monitoring_and_alerting_section_free(MonitoringAndAlertingSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_and_alerting_section_can_have_content(const MonitoringAndAlertingSection *self);
 char *monitoring_and_alerting_section_content(const MonitoringAndAlertingSection *self);
 void monitoring_and_alerting_section_set_content(MonitoringAndAlertingSection *self, const char *value);
@@ -15238,7 +15279,7 @@ SlaMonitoringRequirements monitoring_and_alerting_section_sla_monitoring(const M
 // Binds a MonitoringDashboards facade to a document and a path (path copied).
 void monitoring_dashboards_init(MonitoringDashboards *self, SpecDocument *doc, const char *path);
 void monitoring_dashboards_free(MonitoringDashboards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_dashboards_can_have_content(const MonitoringDashboards *self);
 MonitoringDashboardsDashboardOverviewForm monitoring_dashboards_dashboard_overview(const MonitoringDashboards *self);
 // Dashboard overview narrative.
@@ -15254,7 +15295,7 @@ SomList monitoring_dashboards_dashboard_templates(const MonitoringDashboards *se
 // Binds a MonitoringInfrastructure facade to a document and a path (path copied).
 void monitoring_infrastructure_init(MonitoringInfrastructure *self, SpecDocument *doc, const char *path);
 void monitoring_infrastructure_free(MonitoringInfrastructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int monitoring_infrastructure_can_have_content(const MonitoringInfrastructure *self);
 MonitoringInfrastructureContentForm monitoring_infrastructure_content(const MonitoringInfrastructure *self);
 // Deployment model.
@@ -15271,7 +15312,7 @@ MonitoringInfrastructureAccessForm monitoring_infrastructure_access(const Monito
 // Binds a MoscowAnalysis facade to a document and a path (path copied).
 void moscow_analysis_init(MoscowAnalysis *self, SpecDocument *doc, const char *path);
 void moscow_analysis_free(MoscowAnalysis *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int moscow_analysis_can_have_content(const MoscowAnalysis *self);
 MoscowAnalysisContentForm moscow_analysis_content(const MoscowAnalysis *self);
 // MoSCoW rationale narrative.
@@ -15287,7 +15328,7 @@ SomList moscow_analysis_items(const MoscowAnalysis *self);
 // Binds a MoscowEntry facade to a document and a path (path copied).
 void moscow_entry_init(MoscowEntry *self, SpecDocument *doc, const char *path);
 void moscow_entry_free(MoscowEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int moscow_entry_can_have_content(const MoscowEntry *self);
 MoscowEntryContentForm moscow_entry_content(const MoscowEntry *self);
 // MoSCoW classification details.
@@ -15306,7 +15347,7 @@ MoscowEntryTraceabilityForm moscow_entry_traceability(const MoscowEntry *self);
 // Binds a MultiChannelExperience facade to a document and a path (path copied).
 void multi_channel_experience_init(MultiChannelExperience *self, SpecDocument *doc, const char *path);
 void multi_channel_experience_free(MultiChannelExperience *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int multi_channel_experience_can_have_content(const MultiChannelExperience *self);
 char *multi_channel_experience_content(const MultiChannelExperience *self);
 void multi_channel_experience_set_content(MultiChannelExperience *self, const char *value);
@@ -15323,7 +15364,7 @@ MultiChannelExperienceMultiChannelConfigurationForm multi_channel_experience_mul
 // Binds a MultiLanguageSupport facade to a document and a path (path copied).
 void multi_language_support_init(MultiLanguageSupport *self, SpecDocument *doc, const char *path);
 void multi_language_support_free(MultiLanguageSupport *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int multi_language_support_can_have_content(const MultiLanguageSupport *self);
 MultiLanguageSupportMultiLanguageOverviewForm multi_language_support_multi_language_overview(const MultiLanguageSupport *self);
 // Multi-language overview narrative.
@@ -15340,7 +15381,7 @@ SomList multi_language_support_supported_locales(const MultiLanguageSupport *sel
 // Binds a MustPassCriteria facade to a document and a path (path copied).
 void must_pass_criteria_init(MustPassCriteria *self, SpecDocument *doc, const char *path);
 void must_pass_criteria_free(MustPassCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int must_pass_criteria_can_have_content(const MustPassCriteria *self);
 MustPassCriteriaMustPassOverviewContentForm must_pass_criteria_must_pass_overview_content(const MustPassCriteria *self);
 // Must-pass criteria overview.
@@ -15353,7 +15394,7 @@ SomList must_pass_criteria_items(const MustPassCriteria *self);
 // Binds a MustPassCriterionEntry facade to a document and a path (path copied).
 void must_pass_criterion_entry_init(MustPassCriterionEntry *self, SpecDocument *doc, const char *path);
 void must_pass_criterion_entry_free(MustPassCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int must_pass_criterion_entry_can_have_content(const MustPassCriterionEntry *self);
 MustPassCriterionEntryContentForm must_pass_criterion_entry_content(const MustPassCriterionEntry *self);
 // Classification and intent of the criterion.
@@ -15375,7 +15416,7 @@ MustPassCriterionEntryStatusForm must_pass_criterion_entry_status(const MustPass
 // Binds a MutualTlsPolicy facade to a document and a path (path copied).
 void mutual_tls_policy_init(MutualTlsPolicy *self, SpecDocument *doc, const char *path);
 void mutual_tls_policy_free(MutualTlsPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int mutual_tls_policy_can_have_content(const MutualTlsPolicy *self);
 char *mutual_tls_policy_content(const MutualTlsPolicy *self);
 void mutual_tls_policy_set_content(MutualTlsPolicy *self, const char *value);
@@ -15386,7 +15427,7 @@ void mutual_tls_policy_set_content(MutualTlsPolicy *self, const char *value);
 // Binds a NativeAppRequirements facade to a document and a path (path copied).
 void native_app_requirements_init(NativeAppRequirements *self, SpecDocument *doc, const char *path);
 void native_app_requirements_free(NativeAppRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int native_app_requirements_can_have_content(const NativeAppRequirements *self);
 NativeAppRequirementsContentForm native_app_requirements_content(const NativeAppRequirements *self);
 // Store presence requirements.
@@ -15404,7 +15445,7 @@ NativeAppRequirementsLinkingForm native_app_requirements_linking(const NativeApp
 // Binds a NavigationGroupEntry facade to a document and a path (path copied).
 void navigation_group_entry_init(NavigationGroupEntry *self, SpecDocument *doc, const char *path);
 void navigation_group_entry_free(NavigationGroupEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_group_entry_can_have_content(const NavigationGroupEntry *self);
 NavigationGroupEntryContentForm navigation_group_entry_content(const NavigationGroupEntry *self);
 // Display and expansion behavior.
@@ -15421,7 +15462,7 @@ SomList navigation_group_entry_items(const NavigationGroupEntry *self);
 // Binds a NavigationGuardEntry facade to a document and a path (path copied).
 void navigation_guard_entry_init(NavigationGuardEntry *self, SpecDocument *doc, const char *path);
 void navigation_guard_entry_free(NavigationGuardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_guard_entry_can_have_content(const NavigationGuardEntry *self);
 NavigationGuardEntryContentForm navigation_guard_entry_content(const NavigationGuardEntry *self);
 // Covered routes and dialog resources.
@@ -15435,7 +15476,7 @@ NavigationGuardEntryRoutingForm navigation_guard_entry_routing(const NavigationG
 // Binds a NavigationGuards facade to a document and a path (path copied).
 void navigation_guards_init(NavigationGuards *self, SpecDocument *doc, const char *path);
 void navigation_guards_free(NavigationGuards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_guards_can_have_content(const NavigationGuards *self);
 char *navigation_guards_content(const NavigationGuards *self);
 void navigation_guards_set_content(NavigationGuards *self, const char *value);
@@ -15451,7 +15492,7 @@ SomList navigation_guards_guards(const NavigationGuards *self);
 // Binds a NavigationHierarchy facade to a document and a path (path copied).
 void navigation_hierarchy_init(NavigationHierarchy *self, SpecDocument *doc, const char *path);
 void navigation_hierarchy_free(NavigationHierarchy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_hierarchy_can_have_content(const NavigationHierarchy *self);
 char *navigation_hierarchy_content(const NavigationHierarchy *self);
 void navigation_hierarchy_set_content(NavigationHierarchy *self, const char *value);
@@ -15467,7 +15508,7 @@ SomList navigation_hierarchy_groups(const NavigationHierarchy *self);
 // Binds a NavigationItemEntry facade to a document and a path (path copied).
 void navigation_item_entry_init(NavigationItemEntry *self, SpecDocument *doc, const char *path);
 void navigation_item_entry_free(NavigationItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_item_entry_can_have_content(const NavigationItemEntry *self);
 NavigationItemEntryContentForm navigation_item_entry_content(const NavigationItemEntry *self);
 // Display properties: icons, labels, descriptions.
@@ -15488,7 +15529,7 @@ NavigationItemEntryInteractionForm navigation_item_entry_interaction(const Navig
 // Binds a NavigationModel facade to a document and a path (path copied).
 void navigation_model_init(NavigationModel *self, SpecDocument *doc, const char *path);
 void navigation_model_free(NavigationModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_model_can_have_content(const NavigationModel *self);
 char *navigation_model_content(const NavigationModel *self);
 void navigation_model_set_content(NavigationModel *self, const char *value);
@@ -15515,7 +15556,7 @@ NavigationGuards navigation_model_navigation_guards(const NavigationModel *self)
 // Binds a NavigationOverview facade to a document and a path (path copied).
 void navigation_overview_init(NavigationOverview *self, SpecDocument *doc, const char *path);
 void navigation_overview_free(NavigationOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int navigation_overview_can_have_content(const NavigationOverview *self);
 NavigationOverviewContentForm navigation_overview_content(const NavigationOverview *self);
 // Design rationale and open questions.
@@ -15525,7 +15566,7 @@ NavigationOverviewContentForm navigation_overview_content(const NavigationOvervi
 // Binds a NetworkAvailabilityRequirements facade to a document and a path (path copied).
 void network_availability_requirements_init(NetworkAvailabilityRequirements *self, SpecDocument *doc, const char *path);
 void network_availability_requirements_free(NetworkAvailabilityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_availability_requirements_can_have_content(const NetworkAvailabilityRequirements *self);
 NetworkAvailabilityRequirementsContentForm network_availability_requirements_content(const NetworkAvailabilityRequirements *self);
 // Redundancy configuration.
@@ -15541,7 +15582,7 @@ NetworkAvailabilityRequirementsTestingForm network_availability_requirements_tes
 // Binds a NetworkLatencyRequirements facade to a document and a path (path copied).
 void network_latency_requirements_init(NetworkLatencyRequirements *self, SpecDocument *doc, const char *path);
 void network_latency_requirements_free(NetworkLatencyRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_latency_requirements_can_have_content(const NetworkLatencyRequirements *self);
 NetworkLatencyRequirementsContentForm network_latency_requirements_content(const NetworkLatencyRequirements *self);
 // Segment-level latency budgets.
@@ -15557,7 +15598,7 @@ NetworkLatencyRequirementsOptimizationForm network_latency_requirements_optimiza
 // Binds a NetworkLoadBalancingRequirements facade to a document and a path (path copied).
 void network_load_balancing_requirements_init(NetworkLoadBalancingRequirements *self, SpecDocument *doc, const char *path);
 void network_load_balancing_requirements_free(NetworkLoadBalancingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_load_balancing_requirements_can_have_content(const NetworkLoadBalancingRequirements *self);
 NetworkLoadBalancingRequirementsContentForm network_load_balancing_requirements_content(const NetworkLoadBalancingRequirements *self);
 // Routing strategy.
@@ -15576,7 +15617,7 @@ NetworkLoadBalancingRequirementsAvailabilityForm network_load_balancing_requirem
 // Binds a NetworkRequirementsSection facade to a document and a path (path copied).
 void network_requirements_section_init(NetworkRequirementsSection *self, SpecDocument *doc, const char *path);
 void network_requirements_section_free(NetworkRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_requirements_section_can_have_content(const NetworkRequirementsSection *self);
 char *network_requirements_section_content(const NetworkRequirementsSection *self);
 void network_requirements_section_set_content(NetworkRequirementsSection *self, const char *value);
@@ -15610,7 +15651,7 @@ NetworkSecurityRequirements network_requirements_section_network_security(const 
 // Binds a NetworkSecurityPolicy facade to a document and a path (path copied).
 void network_security_policy_init(NetworkSecurityPolicy *self, SpecDocument *doc, const char *path);
 void network_security_policy_free(NetworkSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_security_policy_can_have_content(const NetworkSecurityPolicy *self);
 NetworkSecurityPolicyContentForm network_security_policy_content(const NetworkSecurityPolicy *self);
 // Firewall rule details.
@@ -15628,7 +15669,7 @@ NetworkSecurityPolicyDnsForm network_security_policy_dns(const NetworkSecurityPo
 // Binds a NetworkSecurityRequirements facade to a document and a path (path copied).
 void network_security_requirements_init(NetworkSecurityRequirements *self, SpecDocument *doc, const char *path);
 void network_security_requirements_free(NetworkSecurityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int network_security_requirements_can_have_content(const NetworkSecurityRequirements *self);
 NetworkSecurityRequirementsContentForm network_security_requirements_content(const NetworkSecurityRequirements *self);
 // Access-control settings.
@@ -15649,7 +15690,7 @@ NetworkSecurityRequirementsComplianceForm network_security_requirements_complian
 // Binds a NewOrganizationStructure facade to a document and a path (path copied).
 void new_organization_structure_init(NewOrganizationStructure *self, SpecDocument *doc, const char *path);
 void new_organization_structure_free(NewOrganizationStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_organization_structure_can_have_content(const NewOrganizationStructure *self);
 // Overview of the target organization structure.
 // (skipped: overview has no target type)
@@ -15665,7 +15706,7 @@ OrganizationalTransitionTimeline new_organization_structure_transition_timeline(
 // Binds a NewRoleEntry facade to a document and a path (path copied).
 void new_role_entry_init(NewRoleEntry *self, SpecDocument *doc, const char *path);
 void new_role_entry_free(NewRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_role_entry_can_have_content(const NewRoleEntry *self);
 // Role identification and overview.
 NewRoleEntryIdentificationForm new_role_entry_identification(const NewRoleEntry *self);
@@ -15686,7 +15727,7 @@ NewRoleEntryOnboardingForm new_role_entry_onboarding(const NewRoleEntry *self);
 // Binds a NewRoleQualifications facade to a document and a path (path copied).
 void new_role_qualifications_init(NewRoleQualifications *self, SpecDocument *doc, const char *path);
 void new_role_qualifications_free(NewRoleQualifications *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_role_qualifications_can_have_content(const NewRoleQualifications *self);
 NewRoleQualificationsContentForm new_role_qualifications_content(const NewRoleQualifications *self);
 // Credential and mobility requirements.
@@ -15701,7 +15742,7 @@ SomList new_role_qualifications_required_competencies(const NewRoleQualification
 // Binds a NewRoleResponsibilities facade to a document and a path (path copied).
 void new_role_responsibilities_init(NewRoleResponsibilities *self, SpecDocument *doc, const char *path);
 void new_role_responsibilities_free(NewRoleResponsibilities *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int new_role_responsibilities_can_have_content(const NewRoleResponsibilities *self);
 // Primary responsibilities (key accountabilities).
 // Returns the list view; element type: ResponsibilityDetailEntry (construct from item paths).
@@ -15716,7 +15757,7 @@ NewRoleResponsibilitiesDecisionAuthorityForm new_role_responsibilities_decision_
 // Binds a NotificationChannelEntry facade to a document and a path (path copied).
 void notification_channel_entry_init(NotificationChannelEntry *self, SpecDocument *doc, const char *path);
 void notification_channel_entry_free(NotificationChannelEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int notification_channel_entry_can_have_content(const NotificationChannelEntry *self);
 NotificationChannelEntryContentForm notification_channel_entry_content(const NotificationChannelEntry *self);
 
@@ -15727,7 +15768,7 @@ NotificationChannelEntryContentForm notification_channel_entry_content(const Not
 // Binds a NotificationModel facade to a document and a path (path copied).
 void notification_model_init(NotificationModel *self, SpecDocument *doc, const char *path);
 void notification_model_free(NotificationModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int notification_model_can_have_content(const NotificationModel *self);
 char *notification_model_content(const NotificationModel *self);
 void notification_model_set_content(NotificationModel *self, const char *value);
@@ -15745,7 +15786,7 @@ SomList notification_model_preferences(const NotificationModel *self);
 // Binds a NotificationTypeEntry facade to a document and a path (path copied).
 void notification_type_entry_init(NotificationTypeEntry *self, SpecDocument *doc, const char *path);
 void notification_type_entry_free(NotificationTypeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int notification_type_entry_can_have_content(const NotificationTypeEntry *self);
 NotificationTypeEntryContentForm notification_type_entry_content(const NotificationTypeEntry *self);
 
@@ -15755,7 +15796,7 @@ NotificationTypeEntryContentForm notification_type_entry_content(const Notificat
 // Binds a ObjectInvariantEntry facade to a document and a path (path copied).
 void object_invariant_entry_init(ObjectInvariantEntry *self, SpecDocument *doc, const char *path);
 void object_invariant_entry_free(ObjectInvariantEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int object_invariant_entry_can_have_content(const ObjectInvariantEntry *self);
 ObjectInvariantEntryContentForm object_invariant_entry_content(const ObjectInvariantEntry *self);
 
@@ -15765,7 +15806,7 @@ ObjectInvariantEntryContentForm object_invariant_entry_content(const ObjectInvar
 // Binds a ObjectOperationEntry facade to a document and a path (path copied).
 void object_operation_entry_init(ObjectOperationEntry *self, SpecDocument *doc, const char *path);
 void object_operation_entry_free(ObjectOperationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int object_operation_entry_can_have_content(const ObjectOperationEntry *self);
 ObjectOperationEntryContentForm object_operation_entry_content(const ObjectOperationEntry *self);
 // Execution contract for this operation.
@@ -15781,7 +15822,7 @@ ObjectOperationEntryGovernanceForm object_operation_entry_governance(const Objec
 // Binds a ObjectStateEntry facade to a document and a path (path copied).
 void object_state_entry_init(ObjectStateEntry *self, SpecDocument *doc, const char *path);
 void object_state_entry_free(ObjectStateEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int object_state_entry_can_have_content(const ObjectStateEntry *self);
 ObjectStateEntryContentForm object_state_entry_content(const ObjectStateEntry *self);
 
@@ -15789,7 +15830,7 @@ ObjectStateEntryContentForm object_state_entry_content(const ObjectStateEntry *s
 // Binds a OnCallProcedures facade to a document and a path (path copied).
 void on_call_procedures_init(OnCallProcedures *self, SpecDocument *doc, const char *path);
 void on_call_procedures_free(OnCallProcedures *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int on_call_procedures_can_have_content(const OnCallProcedures *self);
 OnCallProceduresContentForm on_call_procedures_content(const OnCallProcedures *self);
 // Team coverage.
@@ -15805,7 +15846,7 @@ OnCallProceduresDocumentationForm on_call_procedures_documentation(const OnCallP
 // Binds a OnCallScheduleConfig facade to a document and a path (path copied).
 void on_call_schedule_config_init(OnCallScheduleConfig *self, SpecDocument *doc, const char *path);
 void on_call_schedule_config_free(OnCallScheduleConfig *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int on_call_schedule_config_can_have_content(const OnCallScheduleConfig *self);
 OnCallScheduleConfigContentForm on_call_schedule_config_content(const OnCallScheduleConfig *self);
 // Override and coverage handling.
@@ -15817,7 +15858,7 @@ OnCallScheduleConfigOperationsForm on_call_schedule_config_operations(const OnCa
 // Binds a OnboardingHelp facade to a document and a path (path copied).
 void onboarding_help_init(OnboardingHelp *self, SpecDocument *doc, const char *path);
 void onboarding_help_free(OnboardingHelp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int onboarding_help_can_have_content(const OnboardingHelp *self);
 OnboardingHelpOnboardingContentForm onboarding_help_onboarding_content(const OnboardingHelp *self);
 // Feature tour settings.
@@ -15840,7 +15881,7 @@ SomList onboarding_help_feature_tours(const OnboardingHelp *self);
 // Binds a OngoingTrainingEntry facade to a document and a path (path copied).
 void ongoing_training_entry_init(OngoingTrainingEntry *self, SpecDocument *doc, const char *path);
 void ongoing_training_entry_free(OngoingTrainingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ongoing_training_entry_can_have_content(const OngoingTrainingEntry *self);
 OngoingTrainingEntryContentForm ongoing_training_entry_content(const OngoingTrainingEntry *self);
 // Scheduling and delivery.
@@ -15859,7 +15900,7 @@ OngoingTrainingEntryComplianceForm ongoing_training_entry_compliance(const Ongoi
 // Binds a OperatingEnvironment facade to a document and a path (path copied).
 void operating_environment_init(OperatingEnvironment *self, SpecDocument *doc, const char *path);
 void operating_environment_free(OperatingEnvironment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int operating_environment_can_have_content(const OperatingEnvironment *self);
 // Framework conditions overview.
 // (skipped: overview has no target type)
@@ -15877,7 +15918,7 @@ void operating_environment_set_constraints_and_dependencies(OperatingEnvironment
 // Binds a OperationalMonitoring facade to a document and a path (path copied).
 void operational_monitoring_init(OperationalMonitoring *self, SpecDocument *doc, const char *path);
 void operational_monitoring_free(OperationalMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int operational_monitoring_can_have_content(const OperationalMonitoring *self);
 OperationalMonitoringContentForm operational_monitoring_content(const OperationalMonitoring *self);
 // Component monitoring coverage.
@@ -15898,7 +15939,7 @@ OperationalMonitoringOperationsForm operational_monitoring_operations(const Oper
 // Binds a OperationalPainPoints facade to a document and a path (path copied).
 void operational_pain_points_init(OperationalPainPoints *self, SpecDocument *doc, const char *path);
 void operational_pain_points_free(OperationalPainPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int operational_pain_points_can_have_content(const OperationalPainPoints *self);
 char *operational_pain_points_content(const OperationalPainPoints *self);
 void operational_pain_points_set_content(OperationalPainPoints *self, const char *value);
@@ -15912,7 +15953,7 @@ SomList operational_pain_points_items(const OperationalPainPoints *self);
 // Binds a OperationsRequirements facade to a document and a path (path copied).
 void operations_requirements_init(OperationsRequirements *self, SpecDocument *doc, const char *path);
 void operations_requirements_free(OperationsRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int operations_requirements_can_have_content(const OperationsRequirements *self);
 char *operations_requirements_content(const OperationsRequirements *self);
 void operations_requirements_set_content(OperationsRequirements *self, const char *value);
@@ -15932,7 +15973,7 @@ MaintenanceWindowsSection operations_requirements_maintenance_windows(const Oper
 // Binds a OpportunityStatement facade to a document and a path (path copied).
 void opportunity_statement_init(OpportunityStatement *self, SpecDocument *doc, const char *path);
 void opportunity_statement_free(OpportunityStatement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int opportunity_statement_can_have_content(const OpportunityStatement *self);
 char *opportunity_statement_content(const OpportunityStatement *self);
 void opportunity_statement_set_content(OpportunityStatement *self, const char *value);
@@ -15943,7 +15984,7 @@ OpportunityStatementOpportunityDetailsForm opportunity_statement_opportunity_det
 // Binds a OrgChangeRisks facade to a document and a path (path copied).
 void org_change_risks_init(OrgChangeRisks *self, SpecDocument *doc, const char *path);
 void org_change_risks_free(OrgChangeRisks *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int org_change_risks_can_have_content(const OrgChangeRisks *self);
 OrgChangeRisksContentForm org_change_risks_content(const OrgChangeRisks *self);
 
@@ -15951,7 +15992,7 @@ OrgChangeRisksContentForm org_change_risks_content(const OrgChangeRisks *self);
 // Binds a OrgImplementationActivity facade to a document and a path (path copied).
 void org_implementation_activity_init(OrgImplementationActivity *self, SpecDocument *doc, const char *path);
 void org_implementation_activity_free(OrgImplementationActivity *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int org_implementation_activity_can_have_content(const OrgImplementationActivity *self);
 OrgImplementationActivityContentForm org_implementation_activity_content(const OrgImplementationActivity *self);
 
@@ -15961,7 +16002,7 @@ OrgImplementationActivityContentForm org_implementation_activity_content(const O
 // Binds a OrgRequirementImplementationPlan facade to a document and a path (path copied).
 void org_requirement_implementation_plan_init(OrgRequirementImplementationPlan *self, SpecDocument *doc, const char *path);
 void org_requirement_implementation_plan_free(OrgRequirementImplementationPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int org_requirement_implementation_plan_can_have_content(const OrgRequirementImplementationPlan *self);
 char *org_requirement_implementation_plan_content(const OrgRequirementImplementationPlan *self);
 void org_requirement_implementation_plan_set_content(OrgRequirementImplementationPlan *self, const char *value);
@@ -15982,7 +16023,7 @@ SomList org_requirement_implementation_plan_activities(const OrgRequirementImple
 // Binds a OrganizationAndProcessConcept facade to a document and a path (path copied).
 void organization_and_process_concept_init(OrganizationAndProcessConcept *self, SpecDocument *doc, const char *path);
 void organization_and_process_concept_free(OrganizationAndProcessConcept *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organization_and_process_concept_can_have_content(const OrganizationAndProcessConcept *self);
 char *organization_and_process_concept_content(const OrganizationAndProcessConcept *self);
 void organization_and_process_concept_set_content(OrganizationAndProcessConcept *self, const char *value);
@@ -15995,7 +16036,7 @@ BusinessProcessDescriptions organization_and_process_concept_business_process_de
 // Binds a OrganizationStructure facade to a document and a path (path copied).
 void organization_structure_init(OrganizationStructure *self, SpecDocument *doc, const char *path);
 void organization_structure_free(OrganizationStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organization_structure_can_have_content(const OrganizationStructure *self);
 char *organization_structure_content(const OrganizationStructure *self);
 void organization_structure_set_content(OrganizationStructure *self, const char *value);
@@ -16011,7 +16052,7 @@ GovernanceModel organization_structure_governance_model(const OrganizationStruct
 // Binds a OrganizationalChangeEntry facade to a document and a path (path copied).
 void organizational_change_entry_init(OrganizationalChangeEntry *self, SpecDocument *doc, const char *path);
 void organizational_change_entry_free(OrganizationalChangeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_change_entry_can_have_content(const OrganizationalChangeEntry *self);
 OrganizationalChangeEntryContentForm organizational_change_entry_content(const OrganizationalChangeEntry *self);
 // Change identification details.
@@ -16037,7 +16078,7 @@ OrganizationalChangeEntryStatusForm organizational_change_entry_status(const Org
 // Binds a OrganizationalContext facade to a document and a path (path copied).
 void organizational_context_init(OrganizationalContext *self, SpecDocument *doc, const char *path);
 void organizational_context_free(OrganizationalContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_context_can_have_content(const OrganizationalContext *self);
 char *organizational_context_content(const OrganizationalContext *self);
 void organizational_context_set_content(OrganizationalContext *self, const char *value);
@@ -16057,7 +16098,7 @@ void organizational_context_set_business_process_coverage(OrganizationalContext 
 // Binds a OrganizationalEnvironment facade to a document and a path (path copied).
 void organizational_environment_init(OrganizationalEnvironment *self, SpecDocument *doc, const char *path);
 void organizational_environment_free(OrganizationalEnvironment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_environment_can_have_content(const OrganizationalEnvironment *self);
 OrganizationalEnvironmentOrganizationContentForm organizational_environment_organization_content(const OrganizationalEnvironment *self);
 // Organizational maturity indicators.
@@ -16096,7 +16137,7 @@ SomList organizational_environment_change_advocates(const OrganizationalEnvironm
 // Binds a OrganizationalFramework facade to a document and a path (path copied).
 void organizational_framework_init(OrganizationalFramework *self, SpecDocument *doc, const char *path);
 void organizational_framework_free(OrganizationalFramework *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_framework_can_have_content(const OrganizationalFramework *self);
 // Overview of organizational changes required for the new system.
 // (skipped: overview has no target type)
@@ -16119,7 +16160,7 @@ SomList organizational_framework_workplace_descriptions(const OrganizationalFram
 // Binds a OrganizationalRequirementEntry facade to a document and a path (path copied).
 void organizational_requirement_entry_init(OrganizationalRequirementEntry *self, SpecDocument *doc, const char *path);
 void organizational_requirement_entry_free(OrganizationalRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_requirement_entry_can_have_content(const OrganizationalRequirementEntry *self);
 OrganizationalRequirementEntryContentForm organizational_requirement_entry_content(const OrganizationalRequirementEntry *self);
 // Requirement classification and source.
@@ -16144,7 +16185,7 @@ RequirementDependencies organizational_requirement_entry_dependencies(const Orga
 // Binds a OrganizationalRequirements facade to a document and a path (path copied).
 void organizational_requirements_init(OrganizationalRequirements *self, SpecDocument *doc, const char *path);
 void organizational_requirements_free(OrganizationalRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_requirements_can_have_content(const OrganizationalRequirements *self);
 char *organizational_requirements_content(const OrganizationalRequirements *self);
 void organizational_requirements_set_content(OrganizationalRequirements *self, const char *value);
@@ -16162,7 +16203,7 @@ SomList organizational_requirements_requirements(const OrganizationalRequirement
 // Binds a OrganizationalTransitionTimeline facade to a document and a path (path copied).
 void organizational_transition_timeline_init(OrganizationalTransitionTimeline *self, SpecDocument *doc, const char *path);
 void organizational_transition_timeline_free(OrganizationalTransitionTimeline *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_transition_timeline_can_have_content(const OrganizationalTransitionTimeline *self);
 // Overview of the transition approach and guiding principles.
 TransitionOverview organizational_transition_timeline_overview(const OrganizationalTransitionTimeline *self);
@@ -16188,7 +16229,7 @@ SomList organizational_transition_timeline_transition_risks(const Organizational
 // Binds a OrganizationalUnitContextEntry facade to a document and a path (path copied).
 void organizational_unit_context_entry_init(OrganizationalUnitContextEntry *self, SpecDocument *doc, const char *path);
 void organizational_unit_context_entry_free(OrganizationalUnitContextEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int organizational_unit_context_entry_can_have_content(const OrganizationalUnitContextEntry *self);
 OrganizationalUnitContextEntryContentForm organizational_unit_context_entry_content(const OrganizationalUnitContextEntry *self);
 
@@ -16196,7 +16237,7 @@ OrganizationalUnitContextEntryContentForm organizational_unit_context_entry_cont
 // Binds a OsCompatibilityEntry facade to a document and a path (path copied).
 void os_compatibility_entry_init(OsCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void os_compatibility_entry_free(OsCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int os_compatibility_entry_can_have_content(const OsCompatibilityEntry *self);
 OsCompatibilityEntryContentForm os_compatibility_entry_content(const OsCompatibilityEntry *self);
 // Support level and prioritization.
@@ -16212,7 +16253,7 @@ OsCompatibilityEntryLifecycleForm os_compatibility_entry_lifecycle(const OsCompa
 // Binds a OtherAgreementEntry facade to a document and a path (path copied).
 void other_agreement_entry_init(OtherAgreementEntry *self, SpecDocument *doc, const char *path);
 void other_agreement_entry_free(OtherAgreementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int other_agreement_entry_can_have_content(const OtherAgreementEntry *self);
 OtherAgreementEntryContentForm other_agreement_entry_content(const OtherAgreementEntry *self);
 
@@ -16224,7 +16265,7 @@ OtherAgreementEntryContentForm other_agreement_entry_content(const OtherAgreemen
 // Binds a OutOfScope facade to a document and a path (path copied).
 void out_of_scope_init(OutOfScope *self, SpecDocument *doc, const char *path);
 void out_of_scope_free(OutOfScope *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int out_of_scope_can_have_content(const OutOfScope *self);
 // Overview of scope exclusion approach.
 // (skipped: scopePhilosophy has no target type)
@@ -16236,7 +16277,7 @@ SomList out_of_scope_items(const OutOfScope *self);
 // Binds a OutOfScopeEntry facade to a document and a path (path copied).
 void out_of_scope_entry_init(OutOfScopeEntry *self, SpecDocument *doc, const char *path);
 void out_of_scope_entry_free(OutOfScopeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int out_of_scope_entry_can_have_content(const OutOfScopeEntry *self);
 OutOfScopeEntryContentForm out_of_scope_entry_content(const OutOfScopeEntry *self);
 // Decision history and future reconsideration.
@@ -16248,7 +16289,7 @@ OutOfScopeEntryMitigationForm out_of_scope_entry_mitigation(const OutOfScopeEntr
 // Binds a PackageOrganization facade to a document and a path (path copied).
 void package_organization_init(PackageOrganization *self, SpecDocument *doc, const char *path);
 void package_organization_free(PackageOrganization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int package_organization_can_have_content(const PackageOrganization *self);
 PackageOrganizationContentForm package_organization_content(const PackageOrganization *self);
 // Repository and directory structure.
@@ -16268,7 +16309,7 @@ PackageOrganizationDocumentationForm package_organization_documentation(const Pa
 // Binds a PainPointEntry facade to a document and a path (path copied).
 void pain_point_entry_init(PainPointEntry *self, SpecDocument *doc, const char *path);
 void pain_point_entry_free(PainPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pain_point_entry_can_have_content(const PainPointEntry *self);
 PainPointEntryContentForm pain_point_entry_content(const PainPointEntry *self);
 // Classification.
@@ -16291,7 +16332,7 @@ SomList pain_point_entry_relationships(const PainPointEntry *self);
 // Binds a PainPointGapCorrelation facade to a document and a path (path copied).
 void pain_point_gap_correlation_init(PainPointGapCorrelation *self, SpecDocument *doc, const char *path);
 void pain_point_gap_correlation_free(PainPointGapCorrelation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pain_point_gap_correlation_can_have_content(const PainPointGapCorrelation *self);
 char *pain_point_gap_correlation_content(const PainPointGapCorrelation *self);
 void pain_point_gap_correlation_set_content(PainPointGapCorrelation *self, const char *value);
@@ -16306,7 +16347,7 @@ SomList pain_point_gap_correlation_correlation_entries(const PainPointGapCorrela
 // Binds a PainPointGapCorrelationEntry facade to a document and a path (path copied).
 void pain_point_gap_correlation_entry_init(PainPointGapCorrelationEntry *self, SpecDocument *doc, const char *path);
 void pain_point_gap_correlation_entry_free(PainPointGapCorrelationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pain_point_gap_correlation_entry_can_have_content(const PainPointGapCorrelationEntry *self);
 PainPointGapCorrelationEntryContentForm pain_point_gap_correlation_entry_content(const PainPointGapCorrelationEntry *self);
 
@@ -16314,7 +16355,7 @@ PainPointGapCorrelationEntryContentForm pain_point_gap_correlation_entry_content
 // Binds a PainPointRelationships facade to a document and a path (path copied).
 void pain_point_relationships_init(PainPointRelationships *self, SpecDocument *doc, const char *path);
 void pain_point_relationships_free(PainPointRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pain_point_relationships_can_have_content(const PainPointRelationships *self);
 PainPointRelationshipsContentForm pain_point_relationships_content(const PainPointRelationships *self);
 
@@ -16326,7 +16367,7 @@ PainPointRelationshipsContentForm pain_point_relationships_content(const PainPoi
 // Binds a PainPointsAndGaps facade to a document and a path (path copied).
 void pain_points_and_gaps_init(PainPointsAndGaps *self, SpecDocument *doc, const char *path);
 void pain_points_and_gaps_free(PainPointsAndGaps *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pain_points_and_gaps_can_have_content(const PainPointsAndGaps *self);
 char *pain_points_and_gaps_content(const PainPointsAndGaps *self);
 void pain_points_and_gaps_set_content(PainPointsAndGaps *self, const char *value);
@@ -16354,7 +16395,7 @@ PainPointGapCorrelation pain_points_and_gaps_pain_point_gap_correlation(const Pa
 // Binds a ParticipantEntry facade to a document and a path (path copied).
 void participant_entry_init(ParticipantEntry *self, SpecDocument *doc, const char *path);
 void participant_entry_free(ParticipantEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int participant_entry_can_have_content(const ParticipantEntry *self);
 ParticipantEntryContentForm participant_entry_content(const ParticipantEntry *self);
 
@@ -16367,7 +16408,7 @@ ParticipantEntryContentForm participant_entry_content(const ParticipantEntry *se
 // Binds a PasswordAndCredentialPolicy facade to a document and a path (path copied).
 void password_and_credential_policy_init(PasswordAndCredentialPolicy *self, SpecDocument *doc, const char *path);
 void password_and_credential_policy_free(PasswordAndCredentialPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int password_and_credential_policy_can_have_content(const PasswordAndCredentialPolicy *self);
 char *password_and_credential_policy_content(const PasswordAndCredentialPolicy *self);
 void password_and_credential_policy_set_content(PasswordAndCredentialPolicy *self, const char *value);
@@ -16399,7 +16440,7 @@ SomList password_and_credential_policy_mfa_category_requirements(const PasswordA
 // Binds a PasswordLifecyclePolicy facade to a document and a path (path copied).
 void password_lifecycle_policy_init(PasswordLifecyclePolicy *self, SpecDocument *doc, const char *path);
 void password_lifecycle_policy_free(PasswordLifecyclePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int password_lifecycle_policy_can_have_content(const PasswordLifecyclePolicy *self);
 char *password_lifecycle_policy_content(const PasswordLifecyclePolicy *self);
 void password_lifecycle_policy_set_content(PasswordLifecyclePolicy *self, const char *value);
@@ -16414,7 +16455,7 @@ void password_lifecycle_policy_set_content(PasswordLifecyclePolicy *self, const 
 // Binds a PasswordRequirementsPolicy facade to a document and a path (path copied).
 void password_requirements_policy_init(PasswordRequirementsPolicy *self, SpecDocument *doc, const char *path);
 void password_requirements_policy_free(PasswordRequirementsPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int password_requirements_policy_can_have_content(const PasswordRequirementsPolicy *self);
 char *password_requirements_policy_content(const PasswordRequirementsPolicy *self);
 void password_requirements_policy_set_content(PasswordRequirementsPolicy *self, const char *value);
@@ -16428,7 +16469,7 @@ void password_requirements_policy_set_content(PasswordRequirementsPolicy *self, 
 // Binds a PasswordStoragePolicy facade to a document and a path (path copied).
 void password_storage_policy_init(PasswordStoragePolicy *self, SpecDocument *doc, const char *path);
 void password_storage_policy_free(PasswordStoragePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int password_storage_policy_can_have_content(const PasswordStoragePolicy *self);
 char *password_storage_policy_content(const PasswordStoragePolicy *self);
 void password_storage_policy_set_content(PasswordStoragePolicy *self, const char *value);
@@ -16439,7 +16480,7 @@ void password_storage_policy_set_content(PasswordStoragePolicy *self, const char
 // Binds a PeakLoadPatterns facade to a document and a path (path copied).
 void peak_load_patterns_init(PeakLoadPatterns *self, SpecDocument *doc, const char *path);
 void peak_load_patterns_free(PeakLoadPatterns *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int peak_load_patterns_can_have_content(const PeakLoadPatterns *self);
 PeakLoadPatternsContentForm peak_load_patterns_content(const PeakLoadPatterns *self);
 // Peak metrics.
@@ -16453,7 +16494,7 @@ PeakLoadPatternsTestingForm peak_load_patterns_testing(const PeakLoadPatterns *s
 // Binds a PenetrationTestingRequirements facade to a document and a path (path copied).
 void penetration_testing_requirements_init(PenetrationTestingRequirements *self, SpecDocument *doc, const char *path);
 void penetration_testing_requirements_free(PenetrationTestingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int penetration_testing_requirements_can_have_content(const PenetrationTestingRequirements *self);
 PenetrationTestingRequirementsContentForm penetration_testing_requirements_content(const PenetrationTestingRequirements *self);
 // Frequency and scheduling.
@@ -16472,7 +16513,7 @@ PenetrationTestingRequirementsReportingForm penetration_testing_requirements_rep
 // Binds a PerformanceEfficiencyCharacteristic facade to a document and a path (path copied).
 void performance_efficiency_characteristic_init(PerformanceEfficiencyCharacteristic *self, SpecDocument *doc, const char *path);
 void performance_efficiency_characteristic_free(PerformanceEfficiencyCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int performance_efficiency_characteristic_can_have_content(const PerformanceEfficiencyCharacteristic *self);
 PerformanceEfficiencyCharacteristicPerformanceEfficiencyContentForm performance_efficiency_characteristic_performance_efficiency_content(const PerformanceEfficiencyCharacteristic *self);
 // Performance efficiency overview.
@@ -16486,7 +16527,7 @@ Efficiency performance_efficiency_characteristic_efficiency(const PerformanceEff
 // Binds a PeriodicReviewPolicy facade to a document and a path (path copied).
 void periodic_review_policy_init(PeriodicReviewPolicy *self, SpecDocument *doc, const char *path);
 void periodic_review_policy_free(PeriodicReviewPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int periodic_review_policy_can_have_content(const PeriodicReviewPolicy *self);
 PeriodicReviewPolicyContentForm periodic_review_policy_content(const PeriodicReviewPolicy *self);
 // Additional Notes (text).
@@ -16496,7 +16537,7 @@ PeriodicReviewPolicyContentForm periodic_review_policy_content(const PeriodicRev
 // Binds a PeripheralEquipmentEntry facade to a document and a path (path copied).
 void peripheral_equipment_entry_init(PeripheralEquipmentEntry *self, SpecDocument *doc, const char *path);
 void peripheral_equipment_entry_free(PeripheralEquipmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int peripheral_equipment_entry_can_have_content(const PeripheralEquipmentEntry *self);
 PeripheralEquipmentEntryContentForm peripheral_equipment_entry_content(const PeripheralEquipmentEntry *self);
 
@@ -16507,7 +16548,7 @@ PeripheralEquipmentEntryContentForm peripheral_equipment_entry_content(const Per
 // Binds a PermissionCompositionStrategy facade to a document and a path (path copied).
 void permission_composition_strategy_init(PermissionCompositionStrategy *self, SpecDocument *doc, const char *path);
 void permission_composition_strategy_free(PermissionCompositionStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int permission_composition_strategy_can_have_content(const PermissionCompositionStrategy *self);
 char *permission_composition_strategy_content(const PermissionCompositionStrategy *self);
 void permission_composition_strategy_set_content(PermissionCompositionStrategy *self, const char *value);
@@ -16521,7 +16562,7 @@ void permission_composition_strategy_set_content(PermissionCompositionStrategy *
 // Binds a PermissionEvaluationBehavior facade to a document and a path (path copied).
 void permission_evaluation_behavior_init(PermissionEvaluationBehavior *self, SpecDocument *doc, const char *path);
 void permission_evaluation_behavior_free(PermissionEvaluationBehavior *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int permission_evaluation_behavior_can_have_content(const PermissionEvaluationBehavior *self);
 char *permission_evaluation_behavior_content(const PermissionEvaluationBehavior *self);
 void permission_evaluation_behavior_set_content(PermissionEvaluationBehavior *self, const char *value);
@@ -16535,7 +16576,7 @@ void permission_evaluation_behavior_set_content(PermissionEvaluationBehavior *se
 // Binds a PermissionGranularityPolicy facade to a document and a path (path copied).
 void permission_granularity_policy_init(PermissionGranularityPolicy *self, SpecDocument *doc, const char *path);
 void permission_granularity_policy_free(PermissionGranularityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int permission_granularity_policy_can_have_content(const PermissionGranularityPolicy *self);
 char *permission_granularity_policy_content(const PermissionGranularityPolicy *self);
 void permission_granularity_policy_set_content(PermissionGranularityPolicy *self, const char *value);
@@ -16546,7 +16587,7 @@ void permission_granularity_policy_set_content(PermissionGranularityPolicy *self
 // Binds a PermissionMatrixEntry facade to a document and a path (path copied).
 void permission_matrix_entry_init(PermissionMatrixEntry *self, SpecDocument *doc, const char *path);
 void permission_matrix_entry_free(PermissionMatrixEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int permission_matrix_entry_can_have_content(const PermissionMatrixEntry *self);
 PermissionMatrixEntryContentForm permission_matrix_entry_content(const PermissionMatrixEntry *self);
 
@@ -16556,7 +16597,7 @@ PermissionMatrixEntryContentForm permission_matrix_entry_content(const Permissio
 // Binds a PersonaEntry facade to a document and a path (path copied).
 void persona_entry_init(PersonaEntry *self, SpecDocument *doc, const char *path);
 void persona_entry_free(PersonaEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_entry_can_have_content(const PersonaEntry *self);
 PersonaEntryContentForm persona_entry_content(const PersonaEntry *self);
 // Background and capability profile.
@@ -16576,7 +16617,7 @@ PersonaScenarios persona_entry_scenarios(const PersonaEntry *self);
 // Binds a PersonaGoalEntry facade to a document and a path (path copied).
 void persona_goal_entry_init(PersonaGoalEntry *self, SpecDocument *doc, const char *path);
 void persona_goal_entry_free(PersonaGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_goal_entry_can_have_content(const PersonaGoalEntry *self);
 PersonaGoalEntryContentForm persona_goal_entry_content(const PersonaGoalEntry *self);
 
@@ -16584,7 +16625,7 @@ PersonaGoalEntryContentForm persona_goal_entry_content(const PersonaGoalEntry *s
 // Binds a PersonaGoals facade to a document and a path (path copied).
 void persona_goals_init(PersonaGoals *self, SpecDocument *doc, const char *path);
 void persona_goals_free(PersonaGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_goals_can_have_content(const PersonaGoals *self);
 char *persona_goals_content(const PersonaGoals *self);
 void persona_goals_set_content(PersonaGoals *self, const char *value);
@@ -16596,7 +16637,7 @@ SomList persona_goals_items(const PersonaGoals *self);
 // Binds a PersonaPainPointEntry facade to a document and a path (path copied).
 void persona_pain_point_entry_init(PersonaPainPointEntry *self, SpecDocument *doc, const char *path);
 void persona_pain_point_entry_free(PersonaPainPointEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_pain_point_entry_can_have_content(const PersonaPainPointEntry *self);
 PersonaPainPointEntryContentForm persona_pain_point_entry_content(const PersonaPainPointEntry *self);
 
@@ -16604,7 +16645,7 @@ PersonaPainPointEntryContentForm persona_pain_point_entry_content(const PersonaP
 // Binds a PersonaPainPoints facade to a document and a path (path copied).
 void persona_pain_points_init(PersonaPainPoints *self, SpecDocument *doc, const char *path);
 void persona_pain_points_free(PersonaPainPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_pain_points_can_have_content(const PersonaPainPoints *self);
 char *persona_pain_points_content(const PersonaPainPoints *self);
 void persona_pain_points_set_content(PersonaPainPoints *self, const char *value);
@@ -16616,7 +16657,7 @@ SomList persona_pain_points_items(const PersonaPainPoints *self);
 // Binds a PersonaScenarioEntry facade to a document and a path (path copied).
 void persona_scenario_entry_init(PersonaScenarioEntry *self, SpecDocument *doc, const char *path);
 void persona_scenario_entry_free(PersonaScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_scenario_entry_can_have_content(const PersonaScenarioEntry *self);
 PersonaScenarioEntryContentForm persona_scenario_entry_content(const PersonaScenarioEntry *self);
 
@@ -16626,7 +16667,7 @@ PersonaScenarioEntryContentForm persona_scenario_entry_content(const PersonaScen
 // Binds a PersonaScenarios facade to a document and a path (path copied).
 void persona_scenarios_init(PersonaScenarios *self, SpecDocument *doc, const char *path);
 void persona_scenarios_free(PersonaScenarios *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int persona_scenarios_can_have_content(const PersonaScenarios *self);
 char *persona_scenarios_content(const PersonaScenarios *self);
 void persona_scenarios_set_content(PersonaScenarios *self, const char *value);
@@ -16641,7 +16682,7 @@ SomList persona_scenarios_items(const PersonaScenarios *self);
 // Binds a PhaseGateReviewEntry facade to a document and a path (path copied).
 void phase_gate_review_entry_init(PhaseGateReviewEntry *self, SpecDocument *doc, const char *path);
 void phase_gate_review_entry_free(PhaseGateReviewEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int phase_gate_review_entry_can_have_content(const PhaseGateReviewEntry *self);
 PhaseGateReviewEntryContentForm phase_gate_review_entry_content(const PhaseGateReviewEntry *self);
 // Gate identity.
@@ -16670,7 +16711,7 @@ SomList phase_gate_review_entry_review_criteria(const PhaseGateReviewEntry *self
 // Binds a PhaseGateReviews facade to a document and a path (path copied).
 void phase_gate_reviews_init(PhaseGateReviews *self, SpecDocument *doc, const char *path);
 void phase_gate_reviews_free(PhaseGateReviews *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int phase_gate_reviews_can_have_content(const PhaseGateReviews *self);
 PhaseGateReviewsContentForm phase_gate_reviews_content(const PhaseGateReviews *self);
 // Standard participants and evidence package.
@@ -16687,7 +16728,7 @@ SomList phase_gate_reviews_items(const PhaseGateReviews *self);
 // Binds a PhysicalWorkplaceRequirements facade to a document and a path (path copied).
 void physical_workplace_requirements_init(PhysicalWorkplaceRequirements *self, SpecDocument *doc, const char *path);
 void physical_workplace_requirements_free(PhysicalWorkplaceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int physical_workplace_requirements_can_have_content(const PhysicalWorkplaceRequirements *self);
 PhysicalWorkplaceRequirementsContentForm physical_workplace_requirements_content(const PhysicalWorkplaceRequirements *self);
 // Environmental conditions and controls.
@@ -16701,7 +16742,7 @@ PhysicalWorkplaceRequirementsUsageForm physical_workplace_requirements_usage(con
 // Binds a PilotPlan facade to a document and a path (path copied).
 void pilot_plan_init(PilotPlan *self, SpecDocument *doc, const char *path);
 void pilot_plan_free(PilotPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pilot_plan_can_have_content(const PilotPlan *self);
 char *pilot_plan_content(const PilotPlan *self);
 void pilot_plan_set_content(PilotPlan *self, const char *value);
@@ -16710,7 +16751,7 @@ void pilot_plan_set_content(PilotPlan *self, const char *value);
 // Binds a PipelineJobEntry facade to a document and a path (path copied).
 void pipeline_job_entry_init(PipelineJobEntry *self, SpecDocument *doc, const char *path);
 void pipeline_job_entry_free(PipelineJobEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pipeline_job_entry_can_have_content(const PipelineJobEntry *self);
 PipelineJobEntryContentForm pipeline_job_entry_content(const PipelineJobEntry *self);
 // Execution environment.
@@ -16726,7 +16767,7 @@ PipelineJobEntryOutputsForm pipeline_job_entry_outputs(const PipelineJobEntry *s
 // Binds a PipelineStageEntry facade to a document and a path (path copied).
 void pipeline_stage_entry_init(PipelineStageEntry *self, SpecDocument *doc, const char *path);
 void pipeline_stage_entry_free(PipelineStageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pipeline_stage_entry_can_have_content(const PipelineStageEntry *self);
 PipelineStageEntryContentForm pipeline_stage_entry_content(const PipelineStageEntry *self);
 // Triggering conditions and approval gates.
@@ -16745,7 +16786,7 @@ PipelineStageEntryFailureForm pipeline_stage_entry_failure(const PipelineStageEn
 // Binds a PlatformAndLanguage facade to a document and a path (path copied).
 void platform_and_language_init(PlatformAndLanguage *self, SpecDocument *doc, const char *path);
 void platform_and_language_free(PlatformAndLanguage *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int platform_and_language_can_have_content(const PlatformAndLanguage *self);
 char *platform_and_language_content(const PlatformAndLanguage *self);
 void platform_and_language_set_content(PlatformAndLanguage *self, const char *value);
@@ -16775,7 +16816,7 @@ RuntimeEnvironment platform_and_language_runtime_environment(const PlatformAndLa
 // Binds a Portability facade to a document and a path (path copied).
 void portability_init(Portability *self, SpecDocument *doc, const char *path);
 void portability_free(Portability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int portability_can_have_content(const Portability *self);
 PortabilityContentForm portability_content(const Portability *self);
 // Detailed portability requirements narrative.
@@ -16785,7 +16826,7 @@ PortabilityContentForm portability_content(const Portability *self);
 // Binds a PostMaintenanceValidation facade to a document and a path (path copied).
 void post_maintenance_validation_init(PostMaintenanceValidation *self, SpecDocument *doc, const char *path);
 void post_maintenance_validation_free(PostMaintenanceValidation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int post_maintenance_validation_can_have_content(const PostMaintenanceValidation *self);
 PostMaintenanceValidationContentForm post_maintenance_validation_content(const PostMaintenanceValidation *self);
 // Monitoring requirements after maintenance.
@@ -16797,7 +16838,7 @@ PostMaintenanceValidationClosureForm post_maintenance_validation_closure(const P
 // Binds a PostconditionsAndGuarantees facade to a document and a path (path copied).
 void postconditions_and_guarantees_init(PostconditionsAndGuarantees *self, SpecDocument *doc, const char *path);
 void postconditions_and_guarantees_free(PostconditionsAndGuarantees *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int postconditions_and_guarantees_can_have_content(const PostconditionsAndGuarantees *self);
 PostconditionsAndGuaranteesContentForm postconditions_and_guarantees_content(const PostconditionsAndGuarantees *self);
 
@@ -16805,7 +16846,7 @@ PostconditionsAndGuaranteesContentForm postconditions_and_guarantees_content(con
 // Binds a PreconditionsAndTriggers facade to a document and a path (path copied).
 void preconditions_and_triggers_init(PreconditionsAndTriggers *self, SpecDocument *doc, const char *path);
 void preconditions_and_triggers_free(PreconditionsAndTriggers *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int preconditions_and_triggers_can_have_content(const PreconditionsAndTriggers *self);
 PreconditionsAndTriggersContentForm preconditions_and_triggers_content(const PreconditionsAndTriggers *self);
 
@@ -16815,7 +16856,7 @@ PreconditionsAndTriggersContentForm preconditions_and_triggers_content(const Pre
 // Binds a PrimaryNavigation facade to a document and a path (path copied).
 void primary_navigation_init(PrimaryNavigation *self, SpecDocument *doc, const char *path);
 void primary_navigation_free(PrimaryNavigation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int primary_navigation_can_have_content(const PrimaryNavigation *self);
 PrimaryNavigationContentForm primary_navigation_content(const PrimaryNavigation *self);
 // Drawer and rail behavior.
@@ -16831,7 +16872,7 @@ PrimaryNavigationSidebarForm primary_navigation_sidebar(const PrimaryNavigation 
 // Binds a PrintAndExportLayout facade to a document and a path (path copied).
 void print_and_export_layout_init(PrintAndExportLayout *self, SpecDocument *doc, const char *path);
 void print_and_export_layout_free(PrintAndExportLayout *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int print_and_export_layout_can_have_content(const PrintAndExportLayout *self);
 PrintAndExportLayoutContentForm print_and_export_layout_content(const PrintAndExportLayout *self);
 // Page margins and setup.
@@ -16859,7 +16900,7 @@ SomList print_and_export_layout_export_templates(const PrintAndExportLayout *sel
 // Binds a PrivacyImpactAssessmentProcess facade to a document and a path (path copied).
 void privacy_impact_assessment_process_init(PrivacyImpactAssessmentProcess *self, SpecDocument *doc, const char *path);
 void privacy_impact_assessment_process_free(PrivacyImpactAssessmentProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int privacy_impact_assessment_process_can_have_content(const PrivacyImpactAssessmentProcess *self);
 PrivacyImpactAssessmentProcessContentForm privacy_impact_assessment_process_content(const PrivacyImpactAssessmentProcess *self);
 // Assessment process inputs.
@@ -16873,7 +16914,7 @@ PrivacyImpactAssessmentProcessReviewForm privacy_impact_assessment_process_revie
 // Binds a PrivacyRegulationCompliance facade to a document and a path (path copied).
 void privacy_regulation_compliance_init(PrivacyRegulationCompliance *self, SpecDocument *doc, const char *path);
 void privacy_regulation_compliance_free(PrivacyRegulationCompliance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int privacy_regulation_compliance_can_have_content(const PrivacyRegulationCompliance *self);
 PrivacyRegulationComplianceContentForm privacy_regulation_compliance_content(const PrivacyRegulationCompliance *self);
 // GDPR-specific requirements.
@@ -16891,7 +16932,7 @@ PrivacyRegulationComplianceTransfersForm privacy_regulation_compliance_transfers
 // Binds a PrivilegeUsageReporting facade to a document and a path (path copied).
 void privilege_usage_reporting_init(PrivilegeUsageReporting *self, SpecDocument *doc, const char *path);
 void privilege_usage_reporting_free(PrivilegeUsageReporting *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int privilege_usage_reporting_can_have_content(const PrivilegeUsageReporting *self);
 PrivilegeUsageReportingContentForm privilege_usage_reporting_content(const PrivilegeUsageReporting *self);
 // Additional Notes (text).
@@ -16904,7 +16945,7 @@ PrivilegeUsageReportingContentForm privilege_usage_reporting_content(const Privi
 // Binds a ProblemStatement facade to a document and a path (path copied).
 void problem_statement_init(ProblemStatement *self, SpecDocument *doc, const char *path);
 void problem_statement_free(ProblemStatement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int problem_statement_can_have_content(const ProblemStatement *self);
 char *problem_statement_content(const ProblemStatement *self);
 void problem_statement_set_content(ProblemStatement *self, const char *value);
@@ -16918,7 +16959,7 @@ SomList problem_statement_related_pain_points(const ProblemStatement *self);
 // Binds a ProcessAdjustmentDetails facade to a document and a path (path copied).
 void process_adjustment_details_init(ProcessAdjustmentDetails *self, SpecDocument *doc, const char *path);
 void process_adjustment_details_free(ProcessAdjustmentDetails *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_adjustment_details_can_have_content(const ProcessAdjustmentDetails *self);
 ProcessAdjustmentDetailsContentForm process_adjustment_details_content(const ProcessAdjustmentDetails *self);
 
@@ -16930,7 +16971,7 @@ ProcessAdjustmentDetailsContentForm process_adjustment_details_content(const Pro
 // Binds a ProcessAdjustmentEntry facade to a document and a path (path copied).
 void process_adjustment_entry_init(ProcessAdjustmentEntry *self, SpecDocument *doc, const char *path);
 void process_adjustment_entry_free(ProcessAdjustmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_adjustment_entry_can_have_content(const ProcessAdjustmentEntry *self);
 ProcessAdjustmentEntryContentForm process_adjustment_entry_content(const ProcessAdjustmentEntry *self);
 // Identification details.
@@ -16955,7 +16996,7 @@ ProcessAdjustmentEntryGovernanceForm process_adjustment_entry_governance(const P
 // Binds a ProcessAdjustments facade to a document and a path (path copied).
 void process_adjustments_init(ProcessAdjustments *self, SpecDocument *doc, const char *path);
 void process_adjustments_free(ProcessAdjustments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_adjustments_can_have_content(const ProcessAdjustments *self);
 char *process_adjustments_content(const ProcessAdjustments *self);
 void process_adjustments_set_content(ProcessAdjustments *self, const char *value);
@@ -16974,7 +17015,7 @@ SomList process_adjustments_items(const ProcessAdjustments *self);
 // Binds a ProcessCatalog facade to a document and a path (path copied).
 void process_catalog_init(ProcessCatalog *self, SpecDocument *doc, const char *path);
 void process_catalog_free(ProcessCatalog *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_catalog_can_have_content(const ProcessCatalog *self);
 // Process catalog overview.
 ProcessCatalogOverviewForm process_catalog_overview(const ProcessCatalog *self);
@@ -16988,7 +17029,7 @@ SomList process_catalog_processes(const ProcessCatalog *self);
 // Binds a ProcessCharacteristics facade to a document and a path (path copied).
 void process_characteristics_init(ProcessCharacteristics *self, SpecDocument *doc, const char *path);
 void process_characteristics_free(ProcessCharacteristics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_characteristics_can_have_content(const ProcessCharacteristics *self);
 ProcessCharacteristicsContentForm process_characteristics_content(const ProcessCharacteristics *self);
 // Operational characteristics and automation level.
@@ -17000,7 +17041,7 @@ ProcessCharacteristicsBusinessForm process_characteristics_business(const Proces
 // Binds a ProcessControlEntry facade to a document and a path (path copied).
 void process_control_entry_init(ProcessControlEntry *self, SpecDocument *doc, const char *path);
 void process_control_entry_free(ProcessControlEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_control_entry_can_have_content(const ProcessControlEntry *self);
 ProcessControlEntryContentForm process_control_entry_content(const ProcessControlEntry *self);
 // Control operation and ownership.
@@ -17012,7 +17053,7 @@ ProcessControlEntryVerificationForm process_control_entry_verification(const Pro
 // Binds a ProcessControls facade to a document and a path (path copied).
 void process_controls_init(ProcessControls *self, SpecDocument *doc, const char *path);
 void process_controls_free(ProcessControls *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_controls_can_have_content(const ProcessControls *self);
 // Controls overview.
 ProcessControlsOverviewForm process_controls_overview(const ProcessControls *self);
@@ -17024,7 +17065,7 @@ SomList process_controls_controls(const ProcessControls *self);
 // Binds a ProcessDependencyEntry facade to a document and a path (path copied).
 void process_dependency_entry_init(ProcessDependencyEntry *self, SpecDocument *doc, const char *path);
 void process_dependency_entry_free(ProcessDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_dependency_entry_can_have_content(const ProcessDependencyEntry *self);
 ProcessDependencyEntryContentForm process_dependency_entry_content(const ProcessDependencyEntry *self);
 
@@ -17032,7 +17073,7 @@ ProcessDependencyEntryContentForm process_dependency_entry_content(const Process
 // Binds a ProcessDesignPrincipleEntry facade to a document and a path (path copied).
 void process_design_principle_entry_init(ProcessDesignPrincipleEntry *self, SpecDocument *doc, const char *path);
 void process_design_principle_entry_free(ProcessDesignPrincipleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_design_principle_entry_can_have_content(const ProcessDesignPrincipleEntry *self);
 ProcessDesignPrincipleEntryContentForm process_design_principle_entry_content(const ProcessDesignPrincipleEntry *self);
 
@@ -17042,7 +17083,7 @@ ProcessDesignPrincipleEntryContentForm process_design_principle_entry_content(co
 // Binds a ProcessDesignPrinciples facade to a document and a path (path copied).
 void process_design_principles_init(ProcessDesignPrinciples *self, SpecDocument *doc, const char *path);
 void process_design_principles_free(ProcessDesignPrinciples *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_design_principles_can_have_content(const ProcessDesignPrinciples *self);
 // Design principles overview.
 ProcessDesignPrinciplesOverviewForm process_design_principles_overview(const ProcessDesignPrinciples *self);
@@ -17054,7 +17095,7 @@ SomList process_design_principles_principles(const ProcessDesignPrinciples *self
 // Binds a ProcessEndEventEntry facade to a document and a path (path copied).
 void process_end_event_entry_init(ProcessEndEventEntry *self, SpecDocument *doc, const char *path);
 void process_end_event_entry_free(ProcessEndEventEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_end_event_entry_can_have_content(const ProcessEndEventEntry *self);
 ProcessEndEventEntryContentForm process_end_event_entry_content(const ProcessEndEventEntry *self);
 
@@ -17062,7 +17103,7 @@ ProcessEndEventEntryContentForm process_end_event_entry_content(const ProcessEnd
 // Binds a ProcessExceptionEntry facade to a document and a path (path copied).
 void process_exception_entry_init(ProcessExceptionEntry *self, SpecDocument *doc, const char *path);
 void process_exception_entry_free(ProcessExceptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_exception_entry_can_have_content(const ProcessExceptionEntry *self);
 ProcessExceptionEntryContentForm process_exception_entry_content(const ProcessExceptionEntry *self);
 // Likelihood, impact, and detection.
@@ -17076,7 +17117,7 @@ ProcessExceptionEntryResponseForm process_exception_entry_response(const Process
 // Binds a ProcessExceptionHandling facade to a document and a path (path copied).
 void process_exception_handling_init(ProcessExceptionHandling *self, SpecDocument *doc, const char *path);
 void process_exception_handling_free(ProcessExceptionHandling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_exception_handling_can_have_content(const ProcessExceptionHandling *self);
 char *process_exception_handling_content(const ProcessExceptionHandling *self);
 void process_exception_handling_set_content(ProcessExceptionHandling *self, const char *value);
@@ -17085,7 +17126,7 @@ void process_exception_handling_set_content(ProcessExceptionHandling *self, cons
 // Binds a ProcessExceptions facade to a document and a path (path copied).
 void process_exceptions_init(ProcessExceptions *self, SpecDocument *doc, const char *path);
 void process_exceptions_free(ProcessExceptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_exceptions_can_have_content(const ProcessExceptions *self);
 // Exceptions overview.
 ProcessExceptionsOverviewForm process_exceptions_overview(const ProcessExceptions *self);
@@ -17097,7 +17138,7 @@ SomList process_exceptions_exceptions(const ProcessExceptions *self);
 // Binds a ProcessIdentification facade to a document and a path (path copied).
 void process_identification_init(ProcessIdentification *self, SpecDocument *doc, const char *path);
 void process_identification_free(ProcessIdentification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_identification_can_have_content(const ProcessIdentification *self);
 ProcessIdentificationContentForm process_identification_content(const ProcessIdentification *self);
 // Position in the process hierarchy and taxonomy.
@@ -17111,7 +17152,7 @@ ProcessIdentificationGovernanceForm process_identification_governance(const Proc
 // Binds a ProcessImprovementEntry facade to a document and a path (path copied).
 void process_improvement_entry_init(ProcessImprovementEntry *self, SpecDocument *doc, const char *path);
 void process_improvement_entry_free(ProcessImprovementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_improvement_entry_can_have_content(const ProcessImprovementEntry *self);
 ProcessImprovementEntryContentForm process_improvement_entry_content(const ProcessImprovementEntry *self);
 // Target outcome and value case.
@@ -17125,7 +17166,7 @@ ProcessImprovementEntryDeliveryForm process_improvement_entry_delivery(const Pro
 // Binds a ProcessImprovementSummary facade to a document and a path (path copied).
 void process_improvement_summary_init(ProcessImprovementSummary *self, SpecDocument *doc, const char *path);
 void process_improvement_summary_free(ProcessImprovementSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_improvement_summary_can_have_content(const ProcessImprovementSummary *self);
 // Improvement overview.
 ProcessImprovementSummaryOverviewForm process_improvement_summary_overview(const ProcessImprovementSummary *self);
@@ -17139,7 +17180,7 @@ ProcessImprovementSummaryBusinessCaseForm process_improvement_summary_business_c
 // Binds a ProcessInputEntry facade to a document and a path (path copied).
 void process_input_entry_init(ProcessInputEntry *self, SpecDocument *doc, const char *path);
 void process_input_entry_free(ProcessInputEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_input_entry_can_have_content(const ProcessInputEntry *self);
 ProcessInputEntryContentForm process_input_entry_content(const ProcessInputEntry *self);
 
@@ -17147,7 +17188,7 @@ ProcessInputEntryContentForm process_input_entry_content(const ProcessInputEntry
 // Binds a ProcessInputsOutputs facade to a document and a path (path copied).
 void process_inputs_outputs_init(ProcessInputsOutputs *self, SpecDocument *doc, const char *path);
 void process_inputs_outputs_free(ProcessInputsOutputs *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_inputs_outputs_can_have_content(const ProcessInputsOutputs *self);
 // Inputs overview.
 ProcessInputsOutputsOverviewForm process_inputs_outputs_overview(const ProcessInputsOutputs *self);
@@ -17162,7 +17203,7 @@ SomList process_inputs_outputs_outputs(const ProcessInputsOutputs *self);
 // Binds a ProcessInterdependencyMatrix facade to a document and a path (path copied).
 void process_interdependency_matrix_init(ProcessInterdependencyMatrix *self, SpecDocument *doc, const char *path);
 void process_interdependency_matrix_free(ProcessInterdependencyMatrix *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_interdependency_matrix_can_have_content(const ProcessInterdependencyMatrix *self);
 char *process_interdependency_matrix_content(const ProcessInterdependencyMatrix *self);
 void process_interdependency_matrix_set_content(ProcessInterdependencyMatrix *self, const char *value);
@@ -17177,7 +17218,7 @@ SomList process_interdependency_matrix_dependencies(const ProcessInterdependency
 // Binds a ProcessKpiEntry facade to a document and a path (path copied).
 void process_kpi_entry_init(ProcessKpiEntry *self, SpecDocument *doc, const char *path);
 void process_kpi_entry_free(ProcessKpiEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_kpi_entry_can_have_content(const ProcessKpiEntry *self);
 ProcessKpiEntryContentForm process_kpi_entry_content(const ProcessKpiEntry *self);
 // Measurement targets and thresholds.
@@ -17191,7 +17232,7 @@ ProcessKpiEntryOperationsForm process_kpi_entry_operations(const ProcessKpiEntry
 // Binds a ProcessMetric facade to a document and a path (path copied).
 void process_metric_init(ProcessMetric *self, SpecDocument *doc, const char *path);
 void process_metric_free(ProcessMetric *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_metric_can_have_content(const ProcessMetric *self);
 char *process_metric_content(const ProcessMetric *self);
 void process_metric_set_content(ProcessMetric *self, const char *value);
@@ -17200,7 +17241,7 @@ void process_metric_set_content(ProcessMetric *self, const char *value);
 // Binds a ProcessMetricCategory facade to a document and a path (path copied).
 void process_metric_category_init(ProcessMetricCategory *self, SpecDocument *doc, const char *path);
 void process_metric_category_free(ProcessMetricCategory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_metric_category_can_have_content(const ProcessMetricCategory *self);
 char *process_metric_category_content(const ProcessMetricCategory *self);
 void process_metric_category_set_content(ProcessMetricCategory *self, const char *value);
@@ -17214,7 +17255,7 @@ SomList process_metric_category_metrics(const ProcessMetricCategory *self);
 // Binds a ProcessMetricEntry facade to a document and a path (path copied).
 void process_metric_entry_init(ProcessMetricEntry *self, SpecDocument *doc, const char *path);
 void process_metric_entry_free(ProcessMetricEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_metric_entry_can_have_content(const ProcessMetricEntry *self);
 ProcessMetricEntryContentForm process_metric_entry_content(const ProcessMetricEntry *self);
 // Measurement collection details.
@@ -17230,7 +17271,7 @@ CurrentBusinessProcess process_metric_entry_process_reference(const ProcessMetri
 // Binds a ProcessMetrics facade to a document and a path (path copied).
 void process_metrics_init(ProcessMetrics *self, SpecDocument *doc, const char *path);
 void process_metrics_free(ProcessMetrics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_metrics_can_have_content(const ProcessMetrics *self);
 char *process_metrics_content(const ProcessMetrics *self);
 void process_metrics_set_content(ProcessMetrics *self, const char *value);
@@ -17261,7 +17302,7 @@ MetricsBaselineTable process_metrics_baseline_table(const ProcessMetrics *self);
 // Binds a ProcessOutputEntry facade to a document and a path (path copied).
 void process_output_entry_init(ProcessOutputEntry *self, SpecDocument *doc, const char *path);
 void process_output_entry_free(ProcessOutputEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_output_entry_can_have_content(const ProcessOutputEntry *self);
 ProcessOutputEntryContentForm process_output_entry_content(const ProcessOutputEntry *self);
 
@@ -17271,7 +17312,7 @@ ProcessOutputEntryContentForm process_output_entry_content(const ProcessOutputEn
 // Binds a ProcessOverviewDiagram facade to a document and a path (path copied).
 void process_overview_diagram_init(ProcessOverviewDiagram *self, SpecDocument *doc, const char *path);
 void process_overview_diagram_free(ProcessOverviewDiagram *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_overview_diagram_can_have_content(const ProcessOverviewDiagram *self);
 // Diagram overview.
 ProcessOverviewDiagramOverviewForm process_overview_diagram_overview(const ProcessOverviewDiagram *self);
@@ -17286,7 +17327,7 @@ ProcessOverviewDiagramOverviewForm process_overview_diagram_overview(const Proce
 // Binds a ProcessPainPoints facade to a document and a path (path copied).
 void process_pain_points_init(ProcessPainPoints *self, SpecDocument *doc, const char *path);
 void process_pain_points_free(ProcessPainPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_pain_points_can_have_content(const ProcessPainPoints *self);
 char *process_pain_points_content(const ProcessPainPoints *self);
 void process_pain_points_set_content(ProcessPainPoints *self, const char *value);
@@ -17298,7 +17339,7 @@ SomList process_pain_points_improvements(const ProcessPainPoints *self);
 // Binds a ProcessPerformance facade to a document and a path (path copied).
 void process_performance_init(ProcessPerformance *self, SpecDocument *doc, const char *path);
 void process_performance_free(ProcessPerformance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_performance_can_have_content(const ProcessPerformance *self);
 // Performance overview.
 ProcessPerformanceOverviewForm process_performance_overview(const ProcessPerformance *self);
@@ -17313,7 +17354,7 @@ SomList process_performance_slas(const ProcessPerformance *self);
 // Binds a ProcessPerformanceSummary facade to a document and a path (path copied).
 void process_performance_summary_init(ProcessPerformanceSummary *self, SpecDocument *doc, const char *path);
 void process_performance_summary_free(ProcessPerformanceSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_performance_summary_can_have_content(const ProcessPerformanceSummary *self);
 ProcessPerformanceSummaryContentForm process_performance_summary_content(const ProcessPerformanceSummary *self);
 // Key metrics summary.
@@ -17324,7 +17365,7 @@ SomList process_performance_summary_key_metrics(const ProcessPerformanceSummary 
 // Binds a ProcessRelationshipEntry facade to a document and a path (path copied).
 void process_relationship_entry_init(ProcessRelationshipEntry *self, SpecDocument *doc, const char *path);
 void process_relationship_entry_free(ProcessRelationshipEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_relationship_entry_can_have_content(const ProcessRelationshipEntry *self);
 ProcessRelationshipEntryContentForm process_relationship_entry_content(const ProcessRelationshipEntry *self);
 
@@ -17332,7 +17373,7 @@ ProcessRelationshipEntryContentForm process_relationship_entry_content(const Pro
 // Binds a ProcessRelationships facade to a document and a path (path copied).
 void process_relationships_init(ProcessRelationships *self, SpecDocument *doc, const char *path);
 void process_relationships_free(ProcessRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_relationships_can_have_content(const ProcessRelationships *self);
 char *process_relationships_content(const ProcessRelationships *self);
 void process_relationships_set_content(ProcessRelationships *self, const char *value);
@@ -17344,7 +17385,7 @@ SomList process_relationships_relationships(const ProcessRelationships *self);
 // Binds a ProcessRoleEntry facade to a document and a path (path copied).
 void process_role_entry_init(ProcessRoleEntry *self, SpecDocument *doc, const char *path);
 void process_role_entry_free(ProcessRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_role_entry_can_have_content(const ProcessRoleEntry *self);
 ProcessRoleEntryContentForm process_role_entry_content(const ProcessRoleEntry *self);
 // Process participation and authority.
@@ -17356,7 +17397,7 @@ ProcessRoleEntryCoordinationForm process_role_entry_coordination(const ProcessRo
 // Binds a ProcessRoles facade to a document and a path (path copied).
 void process_roles_init(ProcessRoles *self, SpecDocument *doc, const char *path);
 void process_roles_free(ProcessRoles *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_roles_can_have_content(const ProcessRoles *self);
 // Roles overview.
 ProcessRolesOverviewForm process_roles_overview(const ProcessRoles *self);
@@ -17368,7 +17409,7 @@ SomList process_roles_roles(const ProcessRoles *self);
 // Binds a ProcessScopeEntry facade to a document and a path (path copied).
 void process_scope_entry_init(ProcessScopeEntry *self, SpecDocument *doc, const char *path);
 void process_scope_entry_free(ProcessScopeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_scope_entry_can_have_content(const ProcessScopeEntry *self);
 ProcessScopeEntryContentForm process_scope_entry_content(const ProcessScopeEntry *self);
 
@@ -17376,7 +17417,7 @@ ProcessScopeEntryContentForm process_scope_entry_content(const ProcessScopeEntry
 // Binds a ProcessScopeSummary facade to a document and a path (path copied).
 void process_scope_summary_init(ProcessScopeSummary *self, SpecDocument *doc, const char *path);
 void process_scope_summary_free(ProcessScopeSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_scope_summary_can_have_content(const ProcessScopeSummary *self);
 ProcessScopeSummaryContentForm process_scope_summary_content(const ProcessScopeSummary *self);
 // Processes in scope.
@@ -17390,7 +17431,7 @@ SomList process_scope_summary_out_of_scope_processes(const ProcessScopeSummary *
 // Binds a ProcessSlaEntry facade to a document and a path (path copied).
 void process_sla_entry_init(ProcessSlaEntry *self, SpecDocument *doc, const char *path);
 void process_sla_entry_free(ProcessSlaEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_sla_entry_can_have_content(const ProcessSlaEntry *self);
 ProcessSlaEntryContentForm process_sla_entry_content(const ProcessSlaEntry *self);
 
@@ -17402,7 +17443,7 @@ ProcessSlaEntryContentForm process_sla_entry_content(const ProcessSlaEntry *self
 // Binds a ProcessStepsAndActorInteractions facade to a document and a path (path copied).
 void process_steps_and_actor_interactions_init(ProcessStepsAndActorInteractions *self, SpecDocument *doc, const char *path);
 void process_steps_and_actor_interactions_free(ProcessStepsAndActorInteractions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_steps_and_actor_interactions_can_have_content(const ProcessStepsAndActorInteractions *self);
 char *process_steps_and_actor_interactions_content(const ProcessStepsAndActorInteractions *self);
 void process_steps_and_actor_interactions_set_content(ProcessStepsAndActorInteractions *self, const char *value);
@@ -17426,7 +17467,7 @@ UseCaseTraceability process_steps_and_actor_interactions_use_case_traceability(c
 // Binds a ProcessStepsOverview facade to a document and a path (path copied).
 void process_steps_overview_init(ProcessStepsOverview *self, SpecDocument *doc, const char *path);
 void process_steps_overview_free(ProcessStepsOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_steps_overview_can_have_content(const ProcessStepsOverview *self);
 ProcessStepsOverviewContentForm process_steps_overview_content(const ProcessStepsOverview *self);
 
@@ -17434,7 +17475,7 @@ ProcessStepsOverviewContentForm process_steps_overview_content(const ProcessStep
 // Binds a ProcessTechnology facade to a document and a path (path copied).
 void process_technology_init(ProcessTechnology *self, SpecDocument *doc, const char *path);
 void process_technology_free(ProcessTechnology *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_technology_can_have_content(const ProcessTechnology *self);
 ProcessTechnologyContentForm process_technology_content(const ProcessTechnology *self);
 // Data, reporting, and document tooling.
@@ -17446,7 +17487,7 @@ ProcessTechnologyExperienceForm process_technology_experience(const ProcessTechn
 // Binds a ProcessTriggerEntry facade to a document and a path (path copied).
 void process_trigger_entry_init(ProcessTriggerEntry *self, SpecDocument *doc, const char *path);
 void process_trigger_entry_free(ProcessTriggerEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_trigger_entry_can_have_content(const ProcessTriggerEntry *self);
 ProcessTriggerEntryContentForm process_trigger_entry_content(const ProcessTriggerEntry *self);
 
@@ -17454,7 +17495,7 @@ ProcessTriggerEntryContentForm process_trigger_entry_content(const ProcessTrigge
 // Binds a ProcessTriggers facade to a document and a path (path copied).
 void process_triggers_init(ProcessTriggers *self, SpecDocument *doc, const char *path);
 void process_triggers_free(ProcessTriggers *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_triggers_can_have_content(const ProcessTriggers *self);
 // Main trigger overview.
 ProcessTriggersOverviewForm process_triggers_overview(const ProcessTriggers *self);
@@ -17471,7 +17512,7 @@ SomList process_triggers_end_events(const ProcessTriggers *self);
 // Binds a ProcessVision facade to a document and a path (path copied).
 void process_vision_init(ProcessVision *self, SpecDocument *doc, const char *path);
 void process_vision_free(ProcessVision *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int process_vision_can_have_content(const ProcessVision *self);
 // Process vision overview.
 ProcessVisionOverviewForm process_vision_overview(const ProcessVision *self);
@@ -17487,7 +17528,7 @@ ProcessVisionSuccessCriteriaForm process_vision_success_criteria(const ProcessVi
 // Binds a ProgrammingLanguageEntry facade to a document and a path (path copied).
 void programming_language_entry_init(ProgrammingLanguageEntry *self, SpecDocument *doc, const char *path);
 void programming_language_entry_free(ProgrammingLanguageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int programming_language_entry_can_have_content(const ProgrammingLanguageEntry *self);
 ProgrammingLanguageEntryContentForm programming_language_entry_content(const ProgrammingLanguageEntry *self);
 // Version requirements.
@@ -17505,7 +17546,7 @@ ProgrammingLanguageEntryJustificationForm programming_language_entry_justificati
 // Binds a ProjectOrganization facade to a document and a path (path copied).
 void project_organization_init(ProjectOrganization *self, SpecDocument *doc, const char *path);
 void project_organization_free(ProjectOrganization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int project_organization_can_have_content(const ProjectOrganization *self);
 char *project_organization_content(const ProjectOrganization *self);
 void project_organization_set_content(ProjectOrganization *self, const char *value);
@@ -17522,7 +17563,7 @@ SteeringCommittee project_organization_steering_committee(const ProjectOrganizat
 // Binds a ProjectOrganizationAndProcess facade to a document and a path (path copied).
 void project_organization_and_process_init(ProjectOrganizationAndProcess *self, SpecDocument *doc, const char *path);
 void project_organization_and_process_free(ProjectOrganizationAndProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int project_organization_and_process_can_have_content(const ProjectOrganizationAndProcess *self);
 char *project_organization_and_process_content(const ProjectOrganizationAndProcess *self);
 void project_organization_and_process_set_content(ProjectOrganizationAndProcess *self, const char *value);
@@ -17547,7 +17588,7 @@ ToolingAndEnvironments project_organization_and_process_tooling_and_environments
 // Binds a ProjectTeamStaffing facade to a document and a path (path copied).
 void project_team_staffing_init(ProjectTeamStaffing *self, SpecDocument *doc, const char *path);
 void project_team_staffing_free(ProjectTeamStaffing *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int project_team_staffing_can_have_content(const ProjectTeamStaffing *self);
 char *project_team_staffing_content(const ProjectTeamStaffing *self);
 void project_team_staffing_set_content(ProjectTeamStaffing *self, const char *value);
@@ -17564,7 +17605,7 @@ SomList project_team_staffing_open_requirements(const ProjectTeamStaffing *self)
 // Binds a ProtocolComplianceRequirements facade to a document and a path (path copied).
 void protocol_compliance_requirements_init(ProtocolComplianceRequirements *self, SpecDocument *doc, const char *path);
 void protocol_compliance_requirements_free(ProtocolComplianceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int protocol_compliance_requirements_can_have_content(const ProtocolComplianceRequirements *self);
 ProtocolComplianceRequirementsContentForm protocol_compliance_requirements_content(const ProtocolComplianceRequirements *self);
 // Caching requirements.
@@ -17578,7 +17619,7 @@ ProtocolComplianceRequirementsEventsForm protocol_compliance_requirements_events
 // Binds a ProtocolEntry facade to a document and a path (path copied).
 void protocol_entry_init(ProtocolEntry *self, SpecDocument *doc, const char *path);
 void protocol_entry_free(ProtocolEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int protocol_entry_can_have_content(const ProtocolEntry *self);
 ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self);
 
@@ -17586,7 +17627,7 @@ ProtocolEntryContentForm protocol_entry_content(const ProtocolEntry *self);
 // Binds a ProtocolsAndStandardsSection facade to a document and a path (path copied).
 void protocols_and_standards_section_init(ProtocolsAndStandardsSection *self, SpecDocument *doc, const char *path);
 void protocols_and_standards_section_free(ProtocolsAndStandardsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int protocols_and_standards_section_can_have_content(const ProtocolsAndStandardsSection *self);
 char *protocols_and_standards_section_content(const ProtocolsAndStandardsSection *self);
 void protocols_and_standards_section_set_content(ProtocolsAndStandardsSection *self, const char *value);
@@ -17615,7 +17656,7 @@ ProtocolComplianceRequirements protocols_and_standards_section_compliance(const 
 // Binds a Prototype facade to a document and a path (path copied).
 void prototype_init(Prototype *self, SpecDocument *doc, const char *path);
 void prototype_free(Prototype *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_can_have_content(const Prototype *self);
 PrototypePrototypeOverviewForm prototype_prototype_overview(const Prototype *self);
 // Prototype timing commitments.
@@ -17639,7 +17680,7 @@ PrototypeType prototype_prototype_type(const Prototype *self);
 // Binds a PrototypeFeatureEntry facade to a document and a path (path copied).
 void prototype_feature_entry_init(PrototypeFeatureEntry *self, SpecDocument *doc, const char *path);
 void prototype_feature_entry_free(PrototypeFeatureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_feature_entry_can_have_content(const PrototypeFeatureEntry *self);
 PrototypeFeatureEntryContentForm prototype_feature_entry_content(const PrototypeFeatureEntry *self);
 
@@ -17649,7 +17690,7 @@ PrototypeFeatureEntryContentForm prototype_feature_entry_content(const Prototype
 // Binds a PrototypeFeatureSubset facade to a document and a path (path copied).
 void prototype_feature_subset_init(PrototypeFeatureSubset *self, SpecDocument *doc, const char *path);
 void prototype_feature_subset_free(PrototypeFeatureSubset *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_feature_subset_can_have_content(const PrototypeFeatureSubset *self);
 PrototypeFeatureSubsetFeatureSubsetContentForm prototype_feature_subset_feature_subset_content(const PrototypeFeatureSubset *self);
 // Included and excluded feature scope.
@@ -17666,7 +17707,7 @@ SomList prototype_feature_subset_features(const PrototypeFeatureSubset *self);
 // Binds a PrototypeGoalEntry facade to a document and a path (path copied).
 void prototype_goal_entry_init(PrototypeGoalEntry *self, SpecDocument *doc, const char *path);
 void prototype_goal_entry_free(PrototypeGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_goal_entry_can_have_content(const PrototypeGoalEntry *self);
 PrototypeGoalEntryContentForm prototype_goal_entry_content(const PrototypeGoalEntry *self);
 
@@ -17676,7 +17717,7 @@ PrototypeGoalEntryContentForm prototype_goal_entry_content(const PrototypeGoalEn
 // Binds a PrototypeGoals facade to a document and a path (path copied).
 void prototype_goals_init(PrototypeGoals *self, SpecDocument *doc, const char *path);
 void prototype_goals_free(PrototypeGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_goals_can_have_content(const PrototypeGoals *self);
 PrototypeGoalsGoalsContentForm prototype_goals_goals_content(const PrototypeGoals *self);
 // Risk reduction and assumption testing.
@@ -17695,7 +17736,7 @@ SomList prototype_goals_goals(const PrototypeGoals *self);
 // Binds a PrototypeType facade to a document and a path (path copied).
 void prototype_type_init(PrototypeType *self, SpecDocument *doc, const char *path);
 void prototype_type_free(PrototypeType *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int prototype_type_can_have_content(const PrototypeType *self);
 PrototypeTypePrototypeTypeOverviewForm prototype_type_prototype_type_overview(const PrototypeType *self);
 // 10.13.3.1. Reusable Prototype.
@@ -17709,7 +17750,7 @@ ThrowawayPrototype prototype_type_throwaway_prototype(const PrototypeType *self)
 // Binds a PwaRequirements facade to a document and a path (path copied).
 void pwa_requirements_init(PwaRequirements *self, SpecDocument *doc, const char *path);
 void pwa_requirements_free(PwaRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int pwa_requirements_can_have_content(const PwaRequirements *self);
 PwaRequirementsContentForm pwa_requirements_content(const PwaRequirements *self);
 // Icon requirements.
@@ -17725,7 +17766,7 @@ PwaRequirementsUpdatesForm pwa_requirements_updates(const PwaRequirements *self)
 // Binds a QualityAndAcceptanceModel facade to a document and a path (path copied).
 void quality_and_acceptance_model_init(QualityAndAcceptanceModel *self, SpecDocument *doc, const char *path);
 void quality_and_acceptance_model_free(QualityAndAcceptanceModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_and_acceptance_model_can_have_content(const QualityAndAcceptanceModel *self);
 char *quality_and_acceptance_model_content(const QualityAndAcceptanceModel *self);
 void quality_and_acceptance_model_set_content(QualityAndAcceptanceModel *self, const char *value);
@@ -17743,7 +17784,7 @@ Iso25010Coverage quality_and_acceptance_model_iso25010_coverage(const QualityAnd
 // Binds a QualityCategoryEntry facade to a document and a path (path copied).
 void quality_category_entry_init(QualityCategoryEntry *self, SpecDocument *doc, const char *path);
 void quality_category_entry_free(QualityCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_category_entry_can_have_content(const QualityCategoryEntry *self);
 QualityCategoryEntryContentForm quality_category_entry_content(const QualityCategoryEntry *self);
 // Description and priority context.
@@ -17764,7 +17805,7 @@ QualityCategoryEntryMetricsForm quality_category_entry_metrics(const QualityCate
 // Binds a QualityFramework facade to a document and a path (path copied).
 void quality_framework_init(QualityFramework *self, SpecDocument *doc, const char *path);
 void quality_framework_free(QualityFramework *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_framework_can_have_content(const QualityFramework *self);
 QualityFrameworkFrameworkContentForm quality_framework_framework_content(const QualityFramework *self);
 // Quality objective structure and alignment.
@@ -17788,7 +17829,7 @@ SomList quality_framework_category_dependencies(const QualityFramework *self);
 // Binds a QualityGateAdjustmentDetails facade to a document and a path (path copied).
 void quality_gate_adjustment_details_init(QualityGateAdjustmentDetails *self, SpecDocument *doc, const char *path);
 void quality_gate_adjustment_details_free(QualityGateAdjustmentDetails *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_adjustment_details_can_have_content(const QualityGateAdjustmentDetails *self);
 QualityGateAdjustmentDetailsContentForm quality_gate_adjustment_details_content(const QualityGateAdjustmentDetails *self);
 
@@ -17800,7 +17841,7 @@ QualityGateAdjustmentDetailsContentForm quality_gate_adjustment_details_content(
 // Binds a QualityGateAdjustmentEntry facade to a document and a path (path copied).
 void quality_gate_adjustment_entry_init(QualityGateAdjustmentEntry *self, SpecDocument *doc, const char *path);
 void quality_gate_adjustment_entry_free(QualityGateAdjustmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_adjustment_entry_can_have_content(const QualityGateAdjustmentEntry *self);
 QualityGateAdjustmentEntryContentForm quality_gate_adjustment_entry_content(const QualityGateAdjustmentEntry *self);
 // Gate details.
@@ -17821,7 +17862,7 @@ QualityGateAdjustmentEntryGovernanceForm quality_gate_adjustment_entry_governanc
 // Binds a QualityGateAdjustments facade to a document and a path (path copied).
 void quality_gate_adjustments_init(QualityGateAdjustments *self, SpecDocument *doc, const char *path);
 void quality_gate_adjustments_free(QualityGateAdjustments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_adjustments_can_have_content(const QualityGateAdjustments *self);
 char *quality_gate_adjustments_content(const QualityGateAdjustments *self);
 void quality_gate_adjustments_set_content(QualityGateAdjustments *self, const char *value);
@@ -17838,7 +17879,7 @@ SomList quality_gate_adjustments_items(const QualityGateAdjustments *self);
 // Binds a QualityGateCheckEntry facade to a document and a path (path copied).
 void quality_gate_check_entry_init(QualityGateCheckEntry *self, SpecDocument *doc, const char *path);
 void quality_gate_check_entry_free(QualityGateCheckEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_check_entry_can_have_content(const QualityGateCheckEntry *self);
 QualityGateCheckEntryContentForm quality_gate_check_entry_content(const QualityGateCheckEntry *self);
 // Check definition and categorization.
@@ -17858,7 +17899,7 @@ QualityGateCheckEntryBlockingForm quality_gate_check_entry_blocking(const Qualit
 // Binds a QualityGateChecklist facade to a document and a path (path copied).
 void quality_gate_checklist_init(QualityGateChecklist *self, SpecDocument *doc, const char *path);
 void quality_gate_checklist_free(QualityGateChecklist *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_gate_checklist_can_have_content(const QualityGateChecklist *self);
 QualityGateChecklistChecklistOverviewContentForm quality_gate_checklist_checklist_overview_content(const QualityGateChecklist *self);
 // Quality gate checklist overview.
@@ -17874,7 +17915,7 @@ SomList quality_gate_checklist_items(const QualityGateChecklist *self);
 // Binds a QualityPrioritization facade to a document and a path (path copied).
 void quality_prioritization_init(QualityPrioritization *self, SpecDocument *doc, const char *path);
 void quality_prioritization_free(QualityPrioritization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_prioritization_can_have_content(const QualityPrioritization *self);
 QualityPrioritizationPrioritizationFrameworkContentForm quality_prioritization_prioritization_framework_content(const QualityPrioritization *self);
 // Prioritization approach overview.
@@ -17888,7 +17929,7 @@ TradeOffDecisions quality_prioritization_trade_off_decisions(const QualityPriori
 // Binds a QualityScenarioEntry facade to a document and a path (path copied).
 void quality_scenario_entry_init(QualityScenarioEntry *self, SpecDocument *doc, const char *path);
 void quality_scenario_entry_free(QualityScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_scenario_entry_can_have_content(const QualityScenarioEntry *self);
 QualityScenarioEntryContentForm quality_scenario_entry_content(const QualityScenarioEntry *self);
 
@@ -17899,7 +17940,7 @@ QualityScenarioEntryContentForm quality_scenario_entry_content(const QualityScen
 // Binds a QualityScenarios facade to a document and a path (path copied).
 void quality_scenarios_init(QualityScenarios *self, SpecDocument *doc, const char *path);
 void quality_scenarios_free(QualityScenarios *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_scenarios_can_have_content(const QualityScenarios *self);
 char *quality_scenarios_content(const QualityScenarios *self);
 void quality_scenarios_set_content(QualityScenarios *self, const char *value);
@@ -17911,7 +17952,7 @@ SomList quality_scenarios_items(const QualityScenarios *self);
 // Binds a QualityStandardEntry facade to a document and a path (path copied).
 void quality_standard_entry_init(QualityStandardEntry *self, SpecDocument *doc, const char *path);
 void quality_standard_entry_free(QualityStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_standard_entry_can_have_content(const QualityStandardEntry *self);
 QualityStandardEntryContentForm quality_standard_entry_content(const QualityStandardEntry *self);
 // Process coverage.
@@ -17927,7 +17968,7 @@ QualityStandardEntryMaintenanceForm quality_standard_entry_maintenance(const Qua
 // Binds a QualityWeightEntry facade to a document and a path (path copied).
 void quality_weight_entry_init(QualityWeightEntry *self, SpecDocument *doc, const char *path);
 void quality_weight_entry_free(QualityWeightEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int quality_weight_entry_can_have_content(const QualityWeightEntry *self);
 QualityWeightEntryContentForm quality_weight_entry_content(const QualityWeightEntry *self);
 
@@ -17935,7 +17976,7 @@ QualityWeightEntryContentForm quality_weight_entry_content(const QualityWeightEn
 // Binds a RateLimitingPolicy facade to a document and a path (path copied).
 void rate_limiting_policy_init(RateLimitingPolicy *self, SpecDocument *doc, const char *path);
 void rate_limiting_policy_free(RateLimitingPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rate_limiting_policy_can_have_content(const RateLimitingPolicy *self);
 RateLimitingPolicyContentForm rate_limiting_policy_content(const RateLimitingPolicy *self);
 // Rate-limit ceilings and burst handling.
@@ -17949,7 +17990,7 @@ RateLimitingPolicyQuotasForm rate_limiting_policy_quotas(const RateLimitingPolic
 // Binds a Readability facade to a document and a path (path copied).
 void readability_init(Readability *self, SpecDocument *doc, const char *path);
 void readability_free(Readability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int readability_can_have_content(const Readability *self);
 ReadabilityContentForm readability_content(const Readability *self);
 // Identifiability and navigation.
@@ -17967,7 +18008,7 @@ ReadabilityStyleForm readability_style(const Readability *self);
 // Binds a ReadinessCriteriaEntry facade to a document and a path (path copied).
 void readiness_criteria_entry_init(ReadinessCriteriaEntry *self, SpecDocument *doc, const char *path);
 void readiness_criteria_entry_free(ReadinessCriteriaEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int readiness_criteria_entry_can_have_content(const ReadinessCriteriaEntry *self);
 ReadinessCriteriaEntryContentForm readiness_criteria_entry_content(const ReadinessCriteriaEntry *self);
 
@@ -17975,7 +18016,7 @@ ReadinessCriteriaEntryContentForm readiness_criteria_entry_content(const Readine
 // Binds a RecoveryProcedures facade to a document and a path (path copied).
 void recovery_procedures_init(RecoveryProcedures *self, SpecDocument *doc, const char *path);
 void recovery_procedures_free(RecoveryProcedures *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int recovery_procedures_can_have_content(const RecoveryProcedures *self);
 RecoveryProceduresContentForm recovery_procedures_content(const RecoveryProcedures *self);
 // Database recovery behavior.
@@ -17991,7 +18032,7 @@ RecoveryProceduresValidationForm recovery_procedures_validation(const RecoveryPr
 // Binds a RecoveryScenarioEntry facade to a document and a path (path copied).
 void recovery_scenario_entry_init(RecoveryScenarioEntry *self, SpecDocument *doc, const char *path);
 void recovery_scenario_entry_free(RecoveryScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int recovery_scenario_entry_can_have_content(const RecoveryScenarioEntry *self);
 RecoveryScenarioEntryContentForm recovery_scenario_entry_content(const RecoveryScenarioEntry *self);
 // Detailed recovery flow.
@@ -18004,7 +18045,7 @@ RecoveryScenarioEntryContentForm recovery_scenario_entry_content(const RecoveryS
 // Binds a RedirectHandlingPolicy facade to a document and a path (path copied).
 void redirect_handling_policy_init(RedirectHandlingPolicy *self, SpecDocument *doc, const char *path);
 void redirect_handling_policy_free(RedirectHandlingPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int redirect_handling_policy_can_have_content(const RedirectHandlingPolicy *self);
 char *redirect_handling_policy_content(const RedirectHandlingPolicy *self);
 void redirect_handling_policy_set_content(RedirectHandlingPolicy *self, const char *value);
@@ -18018,7 +18059,7 @@ void redirect_handling_policy_set_content(RedirectHandlingPolicy *self, const ch
 // Binds a ReferenceDocumentEntry facade to a document and a path (path copied).
 void reference_document_entry_init(ReferenceDocumentEntry *self, SpecDocument *doc, const char *path);
 void reference_document_entry_free(ReferenceDocumentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reference_document_entry_can_have_content(const ReferenceDocumentEntry *self);
 ReferenceDocumentEntryContentForm reference_document_entry_content(const ReferenceDocumentEntry *self);
 // Document metadata and relevance.
@@ -18040,7 +18081,7 @@ DocumentRelationships reference_document_entry_relationships(const ReferenceDocu
 // Binds a ReferenceDocuments facade to a document and a path (path copied).
 void reference_documents_init(ReferenceDocuments *self, SpecDocument *doc, const char *path);
 void reference_documents_free(ReferenceDocuments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reference_documents_can_have_content(const ReferenceDocuments *self);
 char *reference_documents_content(const ReferenceDocuments *self);
 void reference_documents_set_content(ReferenceDocuments *self, const char *value);
@@ -18054,7 +18095,7 @@ SomList reference_documents_documents(const ReferenceDocuments *self);
 // Binds a RegulatoryAuditSupport facade to a document and a path (path copied).
 void regulatory_audit_support_init(RegulatoryAuditSupport *self, SpecDocument *doc, const char *path);
 void regulatory_audit_support_free(RegulatoryAuditSupport *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int regulatory_audit_support_can_have_content(const RegulatoryAuditSupport *self);
 RegulatoryAuditSupportContentForm regulatory_audit_support_content(const RegulatoryAuditSupport *self);
 // Additional Notes (text).
@@ -18064,7 +18105,7 @@ RegulatoryAuditSupportContentForm regulatory_audit_support_content(const Regulat
 // Binds a RegulatoryComplianceEntry facade to a document and a path (path copied).
 void regulatory_compliance_entry_init(RegulatoryComplianceEntry *self, SpecDocument *doc, const char *path);
 void regulatory_compliance_entry_free(RegulatoryComplianceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int regulatory_compliance_entry_can_have_content(const RegulatoryComplianceEntry *self);
 RegulatoryComplianceEntryContentForm regulatory_compliance_entry_content(const RegulatoryComplianceEntry *self);
 // Applicability analysis.
@@ -18082,7 +18123,7 @@ RegulatoryComplianceEntryOwnershipForm regulatory_compliance_entry_ownership(con
 // Binds a RegulatoryComplianceRequirements facade to a document and a path (path copied).
 void regulatory_compliance_requirements_init(RegulatoryComplianceRequirements *self, SpecDocument *doc, const char *path);
 void regulatory_compliance_requirements_free(RegulatoryComplianceRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int regulatory_compliance_requirements_can_have_content(const RegulatoryComplianceRequirements *self);
 char *regulatory_compliance_requirements_content(const RegulatoryComplianceRequirements *self);
 void regulatory_compliance_requirements_set_content(RegulatoryComplianceRequirements *self, const char *value);
@@ -18100,7 +18141,7 @@ SomList regulatory_compliance_requirements_milestones(const RegulatoryCompliance
 // Binds a RegulatoryContext facade to a document and a path (path copied).
 void regulatory_context_init(RegulatoryContext *self, SpecDocument *doc, const char *path);
 void regulatory_context_free(RegulatoryContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int regulatory_context_can_have_content(const RegulatoryContext *self);
 char *regulatory_context_content(const RegulatoryContext *self);
 void regulatory_context_set_content(RegulatoryContext *self, const char *value);
@@ -18112,7 +18153,7 @@ SomList regulatory_context_regulations(const RegulatoryContext *self);
 // Binds a RegulatoryRequirementEntry facade to a document and a path (path copied).
 void regulatory_requirement_entry_init(RegulatoryRequirementEntry *self, SpecDocument *doc, const char *path);
 void regulatory_requirement_entry_free(RegulatoryRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int regulatory_requirement_entry_can_have_content(const RegulatoryRequirementEntry *self);
 RegulatoryRequirementEntryContentForm regulatory_requirement_entry_content(const RegulatoryRequirementEntry *self);
 
@@ -18120,7 +18161,7 @@ RegulatoryRequirementEntryContentForm regulatory_requirement_entry_content(const
 // Binds a RelatedDocumentEntry facade to a document and a path (path copied).
 void related_document_entry_init(RelatedDocumentEntry *self, SpecDocument *doc, const char *path);
 void related_document_entry_free(RelatedDocumentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int related_document_entry_can_have_content(const RelatedDocumentEntry *self);
 RelatedDocumentEntryContentForm related_document_entry_content(const RelatedDocumentEntry *self);
 
@@ -18128,7 +18169,7 @@ RelatedDocumentEntryContentForm related_document_entry_content(const RelatedDocu
 // Binds a RelationshipAttributeEntry facade to a document and a path (path copied).
 void relationship_attribute_entry_init(RelationshipAttributeEntry *self, SpecDocument *doc, const char *path);
 void relationship_attribute_entry_free(RelationshipAttributeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int relationship_attribute_entry_can_have_content(const RelationshipAttributeEntry *self);
 RelationshipAttributeEntryContentForm relationship_attribute_entry_content(const RelationshipAttributeEntry *self);
 
@@ -18136,7 +18177,7 @@ RelationshipAttributeEntryContentForm relationship_attribute_entry_content(const
 // Binds a ReleaseStrategy facade to a document and a path (path copied).
 void release_strategy_init(ReleaseStrategy *self, SpecDocument *doc, const char *path);
 void release_strategy_free(ReleaseStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int release_strategy_can_have_content(const ReleaseStrategy *self);
 ReleaseStrategyContentForm release_strategy_content(const ReleaseStrategy *self);
 // Blue-green deployment configuration.
@@ -18152,7 +18193,7 @@ ReleaseStrategyManagementForm release_strategy_management(const ReleaseStrategy 
 // Binds a RelevantSectionEntry facade to a document and a path (path copied).
 void relevant_section_entry_init(RelevantSectionEntry *self, SpecDocument *doc, const char *path);
 void relevant_section_entry_free(RelevantSectionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int relevant_section_entry_can_have_content(const RelevantSectionEntry *self);
 RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSectionEntry *self);
 
@@ -18160,7 +18201,7 @@ RelevantSectionEntryContentForm relevant_section_entry_content(const RelevantSec
 // Binds a Reliability facade to a document and a path (path copied).
 void reliability_init(Reliability *self, SpecDocument *doc, const char *path);
 void reliability_free(Reliability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reliability_can_have_content(const Reliability *self);
 ReliabilityContentForm reliability_content(const Reliability *self);
 // Recovery objectives.
@@ -18185,7 +18226,7 @@ ReliabilityVerificationForm reliability_verification(const Reliability *self);
 // Binds a ReliabilityCharacteristic facade to a document and a path (path copied).
 void reliability_characteristic_init(ReliabilityCharacteristic *self, SpecDocument *doc, const char *path);
 void reliability_characteristic_free(ReliabilityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reliability_characteristic_can_have_content(const ReliabilityCharacteristic *self);
 ReliabilityCharacteristicReliabilityContentForm reliability_characteristic_reliability_content(const ReliabilityCharacteristic *self);
 // Reliability overview narrative.
@@ -18207,7 +18248,7 @@ OperationalMonitoring reliability_characteristic_monitoring_and_prevention(const
 // Binds a RememberMePolicy facade to a document and a path (path copied).
 void remember_me_policy_init(RememberMePolicy *self, SpecDocument *doc, const char *path);
 void remember_me_policy_free(RememberMePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int remember_me_policy_can_have_content(const RememberMePolicy *self);
 char *remember_me_policy_content(const RememberMePolicy *self);
 void remember_me_policy_set_content(RememberMePolicy *self, const char *value);
@@ -18220,7 +18261,7 @@ void remember_me_policy_set_content(RememberMePolicy *self, const char *value);
 // Binds a RemovedRoleEntry facade to a document and a path (path copied).
 void removed_role_entry_init(RemovedRoleEntry *self, SpecDocument *doc, const char *path);
 void removed_role_entry_free(RemovedRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int removed_role_entry_can_have_content(const RemovedRoleEntry *self);
 RemovedRoleEntryContentForm removed_role_entry_content(const RemovedRoleEntry *self);
 // Incumbent transition planning.
@@ -18237,7 +18278,7 @@ RemovedRoleEntryContinuityForm removed_role_entry_continuity(const RemovedRoleEn
 // Binds a ReplacementInventory facade to a document and a path (path copied).
 void replacement_inventory_init(ReplacementInventory *self, SpecDocument *doc, const char *path);
 void replacement_inventory_free(ReplacementInventory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int replacement_inventory_can_have_content(const ReplacementInventory *self);
 // Portfolio summary before listing individual systems.
 // (skipped: portfolioSummary has no target type)
@@ -18251,7 +18292,7 @@ SomList replacement_inventory_systems(const ReplacementInventory *self);
 // Binds a ReplacementPhaseEntry facade to a document and a path (path copied).
 void replacement_phase_entry_init(ReplacementPhaseEntry *self, SpecDocument *doc, const char *path);
 void replacement_phase_entry_free(ReplacementPhaseEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int replacement_phase_entry_can_have_content(const ReplacementPhaseEntry *self);
 ReplacementPhaseEntryContentForm replacement_phase_entry_content(const ReplacementPhaseEntry *self);
 
@@ -18261,7 +18302,7 @@ ReplacementPhaseEntryContentForm replacement_phase_entry_content(const Replaceme
 // Binds a ReplacementSystemDependencyEntry facade to a document and a path (path copied).
 void replacement_system_dependency_entry_init(ReplacementSystemDependencyEntry *self, SpecDocument *doc, const char *path);
 void replacement_system_dependency_entry_free(ReplacementSystemDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int replacement_system_dependency_entry_can_have_content(const ReplacementSystemDependencyEntry *self);
 ReplacementSystemDependencyEntryContentForm replacement_system_dependency_entry_content(const ReplacementSystemDependencyEntry *self);
 
@@ -18269,7 +18310,7 @@ ReplacementSystemDependencyEntryContentForm replacement_system_dependency_entry_
 // Binds a ReportChartAxes facade to a document and a path (path copied).
 void report_chart_axes_init(ReportChartAxes *self, SpecDocument *doc, const char *path);
 void report_chart_axes_free(ReportChartAxes *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_chart_axes_can_have_content(const ReportChartAxes *self);
 ReportChartAxesContentForm report_chart_axes_content(const ReportChartAxes *self);
 
@@ -18278,7 +18319,7 @@ ReportChartAxesContentForm report_chart_axes_content(const ReportChartAxes *self
 // Binds a ReportChartEntry facade to a document and a path (path copied).
 void report_chart_entry_init(ReportChartEntry *self, SpecDocument *doc, const char *path);
 void report_chart_entry_free(ReportChartEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_chart_entry_can_have_content(const ReportChartEntry *self);
 ReportChartEntryContentForm report_chart_entry_content(const ReportChartEntry *self);
 // Axes configuration.
@@ -18298,7 +18339,7 @@ ReportChartEntryLayoutForm report_chart_entry_layout(const ReportChartEntry *sel
 // Binds a ReportColumnEntry facade to a document and a path (path copied).
 void report_column_entry_init(ReportColumnEntry *self, SpecDocument *doc, const char *path);
 void report_column_entry_free(ReportColumnEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_column_entry_can_have_content(const ReportColumnEntry *self);
 ReportColumnEntryContentForm report_column_entry_content(const ReportColumnEntry *self);
 // Data source and type.
@@ -18340,7 +18381,7 @@ ReportColumnEntryLayoutForm report_column_entry_layout(const ReportColumnEntry *
 // Binds a ReportDistributionEntry facade to a document and a path (path copied).
 void report_distribution_entry_init(ReportDistributionEntry *self, SpecDocument *doc, const char *path);
 void report_distribution_entry_free(ReportDistributionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_distribution_entry_can_have_content(const ReportDistributionEntry *self);
 ReportDistributionEntryContentForm report_distribution_entry_content(const ReportDistributionEntry *self);
 // Recipient and format settings.
@@ -18354,7 +18395,7 @@ ReportDistributionEntryDeliveryForm report_distribution_entry_delivery(const Rep
 // Binds a ReportEntry facade to a document and a path (path copied).
 void report_entry_init(ReportEntry *self, SpecDocument *doc, const char *path);
 void report_entry_free(ReportEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_entry_can_have_content(const ReportEntry *self);
 ReportEntryContentForm report_entry_content(const ReportEntry *self);
 // Identity and context.
@@ -18399,7 +18440,7 @@ SomList report_entry_recipients(const ReportEntry *self);
 // Binds a ReportFilterEntry facade to a document and a path (path copied).
 void report_filter_entry_init(ReportFilterEntry *self, SpecDocument *doc, const char *path);
 void report_filter_entry_free(ReportFilterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_filter_entry_can_have_content(const ReportFilterEntry *self);
 ReportFilterEntryContentForm report_filter_entry_content(const ReportFilterEntry *self);
 // Input and value configuration.
@@ -18445,7 +18486,7 @@ ReportFilterEntryPresentationForm report_filter_entry_presentation(const ReportF
 // Binds a ReportRecipientEntry facade to a document and a path (path copied).
 void report_recipient_entry_init(ReportRecipientEntry *self, SpecDocument *doc, const char *path);
 void report_recipient_entry_free(ReportRecipientEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_recipient_entry_can_have_content(const ReportRecipientEntry *self);
 ReportRecipientEntryContentForm report_recipient_entry_content(const ReportRecipientEntry *self);
 // Recipient business context.
@@ -18460,7 +18501,7 @@ ReportRecipientEntryLifecycleForm report_recipient_entry_lifecycle(const ReportR
 // Binds a ReportScheduleEntry facade to a document and a path (path copied).
 void report_schedule_entry_init(ReportScheduleEntry *self, SpecDocument *doc, const char *path);
 void report_schedule_entry_free(ReportScheduleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_schedule_entry_can_have_content(const ReportScheduleEntry *self);
 ReportScheduleEntryContentForm report_schedule_entry_content(const ReportScheduleEntry *self);
 // Timing configuration.
@@ -18476,7 +18517,7 @@ ReportScheduleEntryOutputForm report_schedule_entry_output(const ReportScheduleE
 // Binds a ReportSectionEntry facade to a document and a path (path copied).
 void report_section_entry_init(ReportSectionEntry *self, SpecDocument *doc, const char *path);
 void report_section_entry_free(ReportSectionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int report_section_entry_can_have_content(const ReportSectionEntry *self);
 ReportSectionEntryContentForm report_section_entry_content(const ReportSectionEntry *self);
 // Data source configuration.
@@ -18501,7 +18542,7 @@ SomList report_section_entry_charts(const ReportSectionEntry *self);
 // Binds a RequirementAcceptanceCriteria facade to a document and a path (path copied).
 void requirement_acceptance_criteria_init(RequirementAcceptanceCriteria *self, SpecDocument *doc, const char *path);
 void requirement_acceptance_criteria_free(RequirementAcceptanceCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_acceptance_criteria_can_have_content(const RequirementAcceptanceCriteria *self);
 char *requirement_acceptance_criteria_content(const RequirementAcceptanceCriteria *self);
 void requirement_acceptance_criteria_set_content(RequirementAcceptanceCriteria *self, const char *value);
@@ -18513,7 +18554,7 @@ SomList requirement_acceptance_criteria_criteria(const RequirementAcceptanceCrit
 // Binds a RequirementBusinessRuleEntry facade to a document and a path (path copied).
 void requirement_business_rule_entry_init(RequirementBusinessRuleEntry *self, SpecDocument *doc, const char *path);
 void requirement_business_rule_entry_free(RequirementBusinessRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_business_rule_entry_can_have_content(const RequirementBusinessRuleEntry *self);
 RequirementBusinessRuleEntryContentForm requirement_business_rule_entry_content(const RequirementBusinessRuleEntry *self);
 
@@ -18523,7 +18564,7 @@ RequirementBusinessRuleEntryContentForm requirement_business_rule_entry_content(
 // Binds a RequirementBusinessRules facade to a document and a path (path copied).
 void requirement_business_rules_init(RequirementBusinessRules *self, SpecDocument *doc, const char *path);
 void requirement_business_rules_free(RequirementBusinessRules *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_business_rules_can_have_content(const RequirementBusinessRules *self);
 char *requirement_business_rules_content(const RequirementBusinessRules *self);
 void requirement_business_rules_set_content(RequirementBusinessRules *self, const char *value);
@@ -18537,7 +18578,7 @@ SomList requirement_business_rules_rules(const RequirementBusinessRules *self);
 // Binds a RequirementCoverage facade to a document and a path (path copied).
 void requirement_coverage_init(RequirementCoverage *self, SpecDocument *doc, const char *path);
 void requirement_coverage_free(RequirementCoverage *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_coverage_can_have_content(const RequirementCoverage *self);
 char *requirement_coverage_content(const RequirementCoverage *self);
 void requirement_coverage_set_content(RequirementCoverage *self, const char *value);
@@ -18548,7 +18589,7 @@ void requirement_coverage_set_content(RequirementCoverage *self, const char *val
 // Binds a RequirementDataRequirements facade to a document and a path (path copied).
 void requirement_data_requirements_init(RequirementDataRequirements *self, SpecDocument *doc, const char *path);
 void requirement_data_requirements_free(RequirementDataRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_data_requirements_can_have_content(const RequirementDataRequirements *self);
 char *requirement_data_requirements_content(const RequirementDataRequirements *self);
 void requirement_data_requirements_set_content(RequirementDataRequirements *self, const char *value);
@@ -18562,7 +18603,7 @@ SomList requirement_data_requirements_entities(const RequirementDataRequirements
 // Binds a RequirementDependencies facade to a document and a path (path copied).
 void requirement_dependencies_init(RequirementDependencies *self, SpecDocument *doc, const char *path);
 void requirement_dependencies_free(RequirementDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_dependencies_can_have_content(const RequirementDependencies *self);
 char *requirement_dependencies_content(const RequirementDependencies *self);
 void requirement_dependencies_set_content(RequirementDependencies *self, const char *value);
@@ -18574,7 +18615,7 @@ SomList requirement_dependencies_items(const RequirementDependencies *self);
 // Binds a RequirementDependencyEntry facade to a document and a path (path copied).
 void requirement_dependency_entry_init(RequirementDependencyEntry *self, SpecDocument *doc, const char *path);
 void requirement_dependency_entry_free(RequirementDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_dependency_entry_can_have_content(const RequirementDependencyEntry *self);
 RequirementDependencyEntryContentForm requirement_dependency_entry_content(const RequirementDependencyEntry *self);
 char *requirement_dependency_entry_related_requirement(const RequirementDependencyEntry *self);
@@ -18586,7 +18627,7 @@ void requirement_dependency_entry_set_related_requirement(RequirementDependencyE
 // Binds a RequirementRelationships facade to a document and a path (path copied).
 void requirement_relationships_init(RequirementRelationships *self, SpecDocument *doc, const char *path);
 void requirement_relationships_free(RequirementRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_relationships_can_have_content(const RequirementRelationships *self);
 char *requirement_relationships_content(const RequirementRelationships *self);
 void requirement_relationships_set_content(RequirementRelationships *self, const char *value);
@@ -18597,7 +18638,7 @@ void requirement_relationships_set_content(RequirementRelationships *self, const
 // Binds a RequirementScreenActionEntry facade to a document and a path (path copied).
 void requirement_screen_action_entry_init(RequirementScreenActionEntry *self, SpecDocument *doc, const char *path);
 void requirement_screen_action_entry_free(RequirementScreenActionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_screen_action_entry_can_have_content(const RequirementScreenActionEntry *self);
 RequirementScreenActionEntryContentForm requirement_screen_action_entry_content(const RequirementScreenActionEntry *self);
 // Action parameters — contains 0+× ActionParameterEntry.
@@ -18608,7 +18649,7 @@ SomList requirement_screen_action_entry_parameters(const RequirementScreenAction
 // Binds a RequirementTestCaseEntry facade to a document and a path (path copied).
 void requirement_test_case_entry_init(RequirementTestCaseEntry *self, SpecDocument *doc, const char *path);
 void requirement_test_case_entry_free(RequirementTestCaseEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_test_case_entry_can_have_content(const RequirementTestCaseEntry *self);
 RequirementTestCaseEntryContentForm requirement_test_case_entry_content(const RequirementTestCaseEntry *self);
 // Test execution details.
@@ -18624,7 +18665,7 @@ void requirement_test_case_entry_set_related_criterion(RequirementTestCaseEntry 
 // Binds a RequirementTestCases facade to a document and a path (path copied).
 void requirement_test_cases_init(RequirementTestCases *self, SpecDocument *doc, const char *path);
 void requirement_test_cases_free(RequirementTestCases *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_test_cases_can_have_content(const RequirementTestCases *self);
 char *requirement_test_cases_content(const RequirementTestCases *self);
 void requirement_test_cases_set_content(RequirementTestCases *self, const char *value);
@@ -18638,7 +18679,7 @@ SomList requirement_test_cases_test_cases(const RequirementTestCases *self);
 // Binds a RequirementTraceability facade to a document and a path (path copied).
 void requirement_traceability_init(RequirementTraceability *self, SpecDocument *doc, const char *path);
 void requirement_traceability_free(RequirementTraceability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_traceability_can_have_content(const RequirementTraceability *self);
 char *requirement_traceability_content(const RequirementTraceability *self);
 void requirement_traceability_set_content(RequirementTraceability *self, const char *value);
@@ -18657,7 +18698,7 @@ RequirementTraceabilityImplementationForm requirement_traceability_implementatio
 // Binds a RequirementUiSpecification facade to a document and a path (path copied).
 void requirement_ui_specification_init(RequirementUiSpecification *self, SpecDocument *doc, const char *path);
 void requirement_ui_specification_free(RequirementUiSpecification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirement_ui_specification_can_have_content(const RequirementUiSpecification *self);
 char *requirement_ui_specification_content(const RequirementUiSpecification *self);
 void requirement_ui_specification_set_content(RequirementUiSpecification *self, const char *value);
@@ -18694,7 +18735,7 @@ SomList requirement_ui_specification_behaviors(const RequirementUiSpecification 
 // Binds a Requirements facade to a document and a path (path copied).
 void requirements_init(Requirements *self, SpecDocument *doc, const char *path);
 void requirements_free(Requirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirements_can_have_content(const Requirements *self);
 char *requirements_content(const Requirements *self);
 void requirements_set_content(Requirements *self, const char *value);
@@ -18715,7 +18756,7 @@ RequirementsFollowUp requirements_requirements_follow_up(const Requirements *sel
 // Binds a RequirementsFollowUp facade to a document and a path (path copied).
 void requirements_follow_up_init(RequirementsFollowUp *self, SpecDocument *doc, const char *path);
 void requirements_follow_up_free(RequirementsFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirements_follow_up_can_have_content(const RequirementsFollowUp *self);
 char *requirements_follow_up_content(const RequirementsFollowUp *self);
 void requirements_follow_up_set_content(RequirementsFollowUp *self, const char *value);
@@ -18736,7 +18777,7 @@ TrainingEnablementRequirements requirements_follow_up_training_enablement(const 
 // Binds a RequirementsOverview facade to a document and a path (path copied).
 void requirements_overview_init(RequirementsOverview *self, SpecDocument *doc, const char *path);
 void requirements_overview_free(RequirementsOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int requirements_overview_can_have_content(const RequirementsOverview *self);
 char *requirements_overview_content(const RequirementsOverview *self);
 void requirements_overview_set_content(RequirementsOverview *self, const char *value);
@@ -18763,7 +18804,7 @@ RequirementCoverage requirements_overview_requirement_coverage(const Requirement
 // Binds a ResourceAllocationEntry facade to a document and a path (path copied).
 void resource_allocation_entry_init(ResourceAllocationEntry *self, SpecDocument *doc, const char *path);
 void resource_allocation_entry_free(ResourceAllocationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_allocation_entry_can_have_content(const ResourceAllocationEntry *self);
 ResourceAllocationEntryContentForm resource_allocation_entry_content(const ResourceAllocationEntry *self);
 
@@ -18771,7 +18812,7 @@ ResourceAllocationEntryContentForm resource_allocation_entry_content(const Resou
 // Binds a ResourceCapacityBaselines facade to a document and a path (path copied).
 void resource_capacity_baselines_init(ResourceCapacityBaselines *self, SpecDocument *doc, const char *path);
 void resource_capacity_baselines_free(ResourceCapacityBaselines *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_capacity_baselines_can_have_content(const ResourceCapacityBaselines *self);
 ResourceCapacityBaselinesContentForm resource_capacity_baselines_content(const ResourceCapacityBaselines *self);
 // Storage baselines.
@@ -18787,7 +18828,7 @@ ResourceCapacityBaselinesCostForm resource_capacity_baselines_cost(const Resourc
 // Binds a ResourceKeyEntry facade to a document and a path (path copied).
 void resource_key_entry_init(ResourceKeyEntry *self, SpecDocument *doc, const char *path);
 void resource_key_entry_free(ResourceKeyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_key_entry_can_have_content(const ResourceKeyEntry *self);
 ResourceKeyEntryContentForm resource_key_entry_content(const ResourceKeyEntry *self);
 
@@ -18795,7 +18836,7 @@ ResourceKeyEntryContentForm resource_key_entry_content(const ResourceKeyEntry *s
 // Binds a ResourceKeyReferenceEntry facade to a document and a path (path copied).
 void resource_key_reference_entry_init(ResourceKeyReferenceEntry *self, SpecDocument *doc, const char *path);
 void resource_key_reference_entry_free(ResourceKeyReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_key_reference_entry_can_have_content(const ResourceKeyReferenceEntry *self);
 ResourceKeyReferenceEntryContentForm resource_key_reference_entry_content(const ResourceKeyReferenceEntry *self);
 
@@ -18803,7 +18844,7 @@ ResourceKeyReferenceEntryContentForm resource_key_reference_entry_content(const 
 // Binds a ResourceProtection facade to a document and a path (path copied).
 void resource_protection_init(ResourceProtection *self, SpecDocument *doc, const char *path);
 void resource_protection_free(ResourceProtection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_protection_can_have_content(const ResourceProtection *self);
 char *resource_protection_content(const ResourceProtection *self);
 void resource_protection_set_content(ResourceProtection *self, const char *value);
@@ -18818,7 +18859,7 @@ FileAndStorageSecurity resource_protection_file_and_storage_security(const Resou
 // Binds a ResourceRequirementEntry facade to a document and a path (path copied).
 void resource_requirement_entry_init(ResourceRequirementEntry *self, SpecDocument *doc, const char *path);
 void resource_requirement_entry_free(ResourceRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int resource_requirement_entry_can_have_content(const ResourceRequirementEntry *self);
 ResourceRequirementEntryContentForm resource_requirement_entry_content(const ResourceRequirementEntry *self);
 
@@ -18826,7 +18867,7 @@ ResourceRequirementEntryContentForm resource_requirement_entry_content(const Res
 // Binds a ResponsibilityChangeEntry facade to a document and a path (path copied).
 void responsibility_change_entry_init(ResponsibilityChangeEntry *self, SpecDocument *doc, const char *path);
 void responsibility_change_entry_free(ResponsibilityChangeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_change_entry_can_have_content(const ResponsibilityChangeEntry *self);
 ResponsibilityChangeEntryContentForm responsibility_change_entry_content(const ResponsibilityChangeEntry *self);
 
@@ -18834,7 +18875,7 @@ ResponsibilityChangeEntryContentForm responsibility_change_entry_content(const R
 // Binds a ResponsibilityContacts facade to a document and a path (path copied).
 void responsibility_contacts_init(ResponsibilityContacts *self, SpecDocument *doc, const char *path);
 void responsibility_contacts_free(ResponsibilityContacts *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_contacts_can_have_content(const ResponsibilityContacts *self);
 ResponsibilityContactsContentForm responsibility_contacts_content(const ResponsibilityContacts *self);
 
@@ -18842,7 +18883,7 @@ ResponsibilityContactsContentForm responsibility_contacts_content(const Responsi
 // Binds a ResponsibilityDetailEntry facade to a document and a path (path copied).
 void responsibility_detail_entry_init(ResponsibilityDetailEntry *self, SpecDocument *doc, const char *path);
 void responsibility_detail_entry_free(ResponsibilityDetailEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_detail_entry_can_have_content(const ResponsibilityDetailEntry *self);
 ResponsibilityDetailEntryContentForm responsibility_detail_entry_content(const ResponsibilityDetailEntry *self);
 
@@ -18854,7 +18895,7 @@ ResponsibilityDetailEntryContentForm responsibility_detail_entry_content(const R
 // Binds a ResponsibilityEntry facade to a document and a path (path copied).
 void responsibility_entry_init(ResponsibilityEntry *self, SpecDocument *doc, const char *path);
 void responsibility_entry_free(ResponsibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_entry_can_have_content(const ResponsibilityEntry *self);
 ResponsibilityEntryContentForm responsibility_entry_content(const ResponsibilityEntry *self);
 // Function details and scope.
@@ -18875,7 +18916,7 @@ ResponsibilityEntryGovernanceForm responsibility_entry_governance(const Responsi
 // Binds a ResponsibilityFunctionDetails facade to a document and a path (path copied).
 void responsibility_function_details_init(ResponsibilityFunctionDetails *self, SpecDocument *doc, const char *path);
 void responsibility_function_details_free(ResponsibilityFunctionDetails *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_function_details_can_have_content(const ResponsibilityFunctionDetails *self);
 ResponsibilityFunctionDetailsContentForm responsibility_function_details_content(const ResponsibilityFunctionDetails *self);
 
@@ -18883,7 +18924,7 @@ ResponsibilityFunctionDetailsContentForm responsibility_function_details_content
 // Binds a ResponsibilityReferenceEntry facade to a document and a path (path copied).
 void responsibility_reference_entry_init(ResponsibilityReferenceEntry *self, SpecDocument *doc, const char *path);
 void responsibility_reference_entry_free(ResponsibilityReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_reference_entry_can_have_content(const ResponsibilityReferenceEntry *self);
 ResponsibilityReferenceEntryContentForm responsibility_reference_entry_content(const ResponsibilityReferenceEntry *self);
 
@@ -18891,7 +18932,7 @@ ResponsibilityReferenceEntryContentForm responsibility_reference_entry_content(c
 // Binds a ResponsibilitySystems facade to a document and a path (path copied).
 void responsibility_systems_init(ResponsibilitySystems *self, SpecDocument *doc, const char *path);
 void responsibility_systems_free(ResponsibilitySystems *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsibility_systems_can_have_content(const ResponsibilitySystems *self);
 ResponsibilitySystemsContentForm responsibility_systems_content(const ResponsibilitySystems *self);
 
@@ -18901,7 +18942,7 @@ ResponsibilitySystemsContentForm responsibility_systems_content(const Responsibi
 // Binds a ResponsiveBehavior facade to a document and a path (path copied).
 void responsive_behavior_init(ResponsiveBehavior *self, SpecDocument *doc, const char *path);
 void responsive_behavior_free(ResponsiveBehavior *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsive_behavior_can_have_content(const ResponsiveBehavior *self);
 ResponsiveBehaviorLayoutAdaptationForm responsive_behavior_layout_adaptation(const ResponsiveBehavior *self);
 // Navigation patterns per device class.
@@ -18925,7 +18966,7 @@ SomList responsive_behavior_screen_rules(const ResponsiveBehavior *self);
 // Binds a ResponsiveDesign facade to a document and a path (path copied).
 void responsive_design_init(ResponsiveDesign *self, SpecDocument *doc, const char *path);
 void responsive_design_free(ResponsiveDesign *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsive_design_can_have_content(const ResponsiveDesign *self);
 ResponsiveDesignResponsiveOverviewForm responsive_design_responsive_overview(const ResponsiveDesign *self);
 // Responsive design narrative.
@@ -18939,7 +18980,7 @@ ResponsiveBehavior responsive_design_responsive_behavior(const ResponsiveDesign 
 // Binds a ResponsiveScreenRuleEntry facade to a document and a path (path copied).
 void responsive_screen_rule_entry_init(ResponsiveScreenRuleEntry *self, SpecDocument *doc, const char *path);
 void responsive_screen_rule_entry_free(ResponsiveScreenRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int responsive_screen_rule_entry_can_have_content(const ResponsiveScreenRuleEntry *self);
 ResponsiveScreenRuleEntryContentForm responsive_screen_rule_entry_content(const ResponsiveScreenRuleEntry *self);
 
@@ -18961,7 +19002,7 @@ ResponsiveScreenRuleEntryContentForm responsive_screen_rule_entry_content(const 
 // Binds a ResultEnvelope facade to a document and a path (path copied).
 void result_envelope_init(ResultEnvelope *self, SpecDocument *doc, const char *path);
 void result_envelope_free(ResultEnvelope *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int result_envelope_can_have_content(const ResultEnvelope *self);
 ResultEnvelopeContentForm result_envelope_content(const ResultEnvelope *self);
 // 7.7.1. Field-Level Details — the per-field error detail the error arm may
@@ -18978,7 +19019,7 @@ SomList result_envelope_field_details(const ResultEnvelope *self);
 // Binds a ResultFieldDetailEntry facade to a document and a path (path copied).
 void result_field_detail_entry_init(ResultFieldDetailEntry *self, SpecDocument *doc, const char *path);
 void result_field_detail_entry_free(ResultFieldDetailEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int result_field_detail_entry_can_have_content(const ResultFieldDetailEntry *self);
 ResultFieldDetailEntryContentForm result_field_detail_entry_content(const ResultFieldDetailEntry *self);
 
@@ -18986,7 +19027,7 @@ ResultFieldDetailEntryContentForm result_field_detail_entry_content(const Result
 // Binds a RetentionPolicyEntry facade to a document and a path (path copied).
 void retention_policy_entry_init(RetentionPolicyEntry *self, SpecDocument *doc, const char *path);
 void retention_policy_entry_free(RetentionPolicyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int retention_policy_entry_can_have_content(const RetentionPolicyEntry *self);
 RetentionPolicyEntryContentForm retention_policy_entry_content(const RetentionPolicyEntry *self);
 // Retention timing and legal basis.
@@ -19000,7 +19041,7 @@ RetentionPolicyEntryGovernanceForm retention_policy_entry_governance(const Reten
 // Binds a ReusabilityPrinciples facade to a document and a path (path copied).
 void reusability_principles_init(ReusabilityPrinciples *self, SpecDocument *doc, const char *path);
 void reusability_principles_free(ReusabilityPrinciples *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reusability_principles_can_have_content(const ReusabilityPrinciples *self);
 ReusabilityPrinciplesContentForm reusability_principles_content(const ReusabilityPrinciples *self);
 // Abstraction rules.
@@ -19019,7 +19060,7 @@ ReusabilityPrinciplesOwnershipForm reusability_principles_ownership(const Reusab
 // Binds a ReusableComponentsSection facade to a document and a path (path copied).
 void reusable_components_section_init(ReusableComponentsSection *self, SpecDocument *doc, const char *path);
 void reusable_components_section_free(ReusableComponentsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reusable_components_section_can_have_content(const ReusableComponentsSection *self);
 char *reusable_components_section_content(const ReusableComponentsSection *self);
 void reusable_components_section_set_content(ReusableComponentsSection *self, const char *value);
@@ -19053,7 +19094,7 @@ ComponentRegistry reusable_components_section_registry(const ReusableComponentsS
 // Binds a ReusablePrototype facade to a document and a path (path copied).
 void reusable_prototype_init(ReusablePrototype *self, SpecDocument *doc, const char *path);
 void reusable_prototype_free(ReusablePrototype *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reusable_prototype_can_have_content(const ReusablePrototype *self);
 ReusablePrototypeReusableContentForm reusable_prototype_reusable_content(const ReusablePrototype *self);
 // Architecture alignment and refactoring expectations.
@@ -19069,7 +19110,7 @@ ReusablePrototypeTransitionForm reusable_prototype_transition(const ReusableProt
 // Binds a ReusableUiComponentEntry facade to a document and a path (path copied).
 void reusable_ui_component_entry_init(ReusableUiComponentEntry *self, SpecDocument *doc, const char *path);
 void reusable_ui_component_entry_free(ReusableUiComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reusable_ui_component_entry_can_have_content(const ReusableUiComponentEntry *self);
 ReusableUiComponentEntryContentForm reusable_ui_component_entry_content(const ReusableUiComponentEntry *self);
 // Description and use cases.
@@ -19090,7 +19131,7 @@ ReusableUiComponentEntryImplementationForm reusable_ui_component_entry_implement
 // Binds a ReuseGoalEntry facade to a document and a path (path copied).
 void reuse_goal_entry_init(ReuseGoalEntry *self, SpecDocument *doc, const char *path);
 void reuse_goal_entry_free(ReuseGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int reuse_goal_entry_can_have_content(const ReuseGoalEntry *self);
 ReuseGoalEntryContentForm reuse_goal_entry_content(const ReuseGoalEntry *self);
 // Measurement and scope.
@@ -19107,7 +19148,7 @@ ReuseGoalEntryEnablementForm reuse_goal_entry_enablement(const ReuseGoalEntry *s
 // Binds a ReviewCriterionEntry facade to a document and a path (path copied).
 void review_criterion_entry_init(ReviewCriterionEntry *self, SpecDocument *doc, const char *path);
 void review_criterion_entry_free(ReviewCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int review_criterion_entry_can_have_content(const ReviewCriterionEntry *self);
 ReviewCriterionEntryContentForm review_criterion_entry_content(const ReviewCriterionEntry *self);
 // How this criterion is measured and weighted.
@@ -19119,7 +19160,7 @@ ReviewCriterionEntryResultForm review_criterion_entry_result(const ReviewCriteri
 // Binds a RevisionEntry facade to a document and a path (path copied).
 void revision_entry_init(RevisionEntry *self, SpecDocument *doc, const char *path);
 void revision_entry_free(RevisionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int revision_entry_can_have_content(const RevisionEntry *self);
 RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
 
@@ -19127,7 +19168,7 @@ RevisionEntryContentForm revision_entry_content(const RevisionEntry *self);
 // Binds a RiskBusinessImpact facade to a document and a path (path copied).
 void risk_business_impact_init(RiskBusinessImpact *self, SpecDocument *doc, const char *path);
 void risk_business_impact_free(RiskBusinessImpact *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_business_impact_can_have_content(const RiskBusinessImpact *self);
 RiskBusinessImpactContentForm risk_business_impact_content(const RiskBusinessImpact *self);
 // Broader stakeholder and compliance impact.
@@ -19143,7 +19184,7 @@ RiskBusinessImpactDeliveryForm risk_business_impact_delivery(const RiskBusinessI
 // Binds a RiskEntry facade to a document and a path (path copied).
 void risk_entry_init(RiskEntry *self, SpecDocument *doc, const char *path);
 void risk_entry_free(RiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_entry_can_have_content(const RiskEntry *self);
 // Risk identification — unique identifier and basic description.
 RiskIdentification risk_entry_identification(const RiskEntry *self);
@@ -19165,7 +19206,7 @@ SomList risk_entry_relationships(const RiskEntry *self);
 // Binds a RiskIdentification facade to a document and a path (path copied).
 void risk_identification_init(RiskIdentification *self, SpecDocument *doc, const char *path);
 void risk_identification_free(RiskIdentification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_identification_can_have_content(const RiskIdentification *self);
 RiskIdentificationContentForm risk_identification_content(const RiskIdentification *self);
 // Identification source and ownership metadata.
@@ -19177,7 +19218,7 @@ RiskIdentificationCauseForm risk_identification_cause(const RiskIdentification *
 // Binds a RiskMonitoring facade to a document and a path (path copied).
 void risk_monitoring_init(RiskMonitoring *self, SpecDocument *doc, const char *path);
 void risk_monitoring_free(RiskMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_monitoring_can_have_content(const RiskMonitoring *self);
 RiskMonitoringContentForm risk_monitoring_content(const RiskMonitoring *self);
 // Trend and monitoring indicators.
@@ -19189,7 +19230,7 @@ RiskMonitoringClosureForm risk_monitoring_closure(const RiskMonitoring *self);
 // Binds a RiskRelationships facade to a document and a path (path copied).
 void risk_relationships_init(RiskRelationships *self, SpecDocument *doc, const char *path);
 void risk_relationships_free(RiskRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_relationships_can_have_content(const RiskRelationships *self);
 RiskRelationshipsContentForm risk_relationships_content(const RiskRelationships *self);
 
@@ -19197,7 +19238,7 @@ RiskRelationshipsContentForm risk_relationships_content(const RiskRelationships 
 // Binds a RiskResponse facade to a document and a path (path copied).
 void risk_response_init(RiskResponse *self, SpecDocument *doc, const char *path);
 void risk_response_free(RiskResponse *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_response_can_have_content(const RiskResponse *self);
 RiskResponseContentForm risk_response_content(const RiskResponse *self);
 // Residual and secondary risk expectations.
@@ -19220,7 +19261,7 @@ RiskResponseImplementationForm risk_response_implementation(const RiskResponse *
 // Binds a RisksAndAssumptions facade to a document and a path (path copied).
 void risks_and_assumptions_init(RisksAndAssumptions *self, SpecDocument *doc, const char *path);
 void risks_and_assumptions_free(RisksAndAssumptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risks_and_assumptions_can_have_content(const RisksAndAssumptions *self);
 // Overview of the risk management approach for this project.
 RisksAndAssumptionsOverviewForm risks_and_assumptions_overview(const RisksAndAssumptions *self);
@@ -19236,7 +19277,7 @@ SomList risks_and_assumptions_key_risks(const RisksAndAssumptions *self);
 // Binds a RoleAdjustmentEntry facade to a document and a path (path copied).
 void role_adjustment_entry_init(RoleAdjustmentEntry *self, SpecDocument *doc, const char *path);
 void role_adjustment_entry_free(RoleAdjustmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_adjustment_entry_can_have_content(const RoleAdjustmentEntry *self);
 RoleAdjustmentEntryContentForm role_adjustment_entry_content(const RoleAdjustmentEntry *self);
 // Adjustment details: name changes, affected responsibilities.
@@ -19258,7 +19299,7 @@ RoleAdjustmentEntryGovernanceForm role_adjustment_entry_governance(const RoleAdj
 // Binds a RoleAdjustments facade to a document and a path (path copied).
 void role_adjustments_init(RoleAdjustments *self, SpecDocument *doc, const char *path);
 void role_adjustments_free(RoleAdjustments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_adjustments_can_have_content(const RoleAdjustments *self);
 char *role_adjustments_content(const RoleAdjustments *self);
 void role_adjustments_set_content(RoleAdjustments *self, const char *value);
@@ -19278,7 +19319,7 @@ SomList role_adjustments_items(const RoleAdjustments *self);
 // Binds a RoleCertificationPolicy facade to a document and a path (path copied).
 void role_certification_policy_init(RoleCertificationPolicy *self, SpecDocument *doc, const char *path);
 void role_certification_policy_free(RoleCertificationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_certification_policy_can_have_content(const RoleCertificationPolicy *self);
 char *role_certification_policy_content(const RoleCertificationPolicy *self);
 void role_certification_policy_set_content(RoleCertificationPolicy *self, const char *value);
@@ -19292,7 +19333,7 @@ void role_certification_policy_set_content(RoleCertificationPolicy *self, const 
 // Binds a RoleCombinationConstraintEntry facade to a document and a path (path copied).
 void role_combination_constraint_entry_init(RoleCombinationConstraintEntry *self, SpecDocument *doc, const char *path);
 void role_combination_constraint_entry_free(RoleCombinationConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_combination_constraint_entry_can_have_content(const RoleCombinationConstraintEntry *self);
 RoleCombinationConstraintEntryContentForm role_combination_constraint_entry_content(const RoleCombinationConstraintEntry *self);
 
@@ -19300,7 +19341,7 @@ RoleCombinationConstraintEntryContentForm role_combination_constraint_entry_cont
 // Binds a RoleCompetencyEntry facade to a document and a path (path copied).
 void role_competency_entry_init(RoleCompetencyEntry *self, SpecDocument *doc, const char *path);
 void role_competency_entry_free(RoleCompetencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_competency_entry_can_have_content(const RoleCompetencyEntry *self);
 RoleCompetencyEntryContentForm role_competency_entry_content(const RoleCompetencyEntry *self);
 
@@ -19311,7 +19352,7 @@ RoleCompetencyEntryContentForm role_competency_entry_content(const RoleCompetenc
 // Binds a RoleDataScopeEntry facade to a document and a path (path copied).
 void role_data_scope_entry_init(RoleDataScopeEntry *self, SpecDocument *doc, const char *path);
 void role_data_scope_entry_free(RoleDataScopeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_data_scope_entry_can_have_content(const RoleDataScopeEntry *self);
 RoleDataScopeEntryContentForm role_data_scope_entry_content(const RoleDataScopeEntry *self);
 
@@ -19319,7 +19360,7 @@ RoleDataScopeEntryContentForm role_data_scope_entry_content(const RoleDataScopeE
 // Binds a RoleExclusionEntry facade to a document and a path (path copied).
 void role_exclusion_entry_init(RoleExclusionEntry *self, SpecDocument *doc, const char *path);
 void role_exclusion_entry_free(RoleExclusionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_exclusion_entry_can_have_content(const RoleExclusionEntry *self);
 RoleExclusionEntryContentForm role_exclusion_entry_content(const RoleExclusionEntry *self);
 
@@ -19331,7 +19372,7 @@ RoleExclusionEntryContentForm role_exclusion_entry_content(const RoleExclusionEn
 // Binds a RoleHierarchy facade to a document and a path (path copied).
 void role_hierarchy_init(RoleHierarchy *self, SpecDocument *doc, const char *path);
 void role_hierarchy_free(RoleHierarchy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_hierarchy_can_have_content(const RoleHierarchy *self);
 char *role_hierarchy_content(const RoleHierarchy *self);
 void role_hierarchy_set_content(RoleHierarchy *self, const char *value);
@@ -19358,7 +19399,7 @@ RoleCertificationPolicy role_hierarchy_role_certification(const RoleHierarchy *s
 // Binds a RoleHierarchyPolicy facade to a document and a path (path copied).
 void role_hierarchy_policy_init(RoleHierarchyPolicy *self, SpecDocument *doc, const char *path);
 void role_hierarchy_policy_free(RoleHierarchyPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_hierarchy_policy_can_have_content(const RoleHierarchyPolicy *self);
 char *role_hierarchy_policy_content(const RoleHierarchyPolicy *self);
 void role_hierarchy_policy_set_content(RoleHierarchyPolicy *self, const char *value);
@@ -19369,7 +19410,7 @@ void role_hierarchy_policy_set_content(RoleHierarchyPolicy *self, const char *va
 // Binds a RoleHolderEntry facade to a document and a path (path copied).
 void role_holder_entry_init(RoleHolderEntry *self, SpecDocument *doc, const char *path);
 void role_holder_entry_free(RoleHolderEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_holder_entry_can_have_content(const RoleHolderEntry *self);
 RoleHolderEntryContentForm role_holder_entry_content(const RoleHolderEntry *self);
 
@@ -19380,7 +19421,7 @@ RoleHolderEntryContentForm role_holder_entry_content(const RoleHolderEntry *self
 // Binds a RoleInheritanceRuleEntry facade to a document and a path (path copied).
 void role_inheritance_rule_entry_init(RoleInheritanceRuleEntry *self, SpecDocument *doc, const char *path);
 void role_inheritance_rule_entry_free(RoleInheritanceRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_inheritance_rule_entry_can_have_content(const RoleInheritanceRuleEntry *self);
 RoleInheritanceRuleEntryContentForm role_inheritance_rule_entry_content(const RoleInheritanceRuleEntry *self);
 
@@ -19391,7 +19432,7 @@ RoleInheritanceRuleEntryContentForm role_inheritance_rule_entry_content(const Ro
 // Binds a RoleMatrix facade to a document and a path (path copied).
 void role_matrix_init(RoleMatrix *self, SpecDocument *doc, const char *path);
 void role_matrix_free(RoleMatrix *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_matrix_can_have_content(const RoleMatrix *self);
 char *role_matrix_content(const RoleMatrix *self);
 void role_matrix_set_content(RoleMatrix *self, const char *value);
@@ -19404,7 +19445,7 @@ void role_matrix_set_content(RoleMatrix *self, const char *value);
 // Binds a RolePermissionEntry facade to a document and a path (path copied).
 void role_permission_entry_init(RolePermissionEntry *self, SpecDocument *doc, const char *path);
 void role_permission_entry_free(RolePermissionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_permission_entry_can_have_content(const RolePermissionEntry *self);
 RolePermissionEntryContentForm role_permission_entry_content(const RolePermissionEntry *self);
 
@@ -19412,7 +19453,7 @@ RolePermissionEntryContentForm role_permission_entry_content(const RolePermissio
 // Binds a RoleReferenceEntry facade to a document and a path (path copied).
 void role_reference_entry_init(RoleReferenceEntry *self, SpecDocument *doc, const char *path);
 void role_reference_entry_free(RoleReferenceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int role_reference_entry_can_have_content(const RoleReferenceEntry *self);
 RoleReferenceEntryContentForm role_reference_entry_content(const RoleReferenceEntry *self);
 
@@ -19420,7 +19461,7 @@ RoleReferenceEntryContentForm role_reference_entry_content(const RoleReferenceEn
 // Binds a RollbackStrategy facade to a document and a path (path copied).
 void rollback_strategy_init(RollbackStrategy *self, SpecDocument *doc, const char *path);
 void rollback_strategy_free(RollbackStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rollback_strategy_can_have_content(const RollbackStrategy *self);
 RollbackStrategyContentForm rollback_strategy_content(const RollbackStrategy *self);
 // Trigger and timing conditions.
@@ -19442,7 +19483,7 @@ RollbackStrategyOperationsForm rollback_strategy_operations(const RollbackStrate
 // Binds a RolloutPlan facade to a document and a path (path copied).
 void rollout_plan_init(RolloutPlan *self, SpecDocument *doc, const char *path);
 void rollout_plan_free(RolloutPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rollout_plan_can_have_content(const RolloutPlan *self);
 char *rollout_plan_content(const RolloutPlan *self);
 void rollout_plan_set_content(RolloutPlan *self, const char *value);
@@ -19459,7 +19500,7 @@ void rollout_plan_set_content(RolloutPlan *self, const char *value);
 // Binds a RolloutTrainingMaterial facade to a document and a path (path copied).
 void rollout_training_material_init(RolloutTrainingMaterial *self, SpecDocument *doc, const char *path);
 void rollout_training_material_free(RolloutTrainingMaterial *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rollout_training_material_can_have_content(const RolloutTrainingMaterial *self);
 char *rollout_training_material_content(const RolloutTrainingMaterial *self);
 void rollout_training_material_set_content(RolloutTrainingMaterial *self, const char *value);
@@ -19472,7 +19513,7 @@ void rollout_training_material_set_content(RolloutTrainingMaterial *self, const 
 // Binds a RowLevelSecurityPolicy facade to a document and a path (path copied).
 void row_level_security_policy_init(RowLevelSecurityPolicy *self, SpecDocument *doc, const char *path);
 void row_level_security_policy_free(RowLevelSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int row_level_security_policy_can_have_content(const RowLevelSecurityPolicy *self);
 char *row_level_security_policy_content(const RowLevelSecurityPolicy *self);
 void row_level_security_policy_set_content(RowLevelSecurityPolicy *self, const char *value);
@@ -19483,7 +19524,7 @@ void row_level_security_policy_set_content(RowLevelSecurityPolicy *self, const c
 // Binds a RpoRtoRequirements facade to a document and a path (path copied).
 void rpo_rto_requirements_init(RpoRtoRequirements *self, SpecDocument *doc, const char *path);
 void rpo_rto_requirements_free(RpoRtoRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rpo_rto_requirements_can_have_content(const RpoRtoRequirements *self);
 RpoRtoRequirementsContentForm rpo_rto_requirements_content(const RpoRtoRequirements *self);
 // Tier-based targets.
@@ -19499,7 +19540,7 @@ RpoRtoRequirementsDegradedForm rpo_rto_requirements_degraded(const RpoRtoRequire
 // Binds a RuleExampleEntry facade to a document and a path (path copied).
 void rule_example_entry_init(RuleExampleEntry *self, SpecDocument *doc, const char *path);
 void rule_example_entry_free(RuleExampleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int rule_example_entry_can_have_content(const RuleExampleEntry *self);
 RuleExampleEntryContentForm rule_example_entry_content(const RuleExampleEntry *self);
 
@@ -19510,7 +19551,7 @@ RuleExampleEntryContentForm rule_example_entry_content(const RuleExampleEntry *s
 // Binds a RuntimeDependencies facade to a document and a path (path copied).
 void runtime_dependencies_init(RuntimeDependencies *self, SpecDocument *doc, const char *path);
 void runtime_dependencies_free(RuntimeDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int runtime_dependencies_can_have_content(const RuntimeDependencies *self);
 char *runtime_dependencies_content(const RuntimeDependencies *self);
 void runtime_dependencies_set_content(RuntimeDependencies *self, const char *value);
@@ -19525,7 +19566,7 @@ SomList runtime_dependencies_items(const RuntimeDependencies *self);
 // Binds a RuntimeDependencyEntry facade to a document and a path (path copied).
 void runtime_dependency_entry_init(RuntimeDependencyEntry *self, SpecDocument *doc, const char *path);
 void runtime_dependency_entry_free(RuntimeDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int runtime_dependency_entry_can_have_content(const RuntimeDependencyEntry *self);
 RuntimeDependencyEntryContentForm runtime_dependency_entry_content(const RuntimeDependencyEntry *self);
 // Versioning and business criticality.
@@ -19543,7 +19584,7 @@ RuntimeDependencyEntryRiskForm runtime_dependency_entry_risk(const RuntimeDepend
 // Binds a RuntimeEnvironment facade to a document and a path (path copied).
 void runtime_environment_init(RuntimeEnvironment *self, SpecDocument *doc, const char *path);
 void runtime_environment_free(RuntimeEnvironment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int runtime_environment_can_have_content(const RuntimeEnvironment *self);
 RuntimeEnvironmentContentForm runtime_environment_content(const RuntimeEnvironment *self);
 // Memory limits.
@@ -19567,7 +19608,7 @@ RuntimeEnvironmentRuntimeNotesForm runtime_environment_runtime_notes(const Runti
 // Binds a ScalabilityArchitecture facade to a document and a path (path copied).
 void scalability_architecture_init(ScalabilityArchitecture *self, SpecDocument *doc, const char *path);
 void scalability_architecture_free(ScalabilityArchitecture *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scalability_architecture_can_have_content(const ScalabilityArchitecture *self);
 ScalabilityArchitectureContentForm scalability_architecture_content(const ScalabilityArchitecture *self);
 // Capacity planning assumptions.
@@ -19585,7 +19626,7 @@ ScalabilityArchitectureTestingForm scalability_architecture_testing(const Scalab
 // Binds a ScalingRequirements facade to a document and a path (path copied).
 void scaling_requirements_init(ScalingRequirements *self, SpecDocument *doc, const char *path);
 void scaling_requirements_free(ScalingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scaling_requirements_can_have_content(const ScalingRequirements *self);
 ScalingRequirementsContentForm scaling_requirements_content(const ScalingRequirements *self);
 // Horizontal scaling configuration.
@@ -19601,7 +19642,7 @@ ScalingRequirementsConstraintsForm scaling_requirements_constraints(const Scalin
 // Binds a ScalingTriggersAndThresholds facade to a document and a path (path copied).
 void scaling_triggers_and_thresholds_init(ScalingTriggersAndThresholds *self, SpecDocument *doc, const char *path);
 void scaling_triggers_and_thresholds_free(ScalingTriggersAndThresholds *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scaling_triggers_and_thresholds_can_have_content(const ScalingTriggersAndThresholds *self);
 ScalingTriggersAndThresholdsContentForm scaling_triggers_and_thresholds_content(const ScalingTriggersAndThresholds *self);
 // Memory-based thresholds.
@@ -19619,7 +19660,7 @@ ScalingTriggersAndThresholdsTypeForm scaling_triggers_and_thresholds_type(const 
 // Binds a ScenarioEntry facade to a document and a path (path copied).
 void scenario_entry_init(ScenarioEntry *self, SpecDocument *doc, const char *path);
 void scenario_entry_free(ScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scenario_entry_can_have_content(const ScenarioEntry *self);
 // Scenario identification.
 ScenarioEntryIdentificationForm scenario_entry_identification(const ScenarioEntry *self);
@@ -19642,7 +19683,7 @@ ScenarioEntryValidationForm scenario_entry_validation(const ScenarioEntry *self)
 // Binds a ScenarioStepEntry facade to a document and a path (path copied).
 void scenario_step_entry_init(ScenarioStepEntry *self, SpecDocument *doc, const char *path);
 void scenario_step_entry_free(ScenarioStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scenario_step_entry_can_have_content(const ScenarioStepEntry *self);
 ScenarioStepEntryContentForm scenario_step_entry_content(const ScenarioStepEntry *self);
 // Expected outcome and referenced artifacts.
@@ -19654,7 +19695,7 @@ ScenarioStepEntryExecutionForm scenario_step_entry_execution(const ScenarioStepE
 // Binds a ScheduledMaintenancePolicy facade to a document and a path (path copied).
 void scheduled_maintenance_policy_init(ScheduledMaintenancePolicy *self, SpecDocument *doc, const char *path);
 void scheduled_maintenance_policy_free(ScheduledMaintenancePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scheduled_maintenance_policy_can_have_content(const ScheduledMaintenancePolicy *self);
 ScheduledMaintenancePolicyContentForm scheduled_maintenance_policy_content(const ScheduledMaintenancePolicy *self);
 // Scheduling preferences.
@@ -19674,7 +19715,7 @@ ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(con
 // Binds a SchemaMigrationStepEntry facade to a document and a path (path copied).
 void schema_migration_step_entry_init(SchemaMigrationStepEntry *self, SpecDocument *doc, const char *path);
 void schema_migration_step_entry_free(SchemaMigrationStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int schema_migration_step_entry_can_have_content(const SchemaMigrationStepEntry *self);
 SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const SchemaMigrationStepEntry *self);
 
@@ -19688,7 +19729,7 @@ SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const Sc
 // Binds a SchemaVersioningAndMigration facade to a document and a path (path copied).
 void schema_versioning_and_migration_init(SchemaVersioningAndMigration *self, SpecDocument *doc, const char *path);
 void schema_versioning_and_migration_free(SchemaVersioningAndMigration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int schema_versioning_and_migration_can_have_content(const SchemaVersioningAndMigration *self);
 SchemaVersioningAndMigrationContentForm schema_versioning_and_migration_content(const SchemaVersioningAndMigration *self);
 // 7.4.1. Schema Migration Steps — one entry per versioned migration.
@@ -19702,7 +19743,7 @@ SomList schema_versioning_and_migration_migration_steps(const SchemaVersioningAn
 // Binds a ScopeBoundaries facade to a document and a path (path copied).
 void scope_boundaries_init(ScopeBoundaries *self, SpecDocument *doc, const char *path);
 void scope_boundaries_free(ScopeBoundaries *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scope_boundaries_can_have_content(const ScopeBoundaries *self);
 char *scope_boundaries_content(const ScopeBoundaries *self);
 void scope_boundaries_set_content(ScopeBoundaries *self, const char *value);
@@ -19723,7 +19764,7 @@ SomList scope_boundaries_scope_assumptions(const ScopeBoundaries *self);
 // Binds a ScopeItemEntry facade to a document and a path (path copied).
 void scope_item_entry_init(ScopeItemEntry *self, SpecDocument *doc, const char *path);
 void scope_item_entry_free(ScopeItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int scope_item_entry_can_have_content(const ScopeItemEntry *self);
 ScopeItemEntryContentForm scope_item_entry_content(const ScopeItemEntry *self);
 
@@ -19733,7 +19774,7 @@ ScopeItemEntryContentForm scope_item_entry_content(const ScopeItemEntry *self);
 // Binds a ScreenActionEntry facade to a document and a path (path copied).
 void screen_action_entry_init(ScreenActionEntry *self, SpecDocument *doc, const char *path);
 void screen_action_entry_free(ScreenActionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_action_entry_can_have_content(const ScreenActionEntry *self);
 ScreenActionEntryContentForm screen_action_entry_content(const ScreenActionEntry *self);
 // Visual presentation of the action.
@@ -19749,7 +19790,7 @@ ScreenActionEntryBehaviorForm screen_action_entry_behavior(const ScreenActionEnt
 // Binds a ScreenActions facade to a document and a path (path copied).
 void screen_actions_init(ScreenActions *self, SpecDocument *doc, const char *path);
 void screen_actions_free(ScreenActions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_actions_can_have_content(const ScreenActions *self);
 char *screen_actions_content(const ScreenActions *self);
 void screen_actions_set_content(ScreenActions *self, const char *value);
@@ -19764,7 +19805,7 @@ SomList screen_actions_items(const ScreenActions *self);
 // Binds a ScreenBehaviorEntry facade to a document and a path (path copied).
 void screen_behavior_entry_init(ScreenBehaviorEntry *self, SpecDocument *doc, const char *path);
 void screen_behavior_entry_free(ScreenBehaviorEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_behavior_entry_can_have_content(const ScreenBehaviorEntry *self);
 ScreenBehaviorEntryContentForm screen_behavior_entry_content(const ScreenBehaviorEntry *self);
 
@@ -19772,7 +19813,7 @@ ScreenBehaviorEntryContentForm screen_behavior_entry_content(const ScreenBehavio
 // Binds a ScreenDescriptions facade to a document and a path (path copied).
 void screen_descriptions_init(ScreenDescriptions *self, SpecDocument *doc, const char *path);
 void screen_descriptions_free(ScreenDescriptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_descriptions_can_have_content(const ScreenDescriptions *self);
 char *screen_descriptions_content(const ScreenDescriptions *self);
 void screen_descriptions_set_content(ScreenDescriptions *self, const char *value);
@@ -19787,7 +19828,7 @@ InformationArchitecture screen_descriptions_information_architecture(const Scree
 // Binds a ScreenElementAction facade to a document and a path (path copied).
 void screen_element_action_init(ScreenElementAction *self, SpecDocument *doc, const char *path);
 void screen_element_action_free(ScreenElementAction *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_element_action_can_have_content(const ScreenElementAction *self);
 ScreenElementActionContentForm screen_element_action_content(const ScreenElementAction *self);
 // Confirmation and execution feedback behavior.
@@ -19801,7 +19842,7 @@ ScreenElementActionNavigationForm screen_element_action_navigation(const ScreenE
 // Binds a ScreenElementDataDisplay facade to a document and a path (path copied).
 void screen_element_data_display_init(ScreenElementDataDisplay *self, SpecDocument *doc, const char *path);
 void screen_element_data_display_free(ScreenElementDataDisplay *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_element_data_display_can_have_content(const ScreenElementDataDisplay *self);
 ScreenElementDataDisplayContentForm screen_element_data_display_content(const ScreenElementDataDisplay *self);
 // Refresh and drill-down behavior.
@@ -19816,7 +19857,7 @@ ScreenElementDataDisplayOptionsForm screen_element_data_display_options(const Sc
 // Binds a ScreenElementEntry facade to a document and a path (path copied).
 void screen_element_entry_init(ScreenElementEntry *self, SpecDocument *doc, const char *path);
 void screen_element_entry_free(ScreenElementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_element_entry_can_have_content(const ScreenElementEntry *self);
 ScreenElementEntryContentForm screen_element_entry_content(const ScreenElementEntry *self);
 // Labels and icon resources.
@@ -19849,7 +19890,7 @@ SomList screen_element_entry_validation_rules(const ScreenElementEntry *self);
 // Binds a ScreenElementFieldSpec facade to a document and a path (path copied).
 void screen_element_field_spec_init(ScreenElementFieldSpec *self, SpecDocument *doc, const char *path);
 void screen_element_field_spec_free(ScreenElementFieldSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_element_field_spec_can_have_content(const ScreenElementFieldSpec *self);
 ScreenElementFieldSpecContentForm screen_element_field_spec_content(const ScreenElementFieldSpec *self);
 // Prefix, suffix, and formatting.
@@ -19883,7 +19924,7 @@ ScreenElementFieldSpecSelectOptionsForm screen_element_field_spec_select_options
 // Binds a ScreenEntry facade to a document and a path (path copied).
 void screen_entry_init(ScreenEntry *self, SpecDocument *doc, const char *path);
 void screen_entry_free(ScreenEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_entry_can_have_content(const ScreenEntry *self);
 ScreenEntryContentForm screen_entry_content(const ScreenEntry *self);
 // Classification and routing metadata.
@@ -19918,7 +19959,7 @@ SomList screen_entry_responsive_rules(const ScreenEntry *self);
 // Binds a ScreenFieldEntry facade to a document and a path (path copied).
 void screen_field_entry_init(ScreenFieldEntry *self, SpecDocument *doc, const char *path);
 void screen_field_entry_free(ScreenFieldEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_field_entry_can_have_content(const ScreenFieldEntry *self);
 ScreenFieldEntryContentForm screen_field_entry_content(const ScreenFieldEntry *self);
 // Data binding and defaults.
@@ -19948,7 +19989,7 @@ SomList screen_field_entry_validation_rules(const ScreenFieldEntry *self);
 // Binds a ScreenFlowStructure facade to a document and a path (path copied).
 void screen_flow_structure_init(ScreenFlowStructure *self, SpecDocument *doc, const char *path);
 void screen_flow_structure_free(ScreenFlowStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_flow_structure_can_have_content(const ScreenFlowStructure *self);
 char *screen_flow_structure_content(const ScreenFlowStructure *self);
 void screen_flow_structure_set_content(ScreenFlowStructure *self, const char *value);
@@ -19966,7 +20007,7 @@ ScreenRouteMap screen_flow_structure_screen_route_map(const ScreenFlowStructure 
 // Binds a ScreenInventory facade to a document and a path (path copied).
 void screen_inventory_init(ScreenInventory *self, SpecDocument *doc, const char *path);
 void screen_inventory_free(ScreenInventory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_inventory_can_have_content(const ScreenInventory *self);
 char *screen_inventory_content(const ScreenInventory *self);
 void screen_inventory_set_content(ScreenInventory *self, const char *value);
@@ -19982,7 +20023,7 @@ SomList screen_inventory_items(const ScreenInventory *self);
 // Binds a ScreenResponsiveRuleEntry facade to a document and a path (path copied).
 void screen_responsive_rule_entry_init(ScreenResponsiveRuleEntry *self, SpecDocument *doc, const char *path);
 void screen_responsive_rule_entry_free(ScreenResponsiveRuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_responsive_rule_entry_can_have_content(const ScreenResponsiveRuleEntry *self);
 ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const ScreenResponsiveRuleEntry *self);
 
@@ -19990,7 +20031,7 @@ ScreenResponsiveRuleEntryContentForm screen_responsive_rule_entry_content(const 
 // Binds a ScreenRouteEntry facade to a document and a path (path copied).
 void screen_route_entry_init(ScreenRouteEntry *self, SpecDocument *doc, const char *path);
 void screen_route_entry_free(ScreenRouteEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_route_entry_can_have_content(const ScreenRouteEntry *self);
 ScreenRouteEntryContentForm screen_route_entry_content(const ScreenRouteEntry *self);
 
@@ -20008,7 +20049,7 @@ ScreenRouteEntryContentForm screen_route_entry_content(const ScreenRouteEntry *s
 // Binds a ScreenRouteMap facade to a document and a path (path copied).
 void screen_route_map_init(ScreenRouteMap *self, SpecDocument *doc, const char *path);
 void screen_route_map_free(ScreenRouteMap *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_route_map_can_have_content(const ScreenRouteMap *self);
 char *screen_route_map_content(const ScreenRouteMap *self);
 void screen_route_map_set_content(ScreenRouteMap *self, const char *value);
@@ -20030,7 +20071,7 @@ SomList screen_route_map_transitions(const ScreenRouteMap *self);
 // Binds a ScreenSectionEntry facade to a document and a path (path copied).
 void screen_section_entry_init(ScreenSectionEntry *self, SpecDocument *doc, const char *path);
 void screen_section_entry_free(ScreenSectionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_section_entry_can_have_content(const ScreenSectionEntry *self);
 ScreenSectionEntryContentForm screen_section_entry_content(const ScreenSectionEntry *self);
 // Layout and ordering for the section.
@@ -20047,7 +20088,7 @@ SomList screen_section_entry_elements(const ScreenSectionEntry *self);
 // Binds a ScreenSections facade to a document and a path (path copied).
 void screen_sections_init(ScreenSections *self, SpecDocument *doc, const char *path);
 void screen_sections_free(ScreenSections *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_sections_can_have_content(const ScreenSections *self);
 char *screen_sections_content(const ScreenSections *self);
 void screen_sections_set_content(ScreenSections *self, const char *value);
@@ -20061,7 +20102,7 @@ SomList screen_sections_items(const ScreenSections *self);
 // Binds a ScreenStateEntry facade to a document and a path (path copied).
 void screen_state_entry_init(ScreenStateEntry *self, SpecDocument *doc, const char *path);
 void screen_state_entry_free(ScreenStateEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_state_entry_can_have_content(const ScreenStateEntry *self);
 ScreenStateEntryContentForm screen_state_entry_content(const ScreenStateEntry *self);
 
@@ -20071,7 +20112,7 @@ ScreenStateEntryContentForm screen_state_entry_content(const ScreenStateEntry *s
 // Binds a ScreenStates facade to a document and a path (path copied).
 void screen_states_init(ScreenStates *self, SpecDocument *doc, const char *path);
 void screen_states_free(ScreenStates *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_states_can_have_content(const ScreenStates *self);
 char *screen_states_content(const ScreenStates *self);
 void screen_states_set_content(ScreenStates *self, const char *value);
@@ -20083,7 +20124,7 @@ SomList screen_states_items(const ScreenStates *self);
 // Binds a ScreenTransitionEntry facade to a document and a path (path copied).
 void screen_transition_entry_init(ScreenTransitionEntry *self, SpecDocument *doc, const char *path);
 void screen_transition_entry_free(ScreenTransitionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_transition_entry_can_have_content(const ScreenTransitionEntry *self);
 ScreenTransitionEntryContentForm screen_transition_entry_content(const ScreenTransitionEntry *self);
 
@@ -20091,7 +20132,7 @@ ScreenTransitionEntryContentForm screen_transition_entry_content(const ScreenTra
 // Binds a ScreenUserCategoryEntry facade to a document and a path (path copied).
 void screen_user_category_entry_init(ScreenUserCategoryEntry *self, SpecDocument *doc, const char *path);
 void screen_user_category_entry_free(ScreenUserCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int screen_user_category_entry_can_have_content(const ScreenUserCategoryEntry *self);
 ScreenUserCategoryEntryContentForm screen_user_category_entry_content(const ScreenUserCategoryEntry *self);
 
@@ -20101,7 +20142,7 @@ ScreenUserCategoryEntryContentForm screen_user_category_entry_content(const Scre
 // Binds a SecondaryNavigation facade to a document and a path (path copied).
 void secondary_navigation_init(SecondaryNavigation *self, SpecDocument *doc, const char *path);
 void secondary_navigation_free(SecondaryNavigation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int secondary_navigation_can_have_content(const SecondaryNavigation *self);
 char *secondary_navigation_content(const SecondaryNavigation *self);
 void secondary_navigation_set_content(SecondaryNavigation *self, const char *value);
@@ -20115,7 +20156,7 @@ SomList secondary_navigation_tab_bars(const SecondaryNavigation *self);
 // Binds a Security facade to a document and a path (path copied).
 void security_init(Security *self, SpecDocument *doc, const char *path);
 void security_free(Security *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_can_have_content(const Security *self);
 SecurityContentForm security_content(const Security *self);
 // Authentication controls.
@@ -20133,7 +20174,7 @@ SecurityComplianceForm security_compliance(const Security *self);
 // Binds a SecurityAndAccessModel facade to a document and a path (path copied).
 void security_and_access_model_init(SecurityAndAccessModel *self, SpecDocument *doc, const char *path);
 void security_and_access_model_free(SecurityAndAccessModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_and_access_model_can_have_content(const SecurityAndAccessModel *self);
 char *security_and_access_model_content(const SecurityAndAccessModel *self);
 void security_and_access_model_set_content(SecurityAndAccessModel *self, const char *value);
@@ -20148,7 +20189,7 @@ SecurityComplianceFollowUp security_and_access_model_compliance(const SecurityAn
 // Binds a SecurityAuditEntry facade to a document and a path (path copied).
 void security_audit_entry_init(SecurityAuditEntry *self, SpecDocument *doc, const char *path);
 void security_audit_entry_free(SecurityAuditEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_audit_entry_can_have_content(const SecurityAuditEntry *self);
 SecurityAuditEntryContentForm security_audit_entry_content(const SecurityAuditEntry *self);
 // Audit schedule and cadence.
@@ -20166,7 +20207,7 @@ SecurityAuditEntryFollowUpForm security_audit_entry_follow_up(const SecurityAudi
 // Binds a SecurityAuditRequirementsSection facade to a document and a path (path copied).
 void security_audit_requirements_section_init(SecurityAuditRequirementsSection *self, SpecDocument *doc, const char *path);
 void security_audit_requirements_section_free(SecurityAuditRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_audit_requirements_section_can_have_content(const SecurityAuditRequirementsSection *self);
 char *security_audit_requirements_section_content(const SecurityAuditRequirementsSection *self);
 void security_audit_requirements_section_set_content(SecurityAuditRequirementsSection *self, const char *value);
@@ -20192,7 +20233,7 @@ SomList security_audit_requirements_section_audit_entries(const SecurityAuditReq
 // Binds a SecurityCertificationRequirements facade to a document and a path (path copied).
 void security_certification_requirements_init(SecurityCertificationRequirements *self, SpecDocument *doc, const char *path);
 void security_certification_requirements_free(SecurityCertificationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_certification_requirements_can_have_content(const SecurityCertificationRequirements *self);
 SecurityCertificationRequirementsContentForm security_certification_requirements_content(const SecurityCertificationRequirements *self);
 // ISO 27001 requirements.
@@ -20212,7 +20253,7 @@ SecurityCertificationRequirementsMaintenanceForm security_certification_requirem
 // Binds a SecurityCharacteristic facade to a document and a path (path copied).
 void security_characteristic_init(SecurityCharacteristic *self, SpecDocument *doc, const char *path);
 void security_characteristic_free(SecurityCharacteristic *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_characteristic_can_have_content(const SecurityCharacteristic *self);
 SecurityCharacteristicSecurityContentForm security_characteristic_security_content(const SecurityCharacteristic *self);
 // Security overview.
@@ -20230,7 +20271,7 @@ ItSecurityOperations security_characteristic_it_security_operations(const Securi
 // Binds a SecurityCodeReviewPolicy facade to a document and a path (path copied).
 void security_code_review_policy_init(SecurityCodeReviewPolicy *self, SpecDocument *doc, const char *path);
 void security_code_review_policy_free(SecurityCodeReviewPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_code_review_policy_can_have_content(const SecurityCodeReviewPolicy *self);
 SecurityCodeReviewPolicyContentForm security_code_review_policy_content(const SecurityCodeReviewPolicy *self);
 // Reviewer qualification and independence rules.
@@ -20249,7 +20290,7 @@ SecurityCodeReviewPolicyFindingsForm security_code_review_policy_findings(const 
 // Binds a SecurityComplianceFollowUp facade to a document and a path (path copied).
 void security_compliance_follow_up_init(SecurityComplianceFollowUp *self, SpecDocument *doc, const char *path);
 void security_compliance_follow_up_free(SecurityComplianceFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_compliance_follow_up_can_have_content(const SecurityComplianceFollowUp *self);
 char *security_compliance_follow_up_content(const SecurityComplianceFollowUp *self);
 void security_compliance_follow_up_set_content(SecurityComplianceFollowUp *self, const char *value);
@@ -20260,7 +20301,7 @@ ComplianceFramework security_compliance_follow_up_compliance_framework(const Sec
 // Binds a SecurityControlEntry facade to a document and a path (path copied).
 void security_control_entry_init(SecurityControlEntry *self, SpecDocument *doc, const char *path);
 void security_control_entry_free(SecurityControlEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_control_entry_can_have_content(const SecurityControlEntry *self);
 SecurityControlEntryContentForm security_control_entry_content(const SecurityControlEntry *self);
 // Control implementation details.
@@ -20274,7 +20315,7 @@ SecurityControlEntryVerificationForm security_control_entry_verification(const S
 // Binds a SecurityControls facade to a document and a path (path copied).
 void security_controls_init(SecurityControls *self, SpecDocument *doc, const char *path);
 void security_controls_free(SecurityControls *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_controls_can_have_content(const SecurityControls *self);
 char *security_controls_content(const SecurityControls *self);
 void security_controls_set_content(SecurityControls *self, const char *value);
@@ -20286,7 +20327,7 @@ SomList security_controls_controls(const SecurityControls *self);
 // Binds a SecurityDevelopmentLifecycle facade to a document and a path (path copied).
 void security_development_lifecycle_init(SecurityDevelopmentLifecycle *self, SpecDocument *doc, const char *path);
 void security_development_lifecycle_free(SecurityDevelopmentLifecycle *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_development_lifecycle_can_have_content(const SecurityDevelopmentLifecycle *self);
 SecurityDevelopmentLifecycleContentForm security_development_lifecycle_content(const SecurityDevelopmentLifecycle *self);
 // Development-phase controls.
@@ -20303,7 +20344,7 @@ SecurityDevelopmentLifecycleReleaseForm security_development_lifecycle_release(c
 // Binds a SecurityEventEntry facade to a document and a path (path copied).
 void security_event_entry_init(SecurityEventEntry *self, SpecDocument *doc, const char *path);
 void security_event_entry_free(SecurityEventEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_event_entry_can_have_content(const SecurityEventEntry *self);
 SecurityEventEntryContentForm security_event_entry_content(const SecurityEventEntry *self);
 
@@ -20314,7 +20355,7 @@ SecurityEventEntryContentForm security_event_entry_content(const SecurityEventEn
 // Binds a SecurityEventLoggingPolicy facade to a document and a path (path copied).
 void security_event_logging_policy_init(SecurityEventLoggingPolicy *self, SpecDocument *doc, const char *path);
 void security_event_logging_policy_free(SecurityEventLoggingPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_event_logging_policy_can_have_content(const SecurityEventLoggingPolicy *self);
 SecurityEventLoggingPolicyContentForm security_event_logging_policy_content(const SecurityEventLoggingPolicy *self);
 // Additional Notes (text).
@@ -20328,7 +20369,7 @@ SecurityEventLoggingPolicyContentForm security_event_logging_policy_content(cons
 // Binds a SecurityEventsDefinition facade to a document and a path (path copied).
 void security_events_definition_init(SecurityEventsDefinition *self, SpecDocument *doc, const char *path);
 void security_events_definition_free(SecurityEventsDefinition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_events_definition_can_have_content(const SecurityEventsDefinition *self);
 char *security_events_definition_content(const SecurityEventsDefinition *self);
 void security_events_definition_set_content(SecurityEventsDefinition *self, const char *value);
@@ -20355,7 +20396,7 @@ SomList security_events_definition_custom_events(const SecurityEventsDefinition 
 // Binds a SecurityOperationsFollowUp facade to a document and a path (path copied).
 void security_operations_follow_up_init(SecurityOperationsFollowUp *self, SpecDocument *doc, const char *path);
 void security_operations_follow_up_free(SecurityOperationsFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_operations_follow_up_can_have_content(const SecurityOperationsFollowUp *self);
 char *security_operations_follow_up_content(const SecurityOperationsFollowUp *self);
 void security_operations_follow_up_set_content(SecurityOperationsFollowUp *self, const char *value);
@@ -20371,7 +20412,7 @@ AuditAndLogging security_operations_follow_up_audit_and_logging(const SecurityOp
 // Binds a SecurityRequirementEntry facade to a document and a path (path copied).
 void security_requirement_entry_init(SecurityRequirementEntry *self, SpecDocument *doc, const char *path);
 void security_requirement_entry_free(SecurityRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_requirement_entry_can_have_content(const SecurityRequirementEntry *self);
 SecurityRequirementEntryContentForm security_requirement_entry_content(const SecurityRequirementEntry *self);
 // Category and classification.
@@ -20400,7 +20441,7 @@ RequirementTraceability security_requirement_entry_traceability(const SecurityRe
 // Binds a SecurityRequirements facade to a document and a path (path copied).
 void security_requirements_init(SecurityRequirements *self, SpecDocument *doc, const char *path);
 void security_requirements_free(SecurityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_requirements_can_have_content(const SecurityRequirements *self);
 char *security_requirements_content(const SecurityRequirements *self);
 void security_requirements_set_content(SecurityRequirements *self, const char *value);
@@ -20414,7 +20455,7 @@ SomList security_requirements_requirements(const SecurityRequirements *self);
 // Binds a SecurityStandardComplianceEntry facade to a document and a path (path copied).
 void security_standard_compliance_entry_init(SecurityStandardComplianceEntry *self, SpecDocument *doc, const char *path);
 void security_standard_compliance_entry_free(SecurityStandardComplianceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_standard_compliance_entry_can_have_content(const SecurityStandardComplianceEntry *self);
 SecurityStandardComplianceEntryContentForm security_standard_compliance_entry_content(const SecurityStandardComplianceEntry *self);
 // Scope details.
@@ -20430,7 +20471,7 @@ SecurityStandardComplianceEntryStatusForm security_standard_compliance_entry_sta
 // Binds a SecurityStandardEntry facade to a document and a path (path copied).
 void security_standard_entry_init(SecurityStandardEntry *self, SpecDocument *doc, const char *path);
 void security_standard_entry_free(SecurityStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_standard_entry_can_have_content(const SecurityStandardEntry *self);
 SecurityStandardEntryContentForm security_standard_entry_content(const SecurityStandardEntry *self);
 // Applicability and regulatory scope.
@@ -20447,7 +20488,7 @@ SecurityStandardEntryVerificationForm security_standard_entry_verification(const
 // Binds a SecurityTestingAutomation facade to a document and a path (path copied).
 void security_testing_automation_init(SecurityTestingAutomation *self, SpecDocument *doc, const char *path);
 void security_testing_automation_free(SecurityTestingAutomation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int security_testing_automation_can_have_content(const SecurityTestingAutomation *self);
 SecurityTestingAutomationContentForm security_testing_automation_content(const SecurityTestingAutomation *self);
 // Dynamic analysis configuration.
@@ -20468,7 +20509,7 @@ SecurityTestingAutomationGovernanceForm security_testing_automation_governance(c
 // Binds a SelfRegistrationPolicy facade to a document and a path (path copied).
 void self_registration_policy_init(SelfRegistrationPolicy *self, SpecDocument *doc, const char *path);
 void self_registration_policy_free(SelfRegistrationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int self_registration_policy_can_have_content(const SelfRegistrationPolicy *self);
 SelfRegistrationPolicyContentForm self_registration_policy_content(const SelfRegistrationPolicy *self);
 // Field configuration.
@@ -20491,7 +20532,7 @@ SelfRegistrationPolicySecurityForm self_registration_policy_security(const SelfR
 // Binds a SelfServiceAccountManagement facade to a document and a path (path copied).
 void self_service_account_management_init(SelfServiceAccountManagement *self, SpecDocument *doc, const char *path);
 void self_service_account_management_free(SelfServiceAccountManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int self_service_account_management_can_have_content(const SelfServiceAccountManagement *self);
 char *self_service_account_management_content(const SelfServiceAccountManagement *self);
 void self_service_account_management_set_content(SelfServiceAccountManagement *self, const char *value);
@@ -20502,7 +20543,7 @@ void self_service_account_management_set_content(SelfServiceAccountManagement *s
 // Binds a SensitiveDataEncryption facade to a document and a path (path copied).
 void sensitive_data_encryption_init(SensitiveDataEncryption *self, SpecDocument *doc, const char *path);
 void sensitive_data_encryption_free(SensitiveDataEncryption *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sensitive_data_encryption_can_have_content(const SensitiveDataEncryption *self);
 char *sensitive_data_encryption_content(const SensitiveDataEncryption *self);
 void sensitive_data_encryption_set_content(SensitiveDataEncryption *self, const char *value);
@@ -20517,7 +20558,7 @@ KeyManagement sensitive_data_encryption_key_management(const SensitiveDataEncryp
 // Binds a ServerEnvironmentEntry facade to a document and a path (path copied).
 void server_environment_entry_init(ServerEnvironmentEntry *self, SpecDocument *doc, const char *path);
 void server_environment_entry_free(ServerEnvironmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_environment_entry_can_have_content(const ServerEnvironmentEntry *self);
 ServerEnvironmentEntryContentForm server_environment_entry_content(const ServerEnvironmentEntry *self);
 // Location details.
@@ -20533,7 +20574,7 @@ ServerEnvironmentEntryLifecycleForm server_environment_entry_lifecycle(const Ser
 // Binds a ServerOsRequirements facade to a document and a path (path copied).
 void server_os_requirements_init(ServerOsRequirements *self, SpecDocument *doc, const char *path);
 void server_os_requirements_free(ServerOsRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_os_requirements_can_have_content(const ServerOsRequirements *self);
 ServerOsRequirementsContentForm server_os_requirements_content(const ServerOsRequirements *self);
 // Hardening requirements.
@@ -20552,7 +20593,7 @@ ServerOsRequirementsLicensingForm server_os_requirements_licensing(const ServerO
 // Binds a ServerRequirementsSection facade to a document and a path (path copied).
 void server_requirements_section_init(ServerRequirementsSection *self, SpecDocument *doc, const char *path);
 void server_requirements_section_free(ServerRequirementsSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_requirements_section_can_have_content(const ServerRequirementsSection *self);
 char *server_requirements_section_content(const ServerRequirementsSection *self);
 void server_requirements_section_set_content(ServerRequirementsSection *self, const char *value);
@@ -20585,7 +20626,7 @@ ServerOsRequirements server_requirements_section_os_requirements(const ServerReq
 // Binds a ServerRoleEntry facade to a document and a path (path copied).
 void server_role_entry_init(ServerRoleEntry *self, SpecDocument *doc, const char *path);
 void server_role_entry_free(ServerRoleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_role_entry_can_have_content(const ServerRoleEntry *self);
 ServerRoleEntryContentForm server_role_entry_content(const ServerRoleEntry *self);
 // Software stack details.
@@ -20601,7 +20642,7 @@ ServerRoleEntryNetworkingForm server_role_entry_networking(const ServerRoleEntry
 // Binds a ServerStorageRequirements facade to a document and a path (path copied).
 void server_storage_requirements_init(ServerStorageRequirements *self, SpecDocument *doc, const char *path);
 void server_storage_requirements_free(ServerStorageRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_storage_requirements_can_have_content(const ServerStorageRequirements *self);
 ServerStorageRequirementsContentForm server_storage_requirements_content(const ServerStorageRequirements *self);
 // Database storage requirements.
@@ -20620,7 +20661,7 @@ ServerStorageRequirementsPerformanceForm server_storage_requirements_performance
 // Binds a ServiceAccountCredentialPolicy facade to a document and a path (path copied).
 void service_account_credential_policy_init(ServiceAccountCredentialPolicy *self, SpecDocument *doc, const char *path);
 void service_account_credential_policy_free(ServiceAccountCredentialPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_account_credential_policy_can_have_content(const ServiceAccountCredentialPolicy *self);
 char *service_account_credential_policy_content(const ServiceAccountCredentialPolicy *self);
 void service_account_credential_policy_set_content(ServiceAccountCredentialPolicy *self, const char *value);
@@ -20634,7 +20675,7 @@ void service_account_credential_policy_set_content(ServiceAccountCredentialPolic
 // Binds a ServiceAccountLifecycle facade to a document and a path (path copied).
 void service_account_lifecycle_init(ServiceAccountLifecycle *self, SpecDocument *doc, const char *path);
 void service_account_lifecycle_free(ServiceAccountLifecycle *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_account_lifecycle_can_have_content(const ServiceAccountLifecycle *self);
 char *service_account_lifecycle_content(const ServiceAccountLifecycle *self);
 void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const char *value);
@@ -20645,7 +20686,7 @@ void service_account_lifecycle_set_content(ServiceAccountLifecycle *self, const 
 // Binds a ServiceLevel facade to a document and a path (path copied).
 void service_level_init(ServiceLevel *self, SpecDocument *doc, const char *path);
 void service_level_free(ServiceLevel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_level_can_have_content(const ServiceLevel *self);
 ServiceLevelContentForm service_level_content(const ServiceLevel *self);
 // Remaining response targets.
@@ -20668,7 +20709,7 @@ SomList service_level_sla_entries(const ServiceLevel *self);
 // Binds a ServiceLevelAgreementEntry facade to a document and a path (path copied).
 void service_level_agreement_entry_init(ServiceLevelAgreementEntry *self, SpecDocument *doc, const char *path);
 void service_level_agreement_entry_free(ServiceLevelAgreementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_level_agreement_entry_can_have_content(const ServiceLevelAgreementEntry *self);
 ServiceLevelAgreementEntryContentForm service_level_agreement_entry_content(const ServiceLevelAgreementEntry *self);
 
@@ -20676,7 +20717,7 @@ ServiceLevelAgreementEntryContentForm service_level_agreement_entry_content(cons
 // Binds a ServiceLevelIndicators facade to a document and a path (path copied).
 void service_level_indicators_init(ServiceLevelIndicators *self, SpecDocument *doc, const char *path);
 void service_level_indicators_free(ServiceLevelIndicators *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_level_indicators_can_have_content(const ServiceLevelIndicators *self);
 ServiceLevelIndicatorsContentForm service_level_indicators_content(const ServiceLevelIndicators *self);
 // Latency and throughput indicators.
@@ -20690,7 +20731,7 @@ ServiceLevelIndicatorsMeasurementForm service_level_indicators_measurement(const
 // Binds a ServiceMeshAndGateway facade to a document and a path (path copied).
 void service_mesh_and_gateway_init(ServiceMeshAndGateway *self, SpecDocument *doc, const char *path);
 void service_mesh_and_gateway_free(ServiceMeshAndGateway *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int service_mesh_and_gateway_can_have_content(const ServiceMeshAndGateway *self);
 ServiceMeshAndGatewayContentForm service_mesh_and_gateway_content(const ServiceMeshAndGateway *self);
 // Service mesh configuration.
@@ -20705,7 +20746,7 @@ ServiceMeshAndGatewayLoadBalancingForm service_mesh_and_gateway_load_balancing(c
 // Binds a SessionCreationPolicy facade to a document and a path (path copied).
 void session_creation_policy_init(SessionCreationPolicy *self, SpecDocument *doc, const char *path);
 void session_creation_policy_free(SessionCreationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_creation_policy_can_have_content(const SessionCreationPolicy *self);
 char *session_creation_policy_content(const SessionCreationPolicy *self);
 void session_creation_policy_set_content(SessionCreationPolicy *self, const char *value);
@@ -20720,7 +20761,7 @@ void session_creation_policy_set_content(SessionCreationPolicy *self, const char
 // Binds a SessionLifecycleMonitoring facade to a document and a path (path copied).
 void session_lifecycle_monitoring_init(SessionLifecycleMonitoring *self, SpecDocument *doc, const char *path);
 void session_lifecycle_monitoring_free(SessionLifecycleMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_lifecycle_monitoring_can_have_content(const SessionLifecycleMonitoring *self);
 char *session_lifecycle_monitoring_content(const SessionLifecycleMonitoring *self);
 void session_lifecycle_monitoring_set_content(SessionLifecycleMonitoring *self, const char *value);
@@ -20737,7 +20778,7 @@ void session_lifecycle_monitoring_set_content(SessionLifecycleMonitoring *self, 
 // Binds a SessionManagement facade to a document and a path (path copied).
 void session_management_init(SessionManagement *self, SpecDocument *doc, const char *path);
 void session_management_free(SessionManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_management_can_have_content(const SessionManagement *self);
 char *session_management_content(const SessionManagement *self);
 void session_management_set_content(SessionManagement *self, const char *value);
@@ -20763,7 +20804,7 @@ SessionLifecycleMonitoring session_management_session_lifecycle_monitoring(const
 // Binds a SessionModel facade to a document and a path (path copied).
 void session_model_init(SessionModel *self, SpecDocument *doc, const char *path);
 void session_model_free(SessionModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_model_can_have_content(const SessionModel *self);
 char *session_model_content(const SessionModel *self);
 void session_model_set_content(SessionModel *self, const char *value);
@@ -20782,7 +20823,7 @@ SessionModelSecurityForm session_model_security(const SessionModel *self);
 // Binds a SessionRevocationPolicy facade to a document and a path (path copied).
 void session_revocation_policy_init(SessionRevocationPolicy *self, SpecDocument *doc, const char *path);
 void session_revocation_policy_free(SessionRevocationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_revocation_policy_can_have_content(const SessionRevocationPolicy *self);
 char *session_revocation_policy_content(const SessionRevocationPolicy *self);
 void session_revocation_policy_set_content(SessionRevocationPolicy *self, const char *value);
@@ -20797,7 +20838,7 @@ void session_revocation_policy_set_content(SessionRevocationPolicy *self, const 
 // Binds a SessionSecurityPolicy facade to a document and a path (path copied).
 void session_security_policy_init(SessionSecurityPolicy *self, SpecDocument *doc, const char *path);
 void session_security_policy_free(SessionSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_security_policy_can_have_content(const SessionSecurityPolicy *self);
 char *session_security_policy_content(const SessionSecurityPolicy *self);
 void session_security_policy_set_content(SessionSecurityPolicy *self, const char *value);
@@ -20813,7 +20854,7 @@ void session_security_policy_set_content(SessionSecurityPolicy *self, const char
 // Binds a SessionTimeoutPolicy facade to a document and a path (path copied).
 void session_timeout_policy_init(SessionTimeoutPolicy *self, SpecDocument *doc, const char *path);
 void session_timeout_policy_free(SessionTimeoutPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int session_timeout_policy_can_have_content(const SessionTimeoutPolicy *self);
 char *session_timeout_policy_content(const SessionTimeoutPolicy *self);
 void session_timeout_policy_set_content(SessionTimeoutPolicy *self, const char *value);
@@ -20826,7 +20867,7 @@ void session_timeout_policy_set_content(SessionTimeoutPolicy *self, const char *
 // Binds a SharedInfrastructureDependencies facade to a document and a path (path copied).
 void shared_infrastructure_dependencies_init(SharedInfrastructureDependencies *self, SpecDocument *doc, const char *path);
 void shared_infrastructure_dependencies_free(SharedInfrastructureDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int shared_infrastructure_dependencies_can_have_content(const SharedInfrastructureDependencies *self);
 char *shared_infrastructure_dependencies_content(const SharedInfrastructureDependencies *self);
 void shared_infrastructure_dependencies_set_content(SharedInfrastructureDependencies *self, const char *value);
@@ -20840,7 +20881,7 @@ SomList shared_infrastructure_dependencies_items(const SharedInfrastructureDepen
 // Binds a SharedInfrastructureEntry facade to a document and a path (path copied).
 void shared_infrastructure_entry_init(SharedInfrastructureEntry *self, SpecDocument *doc, const char *path);
 void shared_infrastructure_entry_free(SharedInfrastructureEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int shared_infrastructure_entry_can_have_content(const SharedInfrastructureEntry *self);
 SharedInfrastructureEntryContentForm shared_infrastructure_entry_content(const SharedInfrastructureEntry *self);
 // Criticality and resilience.
@@ -20854,7 +20895,7 @@ SharedInfrastructureEntryOperationsForm shared_infrastructure_entry_operations(c
 // Binds a SharedLibraryComponentEntry facade to a document and a path (path copied).
 void shared_library_component_entry_init(SharedLibraryComponentEntry *self, SpecDocument *doc, const char *path);
 void shared_library_component_entry_free(SharedLibraryComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int shared_library_component_entry_can_have_content(const SharedLibraryComponentEntry *self);
 SharedLibraryComponentEntryContentForm shared_library_component_entry_content(const SharedLibraryComponentEntry *self);
 // Purpose and consumers.
@@ -20870,7 +20911,7 @@ SharedLibraryComponentEntryOwnershipForm shared_library_component_entry_ownershi
 // Binds a SharedLibraryEntry facade to a document and a path (path copied).
 void shared_library_entry_init(SharedLibraryEntry *self, SpecDocument *doc, const char *path);
 void shared_library_entry_free(SharedLibraryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int shared_library_entry_can_have_content(const SharedLibraryEntry *self);
 SharedLibraryEntryContentForm shared_library_entry_content(const SharedLibraryEntry *self);
 // Description and usage.
@@ -20888,7 +20929,7 @@ SharedLibraryEntryLifecycleForm shared_library_entry_lifecycle(const SharedLibra
 // Binds a SignOffProcess facade to a document and a path (path copied).
 void sign_off_process_init(SignOffProcess *self, SpecDocument *doc, const char *path);
 void sign_off_process_free(SignOffProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sign_off_process_can_have_content(const SignOffProcess *self);
 SignOffProcessContentForm sign_off_process_content(const SignOffProcess *self);
 // Signatory and quorum governance.
@@ -20911,7 +20952,7 @@ SignOffProcessTimelineForm sign_off_process_timeline(const SignOffProcess *self)
 // Binds a SingleSignOnPolicy facade to a document and a path (path copied).
 void single_sign_on_policy_init(SingleSignOnPolicy *self, SpecDocument *doc, const char *path);
 void single_sign_on_policy_free(SingleSignOnPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int single_sign_on_policy_can_have_content(const SingleSignOnPolicy *self);
 SingleSignOnPolicyContentForm single_sign_on_policy_content(const SingleSignOnPolicy *self);
 // Gateway and federation setup.
@@ -20931,7 +20972,7 @@ SingleSignOnPolicyOperationsForm single_sign_on_policy_operations(const SingleSi
 // Binds a SlaAndSloMonitoring facade to a document and a path (path copied).
 void sla_and_slo_monitoring_init(SlaAndSloMonitoring *self, SpecDocument *doc, const char *path);
 void sla_and_slo_monitoring_free(SlaAndSloMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sla_and_slo_monitoring_can_have_content(const SlaAndSloMonitoring *self);
 SlaAndSloMonitoringSlaOverviewForm sla_and_slo_monitoring_sla_overview(const SlaAndSloMonitoring *self);
 // SLA/SLO overview narrative.
@@ -20948,7 +20989,7 @@ ErrorBudgetTracking sla_and_slo_monitoring_error_budget(const SlaAndSloMonitorin
 // Binds a SlaMonitoringRequirements facade to a document and a path (path copied).
 void sla_monitoring_requirements_init(SlaMonitoringRequirements *self, SpecDocument *doc, const char *path);
 void sla_monitoring_requirements_free(SlaMonitoringRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sla_monitoring_requirements_can_have_content(const SlaMonitoringRequirements *self);
 SlaMonitoringRequirementsContentForm sla_monitoring_requirements_content(const SlaMonitoringRequirements *self);
 // Monitoring mechanics.
@@ -20964,7 +21005,7 @@ SlaMonitoringRequirementsReportingForm sla_monitoring_requirements_reporting(con
 // Binds a SloEntry facade to a document and a path (path copied).
 void slo_entry_init(SloEntry *self, SpecDocument *doc, const char *path);
 void slo_entry_free(SloEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int slo_entry_can_have_content(const SloEntry *self);
 SloEntryContentForm slo_entry_content(const SloEntry *self);
 // Objective target and budget definition.
@@ -20976,7 +21017,7 @@ SloEntryOperationsForm slo_entry_operations(const SloEntry *self);
 // Binds a SoftwareDeliverables facade to a document and a path (path copied).
 void software_deliverables_init(SoftwareDeliverables *self, SpecDocument *doc, const char *path);
 void software_deliverables_free(SoftwareDeliverables *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int software_deliverables_can_have_content(const SoftwareDeliverables *self);
 char *software_deliverables_content(const SoftwareDeliverables *self);
 void software_deliverables_set_content(SoftwareDeliverables *self, const char *value);
@@ -20988,7 +21029,7 @@ SomList software_deliverables_items(const SoftwareDeliverables *self);
 // Binds a SoftwareDesignRequirements facade to a document and a path (path copied).
 void software_design_requirements_init(SoftwareDesignRequirements *self, SpecDocument *doc, const char *path);
 void software_design_requirements_free(SoftwareDesignRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int software_design_requirements_can_have_content(const SoftwareDesignRequirements *self);
 char *software_design_requirements_content(const SoftwareDesignRequirements *self);
 void software_design_requirements_set_content(SoftwareDesignRequirements *self, const char *value);
@@ -21003,7 +21044,7 @@ ReusableComponentsSection software_design_requirements_reusable_components(const
 // Binds a SoftwareLayerEntry facade to a document and a path (path copied).
 void software_layer_entry_init(SoftwareLayerEntry *self, SpecDocument *doc, const char *path);
 void software_layer_entry_free(SoftwareLayerEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int software_layer_entry_can_have_content(const SoftwareLayerEntry *self);
 SoftwareLayerEntryContentForm software_layer_entry_content(const SoftwareLayerEntry *self);
 // Responsibilities and constraints.
@@ -21019,7 +21060,7 @@ SoftwareLayerEntryTechnologyForm software_layer_entry_technology(const SoftwareL
 // Binds a SolutionArchitectureAndTechnology facade to a document and a path (path copied).
 void solution_architecture_and_technology_init(SolutionArchitectureAndTechnology *self, SpecDocument *doc, const char *path);
 void solution_architecture_and_technology_free(SolutionArchitectureAndTechnology *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int solution_architecture_and_technology_can_have_content(const SolutionArchitectureAndTechnology *self);
 char *solution_architecture_and_technology_content(const SolutionArchitectureAndTechnology *self);
 void solution_architecture_and_technology_set_content(SolutionArchitectureAndTechnology *self, const char *value);
@@ -21040,7 +21081,7 @@ SolutionArchitectureFollowUp solution_architecture_and_technology_architecture_f
 // Binds a SolutionArchitectureFollowUp facade to a document and a path (path copied).
 void solution_architecture_follow_up_init(SolutionArchitectureFollowUp *self, SpecDocument *doc, const char *path);
 void solution_architecture_follow_up_free(SolutionArchitectureFollowUp *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int solution_architecture_follow_up_can_have_content(const SolutionArchitectureFollowUp *self);
 char *solution_architecture_follow_up_content(const SolutionArchitectureFollowUp *self);
 void solution_architecture_follow_up_set_content(SolutionArchitectureFollowUp *self, const char *value);
@@ -21051,7 +21092,7 @@ ComponentsAndDependencies solution_architecture_follow_up_components_to_use(cons
 // Binds a SpecializedEquipmentEntry facade to a document and a path (path copied).
 void specialized_equipment_entry_init(SpecializedEquipmentEntry *self, SpecDocument *doc, const char *path);
 void specialized_equipment_entry_free(SpecializedEquipmentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int specialized_equipment_entry_can_have_content(const SpecializedEquipmentEntry *self);
 SpecializedEquipmentEntryContentForm specialized_equipment_entry_content(const SpecializedEquipmentEntry *self);
 // Technical and compliance characteristics.
@@ -21066,7 +21107,7 @@ SpecializedEquipmentEntryPlanningForm specialized_equipment_entry_planning(const
 // Binds a SsoPolicy facade to a document and a path (path copied).
 void sso_policy_init(SsoPolicy *self, SpecDocument *doc, const char *path);
 void sso_policy_free(SsoPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sso_policy_can_have_content(const SsoPolicy *self);
 char *sso_policy_content(const SsoPolicy *self);
 void sso_policy_set_content(SsoPolicy *self, const char *value);
@@ -21077,7 +21118,7 @@ void sso_policy_set_content(SsoPolicy *self, const char *value);
 // Binds a StaffingBudget facade to a document and a path (path copied).
 void staffing_budget_init(StaffingBudget *self, SpecDocument *doc, const char *path);
 void staffing_budget_free(StaffingBudget *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staffing_budget_can_have_content(const StaffingBudget *self);
 StaffingBudgetContentForm staffing_budget_content(const StaffingBudget *self);
 // Recruitment and enablement cost categories.
@@ -21092,7 +21133,7 @@ StaffingBudgetGovernanceForm staffing_budget_governance(const StaffingBudget *se
 // Binds a StaffingEntry facade to a document and a path (path copied).
 void staffing_entry_init(StaffingEntry *self, SpecDocument *doc, const char *path);
 void staffing_entry_free(StaffingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staffing_entry_can_have_content(const StaffingEntry *self);
 StaffingEntryContentForm staffing_entry_content(const StaffingEntry *self);
 // Organization and employment placement.
@@ -21108,7 +21149,7 @@ StaffingEntryOwnershipForm staffing_entry_ownership(const StaffingEntry *self);
 // Binds a StaffingPlan facade to a document and a path (path copied).
 void staffing_plan_init(StaffingPlan *self, SpecDocument *doc, const char *path);
 void staffing_plan_free(StaffingPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staffing_plan_can_have_content(const StaffingPlan *self);
 // Staffing plan overview.
 StaffingPlanOverviewForm staffing_plan_overview(const StaffingPlan *self);
@@ -21124,7 +21165,7 @@ StaffingPlanRecruitmentTimelineForm staffing_plan_recruitment_timeline(const Sta
 // Binds a StageDependencies facade to a document and a path (path copied).
 void stage_dependencies_init(StageDependencies *self, SpecDocument *doc, const char *path);
 void stage_dependencies_free(StageDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_dependencies_can_have_content(const StageDependencies *self);
 StageDependenciesContentForm stage_dependencies_content(const StageDependencies *self);
 
@@ -21138,7 +21179,7 @@ StageDependenciesContentForm stage_dependencies_content(const StageDependencies 
 // Binds a StageEntry facade to a document and a path (path copied).
 void stage_entry_init(StageEntry *self, SpecDocument *doc, const char *path);
 void stage_entry_free(StageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_entry_can_have_content(const StageEntry *self);
 StageEntryContentForm stage_entry_content(const StageEntry *self);
 // Identity and classification.
@@ -21188,7 +21229,7 @@ SomList stage_entry_success_criteria(const StageEntry *self);
 // Binds a StageGovernance facade to a document and a path (path copied).
 void stage_governance_init(StageGovernance *self, SpecDocument *doc, const char *path);
 void stage_governance_free(StageGovernance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_governance_can_have_content(const StageGovernance *self);
 StageGovernanceContentForm stage_governance_content(const StageGovernance *self);
 // Governance model details.
@@ -21216,7 +21257,7 @@ DecisionPoints stage_governance_decision_points(const StageGovernance *self);
 // Binds a StageMigrationResources facade to a document and a path (path copied).
 void stage_migration_resources_init(StageMigrationResources *self, SpecDocument *doc, const char *path);
 void stage_migration_resources_free(StageMigrationResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_migration_resources_can_have_content(const StageMigrationResources *self);
 StageMigrationResourcesContentForm stage_migration_resources_content(const StageMigrationResources *self);
 
@@ -21229,7 +21270,7 @@ StageMigrationResourcesContentForm stage_migration_resources_content(const Stage
 // Binds a StageMigrationRiskEntry facade to a document and a path (path copied).
 void stage_migration_risk_entry_init(StageMigrationRiskEntry *self, SpecDocument *doc, const char *path);
 void stage_migration_risk_entry_free(StageMigrationRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_migration_risk_entry_can_have_content(const StageMigrationRiskEntry *self);
 StageMigrationRiskEntryContentForm stage_migration_risk_entry_content(const StageMigrationRiskEntry *self);
 // Risk identity and description.
@@ -21257,7 +21298,7 @@ StageMigrationRiskEntryStatusForm stage_migration_risk_entry_status(const StageM
 // Binds a StageMigrationRisks facade to a document and a path (path copied).
 void stage_migration_risks_init(StageMigrationRisks *self, SpecDocument *doc, const char *path);
 void stage_migration_risks_free(StageMigrationRisks *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_migration_risks_can_have_content(const StageMigrationRisks *self);
 StageMigrationRisksContentForm stage_migration_risks_content(const StageMigrationRisks *self);
 // Risk summary narrative.
@@ -21277,7 +21318,7 @@ SomList stage_migration_risks_items(const StageMigrationRisks *self);
 // Binds a StageOverview facade to a document and a path (path copied).
 void stage_overview_init(StageOverview *self, SpecDocument *doc, const char *path);
 void stage_overview_free(StageOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_overview_can_have_content(const StageOverview *self);
 StageOverviewContentForm stage_overview_content(const StageOverview *self);
 // Summary metrics across all stages.
@@ -21323,7 +21364,7 @@ SomList stage_overview_stage_summaries(const StageOverview *self);
 // Binds a StageResources facade to a document and a path (path copied).
 void stage_resources_init(StageResources *self, SpecDocument *doc, const char *path);
 void stage_resources_free(StageResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_resources_can_have_content(const StageResources *self);
 StageResourcesContentForm stage_resources_content(const StageResources *self);
 
@@ -21331,7 +21372,7 @@ StageResourcesContentForm stage_resources_content(const StageResources *self);
 // Binds a StageStakeholders facade to a document and a path (path copied).
 void stage_stakeholders_init(StageStakeholders *self, SpecDocument *doc, const char *path);
 void stage_stakeholders_free(StageStakeholders *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_stakeholders_can_have_content(const StageStakeholders *self);
 StageStakeholdersContentForm stage_stakeholders_content(const StageStakeholders *self);
 
@@ -21343,7 +21384,7 @@ StageStakeholdersContentForm stage_stakeholders_content(const StageStakeholders 
 // Binds a StageSuccessCriterionEntry facade to a document and a path (path copied).
 void stage_success_criterion_entry_init(StageSuccessCriterionEntry *self, SpecDocument *doc, const char *path);
 void stage_success_criterion_entry_free(StageSuccessCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_success_criterion_entry_can_have_content(const StageSuccessCriterionEntry *self);
 StageSuccessCriterionEntryContentForm stage_success_criterion_entry_content(const StageSuccessCriterionEntry *self);
 // Measurement targets.
@@ -21357,7 +21398,7 @@ StageSuccessCriterionEntryStatusForm stage_success_criterion_entry_status(const 
 // Binds a StageSummaryDependencies facade to a document and a path (path copied).
 void stage_summary_dependencies_init(StageSummaryDependencies *self, SpecDocument *doc, const char *path);
 void stage_summary_dependencies_free(StageSummaryDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_summary_dependencies_can_have_content(const StageSummaryDependencies *self);
 StageSummaryDependenciesContentForm stage_summary_dependencies_content(const StageSummaryDependencies *self);
 
@@ -21372,7 +21413,7 @@ StageSummaryDependenciesContentForm stage_summary_dependencies_content(const Sta
 // Binds a StageSummaryEntry facade to a document and a path (path copied).
 void stage_summary_entry_init(StageSummaryEntry *self, SpecDocument *doc, const char *path);
 void stage_summary_entry_free(StageSummaryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_summary_entry_can_have_content(const StageSummaryEntry *self);
 StageSummaryEntryContentForm stage_summary_entry_content(const StageSummaryEntry *self);
 // Identity and theme.
@@ -21396,7 +21437,7 @@ StageSummaryEntryStatusForm stage_summary_entry_status(const StageSummaryEntry *
 // Binds a StageSummaryResources facade to a document and a path (path copied).
 void stage_summary_resources_init(StageSummaryResources *self, SpecDocument *doc, const char *path);
 void stage_summary_resources_free(StageSummaryResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stage_summary_resources_can_have_content(const StageSummaryResources *self);
 StageSummaryResourcesContentForm stage_summary_resources_content(const StageSummaryResources *self);
 
@@ -21404,7 +21445,7 @@ StageSummaryResourcesContentForm stage_summary_resources_content(const StageSumm
 // Binds a StagingDependencies facade to a document and a path (path copied).
 void staging_dependencies_init(StagingDependencies *self, SpecDocument *doc, const char *path);
 void staging_dependencies_free(StagingDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staging_dependencies_can_have_content(const StagingDependencies *self);
 StagingDependenciesContentForm staging_dependencies_content(const StagingDependencies *self);
 
@@ -21412,7 +21453,7 @@ StagingDependenciesContentForm staging_dependencies_content(const StagingDepende
 // Binds a StagingDrivers facade to a document and a path (path copied).
 void staging_drivers_init(StagingDrivers *self, SpecDocument *doc, const char *path);
 void staging_drivers_free(StagingDrivers *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staging_drivers_can_have_content(const StagingDrivers *self);
 StagingDriversContentForm staging_drivers_content(const StagingDrivers *self);
 
@@ -21427,7 +21468,7 @@ StagingDriversContentForm staging_drivers_content(const StagingDrivers *self);
 // Binds a StagingStrategy facade to a document and a path (path copied).
 void staging_strategy_init(StagingStrategy *self, SpecDocument *doc, const char *path);
 void staging_strategy_free(StagingStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int staging_strategy_can_have_content(const StagingStrategy *self);
 StagingStrategyContentForm staging_strategy_content(const StagingStrategy *self);
 // Approach selection details.
@@ -21475,7 +21516,7 @@ SomList staging_strategy_constraints(const StagingStrategy *self);
 // Binds a StakeholderEntry facade to a document and a path (path copied).
 void stakeholder_entry_init(StakeholderEntry *self, SpecDocument *doc, const char *path);
 void stakeholder_entry_free(StakeholderEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stakeholder_entry_can_have_content(const StakeholderEntry *self);
 StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *self);
 
@@ -21486,7 +21527,7 @@ StakeholderEntryContentForm stakeholder_entry_content(const StakeholderEntry *se
 // Binds a StakeholderRegisterEntry facade to a document and a path (path copied).
 void stakeholder_register_entry_init(StakeholderRegisterEntry *self, SpecDocument *doc, const char *path);
 void stakeholder_register_entry_free(StakeholderRegisterEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stakeholder_register_entry_can_have_content(const StakeholderRegisterEntry *self);
 StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const StakeholderRegisterEntry *self);
 
@@ -21500,7 +21541,7 @@ StakeholderRegisterEntryContentForm stakeholder_register_entry_content(const Sta
 // Binds a StakeholdersAndBeneficiaries facade to a document and a path (path copied).
 void stakeholders_and_beneficiaries_init(StakeholdersAndBeneficiaries *self, SpecDocument *doc, const char *path);
 void stakeholders_and_beneficiaries_free(StakeholdersAndBeneficiaries *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stakeholders_and_beneficiaries_can_have_content(const StakeholdersAndBeneficiaries *self);
 char *stakeholders_and_beneficiaries_content(const StakeholdersAndBeneficiaries *self);
 void stakeholders_and_beneficiaries_set_content(StakeholdersAndBeneficiaries *self, const char *value);
@@ -21515,7 +21556,7 @@ SomList stakeholders_and_beneficiaries_secondary_stakeholders(const Stakeholders
 // Binds a StakeholdersAndGovernance facade to a document and a path (path copied).
 void stakeholders_and_governance_init(StakeholdersAndGovernance *self, SpecDocument *doc, const char *path);
 void stakeholders_and_governance_free(StakeholdersAndGovernance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stakeholders_and_governance_can_have_content(const StakeholdersAndGovernance *self);
 char *stakeholders_and_governance_content(const StakeholdersAndGovernance *self);
 void stakeholders_and_governance_set_content(StakeholdersAndGovernance *self, const char *value);
@@ -21543,7 +21584,7 @@ SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGo
 // Binds a StakeholdersAndInterests facade to a document and a path (path copied).
 void stakeholders_and_interests_init(StakeholdersAndInterests *self, SpecDocument *doc, const char *path);
 void stakeholders_and_interests_free(StakeholdersAndInterests *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int stakeholders_and_interests_can_have_content(const StakeholdersAndInterests *self);
 StakeholdersAndInterestsContentForm stakeholders_and_interests_content(const StakeholdersAndInterests *self);
 
@@ -21551,7 +21592,7 @@ StakeholdersAndInterestsContentForm stakeholders_and_interests_content(const Sta
 // Binds a StandardSoftwareRequirements facade to a document and a path (path copied).
 void standard_software_requirements_init(StandardSoftwareRequirements *self, SpecDocument *doc, const char *path);
 void standard_software_requirements_free(StandardSoftwareRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int standard_software_requirements_can_have_content(const StandardSoftwareRequirements *self);
 char *standard_software_requirements_content(const StandardSoftwareRequirements *self);
 void standard_software_requirements_set_content(StandardSoftwareRequirements *self, const char *value);
@@ -21567,7 +21608,7 @@ StandardsComplianceSection standard_software_requirements_standards_compliance(c
 // Binds a StandardsComplianceSection facade to a document and a path (path copied).
 void standards_compliance_section_init(StandardsComplianceSection *self, SpecDocument *doc, const char *path);
 void standards_compliance_section_free(StandardsComplianceSection *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int standards_compliance_section_can_have_content(const StandardsComplianceSection *self);
 char *standards_compliance_section_content(const StandardsComplianceSection *self);
 void standards_compliance_section_set_content(StandardsComplianceSection *self, const char *value);
@@ -21609,7 +21650,7 @@ ComplianceVerificationSection standards_compliance_section_compliance_verificati
 // Binds a SteeringCommittee facade to a document and a path (path copied).
 void steering_committee_init(SteeringCommittee *self, SpecDocument *doc, const char *path);
 void steering_committee_free(SteeringCommittee *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int steering_committee_can_have_content(const SteeringCommittee *self);
 char *steering_committee_content(const SteeringCommittee *self);
 void steering_committee_set_content(SteeringCommittee *self, const char *value);
@@ -21626,7 +21667,7 @@ SomList steering_committee_members(const SteeringCommittee *self);
 // Binds a StepUpAuthenticationPolicy facade to a document and a path (path copied).
 void step_up_authentication_policy_init(StepUpAuthenticationPolicy *self, SpecDocument *doc, const char *path);
 void step_up_authentication_policy_free(StepUpAuthenticationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int step_up_authentication_policy_can_have_content(const StepUpAuthenticationPolicy *self);
 char *step_up_authentication_policy_content(const StepUpAuthenticationPolicy *self);
 void step_up_authentication_policy_set_content(StepUpAuthenticationPolicy *self, const char *value);
@@ -21642,7 +21683,7 @@ SomList step_up_authentication_policy_step_up_details(const StepUpAuthentication
 // Binds a StorageEncryptionPolicy facade to a document and a path (path copied).
 void storage_encryption_policy_init(StorageEncryptionPolicy *self, SpecDocument *doc, const char *path);
 void storage_encryption_policy_free(StorageEncryptionPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int storage_encryption_policy_can_have_content(const StorageEncryptionPolicy *self);
 char *storage_encryption_policy_content(const StorageEncryptionPolicy *self);
 void storage_encryption_policy_set_content(StorageEncryptionPolicy *self, const char *value);
@@ -21657,7 +21698,7 @@ void storage_encryption_policy_set_content(StorageEncryptionPolicy *self, const 
 // Binds a StorageLifecyclePolicy facade to a document and a path (path copied).
 void storage_lifecycle_policy_init(StorageLifecyclePolicy *self, SpecDocument *doc, const char *path);
 void storage_lifecycle_policy_free(StorageLifecyclePolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int storage_lifecycle_policy_can_have_content(const StorageLifecyclePolicy *self);
 char *storage_lifecycle_policy_content(const StorageLifecyclePolicy *self);
 void storage_lifecycle_policy_set_content(StorageLifecyclePolicy *self, const char *value);
@@ -21671,7 +21712,7 @@ void storage_lifecycle_policy_set_content(StorageLifecyclePolicy *self, const ch
 // Binds a StrategicAlignment facade to a document and a path (path copied).
 void strategic_alignment_init(StrategicAlignment *self, SpecDocument *doc, const char *path);
 void strategic_alignment_free(StrategicAlignment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int strategic_alignment_can_have_content(const StrategicAlignment *self);
 char *strategic_alignment_content(const StrategicAlignment *self);
 void strategic_alignment_set_content(StrategicAlignment *self, const char *value);
@@ -21684,7 +21725,7 @@ StrategicAlignmentAlignmentDetailsForm strategic_alignment_alignment_details(con
 // Binds a SubFunctionEntry facade to a document and a path (path copied).
 void sub_function_entry_init(SubFunctionEntry *self, SpecDocument *doc, const char *path);
 void sub_function_entry_free(SubFunctionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sub_function_entry_can_have_content(const SubFunctionEntry *self);
 SubFunctionEntryContentForm sub_function_entry_content(const SubFunctionEntry *self);
 
@@ -21696,7 +21737,7 @@ SubFunctionEntryContentForm sub_function_entry_content(const SubFunctionEntry *s
 // Binds a SubStageEntry facade to a document and a path (path copied).
 void sub_stage_entry_init(SubStageEntry *self, SpecDocument *doc, const char *path);
 void sub_stage_entry_free(SubStageEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int sub_stage_entry_can_have_content(const SubStageEntry *self);
 SubStageEntryContentForm sub_stage_entry_content(const SubStageEntry *self);
 // Description and objectives.
@@ -21719,7 +21760,7 @@ SubStageEntryStatusForm sub_stage_entry_status(const SubStageEntry *self);
 // Binds a SuccessCriteria facade to a document and a path (path copied).
 void success_criteria_init(SuccessCriteria *self, SpecDocument *doc, const char *path);
 void success_criteria_free(SuccessCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int success_criteria_can_have_content(const SuccessCriteria *self);
 char *success_criteria_content(const SuccessCriteria *self);
 void success_criteria_set_content(SuccessCriteria *self, const char *value);
@@ -21742,7 +21783,7 @@ SuccessCriteriaPostImplementationReviewForm success_criteria_post_implementation
 // Binds a SuccessCriteriaByCategory facade to a document and a path (path copied).
 void success_criteria_by_category_init(SuccessCriteriaByCategory *self, SpecDocument *doc, const char *path);
 void success_criteria_by_category_free(SuccessCriteriaByCategory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int success_criteria_by_category_can_have_content(const SuccessCriteriaByCategory *self);
 // Business outcome criteria overview.
 char *success_criteria_by_category_business_criteria(const SuccessCriteriaByCategory *self);
@@ -21767,7 +21808,7 @@ void success_criteria_by_category_set_project_criteria(SuccessCriteriaByCategory
 // Binds a SuccessCriterionEntry facade to a document and a path (path copied).
 void success_criterion_entry_init(SuccessCriterionEntry *self, SpecDocument *doc, const char *path);
 void success_criterion_entry_free(SuccessCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int success_criterion_entry_can_have_content(const SuccessCriterionEntry *self);
 SuccessCriterionEntryContentForm success_criterion_entry_content(const SuccessCriterionEntry *self);
 // Identification details.
@@ -21788,7 +21829,7 @@ SuccessCriterionEntryStatusForm success_criterion_entry_status(const SuccessCrit
 // Binds a SuccessCriterionRelationships facade to a document and a path (path copied).
 void success_criterion_relationships_init(SuccessCriterionRelationships *self, SpecDocument *doc, const char *path);
 void success_criterion_relationships_free(SuccessCriterionRelationships *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int success_criterion_relationships_can_have_content(const SuccessCriterionRelationships *self);
 SuccessCriterionRelationshipsContentForm success_criterion_relationships_content(const SuccessCriterionRelationships *self);
 
@@ -21796,7 +21837,7 @@ SuccessCriterionRelationshipsContentForm success_criterion_relationships_content
 // Binds a SupportAccess facade to a document and a path (path copied).
 void support_access_init(SupportAccess *self, SpecDocument *doc, const char *path);
 void support_access_free(SupportAccess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int support_access_can_have_content(const SupportAccess *self);
 SupportAccessSupportAccessContentForm support_access_support_access_content(const SupportAccess *self);
 // Help center configuration.
@@ -21816,7 +21857,7 @@ SupportAccessSelfServiceForm support_access_self_service(const SupportAccess *se
 // Binds a SupportDeliverables facade to a document and a path (path copied).
 void support_deliverables_init(SupportDeliverables *self, SpecDocument *doc, const char *path);
 void support_deliverables_free(SupportDeliverables *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int support_deliverables_can_have_content(const SupportDeliverables *self);
 char *support_deliverables_content(const SupportDeliverables *self);
 void support_deliverables_set_content(SupportDeliverables *self, const char *value);
@@ -21828,7 +21869,7 @@ SomList support_deliverables_items(const SupportDeliverables *self);
 // Binds a SupportedLocaleEntry facade to a document and a path (path copied).
 void supported_locale_entry_init(SupportedLocaleEntry *self, SpecDocument *doc, const char *path);
 void supported_locale_entry_free(SupportedLocaleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int supported_locale_entry_can_have_content(const SupportedLocaleEntry *self);
 SupportedLocaleEntryContentForm supported_locale_entry_content(const SupportedLocaleEntry *self);
 // Formatting and direction rules for the locale.
@@ -21846,7 +21887,7 @@ SupportedLocaleEntryRolloutForm supported_locale_entry_rollout(const SupportedLo
 // Binds a SystemArchitectureSpec facade to a document and a path (path copied).
 void system_architecture_spec_init(SystemArchitectureSpec *self, SpecDocument *doc, const char *path);
 void system_architecture_spec_free(SystemArchitectureSpec *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_architecture_spec_can_have_content(const SystemArchitectureSpec *self);
 char *system_architecture_spec_content(const SystemArchitectureSpec *self);
 void system_architecture_spec_set_content(SystemArchitectureSpec *self, const char *value);
@@ -21860,7 +21901,7 @@ void system_architecture_spec_set_content(SystemArchitectureSpec *self, const ch
 // Binds a SystemBoundaries facade to a document and a path (path copied).
 void system_boundaries_init(SystemBoundaries *self, SpecDocument *doc, const char *path);
 void system_boundaries_free(SystemBoundaries *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_boundaries_can_have_content(const SystemBoundaries *self);
 // Overview of system boundaries and scope definition approach.
 // (skipped: overview has no target type)
@@ -21892,7 +21933,7 @@ CrossBoundaryErrorHandling system_boundaries_cross_boundary_error_handling(const
 // Binds a SystemBusinessCriticality facade to a document and a path (path copied).
 void system_business_criticality_init(SystemBusinessCriticality *self, SpecDocument *doc, const char *path);
 void system_business_criticality_free(SystemBusinessCriticality *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_business_criticality_can_have_content(const SystemBusinessCriticality *self);
 SystemBusinessCriticalityContentForm system_business_criticality_content(const SystemBusinessCriticality *self);
 // Usage scale and commercial impact.
@@ -21910,7 +21951,7 @@ SomList system_business_criticality_supported_processes(const SystemBusinessCrit
 // Binds a SystemBusinessProcessEntry facade to a document and a path (path copied).
 void system_business_process_entry_init(SystemBusinessProcessEntry *self, SpecDocument *doc, const char *path);
 void system_business_process_entry_free(SystemBusinessProcessEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_business_process_entry_can_have_content(const SystemBusinessProcessEntry *self);
 SystemBusinessProcessEntryContentForm system_business_process_entry_content(const SystemBusinessProcessEntry *self);
 
@@ -21918,7 +21959,7 @@ SystemBusinessProcessEntryContentForm system_business_process_entry_content(cons
 // Binds a SystemBusinessUnitEntry facade to a document and a path (path copied).
 void system_business_unit_entry_init(SystemBusinessUnitEntry *self, SpecDocument *doc, const char *path);
 void system_business_unit_entry_free(SystemBusinessUnitEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_business_unit_entry_can_have_content(const SystemBusinessUnitEntry *self);
 SystemBusinessUnitEntryContentForm system_business_unit_entry_content(const SystemBusinessUnitEntry *self);
 
@@ -21926,7 +21967,7 @@ SystemBusinessUnitEntryContentForm system_business_unit_entry_content(const Syst
 // Binds a SystemConfigurationManagement facade to a document and a path (path copied).
 void system_configuration_management_init(SystemConfigurationManagement *self, SpecDocument *doc, const char *path);
 void system_configuration_management_free(SystemConfigurationManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_configuration_management_can_have_content(const SystemConfigurationManagement *self);
 SystemConfigurationManagementContentForm system_configuration_management_content(const SystemConfigurationManagement *self);
 // Dynamic configuration and rollback behavior.
@@ -21944,7 +21985,7 @@ SystemConfigurationManagementGovernanceForm system_configuration_management_gove
 // Binds a SystemContext facade to a document and a path (path copied).
 void system_context_init(SystemContext *self, SpecDocument *doc, const char *path);
 void system_context_free(SystemContext *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_context_can_have_content(const SystemContext *self);
 char *system_context_content(const SystemContext *self);
 void system_context_set_content(SystemContext *self, const char *value);
@@ -21969,7 +22010,7 @@ RegulatoryContext system_context_regulatory_context(const SystemContext *self);
 // Binds a SystemCostAnalysis facade to a document and a path (path copied).
 void system_cost_analysis_init(SystemCostAnalysis *self, SpecDocument *doc, const char *path);
 void system_cost_analysis_free(SystemCostAnalysis *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_cost_analysis_can_have_content(const SystemCostAnalysis *self);
 SystemCostAnalysisContentForm system_cost_analysis_content(const SystemCostAnalysis *self);
 // Current-state support and total annual cost.
@@ -21988,7 +22029,7 @@ SomList system_cost_analysis_non_financial_benefits(const SystemCostAnalysis *se
 // Binds a SystemDataScope facade to a document and a path (path copied).
 void system_data_scope_init(SystemDataScope *self, SpecDocument *doc, const char *path);
 void system_data_scope_free(SystemDataScope *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_data_scope_can_have_content(const SystemDataScope *self);
 SystemDataScopeContentForm system_data_scope_content(const SystemDataScope *self);
 // Data sensitivity and quality posture.
@@ -22010,7 +22051,7 @@ SomList system_data_scope_known_quality_issues(const SystemDataScope *self);
 // Binds a SystemDependencyEntry facade to a document and a path (path copied).
 void system_dependency_entry_init(SystemDependencyEntry *self, SpecDocument *doc, const char *path);
 void system_dependency_entry_free(SystemDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_dependency_entry_can_have_content(const SystemDependencyEntry *self);
 SystemDependencyEntryContentForm system_dependency_entry_content(const SystemDependencyEntry *self);
 // Mechanism and coupling.
@@ -22032,7 +22073,7 @@ ExistingSystemEntry system_dependency_entry_target_system(const SystemDependency
 // Binds a SystemDescription facade to a document and a path (path copied).
 void system_description_init(SystemDescription *self, SpecDocument *doc, const char *path);
 void system_description_free(SystemDescription *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_description_can_have_content(const SystemDescription *self);
 char *system_description_content(const SystemDescription *self);
 void system_description_set_content(SystemDescription *self, const char *value);
@@ -22054,7 +22095,7 @@ UserInteractionModel system_description_user_interaction_model(const SystemDescr
 // Binds a SystemDiagnosticTools facade to a document and a path (path copied).
 void system_diagnostic_tools_init(SystemDiagnosticTools *self, SpecDocument *doc, const char *path);
 void system_diagnostic_tools_free(SystemDiagnosticTools *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_diagnostic_tools_can_have_content(const SystemDiagnosticTools *self);
 SystemDiagnosticToolsContentForm system_diagnostic_tools_content(const SystemDiagnosticTools *self);
 // Trace and dependency inspection tools.
@@ -22068,7 +22109,7 @@ SystemDiagnosticToolsSelfServiceForm system_diagnostic_tools_self_service(const 
 // Binds a SystemErrorCodeEntry facade to a document and a path (path copied).
 void system_error_code_entry_init(SystemErrorCodeEntry *self, SpecDocument *doc, const char *path);
 void system_error_code_entry_free(SystemErrorCodeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_error_code_entry_can_have_content(const SystemErrorCodeEntry *self);
 SystemErrorCodeEntryContentForm system_error_code_entry_content(const SystemErrorCodeEntry *self);
 // Recovery and display guidance.
@@ -22083,7 +22124,7 @@ SystemErrorCodeEntryOperationsForm system_error_code_entry_operations(const Syst
 // Binds a SystemErrorDisplay facade to a document and a path (path copied).
 void system_error_display_init(SystemErrorDisplay *self, SpecDocument *doc, const char *path);
 void system_error_display_free(SystemErrorDisplay *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_error_display_can_have_content(const SystemErrorDisplay *self);
 SystemErrorDisplaySystemErrorContentForm system_error_display_system_error_content(const SystemErrorDisplay *self);
 // Error type handling configuration.
@@ -22111,7 +22152,7 @@ SomList system_error_display_error_codes(const SystemErrorDisplay *self);
 // Binds a SystemIntegrationEntry facade to a document and a path (path copied).
 void system_integration_entry_init(SystemIntegrationEntry *self, SpecDocument *doc, const char *path);
 void system_integration_entry_free(SystemIntegrationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_integration_entry_can_have_content(const SystemIntegrationEntry *self);
 SystemIntegrationEntryContentForm system_integration_entry_content(const SystemIntegrationEntry *self);
 // Protocol and transport details.
@@ -22136,7 +22177,7 @@ ExistingSystemEntry system_integration_entry_target_system(const SystemIntegrati
 // Binds a SystemInventory facade to a document and a path (path copied).
 void system_inventory_init(SystemInventory *self, SpecDocument *doc, const char *path);
 void system_inventory_free(SystemInventory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_inventory_can_have_content(const SystemInventory *self);
 char *system_inventory_content(const SystemInventory *self);
 void system_inventory_set_content(SystemInventory *self, const char *value);
@@ -22148,7 +22189,7 @@ SomList system_inventory_systems(const SystemInventory *self);
 // Binds a SystemKnowledgeTransfer facade to a document and a path (path copied).
 void system_knowledge_transfer_init(SystemKnowledgeTransfer *self, SpecDocument *doc, const char *path);
 void system_knowledge_transfer_free(SystemKnowledgeTransfer *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_knowledge_transfer_can_have_content(const SystemKnowledgeTransfer *self);
 SystemKnowledgeTransferContentForm system_knowledge_transfer_content(const SystemKnowledgeTransfer *self);
 // Critical knowledge areas to preserve.
@@ -22163,7 +22204,7 @@ SomList system_knowledge_transfer_critical_knowledge_areas(const SystemKnowledge
 // Binds a SystemLandscapeInventory facade to a document and a path (path copied).
 void system_landscape_inventory_init(SystemLandscapeInventory *self, SpecDocument *doc, const char *path);
 void system_landscape_inventory_free(SystemLandscapeInventory *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_landscape_inventory_can_have_content(const SystemLandscapeInventory *self);
 char *system_landscape_inventory_content(const SystemLandscapeInventory *self);
 void system_landscape_inventory_set_content(SystemLandscapeInventory *self, const char *value);
@@ -22172,7 +22213,7 @@ void system_landscape_inventory_set_content(SystemLandscapeInventory *self, cons
 // Binds a SystemMigrationPlan facade to a document and a path (path copied).
 void system_migration_plan_init(SystemMigrationPlan *self, SpecDocument *doc, const char *path);
 void system_migration_plan_free(SystemMigrationPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_migration_plan_can_have_content(const SystemMigrationPlan *self);
 SystemMigrationPlanContentForm system_migration_plan_content(const SystemMigrationPlan *self);
 // Migration execution and validation details.
@@ -22191,7 +22232,7 @@ SomList system_migration_plan_risks(const SystemMigrationPlan *self);
 // Binds a SystemMigrationRiskEntry facade to a document and a path (path copied).
 void system_migration_risk_entry_init(SystemMigrationRiskEntry *self, SpecDocument *doc, const char *path);
 void system_migration_risk_entry_free(SystemMigrationRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_migration_risk_entry_can_have_content(const SystemMigrationRiskEntry *self);
 SystemMigrationRiskEntryContentForm system_migration_risk_entry_content(const SystemMigrationRiskEntry *self);
 
@@ -22199,7 +22240,7 @@ SystemMigrationRiskEntryContentForm system_migration_risk_entry_content(const Sy
 // Binds a SystemOperation facade to a document and a path (path copied).
 void system_operation_init(SystemOperation *self, SpecDocument *doc, const char *path);
 void system_operation_free(SystemOperation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_operation_can_have_content(const SystemOperation *self);
 char *system_operation_content(const SystemOperation *self);
 void system_operation_set_content(SystemOperation *self, const char *value);
@@ -22213,7 +22254,7 @@ SomList system_operation_maintenance_procedures(const SystemOperation *self);
 // Binds a SystemOperationAndMonitoring facade to a document and a path (path copied).
 void system_operation_and_monitoring_init(SystemOperationAndMonitoring *self, SpecDocument *doc, const char *path);
 void system_operation_and_monitoring_free(SystemOperationAndMonitoring *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_operation_and_monitoring_can_have_content(const SystemOperationAndMonitoring *self);
 char *system_operation_and_monitoring_content(const SystemOperationAndMonitoring *self);
 void system_operation_and_monitoring_set_content(SystemOperationAndMonitoring *self, const char *value);
@@ -22232,7 +22273,7 @@ CapacityPlanningSection system_operation_and_monitoring_capacity_planning(const 
 // Binds a SystemPurpose facade to a document and a path (path copied).
 void system_purpose_init(SystemPurpose *self, SpecDocument *doc, const char *path);
 void system_purpose_free(SystemPurpose *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_purpose_can_have_content(const SystemPurpose *self);
 char *system_purpose_content(const SystemPurpose *self);
 void system_purpose_set_content(SystemPurpose *self, const char *value);
@@ -22262,7 +22303,7 @@ ScopeBoundaries system_purpose_scope_boundaries(const SystemPurpose *self);
 // Binds a SystemQualityGoals facade to a document and a path (path copied).
 void system_quality_goals_init(SystemQualityGoals *self, SpecDocument *doc, const char *path);
 void system_quality_goals_free(SystemQualityGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_quality_goals_can_have_content(const SystemQualityGoals *self);
 SystemQualityGoalsGovernanceContentForm system_quality_goals_governance_content(const SystemQualityGoals *self);
 // Governance board and escalation details.
@@ -22317,7 +22358,7 @@ TestStrategy system_quality_goals_test_strategy(const SystemQualityGoals *self);
 // Binds a SystemReplacementStrategy facade to a document and a path (path copied).
 void system_replacement_strategy_init(SystemReplacementStrategy *self, SpecDocument *doc, const char *path);
 void system_replacement_strategy_free(SystemReplacementStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_replacement_strategy_can_have_content(const SystemReplacementStrategy *self);
 SystemReplacementStrategyContentForm system_replacement_strategy_content(const SystemReplacementStrategy *self);
 // Replacement timeline milestones.
@@ -22337,7 +22378,7 @@ SomList system_replacement_strategy_predecessor_dependencies(const SystemReplace
 // Binds a SystemRollout facade to a document and a path (path copied).
 void system_rollout_init(SystemRollout *self, SpecDocument *doc, const char *path);
 void system_rollout_free(SystemRollout *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_rollout_can_have_content(const SystemRollout *self);
 char *system_rollout_content(const SystemRollout *self);
 void system_rollout_set_content(SystemRollout *self, const char *value);
@@ -22379,7 +22420,7 @@ WarrantyAndSupport system_rollout_warranty_and_support(const SystemRollout *self
 // Binds a SystemStagePlan facade to a document and a path (path copied).
 void system_stage_plan_init(SystemStagePlan *self, SpecDocument *doc, const char *path);
 void system_stage_plan_free(SystemStagePlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_stage_plan_can_have_content(const SystemStagePlan *self);
 SystemStagePlanContentForm system_stage_plan_content(const SystemStagePlan *self);
 // Overall schedule and buffer model.
@@ -22410,7 +22451,7 @@ UpgradeCycleFramework system_stage_plan_upgrade_cycle_framework(const SystemStag
 // Binds a SystemSummary facade to a document and a path (path copied).
 void system_summary_init(SystemSummary *self, SpecDocument *doc, const char *path);
 void system_summary_free(SystemSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_summary_can_have_content(const SystemSummary *self);
 SystemSummaryContentForm system_summary_content(const SystemSummary *self);
 // System classification.
@@ -22429,7 +22470,7 @@ SystemSummaryComplexityForm system_summary_complexity(const SystemSummary *self)
 // Binds a SystemTaskEntry facade to a document and a path (path copied).
 void system_task_entry_init(SystemTaskEntry *self, SpecDocument *doc, const char *path);
 void system_task_entry_free(SystemTaskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_task_entry_can_have_content(const SystemTaskEntry *self);
 SystemTaskEntryContentForm system_task_entry_content(const SystemTaskEntry *self);
 // Timing, complexity, and trigger details.
@@ -22451,7 +22492,7 @@ SomList system_task_entry_variations_and_exceptions(const SystemTaskEntry *self)
 // Binds a SystemTechnicalAssessment facade to a document and a path (path copied).
 void system_technical_assessment_init(SystemTechnicalAssessment *self, SpecDocument *doc, const char *path);
 void system_technical_assessment_free(SystemTechnicalAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_technical_assessment_can_have_content(const SystemTechnicalAssessment *self);
 SystemTechnicalAssessmentContentForm system_technical_assessment_content(const SystemTechnicalAssessment *self);
 // Platform and age details.
@@ -22476,7 +22517,7 @@ SomList system_technical_assessment_security_concerns(const SystemTechnicalAsses
 // Binds a SystemToReplaceEntry facade to a document and a path (path copied).
 void system_to_replace_entry_init(SystemToReplaceEntry *self, SpecDocument *doc, const char *path);
 void system_to_replace_entry_free(SystemToReplaceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_to_replace_entry_can_have_content(const SystemToReplaceEntry *self);
 SystemToReplaceEntryIdentificationContentForm system_to_replace_entry_identification_content(const SystemToReplaceEntry *self);
 // Classification and ownership details.
@@ -22507,7 +22548,7 @@ SystemKnowledgeTransfer system_to_replace_entry_knowledge_transfer(const SystemT
 // Binds a SystemTrainingEntry facade to a document and a path (path copied).
 void system_training_entry_init(SystemTrainingEntry *self, SpecDocument *doc, const char *path);
 void system_training_entry_free(SystemTrainingEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_training_entry_can_have_content(const SystemTrainingEntry *self);
 SystemTrainingEntryContentForm system_training_entry_content(const SystemTrainingEntry *self);
 // Functional training coverage.
@@ -22521,7 +22562,7 @@ SystemTrainingEntrySupportForm system_training_entry_support(const SystemTrainin
 // Binds a SystemUserImpact facade to a document and a path (path copied).
 void system_user_impact_init(SystemUserImpact *self, SpecDocument *doc, const char *path);
 void system_user_impact_free(SystemUserImpact *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int system_user_impact_can_have_content(const SystemUserImpact *self);
 SystemUserImpactContentForm system_user_impact_content(const SystemUserImpact *self);
 // User-facing change profile.
@@ -22543,7 +22584,7 @@ SomList system_user_impact_user_groups(const SystemUserImpact *self);
 // Binds a SystemsToReplace facade to a document and a path (path copied).
 void systems_to_replace_init(SystemsToReplace *self, SpecDocument *doc, const char *path);
 void systems_to_replace_free(SystemsToReplace *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int systems_to_replace_can_have_content(const SystemsToReplace *self);
 // Overview of the systems replacement scope and strategy.
 // (skipped: overview has no target type)
@@ -22558,7 +22599,7 @@ MigrationConsiderations systems_to_replace_migration_considerations(const System
 // Binds a TabBarDefinitionEntry facade to a document and a path (path copied).
 void tab_bar_definition_entry_init(TabBarDefinitionEntry *self, SpecDocument *doc, const char *path);
 void tab_bar_definition_entry_free(TabBarDefinitionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tab_bar_definition_entry_can_have_content(const TabBarDefinitionEntry *self);
 TabBarDefinitionEntryContentForm tab_bar_definition_entry_content(const TabBarDefinitionEntry *self);
 // Position and selection behavior.
@@ -22573,7 +22614,7 @@ SomList tab_bar_definition_entry_tabs(const TabBarDefinitionEntry *self);
 // Binds a TabItemEntry facade to a document and a path (path copied).
 void tab_item_entry_init(TabItemEntry *self, SpecDocument *doc, const char *path);
 void tab_item_entry_free(TabItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tab_item_entry_can_have_content(const TabItemEntry *self);
 TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
 
@@ -22585,7 +22626,7 @@ TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
 // Binds a TargetOperatingModel facade to a document and a path (path copied).
 void target_operating_model_init(TargetOperatingModel *self, SpecDocument *doc, const char *path);
 void target_operating_model_free(TargetOperatingModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int target_operating_model_can_have_content(const TargetOperatingModel *self);
 char *target_operating_model_content(const TargetOperatingModel *self);
 void target_operating_model_set_content(TargetOperatingModel *self, const char *value);
@@ -22598,7 +22639,7 @@ ProcessStepsAndActorInteractions target_operating_model_process_steps_and_actor_
 // Binds a TargetPlatformEntry facade to a document and a path (path copied).
 void target_platform_entry_init(TargetPlatformEntry *self, SpecDocument *doc, const char *path);
 void target_platform_entry_free(TargetPlatformEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int target_platform_entry_can_have_content(const TargetPlatformEntry *self);
 TargetPlatformEntryContentForm target_platform_entry_content(const TargetPlatformEntry *self);
 // Version requirements.
@@ -22617,7 +22658,7 @@ TargetPlatformEntryLifecycleForm target_platform_entry_lifecycle(const TargetPla
 // Binds a TeamMemberEntry facade to a document and a path (path copied).
 void team_member_entry_init(TeamMemberEntry *self, SpecDocument *doc, const char *path);
 void team_member_entry_free(TeamMemberEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int team_member_entry_can_have_content(const TeamMemberEntry *self);
 TeamMemberEntryContentForm team_member_entry_content(const TeamMemberEntry *self);
 // Allocation and scheduling details.
@@ -22638,7 +22679,7 @@ SomList team_member_entry_responsibilities(const TeamMemberEntry *self);
 // Binds a TeamMemberResponsibilityEntry facade to a document and a path (path copied).
 void team_member_responsibility_entry_init(TeamMemberResponsibilityEntry *self, SpecDocument *doc, const char *path);
 void team_member_responsibility_entry_free(TeamMemberResponsibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int team_member_responsibility_entry_can_have_content(const TeamMemberResponsibilityEntry *self);
 TeamMemberResponsibilityEntryContentForm team_member_responsibility_entry_content(const TeamMemberResponsibilityEntry *self);
 
@@ -22646,7 +22687,7 @@ TeamMemberResponsibilityEntryContentForm team_member_responsibility_entry_conten
 // Binds a TeamMemberSkillEntry facade to a document and a path (path copied).
 void team_member_skill_entry_init(TeamMemberSkillEntry *self, SpecDocument *doc, const char *path);
 void team_member_skill_entry_free(TeamMemberSkillEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int team_member_skill_entry_can_have_content(const TeamMemberSkillEntry *self);
 TeamMemberSkillEntryContentForm team_member_skill_entry_content(const TeamMemberSkillEntry *self);
 
@@ -22654,7 +22695,7 @@ TeamMemberSkillEntryContentForm team_member_skill_entry_content(const TeamMember
 // Binds a TeamMemberSkills facade to a document and a path (path copied).
 void team_member_skills_init(TeamMemberSkills *self, SpecDocument *doc, const char *path);
 void team_member_skills_free(TeamMemberSkills *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int team_member_skills_can_have_content(const TeamMemberSkills *self);
 TeamMemberSkillsContentForm team_member_skills_content(const TeamMemberSkills *self);
 // Individual skill entries.
@@ -22665,7 +22706,7 @@ SomList team_member_skills_skill_details(const TeamMemberSkills *self);
 // Binds a TeamStructureOverview facade to a document and a path (path copied).
 void team_structure_overview_init(TeamStructureOverview *self, SpecDocument *doc, const char *path);
 void team_structure_overview_free(TeamStructureOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int team_structure_overview_can_have_content(const TeamStructureOverview *self);
 TeamStructureOverviewContentForm team_structure_overview_content(const TeamStructureOverview *self);
 // Team structure diagram.
@@ -22675,7 +22716,7 @@ TeamStructureOverviewContentForm team_structure_overview_content(const TeamStruc
 // Binds a TechnicalCharacteristicEntry facade to a document and a path (path copied).
 void technical_characteristic_entry_init(TechnicalCharacteristicEntry *self, SpecDocument *doc, const char *path);
 void technical_characteristic_entry_free(TechnicalCharacteristicEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_characteristic_entry_can_have_content(const TechnicalCharacteristicEntry *self);
 TechnicalCharacteristicEntryContentForm technical_characteristic_entry_content(const TechnicalCharacteristicEntry *self);
 
@@ -22683,7 +22724,7 @@ TechnicalCharacteristicEntryContentForm technical_characteristic_entry_content(c
 // Binds a TechnicalConstraintEntry facade to a document and a path (path copied).
 void technical_constraint_entry_init(TechnicalConstraintEntry *self, SpecDocument *doc, const char *path);
 void technical_constraint_entry_free(TechnicalConstraintEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_constraint_entry_can_have_content(const TechnicalConstraintEntry *self);
 TechnicalConstraintEntryContentForm technical_constraint_entry_content(const TechnicalConstraintEntry *self);
 
@@ -22691,7 +22732,7 @@ TechnicalConstraintEntryContentForm technical_constraint_entry_content(const Tec
 // Binds a TechnicalDependencyEntry facade to a document and a path (path copied).
 void technical_dependency_entry_init(TechnicalDependencyEntry *self, SpecDocument *doc, const char *path);
 void technical_dependency_entry_free(TechnicalDependencyEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_dependency_entry_can_have_content(const TechnicalDependencyEntry *self);
 TechnicalDependencyEntryContentForm technical_dependency_entry_content(const TechnicalDependencyEntry *self);
 
@@ -22705,7 +22746,7 @@ TechnicalDependencyEntryContentForm technical_dependency_entry_content(const Tec
 // Binds a TechnicalEnvironment facade to a document and a path (path copied).
 void technical_environment_init(TechnicalEnvironment *self, SpecDocument *doc, const char *path);
 void technical_environment_free(TechnicalEnvironment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_environment_can_have_content(const TechnicalEnvironment *self);
 TechnicalEnvironmentTechnicalOverviewContentForm technical_environment_technical_overview_content(const TechnicalEnvironment *self);
 // Architecture governance context.
@@ -22738,7 +22779,7 @@ SomList technical_environment_integration_constraints(const TechnicalEnvironment
 // Binds a TechnicalEnvironmentNetwork facade to a document and a path (path copied).
 void technical_environment_network_init(TechnicalEnvironmentNetwork *self, SpecDocument *doc, const char *path);
 void technical_environment_network_free(TechnicalEnvironmentNetwork *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_environment_network_can_have_content(const TechnicalEnvironmentNetwork *self);
 TechnicalEnvironmentNetworkContentForm technical_environment_network_content(const TechnicalEnvironmentNetwork *self);
 // DevOps and deployment standards.
@@ -22754,7 +22795,7 @@ SomList technical_environment_network_observability_requirements(const Technical
 // Binds a TechnicalFrameworkConcept facade to a document and a path (path copied).
 void technical_framework_concept_init(TechnicalFrameworkConcept *self, SpecDocument *doc, const char *path);
 void technical_framework_concept_free(TechnicalFrameworkConcept *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_framework_concept_can_have_content(const TechnicalFrameworkConcept *self);
 char *technical_framework_concept_content(const TechnicalFrameworkConcept *self);
 void technical_framework_concept_set_content(TechnicalFrameworkConcept *self, const char *value);
@@ -22783,7 +22824,7 @@ SystemArchitectureSpec technical_framework_concept_system_architecture(const Tec
 // Binds a TechnicalGoalConstraints facade to a document and a path (path copied).
 void technical_goal_constraints_init(TechnicalGoalConstraints *self, SpecDocument *doc, const char *path);
 void technical_goal_constraints_free(TechnicalGoalConstraints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goal_constraints_can_have_content(const TechnicalGoalConstraints *self);
 char *technical_goal_constraints_content(const TechnicalGoalConstraints *self);
 void technical_goal_constraints_set_content(TechnicalGoalConstraints *self, const char *value);
@@ -22797,7 +22838,7 @@ SomList technical_goal_constraints_items(const TechnicalGoalConstraints *self);
 // Binds a TechnicalGoalDependencies facade to a document and a path (path copied).
 void technical_goal_dependencies_init(TechnicalGoalDependencies *self, SpecDocument *doc, const char *path);
 void technical_goal_dependencies_free(TechnicalGoalDependencies *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goal_dependencies_can_have_content(const TechnicalGoalDependencies *self);
 char *technical_goal_dependencies_content(const TechnicalGoalDependencies *self);
 void technical_goal_dependencies_set_content(TechnicalGoalDependencies *self, const char *value);
@@ -22812,7 +22853,7 @@ SomList technical_goal_dependencies_items(const TechnicalGoalDependencies *self)
 // Binds a TechnicalGoalEntry facade to a document and a path (path copied).
 void technical_goal_entry_init(TechnicalGoalEntry *self, SpecDocument *doc, const char *path);
 void technical_goal_entry_free(TechnicalGoalEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goal_entry_can_have_content(const TechnicalGoalEntry *self);
 TechnicalGoalEntryContentForm technical_goal_entry_content(const TechnicalGoalEntry *self);
 // Success measurement details.
@@ -22832,7 +22873,7 @@ TechnicalGoalConstraints technical_goal_entry_constraints(const TechnicalGoalEnt
 // Binds a TechnicalGoalTestCaseEntry facade to a document and a path (path copied).
 void technical_goal_test_case_entry_init(TechnicalGoalTestCaseEntry *self, SpecDocument *doc, const char *path);
 void technical_goal_test_case_entry_free(TechnicalGoalTestCaseEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goal_test_case_entry_can_have_content(const TechnicalGoalTestCaseEntry *self);
 TechnicalGoalTestCaseEntryContentForm technical_goal_test_case_entry_content(const TechnicalGoalTestCaseEntry *self);
 
@@ -22842,7 +22883,7 @@ TechnicalGoalTestCaseEntryContentForm technical_goal_test_case_entry_content(con
 // Binds a TechnicalGoalTestCriteria facade to a document and a path (path copied).
 void technical_goal_test_criteria_init(TechnicalGoalTestCriteria *self, SpecDocument *doc, const char *path);
 void technical_goal_test_criteria_free(TechnicalGoalTestCriteria *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goal_test_criteria_can_have_content(const TechnicalGoalTestCriteria *self);
 char *technical_goal_test_criteria_content(const TechnicalGoalTestCriteria *self);
 void technical_goal_test_criteria_set_content(TechnicalGoalTestCriteria *self, const char *value);
@@ -22860,7 +22901,7 @@ SomList technical_goal_test_criteria_items(const TechnicalGoalTestCriteria *self
 // Binds a TechnicalGoals facade to a document and a path (path copied).
 void technical_goals_init(TechnicalGoals *self, SpecDocument *doc, const char *path);
 void technical_goals_free(TechnicalGoals *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_goals_can_have_content(const TechnicalGoals *self);
 char *technical_goals_content(const TechnicalGoals *self);
 void technical_goals_set_content(TechnicalGoals *self, const char *value);
@@ -22872,7 +22913,7 @@ SomList technical_goals_goals(const TechnicalGoals *self);
 // Binds a TechnicalInfrastructure facade to a document and a path (path copied).
 void technical_infrastructure_init(TechnicalInfrastructure *self, SpecDocument *doc, const char *path);
 void technical_infrastructure_free(TechnicalInfrastructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_infrastructure_can_have_content(const TechnicalInfrastructure *self);
 // Network connectivity requirements.
 TechnicalInfrastructureNetworkConnectivityForm technical_infrastructure_network_connectivity(const TechnicalInfrastructure *self);
@@ -22892,7 +22933,7 @@ SomList technical_infrastructure_communication_tools(const TechnicalInfrastructu
 // Binds a TechnicalPainPoints facade to a document and a path (path copied).
 void technical_pain_points_init(TechnicalPainPoints *self, SpecDocument *doc, const char *path);
 void technical_pain_points_free(TechnicalPainPoints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_pain_points_can_have_content(const TechnicalPainPoints *self);
 char *technical_pain_points_content(const TechnicalPainPoints *self);
 void technical_pain_points_set_content(TechnicalPainPoints *self, const char *value);
@@ -22909,7 +22950,7 @@ SomList technical_pain_points_items(const TechnicalPainPoints *self);
 // Binds a TechnicalRequirementEntry facade to a document and a path (path copied).
 void technical_requirement_entry_init(TechnicalRequirementEntry *self, SpecDocument *doc, const char *path);
 void technical_requirement_entry_free(TechnicalRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_requirement_entry_can_have_content(const TechnicalRequirementEntry *self);
 TechnicalRequirementEntryContentForm technical_requirement_entry_content(const TechnicalRequirementEntry *self);
 // Requirement details: description, category, priority.
@@ -22938,7 +22979,7 @@ RequirementTraceability technical_requirement_entry_traceability(const Technical
 // Binds a TechnicalRequirements facade to a document and a path (path copied).
 void technical_requirements_init(TechnicalRequirements *self, SpecDocument *doc, const char *path);
 void technical_requirements_free(TechnicalRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_requirements_can_have_content(const TechnicalRequirements *self);
 char *technical_requirements_content(const TechnicalRequirements *self);
 void technical_requirements_set_content(TechnicalRequirements *self, const char *value);
@@ -22952,7 +22993,7 @@ SomList technical_requirements_requirements(const TechnicalRequirements *self);
 // Binds a TechnicalSecurityRequirements facade to a document and a path (path copied).
 void technical_security_requirements_init(TechnicalSecurityRequirements *self, SpecDocument *doc, const char *path);
 void technical_security_requirements_free(TechnicalSecurityRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technical_security_requirements_can_have_content(const TechnicalSecurityRequirements *self);
 char *technical_security_requirements_content(const TechnicalSecurityRequirements *self);
 void technical_security_requirements_set_content(TechnicalSecurityRequirements *self, const char *value);
@@ -22967,7 +23008,7 @@ SecurityAuditRequirementsSection technical_security_requirements_security_audit_
 // Binds a TechnologyDataVariations facade to a document and a path (path copied).
 void technology_data_variations_init(TechnologyDataVariations *self, SpecDocument *doc, const char *path);
 void technology_data_variations_free(TechnologyDataVariations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technology_data_variations_can_have_content(const TechnologyDataVariations *self);
 TechnologyDataVariationsContentForm technology_data_variations_content(const TechnologyDataVariations *self);
 
@@ -22978,7 +23019,7 @@ TechnologyDataVariationsContentForm technology_data_variations_content(const Tec
 // Binds a TechnologyStandardEntry facade to a document and a path (path copied).
 void technology_standard_entry_init(TechnologyStandardEntry *self, SpecDocument *doc, const char *path);
 void technology_standard_entry_free(TechnologyStandardEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int technology_standard_entry_can_have_content(const TechnologyStandardEntry *self);
 TechnologyStandardEntryContentForm technology_standard_entry_content(const TechnologyStandardEntry *self);
 // Standard details and sources.
@@ -22999,7 +23040,7 @@ TechnologyStandardEntryImpactForm technology_standard_entry_impact(const Technol
 // Binds a TenantBoundaryEnforcementPolicy facade to a document and a path (path copied).
 void tenant_boundary_enforcement_policy_init(TenantBoundaryEnforcementPolicy *self, SpecDocument *doc, const char *path);
 void tenant_boundary_enforcement_policy_free(TenantBoundaryEnforcementPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_boundary_enforcement_policy_can_have_content(const TenantBoundaryEnforcementPolicy *self);
 char *tenant_boundary_enforcement_policy_content(const TenantBoundaryEnforcementPolicy *self);
 void tenant_boundary_enforcement_policy_set_content(TenantBoundaryEnforcementPolicy *self, const char *value);
@@ -23016,7 +23057,7 @@ void tenant_boundary_enforcement_policy_set_content(TenantBoundaryEnforcementPol
 // Binds a TenantContextPolicy facade to a document and a path (path copied).
 void tenant_context_policy_init(TenantContextPolicy *self, SpecDocument *doc, const char *path);
 void tenant_context_policy_free(TenantContextPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_context_policy_can_have_content(const TenantContextPolicy *self);
 char *tenant_context_policy_content(const TenantContextPolicy *self);
 void tenant_context_policy_set_content(TenantContextPolicy *self, const char *value);
@@ -23031,7 +23072,7 @@ void tenant_context_policy_set_content(TenantContextPolicy *self, const char *va
 // Binds a TenantCustomizationEntry facade to a document and a path (path copied).
 void tenant_customization_entry_init(TenantCustomizationEntry *self, SpecDocument *doc, const char *path);
 void tenant_customization_entry_free(TenantCustomizationEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_customization_entry_can_have_content(const TenantCustomizationEntry *self);
 TenantCustomizationEntryContentForm tenant_customization_entry_content(const TenantCustomizationEntry *self);
 
@@ -23042,7 +23083,7 @@ TenantCustomizationEntryContentForm tenant_customization_entry_content(const Ten
 // Binds a TenantDataIsolationPolicy facade to a document and a path (path copied).
 void tenant_data_isolation_policy_init(TenantDataIsolationPolicy *self, SpecDocument *doc, const char *path);
 void tenant_data_isolation_policy_free(TenantDataIsolationPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_data_isolation_policy_can_have_content(const TenantDataIsolationPolicy *self);
 char *tenant_data_isolation_policy_content(const TenantDataIsolationPolicy *self);
 void tenant_data_isolation_policy_set_content(TenantDataIsolationPolicy *self, const char *value);
@@ -23061,7 +23102,7 @@ void tenant_data_isolation_policy_set_content(TenantDataIsolationPolicy *self, c
 // Binds a TenantIsolation facade to a document and a path (path copied).
 void tenant_isolation_init(TenantIsolation *self, SpecDocument *doc, const char *path);
 void tenant_isolation_free(TenantIsolation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_isolation_can_have_content(const TenantIsolation *self);
 char *tenant_isolation_content(const TenantIsolation *self);
 void tenant_isolation_set_content(TenantIsolation *self, const char *value);
@@ -23088,7 +23129,7 @@ TenantBoundaryEnforcementPolicy tenant_isolation_boundary_enforcement(const Tena
 // Binds a TenantOnboardingPolicy facade to a document and a path (path copied).
 void tenant_onboarding_policy_init(TenantOnboardingPolicy *self, SpecDocument *doc, const char *path);
 void tenant_onboarding_policy_free(TenantOnboardingPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tenant_onboarding_policy_can_have_content(const TenantOnboardingPolicy *self);
 char *tenant_onboarding_policy_content(const TenantOnboardingPolicy *self);
 void tenant_onboarding_policy_set_content(TenantOnboardingPolicy *self, const char *value);
@@ -23104,7 +23145,7 @@ void tenant_onboarding_policy_set_content(TenantOnboardingPolicy *self, const ch
 // Binds a TestScenarioEntry facade to a document and a path (path copied).
 void test_scenario_entry_init(TestScenarioEntry *self, SpecDocument *doc, const char *path);
 void test_scenario_entry_free(TestScenarioEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int test_scenario_entry_can_have_content(const TestScenarioEntry *self);
 TestScenarioEntryContentForm test_scenario_entry_content(const TestScenarioEntry *self);
 // Identification.
@@ -23130,7 +23171,7 @@ SomList test_scenario_entry_test_steps(const TestScenarioEntry *self);
 // Binds a TestScenarioNotes facade to a document and a path (path copied).
 void test_scenario_notes_init(TestScenarioNotes *self, SpecDocument *doc, const char *path);
 void test_scenario_notes_free(TestScenarioNotes *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int test_scenario_notes_can_have_content(const TestScenarioNotes *self);
 TestScenarioNotesContentForm test_scenario_notes_content(const TestScenarioNotes *self);
 
@@ -23140,7 +23181,7 @@ TestScenarioNotesContentForm test_scenario_notes_content(const TestScenarioNotes
 // Binds a TestStrategy facade to a document and a path (path copied).
 void test_strategy_init(TestStrategy *self, SpecDocument *doc, const char *path);
 void test_strategy_free(TestStrategy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int test_strategy_can_have_content(const TestStrategy *self);
 char *test_strategy_content(const TestStrategy *self);
 void test_strategy_set_content(TestStrategy *self, const char *value);
@@ -23149,7 +23190,7 @@ void test_strategy_set_content(TestStrategy *self, const char *value);
 // Binds a TestingStandards facade to a document and a path (path copied).
 void testing_standards_init(TestingStandards *self, SpecDocument *doc, const char *path);
 void testing_standards_free(TestingStandards *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int testing_standards_can_have_content(const TestingStandards *self);
 TestingStandardsContentForm testing_standards_content(const TestingStandards *self);
 // Additional test types and organization.
@@ -23165,7 +23206,7 @@ TestingStandardsToolingForm testing_standards_tooling(const TestingStandards *se
 // Binds a ThirdPartyApiIntegrations facade to a document and a path (path copied).
 void third_party_api_integrations_init(ThirdPartyApiIntegrations *self, SpecDocument *doc, const char *path);
 void third_party_api_integrations_free(ThirdPartyApiIntegrations *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int third_party_api_integrations_can_have_content(const ThirdPartyApiIntegrations *self);
 ThirdPartyApiIntegrationsContentForm third_party_api_integrations_content(const ThirdPartyApiIntegrations *self);
 // Analytics and monitoring providers.
@@ -23185,7 +23226,7 @@ ThirdPartyApiIntegrationsOperationsForm third_party_api_integrations_operations(
 // Binds a ThirdPartyCompatibilityEntry facade to a document and a path (path copied).
 void third_party_compatibility_entry_init(ThirdPartyCompatibilityEntry *self, SpecDocument *doc, const char *path);
 void third_party_compatibility_entry_free(ThirdPartyCompatibilityEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int third_party_compatibility_entry_can_have_content(const ThirdPartyCompatibilityEntry *self);
 ThirdPartyCompatibilityEntryContentForm third_party_compatibility_entry_content(const ThirdPartyCompatibilityEntry *self);
 // Compatibility characteristics.
@@ -23201,7 +23242,7 @@ ThirdPartyCompatibilityEntrySupportForm third_party_compatibility_entry_support(
 // Binds a ThirdPartyLibraryEntry facade to a document and a path (path copied).
 void third_party_library_entry_init(ThirdPartyLibraryEntry *self, SpecDocument *doc, const char *path);
 void third_party_library_entry_free(ThirdPartyLibraryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int third_party_library_entry_can_have_content(const ThirdPartyLibraryEntry *self);
 ThirdPartyLibraryEntryContentForm third_party_library_entry_content(const ThirdPartyLibraryEntry *self);
 // Evaluation and selection.
@@ -23221,7 +23262,7 @@ ThirdPartyLibraryEntryMonitoringForm third_party_library_entry_monitoring(const 
 // Binds a ThrowawayPrototype facade to a document and a path (path copied).
 void throwaway_prototype_init(ThrowawayPrototype *self, SpecDocument *doc, const char *path);
 void throwaway_prototype_free(ThrowawayPrototype *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int throwaway_prototype_can_have_content(const ThrowawayPrototype *self);
 ThrowawayPrototypeThrowawayContentForm throwaway_prototype_throwaway_content(const ThrowawayPrototype *self);
 // Findings and decisions captured from evaluation.
@@ -23241,7 +23282,7 @@ ThrowawayPrototypeValueForm throwaway_prototype_value(const ThrowawayPrototype *
 // Binds a TlsProtocolPolicy facade to a document and a path (path copied).
 void tls_protocol_policy_init(TlsProtocolPolicy *self, SpecDocument *doc, const char *path);
 void tls_protocol_policy_free(TlsProtocolPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tls_protocol_policy_can_have_content(const TlsProtocolPolicy *self);
 char *tls_protocol_policy_content(const TlsProtocolPolicy *self);
 void tls_protocol_policy_set_content(TlsProtocolPolicy *self, const char *value);
@@ -23252,7 +23293,7 @@ void tls_protocol_policy_set_content(TlsProtocolPolicy *self, const char *value)
 // Binds a TlsRequirements facade to a document and a path (path copied).
 void tls_requirements_init(TlsRequirements *self, SpecDocument *doc, const char *path);
 void tls_requirements_free(TlsRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tls_requirements_can_have_content(const TlsRequirements *self);
 TlsRequirementsContentForm tls_requirements_content(const TlsRequirements *self);
 // Cipher suite policy.
@@ -23271,7 +23312,7 @@ TlsRequirementsComplianceForm tls_requirements_compliance(const TlsRequirements 
 // Binds a TokenManagementPolicy facade to a document and a path (path copied).
 void token_management_policy_init(TokenManagementPolicy *self, SpecDocument *doc, const char *path);
 void token_management_policy_free(TokenManagementPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int token_management_policy_can_have_content(const TokenManagementPolicy *self);
 char *token_management_policy_content(const TokenManagementPolicy *self);
 void token_management_policy_set_content(TokenManagementPolicy *self, const char *value);
@@ -23288,7 +23329,7 @@ void token_management_policy_set_content(TokenManagementPolicy *self, const char
 // Binds a ToolEntry facade to a document and a path (path copied).
 void tool_entry_init(ToolEntry *self, SpecDocument *doc, const char *path);
 void tool_entry_free(ToolEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tool_entry_can_have_content(const ToolEntry *self);
 ToolEntryContentForm tool_entry_content(const ToolEntry *self);
 // Identity and classification details.
@@ -23331,7 +23372,7 @@ ToolEntryApprovalForm tool_entry_approval(const ToolEntry *self);
 // Binds a Tooling facade to a document and a path (path copied).
 void tooling_init(Tooling *self, SpecDocument *doc, const char *path);
 void tooling_free(Tooling *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tooling_can_have_content(const Tooling *self);
 ToolingContentForm tooling_content(const Tooling *self);
 // Stack composition and selection policies.
@@ -23350,7 +23391,7 @@ SomList tooling_items(const Tooling *self);
 // Binds a ToolingAndEnvironments facade to a document and a path (path copied).
 void tooling_and_environments_init(ToolingAndEnvironments *self, SpecDocument *doc, const char *path);
 void tooling_and_environments_free(ToolingAndEnvironments *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tooling_and_environments_can_have_content(const ToolingAndEnvironments *self);
 char *tooling_and_environments_content(const ToolingAndEnvironments *self);
 void tooling_and_environments_set_content(ToolingAndEnvironments *self, const char *value);
@@ -23363,7 +23404,7 @@ Environments tooling_and_environments_environments(const ToolingAndEnvironments 
 // Binds a TourStepEntry facade to a document and a path (path copied).
 void tour_step_entry_init(TourStepEntry *self, SpecDocument *doc, const char *path);
 void tour_step_entry_free(TourStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tour_step_entry_can_have_content(const TourStepEntry *self);
 TourStepEntryContentForm tour_step_entry_content(const TourStepEntry *self);
 
@@ -23371,7 +23412,7 @@ TourStepEntryContentForm tour_step_entry_content(const TourStepEntry *self);
 // Binds a TradeOffDecisionEntry facade to a document and a path (path copied).
 void trade_off_decision_entry_init(TradeOffDecisionEntry *self, SpecDocument *doc, const char *path);
 void trade_off_decision_entry_free(TradeOffDecisionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int trade_off_decision_entry_can_have_content(const TradeOffDecisionEntry *self);
 TradeOffDecisionEntryContentForm trade_off_decision_entry_content(const TradeOffDecisionEntry *self);
 // Qualities in conflict.
@@ -23393,7 +23434,7 @@ TradeOffDecisionEntryApprovalForm trade_off_decision_entry_approval(const TradeO
 // Binds a TradeOffDecisions facade to a document and a path (path copied).
 void trade_off_decisions_init(TradeOffDecisions *self, SpecDocument *doc, const char *path);
 void trade_off_decisions_free(TradeOffDecisions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int trade_off_decisions_can_have_content(const TradeOffDecisions *self);
 TradeOffDecisionsTradeOffGovernanceContentForm trade_off_decisions_trade_off_governance_content(const TradeOffDecisions *self);
 // Trade-off decisions overview.
@@ -23406,7 +23447,7 @@ SomList trade_off_decisions_items(const TradeOffDecisions *self);
 // Binds a TrainingAssessment facade to a document and a path (path copied).
 void training_assessment_init(TrainingAssessment *self, SpecDocument *doc, const char *path);
 void training_assessment_free(TrainingAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_assessment_can_have_content(const TrainingAssessment *self);
 TrainingAssessmentContentForm training_assessment_content(const TrainingAssessment *self);
 // Retention and effectiveness evaluation.
@@ -23428,7 +23469,7 @@ TrainingAssessmentReportingForm training_assessment_reporting(const TrainingAsse
 // Binds a TrainingDeliverableRequirements facade to a document and a path (path copied).
 void training_deliverable_requirements_init(TrainingDeliverableRequirements *self, SpecDocument *doc, const char *path);
 void training_deliverable_requirements_free(TrainingDeliverableRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_deliverable_requirements_can_have_content(const TrainingDeliverableRequirements *self);
 TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirements_training_content(const TrainingDeliverableRequirements *self);
 // Training narrative.
@@ -23441,7 +23482,7 @@ SomList training_deliverable_requirements_training_modules(const TrainingDeliver
 // Binds a TrainingDeliverables facade to a document and a path (path copied).
 void training_deliverables_init(TrainingDeliverables *self, SpecDocument *doc, const char *path);
 void training_deliverables_free(TrainingDeliverables *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_deliverables_can_have_content(const TrainingDeliverables *self);
 char *training_deliverables_content(const TrainingDeliverables *self);
 void training_deliverables_set_content(TrainingDeliverables *self, const char *value);
@@ -23458,7 +23499,7 @@ SomList training_deliverables_items(const TrainingDeliverables *self);
 // Binds a TrainingEnablementRequirements facade to a document and a path (path copied).
 void training_enablement_requirements_init(TrainingEnablementRequirements *self, SpecDocument *doc, const char *path);
 void training_enablement_requirements_free(TrainingEnablementRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_enablement_requirements_can_have_content(const TrainingEnablementRequirements *self);
 // Training & enablement requirement form.
 TrainingEnablementRequirementsContentForm training_enablement_requirements_content(const TrainingEnablementRequirements *self);
@@ -23469,7 +23510,7 @@ TrainingDeliverableRequirements training_enablement_requirements_training_delive
 // Binds a TrainingMaterials facade to a document and a path (path copied).
 void training_materials_init(TrainingMaterials *self, SpecDocument *doc, const char *path);
 void training_materials_free(TrainingMaterials *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_materials_can_have_content(const TrainingMaterials *self);
 TrainingMaterialsContentForm training_materials_content(const TrainingMaterials *self);
 // Practice and reference resources.
@@ -23483,7 +23524,7 @@ TrainingMaterialsOperationsForm training_materials_operations(const TrainingMate
 // Binds a TrainingModuleEntry facade to a document and a path (path copied).
 void training_module_entry_init(TrainingModuleEntry *self, SpecDocument *doc, const char *path);
 void training_module_entry_free(TrainingModuleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_module_entry_can_have_content(const TrainingModuleEntry *self);
 TrainingModuleEntryContentForm training_module_entry_content(const TrainingModuleEntry *self);
 
@@ -23493,7 +23534,7 @@ TrainingModuleEntryContentForm training_module_entry_content(const TrainingModul
 // Binds a TrainingPrototype facade to a document and a path (path copied).
 void training_prototype_init(TrainingPrototype *self, SpecDocument *doc, const char *path);
 void training_prototype_free(TrainingPrototype *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_prototype_can_have_content(const TrainingPrototype *self);
 TrainingPrototypeTrainingContentForm training_prototype_training_content(const TrainingPrototype *self);
 // Code disposition and reimplementation planning.
@@ -23510,7 +23551,7 @@ TrainingPrototypeOutputsForm training_prototype_outputs(const TrainingPrototype 
 // Binds a TrainingRequirements facade to a document and a path (path copied).
 void training_requirements_init(TrainingRequirements *self, SpecDocument *doc, const char *path);
 void training_requirements_free(TrainingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_requirements_can_have_content(const TrainingRequirements *self);
 // Training overview and strategy.
 TrainingRequirementsOverviewForm training_requirements_overview(const TrainingRequirements *self);
@@ -23535,7 +23576,7 @@ TrainingAssessment training_requirements_assessment(const TrainingRequirements *
 // Binds a TrainingTopicEntry facade to a document and a path (path copied).
 void training_topic_entry_init(TrainingTopicEntry *self, SpecDocument *doc, const char *path);
 void training_topic_entry_free(TrainingTopicEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int training_topic_entry_can_have_content(const TrainingTopicEntry *self);
 TrainingTopicEntryContentForm training_topic_entry_content(const TrainingTopicEntry *self);
 
@@ -23543,7 +23584,7 @@ TrainingTopicEntryContentForm training_topic_entry_content(const TrainingTopicEn
 // Binds a TransitionCommunicationChannels facade to a document and a path (path copied).
 void transition_communication_channels_init(TransitionCommunicationChannels *self, SpecDocument *doc, const char *path);
 void transition_communication_channels_free(TransitionCommunicationChannels *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_communication_channels_can_have_content(const TransitionCommunicationChannels *self);
 TransitionCommunicationChannelsContentForm transition_communication_channels_content(const TransitionCommunicationChannels *self);
 
@@ -23551,7 +23592,7 @@ TransitionCommunicationChannelsContentForm transition_communication_channels_con
 // Binds a TransitionCommunicationPlan facade to a document and a path (path copied).
 void transition_communication_plan_init(TransitionCommunicationPlan *self, SpecDocument *doc, const char *path);
 void transition_communication_plan_free(TransitionCommunicationPlan *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_communication_plan_can_have_content(const TransitionCommunicationPlan *self);
 // Communication strategy overview.
 TransitionCommunicationPlanStrategyForm transition_communication_plan_strategy(const TransitionCommunicationPlan *self);
@@ -23566,7 +23607,7 @@ SomList transition_communication_plan_channels(const TransitionCommunicationPlan
 // Binds a TransitionEscalationPaths facade to a document and a path (path copied).
 void transition_escalation_paths_init(TransitionEscalationPaths *self, SpecDocument *doc, const char *path);
 void transition_escalation_paths_free(TransitionEscalationPaths *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_escalation_paths_can_have_content(const TransitionEscalationPaths *self);
 TransitionEscalationPathsContentForm transition_escalation_paths_content(const TransitionEscalationPaths *self);
 
@@ -23574,7 +23615,7 @@ TransitionEscalationPathsContentForm transition_escalation_paths_content(const T
 // Binds a TransitionMetricEntry facade to a document and a path (path copied).
 void transition_metric_entry_init(TransitionMetricEntry *self, SpecDocument *doc, const char *path);
 void transition_metric_entry_free(TransitionMetricEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_metric_entry_can_have_content(const TransitionMetricEntry *self);
 TransitionMetricEntryContentForm transition_metric_entry_content(const TransitionMetricEntry *self);
 // Measurement operations.
@@ -23586,7 +23627,7 @@ TransitionMetricEntryStatusSectionForm transition_metric_entry_status_section(co
 // Binds a TransitionMilestoneEntry facade to a document and a path (path copied).
 void transition_milestone_entry_init(TransitionMilestoneEntry *self, SpecDocument *doc, const char *path);
 void transition_milestone_entry_free(TransitionMilestoneEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_milestone_entry_can_have_content(const TransitionMilestoneEntry *self);
 TransitionMilestoneEntryContentForm transition_milestone_entry_content(const TransitionMilestoneEntry *self);
 // Deliverables and decisioning.
@@ -23600,7 +23641,7 @@ TransitionMilestoneEntryRecognitionForm transition_milestone_entry_recognition(c
 // Binds a TransitionOverview facade to a document and a path (path copied).
 void transition_overview_init(TransitionOverview *self, SpecDocument *doc, const char *path);
 void transition_overview_free(TransitionOverview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_overview_can_have_content(const TransitionOverview *self);
 TransitionOverviewContentForm transition_overview_content(const TransitionOverview *self);
 // Timeline and cutover planning.
@@ -23612,7 +23653,7 @@ TransitionOverviewGovernanceForm transition_overview_governance(const Transition
 // Binds a TransitionPhaseActivities facade to a document and a path (path copied).
 void transition_phase_activities_init(TransitionPhaseActivities *self, SpecDocument *doc, const char *path);
 void transition_phase_activities_free(TransitionPhaseActivities *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_phase_activities_can_have_content(const TransitionPhaseActivities *self);
 TransitionPhaseActivitiesContentForm transition_phase_activities_content(const TransitionPhaseActivities *self);
 
@@ -23622,7 +23663,7 @@ TransitionPhaseActivitiesContentForm transition_phase_activities_content(const T
 // Binds a TransitionPhaseEntry facade to a document and a path (path copied).
 void transition_phase_entry_init(TransitionPhaseEntry *self, SpecDocument *doc, const char *path);
 void transition_phase_entry_free(TransitionPhaseEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_phase_entry_can_have_content(const TransitionPhaseEntry *self);
 // Phase identification and timeline.
 TransitionPhaseIdentification transition_phase_entry_identification(const TransitionPhaseEntry *self);
@@ -23639,7 +23680,7 @@ TransitionPhaseEntryExitCriteriaForm transition_phase_entry_exit_criteria(const 
 // Binds a TransitionPhaseIdentification facade to a document and a path (path copied).
 void transition_phase_identification_init(TransitionPhaseIdentification *self, SpecDocument *doc, const char *path);
 void transition_phase_identification_free(TransitionPhaseIdentification *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_phase_identification_can_have_content(const TransitionPhaseIdentification *self);
 TransitionPhaseIdentificationContentForm transition_phase_identification_content(const TransitionPhaseIdentification *self);
 // Timeline and sequencing details.
@@ -23651,7 +23692,7 @@ TransitionPhaseIdentificationScopeForm transition_phase_identification_scope(con
 // Binds a TransitionPhaseStakeholders facade to a document and a path (path copied).
 void transition_phase_stakeholders_init(TransitionPhaseStakeholders *self, SpecDocument *doc, const char *path);
 void transition_phase_stakeholders_free(TransitionPhaseStakeholders *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_phase_stakeholders_can_have_content(const TransitionPhaseStakeholders *self);
 TransitionPhaseStakeholdersContentForm transition_phase_stakeholders_content(const TransitionPhaseStakeholders *self);
 
@@ -23659,7 +23700,7 @@ TransitionPhaseStakeholdersContentForm transition_phase_stakeholders_content(con
 // Binds a TransitionRiskEntry facade to a document and a path (path copied).
 void transition_risk_entry_init(TransitionRiskEntry *self, SpecDocument *doc, const char *path);
 void transition_risk_entry_free(TransitionRiskEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_risk_entry_can_have_content(const TransitionRiskEntry *self);
 TransitionRiskEntryContentForm transition_risk_entry_content(const TransitionRiskEntry *self);
 // Risk assessment and exposure details.
@@ -23671,7 +23712,7 @@ TransitionRiskEntryResponseForm transition_risk_entry_response(const TransitionR
 // Binds a TransitionSuccessMetrics facade to a document and a path (path copied).
 void transition_success_metrics_init(TransitionSuccessMetrics *self, SpecDocument *doc, const char *path);
 void transition_success_metrics_free(TransitionSuccessMetrics *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_success_metrics_can_have_content(const TransitionSuccessMetrics *self);
 // Metrics overview.
 TransitionSuccessMetricsOverviewForm transition_success_metrics_overview(const TransitionSuccessMetrics *self);
@@ -23683,7 +23724,7 @@ SomList transition_success_metrics_metrics(const TransitionSuccessMetrics *self)
 // Binds a TransitionSupportResourceEntry facade to a document and a path (path copied).
 void transition_support_resource_entry_init(TransitionSupportResourceEntry *self, SpecDocument *doc, const char *path);
 void transition_support_resource_entry_free(TransitionSupportResourceEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_support_resource_entry_can_have_content(const TransitionSupportResourceEntry *self);
 TransitionSupportResourceEntryContentForm transition_support_resource_entry_content(const TransitionSupportResourceEntry *self);
 
@@ -23691,7 +23732,7 @@ TransitionSupportResourceEntryContentForm transition_support_resource_entry_cont
 // Binds a TransitionSupportStructure facade to a document and a path (path copied).
 void transition_support_structure_init(TransitionSupportStructure *self, SpecDocument *doc, const char *path);
 void transition_support_structure_free(TransitionSupportStructure *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transition_support_structure_can_have_content(const TransitionSupportStructure *self);
 // Support organization overview.
 TransitionSupportStructureOverviewForm transition_support_structure_overview(const TransitionSupportStructure *self);
@@ -23708,7 +23749,7 @@ SomList transition_support_structure_escalation_paths(const TransitionSupportStr
 // Binds a TranslationProcess facade to a document and a path (path copied).
 void translation_process_init(TranslationProcess *self, SpecDocument *doc, const char *path);
 void translation_process_free(TranslationProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int translation_process_can_have_content(const TranslationProcess *self);
 TranslationProcessTranslationProcessContentForm translation_process_translation_process_content(const TranslationProcess *self);
 // Translation workflow.
@@ -23731,7 +23772,7 @@ SomList translation_process_vendors(const TranslationProcess *self);
 // Binds a TranslationRequirements facade to a document and a path (path copied).
 void translation_requirements_init(TranslationRequirements *self, SpecDocument *doc, const char *path);
 void translation_requirements_free(TranslationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int translation_requirements_can_have_content(const TranslationRequirements *self);
 TranslationRequirementsTranslationRequirementsContentForm translation_requirements_translation_requirements_content(const TranslationRequirements *self);
 // RTL and bidirectional support.
@@ -23749,7 +23790,7 @@ TranslationRequirementsTechnicalForm translation_requirements_technical(const Tr
 // Binds a TranslationVendorEntry facade to a document and a path (path copied).
 void translation_vendor_entry_init(TranslationVendorEntry *self, SpecDocument *doc, const char *path);
 void translation_vendor_entry_free(TranslationVendorEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int translation_vendor_entry_can_have_content(const TranslationVendorEntry *self);
 TranslationVendorEntryContentForm translation_vendor_entry_content(const TranslationVendorEntry *self);
 
@@ -23761,7 +23802,7 @@ TranslationVendorEntryContentForm translation_vendor_entry_content(const Transla
 // Binds a TransportSecurityPolicy facade to a document and a path (path copied).
 void transport_security_policy_init(TransportSecurityPolicy *self, SpecDocument *doc, const char *path);
 void transport_security_policy_free(TransportSecurityPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int transport_security_policy_can_have_content(const TransportSecurityPolicy *self);
 char *transport_security_policy_content(const TransportSecurityPolicy *self);
 void transport_security_policy_set_content(TransportSecurityPolicy *self, const char *value);
@@ -23772,7 +23813,7 @@ void transport_security_policy_set_content(TransportSecurityPolicy *self, const 
 // Binds a TroubleshootingCapabilities facade to a document and a path (path copied).
 void troubleshooting_capabilities_init(TroubleshootingCapabilities *self, SpecDocument *doc, const char *path);
 void troubleshooting_capabilities_free(TroubleshootingCapabilities *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int troubleshooting_capabilities_can_have_content(const TroubleshootingCapabilities *self);
 TroubleshootingCapabilitiesContentForm troubleshooting_capabilities_content(const TroubleshootingCapabilities *self);
 // Runbook and remediation support.
@@ -23789,7 +23830,7 @@ TroubleshootingCapabilitiesCommunicationForm troubleshooting_capabilities_commun
 // Binds a TrustBoundaries facade to a document and a path (path copied).
 void trust_boundaries_init(TrustBoundaries *self, SpecDocument *doc, const char *path);
 void trust_boundaries_free(TrustBoundaries *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int trust_boundaries_can_have_content(const TrustBoundaries *self);
 char *trust_boundaries_content(const TrustBoundaries *self);
 void trust_boundaries_set_content(TrustBoundaries *self, const char *value);
@@ -23801,7 +23842,7 @@ SomList trust_boundaries_boundaries(const TrustBoundaries *self);
 // Binds a TrustBoundaryEntry facade to a document and a path (path copied).
 void trust_boundary_entry_init(TrustBoundaryEntry *self, SpecDocument *doc, const char *path);
 void trust_boundary_entry_free(TrustBoundaryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int trust_boundary_entry_can_have_content(const TrustBoundaryEntry *self);
 TrustBoundaryEntryContentForm trust_boundary_entry_content(const TrustBoundaryEntry *self);
 
@@ -23809,7 +23850,7 @@ TrustBoundaryEntryContentForm trust_boundary_entry_content(const TrustBoundaryEn
 // Binds a TypographyStyleEntry facade to a document and a path (path copied).
 void typography_style_entry_init(TypographyStyleEntry *self, SpecDocument *doc, const char *path);
 void typography_style_entry_free(TypographyStyleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int typography_style_entry_can_have_content(const TypographyStyleEntry *self);
 TypographyStyleEntryContentForm typography_style_entry_content(const TypographyStyleEntry *self);
 
@@ -23817,7 +23858,7 @@ TypographyStyleEntryContentForm typography_style_entry_content(const TypographyS
 // Binds a UIRequirementsPreview facade to a document and a path (path copied).
 void uirequirements_preview_init(UIRequirementsPreview *self, SpecDocument *doc, const char *path);
 void uirequirements_preview_free(UIRequirementsPreview *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int uirequirements_preview_can_have_content(const UIRequirementsPreview *self);
 UIRequirementsPreviewContentForm uirequirements_preview_content(const UIRequirementsPreview *self);
 // UI mockup/wireframe reference.
@@ -23831,7 +23872,7 @@ UIRequirementsPreviewContentForm uirequirements_preview_content(const UIRequirem
 // Binds a UatTestCycleEntry facade to a document and a path (path copied).
 void uat_test_cycle_entry_init(UatTestCycleEntry *self, SpecDocument *doc, const char *path);
 void uat_test_cycle_entry_free(UatTestCycleEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int uat_test_cycle_entry_can_have_content(const UatTestCycleEntry *self);
 UatTestCycleEntryContentForm uat_test_cycle_entry_content(const UatTestCycleEntry *self);
 // Scope and pass criteria for this cycle.
@@ -23847,7 +23888,7 @@ UatTestCycleEntryExecutionForm uat_test_cycle_entry_execution(const UatTestCycle
 // Binds a UatTestStepEntry facade to a document and a path (path copied).
 void uat_test_step_entry_init(UatTestStepEntry *self, SpecDocument *doc, const char *path);
 void uat_test_step_entry_free(UatTestStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int uat_test_step_entry_can_have_content(const UatTestStepEntry *self);
 UatTestStepEntryContentForm uat_test_step_entry_content(const UatTestStepEntry *self);
 
@@ -23859,7 +23900,7 @@ UatTestStepEntryContentForm uat_test_step_entry_content(const UatTestStepEntry *
 // Binds a UiComponentEntry facade to a document and a path (path copied).
 void ui_component_entry_init(UiComponentEntry *self, SpecDocument *doc, const char *path);
 void ui_component_entry_free(UiComponentEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ui_component_entry_can_have_content(const UiComponentEntry *self);
 UiComponentEntryIdentityForm ui_component_entry_identity(const UiComponentEntry *self);
 // Wrapper mapping and business purpose.
@@ -23913,7 +23954,7 @@ SomList ui_component_entry_properties(const UiComponentEntry *self);
 // Binds a UiComponents facade to a document and a path (path copied).
 void ui_components_init(UiComponents *self, SpecDocument *doc, const char *path);
 void ui_components_free(UiComponents *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int ui_components_can_have_content(const UiComponents *self);
 UiComponentsComponentLibraryOverviewForm ui_components_component_library_overview(const UiComponents *self);
 // Visual language and brand alignment.
@@ -23939,7 +23980,7 @@ SomList ui_components_component_families(const UiComponents *self);
 // Binds a UpgradeCycleFramework facade to a document and a path (path copied).
 void upgrade_cycle_framework_init(UpgradeCycleFramework *self, SpecDocument *doc, const char *path);
 void upgrade_cycle_framework_free(UpgradeCycleFramework *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int upgrade_cycle_framework_can_have_content(const UpgradeCycleFramework *self);
 char *upgrade_cycle_framework_content(const UpgradeCycleFramework *self);
 void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char *value);
@@ -23948,7 +23989,7 @@ void upgrade_cycle_framework_set_content(UpgradeCycleFramework *self, const char
 // Binds a Usability facade to a document and a path (path copied).
 void usability_init(Usability *self, SpecDocument *doc, const char *path);
 void usability_free(Usability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int usability_can_have_content(const Usability *self);
 UsabilityContentForm usability_content(const Usability *self);
 // Operability verification and ergonomics goals.
@@ -23968,7 +24009,7 @@ UsabilityPerformanceForm usability_performance(const Usability *self);
 // Binds a UseCaseExtensions facade to a document and a path (path copied).
 void use_case_extensions_init(UseCaseExtensions *self, SpecDocument *doc, const char *path);
 void use_case_extensions_free(UseCaseExtensions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int use_case_extensions_can_have_content(const UseCaseExtensions *self);
 UseCaseExtensionsContentForm use_case_extensions_content(const UseCaseExtensions *self);
 // Extension entries — contains 0+× Extension.
@@ -23981,7 +24022,7 @@ SomList use_case_extensions_extensions(const UseCaseExtensions *self);
 // Binds a UseCaseTraceability facade to a document and a path (path copied).
 void use_case_traceability_init(UseCaseTraceability *self, SpecDocument *doc, const char *path);
 void use_case_traceability_free(UseCaseTraceability *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int use_case_traceability_can_have_content(const UseCaseTraceability *self);
 char *use_case_traceability_content(const UseCaseTraceability *self);
 void use_case_traceability_set_content(UseCaseTraceability *self, const char *value);
@@ -23995,7 +24036,7 @@ void use_case_traceability_set_content(UseCaseTraceability *self, const char *va
 // Binds a UserAcceptanceTesting facade to a document and a path (path copied).
 void user_acceptance_testing_init(UserAcceptanceTesting *self, SpecDocument *doc, const char *path);
 void user_acceptance_testing_free(UserAcceptanceTesting *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_acceptance_testing_can_have_content(const UserAcceptanceTesting *self);
 UserAcceptanceTestingContentForm user_acceptance_testing_content(const UserAcceptanceTesting *self);
 // Scope and objectives.
@@ -24035,7 +24076,7 @@ SomList user_acceptance_testing_test_scenarios(const UserAcceptanceTesting *self
 // Binds a UserAccessPermissions facade to a document and a path (path copied).
 void user_access_permissions_init(UserAccessPermissions *self, SpecDocument *doc, const char *path);
 void user_access_permissions_free(UserAccessPermissions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_access_permissions_can_have_content(const UserAccessPermissions *self);
 char *user_access_permissions_content(const UserAccessPermissions *self);
 void user_access_permissions_set_content(UserAccessPermissions *self, const char *value);
@@ -24055,7 +24096,7 @@ SomList user_access_permissions_permission_matrix(const UserAccessPermissions *s
 // Binds a UserAccessibilityNeeds facade to a document and a path (path copied).
 void user_accessibility_needs_init(UserAccessibilityNeeds *self, SpecDocument *doc, const char *path);
 void user_accessibility_needs_free(UserAccessibilityNeeds *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_accessibility_needs_can_have_content(const UserAccessibilityNeeds *self);
 char *user_accessibility_needs_content(const UserAccessibilityNeeds *self);
 void user_accessibility_needs_set_content(UserAccessibilityNeeds *self, const char *value);
@@ -24069,7 +24110,7 @@ UserAccessibilityNeedsAccessibilityFormForm user_accessibility_needs_accessibili
 // Binds a UserAccountStatesDefinition facade to a document and a path (path copied).
 void user_account_states_definition_init(UserAccountStatesDefinition *self, SpecDocument *doc, const char *path);
 void user_account_states_definition_free(UserAccountStatesDefinition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_account_states_definition_can_have_content(const UserAccountStatesDefinition *self);
 char *user_account_states_definition_content(const UserAccountStatesDefinition *self);
 void user_account_states_definition_set_content(UserAccountStatesDefinition *self, const char *value);
@@ -24083,7 +24124,7 @@ void user_account_states_definition_set_content(UserAccountStatesDefinition *sel
 // Binds a UserAssistance facade to a document and a path (path copied).
 void user_assistance_init(UserAssistance *self, SpecDocument *doc, const char *path);
 void user_assistance_free(UserAssistance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_assistance_can_have_content(const UserAssistance *self);
 UserAssistanceHelpOverviewContentForm user_assistance_help_overview_content(const UserAssistance *self);
 // Content stewardship and help affordances.
@@ -24105,7 +24146,7 @@ SupportAccess user_assistance_support_access(const UserAssistance *self);
 // Binds a UserAttributeEntry facade to a document and a path (path copied).
 void user_attribute_entry_init(UserAttributeEntry *self, SpecDocument *doc, const char *path);
 void user_attribute_entry_free(UserAttributeEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_attribute_entry_can_have_content(const UserAttributeEntry *self);
 UserAttributeEntryContentForm user_attribute_entry_content(const UserAttributeEntry *self);
 
@@ -24113,7 +24154,7 @@ UserAttributeEntryContentForm user_attribute_entry_content(const UserAttributeEn
 // Binds a UserAttributes facade to a document and a path (path copied).
 void user_attributes_init(UserAttributes *self, SpecDocument *doc, const char *path);
 void user_attributes_free(UserAttributes *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_attributes_can_have_content(const UserAttributes *self);
 char *user_attributes_content(const UserAttributes *self);
 void user_attributes_set_content(UserAttributes *self, const char *value);
@@ -24127,7 +24168,7 @@ SomList user_attributes_items(const UserAttributes *self);
 // Binds a UserAuthorization facade to a document and a path (path copied).
 void user_authorization_init(UserAuthorization *self, SpecDocument *doc, const char *path);
 void user_authorization_free(UserAuthorization *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_authorization_can_have_content(const UserAuthorization *self);
 char *user_authorization_content(const UserAuthorization *self);
 void user_authorization_set_content(UserAuthorization *self, const char *value);
@@ -24154,7 +24195,7 @@ TenantIsolation user_authorization_tenant_isolation(const UserAuthorization *sel
 // Binds a UserCategoryDefinition facade to a document and a path (path copied).
 void user_category_definition_init(UserCategoryDefinition *self, SpecDocument *doc, const char *path);
 void user_category_definition_free(UserCategoryDefinition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_category_definition_can_have_content(const UserCategoryDefinition *self);
 UserCategoryDefinitionContentForm user_category_definition_content(const UserCategoryDefinition *self);
 
@@ -24165,7 +24206,7 @@ UserCategoryDefinitionContentForm user_category_definition_content(const UserCat
 // Binds a UserCategoryEntry facade to a document and a path (path copied).
 void user_category_entry_init(UserCategoryEntry *self, SpecDocument *doc, const char *path);
 void user_category_entry_free(UserCategoryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_category_entry_can_have_content(const UserCategoryEntry *self);
 UserCategoryEntryContentForm user_category_entry_content(const UserCategoryEntry *self);
 // Interaction profile and scale indicators.
@@ -24199,7 +24240,7 @@ UserJourney user_category_entry_user_journey(const UserCategoryEntry *self);
 // Binds a UserDocumentationRequirements facade to a document and a path (path copied).
 void user_documentation_requirements_init(UserDocumentationRequirements *self, SpecDocument *doc, const char *path);
 void user_documentation_requirements_free(UserDocumentationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_documentation_requirements_can_have_content(const UserDocumentationRequirements *self);
 UserDocumentationRequirementsDocumentationContentForm user_documentation_requirements_documentation_content(const UserDocumentationRequirements *self);
 // Documentation deliverables provided to users.
@@ -24213,7 +24254,7 @@ UserDocumentationRequirementsLocalizationForm user_documentation_requirements_lo
 // Binds a UserGroupImpactEntry facade to a document and a path (path copied).
 void user_group_impact_entry_init(UserGroupImpactEntry *self, SpecDocument *doc, const char *path);
 void user_group_impact_entry_free(UserGroupImpactEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_group_impact_entry_can_have_content(const UserGroupImpactEntry *self);
 UserGroupImpactEntryContentForm user_group_impact_entry_content(const UserGroupImpactEntry *self);
 
@@ -24221,7 +24262,7 @@ UserGroupImpactEntryContentForm user_group_impact_entry_content(const UserGroupI
 // Binds a UserGrowthProjections facade to a document and a path (path copied).
 void user_growth_projections_init(UserGrowthProjections *self, SpecDocument *doc, const char *path);
 void user_growth_projections_free(UserGrowthProjections *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_growth_projections_can_have_content(const UserGrowthProjections *self);
 UserGrowthProjectionsContentForm user_growth_projections_content(const UserGrowthProjections *self);
 // Growth-rate assumptions and time-based projections.
@@ -24239,7 +24280,7 @@ UserGrowthProjectionsThresholdsForm user_growth_projections_thresholds(const Use
 // Binds a UserInteractionModel facade to a document and a path (path copied).
 void user_interaction_model_init(UserInteractionModel *self, SpecDocument *doc, const char *path);
 void user_interaction_model_free(UserInteractionModel *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_interaction_model_can_have_content(const UserInteractionModel *self);
 char *user_interaction_model_content(const UserInteractionModel *self);
 void user_interaction_model_set_content(UserInteractionModel *self, const char *value);
@@ -24262,7 +24303,7 @@ MultiChannelExperience user_interaction_model_multi_channel_experience(const Use
 // Binds a UserInteractionModelSummary facade to a document and a path (path copied).
 void user_interaction_model_summary_init(UserInteractionModelSummary *self, SpecDocument *doc, const char *path);
 void user_interaction_model_summary_free(UserInteractionModelSummary *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_interaction_model_summary_can_have_content(const UserInteractionModelSummary *self);
 // Summary content for interaction model.
 char *user_interaction_model_summary_content(const UserInteractionModelSummary *self);
@@ -24274,7 +24315,7 @@ void user_interaction_model_summary_set_content(UserInteractionModelSummary *sel
 // Binds a UserJourney facade to a document and a path (path copied).
 void user_journey_init(UserJourney *self, SpecDocument *doc, const char *path);
 void user_journey_free(UserJourney *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_journey_can_have_content(const UserJourney *self);
 char *user_journey_content(const UserJourney *self);
 void user_journey_set_content(UserJourney *self, const char *value);
@@ -24302,7 +24343,7 @@ void user_journey_set_opportunities_for_delight(UserJourney *self, const char *v
 // Binds a UserLifecycle facade to a document and a path (path copied).
 void user_lifecycle_init(UserLifecycle *self, SpecDocument *doc, const char *path);
 void user_lifecycle_free(UserLifecycle *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_lifecycle_can_have_content(const UserLifecycle *self);
 char *user_lifecycle_content(const UserLifecycle *self);
 void user_lifecycle_set_content(UserLifecycle *self, const char *value);
@@ -24335,7 +24376,7 @@ SomList user_lifecycle_service_accounts(const UserLifecycle *self);
 // Binds a UserLifecycleTransitionEntry facade to a document and a path (path copied).
 void user_lifecycle_transition_entry_init(UserLifecycleTransitionEntry *self, SpecDocument *doc, const char *path);
 void user_lifecycle_transition_entry_free(UserLifecycleTransitionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_lifecycle_transition_entry_can_have_content(const UserLifecycleTransitionEntry *self);
 UserLifecycleTransitionEntryContentForm user_lifecycle_transition_entry_content(const UserLifecycleTransitionEntry *self);
 // Approval requirements.
@@ -24352,7 +24393,7 @@ UserLifecycleTransitionEntryAutomationForm user_lifecycle_transition_entry_autom
 // Binds a UserLifecycleTransitions facade to a document and a path (path copied).
 void user_lifecycle_transitions_init(UserLifecycleTransitions *self, SpecDocument *doc, const char *path);
 void user_lifecycle_transitions_free(UserLifecycleTransitions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_lifecycle_transitions_can_have_content(const UserLifecycleTransitions *self);
 char *user_lifecycle_transitions_content(const UserLifecycleTransitions *self);
 void user_lifecycle_transitions_set_content(UserLifecycleTransitions *self, const char *value);
@@ -24368,7 +24409,7 @@ SomList user_lifecycle_transitions_items(const UserLifecycleTransitions *self);
 // Binds a UserManagement facade to a document and a path (path copied).
 void user_management_init(UserManagement *self, SpecDocument *doc, const char *path);
 void user_management_free(UserManagement *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_management_can_have_content(const UserManagement *self);
 char *user_management_content(const UserManagement *self);
 void user_management_set_content(UserManagement *self, const char *value);
@@ -24391,7 +24432,7 @@ UserAttributes user_management_user_attributes(const UserManagement *self);
 // Binds a UserManual facade to a document and a path (path copied).
 void user_manual_init(UserManual *self, SpecDocument *doc, const char *path);
 void user_manual_free(UserManual *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_manual_can_have_content(const UserManual *self);
 char *user_manual_content(const UserManual *self);
 void user_manual_set_content(UserManual *self, const char *value);
@@ -24400,7 +24441,7 @@ void user_manual_set_content(UserManual *self, const char *value);
 // Binds a UserNotificationPreferences facade to a document and a path (path copied).
 void user_notification_preferences_init(UserNotificationPreferences *self, SpecDocument *doc, const char *path);
 void user_notification_preferences_free(UserNotificationPreferences *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_notification_preferences_can_have_content(const UserNotificationPreferences *self);
 // Preferences content.
 char *user_notification_preferences_content(const UserNotificationPreferences *self);
@@ -24413,7 +24454,7 @@ void user_notification_preferences_set_content(UserNotificationPreferences *self
 // Binds a UserPersonaDetails facade to a document and a path (path copied).
 void user_persona_details_init(UserPersonaDetails *self, SpecDocument *doc, const char *path);
 void user_persona_details_free(UserPersonaDetails *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_persona_details_can_have_content(const UserPersonaDetails *self);
 char *user_persona_details_content(const UserPersonaDetails *self);
 void user_persona_details_set_content(UserPersonaDetails *self, const char *value);
@@ -24439,7 +24480,7 @@ SomList user_persona_details_representative_quotes(const UserPersonaDetails *sel
 // Binds a UserPersonas facade to a document and a path (path copied).
 void user_personas_init(UserPersonas *self, SpecDocument *doc, const char *path);
 void user_personas_free(UserPersonas *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_personas_can_have_content(const UserPersonas *self);
 char *user_personas_content(const UserPersonas *self);
 void user_personas_set_content(UserPersonas *self, const char *value);
@@ -24453,7 +24494,7 @@ SomList user_personas_items(const UserPersonas *self);
 // Binds a UserProvisioningTools facade to a document and a path (path copied).
 void user_provisioning_tools_init(UserProvisioningTools *self, SpecDocument *doc, const char *path);
 void user_provisioning_tools_free(UserProvisioningTools *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_provisioning_tools_can_have_content(const UserProvisioningTools *self);
 UserProvisioningToolsContentForm user_provisioning_tools_content(const UserProvisioningTools *self);
 // Account lifecycle management.
@@ -24470,7 +24511,7 @@ UserProvisioningToolsDirectoryIntegrationForm user_provisioning_tools_directory_
 // Binds a UserRegistrationProcess facade to a document and a path (path copied).
 void user_registration_process_init(UserRegistrationProcess *self, SpecDocument *doc, const char *path);
 void user_registration_process_free(UserRegistrationProcess *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_registration_process_can_have_content(const UserRegistrationProcess *self);
 char *user_registration_process_content(const UserRegistrationProcess *self);
 void user_registration_process_set_content(UserRegistrationProcess *self, const char *value);
@@ -24485,7 +24526,7 @@ void user_registration_process_set_content(UserRegistrationProcess *self, const 
 // Binds a UserTrainingRequirements facade to a document and a path (path copied).
 void user_training_requirements_init(UserTrainingRequirements *self, SpecDocument *doc, const char *path);
 void user_training_requirements_free(UserTrainingRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int user_training_requirements_can_have_content(const UserTrainingRequirements *self);
 char *user_training_requirements_content(const UserTrainingRequirements *self);
 void user_training_requirements_set_content(UserTrainingRequirements *self, const char *value);
@@ -24501,7 +24542,7 @@ SomList user_training_requirements_training_topics(const UserTrainingRequirement
 // Binds a UtilityMenuItemEntry facade to a document and a path (path copied).
 void utility_menu_item_entry_init(UtilityMenuItemEntry *self, SpecDocument *doc, const char *path);
 void utility_menu_item_entry_free(UtilityMenuItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int utility_menu_item_entry_can_have_content(const UtilityMenuItemEntry *self);
 UtilityMenuItemEntryContentForm utility_menu_item_entry_content(const UtilityMenuItemEntry *self);
 // Routing and action references.
@@ -24515,7 +24556,7 @@ UtilityMenuItemEntryBehaviorForm utility_menu_item_entry_behavior(const UtilityM
 // Binds a UtilityNavigation facade to a document and a path (path copied).
 void utility_navigation_init(UtilityNavigation *self, SpecDocument *doc, const char *path);
 void utility_navigation_free(UtilityNavigation *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int utility_navigation_can_have_content(const UtilityNavigation *self);
 char *utility_navigation_content(const UtilityNavigation *self);
 void utility_navigation_set_content(UtilityNavigation *self, const char *value);
@@ -24530,7 +24571,7 @@ SomList utility_navigation_items(const UtilityNavigation *self);
 // Binds a UtilityNavigationItemEntry facade to a document and a path (path copied).
 void utility_navigation_item_entry_init(UtilityNavigationItemEntry *self, SpecDocument *doc, const char *path);
 void utility_navigation_item_entry_free(UtilityNavigationItemEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int utility_navigation_item_entry_can_have_content(const UtilityNavigationItemEntry *self);
 UtilityNavigationItemEntryContentForm utility_navigation_item_entry_content(const UtilityNavigationItemEntry *self);
 // Ordering, rendering, and access rules.
@@ -24549,7 +24590,7 @@ SomList utility_navigation_item_entry_menu_items(const UtilityNavigationItemEntr
 // Binds a ValidationConstraints facade to a document and a path (path copied).
 void validation_constraints_init(ValidationConstraints *self, SpecDocument *doc, const char *path);
 void validation_constraints_free(ValidationConstraints *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int validation_constraints_can_have_content(const ValidationConstraints *self);
 char *validation_constraints_content(const ValidationConstraints *self);
 void validation_constraints_set_content(ValidationConstraints *self, const char *value);
@@ -24560,7 +24601,7 @@ void validation_constraints_set_content(ValidationConstraints *self, const char 
 // Binds a ValidationFeedback facade to a document and a path (path copied).
 void validation_feedback_init(ValidationFeedback *self, SpecDocument *doc, const char *path);
 void validation_feedback_free(ValidationFeedback *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int validation_feedback_can_have_content(const ValidationFeedback *self);
 ValidationFeedbackValidationDisplayContentForm validation_feedback_validation_display_content(const ValidationFeedback *self);
 // Display placement details.
@@ -24584,7 +24625,7 @@ SomList validation_feedback_field_validation_rules(const ValidationFeedback *sel
 // Binds a ValidationMessageTemplate facade to a document and a path (path copied).
 void validation_message_template_init(ValidationMessageTemplate *self, SpecDocument *doc, const char *path);
 void validation_message_template_free(ValidationMessageTemplate *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int validation_message_template_can_have_content(const ValidationMessageTemplate *self);
 ValidationMessageTemplateContentForm validation_message_template_content(const ValidationMessageTemplate *self);
 
@@ -24595,7 +24636,7 @@ ValidationMessageTemplateContentForm validation_message_template_content(const V
 // Binds a ValueProposition facade to a document and a path (path copied).
 void value_proposition_init(ValueProposition *self, SpecDocument *doc, const char *path);
 void value_proposition_free(ValueProposition *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int value_proposition_can_have_content(const ValueProposition *self);
 char *value_proposition_content(const ValueProposition *self);
 void value_proposition_set_content(ValueProposition *self, const char *value);
@@ -24613,7 +24654,7 @@ SomList value_proposition_kpis(const ValueProposition *self);
 // Binds a VersionControlConfiguration facade to a document and a path (path copied).
 void version_control_configuration_init(VersionControlConfiguration *self, SpecDocument *doc, const char *path);
 void version_control_configuration_free(VersionControlConfiguration *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int version_control_configuration_can_have_content(const VersionControlConfiguration *self);
 VersionControlConfigurationContentForm version_control_configuration_content(const VersionControlConfiguration *self);
 // Repository structure settings.
@@ -24629,7 +24670,7 @@ VersionControlConfigurationMetadataForm version_control_configuration_metadata(c
 // Binds a VirtualizationRequirements facade to a document and a path (path copied).
 void virtualization_requirements_init(VirtualizationRequirements *self, SpecDocument *doc, const char *path);
 void virtualization_requirements_free(VirtualizationRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int virtualization_requirements_can_have_content(const VirtualizationRequirements *self);
 VirtualizationRequirementsContentForm virtualization_requirements_content(const VirtualizationRequirements *self);
 // VM requirements.
@@ -24645,7 +24686,7 @@ VirtualizationRequirementsNetworkingForm virtualization_requirements_networking(
 // Binds a VolumeMetricEntry facade to a document and a path (path copied).
 void volume_metric_entry_init(VolumeMetricEntry *self, SpecDocument *doc, const char *path);
 void volume_metric_entry_free(VolumeMetricEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int volume_metric_entry_can_have_content(const VolumeMetricEntry *self);
 VolumeMetricEntryContentForm volume_metric_entry_content(const VolumeMetricEntry *self);
 
@@ -24653,7 +24694,7 @@ VolumeMetricEntryContentForm volume_metric_entry_content(const VolumeMetricEntry
 // Binds a VpnRequirementEntry facade to a document and a path (path copied).
 void vpn_requirement_entry_init(VpnRequirementEntry *self, SpecDocument *doc, const char *path);
 void vpn_requirement_entry_free(VpnRequirementEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int vpn_requirement_entry_can_have_content(const VpnRequirementEntry *self);
 VpnRequirementEntryContentForm vpn_requirement_entry_content(const VpnRequirementEntry *self);
 // Endpoint configuration.
@@ -24669,7 +24710,7 @@ VpnRequirementEntryAvailabilityDetailsForm vpn_requirement_entry_availability_de
 // Binds a VulnerabilityManagementPolicy facade to a document and a path (path copied).
 void vulnerability_management_policy_init(VulnerabilityManagementPolicy *self, SpecDocument *doc, const char *path);
 void vulnerability_management_policy_free(VulnerabilityManagementPolicy *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int vulnerability_management_policy_can_have_content(const VulnerabilityManagementPolicy *self);
 VulnerabilityManagementPolicyContentForm vulnerability_management_policy_content(const VulnerabilityManagementPolicy *self);
 // Severity classification.
@@ -24686,7 +24727,7 @@ VulnerabilityManagementPolicyReportingForm vulnerability_management_policy_repor
 // Binds a WarrantyAndSupport facade to a document and a path (path copied).
 void warranty_and_support_init(WarrantyAndSupport *self, SpecDocument *doc, const char *path);
 void warranty_and_support_free(WarrantyAndSupport *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int warranty_and_support_can_have_content(const WarrantyAndSupport *self);
 char *warranty_and_support_content(const WarrantyAndSupport *self);
 void warranty_and_support_set_content(WarrantyAndSupport *self, const char *value);
@@ -24695,7 +24736,7 @@ void warranty_and_support_set_content(WarrantyAndSupport *self, const char *valu
 // Binds a WarrantyServiceLevels facade to a document and a path (path copied).
 void warranty_service_levels_init(WarrantyServiceLevels *self, SpecDocument *doc, const char *path);
 void warranty_service_levels_free(WarrantyServiceLevels *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int warranty_service_levels_can_have_content(const WarrantyServiceLevels *self);
 WarrantyServiceLevelsContentForm warranty_service_levels_content(const WarrantyServiceLevels *self);
 
@@ -24706,7 +24747,7 @@ WarrantyServiceLevelsContentForm warranty_service_levels_content(const WarrantyS
 // Binds a WarrantyTerms facade to a document and a path (path copied).
 void warranty_terms_init(WarrantyTerms *self, SpecDocument *doc, const char *path);
 void warranty_terms_free(WarrantyTerms *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int warranty_terms_can_have_content(const WarrantyTerms *self);
 WarrantyTermsContentForm warranty_terms_content(const WarrantyTerms *self);
 // Duration and activation.
@@ -24729,7 +24770,7 @@ WarrantyTermsFinancialForm warranty_terms_financial(const WarrantyTerms *self);
 // Binds a WcagCompliance facade to a document and a path (path copied).
 void wcag_compliance_init(WcagCompliance *self, SpecDocument *doc, const char *path);
 void wcag_compliance_free(WcagCompliance *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int wcag_compliance_can_have_content(const WcagCompliance *self);
 WcagComplianceWcagComplianceContentForm wcag_compliance_wcag_compliance_content(const WcagCompliance *self);
 // Operable principles.
@@ -24748,7 +24789,7 @@ SomList wcag_compliance_success_criteria(const WcagCompliance *self);
 // Binds a WcagSuccessCriterionEntry facade to a document and a path (path copied).
 void wcag_success_criterion_entry_init(WcagSuccessCriterionEntry *self, SpecDocument *doc, const char *path);
 void wcag_success_criterion_entry_free(WcagSuccessCriterionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int wcag_success_criterion_entry_can_have_content(const WcagSuccessCriterionEntry *self);
 WcagSuccessCriterionEntryContentForm wcag_success_criterion_entry_content(const WcagSuccessCriterionEntry *self);
 
@@ -24756,7 +24797,7 @@ WcagSuccessCriterionEntryContentForm wcag_success_criterion_entry_content(const 
 // Binds a WeightedQualityMatrix facade to a document and a path (path copied).
 void weighted_quality_matrix_init(WeightedQualityMatrix *self, SpecDocument *doc, const char *path);
 void weighted_quality_matrix_free(WeightedQualityMatrix *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int weighted_quality_matrix_can_have_content(const WeightedQualityMatrix *self);
 WeightedQualityMatrixMatrixConfigContentForm weighted_quality_matrix_matrix_config_content(const WeightedQualityMatrix *self);
 // Weighted quality matrix narrative.
@@ -24774,7 +24815,7 @@ SomList weighted_quality_matrix_weights(const WeightedQualityMatrix *self);
 // Binds a WireframesAndMockups facade to a document and a path (path copied).
 void wireframes_and_mockups_init(WireframesAndMockups *self, SpecDocument *doc, const char *path);
 void wireframes_and_mockups_free(WireframesAndMockups *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int wireframes_and_mockups_can_have_content(const WireframesAndMockups *self);
 char *wireframes_and_mockups_content(const WireframesAndMockups *self);
 void wireframes_and_mockups_set_content(WireframesAndMockups *self, const char *value);
@@ -24785,7 +24826,7 @@ void wireframes_and_mockups_set_content(WireframesAndMockups *self, const char *
 // Binds a WorkflowActorEntry facade to a document and a path (path copied).
 void workflow_actor_entry_init(WorkflowActorEntry *self, SpecDocument *doc, const char *path);
 void workflow_actor_entry_free(WorkflowActorEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_actor_entry_can_have_content(const WorkflowActorEntry *self);
 WorkflowActorEntryContentForm workflow_actor_entry_content(const WorkflowActorEntry *self);
 // Steps this actor participates in.
@@ -24796,7 +24837,7 @@ SomList workflow_actor_entry_participating_steps(const WorkflowActorEntry *self)
 // Binds a WorkflowBusinessRule facade to a document and a path (path copied).
 void workflow_business_rule_init(WorkflowBusinessRule *self, SpecDocument *doc, const char *path);
 void workflow_business_rule_free(WorkflowBusinessRule *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_business_rule_can_have_content(const WorkflowBusinessRule *self);
 WorkflowBusinessRuleContentForm workflow_business_rule_content(const WorkflowBusinessRule *self);
 
@@ -24804,7 +24845,7 @@ WorkflowBusinessRuleContentForm workflow_business_rule_content(const WorkflowBus
 // Binds a WorkflowDecisionPoint facade to a document and a path (path copied).
 void workflow_decision_point_init(WorkflowDecisionPoint *self, SpecDocument *doc, const char *path);
 void workflow_decision_point_free(WorkflowDecisionPoint *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_decision_point_can_have_content(const WorkflowDecisionPoint *self);
 WorkflowDecisionPointContentForm workflow_decision_point_content(const WorkflowDecisionPoint *self);
 
@@ -24818,7 +24859,7 @@ WorkflowDecisionPointContentForm workflow_decision_point_content(const WorkflowD
 // Binds a WorkflowDescriptions facade to a document and a path (path copied).
 void workflow_descriptions_init(WorkflowDescriptions *self, SpecDocument *doc, const char *path);
 void workflow_descriptions_free(WorkflowDescriptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_descriptions_can_have_content(const WorkflowDescriptions *self);
 char *workflow_descriptions_content(const WorkflowDescriptions *self);
 void workflow_descriptions_set_content(WorkflowDescriptions *self, const char *value);
@@ -24835,7 +24876,7 @@ SomList workflow_descriptions_workflows(const WorkflowDescriptions *self);
 // Binds a WorkflowExceptionEntry facade to a document and a path (path copied).
 void workflow_exception_entry_init(WorkflowExceptionEntry *self, SpecDocument *doc, const char *path);
 void workflow_exception_entry_free(WorkflowExceptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_exception_entry_can_have_content(const WorkflowExceptionEntry *self);
 WorkflowExceptionEntryContentForm workflow_exception_entry_content(const WorkflowExceptionEntry *self);
 
@@ -24843,7 +24884,7 @@ WorkflowExceptionEntryContentForm workflow_exception_entry_content(const Workflo
 // Binds a WorkflowExceptions facade to a document and a path (path copied).
 void workflow_exceptions_init(WorkflowExceptions *self, SpecDocument *doc, const char *path);
 void workflow_exceptions_free(WorkflowExceptions *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_exceptions_can_have_content(const WorkflowExceptions *self);
 char *workflow_exceptions_content(const WorkflowExceptions *self);
 void workflow_exceptions_set_content(WorkflowExceptions *self, const char *value);
@@ -24855,7 +24896,7 @@ SomList workflow_exceptions_exceptions(const WorkflowExceptions *self);
 // Binds a WorkflowInputEntry facade to a document and a path (path copied).
 void workflow_input_entry_init(WorkflowInputEntry *self, SpecDocument *doc, const char *path);
 void workflow_input_entry_free(WorkflowInputEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_input_entry_can_have_content(const WorkflowInputEntry *self);
 WorkflowInputEntryContentForm workflow_input_entry_content(const WorkflowInputEntry *self);
 
@@ -24863,7 +24904,7 @@ WorkflowInputEntryContentForm workflow_input_entry_content(const WorkflowInputEn
 // Binds a WorkflowOutputEntry facade to a document and a path (path copied).
 void workflow_output_entry_init(WorkflowOutputEntry *self, SpecDocument *doc, const char *path);
 void workflow_output_entry_free(WorkflowOutputEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_output_entry_can_have_content(const WorkflowOutputEntry *self);
 WorkflowOutputEntryContentForm workflow_output_entry_content(const WorkflowOutputEntry *self);
 
@@ -24873,7 +24914,7 @@ WorkflowOutputEntryContentForm workflow_output_entry_content(const WorkflowOutpu
 // Binds a WorkflowStepEntry facade to a document and a path (path copied).
 void workflow_step_entry_init(WorkflowStepEntry *self, SpecDocument *doc, const char *path);
 void workflow_step_entry_free(WorkflowStepEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_step_entry_can_have_content(const WorkflowStepEntry *self);
 WorkflowStepEntryContentForm workflow_step_entry_content(const WorkflowStepEntry *self);
 // Systems used in this step.
@@ -24896,7 +24937,7 @@ SomList workflow_step_entry_known_issues(const WorkflowStepEntry *self);
 // Binds a WorkflowStepIssue facade to a document and a path (path copied).
 void workflow_step_issue_init(WorkflowStepIssue *self, SpecDocument *doc, const char *path);
 void workflow_step_issue_free(WorkflowStepIssue *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_step_issue_can_have_content(const WorkflowStepIssue *self);
 WorkflowStepIssueContentForm workflow_step_issue_content(const WorkflowStepIssue *self);
 
@@ -24904,7 +24945,7 @@ WorkflowStepIssueContentForm workflow_step_issue_content(const WorkflowStepIssue
 // Binds a WorkflowStepSystem facade to a document and a path (path copied).
 void workflow_step_system_init(WorkflowStepSystem *self, SpecDocument *doc, const char *path);
 void workflow_step_system_free(WorkflowStepSystem *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_step_system_can_have_content(const WorkflowStepSystem *self);
 char *workflow_step_system_name(const WorkflowStepSystem *self);
 void workflow_step_system_set_name(WorkflowStepSystem *self, const char *value);
@@ -24913,7 +24954,7 @@ void workflow_step_system_set_name(WorkflowStepSystem *self, const char *value);
 // Binds a WorkflowSummaryEntry facade to a document and a path (path copied).
 void workflow_summary_entry_init(WorkflowSummaryEntry *self, SpecDocument *doc, const char *path);
 void workflow_summary_entry_free(WorkflowSummaryEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_summary_entry_can_have_content(const WorkflowSummaryEntry *self);
 WorkflowSummaryEntryContentForm workflow_summary_entry_content(const WorkflowSummaryEntry *self);
 
@@ -24921,7 +24962,7 @@ WorkflowSummaryEntryContentForm workflow_summary_entry_content(const WorkflowSum
 // Binds a WorkflowSummaryTable facade to a document and a path (path copied).
 void workflow_summary_table_init(WorkflowSummaryTable *self, SpecDocument *doc, const char *path);
 void workflow_summary_table_free(WorkflowSummaryTable *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_summary_table_can_have_content(const WorkflowSummaryTable *self);
 WorkflowSummaryTableContentForm workflow_summary_table_content(const WorkflowSummaryTable *self);
 // Summary entries per workflow.
@@ -24932,7 +24973,7 @@ SomList workflow_summary_table_entries(const WorkflowSummaryTable *self);
 // Binds a WorkflowTriggerEntry facade to a document and a path (path copied).
 void workflow_trigger_entry_init(WorkflowTriggerEntry *self, SpecDocument *doc, const char *path);
 void workflow_trigger_entry_free(WorkflowTriggerEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_trigger_entry_can_have_content(const WorkflowTriggerEntry *self);
 WorkflowTriggerEntryContentForm workflow_trigger_entry_content(const WorkflowTriggerEntry *self);
 
@@ -24940,7 +24981,7 @@ WorkflowTriggerEntryContentForm workflow_trigger_entry_content(const WorkflowTri
 // Binds a WorkflowTriggers facade to a document and a path (path copied).
 void workflow_triggers_init(WorkflowTriggers *self, SpecDocument *doc, const char *path);
 void workflow_triggers_free(WorkflowTriggers *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workflow_triggers_can_have_content(const WorkflowTriggers *self);
 char *workflow_triggers_content(const WorkflowTriggers *self);
 void workflow_triggers_set_content(WorkflowTriggers *self, const char *value);
@@ -24956,7 +24997,7 @@ SomList workflow_triggers_triggers(const WorkflowTriggers *self);
 // Binds a WorkplaceDescriptionEntry facade to a document and a path (path copied).
 void workplace_description_entry_init(WorkplaceDescriptionEntry *self, SpecDocument *doc, const char *path);
 void workplace_description_entry_free(WorkplaceDescriptionEntry *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workplace_description_entry_can_have_content(const WorkplaceDescriptionEntry *self);
 // User category identification.
 WorkplaceDescriptionEntryUserCategoryForm workplace_description_entry_user_category(const WorkplaceDescriptionEntry *self);
@@ -24975,7 +25016,7 @@ WorkplaceSupportResources workplace_description_entry_support_resources(const Wo
 // Binds a WorkplaceSoftwareRequirements facade to a document and a path (path copied).
 void workplace_software_requirements_init(WorkplaceSoftwareRequirements *self, SpecDocument *doc, const char *path);
 void workplace_software_requirements_free(WorkplaceSoftwareRequirements *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workplace_software_requirements_can_have_content(const WorkplaceSoftwareRequirements *self);
 WorkplaceSoftwareRequirementsContentForm workplace_software_requirements_content(const WorkplaceSoftwareRequirements *self);
 // Security and collaboration software stack.
@@ -24987,7 +25028,7 @@ WorkplaceSoftwareRequirementsDeliveryForm workplace_software_requirements_delive
 // Binds a WorkplaceSupportResources facade to a document and a path (path copied).
 void workplace_support_resources_init(WorkplaceSupportResources *self, SpecDocument *doc, const char *path);
 void workplace_support_resources_free(WorkplaceSupportResources *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int workplace_support_resources_can_have_content(const WorkplaceSupportResources *self);
 WorkplaceSupportResourcesContentForm workplace_support_resources_content(const WorkplaceSupportResources *self);
 // Extended support channels.
@@ -31944,8 +31985,8 @@ char *component_variant_entry_behavior_form_use_case_differences(const Component
 void component_variant_entry_behavior_form_set_use_case_differences(ComponentVariantEntryBehaviorForm *self, const char *value);
 char *component_variant_entry_behavior_form_implementation_note(const ComponentVariantEntryBehaviorForm *self);
 void component_variant_entry_behavior_form_set_implementation_note(ComponentVariantEntryBehaviorForm *self, const char *value);
-char *component_variant_entry_behavior_form_flutter_variant(const ComponentVariantEntryBehaviorForm *self);
-void component_variant_entry_behavior_form_set_flutter_variant(ComponentVariantEntryBehaviorForm *self, const char *value);
+char *component_variant_entry_behavior_form_library_variant(const ComponentVariantEntryBehaviorForm *self);
+void component_variant_entry_behavior_form_set_library_variant(ComponentVariantEntryBehaviorForm *self, const char *value);
 
 // ComponentVariantEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void component_variant_entry_content_form_init(ComponentVariantEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -33118,8 +33159,6 @@ char *data_attribute_entry_binary_type_options_form_content(const DataAttributeE
 void data_attribute_entry_binary_type_options_form_set_content(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
 char *data_attribute_entry_binary_type_options_form_max_size_bytes(const DataAttributeEntryBinaryTypeOptionsForm *self);
 void data_attribute_entry_binary_type_options_form_set_max_size_bytes(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
-char *data_attribute_entry_binary_type_options_form_storage_mode(const DataAttributeEntryBinaryTypeOptionsForm *self);
-void data_attribute_entry_binary_type_options_form_set_storage_mode(DataAttributeEntryBinaryTypeOptionsForm *self, const char *value);
 
 // DataAttributeEntryDataTypeSpecForm is the generated section facade for the `dataTypeSpec` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_data_type_spec_form_init(DataAttributeEntryDataTypeSpecForm *self, SpecDocument *doc, const char *path);
@@ -33148,6 +33187,25 @@ char *data_attribute_entry_derivation_form_is_derived(const DataAttributeEntryDe
 void data_attribute_entry_derivation_form_set_is_derived(DataAttributeEntryDerivationForm *self, const char *value);
 char *data_attribute_entry_derivation_form_derivation_logic(const DataAttributeEntryDerivationForm *self);
 void data_attribute_entry_derivation_form_set_derivation_logic(DataAttributeEntryDerivationForm *self, const char *value);
+
+// DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_file_reference_options_form_free(DataAttributeEntryFileReferenceOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_file_reference_options_form_content(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_content(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_storage_group(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_storage_group(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_file_store(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_file_store(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_delete_with_record(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_delete_with_record(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_accepted_content_kinds(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_accepted_content_kinds(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_default_content_kind(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_default_content_kind(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
+char *data_attribute_entry_file_reference_options_form_max_file_size_bytes(const DataAttributeEntryFileReferenceOptionsForm *self);
+void data_attribute_entry_file_reference_options_form_set_max_file_size_bytes(DataAttributeEntryFileReferenceOptionsForm *self, const char *value);
 
 // DataAttributeEntryIdentityForm is the generated section facade for the `identity` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_identity_form_init(DataAttributeEntryIdentityForm *self, SpecDocument *doc, const char *path);
@@ -43996,12 +44054,12 @@ void language_country_selection_persistence_form_free(LanguageCountrySelectionPe
 // The section's own free-text content, before the form fields (owned).
 char *language_country_selection_persistence_form_content(const LanguageCountrySelectionPersistenceForm *self);
 void language_country_selection_persistence_form_set_content(LanguageCountrySelectionPersistenceForm *self, const char *value);
-char *language_country_selection_persistence_form_persistence_method(const LanguageCountrySelectionPersistenceForm *self);
-void language_country_selection_persistence_form_set_persistence_method(LanguageCountrySelectionPersistenceForm *self, const char *value);
-bool language_country_selection_persistence_form_cross_device_sync(const LanguageCountrySelectionPersistenceForm *self);
-void language_country_selection_persistence_form_set_cross_device_sync(LanguageCountrySelectionPersistenceForm *self, bool value);
-char *language_country_selection_persistence_form_anonymous_persistence(const LanguageCountrySelectionPersistenceForm *self);
-void language_country_selection_persistence_form_set_anonymous_persistence(LanguageCountrySelectionPersistenceForm *self, const char *value);
+char *language_country_selection_persistence_form_guest_retention(const LanguageCountrySelectionPersistenceForm *self);
+void language_country_selection_persistence_form_set_guest_retention(LanguageCountrySelectionPersistenceForm *self, const char *value);
+char *language_country_selection_persistence_form_sign_in_carry_over(const LanguageCountrySelectionPersistenceForm *self);
+void language_country_selection_persistence_form_set_sign_in_carry_over(LanguageCountrySelectionPersistenceForm *self, const char *value);
+char *language_country_selection_persistence_form_reselection_prompt(const LanguageCountrySelectionPersistenceForm *self);
+void language_country_selection_persistence_form_set_reselection_prompt(LanguageCountrySelectionPersistenceForm *self, const char *value);
 
 // LanguageCountrySelectionUxForm is the generated section facade for the `ux` @Form section: its own `content` text followed by one typed member per form field.
 void language_country_selection_ux_form_init(LanguageCountrySelectionUxForm *self, SpecDocument *doc, const char *path);
@@ -64482,8 +64540,8 @@ char *ui_component_entry_identity_form_component_name(const UiComponentEntryIden
 void ui_component_entry_identity_form_set_component_name(UiComponentEntryIdentityForm *self, const char *value);
 char *ui_component_entry_identity_form_component_family(const UiComponentEntryIdentityForm *self);
 void ui_component_entry_identity_form_set_component_family(UiComponentEntryIdentityForm *self, const char *value);
-char *ui_component_entry_identity_form_flutter_widget_base(const UiComponentEntryIdentityForm *self);
-void ui_component_entry_identity_form_set_flutter_widget_base(UiComponentEntryIdentityForm *self, const char *value);
+char *ui_component_entry_identity_form_base_component(const UiComponentEntryIdentityForm *self);
+void ui_component_entry_identity_form_set_base_component(UiComponentEntryIdentityForm *self, const char *value);
 
 // UiComponentEntryInputBehaviorForm is the generated section facade for the `inputBehavior` @Form section: its own `content` text followed by one typed member per form field.
 void ui_component_entry_input_behavior_form_init(UiComponentEntryInputBehaviorForm *self, SpecDocument *doc, const char *path);
@@ -64657,8 +64715,8 @@ char *ui_components_component_library_overview_form_design_system_version(const 
 void ui_components_component_library_overview_form_set_design_system_version(UiComponentsComponentLibraryOverviewForm *self, const char *value);
 char *ui_components_component_library_overview_form_based_on_framework(const UiComponentsComponentLibraryOverviewForm *self);
 void ui_components_component_library_overview_form_set_based_on_framework(UiComponentsComponentLibraryOverviewForm *self, const char *value);
-bool ui_components_component_library_overview_form_tom_flutter_ui_integration(const UiComponentsComponentLibraryOverviewForm *self);
-void ui_components_component_library_overview_form_set_tom_flutter_ui_integration(UiComponentsComponentLibraryOverviewForm *self, bool value);
+bool ui_components_component_library_overview_form_shared_library_integration(const UiComponentsComponentLibraryOverviewForm *self);
+void ui_components_component_library_overview_form_set_shared_library_integration(UiComponentsComponentLibraryOverviewForm *self, bool value);
 
 // UiComponentsCustomizationForm is the generated section facade for the `customization` @Form section: its own `content` text followed by one typed member per form field.
 void ui_components_customization_form_init(UiComponentsCustomizationForm *self, SpecDocument *doc, const char *path);
@@ -65568,8 +65626,8 @@ char *utility_navigation_item_entry_display_form_content(const UtilityNavigation
 void utility_navigation_item_entry_display_form_set_content(UtilityNavigationItemEntryDisplayForm *self, const char *value);
 long utility_navigation_item_entry_display_form_display_order(const UtilityNavigationItemEntryDisplayForm *self);
 void utility_navigation_item_entry_display_form_set_display_order(UtilityNavigationItemEntryDisplayForm *self, long value);
-char *utility_navigation_item_entry_display_form_widget_type(const UtilityNavigationItemEntryDisplayForm *self);
-void utility_navigation_item_entry_display_form_set_widget_type(UtilityNavigationItemEntryDisplayForm *self, const char *value);
+char *utility_navigation_item_entry_display_form_display_kind(const UtilityNavigationItemEntryDisplayForm *self);
+void utility_navigation_item_entry_display_form_set_display_kind(UtilityNavigationItemEntryDisplayForm *self, const char *value);
 char *utility_navigation_item_entry_display_form_visibility_condition(const UtilityNavigationItemEntryDisplayForm *self);
 void utility_navigation_item_entry_display_form_set_visibility_condition(UtilityNavigationItemEntryDisplayForm *self, const char *value);
 char *utility_navigation_item_entry_display_form_required_roles(const UtilityNavigationItemEntryDisplayForm *self);

@@ -45,9 +45,10 @@ pub struct DocumentJson {
     /// heading was customised; omitted (empty) otherwise so byte-stable output
     /// stays identical for headline-less documents.
     pub headlines: BTreeMap<String, String>,
-    /// Stored codeSpec forward-links (§9.2): path → comma-joined code locations.
-    /// Present only for sections that carry a mapping; omitted (empty) otherwise
-    /// so byte-stable output stays identical for codeSpec-less documents.
+    /// Stored codeSpec forward-links (codespecs_mapping.md §9.2): path →
+    /// comma-joined code locations. Present only for sections that carry a
+    /// mapping; omitted (empty) otherwise so byte-stable output stays identical
+    /// for codeSpec-less documents.
     pub code_specs: BTreeMap<String, String>,
 }
 
@@ -282,7 +283,7 @@ impl SpecDocument {
     /// Loads a `*.docspecs.yaml` document in one call: decode the hierarchical
     /// v2 YAML against `tree` (the document root's metadata tree) and retain
     /// the parsed `model_version` on the document. Collapses the former
-    /// `decode_yaml` → thread-`model_version` incantation (§ item 4). Returns
+    /// `decode_yaml` → thread-`model_version` incantation (SOM §21). Returns
     /// the decoder's structured error for a malformed file.
     pub fn from_yaml(
         yaml: &str,
@@ -304,7 +305,7 @@ impl SpecDocument {
         SpecDocument::from_yaml(&yaml, tree)
     }
 
-    /// Renders this document to Markdown in one call (§ item 12).
+    /// Renders this document to Markdown in one call (SOM §21).
     ///
     /// Collapses the former `SpecDocumentMarkdown::new(model, doc)
     /// .export_root(model.root_by_type(…))` incantation. When `root_type` is
@@ -371,7 +372,7 @@ impl SpecDocument {
 
     /// Returns `true` iff a non-empty content-leaf value exists at exactly
     /// `path` (leaf-exact; a value nested beneath `path` does not count).
-    /// Null-free companion to [`content`](Self::content) (SOM roadmap § item 5).
+    /// Null-free companion to [`content`](Self::content) (SOM §21).
     pub fn has_content(&self, path: &str) -> bool {
         self.content(path).is_some_and(|v| !v.is_empty())
     }
@@ -606,11 +607,13 @@ impl SpecDocument {
         self.headline.keys().cloned().collect()
     }
 
-    // --- codeSpec (§9.2) ----------------------------------------------------
+    // --- codeSpec (codespecs_mapping.md §9.2)
+    // ----------------------------------------------------
 
     /// Returns the stored codeSpec mapping of the section at `path` (the
     /// comma-joined list of CodeSpecs code locations), or `None` when the
-    /// section carries no mapping (§9.2 — codeSpec is sparse like the headline).
+    /// section carries no mapping (codespecs_mapping.md §9.2 — codeSpec is
+    /// sparse like the headline).
     pub fn code_spec(&self, path: &str) -> Option<&String> {
         self.code_spec.get(path)
     }
@@ -620,8 +623,8 @@ impl SpecDocument {
         self.code_spec.get(path).cloned().unwrap_or_default()
     }
 
-    /// Stores a codeSpec mapping for the section at `path` (§9.2). An empty
-    /// value clears the stored mapping.
+    /// Stores a codeSpec mapping for the section at `path`
+    /// (codespecs_mapping.md §9.2). An empty value clears the stored mapping.
     pub fn set_code_spec(&mut self, path: &str, value: &str) {
         if value.is_empty() {
             self.code_spec.remove(path);

@@ -119,9 +119,10 @@ class SpecMarkdownResult {
   /// untouched documents byte-stable).
   final Map<String, String> headlines;
 
-  /// Stored codeSpec mappings (§9.2): path → the comma-joined list of CodeSpecs
-  /// code locations parsed from the `codeSpec="…"` key in the heading comment.
-  /// Staged whenever present (codeSpec has no effective default).
+  /// Stored codeSpec mappings (codespecs_mapping.md §9.2): path → the
+  /// comma-joined list of CodeSpecs code locations parsed from the
+  /// `codeSpec="…"` key in the heading comment. Staged whenever present
+  /// (codeSpec has no effective default).
   final Map<String, String> codeSpecs;
 
   /// Every rejected block, in source order.
@@ -451,7 +452,8 @@ class SpecDocumentMarkdown {
   /// distinct nesting positions into siblings and break schema validation.
   ///
   /// When [codeSpec] is non-empty it is emitted as a `codeSpec="…"` key inside
-  /// the same headline comment (§9.2): `## <!--[ID] codeSpec="A,B"--> Title`.
+  /// the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
+  /// codeSpec="A,B"--> Title`.
   static void _writeHeading(StringBuffer b, int depth, String id, String title,
       {String? codeSpec}) {
     final code =
@@ -544,17 +546,18 @@ class SpecDocumentMarkdown {
   static final RegExp headingLine = RegExp(r'^(#+)\s+(.*)$');
 
   /// The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
-  /// region between the id bracket and the closing `-->` (§9.2 `codeSpec`).
-  /// Group 1 = the section id, group 2 = the raw key=value region (possibly
-  /// empty), group 3 = the heading title. The middle group is `[^>]*` — safe
-  /// because the region's only values are quoted code locations / identifiers,
-  /// never a raw `>`.
+  /// region between the id bracket and the closing `-->` (codespecs_mapping.md
+  /// §9.2 `codeSpec`). Group 1 = the section id, group 2 = the raw key=value
+  /// region (possibly empty), group 3 = the heading title. The middle group is
+  /// `[^>]*` — safe because the region's only values are quoted code locations
+  /// / identifiers, never a raw `>`.
   static final RegExp headlineComment =
       RegExp(r'^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$');
 
   /// Extracts the `codeSpec="…"` value from a heading-comment key=value region
-  /// (§9.2), mirroring the tom_doc_scanner key=value grammar. Returns the empty
-  /// string when the region carries no `codeSpec` key.
+  /// (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+  /// grammar. Returns the empty string when the region carries no `codeSpec`
+  /// key.
   static String codeSpecOf(String region) {
     final m = _codeSpecPattern.firstMatch(region);
     if (m == null) return '';
@@ -751,7 +754,8 @@ class _Parser {
         if (title.isNotEmpty && title != SpecDocumentMarkdown._titleOf(c)) {
           headlines[path] = title;
         }
-        // §9.2: stage the codeSpec mapping whenever present (no default).
+        // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
+        // present (no default).
         if (codeSpec.isNotEmpty) codeSpecs[path] = codeSpec;
         _stack.add(_Frame(level: level, node: c, path: path, line: lineNo));
         return;
@@ -790,7 +794,7 @@ class _Parser {
         listNode.sectionIdPattern ?? listNode.elementNode?.sectionIdPattern;
     if (pattern != null) {
       // Canonical anonymous id: the pattern with `xxx` as a number — parses
-      // back as item <n>, NOT as a stored id (YRD3 round-trip, §8.5).
+      // back as item <n>, NOT as a stored id (YRD3 round-trip, SOM §11.5).
       final numbered = RegExp(
               '^${pattern.split('xxx').map(RegExp.escape).join('([0-9]+)')}\$')
           .firstMatch(id);
@@ -822,7 +826,8 @@ class _Parser {
         if (title.isNotEmpty && title != (tree.root.headline ?? root.title)) {
           headlines[seg] = title;
         }
-        // §9.2: stage the root codeSpec mapping whenever present.
+        // codespecs_mapping.md §9.2: stage the root codeSpec mapping whenever
+        // present.
         if (codeSpec.isNotEmpty) codeSpecs[seg] = codeSpec;
         _stack.add(
             _Frame(level: level, node: tree.root, path: seg, line: lineNo));
@@ -857,7 +862,8 @@ class _Parser {
     if (title.isNotEmpty && title != '$stem $number') {
       headlines[itemPath] = title;
     }
-    // §9.2: stage the item codeSpec mapping whenever present.
+    // codespecs_mapping.md §9.2: stage the item codeSpec mapping whenever
+    // present.
     if (codeSpec.isNotEmpty) codeSpecs[itemPath] = codeSpec;
     _stack.add(
         _Frame(level: level, node: element, path: itemPath, line: lineNo));

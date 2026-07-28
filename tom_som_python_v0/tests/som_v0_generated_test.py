@@ -5,22 +5,23 @@ Unlike the runtime's ``tests/som_v0_facade_test.py`` — which loads the small
 emitter *golden fixture* — this suite imports the real, full
 ``tom_som_python_v0`` module (3000+ classes) against the generic
 ``tom_som_runtime`` and proves the typed facade is a faithful editing surface
-over the shared document (spec §3):
+over the shared document (SOM §6):
 
   * the real module imports cleanly against the runtime;
   * the ``D00SolutionBlueprint`` root is anchored at the ``PD`` segment;
   * a content leaf round-trips typed -> generic and generic -> typed;
   * a nested complex section derives its path under the root;
   * the generated model-version accessor returns ``1.0``;
-  * the instantiation-time version check (§2.2) accepts an editable stamp and
+  * the instantiation-time version check (SOM §4.2) accepts an editable stamp and
     rejects a newer-minor / cross-major stamp;
-  * the generated per-root ``editability_for`` (§ item 8) classifies every §2.2
-    outcome without throwing and agrees with the throwing constructor gate;
-  * aligned absence semantics (§ item 5): a section is ``is_empty`` until a
+  * the generated per-root ``editability_for`` (SOM §21) classifies every
+    SOM §4.2 outcome without throwing and agrees with the throwing constructor
+    gate;
+  * aligned absence semantics (SOM §21): a section is ``is_empty`` until a
     value is written under it, typed ``is_empty`` agrees with generic
     ``has_values_under``, and ``has_content`` gives the generic path the typed
     ``.content`` answer;
-  * one-call loading (§ item 4): ``load_yaml`` / ``load_file`` collapse the
+  * one-call loading (SOM §21): ``load_yaml`` / ``load_file`` collapse the
     former decode → ``load_json`` → thread-version sequence and ``from_yaml``
     retains (or nulls) the parsed model-version stamp;
   * live-document conformance case (YRD8 / dsa8): the shared Meridian sample
@@ -147,8 +148,8 @@ def test_version_check() -> None:
 
 
 def test_editability_for() -> None:
-    # The generated per-root ``editability_for`` classifies every §2.2 outcome
-    # without throwing (§ item 8), delegating to the runtime classifier with
+    # The generated per-root ``editability_for`` classifies every SOM §4.2 outcome
+    # without throwing (SOM §21), delegating to the runtime classifier with
     # the root's own MODEL_VERSION.
     _check("editability.none",
            m.D00SolutionBlueprint.editability_for(None) ==
@@ -167,7 +168,7 @@ def test_editability_for() -> None:
            SomEditability.INVALID_VERSION)
 
     # ``editable`` iff the constructor accepts the same stamp — the non-throwing
-    # classifier and the throwing §2.2 gate agree on every stamp.
+    # classifier and the throwing SOM §4.2 gate agree on every stamp.
     for stamp in (None, "1.0", "1.1", "2.0", "nope"):
         editable = (m.D00SolutionBlueprint.editability_for(stamp) ==
                     SomEditability.EDITABLE)
@@ -214,18 +215,18 @@ def test_absence_semantics() -> None:
 
 
 def test_can_have_content() -> None:
-    """§ item 10: the structural content-slot predicate ``can_have_content``
+    """SOM §21: the structural content-slot predicate ``can_have_content``
     answers "does this section *type* declare the standard ``content`` leaf?"
     without probing the document.
 
     The generated override lands centrally (this test is authored now, verified
     after regeneration). It skips cleanly if the committed facade predates the
-    § item 10 regeneration — detected by a content-bearing section still
+    SOM §21 regeneration — detected by a content-bearing section still
     inheriting the ``False`` base default.
     """
     sbp = m.D00SolutionBlueprint(SpecDocument())
     if sbp.introductionAndScope.goals.can_have_content is not True:
-        print("SKIP: facade predates can_have_content (§ item 10 not yet regenerated)")
+        print("SKIP: facade predates can_have_content (SOM §21 not yet regenerated)")
         return
 
     # A content-bearing section (Goals declares the standard `content` leaf).

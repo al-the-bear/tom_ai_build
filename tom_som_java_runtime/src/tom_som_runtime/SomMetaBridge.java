@@ -12,14 +12,14 @@ import java.util.Set;
  * metadata tree ({@link SomMetaTree}, SOM §7.1) — a faithful port of
  * {@code spec_meta_bridge.dart} / {@code spec_meta_bridge.ts}.
  *
- * <p>The generated facades (SOM §8) emit populated {@code SomMetaTree}s directly;
- * every consumer that only has the exported spec-model meta-data (the
- * conformance harness, tooling) builds its tree here. The expansion follows
- * the same walk {@link SpecReflection#resolve} performs — crucially, a node's
+ * <p>The generated facades (SOM §8) emit populated {@code SomMetaTree}s
+ * directly; every consumer that only has the exported spec-model meta-data (the
+ * conformance harness, tooling) builds its tree here. The expansion follows the
+ * same walk {@link SpecReflection#resolve} performs — crucially, a node's
  * {@link SomMetaNode#sectionId} is the <b>field-level</b> id exactly as
  * exported ({@code field.sectionId}), so the tree's path grammar stays
- * byte-compatible with the paths a {@link SpecDocument} is keyed by. (SOM
- * §12.2's "field id, else target-class id" resolution is applied at
+ * byte-compatible with the paths a {@link SpecDocument} is keyed by.
+ * (SOM §12.2's "field id, else target-class id" resolution is applied at
  * <i>export</i> time by the model exporter / SOM generator, not re-derived
  * here.)
  *

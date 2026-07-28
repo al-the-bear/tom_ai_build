@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Unit tests for :func:`som_editability_for` — the non-throwing companion to
-``check_som_model_version`` (§ item 8).
+``check_som_model_version`` (SOM §21).
 
 Mirrors the Dart reference (`tom_som_dart_runtime/lib/src/som_facade.dart`)
 `somEditabilityFor` cases and additionally asserts the invariant that
@@ -85,7 +85,7 @@ def test_invalid_version() -> None:
 
 def test_never_raises_where_checker_raises() -> None:
     """The classifier must NEVER raise on inputs where the throwing checker
-    raises — it returns the classification instead (the whole point of § item 8).
+    raises — it returns the classification instead (the whole point of SOM §21).
     """
     rejecting = ["1.3", "2.0", "0.9", "abc", "1", "1.2.3", "1.x"]
     for stamp in rejecting:

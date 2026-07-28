@@ -1,4 +1,5 @@
-/* Unit test for the §item-12 additions, the C port of the Dart reference in
+/* Unit test for the SOM §21 root-by-type + one-call-Markdown additions, the C
+ * port of the Dart reference in
  * `tom_som_dart_runtime` (groups `SpecModel.rootByType (item 12)` in
  * spec_model_test.dart and `SpecDocument.toMarkdown (item 12)` in
  * spec_document_markdown_test.dart).

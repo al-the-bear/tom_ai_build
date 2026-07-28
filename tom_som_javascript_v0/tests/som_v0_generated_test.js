@@ -7,20 +7,20 @@
  * Unlike the runtime's facade golden test — which loads the small emitter
  * fixture — this suite requires the real, full `tom_som_javascript_v0` module
  * (3000+ classes) against the generic `tom_som_runtime` and proves the typed
- * facade is a faithful editing surface over the shared document (spec §3):
+ * facade is a faithful editing surface over the shared document (SOM §6):
  *
  *   * the real module loads cleanly against the runtime;
  *   * the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   * a content leaf round-trips typed -> generic and generic -> typed;
  *   * a nested complex section derives its path under the root;
  *   * the generated model-version accessor returns `1.0`;
- *   * the instantiation-time version check (§2.2) accepts an editable stamp and
+ *   * the instantiation-time version check (SOM §4.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp;
- *   * aligned absence semantics (§ item 5): a section reads `isEmpty` until a
+ *   * aligned absence semantics (SOM §21): a section reads `isEmpty` until a
  *     value is written under it, typed `isEmpty` agrees with the generic
  *     `hasValuesUnder`, and `hasContent` gives a generic leaf the typed
  *     `.content` answer;
- *   * one-call loading (§ item 4): `loadYaml` collapses decode → loadJson →
+ *   * one-call loading (SOM §21): `loadYaml` collapses decode → loadJson →
  *     version-threading, `loadFile` delegates to `loadYaml`, and
  *     `SpecDocument.fromYaml` retains (or nulls) the parsed model version.
  *   * the live-document conformance case (YRD8 / dsa9): the shared Meridian
@@ -227,7 +227,7 @@ function testSectionIds() {
   }
 }
 
-// § item 5: aligned absence semantics — mirrors the Dart reference suite.
+// SOM §21: aligned absence semantics — mirrors the Dart reference suite.
 function testAbsenceSemantics() {
   // 1. A section reads isEmpty until any value is written under it (subtree).
   {
@@ -273,7 +273,7 @@ function testAbsenceSemantics() {
   }
 }
 
-// § item 4: one-call loading — mirrors the Dart reference suite. The suite runs
+// SOM §21: one-call loading — mirrors the Dart reference suite. The suite runs
 // from the project root, so the sample is reached via the sibling conformance
 // project.
 const _samplePath =
@@ -356,7 +356,7 @@ function testOneCallLoading() {
   }
 }
 
-// § item 10: the structural `canHaveContent` predicate — mirrors the Dart
+// SOM §21: the structural `canHaveContent` predicate — mirrors the Dart
 // reference suite. It answers "does this section TYPE declare the standard
 // `content` text leaf?" at the type level, without probing `.content` or the
 // document.

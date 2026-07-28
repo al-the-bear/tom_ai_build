@@ -119,7 +119,7 @@ export class SpecMarkdownResult {
    *  Only headings whose text differs from the effective default title are
    *  staged, so a default-rendered document stays byte-stable. */
   headlines: Record<string, string> = {};
-  /** Stored codeSpec mappings (§9.2): path → the comma-joined list of
+  /** Stored codeSpec mappings (codespecs_mapping.md §9.2): path → the comma-joined list of
    *  CodeSpecs code locations parsed from the `codeSpec="…"` key in the
    *  heading comment. Staged whenever present (codeSpec has no default). */
   codeSpecs: Record<string, string> = {};
@@ -228,11 +228,11 @@ export class SpecDocumentMarkdown {
   static headingLine = /^(#+)\s+(.*)$/;
   /**
    * The heading HTML comment: `<!--[ID]--> Title` with an optional key=value
-   * region between the id bracket and the closing `-->` (§9.2 `codeSpec`).
-   * Group 1 = the section id, group 2 = the raw key=value region (possibly
-   * empty), group 3 = the heading title. The middle group is `[^>]*` — safe
-   * because the region's only values are quoted code locations / identifiers,
-   * never a raw `>`.
+   * region between the id bracket and the closing `-->` (codespecs_mapping.md
+   * §9.2 `codeSpec`). Group 1 = the section id, group 2 = the raw key=value
+   * region (possibly empty), group 3 = the heading title. The middle group is
+   * `[^>]*` — safe because the region's only values are quoted code locations /
+   * identifiers, never a raw `>`.
    */
   static headlineComment = /^<!--\[([^\]]+)\]([^>]*)-->\s*(.*)$/;
   static docspecComment = /^<!--\s*docspec:.*-->\s*$/;
@@ -246,8 +246,9 @@ export class SpecDocumentMarkdown {
 
   /**
    * Extracts the `codeSpec="…"` value from a heading-comment key=value region
-   * (§9.2), mirroring the tom_doc_scanner key=value grammar. Returns the empty
-   * string when the region carries no `codeSpec` key.
+   * (codespecs_mapping.md §9.2), mirroring the tom_doc_scanner key=value
+   * grammar. Returns the empty string when the region carries no `codeSpec`
+   * key.
    */
   static codeSpecOf(region: string): string {
     const m = SpecDocumentMarkdown._codeSpecPattern.exec(region);
@@ -679,7 +680,8 @@ export class SpecDocumentMarkdown {
    * distinct nesting positions into siblings and break schema validation.
    *
    * When `codeSpec` is non-empty it is emitted as a `codeSpec="…"` key inside
-   * the same headline comment (§9.2): `## <!--[ID] codeSpec="A,B"--> Title`.
+   * the same headline comment (codespecs_mapping.md §9.2): `## <!--[ID]
+   * codeSpec="A,B"--> Title`.
    */
   private static _writeHeading(
     b: _Buffer,
@@ -831,12 +833,13 @@ class _Parser {
   content: Record<string, string> = {};
   forms: Record<string, Record<string, string>> = {};
   lists: Map<string, _ListState> = new Map();
-  // Stored headlines staged during the parse (YRD3 §8.7): a heading's text is
+  // Stored headlines staged during the parse (SOM §11.7): a heading's text is
   // recorded only when it differs from the effective default, so a default
   // export re-imports byte-stable with an empty headline store.
   headlines: Record<string, string> = {};
-  // Stored codeSpec mappings staged during the parse (§9.2): a heading's
-  // `codeSpec="…"` value is recorded whenever present (no effective default).
+  // Stored codeSpec mappings staged during the parse (codespecs_mapping.md
+  // §9.2): a heading's `codeSpec="…"` value is recorded whenever present (no
+  // effective default).
   codeSpecs: Record<string, string> = {};
   rejections: SpecMarkdownRejection[] = [];
   rootPrefixes: Set<string> = new Set();
@@ -971,7 +974,8 @@ class _Parser {
         if (title && title !== SpecDocumentMarkdown._titleOf(c)) {
           this.headlines[path] = title;
         }
-        // §9.2: stage the codeSpec mapping whenever present (no default).
+        // codespecs_mapping.md §9.2: stage the codeSpec mapping whenever
+        // present (no default).
         if (codeSpec) {
           this.codeSpecs[path] = codeSpec;
         }

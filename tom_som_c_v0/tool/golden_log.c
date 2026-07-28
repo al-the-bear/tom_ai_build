@@ -91,7 +91,7 @@ static void typed_content(SpecDocument *doc, SomStrList *out,
 }
 
 /* Asserts a node's typed codeSpec read equals the generic
- * `spec_document_code_spec` read at the same path (§9.2). Emits nothing — the
+ * `spec_document_code_spec` read at the same path (codespecs_mapping.md §9.2). Emits nothing — the
  * assertion is the point; the values themselves are already in the `CS` lines. */
 static void typed_code_spec(SpecDocument *doc, const SomNode *node) {
   char *typed = som_node_code_spec(node);
@@ -374,7 +374,7 @@ int main(int argc, char **argv) {
     som_strlist_free(&paths);
   }
 
-  /* Generic: stored codeSpecs, sorted by path (FORMAT 8, §9.2 mirror of headline). */
+  /* Generic: stored codeSpecs, sorted by path (FORMAT 8, codespecs_mapping.md §9.2 mirror of headline). */
   som_strlist_push_copy(&out, "SECTION\tgeneric-codespecs");
   {
     SomStrList paths;
@@ -391,7 +391,7 @@ int main(int argc, char **argv) {
   }
 
   /* Typed cross-check of the same two mappings through the facade's structural
-   * som_node_code_spec accessor (§9.2). Emits nothing: the values are already in
+   * som_node_code_spec accessor (codespecs_mapping.md §9.2). Emits nothing: the values are already in
    * the CS lines above, so a duplicate line would add no information — what this
    * adds is the assertion that the typed accessor reads the same store the
    * generic API does. A divergence aborts the generator. */

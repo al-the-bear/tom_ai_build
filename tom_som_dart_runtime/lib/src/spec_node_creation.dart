@@ -1,5 +1,5 @@
 /// Meta-model-validated node creation for a live [SpecDocument]
-/// (§5 "constrained node creation").
+/// (llm_and_d4rt_tools.md §5 "constrained node creation").
 ///
 /// Every node a script or tool adds passes through this single gate, so the
 /// document can only grow in ways the [SpecModel] permits for the parent. The

@@ -6,14 +6,14 @@
  * fixture — this suite requires the real, full `tom_som_typescript_v0` module
  * (3000+ classes) against the generic `tom_som_typescript_runtime` and proves
  * the typed facade is a faithful editing surface over the shared document
- * (spec §3):
+ * (SOM §6):
  *
  *   * the real module compiles + loads cleanly against the runtime;
  *   * the `D00SolutionBlueprint` root is anchored at the `PD` segment;
  *   * a content leaf round-trips typed → generic and generic → typed;
  *   * a nested complex section derives its path under the root;
  *   * the generated model-version accessor returns `1.0`;
- *   * the instantiation-time version check (§2.2) accepts an editable stamp and
+ *   * the instantiation-time version check (SOM §4.2) accepts an editable stamp and
  *     rejects a newer-minor / cross-major stamp;
  *   * the live-document conformance case (YRD8 / dsa10): the shared Meridian
  *     sample round-trips (content + lists), its markdown twin validates clean
@@ -212,7 +212,7 @@ function testSectionIds(): void {
   }
 }
 
-// § item 5: aligned absence semantics — mirrors the Dart reference suite.
+// SOM §21: aligned absence semantics — mirrors the Dart reference suite.
 function testAbsenceSemantics(): void {
   // 1. A section reads isEmpty until any value is written under it (subtree).
   {
@@ -258,7 +258,7 @@ function testAbsenceSemantics(): void {
   }
 }
 
-// § item 4: one-call loading — mirrors the Dart reference suite. The suite runs
+// SOM §21: one-call loading — mirrors the Dart reference suite. The suite runs
 // from the project root, so the sample is reached via the sibling conformance
 // project.
 const _samplePath =
@@ -354,7 +354,7 @@ function _arraysEqual(a: string[], b: string[]): boolean {
   return true;
 }
 
-// § item 10: canHaveContent — the STRUCTURAL / per-type predicate "does this
+// SOM §21: canHaveContent — the STRUCTURAL / per-type predicate "does this
 // section TYPE declare the standard `content` text leaf?", answered without
 // probing `.content` and without ever looking at the document. Distinct from
 // the STATE predicates (`hasContent(path)` / `isEmpty`).

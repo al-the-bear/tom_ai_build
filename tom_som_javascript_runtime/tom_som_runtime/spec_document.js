@@ -46,7 +46,7 @@ class SpecDocument {
     /** @type {Map<string, string>} */
     this._headline = new Map();
     /**
-     * The stored `codeSpec` forward-link per path (csmc8, §9.2): a comma-joined
+     * The stored `codeSpec` forward-link per path (csmc8, codespecs_mapping.md §9.2): a comma-joined
      * list of code locations. Structural mirror of {@link _headline}.
      * @type {Map<string, string>}
      */
@@ -71,7 +71,7 @@ class SpecDocument {
    * the YAML against the document's {@link SomMetaTree} and return the
    * populated document (with {@link modelVersion} already threaded by the
    * codec). Collapses the former three-step `decode` → `loadJson` →
-   * thread-`documentVersion` incantation (§ item 4).
+   * thread-`documentVersion` incantation (SOM §21).
    *
    * The yaml codec is required lazily to sidestep any load-order/circular
    * require between this module and `spec_document_yaml.js`.
@@ -100,7 +100,7 @@ class SpecDocument {
   // --- markdown export ----------------------------------------------------
 
   /**
-   * Renders this document to Markdown in one call (§ item 12).
+   * Renders this document to Markdown in one call (SOM §21).
    *
    * Collapses the former `new SpecDocumentMarkdown(model, doc).exportRoot(
    * model.roots.find((r) => r.type === …))` incantation. When `rootType` is
@@ -163,7 +163,7 @@ class SpecDocument {
 
   /**
    * Whether a non-empty content-leaf value exists at *exactly* `path` — a
-   * null-free, leaf-exact companion to {@link content} (§ item 5). A value
+   * null-free, leaf-exact companion to {@link content} (SOM §21). A value
    * nested beneath `path` does **not** count (use {@link hasValuesUnder} for
    * the structural test).
    *
@@ -244,7 +244,7 @@ class SpecDocument {
 
   /**
    * The stored `codeSpec` at `path`, or `null` when none is stored (csmc8,
-   * §9.2). Structural mirror of {@link headline}.
+   * codespecs_mapping.md §9.2). Structural mirror of {@link headline}.
    *
    * @returns {string|null}
    */

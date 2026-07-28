@@ -524,7 +524,8 @@ function testFenceShieldedHeadingsStayBody() {
   _check('fenceShield.noStatus', !('D00/D00-ST' in report.content));
 }
 
-// --- csmc8: stored codeSpec rides in the headline comment (§9.2) -------------
+// --- csmc8: stored codeSpec rides in the headline comment
+// (codespecs_mapping.md §9.2) -------------
 
 function testCodeSpecRidesInHeadlineComment() {
   const doc = _populated();

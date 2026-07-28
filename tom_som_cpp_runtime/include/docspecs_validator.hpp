@@ -6,7 +6,7 @@
  *
  *  1. DocSpecsDocument — a schema-free structural parse of a DocSpecs markdown
  *     document into a heading tree (fence-aware, never fails).
- *  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with §7-style
+ *  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with SOM §14-style
  *     warnings for unsupported keys (never fails on extra keys).
  *  3. DocSpecsValidator — never-fail-fast validation of a parsed document
  *     against a schema, emitting DocSpecsViolations whose messages are
@@ -166,7 +166,7 @@ struct DocSpecsSchema {
   std::vector<DocSpecsSectionType> sectionTypes;      // file order
   std::vector<DocSpecsFormType> formTypes;
   std::vector<DocSpecsDocumentSection> documentSections;  // file order
-  std::vector<std::string> warnings;  // §7 warnings for unsupported keys
+  std::vector<std::string> warnings;  // SOM §14 warnings for unsupported keys
 
   /* Returns the section type named `name`, or nullptr. */
   const DocSpecsSectionType* sectionTypeByName(const std::string& name) const;

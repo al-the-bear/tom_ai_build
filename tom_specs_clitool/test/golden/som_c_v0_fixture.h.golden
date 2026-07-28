@@ -15,7 +15,7 @@
 // parse_probability returns the token (owned) when it is a known Probability value, else "".
 char *parse_probability(const char *token);
 
-// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the SolutionBlueprint object model was generated against (§2.1).
+// SOLUTION_BLUEPRINT_MODEL_VERSION is the model version the SolutionBlueprint object model was generated against (SOM §4.2).
 #define SOLUTION_BLUEPRINT_MODEL_VERSION "0.0"
 
 // Typed facade structs — each binds a node (document + path).
@@ -27,7 +27,7 @@ typedef struct { SomNode node; } SolutionBlueprintOwnerForm;
 // Binds a CurrentLandscapeAssessment facade to a document and a path (path copied).
 void current_landscape_assessment_init(CurrentLandscapeAssessment *self, SpecDocument *doc, const char *path);
 void current_landscape_assessment_free(CurrentLandscapeAssessment *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int current_landscape_assessment_can_have_content(const CurrentLandscapeAssessment *self);
 char *current_landscape_assessment_summary(const CurrentLandscapeAssessment *self);
 void current_landscape_assessment_set_summary(CurrentLandscapeAssessment *self, const char *value);
@@ -35,7 +35,7 @@ void current_landscape_assessment_set_summary(CurrentLandscapeAssessment *self, 
 // Binds a Risk facade to a document and a path (path copied).
 void risk_init(Risk *self, SpecDocument *doc, const char *path);
 void risk_free(Risk *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int risk_can_have_content(const Risk *self);
 char *risk_title(const Risk *self);
 void risk_set_title(Risk *self, const char *value);
@@ -44,20 +44,20 @@ void risk_set_probability(Risk *self, const char *value);
 
 // Root of a project definition document.
 // Creates the typed facade at the document root and verifies the document's
-// authoring version is editable (§2.2). Returns 0 on success; on a non-editable
+// authoring version is editable (SOM §4.2). Returns 0 on success; on a non-editable
 // stamp returns non-zero and, when `err` is non-NULL, writes an owned message.
 int solution_blueprint_new(SolutionBlueprint *self, SpecDocument *doc, const char *document_version, char **err);
-// Returns this object model's own model version (major.minor), per §2.1.
+// Returns this object model's own model version (major.minor), per SOM §4.2.
 const char *solution_blueprint_object_model_version(const SolutionBlueprint *self);
 // Classifies whether a document authored under `document_version` is editable
-// by this object model, without reporting an error (§ item 8) — the non-erroring
-// companion to solution_blueprint_new's §2.2 check, so a read-only viewer can branch
+// by this object model, without reporting an error (SOM §21) — the non-erroring
+// companion to solution_blueprint_new's SOM §4.2 check, so a read-only viewer can branch
 // instead of handling the constructor error. `document_version` may be NULL/"".
 SomEditability solution_blueprint_editability_for(const char *document_version);
 // Loads a `*.docspecs.yaml` document in one call: decode the YAML, populate the
 // sparse stores, and bind this typed root at the document root with the document's
 // retained authoring stamp — one call for the former decode → load_json →
-// thread-`document_version` sequence (§ item 4). The owned heap document is
+// thread-`document_version` sequence (SOM §21). The owned heap document is
 // written to `*out_doc` (which the facade borrows; free it with
 // spec_document_free + free once the root is done). Returns 0 on success; on a
 // non-editable stamp returns non-zero and, when `err` is non-NULL, writes an
@@ -68,7 +68,7 @@ int solution_blueprint_load_yaml(SolutionBlueprint *self, const char *yaml, Spec
 // file cannot be read.
 int solution_blueprint_load_file(SolutionBlueprint *self, const char *path, SpecDocument **out_doc, char **err);
 void solution_blueprint_free(SolutionBlueprint *self);
-// Returns 1 iff this section type declares the standard `content` text leaf (§ item 10).
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int solution_blueprint_can_have_content(const SolutionBlueprint *self);
 // Why the system exists.
 char *solution_blueprint_vision(const SolutionBlueprint *self);

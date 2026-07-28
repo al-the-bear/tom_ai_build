@@ -5,7 +5,7 @@
 // Unlike the runtime's ConformanceRunner — which exercises the small emitter
 // golden fixture — this suite uses the real, full `tom_som_java_v0.TomSomV0`
 // (3000+ nested classes) against the generic `tom_som_runtime` and proves the
-// typed facade is a faithful editing surface over the shared document (spec §3):
+// typed facade is a faithful editing surface over the shared document (SOM §6):
 //
 //   * the real module compiles + loads against the runtime;
 //   * the D00SolutionBlueprint root is anchored at the `PD` segment;
@@ -14,7 +14,7 @@
 //   * the typed SomList collection parity (add / length / get) lands in the
 //     same generic store;
 //   * the generated model-version accessor returns `1.0`;
-//   * the instantiation-time version check (§2.2) accepts an editable stamp and
+//   * the instantiation-time version check (SOM §4.2) accepts an editable stamp and
 //     rejects a newer-minor / cross-major stamp;
 //   * the live-document conformance case (YRD8 / dsa12): the shared Meridian
 //     sample round-trips (content + lists), its markdown twin validates clean

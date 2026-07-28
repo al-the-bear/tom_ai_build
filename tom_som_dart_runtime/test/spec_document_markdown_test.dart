@@ -742,7 +742,7 @@ document:
       final md = export(populated());
       final report = SpecDocumentMarkdown(model(), SpecDocument()).parse(md);
       // Rendering the defaults must not stage stored headlines (byte
-      // stability, §8.7): the parsed titles equal the effective defaults.
+      // stability, SOM §11.7): the parsed titles equal the effective defaults.
       expect(report.headlines, isEmpty, reason: report.headlines.toString());
       // A custom title in the md IS staged as a stored headline.
       final custom = md.replaceFirst('## <!--[H00-OVR]--> Executive Overview',

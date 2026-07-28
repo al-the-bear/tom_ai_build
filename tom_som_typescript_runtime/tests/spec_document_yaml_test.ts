@@ -120,7 +120,7 @@ function _model(): SpecModel {
           {
             // Class-level-only @SectionId: the field carries no id, so its key
             // resolves to the target class's id (`CTRL control:`) — the SOM
-            // §12.2 fallback.
+            // SOM §12.2 fallback.
             name: 'control',
             kind: 'complex',
             type: 'Control',
@@ -444,7 +444,8 @@ function testClassLevelOnlyKey(): void {
   _check('clskey.rt.owner', out.content('D00/control/owner') === 'the owner');
 }
 
-// --- §9.2 codeSpec forward-link (csmc8) --------------------------------------
+// --- codespecs_mapping.md §9.2 codeSpec forward-link (csmc8)
+// --------------------------------------
 
 const _CODE_SPEC = 'CsOrder,CsOrder.total,CsOrderRepository';
 

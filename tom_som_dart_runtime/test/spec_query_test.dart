@@ -1,8 +1,8 @@
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:test/test.dart';
 
-/// `som_multiplatform_spec_model.md` §6 — the
-/// lexical/structural query + lazy cursor facility (§6, §3.2). Embedding-free —
+/// `llm_and_d4rt_tools.md` §6 — the
+/// lexical/structural query + lazy cursor facility. Embedding-free —
 /// exact substring/regex + structural filters over a live [SpecDocument],
 /// returning a cursor the caller iterates.
 ///

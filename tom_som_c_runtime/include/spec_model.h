@@ -179,7 +179,7 @@ SpecModelStampCheck spec_model_check_stamp(const SpecModel *m,
 /* Returns the class named `name`, or NULL. */
 const SpecClass *spec_model_class_named(const SpecModel *m, const char *name);
 
-/* Returns the document root whose `type` equals `type` (§ item 12), or NULL when
+/* Returns the document root whose `type` equals `type` (SOM §21), or NULL when
  * no root carries that type. On the NULL path, when `err` is non-NULL, writes an
  * owned message naming the missing type and the ones that do exist (caller frees
  * with `free`); on success `*err` is left untouched. Replaces the recurring

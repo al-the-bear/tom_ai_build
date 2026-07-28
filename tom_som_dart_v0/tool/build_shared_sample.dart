@@ -360,7 +360,7 @@ every downstream artifact traces back to a requirement.''');
   // --- Functional requirements (FR) --------------------------------------
   final fr = reqs.functionalRequirements.requirements;
 
-  // §9.2 concrete forward link (DocSpecs → CodeSpecs). This is the one place the
+  // codespecs_mapping.md §9.2 concrete forward link (DocSpecs → CodeSpecs). This is the one place the
   // shared sample exercises `codeSpec`, so the nine runtimes' `generic-codespecs`
   // golden section has something to assert. It is authored through the typed
   // `$codeSpec` accessor — the third structural accessor alongside `$sectionId`

@@ -1,4 +1,4 @@
-/* Unit test for the §item-10 `can_have_content` per-type structural predicate,
+/* Unit test for the SOM §21 `can_have_content` per-type structural predicate,
  * the C port of the Dart `SomNode.canHaveContent` reference in
  * `tom_som_dart_runtime/lib/src/som_facade.dart`.
  *

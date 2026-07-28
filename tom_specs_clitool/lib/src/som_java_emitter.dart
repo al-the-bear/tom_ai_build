@@ -4,10 +4,10 @@
 /// The generated classes are an **editing facade** over the generic
 /// `tom_som_java_runtime` `SpecDocument`: every typed accessor delegates to the
 /// path-keyed memory representation, so a typed mutation is visible through the
-/// generic path and vice-versa (spec §3). Each document-root class performs the
+/// generic path and vice-versa (SOM §6). Each document-root class performs the
 /// **instantiation-time version check** (`SomFacade.checkModelVersion`) against
-/// the document's authoring stamp (§2.2) and exposes its own generated model
-/// version (§2.1).
+/// the document's authoring stamp (SOM §4.2) and exposes its own generated
+/// model version (SOM §4.2).
 ///
 /// This is the Java counterpart of [SomDartEmitter] / `SomPythonEmitter` — the
 /// same reachability walk, the same deterministic ordering, the same field-kind
@@ -44,10 +44,10 @@ class SomJavaEmitter {
     this.documentRoots = const [],
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
@@ -130,7 +130,7 @@ class SomJavaEmitter {
         ..write(fc.source)
         ..writeln();
     }
-    // The flat path-constant holders (former § item 11) are retired: the
+    // The flat path-constant holders are retired: the
     // generated dot-notation / ID-tree access surfaces in the sibling
     // `TomSomV0Meta` module (SOM §8) supersede them.
     buffer.writeln('}');
@@ -238,14 +238,14 @@ class SomJavaEmitter {
       final seg = _ref.rootSegment(root);
       b
         ..writeln('$_i2// The model version this object model was generated '
-            'against (§2.1).')
+            'against (SOM §4.2).')
         ..writeln('${_i2}public static final String MODEL_VERSION = '
             '"$modelVersionString";')
         ..writeln()
         ..writeln('$_i2// Creates the typed facade over doc at the document '
             'root and verifies the')
         ..writeln("$_i2// document's authoring documentVersion is editable "
-            '(§2.2).')
+            '(SOM §4.2).')
         ..writeln('${_i2}public ${cls.name}(SpecDocument doc, '
             'String documentVersion) {')
         ..writeln('${_i3}super(doc, "${_jstr(seg)}");')
@@ -259,7 +259,7 @@ class SomJavaEmitter {
         ..writeln()
         ..writeln('$_i2// Loads a *.docspecs.yaml document and returns the typed '
             'root with the')
-        ..writeln("$_i2// document's authoring stamp already applied (§ item 4) "
+        ..writeln("$_i2// document's authoring stamp already applied (SOM §21) "
             '— one call for')
         ..writeln('$_i2// the former decode → loadJson → thread-documentVersion '
             'sequence. The')
@@ -283,7 +283,7 @@ class SomJavaEmitter {
         ..writeln('$_i2}')
         ..writeln()
         ..writeln("$_i2// This object model's own model version (major.minor), "
-            'per §2.1.')
+            'per SOM §4.2.')
         ..writeln('${_i2}public String objectModelVersion() {')
         ..writeln('${_i3}return MODEL_VERSION;')
         ..writeln('$_i2}')
@@ -291,8 +291,8 @@ class SomJavaEmitter {
         ..writeln('$_i2// Classifies whether a document authored under '
             'documentVersion is')
         ..writeln('$_i2// editable by this object model, without throwing '
-            '(§ item 8) — the')
-        ..writeln("$_i2// non-throwing companion to the constructor's §2.2 "
+            '(SOM §21) — the')
+        ..writeln("$_i2// non-throwing companion to the constructor's SOM §4.2 "
             'check, so a read-only')
         ..writeln('$_i2// viewer can branch instead of catching '
             'SomVersionError.')
@@ -308,7 +308,7 @@ class SomJavaEmitter {
         ..writeln('$_i2}');
     }
 
-    // § item 10: a content-bearing section overrides the `SomNode.canHaveContent`
+    // SOM §21: a content-bearing section overrides the `SomNode.canHaveContent`
     // structural default (`false`) to `true`, so "can this section hold body
     // text?" is answerable at the type level without probing `content()`.
     if (_hasContentLeaf(cls)) {
@@ -329,7 +329,7 @@ class SomJavaEmitter {
   }
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
-  /// signal that its generated facade carries a `content()` accessor (§ item 10).
+  /// signal that its generated facade carries a `content()` accessor (SOM §21).
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 

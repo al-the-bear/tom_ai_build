@@ -504,7 +504,7 @@ const char *spec_document_content(const SpecDocument *d, const char *path) {
 }
 
 /* Leaf-exact non-empty check; empty leaves are never stored (set_content
- * clears on ""), so a present value is always non-empty (§ item 5). */
+ * clears on ""), so a present value is always non-empty (SOM §21). */
 int spec_document_has_content(const SpecDocument *d, const char *path) {
   const char *v = spec_document_content(d, path);
   return v != NULL && v[0] != '\0';
@@ -796,7 +796,7 @@ void spec_document_headline_paths(const SpecDocument *d, SomStrList *out) {
   }
 }
 
-/* --- codeSpec (§9.2) --- */
+/* --- codeSpec (codespecs_mapping.md §9.2) --- */
 
 const char *spec_document_code_spec(const SpecDocument *d, const char *path) {
   return som_map_get(&d->code_spec, path);
@@ -1001,14 +1001,14 @@ void spec_document_load_json(SpecDocument *d, const DocumentJson *j) {
   }
   for (size_t i = 0; i < j->code_specs.len; i++) {
     if (j->code_specs.entries[i].val[0] == '\0') {
-      continue; /* skip empty values (§9.2) */
+      continue; /* skip empty values (codespecs_mapping.md §9.2) */
     }
     som_map_set(&d->code_spec, j->code_specs.entries[i].key,
                 j->code_specs.entries[i].val);
   }
 }
 
-/* --- one-call loading (§ item 4) --- */
+/* --- one-call loading (SOM §21) --- */
 
 SpecDocument *spec_document_from_yaml(const char *yaml,
                                       const SomMetaTree *tree, char **err) {

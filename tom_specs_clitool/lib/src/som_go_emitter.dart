@@ -4,10 +4,10 @@
 /// The generated structs are an **editing facade** over the generic
 /// `tom_som_go_runtime` `SpecDocument`: every typed accessor delegates to the
 /// path-keyed memory representation, so a typed mutation is visible through the
-/// generic path and vice-versa (spec §3). Each document-root struct performs the
-/// **instantiation-time version check** (`som.CheckSomModelVersion`) against the
-/// document's authoring stamp (§2.2) and exposes its own generated model version
-/// (§2.1).
+/// generic path and vice-versa (SOM §6). Each document-root struct performs
+/// the **instantiation-time version check** (`som.CheckSomModelVersion`)
+/// against the document's authoring stamp (SOM §4.2) and exposes its own
+/// generated model version (SOM §4.2).
 ///
 /// This is the Go counterpart of [SomDartEmitter] / `SomPythonEmitter` /
 /// `SomJavaEmitter` / `SomJavaScriptEmitter` / `SomTypeScriptEmitter` — the same
@@ -67,10 +67,10 @@ class SomGoEmitter {
     this.packageName = 'somv0',
   }) : _ref = SpecReflection(model);
 
-  /// The model version the generated object model reports (§2.1), `major.minor`,
-  /// taken from the model's own version stamp (the `tom_specs_model` project
-  /// version), not the project [versionLabel] — which only names the `_vN`
-  /// output project.
+  /// The model version the generated object model reports (SOM §4.2),
+  /// `major.minor`, taken from the model's own version stamp (the
+  /// `tom_specs_model` project version), not the project [versionLabel] — which
+  /// only names the `_vN` output project.
   String get modelVersionString => model.modelVersionString;
 
   /// The roots to generate, resolved against [documentRoots] (empty ⇒ all).
@@ -172,7 +172,7 @@ class SomGoEmitter {
       ..writeln('// object-model version it was generated against '
           '(vMAJOR.MINOR.PATCH). It is the')
       ..writeln('// in-source counterpart of the VCS tag used to pin the module '
-          '(§2.1).')
+          '(SOM §4.2).')
       ..writeln('const Version = "v${packageVersionFromModel(modelVersionString)}"')
       ..writeln();
 
@@ -362,12 +362,12 @@ class SomGoEmitter {
       b
         ..writeln('// $mvConst is the model version this object '
             'model was generated')
-        ..writeln('// against (§2.1).')
+        ..writeln('// against (SOM §4.2).')
         ..writeln('const $mvConst = "$modelVersionString"')
         ..writeln()
         ..writeln('// $ctor creates the typed facade at the document '
             'root and verifies the')
-        ..writeln("// document's authoring documentVersion is editable (§2.2). "
+        ..writeln("// document's authoring documentVersion is editable (SOM §4.2). "
             'A non-editable')
         ..writeln('// stamp yields a *som.SomVersionError.')
         ..writeln('func $ctor(doc *som.SpecDocument, documentVersion '
@@ -382,7 +382,7 @@ class SomGoEmitter {
         ..writeln()
         ..writeln("// ObjectModelVersion returns this object model's own model "
             'version (major.minor),')
-        ..writeln('// per §2.1.')
+        ..writeln('// per SOM §4.2.')
         ..writeln('func (x *${cls.name}) ObjectModelVersion() string {')
         ..writeln('\treturn $mvConst')
         ..writeln('}')
@@ -390,8 +390,8 @@ class SomGoEmitter {
         ..writeln('// EditabilityFor classifies whether a document authored '
             'under documentVersion')
         ..writeln('// is editable by this object model, without returning an '
-            'error (§ item 8) — the')
-        ..writeln("// non-error-returning companion to $ctor's §2.2 check, so a "
+            'error (SOM §21) — the')
+        ..writeln("// non-error-returning companion to $ctor's SOM §4.2 check, so a "
             'read-only viewer')
         ..writeln('// can branch instead of handling the constructor error.')
         ..writeln('func (x *${cls.name}) EditabilityFor(documentVersion '
@@ -406,9 +406,9 @@ class SomGoEmitter {
         ..writeln("// root with the document's retained authoring stamp — one "
             'call for the former')
         ..writeln('// decode → loadJson → thread-documentVersion sequence '
-            '(§ item 4). Returns a')
+            '(SOM §21). Returns a')
         ..writeln('// *som.SomVersionError when the stamp is not editable '
-            '(§2.2). Decoding runs')
+            '(SOM §4.2). Decoding runs')
         ..writeln('// against the generated ${cls.name}MetaTree, so v2 '
             'hierarchical documents')
         ..writeln('// resolve their section paths through the metadata tree '
@@ -445,7 +445,7 @@ class SomGoEmitter {
         ..writeln('}');
     }
 
-    // § item 10: a content-bearing section shadows the promoted
+    // SOM §21: a content-bearing section shadows the promoted
     // `som.SomNode.CanHaveContent` structural default (`false`) with a per-type
     // method returning `true`, so "can this section hold body text?" is
     // answerable at the type level without probing Content(). This is the Go
@@ -456,7 +456,7 @@ class SomGoEmitter {
         ..writeln()
         ..writeln('// CanHaveContent reports that this section type declares the '
             'standard `content`')
-        ..writeln('// text leaf (§ item 10) — it shadows the embedded '
+        ..writeln('// text leaf (SOM §21) — it shadows the embedded '
             'som.SomNode false default.')
         ..writeln('func (x *${cls.name}) CanHaveContent() bool {')
         ..writeln('\treturn true')
@@ -474,7 +474,7 @@ class SomGoEmitter {
   }
 
   /// Whether [cls] declares the standard `content` text leaf — the structural
-  /// signal that its generated facade carries a Content() accessor (§ item 10).
+  /// signal that its generated facade carries a Content() accessor (SOM §21).
   bool _hasContentLeaf(SpecClass cls) => cls.fields
       .any((f) => f.name == 'content' && f.kind == SpecFieldKind.content);
 
@@ -606,7 +606,7 @@ class SomGoEmitter {
       ..writeln()
       ..writeln('// CanHaveContent reports that this @Form section holds body '
           'text before its')
-      ..writeln('// form fields (§ item 10) — it shadows the embedded '
+      ..writeln('// form fields (SOM §21) — it shadows the embedded '
           'som.SomNode false default.')
       ..writeln('func (x *$name) CanHaveContent() bool {')
       ..writeln('\treturn true')

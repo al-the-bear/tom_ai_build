@@ -1,35 +1,34 @@
 /// Generic YAML codec for the native `*.docspecs.yaml` document format —
 /// **hierarchical format v2** (SOM §12).
 ///
-/// One nested YAML tree whose indentation mirrors the document structure:
-/// every model node becomes a mapping key (`<section-id> <member-name>`, SOM
-/// §12.2). The section id is the field-level `@SectionId` when present; for a
+/// One nested YAML tree whose indentation mirrors the document structure: every
+/// model node becomes a mapping key (`<section-id> <member-name>`, SOM §12.2).
+/// The section id is the field-level `@SectionId` when present; for a
 /// section/complex node whose field carries none, it is the target **class**'s
-/// `@SectionId` (the id its generated schema type is keyed by — the same "field id,
-/// else target-class id" fallback the markdown codec's headings use). Sections
-/// nest their children, list items appear under their container keyed by their
-/// stored section id (or an anonymous positional `<member>-<n>` key), a node's
-/// own body text uses the literal key `content`, a node's **stored headline**
-/// (YRD3) uses the literal key `headline`, a node's **stored codeSpec**
-/// (csmb1 — the §9.2 DocSpecs→CodeSpecs forward link, a comma-joined list of
-/// code locations) uses the literal key `codeSpec`, and form fields use their
-/// bare field names (no class fallback for content/form/list/scalar/enum keys).
-/// A scalar-valued node (content/scalar/enum leaf or scalar list item) that
-/// carries a stored headline and/or codeSpec is emitted as a
-/// `{headline: …, codeSpec: …, content: …}` mapping instead of a direct scalar.
-/// The
-/// former flat two-level path-map format (`document: {content: {"A/b": …}}`) is
-/// **retired**; readers reject `version: 1` files with a clear error (no
-/// compatibility path).
+/// `@SectionId` (the id its generated schema type is keyed by — the same "field
+/// id, else target-class id" fallback the markdown codec's headings use).
+/// Sections nest their children, list items appear under their container keyed
+/// by their stored section id (or an anonymous positional `<member>-<n>` key),
+/// a node's own body text uses the literal key `content`, a node's **stored
+/// headline** (YRD3) uses the literal key `headline`, a node's **stored
+/// codeSpec** (csmb1 — the codespecs_mapping.md §9.2 DocSpecs→CodeSpecs forward
+/// link, a comma-joined list of code locations) uses the literal key
+/// `codeSpec`, and form fields use their bare field names (no class fallback
+/// for content/form/list/scalar/enum keys). A scalar-valued node
+/// (content/scalar/enum leaf or scalar list item) that carries a stored
+/// headline and/or codeSpec is emitted as a `{headline: …, codeSpec: …,
+/// content: …}` mapping instead of a direct scalar. The former flat two-level
+/// path-map format (`document: {content: {"A/b": …}}`) is **retired**; readers
+/// reject `version: 1` files with a clear error (no compatibility path).
 ///
-/// Text values are written as literal block scalars (`|2-`), with the SOM
-/// §12.4 escaping rules: the emitter is **self-verifying** (it re-parses each
+/// Text values are written as literal block scalars (`|2-`), with the SOM §12.4
+/// escaping rules: the emitter is **self-verifying** (it re-parses each
 /// scalar it produces and falls back to a double-quoted JSON-escaped flow
-/// scalar when the parse differs), and **runs of 2+ consecutive empty lines
-/// are collapsed to one before serialization** (a deliberate, documented
-/// lossy normalization — round-trip guarantees are stated "modulo empty-line
-/// dedup"). Non-text values (`int`/`double`/`bool`, enum member names) are
-/// plain scalars when they self-verify (SOM §12.5).
+/// scalar when the parse differs), and **runs of 2+ consecutive empty lines are
+/// collapsed to one before serialization** (a deliberate, documented lossy
+/// normalization — round-trip guarantees are stated "modulo empty-line dedup").
+/// Non-text values (`int`/`double`/`bool`, enum member names) are plain scalars
+/// when they self-verify (SOM §12.5).
 ///
 /// Both [SpecDocumentYaml.encode] and [SpecDocumentYaml.decode] walk the
 /// [SomMetaTree] of the document root: the file carries **no paths** — the
@@ -416,7 +415,8 @@ class _Encoder {
       _writeText(b, indent, 'headline', ownHeadline);
     }
 
-    // The node's own codeSpec mapping — the literal `codeSpec` key (§9.2).
+    // The node's own codeSpec mapping — the literal `codeSpec` key
+    // (codespecs_mapping.md §9.2).
     final ownCodeSpec = _codeSpecs.remove(path);
     if (ownCodeSpec != null) {
       if (node.children.any((c) => SpecDocumentYaml.nodeKey(c) == 'codeSpec')) {
@@ -478,9 +478,9 @@ class _Encoder {
   }
 
   /// Emits a scalar-valued node (content/scalar/enum leaf) that carries a
-  /// stored headline and/or a codeSpec mapping as a
-  /// `{headline?: …, codeSpec?: …, content?: …}` mapping (YRD3 + §9.2). At
-  /// least one of [headline]/[codeSpec] is non-null at every call site.
+  /// stored headline and/or a codeSpec mapping as a `{headline?: …, codeSpec?:
+  /// …, content?: …}` mapping (YRD3 + codespecs_mapping.md §9.2). At least one
+  /// of [headline]/[codeSpec] is non-null at every call site.
   void _writeScalarWithMeta(StringBuffer b, int indent, String key,
       String? headline, String? codeSpec, String? value,
       {required bool text}) {
@@ -564,9 +564,10 @@ class _Encoder {
       }
       final element = node.elementNode;
       if (element == null) {
-        // Scalar list: the item is a direct value — unless it carries a
-        // stored headline and/or codeSpec, in which case it becomes a
-        // `{headline?: …, codeSpec?: …, content: …}` mapping (YRD3 + §9.2).
+        // Scalar list: the item is a direct value — unless it carries a stored
+        // headline and/or codeSpec, in which case it becomes a `{headline?: …,
+        // codeSpec?: …, content: …}` mapping (YRD3 + codespecs_mapping.md
+        // §9.2).
         final v = _content.remove(itemPath);
         final ih = _headlines.remove(itemPath);
         final ics = _codeSpecs.remove(itemPath);
@@ -744,7 +745,8 @@ class _Decoder {
         return;
       }
       if (key == 'codeSpec') {
-        // The list container's own codeSpec mapping (§9.2), not an item.
+        // The list container's own codeSpec mapping (codespecs_mapping.md
+        // §9.2), not an item.
         doc.setCodeSpec(path, _scalarOf(value, '$path (codeSpec)'));
         return;
       }
@@ -776,8 +778,9 @@ class _Decoder {
     });
   }
 
-  /// Loads a headline-/codeSpec-extended scalar node (YRD3 + §9.2): a mapping
-  /// holding only the literal keys `headline`, `codeSpec` and `content`.
+  /// Loads a headline-/codeSpec-extended scalar node (YRD3 +
+  /// codespecs_mapping.md §9.2): a mapping holding only the literal keys
+  /// `headline`, `codeSpec` and `content`.
   void _loadScalarWithMeta(String path, String key, Map value) {
     value.forEach((k, v) {
       final name = '$k';

@@ -12,7 +12,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 /// `tom_som_<slug>_<label>` project (`pubspec.yaml` + generated typed `lib/`),
 /// the lossless meta-data file, and the DocSpecs schemas. The model version
 /// stamp is read from the model's `version.versioner.dart` so the committed
-/// meta-data is stable/idempotent (spec §2.3).
+/// meta-data is stable/idempotent (SOM §4.3).
 Future<void> main(List<String> arguments) async {
   final clitoolRoot = _clitoolRoot();
   final aiBuild = p.dirname(clitoolRoot);

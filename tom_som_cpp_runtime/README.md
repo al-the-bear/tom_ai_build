@@ -23,7 +23,7 @@ codecs rely on it).
 | `spec_document.cpp` | A sparse in-memory document — values keyed by section path. |
 | `spec_validator.cpp` | Validates a document's values against the model. |
 | `spec_document_yaml.cpp` | Byte-stable `*.docspecs.yaml` codec. |
-| `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (§4.1 DocScanner route). |
+| `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (SOM §8 DocScanner route). |
 | `som_facade.cpp` | Editing-facade base types (`SomNode`, `SomList`, `joinPath`, `checkSomModelVersion`) for the generated `tom_som_cpp_v0`. |
 | `yaml.cpp` | Hand-rolled, dependency-free reader for the constrained docspecs YAML subset. |
 | `som_json.cpp` | Hand-rolled, dependency-free JSON reader/encoder. |

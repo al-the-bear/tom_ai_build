@@ -6,7 +6,7 @@
  *
  *  1. DocSpecsDocument — a schema-free structural parse of a DocSpecs markdown
  *     document into a heading tree (fence-aware, never fails).
- *  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with §7-style
+ *  2. DocSpecsSchema — loader for `*.docspecs-schema.yaml` files with SOM §14-style
  *     warnings for unsupported keys (never fails on extra keys).
  *  3. DocSpecsValidator — never-fail-fast validation of a parsed document
  *     against a schema, emitting DocSpecsViolations whose messages are
@@ -185,7 +185,7 @@ typedef struct {
   size_t form_types_len;
   DocSpecsDocumentSection *document_sections; /* owned, file order */
   size_t document_sections_len;
-  SomStrList warnings; /* §7 warnings for unsupported keys */
+  SomStrList warnings; /* SOM §14 warnings for unsupported keys */
 } DocSpecsSchema;
 
 /* Returns the section type named `name`, or NULL. */
