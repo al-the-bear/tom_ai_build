@@ -99,7 +99,7 @@ void main() {
     });
   });
 
-  group('mode (b) is the default (F2)', () {
+  group('mode (b) is the default (llm_and_d4rt_tools.md §10)', () {
     test('defaultAgentSubstrateMode is tomBrain', () {
       expect(defaultAgentSubstrateMode, AgentSubstrateMode.tomBrain);
     });

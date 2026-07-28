@@ -317,7 +317,7 @@ void main() {
     });
 
     test(
-      'SD-2: every instance member carries a 0-based contiguous '
+      'every instance member carries a 0-based contiguous '
       '@SerializationOrder ordinal',
       () {
         final problems = <String>[];
@@ -339,8 +339,9 @@ void main() {
                 '!= {${expected.join(',')}}');
           }
         });
-        // The SD-2 stamping script must cover every member of every spec-model
-        // class with a unique, contiguous, 0-based ordinal in source order.
+        // The SOM §5.2 stamping script must cover every member of every
+        // spec-model class with a unique, contiguous, 0-based ordinal in
+        // source order.
         expect(problems, isEmpty, reason: problems.take(20).join('\n'));
       },
     );
@@ -1401,12 +1402,13 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // SD-1: @StandardReferences provenance flows into spec_model.json. The reader
+  // @StandardReferences provenance flows into spec_model.json
+  // (`tom_specs_model_meta_schema.md`). The reader
   // captures it generically (arguments: standards[] + connotation), and the
   // exporter surfaces a curated `standardReferences` key beside the lossless
   // annotations block — mirroring the mapsTo / detailedIn projection.
   // ---------------------------------------------------------------------------
-  group('unit: ModelJsonExporter @StandardReferences (SD-1)', () {
+  group('unit: ModelJsonExporter @StandardReferences', () {
     test('curated standardReferences surfaces on a class', () {
       final classes = <String, ModelClass>{
         'QualityModel': _cls('QualityModel', [
@@ -1484,11 +1486,12 @@ void main() {
   });
 
   // ---------------------------------------------------------------------------
-  // SD-2: @SerializationOrder ordinal flows onto every member node. The reader
+  // SOM §5.2: @SerializationOrder ordinal flows onto every member node. The
+  // reader
   // exposes it as ModelField.serializationOrder; the exporter surfaces it as a
   // curated `serializationOrder` key.
   // ---------------------------------------------------------------------------
-  group('unit: ModelJsonExporter @SerializationOrder (SD-2)', () {
+  group('unit: ModelJsonExporter @SerializationOrder (SOM §5.2)', () {
     test('ModelField.serializationOrder reads the ordinal from the annotation',
         () {
       final f = _field('header', 'DocumentHeader',

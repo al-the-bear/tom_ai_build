@@ -137,7 +137,7 @@ Related entrypoints in `bin/`:
 | `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). |
 | `model_json.dart` | Export the resolved meta-data class graph (`spec_model.meta.json`) alone. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
-| `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SD-2). Run this on `tom_specs_model` after editing the model, before regenerating. |
+| `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
 | `spec_ops.dart` / `summaries.dart` / `build.dart` | Model tooling (spec operations, API summaries, build orchestration). |
 

@@ -86,7 +86,7 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // pyproject.toml is a publishable PEP 517 manifest (PGK3): it declares a
+    // pyproject.toml is a publishable PEP 517 manifest (SOM §17.3): it declares a
     // build backend, the facade module as a single top-level py-module, the
     // facade version pinned to the model version, and a hosted runtime
     // dependency. It *also* records a *relative* runtime path (portable across

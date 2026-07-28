@@ -19,7 +19,7 @@ void main() {
       expect(doc.isEmpty, isTrue);
     });
 
-    test('hasContent is the null-free "is this leaf filled?" answer (item 5)',
+    test('hasContent is the null-free "is this leaf filled?" answer (SOM §21)',
         () {
       final doc = SpecDocument();
       // Unset: content is null, hasContent is false — a single boolean answer.

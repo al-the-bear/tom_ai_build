@@ -102,7 +102,7 @@
 ///     recording the run into that named memory. `buildAgentSubstrate` +
 ///     `AgentSubstrateMode` are the selector the application uses to pick a mode
 ///     behind the one `AgentSubstrate` interface — **mode (b) is the default**
-///     (`defaultAgentSubstrateMode`, decision F2); mode (a) is opt-in for the
+///     (`defaultAgentSubstrateMode`); mode (a) is opt-in for the
 ///     lightest single-application use; the headless
 ///     `RecordingBrainEnvelope` keeps the "same loop test" host-independent
 ///     while the live `tom_brain_memory`-backed envelope is wired in the editor

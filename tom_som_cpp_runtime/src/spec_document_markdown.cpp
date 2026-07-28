@@ -1698,7 +1698,7 @@ SpecMarkdownResult markdownParse(const SpecModel& model,
 }
 
 /* ======================================================================== */
-/* SpecDocument.ToMarkdown (item 12)                                         */
+/* SpecDocument.ToMarkdown (one-line export, SOM §21)                        */
 /* ======================================================================== */
 
 namespace {

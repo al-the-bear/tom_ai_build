@@ -24,7 +24,7 @@ ScopeRegistry _registryWith(Iterable<String> names) {
 }
 
 void main() {
-  group('canonical application mapping (Q1 / F1)', () {
+  group('canonical application mapping (llm_and_d4rt_tools.md §11)', () {
     test('the three applications are the phase-ordered profile names', () {
       expect(docSpecsApplication, 'docspecs');
       expect(codeSpecsApplication, 'codespecs');
@@ -90,7 +90,7 @@ void main() {
     });
   });
 
-  group('codeSpecsAgentContext (item 10 / F10)', () {
+  group('codeSpecsAgentContext (llm_and_d4rt_tools.md §11)', () {
     test('binds the CodeSpecs guidelines, the full four-group surface, and the '
         'three base scopes', () {
       final context = codeSpecsAgentContext();
@@ -120,7 +120,7 @@ void main() {
     });
   });
 
-  group('implementationAgentContext (item 10 / F10)', () {
+  group('implementationAgentContext (llm_and_d4rt_tools.md §11)', () {
     test('binds the Implementation guidelines, the full four-group surface, and '
         'the three base scopes', () {
       final context = implementationAgentContext();
@@ -155,7 +155,7 @@ void main() {
         contexts.map((c) => c.application).toList(),
         tomSpecsApplications,
       );
-      // Distinct guidelines prompts — the real differentiator (F10).
+      // Distinct guidelines prompts — the real differentiator.
       expect(
         contexts.map((c) => c.guidelinesName).toSet(),
         hasLength(3),
@@ -168,7 +168,7 @@ void main() {
     });
   });
 
-  group('tomSpecsContextRegistry (item 10 / F10)', () {
+  group('tomSpecsContextRegistry (llm_and_d4rt_tools.md §11)', () {
     test('registers all three canonical applications, each resolving to its own '
         'context', () {
       final registry = tomSpecsContextRegistry();

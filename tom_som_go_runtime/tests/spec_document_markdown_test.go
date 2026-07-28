@@ -12,7 +12,7 @@
 // level deeper (SOM §11.2).
 //
 // The model fixture (demoModelJSON) and populated document
-// (populatedDemoDoc) are shared with item12_test.go.
+// (populatedDemoDoc) are shared with one_line_export_test.go.
 package tests
 
 import (
@@ -174,7 +174,7 @@ func TestMarkdownExportUntermFenceErrors(t *testing.T) {
 		fmt.Sprintf("out=%q err=%v", out, err))
 }
 
-// --- SpecDocument.ToMarkdown (item 12) --------------------------------------
+// --- SpecDocument.ToMarkdown (one-line export, SOM §21) ---------------------
 
 func TestMarkdownToMarkdown(t *testing.T) {
 	model := demoModel(t)

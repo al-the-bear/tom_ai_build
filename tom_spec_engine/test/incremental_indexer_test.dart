@@ -212,7 +212,7 @@ void main() {
   });
 
   group('reindexAll — manual full reconcile through the serialized chain '
-      '(item 16)', () {
+      '(llm_and_d4rt_tools.md §9.2)', () {
     test('reconciles every current section and drops paths now gone', () async {
       final indexer = makeIndexer(tier2: recordingTier2());
       // SUM disappeared; VIS rewritten. The caller passes the union of current

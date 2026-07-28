@@ -2217,7 +2217,7 @@ void spec_markdown_parse(const SpecModel *model, const char *text,
 }
 
 /* ======================================================================== */
-/* SpecDocument.ToMarkdown (item 12)                                         */
+/* SpecDocument.ToMarkdown (one-line export, SOM §21)                        */
 /* ======================================================================== */
 
 static const SpecRoot *single_populated_root(const SpecModel *model,

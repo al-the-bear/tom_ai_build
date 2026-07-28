@@ -166,11 +166,12 @@ final class SpecIncrementalIndexer {
       });
 
   /// Forces a **full current-state reconcile** of [paths] (a manual
-  /// `mem_refresh`; item 16) through the **same serialized chain** as the
-  /// debounced [flush], so a manual refresh can never race an in-flight
-  /// incremental flush. Pass the union of the document's current section paths
-  /// and the paths previously indexed, so sections that disappeared since the
-  /// last index are reclassified as removals and dropped from both tiers. Any
+  /// `mem_refresh`, `llm_and_d4rt_tools.md` §9.2) through the **same
+  /// serialized chain** as the debounced [flush], so a manual refresh can never
+  /// race an in-flight incremental flush. Pass the union of the document's
+  /// current section paths and the paths previously indexed, so sections that
+  /// disappeared since the last index are reclassified as removals and dropped
+  /// from both tiers. Any
   /// touches still pending are folded into this reconcile and cleared — this
   /// flush supersedes them. A no-op after [dispose].
   ///

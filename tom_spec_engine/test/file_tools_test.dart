@@ -65,7 +65,8 @@ void main() {
       expect(found.toJson()['glob'], '*.md');
     });
 
-    test('a `?` glob matches a single character (richer glob, item 18)', () {
+    test('a `?` glob matches a single character (richer glob, '
+        'llm_and_d4rt_tools.md §7)', () {
       tools.write('scratch/r1.txt', '1');
       tools.write('scratch/r2.txt', '2');
       tools.write('scratch/r42.txt', '42');
@@ -76,7 +77,8 @@ void main() {
       expect(names, isNot(contains('r42.txt')));
     });
 
-    test('a `[...]` character class and `{a,b}` alternation match (item 18)', () {
+    test('a `[...]` character class and `{a,b}` alternation match '
+        '(llm_and_d4rt_tools.md §7)', () {
       tools.write('scratch/a.dart', 'a');
       tools.write('scratch/b.dart', 'b');
       tools.write('scratch/c.dart', 'c');
@@ -90,7 +92,7 @@ void main() {
     });
 
     test('a glob with `/` matches the path relative to the search root, and '
-        '`**` crosses directories (item 18)', () {
+        '`**` crosses directories (llm_and_d4rt_tools.md §7)', () {
       tools.write('scratch/top.md', 'top');
       tools.write('scratch/sub/deep.md', 'deep');
       tools.write('scratch/sub/inner/leaf.md', 'leaf');
@@ -109,7 +111,7 @@ void main() {
     });
   });
 
-  group('file_find includeAssets (item 18)', () {
+  group('file_find includeAssets (llm_and_d4rt_tools.md §7)', () {
     test('searches the declared asset dirs and returns the de-duplicated union',
         () {
       // The asset directory lives OUTSIDE the workspace root, so a default

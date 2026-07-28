@@ -221,7 +221,7 @@ void main() {
     });
   });
 
-  group('SomList content-only convenience (item 9)', () {
+  group('SomList content-only convenience (SOM §21)', () {
     final date = DateTime(2026, 1, 2); // AB
 
     test('addContent appends the item and sets its content leaf in one call',
@@ -278,7 +278,7 @@ void main() {
     });
   });
 
-  group('canHaveContent (structural content-slot predicate, item 10)', () {
+  group('canHaveContent (structural content-slot predicate, SOM §21)', () {
     test('the SomNode base defaults to false (container-only)', () {
       final doc = SpecDocument();
       expect(_Container(doc, 'PD00').canHaveContent, isFalse);
@@ -336,7 +336,7 @@ void main() {
     });
   });
 
-  group('somEditabilityFor (non-throwing SOM §4.2 classification, item 8)', () {
+  group('somEditabilityFor (non-throwing SOM §4.2 classification)', () {
     test('a null/empty document stamp is editable', () {
       expect(somEditabilityFor('0.0', null), SomEditability.editable);
       expect(somEditabilityFor('0.0', ''), SomEditability.editable);

@@ -163,7 +163,7 @@ SomGenerationResult writeSomDartProject({
 
   // ── project pubspec (publishable: hosted runtime dep pinned to the model
   //    version) + a pubspec_overrides.yaml so the co-developed runtime resolves
-  //    by path locally without breaking publishability (PGK2) ─────────────────
+  //    by path locally without breaking publishability ─────────────────────────
   final runtimeRel = p
       .relative(p.normalize(runtimePackagePath), from: p.normalize(outputRoot))
       .replaceAll(r'\', '/');

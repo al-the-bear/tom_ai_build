@@ -1,9 +1,10 @@
 'use strict';
 
 /**
- * Unit tests for the item-12 conveniences — the JavaScript port of the Dart
- * `SpecModel.rootByType (item 12)` and `SpecDocument.toMarkdown (item 12)`
- * groups (`spec_model_test.dart`, `spec_document_markdown_test.dart`).
+ * Unit tests for the SOM §21 one-line-export conveniences — the JavaScript
+ * port of the Dart `SpecModel.rootByType (one-line export, SOM §21)` and
+ * `SpecDocument.toMarkdown (one-line export, SOM §21)` groups
+ * (`spec_model_test.dart`, `spec_document_markdown_test.dart`).
  *
  *   * {@link SpecModel.rootByType} — the root whose `.type` matches, or a
  *     TypeError (the argument-error class) naming the missing type and the ones
@@ -67,7 +68,7 @@ function populatedDemo() {
   return doc;
 }
 
-// --- SpecModel.rootByType (item 12) ---------------------------------------
+// --- SpecModel.rootByType (one-line export, SOM §21) ----------------------
 
 test('rootByType returns the root whose type matches', () => {
   const model = twoRootModel();
@@ -87,7 +88,7 @@ test('rootByType throws naming the missing and available types', () => {
   );
 });
 
-// --- SpecDocument.toMarkdown (item 12) ------------------------------------
+// --- SpecDocument.toMarkdown (one-line export, SOM §21) -------------------
 
 test('toMarkdown matches the explicit codec output for an explicit rootType', () => {
   const model = demoModel();

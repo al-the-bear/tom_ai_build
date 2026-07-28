@@ -1,7 +1,7 @@
-/* Behavioural test for SomList::addContent* and SomList::contents() (SOM
- * convenience roadmap item 9). These are pure runtime members on the SomList
- * base; the generated element facades are not regenerated here (the generator
- * runs centrally). This hand-writes a minimal content-only element facade — the
+/* Behavioural test for SomList::addContent* and SomList::contents() (the SOM
+ * §21 content-only list convenience). These are pure runtime members on the
+ * SomList base; the generated element facades are not regenerated here (the
+ * generator runs centrally). This hand-writes a minimal content-only facade — the
  * exact shape the emitter produces for a `<item>/content` leaf — and asserts
  * addContent appends + writes the nested leaf, honours the section-id pattern,
  * accepts an explicit id, and that contents() yields the ordered content leaves

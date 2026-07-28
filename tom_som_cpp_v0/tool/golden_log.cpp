@@ -1,4 +1,4 @@
-// Cross-language golden-log generator for C++ (roadmap item 7b).
+// Cross-language golden-log generator for C++ (SOM §19).
 //
 // Mirror of tom_som_dart_v0/tool/golden_log.dart — see that file for the
 // canonical format. Loads the shared sample and emits a byte-identical reading

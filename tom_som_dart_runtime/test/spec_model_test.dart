@@ -846,7 +846,7 @@ void main() {
     });
   });
 
-  group('SpecModel.rootByType (item 12)', () {
+  group('SpecModel.rootByType (one-line export, SOM §21)', () {
     SpecModel twoRootModel() => SpecModel.fromJson(<String, dynamic>{
           'roots': <dynamic>[
             {'type': 'Alpha', 'title': 'Alpha Doc', 'sectionId': 'A00'},

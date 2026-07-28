@@ -227,7 +227,7 @@ public final class GeneratedModelTest {
     }
   }
 
-  // Item 5: aligned absence semantics — typed isEmpty / generic
+  // SOM §21: aligned absence semantics — typed isEmpty / generic
   // hasValuesUnder / hasContent all agree on subtree emptiness.
   private static void testAbsenceSemantics() {
     // A section isEmpty until any value is written under it.
@@ -276,7 +276,7 @@ public final class GeneratedModelTest {
         d, TomSomV0Meta.D00SolutionBlueprintMetaTree, modelVersion);
   }
 
-  // Item 4: one-call loading — loadYaml / loadFile / SpecDocument.fromYaml
+  // SOM §21 one-call loading — loadYaml / loadFile / SpecDocument.fromYaml
   // collapse the former decode → loadJson → thread-version incantation and
   // retain the parsed model version (null when unstamped).
   private static void testOneCallLoading() {
@@ -356,7 +356,7 @@ public final class GeneratedModelTest {
     }
   }
 
-  // Item 10: the structural `canHaveContent()` per-type predicate — "does this
+  // SOM §21: the structural `canHaveContent()` per-type predicate — "does this
   // section TYPE declare the standard `content` leaf?" — answered without
   // probing `.content()` and without ever looking at the document. Distinct from
   // the state predicates (`hasContent(path)` / `isEmpty()`).

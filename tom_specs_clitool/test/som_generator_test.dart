@@ -71,7 +71,7 @@ void main() {
       expect(File(s).existsSync(), isTrue);
     }
 
-    // Pubspec is publishable (PGK2): the runtime dependency is *hosted* and
+    // Pubspec is publishable (SOM §17.3): the runtime dependency is *hosted* and
     // pinned to the model version, and there is no `publish_to: none`. The
     // relative path that keeps the co-developed runtime resolvable locally lives
     // in a separate `pubspec_overrides.yaml` (excluded from `dart pub publish`).

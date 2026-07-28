@@ -2,12 +2,12 @@
 """Behavioural tests for SOM §21: :meth:`SpecModel.root_by_type` and
 :meth:`SpecDocument.to_markdown`.
 
-A faithful port of the Dart reference item-12 groups:
+A faithful port of the Dart reference one-line-export groups:
 
   * ``tom_som_dart_runtime/test/spec_model_test.dart`` →
-    ``group('SpecModel.rootByType (item 12)')``;
+    ``group('SpecModel.rootByType (one-line export, SOM §21)')``;
   * ``tom_som_dart_runtime/test/spec_document_markdown_test.dart`` →
-    ``group('SpecDocument.toMarkdown (item 12)')``.
+    ``group('SpecDocument.toMarkdown (one-line export, SOM §21)')``.
 
 Proves:
 
@@ -25,7 +25,8 @@ a bad argument (``ValueError``), whereas an ambiguous default is document state
 (``RuntimeError``) — and the two classes are disjoint (``RuntimeError`` is not a
 ``ValueError``).
 
-Run with ``python3 tests/som_item12_test.py``; exit code 0 == all green.
+Run with ``python3 tests/som_one_line_export_test.py``; exit code 0 == all
+green.
 """
 
 from __future__ import annotations
@@ -153,7 +154,7 @@ def _populated() -> SpecDocument:
     return doc
 
 
-# --- SpecModel.root_by_type (item 12) ---------------------------------------
+# --- SpecModel.root_by_type (one-line export, SOM §21) ----------------------
 
 
 def test_root_by_type_returns_match() -> None:
@@ -174,7 +175,7 @@ def test_root_by_type_raises_naming_types() -> None:
         _check("root_by_type.missing.names-beta", "Beta" in msg, msg)
 
 
-# --- SpecDocument.to_markdown (item 12) -------------------------------------
+# --- SpecDocument.to_markdown (one-line export, SOM §21) --------------------
 
 
 def test_to_markdown_matches_explicit_root_type() -> None:

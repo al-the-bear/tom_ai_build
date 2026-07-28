@@ -110,7 +110,7 @@ void main() {
         p.normalize(p.join(javaRuntimeDir, 'src')),
         reason: 'relative path must resolve to the java runtime src');
 
-    // pom.xml is a publishable Maven manifest (PGK4): it declares the project
+    // pom.xml is a publishable Maven manifest (SOM §17.3): it declares the
     // coordinates under `com.altbear.tomsom`, the facade version pinned to the
     // model version, the non-standard flat `src/` source layout, and a
     // dependency on the runtime artifact at the same version.
@@ -267,8 +267,8 @@ void main() {
         reason: 'generated Java source must compile:\n${res.stderr}');
   });
 
-  test('build_jar.sh produces a facade-only JAR (PGK4 done-criterion)', () {
-    // The done-criterion of PGK4: the JAR builds via the build_jar.sh fallback.
+  test('build_jar.sh produces a facade-only JAR (SOM §17.2)', () {
+    // The JAR builds via the build_jar.sh fallback.
     // Skip cleanly on a host without the JDK/shell toolchain.
     if (!_hasTool('bash') || _whichJavac() == null || !_hasTool('jar')) {
       markTestSkipped('bash/javac/jar not all on PATH');

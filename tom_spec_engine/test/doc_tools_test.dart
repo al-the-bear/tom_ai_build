@@ -245,7 +245,7 @@ void main() {
     });
 
     test('an initial content payload populates the new leaf in one burst '
-        '(item 17)', () {
+        '(llm_and_d4rt_tools.md §8.2)', () {
       final result = tools.addNode('PD00', 'RSK', content: 'initial risk text');
       expect(result.ok, isTrue);
       expect(result.path, 'PD00/RSK-1');
@@ -267,7 +267,7 @@ void main() {
     });
 
     test('an initial fields payload sets each form field in the one change log '
-        '(item 17)', () {
+        '(llm_and_d4rt_tools.md §8.2)', () {
       final result = tools.addNode(
         'PD00',
         'RSK',

@@ -44,7 +44,7 @@ public final class SpecDocumentMarkdownTest {
     check(name, condition, "");
   }
 
-  // --- fixtures (shared shape with the Go item12/markdown tests) -------------
+  // --- fixtures (shared with the Go one-line-export/markdown tests) ---------
 
   /**
    * The single-root DemoDoc fixture covering content, enum, {@code @Form}, a
@@ -258,7 +258,7 @@ public final class SpecDocumentMarkdownTest {
     check("export.untermFence.raises", raised, detail);
   }
 
-  // --- SpecDocument.toMarkdown (item 12) --------------------------------------
+  // --- SpecDocument.toMarkdown (one-line export, SOM §21) ---------------------
 
   private static void testToMarkdown() {
     SpecModel model = demoModel();

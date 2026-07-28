@@ -12,12 +12,12 @@ import tom_som_runtime.SpecRoot;
 /**
  * Dependency-free unit tests for {@link SpecModel#rootByType} and
  * {@link SpecDocument#toMarkdown} (SOM §21). Mirrors the Dart reference
- * groups {@code SpecModel.rootByType (item 12)} and
- * {@code SpecDocument.toMarkdown (item 12)}: JUnit is unavailable on the build
- * host, so this is a plain {@code main()} that exits 0 on success and 1 on
- * failure — the same shape as {@code SomFacadeTest}.
+ * groups {@code SpecModel.rootByType (one-line export, SOM §21)} and
+ * {@code SpecDocument.toMarkdown (one-line export, SOM §21)}: JUnit is
+ * unavailable on the build host, so this is a plain {@code main()} that exits 0
+ * on success and 1 on failure — the same shape as {@code SomFacadeTest}.
  */
-public final class SpecItem12Test {
+public final class SpecOneLineExportTest {
   private static int passed = 0;
   private static final List<String> failed = new ArrayList<>();
 
@@ -169,5 +169,5 @@ public final class SpecItem12Test {
     System.out.println("OK: " + total + " checks passed");
   }
 
-  private SpecItem12Test() {}
+  private SpecOneLineExportTest() {}
 }

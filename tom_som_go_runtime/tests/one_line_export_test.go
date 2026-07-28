@@ -17,7 +17,7 @@ import (
 )
 
 // twoRootModelJSON is the two-root, class-less fixture from the Dart
-// `SpecModel.rootByType (item 12)` group.
+// `SpecModel.rootByType (one-line export, SOM §21)` group.
 const twoRootModelJSON = `{
   "roots": [
     {"type": "Alpha", "title": "Alpha Doc", "sectionId": "A00"},
@@ -77,7 +77,7 @@ func TestRootByTypeErrorNamesMissingAndAvailable(t *testing.T) {
 	}
 }
 
-// --- SpecDocument.ToMarkdown (item 12) -------------------------------------
+// --- SpecDocument.ToMarkdown (one-line export, SOM §21) ---------------------
 
 // demoModelJSON is the single-root DemoDoc fixture from the markdown test's
 // _sampleJson(), covering content, enum, @Form, a complex sub-section, and a

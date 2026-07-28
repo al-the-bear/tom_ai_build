@@ -13,7 +13,7 @@
  * deeper and their item-element children one level deeper again.
  *
  * The model fixture (demoModelJSON) and populated document (populatedDemoDoc)
- * mirror item12_test.go / item12_root_by_type_test.c.
+ * mirror one_line_export_test.go / one_line_export_test.c.
  *
  * Standalone: links the runtime static lib, exit 0 == all green.
  */
@@ -130,7 +130,7 @@ static size_t staged_content_len(const SpecMarkdownResult *r) {
   return r->staged.content.len;
 }
 
-/* ---- fixtures (shared with item12) --------------------------------------- */
+/* ---- fixtures (shared with one_line_export_test.c) ----------------------- */
 
 static const char *DEMO_MODEL_JSON =
     "{"
@@ -384,7 +384,7 @@ static void test_markdown_export_unterm_fence_errors(void) {
   spec_model_free(m);
 }
 
-/* ---- SpecDocument.ToMarkdown (item 12) ----------------------------------- */
+/* ---- SpecDocument.ToMarkdown (one-line export, SOM §21) ------------------ */
 
 static void test_markdown_to_markdown(void) {
   SpecModel *m = demo_model();

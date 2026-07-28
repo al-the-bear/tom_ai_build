@@ -63,8 +63,9 @@ main(doc, model) {
   // (3) Generic read of what the typed facade just wrote (shared document).
   final typedReadBack = doc.content('SBP/content');
 
-  // (4) Query / cursor — the lexical-structural facility (item 7a) over the
-  //     shared (model, document) pair, returning a lazy cursor.
+  // (4) Query / cursor — the lexical-structural facility
+  //     (`llm_and_d4rt_tools.md` §6) over the shared (model, document) pair,
+  //     returning a lazy cursor.
   final engine = SpecQueryEngine(model: model, document: doc);
   final cursor = engine.query(SpecQuery(text: 'resilient'));
   final match = cursor.next();

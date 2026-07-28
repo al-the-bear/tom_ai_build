@@ -14,7 +14,7 @@ nine language APIs agree.
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
 | `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
-## Cross-language golden harness (roadmap item 7b)
+## Cross-language golden harness (SOM §19)
 
 Each `tom_som_<lang>_v0` project ships a golden generator that loads the shared
 sample and emits a canonical, deterministic reading of *essentially every
@@ -115,7 +115,7 @@ this explicitly for the TypeScript step, and the facade's `npm run build` has a
 `prebuild` script that builds the runtime first — so both paths work without a
 manual pre-step. See `tom_som_typescript_v0/README.md`.
 
-## Packaging (PGK series)
+## Packaging (SOM §17)
 
 Every SOM target ships as a pair of installable packages — the hand-authored
 generic `tom_som_<lang>_runtime` and the generator-emitted typed
@@ -143,7 +143,7 @@ descriptor for every language records the canonical command in its
 | C | `make && make dist` | static + shared lib, pkg-config `.pc`, source tarball |
 | C++ | `make && make dist` | static + shared lib, pkg-config `.pc`, source tarball |
 
-### Sign-off sweep (roadmap item PGK11)
+### Packaging sign-off sweep (SOM §17)
 
 The cross-cutting packaging sign-off re-runs `generate_som.dart` (confirming
 every facade regenerates to the current model version with zero committed

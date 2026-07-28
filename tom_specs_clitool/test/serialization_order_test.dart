@@ -4,7 +4,7 @@ import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// Unit tests for the SD-2 / item-3 serialization-order library
+/// Unit tests for the SOM §5.2 serialization-order library
 /// (`src/serialization_order.dart`): the pure AST restamper
 /// [stampSerializationOrder] and the pure verifier [unstampedMembers] that the
 /// SOM generator runs as its mandatory first step.

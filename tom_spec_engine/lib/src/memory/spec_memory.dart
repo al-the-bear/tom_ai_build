@@ -16,7 +16,8 @@
 ///     (`llm_and_d4rt_tools.md` §9.1).
 ///   * The LLM substrate (`tom_brain_substrate`) is not pulled in — the memory
 ///     store takes the embedder directly, keeping the heavy provider/router
-///     composition root out until the agent steps (15–17).
+///     composition root out until the agent plane
+///     (`llm_and_d4rt_tools.md` §10).
 library;
 
 import 'package:tom_brain_memory/tom_brain_memory.dart'

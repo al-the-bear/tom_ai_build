@@ -246,7 +246,7 @@ def test_export_unterminated_fence_throws() -> None:
            _raises(lambda: _export(doc), ValueError, "unterminated"))
 
 
-# --- SpecDocument.to_markdown (item 12) --------------------------------------
+# --- SpecDocument.to_markdown (one-line export, SOM §21) --------------------
 
 
 def test_to_markdown() -> None:

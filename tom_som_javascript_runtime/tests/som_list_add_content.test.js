@@ -2,7 +2,7 @@
 
 /**
  * Behavioural tests for the SomList convenience members `addContent(...)` and
- * the `contents` getter (SOM convenience roadmap item 9) — the JavaScript port
+ * the `contents` getter (SOM §21 content-only list convenience) — the JS port
  * of the Dart `SomList.addContent` / `SomList.contents` tests.
  *
  * `addContent` appends an item using the *same* section-id logic as `add` and

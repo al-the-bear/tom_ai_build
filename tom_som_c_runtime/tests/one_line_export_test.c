@@ -1,8 +1,8 @@
-/* Unit test for the SOM §21 root-by-type + one-call-Markdown additions, the C
- * port of the Dart reference in
- * `tom_som_dart_runtime` (groups `SpecModel.rootByType (item 12)` in
- * spec_model_test.dart and `SpecDocument.toMarkdown (item 12)` in
- * spec_document_markdown_test.dart).
+/* Unit test for the SOM §21 one-line export (root-by-type + one-call
+ * Markdown), the C port of the Dart reference in `tom_som_dart_runtime`
+ * (groups `SpecModel.rootByType (one-line export, SOM §21)` in
+ * spec_model_test.dart and `SpecDocument.toMarkdown (one-line export,
+ * SOM §21)` in spec_document_markdown_test.dart).
  *
  * FEATURE 1 — `spec_model_root_by_type`: returns the root whose type matches, or
  * NULL (setting an owned `err` message that names the missing and available
@@ -212,9 +212,9 @@ int main(void) {
   test_to_markdown_no_populated_root();
   test_to_markdown_ambiguous_roots();
   if (g_failures == 0) {
-    printf("item12_root_by_type: all checks passed\n");
+    printf("one_line_export: all checks passed\n");
     return 0;
   }
-  fprintf(stderr, "item12_root_by_type: %d check(s) failed\n", g_failures);
+  fprintf(stderr, "one_line_export: %d check(s) failed\n", g_failures);
   return 1;
 }

@@ -7,7 +7,7 @@ import tom_som_runtime.SpecDocument;
 
 /**
  * Behavioural test for the structural {@link SomNode#canHaveContent} predicate
- * (roadmap item 10): "does this section TYPE declare the standard {@code content}
+ * (SOM §21): "does this section TYPE declare the standard {@code content}
  * text leaf?" — a compile-time / per-type schema fact, answered WITHOUT probing
  * {@code content()} and WITHOUT ever looking at the document.
  *

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-language golden-log generator for Python (roadmap item 7b).
+"""Cross-language golden-log generator for Python (SOM §19).
 
 Mirror of ``tom_som_dart_v0/tool/golden_log.dart`` — see that file for the
 canonical format definition. Loads the shared sample and emits a byte-identical

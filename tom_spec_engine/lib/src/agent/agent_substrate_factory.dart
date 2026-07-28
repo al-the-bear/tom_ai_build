@@ -20,10 +20,11 @@ import '../memory/memory_scope.dart';
 /// The two `llm_and_d4rt_tools.md` §10 agent substrate modes the application
 /// chooses between.
 ///
-/// **Mode (b) ([tomBrain]) is the default** ([defaultAgentSubstrateMode],
-/// decision F2): it gives the per-application **profile / named session / named
-/// memory** isolation for free, which is exactly what the multi-application /
-/// multi-phase goal (Q1 / F1) needs. **Mode (a) ([direct]) is opt-in** for the
+/// **Mode (b) ([tomBrain]) is the default** ([defaultAgentSubstrateMode]): it
+/// gives the per-application **profile / named session / named memory**
+/// isolation for free, which is exactly what the multi-application /
+/// multi-phase application mapping (`llm_and_d4rt_tools.md` §11) needs.
+/// **Mode (a) ([direct]) is opt-in** for the
 /// lightest single-application use, where the Tom Brain session envelope would
 /// be overhead.
 enum AgentSubstrateMode {
@@ -37,7 +38,7 @@ enum AgentSubstrateMode {
   tomBrain,
 }
 
-/// The default `llm_and_d4rt_tools.md` §10 substrate mode (decision F2): mode
+/// The default `llm_and_d4rt_tools.md` §10 substrate mode: mode
 /// (b), Agent-SDK-through-`tom_brain`. The application gets the profile /
 /// session / memory isolation unless it explicitly opts into
 /// [AgentSubstrateMode.direct].
@@ -45,7 +46,7 @@ const AgentSubstrateMode defaultAgentSubstrateMode = AgentSubstrateMode.tomBrain
 
 /// Builds the [AgentSubstrate] for [mode] over the shared [tools].
 ///
-/// [mode] defaults to [defaultAgentSubstrateMode] — **mode (b)** (F2) — so an
+/// [mode] defaults to [defaultAgentSubstrateMode] — **mode (b)** — so an
 /// application that does not explicitly choose gets the Tom Brain
 /// profile/session/memory isolation; pass [AgentSubstrateMode.direct] to opt
 /// into the lighter mode (a).

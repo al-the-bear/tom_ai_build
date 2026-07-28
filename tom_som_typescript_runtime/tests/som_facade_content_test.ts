@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Behavioural test for the {@link SomList} content convenience (roadmap item 9):
+ * Behavioural test for the {@link SomList} content convenience (SOM §21):
  * the `addContent(...)` append-and-set helper plus the `contents` ordered read.
  *
  * The real element facades are generated centrally (this test cannot run the

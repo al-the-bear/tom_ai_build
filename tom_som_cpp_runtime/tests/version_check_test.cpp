@@ -2,7 +2,7 @@
  * (`somEditabilityFor` + `checkSomModelVersion`), an idiomatic-C++ port mirror
  * of the Dart reference cases in `tom_som_dart_runtime`'s `som_facade.dart`.
  *
- * Covers item 8: the non-throwing classifier `somEditabilityFor`, and confirms
+ * Covers the non-throwing classifier `somEditabilityFor`, and confirms
  * the throwing `checkSomModelVersion` delegates to it — throwing exactly where
  * the classifier returns a non-editable value and staying silent where it
  * returns editable. Exit 0 == all green; non-zero on the first failed check.
@@ -104,7 +104,7 @@ int main() {
   check("check throws on invalid", checkThrows(gen, "garbage"));
 
   // Where checkSomModelVersion throws, somEditabilityFor must return the
-  // matching non-editable value without throwing (item 8's core property).
+  // matching non-editable value without throwing (the classifier's core property).
   check("no throw where check throws (newer minor)",
         classify(gen, "1.3") == E::rejectedNewerMinor);
   check("no throw where check throws (cross-major)",

@@ -1,5 +1,4 @@
-/* Tests for the item-12 one-call convenience additions, mirroring the Dart
- * reference groups:
+/* Tests for the SOM §21 one-line export, mirroring the Dart reference groups:
  *   - SpecModel::rootByType  (spec_model_test.dart / 'SpecModel.rootByType')
  *   - SpecDocument::toMarkdown (spec_document_markdown_test.dart / 'toMarkdown')
  *
@@ -84,7 +83,7 @@ bool contains(const std::string& hay, const std::string& needle) {
 }  // namespace
 
 int main() {
-  // ---- SpecModel::rootByType (item 12) ----
+  // ---- SpecModel::rootByType (one-line export, SOM §21) ----
   {
     auto model = parseModel(kTwoRootJson);
     check("rootByType returns the root whose type matches (Alpha)",
@@ -106,7 +105,7 @@ int main() {
     check("rootByType message lists available type Beta", contains(msg, "Beta"));
   }
 
-  // ---- SpecDocument::toMarkdown (item 12) ----
+  // ---- SpecDocument::toMarkdown (one-line export, SOM §21) ----
   auto demo = parseModel(kDemoJson);
 
   // matches the explicit codec output for an explicit rootType.
@@ -165,9 +164,10 @@ int main() {
   }
 
   if (g_failed == 0) {
-    std::printf("item12_test: all %zu checks passed\n", g_passed);
+    std::printf("one_line_export_test: all %zu checks passed\n", g_passed);
     return 0;
   }
-  std::printf("item12_test: %zu passed, %zu FAILED\n", g_passed, g_failed);
+  std::printf("one_line_export_test: %zu passed, %zu FAILED\n", g_passed,
+              g_failed);
   return 1;
 }

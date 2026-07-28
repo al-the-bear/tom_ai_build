@@ -1,9 +1,9 @@
-/// Shared groundwork for packaging the nine SOM language libraries (PGK1).
+/// Shared groundwork for packaging the nine SOM language libraries (SOM §17).
 ///
 /// The per-language SOM projects (`tom_som_<lang>_runtime` +
 /// `tom_som_<lang>_v0`) must be integratable through each ecosystem's native
 /// package tooling. This library holds the **language-agnostic** machinery the
-/// per-language work (PGK2..PGK10) builds on:
+/// per-language descriptors build on:
 ///
 ///   * [packageVersionFromModel] — the single version rule: every package's
 ///     version is derived from the TomSpecs *model version*, never maintained
@@ -23,8 +23,8 @@
 ///   * [writeFacadePackaging] / [alignRuntimeManifestVersion] — the IO hooks
 ///     `generate_som.dart` invokes per target (via [packagingDescriptorFor]).
 ///
-/// Nothing here hard-codes a language; [packagingDescriptorFor] is the empty
-/// registry each per-language todo fills in, at which point the generator hook
+/// Nothing here hard-codes a language; [packagingDescriptorFor] is the registry
+/// each language's descriptor is entered in, at which point the generator hook
 /// activates for that language.
 library;
 
@@ -96,7 +96,7 @@ class PackagingRoute {
 }
 
 /// The per-language data the shared renderers and hooks consume. Each SOM
-/// language supplies one of these (PGK2..PGK10) and registers it in
+/// language supplies one of these (SOM §17.3) and registers it in
 /// [packagingDescriptorFor]; everything else is language-agnostic.
 class PackagingDescriptor {
   const PackagingDescriptor({
@@ -385,17 +385,14 @@ void alignRuntimeManifestVersion({
 
 /// The per-language packaging descriptor registry.
 ///
-/// Each per-language todo (PGK2..PGK10) adds its [PackagingDescriptor] here,
-/// which immediately activates [writeFacadePackaging] +
-/// [alignRuntimeManifestVersion] for that language on the next
-/// `generate_som.dart` run. PGK2 registered Dart (pub); PGK3 registered Python
-/// (PEP 517); PGK4 registered Java (Maven); PGK5 registered JavaScript (npm);
-/// PGK6 registered TypeScript (npm + compiled `dist/`); PGK7 registered Go
-/// (module path + in-source version constant / VCS tag scheme); PGK8 registered
-/// Rust (Cargo crate — versioned `path` dependency + crate metadata); PGK9
-/// registered C (Makefile — static + shared library, pkg-config `.pc`, `make
-/// install` / `make dist`); PGK10 registered C++ (Makefile — static + shared
-/// library, pkg-config `.pc`, `make install` / `make dist`).
+/// A language's [PackagingDescriptor] entry here immediately activates
+/// [writeFacadePackaging] + [alignRuntimeManifestVersion] for that language on
+/// the next `generate_som.dart` run. All nine ecosystems of the SOM §17.3 table
+/// are registered: Dart (pub); Python (PEP 517); Java (Maven); JavaScript
+/// (npm); TypeScript (npm + compiled `dist/`); Go (module path + in-source
+/// version constant / VCS tag scheme); Rust (Cargo crate — versioned `path`
+/// dependency + crate metadata); C and C++ (Makefile — static + shared library,
+/// pkg-config `.pc`, `make install` / `make dist`).
 const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.dart: _dartDescriptor,
   SomLanguage.python: _pythonDescriptor,
@@ -408,9 +405,9 @@ const Map<SomLanguage, PackagingDescriptor> _packagingDescriptors = {
   SomLanguage.cpp: _cppDescriptor,
 };
 
-/// Dart (pub) packaging descriptor — PGK2. The facade `tom_som_dart_v0` and the
-/// runtime `tom_som_dart_runtime` are both publishable pub packages versioned to
-/// the TomSpecs model version.
+/// Dart (pub) packaging descriptor. The facade `tom_som_dart_v0` and the
+/// runtime `tom_som_dart_runtime` are both publishable pub packages versioned
+/// to the TomSpecs model version.
 const PackagingDescriptor _dartDescriptor = PackagingDescriptor(
   language: SomLanguage.dart,
   displayName: 'Dart',
@@ -479,11 +476,11 @@ void main() {
   runtimeManifestFormat: ManifestFormat.pubspec,
 );
 
-/// Python (PEP 517) packaging descriptor — PGK3. The facade `tom_som_python_v0`
-/// and the runtime `tom_som_python_runtime` are both PEP 517 source
-/// distributions (`python -m build` → wheel + sdist) versioned to the TomSpecs
-/// model version. The facade is a single top-level module (`py-modules`); the
-/// runtime ships the importable `tom_som_runtime` package.
+/// Python (PEP 517) packaging descriptor. The facade `tom_som_python_v0` and
+/// the runtime `tom_som_python_runtime` are both PEP 517 source distributions
+/// (`python -m build` → wheel + sdist) versioned to the TomSpecs model version.
+/// The facade is a single top-level module (`py-modules`); the runtime ships
+/// the importable `tom_som_runtime` package.
 const PackagingDescriptor _pythonDescriptor = PackagingDescriptor(
   language: SomLanguage.python,
   displayName: 'Python',
@@ -561,12 +558,12 @@ print(blueprint.content)''',
   runtimeManifestFormat: ManifestFormat.pyproject,
 );
 
-/// Java (Maven) packaging descriptor — PGK4. The facade `tom_som_java_v0` and
-/// the runtime `tom_som_java_runtime` are both Maven `jar` artifacts versioned
-/// to the TomSpecs model version. The build host here carries only the JDK (no
+/// Java (Maven) packaging descriptor. The facade `tom_som_java_v0` and the
+/// runtime `tom_som_java_runtime` are both Maven `jar` artifacts versioned to
+/// the TomSpecs model version. The build host here carries only the JDK (no
 /// Maven), so each project also ships a `build_jar.sh` fallback that compiles
-/// with `javac` and packages with `jar` — producing the same artifact
-/// `mvn package` would.
+/// with `javac` and packages with `jar` — producing the same artifact `mvn
+/// package` would.
 const PackagingDescriptor _javaDescriptor = PackagingDescriptor(
   language: SomLanguage.java,
   displayName: 'Java',
@@ -636,12 +633,12 @@ System.out.println(blueprint.content());''',
   runtimeManifestFormat: ManifestFormat.pomXml,
 );
 
-/// JavaScript (npm) packaging descriptor — PGK5. The facade
-/// `tom_som_javascript_v0` and the runtime `tom_som_javascript_runtime` are both
-/// npm packages versioned to the TomSpecs model version. The facade is a single
-/// CommonJS module plus its `meta/` + `schemas/` payload; the runtime ships the
-/// importable `tom_som_runtime/` package. Both are `private` (proprietary), so
-/// `npm pack` is the packaging check rather than `npm publish`.
+/// JavaScript (npm) packaging descriptor. The facade `tom_som_javascript_v0`
+/// and the runtime `tom_som_javascript_runtime` are both npm packages versioned
+/// to the TomSpecs model version. The facade is a single CommonJS module plus
+/// its `meta/` + `schemas/` payload; the runtime ships the importable
+/// `tom_som_runtime/` package. Both are `private` (proprietary), so `npm pack`
+/// is the packaging check rather than `npm publish`.
 const PackagingDescriptor _javaScriptDescriptor = PackagingDescriptor(
   language: SomLanguage.javascript,
   displayName: 'JavaScript',
@@ -714,14 +711,14 @@ console.log(blueprint.content);''',
   runtimeManifestFormat: ManifestFormat.packageJson,
 );
 
-/// TypeScript (npm + compiled `dist/`) packaging descriptor — PGK6. The facade
-/// `tom_som_typescript_v0` and the runtime `tom_som_typescript_runtime` are both
-/// npm packages that ship **compiled `dist/`** (`.js` + `.d.ts`) built by a
-/// `prepack` step (`tsc`), versioned to the TomSpecs model version. The facade
-/// imports the runtime by bare specifier wired through a relative `file:`
-/// dependency, so its `prepack` builds the runtime first, then the facade. Both
-/// are `private` (proprietary), so `npm pack` is the packaging check rather than
-/// `npm publish`.
+/// TypeScript (npm + compiled `dist/`) packaging descriptor. The facade
+/// `tom_som_typescript_v0` and the runtime `tom_som_typescript_runtime` are
+/// both npm packages that ship **compiled `dist/`** (`.js` + `.d.ts`) built by
+/// a `prepack` step (`tsc`), versioned to the TomSpecs model version. The
+/// facade imports the runtime by bare specifier wired through a relative
+/// `file:` dependency, so its `prepack` builds the runtime first, then the
+/// facade. Both are `private` (proprietary), so `npm pack` is the packaging
+/// check rather than `npm publish`.
 const PackagingDescriptor _typeScriptDescriptor = PackagingDescriptor(
   language: SomLanguage.typescript,
   displayName: 'TypeScript',
@@ -798,17 +795,18 @@ console.log(blueprint.content);''',
   runtimeManifestFormat: ManifestFormat.packageJson,
 );
 
-/// Go (module + VCS tag) packaging descriptor — PGK7. The facade `tom_som_go_v0`
-/// and the runtime `tom_som_go_runtime` are Go modules with **domain-qualified
+/// Go (module + VCS tag) packaging descriptor. The facade `tom_som_go_v0` and
+/// the runtime `tom_som_go_runtime` are Go modules with **domain-qualified
 /// module paths** (`github.com/al-the-bear/tom_ai_build/tom_som_go_<v>`), so
-/// `go get` can resolve them. Go has no registry: distribution is by VCS tag, so
-/// each module also carries an **in-source `Version` constant** (`Version =
-/// "vX.Y.Z"`) set to the TomSpecs model version, and the documented tag scheme is
-/// the matching `vMAJOR.MINOR.PATCH` tag. The runtime's version constant lives in
-/// its hand-authored `doc.go`, realigned by [alignRuntimeManifestVersion]. Locally
-/// the facade resolves the runtime through a relative `replace` directive; a real
-/// `go get` uses the required module path + tag (dependency `replace` directives
-/// are ignored, so the `require` names the real remote path).
+/// `go get` can resolve them. Go has no registry: distribution is by VCS tag,
+/// so each module also carries an **in-source `Version` constant** (`Version =
+/// "vX.Y.Z"`) set to the TomSpecs model version, and the documented tag scheme
+/// is the matching `vMAJOR.MINOR.PATCH` tag. The runtime's version constant
+/// lives in its hand-authored `doc.go`, realigned by
+/// [alignRuntimeManifestVersion]. Locally the facade resolves the runtime
+/// through a relative `replace` directive; a real `go get` uses the required
+/// module path + tag (dependency `replace` directives are ignored, so the
+/// `require` names the real remote path).
 const PackagingDescriptor _goDescriptor = PackagingDescriptor(
   language: SomLanguage.go,
   displayName: 'Go',
@@ -887,14 +885,14 @@ fmt.Println(blueprint.Content())''',
   runtimeManifestFormat: ManifestFormat.goVersionConst,
 );
 
-/// Rust (Cargo crate) packaging descriptor — PGK8. The facade `tom_som_rust_v0`
-/// and the runtime `tom_som_rust_runtime` are Cargo crates versioned to the
-/// TomSpecs model version. Both are `publish = false` (proprietary), so
-/// `cargo package --no-verify` is the packaging check rather than `cargo
-/// publish`. The facade resolves the runtime by a fixed crate name through a
-/// relative `path` dependency; because `cargo package` requires every dependency
-/// to carry a version, that dependency also pins `version = <model version>`
-/// (the `path` is stripped from the packaged manifest, leaving the version).
+/// Rust (Cargo crate) packaging descriptor. The facade `tom_som_rust_v0` and
+/// the runtime `tom_som_rust_runtime` are Cargo crates versioned to the
+/// TomSpecs model version. Both are `publish = false` (proprietary), so `cargo
+/// package --no-verify` is the packaging check rather than `cargo publish`. The
+/// facade resolves the runtime by a fixed crate name through a relative `path`
+/// dependency; because `cargo package` requires every dependency to carry a
+/// version, that dependency also pins `version = <model version>` (the `path`
+/// is stripped from the packaged manifest, leaving the version).
 const PackagingDescriptor _rustDescriptor = PackagingDescriptor(
   language: SomLanguage.rust,
   displayName: 'Rust',
@@ -976,12 +974,12 @@ fn main() {
   runtimeManifestFormat: ManifestFormat.cargoToml,
 );
 
-/// C (Makefile + pkg-config) packaging descriptor — PGK9. The facade
-/// `tom_som_c_v0` and the runtime `tom_som_c_runtime` are built by a `Makefile`
-/// into a static (`.a`) and a shared (`.so`) library. C has no package registry,
-/// so distribution is by installed **library + headers + pkg-config file** or by
-/// **source tarball** — both `Makefile`s emit a `tom_som_<name>.pc` (`Version` =
-/// the model version; the facade's `Requires: tom_som_c_runtime`) and carry
+/// C (Makefile + pkg-config) packaging descriptor. The facade `tom_som_c_v0`
+/// and the runtime `tom_som_c_runtime` are built by a `Makefile` into a static
+/// (`.a`) and a shared (`.so`) library. C has no package registry, so
+/// distribution is by installed **library + headers + pkg-config file** or by
+/// **source tarball** — both `Makefile`s emit a `tom_som_<name>.pc` (`Version`
+/// = the model version; the facade's `Requires: tom_som_c_runtime`) and carry
 /// `make install` / `make dist` targets. The runtime's own version lives in its
 /// hand-authored `Makefile` `VERSION` variable, realigned by
 /// [alignRuntimeManifestVersion]; the facade resolves the runtime through a
@@ -1086,18 +1084,18 @@ int main(void) {
   runtimeManifestFormat: ManifestFormat.makefileVar,
 );
 
-/// C++ (Makefile + pkg-config) packaging descriptor — PGK10. The facade
+/// C++ (Makefile + pkg-config) packaging descriptor. The facade
 /// `tom_som_cpp_v0` and the runtime `tom_som_cpp_runtime` are built by a
 /// `Makefile` into a static (`.a`) and a shared (`.so`) library. C++ has no
 /// universal package registry, so distribution is by installed **library +
 /// headers + pkg-config file** or by **source tarball** — both `Makefile`s emit
-/// a `tom_som_<name>.pc` (`Version` = the model version; the facade's `Requires:
-/// tom_som_cpp_runtime`) and carry `make install` / `make dist` targets. The
-/// runtime's own version lives in its hand-authored `Makefile` `VERSION`
-/// variable, realigned by [alignRuntimeManifestVersion]; the facade resolves the
-/// runtime through a relative `RUNTIME_DIR` include/link path (built on demand),
-/// so the emitted source stays path-free and golden-stable. `make && make dist`
-/// is the packaging check for both.
+/// a `tom_som_<name>.pc` (`Version` = the model version; the facade's
+/// `Requires: tom_som_cpp_runtime`) and carry `make install` / `make dist`
+/// targets. The runtime's own version lives in its hand-authored `Makefile`
+/// `VERSION` variable, realigned by [alignRuntimeManifestVersion]; the facade
+/// resolves the runtime through a relative `RUNTIME_DIR` include/link path
+/// (built on demand), so the emitted source stays path-free and golden-stable.
+/// `make && make dist` is the packaging check for both.
 const PackagingDescriptor _cppDescriptor = PackagingDescriptor(
   language: SomLanguage.cpp,
   displayName: 'C++',

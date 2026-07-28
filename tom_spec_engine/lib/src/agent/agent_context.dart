@@ -62,8 +62,8 @@ enum AgentToolGroup {
 }
 
 /// The three canonical TomSpecs **applications** — each one Tom Brain
-/// **profile** under the confirmed Q1 mapping (decision F1,
-/// `llm_and_d4rt_tools.md` §11):
+/// **profile** under the application mapping
+/// (`llm_and_d4rt_tools.md` §11):
 ///
 ///   * **one profile per application** — these three names;
 ///   * **one named session per phase/task** — [MemoryScope.session];
@@ -73,20 +73,20 @@ enum AgentToolGroup {
 /// that each addresses exactly one profile — is authoritative in code. All
 /// three now have a fully-authored context ([docSpecsAgentContext],
 /// [codeSpecsAgentContext], [implementationAgentContext]); register the full
-/// set with [tomSpecsContextRegistry] (item 10, decision F10).
+/// set with [tomSpecsContextRegistry].
 const String docSpecsApplication = 'docspecs';
 
-/// The CodeSpecs application profile name (Q1 / F1) — context
-/// [codeSpecsAgentContext].
+/// The CodeSpecs application profile name (`llm_and_d4rt_tools.md` §11) —
+/// context [codeSpecsAgentContext].
 const String codeSpecsApplication = 'codespecs';
 
-/// The Implementation application profile name (Q1 / F1) — context
-/// [implementationAgentContext].
+/// The Implementation application profile name (`llm_and_d4rt_tools.md` §11) —
+/// context [implementationAgentContext].
 const String implementationApplication = 'implementation';
 
 /// The canonical application set in phase order
 /// (DocSpecs → CodeSpecs → Implementation), each → one Tom Brain profile
-/// (Q1 / F1).
+/// (`llm_and_d4rt_tools.md` §11).
 const List<String> tomSpecsApplications = [
   docSpecsApplication,
   codeSpecsApplication,
@@ -98,14 +98,14 @@ const List<String> tomSpecsApplications = [
 const String docSpecsGuidelinesName = 'llm_guidelines_specification.md';
 
 /// The CodeSpecs application's guidelines document — the agent briefing prompt
-/// the CodeSpecs profile binds (`llm_and_d4rt_tools.md` §11, item 10). Like
+/// the CodeSpecs profile binds (`llm_and_d4rt_tools.md` §11). Like
 /// [docSpecsGuidelinesName] the doc is authored downstream; the prompt registry
 /// renders it lenient-empty until then.
 const String codeSpecsGuidelinesName = 'guidelines_codespecs.md';
 
 /// The Implementation application's guidelines document — the agent briefing
-/// prompt the Implementation profile binds (`llm_and_d4rt_tools.md` §11, item
-/// 10). Authored downstream; lenient-empty until then.
+/// prompt the Implementation profile binds (`llm_and_d4rt_tools.md` §11).
+/// Authored downstream; lenient-empty until then.
 const String implementationGuidelinesName = 'guidelines_implementation.md';
 
 /// The per-application agent context: guidelines + toolset + scope profile,
@@ -214,8 +214,7 @@ AgentContext docSpecsAgentContext() => AgentContext(
       ),
     );
 
-/// The CodeSpecs application context (`llm_and_d4rt_tools.md` §11, item 10;
-/// decision F10).
+/// The CodeSpecs application context (`llm_and_d4rt_tools.md` §11).
 ///
 /// CodeSpecs (Phase 4) reads the structured specifications (`mem_*` recall +
 /// `doc_*` search), edits its own CodeSpecs document (`doc_*` + `script_*`), and
@@ -224,7 +223,7 @@ AgentContext docSpecsAgentContext() => AgentContext(
 /// capability but by their **guidelines prompt** and their isolated Tom Brain
 /// **profile / memory** (the application name addresses both). Per-application
 /// tool *narrowing* is deliberately not invented here (no concrete need; the
-/// toolset ⊆ scopes invariant already bounds capability) — see decision F10.
+/// toolset ⊆ scopes invariant already bounds capability).
 AgentContext codeSpecsAgentContext() => AgentContext(
       application: codeSpecsApplication,
       guidelinesName: codeSpecsGuidelinesName,
@@ -240,14 +239,13 @@ AgentContext codeSpecsAgentContext() => AgentContext(
       ),
     );
 
-/// The Implementation application context (`llm_and_d4rt_tools.md` §11, item
-/// 10; decision F10).
+/// The Implementation application context (`llm_and_d4rt_tools.md` §11).
 ///
 /// Implementation (Phase 6) writes working code + unit tests (`file_*` writes),
 /// edits its own Implementation document (`doc_*` + `script_*`), and recalls the
 /// spec / CodeSpecs context (`mem_*`). Like CodeSpecs it exposes the full
 /// four-group surface and three base scopes, differentiated by its own
-/// guidelines prompt and isolated Tom Brain profile / memory (decision F10).
+/// guidelines prompt and isolated Tom Brain profile / memory.
 AgentContext implementationAgentContext() => AgentContext(
       application: implementationApplication,
       guidelinesName: implementationGuidelinesName,
@@ -264,10 +262,11 @@ AgentContext implementationAgentContext() => AgentContext(
     );
 
 /// A registry holding **all three** canonical TomSpecs application contexts —
-/// the full Q1 mapping authored (DocSpecs → CodeSpecs → Implementation,
-/// `llm_and_d4rt_tools.md` §11, item 10). This is the registry the editor binds
-/// so every canonical application resolves to its own profile (guidelines +
-/// tools + scopes + isolated memory) rather than falling back to DocSpecs.
+/// the full application mapping authored (DocSpecs → CodeSpecs →
+/// Implementation, `llm_and_d4rt_tools.md` §11). This is the registry the
+/// editor binds so every canonical application resolves to its own profile
+/// (guidelines + tools + scopes + isolated memory) rather than falling back to
+/// DocSpecs.
 AgentContextRegistry tomSpecsContextRegistry() => AgentContextRegistry()
   ..register(docSpecsAgentContext())
   ..register(codeSpecsAgentContext())

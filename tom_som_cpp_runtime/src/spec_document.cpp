@@ -12,7 +12,7 @@
 
 namespace som {
 
-/* ---- one-call Markdown export (item 12) --------------------------------- */
+/* ---- one-call Markdown export (SOM §21) --------------------------------- */
 
 std::string SpecDocument::toMarkdown(const SpecModel& model,
                                      const std::string& rootType) const {
@@ -47,7 +47,7 @@ std::string SpecDocument::toMarkdown(const SpecModel& model,
                            "); pass rootType to choose one");
 }
 
-/* ---- one-call document loading (item 4) --------------------------------- */
+/* ---- one-call document loading (SOM §21) -------------------------------- */
 
 std::optional<SpecDocument> SpecDocument::fromYaml(const std::string& yaml,
                                                    const SomMetaTree& tree,

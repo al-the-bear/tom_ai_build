@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Cross-language golden-log driver (roadmap item 7b).
+# Cross-language golden-log driver (SOM §19.1).
 #
 # Builds and runs every `tom_som_<lang>_v0` golden generator, each of which
 # writes a canonical reading of the shared sample to

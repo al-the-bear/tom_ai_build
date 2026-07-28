@@ -324,9 +324,9 @@ function testMarkdownRoundTrip(model: SpecModel): void {
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
 
-// Plan item #9: parsing `expected.md` and applying it must reproduce
-// `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
+// converge on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model: SpecModel): void {
   const golden = _read('expected.md');
   const canonical = _readJson('state.json');
@@ -362,9 +362,10 @@ function _throwsWith(name: string, fn: () => unknown, needles: string[]): void {
   }
 }
 
-// Item-12 one-liners: SpecModel.rootByType + SpecDocument.toMarkdown. Mirrors the
-// Dart reference groups in spec_model_test.dart / spec_document_markdown_test.dart.
-function testItem12(model: SpecModel): void {
+// SOM §21 one-line export: SpecModel.rootByType + SpecDocument.toMarkdown.
+// Mirrors the Dart reference groups in spec_model_test.dart /
+// spec_document_markdown_test.dart.
+function testOneLineExport(model: SpecModel): void {
   const twoRoot = SpecModel.fromJson({
     roots: [
       { type: 'Alpha', title: 'Alpha Doc', sectionId: 'A00' },
@@ -374,21 +375,21 @@ function testItem12(model: SpecModel): void {
   });
 
   // rootByType: returns the matching root.
-  _check('item12.rootByType.match', twoRoot.rootByType('Alpha').title === 'Alpha Doc');
-  _check('item12.rootByType.sectionId', twoRoot.rootByType('Beta').sectionId === 'B00');
+  _check('oneLineExport.rootByType.match', twoRoot.rootByType('Alpha').title === 'Alpha Doc');
+  _check('oneLineExport.rootByType.sectionId', twoRoot.rootByType('Beta').sectionId === 'B00');
   // rootByType: throws naming missing + available types.
-  _throwsWith('item12.rootByType.throws', () => twoRoot.rootByType('Gamma'), ['Gamma', 'Alpha', 'Beta']);
+  _throwsWith('oneLineExport.rootByType.throws', () => twoRoot.rootByType('Gamma'), ['Gamma', 'Alpha', 'Beta']);
 
   // toMarkdown(rootType) == explicit codec output on the corpus fixture.
   const doc = _documentFromState(_readJson('state.json'));
   const rootType = model.roots[0].type;
   const oneLiner = doc.toMarkdown(model, rootType);
   const explicit = new SpecDocumentMarkdown(model, doc).exportRoot(model.rootByType(rootType));
-  _check('item12.toMarkdown.explicit', oneLiner === explicit, _byteDiff('item12.toMarkdown.explicit', oneLiner, explicit));
+  _check('oneLineExport.toMarkdown.explicit', oneLiner === explicit, _byteDiff('oneLineExport.toMarkdown.explicit', oneLiner, explicit));
   // toMarkdown() defaults to the single populated root (corpus has one root).
-  _check('item12.toMarkdown.default', doc.toMarkdown(model) === oneLiner);
+  _check('oneLineExport.toMarkdown.default', doc.toMarkdown(model) === oneLiner);
   // toMarkdown() throws on an empty document (no populated root).
-  _throwsWith('item12.toMarkdown.none', () => new SpecDocument().toMarkdown(model), ['no populated root']);
+  _throwsWith('oneLineExport.toMarkdown.none', () => new SpecDocument().toMarkdown(model), ['no populated root']);
 
   // toMarkdown() throws naming candidates when >1 root is populated.
   const ambiguousModel = SpecModel.fromJson({
@@ -404,7 +405,7 @@ function testItem12(model: SpecModel): void {
   const ambiguousDoc = new SpecDocument();
   ambiguousDoc.setContent('A00/A00-OVR', 'a');
   ambiguousDoc.setContent('B00/B00-OVR', 'b');
-  _throwsWith('item12.toMarkdown.ambiguous', () => ambiguousDoc.toMarkdown(ambiguousModel), ['Alpha', 'Beta']);
+  _throwsWith('oneLineExport.toMarkdown.ambiguous', () => ambiguousDoc.toMarkdown(ambiguousModel), ['Alpha', 'Beta']);
 }
 
 function testReflection(model: SpecModel): void {
@@ -636,7 +637,7 @@ export function main(): number {
   testMarkdownExport(model);
   testMarkdownRoundTrip(model);
   testMarkdownMemoryLanding(model);
-  testItem12(model);
+  testOneLineExport(model);
   testReflection(model);
   testValidation(model);
   testOperations();

@@ -1,4 +1,4 @@
-/* Unit tests for the SOM convenience item 9 additions to the C list API
+/* Unit tests for the SOM §21 content-only list convenience in the C list API
  * (`som_list_add_content` / `som_list_add_content_on` / `som_list_contents`),
  * the C port of the Dart `SomList.addContent` + `SomList.contents` reference in
  * `tom_som_dart_runtime/lib/src/som_facade.dart`.

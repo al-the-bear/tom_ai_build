@@ -1,4 +1,4 @@
-// Cross-language golden-log generator (roadmap item 7b).
+// Cross-language golden-log generator (SOM §19).
 //
 // Loads the language-agnostic shared sample
 // (`tom_som_conformance/samples/meridian_order_management.docspecs.yaml`) and

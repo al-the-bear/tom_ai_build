@@ -2,7 +2,7 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 import 'package:test/test.dart';
 
 /// A representative descriptor for the shared-mechanism tests. It is *not* a
-/// registered language (the registry stays empty until PGK2..PGK10); it only
+/// registered language (it is not in the SOM §17.3 registry); it only
 /// exercises the language-agnostic renderers and rewriters.
 PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
       language: SomLanguage.dart,
@@ -23,7 +23,7 @@ PackagingDescriptor _sampleDescriptor() => const PackagingDescriptor(
     );
 
 void main() {
-  group('packageVersionFromModel (item PGK1)', () {
+  group('packageVersionFromModel (SOM §17)', () {
     test('pads major.minor to three components', () {
       expect(packageVersionFromModel('1.0'), '1.0.0');
     });
@@ -46,7 +46,7 @@ void main() {
     });
   });
 
-  group('rewriteManifestVersion (item PGK1)', () {
+  group('rewriteManifestVersion (SOM §17)', () {
     test('pubspec version line', () {
       const src = 'name: foo\nversion: 0.0.0\n\nenvironment:\n  sdk: ^3.11.4\n';
       final out = rewriteManifestVersion(src, ManifestFormat.pubspec, '1.0.0');
@@ -104,7 +104,7 @@ void main() {
     });
   });
 
-  group('renderFacadeReadme (item PGK1)', () {
+  group('renderFacadeReadme (SOM §17)', () {
     test('leads with the how-to block and the version', () {
       final md = renderFacadeReadme(_sampleDescriptor(), version: '1.0.0');
       expect(md, startsWith('# tom_som_dart_v0'));
@@ -117,7 +117,7 @@ void main() {
     });
   });
 
-  group('renderHowToIntegrate (item PGK1)', () {
+  group('renderHowToIntegrate (SOM §17)', () {
     test('renders every route and the version-pin section', () {
       final md = renderHowToIntegrate(_sampleDescriptor(), version: '1.0.0');
       expect(md, contains('# Integrating tom_som_dart_v0'));
@@ -130,7 +130,7 @@ void main() {
     });
   });
 
-  group('ensureGitignoreContent (item PGK1)', () {
+  group('ensureGitignoreContent (SOM §17)', () {
     test('appends missing globs under a managed header', () {
       final out = ensureGitignoreContent('build/\n', ['*.tgz', 'dist/']);
       expect(out, contains('build/'));
@@ -151,7 +151,7 @@ void main() {
     });
   });
 
-  group('renderChangelog (item PGK1)', () {
+  group('renderChangelog (SOM §17)', () {
     test('renders a single model-version entry', () {
       final md = renderChangelog(_sampleDescriptor(), version: '1.0.0');
       expect(md, startsWith('# Changelog'));
@@ -161,14 +161,14 @@ void main() {
     });
   });
 
-  group('licenseText (item PGK1)', () {
+  group('licenseText (SOM §17)', () {
     test('is the proprietary workspace license', () {
       expect(licenseText, contains('Peter Nicolai Alexis Kyaw'));
       expect(licenseText, contains('proprietary and confidential'));
     });
   });
 
-  group('packagingDescriptorFor (item PGK2)', () {
+  group('packagingDescriptorFor — Dart (SOM §17.3)', () {
     test('Dart is registered with the pub package names', () {
       final d = packagingDescriptorFor(SomLanguage.dart);
       expect(d, isNotNull);
@@ -201,7 +201,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK3)', () {
+  group('packagingDescriptorFor — Python (SOM §17.3)', () {
     test('Python is registered with the PEP 517 package names', () {
       final d = packagingDescriptorFor(SomLanguage.python);
       expect(d, isNotNull);
@@ -215,7 +215,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK4)', () {
+  group('packagingDescriptorFor — Java (SOM §17.3)', () {
     test('Java is registered with the Maven package names', () {
       final d = packagingDescriptorFor(SomLanguage.java);
       expect(d, isNotNull);
@@ -229,7 +229,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK5)', () {
+  group('packagingDescriptorFor — JavaScript (SOM §17.3)', () {
     test('JavaScript is registered with the npm package names', () {
       final d = packagingDescriptorFor(SomLanguage.javascript);
       expect(d, isNotNull);
@@ -243,7 +243,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK6)', () {
+  group('packagingDescriptorFor — TypeScript (SOM §17.3)', () {
     test('TypeScript is registered with the npm package names', () {
       final d = packagingDescriptorFor(SomLanguage.typescript);
       expect(d, isNotNull);
@@ -257,7 +257,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK7)', () {
+  group('packagingDescriptorFor — Go (SOM §17.3)', () {
     test('Go is registered with the module-path package names', () {
       final d = packagingDescriptorFor(SomLanguage.go);
       expect(d, isNotNull);
@@ -272,7 +272,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK8)', () {
+  group('packagingDescriptorFor — Rust (SOM §17.3)', () {
     test('Rust is registered with the Cargo crate names', () {
       final d = packagingDescriptorFor(SomLanguage.rust);
       expect(d, isNotNull);
@@ -288,7 +288,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK9)', () {
+  group('packagingDescriptorFor — C (SOM §17.3)', () {
     test('C is registered with the Makefile / pkg-config package names', () {
       final d = packagingDescriptorFor(SomLanguage.c);
       expect(d, isNotNull);
@@ -305,7 +305,7 @@ void main() {
     });
   });
 
-  group('packagingDescriptorFor (item PGK10)', () {
+  group('packagingDescriptorFor — C++ (SOM §17.3)', () {
     test('C++ is registered with the Makefile / pkg-config package names', () {
       final d = packagingDescriptorFor(SomLanguage.cpp);
       expect(d, isNotNull);
@@ -322,7 +322,7 @@ void main() {
     });
   });
 
-  group('rewriteManifestVersion (item PGK4)', () {
+  group('rewriteManifestVersion — Maven pom.xml (SOM §17.3)', () {
     test('pom.xml rewrites the project version, not the modelVersion or deps',
         () {
       const src = '<project>\n'

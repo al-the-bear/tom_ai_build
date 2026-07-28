@@ -183,9 +183,9 @@ def test_markdown_round_trip(model: SpecModel) -> None:
 
 
 def test_markdown_lands_in_shared_memory(model: SpecModel) -> None:
-    """Plan item #9: parsing ``expected.md`` and applying it must reproduce
-    ``state.json`` (the YAML-route memory) exactly, proving both formats
-    converge on one in-memory document (SOM §8)."""
+    """Markdown/YAML convergence: parsing ``expected.md`` and applying it must
+    reproduce ``state.json`` (the YAML-route memory) exactly, proving both
+    formats converge on one in-memory document (SOM §8)."""
     golden = _read("expected.md")
     canonical = _read_json("state.json")
     doc = _document_from_state(canonical)

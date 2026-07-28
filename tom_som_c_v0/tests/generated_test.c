@@ -578,8 +578,8 @@ static void test_one_call_loading(void) {
 /* The per-type structural `can_have_content` predicate (SOM §21): every
  * generated type emits a `<type>_can_have_content` accessor returning the
  * literal answer to "does this section TYPE declare the standard `content` text
- * leaf?" — WITHOUT probing the document (mirrors the item-8 `editability_for` /
- * item-5 `is_empty` per-type C emission). A content-bearing section (Goals) and
+ * leaf?" — WITHOUT probing the document (mirrors the `editability_for` /
+ * `is_empty` per-type C emission). A content-bearing section (Goals) and
  * the content-bearing root (D00SolutionBlueprint) report 1; a container-only
  * section (SystemsToReplace, which has no `content` leaf) reports 0. Mirrors the
  * Dart `canHaveContent` structural checks. */

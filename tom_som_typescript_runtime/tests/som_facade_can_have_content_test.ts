@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Behavioural test for the structural {@link SomNode.canHaveContent} predicate
- * (roadmap item 10): "does this section TYPE declare the standard `content` text
+ * (SOM §21): "does this section TYPE declare the standard `content` text
  * leaf?" — a compile-time / per-type schema fact, answered WITHOUT probing
  * `.content` and WITHOUT ever looking at the document.
  *

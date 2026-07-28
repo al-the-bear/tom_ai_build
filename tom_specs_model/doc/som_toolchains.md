@@ -67,7 +67,7 @@ golden logs are byte-identical to `dart.log`. Versions were matched to
 | **Go** | Go toolchain (Homebrew) | `1.26.5` | newer (1.26.4) | `brew install go` |
 | **Rust** | rustc / cargo (rustup) | `1.96.0` | **exact** | `rustup` per-user (`~/.cargo`); `. "$HOME/.cargo/env"` in `~/.zshrc` |
 
-Packaging tools (PGK parity): **Maven `3.9.16`** (`brew install maven`, runs on
+Packaging tools (SOM §17 parity): **Maven `3.9.16`** (`brew install maven`, runs on
 JDK 21 via `JAVA_HOME`; bomber has 3.9.11) and **Python `build 1.5.0`**
 (`--user --break-system-packages`, exact match).
 
@@ -205,10 +205,10 @@ whose package is known.
   - `tool/build_packages_summary.dart` — build tool
   - `tool/check_sdk_sum.dart`, `tool/diagnose_packages_sum.dart` — diagnostics tools
 
-## Packaging build tools (PGK sign-off)
+## Packaging build tools (SOM §17 sign-off)
 
 The **compile/run** matrix above covers each language's compiler/runtime. The
-**packaging** sign-off sweep (roadmap item PGK11) additionally exercises each
+**packaging** sign-off sweep (SOM §17) additionally exercises each
 ecosystem's build/pack command (`dart pub publish --dry-run`, `python3 -m build`,
 `mvn package`, `npm pack`, `go build`, `cargo package`, `make dist`). Two of
 those need a packaging tool beyond the bare compiler; both install per-user with

@@ -104,7 +104,7 @@ void main() {
         p.normalize(jsRuntimeDir),
         reason: 'relative path must resolve to the JS runtime package');
 
-    // npm packaging contract (item PGK5): the version is the model version, the
+    // npm packaging contract (SOM §17.3): the version is the model version, the
     // package is proprietary (private + UNLICENSED), the tarball payload is
     // pinned via `files`/`exports`, and the runtime is a declared dependency.
     expect(manifest['version'], '1.0.0',

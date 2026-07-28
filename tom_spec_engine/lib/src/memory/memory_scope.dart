@@ -3,14 +3,14 @@ library;
 
 /// Addresses a unit of agent work across the three isolation levels the
 /// TomSpecs engine establishes over Tom Brain (`llm_and_d4rt_tools.md` §9 /
-/// Q1):
+/// §11):
 ///
 ///   * [application] → a Tom Brain **profile** (the prompt / tool / MCP bundle
-///     an agent runs under). Realised at the agent steps (15–17); carried here
-///     as the addressing component so the memory plane and the agent plane
-///     speak one vocabulary.
+///     an agent runs under). Realised at the agent plane
+///     (`llm_and_d4rt_tools.md` §10 / §11); carried here as the addressing
+///     component so the memory plane and the agent plane speak one vocabulary.
 ///   * [session] → a Tom Brain **named session** (one phase/task run, with its
-///     own settings). Likewise an agent-step concern; carried here.
+///     own settings). Likewise an agent-plane concern; carried here.
 ///   * [document] → a Tom Brain **named memory** — the unit that partitions the
 ///     in-process memory store. At the *memory* plane this is the only
 ///     isolation key: each open document gets its own profile-backed

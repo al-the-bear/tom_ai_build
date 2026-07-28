@@ -97,7 +97,7 @@ void main() {
 
     // Cargo.toml is stamped with the model version and carries the crate
     // metadata `cargo package` needs (license-file / repository), so packaging
-    // is warning-free (PGK8).
+    // is warning-free (SOM §17.3).
     final cargo = File(result.cargoTomlPath).readAsStringSync();
     expect(cargo, contains('name = "tom_som_rust_v0"'));
     expect(cargo, contains('version = "1.0.0"'),

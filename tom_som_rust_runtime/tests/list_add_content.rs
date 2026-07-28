@@ -1,5 +1,6 @@
 //! Behavioural tests for the `add_content` / `contents` convenience members on
-//! [`SomList`] (SOM convenience roadmap item 9), the Rust port of the Dart
+//! [`SomList`] (the SOM §21 content-only list convenience), the Rust port of
+//! the Dart
 //! `SomList.addContent` / `SomList.contents` reference.
 //!
 //! They exercise a content-only element facade (`ContentItem`) whose single

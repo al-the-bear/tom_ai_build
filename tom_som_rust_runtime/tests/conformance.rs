@@ -399,9 +399,9 @@ fn test_markdown_round_trip(c: &mut Checker, model: &SpecModel) {
     }
 }
 
-// Plan item #9: parsing `expected.md` and applying it must reproduce
-// `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
+// converge on one in-memory document (SOM §8).
 fn test_markdown_memory_landing(c: &mut Checker, model: &SpecModel) {
     let golden = read_corpus("expected.md");
     let canonical = DocumentJson::from_json(&read_json("state.json"));

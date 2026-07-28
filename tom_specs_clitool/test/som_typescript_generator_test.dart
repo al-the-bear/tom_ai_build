@@ -116,7 +116,7 @@ void main() {
     expect(scripts['prebuild'], 'npm --prefix $rtPath run build',
         reason: 'prebuild must build the runtime dist via the relative path');
 
-    // npm packaging contract (item PGK6): the version is the model version, the
+    // npm packaging contract (SOM §17.3): the version is the model version, the
     // package is proprietary (private + UNLICENSED), the tarball payload is
     // pinned via `files`/`exports` and ships the *compiled* `dist/` (`.js` +
     // `.d.ts`), and `prepack` rebuilds `dist/` before packing.

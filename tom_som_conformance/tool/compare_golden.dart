@@ -1,4 +1,4 @@
-// Cross-language golden comparison (roadmap item 7b).
+// Cross-language golden comparison (SOM §19).
 //
 // Each `tom_som_<lang>_v0` golden generator writes a canonical reading of the
 // shared sample to `tom_som_conformance/golden/<lang>.log` (see

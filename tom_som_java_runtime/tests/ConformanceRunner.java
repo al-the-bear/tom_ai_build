@@ -306,9 +306,9 @@ public final class ConformanceRunner {
   }
 
   /**
-   * Plan item #9: parsing {@code expected.md} and applying it must reproduce
-   * {@code state.json} (the YAML-route memory) exactly, proving both formats
-   * converge on one in-memory document (SOM §8).
+   * Markdown/YAML convergence: parsing {@code expected.md} and applying it must
+   * reproduce {@code state.json} (the YAML-route memory) exactly, proving both
+   * formats converge on one in-memory document (SOM §8).
    */
   private static void testMarkdownMemoryLanding(SpecModel model) throws IOException {
     String golden = read("expected.md");

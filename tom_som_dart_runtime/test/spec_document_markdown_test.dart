@@ -252,7 +252,7 @@ void main() {
     });
   });
 
-  group('SpecDocument.toMarkdown (item 12)', () {
+  group('SpecDocument.toMarkdown (one-line export, SOM §21)', () {
     test('matches the explicit codec output for an explicit rootType', () {
       final model = _model();
       final doc = _populated();

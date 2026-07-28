@@ -298,7 +298,7 @@ String _tsconfig() {
       'skipLibCheck': true,
       'types': <String>['node'],
     },
-    // `tool/**/*.ts` covers the item-7b golden-harness generator so `tsc`
+    // `tool/**/*.ts` covers the SOM §19 golden-harness generator so `tsc`
     // typechecks it too; keeping it here makes regeneration idempotent against
     // the tracked tsconfig instead of stripping the golden tool on every run.
     'include': <String>[

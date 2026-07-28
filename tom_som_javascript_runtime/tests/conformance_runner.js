@@ -299,9 +299,9 @@ function testMarkdownRoundTrip(model) {
   _check('md.parse.reexport', actual === golden, _byteDiff('md.parse.reexport', actual, golden));
 }
 
-// Plan item #9: parsing `expected.md` and applying it must reproduce
-// `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
+// converge on one in-memory document (SOM §8).
 function testMarkdownMemoryLanding(model) {
   const golden = _read('expected.md');
   const canonical = _readJson('state.json');

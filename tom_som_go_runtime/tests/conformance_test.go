@@ -424,9 +424,9 @@ func testMarkdownRoundTrip(c *checker, t *testing.T, model *som.SpecModel) {
 	c.check("md.parse.reexport", actual == golden, byteDiff("md.parse.reexport", actual, golden))
 }
 
-// Plan item #9: parsing `expected.md` and applying it must reproduce
-// `state.json` (the YAML-route memory) exactly, proving both formats converge
-// on one in-memory document (SOM §8).
+// Markdown/YAML convergence: parsing `expected.md` and applying it must
+// reproduce `state.json` (the YAML-route memory) exactly, proving both formats
+// converge on one in-memory document (SOM §8).
 func testMarkdownMemoryLanding(c *checker, t *testing.T, model *som.SpecModel) {
 	golden := readCorpus(t, "expected.md")
 	var canonical som.DocumentJson

@@ -4,7 +4,7 @@ import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
-/// One-shot tool (SD-2) that stamps `@SerializationOrder(n)` above **every
+/// One-shot tool (SOM §5.2) that stamps `@SerializationOrder(n)` above **every
 /// instance member of every spec-model class**, numbered by source declaration
 /// order (0-based, per class).
 ///

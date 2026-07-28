@@ -187,7 +187,8 @@ main() { files.writeText('outside.txt', 'x'); }
       expect(File('${ws.path}/outside.txt').existsSync(), isFalse);
     });
 
-    test('a script find can include the declared asset dirs (item 18)', () {
+    test('a script find can include the declared asset dirs '
+        '(llm_and_d4rt_tools.md §7)', () {
       // An out-of-workspace asset dir the profile declares.
       File('${outside.path}/template.md').writeAsStringSync('# tmpl');
       final assetFacade = SpecFileFacade(

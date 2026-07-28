@@ -6,7 +6,8 @@
 /// plane, this partial library re-exports the `llm_and_d4rt_tools.md` §11
 /// **AgentContext** surface the editor needs to make the live **Tom Brain
 /// profile binding** — one profile per application carrying that application's
-/// guidelines prompt, tool set and scope profile (the Q1 mapping, decision F1).
+/// guidelines prompt, tool set and scope profile (the application → profile
+/// mapping).
 ///
 /// It exposes exactly the context *value* surface: [AgentContext],
 /// [AgentToolGroup], the canonical application names

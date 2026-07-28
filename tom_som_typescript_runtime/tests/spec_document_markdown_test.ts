@@ -242,7 +242,7 @@ function testExportUntermFenceThrows(): void {
   _check('export.untermFence.raises', _raises(() => _export(doc), 'unterminated'));
 }
 
-// --- SpecDocument.toMarkdown (item 12) --------------------------------------
+// --- SpecDocument.toMarkdown (one-line export, SOM §21) ---------------------
 
 function testToMarkdown(): void {
   const model = _model();

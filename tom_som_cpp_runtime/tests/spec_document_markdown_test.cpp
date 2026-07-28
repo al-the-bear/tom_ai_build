@@ -121,7 +121,7 @@ std::size_t stagedContentLen(const som::SpecMarkdownResult& r) {
   return r.staged.content.size();
 }
 
-/* ---- fixtures (shared with item12) --------------------------------------- */
+/* ---- fixtures (shared with one_line_export_test.cpp) --------------------- */
 
 const char* DEMO_MODEL_JSON = R"({
   "roots": [
@@ -318,7 +318,7 @@ void testMarkdownExportUntermFenceErrors() {
           raised ? err : std::string("(no error)"));
 }
 
-/* ---- SpecDocument.ToMarkdown (item 12) ----------------------------------- */
+/* ---- SpecDocument.ToMarkdown (one-line export, SOM §21) ------------------ */
 
 void testMarkdownToMarkdown() {
   auto m = demoModel();

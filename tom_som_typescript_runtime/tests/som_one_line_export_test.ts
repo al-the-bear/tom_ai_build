@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 /**
- * Tests for the item-12 one-liners: {@link SpecModel.rootByType} and
+ * Tests for the SOM §21 one-line export: {@link SpecModel.rootByType} and
  * {@link SpecDocument.toMarkdown} — the TypeScript port of the Dart reference
- * groups `SpecModel.rootByType (item 12)` (in `spec_model_test.dart`) and
- * `SpecDocument.toMarkdown (item 12)` (in `spec_document_markdown_test.dart`).
+ * groups `SpecModel.rootByType (one-line export, SOM §21)` (in
+ * `spec_model_test.dart`) and `SpecDocument.toMarkdown (one-line export,
+ * SOM §21)` (in `spec_document_markdown_test.dart`).
  *
- * Build with `tsc`, then run `node dist/tests/som_item12_test.js`.
+ * Build with `tsc`, then run `node dist/tests/som_one_line_export_test.js`.
  */
 
 import {
@@ -155,7 +156,7 @@ function _populated(): SpecDocument {
   return doc;
 }
 
-// --- SpecModel.rootByType (item 12) ---------------------------------------
+// --- SpecModel.rootByType (one-line export, SOM §21) ----------------------
 
 // returns the root whose type matches
 {
@@ -175,7 +176,7 @@ function _populated(): SpecDocument {
   );
 }
 
-// --- SpecDocument.toMarkdown (item 12) ------------------------------------
+// --- SpecDocument.toMarkdown (one-line export, SOM §21) -------------------
 
 // matches the explicit codec output for an explicit rootType
 {
@@ -243,11 +244,12 @@ function _populated(): SpecDocument {
 }
 
 if (_failed.length === 0) {
-  console.log(`som_item12_test: all ${_passed} checks passed.`);
+  console.log(`som_one_line_export_test: all ${_passed} checks passed.`);
   process.exit(0);
 } else {
   console.error(
-    `som_item12_test: ${_failed.length} FAILED (of ${_passed + _failed.length}):`,
+    `som_one_line_export_test: ${_failed.length} FAILED ` +
+      `(of ${_passed + _failed.length}):`,
   );
   for (const f of _failed) {
     console.error(`  - ${f}`);

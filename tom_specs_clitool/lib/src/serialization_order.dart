@@ -1,4 +1,4 @@
-/// Serialization-order enforcement for the spec-model (SD-2 / roadmap item 3).
+/// Serialization-order enforcement for the spec-model (SOM §5.2).
 ///
 /// The on-disk emission order for **every** SOM language is driven by the
 /// per-class `@SerializationOrder(n)` stamps in `tom_specs_model`. This module

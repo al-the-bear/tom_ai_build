@@ -169,7 +169,8 @@ void main() {
       expect(env.scopeNames, ['spec', 'files', 'memory']);
     });
 
-    test('a profile carries opt-in asset dirs; default is empty (item 18)', () {
+    test('a profile carries opt-in asset dirs; default is empty '
+        '(llm_and_d4rt_tools.md §7)', () {
       final bare = ScopeProfile(name: 'bare', scopeNames: ['files']);
       expect(bare.assetDirs, isEmpty);
 

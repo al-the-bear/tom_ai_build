@@ -5,7 +5,7 @@
  * `can_have_content` answers "does this section TYPE declare the standard
  * `content` text leaf?" — "can this section hold body text?" — WITHOUT probing
  * the document. C has no inheritance or method promotion, so (following the
- * item-8 `editability_for` and item-5 `is_empty` per-type C emission precedent)
+ * `editability_for` and `is_empty` per-type C emission precedent)
  * the generated `tom_som_c_v0` emits a `<type>_can_have_content(const <Type>*)`
  * accessor for EVERY generated section type returning the literal answer:
  *   - 1 for a content-bearing type (one whose model class has a `content`

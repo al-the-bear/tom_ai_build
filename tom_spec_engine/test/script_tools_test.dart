@@ -182,7 +182,8 @@ main() { spec.setContent('PD00/VIS', 'should not happen'); }
     });
   });
 
-  group('script_validate (deeper type-checking — F19)', () {
+  group('script_validate (deeper type-checking, '
+      'llm_and_d4rt_tools.md §8.1)', () {
     test('reports a missing main() entrypoint', () {
       final v = tools.validate(source: 'int answer() => 42;', scopes: ['spec']);
       expect(v.ok, isFalse);

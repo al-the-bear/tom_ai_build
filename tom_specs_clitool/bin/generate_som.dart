@@ -103,7 +103,7 @@ Future<void> main(List<String> arguments) async {
 
   final config = SpecObjectModelConfig.fromYaml(File(configPath).readAsStringSync());
 
-  // SD-2 / item 3: restamp the serialization order as the mandatory first step,
+  // SOM §5.2: restamp the serialization order as the mandatory first step,
   // *before* the model is read. This guarantees every `_v0` facade in this run
   // is emitted from one identical, current stamp state — the on-disk emission
   // order can never drift between languages or go stale after a model edit.
@@ -153,7 +153,7 @@ Future<void> main(List<String> arguments) async {
       '${config.generatesAllRoots ? 'all' : config.documentRoots.join(', ')}');
 
   // The hand-authored runtime package per language — the version-alignment
-  // target for the packaging hook (PGK1). Keyed so the post-emit step can find
+  // target for the packaging hook (SOM §17). Keyed so the post-emit step can
   // the right runtime dir without another switch.
   final runtimeDirs = <SomLanguage, String>{
     SomLanguage.dart: runtimeDir,
@@ -333,7 +333,7 @@ Future<void> main(List<String> arguments) async {
         stdout.writeln('  Makefile: ${result.makefilePath}');
     }
 
-    // Packaging hook (PGK1): once a language registers a PackagingDescriptor,
+    // Packaging hook (SOM §17): once a language registers a PackagingDescriptor,
     // emit its facade docs and realign its runtime version to the model
     // version. A no-op for languages not yet configured.
     final descriptor = packagingDescriptorFor(target.language);

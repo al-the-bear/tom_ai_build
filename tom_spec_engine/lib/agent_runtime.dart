@@ -8,9 +8,9 @@
 /// [AgentSubstrate] modes ([buildAgentSubstrate] / [AgentSubstrateMode],
 /// [BrainAgentSubstrate] / [DirectAgentSubstrate]), the [AgentTask] /
 /// [AgentRunResult] values, the run-trail types ([RunEffort] / [BrainRunRecord]
-/// / [BrainSessionEnvelope]), and — the heart of item 8 — the live
-/// [SpecBrainSessionEnvelope] that records each run into a document's
-/// profile-isolated Tom Brain named memory.
+/// / [BrainSessionEnvelope]), and — the heart of the `llm_and_d4rt_tools.md`
+/// §10 agent system — the live [SpecBrainSessionEnvelope] that records each run
+/// into a document's profile-isolated Tom Brain named memory.
 ///
 /// Because [SpecBrainSessionEnvelope] persists through [SpecMemory], this façade
 /// (unlike [`agent.dart`](agent.dart)) **does** pull the `tom_brain_memory`

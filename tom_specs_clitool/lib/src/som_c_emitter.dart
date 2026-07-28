@@ -427,8 +427,8 @@ class SomCEmitter {
     // SOM §21: a per-type structural predicate answering "does this section
     // TYPE declare the standard `content` text leaf?" — "can this section hold
     // body text?" — without probing the document. C has no inheritance or
-    // method promotion, so (following the item-8 `editability_for` / item-5
-    // `is_empty` per-type C precedent) every generated type emits its own
+    // method promotion, so (following the `editability_for` / `is_empty`
+    // per-type C precedent) every generated type emits its own
     // accessor returning the literal answer: 1 for content-bearing types, 0 for
     // container-only ones. It is deliberately distinct from the STATE
     // predicates `spec_document_has_content` ("value present now?") and
@@ -645,8 +645,8 @@ class SomCEmitter {
       ..writeln('\tsom_node_free(&self->node);')
       ..writeln('}');
     // SOM §21: per-type structural `content`-leaf predicate — a compile-time
-    // literal per generated type (see `_declClass`), mirroring the item-8
-    // `editability_for` / item-5 `is_empty` per-type C emission.
+    // literal per generated type (see `_declClass`), mirroring the
+    // `editability_for` / `is_empty` per-type C emission.
     final literal = _hasContentLeaf(plan.cls) ? '1' : '0';
     b
       ..writeln('int ${plan.canHaveContentFn}(const $t *self) {')

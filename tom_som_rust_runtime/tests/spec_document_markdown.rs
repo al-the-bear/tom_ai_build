@@ -12,7 +12,8 @@
 //! level deeper (SOM §11.2).
 //!
 //! The model fixture (`demo_model`) and populated document
-//! (`populated_demo_doc`) mirror the Go suite's `item12_test.go` fixtures
+//! (`populated_demo_doc`) mirror the Go suite's `one_line_export_test.go`
+//! fixtures
 //! (whose own tests already exist in Rust as inline unit tests in
 //! `spec_model.rs` / `spec_document.rs`).
 
@@ -60,7 +61,7 @@ impl Checker {
     }
 }
 
-// --- fixtures (shared with the Go suite's item12_test.go) --------------------
+// --- fixtures (shared with the Go suite's one_line_export_test.go) ----------
 
 /// The single-root DemoDoc fixture covering content, enum, @Form, a complex
 /// sub-section, and a list of complex items.
@@ -304,7 +305,7 @@ fn test_markdown_export_unterm_fence_errors(c: &mut Checker) {
     );
 }
 
-// --- SpecDocument::to_markdown (item 12) --------------------------------------
+// --- SpecDocument::to_markdown (one-line export, SOM §21) -------------------
 
 fn test_markdown_to_markdown(c: &mut Checker) {
     let model = demo_model();

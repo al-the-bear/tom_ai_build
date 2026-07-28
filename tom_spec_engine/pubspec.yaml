@@ -23,7 +23,7 @@ dependencies:
   tom_d4rt: ">=1.11.0"
   # dcli bridged into D4rt — the raw surface the `files` scope facade
   # (`llm_and_d4rt_tools.md` §7) wraps. Pinned to the latest published line
-  # (^1.1.6 — F4).
+  # (^1.1.6 — the versions decision, `llm_and_d4rt_tools.md` §14).
   tom_d4rt_dcli: ">=1.1.6"
   # The generic SOM runtime — the document memory representation + reflection +
   # validator the `spec` scope (`llm_and_d4rt_tools.md` §5) exposes to D4rt.
