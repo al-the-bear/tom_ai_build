@@ -119,7 +119,7 @@ class D03InformationModel extends DocSpecsSection {
   IntegrityConstraints integrityConstraints = IntegrityConstraints();
 
   /// Domain enum registry — the closed value sets the data model relies on
-  /// (CE-EN home + closed-choice discriminator source, csmb3).
+  /// (`domainEnum` home + closed-choice discriminator source, csmb3).
   @SerializationOrder(14)
   DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
 
@@ -135,7 +135,7 @@ class D03InformationModel extends DocSpecsSection {
   ResultEnvelope resultEnvelope = ResultEnvelope();
 
   /// Message key registry — the single author-copy-once home for user-facing
-  /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes
+  /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
   /// (csmb7).
   @SerializationOrder(17)
   MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();

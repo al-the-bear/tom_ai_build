@@ -96,8 +96,14 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   // ─── Locus: SHARED (<app>_codespec_shared) ───────────────────────────────
 
-  /// Domain enum registry — CE-EN closed value sets, shared by client & server.
-  @Comment('locus: shared — CE-EN')
+  /// Domain enum registry — the closed value sets, shared by client & server.
+  ///
+  /// `domainEnum` is a **member kind, not a part** (`codespecs_mapping.md`
+  /// §4.1): each enum is authored once here and realised as a plain Dart `enum`
+  /// marked `@CsEnum`, placed in the shared project iff a shared contract type
+  /// references it — which is what this registry's shared locus assumes —
+  /// otherwise in the project of the part that introduces it.
+  @Comment('locus: shared — domainEnum (member kind)')
   @SerializationOrder(2)
   DomainEnumRegistry domainEnumRegistry = DomainEnumRegistry();
 

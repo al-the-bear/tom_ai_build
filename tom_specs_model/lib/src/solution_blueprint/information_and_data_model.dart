@@ -4389,13 +4389,13 @@ class SchemaMigrationStepEntry extends DocSpecsSection {
 /// value sets the business data model relies on (order status, currency,
 /// account type, …). Before this registry existed, closed value sets could
 /// only be captured as free-text `@Form` hints (`dataType`/`elementType`) or
-/// inline option lists, so the CE-EN CodeSpecs part (`domainEnum`) had no
+/// inline option lists, so the `domainEnum` CodeSpecs member kind had no
 /// expressible home and the closed-choice mechanism had no real enum to use as
 /// a discriminator.
 ///
 /// This registry serves **two** roles:
 ///
-/// 1. **CE-EN home** — each [DomainEnumEntry] carries the enum's name, backing
+/// 1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing
 ///    type and default, and its [DomainEnumEntry.values] each carry a value id,
 ///    a backing value and a copy reference into the CE-TX message registry.
 /// 2. **Closed-choice discriminator source** — because each enum is *named* and
@@ -4409,7 +4409,7 @@ class SchemaMigrationStepEntry extends DocSpecsSection {
     'ISO/IEC 11179 — metadata registries / value-domain enumerations',
     'Domain-Driven Design — value objects / enumerations',
   ],
-  'The registry of domain enums (closed value sets): each enum with its named, backed values — the CE-EN home and the closed-choice discriminator source.',
+  'The registry of domain enums (closed value sets): each enum with its named, backed values — the `domainEnum` home and the closed-choice discriminator source.',
 )
 @SectionId('DOMEN')
 class DomainEnumRegistry extends DocSpecsSection {
@@ -4420,7 +4420,7 @@ lists its members with a stable value id, an optional backing value (the
 persisted/serialized code) and a copy reference for the display label.
 
 Domain enums authored here are the single source for:
-- CE-EN (`domainEnum`) code generation — an enum type per entry;
+- `domainEnum` code generation — an enum type per entry;
 - the closed-choice (`@OneOf`) discriminator — an enum entry names the choice
   set, its value ids are the cases.
 ''')
@@ -4442,8 +4442,8 @@ Domain enums authored here are the single source for:
 /// A single domain enum (form + values).
 ///
 /// One named closed value set: its name, backing value type, default value and
-/// the ordered list of members. Maps to the CE-EN `domainEnum` part — the enum
-/// name becomes the generated enum type and each member becomes a constant —
+/// the ordered list of members. Maps to the `domainEnum` **member kind** — the
+/// enum name becomes the generated enum type and each member becomes a constant —
 /// and doubles as a closed-choice discriminator source (csm-7-4): the enum
 /// name identifies the choice set and [values] supply the cases.
 @StandardReferences(
@@ -4455,7 +4455,7 @@ Domain enums authored here are the single source for:
 )
 @SectionId('DMENE')
 @CodeSpecKind([CodeSpecPart.domainEnum],
-    note: 'CE-EN — a closed value set becomes a domain enum / value type: the '
+    note: 'A closed value set becomes a domain enum / value type: the '
         'enum name is the generated type, each value id + backing value a '
         'constant, and each member copy resolves via CE-TX. The enum also '
         'serves as the closed-choice (@OneOf) discriminator source (csm-7-4).')
@@ -4825,7 +4825,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
 /// carrying inline copy and instead reference a key here:
 ///
 /// - **CE-EL / CE-AC** element and action labels, placeholders and help copy;
-/// - **CE-EN** domain-enum value labels ([DomainEnumValueEntry.copyKey]);
+/// - **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);
 /// - **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);
 /// - **CE-VA** validation-failure messages.
 ///
@@ -4838,7 +4838,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
     'W3C Internationalization (i18n) — message catalogues / externalised strings',
     'Unicode CLDR / BCP 47 — locale identification and localized message data',
   ],
-  'The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-EN/CE-ER/CE-VA copy attributes.',
+  'The registry of message keys (author copy once, reference everywhere): each key with its default copy and locale variants — the single CE-TX home referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes.',
 )
 @SectionId('MSGKR')
 class MessageKeyRegistry extends DocSpecsSection {
@@ -4848,7 +4848,7 @@ carries its default (base-locale) copy and any per-locale variants.
 
 Author each string **once here** and reference it by key everywhere it appears:
 - CE-EL/CE-AC element and action labels, placeholders and help text,
-- CE-EN domain-enum value labels (`DomainEnumValueEntry.copyKey`),
+- `domainEnum` value labels (`DomainEnumValueEntry.copyKey`),
 - CE-ER error copy keyed by error code (`ErrorCodeEntry.copyKey`),
 - CE-VA validation-failure messages.
 
@@ -4887,7 +4887,7 @@ validated — no more free-text `*Resource` keys that can silently diverge.
 @SectionId('MSGKE')
 @CodeSpecKind([CodeSpecPart.text],
     note: 'CE-TX — the author-once copy string every consumer references. The '
-        'key is the join token: CE-EL/CE-AC labels, CE-EN value copy '
+        'key is the join token: CE-EL/CE-AC labels, domainEnum value copy '
         '(DomainEnumValueEntry.copyKey), CE-ER error copy (ErrorCodeEntry.copyKey) '
         'and CE-VA messages all resolve here. The default copy plus locale '
         'variants become the generated message catalogue.')

@@ -3,7 +3,7 @@
   - content
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
-  - `DomainEnumRegistry` ← (locus: shared — CE-EN)
+  - `DomainEnumRegistry` ← (locus: shared — domainEnum (member kind))
     - content
     - enums: `DomainEnumEntry`
       - content @Form(enumName, description, backingType, defaultValue)

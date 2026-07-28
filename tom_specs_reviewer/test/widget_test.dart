@@ -362,7 +362,7 @@ const _annotationJson = '''
          "elementIsComplex": true, "sectionId": "ANIT",
          "sectionIdPattern": "ANIT-ITEM-xxx", "serializationOrder": 2,
          "annotations": [
-           {"name": "Comment", "arguments": {"text": "locus: shared -- CE-EN"}}
+           {"name": "Comment", "arguments": {"text": "locus: shared -- CE-ER"}}
          ],
          "standardReferences": {
            "standards": ["IEEE 829-2008 -- test documentation"],
@@ -1171,7 +1171,7 @@ void main() {
       expect(find.text('← Seeds -> QAP'), findsOneWidget);
       // The `locus:` variant drives the §4.2 project split, so it has to be
       // readable without opening anything.
-      expect(find.text('← locus: shared -- CE-EN'), findsOneWidget);
+      expect(find.text('← locus: shared -- CE-ER'), findsOneWidget);
       if (file.existsSync()) file.deleteSync();
     });
 

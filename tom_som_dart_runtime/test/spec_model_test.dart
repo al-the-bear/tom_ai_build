@@ -753,10 +753,10 @@ void main() {
       final field = fieldOf(modelWith(fieldAnnotations: [
         {
           'name': 'Comment',
-          'arguments': {'text': 'locus: shared — CE-EN'},
+          'arguments': {'text': 'locus: shared — CE-ER'},
         },
       ]));
-      expect(field.comment, 'locus: shared — CE-EN');
+      expect(field.comment, 'locus: shared — CE-ER');
     });
 
     test('comment is read on classes too', () {

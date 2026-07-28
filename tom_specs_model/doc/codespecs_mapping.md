@@ -295,8 +295,8 @@ surface — pillar (a)/(b)):
 - **Promotion never moves an enum value.** A reserved `CodeSpecPart` value keeps
   its declared position when its part is promoted — the enum is append-only in
   ordering terms, so the total stays 28 whichever readiness class a part is in.
-  `notification`, `auditLog` and `backgroundJob` were promoted from §4.3 and sit
-  where they were reserved.
+  `notification`, `auditLog`, `backgroundJob` and `reporting` were promoted from
+  §4.3 and sit where they were reserved.
 - **Deferred parts are mapping-only (§4.3).** A deferred part gets a **reserved
   `CodeSpecPart` value** so its SOM section can already carry `@CodeSpecKind`, but has
   **no `Cs*` annotation, no "Built on" `tom_core` class and no generated code**
@@ -3128,7 +3128,7 @@ ever reads.
 |------|--------------|
 | CE-API | Delivery — a report is returned by an ordinary endpoint (§7 contract); no special transport. |
 | CE-DB | Source — entities and repositories; the dimensions and measures compile onto the CE-DB query substrate. |
-| CE-EN | A parameter of type `enumeration` names a domain enum, whose values bound the input. |
+| `domainEnum` | A parameter of type `enumeration` names a domain enum (the member kind, not a part), whose values bound the input. |
 | CE-TX | Every title, header and label is a message key, never inline copy (§1.2 consequence 1). |
 | CE-NV | A column's drill-through names a route; the route is CE-NV's. |
 | CE-AZ | The authorization requirement a caller must satisfy to run the report. |
@@ -3629,7 +3629,6 @@ a specification.
 | Todo | Open work |
 |------|-----------|
 | `csra6` | Implement the `Cs*Ref` typed cross-part reference const family designed in §5.23 — currently designed, zero implementation. |
-| `csra9` | Staleness sweep: fix the retired-`CE-EN` locus comment in the projection, and re-verify the **26 active / 1 deferred / 28 kind values** counts across every surface. (The three `code_spec_kind.dart` count-contradiction sites were corrected while promoting CE-NT and CE-LG.) |
 | `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. **Unblocked**: `tom_core_server`'s `file_storage` module ships the capability — `TomFileReference` is the server-side column annotation (key prefix, target store, cascade), `TomBlobStore` the streaming four-method contract with database / directory / S3 / memory backends selected from configuration, and the repository resolves `saveFile` / `openFile` / `describeFile` / `clearFile` plus cascade-on-delete under the same C-4 column grade as any other column. What remains here is the `@CsColumn` extension that derives it. See `tom_core_server/doc/file_storage.md`. |
 | `csra11` | Re-run the SOM coverage cross-check for all 26 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
