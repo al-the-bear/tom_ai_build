@@ -1,4 +1,5 @@
-/// The `files` base scope and the D4rt bridge for its [SpecFileFacade] (§7).
+/// The `files` base scope and the D4rt bridge for its [SpecFileFacade]
+/// (`llm_and_d4rt_tools.md` §7).
 ///
 /// [filesScope] builds the [ScriptScope] that exposes the audited file facade —
 /// and nothing else — to a sandboxed script: one `spec_files` bridged-library
@@ -8,10 +9,11 @@
 /// read-anywhere / write-whitelist policy is the only file surface available.
 ///
 /// The scope also grants the D4rt permission system `read=any` plus a
-/// `write=<dir>` for each writable root, as the §7 defence-in-depth backstop.
-/// The facade's own path canonicalisation is the primary (and, since only the
-/// facade is bridged, the operative) enforcement; the grants matter the moment
-/// any raw filesystem surface is ever added to the scope.
+/// `write=<dir>` for each writable root, as the `llm_and_d4rt_tools.md` §7
+/// defence-in-depth backstop. The facade's own path canonicalisation is the
+/// primary (and, since only the facade is bridged, the operative) enforcement;
+/// the grants matter the moment any raw filesystem surface is ever added to the
+/// scope.
 library;
 
 import 'package:tom_d4rt/tom_d4rt.dart';

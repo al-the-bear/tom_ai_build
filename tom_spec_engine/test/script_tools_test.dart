@@ -15,8 +15,8 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 /// the auto-awaited `main()` return, and any error/stack. Mutations during a run
 /// route through the same controller a tool mutation does (req c).
 ///
-/// Contract (§8.1): author → validate → run round-trips, capturing
-/// all three output channels.
+/// Contract (`llm_and_d4rt_tools.md` §8.1): author → validate → run
+/// round-trips, capturing all three output channels.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [

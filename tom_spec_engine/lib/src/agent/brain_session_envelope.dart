@@ -1,4 +1,4 @@
-/// The Tom Brain **session envelope** for §10 mode (b).
+/// The Tom Brain **session envelope** for `llm_and_d4rt_tools.md` §10 mode (b).
 ///
 /// Mode (b) ([BrainAgentSubstrate]) drives the *same* complex agent procedure as
 /// mode (a), but wraps each run in Tom Brain's isolation envelope — a **profile**
@@ -8,14 +8,14 @@
 ///
 /// [BrainSessionEnvelope] is the seam at which that envelope plugs in. The
 /// substrate hands it a [MemoryScope] (the application→profile / session→named
-/// session / document→named memory addressing already established for the memory
-/// plane, §9) and the loop body; the envelope opens the session, runs
-/// the body, records the run, and closes the session. Keeping it an injected
-/// port lets the headless "same loop test" run host-independently against
-/// [RecordingBrainEnvelope] while the concrete `tom_brain_memory`-backed
-/// envelope (live profile registry + named-memory run trail) is wired where the
-/// editor composes the agent plane — exactly as the memory plane (§9)
-/// injects its store/embedder ports.
+/// session / document→named memory addressing already established for the
+/// memory plane, `llm_and_d4rt_tools.md` §9) and the loop body; the envelope
+/// opens the session, runs the body, records the run, and closes the session.
+/// Keeping it an injected port lets the headless "same loop test" run
+/// host-independently against [RecordingBrainEnvelope] while the concrete
+/// `tom_brain_memory`-backed envelope (live profile registry + named-memory run
+/// trail) is wired where the editor composes the agent plane — exactly as the
+/// memory plane (`llm_and_d4rt_tools.md` §9) injects its store/embedder ports.
 library;
 
 import 'agent_substrate.dart';

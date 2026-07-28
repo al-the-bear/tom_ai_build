@@ -6,7 +6,7 @@ import 'support/agent_test_fixture.dart';
 /// `llm_and_d4rt_tools.md` §10 — the **`AgentSubstrate`**
 /// abstraction + **mode (a)** (direct Agent SDK, augmented with Tom Brain
 /// named memory, driven by a **complex agent procedure**: a D4rt procedure over
-/// the §8 tools).
+/// the `llm_and_d4rt_tools.md` §8 tools).
 ///
 /// Done-criterion: the procedure drives a **search → recall → edit → verify**
 /// loop in a test harness, and the edit (the mutating tool) lands in the **one

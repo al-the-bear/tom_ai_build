@@ -1,13 +1,13 @@
 /// The **file tools** — the engine-side logic behind the `file_*` MCP tools
-/// (§8.2).
+/// (`llm_and_d4rt_tools.md` §8.2).
 ///
 /// [FileTools] is the in-process surface the editor's `AgentToolsModule` wraps
 /// as `file_read` / `file_find` / `file_write`. It binds the audited
-/// [SpecFileFacade] (§7) — **read = any path, write = whitelist
-/// only** — and projects each operation to a typed value with a compact
-/// [toJson]. A `file_write` outside the whitelist is reported as a failed result
-/// (the facade's [FilePermissionError] message), never a thrown stack, so the
-/// agent can react to it like any other tool error.
+/// [SpecFileFacade] (`llm_and_d4rt_tools.md` §7) — **read = any path, write =
+/// whitelist only** — and projects each operation to a typed value with a
+/// compact [toJson]. A `file_write` outside the whitelist is reported as a
+/// failed result (the facade's [FilePermissionError] message), never a thrown
+/// stack, so the agent can react to it like any other tool error.
 library;
 
 import '../scope/spec_file_facade.dart';
@@ -72,8 +72,9 @@ final class FileWriteResult {
       };
 }
 
-/// Reads, finds, and writes files under the §8.2 `file_*` tools, mediated by the
-/// audited [SpecFileFacade] (§7).
+/// Reads, finds, and writes files under the `llm_and_d4rt_tools.md` §8.2
+/// `file_*` tools, mediated by the audited [SpecFileFacade]
+/// (`llm_and_d4rt_tools.md` §7).
 final class FileTools {
   /// Creates the toolset over the audited [facade].
   FileTools(this.facade);

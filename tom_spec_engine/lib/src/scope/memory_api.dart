@@ -1,13 +1,14 @@
 /// The script-facing **read-only** `memory` recall API and its D4rt bridge
-/// (§4, §9).
+/// (`llm_and_d4rt_tools.md` §4, §9).
 ///
 /// [MemoryApi] is the single object a sandboxed script reaches under the
 /// `memory` scope: a thin facade over the document's fused two-tier
-/// [SpecRecall] (§9.2). It exposes recall and **nothing else** — there is no
-/// mutation path, by design (§4: the `memory` scope's permission set is "none
-/// beyond memory"). A script `await`s a recall and reads compact, JSON-friendly
-/// results; it can never write a section, touch the filesystem, or reach the
-/// editing API, because the `memory` scope registers only this library.
+/// [SpecRecall] (`llm_and_d4rt_tools.md` §9.2). It exposes recall and **nothing
+/// else** — there is no mutation path, by design (`llm_and_d4rt_tools.md` §4:
+/// the `memory` scope's permission set is "none beyond memory"). A script
+/// `await`s a recall and reads compact, JSON-friendly results; it can never
+/// write a section, touch the filesystem, or reach the editing API, because the
+/// `memory` scope registers only this library.
 ///
 /// Recall is asynchronous (the vector tier is a `Future`), so the bridged
 /// methods return `Future`s the script `await`s and the host auto-awaits off

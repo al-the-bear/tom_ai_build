@@ -3,21 +3,21 @@
 ///
 /// **Tier 1** is the model-derived [StructuralLexicalIndex] (BM25 + structural
 /// facets, zero LLM calls, refreshed after every prompt). **Tier 2** is the
-/// section-level vector store in Tom Brain named memory.
-/// This class fuses them: [SpecRecall.recall] runs the tier-1 lexical (BM25) and
-/// symbolic (facet) modes, the tier-2 vector mode, and an optional GraphWalk
-/// over the section graph, then combines the per-mode ranked lists with
-/// **Reciprocal Rank Fusion** and (optionally) diversifies with **MMR** — the
-/// `tom_brain_memory` recall contract (§9.3), applied at the engine layer so the
-/// always-available tier-1 index can be fused with the tier-2 vectors.
+/// section-level vector store in Tom Brain named memory. This class fuses them:
+/// [SpecRecall.recall] runs the tier-1 lexical (BM25) and symbolic (facet)
+/// modes, the tier-2 vector mode, and an optional GraphWalk over the section
+/// graph, then combines the per-mode ranked lists with **Reciprocal Rank
+/// Fusion** and (optionally) diversifies with **MMR** — the `tom_brain_memory`
+/// recall contract (`llm_and_d4rt_tools.md` §9.3), applied at the engine layer
+/// so the always-available tier-1 index can be fused with the tier-2 vectors.
 ///
-/// **Graceful degradation (§9.2).** Tier 1 is built directly from the object
-/// model and is available the instant the document is projected; tier 2 lags,
-/// because embeddings are computed incrementally and out of band. When the
-/// vector tier returns nothing — no vector recall bound, or none embedded yet —
-/// [recall] falls back to tier-1 + symbolic (+ optional GraphWalk) and reports
-/// [SpecRecallResult.degraded]. The result is still exact and useful; it simply
-/// lacks semantic matches until tier 2 warms.
+/// **Graceful degradation (`llm_and_d4rt_tools.md` §9.2).** Tier 1 is built
+/// directly from the object model and is available the instant the document is
+/// projected; tier 2 lags, because embeddings are computed incrementally and
+/// out of band. When the vector tier returns nothing — no vector recall bound,
+/// or none embedded yet — [recall] falls back to tier-1 + symbolic (+ optional
+/// GraphWalk) and reports [SpecRecallResult.degraded]. The result is still
+/// exact and useful; it simply lacks semantic matches until tier 2 warms.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart' show SpecNodeKind;
@@ -244,7 +244,7 @@ final class SpecRecall {
     return SpecRecallResult(hits: hits, tier2Warm: tier2Warm);
   }
 
-  // --- per-mode query construction -----------------------------------------
+  // --- per-mode query construction -------------------------------------------
 
   IndexQuery _lexicalQuery(SpecRecallQuery q) => _withText(q.facets, q.text);
 
@@ -271,7 +271,7 @@ final class SpecRecall {
       q.detailedIn != null ||
       q.state != null;
 
-  // --- GraphWalk -----------------------------------------------------------
+  // --- GraphWalk -------------------------------------------------------------
 
   /// BFS over the section graph's edges (both directions) from [seeds], up to
   /// [maxDepth] hops, returning the reached non-seed paths ordered by hop
@@ -310,11 +310,11 @@ final class SpecRecall {
     return reached.map((e) => e.key).toList(growable: false);
   }
 
-  // --- fusion --------------------------------------------------------------
+  // --- fusion ----------------------------------------------------------------
 
-  /// Weighted Reciprocal Rank Fusion (§6.2): each mode contributes
-  /// `weight / (rrfK + rank)` for every path it ranked; the contributions sum,
-  /// and the modes that surfaced each path are recorded.
+  /// Weighted Reciprocal Rank Fusion (`llm_and_d4rt_tools.md` §9.2): each mode
+  /// contributes `weight / (rrfK + rank)` for every path it ranked; the
+  /// contributions sum, and the modes that surfaced each path are recorded.
   List<SpecRecallHit> _fuse(
     Map<SpecRecallMode, List<String>> ranked,
     SpecRecallQuery query,
@@ -355,7 +355,7 @@ final class SpecRecall {
     );
   }
 
-  // --- MMR -----------------------------------------------------------------
+  // --- MMR -------------------------------------------------------------------
 
   /// Maximal Marginal Relevance over the fused list: greedily pick the
   /// candidate maximising `lambda * relevance - (1 - lambda) * maxSim`, where

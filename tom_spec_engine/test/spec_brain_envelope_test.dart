@@ -7,8 +7,8 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 import 'support/agent_test_fixture.dart';
 import 'support/vector_runtime.dart';
 
-/// §10 mode (b) — the **live `tom_brain_memory`-backed**
-/// session envelope.
+/// `llm_and_d4rt_tools.md` §10 mode (b) — the **live
+/// `tom_brain_memory`-backed** session envelope.
 ///
 /// Where `brain_agent_substrate_test.dart` proves the substrate drives the same
 /// loop under the in-memory [RecordingBrainEnvelope], this suite proves the

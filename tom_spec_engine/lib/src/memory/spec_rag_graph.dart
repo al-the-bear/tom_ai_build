@@ -1,4 +1,5 @@
-/// The **pure** section-level RAG graph behind the §9.1 RAG store.
+/// The **pure** section-level RAG graph behind the `llm_and_d4rt_tools.md` §9.1
+/// RAG store.
 ///
 /// Chunk = section: one section-id path produces one [SpecRagNode]. The node's
 /// payload is **rendered text + structural metadata** — the text a retriever
@@ -7,11 +8,12 @@
 /// (`part_of`, [SpecRagEdgeKind.tree]) plus the `@MapsTo` / `@DetailedIn`
 /// projections (`mentions`, [SpecRagEdgeKind.mapsTo] / [SpecRagEdgeKind.detailedIn]).
 ///
-/// This is the **build** half: it takes [SpecNodeProjection]s (the §6 object
-/// model walk, §6) and assembles nodes + edges with **zero I/O
-/// and zero model (LLM) calls**. The persist-into-Tom-Brain + recall half lives
-/// in `spec_memory.dart` (`SpecDocumentMemory.indexDocument` / `recallSections`),
-/// which consumes a [SpecRagGraph] built here.
+/// This is the **build** half: it takes [SpecNodeProjection]s (the
+/// `llm_and_d4rt_tools.md` §6 object model walk, `llm_and_d4rt_tools.md` §6)
+/// and assembles nodes + edges with **zero I/O and zero model (LLM) calls**.
+/// The persist-into-Tom-Brain + recall half lives in `spec_memory.dart`
+/// (`SpecDocumentMemory.indexDocument` / `recallSections`), which consumes a
+/// [SpecRagGraph] built here.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
@@ -119,7 +121,8 @@ final class SpecRagGraph {
   /// `@MapsTo` / `@DetailedIn` projection becomes a `mentions` edge **only when
   /// the target section id resolves to a node in this document** — a
   /// cross-document target (the common case for a single open spec) is left
-  /// unlinked rather than dangling, since the §9.1 named memory is per-document.
+  /// unlinked rather than dangling, since the `llm_and_d4rt_tools.md` §9.1
+  /// named memory is per-document.
   factory SpecRagGraph.fromProjections(Iterable<SpecNodeProjection> projections) {
     final list = projections.toList(growable: false);
     final paths = {for (final p in list) p.path};

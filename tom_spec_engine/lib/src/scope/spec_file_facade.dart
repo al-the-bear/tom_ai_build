@@ -1,4 +1,5 @@
-/// The audited file-access facade behind the `files` scope (§7).
+/// The audited file-access facade behind the `files` scope
+/// (`llm_and_d4rt_tools.md` §7).
 ///
 /// [SpecFileFacade] is the **only** file surface a sandboxed script reaches in
 /// the `files` scope — the raw `dcli` / `dart:io` write surface is never bridged.
@@ -45,7 +46,7 @@ final class SpecFileFacade {
   final List<String> writableRoots;
 
   /// The canonicalised opt-in **asset directories** a profile declares as
-  /// extra read-only search roots (§7).
+  /// extra read-only search roots (`llm_and_d4rt_tools.md` §7).
   ///
   /// Reads are permitted anywhere already, so these matter only for discovery:
   /// a [find] with `includeAssets: true` walks the workspace search root **plus**
@@ -78,7 +79,7 @@ final class SpecFileFacade {
     return SpecFileFacade._(root, roots, assets);
   }
 
-  // --- read (any path) ----------------------------------------------------
+  // --- read (any path) -------------------------------------------------------
 
   /// The full text of the file at [path].
   String readText(String path) => File(_resolve(path)).readAsStringSync();
@@ -154,7 +155,7 @@ final class SpecFileFacade {
     return out;
   }
 
-  // --- write (whitelist only) ---------------------------------------------
+  // --- write (whitelist only) ------------------------------------------------
 
   /// Writes [content] to [path] (creating parents), replacing any existing file.
   void writeText(String path, String content) {
@@ -206,7 +207,7 @@ final class SpecFileFacade {
     }
   }
 
-  // --- enforcement --------------------------------------------------------
+  // --- enforcement -----------------------------------------------------------
 
   /// Resolves [path] for a *read*: absolute-ised against the workspace root and
   /// normalised, with no whitelist check (reads are permitted anywhere).

@@ -1,5 +1,5 @@
 /// The shared **vector-runtime precondition** for the memory-plane suites
-/// (§9 / §10).
+/// (`llm_and_d4rt_tools.md` §9 / §10).
 ///
 /// `SpecMemory` boots on `SqliteTomBrainMemory`, which refuses to open unless
 /// the bundled sqlite-vec (`vec0`) extension registers — vector recall is

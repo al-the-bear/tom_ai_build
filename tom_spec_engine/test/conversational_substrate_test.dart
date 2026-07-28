@@ -3,8 +3,9 @@ import 'package:tom_spec_engine/tom_spec_engine.dart';
 
 import 'support/agent_test_fixture.dart';
 
-/// §10 mode (a) — the **live conversational substrate** + **multi-turn complex
-/// procedures** that the headless mode-(a) core leaves as an "editor concern".
+/// `llm_and_d4rt_tools.md` §10 mode (a) — the **live conversational substrate**
+/// + **multi-turn complex procedures** that the headless mode-(a) core leaves
+/// as an "editor concern".
 ///
 /// The conversational substrate composes on top of a base [AgentSubstrate]
 /// (here mode (a)'s [DirectAgentSubstrate] over the shared fixture): each turn it
@@ -73,8 +74,8 @@ void main() {
     expect(result.transcript, contains('— turn 1 —'));
   });
 
-  test('the per-turn RAG recall reaches the driver (the §10 mode-a '
-      'augmentation)', () async {
+  test('the per-turn RAG recall reaches the driver '
+      '(the llm_and_d4rt_tools.md §10 mode-a augmentation)', () async {
     final driver = RecordingConversationalDriver(const [
       ConversationalDecision.run(inputs: {'parentPath': 'PD00', 'childSegment': 'RSK'}),
       ConversationalDecision.stop(),

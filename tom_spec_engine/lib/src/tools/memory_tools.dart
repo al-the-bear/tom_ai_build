@@ -1,10 +1,11 @@
 /// The **memory tools** — the engine-side logic behind the `mem_*` MCP tools
-/// (§8.2).
+/// (`llm_and_d4rt_tools.md` §8.2).
 ///
-/// [MemoryTools] is the in-process surface the editor's `AgentToolsModule` wraps
-/// as `mem_recall` and `mem_refresh`. It binds the §9 [SpecRecall] (the fused
-/// two-tier recall, §9.2) for recall, and an injected
-/// [MemRefreshFn] — wired by the editor to its change-tracking
+/// [MemoryTools] is the in-process surface the editor's `AgentToolsModule`
+/// wraps as `mem_recall` and `mem_refresh`. It binds the
+/// `llm_and_d4rt_tools.md` §9 [SpecRecall] (the fused two-tier recall,
+/// `llm_and_d4rt_tools.md` §9.2) for recall, and an injected [MemRefreshFn] —
+/// wired by the editor to its change-tracking
 /// `SpecDocumentMemory.indexChangedSections` — for the manual re-index. Both
 /// return a typed value with a compact [toJson].
 ///
@@ -132,14 +133,14 @@ final class MemRefreshResult {
 /// this to its change-tracking `SpecDocumentMemory.indexChangedSections`.
 typedef MemRefreshFn = Future<MemRefreshResult> Function();
 
-/// Recalls from, and refreshes, a document's memory under the §8.2 `mem_*`
-/// tools.
+/// Recalls from, and refreshes, a document's memory under the
+/// llm_and_d4rt_tools.md §8.2 `mem_*` tools.
 final class MemoryTools {
   /// Creates the toolset over the fused [recall] and an optional [onRefresh]
   /// re-index callback.
   MemoryTools({required this.recall, this.onRefresh});
 
-  /// The fused two-tier recall (§9).
+  /// The fused two-tier recall (`llm_and_d4rt_tools.md` §9).
   final SpecRecall recall;
 
   /// The manual re-index callback, or `null` when none is bound.

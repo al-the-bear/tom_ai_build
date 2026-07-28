@@ -1,12 +1,12 @@
-/// The headless **procedure host** (§10).
+/// The headless **procedure host** (`llm_and_d4rt_tools.md` §10).
 ///
-/// Both §10 [AgentSubstrate] modes drive the *same* complex agent procedure
-/// through the *same* execution machinery — a permission-scoped [D4rt], a
-/// print-intercepting [Zone], and the auto-awaited `main()` return + error/stack
-/// (the §8.1 `script_*` host pattern). [runAgentProcedure] is that machinery,
-/// extracted so mode (a) ([DirectAgentSubstrate]) and mode (b)
-/// ([BrainAgentSubstrate]) share one loop body verbatim (the
-/// "same loop test").
+/// Both `llm_and_d4rt_tools.md` §10 [AgentSubstrate] modes drive the *same*
+/// complex agent procedure through the *same* execution machinery — a
+/// permission-scoped [D4rt], a print-intercepting [Zone], and the auto-awaited
+/// `main()` return + error/stack (the `llm_and_d4rt_tools.md` §8.1 `script_*`
+/// host pattern). [runAgentProcedure] is that machinery, extracted so mode (a)
+/// ([DirectAgentSubstrate]) and mode (b) ([BrainAgentSubstrate]) share one loop
+/// body verbatim (the "same loop test").
 library;
 
 import 'dart:async';

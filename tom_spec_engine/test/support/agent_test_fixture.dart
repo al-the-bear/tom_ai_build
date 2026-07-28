@@ -1,4 +1,4 @@
-/// Shared test fixture for the §10 agent substrates.
+/// Shared test fixture for the `llm_and_d4rt_tools.md` §10 agent substrates.
 ///
 /// Both [AgentSubstrate] modes — (a) [DirectAgentSubstrate] and (b)
 /// [BrainAgentSubstrate] — must drive the *same* complex agent procedure
@@ -73,8 +73,9 @@ class Change {
   String toString() => 'Change($kind, $path)';
 }
 
-/// A faithful stand-in for the live controller: records one change-log entry per
-/// effective mutation (the §5 "one change log" discipline).
+/// A faithful stand-in for the live controller: records one change-log entry
+/// per effective mutation (the `llm_and_d4rt_tools.md` §5 "one change log"
+/// discipline).
 class RecordingController implements SpecController {
   /// Creates a controller over [model] and [document].
   RecordingController(this.model, this.document);

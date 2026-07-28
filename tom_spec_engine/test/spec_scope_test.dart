@@ -359,7 +359,8 @@ main() {
       expect(match['kind'], 'content');
     });
 
-    test('query honours the full §6 dimensions (kinds + text)', () {
+    test('query honours the full llm_and_d4rt_tools.md §6 dimensions '
+        '(kinds + text)', () {
       final c = _controller()
         ..setContent('PD00/PD00-VIS', 'shared keyword here');
       final out = _run(searchingScope(c), '''

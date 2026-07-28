@@ -1,4 +1,5 @@
-/// The **embeddable memory plane** of the engine (§9 / §10).
+/// The **embeddable memory plane** of the engine (`llm_and_d4rt_tools.md` §9 /
+/// §10).
 ///
 /// Where [`scripting.dart`](scripting.dart) re-exports the **memory-free**
 /// scripting surface (so the editor links the engine without the memory plane),

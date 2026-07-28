@@ -29,7 +29,8 @@ void main() {
   /// dimensionality). Same text → identical vector, so a self-recall is an
   /// exact vector hit — a deterministic proof of the embed→vector-recall
   /// pipeline without an Ollama/OpenAI backend. The real provider-backed
-  /// embedding API is wired in at the tier-2 vector step (§9.2).
+  /// embedding API is wired in at the tier-2 vector step
+  /// (`llm_and_d4rt_tools.md` §9.2).
   Future<Vec> embedText(String text) async {
     const dims = 768;
     final values = Float32List(dims);

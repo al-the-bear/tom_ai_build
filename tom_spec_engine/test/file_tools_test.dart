@@ -3,10 +3,11 @@ import 'dart:io';
 import 'package:test/test.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// `llm_and_d4rt_tools.md` §8.2 — the **file** tools:
-/// `file_read(path)`, `file_find(glob)`, and `file_write(path, content)` over
-/// the audited [SpecFileFacade] (§7). Each returns compact JSON; a write outside
-/// the whitelist is reported as a failed result, never a thrown stack.
+/// `llm_and_d4rt_tools.md` §8.2 — the **file** tools: `file_read(path)`,
+/// `file_find(glob)`, and `file_write(path, content)` over the audited
+/// [SpecFileFacade] (`llm_and_d4rt_tools.md` §7). Each returns compact JSON; a
+/// write outside the whitelist is reported as a failed result, never a thrown
+/// stack.
 void main() {
   late Directory ws;
   late SpecFileFacade facade;

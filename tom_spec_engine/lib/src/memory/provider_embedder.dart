@@ -1,4 +1,5 @@
-/// Provider-backed embedder for the tier-2 RAG vector store (§9.2).
+/// Provider-backed embedder for the tier-2 RAG vector store
+/// (`llm_and_d4rt_tools.md` §9.2).
 ///
 /// Wraps the Tom Brain substrate's [EmbeddingService] so the engine's memory
 /// plane embeds through a real model (Ollama `nomic-embed-text` by default,

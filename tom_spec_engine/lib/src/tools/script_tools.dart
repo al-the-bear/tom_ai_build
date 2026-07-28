@@ -1,12 +1,12 @@
 /// The **script tools** — the engine-side logic behind the `script_*` MCP tools
-/// (§8.1).
+/// (`llm_and_d4rt_tools.md` §8.1).
 ///
-/// [ScriptTools] is the in-process surface the editor's `AgentToolsModule` wraps
-/// as `script_author` / `script_validate` / `script_run` / `script_list` /
-/// `script_get`. It binds three things the previous steps built — a
-/// [ScopeRegistry] (the named scope presets, §4), a [ScriptStore] (the
-/// `agent/scripts/` persistence, this step), and the `tom_d4rt` interpreter — so
-/// an agent can:
+/// [ScriptTools] is the in-process surface the editor's `AgentToolsModule`
+/// wraps as `script_author` / `script_validate` / `script_run` / `script_list`
+/// / `script_get`. It binds three things the previous steps built — a
+/// [ScopeRegistry] (the named scope presets, `llm_and_d4rt_tools.md` §4), a
+/// [ScriptStore] (the `agent/scripts/` persistence, this step), and the
+/// `tom_d4rt` interpreter — so an agent can:
 ///
 ///   * **author** a named `*.d4rt.dart` script, recording the scopes it targets;
 ///   * **validate** it (parse / declaration-resolve against the granted scope's
@@ -17,8 +17,9 @@
 ///
 /// A run mutation routes through the same [SpecController] a tool mutation does
 /// (the `spec` scope binding), so it lands in the one change log identically
-/// (§5, req c). Scripting is strictly more expressive than the single-shot MCP
-/// tools, never a second source of truth (§8.3).
+/// (`llm_and_d4rt_tools.md` §5, req c). Scripting is strictly more expressive
+/// than the single-shot MCP tools, never a second source of truth
+/// (`llm_and_d4rt_tools.md` §8.3).
 library;
 
 import 'dart:async';
@@ -205,13 +206,13 @@ final class ScriptRunResult {
 }
 
 /// Authors, validates, runs, and enumerates D4rt scripts under named scopes
-/// (§8.1).
+/// (`llm_and_d4rt_tools.md` §8.1).
 final class ScriptTools {
   /// Creates the toolset over a [registry] of scope presets and a [store].
   ///
   /// [defaultScopes] is applied when a run/validate targets a raw `source` with
-  /// no explicit scopes (and a stored script records none) — the §8.1 default
-  /// is the `spec` scope.
+  /// no explicit scopes (and a stored script records none) — the
+  /// `llm_and_d4rt_tools.md` §8.1 default is the `spec` scope.
   ScriptTools({
     required this.registry,
     required this.store,
@@ -369,7 +370,7 @@ final class ScriptTools {
     );
   }
 
-  // --- helpers -------------------------------------------------------------
+  // --- helpers ---------------------------------------------------------------
 
   /// Resolves the source + recorded scopes from either a raw [source] or a
   /// stored [name]. Exactly one must be given.

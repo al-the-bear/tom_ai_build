@@ -1,4 +1,4 @@
-/// The engine-side Tom Brain memory façade (§9).
+/// The engine-side Tom Brain memory façade (`llm_and_d4rt_tools.md` §9).
 ///
 /// A thin wrapper over the **embeddable** Tom Brain memory plane
 /// (`SqliteTomBrainMemory` + its profile registry + the bundled sqlite-vec
@@ -9,9 +9,11 @@
 ///
 /// Scope (deliberately narrow — see `llm_and_d4rt_tools.md` §9):
 ///   * The embedding surface is an injected [SpecEmbedder]; the provider-backed
-///     Tom Brain embedding API is wired in at the tier-2 vector step (§9.2).
+///     Tom Brain embedding API is wired in at the tier-2 vector step
+///     (`llm_and_d4rt_tools.md` §9.2).
 ///   * Remembered text is carried on the bootstrap `Event` node type; the
-///     section-level RAG node schema lives in `spec_rag_graph.dart` (§9.1).
+///     section-level RAG node schema lives in `spec_rag_graph.dart`
+///     (`llm_and_d4rt_tools.md` §9.1).
 ///   * The LLM substrate (`tom_brain_substrate`) is not pulled in — the memory
 ///     store takes the embedder directly, keeping the heavy provider/router
 ///     composition root out until the agent steps (15–17).
@@ -49,11 +51,12 @@ typedef SpecEmbedder = Future<Vec> Function(String text);
 
 /// Produces embeddings for a batch of [texts] in **one** call, returning a list
 /// whose order and length match the input (`result[i]` is the embedding of
-/// `texts[i]`). The provider-backed path (§9.3) binds this to the
-/// substrate's concurrency-capped `embedBatch`, so a full-document index issues
-/// a single fan-out instead of one round-trip per section. Every vector it
-/// returns must share the identity the matching [SpecEmbedder] produces — the
-/// two are two surfaces of the same model, never two different models.
+/// `texts[i]`). The provider-backed path (`llm_and_d4rt_tools.md` §9.3) binds
+/// this to the substrate's concurrency-capped `embedBatch`, so a full-document
+/// index issues a single fan-out instead of one round-trip per section. Every
+/// vector it returns must share the identity the matching [SpecEmbedder]
+/// produces — the two are two surfaces of the same model, never two different
+/// models.
 typedef SpecBatchEmbedder = Future<List<Vec>> Function(List<String> texts);
 
 /// One item recalled from a document's memory.
@@ -89,8 +92,9 @@ final class SpecRagIndexResult {
 /// What [SpecDocumentMemory.indexChangedSections] did: how many sections were
 /// re-embedded, how many edges were re-linked, and how many sections were
 /// dropped. The headline figure is [embedded] — the **embed-changed-only**
-/// guarantee of §9.2: a changed section whose content hash is unchanged is
-/// skipped, so [embedded] counts only the sections that actually moved.
+/// guarantee of `llm_and_d4rt_tools.md` §9.2: a changed section whose content
+/// hash is unchanged is skipped, so [embedded] counts only the sections that
+/// actually moved.
 final class SpecRagRefreshResult {
   /// Sections re-embedded and re-persisted (content actually changed).
   final int embedded;
@@ -185,8 +189,8 @@ final class SpecMemory {
   })  : _embedder = embedder,
         _batchEmbedder = batchEmbedder;
 
-  /// The façade's embedding surface. Delegates to the injected
-  /// embedder; the provider-backed path (§9.3) swaps in the Tom Brain
+  /// The façade's embedding surface. Delegates to the injected embedder; the
+  /// provider-backed path (`llm_and_d4rt_tools.md` §9.3) swaps in the Tom Brain
   /// substrate embedding API.
   Future<Vec> embed(String text) => _embedder(text);
 
@@ -257,8 +261,9 @@ final class SpecDocumentMemory {
   final Map<String, String> _pathByNodeId = <String, String>{};
 
   /// Section path → the content hash last embedded for it. Lets
-  /// [indexChangedSections] honour the **embed-changed-only** rule (§9.2): a
-  /// section whose content hash is unchanged is skipped, never re-embedded.
+  /// [indexChangedSections] honour the **embed-changed-only** rule
+  /// (`llm_and_d4rt_tools.md` §9.2): a section whose content hash is unchanged
+  /// is skipped, never re-embedded.
   final Map<String, String> _contentHashByPath = <String, String>{};
 
   SpecDocumentMemory._({
@@ -274,10 +279,10 @@ final class SpecDocumentMemory {
   static const Scope _producer = Scope(producer: 'tom_spec_engine');
 
   /// The built-in Tom Brain node type used for a spec section. `Concept`
-  /// already permits exactly the edges §9.1 needs — `part_of` (the tree) and
-  /// `mentions` (the `@MapsTo`/`@DetailedIn` projections) — on both its
-  /// `allowedOutgoing` and `allowedIncoming` sets, so no custom node type has
-  /// to be registered.
+  /// already permits exactly the edges `llm_and_d4rt_tools.md` §9.1 needs —
+  /// `part_of` (the tree) and `mentions` (the `@MapsTo`/`@DetailedIn`
+  /// projections) — on both its `allowedOutgoing` and `allowedIncoming` sets,
+  /// so no custom node type has to be registered.
   static const String _sectionType = 'Concept';
 
   /// Embeds [text] through the same embedder the store recalls with.
@@ -288,7 +293,7 @@ final class SpecDocumentMemory {
   ///
   /// [metadata] is carried on the node's `payload`. The text is stored on the
   /// bootstrap `Event` carrier; the section-level RAG schema lives in
-  /// `spec_rag_graph.dart` (§9.1).
+  /// `spec_rag_graph.dart` (`llm_and_d4rt_tools.md` §9.1).
   Future<void> remember(
     String text, {
     Map<String, Object?> metadata = const <String, Object?>{},
@@ -327,19 +332,20 @@ final class SpecDocumentMemory {
   }
 
   /// Indexes a document's section-level RAG [graph] into this document's named
-  /// memory (§9.1): each [SpecRagNode] is persisted as a
-  /// [_sectionType] node (`name` = section path, `description` = rendered text),
-  /// embedded so it is recoverable by vector recall, then each [SpecRagEdge] is
-  /// linked (`part_of` for the tree, `mentions` for projections).
+  /// memory (`llm_and_d4rt_tools.md` §9.1): each [SpecRagNode] is persisted as
+  /// a [_sectionType] node (`name` = section path, `description` = rendered
+  /// text), embedded so it is recoverable by vector recall, then each
+  /// [SpecRagEdge] is linked (`part_of` for the tree, `mentions` for
+  /// projections).
   ///
   /// Idempotent: nodes carry a **content-addressed** idempotency key
   /// (`rag-node:<path>:<hash>`) and edges a **node-id-addressed** key, so
   /// re-indexing an unchanged document is a no-op that reuses the existing rows.
   Future<SpecRagIndexResult> indexDocument(SpecRagGraph graph) async {
     // Full-document index: embed every section up front. When a batch embedder
-    // is bound (provider-backed, §9.3) this is a single concurrency-capped
-    // fan-out; otherwise it falls back to the per-section path inside
-    // [_persistSection]. Either way persist-order is unchanged.
+    // is bound (provider-backed, `llm_and_d4rt_tools.md` §9.3) this is a single
+    // concurrency-capped fan-out; otherwise it falls back to the per-section
+    // path inside [_persistSection]. Either way persist-order is unchanged.
     final nodes = graph.nodes;
     final embeddings = await _batchEmbed(
       nodes.map((n) => n.text).toList(growable: false),
@@ -374,10 +380,10 @@ final class SpecDocumentMemory {
     return vecs;
   }
 
-  /// Incrementally refreshes this document's RAG memory (§9.2):
-  /// re-embeds **only** the sections in [changedPaths] whose content actually
-  /// moved, forgets the sections in [removedPaths], and re-links the edges that
-  /// touch any of them.
+  /// Incrementally refreshes this document's RAG memory (llm_and_d4rt_tools.md
+  /// §9.2): re-embeds **only** the sections in [changedPaths] whose content
+  /// actually moved, forgets the sections in [removedPaths], and re-links the
+  /// edges that touch any of them.
   ///
   /// This is the **embed-changed-only** path that feeds the tier-2 vector store
   /// after each prompt: a changed section whose rendered text hashes to the same

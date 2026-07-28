@@ -7,12 +7,12 @@ editor.
 
 > **Specification:**
 > [`llm_and_d4rt_tools.md`](../tom_specs_model/doc/llm_and_d4rt_tools.md) is the
-> authority for this plane. The `Spec §` column below cites it section by
-> section.
+> authority for this plane. The last column below cites it section by section —
+> the column header names the document, so each cell carries only the number.
 
 ## What it owns
 
-| Area | Role | Spec § |
+| Area | Role | `llm_and_d4rt_tools.md` § |
 | --- | --- | --- |
 | **Scope registry** | Named, immutable sets of bridged D4rt libraries + globals + permission grants; the three base scopes `spec` / `files` / `memory`. | §4 |
 | **`spec` scope** | The `tom_som` document API (generic / reflection / typed `tom_som_dart_v0`) bound to the live `SpecDocumentController`, plus search. | §5 |

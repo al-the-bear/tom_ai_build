@@ -14,10 +14,10 @@ import 'support/agent_test_fixture.dart';
 /// the `support/agent_test_fixture.dart` fixture and are asserted against a
 /// substrate built **through the selector**.
 void main() {
-  /// The shared loop assertion both §10 modes must satisfy. Builds a fresh
-  /// fixture, builds the substrate for [mode] through the selector, runs the
-  /// canonical task, and asserts the search → recall → edit → verify outcome
-  /// plus the single change-log entry.
+  /// The shared loop assertion both `llm_and_d4rt_tools.md` §10 modes must
+  /// satisfy. Builds a fresh fixture, builds the substrate for [mode] through
+  /// the selector, runs the canonical task, and asserts the search → recall →
+  /// edit → verify outcome plus the single change-log entry.
   Future<void> assertSameLoop(AgentSubstrateMode mode) async {
     final fixture = buildAgentFixture();
     final substrate = buildAgentSubstrate(

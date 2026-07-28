@@ -13,9 +13,11 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-// --- The §6 example sources (verbatim copies of the guidelines) -------------
+// --- The `llm_guidelines_specification.md` §6 example sources ---------------
+// (verbatim copies of the guidelines)
 
-/// §6.1 — iterate a list and flag empty members (spec scope).
+/// `llm_guidelines_specification.md` §6.1 — iterate a list and flag empty
+/// members (spec scope).
 const example61 = '''
 import 'package:tom_spec_engine/spec_api.dart';
 
@@ -37,7 +39,8 @@ main() {
 }
 ''';
 
-/// §6.2 — meta-model-validated add (spec scope).
+/// `llm_guidelines_specification.md` §6.2 — meta-model-validated add (spec
+/// scope).
 const example62 = '''
 import 'package:tom_spec_engine/spec_api.dart';
 
@@ -54,8 +57,9 @@ main() {
 }
 ''';
 
-/// §6.3 — read any path, write only under `agent/scratchpad` (files scope).
-/// `__NOTES__` is the only placeholder; the guidelines show a literal path.
+/// `llm_guidelines_specification.md` §6.3 — read any path, write only under
+/// `agent/scratchpad` (files scope). `__NOTES__` is the only placeholder; the
+/// guidelines show a literal path.
 const example63 = '''
 import 'package:tom_spec_engine/spec_files.dart';
 
@@ -68,7 +72,8 @@ main() {
 }
 ''';
 
-/// §6.4 — semantic recall, read-only (memory scope).
+/// `llm_guidelines_specification.md` §6.4 — semantic recall, read-only (memory
+/// scope).
 const example64 = '''
 import 'package:tom_spec_engine/memory.dart';
 
@@ -79,7 +84,7 @@ main() async {
 }
 ''';
 
-// --- Harness ---------------------------------------------------------------
+// --- Harness -----------------------------------------------------------------
 
 /// The model the spec-scope examples run against: a `vision` content leaf and a
 /// `risks` complex list whose elements carry a `RISK-TITLE` content field.
@@ -153,7 +158,8 @@ Future<Object?> _run(ScriptScope scope, String source) async {
 }
 
 void main() {
-  group('§6.1 find → iterate → flag (spec scope)', () {
+  group('llm_guidelines_specification.md §6.1 find → iterate → flag '
+      '(spec scope)', () {
     test('flags the one empty risk title, leaving the filled one', () async {
       final scope = specScope(_Controller(_specModel(), SpecDocument()));
       final result = await _run(scope, example61) as Map;
@@ -162,7 +168,8 @@ void main() {
     });
   });
 
-  group('§6.2 meta-model-validated add (spec scope)', () {
+  group('llm_guidelines_specification.md §6.2 meta-model-validated add '
+      '(spec scope)', () {
     test('a legal add succeeds and returns the new path', () async {
       final scope = specScope(_Controller(_specModel(), SpecDocument()));
       final result = await _run(scope, example62) as Map;
@@ -171,7 +178,8 @@ void main() {
     });
   });
 
-  group('§6.3 read anywhere, write scratchpad only (files scope)', () {
+  group('llm_guidelines_specification.md §6.3 read anywhere, write '
+      'scratchpad only (files scope)', () {
     test('reads an external note and stages its head under scratchpad',
         () async {
       final ws = Directory.systemTemp.createTempSync('tse_guidelines_ws_');
@@ -189,7 +197,8 @@ void main() {
     });
   });
 
-  group('§6.4 semantic recall (memory scope)', () {
+  group('llm_guidelines_specification.md §6.4 semantic recall '
+      '(memory scope)', () {
     test('recalls candidate paths, read-only', () async {
       final doc = SpecDocument()
         ..setContent('PD00/PD00-VIS', 'resilient rollout platform');

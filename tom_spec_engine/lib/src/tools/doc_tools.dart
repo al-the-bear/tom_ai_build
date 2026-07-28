@@ -1,28 +1,32 @@
 /// The **document tools** — the engine-side logic behind the `doc_*` in-memory
-/// MCP tools (§8.2).
+/// MCP tools (`llm_and_d4rt_tools.md` §8.2).
 ///
 /// [DocTools] is the in-process surface the editor's `AgentToolsModule` wraps as
 /// `doc_search` / `doc_search_iterate` / `doc_reflect` / `doc_add_node`. It binds
 /// two primitives the prior steps already built:
 ///
-///   * a [SpecQueryEngine] (model + live [SpecDocument]) — the §6 grep facility
-///     for `doc_search` / `doc_search_iterate` and the [SpecReflection] resolver
-///     behind `doc_reflect`;
-///   * a [SpecController] — the live-document mutation port `doc_add_node` routes
-///     through, so a meta-model-validated add lands in the **one change log**
-///     exactly like every other tool/script edit (§5, req c).
+///   * a [SpecQueryEngine] (model + live [SpecDocument]) — the
+///     `llm_and_d4rt_tools.md` §6 grep facility for `doc_search` /
+///     `doc_search_iterate` and the [SpecReflection] resolver behind
+///     `doc_reflect`;
+///   * a [SpecController] — the live-document mutation port `doc_add_node`
+///     routes through, so a meta-model-validated add lands in the **one change
+///     log** exactly like every other tool/script edit (`llm_and_d4rt_tools.md`
+///     §5, req c).
 ///
 /// `doc_search` opens a [SpecQueryCursor] under a generated id and returns the
-/// first page; `doc_search_iterate` advances the *same* cursor, so the §6
-/// edit-stable lazy iteration is preserved across calls. Every result is a typed
-/// value with a compact [toJson] — the JSON shape the MCP tool returns.
+/// first page; `doc_search_iterate` advances the *same* cursor, so the
+/// `llm_and_d4rt_tools.md` §6 edit-stable lazy iteration is preserved across
+/// calls. Every result is a typed value with a compact [toJson] — the JSON
+/// shape the MCP tool returns.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 
 import '../scope/spec_controller.dart';
 
-/// One match in a [DocSearchPage] — a §6 cursor record projected to JSON.
+/// One match in a [DocSearchPage] — a `llm_and_d4rt_tools.md` §6 cursor record
+/// projected to JSON.
 final class DocSearchMatch {
   /// The globally-unique section-id path the node lives at.
   final String path;
@@ -52,10 +56,11 @@ final class DocSearchMatch {
     this.matchSpans = const [],
   });
 
-  /// Projects a §6 [SpecQueryMatch] to the compact `doc_*` match shape — the one
-  /// shared projection behind both the `doc_search` MCP tool ([DocTools]) and the
-  /// in-script `search` cursor facade (`SpecSearchCursor`), so
-  /// a tool match and a script match render identically.
+  /// Projects a `llm_and_d4rt_tools.md` §6 [SpecQueryMatch] to the compact
+  /// `doc_*` match shape — the one shared projection behind both the
+  /// `doc_search` MCP tool ([DocTools]) and the in-script `search` cursor
+  /// facade (`SpecSearchCursor`), so a tool match and a script match render
+  /// identically.
   factory DocSearchMatch.from(SpecQueryMatch m) => DocSearchMatch(
         path: m.path,
         kind: m.kind,
@@ -318,8 +323,8 @@ final class DocAddNodeResult {
   /// The human-readable rejection message (when not [ok]).
   final String? error;
 
-  /// The [SpecCreationCode] name when the add violated a §5 rule (`null` for
-  /// other failures).
+  /// The [SpecCreationCode] name when the add violated a
+  /// `llm_and_d4rt_tools.md` §5 rule (`null` for other failures).
   final String? code;
 
   const DocAddNodeResult({
@@ -338,17 +343,20 @@ final class DocAddNodeResult {
       };
 }
 
-/// Searches, reflects, and grows a live document under the §8.2 `doc_*` tools.
+/// Searches, reflects, and grows a live document under the
+/// `llm_and_d4rt_tools.md` §8.2 `doc_*` tools.
 final class DocTools {
   /// Creates the toolset over a query [engine] (read/search/reflect) and a
-  /// [controller] (the §5 mutation port `doc_add_node` routes through).
+  /// [controller] (the `llm_and_d4rt_tools.md` §5 mutation port `doc_add_node`
+  /// routes through).
   DocTools({
     required this.engine,
     required this.controller,
     this.pageSize = 20,
   });
 
-  /// The §6 query facility over the live (model, document) pair.
+  /// The `llm_and_d4rt_tools.md` §6 query facility over the live (model,
+  /// document) pair.
   final SpecQueryEngine engine;
 
   /// The live-document mutation port (the one change log).
@@ -360,9 +368,9 @@ final class DocTools {
   final Map<String, SpecQueryCursor> _cursors = <String, SpecQueryCursor>{};
   int _cursorSeq = 0;
 
-  /// `doc_search` — runs [query] (the §6 grep facility), opens a cursor under a
-  /// fresh id, and returns the first page. Continue with [iterate] using the
-  /// returned [DocSearchPage.cursorId].
+  /// `doc_search` — runs [query] (the `llm_and_d4rt_tools.md` §6 grep
+  /// facility), opens a cursor under a fresh id, and returns the first page.
+  /// Continue with [iterate] using the returned [DocSearchPage.cursorId].
   DocSearchPage search(SpecQuery query, {int? pageSize}) {
     final cursor = engine.query(query);
     final id = 'cur-${++_cursorSeq}';
@@ -388,10 +396,10 @@ final class DocTools {
   DocReflection reflect(String path) =>
       DocReflection.resolve(engine.model, path);
 
-  /// `doc_add_node` — the §5 meta-model-validated creation of child
-  /// [childSegment] under [parentPath], routed through [controller] so it lands
-  /// in the one change log. A model violation is returned as a coded failed
-  /// result, never thrown.
+  /// `doc_add_node` — the `llm_and_d4rt_tools.md` §5 meta-model-validated
+  /// creation of child [childSegment] under [parentPath], routed through
+  /// [controller] so it lands in the one change log. A model violation is
+  /// returned as a coded failed result, never thrown.
   ///
   /// An optional **initial payload** populates the new node in the same call,
   /// instead of leaving it empty: [content] sets a leaf's
@@ -428,7 +436,7 @@ final class DocTools {
     }
   }
 
-  // --- helpers -------------------------------------------------------------
+  // --- helpers ---------------------------------------------------------------
 
   DocSearchPage _page(String id, SpecQueryCursor cursor, int size) {
     final matches = [

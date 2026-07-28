@@ -1,11 +1,12 @@
-/// The script-facing `spec` document API and its D4rt bridge (§5).
+/// The script-facing `spec` document API and its D4rt bridge
+/// (`llm_and_d4rt_tools.md` §5).
 ///
 /// [SpecApi] is the single object a sandboxed script reaches under the `spec`
 /// scope: a thin facade that delegates every read and mutation to a
 /// [SpecController]. Because all document access in the scope goes through this
 /// one controller-bound object — never the raw `SpecDocument` bridge — a script
 /// edit is mediated exactly like a tool edit and lands in the same change log
-/// and undo stack (§5 "one change log").
+/// and undo stack (`llm_and_d4rt_tools.md` §5 "one change log").
 ///
 /// [specApiBridgedClass] exposes [SpecApi]'s methods to the interpreter; the
 /// `spec` scope (`spec_scope.dart`) registers it and injects a single instance

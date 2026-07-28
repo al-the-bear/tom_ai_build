@@ -1,4 +1,5 @@
-/// The live-document controller contract the `spec` scope binds to (§5).
+/// The live-document controller contract the `spec` scope binds to
+/// (`llm_and_d4rt_tools.md` §5).
 ///
 /// The TomSpecs editor's `SpecDocumentController` is the single document
 /// controller shared by the UI and the agent tools: every mutation routes
@@ -9,11 +10,11 @@
 /// script API delegates to.
 ///
 /// The contract that makes the `spec` scope's "one change log" guarantee
-/// (§5) hold: **every effective (non-no-op) mutation MUST produce one change-log
-/// entry and one undo snapshot.** Because a script and a tool both call the same
-/// methods, a script mutation is indistinguishable from a tool mutation — it
-/// lands in the same change log and undo stack by construction, not by a
-/// parallel path.
+/// (`llm_and_d4rt_tools.md` §5) hold: **every effective (non-no-op) mutation
+/// MUST produce one change-log entry and one undo snapshot.** Because a script
+/// and a tool both call the same methods, a script mutation is
+/// indistinguishable from a tool mutation — it lands in the same change log and
+/// undo stack by construction, not by a parallel path.
 library;
 
 /// The document read + mutation surface the `spec` scope routes through.
@@ -49,7 +50,8 @@ abstract interface class SpecController {
   bool removeListItem(String itemPath);
 
   /// Adds the model-permitted child [childSegment] under [parentPath],
-  /// returning the new node's path (§5 constrained creation).
+  /// returning the new node's path (llm_and_d4rt_tools.md §5 constrained
+  /// creation).
   ///
   /// The add is validated against the meta-model (allowed kind / section-id
   /// pattern / cardinality); an illegal add throws `SpecCreationError`

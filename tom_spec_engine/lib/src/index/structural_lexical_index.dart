@@ -1,5 +1,5 @@
-/// The **tier-1 structural/lexical index** behind the §6 search facility
-/// (`llm_and_d4rt_tools.md` §9.2).
+/// The **tier-1 structural/lexical index** behind the `llm_and_d4rt_tools.md`
+/// §6 search facility (`llm_and_d4rt_tools.md` §9.2).
 ///
 /// An inverted text index (BM25) plus structural facets (section id, kind,
 /// class, `@MapsTo` / `@DetailedIn`, value state) built **directly from the
@@ -263,7 +263,7 @@ class StructuralLexicalIndex {
     return _capped(hits, query.limit);
   }
 
-  // --- mutation ------------------------------------------------------------
+  // --- mutation --------------------------------------------------------------
 
   void _add(SpecNodeProjection node) {
     final termFreqs = <String, int>{};
@@ -303,7 +303,7 @@ class StructuralLexicalIndex {
     return true;
   }
 
-  // --- scoring helpers -----------------------------------------------------
+  // --- scoring helpers -------------------------------------------------------
 
   double get _avgdl => _sections.isEmpty ? 0 : _totalTokens / _sections.length;
 

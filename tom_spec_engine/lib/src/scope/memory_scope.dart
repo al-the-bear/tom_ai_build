@@ -1,4 +1,4 @@
-/// The `memory` base scope (§4, §9).
+/// The `memory` base scope (`llm_and_d4rt_tools.md` §4, §9).
 ///
 /// Builds the [ScriptScope] that binds the document's fused two-tier recall to
 /// a sandboxed script as a **read-only** surface. The scope exposes exactly one
@@ -9,12 +9,12 @@
 ///      global under [memoryApiLibrary].
 ///
 /// A script that imports `package:tom_spec_engine/memory.dart` then `await`s
-/// recall through `memory` (`await memory.recall(...)`,
-/// `await memory.recallPaths(...)`) — and can do nothing else. The scope grants
-/// **no `tom_d4rt` permission** (§4: "none beyond memory"): recall is an
-/// in-memory read, not a filesystem/network capability, and the editing API
-/// (`spec`) and file facade (`files`) are simply never registered, so there is
-/// no mutation path under this scope at all.
+/// recall through `memory` (`await memory.recall(...)`, `await
+/// memory.recallPaths(...)`) — and can do nothing else. The scope grants **no
+/// `tom_d4rt` permission** (`llm_and_d4rt_tools.md` §4: "none beyond memory"):
+/// recall is an in-memory read, not a filesystem/network capability, and the
+/// editing API (`spec`) and file facade (`files`) are simply never registered,
+/// so there is no mutation path under this scope at all.
 library;
 
 import '../memory/spec_recall.dart';

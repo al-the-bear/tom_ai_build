@@ -20,7 +20,8 @@ d4rtgen:
   modules:
     # The generic runtime: the path-keyed document, the meta-model/reflection
     # classes, the query/cursor facility, the validator and the constrained
-    # node-creation gate. This is the core `spec`-scope surface (§5).
+    # node-creation gate. This is the core `spec`-scope surface
+    # (`llm_and_d4rt_tools.md` §5).
     - name: som_runtime
       barrelFiles:
         - package:tom_som_dart_runtime/tom_som_dart_runtime.dart

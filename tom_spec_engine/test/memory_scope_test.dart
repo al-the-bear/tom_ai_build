@@ -3,14 +3,14 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// `llm_and_d4rt_tools.md` §4: the `memory` base scope binds a
-/// **read-only** recall surface (`memory`) over the document's fused two-tier
-/// recall ([SpecRecall], §9.2). A script under this scope can *recall* but
-/// has **no mutation path** — the scope registers only the `memory_api` library
-/// (no `spec` editing API, no filesystem grants).
+/// `llm_and_d4rt_tools.md` §4: the `memory` base scope binds a **read-only**
+/// recall surface (`memory`) over the document's fused two-tier recall
+/// ([SpecRecall], `llm_and_d4rt_tools.md` §9.2). A script under this scope can
+/// *recall* but has **no mutation path** — the scope registers only the
+/// `memory_api` library (no `spec` editing API, no filesystem grants).
 ///
-/// Contract (§4, §9): a script in the `memory` scope can recall and
-/// cannot mutate.
+/// Contract (`llm_and_d4rt_tools.md` §4, §9): a script in the `memory` scope
+/// can recall and cannot mutate.
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [
@@ -71,7 +71,8 @@ void main() {
       expect(scope.libraries.map((l) => l.name), contains('memory_api'));
     });
 
-    test('grants no filesystem/network permission (read-only, §4)', () {
+    test('grants no filesystem/network permission '
+        '(read-only, llm_and_d4rt_tools.md §4)', () {
       final scope = memoryScope(recall);
       expect(scope.grants, isEmpty);
     });

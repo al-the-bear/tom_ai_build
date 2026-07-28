@@ -1,21 +1,23 @@
 /// The pluggable **agent substrate** abstraction (`llm_and_d4rt_tools.md` §10).
 ///
-/// §10 calls for *two* interchangeable agent substrates behind one interface —
-/// a **direct Agent SDK** mode (a) and an **Agent-SDK-through-`tom_brain`** mode
-/// (b) — both fed by the shared `tom_brain` procedure host + memory, with the
-/// application selecting the mode. [AgentSubstrate] is that interface: it names
-/// a single operation, [run], which executes an [AgentTask] (a natural-language
-/// goal plus structured inputs) and returns an [AgentRunResult] (the procedure's
-/// captured output + transcript + error channel).
+/// `llm_and_d4rt_tools.md` §10 calls for *two* interchangeable agent substrates
+/// behind one interface — a **direct Agent SDK** mode (a) and an
+/// **Agent-SDK-through-`tom_brain`** mode (b) — both fed by the shared
+/// `tom_brain` procedure host + memory, with the application selecting the
+/// mode. [AgentSubstrate] is that interface: it names a single operation,
+/// [run], which executes an [AgentTask] (a natural-language goal plus
+/// structured inputs) and returns an [AgentRunResult] (the procedure's captured
+/// output + transcript + error channel).
 ///
-/// The *conversational substrate* (the LLM that decides what to do — Claude Code
-/// over the VS Code bridge for mode a) is editor/bridge work this pure-Dart
-/// plane cannot host; what the engine owns is the **complex agent procedure**
-/// that orchestrates the multi-step search → recall → edit → verify loop over
-/// the §8 tools. Mode (a) ([DirectAgentSubstrate]) drives that procedure
-/// directly; mode (b) ([BrainAgentSubstrate]) drives the *same* procedure
-/// wrapped by `tom_brain`. Keeping both behind this one interface is what lets
-/// a further mode be added without changing a single caller.
+/// The *conversational substrate* (the LLM that decides what to do — Claude
+/// Code over the VS Code bridge for mode a) is editor/bridge work this
+/// pure-Dart plane cannot host; what the engine owns is the **complex agent
+/// procedure** that orchestrates the multi-step search → recall → edit → verify
+/// loop over the `llm_and_d4rt_tools.md` §8 tools. Mode (a)
+/// ([DirectAgentSubstrate]) drives that procedure directly; mode (b)
+/// ([BrainAgentSubstrate]) drives the *same* procedure wrapped by `tom_brain`.
+/// Keeping both behind this one interface is what lets a further mode be added
+/// without changing a single caller.
 library;
 
 /// A unit of agent work: a natural-language [goal] plus structured [inputs].
@@ -75,14 +77,15 @@ final class AgentRunResult {
       };
 }
 
-/// The pluggable agent substrate (§10): runs an [AgentTask] under one of the two
-/// §10 modes.
+/// The pluggable agent substrate (`llm_and_d4rt_tools.md` §10): runs an
+/// [AgentTask] under one of the two `llm_and_d4rt_tools.md` §10 modes.
 abstract interface class AgentSubstrate {
   /// A short label for the active mode (`direct` for mode a, `tom_brain` for
   /// mode b).
   String get mode;
 
   /// Runs [task] — drives the complex agent procedure's search → recall → edit
-  /// → verify loop over the §8 tools — and returns its captured result.
+  /// → verify loop over the `llm_and_d4rt_tools.md` §8 tools — and returns its
+  /// captured result.
   Future<AgentRunResult> run(AgentTask task);
 }

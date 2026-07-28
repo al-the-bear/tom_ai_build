@@ -1,11 +1,12 @@
-/// The **per-application agent-context** façade of the engine (§11).
+/// The **per-application agent-context** façade of the engine
+/// (`llm_and_d4rt_tools.md` §11).
 ///
 /// Where [`scripting.dart`](scripting.dart) re-exports the Flutter-safe
 /// scripting surface and [`memory.dart`](memory.dart) the embeddable memory
-/// plane, this partial library re-exports the §11 **AgentContext** surface the
-/// editor needs to make the live **Tom Brain profile binding** — one profile
-/// per application carrying that application's guidelines prompt, tool set and
-/// scope profile (the Q1 mapping, decision F1).
+/// plane, this partial library re-exports the `llm_and_d4rt_tools.md` §11
+/// **AgentContext** surface the editor needs to make the live **Tom Brain
+/// profile binding** — one profile per application carrying that application's
+/// guidelines prompt, tool set and scope profile (the Q1 mapping, decision F1).
 ///
 /// It exposes exactly the context *value* surface: [AgentContext],
 /// [AgentToolGroup], the canonical application names

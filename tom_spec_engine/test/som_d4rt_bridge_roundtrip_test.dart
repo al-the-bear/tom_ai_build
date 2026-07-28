@@ -20,7 +20,8 @@ import 'package:tom_spec_engine/dartscript.b.dart';
 ///     [SpecQuery], getting back a cursor whose first match it returns,
 ///
 /// and then native code observes its *own* document object carrying every edit
-/// the script made — the two access paths share one representation (§3).
+/// the script made — the two access paths share one representation
+/// (`llm_and_d4rt_tools.md` §3).
 SpecModel _fixtureModel() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [

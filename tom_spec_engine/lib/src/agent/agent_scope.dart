@@ -1,4 +1,4 @@
-/// The `agent` scope (§4, §8, §10).
+/// The `agent` scope (`llm_and_d4rt_tools.md` §4, §8, §10).
 ///
 /// Builds the [ScriptScope] that binds the unified [AgentToolsApi] tool surface
 /// to the interpreter. The scope exposes exactly one bridged-library block,
@@ -8,11 +8,11 @@
 ///   2. injects the single bound [AgentToolsApi] instance as the `agent` global
 ///      under [agentToolsApiLibrary].
 ///
-/// A procedure that imports `package:tom_spec_engine/agent.dart` then drives the
-/// document through `agent` (`agent.search(...)`, `agent.recall(...)`,
+/// A procedure that imports `package:tom_spec_engine/agent.dart` then drives
+/// the document through `agent` (`agent.search(...)`, `agent.recall(...)`,
 /// `agent.addNode(...)`, …) — every call returning compact JSON, and every
 /// mutation mediated by the [DocTools] controller so it lands in the one change
-/// log (§5).
+/// log (`llm_and_d4rt_tools.md` §5).
 ///
 /// Like the `spec` scope, this scope grants **no extra `tom_d4rt` permission**:
 /// document and memory access are in-memory operations gated by the toolsets,

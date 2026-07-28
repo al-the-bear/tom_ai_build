@@ -2,16 +2,15 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// `llm_and_d4rt_tools.md` §9.2 + §9.3 — **fused two-tier
-/// recall**. These are the **host-independent** half: the tier-1
-/// [StructuralLexicalIndex] is real (built from the object model, zero LLM), the
-/// section graph is real, and the tier-2 vector mode is a **fake**
-/// [SpecVectorRecall] returning canned hits — so the fusion (RRF), the
-/// symbolic/graphWalk modes, and the graceful degradation can be asserted
-/// deterministically without a vec0 binary.
+/// `llm_and_d4rt_tools.md` §9.2 + §9.3 — **fused two-tier recall**. These are
+/// the **host-independent** half: the tier-1 [StructuralLexicalIndex] is real
+/// (built from the object model, zero LLM), the section graph is real, and the
+/// tier-2 vector mode is a **fake** [SpecVectorRecall] returning canned hits —
+/// so the fusion (RRF), the symbolic/graphWalk modes, and the graceful
+/// degradation can be asserted deterministically without a vec0 binary.
 ///
-/// Contract (§9.2): *recall fuses both tiers and degrades
-/// gracefully.*
+/// Contract (`llm_and_d4rt_tools.md` §9.2): *recall fuses both tiers and
+/// degrades gracefully.*
 SpecModel _model() => SpecModel.fromJson({
       'modelVersion': 1,
       'roots': [

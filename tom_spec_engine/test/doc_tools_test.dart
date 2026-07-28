@@ -2,11 +2,12 @@ import 'package:test/test.dart';
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'package:tom_spec_engine/tom_spec_engine.dart';
 
-/// `llm_and_d4rt_tools.md` §8.2 — the in-memory **document**
-/// tools: `doc_search` + `doc_search_iterate` (the §6 grep facility, cursor
-/// iteration), `doc_reflect` (meta-model facts: allowed children / types /
-/// annotations), and `doc_add_node` (the §5 meta-model-validated creation that
-/// lands in the **one change log**).
+/// `llm_and_d4rt_tools.md` §8.2 — the in-memory **document** tools:
+/// `doc_search` + `doc_search_iterate` (the `llm_and_d4rt_tools.md` §6 grep
+/// facility, cursor iteration), `doc_reflect` (meta-model facts: allowed
+/// children / types / annotations), and `doc_add_node` (the
+/// `llm_and_d4rt_tools.md` §5 meta-model-validated creation that lands in the
+/// **one change log**).
 ///
 /// Done-criterion: each tool returns compact JSON and the mutating tool lands in
 /// the one change log.
@@ -76,8 +77,9 @@ class _Change {
   String toString() => '_Change($kind, $path)';
 }
 
-/// A faithful stand-in for the live controller: records one change-log entry per
-/// effective mutation (the §5 "one change log" discipline).
+/// A faithful stand-in for the live controller: records one change-log entry
+/// per effective mutation (the `llm_and_d4rt_tools.md` §5 "one change log"
+/// discipline).
 class _RecordingController implements SpecController {
   _RecordingController(this.model, this.document);
 
@@ -175,7 +177,7 @@ void main() {
   });
 
   group('doc_search_iterate', () {
-    test('a stable cursor paginates the §6 facility', () {
+    test('a stable cursor paginates the llm_and_d4rt_tools.md §6 facility', () {
       // Three content nodes; pageSize 2 → page1 of 2 (more), page2 of 1 (done).
       final page1 = tools.search(const SpecQuery(kinds: {SpecNodeKind.content}));
       expect(page1.matches, hasLength(2));

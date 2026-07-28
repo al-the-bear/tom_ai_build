@@ -13,8 +13,8 @@ import 'support/vector_runtime.dart';
 /// edges into the document's profile-isolated Tom Brain **named memory**
 /// through the memory façade, and the same sections are recalled back.
 ///
-/// Contract (§9.1): *nodes/edges build from a document and recall
-/// returns them.*
+/// Contract (`llm_and_d4rt_tools.md` §9.1): *nodes/edges build from a document
+/// and recall returns them.*
 ///
 /// Like the façade suite, these are **skipped** (not failed) when the host
 /// process has no vector runtime. `support/vector_runtime.dart` names that

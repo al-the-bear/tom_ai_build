@@ -1,16 +1,19 @@
-/// The script-facing **agent tool surface** and its D4rt bridge (§8, §10).
+/// The script-facing **agent tool surface** and its D4rt bridge
+/// (`llm_and_d4rt_tools.md` §8, §10).
 ///
 /// [AgentToolsApi] is the single object the complex agent procedure (mode a)
-/// reaches under the `agent` scope: a thin facade that unifies the three §8.2
-/// in-memory toolsets — [DocTools] (search / reflect / add-node), [MemoryTools]
-/// (recall / refresh), and optionally [FileTools] (read / find / write) — behind
-/// one bridged surface. Every method returns a **JSON-able `Map`** (the tool
-/// result's own `toJson()`), so a D4rt procedure works purely with maps / lists
-/// / strings and never needs a bridge for each rich result type.
+/// reaches under the `agent` scope: a thin facade that unifies the three
+/// `llm_and_d4rt_tools.md` §8.2 in-memory toolsets — [DocTools] (search /
+/// reflect / add-node), [MemoryTools] (recall / refresh), and optionally
+/// [FileTools] (read / find / write) — behind one bridged surface. Every method
+/// returns a **JSON-able `Map`** (the tool result's own `toJson()`), so a D4rt
+/// procedure works purely with maps / lists / strings and never needs a bridge
+/// for each rich result type.
 ///
-/// Because the document mutations (`addNode`) delegate to [DocTools], they route
-/// through the same [SpecController] every other tool/script edit does — so a
-/// procedure edit lands in the **one change log** identically (§5, req c).
+/// Because the document mutations (`addNode`) delegate to [DocTools], they
+/// route through the same [SpecController] every other tool/script edit does —
+/// so a procedure edit lands in the **one change log** identically
+/// (`llm_and_d4rt_tools.md` §5, req c).
 ///
 /// `recall` / `refresh` are asynchronous (the vector tier is a `Future`), so
 /// those bridged methods return `Future`s the procedure `await`s and the host
@@ -49,7 +52,8 @@ final class AgentFilesUnavailable implements Exception {
       '(bind FileTools to enable the file_* surface)';
 }
 
-/// The unified, JSON-returning agent tool facade over the §8.2 toolsets.
+/// The unified, JSON-returning agent tool facade over the
+/// `llm_and_d4rt_tools.md` §8.2 toolsets.
 final class AgentToolsApi {
   /// The document tools (`doc_search` / `doc_search_iterate` / `doc_reflect` /
   /// `doc_add_node`).
@@ -78,9 +82,9 @@ final class AgentToolsApi {
   /// node at [path] addresses, as JSON.
   Map<String, Object?> reflect(String path) => doc.reflect(path).toJson();
 
-  /// `doc_add_node` — the §5 meta-model-validated creation of child
-  /// [childSegment] under [parentPath]; a rejected add is a coded
-  /// `{ok:false, code, error}` map, never a throw.
+  /// `doc_add_node` — the `llm_and_d4rt_tools.md` §5 meta-model-validated
+  /// creation of child [childSegment] under [parentPath]; a rejected add is a
+  /// coded `{ok:false, code, error}` map, never a throw.
   Map<String, Object?> addNode(String parentPath, String childSegment,
           {String? itemId}) =>
       doc.addNode(parentPath, childSegment, itemId: itemId).toJson();

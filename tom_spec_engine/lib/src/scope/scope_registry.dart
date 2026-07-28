@@ -1,4 +1,5 @@
-/// The [ScopeRegistry] and the [RunEnvironment] it builds (§4).
+/// The [ScopeRegistry] and the [RunEnvironment] it builds
+/// (`llm_and_d4rt_tools.md` §4).
 ///
 /// The registry holds the application's scope *presets* keyed by name; building
 /// an environment from one or several scope names unions their libraries,
@@ -12,12 +13,14 @@ import 'package:tom_d4rt/tom_d4rt.dart';
 import 'scope.dart';
 
 /// A declarative application profile: the named set of scopes an application
-/// (DocSpecs / CodeSpecs / Implementation …) enables (§4).
+/// (DocSpecs / CodeSpecs / Implementation …) enables (`llm_and_d4rt_tools.md`
+/// §4).
 ///
 /// This is pure data — a list of scope names — so adding a new application
 /// profile never requires code, only a new [ScopeProfile] value. The richer
-/// per-application context (tools, guidelines doc) is a separate layer (§11);
-/// a scope profile owns only the scope dimension.
+/// per-application context (tools, guidelines doc) is a separate layer
+/// (`llm_and_d4rt_tools.md` §11); a scope profile owns only the scope
+/// dimension.
 final class ScopeProfile {
   /// The application/profile name.
   final String name;
@@ -27,7 +30,7 @@ final class ScopeProfile {
 
   /// Opt-in **asset directories** this profile declares as extra read-only
   /// search roots (template / schema / example dirs), relative to the spec
-  /// workspace root or absolute (§7).
+  /// workspace root or absolute (`llm_and_d4rt_tools.md` §7).
   ///
   /// Pure data, like [scopeNames]: a host wires these onto the `files` scope's
   /// [SpecFileFacade] so a `file_find` with `includeAssets` can enumerate them.
@@ -96,7 +99,8 @@ final class RunEnvironment {
   }
 }
 
-/// Holds named scope presets and unions them into [RunEnvironment]s (§4).
+/// Holds named scope presets and unions them into [RunEnvironment]s
+/// (`llm_and_d4rt_tools.md` §4).
 ///
 /// `ScopeRegistry` lives in the engine plane; scope definitions are registered
 /// once (typically when an application profile boots) and resolved by name when

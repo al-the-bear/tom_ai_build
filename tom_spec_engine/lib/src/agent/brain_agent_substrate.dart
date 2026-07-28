@@ -1,14 +1,15 @@
-/// **Mode (b)** — the Agent-SDK-through-`tom_brain` substrate (§10).
+/// **Mode (b)** — the Agent-SDK-through-`tom_brain` substrate
+/// (`llm_and_d4rt_tools.md` §10).
 ///
-/// [BrainAgentSubstrate] is the second of §10's two [AgentSubstrate]
-/// implementations. It drives the *same* complex agent procedure as mode (a)
-/// ([DirectAgentSubstrate]) through the *same* headless procedure host
-/// ([runAgentProcedure]) — so both modes pass the identical "same loop test" —
-/// but wraps each run in a Tom Brain **session envelope** ([BrainSessionEnvelope]):
-/// a profile (the application), a named session (the phase/task), and a named
-/// memory (the document), recording the run into that named memory. That
-/// envelope is the per-application/phase isolation §10 mode (b) buys; the loop
-/// body is unchanged.
+/// [BrainAgentSubstrate] is the second of `llm_and_d4rt_tools.md` §10's two
+/// [AgentSubstrate] implementations. It drives the *same* complex agent
+/// procedure as mode (a) ([DirectAgentSubstrate]) through the *same* headless
+/// procedure host ([runAgentProcedure]) — so both modes pass the identical
+/// "same loop test" — but wraps each run in a Tom Brain **session envelope**
+/// ([BrainSessionEnvelope]): a profile (the application), a named session (the
+/// phase/task), and a named memory (the document), recording the run into that
+/// named memory. That envelope is the per-application/phase isolation
+/// `llm_and_d4rt_tools.md` §10 mode (b) buys; the loop body is unchanged.
 ///
 /// The conversational substrate (the live Agent SDK / LLM decision-maker) is, as
 /// in mode (a), an editor/bridge concern (decision D72); what the engine owns is
@@ -24,8 +25,8 @@ import 'brain_session_envelope.dart';
 import '../memory/memory_scope.dart';
 import '../scope/scope_registry.dart';
 
-/// Runs the complex agent procedure wrapped by a Tom Brain session — §10 mode
-/// (b).
+/// Runs the complex agent procedure wrapped by a Tom Brain session —
+/// `llm_and_d4rt_tools.md` §10 mode (b).
 final class BrainAgentSubstrate implements AgentSubstrate {
   /// Creates the substrate over the unified [tools] surface, wrapping each run in
   /// the Tom Brain [envelope] addressed by [scope] (application→profile /

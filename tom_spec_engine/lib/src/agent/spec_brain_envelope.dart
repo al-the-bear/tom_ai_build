@@ -1,13 +1,14 @@
-/// The **live `tom_brain_memory`-backed** session envelope for §10 mode (b)
-/// (§10 mode b).
+/// The **live `tom_brain_memory`-backed** session envelope for
+/// `llm_and_d4rt_tools.md` §10 mode (b) (`llm_and_d4rt_tools.md` §10 mode b).
 ///
 /// Where [RecordingBrainEnvelope] models the Tom Brain envelope in memory for
 /// the host-independent "same loop test", [SpecBrainSessionEnvelope] is the
 /// real one: it opens the document's **profile-isolated named memory** (via
-/// [SpecMemory.openDocument], §9) and **persists each run as a node**
-/// in it — the run trail the docstring of [BrainSessionEnvelope] promises. The
-/// run's [RunEffort] metrics ride on the node's payload, so the trail is
-/// queryable ("which runs took longest / failed / produced nothing").
+/// [SpecMemory.openDocument], `llm_and_d4rt_tools.md` §9) and **persists each
+/// run as a node** in it — the run trail the docstring of
+/// [BrainSessionEnvelope] promises. The run's [RunEffort] metrics ride on the
+/// node's payload, so the trail is queryable ("which runs took longest / failed
+/// / produced nothing").
 ///
 /// It changes nothing about the loop body: [BrainAgentSubstrate] drives the
 /// identical procedure through the identical host whether the injected envelope

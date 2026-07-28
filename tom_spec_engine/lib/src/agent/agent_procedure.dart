@@ -1,15 +1,18 @@
-/// The **complex agent procedure** (§10).
+/// The **complex agent procedure** (`llm_and_d4rt_tools.md` §10).
 ///
-/// §10 mode (a) is *driven by a complex agent procedure — a D4rt procedure that
-/// orchestrates the multi-step search → recall → edit → verify loop over the §8
-/// tools*. [AgentProcedure] is that procedure as a value: a [name] plus the D4rt
-/// [source] an [AgentSubstrate] executes under the `agent` scope. The canonical
-/// instance is [AgentProcedure.searchRecallEditVerify].
+/// `llm_and_d4rt_tools.md` §10 mode (a) is *driven by a complex agent procedure
+/// — a D4rt procedure that orchestrates the multi-step search → recall → edit →
+/// verify loop over the `llm_and_d4rt_tools.md` §8 tools*. [AgentProcedure] is
+/// that procedure as a value: a [name] plus the D4rt [source] an
+/// [AgentSubstrate] executes under the `agent` scope. The canonical instance is
+/// [AgentProcedure.searchRecallEditVerify].
 ///
 /// The procedure is intentionally a real D4rt script (the `tom_brain_procedure`
-/// host pattern, §2) rather than hard-coded Dart, so it is the same artefact an
-/// agent could author/inspect via the §8.1 `script_*` tools, and so both §10
-/// modes drive the *identical* loop body (the "same loop test").
+/// host pattern, `llm_and_d4rt_tools.md` §2) rather than hard-coded Dart, so it
+/// is the same artefact an agent could author/inspect via the
+/// `llm_and_d4rt_tools.md` §8.1 `script_*` tools, and so both
+/// `llm_and_d4rt_tools.md` §10 modes drive the *identical* loop body (the "same
+/// loop test").
 library;
 
 import 'agent_scope.dart';
@@ -24,7 +27,8 @@ import 'agent_scope.dart';
 const String searchRecallEditVerifyProcedureSource = r'''
 import 'package:tom_spec_engine/agent.dart';
 
-/// One search → recall → edit → verify pass over the §8 tools (§10, mode a).
+/// One search → recall → edit → verify pass over the `llm_and_d4rt_tools.md` §8
+/// tools (`llm_and_d4rt_tools.md` §10, mode a).
 main(task) async {
   final goal = task['goal'];
   final parentPath = task['parentPath'];
@@ -103,7 +107,8 @@ final class AgentProcedure {
     this.scopes = const [agentScopeName],
   });
 
-  /// The canonical search → recall → edit → verify procedure (§10, mode a).
+  /// The canonical search → recall → edit → verify procedure
+  /// (`llm_and_d4rt_tools.md` §10, mode a).
   static const AgentProcedure searchRecallEditVerify = AgentProcedure(
     name: 'search_recall_edit_verify',
     source: searchRecallEditVerifyProcedureSource,

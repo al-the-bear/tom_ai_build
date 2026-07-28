@@ -17,9 +17,9 @@
 /// is pure value data (plus opaque registrar callbacks), so an application's
 /// *profile* — which scopes it enables — is declarative data, not code.
 ///
-/// This `ScriptScope` is deliberately distinct from [MemoryScope] (the Tom Brain
-/// memory-addressing key) and from `tom_brain`'s own `Scope`: it names a *D4rt
-/// scripting surface*, not a memory partition. See
+/// This `ScriptScope` is deliberately distinct from [MemoryScope] (the Tom
+/// Brain memory-addressing key) and from `tom_brain`'s own `Scope`: it names a
+/// *D4rt scripting surface*, not a memory partition. See
 /// `llm_and_d4rt_tools.md` §4.
 library;
 
@@ -88,7 +88,7 @@ final class ScopeGlobal {
   String toString() => 'ScopeGlobal($library::$name)';
 }
 
-/// A named, immutable D4rt scripting scope (§4).
+/// A named, immutable D4rt scripting scope (`llm_and_d4rt_tools.md` §4).
 ///
 /// Holds the [libraries], [globals], and [grants] a run is given when this scope
 /// is active. All three collections are unmodifiable; scopes are identified and

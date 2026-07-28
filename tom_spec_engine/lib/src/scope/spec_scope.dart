@@ -1,4 +1,4 @@
-/// The `spec` base scope (§4, §5).
+/// The `spec` base scope (`llm_and_d4rt_tools.md` §4, §5).
 ///
 /// Builds the [ScriptScope] that binds the document editing API to a **live**
 /// [SpecController]. The scope exposes exactly one bridged-library block,
@@ -8,16 +8,18 @@
 ///   2. injects a single controller-bound [SpecApi] instance as the `spec`
 ///      global under [specApiLibrary].
 ///
-/// A script that imports `package:tom_spec_engine/spec_api.dart` then drives the
-/// document through `spec` (`spec.setContent(...)`, `spec.addChild(...)`, …) —
-/// every call mediated by the controller, so the change log and undo stack see
-/// a script edit and a tool edit identically (§5 "one change log").
+/// A script that imports `package:tom_spec_engine/spec_api.dart` then drives
+/// the document through `spec` (`spec.setContent(...)`, `spec.addChild(...)`,
+/// …) — every call mediated by the controller, so the change log and undo stack
+/// see a script edit and a tool edit identically (`llm_and_d4rt_tools.md` §5
+/// "one change log").
 ///
-/// The scope grants **no extra `tom_d4rt` permission**: document access is not a
-/// filesystem/network capability but an in-memory operation gated by the
-/// controller itself (the §4 table's "document read+write (mediated)" is the
-/// controller mediation, not a `Permission`). The `files` and `memory` scopes
-/// (§7, §9) carry the actual permission grants.
+/// The scope grants **no extra `tom_d4rt` permission**: document access is not
+/// a filesystem/network capability but an in-memory operation gated by the
+/// controller itself (the `llm_and_d4rt_tools.md` §4 table's "document
+/// read+write (mediated)" is the controller mediation, not a `Permission`). The
+/// `files` and `memory` scopes (`llm_and_d4rt_tools.md` §7, §9) carry the
+/// actual permission grants.
 library;
 
 import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart'
@@ -36,12 +38,12 @@ const String specScopeName = 'spec';
 ///
 /// The scope always injects the controller-mediated editing facade ([SpecApi])
 /// as the `spec` global. When [model] is supplied it *additionally* injects the
-/// read-only reflection facade ([SpecModelApi]) as the `model` global (§4, §5) —
-/// the typed-read / meta-model surface a script consults before editing. When
-/// [search] is supplied it *also* injects the read-only §6 grep facade
-/// ([SpecSearchApi]) as the `search` global — the lexical/structural query
-/// cursor a script pages over the live document, mirroring the `doc_search` MCP
-/// tool.
+/// read-only reflection facade ([SpecModelApi]) as the `model` global
+/// (`llm_and_d4rt_tools.md` §4, §5) — the typed-read / meta-model surface a
+/// script consults before editing. When [search] is supplied it *also* injects
+/// the read-only `llm_and_d4rt_tools.md` §6 grep facade ([SpecSearchApi]) as
+/// the `search` global — the lexical/structural query cursor a script pages
+/// over the live document, mirroring the `doc_search` MCP tool.
 ///
 /// [model] and [search] are **lazy, null-tolerant** providers, not values: each
 /// is queried every time the scope's registrar runs (once per interpreter build

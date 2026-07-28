@@ -1,10 +1,11 @@
-/// The §10 substrate **selector** — *the application selects the mode* (§10).
+/// The `llm_and_d4rt_tools.md` §10 substrate **selector** — *the application
+/// selects the mode* (`llm_and_d4rt_tools.md` §10).
 ///
-/// §10 mandates two interchangeable substrates behind one [AgentSubstrate]
-/// interface, with the application choosing which to run. [AgentSubstrateMode]
-/// names the two modes and [buildAgentSubstrate] builds the matching substrate
-/// over a shared [AgentToolsApi] — so swapping modes is one enum value, never a
-/// caller change.
+/// `llm_and_d4rt_tools.md` §10 mandates two interchangeable substrates behind
+/// one [AgentSubstrate] interface, with the application choosing which to run.
+/// [AgentSubstrateMode] names the two modes and [buildAgentSubstrate] builds
+/// the matching substrate over a shared [AgentToolsApi] — so swapping modes is
+/// one enum value, never a caller change.
 library;
 
 import 'agent_procedure.dart';
@@ -16,7 +17,8 @@ import 'brain_session_envelope.dart';
 import 'direct_agent_substrate.dart';
 import '../memory/memory_scope.dart';
 
-/// The two §10 agent substrate modes the application chooses between.
+/// The two `llm_and_d4rt_tools.md` §10 agent substrate modes the application
+/// chooses between.
 ///
 /// **Mode (b) ([tomBrain]) is the default** ([defaultAgentSubstrateMode],
 /// decision F2): it gives the per-application **profile / named session / named
@@ -35,9 +37,10 @@ enum AgentSubstrateMode {
   tomBrain,
 }
 
-/// The default §10 substrate mode (decision F2): mode (b),
-/// Agent-SDK-through-`tom_brain`. The application gets the profile / session /
-/// memory isolation unless it explicitly opts into [AgentSubstrateMode.direct].
+/// The default `llm_and_d4rt_tools.md` §10 substrate mode (decision F2): mode
+/// (b), Agent-SDK-through-`tom_brain`. The application gets the profile /
+/// session / memory isolation unless it explicitly opts into
+/// [AgentSubstrateMode.direct].
 const AgentSubstrateMode defaultAgentSubstrateMode = AgentSubstrateMode.tomBrain;
 
 /// Builds the [AgentSubstrate] for [mode] over the shared [tools].

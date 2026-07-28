@@ -1,32 +1,33 @@
 /// The **live conversational substrate** + **multi-turn complex procedures**
-/// (§10 mode a).
+/// (`llm_and_d4rt_tools.md` §10 mode a).
 ///
-/// §10 mode (a) has a *headless* core — the complex agent procedure
-/// ([AgentProcedure]) and the single-pass [DirectAgentSubstrate] that drives it
-/// once. The **conversational substrate** (the live LLM that decides *what to do
-/// next*) and the **multi-turn** loop are an "editor concern", so this library
-/// covers them with the same seam pattern [SpecBrainSessionEnvelope] uses for
-/// the Tom Brain envelope: an **injected port** the pure-Dart plane can drive
-/// host-independently.
+/// `llm_and_d4rt_tools.md` §10 mode (a) has a *headless* core — the complex
+/// agent procedure ([AgentProcedure]) and the single-pass
+/// [DirectAgentSubstrate] that drives it once. The **conversational substrate**
+/// (the live LLM that decides *what to do next*) and the **multi-turn** loop
+/// are an "editor concern", so this library covers them with the same seam
+/// pattern [SpecBrainSessionEnvelope] uses for the Tom Brain envelope: an
+/// **injected port** the pure-Dart plane can drive host-independently.
 ///
-/// §10 mode (a) is "the Agent SDK … **augmented with the RAG memory** for
-/// per-prompt recall and **driven by a complex agent procedure**". The
-/// conversational substrate is the Agent SDK / LLM; this plane cannot host it,
-/// so [ConversationalDriver] is the port the editor binds to the live agent loop
-/// (Claude Code over the VS Code bridge). [ConversationalAgentSubstrate] is the
-/// **multi-turn** realisation: each turn it (1) recalls the RAG memory for the
-/// goal (the per-prompt augmentation), (2) hands that recall to the driver to
-/// decide the next turn (or stop), and (3) runs the existing complex procedure
-/// through a **base** [AgentSubstrate] for the turn's chosen inputs — so the
-/// conversational layer composes on top of *either* §10 mode (mode a's
-/// [DirectAgentSubstrate] or mode b's [BrainAgentSubstrate], whose run trail then
-/// records every turn for free).
+/// `llm_and_d4rt_tools.md` §10 mode (a) is "the Agent SDK … **augmented with
+/// the RAG memory** for per-prompt recall and **driven by a complex agent
+/// procedure**". The conversational substrate is the Agent SDK / LLM; this
+/// plane cannot host it, so [ConversationalDriver] is the port the editor binds
+/// to the live agent loop (Claude Code over the VS Code bridge).
+/// [ConversationalAgentSubstrate] is the **multi-turn** realisation: each turn
+/// it (1) recalls the RAG memory for the goal (the per-prompt augmentation),
+/// (2) hands that recall to the driver to decide the next turn (or stop), and
+/// (3) runs the existing complex procedure through a **base** [AgentSubstrate]
+/// for the turn's chosen inputs — so the conversational layer composes on top
+/// of *either* `llm_and_d4rt_tools.md` §10 mode (mode a's
+/// [DirectAgentSubstrate] or mode b's [BrainAgentSubstrate], whose run trail
+/// then records every turn for free).
 ///
 /// Keeping the driver an injected port lets the headless multi-turn test run
 /// against [RecordingConversationalDriver] (a scripted decision list) while the
 /// editor binds the live `AgentSendController`-backed driver — exactly as the
-/// memory plane (§9) and the run envelope (§10) inject their live
-/// ports.
+/// memory plane (`llm_and_d4rt_tools.md` §9) and the run envelope
+/// (`llm_and_d4rt_tools.md` §10) inject their live ports.
 library;
 
 import 'agent_procedure.dart';
@@ -46,8 +47,9 @@ final class ConversationalTurn {
   /// The procedure's outcome for this turn (run through the base substrate).
   final AgentRunResult result;
 
-  /// The memory paths the per-turn RAG recall surfaced before the driver decided
-  /// this turn — the per-prompt augmentation §10 mode (a) calls for.
+  /// The memory paths the per-turn RAG recall surfaced before the driver
+  /// decided this turn — the per-prompt augmentation `llm_and_d4rt_tools.md`
+  /// §10 mode (a) calls for.
   final List<String> recalledPaths;
 
   /// Creates a turn record.
@@ -136,9 +138,9 @@ final class ConversationalDecision {
       : this._(stop: true, reason: reason);
 }
 
-/// The **live conversational substrate** seam (§10 mode a): the LLM / Agent SDK
-/// that, given the running [ConversationContext] (goal + RAG recall + prior
-/// turns), decides the next turn or stops.
+/// The **live conversational substrate** seam (`llm_and_d4rt_tools.md` §10 mode
+/// a): the LLM / Agent SDK that, given the running [ConversationContext] (goal
+/// + RAG recall + prior turns), decides the next turn or stops.
 ///
 /// The pure-Dart plane cannot host the live model, so this is an injected port:
 /// the editor binds it to the live agent loop (Claude Code over the VS Code
@@ -179,7 +181,7 @@ final class RecordingConversationalDriver implements ConversationalDriver {
 }
 
 /// Runs the complex agent procedure across **multiple conversational turns** —
-/// the live mode-(a) realisation (§10).
+/// the live mode-(a) realisation (`llm_and_d4rt_tools.md` §10).
 ///
 /// Composition over a base substrate: each turn the substrate (1) recalls the
 /// RAG memory for the goal (the per-prompt augmentation), (2) asks the injected
@@ -241,7 +243,8 @@ final class ConversationalAgentSubstrate implements AgentSubstrate {
     String? stopReason;
 
     for (var i = 0; i < _maxTurns; i++) {
-      // 1. Per-prompt RAG recall — the augmentation §10 mode (a) calls for.
+      // 1. Per-prompt RAG recall — the augmentation `llm_and_d4rt_tools.md` §10
+      //    mode (a) calls for.
       final recall = await _tools.recall(goal, k: _recallK);
       final recalledPaths = _pathsOf(recall);
 
@@ -319,10 +322,10 @@ final class ConversationalAgentSubstrate implements AgentSubstrate {
 /// recalling [tools]'s RAG memory per turn.
 ///
 /// A thin convenience mirroring [buildAgentSubstrate] for the conversational
-/// layer (§10 mode a, multi-turn). The conversational substrate is *not* one of
-/// the two [AgentSubstrateMode]s — it is the live, multi-turn realisation that
-/// composes on top of either mode — so it has its own builder rather than an
-/// enum case.
+/// layer (`llm_and_d4rt_tools.md` §10 mode a, multi-turn). The conversational
+/// substrate is *not* one of the two [AgentSubstrateMode]s — it is the live,
+/// multi-turn realisation that composes on top of either mode — so it has its
+/// own builder rather than an enum case.
 ConversationalAgentSubstrate buildConversationalSubstrate({
   required AgentSubstrate base,
   required AgentToolsApi tools,

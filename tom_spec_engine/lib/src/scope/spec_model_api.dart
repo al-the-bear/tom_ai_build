@@ -1,5 +1,5 @@
 /// The script-facing **read-only** `model` reflection facade and its D4rt
-/// bridge (§4, §5).
+/// bridge (`llm_and_d4rt_tools.md` §4, §5).
 ///
 /// Where the `spec` global ([SpecApi]) is the controller-mediated *editing*
 /// surface (read values + record-logged mutations), [SpecModelApi] is the
@@ -7,8 +7,8 @@
 /// `model` global. It answers the meta-model questions a script asks *before*
 /// editing — "what kind of node is this path? what class is it? which children
 /// may I add here? what does `@MapsTo` / `@DetailedIn` say?" — without ever
-/// touching a value, so it carries **no mutation path** by construction (§4: the
-/// reflection layer is read-only).
+/// touching a value, so it carries **no mutation path** by construction
+/// (`llm_and_d4rt_tools.md` §4: the reflection layer is read-only).
 ///
 /// It reads the same meta-model the `doc_reflect` MCP tool reads, through the one
 /// shared reflection builder ([DocReflection.resolve]). Binding it to the live

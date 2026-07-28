@@ -1,13 +1,15 @@
-/// The **live agent-run surface** of the engine (§10 / §11).
+/// The **live agent-run surface** of the engine (`llm_and_d4rt_tools.md` §10 /
+/// §11).
 ///
-/// Where [`agent.dart`](agent.dart) re-exports the §11 **AgentContext** profile
-/// *binding* surface (memory-light, pure Dart), this partial library re-exports
-/// the §10 **run** surface the editor needs to actually *drive* a mode-(b) agent
-/// run in-process: the [AgentSubstrate] modes ([buildAgentSubstrate] /
-/// [AgentSubstrateMode], [BrainAgentSubstrate] / [DirectAgentSubstrate]), the
-/// [AgentTask] / [AgentRunResult] values, the run-trail types ([RunEffort] /
-/// [BrainRunRecord] / [BrainSessionEnvelope]), and — the heart of item 8 — the
-/// live [SpecBrainSessionEnvelope] that records each run into a document's
+/// Where [`agent.dart`](agent.dart) re-exports the `llm_and_d4rt_tools.md` §11
+/// **AgentContext** profile *binding* surface (memory-light, pure Dart), this
+/// partial library re-exports the `llm_and_d4rt_tools.md` §10 **run** surface
+/// the editor needs to actually *drive* a mode-(b) agent run in-process: the
+/// [AgentSubstrate] modes ([buildAgentSubstrate] / [AgentSubstrateMode],
+/// [BrainAgentSubstrate] / [DirectAgentSubstrate]), the [AgentTask] /
+/// [AgentRunResult] values, the run-trail types ([RunEffort] / [BrainRunRecord]
+/// / [BrainSessionEnvelope]), and — the heart of item 8 — the live
+/// [SpecBrainSessionEnvelope] that records each run into a document's
 /// profile-isolated Tom Brain named memory.
 ///
 /// Because [SpecBrainSessionEnvelope] persists through [SpecMemory], this façade

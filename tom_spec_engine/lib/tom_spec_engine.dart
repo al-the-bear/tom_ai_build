@@ -25,70 +25,74 @@
 ///   * package metadata (`engine_meta.dart`);
 ///   * the **Tom Brain memory façade** (`memory/`) — `SpecMemory` /
 ///     `MemoryScope` over the embeddable, profile-isolated, in-process memory
-///     plane (§9);
+///     plane (`llm_and_d4rt_tools.md` §9);
 ///   * the **D4rt scripting scope model** (`scope/`) — `ScriptScope` /
 ///     `ScopeRegistry` / `RunEnvironment` / `ScopeProfile` and the reusable
-///     `tom_som` bridged-library block (§4);
+///     `tom_som` bridged-library block (`llm_and_d4rt_tools.md` §4);
 ///   * the **`spec` base scope** (`scope/`) — `SpecController` (the live-document
 ///     controller port), the `SpecApi` script facade + its D4rt bridge, and the
 ///     `specScope()` factory that binds document editing to the live controller
 ///     so a script edit shares the change log + undo stack with a tool edit
-///     (§5);
+///     (`llm_and_d4rt_tools.md` §5);
 ///   * the **`files` base scope** (`scope/`) — `SpecFileFacade` (the audited
 ///     read-anywhere / write-whitelist file surface, default writable
 ///     `agent/scratchpad`) plus the `filesScope()` factory that bridges only the
 ///     facade (raw `dcli` / `dart:io` writes stay unbridged) and grants the D4rt
 ///     permission system `read=any` + `write=<whitelist>` as a backstop
-///     (§7);
+///     (`llm_and_d4rt_tools.md` §7);
 ///   * the **tier-1 structural/lexical index** (`index/`) —
-///     `StructuralLexicalIndex`, an inverted BM25 text index + structural facets
-///     built directly from the object model (`SpecNodeProjection`s), with zero
-///     model calls and incremental per-section refresh, backing the §6 search
-///     facility (§9.2);
+///     `StructuralLexicalIndex`, an inverted BM25 text index + structural
+///     facets built directly from the object model (`SpecNodeProjection`s),
+///     with zero model calls and incremental per-section refresh, backing the
+///     `llm_and_d4rt_tools.md` §6 search facility (`llm_and_d4rt_tools.md`
+///     §9.2);
 ///   * the **section-level RAG store** (`memory/`) — the pure `SpecRagGraph`
 ///     builder (section nodes + tree/`@MapsTo`/`@DetailedIn` edges from a
 ///     document's projections, zero I/O / zero model calls) plus
 ///     `SpecDocumentMemory.indexDocument` / `recallSections` / `edgesFrom`,
 ///     which persist that graph as `Concept` nodes + `part_of` / `mentions`
 ///     edges into the document's profile-isolated Tom Brain named memory and
-///     recall it back, all in-process (§9.1);
+///     recall it back, all in-process (`llm_and_d4rt_tools.md` §9.1);
 ///   * the **fused two-tier recall** (`memory/`) — `SpecRecall.recall`, which
 ///     combines the tier-1 lexical (BM25) + symbolic (facet) modes with the
 ///     tier-2 vector mode and an optional GraphWalk via weighted Reciprocal
 ///     Rank Fusion + MMR, degrading gracefully to tier 1 while tier 2 warms;
 ///     plus `SpecDocumentMemory.indexChangedSections`, the incremental
 ///     embed-changed-only refresh (content-addressed nodes, forget-on-update /
-///     forget-on-remove) that feeds it (§9.2 / §9.3);
+///     forget-on-remove) that feeds it (`llm_and_d4rt_tools.md` §9.2 / §9.3);
 ///   * the **`memory` base scope** (`scope/`) — `MemoryApi` (the read-only
 ///     recall facade over `SpecRecall`) + its D4rt bridge, and the
 ///     `memoryScope()` factory that injects a single recall-bound `memory`
 ///     global and grants no permission, so a sandboxed script can recall but
-///     has no mutation path at all (§4 / §9);
+///     has no mutation path at all (`llm_and_d4rt_tools.md` §4 / §9);
 ///   * the **script tools** (`tools/`) — `ScriptTools` (the engine logic behind
 ///     the `script_author` / `script_validate` / `script_run` / `script_list` /
 ///     `script_get` MCP tools) over a `ScopeRegistry` + a `ScriptStore`
-///     (`FileScriptStore` persists `*.d4rt.dart` under `agent/scripts/`): author
-///     a named script recording its scopes, validate it against the granted
-///     scope without running, and run it under named scopes capturing stdout +
-///     the auto-awaited `main()` return + error/stack (§8.1);
+///     (`FileScriptStore` persists `*.d4rt.dart` under `agent/scripts/`):
+///     author a named script recording its scopes, validate it against the
+///     granted scope without running, and run it under named scopes capturing
+///     stdout + the auto-awaited `main()` return + error/stack
+///     (`llm_and_d4rt_tools.md` §8.1);
 ///   * the **in-memory read/write/search tools** (`tools/`) — the engine logic
-///     behind the §8.2 `doc_*` / `mem_*` / `file_*` MCP tools:
-///     `DocTools` (`doc_search` + `doc_search_iterate` over the §6 cursor,
-///     `doc_reflect` meta-model facts, and `doc_add_node` routed through the
-///     `SpecController` so it lands in the one change log), `MemoryTools`
-///     (`mem_recall` over the fused `SpecRecall` with an optional per-mode
-///     filter, `mem_refresh` over an injected re-index callback), and
-///     `FileTools` (`file_read` / `file_find` / `file_write` over the audited
-///     `SpecFileFacade`). Every result is a typed value with a compact `toJson`
-///     (§8.2);
-///   * the **agent substrate** (`agent/`) — the §10 pluggable [AgentSubstrate]
-///     (`AgentTask` / `AgentRunResult`) and its **mode (a)** implementation
-///     `DirectAgentSubstrate`: a headless procedure host that drives the
-///     **complex agent procedure** (`AgentProcedure.searchRecallEditVerify`, a
-///     D4rt script over the §8 tools) through a search → recall → edit → verify
-///     loop. The procedure reaches the toolsets through one bridged `agent`
-///     global (`AgentToolsApi`, the `agent` scope), so every edit lands in the
-///     one change log and every step returns compact JSON (§10);
+///     behind the `llm_and_d4rt_tools.md` §8.2 `doc_*` / `mem_*` / `file_*` MCP
+///     tools: `DocTools` (`doc_search` + `doc_search_iterate` over the
+///     `llm_and_d4rt_tools.md` §6 cursor, `doc_reflect` meta-model facts, and
+///     `doc_add_node` routed through the `SpecController` so it lands in the
+///     one change log), `MemoryTools` (`mem_recall` over the fused `SpecRecall`
+///     with an optional per-mode filter, `mem_refresh` over an injected
+///     re-index callback), and `FileTools` (`file_read` / `file_find` /
+///     `file_write` over the audited `SpecFileFacade`). Every result is a typed
+///     value with a compact `toJson` (`llm_and_d4rt_tools.md` §8.2);
+///   * the **agent substrate** (`agent/`) — the `llm_and_d4rt_tools.md` §10
+///     pluggable [AgentSubstrate] (`AgentTask` / `AgentRunResult`) and its
+///     **mode (a)** implementation `DirectAgentSubstrate`: a headless procedure
+///     host that drives the **complex agent procedure**
+///     (`AgentProcedure.searchRecallEditVerify`, a D4rt script over the
+///     `llm_and_d4rt_tools.md` §8 tools) through a search → recall → edit →
+///     verify loop. The procedure reaches the toolsets through one bridged
+///     `agent` global (`AgentToolsApi`, the `agent` scope), so every edit lands
+///     in the one change log and every step returns compact JSON
+///     (`llm_and_d4rt_tools.md` §10);
 ///   * **mode (b)** (`agent/`) — `BrainAgentSubstrate`, the
 ///     **Agent-SDK-through-`tom_brain`** substrate: it drives the *same*
 ///     procedure through the *same* host (`runAgentProcedure`, now shared with
@@ -102,18 +106,19 @@
 ///     lightest single-application use; the headless
 ///     `RecordingBrainEnvelope` keeps the "same loop test" host-independent
 ///     while the live `tom_brain_memory`-backed envelope is wired in the editor
-///     (§10).
-///   * the **per-application AgentContext** (`agent/`) — the §11
-///     [AgentContext] (`{guidelines doc, tool set, scope profile}`) realised as
-///     a Tom Brain profile (`application` → profile, `guidelinesName` →
-///     prompt, `toolset` → [AgentToolGroup]s, `scopeProfile` → enabled base
-///     scopes) with a named session per phase/task and a named memory per
-///     document via [AgentContext.memoryScope]. The **toolset ⊆ scopes**
-///     invariant is enforced at construction; [AgentContext.brainSubstrate]
-///     bridges to mode (b); [docSpecsAgentContext] is the reference
-///     application (all four tool groups + the three base scopes); and
-///     [AgentContextRegistry] is the application switch — one `context(name)`
-///     call swaps guidelines + tools + scopes + memory together (§11).
+///     (`llm_and_d4rt_tools.md` §10).
+///   * the **per-application AgentContext** (`agent/`) — the
+///     `llm_and_d4rt_tools.md` §11 [AgentContext] (`{guidelines doc, tool set,
+///     scope profile}`) realised as a Tom Brain profile (`application` →
+///     profile, `guidelinesName` → prompt, `toolset` → [AgentToolGroup]s,
+///     `scopeProfile` → enabled base scopes) with a named session per
+///     phase/task and a named memory per document via
+///     [AgentContext.memoryScope]. The **toolset ⊆ scopes** invariant is
+///     enforced at construction; [AgentContext.brainSubstrate] bridges to mode
+///     (b); [docSpecsAgentContext] is the reference application (all four tool
+///     groups + the three base scopes); and [AgentContextRegistry] is the
+///     application switch — one `context(name)` call swaps guidelines + tools +
+///     scopes + memory together (`llm_and_d4rt_tools.md` §11).
 library;
 
 export 'src/agent/agent_context.dart';

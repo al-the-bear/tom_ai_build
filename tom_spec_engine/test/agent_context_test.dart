@@ -1,6 +1,6 @@
-/// Tests for the §11 [AgentContext] — the per-application context
-/// ({guidelines doc, tool set, scope profile}) realised over Tom Brain
-/// profiles/sessions/memory (§11).
+/// Tests for the `llm_and_d4rt_tools.md` §11 [AgentContext] — the
+/// per-application context ({guidelines doc, tool set, scope profile}) realised
+/// over Tom Brain profiles/sessions/memory (`llm_and_d4rt_tools.md` §11).
 ///
 /// The done-criterion: *switching application swaps profile → guidelines +
 /// tools + scopes + memory*, exercised with the DocSpecs profile.

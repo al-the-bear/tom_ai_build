@@ -1,20 +1,22 @@
 /// The script-facing **read-only** `search` grep facility and its D4rt bridge
-/// (§6).
+/// (`llm_and_d4rt_tools.md` §6).
 ///
 /// Where the `spec` global ([SpecApi]) is the controller-mediated *editing*
 /// surface and the `model` global ([SpecModelApi]) is the *reflection* surface,
-/// [SpecSearchApi] is the third companion the `spec` scope injects: the **§6
-/// grep / query** facility a script runs over the *live* document. It opens a
-/// [SpecQueryCursor] from a query and hands the script a paging [SpecSearchCursor]
-/// — the same lexical/structural, embedding-free search the `doc_search` MCP tool
-/// exposes, so a script's results and a tool's results agree by construction
-/// (both project each match through [DocSearchMatch.from]).
+/// [SpecSearchApi] is the third companion the `spec` scope injects: the
+/// **`llm_and_d4rt_tools.md` §6 grep / query** facility a script runs over the
+/// *live* document. It opens a [SpecQueryCursor] from a query and hands the
+/// script a paging [SpecSearchCursor] — the same lexical/structural,
+/// embedding-free search the `doc_search` MCP tool exposes, so a script's
+/// results and a tool's results agree by construction (both project each match
+/// through [DocSearchMatch.from]).
 ///
-/// It carries **no mutation path** by construction (§6 is read-only): it holds a
-/// [SpecQueryEngine] and exposes only query/grep + cursor stepping, never the
-/// engine, the document, or any setter. The cursor is edit-stable — it
-/// re-validates each path on every step (§6) — so a script may interleave search
-/// and `spec`-mediated edits without surfacing stale hits.
+/// It carries **no mutation path** by construction (`llm_and_d4rt_tools.md` §6
+/// is read-only): it holds a [SpecQueryEngine] and exposes only query/grep +
+/// cursor stepping, never the engine, the document, or any setter. The cursor
+/// is edit-stable — it re-validates each path on every step
+/// (`llm_and_d4rt_tools.md` §6) — so a script may interleave search and
+/// `spec`-mediated edits without surfacing stale hits.
 ///
 /// `SpecSearchApi` is never constructed from a script — the `spec` scope injects
 /// a single engine-bound instance as the `search` global — so the bridge declares
@@ -44,10 +46,10 @@ const String specSearchApiGlobalName = 'search';
 /// The de-duplication name of the `spec_search_api` bridged-library block.
 const String specSearchApiLibraryName = 'spec_search_api';
 
-/// Builds a §6 [SpecQuery] from a string-keyed argument map — the single shared
-/// query builder behind both the `doc_search` MCP tool and the in-script
-/// `search` facade, so the two surfaces accept the **same** dimensions and
-/// coerce them identically.
+/// Builds a `llm_and_d4rt_tools.md` §6 [SpecQuery] from a string-keyed argument
+/// map — the single shared query builder behind both the `doc_search` MCP tool
+/// and the in-script `search` facade, so the two surfaces accept the **same**
+/// dimensions and coerce them identically.
 ///
 /// Recognised keys (every supplied one is AND-combined): `text`, `regex`,
 /// `caseInsensitive`, `kinds` (a list, or a comma-separated string, of
@@ -115,18 +117,21 @@ T? _enumByName<T extends Enum>(List<T> values, String name) {
   return null;
 }
 
-/// The script-facing §6 grep facility over a live [SpecQueryEngine]: open a
-/// cursor with [query] (full dimensions) or [grep] (text shorthand), then page
-/// it through the returned [SpecSearchCursor]. Read-only — no mutation surface.
+/// The script-facing `llm_and_d4rt_tools.md` §6 grep facility over a live
+/// [SpecQueryEngine]: open a cursor with [query] (full dimensions) or [grep]
+/// (text shorthand), then page it through the returned [SpecSearchCursor].
+/// Read-only — no mutation surface.
 final class SpecSearchApi {
-  /// The §6 query facility over the live (model, document) pair.
+  /// The `llm_and_d4rt_tools.md` §6 query facility over the live (model,
+  /// document) pair.
   final SpecQueryEngine engine;
 
   /// Binds the facade to [engine].
   const SpecSearchApi(this.engine);
 
-  /// Opens a cursor over the nodes matching the §6 query described by [args]
-  /// (see [specQueryFromArgs] for the recognised dimensions).
+  /// Opens a cursor over the nodes matching the `llm_and_d4rt_tools.md` §6
+  /// query described by [args] (see [specQueryFromArgs] for the recognised
+  /// dimensions).
   SpecSearchCursor query(Map<Object?, Object?> args) =>
       SpecSearchCursor(engine.query(specQueryFromArgs(args)));
 
@@ -146,12 +151,13 @@ final class SpecSearchApi {
       )));
 }
 
-/// A script-facing paging view over a §6 [SpecQueryCursor]: each match is
-/// projected to the same compact JSON map the `doc_search` MCP tool returns
-/// (`path`, `kind`, `classId`, `headline`, `snippet`, `spans`). Forward-only and
-/// edit-stable — the underlying cursor re-validates every path as it steps.
+/// A script-facing paging view over a `llm_and_d4rt_tools.md` §6
+/// [SpecQueryCursor]: each match is projected to the same compact JSON map the
+/// `doc_search` MCP tool returns (`path`, `kind`, `classId`, `headline`,
+/// `snippet`, `spans`). Forward-only and edit-stable — the underlying cursor
+/// re-validates every path as it steps.
 final class SpecSearchCursor {
-  /// The underlying edit-stable §6 cursor.
+  /// The underlying edit-stable `llm_and_d4rt_tools.md` §6 cursor.
   final SpecQueryCursor cursor;
 
   /// Wraps [cursor] for script consumption.
