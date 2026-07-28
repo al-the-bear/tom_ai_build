@@ -249,7 +249,7 @@ surface — pillar (a)/(b)):
 | CE-LO | Layout | `layout` | `@CsLayout` | `AclContainer` / `AclRow` / `AclComponent` (`tom_flutter_ui`); node model → **gap** (§5.2, §5.12) |
 | CE-TX | Text | `text` | `@CsText` | `TomText` (`tom_flutter_ui`) + `TomTextResourceProvider` (`tom_core_kernel`); message/i18n-key model → **gap** (§5.8, §5.21) |
 | CE-VA | Validation | `validation` | `@CsValidation` | `Validators` (`tom_flutter_ui`); **no gap** — provided as **Dart validation methods** (standalone validator classes or methods on the `TomForm` subclass), the §3 first-level-implementation latitude (§5.9, §5.19) |
-| CE-AC | Action | `action` | `@CsAction`, `@CsTrigger` | `TomAction` / `TomActionController` / `TomActionTrigger` (`tom_flutter_ui`); **no gap** — full action implementation reused (§5.10, §5.20) |
+| CE-AC | Action | `action` | `@CsAction`, `@CsTrigger` *(required `TriggerKind`)* | `TomAction` / `TomActionController` / `TomActionTrigger` (`tom_flutter_ui`); **no gap** — full action implementation reused (§5.10, §5.20). The closed 5-kind trigger taxonomy rides `@CsTrigger` as a documented classification, not a class |
 | CE-SC | ServerCall | `serverCall` | `@CsServerCall` | `TomServerEndpoint<T,R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, §5.3) |
 | CE-API | ServerApi | `serverApi` | `@CsEndpoint` | `TomApi` / `TomApiEndpoint<R,Q>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`) (§5.6.1) |
 | CE-SU | ServiceUnit | `serviceUnit` | `@CsServiceUnit` | **no gap** — ordinary **(abstract) classes** clustering the server API into functional-group *closures*, carrying the `tom_core_server` server-API mapping annotations (`@tomService` / `TomApiImplementation`) (§5.1, §5.6.2) |
@@ -383,7 +383,7 @@ quest's framework-readiness series, which owns the core-side roadmap items.
 | **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | **2FA gap (`csex3`)** — `Tom2FAAdaptor` exists (`tom_core_server`, `authentication_server.dart`) but `authenticatePass2` is **unimplemented** and the second-pass wire contract is a placeholder; until completed, a 2FA spec can only be `UnsupportedError` pseudo-code. | `@CsAuth` attributes for **flow kind** (password / 2FA), token-lifetime expectations, refresh policy. |
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: public\|encrypted)` per field (both not yet authored, `csra1`).<br>**Example:** `@CsIdentity class EmployeeProfile { @CsIdentityAttribute(placement: encrypted) late String costCenter; }` | None — reuse; both carriers exist. | The two annotations must be **authored**; per-field **placement** + format/length constraints — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class (not yet authored, `csra1`). Migration **filenames stay strings** (§5.23 exemption). | Execution substrate is pure reuse. **Convergence gap (`csex6`)** — no **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check); it is the **only integrity guard** available over the string-exempt migration filenames. Framework roadmap. | `@CsMigration` must be authored; attributes tying a migration to the **entity-model version** it converges to. |
-| **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate (`tom_core_kernel`, `tombase/isolate_pooling/tom_worker.dart`). A job is a concrete class over the gap **job base class**, its work body **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob(schedule: …)` (not yet authored, `csra1`).<br>**Example:** `@CsJob(schedule: '0 3 * * *') class NightlyCleanupJob extends TomJobBase { @override run() => throw UnsupportedError('purge expired sessions via SessionService'); }` | **Three gaps:** (1) the **job base class** → `tom_core_codespecs` (`csra2`); (2) **no scheduler runtime / durable job queue** in core — cron parsing, persistence, retries (`csex7`; `tom_process_monitor` is reference only); (3) **no multi-node single-fire lease locking** (`csex8`, depends on `csex7`, low priority). | `@CsJob` must be authored; **schedule expression**, **concurrency/single-fire policy** and **retry policy** are pure spec detail beyond code. |
+| **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob() class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | **One gap:** the **`TomJobDeclaration` envelope** (`enabled` / `environments` / `serviceUnitId` / `targetRefs`) → `tom_core_codespecs` (`csra2`). The scheduler runtime, durable job queue and multi-node single-fire lease locking — once listed as gaps for `csex7` / `csex8` — have **landed in `tom_core_kernel`** and are reused directly (`csrb1` reconciles those todos). | **Schedule expression**, **concurrency/single-fire policy** and **retry policy** are spec detail authored onto the reused `TomSchedule` / `TomRetryPolicy` surface. |
 | **CE-RP** Reporting *(deferred, §4.3)* | Tabular / aggregated reporting with export channels (screen, `fileExport` CSV/PDF/XLSX); SOM home REPENT (D09). | Mapping-only: the reserved `CodeSpecPart.reporting` kind — **no `Cs*` annotation, no built-on class, no generated code** until promoted. On promotion it would build on CE-DB queries + a **tabular result envelope**. | Promotion was blocked on three roadmap items; **rendering is done** — `csex11` shipped the `tom_core_server` `export` module (CSV/XLSX/PDF through one streaming abstraction, plus the `apiResponse` and `fileExport` channels; `doc/export.md`), built on a minimal tabular shape the envelope adapts onto, and a `csfs1`-backed blob store is now an adapter rather than a blocker. Two remain: the **aggregation grammar** (`csex5`, shared with CE-DB) and the **tabular envelope** itself (a tom_specs-owned `tom_core_codespecs` gap). Charts stay unrendered by design. | Future `@CsReport` + the reserved `CsReportRef` (§5.23). |
 | **CE-WF** Workflow *(deferred, §4.3)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **Full substrate missing** — no core state-machine or process-instance persistence exists; the largest-distance deferred part. The substrate survey + build/defer recommendation to `csra7` is owned by `csex13`. | Future annotation family undefined until a substrate exists. |
 | **CE-NT** Notification *(deferred, §4.3)* | Outbound user notifications, email first; SOM home NM (D06, ATS). | Mapping-only — reserved kind value; no surfaces. | **Transport substrate exists** — `tom_core_server` `messaging`: `TomMessage` (channel-neutral), `TomMessageTransport` / `TomMessageRouter`, `TomSmtpTransport` with secret-marked CE-CF credentials, and `TomMessageOutbox` (durable queue on the CE-JB scheduler). Stand-in transports make a spec naming `email` runnable without a mail server. **Remaining gap for promotion:** the notification *model* — notification type ⇄ channel ⇄ user preference — which `tom_core` does not have. | Future `@CsNotification`; message templates keyed via CE-TX (`CsMessageKey`). |
@@ -729,7 +729,7 @@ therefore classified:
 | **4** | Server behaviour | CE-AU (2FA second pass) · CE-SU (`CsServiceUnitRef`) | **R** · **E** | `csex3` · `csra6` |
 | **5** | Client interaction core | CE-NV (route registry + screen-flow model) · CE-EL (uncarried per-kind attributes) · CE-SC/CE-AC/CE-FM ref types | **E** · **E(lossy)** · **E** | `csra2` (flow-model class) · `csra5` (screen-flow SOM home) · `csexb1` · `csra1` (`@CsScreenFlow`) · `csra6` (`CsRouteRef` / `CsCallRef` / `CsActionRef`) |
 | **6** | Client presentation & shell | CE-LO (node model + ACL container-kind reconciliation) · CE-CL (descriptor) · CE-UP (holder) · CE-CC (holder decision) · CE-DS (`@CsDeviceSetting`) | **E** | `csra2` (node model, descriptor, settings holder) · `csexb2` (ACL substrate) · `csex12` (CE-CC confirm/reject) · `csra1` (`@CsDeviceSetting`) |
-| **7** | Server operational | CE-JB (job base class; scheduler runtime; multi-node lease) · CE-UP (server persistence) | **E** · **R** | `csra2` (job base class, settings persistence) · `csex7` / `csex8` (scheduler, single-fire) · `csra1` (`@CsJob`) |
+| **7** | Server operational | CE-JB (declaration envelope; scheduler runtime, job queue and multi-node lease have **landed** in `tom_core_kernel`) · CE-UP (server persistence) | **E** · **R** | `csra2` (job declaration, settings persistence) · `csrb1` (reconcile `csex7` / `csex8` against the landed scheduling module) · `csra1` (`@CsJob`) |
 
 **Critical-path consequence.** Every slice is currently **E**-blocked, and for
 slices 1–4 the emission blockers are **exclusively tom_specs-owned**: `csra6`
@@ -2792,17 +2792,31 @@ BAJOMA).
 4. **Retry / backoff / timeout / failure-alerting** — the operational policy
    for a failed or long-running run.
 
-**Gap (tom_core_codespecs concrete class).** A **job base class** `tom_core`
-lacks: a base that makes job execution **pluggable into any scheduling system**
-and carries the job definition (trigger, schedule expression, target refs, retry
-policy, timeout, failure alerting, enabled flag, environments, owning service
-unit). A concrete job **extends** it and supplies the work body as compilable
-**pseudo-code** (decision (k), §3) over a later-injected **abstract service
-class** whose methods carry detailed doc-comments — so the skeleton compiles now
-and the real service is bound at implementation time. Everything else is reuse:
-the isolate-pool work-body engine is framework-fixed. The job identity is
-declared once as a `CsJobRef` const on the CE-JB catalogue class (§5.23) —
-citations hold the typed const, never a string.
+**Gap (tom_core_codespecs concrete class) — narrow.** `tom_core_kernel`'s
+`tombase/scheduling/` module carries the **whole runtime half** of a job:
+`TomJobDefinition` (schedule, work body, retry policy, timeout, missed-window
+policy, overlap rule), the `TomSchedule` family (cron / calendar / interval /
+event), `TomScheduler`, the `TomJobStore` implementations, the `TomLeaseLock`
+family, and `TomJobDispatcher` — which is exactly the "pluggable into any
+scheduling system" seam. All of it is **reused directly** per §1.1 pillar (b);
+re-declaring any of it in `tom_core_codespecs` is the duplication that pillar
+forbids.
+
+What the substrate has no home for is the **deployment-and-ownership envelope** a
+specification authors *around* a job — `TomJobDefinition` is a runtime object, so
+by the time it exists the decision to deploy has already been made. That envelope
+is the gap class `TomJobDeclaration`: `enabled` (deployment gating is **opt-out** —
+a specified job is meant to run), `environments` (**empty means every
+environment**, keeping environment lists out of specs that do not need them),
+`serviceUnitId` (owning unit), and `targetRefs` (the entities the job touches,
+declared because `TomJobDefinition.body` is an opaque closure and reveals
+nothing). A concrete job carries a `@CsJob`-marked `TomJobDeclaration` and
+supplies its own `TomJobDefinition`, whose work body is compilable **pseudo-code**
+(decision (k), §3) over a later-injected **abstract service class** with
+doc-commented methods — so the skeleton compiles now and the real service binds at
+implementation time. The job identity is declared once as a `CsJobRef` const on
+the CE-JB catalogue class (§5.23) — citations hold the typed const, never a
+string.
 
 **Relationships.**
 
@@ -2813,16 +2827,19 @@ citations hold the typed const, never a string.
 | CE-RP | Scheduled reports — a CE-RP definition that *names* a schedule (§5.28) is **realised as** a CE-JB job whose work body runs the report projection and hands off to the report's delivery channel. |
 | CE-AZ / CE-AU | Execution principal — a job runs under the server principal, not an interactive session; authorization on any CE-API it calls is checked against that principal (§5.6.3, §5.25). |
 
-**Framework roadmap (extensions of existing `tom_core` mechanics, NOT CodeSpecs
-gaps).**
+**Framework substrate (existing `tom_core` mechanics, NOT CodeSpecs gaps).** All
+three items this section once listed as roadmap have landed in
+`tom_core_kernel/lib/src/tombase/scheduling/` and are reused as-is:
 
-- **Scheduler runtime** — no cron/calendar dispatcher in `tom_core`; the trigger
-  is a named-but-unwired schedule until one lands.
-- **Job queue** — durable enqueue/dequeue of pending runs.
-- **Multi-node locking** — single-fire coordination so one scheduled run
-  executes once across a server cluster. `tom_process_monitor` is **reference
-  only** (an existing process supervisor) — not a `tom_core`-family class the
-  CodeSpec builds on.
+- **Scheduler runtime** — `TomScheduler` over the `TomSchedule` family
+  (`TomCronSchedule`, `TomCalendarSchedule`, `TomIntervalSchedule`,
+  `TomEventSchedule`), so a trigger is a wired schedule rather than a name.
+- **Job queue** — `TomJobStore` with `TomMemoryJobStore` / `TomFileJobStore` for
+  durable enqueue/dequeue of `TomJobRun`s.
+- **Multi-node locking** — the `TomLeaseLock` family (`TomMemoryLeaseLock`,
+  `TomFileLeaseLock`) for single-fire coordination across a server cluster.
+  `tom_process_monitor` remains **reference only** (an existing process
+  supervisor) — not a `tom_core`-family class the CodeSpec builds on.
 
 ## 6. Completion elements (recap)
 
@@ -3175,14 +3192,15 @@ traceability and gap analysis become set operations in both directions.
 ## 10. Open work
 
 Everything still outstanding against this document is tracked as a **quest todo
-with the `csra` prefix** in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml`. Each
-todo is self-contained — it carries the full context needed to execute it — so
-this list is an index, not a specification.
+with the `csra` prefix** — plus `csrb` for follow-ups raised while executing a
+`csra` todo — in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml`. Each todo is
+self-contained — it carries the full context needed to execute it — so this list
+is an index, not a specification.
 
 | Todo | Open work |
 |------|-----------|
 | `csra1` | Complete the `Cs*` annotation family in `tom_code_specs` — the six annotations the §4.1 catalogue needs but which do not exist yet (`@CsScreenFlow`, `@CsDeviceSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsMigration`, `@CsJob`). No `@CsReport`: CE-RP is deferred. |
-| `csra2` | Add the missing `tom_core_codespecs` gap classes — the layout node (CE-LO), message-key registry (CE-TX), route/screen-flow (CE-NV), trigger (CE-AC) and job base (CE-JB). Only genuine gaps; everything else reuses `tom_core` directly (§1.1 pillar b). |
+| `csra2` | Add the missing `tom_core_codespecs` gap classes — the layout node (CE-LO), message-key registry (CE-TX), route/screen-flow (CE-NV) and job declaration (CE-JB). **Not** CE-AC: §4.1/§5.10/§5.20 record it "no gap — full action implementation reused", so its closed 5-kind taxonomy ships as `TriggerKind` on `@CsTrigger` in `tom_code_specs`. Only genuine gaps; everything else reuses `tom_core` directly (§1.1 pillar b). |
 | `csra3` | Drop the `local`/`roaming` persistence discriminator from `TomUserSettings` — it contradicts the §11 four-scope split, where scope is expressed by *which* part is used and never by a persistence flag. |
 | `csra4` | Convert the five **Family 2** closed-choice sites (§8.2) — enum-promote each free-text `dataType`/`fieldType` discriminator, then apply the `@OneOf`/`@Case` split. |
 | `csra5` | Add the CE-NV **screen-flow** SOM section (§5.11) — form→screen assignment (replace vs popup overlay) and action-triggered navigation with *conditional* targets (success → confirmation / back; error → error display). Without it `@CsRoute` / `@CsScreenFlow` have no authoring home. |
@@ -3193,6 +3211,7 @@ this list is an index, not a specification.
 | `csra10` | CE-DB **file-reference column kind** — a `@CsColumn` extension for a column holding a *storage key*, with the framework resolving upload/download. Blocked on the `tom_core` file/blob storage capability landing. |
 | `csra11` | Re-run the SOM coverage cross-check for all 23 active parts — every part must have a SOM home that can actually express its attribute surface. |
 | `csra12` | Produce the full **per-`Cs*`-annotation derivation contract** (SOM class/field → generated annotated Dart) — the last piece before Phase-4 generation can be implemented. |
+| `csrb1` | Reconcile `csex7` / `csex8` against the **landed** `tom_core_kernel` scheduling module — `TomScheduler`, `TomJobStore` and `TomLeaseLock` now cover what §5.29 once listed as framework roadmap, so those todos need an accurate status and the CE-JB reuse verdict needs an end-to-end confirmation. |
 
 ## 11. Configuration & settings — the four-scope owner-key split
 

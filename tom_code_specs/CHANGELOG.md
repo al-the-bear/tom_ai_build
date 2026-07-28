@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.5.0
+
+- csra2: add `TriggerKind` and make it a **required** argument on `@CsTrigger`
+  (`codespecs_mapping.md` §5.20). The closed five — `userGesture`,
+  `inFormEvent`, `lifecycle`, `serverEvent`, `condition` — select which per-kind
+  attribute set a trigger carries, so no arm can be a default (the csra1
+  `IdentityAttributePlacement` precedent).
+- The taxonomy lands **here, on the annotation**, not in `tom_core_codespecs`:
+  §4.1/§5.10/§5.20 record CE-AC as "no gap — full action implementation reused",
+  so the trigger classification is documented over the reused `tom_flutter_ui`
+  action classes rather than given a class of its own.
+
+**Breaking:** `const CsTrigger()` no longer compiles — pass a `kind`.
+
 ## 0.4.0
 
 - csra1: complete the `Cs*` family against the §4.1 catalogue — the six parts

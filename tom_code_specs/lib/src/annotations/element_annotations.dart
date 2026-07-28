@@ -74,12 +74,53 @@ class CsAction {
   const CsAction({this.note});
 }
 
+/// How an action is invoked (`codespecs_mapping.md` §5.20).
+///
+/// The taxonomy is **closed**: a new invocation path is an edit to this
+/// classification, not a free-form attribute — the same closed-catalogue
+/// discipline as §5.18 (elements) and §5.19 (validation rules). The kinds are a
+/// *documented framing* over the reused `tom_flutter_ui` action classes
+/// (`TomAction` has no trigger concept of its own), which is why the vocabulary
+/// lives on the annotation rather than in a new class: §5.10/§5.20 record CE-AC
+/// as "no gap — full action implementation reused".
+enum TriggerKind {
+  /// Fired by a user acting on a CE-EL element (tap / press / long-press).
+  userGesture,
+
+  /// Fired by a CE-FM form event (field change, submit, validation pass/fail).
+  inFormEvent,
+
+  /// Fired by a screen, route or app lifecycle phase.
+  lifecycle,
+
+  /// Fired by an inbound server push or notification.
+  serverEvent,
+
+  /// Fired by a reactive predicate over CE-ST observable state — the
+  /// `canExecute` case.
+  condition,
+}
+
 /// CE-AC — a trigger: the event that fires a [CsAction] (§5.10, §5.20).
+///
+/// [kind] is **required**: it selects which per-kind attribute set the trigger
+/// carries (§5.20's five-row table), so it cannot be inferred from the annotated
+/// declaration and no arm is a sensible default. One [CsAction] may carry
+/// several triggers of different kinds.
+///
+/// The trigger is the **single authoring home** of the element→action edge
+/// (§5.10): it names both endpoints, and the element's action edge is derived
+/// from it rather than authored twice. Endpoints are typed references to the
+/// generated declarations (§5.23), never id strings, so a rename is a compile
+/// break.
 class CsTrigger {
+  /// Which of the five closed invocation paths fires the action.
+  final TriggerKind kind;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsTrigger({this.note});
+  const CsTrigger({required this.kind, this.note});
 }
 
 /// CE-SC — a server call made from the client.

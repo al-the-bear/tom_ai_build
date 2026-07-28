@@ -66,7 +66,7 @@ void main() {
       expect(const CsText().note, isNull);
       expect(const CsValidation(note: 'v').note, 'v');
       expect(const CsAction().note, isNull);
-      expect(const CsTrigger().note, isNull);
+      expect(const CsTrigger(kind: TriggerKind.userGesture).note, isNull);
       expect(const CsServerCall().note, isNull);
       expect(const CsViewModel().note, isNull);
       expect(const CsRoute().note, isNull);
@@ -85,6 +85,33 @@ void main() {
     test('shared markers construct with optional note', () {
       expect(const CsError().note, isNull);
       expect(const CsEnum().note, isNull);
+    });
+  });
+
+  group('csra2: CE-AC trigger taxonomy', () {
+    // §5.10/§5.20 record CE-AC as "no gap — full action implementation reused",
+    // so the closed 5-kind taxonomy lands on the annotation as a documented
+    // classification, NOT as a tom_core_codespecs class.
+    test('TriggerKind is the closed §5.20 five', () {
+      expect(TriggerKind.values, [
+        TriggerKind.userGesture,
+        TriggerKind.inFormEvent,
+        TriggerKind.lifecycle,
+        TriggerKind.serverEvent,
+        TriggerKind.condition,
+      ]);
+    });
+
+    // `kind` selects which per-kind attribute set the trigger carries (§5.20's
+    // five-row table), so no arm can be a default — the csra1 `placement`
+    // precedent.
+    test('CsTrigger requires an explicit kind', () {
+      expect(const CsTrigger(kind: TriggerKind.condition).kind,
+          TriggerKind.condition);
+      expect(
+          const CsTrigger(kind: TriggerKind.inFormEvent, note: 'on submit')
+              .note,
+          'on submit');
     });
   });
 
