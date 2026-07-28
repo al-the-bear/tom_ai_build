@@ -1,6 +1,6 @@
 /// Shared (client + server) CodeSpecs part markers (`Cs*`).
 ///
-/// These markers realise parts from the 21-part catalogue
+/// These markers realise parts from the authoritative parts catalogue
 /// (`codespecs_mapping.md` §4.1) that live in the *shared* project of the
 /// three-project output trio — visible to both client and server. Like the
 /// other markers they annotate a class **built on** an existing

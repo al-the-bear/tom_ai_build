@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.4.0
+
+- csra1: complete the `Cs*` family against the §4.1 catalogue — the six parts
+  that had a catalogue row but no marker now have one, bringing the family to
+  30 markers:
+  - `@CsScreenFlow` (CE-NV) — the screen-flow edges beside `@CsRoute`:
+    form→screen assignment, replace-vs-popup presentation, action-triggered
+    conditional targets (§5.11).
+  - `@CsDeviceSetting` (CE-DS) — the (user, device) settings scope, distinct
+    from `@CsClientConfig` (no user in the key) and `@CsUserSetting` (follows
+    the user) (§5.16, §11).
+  - `@CsIdentity` + `@CsIdentityAttribute` (CE-ID) — the app's
+    identity-extension holder and its members. `placement` is a **required**
+    `IdentityAttributePlacement` (`public` | `encrypted`), so neither token
+    payload arm is ever chosen by default (§5.24).
+  - `@CsMigration` (CE-MG) — the SQL schema-migration artifact set (§5.27).
+  - `@CsJob` (CE-JB) — background-job definitions (§5.29).
+- Correct ten `Cs*` doc comments that named CE codes absent from the §4.1
+  registry (`CE-WI`/`FO`/`LA`/`TG`/`VM`/`RO`/`EP`/`TB`/`CO`/`RE`). The `CE-*`
+  code is a stable registry key; where a part has several markers they now all
+  name the one key it owns.
+- No marker is added for the §4.3 deferred candidates (CE-RP, CE-WF, CE-NT,
+  CE-LG) — a deferred part stays mapping-only until promoted.
+
 ## 0.3.0
 
 - csm2r5: add the four new-part markers `@CsClient` (CE-CL), `@CsClientConfig`

@@ -1,17 +1,20 @@
-/// Client-application, configuration, user-settings and authentication CodeSpecs
-/// part markers (`Cs*`) — the four parts added by the 2026-07-19 revision
-/// (csm2r5, `codespecs_mapping.md` §4, §4.1, §11).
+/// Client-application, configuration, settings, identity and authentication
+/// CodeSpecs part markers (`Cs*`) — `codespecs_mapping.md` §4.1, §5.16, §5.24,
+/// §11.
 ///
 /// Like every other `Cs*` marker these annotate a class **built on** an existing
 /// `tom_core`-family class; there is no `Cs*` base class to extend. They are
-/// grouped in one file because they were introduced together and share the
-/// configuration/settings/identity concern that §11 splits three ways.
+/// grouped in one file because they share the *who owns this value* concern —
+/// the four owner-keyed configuration/settings scopes of §11 plus the identity
+/// and authentication surfaces that supply the owner.
 ///
 /// Locus (which project of the three-project output trio they land in — §4.2):
 ///
-/// - [CsClient] / [CsClientConfig] — client project.
-/// - [CsUserSetting] — client (`local`) and server (`roaming`), per its
-///   [SettingsPersistence] discriminator.
+/// - [CsClient] / [CsClientConfig] / [CsDeviceSetting] — client project.
+/// - [CsUserSetting] — client shape + server persistence (the value follows the
+///   user, §11).
+/// - [CsIdentity] / [CsIdentityAttribute] — shared (the declaration is contract:
+///   both sides read attributes from the token) + server (population).
 /// - [CsAuth] — shared + client + server (credential/token/session flow).
 library;
 
@@ -48,6 +51,31 @@ class CsClientConfig {
   const CsClientConfig({this.note});
 }
 
+/// CE-DS — a device setting: a *user-specific* setting of a user-owned device,
+/// keyed by (user, device) and persisted on the device (window layout,
+/// last-opened, machine-local cache preferences). See `codespecs_mapping.md`
+/// §5.16 and §11.
+///
+/// The discriminator against [CsClientConfig] is **user identity in the key**: a
+/// value that is the same for every user of an install is CE-CC; a value that
+/// differs per signed-in user on the same install is CE-DS. The discriminator
+/// against [CsUserSetting] is that a device setting never leaves the device,
+/// where a user setting follows the user onto any device they sign in on.
+///
+/// Device binding is implicit-by-storage — the store lives on the device and is
+/// keyed by the signed-in user; there is no wire-level device identity, and
+/// server-side enumeration of a user's devices is not modelled.
+///
+/// Spec-authorable surface: the setting's key, type and default. The value
+/// itself is the user's persisted choice, never authored. Reuse — the existing
+/// `tom_core` property/settings classes carry it, with no gap class.
+class CsDeviceSetting {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsDeviceSetting({this.note});
+}
+
 /// CE-UP — a user setting / profile value.
 ///
 /// The [persistence] discriminator decides storage: [SettingsPersistence.local]
@@ -68,10 +96,74 @@ class CsUserSetting {
   });
 }
 
+/// Where a [CsIdentityAttribute] rides in the token payload
+/// (`codespecs_mapping.md` §5.24).
+///
+/// The two arms are the two carriers the `tom_core` principal already has, so
+/// the choice is a placement decision, not a new mechanism.
+enum IdentityAttributePlacement {
+  /// Rides the **public** token payload, in `TomUser.attributes`. Readable by
+  /// anything holding the token, so a public attribute is guarded field-level by
+  /// a resource key rather than by the transport.
+  public,
+
+  /// Rides the **encrypted** context of the authorization JWT, in
+  /// `TomPrincipal.currentContext`. Readable only by the token-decrypting
+  /// layers.
+  encrypted,
+}
+
+/// CE-ID — the app's identity-extension declaration holder
+/// (`codespecs_mapping.md` §5.24).
+///
+/// The principal *core* is framework-fixed: `TomUser` (username, names, email,
+/// phone, address, time zone) wrapped by `TomPrincipal` (`tom_core_kernel`).
+/// Those runtime fields are not spec input. What an app declares is the
+/// **extension** riding on top — an ordinary class whose members are marked
+/// [CsIdentityAttribute] and which is carried as JSON via reflection into the
+/// user-profile carrier. Reuse, no gap class: the typing comes from the
+/// app-authored class, not a framework type.
+///
+/// Distinct from [CsAuth], which *establishes* the principal and performs the
+/// public/encrypted token projection — CE-AU consumes CE-ID. Distinct from
+/// [CsUserSetting]: identity attributes describe who the user *is* and travel in
+/// the token; settings are changeable preferences and live in the settings
+/// store.
+class CsIdentity {
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsIdentity({this.note});
+}
+
+/// CE-ID — one declared identity-extension attribute; a **member marker** on a
+/// [CsIdentity] holder, the same pattern as `@CsColumn` (§5.24).
+///
+/// [placement] is **required**: it decides whether the attribute is readable by
+/// anything holding the token or only by the decrypting layers, and §5.16's
+/// fail-safe rule is that broadening a value's blast radius must be a deliberate
+/// authored act. Neither arm is therefore a default.
+///
+/// The rest of the per-attribute surface — the attribute's type, its access
+/// guard, its system of record and whether it is required — is carried by the
+/// member declaration itself and by the SOM `UserAttributeEntry` section that
+/// feeds it.
+class CsIdentityAttribute {
+  /// Which token payload this attribute rides in.
+  final IdentityAttributePlacement placement;
+
+  /// Optional part-specific note.
+  final String? note;
+
+  const CsIdentityAttribute({required this.placement, this.note});
+}
+
 /// CE-AU — authentication / session: credential exchange, token, session.
 ///
 /// Distinct from [CsAuthorize] (CE-AZ authorization, which gates individual
-/// operations). Authentication spans shared + client + server.
+/// operations). Authentication spans shared + client + server. It **consumes**
+/// [CsIdentity]: the attributes an app declares there are what CE-AU projects
+/// into the public and encrypted halves of the token.
 class CsAuth {
   /// Optional part-specific note.
   final String? note;

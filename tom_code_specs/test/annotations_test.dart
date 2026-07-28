@@ -21,6 +21,19 @@ class _OrderCodeSpec {}
 @CodeSpec('UI-ORDER-LIST', source: ['UP-ORDER-LIST'])
 class _OrderListForm {}
 
+// CE-ID (§5.24): the app's identity-extension holder is an ordinary class whose
+// members carry the placement discriminator — the same member-marker pattern as
+// @CsColumn.
+@CsIdentity()
+@CodeSpec('ID-PROFILE', source: ['SAS-USATE'])
+class _ProfileExtension {
+  @CsIdentityAttribute(placement: IdentityAttributePlacement.public)
+  String? department;
+
+  @CsIdentityAttribute(placement: IdentityAttributePlacement.encrypted)
+  String? costCentre;
+}
+
 void main() {
   group('CSM2R1: id/trace annotations', () {
     test('CodeSpec carries id, source, requirements', () {
@@ -102,6 +115,68 @@ void main() {
     });
   });
 
+  group('CSRA1: the six §4.1 parts that had no marker', () {
+    test('CsScreenFlow (CE-NV) constructs with optional note', () {
+      expect(const CsScreenFlow().note, isNull);
+      expect(const CsScreenFlow(note: 'popup overlay').note, 'popup overlay');
+    });
+
+    test('CsDeviceSetting (CE-DS) constructs with optional note', () {
+      expect(const CsDeviceSetting().note, isNull);
+      expect(const CsDeviceSetting(note: 'window layout').note, 'window layout');
+    });
+
+    test('CsIdentity (CE-ID) constructs with optional note', () {
+      expect(const CsIdentity().note, isNull);
+      expect(const CsIdentity(note: 'profile extension').note,
+          'profile extension');
+    });
+
+    test('CsMigration (CE-MG) constructs with optional note', () {
+      expect(const CsMigration().note, isNull);
+      expect(const CsMigration(note: 'baseline DDL').note, 'baseline DDL');
+    });
+
+    test('CsJob (CE-JB) constructs with optional note', () {
+      expect(const CsJob().note, isNull);
+      expect(const CsJob(note: 'nightly reconciliation').note,
+          'nightly reconciliation');
+    });
+
+    // §5.24: `placement` is the public/encrypted token-payload arm. It is a
+    // REQUIRED argument — §5.16's fail-safe rule says broadening a value's blast
+    // radius must be a deliberate authored act, so neither arm may be a default.
+    test('CsIdentityAttribute requires an explicit placement', () {
+      expect(
+          const CsIdentityAttribute(placement: IdentityAttributePlacement.public)
+              .placement,
+          IdentityAttributePlacement.public);
+      expect(
+          const CsIdentityAttribute(
+                  placement: IdentityAttributePlacement.encrypted)
+              .placement,
+          IdentityAttributePlacement.encrypted);
+    });
+
+    test('IdentityAttributePlacement is the closed public|encrypted pair', () {
+      expect(IdentityAttributePlacement.values, [
+        IdentityAttributePlacement.public,
+        IdentityAttributePlacement.encrypted,
+      ]);
+    });
+
+    test('the six kind values are reachable and distinct', () {
+      const kinds = <CodeSpecPart>[
+        CodeSpecPart.navigation,
+        CodeSpecPart.deviceSettings,
+        CodeSpecPart.identity,
+        CodeSpecPart.schemaMigration,
+        CodeSpecPart.backgroundJob,
+      ];
+      expect(kinds.toSet().length, kinds.length);
+    });
+  });
+
   group('CSM2R1: kind vocabulary re-exported', () {
     test('CodeSpecKind and CodeSpecPart are reachable via one import', () {
       const kind = CodeSpecKind([CodeSpecPart.form]);
@@ -114,5 +189,6 @@ void main() {
     // subclasses of any Cs* base.
     expect(_OrderCodeSpec(), isA<_OrderCodeSpec>());
     expect(_OrderListForm(), isA<_OrderListForm>());
+    expect(_ProfileExtension(), isA<_ProfileExtension>());
   });
 }
