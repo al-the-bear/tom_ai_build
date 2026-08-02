@@ -123,10 +123,13 @@ over an unchanged spec is byte-identical; a diff therefore means the spec moved.
 
 **N9 — reference const strings.** A `Cs*Ref` const's string argument is the
 **camelCase declaration name of its target** (N2/N3 over the target's designated
-name field), except where the target is identified by an authored key (N5), in
-which case it is that key verbatim. A generation-time validator resolves every
-ref string to a declaration; an unresolved ref is a generation error, never a
-warning.
+name field), with two exceptions. Where the target is identified by an authored
+key (N5) it is that key verbatim. Where the target is a **member** of another
+declaration rather than a declaration in its own right, it is the dotted
+`<owner>.<member>` path — the qualifiable `CsElementRef` of §2.6 is the one ref
+in the family that has such targets, and `CsElementRef.path` composes it. A
+generation-time validator resolves every ref string to a declaration; an
+unresolved ref is a generation error, never a warning.
 
 ### 2.2 Locus assignment
 

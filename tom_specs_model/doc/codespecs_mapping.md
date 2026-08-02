@@ -3092,7 +3092,8 @@ over the source, so it does not need one either.
 **`CsElementRef` is the one qualifiable ref.** CE-EL's closed catalogue (§5.18)
 holds both standalone kinds (*Button*, *MenuEntry*, *Label*, *FormHost*), which
 are class-level targets, and form-member kinds (*TextInput*, *Number*, *Toggle*,
-*DateInput*, *Choice*, *MultiChoice*), which are members of the `@CsForm` class.
+*DateInput*, *Choice*, *MultiChoice*, *FileInput*), which are members of the
+`@CsForm` class.
 One type carries both, with an optional owning-form qualifier — `@CsTrigger`
 takes a `CsElementRef` in *both* its gesture-source and form-field slots
 ([codespecs_derivation_contract.md](codespecs_derivation_contract.md) §5.1), and
