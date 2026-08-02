@@ -84,6 +84,12 @@ they are cited by `Type` literal. Four further reference kinds stay strings per
 deployment-environment names, CE-MG migration filenames, and doc-side `codeSpec`
 locations / `@DocSpec` section ids.
 
+The family is **cross**-part. An edge landing inside the part that authors it is
+a *local coordinate*, not a reference, and stays an id string guarded by a
+generation-time validator check: a CE-LO delta's node id, and a CE-NT channel's
+fallback — which names a **sibling channel**. That is why the family has no
+`CsChannelRef`.
+
 ### The closed catalogues
 
 `vocabulary.dart` holds the fifteen enums a marker's arguments select from

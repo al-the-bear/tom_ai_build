@@ -485,7 +485,7 @@ Cites slice 1 only.
 | **3 Arguments** | None; `@CsNotificationChannel({String? note})` unchanged. `channelId` rides the gap class's constructor (test **b**) and is the name of a `TomMessageChannel` — an **open** named value, so a deployment can declare a channel the framework never anticipated. That openness is also why no `CsChannelRef` type exists and why a type references channels by id string. |
 | **4 Naming** | camelCase of the channel id. |
 | **5 Locus** | Declaration `shared`, delivery `server` at slice 4 (as §3.2.8). |
-| **6 Cross-refs** | None typed — and the channel's **fallback edge** is the one place that costs something: it is an id string with no ref type in §5.23's closed set, so the compiler cannot check that it resolves. What the edge points at is itself undecided (`codespecs_mapping.md` §10, `csrb16`). |
+| **6 Cross-refs** | None typed. The channel's **fallback edge** points at a **sibling channel** — `NTFCH` authors it as "Alternative channel if delivery fails" beside its retry policy, the two being different mechanisms: retry re-attempts *this* channel, the fallback substitutes another. It is therefore **intra-part**, which `codespecs_mapping.md` §5.23 rules a local coordinate outside the `Cs*Ref` family rather than a reference lacking a type; it stays an id string on `TomNotificationChannelDeclaration.fallbackChannelId`, and check 17 resolves it. A `Cs*Ref` could not hold it in any case: the field is on a `tom_core_codespecs` gap class, which declares no dependencies, so a typed ref could only ride an annotation argument and would duplicate a field the substrate already carries (test **b**). |
 | **7 Back-link** | `@DocSpec([DocRef('NTFCH', 'supplies the delivery channel this declaration registers')])`. |
 
 #### 3.2.10 `@CsReportParameter` — CE-RP runtime parameter
@@ -1124,7 +1124,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** sixteen.
+validation pass over the resolved annotation for **all** seventeen.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1144,3 +1144,18 @@ validation pass over the resolved annotation for **all** sixteen.
 | 14 | `@CsValidation` never emits the non-declarable `compose` token | §3.2.2 |
 | 15 | `overridableBy` names a scope **strictly narrower** than the marker's own — `@CsUserSetting` may open only `device`, `@CsClientConfig` only `user`/`device`, `@CsServerConfig` any; `none` is always valid | §3.3.6, §5.3 |
 | 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 |
+| 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 |
+
+**Check 17 carries a whole edge on its own.** Checks 2 and 13 back up a
+compile-time or structural guarantee; check 17 replaces one. The fallback is a
+`codespecs_mapping.md` §5.23 **local coordinate**, so no `Cs*Ref` will ever make
+it a compile error, and the substrate is deliberately forgiving at delivery
+time — `TomNotificationCatalog.fallbackChainFrom` returns an empty chain for an
+unknown id rather than throwing, on the stated grounds that a dangling fallback
+is a specification defect to *report*, not a crash to suffer. This check is where
+it gets reported.
+
+A declaration **cycle** is not a violation. `fallbackChainFrom` stops at the
+first channel already visited, so `a → b → a` terminates by construction; a
+deployment that genuinely wants two channels to cover for each other is
+expressing something coherent, and the runtime already handles it.

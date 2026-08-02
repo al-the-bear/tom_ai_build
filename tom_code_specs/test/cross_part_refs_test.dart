@@ -164,7 +164,9 @@ void main() {
       expect(
         refs.length,
         13,
-        reason: 'codespecs_mapping.md §5.23 eleven + csrb15 two',
+        reason: 'codespecs_mapping.md §5.23 declares the family CLOSED at '
+            'thirteen. A fourteenth entry here without that table changing '
+            'means the set was widened silently.',
       );
       expect(refs.map((r) => r.runtimeType).toSet().length, refs.length);
     });
@@ -184,4 +186,48 @@ void main() {
       expect(_LoginServerCall.operation.id, 'login');
     });
   });
+
+  // `codespecs_mapping.md` §5.23 scope rule: the family governs edges that LEAVE
+  // the authoring part. An edge landing inside the same part is a local
+  // coordinate, and typing it would widen the family from "how parts cite each
+  // other" to "how any id is written". The CE-NT channel fallback is the live
+  // case — a channel falls back to a SIBLING CHANNEL, so the edge never leaves
+  // CE-NT.
+  group('the intra-part boundary: a CE-NT channel fallback stays a string', () {
+    test('@CsNotificationChannel takes no reference argument', () {
+      // The assertion is that this line compiles with no argument at all. A
+      // `CsChannelRef` added to the family would have to arrive here as a
+      // parameter to be usable — the marker is the channel's only annotation —
+      // so a bare construction failing is what would signal the decision being
+      // reversed without the documents moving.
+      const marker = CsNotificationChannel();
+      expect(marker.note, isNull);
+    });
+
+    test('the fallback edge is carried as a plain id string', () {
+      // Stands in for `TomNotificationChannelDeclaration` (`tom_core_codespecs`,
+      // which this package deliberately does not depend on — the substrate must
+      // never depend on the annotation framework). The shape is the point: the
+      // fallback rides the DECLARATION as a String, not the annotation as a
+      // const, so nothing here could hold a ref even if one existed.
+      const channel = _SmsChannel();
+      expect(channel.fallbackChannelId, 'email');
+      expect(channel.fallbackChannelId, isA<String>());
+    });
+  });
+}
+
+/// A CE-NT channel declaration in the shape §3.2.9 emits: the marker carries
+/// nothing, the substrate carries `channelId` and the sibling-channel fallback.
+///
+/// Resolution of that fallback is `codespecs_derivation_contract.md` §6
+/// check 17's job — a generation-time validator check, because §5.23 rules the
+/// edge a local coordinate and so no compile-time guard will ever cover it.
+@CsNotificationChannel()
+@CodeSpec('NT-SMS', source: ['NTFCH'])
+class _SmsChannel {
+  final String channelId = 'sms';
+  final String fallbackChannelId = 'email';
+
+  const _SmsChannel();
 }

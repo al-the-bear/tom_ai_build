@@ -56,6 +56,16 @@
 /// setting keys and their env/cmdline aliases, deployment-environment names,
 /// CE-MG migration artifact filenames, and doc-side `codeSpec` locations /
 /// `@DocSpec` section ids.
+///
+/// **The family is `cross`-part; intra-part edges are out of scope.** An edge
+/// whose target lies inside the same part declaration is a **local
+/// coordinate**, not a reference — typing it would widen the family from "how
+/// parts cite each other" to "how any id is written". Two exist, both id
+/// strings guarded by a generation-time validator check: a CE-LO delta's node
+/// id (`codespecs_mapping.md` §5.22), and a CE-NT channel's fallback, which
+/// names a **sibling channel** (`codespecs_mapping.md` §4.3.2;
+/// `codespecs_derivation_contract.md` §6 check 17). That is why there is no
+/// `CsChannelRef` here — not an omission.
 library;
 
 /// A reference to a **CE-API operation** (shared locus).
