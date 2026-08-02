@@ -596,10 +596,10 @@ Never cites the client.
 |-------|----------|
 | **1 Input** | `ReportEntry` (`REPENT`) under the `ReportDefinitions` (`REDF`) projection root. Consumed: §5.28's 22-row attribute surface — the grouped projection, dimension by dimension and measure by measure. |
 | **2 Output** | A `TomReportDefinition` with `TomReportDimension` / `TomReportMeasure` members (`tom_core_codespecs` **gap classes**), form 1. Query execution (`TomGroupedSelect`, `TomAggregate`) and rendering (`TomTabularResult` + its CSV / XLSX / PDF renderers) are pure `tom_core_server` reuse. CE-RP is a part and **not** a composition of CE-API + CE-DB + CE-FM: none of those can hold a dimension or a measure. |
-| **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. §5.28's three generation-time consistency checks are validator checks, not arguments. |
+| **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. Its outbound references do not change that: the source entity is a `Type` literal and the schedule a recurrence expression, both constructor parameters; authorization rides a separate `@CsAuthorize` beside this marker (point 6). §5.28's three generation-time consistency checks are validator checks, not arguments. |
 | **4 Naming** | PascalCase of `REPENT`'s report-name field + `Report`. |
 | **5 Locus** | **Definition `server`**, this slice — that is where the report runs, and it sits with CE-DB because it is a declaration *over* the persistence model rather than server behaviour. **Result envelope and parameter shapes are `shared` at slice 2** (§3.2.10). Emitting the definition here also puts it ahead of both its citers: the slice-4 endpoint that returns it and the slice-7 job that schedules it. |
-| **6 Cross-refs** | Emits `CsReportRef` — and CE-JB is its **only** citer, since the ref is server-owned. Every label is a `CsMessageKey`, never inline text. Its own four outbound targets — source entity, schedule job, authorization key, drill-through route — are **plain id strings** on the gap class, because `tom_core_codespecs` declares no dependencies and so can never hold a `Cs*Ref`. The drill-through is settled that way permanently (§5.23 bars a server definition from a client-owned route ref); the other three are open (`codespecs_mapping.md` §10, `csrc3`). |
+| **6 Cross-refs** | Emits `CsReportRef` — and CE-JB is its **only** citer, since the ref is server-owned. Every label is a `CsMessageKey`, never inline text. Its four outbound targets each land differently (`codespecs_mapping.md` §5.28): **source entity** ← the source-entity field, as a **`Type` literal** on `TomReportDefinition.sourceEntity` — an entity is already a Dart type, §5.23 gives it no ref const, and a `Type` costs the gap package no dependency; **schedule** ← the report-schedule section's schedule-expression field, **verbatim** onto `.scheduleExpression`, which is not a reference at all (§5.29 realises the CE-JB job *from* the schedule, so a job id here would be the second source that rule forbids, and the schedule's time zone, effective dates and window lower onto the derived `TomJobDefinition`); **authorization** ← the security section's access level and permitted roles, emitted as a **`@CsAuthorize` beside this marker** per `codespecs_mapping.md` §5.15 — `Public`→`public`, `Authenticated`→`authenticated`, `Role-specific`→`role` with the roles as `CsRoleRef` consts, `Confidential`→`resourceKey`; **drill-through** stays an open route id string on the column (§3.3.9). |
 | **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the grouped projection this report defines')])`. |
 
 #### 3.3.9 `@CsReportColumn` — CE-RP output column
@@ -611,7 +611,7 @@ Never cites the client.
 | **3 Arguments** | None; unchanged. Source key, aggregate and format are `TomReportColumn`'s parameters (test **b**). |
 | **4 Naming** | camelCase of `REPCOLENT`'s column-name field. |
 | **5 Locus** | `server` with its definition. The `TomReportColumn` *class* is also reachable from the shared `TomReportResult` envelope, but that is a gap-package type in `tom_core_codespecs` — which is not one of the three generated projects — so it fixes no locus for the authored declaration. |
-| **6 Cross-refs** | `CsMessageKey` (its label). Its drill-through target is an id string, per §3.3.8. |
+| **6 Cross-refs** | `CsMessageKey` (its label). Its **drill-through** target is an open route id string on `TomReportColumn.drillThroughRouteId` — the one CE-RP edge a typed ref can never carry, because `codespecs_mapping.md` §5.23's locus rule bars a server-owned definition from citing a client-owned route. Unlike the four §5.23 string exemptions, whose referents are not Dart declarations, a route **is** one, so the compile-time guarantee is lost to locus rather than absent by nature and is **replaced** by check 18 (§6) — the same substitution check 17 makes for a CE-NT fallback. |
 | **7 Back-link** | `@DocSpec([DocRef('REPCOLENT', 'supplies the projected column and its aggregate')])`. |
 
 #### 3.3.10 `@CsReportChart` — CE-RP chart
@@ -1124,7 +1124,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** seventeen.
+validation pass over the resolved annotation for **all** eighteen.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1145,9 +1145,10 @@ validation pass over the resolved annotation for **all** seventeen.
 | 15 | `overridableBy` names a scope **strictly narrower** than the marker's own — `@CsUserSetting` may open only `device`, `@CsClientConfig` only `user`/`device`, `@CsServerConfig` any; `none` is always valid | §3.3.6, §5.3 |
 | 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 |
 | 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 |
+| 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 |
 
-**Check 17 carries a whole edge on its own.** Checks 2 and 13 back up a
-compile-time or structural guarantee; check 17 replaces one. The fallback is a
+**Checks 17 and 18 each carry a whole edge on its own.** Checks 2 and 13 back up
+a compile-time or structural guarantee; these two replace one. The fallback is a
 `codespecs_mapping.md` §5.23 **local coordinate**, so no `Cs*Ref` will ever make
 it a compile error, and the substrate is deliberately forgiving at delivery
 time — `TomNotificationCatalog.fallbackChainFrom` returns an empty chain for an
@@ -1159,3 +1160,14 @@ A declaration **cycle** is not a violation. `fallbackChainFrom` stops at the
 first channel already visited, so `a → b → a` terminates by construction; a
 deployment that genuinely wants two channels to cover for each other is
 expressing something coherent, and the runtime already handles it.
+
+**Check 18 is the reverse case, and that is why it is a separate check.** The
+drill-through is not a local coordinate: it is a genuine cross-part edge whose
+referent *is* a Dart declaration, and §5.23 would give it a `CsRouteRef` were it
+not for the **locus** rule — a server-owned report definition may not cite a
+client-owned route. So the check has to look **across projects**, in the one
+direction the generated dependency arrow forbids code from taking (§2.2 check
+11): it resolves the id against the client project's CE-NV routes without the
+server project ever depending on them. A dangling drill-through is likewise a
+defect to report rather than a failure to suffer — a column whose target does
+not resolve simply does not drill through.

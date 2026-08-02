@@ -679,6 +679,20 @@ class CsNotificationChannel {
 /// The definition is **server-only** (that is where the report runs); the
 /// result envelope and the parameter shape are **shared**. Every label is a
 /// `CsText` message key, never inline text.
+///
+/// **Note-only, and its cross-part edges are carried elsewhere.** §5.28's
+/// attribute surface maps onto `TomReportDefinition`'s constructor, so nothing
+/// is left for an argument to hold — including the outbound references:
+///
+/// - the **source entity** is a `Type` literal on the definition, since an
+///   entity is already a Dart type and §5.23 gives it no ref const;
+/// - the **schedule** is a recurrence expression on the definition, not a job
+///   reference — §5.29 realises the CE-JB job *from* it;
+/// - **authorization** rides a [CsAuthorize] **beside this marker**, per §5.15's
+///   field-level rule: the report's access level and permitted roles are
+///   exactly that annotation's requirement kind and its typed `CsRoleRef` list;
+/// - the **drill-through** target is an open route id string on the column, the
+///   one edge §5.23's locus rule permanently denies a typed ref.
 class CsReport {
   /// Optional part-specific note.
   final String? note;
@@ -697,6 +711,12 @@ class CsReport {
 /// Separate from [CsColumn] (CE-DB), which is a stored attribute of an entity.
 /// The two are authored at different levels: a persisted column is part of the
 /// data model, a report column part of one report's output.
+///
+/// Its **drill-through** target stays an open route id string on
+/// `TomReportColumn` rather than becoming a [CsRouteRef]: §5.23's locus rule
+/// bars a server-owned definition from citing a client-owned route. That is a
+/// lost compile-time edge rather than an absent one, so
+/// `codespecs_derivation_contract.md` §6 check 18 replaces it.
 class CsReportColumn {
   /// Optional part-specific note.
   final String? note;

@@ -459,7 +459,7 @@ reads in that order: the core todo lands first, then the mapping-side one.
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: IdentityAttributePlacement.public)` / `…encrypted` per field — `placement` is a **required** named argument of the closed `IdentityAttributePlacement` enum, never defaulted, because §5.16's fail-safe rule forbids choosing a token-payload arm by omission.<br>**Example:** `@CsIdentity() class EmployeeProfile { @CsIdentityAttribute(placement: IdentityAttributePlacement.encrypted, systemOfRecord: 'hr') String? costCenter; }` | None — reuse; both carriers exist. | `@CsIdentityAttribute` carries the **placement**, the field-level access guard (`CsResourceKeyRef`), the **system of record** and whether the attribute is **required** — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. The attribute's type stays on the member; `@CsIdentity` stays note-only. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class. Migration **filenames stay strings** (§5.23 exemption). | None — execution substrate is pure reuse, and the **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check) ships alongside it as `schema_model.dart` / `schema_ddl_reader.dart` / `schema_convergence.dart`. That check is the **only integrity guard** available over the string-exempt migration filenames, so it is the one every CE-MG spec relies on. | `@CsMigration` carries the **datasource**, the **schema** and the artifact **kind** — all three required: datasource + schema *are* the artifact directory path, and generating an initial DDL where an iteration was meant would rewrite a live schema. Artifact **filenames** stay strings (§5.23 exemption 3), which is exactly why the convergence obligation against the `@CsTable` / `@CsColumn` model is a named generation-time validator check rather than a compile-time edge. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob(trigger: CsJobTrigger.cron, cron: '0 3 * * *', maxRetries: 2) class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | None — the runtime is reused wholesale from `tom_core_kernel`'s `scheduling` module (scheduler, durable job store, multi-node lease), and the deployment/ownership envelope `tom_core` has no place for is carried by `tom_core_codespecs`'s `TomJobDeclaration` (`jobId` / `displayName` / `enabled` / `environments` / `serviceUnitId` / `readEntities` / `writtenEntities` as `Type` literals, with `targetEntities` and `runsIn(environment)`). Gating is **opt-out** and an empty `environments` list means *every* environment, so a spec states only the exceptions. | `@CsJob` carries the **trigger** plus that trigger's schedule slot (`cron` / `calendar` / `event`), the **retry / backoff / timeout / failure-alert** policy — each lowered onto the reused `TomSchedule` / `TomRetryPolicy` / `TomJobAlert` surface — and the job's **CE-RP targets** as `CsReportRef` consts. A `TomSchedule` is not a const, which is why the annotation carries per-kind strings rather than an instance. |
-| **CE-RP** Reporting | A grouped projection over the domain model, delivered as a rendered artifact: dimensions, measures, output columns, charts and runtime parameters. SOM home REPENT (D09 XDS). | **Built on:** `TomReportDefinition` (+ `TomReportDimension` / `TomReportMeasure` / `TomReportColumn` / `TomReportParameter` / `TomReportChart`) and the shared `TomReportResult` envelope (`tom_core_codespecs`, `report_model.dart`), over `TomGroupedSelect` / `TomAggregate` for execution and `TomTabularResult` + the CSV/XLSX/PDF renderers for rendering (`tom_core_server`).<br>**Annotations:** `@CsReport` on the report, `@CsReportColumn` / `@CsReportChart` / `@CsReportParameter` on its members.<br>**Example:** `@CsReport() final salesByRegion = TomReportDefinition(reportId: 'sales_by_region', sourceEntityId: 'Order', …);` | **Gap filled in `tom_core_codespecs`** — the aggregation grammar and the renderers both exist, but neither offers a place to *author* a dimension or a measure: CE-DB's spec-authorable surface is row-shaped. `report_model.dart` carries the grouped projection and the shared result envelope, with the three generation-time consistency checks (§5.28). The envelope is **adapted onto** the renderers' minimal tabular shape rather than replacing it; its one inherited constraint is that rows stay streamable. Charts are declared, not rendered — an exporter that cannot draw one omits it. | All four CE-RP markers stay note-only: §5.28's 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members, so the gap was the *classes* and nothing is left for an annotation to carry. Every label is a `CsMessageKey`. The **cross-part targets are plain id strings** on `TomReportDefinition` and `TomReportColumn` — source entity, schedule job, authorization key, drill-through route — because `tom_core_codespecs` declares no dependencies at all, so a gap class can never hold a `Cs*Ref` and a typed reference could only ride an annotation argument. For the drill-through that is already settled: §5.23's locus rule bars a server-side definition from citing a client-owned route, so it stays a string whatever else changes. For the other three, whether the markers gain ref arguments or the strings become a fifth §5.23 exemption is open (`csrc3`, §10). |
+| **CE-RP** Reporting | A grouped projection over the domain model, delivered as a rendered artifact: dimensions, measures, output columns, charts and runtime parameters. SOM home REPENT (D09 XDS). | **Built on:** `TomReportDefinition` (+ `TomReportDimension` / `TomReportMeasure` / `TomReportColumn` / `TomReportParameter` / `TomReportChart`) and the shared `TomReportResult` envelope (`tom_core_codespecs`, `report_model.dart`), over `TomGroupedSelect` / `TomAggregate` for execution and `TomTabularResult` + the CSV/XLSX/PDF renderers for rendering (`tom_core_server`).<br>**Annotations:** `@CsReport` on the report, `@CsReportColumn` / `@CsReportChart` / `@CsReportParameter` on its members.<br>**Example:** `@CsReport() @CsAuthorize(requirement: role, roles: [salesManager]) final salesByRegion = TomReportDefinition(reportId: 'sales_by_region', sourceEntity: Order, …);` | **Gap filled in `tom_core_codespecs`** — the aggregation grammar and the renderers both exist, but neither offers a place to *author* a dimension or a measure: CE-DB's spec-authorable surface is row-shaped. `report_model.dart` carries the grouped projection and the shared result envelope, with the three generation-time consistency checks (§5.28). The envelope is **adapted onto** the renderers' minimal tabular shape rather than replacing it; its one inherited constraint is that rows stay streamable. Charts are declared, not rendered — an exporter that cannot draw one omits it. | All four CE-RP markers stay note-only: §5.28's 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members, so the gap was the *classes* and nothing is left for an annotation to carry. Every label is a `CsMessageKey`. **No cross-part target contradicts that**, because only one of the four is a cross-part reference at all: the **source entity** is a `Type` literal on the definition (an entity is already a Dart type, so §5.23 gives it no ref const, and a `Type` costs `tom_core_codespecs` no dependency); the **schedule** is a recurrence expression, not a job reference, since §5.29 realises the CE-JB job *from* it and a job id here would be the second source that rule forbids; **authorization** rides a `@CsAuthorize` beside the marker per §5.15's field-level rule, so the report's access level and permitted roles are that annotation's requirement kind and its typed `CsRoleRef` list. Only the **drill-through** remains an open id string, and permanently: §5.23's locus rule bars a server-side definition from citing a client-owned route. Unlike the four §5.23 exemptions its referent *is* a Dart declaration, so the lost compile-time edge is replaced by a named validator check (`codespecs_derivation_contract.md` §6 check 18). |
 | **CE-WF** Workflow *(deferred **permanently**, §4.3)* | Long-running multi-step business process; SOM home DEPRWO (D02). | Mapping-only — reserved kind value; no surfaces. Would require a state-machine / process runtime. | **No substrate, and none to be built** — the survey in **§4.3.1** found DEPRWO is free text with no machine-readable step graph, no driving system needing a durable wait or compensation, and the realistic cases already served by CE-JB jobs + CE-AC actions + CE-DB state. The one gap it found — a one-shot timer schedule — is a small `TomSchedule` subclass, `TomOnceSchedule`, not an engine. | Future annotation family undefined; §4.3.1 §6 fixes the **at-least-once, idempotent step body** guarantee any future surface must carry, and §4.3.1 §7 the three conditions that would reopen the decision. |
 | **CE-NT** Notification | Outbound user notifications, email first: which types exist, which channels each goes out on, and how user preferences narrow that set. SOM home NM (`introduction_and_scope.dart`). | **Built on:** `TomNotificationType` / `TomNotificationChannelDeclaration` / `TomNotificationPreferences` / `TomNotificationCatalog` (`tom_core_codespecs`, `notification_model.dart`) for the declarations, over `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` / `TomSmtpTransport` (`tom_core_server` `messaging`) for delivery. The catalogue is a **plain annotated model class**.<br>**Annotations:** `@CsNotification` per type, `@CsNotificationChannel` per channel.<br>**Example:** `@CsNotification(body: CsMessageKey('notification.order.shipped')) final orderShipped = TomNotificationType(typeId: 'order.shipped', urgency: high, defaultChannelIds: ['email']);` | **Gap filled in `tom_core_codespecs`** — `messaging` delivers a composed message on an already-chosen channel; the layer that *chooses* had no home, so `notification_model.dart` carries the type ⇄ channel ⇄ preference model (with the `channelsFor` / `deliveryChannelsFor` resolution and the essential-type compliance rule). Transport, SMTP and the durable outbox are pure reuse (`csex10`). | `@CsNotification` carries the **body copy** as a `CsMessageKey` (§5.23) — required, and never inline text. Type id, urgency and default channels are `TomNotificationType`'s own constructor parameters, so none is an argument. `@CsNotificationChannel` stays note-only: `channelId` rides its gap class and is an **open** named value, which is also why no `CsChannelRef` type exists. Its **fallback edge points at a sibling channel** — the SOM authors it on the channel entry ("Alternative channel if delivery fails", beside `retryPolicy`), the substrate holds it as `TomNotificationChannelDeclaration.fallbackChannelId`, and `TomNotificationCatalog.fallbackChainFrom` walks channel → channel. Being **intra-part**, it is a local coordinate rather than a §5.23 cross-part reference (§5.23, the same ruling CE-LO's delta node ids get); it stays an id string, guarded by validator check 17. |
 | **CE-LG** AuditLog | Business-relevant audit trail — **distinct from diagnostic logging**; SOM home SAS (D08). | **Built on:** `TomAuditTrail` / `TomAuditRecord` / `TomAuditSink` + the `@TomAudited` declaration (`tom_core_server` `audit`; `doc/audit.md`). The CodeSpec is the *audited* endpoint or repository itself, carrying the framework's own `@TomAudited` alongside the part marker — the CE-SU shape (an ordinary class carrying `@tomService`, marked by `@CsServiceUnit`).<br>**Annotations:** `@CsAudited` on the audited element.<br>**Example:** `@CsEndpoint('customer.save') @CsAudited() @TomAudited(includeReads: false, redact: ['iban'])` | None — **pure reuse**. The trail records at two chokepoints no handler can opt out of (`TomEndpointHandler.handleMethodCall`; `TomSqlDatasourceRepository`'s write path), so there is nothing above them for a gap class to hold: the declared half is exactly `@TomAudited`'s three arguments (`csex9`). | `@CsAudited` carries no attributes of its own by design — the declaration rides `@TomAudited`. Retention, log format and the compliance report are **`@CsServerConfig`**, not CE-LG: they are deployment settings on the sink. |
@@ -948,7 +948,7 @@ own beyond the authored direction.
 | CE-AU | CE-ID · CE-CF | consumes the extension declaration · key material | §5.24, §5.25 |
 | CE-NT type declaration | CE-TX | `CsMessageKey` (title + body copy) | §4.3.2 |
 | CE-NT delivery | CE-NT declarations · CE-CF | catalogue resolution · transport settings | §4.3.2 |
-| CE-RP definition | CE-DB · CE-TX · CE-AZ (· CE-NV) | source entity · `CsMessageKey` labels · authorization key (· drill-through route by **open id string** — the definition is server and a route is client-owned, so §5.23 permits no typed ref and the edge imposes no ordering) | §5.28 |
+| CE-RP definition | CE-DB · CE-TX · CE-AZ (· CE-NV) | source entity by **`Type` literal** · `CsMessageKey` labels · authorization by a `@CsAuthorize` beside the marker, whose roles are `CsRoleRef` consts (· drill-through route by **open id string** — the definition is server and a route is client-owned, so §5.23 permits no typed ref and the edge imposes no ordering) | §5.28 |
 | CE-JB | CE-DB · CE-SU (· CE-RP) | `Type` literals · ownership (· `CsReportRef`) | §5.29 |
 | CE-LG | *(none)* | an annotation over another part's declaration — it cites nothing and rides its host | §4.3.2 |
 | CE-MG | CE-DB | schema-convergence check (validator, not a citation) | §5.27 |
@@ -1107,8 +1107,8 @@ therefore classified:
 | # | Slice | Non-READY parts | Mode | Unblocked by |
 |---|-------|-----------------|------|--------------|
 | **1** | Shared const catalogues | — (CE-ER, CE-TX and the CE-AZ catalogues are READY: the markers take their `CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` parameters) | — | — |
-| **2** | Shared contract | — (CE-API, CE-VA and CE-ID are READY; the CE-NT declarations and the CE-RP result envelope emit against their shipped `tom_core_codespecs` gap classes). One cross-part edge emits as an **untyped string**, so the compile-time integrity check §5.23 exists to provide cannot run over it: the CE-RP shared shapes' share of the four CE-RP targets. (A CE-NT channel's fallback also emits as a string, but is **intra-part** and so was never in §5.23's scope — settled, validator-checked by design) | **V** | `csrc3` |
-| **3** | Server persistence & configuration | CE-DB and CE-MG emit fully (the aggregation grammar and the schema-diff engine both ship). A repository whose transaction scope is declared runs on a **process-wide static** current transaction (`TomTransactionManager._currentTransaction`, `tom_core_server` `transactions/transaction_manager.dart:146`), so one isolate holds one transaction at a time. **CE-RP's definition and CE-LG both emit fully** — the grouped-projection gap class ships and the `audit` module is pure reuse — but the definition's source-entity, schedule-job and authorization-key targets are id strings the compiler cannot check | **R**, **V** | `tcca14` (`tom_core`) → `qrc2`; `csrc3` |
+| **2** | Shared contract | — (CE-API, CE-VA and CE-ID are READY; the CE-NT declarations and the CE-RP result envelope emit against their shipped `tom_core_codespecs` gap classes). No untyped cross-part edge remains here: CE-RP's targets are settled (§5.28 — a `Type` literal, a recurrence expression, a `@CsAuthorize` beside the marker, and one locus-barred route id validator-checked by design). A CE-NT channel's fallback also emits as a string, but is **intra-part** and so was never in §5.23's scope — likewise settled and validator-checked | — | — |
+| **3** | Server persistence & configuration | CE-DB and CE-MG emit fully (the aggregation grammar and the schema-diff engine both ship). A repository whose transaction scope is declared runs on a **process-wide static** current transaction (`TomTransactionManager._currentTransaction`, `tom_core_server` `transactions/transaction_manager.dart:146`), so one isolate holds one transaction at a time. **CE-RP's definition and CE-LG both emit fully** — the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28): a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization | **R** | `tcca14` (`tom_core`) → `qrc2` |
 | **4** | Server behaviour | CE-SU is READY. **CE-AU emits its challenge/verify half only**: `Tom2FAService` (`two_factor.dart:271`) asks `issueChallenge` and `verifySubmission` and nothing else, no `otpauth://` builder or secret generator exists anywhere in `tom_ai`, and `TomAuthenticationResult` (`tom_core_kernel` `security/authentication_authorization.dart:153`) carries one `bool requires2FA` and one `String twoFactorType` — so a CodeSpec cannot declare enrolment or a choice of methods. **CE-NT delivery and CE-LG's handler chokepoint are both pure reuse** — the `messaging` router, SMTP transport and durable outbox ship, and the audit trail records with no handler able to opt out | **R** | `tcca3`, `tcca4` (`tom_core`) → `qrc3` |
 | **5** | Client interaction core | CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. Two runtime gaps sit under the emitted widgets: `TomTextFormFieldBase.set()` / `reset()` write the controller without the re-entrancy guard the field's other write path uses (`tom_flutter_ui` `forms/tom_form.dart:1229`/`:1241` vs the guarded `:1150`), and a `choice` / `multiChoice` field's **per-value** copy is a literal on its `TomSelectableSource` item, not the `CsMessageKey` §3.1.1 and §3.5.2 promise | **R**, **E(lossy)** | `tcca15`, `tcca9` (`tom_core`) → `qrc4`, `qrc5` |
 | **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS has no substrate for its scope**: `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves from config once at construction and is never written, and `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) states in its own contract that there is no user parameter in the interface, by design. **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca11`, `tcca10` (`tom_core`) → `qrc6`, `qrc7` |
@@ -1133,24 +1133,25 @@ a (user, device) pair and CE-UP's read/write round trip has no server handler
 cannot be written; each names its `tom_core` todo and its CodeSpecs-side
 consequence in the table above.
 
-**One verification blocker stands besides, of mode V.** It is a cross-part edge
-held as an id string where §5.23 would give a typed const, so the compiler — the
-designated cross-part integrity checker — cannot see whether the reference
-resolves: CE-RP's four targets at slices 2 and 3 (`csrc3`). It does not block
-emission; it removes a guarantee the slice order otherwise gives for free.
+**No verification blocker stands besides.** Two edges emit as id strings rather
+than as typed consts, and both are settled end states rather than deficits:
 
-A CE-NT channel's fallback at slice 2 **is not among them**: it points at a
-sibling channel, so it is intra-part, and §5.23 rules it a local coordinate that
-the family never governed. It is validator-checked by design rather than by
-default ([codespecs_derivation_contract.md](codespecs_derivation_contract.md)
-§6 check 17), which is the settled end state and not a deficit.
+- A **CE-NT channel's fallback** at slice 2 points at a sibling channel, so it is
+  intra-part, and §5.23 rules it a local coordinate the family never governed.
+- A **CE-RP column's drill-through** at slice 3 points at a client-owned route
+  from a server-owned definition, which §5.23's locus rule permanently forbids a
+  typed ref for.
+
+Each is validator-checked by design
+([codespecs_derivation_contract.md](codespecs_derivation_contract.md) §6
+checks 17 and 18) rather than by default. CE-RP's other three targets are not
+references at all once shaped correctly (§5.28).
 
 One emission question is open on the code side and depends on no `tom_core`
 change — an optional SOM field has no stated emission, because neither this
 document nor the derivation contract names the `TomN*` nullable observable family
 that `tom_core_kernel` ships (`qrc1`). The implied sequence: the four `tom_core`
-todos, the nullable-emission decision and the three typed-reference todos run in
-parallel; §10 indexes them all.
+todos and the nullable-emission decision run in parallel; §10 indexes them all.
 
 #### 4.4.5 What the reference directions corrected
 
@@ -3172,6 +3173,17 @@ compiler:
 4. **Doc-side `codeSpec` locations and `@DocSpec` SOM section ids**
    (§9.2/§9.3): documents are not compiled; already validator-checked.
 
+The list is **closed at four**, and the clause above says why no fifth can be
+added casually: a referent that *is* a Dart declaration is never exempt. One
+edge nonetheless emits as a string without being on this list — a CE-RP column's
+**drill-through route** (§5.28). It is not an exemption but a **locus
+casualty**: the referent is a Dart declaration and would take a `CsRouteRef`,
+except that the locus rule above forbids a server-owned definition from citing a
+client-owned one. Because the guarantee is *lost* rather than *never available*,
+it must be replaced rather than waived, by a named generation-time check
+([codespecs_derivation_contract.md](codespecs_derivation_contract.md) §6
+check 18).
+
 ### 5.24 CE-ID identity-attribute extensions over the fixed principal core
 
 **Decision.** CE-ID models the **app-declared identity-attribute extensions**
@@ -3518,10 +3530,12 @@ report a report:
   CE-FM's field is an input the user edits.
 - **A chart has no home anywhere** in the active catalogue.
 
-Schedule and recipients are genuinely *not* CE-RP's — they are relationships to
-CE-JB and CE-NT, and the definition names them rather than containing them. What
-is left after that subtraction is still irreducible, so the verdict is
-**promote**, not defer.
+Scheduled *execution* and *delivery* are genuinely not CE-RP's — they are
+realised by CE-JB and CE-NT. The definition states **when** it runs and **on
+what channels**, and those two facts are what the job and the notification are
+built from; it never contains the job or the delivery mechanics. What is left
+after that subtraction is still irreducible, so the verdict is **promote**, not
+defer.
 
 #### Scope boundary — spec-authorable vs implementation-owned
 
@@ -3529,8 +3543,8 @@ is left after that subtraction is still irreducible, so the verdict is
 report identity and title; the source entity; the grouping **dimensions**; the
 aggregated **measures**; the projected **output columns** with their type,
 format and drill-through; **chart** declarations; typed and bounded runtime
-**parameters**; the **delivery channels**; the CE-JB job that runs it on a
-schedule; the CE-AZ **authorization requirement**.
+**parameters**; the **delivery channels**; the **schedule** it runs on, from
+which the CE-JB job is realised; the CE-AZ **authorization requirement**.
 
 **Implementation-owned** (a specification never authors these): the rendering
 engine and per-format mechanics, pagination and streaming strategy, export file
@@ -3549,7 +3563,7 @@ format are CE-CF settings on the sink, not part of the audit declaration.
 |-----------|-------------------|------|-----------------------|
 | Report id | `TomReportDefinition.reportId` | Y | Report |
 | Report title | `TomReportDefinition.displayName` | N | Message key |
-| Source entity | `TomReportDefinition.sourceEntityId` | Y | Data entity |
+| Source entity | `TomReportDefinition.sourceEntity` (a `Type`) | Y | Data entity |
 | Grouping key | `TomReportDimension.key` / `.columnName` | N | Report dimension |
 | Dimension type | `TomReportDimension.valueKind` | Y | Field kind |
 | Aggregate | `TomReportMeasure.function` (`count`/`sum`/`avg`/`min`/`max`) | Y | Report measure |
@@ -3567,14 +3581,34 @@ format are CE-CF settings on the sink, not part of the audit declaration.
 | Parameter bound | `TomReportParameter.enumId` / `.entityId` | Y² | Domain enum / Data entity |
 | Parameter default | `TomReportParameter.defaultValue` / `.required` | N | Report parameter |
 | Delivery channel | `TomReportDefinition.deliveryChannels` | N³ | Delivery channel |
-| Schedule | `TomReportDefinition.scheduleJobId` | N | Report schedule |
-| Authorization | `TomReportDefinition.authorizationKey` | N | Authorization requirement |
+| Schedule | `TomReportDefinition.scheduleExpression` | N | Report schedule |
+| Authorization | `@CsAuthorize` beside `@CsReport` | N | Authorization requirement |
 | Section columns/rows | `TomReportResultSection.columns` / `.rows` | D | Report section |
 | Result metadata | `TomReportResult.metadata` | D | Report |
 
 ¹ Required for every aggregate except `count`, which may be the bare row count.
 ² Required exactly when the parameter's type is `enumeration` or `entityRef`.
 ³ Defaults to `apiResponse`.
+
+#### Cross-part targets — where each one is carried
+
+CE-RP points outward four times, and no two of them are carried the same way.
+`tom_core_codespecs` declares **no dependencies**, so a gap class can never hold
+a `Cs*Ref` const (§5.23 places that family in the annotation *parameter*
+vocabulary); the question each target answers is what it should be instead.
+
+| Target | Carrier | Why |
+|--------|---------|-----|
+| Source entity | `TomReportDefinition.sourceEntity`, a **`Type` literal** | An entity is already a Dart type, so §5.23 gives it no ref const by design — citing the class makes a renamed entity a compile error, which a string could never be. A `Type` needs only `dart:core`, so the gap package keeps its dependency-freedom. Same resolution as `TomJobDeclaration.readEntities` (§5.29). |
+| Schedule | `TomReportDefinition.scheduleExpression`, a **verbatim recurrence expression** | **Not a reference at all.** The report-schedule section authors a cron-like expression, a time zone and a window — no job id anywhere — and §5.29 states the CE-JB job is *realised from* that schedule rather than named by a second entry. A job-id field would invite exactly that second source, and would point at a declaration the generator has not written yet. The schedule's remaining authored detail lowers onto the derived job's own `TomJobDefinition`. |
+| Authorization | **`@CsAuthorize` beside `@CsReport`** | §5.15 already carries authorization at field level on a CE-DB column, a CE-EL/CE-FM field, a CE-AC action and a CE-NV destination — riding its host part rather than becoming one. A report is the same case. The security section authors an access level and a permitted-role list, which are exactly `CsAuthRequirement` and a typed `CsRoleRef` list, so the edge is compile-checked and `@CsReport` stays note-only. |
+| Drill-through | `TomReportColumn.drillThroughRouteId`, an **open id string** + validator check | §5.23's locus rule bars a **server**-owned definition from citing a **client**-owned route. This is the one target where a typed ref is genuinely unavailable — and it is *unlike* the four §5.23 exemptions, which are exempt because their referent is not a Dart declaration. A route is one, so the compile-time guarantee is lost to locus and has to be **replaced**: `codespecs_derivation_contract.md` §6 check 18, the same substitution check 17 makes for a notification channel's fallback. |
+
+The consequence worth stating plainly: **no fifth §5.23 string exemption is
+created, and no CE-RP marker gains an argument.** The exemption clause is
+normative and reaches a referent "exactly when it is not a Dart declaration",
+which none of these is; and three of the four turned out not to need the
+exemption because they were not references.
 
 #### Neutral vocabulary added
 
@@ -4307,8 +4341,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrc3` | Settle **CE-RP's four cross-part targets**, all plain id strings on `TomReportDefinition` / `TomReportColumn` (§4.1.1 CE-RP, §5.28). `tom_core_codespecs` declares no dependencies, so a gap class can never hold a `Cs*Ref`: source entity, schedule job and authorization key must either move onto annotation arguments — contradicting "all four CE-RP markers stay note-only" — or become a fifth §5.23 string exemption. The drill-through route is already decided and stays a string, since §5.23's locus rule bars a server definition from a client-owned ref. CE-JB's report targets settled the same tension the other way — they ride `@CsJob(targetReports:)` as `CsReportRef` consts (§5.29), so the annotation-argument route is the one with precedent. |
-| `csrc5` | Implement the **seventeen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob`, §5.3's mirrored-enum completeness against `tom_core`, and check 17's CE-NT fallback resolution. All seventeen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
+| `csrc5` | Implement the **eighteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob`, §5.3's mirrored-enum completeness against `tom_core`, and the two edge-replacing checks 17 (CE-NT fallback) and 18 (CE-RP drill-through). All eighteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
 | `csrc8` | Collapse or justify **CE-CF's two authoring shapes**. §5.16's `SCSET` list is the general keyed key/type/default declaration; the audit-sink band under `AuditLogFormat` (`AULOFO`) is fixed-name form fields. Both realise `@CsServerConfig`, so one part has two derivation paths, and the fixed-name one cannot declare `secret` or `overridableBy` — a log sink's credentials being the textbook case for the first. |
 | `csrc9` | Model the **CE-AZ requirement as the §5.15 closed choice**. `SVOPE` authors it as a kind string plus role / resource-key refs, which covers six of the ten arms; Group, Entitlement, Custom and Graded have no payload, and Graded's three-slot recursion needs an explicit depth bound. |
 | `qrc1` | State what an **optional SOM attribute emits** (§4.1.1 CE-ST, §5.4, §5.13). `tom_core_kernel` ships `TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`; neither this document nor `codespecs_derivation_contract.md` §3.3.2 / §3.5.1 names them, so the contract neither says "emit the nullable type" nor "emit the non-nullable one and lose the null". The only `qrc` item with no `tom_core` dependency. |
