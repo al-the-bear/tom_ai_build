@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.11.0
+
+- `@CsJob` gains `targetReports` (`List<CsReportRef>`, default `const []`) —
+  the CE-RP half of `codespecs_mapping.md` §5.29 scope part 3, derived from
+  `SCJOB-WORK.targetReports`. Empty is the common case: most jobs produce no
+  report.
+- The reports land **here rather than on `TomJobDeclaration`** because §5.23
+  makes the `Cs*Ref` family the annotation *parameter* vocabulary — which is
+  where this annotation's `failureAlert` `CsMessageKey` already sits. A ref
+  const on a `tom_core`-family class would be the outlier: those hold plain ids
+  (`TomReportDefinition.reportId` is the string a `CsReportRef` wraps), and
+  taking one would cost `tom_core_codespecs` its dependency-freedom.
+- The CE-DB half of the same scope part stays on the declaration, as `Type`
+  literals — see `tom_core_codespecs` 0.10.0.
+
 ## 0.10.0
 
 - csrb9: close the configuration/settings **declaration** loop. The SOM now

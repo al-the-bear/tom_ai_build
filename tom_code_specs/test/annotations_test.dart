@@ -483,7 +483,14 @@ class CrmAddCreditLimit {}
 @CodeSpec('JB-NIGHTLY-CLEANUP', source: ['TOM-JOBS'])
 class NightlyCleanupJob {}
 
-@CsJob(trigger: CsJobTrigger.calendar, calendar: 'last-day-of-month 23:00')
+/// A scheduled report run — the §5.28 case where a CE-RP definition names a
+/// schedule and the CE-JB job realises it. Its target report is a
+/// [CsReportRef] const, so a renamed report is a compile error.
+@CsJob(
+  trigger: CsJobTrigger.calendar,
+  calendar: 'last-day-of-month 23:00',
+  targetReports: [CsReportRef('salesByRegionReport')],
+)
 @CodeSpec('JB-MONTH-END', source: ['TOM-JOBS'])
 class MonthEndCloseJob {}
 
@@ -940,6 +947,36 @@ void main() {
       expect(job.calendar, 'last-day-of-month 23:00');
       expect(job.cron, isNull);
       expect(job.event, isNull);
+    });
+  });
+
+  group('csrc1: CE-JB target references are typed', () {
+    // codespecs_mapping.md §5.29 scope part 3: a job's CE-RP targets are
+    // CsReportRef consts. They live on the annotation because §5.23 places the
+    // Cs*Ref family in the annotation PARAMETER vocabulary — the same place
+    // failureAlert's CsMessageKey already sits. The CE-DB half rides
+    // TomJobDeclaration as Type literals; entities get no ref const by design.
+    test('report targets are CsReportRef consts on the annotation', () {
+      const job = CsJob(
+        trigger: CsJobTrigger.cron,
+        cron: '0 4 1 * *',
+        targetReports: [
+          CsReportRef('monthlyRevenue'),
+          CsReportRef('agedDebtors'),
+        ],
+      );
+      expect(job.targetReports, isA<List<CsReportRef>>());
+      expect(
+        job.targetReports.map((r) => r.id),
+        ['monthlyRevenue', 'agedDebtors'],
+      );
+    });
+
+    // Most jobs produce no report, so the empty set must be the default rather
+    // than something every declaration has to state.
+    test('a job that produces no report says nothing', () {
+      const job = CsJob(trigger: CsJobTrigger.event, event: 'customer.merged');
+      expect(job.targetReports, isEmpty);
     });
   });
 

@@ -485,14 +485,17 @@ class CsMigration {
 ///    isolate-pooling substrate (`TomCommand` dispatched through `TomExecutor`
 ///    / `TomWorker`);
 /// 3. **target references** — the entities and reports the job acts on, held as
-///    typed const refs, never strings;
+///    typed const refs and `Type` literals, never strings. The two kinds sit in
+///    different places: reports here as [targetReports], entities on
+///    `TomJobDeclaration.readEntities` / `.writtenEntities` — see
+///    [targetReports] for why;
 /// 4. **retry / backoff / timeout / failure-alerting** policy.
 ///
 /// Scheduler runtime, job store and multi-node locking are all present in the
 /// `tom_core_kernel` scheduling substrate (`TomScheduler`, `TomJobStore`,
 /// `TomLeaseLock`), so a declared trigger is a wired schedule. The single
 /// residual gap is the declaration envelope — `enabled`, deployment
-/// environments, owning service unit and target set — which is the
+/// environments, owning service unit and entity targets — which is the
 /// `tom_core_codespecs` gap class `TomJobDeclaration`.
 ///
 /// **The head is [trigger]; the three schedule slots are per-kind.** As on
@@ -547,9 +550,27 @@ class CsJob {
   /// `TomScheduler.onAlert`.
   final CsMessageKey? failureAlert;
 
+  /// The CE-RP reports this job produces, where the work is a report run.
+  ///
+  /// Half of §5.29 scope part 3; the other half — the CE-DB entities the job
+  /// reads and writes — rides `TomJobDeclaration.readEntities` /
+  /// `.writtenEntities` as `Type` literals, since entities are already Dart
+  /// types and `codespecs_mapping.md` §5.23 gives them no ref const by design.
+  ///
+  /// **Reports are cited here rather than on the declaration** because §5.23
+  /// places the `Cs*Ref` family in the annotation *parameter* vocabulary, which
+  /// is exactly where [failureAlert]'s [CsMessageKey] already sits. Putting a
+  /// ref const on a `tom_core`-family class instead would make it the outlier —
+  /// those classes hold plain ids (`TomReportDefinition.reportId` is the string
+  /// a [CsReportRef] *wraps*) — and would cost `tom_core_codespecs` the
+  /// dependency-freedom it treats as a design property.
+  ///
+  /// Empty means the job produces no report, which is the common case.
+  final List<CsReportRef> targetReports;
+
   /// Optional part-specific note.
   ///
-  /// `enabled`, `environments`, `serviceUnitId` and the target references ride
+  /// `enabled`, `environments`, `serviceUnitId` and the entity targets ride
   /// `TomJobDeclaration`'s own constructor, so none of them is an argument here.
   final String? note;
 
@@ -562,6 +583,7 @@ class CsJob {
     this.backoff,
     this.timeout,
     this.failureAlert,
+    this.targetReports = const <CsReportRef>[],
     this.note,
   });
 }
