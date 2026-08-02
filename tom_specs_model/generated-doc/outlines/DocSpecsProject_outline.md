@@ -1860,7 +1860,10 @@
                 - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
                   lifecycle, roleManagement, directoryIntegration
               - batchJobs: `BatchJobManagement`
-                - content @Form(schedulingEngine, scheduleDefinition, timeZoneHandling), jobTypes, execution, monitoring
+                - content @Form(timeZoneHandling), jobTypes, execution, monitoring
+                - scheduledJobs: `ScheduledJobEntry`
+                  - content @Form(jobName, purpose, triggerKind, primaryDataEntity, enabled, environments),
+                    cronTrigger, calendarTrigger, eventTrigger, workDefinition, failurePolicy
               - diagnosticTools: `SystemDiagnosticTools`
                 - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
                   selfService
@@ -4754,7 +4757,10 @@
             - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
               lifecycle, roleManagement, directoryIntegration
           - batchJobs: `BatchJobManagement`
-            - content @Form(schedulingEngine, scheduleDefinition, timeZoneHandling), jobTypes, execution, monitoring
+            - content @Form(timeZoneHandling), jobTypes, execution, monitoring
+            - scheduledJobs: `ScheduledJobEntry`
+              - content @Form(jobName, purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
+                calendarTrigger, eventTrigger, workDefinition, failurePolicy
           - diagnosticTools: `SystemDiagnosticTools`
             - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
               selfService
@@ -5828,7 +5834,10 @@
               - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
                 lifecycle, roleManagement, directoryIntegration
             - batchJobs: `BatchJobManagement`
-              - content @Form(schedulingEngine, scheduleDefinition, timeZoneHandling), jobTypes, execution, monitoring
+              - content @Form(timeZoneHandling), jobTypes, execution, monitoring
+              - scheduledJobs: `ScheduledJobEntry`
+                - content @Form(jobName, purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
+                  calendarTrigger, eventTrigger, workDefinition, failurePolicy
             - diagnosticTools: `SystemDiagnosticTools`
               - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
                 selfService

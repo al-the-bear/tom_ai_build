@@ -1053,13 +1053,13 @@ therefore classified:
 | **4** | Server behaviour | — (CE-SU is READY; CE-AU too, the two-pass 2FA flow is complete) | — | — |
 | **5** | Client interaction core | — (CE-SC / CE-AC / CE-FM take their ref parameters; CE-EL is READY — `csexb1` carried its last three per-kind attributes) | — | — |
 | **6** | Client presentation & shell | — (CE-CC is **READY**: one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`; CE-LO is unblocked, `csexb2` reconciled the container-kind set with the ACL substrate) | — | — |
-| **7** | Server operational | CE-JB is **READY** on the code side — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, and §5.29 names the owning class for each of the four scope parts | — | `csrc1` (type `TomJobDeclaration.targetRefs`); `csrb12` supplies the SOM-side per-job list |
+| **7** | Server operational | CE-JB is **READY** on both sides — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, §5.29 names the owning class for each of the four scope parts, and the SOM per-job declaration list `SCJOB` supplies the authored surface | — | `csrc1` (type `TomJobDeclaration.targetRefs`) |
 
 **Critical-path consequence.** The `Cs*` annotation family with its constructors,
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
 landed, so **every slice is emission-, runtime- and verification-clear on the
 code side**. What remains is SOM-side: the sections that do not yet carry the
-surface a marker's arguments consume (`csrb12`–`csrb13`), plus `csrc1` at slice 7.
+surface a marker's arguments consume (`csrb13`), plus `csrc1` at slice 7.
 **No `tom_core`-side blocker remains anywhere** — `csexb2` closed the last one by
 reconciling the CE-LO container-kind set with the ACL substrate at slice 6. The
 implied sequence: the SOM gaps next, then the standing ownership question
@@ -3557,14 +3557,17 @@ split that produced this shape is recorded in §4.3.2.
 elements — `@CsJob`-marked, **server-only** per §4.2. A job is work that runs
 *off* the request thread: on a schedule, on a calendar date, or on an event,
 distinct from the request-driven CE-API. Kind value: `backgroundJob`; SOM home:
-**D06 ATS** (the architecture's operational model, `BatchJobManagement`
-BAJOMA).
+**D06 ATS** (the architecture's operational model — `ScheduledJobEntry` SCJOB,
+the per-job declaration list under `BatchJobManagement` BAJOMA).
 
 **Scope — what one job definition names.** A CE-JB definition =
 
 1. **Trigger** — `cron | calendar | event`: a cron/recurrence expression, a
-   calendar date/time (with time-zone handling), or a named system event. This
-   is the axis that separates CE-JB from request-driven CE-API.
+   calendar date rule, or a named system event. This is the axis that separates
+   CE-JB from request-driven CE-API. Time-zone handling is a **system-wide**
+   choice, authored once on `BatchJobManagement` — the `TomSchedule` family
+   takes no per-schedule zone, so a per-job zone would be a specification the
+   substrate cannot honour.
 2. **Work definition** — the unit of work, written as compilable **pseudo-code**
    (the §3 first-level-implementation latitude): the job's work body is real Dart
    that calls a **later-injected abstract service class** whose methods carry
@@ -3591,6 +3594,41 @@ exactly one class, and all but the envelope are **reused**, not built:
 The reuse verdict therefore holds: of the four scope parts, three are covered by
 `tom_core_kernel` classes reused whole, and the fourth (target references) has a
 holder whose *typing* — not whose existence — is the remaining work.
+
+**SOM surface — two layers under `BatchJobManagement`.** BAJOMA separates
+**policy** from **declaration**, and a job comes into existence only in the
+second layer:
+
+- **Policy (the default layer)** — `BJMJT` names the *categories* of job the
+  system runs; `BJME` authors the execution defaults (concurrency, priority,
+  retry, idempotency, timeout); `BJMM` authors default monitoring and failure
+  alerting; the head form authors system-wide time-zone handling. All of it
+  applies to every job.
+- **Declaration** — `SCJOB-JOB-LST`, a repeated `ScheduledJobEntry` (`SCJOB`),
+  one entry per job. *A job that is not listed here does not exist*, however
+  thoroughly the policy layer describes how jobs are run. `SCJOB` carries the
+  `@CodeSpecKind([CodeSpecPart.backgroundJob])`; the container does not, because
+  one entry — not the policy — is one `@CsJob` class.
+
+`SCJOB`'s head form authors the job name, its purpose, `triggerKind`
+(`ScheduledJobTrigger`, the `@OneOf` discriminator), the `primaryDataEntity` it
+writes, `enabled` and `environments`. The trigger kind promotes exactly one
+`@Case` subsection — `SCJOB-CRON` (recurrence expression), `SCJOB-CAL`
+(calendar rule) or `SCJOB-EVNT` (event name and payload) — so each arm states
+the rule it actually needs instead of a shared free-text field. `SCJOB-WORK`
+carries the work *intent* and the read/written entities and target reports;
+`SCJOB-FAIL` carries the per-job **overrides** of the `BJME` defaults (max
+retries, backoff, timeout, failure-alert message key), so the policy stays the
+default and the entry states only the exception.
+
+Two facts are **derived, not authored**, because authoring them would create a
+second source that can drift:
+
+- The **owning service unit** follows from `primaryDataEntity` per the §5.17
+  derived-ownership rule — the same rule SVOPE follows.
+- A **scheduled report** is declared once, on the CE-RP report definition
+  (§5.28); the job that runs it is realised from that schedule, not from a
+  second `SCJOB` entry.
 
 **Gap (tom_core_codespecs concrete class) — narrow.** `tom_core_kernel`'s
 `tombase/scheduling/` module carries the **whole runtime half** of a job:
@@ -3686,7 +3724,7 @@ Design constraints to encode in the CE-API / CE-ER derivation:
 | CE-CF | **D06 ATS**; **D08 SAS** | **Server/system** configuration only. |
 | CE-CC, CE-DS, CE-UP, CE-CL | **D06 ATS** (deployment/clients); **D09 XDS** (preferences surfaced in UI); **D02 TOM** (roles → whose settings) | Client apps + per-machine client config + device settings + user settings. |
 | CE-RP | **D09 XDS** (report definition family, under `ReportDefinitions`); **D03 IMO** (source data) | Report definitions — the grouped projection, its output columns and charts, its parameters and its delivery channels (§5.28). The sibling print/export *settings* under `PrintAndExportLayout` are CE-CF, not CE-RP. |
-| CE-JB | **D06 ATS** (`BatchJobManagement` BAJOMA) | Background/scheduled jobs from the architecture's operational model; targets cite IMO entities and CE-RP reports (§5.29). |
+| CE-JB | **D06 ATS** (`ScheduledJobEntry` SCJOB, under `BatchJobManagement` BAJOMA) | Background/scheduled jobs from the architecture's operational model, one entry per job; targets cite IMO entities and CE-RP reports (§5.29). |
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
 **Derivation principle:** the SOM's stable `@SectionId` is the join key — each
@@ -3981,7 +4019,7 @@ A part is **COVERED** only when both hold.
 | CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · the 42-section policy set | COVERED |
 | CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
 | CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG (projected into D03 IFM and into `D13CodeSpecsProjection` at the server locus) + `MigrationTargetEntry` MIGTG (datasource/schema placement) + `SchemaMigrationStepEntry` SCMST, a `@OneOf` over the three §5.27 artifact kinds, carrying the environment tag | COVERED |
-| CE-JB | `backgroundJob` | `BatchJobManagement` BAJOMA — system-wide scheduling *policy* with **no per-job declaration list** | **GAP** — `csrb12` |
+| CE-JB | `backgroundJob` | `ScheduledJobEntry` SCJOB — the per-job declaration list under `BatchJobManagement` BAJOMA, which keeps the system-wide policy defaults | COVERED |
 | CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
 | CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under the `ReportDefinitions` REDF projection root | COVERED |
@@ -4094,7 +4132,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
 | `csrb13` | Give **CE-CL** an enumeration of the system's **client applications** (§4.1.1: platform targets, entry route, included flows/forms). `ClientRequirementsSection` states minimum platform requirements, which is a different thing. |
 | `csrb14` | Place **CE-LG, CE-NT and CE-RP in the §4.4.3 slice table.** §4.2 puts all three in the server project, but no generation slice claims them, so the seven-slice execution order does not cover them. Raised by `csra12`. |
 | `csrb16` | Decide what a **CE-NT channel's fallback edge** references (§4.1.1). §5.23's closed thirteen have no notification-side ref type, and the edge's own referent is unsettled: a *channel's* fallback plausibly points at a sibling channel, not at a notification type. Settle the referent, then either add the ref type to §5.23 or state why the edge stays a string. Raised by `csra6`. |

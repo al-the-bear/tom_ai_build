@@ -488,11 +488,13 @@ class CsMigration {
 ///    typed const refs, never strings;
 /// 4. **retry / backoff / timeout / failure-alerting** policy.
 ///
-/// The job base class the substrate lacks — one that makes execution pluggable
-/// into any scheduling system — is a `tom_core_codespecs` gap class. Scheduler
-/// runtime, job queue and multi-node locking are `tom_core` framework roadmap,
-/// not CodeSpecs gaps: until one lands, a trigger is a named-but-unwired
-/// schedule.
+/// Scheduler runtime, job store and multi-node locking are all present in the
+/// `tom_core_kernel` scheduling substrate (`TomScheduler`, `TomJobStore`,
+/// `TomLeaseLock`), so a declared trigger is a wired schedule. The single
+/// residual gap is the declaration envelope — `enabled`, deployment
+/// environments, owning service unit and target set — which is the
+/// `tom_core_codespecs` gap class `TomJobDeclaration`.
+///
 /// **The head is [trigger]; the three schedule slots are per-kind.** As on
 /// [CsAuthorize] and `CsTrigger`, Dart annotations have no sum types, so each
 /// trigger kind's payload is a separate optional argument and a validator

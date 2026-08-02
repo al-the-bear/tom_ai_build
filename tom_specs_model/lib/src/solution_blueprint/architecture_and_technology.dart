@@ -7,6 +7,27 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 
 import '../document_stubs.dart';
 
+/// The closed set of things that can start a scheduled job ([ScheduledJobEntry]).
+///
+/// The discriminator enum for the `ScheduledJobEntry` `@OneOf` group. The three
+/// arms are not variants of one shape — each is started by a different thing and
+/// therefore authors a different rule, so each binds its own case subsection:
+///
+/// - [cron] fires on a recurring clock expression.
+/// - [calendar] fires on a date rule that a clock expression cannot state —
+///   month-end, the third Monday of a quarter.
+/// - [event] does not fire on time at all: it runs when something in the system
+///   happens, and the payload of that occurrence is what the work reads.
+///
+/// The set is closed at three because it is exactly the trigger vocabulary the
+/// CodeSpecs surface realises (`codespecs_mapping.md` §5.29); a fourth arm would
+/// be a specification that cannot be generated.
+enum ScheduledJobTrigger {
+  cron,
+  calendar,
+  event,
+}
+
 /// 8. Technical Framework Concept. Seeds → ATS.
 @Comment('Seeds → ATS')
 @MapsTo(D06ArchitectureTechnologySpecification)
@@ -28167,7 +28188,18 @@ class UserProvisioningTools extends DocSpecsSection {
   DocSpecsSection? directoryIntegration;
 }
 
-/// Batch job management.
+/// Batch job management — the scheduled jobs and the policy they run under.
+///
+/// Two layers, deliberately separated. This section and its policy subsections
+/// author what is true of *every* job — the time-zone basis, the execution
+/// controls, the monitoring surface. [scheduledJobs] authors the jobs
+/// themselves, one entry each. A specification that has only the policy layer
+/// can say how jobs are run in general but cannot name a single one, which is
+/// exactly what the job list exists to fix.
+///
+/// The policy is the **default layer**: an execution control stated here applies
+/// to every job that does not override it, and an entry that does override it
+/// says so in its own failure-policy subsection.
 @StandardReferences(
   [
     'Google SRE — eliminating toil and operational procedures',
@@ -28176,38 +28208,29 @@ class UserProvisioningTools extends DocSpecsSection {
   'Batch job management specifies how scheduled and background jobs are defined and operated.',
 )
 @SectionId('BAJOMA')
-@CodeSpecKind(
-  [CodeSpecPart.backgroundJob],
-  note:
-      'CE-JB — scheduled / background / queued jobs (cron | calendar | event '
-      'triggers), distinct from request-driven serverApi. Active (codespecs_mapping.md §4.1): '
-      '@CsJob, server locus; work bodies are TomCommand on the '
-      'tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); '
-      'the typed job-definition holder is a tom_core_codespecs gap; execution '
-      'runs under the server principal; scheduled reports (CE-RP) are realized '
-      'as CE-JB jobs; scheduler runtime / job queue / multi-node locking are '
-      'framework roadmap (codespecs_mapping.md §5.29).',
-)
 class BatchJobManagement extends DocSpecsSection {
+  @ContentHelp('''
+Describe the ground rules every scheduled job runs under.
+
+**The scheduling substrate is fixed, so there is no engine decision to record
+here.** Jobs are run by the framework's own scheduler; this section says under
+what rules they run, never with what.
+
+**Time zone is a system-wide choice, not a per-job one.** Every schedule is
+interpreted in the scheduler's own clock zone, so state that zone once here
+rather than per job.
+
+The jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the
+subsections below carry the defaults those declarations inherit.
+''')
   @Form([
-    Field(
-      'schedulingEngine',
-      String,
-      'Scheduling Engine',
-      required: true,
-      hint: 'Cron, Quartz, cloud scheduler, Airflow',
-    ),
-    Field(
-      'scheduleDefinition',
-      String,
-      'Schedule Definition',
-      hint: 'Cron expression, calendar-based, event-driven',
-    ),
     Field(
       'timeZoneHandling',
       String,
       'Time Zone Handling',
-      hint: 'UTC, local, configurable per job',
+      required: true,
+      hint: 'The clock zone every schedule is interpreted in — UTC or the '
+          "server's local zone",
     ),
   ])
   @override
@@ -28215,6 +28238,11 @@ class BatchJobManagement extends DocSpecsSection {
   String? content;
 
   /// Supported job categories.
+  ///
+  /// A category-level summary of the scheduled work the system performs — the
+  /// shape of the workload, not its inventory. The authoritative per-job
+  /// declarations are [scheduledJobs]; a category named here without a job in
+  /// that list is a job the specification has not actually declared.
   @SectionId('BJMJT')
   @StandardReferences(
     [
@@ -28223,6 +28251,9 @@ class BatchJobManagement extends DocSpecsSection {
     ],
     'Supported job categories catalog the kinds of scheduled work the system performs.',
   )
+  @ContentHelp('Summarise which categories of scheduled work exist and why, one '
+      'line each. This is the shape of the workload, not the job inventory — '
+      'declare each job individually in Scheduled Jobs (SCJOB).')
   @Form([
     Field(
       'dataProcessingJobs',
@@ -28258,7 +28289,12 @@ class BatchJobManagement extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? jobTypes;
 
-  /// Execution controls.
+  /// Execution controls — the **default layer** for every job.
+  ///
+  /// Retry, timeout and idempotency stated here apply to every job that does
+  /// not say otherwise. A job that needs different numbers overrides them in
+  /// its own failure-policy subsection, so this section is the rule and the
+  /// entry is the exception — never the other way round.
   @SectionId('BJME')
   @StandardReferences(
     [
@@ -28267,6 +28303,9 @@ class BatchJobManagement extends DocSpecsSection {
     ],
     'Execution controls define how batch jobs run, retry, and enforce timeouts.',
   )
+  @ContentHelp('State the controls that apply to every job. A job that needs '
+      'different retry, backoff or timeout numbers overrides them in its own '
+      'entry (SCJOB); what is stated here is what every other job inherits.')
   @Form([
     Field(
       'concurrencyControl',
@@ -28283,16 +28322,22 @@ class BatchJobManagement extends DocSpecsSection {
     Field(
       'retryPolicy',
       String,
-      'Retry Policy',
-      hint: 'Retry count, backoff, dead-letter',
+      'Default Retry Policy',
+      hint: 'The retry count and backoff a job inherits unless it overrides '
+          'them, plus what happens after the last attempt',
     ),
     Field(
       'idempotency',
       bool,
       'Idempotency',
-      hint: 'Safe to re-run on failure',
+      hint: 'Whether jobs are required to be safe to re-run after a failure',
     ),
-    Field('timeout', String, 'Timeout', hint: 'Maximum job execution time'),
+    Field(
+      'timeout',
+      String,
+      'Default Timeout',
+      hint: 'The maximum run time a job inherits unless it overrides it',
+    ),
   ])
   @SerializationOrder(2)
   DocSpecsSection? execution;
@@ -28322,8 +28367,10 @@ class BatchJobManagement extends DocSpecsSection {
     Field(
       'failureAlerts',
       String,
-      'Failure Alerts',
-      hint: 'Notification on job failure',
+      'Default Failure Alerting',
+      hint: 'What is raised when a job fails, for jobs that do not name their '
+          'own alert message. The destination the alert is delivered to is a '
+          'deployment setting, not authored here.',
     ),
     Field(
       'slaMonitoring',
@@ -28341,6 +28388,334 @@ class BatchJobManagement extends DocSpecsSection {
   ])
   @SerializationOrder(3)
   DocSpecsSection? monitoring;
+
+  /// Scheduled jobs — one entry per job the system runs.
+  ///
+  /// The declaration layer. Everything above is policy that applies to all
+  /// jobs; this is where a job actually comes into existence.
+  @StandardReferences([
+    'Google SRE — eliminating toil and operational procedures',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ], 'The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.')
+  @SectionId('SCJOB-JOB-LST')
+  @SectionIdPattern('SCJOB-JOB-xxx')
+  @ContentHelp('Add one entry per job the system runs off the request thread. '
+      'A job that is not listed here does not exist, however thoroughly the '
+      'policy sections above describe how jobs are run.')
+  @SerializationOrder(4)
+  List<ScheduledJobEntry> scheduledJobs = [];
+}
+
+/// A single scheduled job (form + trigger case + work definition + failure
+/// policy).
+///
+/// One background job: what starts it, what it does, which data it acts on,
+/// what happens when it fails, and where it is deployed. Work that runs *off*
+/// the request thread is what separates a job from a server operation — the
+/// trigger is that axis, which is why it is a required, closed choice rather
+/// than free text.
+///
+/// **Where the specification stops and the code begins.** This entry carries
+/// the job's *intent* — what it does, over which data, in what order. It does
+/// **not** carry the work body: the body is written in the CodeSpec as
+/// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+/// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+/// place. State the intent well enough that the body can be written from it,
+/// then stop.
+///
+/// **Ownership is derived, not declared.** The service unit that owns a job
+/// follows from the entity it primarily writes, exactly as it does for a server
+/// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+/// entity and never the unit. Two places to state one fact is how they come to
+/// disagree.
+///
+/// **A scheduled report is not declared twice.** A report definition that names
+/// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+/// comes from the report, not from an entry here. List a job here only when the
+/// work is not already the schedule of a report.
+@StandardReferences(
+  [
+    'Google SRE — eliminating toil and operational procedures',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'A single background job: its identity, trigger, work definition, target data, failure policy and deployment envelope.',
+)
+@SectionId('SCJOB')
+@CodeSpecKind(
+  [CodeSpecPart.backgroundJob],
+  note:
+      'CE-JB — one declared background job, distinct from request-driven '
+      'serverApi by the fact that it runs off the request thread. Active '
+      '(codespecs_mapping.md §4.1): @CsJob, server locus. triggerKind and its '
+      'case subsection supply the trigger and its per-kind slot; the '
+      'failure-policy subsection supplies maxRetries / backoff / timeout / '
+      'failureAlert; enabled, environments and the target set ride the '
+      'TomJobDeclaration envelope; the owning service unit is derived from '
+      'primaryDataEntity. The work body is compilable pseudo-code over a '
+      'later-injected abstract service and is written in the CodeSpec, not '
+      'here (codespecs_mapping.md §5.29).',
+)
+@OneOf(
+  discriminator: 'triggerKind',
+  note: 'Job trigger closed choice: the kind selects its promoted trigger '
+      'subsection — a recurring clock expression, a calendar date rule, or a '
+      'named system event. Each kind is started by a different thing and '
+      'states a different rule, so every kind binds a case.',
+)
+class ScheduledJobEntry extends DocSpecsSection {
+  @ContentHelp('''
+One job the system runs off the request thread.
+
+**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set
+unless the job is deliberately dormant. Leave *Environments* empty to run it
+everywhere; naming environments restricts it to those, and is how a job that
+must never run in production is kept out of it.
+
+**Failure policy is an exception, not a restatement.** Fill in the failure
+subsection only where this job needs different numbers from the Execution
+Controls (BJME). An entry that repeats the default is a second copy of it.
+''')
+  @Form([
+    Field(
+      'jobName',
+      String,
+      'Job Name',
+      required: true,
+      hint: 'The one identifier for this job (e.g. nightlyInvoiceRollup) — '
+          'cited wherever the job is referenced',
+    ),
+    Field(
+      'purpose',
+      String,
+      'Purpose',
+      required: true,
+      hint: 'Why this job exists — the operational or business reason it runs '
+          'on its own rather than as part of a request',
+    ),
+    Field(
+      'triggerKind',
+      ScheduledJobTrigger,
+      'Trigger Kind',
+      required: true,
+      hint: 'What starts the job — selects the trigger subsection below',
+    ),
+    Field(
+      'primaryDataEntity',
+      String,
+      'Primary Data Entity',
+      required: true,
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entity this job primarily writes. This determines '
+          'which service unit owns the job — never state ownership by hand.',
+    ),
+    Field(
+      'enabled',
+      bool,
+      'Enabled',
+      hint: 'Whether the job is deployed to run. A declared job is meant to '
+          'run, so clear this only for a deliberately dormant job.',
+    ),
+    Field(
+      'environments',
+      String,
+      'Environments',
+      hint: 'Comma-separated deployment environments this job runs in, or '
+          'empty to run in every environment',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// Cron trigger — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `cron` kind: a recurring clock expression, taken
+  /// verbatim. It is a single field because that is exactly what the trigger
+  /// is — the zone it is read in is the system-wide one stated on
+  /// [BatchJobManagement], and catch-up behaviour after a missed window is a
+  /// scheduler setting rather than a specification statement.
+  @SectionId('SCJOB-CRON')
+  @StandardReferences(
+    [
+      'POSIX crontab — the recurring-schedule expression convention',
+      'Google SRE — eliminating toil and operational procedures',
+    ],
+    'The recurring clock expression that starts this job.',
+  )
+  @Case(ScheduledJobTrigger.cron)
+  @Form([
+    Field(
+      'cronExpression',
+      String,
+      'Recurrence Expression',
+      required: true,
+      hint: 'The recurrence expression, verbatim (e.g. 0 2 * * * for daily at '
+          '02:00)',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? cronTrigger;
+
+  /// Calendar trigger — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `calendar` kind: a date rule a clock expression
+  /// cannot state — the last day of the month, the third Monday of a quarter.
+  @SectionId('SCJOB-CAL')
+  @StandardReferences(
+    [
+      'ISO 8601 — date and time representation',
+      'Google SRE — eliminating toil and operational procedures',
+    ],
+    'The calendar date rule that starts this job.',
+  )
+  @Case(ScheduledJobTrigger.calendar)
+  @Form([
+    Field(
+      'calendarRule',
+      String,
+      'Calendar Rule',
+      required: true,
+      hint: 'The date rule and time of day (e.g. last day of each month at '
+          '02:00; third Monday of each quarter at 06:00)',
+    ),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? calendarTrigger;
+
+  /// Event trigger — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `event` kind. An event-triggered job does not fire on
+  /// time at all, so it has no schedule; what it has instead — and what neither
+  /// other arm has — is an occurrence carrying data the work reads.
+  @SectionId('SCJOB-EVNT')
+  @StandardReferences(
+    [
+      'Enterprise Integration Patterns — event-driven consumer',
+      'Google SRE — eliminating toil and operational procedures',
+    ],
+    'The system event that starts this job and the data that event carries.',
+  )
+  @Case(ScheduledJobTrigger.event)
+  @Form([
+    Field(
+      'eventName',
+      String,
+      'Event Name',
+      required: true,
+      hint: 'The system occurrence that starts the job (e.g. '
+          'order.payment.settled)',
+    ),
+    Field(
+      'eventPayload',
+      String,
+      'Event Payload',
+      hint: 'What each occurrence carries that the work reads — typically the '
+          'identity of the record the event is about',
+    ),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? eventTrigger;
+
+  /// What the job does and which data it acts on.
+  ///
+  /// The intent half of the work definition. The body that realises it is
+  /// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+  /// section says what that body must achieve and over which data, in enough
+  /// detail that it can be written from here without a second conversation.
+  @SectionId('SCJOB-WORK')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148:2018 — requirements specification',
+      'DAMA-DMBOK2 — data management body of knowledge',
+    ],
+    'What the job does and which entities and reports it acts on.',
+  )
+  @ContentHelp('Describe what the job does, in order, as prose an implementer '
+      'can work from. Do not write code here — the work body is written in the '
+      'CodeSpec; what this section owes it is a complete statement of intent '
+      'and of the data the work touches.')
+  @Form([
+    Field(
+      'workSummary',
+      String,
+      'Work Summary',
+      required: true,
+      hint: 'What the job does, step by step, in prose — the intent the work '
+          'body must realise',
+    ),
+    Field(
+      'readEntities',
+      String,
+      'Read Entities',
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entities the job reads',
+    ),
+    Field(
+      'writtenEntities',
+      String,
+      'Written Entities',
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entities the job writes, including the primary one',
+    ),
+    Field(
+      'targetReports',
+      String,
+      'Target Reports',
+      refersTo: ['REPENT.reportId'],
+      hint: 'The reports this job produces, where the work is a report run',
+    ),
+  ])
+  @SerializationOrder(4)
+  DocSpecsSection? workDefinition;
+
+  /// This job's departures from the system-wide execution policy.
+  ///
+  /// Every field is an override. Left empty, the job inherits the Execution
+  /// Controls (BJME) default; the policy stays the rule and the entry is the
+  /// exception.
+  @SectionId('SCJOB-FAIL')
+  @StandardReferences(
+    [
+      'Google SRE — handling overload, retries and cascading failure',
+      'AWS Well-Architected — reliability (failure management)',
+    ],
+    'This job\'s retry, backoff, timeout and alerting overrides of the system-wide execution policy.',
+  )
+  @ContentHelp('Fill in only what differs from the Execution Controls (BJME) '
+      'default. An empty field means the job inherits the default, which is '
+      'the normal case.')
+  @Form([
+    Field(
+      'maxRetries',
+      int,
+      'Maximum Retries',
+      hint: 'How many times a failed run is retried, if not the default',
+    ),
+    Field(
+      'retryBackoff',
+      String,
+      'Retry Backoff',
+      hint: 'The delay before the first retry and how it grows, if not the '
+          'default',
+    ),
+    Field(
+      'timeout',
+      String,
+      'Timeout',
+      hint: 'How long a single run may take before it is abandoned, if not '
+          'the default',
+    ),
+    Field(
+      'failureAlertMessage',
+      String,
+      'Failure Alert Message',
+      refersTo: ['MSGKE.key'],
+      hint: 'The message raised when this job fails permanently. The job names '
+          'the message; the deployment names where it is delivered.',
+    ),
+  ])
+  @SerializationOrder(5)
+  DocSpecsSection? failurePolicy;
 }
 
 /// System diagnostic tools.
