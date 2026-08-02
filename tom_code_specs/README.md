@@ -25,6 +25,7 @@ whose every element carries traceability annotations back to its source spec.
 | `DocRef(sectionId, description)` | One back-trace entry | `codespecs_mapping.md` §9.3 |
 | `Cs*` annotation family (no base classes) — 39 markers | The catalogue's part markers, in four files — see the table below | `codespecs_mapping.md` §4.1 |
 | `Cs*Ref` typed cross-part references — 13 consts | Annotation *parameter* vocabulary: one const type per referenceable part | `codespecs_mapping.md` §5.23 |
+| The closed catalogues — 14 enums in `vocabulary.dart` | Annotation *parameter* vocabulary: the arms a marker's argument selects from | `codespecs_derivation_contract.md` §5.3 |
 
 ### The `Cs*` family
 
@@ -34,10 +35,10 @@ and CE-RP each have more than one).
 
 | File | Markers | Parts |
 |------|---------|-------|
-| `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger` *(with `TriggerKind`)*, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
-| `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn`, `@CsRepository`, `@CsAuthorize`, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
+| `element_annotations.dart` | `@CsElement`, `@CsWidget`, `@CsForm`, `@CsLayout`, `@CsText`, `@CsValidation`, `@CsFieldRule`, `@CsFormRule`, `@CsAction`, `@CsTrigger`, `@CsServerCall`, `@CsViewModel`, `@CsRoute`, `@CsScreenFlow` | Client / UI — CE-EL, CE-FM, CE-LO, CE-TX, CE-VA, CE-AC, CE-SC, CE-ST, CE-NV |
+| `service_annotations.dart` | `@CsEndpoint`, `@CsServiceUnit`, `@CsTable`, `@CsColumn` *(with the `CsFileReference` facet)*, `@CsRepository`, `@CsAuthorize` *(with the `CsGradedAccess` facet)*, `@CsServerConfig`, `@CsMigration`, `@CsJob`, `@CsAudited`, `@CsNotification`, `@CsNotificationChannel`, `@CsReport`, `@CsReportColumn`, `@CsReportChart`, `@CsReportParameter` | Server — CE-API, CE-SU, CE-DB, CE-AZ, CE-CF, CE-MG, CE-JB, CE-LG; CE-NT (declarations shared, delivery server); CE-RP (definition server, result envelope + parameters shared) |
 | `contract_annotations.dart` | `@CsError`, `@CsEnum` | Shared — CE-ER, plus the `domainEnum` **member** kind |
-| `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute` *(with `IdentityAttributePlacement`)*, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
+| `client_settings_annotations.dart` | `@CsClient`, `@CsClientConfig`, `@CsDeviceSetting`, `@CsUserSetting`, `@CsIdentity`, `@CsIdentityAttribute`, `@CsAuth` | Client app, the four owner-keyed config/settings scopes, identity and auth — CE-CL, CE-CC, CE-DS, CE-UP, CE-ID, CE-AU |
 
 The `codespecs_mapping.md` §4.3 **deferred** candidate — **CE-WF alone** —
 deliberately has **no marker**: a deferred part is mapping-only, so its
@@ -83,6 +84,31 @@ they are cited by `Type` literal. Four further reference kinds stay strings per
 deployment-environment names, CE-MG migration filenames, and doc-side `codeSpec`
 locations / `@DocSpec` section ids.
 
+### The closed catalogues
+
+`vocabulary.dart` holds the fourteen enums a marker's arguments select from
+(`codespecs_derivation_contract.md` §5.3). They are enums rather than strings for
+the same reason the refs are consts: a catalogue grows by a reviewed taxonomy
+edit, not by a specification inventing a value in passing.
+
+| Enum | Selected by |
+|------|-------------|
+| `CsElementKind` | `@CsElement(kind:)` |
+| `CsTextRole`, `CsTextCategory` | `@CsText(role:, category:)` |
+| `TriggerKind`, `CsGesture`, `CsFormEvent`, `CsLifecycleScope`, `CsLifecyclePhase` | `@CsTrigger`'s kind and its per-kind slots |
+| `CsLifecycleScope` | also `@CsViewModel(scope:)` |
+| `CsErrorSeverity` | `@CsError(severity:)` |
+| `CsAuthRequirement` | `@CsAuthorize(requirement:)` |
+| `CsMigrationKind` | `@CsMigration(kind:)` |
+| `CsJobTrigger` | `@CsJob(trigger:)` |
+| `CsClientKind` | `@CsClient(kind:)` |
+| `IdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
+
+Each is **declared here, not imported**: `tom_code_specs` deliberately does not
+depend on `tom_core` (`codespecs_mapping.md` §9.5), so every catalogue with a
+`tom_core` counterpart is a local mirror, and a named generation-time validator
+check asserts the mirror stays complete.
+
 ## What lives in `tom_specs_core` instead
 
 The **forward**, model-side half of the link annotates the SOM, so it lives with
@@ -111,20 +137,30 @@ separately.
 
 ## Status
 
-`@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family** and the
-**13-const `Cs*Ref` family** are declared — one marker (or marker group) for
-every active part in the `codespecs_mapping.md` §4.1 catalogue, with no marker
-for a deferred one. `@CodeSpecKind` is list-valued.
+`@CodeSpec`, `@DocSpec`/`DocRef`, the **39-marker `Cs*` family**, the **13-const
+`Cs*Ref` family** and the **14 closed catalogues** are declared — one marker (or
+marker group) for every active part in the `codespecs_mapping.md` §4.1
+catalogue, with no marker for a deferred one. `@CodeSpecKind` is list-valued.
 
-The markers are still **pure markers**: apart from the required `placement` on
-`@CsIdentityAttribute` and the required `kind` on `@CsTrigger`, each carries
-only an optional `note` — so the ref consts exist but no marker yet takes one as
-a parameter. `@CsUserSetting` has no `persistence` argument:
-`codespecs_mapping.md` §11 makes each of the four configuration/settings parts
-single-moded, so a scope decision is expressed by *which marker you use*, never
-by a mode on one of them.
+The family is a marker set **and** an attribute surface. **24 of the 39 markers
+take arguments**, wired to `codespecs_mapping.md` §5's per-part spec-authorable
+surface; the other **15 carry a single optional `note`** — a design decision, not
+an omission, because everything their part authors is already carried by the
+annotated declaration itself or by a `tom_core` substrate constructor. Which
+attributes become constructor parameters is decided by
+`../tom_specs_model/doc/codespecs_derivation_contract.md` §2.3's three tests, and
+its §5.1–§5.3 give the resulting shape of every marker.
 
-Outstanding is the per-part attribute surface (`codespecs_mapping.md` §5) — the
-constructor arguments, including the ref parameters, that
-`../tom_specs_model/doc/codespecs_derivation_contract.md` §5 already specifies
-marker by marker.
+Two shaping rules run through the whole family. An argument is **required** iff
+no *fail-safe* default exists (`codespecs_mapping.md` §5.16: broadening a value's
+blast radius must be a deliberate authored act) — which is why `@CsAuthorize`'s
+`requirement` and `@CsIdentityAttribute`'s `placement` have no default. And where
+a part's attributes differ per kind, Dart's lack of annotation sum types is
+rendered as **per-kind optional slots** on one constructor (`@CsTrigger`,
+`@CsAuthorize`, `@CsJob`), with a generation-time check asserting only the
+declared kind's slots are non-null — the annotation-level form of
+`codespecs_mapping.md` §8.2's `@OneOf`/`@Case`.
+
+`@CsUserSetting` has no `persistence` argument: `codespecs_mapping.md` §11 makes
+each of the four configuration/settings parts single-moded, so a scope decision
+is expressed by *which marker you use*, never by a mode on one of them.

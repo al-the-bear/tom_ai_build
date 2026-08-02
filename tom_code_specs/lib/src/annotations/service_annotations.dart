@@ -15,34 +15,96 @@
 /// This file covers the sixteen server-side part markers, plus the one facet
 /// value class a marker carries ([CsFileReference] on [CsColumn]). Client/UI
 /// markers live in `element_annotations.dart`; shared markers in
-/// `contract_annotations.dart`.
+/// `contract_annotations.dart`. The closed catalogues these markers select from
+/// live in `vocabulary.dart`, and the typed cross-part references they cite in
+/// `cross_part_refs.dart`.
 library;
+
+import 'cross_part_refs.dart';
+import 'vocabulary.dart';
 
 /// CE-API — a server endpoint: an operation name plus its request/response and
 /// error contract (`codespecs_mapping.md` §5.6.1). All operations are POST
 /// (`codespecs_mapping.md` §7).
+///
+/// One operation, two loci: the shared half declares the operation catalogue and
+/// the request/response DTOs, the server half the handler method. Both carry
+/// this marker with the **identical** operation string, and a validator asserts
+/// they match (`codespecs_derivation_contract.md` §6 check 12).
 class CsEndpoint {
+  /// The operation name, verbatim from the specification.
+  ///
+  /// **Required, first positional** — an authored external identifier
+  /// (`codespecs_derivation_contract.md` §2.1 N5), so it is never derived and
+  /// never re-cased: `'customer.save'` stays `'customer.save'`.
+  ///
+  /// A plain `String` and not a `CsOperationRef`, because this marker is what
+  /// *declares* the operation; the ref const the shared half emits is what
+  /// everything else cites.
+  ///
+  /// The HTTP method and the error-response type are not arguments:
+  /// `codespecs_mapping.md` §7 fixes every operation as POST with 5xx-only
+  /// transport errors, so neither is spec input. Authorization is the
+  /// [CsAuthorize] modifier; the description is CE-TX.
+  final String operation;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsEndpoint({this.note});
+  const CsEndpoint(this.operation, {this.note});
 }
 
 /// CE-SU — a service unit (a cohesive server-side service).
 class CsServiceUnit {
+  /// The aggregate root the unit owns.
+  ///
+  /// **Required**, as a `Type` literal — entities are already Dart types, so
+  /// they are cited directly and need no ref const (`codespecs_mapping.md`
+  /// §5.23). Owning exactly one root aggregate is the primary boundary criterion
+  /// (`codespecs_mapping.md` §5.1), so the unit cannot be declared without it.
+  final Type rootAggregate;
+
+  /// The outer bound the unit sits inside, verbatim.
+  ///
+  /// **Required** — it is the second half of the §5.1 boundary criterion, and a
+  /// unit with no named context has no stated bound.
+  final String boundedContext;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsServiceUnit({this.note});
+  const CsServiceUnit({
+    required this.rootAggregate,
+    required this.boundedContext,
+    this.note,
+  });
 }
 
 /// CE-DB — a persistent table (a stored entity type, `codespecs_mapping.md`
 /// §5.13).
 class CsTable {
+  /// The physical table name, verbatim.
+  ///
+  /// **Required, first positional, and never derived**: a generator that
+  /// slugified an entity name into a table name could rename a table under a
+  /// running system. The Dart class name is the *domain* name; this is the
+  /// storage fact.
+  final String table;
+
+  /// The configured datasource the table lives in.
+  ///
+  /// `null` means the deployment default.
+  final String? datasource;
+
+  /// The schema within [datasource].
+  ///
+  /// `null` means the deployment default.
+  final String? schema;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsTable({this.note});
+  const CsTable(this.table, {this.datasource, this.schema, this.note});
 }
 
 /// CE-DB — a **file-reference** column facet (`codespecs_mapping.md` §5.13).
@@ -129,6 +191,30 @@ class CsFileReference {
 /// CE-DB — a table column: a stored field of a [CsTable]
 /// (`codespecs_mapping.md` §5.13).
 class CsColumn {
+  /// The physical column name, verbatim.
+  ///
+  /// `null` means "the same as the member name" — the common case, so a column
+  /// name is authored only where storage and domain names genuinely differ.
+  final String? column;
+
+  /// The physical column type, verbatim.
+  ///
+  /// `null` means the datasource's default mapping for the member's Dart type.
+  final String? columnType;
+
+  /// The maximum stored length.
+  ///
+  /// `codespecs_mapping.md` §4.1.1 names maximum lengths as exactly the kind of
+  /// thing simple code cannot express — the Dart type says `String`, not
+  /// `String` of at most 80 characters.
+  final int? length;
+
+  /// The resource key gating field-level access to this column.
+  ///
+  /// A `codespecs_mapping.md` §5.15 resource-key requirement attached to a
+  /// *field* rather than an operation, lowered to `TomDbColumn.authKey`.
+  final CsResourceKeyRef? accessKey;
+
   /// Present when the column stores a file reference rather than a value.
   ///
   /// Its **presence is the column kind** (`codespecs_mapping.md` §5.13): a
@@ -139,7 +225,17 @@ class CsColumn {
   /// Optional part-specific note.
   final String? note;
 
-  const CsColumn({this.fileReference, this.note});
+  /// The Dart **value type** is never an argument — it is the member's declared
+  /// type. `read-only`, `not-loaded`, `json-encoded` and converters are the
+  /// framework's own persistence annotations, carried beside this marker.
+  const CsColumn({
+    this.column,
+    this.columnType,
+    this.length,
+    this.accessKey,
+    this.fileReference,
+    this.note,
+  });
 }
 
 /// CE-DB — a repository: the data-access surface over one or more [CsTable]s.
@@ -150,13 +246,117 @@ class CsRepository {
   const CsRepository({this.note});
 }
 
+/// CE-AZ — the **graded** requirement facet: a three-slot requirement tree
+/// (`codespecs_mapping.md` §5.15).
+///
+/// The graded arm is the only requirement kind reaching all four
+/// `TomAuthState` values, so it is a *tree* rather than a scalar: each slot
+/// carries the requirement a principal must satisfy to reach that access level.
+///
+/// Slots hold a whole [CsAuthorize] because §5.15 defines them as recursion into
+/// the other requirement kinds — a role set for `full`, a resource key for
+/// `read`, and so on. Reusing the annotation type rather than declaring a
+/// parallel "requirement" value class is what keeps the two from drifting.
+///
+/// **What is deliberately absent.** The four states `none < disabled < read <
+/// full` and the monotonic defaults `read ⇐ full`, `disabled ⇐ read` are
+/// *derived*, which is why the three slots are nullable with no defaults: an
+/// omitted slot inherits from the next-higher one, so the common case authors
+/// only [full]. The level→render mapping (`none` hidden · `disabled`
+/// visible-but-locked · `read` value-shown · `full` interactive) is
+/// framework-fixed and not spec input.
+class CsGradedAccess {
+  /// What a principal must satisfy for interactive access.
+  final CsAuthorize? full;
+
+  /// What a principal must satisfy to see the value without changing it.
+  ///
+  /// `null` inherits from [full].
+  final CsAuthorize? read;
+
+  /// What a principal must satisfy to see the element locked.
+  ///
+  /// `null` inherits from [read].
+  final CsAuthorize? disabled;
+
+  const CsGradedAccess({this.full, this.read, this.disabled});
+}
+
 /// CE-AZ — an authorization rule: a **modifier** applied to the [CsEndpoint] it
 /// gates (`codespecs_mapping.md` §5.6.3, §5.15).
+///
+/// **The head is [requirement]; everything after it is a per-kind slot.** As on
+/// [CsTrigger], Dart annotations have no sum types, so each requirement kind's
+/// payload is a separate optional argument and a validator asserts only the
+/// declared kind's are non-null (`codespecs_derivation_contract.md` §6 check 8).
+///
+/// | [requirement] | Slots it may fill |
+/// |---------------|-------------------|
+/// | `role` | [roles] |
+/// | `group` | [groups] |
+/// | `entitlement` | [entitlements] |
+/// | `resourceKey` | [resourceKey] |
+/// | `custom` | [handler], [resourceId] |
+/// | `graded` | [graded] |
+/// | `none` · `public` · `authenticated` · `guest` | *none* |
+///
+/// Also used at **field level** — on a CE-DB column, a CE-EL/CE-FM field, a
+/// CE-AC action or a CE-NV destination — where it rides its host part rather
+/// than an endpoint (`codespecs_mapping.md` §5.15).
 class CsAuthorize {
+  /// What a caller must satisfy.
+  ///
+  /// **Required, and no arm is a default**: defaulting an authorization
+  /// requirement is the exact failure `codespecs_mapping.md` §5.16's fail-safe
+  /// rule exists to prevent.
+  final CsAuthRequirement requirement;
+
+  /// `role`: any one of these roles admits the caller.
+  ///
+  /// Typed consts from the shared role catalogue, lowered to
+  /// `TomRoleAccess.roles` strings at generation.
+  final List<CsRoleRef> roles;
+
+  /// `group`: any one of these group names admits the caller.
+  ///
+  /// Strings, not refs — group names reference runtime principal data, not Dart
+  /// declarations (`codespecs_mapping.md` §5.23).
+  final List<String> groups;
+
+  /// `entitlement`: entitlement match patterns.
+  ///
+  /// Strings for the same reason as [groups].
+  final List<String> entitlements;
+
+  /// `resourceKey`: the key the caller must hold a grant on.
+  final CsResourceKeyRef? resourceKey;
+
+  /// `custom`: the registered handler that decides.
+  ///
+  /// A string — it names a runtime handler registration, not a Dart
+  /// declaration.
+  final String? handler;
+
+  /// `custom`: the resource the [handler] decides about.
+  final String? resourceId;
+
+  /// `graded`: the three-slot requirement tree.
+  final CsGradedAccess? graded;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsAuthorize({this.note});
+  const CsAuthorize({
+    required this.requirement,
+    this.roles = const [],
+    this.groups = const [],
+    this.entitlements = const [],
+    this.resourceKey,
+    this.handler,
+    this.resourceId,
+    this.graded,
+    this.note,
+  });
 }
 
 /// CE-CF — server configuration (per-server settings).
@@ -166,10 +366,35 @@ class CsAuthorize {
 /// the client element itself, and authentication are separate parts introduced
 /// by csm2r5 (CE-CC / CE-UP / CE-CL / CE-AU) and are not part of this file.
 class CsServerConfig {
+  /// The setting key, verbatim.
+  ///
+  /// **Required, first positional** — an authored external identifier
+  /// (`codespecs_derivation_contract.md` §2.1 N5) and one of the
+  /// `codespecs_mapping.md` §5.23 string-reference exemptions: a setting key
+  /// names a runtime lookup, not a Dart declaration.
+  final String key;
+
+  /// The environment variable this setting may also be read from, verbatim.
+  final String? envAlias;
+
+  /// The command-line option this setting may also be read from, verbatim.
+  final String? cmdlineAlias;
+
   /// Optional part-specific note.
+  ///
+  /// The setting's **type** is the member's declared type and its **default**
+  /// the member initialiser, so neither is an argument. Precedence is not one
+  /// either: `codespecs_mapping.md` §5.16 fixes intra-scope and cross-scope
+  /// precedence for every setting, so a per-setting override would be a second
+  /// rule that could disagree with the first.
   final String? note;
 
-  const CsServerConfig({this.note});
+  const CsServerConfig(
+    this.key, {
+    this.envAlias,
+    this.cmdlineAlias,
+    this.note,
+  });
 }
 
 /// CE-MG — a schema-migration artifact set (`codespecs_mapping.md` §5.27).
@@ -190,10 +415,38 @@ class CsServerConfig {
 /// named CodeSpecs validator check, since artifact filenames are one of the
 /// `codespecs_mapping.md` §5.23 string-reference exemptions.
 class CsMigration {
+  /// The datasource whose schema the artifacts migrate.
+  ///
+  /// **Required** — with [schema] it *is* the artifact directory path, and
+  /// defaulting it would silently retarget a database.
+  final String datasource;
+
+  /// The schema within [datasource].
+  ///
+  /// **Required**, for the same reason as [datasource].
+  final String schema;
+
+  /// Which of the three artifact kinds this declaration ships.
+  ///
+  /// **Required, with no default**: generating an initial DDL where an iteration
+  /// was meant would rewrite a live schema.
+  final CsMigrationKind kind;
+
   /// Optional part-specific note.
+  ///
+  /// Artifact **filenames** are not arguments — they are file-system facts and
+  /// one of the four `codespecs_mapping.md` §5.23 string-reference exemptions.
+  /// That exemption is also why the convergence obligation (cumulative DDL vs.
+  /// the [CsTable] / [CsColumn] model) is a named generation-time validator
+  /// check rather than a compile-time edge.
   final String? note;
 
-  const CsMigration({this.note});
+  const CsMigration({
+    required this.datasource,
+    required this.schema,
+    required this.kind,
+    this.note,
+  });
 }
 
 /// CE-JB — a background-job definition (`codespecs_mapping.md` §5.29).
@@ -217,11 +470,75 @@ class CsMigration {
 /// runtime, job queue and multi-node locking are `tom_core` framework roadmap,
 /// not CodeSpecs gaps: until one lands, a trigger is a named-but-unwired
 /// schedule.
+/// **The head is [trigger]; the three schedule slots are per-kind.** As on
+/// [CsAuthorize] and `CsTrigger`, Dart annotations have no sum types, so each
+/// trigger kind's payload is a separate optional argument and a validator
+/// asserts only the declared kind's is non-null
+/// (`codespecs_derivation_contract.md` §6 check 8).
+///
+/// | [trigger] | Slot it may fill |
+/// |-----------|------------------|
+/// | `cron` | [cron] |
+/// | `calendar` | [calendar] |
+/// | `event` | [event] |
 class CsJob {
+  /// What starts the job.
+  ///
+  /// **Required** — a job with no declared trigger is a job that never runs.
+  /// Each arm lowers onto the matching `tom_core_kernel` schedule
+  /// (`TomCronSchedule` / `TomCalendarSchedule` / `TomEventSchedule`) on
+  /// `TomJobDefinition.schedule`: the trigger is a **wired** schedule, not a
+  /// name.
+  final CsJobTrigger trigger;
+
+  /// `cron`: the cron expression, verbatim.
+  final String? cron;
+
+  /// `calendar`: the calendar date/time rule, verbatim.
+  final String? calendar;
+
+  /// `event`: the system event name, verbatim.
+  final String? event;
+
+  /// How many times a failed run is retried.
+  ///
+  /// Defaults to `0` — a job retries only when the specification says so.
+  /// Lowered onto `TomRetryPolicy`.
+  final int maxRetries;
+
+  /// The delay before the first retry.
+  ///
+  /// `null` means the substrate's own default. Lowered onto `TomRetryPolicy`.
+  final Duration? backoff;
+
+  /// How long a single run may take before it is abandoned.
+  ///
+  /// `null` means unbounded. Lowered onto `TomJobDefinition.timeout`.
+  final Duration? timeout;
+
+  /// The message raised to the deployment's alert sink when the job fails.
+  ///
+  /// A CE-TX message key, never inline text — carried by `TomJobAlert` to
+  /// `TomScheduler.onAlert`.
+  final CsMessageKey? failureAlert;
+
   /// Optional part-specific note.
+  ///
+  /// `enabled`, `environments`, `serviceUnitId` and the target references ride
+  /// `TomJobDeclaration`'s own constructor, so none of them is an argument here.
   final String? note;
 
-  const CsJob({this.note});
+  const CsJob({
+    required this.trigger,
+    this.cron,
+    this.calendar,
+    this.event,
+    this.maxRetries = 0,
+    this.backoff,
+    this.timeout,
+    this.failureAlert,
+    this.note,
+  });
 }
 
 /// CE-LG — an audited element: an entity or endpoint whose access is recorded
@@ -260,10 +577,23 @@ class CsAudited {
 /// the same catalogue the server dispatches from); delivery is server-only.
 /// The body copy is a `CsText` message key, never inline text.
 class CsNotification {
+  /// The body copy, as a CE-TX message key.
+  ///
+  /// **Required** — a notification with no body is not a notification — and a
+  /// key rather than inline text, so the copy stays translatable and stays in
+  /// one catalogue.
+  final CsMessageKey body;
+
   /// Optional part-specific note.
+  ///
+  /// Type id, urgency and default channels are `TomNotificationType`'s own
+  /// constructor parameters, and the preference narrowing rides
+  /// `TomNotificationPreferences` / `TomNotificationCatalog`; none is an
+  /// argument here. Channels are cited by `channelId` **string**, per
+  /// [CsNotificationChannel].
   final String? note;
 
-  const CsNotification({this.note});
+  const CsNotification({required this.body, this.note});
 }
 
 /// CE-NT — a notification channel: a declared delivery route

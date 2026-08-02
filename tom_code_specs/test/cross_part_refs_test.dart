@@ -9,7 +9,8 @@
 // Three properties carry the whole design, and each is asserted below:
 //
 //  1. Every ref is const-constructible — const is what makes it legal in an
-//     annotation argument list, which is where csrb4 will put them.
+//     annotation argument list, which is where the `Cs*` markers take them
+//     (`codespecs_derivation_contract.md` §5.1).
 //  2. The kinds are DISTINCT TYPES. Passing a route ref where an operation ref
 //     is expected is itself a compile error (`codespecs_mapping.md` §5.23: "not
 //     one generic CsRef").
@@ -20,43 +21,31 @@
 import 'package:tom_code_specs/tom_code_specs.dart';
 import 'package:test/test.dart';
 
-// The `codespecs_mapping.md` §5.23 declaration pattern, on a real annotated
-// class: the CE-API operation catalogue declares each operation's ref const
-// exactly once. Per N7 this is the one `<canonical>_catalog.dart` file per
-// catalogue.
-@CsEndpoint()
+// The `codespecs_mapping.md` §5.23 declaration pattern: the CE-API operation
+// catalogue declares each operation's ref const exactly once. Per N7 this is the
+// one `<canonical>_catalog.dart` file per catalogue. The catalogue itself is not
+// a part — it holds the identities the parts cite — so it carries `@CodeSpec`
+// for the back-trace and no part marker.
 @CodeSpec('API-CATALOG', source: ['IFM-OPS'])
 class _OperationCatalog {
   static const login = CsOperationRef('login');
   static const customerSave = CsOperationRef('customer.save');
 }
 
-// A citing part holds the OTHER part's const — never a copy of its string.
+// A citing part holds the OTHER part's const — never a copy of its string, and
+// the citation is the ANNOTATION ARGUMENT, which is what `const` buys.
 // Renaming `_OperationCatalog.login` breaks this line at compile time, which is
 // the entire point of the family (`codespecs_mapping.md` §5.23: the compiler is
 // the `codespecs_mapping.md` §4.2 cross-part integrity checker).
-@CsServerCall()
+@CsServerCall(_OperationCatalog.login)
 @CodeSpec('SC-LOGIN', source: ['ISC-LOGIN'])
 class _LoginServerCall {
   static const operation = _OperationCatalog.login;
 }
 
-// Refs must be legal ANNOTATION ARGUMENTS — that is what they exist for, and
-// what `const` buys. `csrb4` authors the real per-marker constructors from
-// `codespecs_derivation_contract.md` §5.1; this local marker asserts only the
-// property (a Cs*Ref may be passed to an annotation), never a chosen shape.
-class _RefBearingMarker {
-  final CsRouteRef route;
-
-  const _RefBearingMarker(this.route);
-}
-
-@_RefBearingMarker(_RouteCatalog.orderList)
-class _OrderListScreen {}
-
-@CsRoute()
 @CodeSpec('NV-ROUTES', source: ['XDS-NAV'])
 class _RouteCatalog {
+  @CsRoute()
   static const orderList = CsRouteRef('orderList');
 }
 
@@ -92,6 +81,10 @@ void main() {
 
     test('CsFormRef wraps the form declaration name', () {
       expect(const CsFormRef('customerForm').id, 'customerForm');
+    });
+
+    test('a route catalogue declares each route ref once', () {
+      expect(_RouteCatalog.orderList.id, 'orderList');
     });
 
     // csrb15's member-level question. A standalone element (Button, MenuEntry)
@@ -176,10 +169,11 @@ void main() {
       expect(refs.map((r) => r.runtimeType).toSet().length, refs.length);
     });
 
-    test('a ref is a legal annotation argument', () {
-      // Reaching the annotated class at all means the annotation compiled,
-      // which is the assertion; the const is the citation, not its string.
-      expect(_OrderListScreen(), isA<_OrderListScreen>());
+    test('a ref is a legal argument of the real Cs* markers', () {
+      // Reaching the annotated class at all means `@CsServerCall(
+      // _OperationCatalog.login)` compiled, which is the assertion; the const is
+      // the citation, not its string.
+      expect(_LoginServerCall(), isA<_LoginServerCall>());
     });
 
     test('citations hold the const, not a copy of the id string', () {

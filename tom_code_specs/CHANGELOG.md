@@ -1,5 +1,45 @@
 # Changelog
 
+## 0.9.0
+
+- csrb4: give the `Cs*` family its **attribute surfaces**. It was complete as a
+  marker set and empty as an attribute surface — `codespecs_mapping.md` §5
+  specifies a spec-authorable surface per part and none of it was expressible in
+  code. **24 of the 39 markers now take arguments**, shaped by
+  `codespecs_derivation_contract.md` §5.1; the remaining **15 stay note-only**,
+  which is a decision (their part's attributes are carried by the annotated
+  declaration or a `tom_core` substrate constructor, §2.3 tests **a**/**b**) and
+  not an omission.
+- Add `vocabulary.dart` — the **14 closed catalogues** the arguments select from
+  (`CsElementKind`, `CsTextRole`, `CsTextCategory`, `TriggerKind`, `CsGesture`,
+  `CsFormEvent`, `CsLifecycleScope`, `CsLifecyclePhase`, `CsErrorSeverity`,
+  `CsAuthRequirement`, `CsMigrationKind`, `CsJobTrigger`, `CsClientKind`,
+  `IdentityAttributePlacement`). Enums, not strings: a catalogue grows by a
+  reviewed taxonomy edit, never by a specification inventing a value in passing.
+  Each is declared **locally**, mirroring its `tom_core` counterpart, because
+  `tom_code_specs` deliberately does not depend on `tom_core`
+  (`codespecs_mapping.md` §9.5).
+- The `Cs*Ref` family is now **wired**: `csra6` deliberately shipped the ref
+  types without annotation parameters, and this change adds every ref-typed
+  parameter in one pass, so there is no compatibility shim between the two
+  states.
+- Add the two **facet value classes** an argument needs: `CsFileReference` (the
+  CE-DB file-backed column facet) and `CsGradedAccess` (§5.15's graded arm is a
+  requirement *tree*, not a scalar).
+- Per-kind attributes are rendered as **optional slots on one constructor**
+  (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) because Dart annotations have no sum
+  types; a generation-time check asserts only the declared kind's slots are
+  non-null — the annotation-level form of `codespecs_mapping.md` §8.2's
+  `@OneOf`/`@Case`.
+- `@CsValidation` takes `rules` **named** with a `''` default rather than the
+  optional-positional shape `codespecs_derivation_contract.md` §5.1 first
+  specified: Dart forbids mixing optional-positional and named parameters, and
+  `note` is named family-wide.
+- Tests const-construct every attribute-bearing marker with its **full** surface
+  on a declaration of the shape the part actually marks — grouped by the
+  `codespecs_mapping.md` §4.2 shared/client/server locus split — so placement is
+  asserted by the declarations compiling, not by a bare stub class.
+
 ## 0.8.0
 
 - csra8: add the four markers for CE-RP, promoted out of `codespecs_mapping.md`

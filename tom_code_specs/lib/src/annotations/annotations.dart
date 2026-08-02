@@ -12,10 +12,16 @@
 /// - `client_settings_annotations.dart` — the client-application,
 ///   configuration/settings, identity and authentication group.
 ///
-/// It also exports the annotation *parameter* vocabulary the markers are
-/// authored against: `cross_part_refs.dart`, the `Cs*Ref` typed cross-part
-/// reference family (`codespecs_mapping.md` §5.23), which makes a reference
-/// from one part to another a compiler-checked const rather than a string.
+/// It also exports the two files of annotation *parameter* vocabulary the
+/// markers are authored against — neither holds annotations of its own:
+///
+/// - `cross_part_refs.dart` — the `Cs*Ref` typed cross-part reference family
+///   (`codespecs_mapping.md` §5.23), which makes a reference from one part to
+///   another a compiler-checked const rather than a string.
+/// - `vocabulary.dart` — the closed catalogues a marker's arguments select from
+///   (`codespecs_derivation_contract.md` §5.3), enums rather than strings for
+///   the same reason: a catalogue grows by a reviewed taxonomy edit, not by a
+///   specification inventing a value in passing.
 library;
 
 export 'client_settings_annotations.dart';
@@ -25,3 +31,4 @@ export 'cross_part_refs.dart';
 export 'doc_spec.dart';
 export 'element_annotations.dart';
 export 'service_annotations.dart';
+export 'vocabulary.dart';

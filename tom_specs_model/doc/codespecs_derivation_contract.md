@@ -1020,7 +1020,7 @@ constructors; the `Cs*Ref` types they consume already ship in
 |--------|---------------------|
 | `@CsError` | `{CsErrorSeverity severity = CsErrorSeverity.error}` |
 | `@CsText` | `{required String baseCopy, CsTextRole role = CsTextRole.generic, CsTextCategory category = CsTextCategory.uiCopy}` |
-| `@CsValidation` | `([String rules = ''])` |
+| `@CsValidation` | `({String rules = ''})` — named, not positional: Dart forbids one signature carrying both optional-positional and named parameters, and every marker keeps a named `note` |
 | `@CsFieldRule` | `{required CsMessageKey errorKey}` |
 | `@CsFormRule` | `{required CsMessageKey errorKey}` |
 | `@CsElement` | `{required CsElementKind kind}` |
@@ -1093,8 +1093,19 @@ rather than id strings.
 
 ## 6. Validator checks this contract creates
 
-Each is named here so `csrb4` and the generator implement them as checks rather
-than as conventions:
+Each is named here so the generator implements them as a check rather than as a
+convention.
+
+**Why none of them is a const-constructor `assert`.** Checks 8, 10 and 14 are
+per-instance constraints on a single annotation's arguments, so the obvious home
+looks like an `assert` in the marker's const constructor. It does not work: Dart
+const-evaluates a const *expression* and reports a failing assert as a
+compile-time error, but it does **not** const-evaluate an **annotation**. A
+violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
+analyze` untouched — and the annotation is the only site these markers are ever
+written at. An assert there would enforce nothing while reading as if it did,
+which is worse than no guard, so the enforcement point is the generator's
+validation pass over the resolved annotation for **all** fourteen.
 
 | # | Check | Defined in |
 |---|-------|------------|

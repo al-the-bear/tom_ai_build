@@ -8,15 +8,32 @@
 ///
 /// This file covers the shared part marker `@CsError` and the member marker
 /// `@CsEnum`. Client/UI markers live in `element_annotations.dart`;
-/// server-side markers in `service_annotations.dart`.
+/// server-side markers in `service_annotations.dart`. The closed catalogues
+/// these markers select from live in `vocabulary.dart`.
 library;
 
+import 'vocabulary.dart';
+
 /// CE-ER — a processing error (a shared error type crossing the wire).
+///
+/// Carried twice: plain on the error-code **catalogue holder**, and once per
+/// `CsErrorCode` member with that code's [severity].
 class CsError {
+  /// How severe the code is.
+  ///
+  /// Defaults to [CsErrorSeverity.error] — the arm that names an ordinary
+  /// actionable failure, which is what an error code is unless it says
+  /// otherwise.
+  final CsErrorSeverity severity;
+
   /// Optional part-specific note.
+  ///
+  /// The **code itself** is not an argument — it is already the `CsErrorCode`
+  /// const's string. Nor is a message key: `codespecs_mapping.md` §5.21 keys
+  /// error copy *by the error code*, so the key is derived, not authored.
   final String? note;
 
-  const CsError({this.note});
+  const CsError({this.severity = CsErrorSeverity.error, this.note});
 }
 
 /// A domain enum — a **member marker**, not a part marker

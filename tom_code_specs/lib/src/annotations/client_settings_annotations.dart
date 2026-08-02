@@ -18,15 +18,38 @@
 /// - [CsIdentity] / [CsIdentityAttribute] — shared (the declaration is contract:
 ///   both sides read attributes from the token) + server (population).
 /// - [CsAuth] — shared + client + server (credential/token/session flow).
+///
+/// The closed catalogues these markers select from live in `vocabulary.dart`,
+/// and the typed cross-part references they cite in `cross_part_refs.dart`.
 library;
+
+import 'cross_part_refs.dart';
+import 'vocabulary.dart';
 
 /// CE-CL — a client application (which clients exist: Flutter app, CLI, other
 /// server). The client-application descriptor.
 class CsClient {
+  /// The client's id, verbatim.
+  ///
+  /// **Required, first positional** — an authored external identifier
+  /// (`codespecs_derivation_contract.md` §2.1 N5). A multi-client system
+  /// generates one client project per [CsClient]; this names which.
+  final String clientId;
+
+  /// Which kind of application this is.
+  ///
+  /// **Required, with no default**: the kind decides which *other* parts the
+  /// client can carry — a CLI has no CE-EL — so defaulting it would silently
+  /// admit impossible combinations.
+  final CsClientKind kind;
+
   /// Optional part-specific note.
+  ///
+  /// Target platforms and the entry route are members of the descriptor, not
+  /// arguments here.
   final String? note;
 
-  const CsClient({this.note});
+  const CsClient(this.clientId, {required this.kind, this.note});
 }
 
 /// CE-CC — client configuration: per-machine settings of a client app (API base
@@ -35,10 +58,21 @@ class CsClient {
 /// Distinct from [CsServerConfig] (server/system configuration) and from
 /// [CsUserSetting] (a user's preferences).
 class CsClientConfig {
+  /// The setting key, verbatim.
+  ///
+  /// **Required, first positional**, and one of the `codespecs_mapping.md`
+  /// §5.23 string-reference exemptions.
+  final String key;
+
+  /// The environment variable this setting may also be read from, verbatim.
+  final String? envAlias;
+
   /// Optional part-specific note.
+  ///
+  /// The setting's type and default are the member declaration.
   final String? note;
 
-  const CsClientConfig({this.note});
+  const CsClientConfig(this.key, {this.envAlias, this.note});
 }
 
 /// CE-DS — a device setting: a *user-specific* setting of a user-owned device,
@@ -60,10 +94,19 @@ class CsClientConfig {
 /// itself is the user's persisted choice, never authored. Reuse — the existing
 /// `tom_core` property/settings classes carry it, with no gap class.
 class CsDeviceSetting {
+  /// The setting key, verbatim.
+  ///
+  /// **Required, first positional**, and one of the `codespecs_mapping.md`
+  /// §5.23 string-reference exemptions.
+  final String key;
+
   /// Optional part-specific note.
+  ///
+  /// Type and default are the member declaration, and there is **no persistence
+  /// mode argument** — see the class comment.
   final String? note;
 
-  const CsDeviceSetting({this.note});
+  const CsDeviceSetting(this.key, {this.note});
 }
 
 /// CE-UP — a user setting / profile value, keyed by the **user** and persisted
@@ -83,27 +126,19 @@ class CsDeviceSetting {
 /// setting's key, type and default (`codespecs_mapping.md` §5.16) — the value
 /// is the user's persisted choice, never authored.
 class CsUserSetting {
+  /// The setting key, verbatim.
+  ///
+  /// **Required, first positional**. Both halves of the declaration — the
+  /// client shape and the server persistence — use the same key and the same
+  /// member names, so the wire mapping is identity.
+  final String key;
+
   /// Optional part-specific note.
+  ///
+  /// Type and default are the member declaration.
   final String? note;
 
-  const CsUserSetting({this.note});
-}
-
-/// Where a [CsIdentityAttribute] rides in the token payload
-/// (`codespecs_mapping.md` §5.24).
-///
-/// The two arms are the two carriers the `tom_core` principal already has, so
-/// the choice is a placement decision, not a new mechanism.
-enum IdentityAttributePlacement {
-  /// Rides the **public** token payload, in `TomUser.attributes`. Readable by
-  /// anything holding the token, so a public attribute is guarded field-level by
-  /// a resource key rather than by the transport.
-  public,
-
-  /// Rides the **encrypted** context of the authorization JWT, in
-  /// `TomPrincipal.currentContext`. Readable only by the token-decrypting
-  /// layers.
-  encrypted,
+  const CsUserSetting(this.key, {this.note});
 }
 
 /// CE-ID — the app's identity-extension declaration holder
@@ -139,18 +174,39 @@ class CsIdentity {
 /// blast radius must be a deliberate authored act. Neither arm is therefore a
 /// default.
 ///
-/// The rest of the per-attribute surface — the attribute's type, its access
-/// guard, its system of record and whether it is required — is carried by the
-/// member declaration itself and by the SOM `UserAttributeEntry` section that
-/// feeds it.
+/// The attribute's **type** stays on the member declaration; everything else the
+/// SOM `UserAttributeEntry` section carries is an argument here.
 class CsIdentityAttribute {
   /// Which token payload this attribute rides in.
   final IdentityAttributePlacement placement;
 
+  /// The resource key gating field-level access to this attribute.
+  ///
+  /// A public attribute is readable by anything holding the token, so this —
+  /// not the transport — is what guards it (`codespecs_mapping.md` §5.24).
+  final CsResourceKeyRef? accessKey;
+
+  /// The system the attribute's value is sourced from, verbatim.
+  ///
+  /// `null` means this application owns it.
+  final String? systemOfRecord;
+
+  /// Whether a principal without this attribute is incomplete.
+  ///
+  /// Defaults to `false` — an identity extension is additive, and demanding an
+  /// attribute is the deliberate act.
+  final bool required;
+
   /// Optional part-specific note.
   final String? note;
 
-  const CsIdentityAttribute({required this.placement, this.note});
+  const CsIdentityAttribute({
+    required this.placement,
+    this.accessKey,
+    this.systemOfRecord,
+    this.required = false,
+    this.note,
+  });
 }
 
 /// CE-AU — authentication / session: credential exchange, token, session.
