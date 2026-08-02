@@ -4056,6 +4056,7 @@ class PainPointRelationships extends DocSpecsSection {
       String,
       'Related Pain Points',
       hint: 'IDs of related pain points',
+      refersTo: ['PAPE.painPointId'],
     ),
     Field(
       'relatedGaps',
@@ -4133,6 +4134,7 @@ class PainPointGapCorrelationEntry extends DocSpecsSection {
       'Pain Point ID',
       hint: 'Reference to pain point, e.g. PP-OPE-001',
       required: true,
+      refersTo: ['PAPE.painPointId'],
     ),
     Field(
       'gapId',

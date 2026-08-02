@@ -2984,14 +2984,34 @@ class BatchJobManagement extends SomNode {
     return new BatchJobManagementContentForm(this.doc, this.path + "/content");
   }
 
-  // Supported job categories.
+  // Workload shape — orientation above the job list, deliberately narrative.
   //
-  // A category-level summary of the scheduled work the system performs — the
-  // shape of the workload, not its inventory. The authoritative per-job
-  // declarations are [scheduledJobs]; a category named here without a job in
-  // that list is a job the specification has not actually declared.
-  get jobTypes() {
-    return new BatchJobManagementJobTypesForm(this.doc, this.path + "/BJMJT");
+  // What kind of batch surface this system has, in prose: mostly a nightly
+  // financial rollup with a small maintenance tail, or a continuous
+  // integration-sync load, or a report factory. It is the paragraph a reader
+  // wants *before* thirty [scheduledJobs] entries, for the same reason an
+  // architecture overview sits above a component list.
+  //
+  // **It is narrative and not a form, on purpose.** This section used to carry
+  // five fixed category slots — data processing, report generation,
+  // notification, maintenance, integration sync. A form of five slots each
+  // labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+  // text says, so it became a second place to state which jobs exist and could
+  // disagree with [scheduledJobs] — which is authoritative and is what the
+  // CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+  // no basis: a system whose batch work is model retraining or index rebuilding
+  // had no slot. One prose field can describe any workload and cannot be
+  // mistaken for the inventory.
+  //
+  // [scheduledJobs] remains the only place a job comes into existence. A shape
+  // described here that no entry there realises is a workload the specification
+  // has not actually declared.
+  get workloadShape() {
+    return this.doc.content(this.path + "/BJMJT") || '';
+  }
+
+  set workloadShape(value) {
+    this.doc.setContent(this.path + "/BJMJT", value);
   }
 
   // Execution controls — the **default layer** for every job.
@@ -48459,65 +48479,6 @@ class BatchJobManagementExecutionForm extends SomNode {
 
   set timeout(value) {
     this.doc.setFormField(this.path, "timeout", value);
-  }
-}
-
-// Generated section facade for the `jobTypes` @Form section: its own content text followed by one typed member per form field.
-class BatchJobManagementJobTypesForm extends SomNode {
-  constructor(doc, path) {
-    super(doc, path);
-  }
-
-  get canHaveContent() {
-    return true;
-  }
-
-  get content() {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get dataProcessingJobs() {
-    return this.doc.formField(this.path, "dataProcessingJobs") || '';
-  }
-
-  set dataProcessingJobs(value) {
-    this.doc.setFormField(this.path, "dataProcessingJobs", value);
-  }
-
-  get reportGenerationJobs() {
-    return this.doc.formField(this.path, "reportGenerationJobs") || '';
-  }
-
-  set reportGenerationJobs(value) {
-    this.doc.setFormField(this.path, "reportGenerationJobs", value);
-  }
-
-  get notificationJobs() {
-    return this.doc.formField(this.path, "notificationJobs") || '';
-  }
-
-  set notificationJobs(value) {
-    this.doc.setFormField(this.path, "notificationJobs", value);
-  }
-
-  get maintenanceJobs() {
-    return this.doc.formField(this.path, "maintenanceJobs") || '';
-  }
-
-  set maintenanceJobs(value) {
-    this.doc.setFormField(this.path, "maintenanceJobs", value);
-  }
-
-  get integrationSyncJobs() {
-    return this.doc.formField(this.path, "integrationSyncJobs") || '';
-  }
-
-  set integrationSyncJobs(value) {
-    this.doc.setFormField(this.path, "integrationSyncJobs", value);
   }
 }
 
@@ -183950,7 +183911,6 @@ module.exports = {
   BandwidthRequirementsTrafficForm,
   BatchJobManagementContentForm,
   BatchJobManagementExecutionForm,
-  BatchJobManagementJobTypesForm,
   BatchJobManagementMonitoringForm,
   BehaviorRuleEntryContentForm,
   BoundaryAssumptionEntryContentForm,

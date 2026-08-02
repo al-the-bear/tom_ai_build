@@ -1440,7 +1440,6 @@ class BandwidthRequirementsQosForm;
 class BandwidthRequirementsTrafficForm;
 class BatchJobManagementContentForm;
 class BatchJobManagementExecutionForm;
-class BatchJobManagementJobTypesForm;
 class BatchJobManagementMonitoringForm;
 class BehaviorRuleEntryContentForm;
 class BoundaryAssumptionEntryContentForm;
@@ -5636,13 +5635,30 @@ class BatchJobManagement : public som::SomNode {
  public:
   BatchJobManagement(som::SpecDocument& doc, std::string path);
   BatchJobManagementContentForm content() const;
-  // Supported job categories.
+  // Workload shape — orientation above the job list, deliberately narrative.
   //
-  // A category-level summary of the scheduled work the system performs — the
-  // shape of the workload, not its inventory. The authoritative per-job
-  // declarations are [scheduledJobs]; a category named here without a job in
-  // that list is a job the specification has not actually declared.
-  BatchJobManagementJobTypesForm jobTypes() const;
+  // What kind of batch surface this system has, in prose: mostly a nightly
+  // financial rollup with a small maintenance tail, or a continuous
+  // integration-sync load, or a report factory. It is the paragraph a reader
+  // wants *before* thirty [scheduledJobs] entries, for the same reason an
+  // architecture overview sits above a component list.
+  //
+  // **It is narrative and not a form, on purpose.** This section used to carry
+  // five fixed category slots — data processing, report generation,
+  // notification, maintenance, integration sync. A form of five slots each
+  // labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+  // text says, so it became a second place to state which jobs exist and could
+  // disagree with [scheduledJobs] — which is authoritative and is what the
+  // CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+  // no basis: a system whose batch work is model retraining or index rebuilding
+  // had no slot. One prose field can describe any workload and cannot be
+  // mistaken for the inventory.
+  //
+  // [scheduledJobs] remains the only place a job comes into existence. A shape
+  // described here that no entry there realises is a workload the specification
+  // has not actually declared.
+  std::string workloadShape() const;
+  void setWorkloadShape(const std::string& value);
   // Execution controls — the **default layer** for every job.
   //
   // Retry, timeout and idempotency stated here apply to every job that does
@@ -29129,26 +29145,6 @@ class BatchJobManagementExecutionForm : public som::SomNode {
   void setIdempotency(std::optional<bool> value);
   std::string timeout() const;
   void setTimeout(const std::string& value);
-};
-
-// Generated section facade for the `jobTypes` @Form section: its own `content` text followed by one typed member per form field.
-class BatchJobManagementJobTypesForm : public som::SomNode {
- public:
-  BatchJobManagementJobTypesForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string dataProcessingJobs() const;
-  void setDataProcessingJobs(const std::string& value);
-  std::string reportGenerationJobs() const;
-  void setReportGenerationJobs(const std::string& value);
-  std::string notificationJobs() const;
-  void setNotificationJobs(const std::string& value);
-  std::string maintenanceJobs() const;
-  void setMaintenanceJobs(const std::string& value);
-  std::string integrationSyncJobs() const;
-  void setIntegrationSyncJobs(const std::string& value);
 };
 
 // Generated section facade for the `monitoring` @Form section: its own `content` text followed by one typed member per form field.

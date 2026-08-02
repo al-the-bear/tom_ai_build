@@ -632,15 +632,50 @@ Rules:
    several ids writes them comma-separated; each part resolves independently.
 4. **The named form field must exist and must be `required`.** An optional id
    cannot be a registry key, because entries could omit it.
+5. **The target class must be *enumerated*.** It is either a list element type,
+   or a singleton subsection of one. A registry entry usually decomposes — the
+   list element is `BusinessProcessEntry`, but the id lives one level down in
+   its `ProcessIdentification` section, so the target is `PRIDN.processId`.
+   That subsection is instantiated exactly once per entry, so its required
+   fields enumerate 1:1 with the entries. Naming the outer entry instead fails
+   rule 4's existence half: the outer class declares no such form field. A form
+   section that exists once per document is not a registry; nothing there ever
+   declares a *set* of ids to resolve against.
 
 Both validation tiers read this one declaration. The **static** tier
 (`tom_specs_clitool/lib/src/validator.dart`) checks the class graph: the target
-section id exists, it is reachable, and it really does declare that form field
-as required. The **instance** tier (`tom_som_dart_runtime`'s document validator)
-checks a concrete document: every id a reference field holds is actually declared
-by some entry of one of the named registries, and reports a dangling id
-otherwise. `refersTo` is carried through the meta into all nine language
-runtimes, so a non-Dart host can run the instance-tier check too.
+section id exists, it is reachable, it really does declare that form field as
+required, and it is enumerated. The **instance** tier (`tom_som_dart_runtime`'s
+document validator) checks a concrete document: every id a reference field holds
+is actually declared by some entry of one of the named registries, and reports a
+dangling id otherwise. `refersTo` is carried through the meta into all nine
+language runtimes, so a non-Dart host can run the instance-tier check too.
+
+#### When *not* to annotate
+
+The instance tier turns a `refersTo` mistake into a validation error on a
+*specification the author wrote correctly*. So an id-shaped field is annotated
+only when every legal value really is a key of the named registries. Three
+classes of field stay bare, and staying bare is the right answer for them:
+
+- **The value is deliberately mixed.** Whenever the field's own label or hint
+  admits a non-id alternative — "Scenario IDs **or** categories", "recipient IDs
+  **or** addresses", "template ID **or** description" — the field is free text
+  by design. Annotating it would red-flag the alternative the field was written
+  to allow.
+- **The registry is not modelled.** Some id families are referenced but never
+  declared anywhere as a set of entries: there is no register to point at, so
+  there is nothing to check against. These become model gaps, not annotations.
+- **The id is a section id, not a form field.** `refersTo` resolves against form
+  fields only. Where an entry stores its id solely in its own section id — the
+  functional requirements, whose ids come from the owning list's
+  `@SectionIdPattern` and are deliberately *not* restated as a form field (§8) —
+  no target exists, and the nearest same-named form fields belong to different
+  requirement families. A disjunction over those families would accept ids the
+  reference never meant and still reject valid ones.
+
+A bare id field therefore reads as "no registry contract claimed", which is
+accurate, rather than as "contract forgotten".
 
 ### 6.3 Form decomposition
 

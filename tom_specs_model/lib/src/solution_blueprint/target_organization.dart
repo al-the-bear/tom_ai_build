@@ -909,12 +909,14 @@ class TransitionPhaseIdentification extends DocSpecsSection {
       String,
       'Preceding Phase — phase ID',
       hint: 'The phase ID that must complete before this phase begins',
+      refersTo: ['TPIDN.phaseId'],
     ),
     Field(
       'dependsOnMilestone',
       String,
       'Depends on Milestone — milestone ID',
       hint: 'The milestone ID this phase depends on before it can start',
+      refersTo: ['TRMIL.milestoneId'],
     ),
   ])
   @SerializationOrder(1)

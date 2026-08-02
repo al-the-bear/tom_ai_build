@@ -6732,8 +6732,7 @@ section-types:
     description: 9.1.1. User Categories.
   bjmjt:
     prefix: BJMJT
-    format: bjmjt-form
-    description: "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB)."
+    description: "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself."
   bmsfu:
     prefix: BMSFU
     format: bmsfu-form
@@ -18073,18 +18072,6 @@ form-types:
         description: Source of truth for conflicts
       - fieldname: notes
         description: Additional user provisioning notes
-  bjmjt-form:
-    fields:
-      - fieldname: dataProcessingJobs
-        description: "ETL, aggregation, cleanup"
-      - fieldname: reportGenerationJobs
-        description: Scheduled report creation
-      - fieldname: notificationJobs
-        description: "Digest emails, reminder notifications"
-      - fieldname: maintenanceJobs
-        description: "Database cleanup, log rotation, temp file purge"
-      - fieldname: integrationSyncJobs
-        description: External system synchronization
   bjme-form:
     fields:
       - fieldname: concurrencyControl

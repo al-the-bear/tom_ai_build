@@ -3615,12 +3615,17 @@ BatchJobManagementContentForm batch_job_management_content(const BatchJobManagem
   free(path);
   return out;
 }
-BatchJobManagementJobTypesForm batch_job_management_job_types(const BatchJobManagement *self) {
+char *batch_job_management_workload_shape(const BatchJobManagement *self) {
   char *path = spec_path_join(self->node.path, "BJMJT");
-  BatchJobManagementJobTypesForm out;
-  batch_job_management_job_types_form_init(&out, self->node.doc, path);
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
   free(path);
   return out;
+}
+void batch_job_management_set_workload_shape(BatchJobManagement *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "BJMJT");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
 }
 BatchJobManagementExecutionForm batch_job_management_execution(const BatchJobManagement *self) {
   char *path = spec_path_join(self->node.path, "BJME");
@@ -56773,55 +56778,6 @@ char *batch_job_management_execution_form_timeout(const BatchJobManagementExecut
 }
 void batch_job_management_execution_form_set_timeout(BatchJobManagementExecutionForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "timeout", value);
-}
-
-void batch_job_management_job_types_form_init(BatchJobManagementJobTypesForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void batch_job_management_job_types_form_free(BatchJobManagementJobTypesForm *self) {
-  som_node_free(&self->node);
-}
-char *batch_job_management_job_types_form_content(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_content(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *batch_job_management_job_types_form_data_processing_jobs(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataProcessingJobs");
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_data_processing_jobs(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dataProcessingJobs", value);
-}
-char *batch_job_management_job_types_form_report_generation_jobs(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reportGenerationJobs");
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_report_generation_jobs(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "reportGenerationJobs", value);
-}
-char *batch_job_management_job_types_form_notification_jobs(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "notificationJobs");
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_notification_jobs(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "notificationJobs", value);
-}
-char *batch_job_management_job_types_form_maintenance_jobs(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "maintenanceJobs");
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_maintenance_jobs(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "maintenanceJobs", value);
-}
-char *batch_job_management_job_types_form_integration_sync_jobs(const BatchJobManagementJobTypesForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "integrationSyncJobs");
-  return som_strdup(v != NULL ? v : "");
-}
-void batch_job_management_job_types_form_set_integration_sync_jobs(BatchJobManagementJobTypesForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "integrationSyncJobs", value);
 }
 
 void batch_job_management_monitoring_form_init(BatchJobManagementMonitoringForm *self, SpecDocument *doc, const char *path) {

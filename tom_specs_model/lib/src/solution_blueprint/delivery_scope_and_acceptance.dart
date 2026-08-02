@@ -509,6 +509,7 @@ class DeliverableEntry extends DocSpecsSection {
       String,
       'Associated Documentation',
       hint: 'Related documentation deliverable IDs',
+      refersTo: ['DLVEN.deliverableId'],
     ),
     Field(
       'releaseNotes',
@@ -543,6 +544,7 @@ class DeliverableDependencies extends DocSpecsSection {
       String,
       'Depends On',
       hint: 'Other deliverable IDs this depends on',
+      refersTo: ['DLVEN.deliverableId'],
     ),
     Field(
       'prerequisiteForDelivery',
@@ -784,12 +786,14 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       String,
       'Deliverable Reference',
       hint: 'Linked deliverable ID — e.g. DEL-SOF-001',
+      refersTo: ['DLVEN.deliverableId'],
     ),
     Field(
       'testScenarioRef',
       String,
       'Test Scenario Reference',
       hint: 'UAT scenario ID that validates this criterion',
+      refersTo: ['TSSC.scenarioId'],
     ),
   ])
   @SerializationOrder(3)
@@ -1980,6 +1984,7 @@ class TestScenarioEntry extends DocSpecsSection {
       String,
       'Use Case Reference',
       hint: 'Related use case ID',
+      refersTo: ['INEN.interactionId'],
     ),
     Field(
       'acceptanceCriterionRef',
@@ -2030,6 +2035,7 @@ class TestScenarioEntry extends DocSpecsSection {
       String,
       'Depends on Scenarios',
       hint: 'Scenario IDs that must pass before this one',
+      refersTo: ['TSSC.scenarioId'],
     ),
   ])
   @SerializationOrder(4)

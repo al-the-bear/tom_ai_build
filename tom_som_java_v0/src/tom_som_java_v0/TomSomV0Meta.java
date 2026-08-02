@@ -7701,19 +7701,14 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
-        SomMetaNode n = new SomMetaNode("BatchJobManagement", SomMetaKind.FORM, "String");
-        n.memberName = "jobTypes";
+        SomMetaNode n = new SomMetaNode("BatchJobManagement", SomMetaKind.CONTENT, "String");
+        n.memberName = "workloadShape";
         n.sectionId = "BJMJT";
         n.serializationOrder = 1;
-        n.contentHelp = "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).";
-        n.docComment = "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.";
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dataProcessingJobs", "String", "Data Processing Jobs", false, "ETL, aggregation, cleanup", 0),
-            new SomFormFieldMeta("reportGenerationJobs", "String", "Report Generation Jobs", false, "Scheduled report creation", 1),
-            new SomFormFieldMeta("notificationJobs", "String", "Notification Jobs", false, "Digest emails, reminder notifications", 2),
-            new SomFormFieldMeta("maintenanceJobs", "String", "Maintenance Jobs", false, "Database cleanup, log rotation, temp file purge", 3),
-            new SomFormFieldMeta("integrationSyncJobs", "String", "Integration Sync Jobs", false, "External system synchronization", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Google SRE — eliminating toil and operational procedures", "ITIL 4 — change enablement and maintenance windows"), "connotation", "Supported job categories catalog the kinds of scheduled work the system performs.")));
+        n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.";
+        n.docComment = "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Google SRE — eliminating toil and operational procedures", "ITIL 4 — change enablement and maintenance windows"), "connotation", "The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list.")));
         out.add(n);
       }
       {
@@ -7775,7 +7770,7 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/content");
     }
 
-    public SomMetaRef jobTypes() {
+    public SomMetaRef workloadShape() {
       return new SomMetaRef(tree, path + "/BJMJT");
     }
 
@@ -7914,7 +7909,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("riskIfWrong", "String", "Risk if Wrong", false, "What happens if the assumption proves false", 0),
             new SomFormFieldMeta("riskImpact", "String", "Impact Level (High, Medium, Low)", false, "Severity of the impact if the assumption fails", 1),
             new SomFormFieldMeta("contingencyPlan", "String", "Contingency Plan", false, "Planned response if the assumption is invalidated", 2),
-            new SomFormFieldMeta("relatedRiskId", "String", "Related Risk ID", false, "Identifier of the linked risk register entry", 3)));
+            new SomFormFieldMeta("relatedRiskId", "String", "Related Risk ID", false, "Identifier of the linked risk register entry", 3, java.util.List.of(), java.util.List.of("RIID.riskId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000 — risk management (assumption risk)", "PMBOK — scope management & assumption log"), "connotation", "Captures the consequences if an assumption proves false and the contingency plan to address it.")));
         out.add(n);
       }
@@ -15759,7 +15754,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentId", "String", "Component ID", false, "Unique identifier, e.g. CMP-DB-001", 0),
+            new SomFormFieldMeta("componentId", "String", "Component ID", true, "Unique identifier, e.g. CMP-DB-001", 0),
             new SomFormFieldMeta("componentName", "String", "Component Name", true, "Official product/library name", 1),
             new SomFormFieldMeta("category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 2)));
         out.add(n);
@@ -17040,7 +17035,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "Unique identifier, e.g. CR-001", 0),
-            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this risk applies to", 1),
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this risk applies to", 1, java.util.List.of(), java.util.List.of("CMPNT.componentId")),
             new SomFormFieldMeta("riskTitle", "String", "Risk Title", false, "Short descriptive name", 2)));
         out.add(n);
       }
@@ -17107,7 +17102,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskOwner", "String", "Risk Owner", false, "Person accountable for managing this risk", 0),
             new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency", false, "How often this risk is reassessed", 1),
-            new SomFormFieldMeta("relatedRisks", "String", "Related Risks", false, "Other risk IDs that correlate or cascade", 2),
+            new SomFormFieldMeta("relatedRisks", "String", "Related Risks", false, "Other risk IDs that correlate or cascade", 2, java.util.List.of(), java.util.List.of("CMRS.riskId")),
             new SomFormFieldMeta("acceptanceCriteria", "String", "Risk Acceptance Criteria", false, "Under what conditions is this risk formally accepted", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk"), "connotation", "Captures governance and ownership assignments for a component risk, including the risk owner, review frequency, and acceptance criteria.")));
         out.add(n);
@@ -18618,8 +18613,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Reference links to risk and component.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskRef", "String", "Associated Risk", false, "Risk ID this plan addresses", 0),
-            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this plan covers", 1)));
+            new SomFormFieldMeta("riskRef", "String", "Associated Risk", false, "Risk ID this plan addresses", 0, java.util.List.of(), java.util.List.of("CMRS.riskId")),
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this plan covers", 1, java.util.List.of(), java.util.List.of("CMPNT.componentId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities"), "connotation", "Holds the reference links tying a contingency plan to its associated risk and component.")));
         out.add(n);
       }
@@ -28628,7 +28623,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("patternId", "String", "Pattern ID", true, "Unique identifier, e.g., pattern-order-detail", 0),
             new SomFormFieldMeta("urlPattern", "String", "URL Pattern", true, "Route pattern, e.g., /orders/:orderId", 1),
-            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Screen to open", 2),
+            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Screen to open", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("description", "String", "Description", false, "When/why this link is used", 3),
             new SomFormFieldMeta("authenticationRequired", "String", "Authentication Required", false, "Yes/No — redirect to login if unauthenticated", 4),
             new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Permissions needed to access via deep link", 5),
@@ -28878,7 +28873,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other deliverable IDs this depends on", 0),
+            new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other deliverable IDs this depends on", 0, java.util.List.of(), java.util.List.of("DLVEN.deliverableId")),
             new SomFormFieldMeta("prerequisiteForDelivery", "String", "Prerequisites", false, "Conditions that must be met before delivery", 1)));
         out.add(n);
       }
@@ -29022,7 +29017,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 8;
         n.docComment = "Documentation.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("associatedDocumentation", "String", "Associated Documentation", false, "Related documentation deliverable IDs", 0),
+            new SomFormFieldMeta("associatedDocumentation", "String", "Associated Documentation", false, "Related documentation deliverable IDs", 0, java.util.List.of(), java.util.List.of("DLVEN.deliverableId")),
             new SomFormFieldMeta("releaseNotes", "String", "Release Notes Required", false, "Yes / No — whether release notes accompany delivery", 1),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional context or special instructions", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"), "connotation", "Captures the documentation associated with a deliverable and its release-note requirements.")));
@@ -29126,8 +29121,8 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability links.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Linked requirement ID(s) — e.g. REQ-042", 0),
-            new SomFormFieldMeta("deliverableRef", "String", "Deliverable Reference", false, "Linked deliverable ID — e.g. DEL-SOF-001", 1),
-            new SomFormFieldMeta("testScenarioRef", "String", "Test Scenario Reference", false, "UAT scenario ID that validates this criterion", 2)));
+            new SomFormFieldMeta("deliverableRef", "String", "Deliverable Reference", false, "Linked deliverable ID — e.g. DEL-SOF-001", 1, java.util.List.of(), java.util.List.of("DLVEN.deliverableId")),
+            new SomFormFieldMeta("testScenarioRef", "String", "Test Scenario Reference", false, "UAT scenario ID that validates this criterion", 2, java.util.List.of(), java.util.List.of("TSSC.scenarioId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria", "IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents"), "connotation", "Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.")));
         out.add(n);
       }
@@ -35505,7 +35500,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("errorMessage", "String", "Error Message", false, "User-friendly message when constraint violated", 3),
             new SomFormFieldMeta("enforcementLevel", "String", "Enforcement Level", false, "Database | Application | Both", 4),
             new SomFormFieldMeta("isDeferred", "String", "Is Deferred", false, "Whether check can be deferred to transaction end: Yes | No", 5),
-            new SomFormFieldMeta("businessRule", "String", "Business Rule Reference", false, "Related business rule ID", 6)));
+            new SomFormFieldMeta("businessRule", "String", "Business Rule Reference", false, "Related business rule ID", 6, java.util.List.of(), java.util.List.of("BIRU.ruleId"))));
         out.add(n);
       }
       return out;
@@ -40051,8 +40046,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0),
-            new SomFormFieldMeta("targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1),
+            new SomFormFieldMeta("sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type", true, "FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory", 2),
             new SomFormFieldMeta("dependencyStrength", "String", "Dependency Strength", false, "Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround", 3),
             new SomFormFieldMeta("impactIfBroken", "String", "Impact if Broken", false, "Consequence if not satisfied — rework, partial functionality, blocking", 4),
@@ -40512,8 +40507,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 6;
         n.docComment = "Dependencies.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0),
-            new SomFormFieldMeta("blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1),
+            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
             new SomFormFieldMeta("externalDependencies", "String", "External Dependencies", false, "External systems, APIs, vendors, or approvals", 2),
             new SomFormFieldMeta("dependencyCriticalPath", "String", "On Dependency Critical Path", false, "Yes / No", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management", "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"), "connotation", "Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.")));
@@ -40547,10 +40542,10 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement IDs", 0),
-            new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1),
-            new SomFormFieldMeta("linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2),
+            new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
+            new SomFormFieldMeta("linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, java.util.List.of(), java.util.List.of("PRIDN.processId")),
             new SomFormFieldMeta("linkedUserStories", "String", "Linked User Stories", false, "User story IDs in the backlog", 3),
-            new SomFormFieldMeta("linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "ADR IDs affected by or affecting this feature", 4)));
+            new SomFormFieldMeta("linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "ADR IDs affected by or affecting this feature", 4, java.util.List.of(), java.util.List.of("ARDE.decisionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition", "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"), "connotation", "Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions.")));
         out.add(n);
       }
@@ -40725,7 +40720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Dependencies.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0),
+            new SomFormFieldMeta("prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
             new SomFormFieldMeta("blockedByExternalDependency", "String", "Blocked by External Dependency", false, "External systems, vendors, or approvals — None, or description", 1),
             new SomFormFieldMeta("crossStageDependency", "String", "Cross-Stage Dependency", false, "Does this feature depend on something from a prior stage — Yes/No, plus which stage", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"), "connotation", "Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.")));
@@ -46787,7 +46782,7 @@ public final class TomSomV0Meta {
         n.docComment = "Platform and targeting.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("platform", "String", "Platform/Technology", false, "e.g., Flutter Web, Flutter iOS/Android, REST API", 0),
-            new SomFormFieldMeta("targetUserCategories", "String", "Target User Categories", false, "List of user category IDs this channel serves", 1),
+            new SomFormFieldMeta("targetUserCategories", "String", "Target User Categories", false, "List of user category IDs this channel serves", 1, java.util.List.of(), java.util.List.of("UCE.categoryId")),
             new SomFormFieldMeta("description", "String", "Description", false, "Purpose and scope of this channel", 2),
             new SomFormFieldMeta("channelPriority", "String", "Channel Priority", false, "Primary, Secondary, Tertiary", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-210 — interaction design", "ISO/IEC 25010 — usability/operability"), "connotation", "The platform/technology and target-user details for an access channel.")));
@@ -47485,7 +47480,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processName", "String", "Process Name", true, "Name of the dependent business process", 0),
-            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier of the business process", 1),
+            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier of the business process", 1, java.util.List.of(), java.util.List.of("PRIDN.processId")),
             new SomFormFieldMeta("dependencyType", "String", "Dependency (Critical Path, Supporting)", false, "Nature of the dependency on the interface", 2),
             new SomFormFieldMeta("fallbackBehavior", "String", "Fallback if Interface Unavailable", false, "Process behavior when the interface is down", 3)));
         out.add(n);
@@ -47644,7 +47639,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("errorFormat", "String", "Error Response Format", false, "Format/schema of error responses", 0),
-            new SomFormFieldMeta("errorCodes", "String", "Error Codes Used", false, "Error codes the interface returns", 1),
+            new SomFormFieldMeta("errorCodes", "String", "Error Codes Used", false, "Error codes the interface returns", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
             new SomFormFieldMeta("retryableErrors", "String", "Retryable Error Codes", false, "Which error codes are safe to retry", 2)));
         out.add(n);
       }
@@ -54649,7 +54644,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 9;
         n.docComment = "Related items.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("relatedRisks", "String", "Related Risks", false, "Risk IDs that are correlated", 0),
+            new SomFormFieldMeta("relatedRisks", "String", "Related Risks", false, "Risk IDs that are correlated", 0, java.util.List.of(), java.util.List.of("MGRSK.riskId")),
             new SomFormFieldMeta("relatedIssues", "String", "Related Issues", false, "Issue IDs linked to this risk", 1),
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by risk", 2),
             new SomFormFieldMeta("relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk", 3),
@@ -56264,8 +56259,8 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability and notes.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement IDs this feature traces to — comma-separated", 0),
-            new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1),
-            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2),
+            new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
+            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes or caveats", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition"), "connotation", "Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.")));
         out.add(n);
@@ -56805,7 +56800,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Access-control settings.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Comma-separated role IDs", 0),
+            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Comma-separated role IDs", 0, java.util.List.of(), java.util.List.of("AZRO.roleName")),
             new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Specific permissions required", 1),
             new SomFormFieldMeta("permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable/Collapse when unauthorized", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context", "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"), "connotation", "Access-control settings such as required roles and permission behavior for a navigation group.")));
@@ -56821,7 +56816,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot/Text — aggregate from children", 0),
             new SomFormFieldMeta("badgeSource", "String", "Badge Source", false, "Data source for badge value", 1),
             new SomFormFieldMeta("navigationLevel", "String", "Navigation Level", false, "Primary/Secondary/Tertiary", 2),
-            new SomFormFieldMeta("parentGroupId", "String", "Parent Group ID", false, "For nested groups, null = top-level", 3),
+            new SomFormFieldMeta("parentGroupId", "String", "Parent Group ID", false, "For nested groups, null = top-level", 3, java.util.List.of(), java.util.List.of("NAVGRP.groupId")),
             new SomFormFieldMeta("dividerBefore", "String", "Divider Before", false, "Yes/No — show divider above", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — hierarchical menu structure organises groups into nested levels", "ISO/IEC 25010:2023 — appropriateness recognisability is aided by aggregated badges on groups"), "connotation", "Badge aggregation and hierarchy placement settings for a navigation group.")));
         out.add(n);
@@ -57111,7 +57106,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Routing configuration.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Reference to Screen Inventory SCR-xxx", 0),
+            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Reference to Screen Inventory SCR-xxx", 0, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("targetRouteParams", "String", "Route Parameters", false, "Default params, e.g., {status: active}", 1),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position within parent group", 2),
             new SomFormFieldMeta("isDefault", "String", "Is Default", false, "Yes/No — default selected item in group", 3)));
@@ -61474,7 +61469,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("painPointId", "String", "Pain Point ID", true, "Reference to pain point, e.g. PP-OPE-001", 0),
+            new SomFormFieldMeta("painPointId", "String", "Pain Point ID", true, "Reference to pain point, e.g. PP-OPE-001", 0, java.util.List.of(), java.util.List.of("PAPE.painPointId")),
             new SomFormFieldMeta("gapId", "String", "Gap ID", true, "Reference to gap entry, e.g. GAP-001", 1),
             new SomFormFieldMeta("correlationType", "String", "Correlation Type", false, "CausedBy / ContributesTo / IndicatesGap / Exacerbates", 2),
             new SomFormFieldMeta("correlationStrength", "String", "Correlation Strength", false, "Direct / Strong / Moderate / Weak", 3),
@@ -61507,7 +61502,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("relatedPainPoints", "String", "Related Pain Points", false, "IDs of related pain points", 0),
+            new SomFormFieldMeta("relatedPainPoints", "String", "Related Pain Points", false, "IDs of related pain points", 0, java.util.List.of(), java.util.List.of("PAPE.painPointId")),
             new SomFormFieldMeta("relatedGaps", "String", "Related Gaps", false, "Gap entries that this pain point stems from", 1),
             new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other pain points that must be resolved first", 2)));
         out.add(n);
@@ -62885,7 +62880,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("gateName", "String", "Gate Name", true, "Formal gate name — e.g. G1-ConceptApproval", 0),
-            new SomFormFieldMeta("gateId", "String", "Gate ID", false, "Unique gate identifier — e.g. G1, G2, G3", 1),
+            new SomFormFieldMeta("gateId", "String", "Gate ID", true, "Unique gate identifier — e.g. G1, G2, G3", 1),
             new SomFormFieldMeta("stage", "String", "Stage", true, "Stage this gate is associated with", 2)));
         out.add(n);
       }
@@ -62966,7 +62961,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("outcomeRationale", "String", "Outcome Rationale", false, "Why this decision was made", 3),
             new SomFormFieldMeta("conditionalItems", "String", "Conditional Items", false, "Open items for conditional advancement", 4),
             new SomFormFieldMeta("followUpActions", "String", "Follow-Up Actions", false, "Actions assigned during review", 5),
-            new SomFormFieldMeta("nextGateReference", "String", "Next Gate Reference", false, "Gate ID of the next gate in sequence", 6)));
+            new SomFormFieldMeta("nextGateReference", "String", "Next Gate Reference", false, "Gate ID of the next gate in sequence", 6, java.util.List.of(), java.util.List.of("PHGAREEN.gateId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"), "connotation", "Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions.")));
         out.add(n);
       }
@@ -71985,7 +71980,7 @@ public final class TomSomV0Meta {
         n.docComment = "Interactivity and parameters.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("drillDownTarget", "String", "Drill-Down Target", false, "Report or screen navigated to on row click", 0),
-            new SomFormFieldMeta("drillThroughReports", "String", "Drill-Through Reports", false, "Comma-separated report IDs reachable from this report", 1),
+            new SomFormFieldMeta("drillThroughReports", "String", "Drill-Through Reports", false, "Comma-separated report IDs reachable from this report", 1, java.util.List.of(), java.util.List.of("REPENT.reportId")),
             new SomFormFieldMeta("parameterForm", "String", "Parameter Form", false, "Description of user input form shown before generation", 2),
             new SomFormFieldMeta("emptyDataMessage", "String", "Empty Data Message", false, "Message to display when report has no data", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — appropriateness recognisability supports interactive report navigation", "ISO 9241-125:2017 — presentation of information enables drill-down exploration of content"), "connotation", "Interactivity settings covering drill-down targets parameter forms and empty-data handling.")));
@@ -72301,7 +72296,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("inputType", "String", "Input Type", false, "Select / Multi-Select / Radio-Group / Cascading-Select", 0),
             new SomFormFieldMeta("availableValuesSource", "String", "Available Values Source", false, "Source for dropdown/select values: static list, entity query, API endpoint", 1),
             new SomFormFieldMeta("staticValues", "String", "Static Values", false, "Comma-separated values if source is static, e.g. Active,Inactive,All", 2),
-            new SomFormFieldMeta("cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 3),
+            new SomFormFieldMeta("cascadeParent", "String", "Cascade Parent", false, "Filter ID of parent filter for cascading dropdowns", 3, java.util.List.of(), java.util.List.of("RFE.filterId")),
             new SomFormFieldMeta("multiSelect", "String", "Multi-Select", false, "Yes / No — allow selecting multiple values", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — selection controls such as dropdowns and radio groups", "ISO/IEC 11179 — permissible values of a data element"), "connotation", "The selection control and value source for an enumeration report filter.")), new SomMetaExtra("Case", metaArgs("value", "ReportFilterValueKind.enumeration")));
         out.add(n);
@@ -72332,7 +72327,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in parameter form", 2),
             new SomFormFieldMeta("groupName", "String", "Group Name", false, "Group related filters visually, e.g. Date Filters, Entity Filters", 3),
             new SomFormFieldMeta("validationRule", "String", "Validation Rule", false, "Validation expression, e.g. startDate <= endDate", 4),
-            new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other filter IDs this filter depends on", 5)));
+            new SomFormFieldMeta("dependsOn", "String", "Depends On", false, "Other filter IDs this filter depends on", 5, java.util.List.of(), java.util.List.of("RFE.filterId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 — specifies the required and validation constraints on a filter parameter", "ISO 9241-110:2020 — supports error prevention through filter validation and dependency rules"), "connotation", "The scope, requiredness, and validation rules that govern how a report filter behaves.")));
         out.add(n);
       }
@@ -73356,9 +73351,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Traceability links form.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("relatedGoals", "String", "Related Business Goals (IDs)", false, "IDs of related business goals", 0),
-            new SomFormFieldMeta("relatedUseCases", "String", "Related Use Cases (IDs)", false, "IDs of related use cases", 1),
-            new SomFormFieldMeta("relatedProcesses", "String", "Related Business Processes (IDs)", false, "IDs of related business processes", 2),
+            new SomFormFieldMeta("relatedGoals", "String", "Related Business Goals (IDs)", false, "IDs of related business goals", 0, java.util.List.of(), java.util.List.of("BGE.goalId")),
+            new SomFormFieldMeta("relatedUseCases", "String", "Related Use Cases (IDs)", false, "IDs of related use cases", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
+            new SomFormFieldMeta("relatedProcesses", "String", "Related Business Processes (IDs)", false, "IDs of related business processes", 2, java.util.List.of(), java.util.List.of("PRIDN.processId")),
             new SomFormFieldMeta("relatedUserStories", "String", "Related User Stories (if Agile)", false, "Related user stories, if using Agile", 3)));
         out.add(n);
       }
@@ -73371,7 +73366,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedScreens", "String", "Related UI Screens/Views", false, "UI screens or views related to this requirement", 0),
             new SomFormFieldMeta("relatedDataEntities", "String", "Related Data Entities", false, "Data entities related to this requirement", 1),
-            new SomFormFieldMeta("relatedTestCases", "String", "Related Test Cases (IDs)", false, "IDs of test cases covering this requirement", 2),
+            new SomFormFieldMeta("relatedTestCases", "String", "Related Test Cases (IDs)", false, "IDs of test cases covering this requirement", 2, java.util.List.of(), java.util.List.of("RQTSC.testCaseId", "TEGOTS.testCaseId")),
             new SomFormFieldMeta("relatedDocuments", "String", "Related Documents or Artifacts", false, "Related documents or other artifacts", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability"), "connotation", "The artifacts a requirement is linked to — UI screens, data entities, test cases, and related documents — for coverage and traceability.")));
         out.add(n);
@@ -78832,7 +78827,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", false, "OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", 3),
             new SomFormFieldMeta("triggerField", "String", "Trigger Field (if field-specific)", false, "Field that triggers the behavior, if field-specific", 4),
             new SomFormFieldMeta("condition", "String", "Condition (when behavior applies)", false, "Condition under which the behavior applies", 5),
-            new SomFormFieldMeta("affectedFields", "String", "Affected Fields (field IDs)", false, "Field IDs affected by the behavior", 6),
+            new SomFormFieldMeta("affectedFields", "String", "Affected Fields (field IDs)", false, "Field IDs affected by the behavior", 6, java.util.List.of(), java.util.List.of("SFE.fieldId")),
             new SomFormFieldMeta("action", "String", "Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)", false, "Show, Hide, Enable, Disable, Calculate, Populate, or Validate", 7),
             new SomFormFieldMeta("formula", "String", "Formula / Expression (for calculations)", false, "Formula or expression used for calculations", 8),
             new SomFormFieldMeta("description", "String", "Behavior Description", false, "Description of what the behavior does", 9)));
@@ -78923,7 +78918,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("actionId", "String", "Action ID", false, "Reference to action system action", 0),
+            new SomFormFieldMeta("actionId", "String", "Action ID", false, "Reference to action system action", 0, java.util.List.of(), java.util.List.of("SCRAC.actionId")),
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh/Custom", 1),
             new SomFormFieldMeta("buttonStyle", "String", "Button Style", false, "Primary/Secondary/Tertiary/Danger/Text-Only/Icon-Only/Outlined/Floating", 2),
             new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers execution", 3),
@@ -79404,7 +79399,7 @@ public final class TomSomV0Meta {
         n.docComment = "Classification and routing metadata.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0),
-            new SomFormFieldMeta("parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1),
+            new SomFormFieldMeta("parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2, java.util.List.of(), java.util.List.of("SCRTEN.routeId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"), "connotation", "The classification and routing metadata that categorises a screen and locates it in the navigation structure.")));
         out.add(n);
@@ -79737,7 +79732,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 9;
         n.docComment = "UI and layout.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 0),
+            new SomFormFieldMeta("dependsOn", "String", "Depends On (field IDs that affect this)", false, "Field IDs that affect this field", 0, java.util.List.of(), java.util.List.of("SFE.fieldId")),
             new SomFormFieldMeta("width", "String", "Width (full, half, third, quarter, custom)", false, "full, half, third, quarter, or custom", 1),
             new SomFormFieldMeta("order", "String", "Display Order", false, "Order in which the field is displayed", 2),
             new SomFormFieldMeta("grouping", "String", "Field Grouping / Section", false, "Group or section the field belongs to", 3)));
@@ -93343,7 +93338,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabBarId", "String", "Tab Bar ID", true, "Unique identifier, e.g., tabs-customer-detail", 0),
             new SomFormFieldMeta("tabBarName", "String", "Tab Bar Name", true, "Human label", 1),
-            new SomFormFieldMeta("hostScreenId", "String", "Host Screen ID", false, "Screen that contains this tab bar", 2),
+            new SomFormFieldMeta("hostScreenId", "String", "Host Screen ID", false, "Screen that contains this tab bar", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("tabBarStyle", "String", "Style", false, "Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", 3)));
         out.add(n);
       }
@@ -93437,7 +93432,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Tab icon", 2),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in tab bar", 3),
-            new SomFormFieldMeta("contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4),
+            new SomFormFieldMeta("contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Business rule for visibility", 5),
             new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Tab-level access control", 6),
             new SomFormFieldMeta("permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable", 7),
@@ -95894,7 +95889,7 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ID(s) — e.g. REQ-042", 0),
-            new SomFormFieldMeta("useCaseRef", "String", "Use Case Reference", false, "Related use case ID", 1),
+            new SomFormFieldMeta("useCaseRef", "String", "Use Case Reference", false, "Related use case ID", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
             new SomFormFieldMeta("acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "Linked criterion ID", 2),
             new SomFormFieldMeta("designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements"), "connotation", "Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.")));
@@ -95910,7 +95905,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "System state required before execution", 0),
             new SomFormFieldMeta("testDataRequirements", "String", "Test Data Requirements", false, "Specific data needed", 1),
             new SomFormFieldMeta("environmentRequirements", "String", "Environment Requirements", false, "Special environment config", 2),
-            new SomFormFieldMeta("dependsOnScenarios", "String", "Depends on Scenarios", false, "Scenario IDs that must pass before this one", 3)));
+            new SomFormFieldMeta("dependsOnScenarios", "String", "Depends on Scenarios", false, "Scenario IDs that must pass before this one", 3, java.util.List.of(), java.util.List.of("TSSC.scenarioId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case", "IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records"), "connotation", "Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs.")));
         out.add(n);
       }
@@ -98788,8 +98783,8 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("startDate", "String", "Start Date", false, "The planned start date for this phase", 0),
             new SomFormFieldMeta("endDate", "String", "End Date", false, "The planned end date for this phase", 1),
             new SomFormFieldMeta("duration", "String", "Duration — weeks", false, "Expected duration of the phase, expressed in weeks", 2),
-            new SomFormFieldMeta("precedingPhase", "String", "Preceding Phase — phase ID", false, "The phase ID that must complete before this phase begins", 3),
-            new SomFormFieldMeta("dependsOnMilestone", "String", "Depends on Milestone — milestone ID", false, "The milestone ID this phase depends on before it can start", 4)));
+            new SomFormFieldMeta("precedingPhase", "String", "Preceding Phase — phase ID", false, "The phase ID that must complete before this phase begins", 3, java.util.List.of(), java.util.List.of("TPIDN.phaseId")),
+            new SomFormFieldMeta("dependsOnMilestone", "String", "Depends on Milestone — milestone ID", false, "The milestone ID this phase depends on before it can start", 4, java.util.List.of(), java.util.List.of("TRMIL.milestoneId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK — schedule management", "ISO/IEC/IEEE 29148 §6 — transition"), "connotation", "Captures the start/end dates, duration, and sequencing dependencies that place this phase within the transition timeline.")));
         out.add(n);
       }
@@ -101629,7 +101624,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Descriptive name of this user category", 0),
-            new SomFormFieldMeta("categoryId", "String", "Category ID (unique identifier)", false, "Unique stable identifier for cross-referencing this category", 1),
+            new SomFormFieldMeta("categoryId", "String", "Category ID (unique identifier)", true, "Unique stable identifier for cross-referencing this category", 1),
             new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 2),
             new SomFormFieldMeta("userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 3)));
         out.add(n);
@@ -103269,7 +103264,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionType", "String", "Action Type", false, "Navigate/Action/External-Link/Divider", 0),
             new SomFormFieldMeta("targetRoute", "String", "Target Route", false, "Navigation target", 1),
-            new SomFormFieldMeta("actionId", "String", "Action ID", false, "Action system reference, e.g., logout", 2)));
+            new SomFormFieldMeta("actionId", "String", "Action ID", false, "Action system reference, e.g., logout", 2, java.util.List.of(), java.util.List.of("SCRAC.actionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — menu dialogues associate each option with a defined action or destination", "ISO 9241-151:2008 — links direct users to further interface locations in a predictable way"), "connotation", "The routing target and action reference invoked when a utility menu item is selected.")));
         out.add(n);
       }
@@ -103404,7 +103399,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot", 0),
             new SomFormFieldMeta("badgeSource", "String", "Badge Source", false, "Data binding for badge", 1),
             new SomFormFieldMeta("interactionType", "String", "Interaction Type", false, "Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog", 2),
-            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Navigation target", 3)));
+            new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Navigation target", 3, java.util.List.of(), java.util.List.of("SCREN.screenId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet", "ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting"), "connotation", "The badge display and interaction behavior triggered when a utility navigation item is used.")));
         out.add(n);
       }

@@ -1330,6 +1330,7 @@ class EntityConstraintEntry extends DocSpecsSection {
       String,
       'Business Rule Reference',
       hint: 'Related business rule ID',
+      refersTo: ['BIRU.ruleId'],
     ),
   ])
   @override

@@ -2435,11 +2435,83 @@ void main() {
       expect(errs.single, contains('declares no @Form field "screenId"'));
     });
 
-    test('a target that is not a repeated registry entry is rejected', () {
-      // `Linker` itself is a singleton form section, never a list element.
-      final errs = refErrors(model(refersTo: ['LNK.target']));
-      expect(errs.any((e) => e.contains('not a repeated registry entry')), isTrue,
-          reason: errs.join('\n'));
+    test('an optional target form field is rejected — a key must be required',
+        () {
+      // `OptionalKeyEntry` is a proper list element, but its id may be omitted,
+      // so an entry can decline to declare the id a reference names.
+      final errs = refErrors(model(
+        refersTo: ['OKEN.optionalId'],
+        rootExtraFields: [
+          _listField('optionals', 'OptionalKeyEntry', [
+            AnnotationData('SectionId', {'id': 'OK-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'OK-xxx'}),
+          ]),
+        ],
+        extra: {
+          'OptionalKeyEntry': ModelClass(
+            name: 'OptionalKeyEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'OKEN'})],
+            formFields: [
+              FormFieldInfo(name: 'optionalId', typeName: 'String'),
+            ],
+          ),
+        },
+      ));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('is not required'));
+    });
+
+    test('a target that is not enumerated is rejected', () {
+      // `Preamble` hangs off the document root, so it exists once per document
+      // — it never declares a *set* of ids to resolve against.
+      final errs = refErrors(model(
+        refersTo: ['PRE.preambleId'],
+        rootExtraFields: [_field('preamble', 'Preamble')],
+        extra: {
+          'Preamble': ModelClass(
+            name: 'Preamble',
+            annotations: [AnnotationData('SectionId', {'id': 'PRE'})],
+            formFields: [
+              FormFieldInfo(
+                name: 'preambleId',
+                typeName: 'String',
+                required: true,
+              ),
+            ],
+          ),
+        },
+      ));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('is not enumerated'));
+    });
+
+    test('a singleton subsection of a list element is a valid target', () {
+      // The registry entry decomposes: `RouteEntry` is the list element, but
+      // the id lives one level down in its identification subsection, which is
+      // instantiated exactly once per entry.
+      final classes = model(
+        refersTo: ['RTID.routeId'],
+        extra: {
+          'RouteEntry': ModelClass(
+            name: 'RouteEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            fields: [_field('identification', 'RouteIdentification')],
+          ),
+          'RouteIdentification': ModelClass(
+            name: 'RouteIdentification',
+            annotations: [AnnotationData('SectionId', {'id': 'RTID'})],
+            formFields: [
+              FormFieldInfo(
+                name: 'routeId',
+                typeName: 'String',
+                required: true,
+              ),
+            ],
+          ),
+        },
+      );
+      expect(refErrors(classes), isEmpty);
+      expect(refWarnings(classes), isEmpty);
     });
 
     test('every target of a multi-target reference is checked', () {

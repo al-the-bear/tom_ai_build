@@ -2828,15 +2828,35 @@ class BatchJobManagement(SomNode):
     def content(self):
         return BatchJobManagementContentForm(self.doc, f"{self.path}/content")
 
-    # Supported job categories.
+    # Workload shape — orientation above the job list, deliberately narrative.
     #
-    # A category-level summary of the scheduled work the system performs — the
-    # shape of the workload, not its inventory. The authoritative per-job
-    # declarations are [scheduledJobs]; a category named here without a job in
-    # that list is a job the specification has not actually declared.
+    # What kind of batch surface this system has, in prose: mostly a nightly
+    # financial rollup with a small maintenance tail, or a continuous
+    # integration-sync load, or a report factory. It is the paragraph a reader
+    # wants *before* thirty [scheduledJobs] entries, for the same reason an
+    # architecture overview sits above a component list.
+    #
+    # **It is narrative and not a form, on purpose.** This section used to carry
+    # five fixed category slots — data processing, report generation,
+    # notification, maintenance, integration sync. A form of five slots each
+    # labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+    # text says, so it became a second place to state which jobs exist and could
+    # disagree with [scheduledJobs] — which is authoritative and is what the
+    # CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+    # no basis: a system whose batch work is model retraining or index rebuilding
+    # had no slot. One prose field can describe any workload and cannot be
+    # mistaken for the inventory.
+    #
+    # [scheduledJobs] remains the only place a job comes into existence. A shape
+    # described here that no entry there realises is a workload the specification
+    # has not actually declared.
     @property
-    def jobTypes(self):
-        return BatchJobManagementJobTypesForm(self.doc, f"{self.path}/BJMJT")
+    def workloadShape(self):
+        return self.doc.content(f"{self.path}/BJMJT") or ""
+
+    @workloadShape.setter
+    def workloadShape(self, value):
+        self.doc.set_content(f"{self.path}/BJMJT", value)
 
     # Execution controls — the **default layer** for every job.
     #
@@ -46237,63 +46257,6 @@ class BatchJobManagementExecutionForm(SomNode):
     @timeout.setter
     def timeout(self, value):
         self.doc.set_form_field(self.path, "timeout", value)
-
-class BatchJobManagementJobTypesForm(SomNode):
-    """Generated section facade for the `jobTypes` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def dataProcessingJobs(self) -> str:
-        return self.doc.form_field(self.path, "dataProcessingJobs") or ""
-
-    @dataProcessingJobs.setter
-    def dataProcessingJobs(self, value):
-        self.doc.set_form_field(self.path, "dataProcessingJobs", value)
-
-    @property
-    def reportGenerationJobs(self) -> str:
-        return self.doc.form_field(self.path, "reportGenerationJobs") or ""
-
-    @reportGenerationJobs.setter
-    def reportGenerationJobs(self, value):
-        self.doc.set_form_field(self.path, "reportGenerationJobs", value)
-
-    @property
-    def notificationJobs(self) -> str:
-        return self.doc.form_field(self.path, "notificationJobs") or ""
-
-    @notificationJobs.setter
-    def notificationJobs(self, value):
-        self.doc.set_form_field(self.path, "notificationJobs", value)
-
-    @property
-    def maintenanceJobs(self) -> str:
-        return self.doc.form_field(self.path, "maintenanceJobs") or ""
-
-    @maintenanceJobs.setter
-    def maintenanceJobs(self, value):
-        self.doc.set_form_field(self.path, "maintenanceJobs", value)
-
-    @property
-    def integrationSyncJobs(self) -> str:
-        return self.doc.form_field(self.path, "integrationSyncJobs") or ""
-
-    @integrationSyncJobs.setter
-    def integrationSyncJobs(self, value):
-        self.doc.set_form_field(self.path, "integrationSyncJobs", value)
 
 class BatchJobManagementMonitoringForm(SomNode):
     """Generated section facade for the `monitoring` @Form section: its own content text followed by one typed member per form field."""

@@ -3189,12 +3189,14 @@ class MoscowEntry extends DocSpecsSection {
       String,
       'Linked Use Cases',
       hint: 'Use case IDs this feature implements',
+      refersTo: ['INEN.interactionId'],
     ),
     Field(
       'dependsOnFeatures',
       String,
       'Depends on Features',
       hint: 'Feature IDs that must be delivered before this one',
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
@@ -3410,6 +3412,7 @@ class FeatureStageMapping extends DocSpecsSection {
       String,
       'Prerequisite Features',
       hint: 'Feature IDs that must complete first — comma-separated',
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field(
       'blockedByExternalDependency',
@@ -3844,12 +3847,14 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Depends on Features',
       hint: 'Feature IDs this requires',
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field(
       'blocksFeatures',
       String,
       'Blocks Features',
       hint: 'Feature IDs blocked until this completes',
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field(
       'externalDependencies',
@@ -3894,12 +3899,19 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'Linked Requirements',
       hint: 'Requirement IDs',
     ),
-    Field('linkedUseCases', String, 'Linked Use Cases', hint: 'Use case IDs'),
+    Field(
+      'linkedUseCases',
+      String,
+      'Linked Use Cases',
+      hint: 'Use case IDs',
+      refersTo: ['INEN.interactionId'],
+    ),
     Field(
       'linkedBusinessProcesses',
       String,
       'Linked Business Processes',
       hint: 'Business process IDs',
+      refersTo: ['PRIDN.processId'],
     ),
     Field(
       'linkedUserStories',
@@ -3912,6 +3924,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Linked Architecture Decisions',
       hint: 'ADR IDs affected by or affecting this feature',
+      refersTo: ['ARDE.decisionId'],
     ),
   ])
   @SerializationOrder(8)
@@ -4124,6 +4137,7 @@ class FeatureDependencyEntry extends DocSpecsSection {
       'Source Feature ID',
       hint: 'Feature that has the dependency (the dependent)',
       required: true,
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field(
       'targetFeatureId',
@@ -4133,6 +4147,7 @@ class FeatureDependencyEntry extends DocSpecsSection {
           'Feature that must be delivered first (the '
           'prerequisite)',
       required: true,
+      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
     ),
     Field(
       'dependencyType',
@@ -6537,6 +6552,10 @@ class PhaseGateReviewEntry extends DocSpecsSection {
       'gateId',
       String,
       'Gate ID',
+      // Why: this is the phase-gate registry key — PHGAEX.nextGateReference
+      // resolves against it, and an optional key could not be resolved against
+      // at all (tom_specs_model_rules.md §6.2 rule 4).
+      required: true,
       hint: 'Unique gate identifier — e.g. G1, G2, G3',
     ),
     Field(
@@ -6758,6 +6777,7 @@ class PhaseGateReviewEntry extends DocSpecsSection {
       String,
       'Next Gate Reference',
       hint: 'Gate ID of the next gate in sequence',
+      refersTo: ['PHGAREEN.gateId'],
     ),
   ])
   @SerializationOrder(6)

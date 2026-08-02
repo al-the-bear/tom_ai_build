@@ -4147,14 +4147,35 @@ impl BatchJobManagement {
         BatchJobManagementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Supported job categories.
+    /// Workload shape — orientation above the job list, deliberately narrative.
     ///
-    /// A category-level summary of the scheduled work the system performs — the
-    /// shape of the workload, not its inventory. The authoritative per-job
-    /// declarations are [scheduledJobs]; a category named here without a job in
-    /// that list is a job the specification has not actually declared.
-    pub fn job_types(&self) -> BatchJobManagementJobTypesForm {
-        BatchJobManagementJobTypesForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJMJT"))
+    /// What kind of batch surface this system has, in prose: mostly a nightly
+    /// financial rollup with a small maintenance tail, or a continuous
+    /// integration-sync load, or a report factory. It is the paragraph a reader
+    /// wants *before* thirty [scheduledJobs] entries, for the same reason an
+    /// architecture overview sits above a component list.
+    ///
+    /// **It is narrative and not a form, on purpose.** This section used to carry
+    /// five fixed category slots — data processing, report generation,
+    /// notification, maintenance, integration sync. A form of five slots each
+    /// labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+    /// text says, so it became a second place to state which jobs exist and could
+    /// disagree with [scheduledJobs] — which is authoritative and is what the
+    /// CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+    /// no basis: a system whose batch work is model retraining or index rebuilding
+    /// had no slot. One prose field can describe any workload and cannot be
+    /// mistaken for the inventory.
+    ///
+    /// [scheduledJobs] remains the only place a job comes into existence. A shape
+    /// described here that no entry there realises is a workload the specification
+    /// has not actually declared.
+    pub fn workload_shape(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "BJMJT"))
+    }
+
+    pub fn set_workload_shape(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "BJMJT");
+        self.node.doc().borrow_mut().set_content(&path, value);
     }
 
     /// Execution controls — the **default layer** for every job.
@@ -67525,81 +67546,6 @@ impl BatchJobManagementExecutionForm {
     pub fn set_timeout(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "timeout", value);
-    }
-}
-
-/// BatchJobManagementJobTypesForm is the generated section facade for the `jobTypes` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct BatchJobManagementJobTypesForm {
-    pub node: som::SomNode,
-}
-
-impl BatchJobManagementJobTypesForm {
-    /// Binds a BatchJobManagementJobTypesForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> BatchJobManagementJobTypesForm {
-        BatchJobManagementJobTypesForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn data_processing_jobs(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataProcessingJobs")
-    }
-
-    pub fn set_data_processing_jobs(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataProcessingJobs", value);
-    }
-
-    pub fn report_generation_jobs(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "reportGenerationJobs")
-    }
-
-    pub fn set_report_generation_jobs(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "reportGenerationJobs", value);
-    }
-
-    pub fn notification_jobs(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "notificationJobs")
-    }
-
-    pub fn set_notification_jobs(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "notificationJobs", value);
-    }
-
-    pub fn maintenance_jobs(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "maintenanceJobs")
-    }
-
-    pub fn set_maintenance_jobs(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "maintenanceJobs", value);
-    }
-
-    pub fn integration_sync_jobs(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "integrationSyncJobs")
-    }
-
-    pub fn set_integration_sync_jobs(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "integrationSyncJobs", value);
     }
 }
 

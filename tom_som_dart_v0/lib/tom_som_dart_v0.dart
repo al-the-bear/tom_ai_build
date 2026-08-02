@@ -2170,13 +2170,30 @@ class BatchJobManagement extends SomNode {
 
   BatchJobManagementContentForm get content => BatchJobManagementContentForm(doc, '$path/content');
 
-  /// Supported job categories.
+  /// Workload shape — orientation above the job list, deliberately narrative.
   /// 
-  /// A category-level summary of the scheduled work the system performs — the
-  /// shape of the workload, not its inventory. The authoritative per-job
-  /// declarations are [scheduledJobs]; a category named here without a job in
-  /// that list is a job the specification has not actually declared.
-  BatchJobManagementJobTypesForm get jobTypes => BatchJobManagementJobTypesForm(doc, '$path/BJMJT');
+  /// What kind of batch surface this system has, in prose: mostly a nightly
+  /// financial rollup with a small maintenance tail, or a continuous
+  /// integration-sync load, or a report factory. It is the paragraph a reader
+  /// wants *before* thirty [scheduledJobs] entries, for the same reason an
+  /// architecture overview sits above a component list.
+  /// 
+  /// **It is narrative and not a form, on purpose.** This section used to carry
+  /// five fixed category slots — data processing, report generation,
+  /// notification, maintenance, integration sync. A form of five slots each
+  /// labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+  /// text says, so it became a second place to state which jobs exist and could
+  /// disagree with [scheduledJobs] — which is authoritative and is what the
+  /// CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+  /// no basis: a system whose batch work is model retraining or index rebuilding
+  /// had no slot. One prose field can describe any workload and cannot be
+  /// mistaken for the inventory.
+  /// 
+  /// [scheduledJobs] remains the only place a job comes into existence. A shape
+  /// described here that no entry there realises is a workload the specification
+  /// has not actually declared.
+  String get workloadShape => doc.content('$path/BJMJT') ?? '';
+  set workloadShape(String value) => doc.setContent('$path/BJMJT', value);
 
   /// Execution controls — the **default layer** for every job.
   /// 
@@ -29665,34 +29682,6 @@ class BatchJobManagementExecutionForm extends SomNode {
 
   String get timeout => doc.formField(path, 'timeout') ?? '';
   set timeout(String value) => doc.setFormField(path, 'timeout', value);
-}
-
-/// Generated section facade for the `jobTypes` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class BatchJobManagementJobTypesForm extends SomNode {
-  BatchJobManagementJobTypesForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  String get dataProcessingJobs => doc.formField(path, 'dataProcessingJobs') ?? '';
-  set dataProcessingJobs(String value) => doc.setFormField(path, 'dataProcessingJobs', value);
-
-  String get reportGenerationJobs => doc.formField(path, 'reportGenerationJobs') ?? '';
-  set reportGenerationJobs(String value) => doc.setFormField(path, 'reportGenerationJobs', value);
-
-  String get notificationJobs => doc.formField(path, 'notificationJobs') ?? '';
-  set notificationJobs(String value) => doc.setFormField(path, 'notificationJobs', value);
-
-  String get maintenanceJobs => doc.formField(path, 'maintenanceJobs') ?? '';
-  set maintenanceJobs(String value) => doc.setFormField(path, 'maintenanceJobs', value);
-
-  String get integrationSyncJobs => doc.formField(path, 'integrationSyncJobs') ?? '';
-  set integrationSyncJobs(String value) => doc.setFormField(path, 'integrationSyncJobs', value);
 }
 
 /// Generated section facade for the `monitoring` `@Form` section:

@@ -1039,13 +1039,24 @@ void _validateOneOfGroups(
 ///   (i)   the entry parses as `<SECTIONID>.<formFieldName>`;
 ///   (ii)  the section id resolves to exactly one class in the graph;
 ///   (iii) that class declares a `@Form` field of that name;
-///   (iv)  that class is a *repeated registry entry* — used somewhere as the
-///         element type of a list — because an id is only meaningful when the
-///         entries that declare it can be enumerated.
+///   (iv)  that form field is `required`, because an entry allowed to omit its
+///         id declares no id to resolve against;
+///   (v)   that class is *enumerated* — it is used somewhere as the element
+///         type of a list, or it sits inside such a class as a singleton
+///         subsection — because an id is only meaningful when the entries
+///         that declare it can be enumerated.
 ///
-/// (iv) is what stops a reference from pointing at a singleton form section
-/// that happens to carry a like-named field: nothing there would ever declare
-/// a set of ids to resolve against.
+/// (v) is what stops a reference from pointing at a form section that happens
+/// to carry a like-named field but exists once per document: nothing there
+/// would ever declare a set of ids to resolve against.
+///
+/// The singleton-subsection arm of (v) matters because a registry entry
+/// usually decomposes: `BusinessProcessEntry` is the list element, but the
+/// process id lives one level down in its `ProcessIdentification` section.
+/// That section is instantiated exactly once per entry, so its required form
+/// fields enumerate 1:1 with the entries — it is the precise target, and
+/// naming the outer entry instead would fail (iii), since the outer class
+/// declares no such form field.
 void _validateReferenceTargets(
   Map<String, ModelClass> classes,
   Set<String> reachable,
@@ -1062,17 +1073,31 @@ void _validateReferenceTargets(
     }
   }
 
-  // Classes used as a list element type anywhere in the model — the registry
-  // entries. Computed over the whole graph, not just [reachable], so a
-  // single-document validation run judges the target the same way a
-  // whole-model run does.
-  final listElementTypes = <String>{};
+  // Classes whose instances are enumerated — the registry entries and the
+  // singleton subsections they decompose into. Computed over the whole graph,
+  // not just [reachable], so a single-document validation run judges the
+  // target the same way a whole-model run does.
+  //
+  // Seed: every class used as a list element type anywhere in the model.
+  // Closure: every class reached from a seed through singleton complex
+  // members, since such a member is instantiated exactly once per entry and
+  // therefore enumerates 1:1 with it.
+  final enumeratedTypes = <String>{};
+  final pending = <String>[];
   for (final cls in classes.values) {
     for (final field in cls.fields) {
       if (field.isList && field.listElementIsComplex) {
         final inner = field.listElementTypeName;
-        if (inner != null) listElementTypes.add(inner);
+        if (inner != null && enumeratedTypes.add(inner)) pending.add(inner);
       }
+    }
+  }
+  while (pending.isNotEmpty) {
+    final owner = classes[pending.removeLast()];
+    if (owner == null) continue;
+    for (final field in owner.fields) {
+      if (!field.isComplex) continue;
+      if (enumeratedTypes.add(field.typeName)) pending.add(field.typeName);
     }
   }
 
@@ -1120,9 +1145,10 @@ void _validateReferenceTargets(
         final targetClass = classes[owners.single]!;
 
         // (iii) The target declares that form field.
-        final hasField =
-            _allFormFields(targetClass).any((f) => f.name == fieldName);
-        if (!hasField) {
+        final targetFields = _allFormFields(targetClass);
+        final targetField =
+            targetFields.where((f) => f.name == fieldName).firstOrNull;
+        if (targetField == null) {
           errors.add(
             '$_invariants refersTo: $where targets "$target" but '
             '${targetClass.name} declares no @Form field "$fieldName"',
@@ -1130,13 +1156,25 @@ void _validateReferenceTargets(
           continue;
         }
 
-        // (iv) The target really is a repeated registry entry.
-        if (!listElementTypes.contains(targetClass.name)) {
+        // (iv) The target form field is required. An optional id cannot be a
+        // registry key: an entry that omits it declares no id, so a reference
+        // that names it would be unresolvable through no fault of its own.
+        if (!targetField.required) {
           errors.add(
             '$_invariants refersTo: $where targets "$target" but '
-            '${targetClass.name} is not a repeated registry entry (it is never '
-            'a list element type) — an id reference needs a set of entries to '
-            'resolve against',
+            '${targetClass.name}.$fieldName is not required — a registry key '
+            'must be required, or entries could omit it',
+          );
+          continue;
+        }
+
+        // (v) The target really is enumerated.
+        if (!enumeratedTypes.contains(targetClass.name)) {
+          errors.add(
+            '$_invariants refersTo: $where targets "$target" but '
+            '${targetClass.name} is not enumerated (it is never a list element '
+            'type, nor a subsection of one) — an id reference needs a set of '
+            'entries to resolve against',
           );
           continue;
         }

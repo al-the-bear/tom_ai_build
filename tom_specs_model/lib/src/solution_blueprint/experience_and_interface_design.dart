@@ -1394,6 +1394,7 @@ class ScreenEntry extends DocSpecsSection {
       String,
       'Parent Screen ID',
       hint: 'Parent screen if this is a sub-screen or drill-down',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'routePattern',
@@ -2062,6 +2063,7 @@ class ScreenElementAction extends DocSpecsSection {
       String,
       'Action ID',
       hint: 'Reference to action system action',
+      refersTo: ['SCRAC.actionId'],
     ),
     Field(
       'actionType',
@@ -3798,6 +3800,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Required Roles',
       hint: 'Comma-separated role IDs',
+      refersTo: ['AZRO.roleName'],
     ),
     Field(
       'requiredPermissions',
@@ -3848,6 +3851,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Parent Group ID',
       hint: 'For nested groups, null = top-level',
+      refersTo: ['NAVGRP.groupId'],
     ),
     Field(
       'dividerBefore',
@@ -3958,6 +3962,7 @@ class NavigationItemEntry extends DocSpecsSection {
       String,
       'Target Screen ID',
       hint: 'Reference to Screen Inventory SCR-xxx',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'targetRouteParams',
@@ -4337,6 +4342,7 @@ class TabBarDefinitionEntry extends DocSpecsSection {
       String,
       'Host Screen ID',
       hint: 'Screen that contains this tab bar',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'tabBarStyle',
@@ -4459,6 +4465,7 @@ class TabItemEntry extends DocSpecsSection {
       String,
       'Content Screen ID',
       hint: 'Screen/fragment loaded in tab',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'visibilityCondition',
@@ -4648,6 +4655,7 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       String,
       'Target Screen ID',
       hint: 'Navigation target',
+      refersTo: ['SCREN.screenId'],
     ),
   ])
   @SerializationOrder(2)
@@ -4726,6 +4734,7 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       String,
       'Action ID',
       hint: 'Action system reference, e.g., logout',
+      refersTo: ['SCRAC.actionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -4983,7 +4992,13 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       required: true,
       hint: 'Route pattern, e.g., /orders/:orderId',
     ),
-    Field('targetScreenId', String, 'Target Screen ID', hint: 'Screen to open'),
+    Field(
+      'targetScreenId',
+      String,
+      'Target Screen ID',
+      hint: 'Screen to open',
+      refersTo: ['SCREN.screenId'],
+    ),
     Field(
       'description',
       String,
@@ -5832,6 +5847,7 @@ class ReportEntry extends DocSpecsSection {
       String,
       'Drill-Through Reports',
       hint: 'Comma-separated report IDs reachable from this report',
+      refersTo: ['REPENT.reportId'],
     ),
     Field(
       'parameterForm',
@@ -7112,6 +7128,7 @@ class ReportFilterEntry extends DocSpecsSection {
       String,
       'Cascade Parent',
       hint: 'Filter ID of parent filter for cascading dropdowns',
+      refersTo: ['RFE.filterId'],
     ),
     Field(
       'multiSelect',
@@ -7208,6 +7225,7 @@ class ReportFilterEntry extends DocSpecsSection {
       String,
       'Depends On',
       hint: 'Other filter IDs this filter depends on',
+      refersTo: ['RFE.filterId'],
     ),
   ])
   @SerializationOrder(8)

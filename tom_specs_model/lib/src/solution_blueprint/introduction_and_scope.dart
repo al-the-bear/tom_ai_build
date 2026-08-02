@@ -3477,6 +3477,7 @@ class InteractionChannelEntry extends DocSpecsSection {
       String,
       'Target User Categories',
       hint: 'List of user category IDs this channel serves',
+      refersTo: ['UCE.categoryId'],
     ),
     Field(
       'description',
@@ -4752,6 +4753,10 @@ class UserCategoryEntry extends DocSpecsSection {
       'categoryId',
       String,
       'Category ID (unique identifier)',
+      // Why: this is the user-category registry key — ICEP.targetUserCategories
+      // resolves against it, and an optional key could not be resolved against
+      // at all (tom_specs_model_rules.md §6.2 rule 4).
+      required: true,
       hint: 'Unique stable identifier for cross-referencing this category',
     ),
     Field(
@@ -9508,6 +9513,7 @@ class ScreenFieldEntry extends DocSpecsSection {
       String,
       'Depends On (field IDs that affect this)',
       hint: 'Field IDs that affect this field',
+      refersTo: ['SFE.fieldId'],
     ),
     Field(
       'width',
@@ -9884,6 +9890,7 @@ class ScreenBehaviorEntry extends DocSpecsSection {
       String,
       'Affected Fields (field IDs)',
       hint: 'Field IDs affected by the behavior',
+      refersTo: ['SFE.fieldId'],
     ),
     Field(
       'action',
@@ -10013,18 +10020,21 @@ class RequirementTraceability extends DocSpecsSection {
       String,
       'Related Business Goals (IDs)',
       hint: 'IDs of related business goals',
+      refersTo: ['BGE.goalId'],
     ),
     Field(
       'relatedUseCases',
       String,
       'Related Use Cases (IDs)',
       hint: 'IDs of related use cases',
+      refersTo: ['INEN.interactionId'],
     ),
     Field(
       'relatedProcesses',
       String,
       'Related Business Processes (IDs)',
       hint: 'IDs of related business processes',
+      refersTo: ['PRIDN.processId'],
     ),
     Field(
       'relatedUserStories',
@@ -10061,6 +10071,7 @@ class RequirementTraceability extends DocSpecsSection {
       String,
       'Related Test Cases (IDs)',
       hint: 'IDs of test cases covering this requirement',
+      refersTo: ['RQTSC.testCaseId', 'TEGOTS.testCaseId'],
     ),
     Field(
       'relatedDocuments',
@@ -14470,6 +14481,7 @@ class MigrationRiskEntry extends DocSpecsSection {
       String,
       'Related Risks',
       hint: 'Risk IDs that are correlated',
+      refersTo: ['MGRSK.riskId'],
     ),
     Field(
       'relatedIssues',
@@ -15016,6 +15028,7 @@ class InterfaceBusinessProcessEntry extends DocSpecsSection {
       String,
       'Process ID',
       hint: 'Identifier of the business process',
+      refersTo: ['PRIDN.processId'],
     ),
     Field(
       'dependencyType',
@@ -15792,6 +15805,7 @@ class InterfaceErrorHandling extends DocSpecsSection {
       String,
       'Error Codes Used',
       hint: 'Error codes the interface returns',
+      refersTo: ['ERCEN.code'],
     ),
     Field(
       'retryableErrors',
@@ -16545,6 +16559,7 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
       String,
       'Related Risk ID',
       hint: 'Identifier of the linked risk register entry',
+      refersTo: ['RIID.riskId'],
     ),
   ])
   @SerializationOrder(2)

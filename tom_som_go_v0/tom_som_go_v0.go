@@ -3338,14 +3338,34 @@ func (x *BatchJobManagement) Content() *BatchJobManagementContentForm {
 	return NewBatchJobManagementContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// Supported job categories.
+// Workload shape — orientation above the job list, deliberately narrative.
 //
-// A category-level summary of the scheduled work the system performs — the
-// shape of the workload, not its inventory. The authoritative per-job
-// declarations are [scheduledJobs]; a category named here without a job in
-// that list is a job the specification has not actually declared.
-func (x *BatchJobManagement) JobTypes() *BatchJobManagementJobTypesForm {
-	return NewBatchJobManagementJobTypesForm(x.Doc(), x.Path()+"/BJMJT")
+// What kind of batch surface this system has, in prose: mostly a nightly
+// financial rollup with a small maintenance tail, or a continuous
+// integration-sync load, or a report factory. It is the paragraph a reader
+// wants *before* thirty [scheduledJobs] entries, for the same reason an
+// architecture overview sits above a component list.
+//
+// **It is narrative and not a form, on purpose.** This section used to carry
+// five fixed category slots — data processing, report generation,
+// notification, maintenance, integration sync. A form of five slots each
+// labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+// text says, so it became a second place to state which jobs exist and could
+// disagree with [scheduledJobs] — which is authoritative and is what the
+// CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+// no basis: a system whose batch work is model retraining or index rebuilding
+// had no slot. One prose field can describe any workload and cannot be
+// mistaken for the inventory.
+//
+// [scheduledJobs] remains the only place a job comes into existence. A shape
+// described here that no entry there realises is a workload the specification
+// has not actually declared.
+func (x *BatchJobManagement) WorkloadShape() string {
+	return x.Doc().ContentOr(x.Path() + "/BJMJT")
+}
+
+func (x *BatchJobManagement) SetWorkloadShape(value string) {
+	x.Doc().SetContent(x.Path()+"/BJMJT", value)
 }
 
 // Execution controls — the **default layer** for every job.
@@ -55906,72 +55926,6 @@ func (x *BatchJobManagementExecutionForm) Timeout() string {
 
 func (x *BatchJobManagementExecutionForm) SetTimeout(value string) {
 	x.Doc().SetFormField(x.Path(), "timeout", value)
-}
-
-// BatchJobManagementJobTypesForm is the generated section facade for the `jobTypes` @Form section: its own
-// content text followed by one typed member per form field.
-type BatchJobManagementJobTypesForm struct {
-	som.SomNode
-}
-
-// NewBatchJobManagementJobTypesForm binds a BatchJobManagementJobTypesForm facade to a document and a path.
-func NewBatchJobManagementJobTypesForm(doc *som.SpecDocument, path string) *BatchJobManagementJobTypesForm {
-	return &BatchJobManagementJobTypesForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *BatchJobManagementJobTypesForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *BatchJobManagementJobTypesForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *BatchJobManagementJobTypesForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *BatchJobManagementJobTypesForm) DataProcessingJobs() string {
-	return x.Doc().FormFieldOr(x.Path(), "dataProcessingJobs")
-}
-
-func (x *BatchJobManagementJobTypesForm) SetDataProcessingJobs(value string) {
-	x.Doc().SetFormField(x.Path(), "dataProcessingJobs", value)
-}
-
-func (x *BatchJobManagementJobTypesForm) ReportGenerationJobs() string {
-	return x.Doc().FormFieldOr(x.Path(), "reportGenerationJobs")
-}
-
-func (x *BatchJobManagementJobTypesForm) SetReportGenerationJobs(value string) {
-	x.Doc().SetFormField(x.Path(), "reportGenerationJobs", value)
-}
-
-func (x *BatchJobManagementJobTypesForm) NotificationJobs() string {
-	return x.Doc().FormFieldOr(x.Path(), "notificationJobs")
-}
-
-func (x *BatchJobManagementJobTypesForm) SetNotificationJobs(value string) {
-	x.Doc().SetFormField(x.Path(), "notificationJobs", value)
-}
-
-func (x *BatchJobManagementJobTypesForm) MaintenanceJobs() string {
-	return x.Doc().FormFieldOr(x.Path(), "maintenanceJobs")
-}
-
-func (x *BatchJobManagementJobTypesForm) SetMaintenanceJobs(value string) {
-	x.Doc().SetFormField(x.Path(), "maintenanceJobs", value)
-}
-
-func (x *BatchJobManagementJobTypesForm) IntegrationSyncJobs() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationSyncJobs")
-}
-
-func (x *BatchJobManagementJobTypesForm) SetIntegrationSyncJobs(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationSyncJobs", value)
 }
 
 // BatchJobManagementMonitoringForm is the generated section facade for the `monitoring` @Form section: its own

@@ -1422,8 +1422,11 @@ BatchJobManagement::BatchJobManagement(som::SpecDocument& doc, std::string path)
 BatchJobManagementContentForm BatchJobManagement::content() const {
   return BatchJobManagementContentForm(doc(), som::joinPath(path(), "content"));
 }
-BatchJobManagementJobTypesForm BatchJobManagement::jobTypes() const {
-  return BatchJobManagementJobTypesForm(doc(), som::joinPath(path(), "BJMJT"));
+std::string BatchJobManagement::workloadShape() const {
+  return doc().content(som::joinPath(path(), "BJMJT"));
+}
+void BatchJobManagement::setWorkloadShape(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "BJMJT"), value);
 }
 BatchJobManagementExecutionForm BatchJobManagement::execution() const {
   return BatchJobManagementExecutionForm(doc(), som::joinPath(path(), "BJME"));
@@ -25678,45 +25681,6 @@ std::string BatchJobManagementExecutionForm::timeout() const {
 }
 void BatchJobManagementExecutionForm::setTimeout(const std::string& value) {
   doc().setFormField(path(), "timeout", value);
-}
-
-BatchJobManagementJobTypesForm::BatchJobManagementJobTypesForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string BatchJobManagementJobTypesForm::content() const {
-  return doc().content(path());
-}
-void BatchJobManagementJobTypesForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string BatchJobManagementJobTypesForm::dataProcessingJobs() const {
-  return doc().formField(path(), "dataProcessingJobs");
-}
-void BatchJobManagementJobTypesForm::setDataProcessingJobs(const std::string& value) {
-  doc().setFormField(path(), "dataProcessingJobs", value);
-}
-std::string BatchJobManagementJobTypesForm::reportGenerationJobs() const {
-  return doc().formField(path(), "reportGenerationJobs");
-}
-void BatchJobManagementJobTypesForm::setReportGenerationJobs(const std::string& value) {
-  doc().setFormField(path(), "reportGenerationJobs", value);
-}
-std::string BatchJobManagementJobTypesForm::notificationJobs() const {
-  return doc().formField(path(), "notificationJobs");
-}
-void BatchJobManagementJobTypesForm::setNotificationJobs(const std::string& value) {
-  doc().setFormField(path(), "notificationJobs", value);
-}
-std::string BatchJobManagementJobTypesForm::maintenanceJobs() const {
-  return doc().formField(path(), "maintenanceJobs");
-}
-void BatchJobManagementJobTypesForm::setMaintenanceJobs(const std::string& value) {
-  doc().setFormField(path(), "maintenanceJobs", value);
-}
-std::string BatchJobManagementJobTypesForm::integrationSyncJobs() const {
-  return doc().formField(path(), "integrationSyncJobs");
-}
-void BatchJobManagementJobTypesForm::setIntegrationSyncJobs(const std::string& value) {
-  doc().setFormField(path(), "integrationSyncJobs", value);
 }
 
 BatchJobManagementMonitoringForm::BatchJobManagementMonitoringForm(som::SpecDocument& doc, std::string path)

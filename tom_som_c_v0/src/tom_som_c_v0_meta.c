@@ -1706,7 +1706,7 @@ static void meta_build_basic_technical_requirements_platform_and_language(SomMet
 static void meta_build_basic_technical_requirements_architecture_style(SomMetaNode *n);
 static void meta_build_basic_technical_requirements_design_patterns_and_standards(SomMetaNode *n);
 static void meta_build_batch_job_management_content(SomMetaNode *n);
-static void meta_build_batch_job_management_job_types(SomMetaNode *n);
+static void meta_build_batch_job_management_workload_shape(SomMetaNode *n);
 static void meta_build_batch_job_management_execution(SomMetaNode *n);
 static void meta_build_batch_job_management_monitoring(SomMetaNode *n);
 static void meta_build_batch_job_management_scheduled_jobs(SomMetaNode *n);
@@ -21580,53 +21580,23 @@ static void meta_build_batch_job_management_content(SomMetaNode *n) {
   n->form->fields[0].hint = som_strdup("The clock zone every schedule is interpreted in — UTC or the server's local zone");
   n->form->fields[0].order = 0;
 }
-static void meta_build_batch_job_management_job_types(SomMetaNode *n) {
+static void meta_build_batch_job_management_workload_shape(SomMetaNode *n) {
   meta_set(&n->class_name, "BatchJobManagement");
-  meta_set(&n->member_name, "jobTypes");
+  meta_set(&n->member_name, "workloadShape");
   meta_set(&n->section_id, "BJMJT");
-  n->kind = SOM_META_KIND_FORM;
+  n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->content_help, "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).");
-  meta_set(&n->doc_comment, "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.");
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("dataProcessingJobs");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Data Processing Jobs");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("ETL, aggregation, cleanup");
-  n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("reportGenerationJobs");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Report Generation Jobs");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Scheduled report creation");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("notificationJobs");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Notification Jobs");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Digest emails, reminder notifications");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("maintenanceJobs");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Maintenance Jobs");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Database cleanup, log rotation, temp file purge");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("integrationSyncJobs");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Integration Sync Jobs");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("External system synchronization");
-  n->form->fields[4].order = 4;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.");
+  meta_set(&n->doc_comment, "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — eliminating toil and operational procedures\",\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"Supported job categories catalog the kinds of scheduled work the system performs.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — eliminating toil and operational procedures\",\"ITIL 4 — change enablement and maintenance windows\"],\"connotation\":\"The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list.\"}", NULL);
 }
 static void meta_build_batch_job_management_execution(SomMetaNode *n) {
   meta_set(&n->class_name, "BatchJobManagement");
@@ -21935,6 +21905,9 @@ static void meta_build_boundary_assumption_entry_risk(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Identifier of the linked risk register entry");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("RIID.riskId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -32688,7 +32661,7 @@ static void meta_build_component_entry_content(SomMetaNode *n) {
   n->form->fields[0].name = som_strdup("componentId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Component ID");
-  n->form->fields[0].required = 0;
+  n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Unique identifier, e.g. CMP-DB-001");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("componentName");
@@ -34724,6 +34697,9 @@ static void meta_build_component_risk_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Component ID this risk applies to");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("CMPNT.componentId");
   n->form->fields[2].name = som_strdup("riskTitle");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Risk Title");
@@ -34913,6 +34889,9 @@ static void meta_build_component_risk_entry_governance(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Other risk IDs that correlate or cascade");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("CMRS.riskId");
   n->form->fields[3].name = som_strdup("acceptanceCriteria");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Risk Acceptance Criteria");
@@ -37054,12 +37033,18 @@ static void meta_build_contingency_plan_entry_references(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Risk ID this plan addresses");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("CMRS.riskId");
   n->form->fields[1].name = som_strdup("componentRef");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Component");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Component ID this plan covers");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("CMPNT.componentId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -48703,6 +48688,9 @@ static void meta_build_deep_link_pattern_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Screen to open");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[3].name = som_strdup("description");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Description");
@@ -49057,6 +49045,9 @@ static void meta_build_deliverable_dependencies_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Other deliverable IDs this depends on");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DLVEN.deliverableId");
   n->form->fields[1].name = som_strdup("prerequisiteForDelivery");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Prerequisites");
@@ -49369,6 +49360,9 @@ static void meta_build_deliverable_entry_documentation(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Related documentation deliverable IDs");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DLVEN.deliverableId");
   n->form->fields[1].name = som_strdup("releaseNotes");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Release Notes Required");
@@ -49515,12 +49509,18 @@ static void meta_build_delivery_acceptance_criterion_entry_traceability(SomMetaN
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Linked deliverable ID — e.g. DEL-SOF-001");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DLVEN.deliverableId");
   n->form->fields[2].name = som_strdup("testScenarioRef");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Test Scenario Reference");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("UAT scenario ID that validates this criterion");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("TSSC.scenarioId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -57527,6 +57527,9 @@ static void meta_build_entity_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Related business rule ID");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("BIRU.ruleId");
 }
 static void meta_build_entity_follow_up_entry_entity_ref(SomMetaNode *n) {
   meta_set(&n->class_name, "EntityFollowUpEntry");
@@ -63937,12 +63940,22 @@ static void meta_build_feature_dependency_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Feature that has the dependency (the dependent)");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 3;
+  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("targetFeatureId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Target Feature ID");
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Feature that must be delivered first (the prerequisite)");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 3;
+  n->form->fields[1].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[1].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[1].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[2].name = som_strdup("dependencyType");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Dependency Type");
@@ -64858,12 +64871,22 @@ static void meta_build_feature_priority_entry_dependencies(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Feature IDs this requires");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 3;
+  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("blocksFeatures");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Blocks Features");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Feature IDs blocked until this completes");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 3;
+  n->form->fields[1].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[1].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[1].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[2].name = som_strdup("externalDependencies");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("External Dependencies");
@@ -64929,12 +64952,18 @@ static void meta_build_feature_priority_entry_traceability(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Use case IDs");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("INEN.interactionId");
   n->form->fields[2].name = som_strdup("linkedBusinessProcesses");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Linked Business Processes");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Business process IDs");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("PRIDN.processId");
   n->form->fields[3].name = som_strdup("linkedUserStories");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Linked User Stories");
@@ -64947,6 +64976,9 @@ static void meta_build_feature_priority_entry_traceability(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("ADR IDs affected by or affecting this feature");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("ARDE.decisionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -65171,6 +65203,11 @@ static void meta_build_feature_stage_mapping_dependencies(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Feature IDs that must complete first — comma-separated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 3;
+  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("blockedByExternalDependency");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Blocked by External Dependency");
@@ -73250,6 +73287,9 @@ static void meta_build_interaction_channel_entry_platform(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("List of user category IDs this channel serves");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("UCE.categoryId");
   n->form->fields[2].name = som_strdup("description");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Description");
@@ -74286,6 +74326,9 @@ static void meta_build_interface_business_process_entry_content(SomMetaNode *n) 
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Identifier of the business process");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("PRIDN.processId");
   n->form->fields[2].name = som_strdup("dependencyType");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Dependency (Critical Path, Supporting)");
@@ -74501,6 +74544,9 @@ static void meta_build_interface_error_handling_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Error codes the interface returns");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ERCEN.code");
   n->form->fields[2].name = som_strdup("retryableErrors");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Retryable Error Codes");
@@ -84427,6 +84473,9 @@ static void meta_build_migration_risk_entry_related(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Risk IDs that are correlated");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MGRSK.riskId");
   n->form->fields[1].name = som_strdup("relatedIssues");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Issues");
@@ -86685,12 +86734,20 @@ static void meta_build_moscow_entry_traceability(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Use case IDs this feature implements");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("INEN.interactionId");
   n->form->fields[2].name = som_strdup("dependsOnFeatures");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Depends on Features");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Feature IDs that must be delivered before this one");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 3;
+  n->form->fields[2].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ME.featureId");
+  n->form->fields[2].refers_to[1] = som_strdup("FSM.featureId");
+  n->form->fields[2].refers_to[2] = som_strdup("FPE.featureId");
   n->form->fields[3].name = som_strdup("notes");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Notes");
@@ -87456,6 +87513,9 @@ static void meta_build_navigation_group_entry_access(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Comma-separated role IDs");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
   n->form->fields[1].name = som_strdup("requiredPermissions");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Required Permissions");
@@ -87509,6 +87569,9 @@ static void meta_build_navigation_group_entry_structure(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("For nested groups, null = top-level");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("NAVGRP.groupId");
   n->form->fields[4].name = som_strdup("dividerBefore");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Divider Before");
@@ -87858,6 +87921,9 @@ static void meta_build_navigation_item_entry_routing(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Reference to Screen Inventory SCR-xxx");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[1].name = som_strdup("targetRouteParams");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Route Parameters");
@@ -94014,6 +94080,9 @@ static void meta_build_pain_point_gap_correlation_entry_content(SomMetaNode *n) 
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Reference to pain point, e.g. PP-OPE-001");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PAPE.painPointId");
   n->form->fields[1].name = som_strdup("gapId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Gap ID");
@@ -94055,6 +94124,9 @@ static void meta_build_pain_point_relationships_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("IDs of related pain points");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("PAPE.painPointId");
   n->form->fields[1].name = som_strdup("relatedGaps");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Gaps");
@@ -95544,7 +95616,7 @@ static void meta_build_phase_gate_review_entry_content(SomMetaNode *n) {
   n->form->fields[1].name = som_strdup("gateId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Gate ID");
-  n->form->fields[1].required = 0;
+  n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Unique gate identifier — e.g. G1, G2, G3");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("stage");
@@ -95777,6 +95849,9 @@ static void meta_build_phase_gate_review_entry_exit(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Gate ID of the next gate in sequence");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("PHGAREEN.gateId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -108469,6 +108544,9 @@ static void meta_build_report_entry_interactivity(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Comma-separated report IDs reachable from this report");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("REPENT.reportId");
   n->form->fields[2].name = som_strdup("parameterForm");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Parameter Form");
@@ -108979,6 +109057,9 @@ static void meta_build_report_filter_entry_select_filter_options(SomMetaNode *n)
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Filter ID of parent filter for cascading dropdowns");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("RFE.filterId");
   n->form->fields[4].name = som_strdup("multiSelect");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Multi-Select");
@@ -109083,6 +109164,9 @@ static void meta_build_report_filter_entry_behavior(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Other filter IDs this filter depends on");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("RFE.filterId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -110389,18 +110473,27 @@ static void meta_build_requirement_traceability_traceability_form(SomMetaNode *n
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("IDs of related business goals");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BGE.goalId");
   n->form->fields[1].name = som_strdup("relatedUseCases");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Related Use Cases (IDs)");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("IDs of related use cases");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("INEN.interactionId");
   n->form->fields[2].name = som_strdup("relatedProcesses");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Related Business Processes (IDs)");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("IDs of related business processes");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("PRIDN.processId");
   n->form->fields[3].name = som_strdup("relatedUserStories");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related User Stories (if Agile)");
@@ -110438,6 +110531,10 @@ static void meta_build_requirement_traceability_artifacts(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("IDs of test cases covering this requirement");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 2;
+  n->form->fields[2].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("RQTSC.testCaseId");
+  n->form->fields[2].refers_to[1] = som_strdup("TEGOTS.testCaseId");
   n->form->fields[3].name = som_strdup("relatedDocuments");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Related Documents or Artifacts");
@@ -118026,6 +118123,9 @@ static void meta_build_screen_behavior_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Field IDs affected by the behavior");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("SFE.fieldId");
   n->form->fields[7].name = som_strdup("action");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)");
@@ -118095,6 +118195,9 @@ static void meta_build_screen_element_action_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Reference to action system action");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCRAC.actionId");
   n->form->fields[1].name = som_strdup("actionType");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Action Type");
@@ -119071,6 +119174,9 @@ static void meta_build_screen_entry_classification(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Parent screen if this is a sub-screen or drill-down");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[2].name = som_strdup("routePattern");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Route Pattern");
@@ -119697,6 +119803,9 @@ static void meta_build_screen_field_entry_layout(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Field IDs that affect this field");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SFE.fieldId");
   n->form->fields[1].name = som_strdup("width");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Width (full, half, third, quarter, custom)");
@@ -137783,6 +137892,9 @@ static void meta_build_tab_bar_definition_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Screen that contains this tab bar");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[3].name = som_strdup("tabBarStyle");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Style");
@@ -137935,6 +138047,9 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Screen/fragment loaded in tab");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[5].name = som_strdup("visibilityCondition");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Visibility Condition");
@@ -140972,6 +141087,9 @@ static void meta_build_test_scenario_entry_traceability(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Related use case ID");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("INEN.interactionId");
   n->form->fields[2].name = som_strdup("acceptanceCriterionRef");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Acceptance Criterion Reference");
@@ -141025,6 +141143,9 @@ static void meta_build_test_scenario_entry_setup(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Scenario IDs that must pass before this one");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("TSSC.scenarioId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -145713,12 +145834,18 @@ static void meta_build_transition_phase_identification_timeline(SomMetaNode *n) 
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("The phase ID that must complete before this phase begins");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("TPIDN.phaseId");
   n->form->fields[4].name = som_strdup("dependsOnMilestone");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Depends on Milestone — milestone ID");
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("The milestone ID this phase depends on before it can start");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("TRMIL.milestoneId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -149798,7 +149925,7 @@ static void meta_build_user_category_entry_content(SomMetaNode *n) {
   n->form->fields[1].name = som_strdup("categoryId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Category ID (unique identifier)");
-  n->form->fields[1].required = 0;
+  n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Unique stable identifier for cross-referencing this category");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("description");
@@ -151644,6 +151771,9 @@ static void meta_build_utility_menu_item_entry_action(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Action system reference, e.g., logout");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("SCRAC.actionId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -151838,6 +151968,9 @@ static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Navigation target");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCREN.screenId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -157282,7 +157415,7 @@ static SomMetaNode **meta_children_batch_job_management(SomStrList *stack, size_
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_batch_job_management_job_types(n);
+    meta_build_batch_job_management_workload_shape(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -189621,7 +189754,7 @@ SomMetaRef batch_job_management_nav_content(som_nav_batch_job_management x) {
   free(path);
   return out;
 }
-SomMetaRef batch_job_management_nav_job_types(som_nav_batch_job_management x) {
+SomMetaRef batch_job_management_nav_workload_shape(som_nav_batch_job_management x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "BJMJT");
   som_meta_ref_init(&out, x.ref.tree, path);

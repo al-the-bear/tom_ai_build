@@ -20112,17 +20112,17 @@
           ]
         },
         {
-          "name": "jobTypes",
-          "kind": "form",
-          "doc": "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.",
-          "help": "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).",
+          "name": "workloadShape",
+          "kind": "content",
+          "doc": "Workload shape — orientation above the job list, deliberately narrative.\n\nWhat kind of batch surface this system has, in prose: mostly a nightly\nfinancial rollup with a small maintenance tail, or a continuous\nintegration-sync load, or a report factory. It is the paragraph a reader\nwants *before* thirty [scheduledJobs] entries, for the same reason an\narchitecture overview sits above a component list.\n\n**It is narrative and not a form, on purpose.** This section used to carry\nfive fixed category slots — data processing, report generation,\nnotification, maintenance, integration sync. A form of five slots each\nlabelled \"… Jobs\" *is* an inventory grouped by category, whatever the help\ntext says, so it became a second place to state which jobs exist and could\ndisagree with [scheduledJobs] — which is authoritative and is what the\nCodeSpecs generator reads. The fixed five were also a closed taxonomy with\nno basis: a system whose batch work is model retraining or index rebuilding\nhad no slot. One prose field can describe any workload and cannot be\nmistaken for the inventory.\n\n[scheduledJobs] remains the only place a job comes into existence. A shape\ndescribed here that no entry there realises is a workload the specification\nhas not actually declared.",
+          "help": "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself.",
           "sectionId": "BJMJT",
           "standardReferences": {
             "standards": [
               "Google SRE — eliminating toil and operational procedures",
               "ITIL 4 — change enablement and maintenance windows"
             ],
-            "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."
+            "connotation": "The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list."
           },
           "serializationOrder": 1,
           "annotations": [
@@ -20139,19 +20139,13 @@
                   "Google SRE — eliminating toil and operational procedures",
                   "ITIL 4 — change enablement and maintenance windows"
                 ],
-                "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."
+                "connotation": "The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list."
               }
             },
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB)."
-              }
-            },
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
+                "guidance": "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself."
               }
             },
             {
@@ -20161,43 +20155,7 @@
               }
             }
           ],
-          "formFields": [
-            {
-              "name": "dataProcessingJobs",
-              "label": "Data Processing Jobs",
-              "hint": "ETL, aggregation, cleanup",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "reportGenerationJobs",
-              "label": "Report Generation Jobs",
-              "hint": "Scheduled report creation",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "notificationJobs",
-              "label": "Notification Jobs",
-              "hint": "Digest emails, reminder notifications",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "maintenanceJobs",
-              "label": "Maintenance Jobs",
-              "hint": "Database cleanup, log rotation, temp file purge",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "integrationSyncJobs",
-              "label": "Integration Sync Jobs",
-              "hint": "External system synchronization",
-              "type": "String",
-              "required": false
-            }
-          ]
+          "contentType": "text"
         },
         {
           "name": "execution",
@@ -20834,7 +20792,10 @@
               "label": "Related Risk ID",
               "hint": "Identifier of the linked risk register entry",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "RIID.riskId"
+              ]
             }
           ]
         }
@@ -42421,7 +42382,7 @@
               "label": "Component ID",
               "hint": "Unique identifier, e.g. CMP-DB-001",
               "type": "String",
-              "required": false
+              "required": true
             },
             {
               "name": "componentName",
@@ -46477,7 +46438,10 @@
               "label": "Component",
               "hint": "Component ID this risk applies to",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "CMPNT.componentId"
+              ]
             },
             {
               "name": "riskTitle",
@@ -46825,7 +46789,10 @@
               "label": "Related Risks",
               "hint": "Other risk IDs that correlate or cascade",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "CMRS.riskId"
+              ]
             },
             {
               "name": "acceptanceCriteria",
@@ -51190,14 +51157,20 @@
               "label": "Associated Risk",
               "hint": "Risk ID this plan addresses",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "CMRS.riskId"
+              ]
             },
             {
               "name": "componentRef",
               "label": "Component",
               "hint": "Component ID this plan covers",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "CMPNT.componentId"
+              ]
             }
           ]
         },
@@ -73733,7 +73706,10 @@
               "label": "Target Screen ID",
               "hint": "Screen to open",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "description",
@@ -74451,7 +74427,10 @@
               "label": "Depends On",
               "hint": "Other deliverable IDs this depends on",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DLVEN.deliverableId"
+              ]
             },
             {
               "name": "prerequisiteForDelivery",
@@ -75069,7 +75048,10 @@
               "label": "Associated Documentation",
               "hint": "Related documentation deliverable IDs",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DLVEN.deliverableId"
+              ]
             },
             {
               "name": "releaseNotes",
@@ -75358,14 +75340,20 @@
               "label": "Deliverable Reference",
               "hint": "Linked deliverable ID — e.g. DEL-SOF-001",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "DLVEN.deliverableId"
+              ]
             },
             {
               "name": "testScenarioRef",
               "label": "Test Scenario Reference",
               "hint": "UAT scenario ID that validates this criterion",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TSSC.scenarioId"
+              ]
             }
           ]
         },
@@ -92035,7 +92023,10 @@
               "label": "Business Rule Reference",
               "hint": "Related business rule ID",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BIRU.ruleId"
+              ]
             }
           ]
         }
@@ -104746,14 +104737,24 @@
               "label": "Source Feature ID",
               "hint": "Feature that has the dependency (the dependent)",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "targetFeatureId",
               "label": "Target Feature ID",
               "hint": "Feature that must be delivered first (the prerequisite)",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "dependencyType",
@@ -106414,14 +106415,24 @@
               "label": "Depends on Features",
               "hint": "Feature IDs this requires",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "blocksFeatures",
               "label": "Blocks Features",
               "hint": "Feature IDs blocked until this completes",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "externalDependencies",
@@ -106549,14 +106560,20 @@
               "label": "Linked Use Cases",
               "hint": "Use case IDs",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.interactionId"
+              ]
             },
             {
               "name": "linkedBusinessProcesses",
               "label": "Linked Business Processes",
               "hint": "Business process IDs",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "PRIDN.processId"
+              ]
             },
             {
               "name": "linkedUserStories",
@@ -106570,7 +106587,10 @@
               "label": "Linked Architecture Decisions",
               "hint": "ADR IDs affected by or affecting this feature",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ARDE.decisionId"
+              ]
             }
           ]
         },
@@ -107047,7 +107067,12 @@
               "label": "Prerequisite Features",
               "hint": "Feature IDs that must complete first — comma-separated",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "blockedByExternalDependency",
@@ -123653,7 +123678,10 @@
               "label": "Target User Categories",
               "hint": "List of user category IDs this channel serves",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "UCE.categoryId"
+              ]
             },
             {
               "name": "description",
@@ -125686,7 +125714,10 @@
               "label": "Process ID",
               "hint": "Identifier of the business process",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "PRIDN.processId"
+              ]
             },
             {
               "name": "dependencyType",
@@ -126155,7 +126186,10 @@
               "label": "Error Codes Used",
               "hint": "Error codes the interface returns",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ERCEN.code"
+              ]
             },
             {
               "name": "retryableErrors",
@@ -145924,7 +145958,10 @@
               "label": "Related Risks",
               "hint": "Risk IDs that are correlated",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MGRSK.riskId"
+              ]
             },
             {
               "name": "relatedIssues",
@@ -150348,14 +150385,22 @@
               "label": "Linked Use Cases",
               "hint": "Use case IDs this feature implements",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.interactionId"
+              ]
             },
             {
               "name": "dependsOnFeatures",
               "label": "Depends on Features",
               "hint": "Feature IDs that must be delivered before this one",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ME.featureId",
+                "FSM.featureId",
+                "FPE.featureId"
+              ]
             },
             {
               "name": "notes",
@@ -151906,7 +151951,10 @@
               "label": "Required Roles",
               "hint": "Comma-separated role IDs",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "AZRO.roleName"
+              ]
             },
             {
               "name": "requiredPermissions",
@@ -151994,7 +152042,10 @@
               "label": "Parent Group ID",
               "hint": "For nested groups, null = top-level",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "NAVGRP.groupId"
+              ]
             },
             {
               "name": "dividerBefore",
@@ -152764,7 +152815,10 @@
               "label": "Target Screen ID",
               "hint": "Reference to Screen Inventory SCR-xxx",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "targetRouteParams",
@@ -164834,7 +164888,10 @@
               "label": "Pain Point ID",
               "hint": "Reference to pain point, e.g. PP-OPE-001",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "PAPE.painPointId"
+              ]
             },
             {
               "name": "gapId",
@@ -164920,7 +164977,10 @@
               "label": "Related Pain Points",
               "hint": "IDs of related pain points",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "PAPE.painPointId"
+              ]
             },
             {
               "name": "relatedGaps",
@@ -168099,7 +168159,7 @@
               "label": "Gate ID",
               "hint": "Unique gate identifier — e.g. G1, G2, G3",
               "type": "String",
-              "required": false
+              "required": true
             },
             {
               "name": "stage",
@@ -168529,7 +168589,10 @@
               "label": "Next Gate Reference",
               "hint": "Gate ID of the next gate in sequence",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "PHGAREEN.gateId"
+              ]
             }
           ]
         },
@@ -194357,7 +194420,10 @@
               "label": "Drill-Through Reports",
               "hint": "Comma-separated report IDs reachable from this report",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "REPENT.reportId"
+              ]
             },
             {
               "name": "parameterForm",
@@ -195392,7 +195458,10 @@
               "label": "Cascade Parent",
               "hint": "Filter ID of parent filter for cascading dropdowns",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "RFE.filterId"
+              ]
             },
             {
               "name": "multiSelect",
@@ -195567,7 +195636,10 @@
               "label": "Depends On",
               "hint": "Other filter IDs this filter depends on",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "RFE.filterId"
+              ]
             }
           ]
         },
@@ -198489,21 +198561,30 @@
               "label": "Related Business Goals (IDs)",
               "hint": "IDs of related business goals",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BGE.goalId"
+              ]
             },
             {
               "name": "relatedUseCases",
               "label": "Related Use Cases (IDs)",
               "hint": "IDs of related use cases",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.interactionId"
+              ]
             },
             {
               "name": "relatedProcesses",
               "label": "Related Business Processes (IDs)",
               "hint": "IDs of related business processes",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "PRIDN.processId"
+              ]
             },
             {
               "name": "relatedUserStories",
@@ -198575,7 +198656,11 @@
               "label": "Related Test Cases (IDs)",
               "hint": "IDs of test cases covering this requirement",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "RQTSC.testCaseId",
+                "TEGOTS.testCaseId"
+              ]
             },
             {
               "name": "relatedDocuments",
@@ -214524,7 +214609,10 @@
               "label": "Affected Fields (field IDs)",
               "hint": "Field IDs affected by the behavior",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SFE.fieldId"
+              ]
             },
             {
               "name": "action",
@@ -214711,7 +214799,10 @@
               "label": "Action ID",
               "hint": "Reference to action system action",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCRAC.actionId"
+              ]
             },
             {
               "name": "actionType",
@@ -216612,7 +216703,10 @@
               "label": "Parent Screen ID",
               "hint": "Parent screen if this is a sub-screen or drill-down",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "routePattern",
@@ -217850,7 +217944,10 @@
               "label": "Depends On (field IDs that affect this)",
               "hint": "Field IDs that affect this field",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SFE.fieldId"
+              ]
             },
             {
               "name": "width",
@@ -253734,7 +253831,10 @@
               "label": "Host Screen ID",
               "hint": "Screen that contains this tab bar",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "tabBarStyle",
@@ -254041,7 +254141,10 @@
               "label": "Content Screen ID",
               "hint": "Screen/fragment loaded in tab",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "visibilityCondition",
@@ -260239,7 +260342,10 @@
               "label": "Use Case Reference",
               "hint": "Related use case ID",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "INEN.interactionId"
+              ]
             },
             {
               "name": "acceptanceCriterionRef",
@@ -260327,7 +260433,10 @@
               "label": "Depends on Scenarios",
               "hint": "Scenario IDs that must pass before this one",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TSSC.scenarioId"
+              ]
             }
           ]
         },
@@ -269093,14 +269202,20 @@
               "label": "Preceding Phase — phase ID",
               "hint": "The phase ID that must complete before this phase begins",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TPIDN.phaseId"
+              ]
             },
             {
               "name": "dependsOnMilestone",
               "label": "Depends on Milestone — milestone ID",
               "hint": "The milestone ID this phase depends on before it can start",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "TRMIL.milestoneId"
+              ]
             }
           ]
         },
@@ -277504,7 +277619,7 @@
               "label": "Category ID (unique identifier)",
               "hint": "Unique stable identifier for cross-referencing this category",
               "type": "String",
-              "required": false
+              "required": true
             },
             {
               "name": "description",
@@ -281475,7 +281590,10 @@
               "label": "Action ID",
               "hint": "Action system reference, e.g., logout",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCRAC.actionId"
+              ]
             }
           ]
         },
@@ -281894,7 +282012,10 @@
               "label": "Target Screen ID",
               "hint": "Navigation target",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             }
           ]
         },

@@ -2157,7 +2157,7 @@ NavPlatformAndLanguage navBasicTechnicalRequirements_platformAndLanguage(NavBasi
 NavArchitectureStyle navBasicTechnicalRequirements_architectureStyle(NavBasicTechnicalRequirements x);
 NavDesignPatternsAndStandards navBasicTechnicalRequirements_designPatternsAndStandards(NavBasicTechnicalRequirements x);
 som::SomMetaRef navBatchJobManagement_content(NavBatchJobManagement x);
-som::SomMetaRef navBatchJobManagement_jobTypes(NavBatchJobManagement x);
+som::SomMetaRef navBatchJobManagement_workloadShape(NavBatchJobManagement x);
 som::SomMetaRef navBatchJobManagement_execution(NavBatchJobManagement x);
 som::SomMetaRef navBatchJobManagement_monitoring(NavBatchJobManagement x);
 som::SomListMetaRef navBatchJobManagement_scheduledJobs(NavBatchJobManagement x);

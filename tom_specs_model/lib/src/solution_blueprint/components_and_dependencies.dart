@@ -687,6 +687,10 @@ class ComponentEntry extends DocSpecsSection {
       'componentId',
       String,
       'Component ID',
+      // Why: this is the component registry key — CPER.componentRef and
+      // CMRS.componentRef resolve against it, and an optional key could not be
+      // resolved against at all (tom_specs_model_rules.md §6.2 rule 4).
+      required: true,
       hint: 'Unique identifier, e.g. CMP-DB-001',
     ),
     Field(
@@ -2206,12 +2210,14 @@ class ContingencyPlanEntry extends DocSpecsSection {
       String,
       'Associated Risk',
       hint: 'Risk ID this plan addresses',
+      refersTo: ['CMRS.riskId'],
     ),
     Field(
       'componentRef',
       String,
       'Component',
       hint: 'Component ID this plan covers',
+      refersTo: ['CMPNT.componentId'],
     ),
   ])
   @SerializationOrder(1)
@@ -2398,6 +2404,7 @@ class ComponentRiskEntry extends DocSpecsSection {
       String,
       'Component',
       hint: 'Component ID this risk applies to',
+      refersTo: ['CMPNT.componentId'],
     ),
     Field('riskTitle', String, 'Risk Title', hint: 'Short descriptive name'),
   ])
@@ -2570,6 +2577,7 @@ class ComponentRiskEntry extends DocSpecsSection {
       String,
       'Related Risks',
       hint: 'Other risk IDs that correlate or cascade',
+      refersTo: ['CMRS.riskId'],
     ),
     Field(
       'acceptanceCriteria',
