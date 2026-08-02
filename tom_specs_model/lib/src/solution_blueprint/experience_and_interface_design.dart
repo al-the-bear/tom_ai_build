@@ -2196,8 +2196,8 @@ class ScreenElementAction extends DocSpecsSection {
   discriminator: 'dataType',
   note:
       'CE-EL field kind closed choice: the data type selects its promoted '
-      'options subsection (number / date / select / text); boolean, color and '
-      'file kinds carry only the common formatting + validation subsections.',
+      'options subsection (number / date / select / text / file); boolean and '
+      'color kinds carry only the common formatting + validation subsections.',
 )
 @CodeSpecKind([
   CodeSpecPart.form,
@@ -2421,6 +2421,55 @@ class ScreenElementFieldSpec extends DocSpecsSection {
   ])
   @SerializationOrder(6)
   DocSpecsSection? selectOptions;
+
+  /// File-kind options — a promoted `@OneOf` case (csrb8).
+  ///
+  /// Present only for the file field kind; carries what may be chosen and how
+  /// the chosen file is shown. The **storage group** is deliberately absent: a
+  /// file's group is authored once on its CE-DB file-reference column
+  /// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+  /// name different groups. So is a download affordance, which follows from the
+  /// field being wired for transfer and the file being stored (§5.18).
+  @SectionId('SEFSU')
+  @StandardReferences([
+    'ISO 9241-143:2012 — form fields with input assistance such as file selection',
+    'ISO/IEC 2382:2015 — content and media type terminology',
+  ], 'What a file input accepts and how the chosen file is presented.')
+  @Case(ScreenElementFieldKind.file)
+  @Form([
+    Field(
+      'acceptedContentKinds',
+      String,
+      'Accepted Content Kinds',
+      hint:
+          'What may be chosen: a content-kind family (any/image/video/audio) '
+          'and/or the accepted file extensions',
+    ),
+    Field(
+      'maxFileSize',
+      String,
+      'Maximum File Size',
+      hint: 'Largest file the field accepts, e.g. 10 MB',
+    ),
+    Field(
+      'presentation',
+      String,
+      'Presentation (link, dropzone, thumbnail)',
+      hint:
+          'How the file is shown: link (name with affordances), dropzone '
+          '(drop surface), or thumbnail (inline preview)',
+    ),
+    Field(
+      'uploadOnPick',
+      String,
+      'Upload On Pick',
+      hint:
+          'Yes/No — whether choosing a file uploads it immediately or the form '
+          'uploads it on save',
+    ),
+  ])
+  @SerializationOrder(7)
+  DocSpecsSection? fileOptions;
 }
 
 /// Data display specification for display-type elements (form).

@@ -251,7 +251,7 @@
               - content, uiForm, layoutCode, mockupDescription
               - fields: `ScreenFieldEntry`
                 - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
-                  numericConstraints, temporalConstraints, choiceOptions, layout
+                  numericConstraints, temporalConstraints, choiceOptions, fileConstraints, layout
                 - validationRules: `FieldValidationRule`
                   - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
               - actions: `RequirementScreenActionEntry`
@@ -2387,7 +2387,7 @@
                         execution, navigation
                     - fieldSpec: `ScreenElementFieldSpec`
                       - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions,
-                        dateOptions, textOptions, validation, selectOptions
+                        dateOptions, textOptions, validation, selectOptions, fileOptions
                     - dataDisplay: `ScreenElementDataDisplay`
                       - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                         behavior, options
@@ -4133,7 +4133,7 @@
           - content, uiForm, layoutCode, mockupDescription
           - fields: `ScreenFieldEntry`
             - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
-              numericConstraints, temporalConstraints, choiceOptions, layout
+              numericConstraints, temporalConstraints, choiceOptions, fileConstraints, layout
             - validationRules: `FieldValidationRule`
               - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
           - actions: `RequirementScreenActionEntry`
@@ -5013,7 +5013,7 @@
                     execution, navigation
                 - fieldSpec: `ScreenElementFieldSpec`
                   - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
-                    textOptions, validation, selectOptions
+                    textOptions, validation, selectOptions, fileOptions
                 - dataDisplay: `ScreenElementDataDisplay`
                   - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                     behavior, options
@@ -6287,7 +6287,7 @@
                       execution, navigation
                   - fieldSpec: `ScreenElementFieldSpec`
                     - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
-                      textOptions, validation, selectOptions
+                      textOptions, validation, selectOptions, fileOptions
                   - dataDisplay: `ScreenElementDataDisplay`
                     - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                       behavior, options

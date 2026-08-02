@@ -9455,6 +9455,43 @@ class ScreenFieldEntry extends DocSpecsSection {
   @SerializationOrder(7)
   DocSpecsSection? choiceOptions;
 
+  /// File-kind input constraints — a promoted `@OneOf` case (csrb8).
+  ///
+  /// Constraints only. **How** the file is presented — link, dropzone or
+  /// thumbnail — is the D09 design pass's `fileOptions`
+  /// (`ScreenElementFieldSpec`), because a requirement names the kind of value
+  /// a user supplies and the design names the concrete control. The storage
+  /// group is neither side's: it is authored on the CE-DB file-reference column
+  /// (`codespecs_mapping.md` §5.13.1).
+  @SectionId('SCFIFI')
+  @StandardReferences(
+    [
+      'ISO/IEC/IEEE 29148 §9 — input validation requirements',
+      'ISO/IEC 2382:2015 — content and media type terminology',
+    ],
+    'The input constraints that only apply to a file-valued screen field — what '
+    'content kinds it accepts and how large a file may be.',
+  )
+  @Case(ScreenFieldKind.file)
+  @Form([
+    Field(
+      'acceptedContentKinds',
+      String,
+      'Accepted Content Kinds',
+      hint:
+          'What may be supplied: a content-kind family (any/image/video/audio) '
+          'and/or the accepted file extensions',
+    ),
+    Field(
+      'maxFileSize',
+      String,
+      'Maximum File Size',
+      hint: 'Largest file the field accepts, e.g. 10 MB',
+    ),
+  ])
+  @SerializationOrder(8)
+  DocSpecsSection? fileConstraints;
+
   /// UI and layout.
   @SectionId('SCFILA')
   @StandardReferences(
@@ -9491,7 +9528,7 @@ class ScreenFieldEntry extends DocSpecsSection {
       hint: 'Group or section the field belongs to',
     ),
   ])
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   DocSpecsSection? layout;
 
   /// Field validation rules — contains 0+× FieldValidationRule.
@@ -9502,7 +9539,7 @@ class ScreenFieldEntry extends DocSpecsSection {
   @SectionId('FLDVL-VALI-LST')
   @SectionIdPattern('FLDVL-VALI-xxx')
   @ContentHelp('Add one entry per validation rule applied to this field.')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<FieldValidationRule> validationRules = [];
 }
 

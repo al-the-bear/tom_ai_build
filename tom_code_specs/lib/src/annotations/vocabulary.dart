@@ -91,7 +91,7 @@ enum CsTextCategory {
 /// lets a specification stay at the semantic level while the generated code
 /// stays typed.
 ///
-/// The first six kinds are **form members** — they carry a value and are
+/// The first seven kinds are **form members** — they carry a value and are
 /// declared inside a `@CsForm`. The last four are **standalone**: they are
 /// class-level declarations. `CsElementRef` spans both, qualifying a form member
 /// with its owning form.
@@ -113,6 +113,15 @@ enum CsElementKind {
 
   /// Several values chosen from a closed set.
   multiChoice,
+
+  /// A reference to a file — what a user puts a file into, and what shows the
+  /// file that is already there. Realised by the `TomFormFileField` family.
+  ///
+  /// Singular by design. Cardinality is a *kind* in this catalogue — `choice`
+  /// and `multiChoice` are two entries rather than one with a flag — so a
+  /// multi-file element would be a twelfth kind, not an attribute of this one
+  /// (`codespecs_mapping.md` §5.18).
+  fileInput,
 
   /// Static copy with no value of its own.
   label,

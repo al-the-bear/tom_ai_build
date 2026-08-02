@@ -154,6 +154,14 @@ class CustomerEditForm {
   @CsValidation(rules: 'required, pattern:^[A-Z]{3}-')
   String? reference;
 
+  // CE-EL FileInput: the client half of a §5.13.1 file-reference column. Every
+  // per-kind extra — accepted content kinds, size cap, presentation, upload-on-
+  // pick — rides the `TomFormFileField` declaration, so the marker still carries
+  // nothing but the kind. The declared type is singular because cardinality is a
+  // KIND in this catalogue, not a flag (`codespecs_mapping.md` §5.18).
+  @CsElement(kind: CsElementKind.fileInput, note: 'signed contract PDF')
+  Object? contract;
+
   // CE-VA (`codespecs_mapping.md` §5.19): the two rule shapes differ by
   // SIGNATURE, not merely by scope. A field rule sees one value and nothing
   // else — which is what makes it composable into the per-field declaration
@@ -564,6 +572,47 @@ void main() {
       );
       expect(element.kind, CsElementKind.multiChoice);
       expect(element.note, 'tag picker');
+    });
+
+    test('the semantic-kind catalogue is closed at eleven kinds', () {
+      // The catalogue is CLOSED: a new semantic kind is a catalogue edit,
+      // reviewed as such, not a free-form attribute a specification can invent.
+      // Pinning the membership here is what makes that reviewable — an arm added
+      // without the §5.18 entry and its widget mapping fails this test rather
+      // than shipping as an unrealisable kind.
+      expect(CsElementKind.values, hasLength(11));
+
+      // The split is load-bearing: form members are declared inside a `@CsForm`
+      // and carry a value; standalone kinds are class-level declarations.
+      const formMembers = <CsElementKind>[
+        CsElementKind.textInput,
+        CsElementKind.number,
+        CsElementKind.toggle,
+        CsElementKind.dateInput,
+        CsElementKind.choice,
+        CsElementKind.multiChoice,
+        CsElementKind.fileInput,
+      ];
+      const standalone = <CsElementKind>[
+        CsElementKind.label,
+        CsElementKind.button,
+        CsElementKind.menuEntry,
+        CsElementKind.formHost,
+      ];
+      expect({...formMembers, ...standalone}, CsElementKind.values.toSet());
+    });
+
+    test('CsElement marks a file input with the kind alone', () {
+      // FileInput is the element that produces and presents a file reference —
+      // the client counterpart of a §5.13.1 CE-DB column. Its four extras all
+      // ride the `TomFormFileField` declaration, so the marker's surface is
+      // unchanged: no new annotation, one catalogue value (csrb8).
+      const element = CsElement(
+        kind: CsElementKind.fileInput,
+        note: 'signed contract PDF',
+      );
+      expect(element.kind, CsElementKind.fileInput);
+      expect(element.note, 'signed contract PDF');
     });
 
     test('CsLayout takes the node id as its first positional', () {

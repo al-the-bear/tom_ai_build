@@ -287,7 +287,8 @@ referenced by `Type` literal (`rootAggregate: Customer`), with no ref const, per
 **`CsElementRef` is the one qualifiable ref.** CE-EL's closed catalogue has both
 standalone kinds (*Button*, *MenuEntry*, *Label*, *FormHost*), which are
 class-level targets, and form-member kinds (*TextInput*, *Number*, *Toggle*,
-*DateInput*, *Choice*, *MultiChoice*), which are members of the `@CsForm` class.
+*DateInput*, *Choice*, *MultiChoice*, *FileInput*), which are members of the
+`@CsForm` class.
 One type covers both, carrying an optional `form` qualifier, because §5.1's
 `@CsTrigger` takes a `CsElementRef` in **both** its element and its form-field
 slot — two types could not fill one parameter. Its N9 const-string form is the
@@ -605,7 +606,7 @@ unit, which is why they share a slice rather than an order.
 |-------|----------|
 | **1 Input** | `ScreenElementEntry` (`SCREL`), `UiComponentEntry` (`UICOMENT`), `ComponentVariantEntry` (`CVE`). Consumed (§5.18 field base): element id, semantic kind, value type; the N-marked rows (initial value, label/hint, validators, authorization, auto-validate) come from other parts and are **not** consumed here. |
 | **2 Output** | A **standalone element declaration** built on the `Tom*` element family through `TomScreenElementsProvider` (`tom_flutter_ui`), form 1. The element id rides `TomField.tomId` (test **b**). Elements that are *members of a form* are emitted by CE-FM instead (§5.7.2): `@CsElement` proper covers standalone elements. |
-| **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, label, button, menuEntry, formHost}` — §5.18's closed ten-kind catalogue. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here. |
+| **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost}` — §5.18's closed eleven-kind catalogue. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, `allowedExtensions`, `maxSizeBytes`, `pickKind`, `autoUpload`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here — `fileInput`'s `presentation` included, since like `button`'s `variant` it selects the concrete (`TomFormFileUpload` / `TomFormFileDropzone`) rather than configuring one. |
 | **4 Naming** | camelCase of `SCREL`'s element-id field. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsMessageKey` for catalogued label/hint copy; `CsResourceKeyRef` via its field-level `@CsAuthorize`. Its **action edge is a derived back-reference** (§5.18) — read off the triggers, never authored here. Emits `CsElementRef` (§2.6). |
@@ -1072,7 +1073,7 @@ every closed catalogue a marker selects from is declared locally, mirroring its
 | `CsErrorSeverity` | `info, warning, error, fatal` | `TomErrorSeverity` |
 | `CsTextRole` | `error, notification, email, report, generic` | §5.21 |
 | `CsTextCategory` | `uiCopy, errorCopy` | §5.21 |
-| `CsElementKind` | `textInput, number, toggle, dateInput, choice, multiChoice, label, button, menuEntry, formHost` | §5.18's ten-kind catalogue |
+| `CsElementKind` | `textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost` | §5.18's eleven-kind catalogue |
 | `CsGesture` | `tap, press, longPress` | §5.20 |
 | `CsFormEvent` | `fieldChange, submit, validationPass, validationFail` | §5.20 |
 | `CsLifecycleScope` | `screen, route, app` | §5.20, §5.4 |

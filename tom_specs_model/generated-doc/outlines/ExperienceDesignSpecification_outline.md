@@ -47,7 +47,7 @@
                   execution, navigation
               - fieldSpec: `ScreenElementFieldSpec`
                 - content @Form(fieldName, dataType, placeholderResource), formatting, numberOptions, dateOptions,
-                  textOptions, validation, selectOptions
+                  textOptions, validation, selectOptions, fileOptions
               - dataDisplay: `ScreenElementDataDisplay`
                 - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                   behavior, options
