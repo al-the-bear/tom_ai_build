@@ -324,6 +324,14 @@ Thirty-nine part markers plus one facet class, grouped by generation slice
 (§4.4.3). Slice 1–2 emit into `<app>_codespec_shared`, 3–4 and 7 into
 `<app>_codespec_server`, 5–6 into `<app>_codespec_client`.
 
+**Where an entry sits.** At the slice of the declaration its marker is attached
+to — not at the slice of every symbol the part emits. Two cases need the
+distinction. A marker may ride hosts in two slices (`@CsAudited`, over both the
+CE-DB write path and the CE-API handler); it is entered once, at the earlier, and
+its Locus point names the other. And a part may emit an unmarked half in a later
+slice (CE-NT delivery, CE-UP server persistence); that half has no marker, so it
+has no entry, and again the Locus point carries it.
+
 ### 3.1 Slice 1 — shared const catalogues
 
 Nothing here references another part; every `Cs*Ref` catalogue bottoms out in
@@ -453,9 +461,47 @@ Cites slice 1 only.
 | **6 Cross-refs** | `CsOperationRef` for the login operation. Consumes the §3.2.5 identity declaration by plain type. |
 | **7 Back-link** | `@DocSpec([DocRef('ATME', 'supplies the authentication method this binding realises')])`. |
 
+#### 3.2.8 `@CsNotification` — CE-NT notification type
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `NotificationModel` (`NM`) → `NTFTY` for types, `UNP` for user preferences. Consumed: which types exist, their urgency, their default channels, their body copy. |
+| **2 Output** | A `TomNotificationType` (`tom_core_codespecs` **gap class**) const, form 1 — e.g. `TomNotificationType(typeId: 'order.shipped', urgency: high, defaultChannelIds: ['email'])`. Delivery is `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` (`tom_core_server` `messaging`) and is pure reuse; the gap this marker names is *which types exist and how preferences narrow them*. |
+| **3 Arguments** | `body` (**required**) ← the body copy as a `CsMessageKey` — **never inline text**, and required because a notification with no body is not a notification. Type id, urgency and default channels are all `TomNotificationType`'s own constructor parameters (test **b**), and `TomNotificationPreferences` / `TomNotificationCatalog` carry the preference narrowing. |
+| **4 Naming** | camelCase of `NTFTY`'s type-id field (N5: `order.shipped` → `orderShipped`). |
+| **5 Locus** | **Declaration `shared`**, this slice — the client renders the preference UI against the same catalogue the server dispatches from. **Delivery is `server` at slice 4**: channel routing and the outbox emit no marked declaration of their own, so they have no entry here, and they sit in 4 rather than 7 because the service units that raise a notification cite them. |
+| **6 Cross-refs** | `CsMessageKey` (body) — the only slice-1 citation, which is why this entry sits in slice 2 with the rest of the shared contract. Channels are cited by `channelId` **string**, per §3.2.9. |
+| **7 Back-link** | `@DocSpec([DocRef('NTFTY', 'supplies the notification type, its urgency and its default channels')])`, plus `UNP` where preferences narrow it. |
+
+#### 3.2.9 `@CsNotificationChannel` — CE-NT channel
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `NotificationModel` (`NM`) → `NTFCH`. Consumed: which delivery routes the deployment declares. |
+| **2 Output** | A `TomNotificationChannelDeclaration` (`tom_core_codespecs` **gap class**) const, form 1. Kept separate from §3.2.8 because the two are authored independently: the channel catalogue is a property of the *deployment*, the type catalogue a property of the *domain*. |
+| **3 Arguments** | None; `@CsNotificationChannel({String? note})` unchanged. `channelId` rides the gap class's constructor (test **b**) and is the name of a `TomMessageChannel` — an **open** named value, so a deployment can declare a channel the framework never anticipated. That openness is also why no `CsChannelRef` type exists and why a type references channels by id string. |
+| **4 Naming** | camelCase of the channel id. |
+| **5 Locus** | Declaration `shared`, delivery `server` at slice 4 (as §3.2.8). |
+| **6 Cross-refs** | None typed — and the channel's **fallback edge** is the one place that costs something: it is an id string with no ref type in §5.23's closed set, so the compiler cannot check that it resolves. What the edge points at is itself undecided (`codespecs_mapping.md` §10, `csrb16`). |
+| **7 Back-link** | `@DocSpec([DocRef('NTFCH', 'supplies the delivery channel this declaration registers')])`. |
+
+#### 3.2.10 `@CsReportParameter` — CE-RP runtime parameter
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | The parameter subsections of `ReportEntry` (`REPENT`). Consumed: the parameter's type, bound and presentation. |
+| **2 Output** | A `TomReportParameter` member, form 1. Distinct from a CE-DB row filter authored into the query — a parameter is **supplied per execution**, so it is part of the report's request shape; and distinct from a CE-FM field for the same reason a report column is: a form field belongs to a form the user submits, a parameter to the report's own request contract. |
+| **3 Arguments** | None; unchanged. Type, bound and presentation are `TomReportParameter`'s parameters (test **b**). |
+| **4 Naming** | camelCase of the parameter-name field. |
+| **5 Locus** | **`shared`** — the parameter shape crosses to the client with the result envelope, even though the definition stays server-side at slice 3 (§3.3.8). It is emitted here, with the `TomReportResult` envelope that carries it, because both travel as a CE-API response DTO. |
+| **6 Cross-refs** | `CsMessageKey` (its label); domain enums by plain type. |
+| **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the runtime parameter and its bound')])`. |
+
 ### 3.3 Slice 3 — server persistence & configuration
 
-Cites slice 1 (domain enums, `CsResourceKeyRef`). Never cites the client.
+Cites slice 1 (domain enums, `CsResourceKeyRef`) and slice 2 — the report
+definition's result envelope and parameter shapes are emitted there (§3.2.10).
+Never cites the client.
 
 #### 3.3.1 `@CsTable` — CE-DB entity
 
@@ -529,9 +575,60 @@ Cites slice 1 (domain enums, `CsResourceKeyRef`). Never cites the client.
 | **6 Cross-refs** | None typed. Log format, storage, protection and retention land here rather than on CE-LG — they are sink deployment settings. The compliance *report* lands on neither: reviewing and reporting from the log is a follow-up process, not generated code (`codespecs_mapping.md` §4.3.2). |
 | **7 Back-link** | `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. |
 
+#### 3.3.7 `@CsAudited` — CE-LG audited element
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | The `SecurityEventsDefinition` (`SEEVDE`) band under `AuditAndLogging` (`AUANLO`): `SecurityEventLoggingPolicy` (`SELP`), the four per-category event policies, and `SecurityEventEntry` (`SEVT`). Consumed: which invocations are auditable, whether reads count, which fields must never appear. The sibling `AuditLogFormat` (`AULOFO`) band is **not** an input here — it is CE-CF (§3.3.6). |
+| **2 Output** | **No declaration of its own** — a marker on an entity or endpoint, carrying the framework's own `@TomAudited(enabled:, includeReads:, redact:)` beside it. Pure reuse of `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAuditSink`); recording happens automatically at two chokepoints no handler can opt out of — `TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s write path. |
+| **3 Arguments** | None; `@CsAudited({String? note})` unchanged. The three authored decisions are **exactly** `@TomAudited`'s three parameters (test **b**) — the same pattern CE-SU uses with `@tomService`. Retention and log format are **not** CE-LG: they are sink deployment settings and belong to `@CsServerConfig` (§3.3.6). The compliance report is not CodeSpecs at all — it is an ops/compliance follow-up. |
+| **4 Naming** | None — the marker rides an existing declaration. |
+| **5 Locus** | `server` — the trail is a server chokepoint. It emits in **two slices**, because it is annotation-only and a marker cannot precede the thing it marks: with the CE-DB write path here, and with the CE-API handler at slice 4. Entered once, at the earlier, per §3's placement rule. |
+| **6 Cross-refs** | None typed. Nothing outbound at all, which is why the two-slice split costs no ordering. |
+| **7 Back-link** | Appended to the audited element's own `@DocSpec`: `DocRef('SEVT', 'marks this element auditable and fixes its redaction set')`. |
+
+#### 3.3.8 `@CsReport` — CE-RP report definition
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `ReportEntry` (`REPENT`) under the `ReportDefinitions` (`REDF`) projection root. Consumed: §5.28's 22-row attribute surface — the grouped projection, dimension by dimension and measure by measure. |
+| **2 Output** | A `TomReportDefinition` with `TomReportDimension` / `TomReportMeasure` members (`tom_core_codespecs` **gap classes**), form 1. Query execution (`TomGroupedSelect`, `TomAggregate`) and rendering (`TomTabularResult` + its CSV / XLSX / PDF renderers) are pure `tom_core_server` reuse. CE-RP is a part and **not** a composition of CE-API + CE-DB + CE-FM: none of those can hold a dimension or a measure. |
+| **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. §5.28's three generation-time consistency checks are validator checks, not arguments. |
+| **4 Naming** | PascalCase of `REPENT`'s report-name field + `Report`. |
+| **5 Locus** | **Definition `server`**, this slice — that is where the report runs, and it sits with CE-DB because it is a declaration *over* the persistence model rather than server behaviour. **Result envelope and parameter shapes are `shared` at slice 2** (§3.2.10). Emitting the definition here also puts it ahead of both its citers: the slice-4 endpoint that returns it and the slice-7 job that schedules it. |
+| **6 Cross-refs** | Emits `CsReportRef` — and CE-JB is its **only** citer, since the ref is server-owned. Every label is a `CsMessageKey`, never inline text. Its own four outbound targets — source entity, schedule job, authorization key, drill-through route — are **plain id strings** on the gap class, because `tom_core_codespecs` declares no dependencies and so can never hold a `Cs*Ref`. The drill-through is settled that way permanently (§5.23 bars a server definition from a client-owned route ref); the other three are open (`codespecs_mapping.md` §10, `csrc3`). |
+| **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the grouped projection this report defines')])`. |
+
+#### 3.3.9 `@CsReportColumn` — CE-RP output column
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `ReportColumnEntry` (`REPCOLENT`). Consumed: which declared dimension or measure the column displays, its aggregate and its format. |
+| **2 Output** | A `TomReportColumn` member of the §3.3.8 definition, form 1. A column **displays** a declared dimension or measure and never introduces data of its own — which is why it names a source key rather than an entity column, and why it is not `@CsColumn` (a stored attribute, a different level entirely). |
+| **3 Arguments** | None; unchanged. Source key, aggregate and format are `TomReportColumn`'s parameters (test **b**). |
+| **4 Naming** | camelCase of `REPCOLENT`'s column-name field. |
+| **5 Locus** | `server` with its definition. The `TomReportColumn` *class* is also reachable from the shared `TomReportResult` envelope, but that is a gap-package type in `tom_core_codespecs` — which is not one of the three generated projects — so it fixes no locus for the authored declaration. |
+| **6 Cross-refs** | `CsMessageKey` (its label). Its drill-through target is an id string, per §3.3.8. |
+| **7 Back-link** | `@DocSpec([DocRef('REPCOLENT', 'supplies the projected column and its aggregate')])`. |
+
+#### 3.3.10 `@CsReportChart` — CE-RP chart
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | `ReportChartEntry` (`REPCHAENT`). Consumed: chart type, series, axes — the SOM carries all three as structured fields. |
+| **2 Output** | A `TomReportChart` member, form 1. **Declared here, rendered by whoever can:** the declaration is authored input, while rendering is implementation-owned — a client draws charts natively, and an export format that cannot express one **omits it rather than failing**. A chart plots columns the report already projects, so it never adds a second query. |
+| **3 Arguments** | None; unchanged. Type, series and axes are `TomReportChart`'s parameters (test **b**). |
+| **4 Naming** | camelCase of `REPCHAENT`'s chart-name field + `Chart`. |
+| **5 Locus** | `server` with its definition. |
+| **6 Cross-refs** | References the report's own columns by member, not by ref const — they are siblings in one declaration. |
+| **7 Back-link** | `@DocSpec([DocRef('REPCHAENT', 'supplies the chart type, series and axes')])`. |
+
 ### 3.4 Slice 4 — server behaviour
 
-Cites slices 1, 2 and 3.
+Cites slices 1, 2 and 3. CE-NT **delivery** — channel routing and the outbox —
+emits here too, but authors no marked declaration, so it has no entry of its own
+(§3.2.8); `@CsAudited` reappears here over the CE-API handler chokepoint
+(§3.3.7).
 
 #### 3.4.1 `@CsServiceUnit` — CE-SU service unit
 
@@ -768,18 +865,14 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 | **2 Output** | Two halves from one declaration. **Client:** the settings holder over `TomUserSettings` (`tom_core_codespecs`), reading `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). **Server:** the persistence, over `TomUserSettingsStore` (`tom_core_codespecs`) backed by the slice-3 repositories. Form 2 both sides. |
 | **3 Arguments** | `key` — **first positional, required**, verbatim. `overridableBy` (**required**, undefaulted) ← `USSET`'s opt-in; the only narrower scope it can name is `device`. Single-moded, for the same §11 reason as §3.6.4: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. |
 | **4 Naming** | Holder = `<App>UserSettings`; member = N5 over the key. Both halves use the **same** member names, so the wire mapping is identity. |
-| **5 Locus** | `client` for the shape (slice 6) **and** `server` for the persistence (slice 7) — the one part in this document whose two halves sit in different slices. |
+| **5 Locus** | `client` for the shape (slice 6) **and** `server` for the persistence (slice 7). The other parts whose halves are both marked declarations take **one entry per half** — CE-API at §3.2.1/§3.4.2, CE-AU at §3.2.7/§3.4.4/§3.5.10. This one contracts both in a single entry because both derive from one `USSET` declaration and the wire mapping between them is identity, so splitting the entry would state the same derivation twice. |
 | **6 Cross-refs** | Server half cites its store repository by `Type`. |
 | **7 Back-link** | `@DocSpec([DocRef('USSET', 'supplies the per-user setting key, type, default and overridability')])` on both halves. |
 
 ### 3.7 Slice 7 — server operational
 
-Cites slices 3 and 4.
-
-> **Slice-table gap.** §4.4.3 lists slice 7 as "CE-UP server-side persistence;
-> CE-JB", but §4.2 also places **CE-LG, CE-NT delivery and CE-RP definitions** in
-> the server project, and no slice claims them. They are contracted here by locus;
-> §4.4.3 needs the corresponding rows — tracked as `csrb14`.
+Cites slices 3 and 4. One entry: CE-UP's server persistence is the other half of
+this slice, contracted with its client shape at §3.6.5.
 
 #### 3.7.1 `@CsJob` — CE-JB background job
 
@@ -792,90 +885,6 @@ Cites slices 3 and 4.
 | **5 Locus** | `server` — work that runs *off* the request thread is the axis separating CE-JB from CE-API. |
 | **6 Cross-refs** | Emits `CsJobRef`. Cites `CsServiceUnitRef` — **derived** from `SCJOB.primaryDataEntity` per the §5.17 rule, never hand-listed — plus `CsReportRef` (`SCJOB-WORK.targetReports`), `CsMessageKey`, and its target entities by `Type` (`SCJOB-WORK.readEntities` / `writtenEntities`) — typed const refs, never strings (§5.29). `TomJobDeclaration.targetRefs` is still `List<String>` and does not yet honour that; tracked as `csrc1`. |
 | **7 Back-link** | `@DocSpec([DocRef('SCJOB', 'supplies the job, its trigger and its target set'), DocRef('BJME', 'supplies the execution defaults this job inherits or overrides')])`. |
-
-#### 3.7.2 `@CsAudited` — CE-LG audited element
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | The `SecurityEventsDefinition` (`SEEVDE`) band under `AuditAndLogging` (`AUANLO`): `SecurityEventLoggingPolicy` (`SELP`), the four per-category event policies, and `SecurityEventEntry` (`SEVT`). Consumed: which invocations are auditable, whether reads count, which fields must never appear. The sibling `AuditLogFormat` (`AULOFO`) band is **not** an input here — it is CE-CF (§3.3.6). |
-| **2 Output** | **No declaration of its own** — a marker on an entity or endpoint, carrying the framework's own `@TomAudited(enabled:, includeReads:, redact:)` beside it. Pure reuse of `tom_core_server`'s `audit` module (`TomAuditTrail` / `TomAuditRecord` / `TomAuditSink`); recording happens automatically at two chokepoints no handler can opt out of — `TomEndpointHandler.handleMethodCall` and `TomSqlDatasourceRepository`'s write path. |
-| **3 Arguments** | None; `@CsAudited({String? note})` unchanged. The three authored decisions are **exactly** `@TomAudited`'s three parameters (test **b**) — the same pattern CE-SU uses with `@tomService`. Retention and log format are **not** CE-LG: they are sink deployment settings and belong to `@CsServerConfig` (§3.3.6). The compliance report is not CodeSpecs at all — it is an ops/compliance follow-up. |
-| **4 Naming** | None — the marker rides an existing declaration. |
-| **5 Locus** | `server` — the trail is a server chokepoint. |
-| **6 Cross-refs** | None typed. |
-| **7 Back-link** | Appended to the audited element's own `@DocSpec`: `DocRef('SEVT', 'marks this element auditable and fixes its redaction set')`. |
-
-#### 3.7.3 `@CsNotification` — CE-NT notification type
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | `NotificationModel` (`NM`) → `NTFTY` for types, `UNP` for user preferences. Consumed: which types exist, their urgency, their default channels, their body copy. |
-| **2 Output** | A `TomNotificationType` (`tom_core_codespecs` **gap class**) const, form 1 — e.g. `TomNotificationType(typeId: 'order.shipped', urgency: high, defaultChannelIds: ['email'])`. Delivery is `TomMessage` / `TomMessageRouter` / `TomMessageOutbox` (`tom_core_server` `messaging`) and is pure reuse; the gap this marker names is *which types exist and how preferences narrow them*. |
-| **3 Arguments** | `body` (**required**) ← the body copy as a `CsMessageKey` — **never inline text**, and required because a notification with no body is not a notification. Type id, urgency and default channels are all `TomNotificationType`'s own constructor parameters (test **b**), and `TomNotificationPreferences` / `TomNotificationCatalog` carry the preference narrowing. |
-| **4 Naming** | camelCase of `NTFTY`'s type-id field (N5: `order.shipped` → `orderShipped`). |
-| **5 Locus** | **Declaration `shared`** — the client renders the preference UI against the same catalogue the server dispatches from; **delivery `server`**, the half that never reaches the client. |
-| **6 Cross-refs** | `CsMessageKey` (body). Channels are cited by `channelId` **string**, per §3.7.4. |
-| **7 Back-link** | `@DocSpec([DocRef('NTFTY', 'supplies the notification type, its urgency and its default channels')])`, plus `UNP` where preferences narrow it. |
-
-#### 3.7.4 `@CsNotificationChannel` — CE-NT channel
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | `NotificationModel` (`NM`) → `NTFCH`. Consumed: which delivery routes the deployment declares. |
-| **2 Output** | A `TomNotificationChannelDeclaration` (`tom_core_codespecs` **gap class**) const, form 1. Kept separate from §3.7.3 because the two are authored independently: the channel catalogue is a property of the *deployment*, the type catalogue a property of the *domain*. |
-| **3 Arguments** | None; `@CsNotificationChannel({String? note})` unchanged. `channelId` rides the gap class's constructor (test **b**) and is the name of a `TomMessageChannel` — an **open** named value, so a deployment can declare a channel the framework never anticipated. That openness is also why no `CsChannelRef` type exists and why a type references channels by id string. |
-| **4 Naming** | camelCase of the channel id. |
-| **5 Locus** | Declaration `shared`, delivery `server` (as §3.7.3). |
-| **6 Cross-refs** | None outbound. |
-| **7 Back-link** | `@DocSpec([DocRef('NTFCH', 'supplies the delivery channel this declaration registers')])`. |
-
-#### 3.7.5 `@CsReport` — CE-RP report definition
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | `ReportEntry` (`REPENT`) under the `ReportDefinitions` (`REDF`) projection root. Consumed: §5.28's 22-row attribute surface — the grouped projection, dimension by dimension and measure by measure. |
-| **2 Output** | A `TomReportDefinition` with `TomReportDimension` / `TomReportMeasure` members (`tom_core_codespecs` **gap classes**), form 1. Query execution (`TomGroupedSelect`, `TomAggregate`) and rendering (`TomTabularResult` + its CSV / XLSX / PDF renderers) are pure `tom_core_server` reuse. CE-RP is a part and **not** a composition of CE-API + CE-DB + CE-FM: none of those can hold a dimension or a measure. |
-| **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. §5.28's three generation-time consistency checks are validator checks, not arguments. |
-| **4 Naming** | PascalCase of `REPENT`'s report-name field + `Report`. |
-| **5 Locus** | **Definition `server`** (that is where the report runs); **result envelope and parameter shapes `shared`** (the client renders a report, the server exports it). |
-| **6 Cross-refs** | Emits `CsReportRef`. Cites entities by `Type`, every label by `CsMessageKey` — never inline text. |
-| **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the grouped projection this report defines')])`. |
-
-#### 3.7.6 `@CsReportColumn` — CE-RP output column
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | `ReportColumnEntry` (`REPCOLENT`). Consumed: which declared dimension or measure the column displays, its aggregate and its format. |
-| **2 Output** | A `TomReportColumn` member of the §3.7.5 definition, form 1. A column **displays** a declared dimension or measure and never introduces data of its own — which is why it names a source key rather than an entity column, and why it is not `@CsColumn` (a stored attribute, a different level entirely). |
-| **3 Arguments** | None; unchanged. Source key, aggregate and format are `TomReportColumn`'s parameters (test **b**). |
-| **4 Naming** | camelCase of `REPCOLENT`'s column-name field. |
-| **5 Locus** | `server` with its definition. |
-| **6 Cross-refs** | `CsMessageKey` (its label). |
-| **7 Back-link** | `@DocSpec([DocRef('REPCOLENT', 'supplies the projected column and its aggregate')])`. |
-
-#### 3.7.7 `@CsReportChart` — CE-RP chart
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | `ReportChartEntry` (`REPCHAENT`). Consumed: chart type, series, axes — the SOM carries all three as structured fields. |
-| **2 Output** | A `TomReportChart` member, form 1. **Declared here, rendered by whoever can:** the declaration is authored input, while rendering is implementation-owned — a client draws charts natively, and an export format that cannot express one **omits it rather than failing**. A chart plots columns the report already projects, so it never adds a second query. |
-| **3 Arguments** | None; unchanged. Type, series and axes are `TomReportChart`'s parameters (test **b**). |
-| **4 Naming** | camelCase of `REPCHAENT`'s chart-name field + `Chart`. |
-| **5 Locus** | `server` with its definition. |
-| **6 Cross-refs** | References the report's own columns by member, not by ref const — they are siblings in one declaration. |
-| **7 Back-link** | `@DocSpec([DocRef('REPCHAENT', 'supplies the chart type, series and axes')])`. |
-
-#### 3.7.8 `@CsReportParameter` — CE-RP runtime parameter
-
-| Point | Contract |
-|-------|----------|
-| **1 Input** | The parameter subsections of `ReportEntry` (`REPENT`). Consumed: the parameter's type, bound and presentation. |
-| **2 Output** | A `TomReportParameter` member, form 1. Distinct from a CE-DB row filter authored into the query — a parameter is **supplied per execution**, so it is part of the report's request shape; and distinct from a CE-FM field for the same reason a report column is: a form field belongs to a form the user submits, a parameter to the report's own request contract. |
-| **3 Arguments** | None; unchanged. Type, bound and presentation are `TomReportParameter`'s parameters (test **b**). |
-| **4 Naming** | camelCase of the parameter-name field. |
-| **5 Locus** | **`shared`** — the parameter shape crosses to the client with the result envelope, even though the definition stays server-side. |
-| **6 Cross-refs** | `CsMessageKey` (its label); domain enums by plain type. |
-| **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the runtime parameter and its bound')])`. |
 
 ---
 
