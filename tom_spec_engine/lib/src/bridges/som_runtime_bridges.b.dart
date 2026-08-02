@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 19 files
-// Generated: 2026-07-28T21:27:22.100486
+// Generated: 2026-08-02T13:20:06.102324
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -2601,7 +2601,10 @@ BridgedClass _createSomFormFieldMetaBridge() {
         final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
-        return $tom_som_dart_runtime_8.SomFormFieldMeta(name: name, typeName: typeName, description: description, required: required, hint: hint, order: order, enumValues: enumValues);
+        final refersTo = named.containsKey('refersTo') && named['refersTo'] != null
+            ? D4.coerceList<String>(named['refersTo'], 'refersTo')
+            : const <String>[];
+        return $tom_som_dart_runtime_8.SomFormFieldMeta(name: name, typeName: typeName, description: description, required: required, hint: hint, order: order, enumValues: enumValues, refersTo: refersTo);
       },
     },
     getters: {
@@ -2612,9 +2615,10 @@ BridgedClass _createSomFormFieldMetaBridge() {
       'hint': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SomFormFieldMeta>(target, 'SomFormFieldMeta').hint,
       'order': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SomFormFieldMeta>(target, 'SomFormFieldMeta').order,
       'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SomFormFieldMeta>(target, 'SomFormFieldMeta').enumValues,
+      'refersTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_8.SomFormFieldMeta>(target, 'SomFormFieldMeta').refersTo,
     },
     constructorSignatures: {
-      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const []})',
+      '': 'const SomFormFieldMeta({required String name, required String typeName, String? description, bool required = false, String? hint, required int order, List<String> enumValues = const [], List<String> refersTo = const []})',
     },
     getterSignatures: {
       'name': 'String get name',
@@ -2624,6 +2628,7 @@ BridgedClass _createSomFormFieldMetaBridge() {
       'hint': 'String? get hint',
       'order': 'int get order',
       'enumValues': 'List<String> get enumValues',
+      'refersTo': 'List<String> get refersTo',
     },
   );
 }
@@ -3089,7 +3094,10 @@ BridgedClass _createFormFieldSpecBridge() {
         final enumValues = named.containsKey('enumValues') && named['enumValues'] != null
             ? D4.coerceList<String>(named['enumValues'], 'enumValues')
             : const <String>[];
-        return $tom_som_dart_runtime_11.FormFieldSpec(name: name, label: label, type: type, hint: hint, required: required, enumValues: enumValues);
+        final refersTo = named.containsKey('refersTo') && named['refersTo'] != null
+            ? D4.coerceList<String>(named['refersTo'], 'refersTo')
+            : const <String>[];
+        return $tom_som_dart_runtime_11.FormFieldSpec(name: name, label: label, type: type, hint: hint, required: required, enumValues: enumValues, refersTo: refersTo);
       },
       'fromJson': (visitor, positional, named) {
         D4.requireMinArgs(positional, 1, 'FormFieldSpec');
@@ -3107,9 +3115,10 @@ BridgedClass _createFormFieldSpecBridge() {
       'type': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.FormFieldSpec>(target, 'FormFieldSpec').type,
       'required': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.FormFieldSpec>(target, 'FormFieldSpec').required,
       'enumValues': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.FormFieldSpec>(target, 'FormFieldSpec').enumValues,
+      'refersTo': (visitor, target) => D4.validateTarget<$tom_som_dart_runtime_11.FormFieldSpec>(target, 'FormFieldSpec').refersTo,
     },
     constructorSignatures: {
-      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const []})',
+      '': 'FormFieldSpec({required String name, required String label, required String type, String? hint, bool required = false, List<String> enumValues = const [], List<String> refersTo = const []})',
       'fromJson': 'factory FormFieldSpec.fromJson(Map<String, dynamic> j)',
     },
     getterSignatures: {
@@ -3119,6 +3128,7 @@ BridgedClass _createFormFieldSpecBridge() {
       'type': 'String get type',
       'required': 'bool get required',
       'enumValues': 'List<String> get enumValues',
+      'refersTo': 'List<String> get refersTo',
     },
   );
 }

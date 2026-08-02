@@ -65,7 +65,7 @@ public final class GoldenLog {
     List<String> out = new ArrayList<>();
     out.add("# TomSpecs SOM golden log — canonical cross-language reading.");
     out.add("# All nine per-language generators must emit byte-identical output.");
-    out.add("FORMAT\t8");
+    out.add("FORMAT\t9");
     out.add("MODELVERSION\t" + esc(doc.modelVersion()));
 
     // Generic: content leaves, sorted by path.
@@ -229,14 +229,20 @@ public final class GoldenLog {
     // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
     // through the metadata tree — one MF line per field (declaration order) with
     // type/required plus the enumValues column (comma-joined constant names,
-    // empty for non-enum fields). Emitted for the FRE requirement form (no
-    // enums) and the ISO 25010 coverage form (an enum-typed field). All values
+    // empty for non-enum fields) and, since FORMAT 9 (csrb3), the refersTo
+    // column (comma-joined registry keys, empty for non-reference fields).
+    // Emitted for the FRE requirement form (no enums, no references), the ISO
+    // 25010 coverage form (an enum-typed field) and the screen-transition form
+    // (four reference fields, one of them naming two registries). All values
     // are model-derived. ---
     out.add("SECTION\tmeta-form");
     metaForm(out, metaTree,
         "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
     metaForm(out, metaTree,
         "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+    metaForm(out, metaTree,
+        "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
+            + "screenRouteMap/SCTREN-TRAN-LST");
 
     out.add("SECTION\tmeta-nav");
     metaNav(out, metaTree, TomSomV0Meta.D00SolutionBlueprintMeta, "SBP");
@@ -346,7 +352,8 @@ public final class GoldenLog {
   /**
    * Emits the MF field lines for a list-element content form resolved through
    * the metadata tree, including the enumValues column (comma-joined constant
-   * names, empty for non-enum fields).
+   * names, empty for non-enum fields) and the refersTo column (comma-joined
+   * registry keys, empty for non-reference fields).
    */
   static void metaForm(List<String> out, SomMetaTree metaTree, String listPath) {
     SomMetaNode listNode = metaTree.byPath(listPath);
@@ -371,7 +378,8 @@ public final class GoldenLog {
     for (SomFormFieldMeta f : form.fields) {
       out.add("MF\t" + formPath + "\t" + esc(f.name) + "\t" + esc(f.typeName) + "\t"
           + (f.required ? 1 : 0) + "\t"
-          + esc(String.join(",", f.enumValues)));
+          + esc(String.join(",", f.enumValues)) + "\t"
+          + esc(String.join(",", f.refersTo)));
     }
   }
 

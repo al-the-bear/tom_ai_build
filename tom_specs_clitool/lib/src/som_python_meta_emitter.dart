@@ -306,6 +306,8 @@ class SomPythonMetaEmitter {
           'order=$i',
           if (ff.enumValues.isNotEmpty)
             'enum_values=[${ff.enumValues.map(_str).join(', ')}]',
+          if (ff.refersTo.isNotEmpty)
+            'refers_to=[${ff.refersTo.map(_str).join(', ')}]',
         ];
         fields.add('SomFormFieldMeta(${ffArgs.join(', ')})');
       }

@@ -251,6 +251,7 @@ fn bridge_field_node(
                 required: ff.required,
                 hint: ff.hint.clone(),
                 enum_values: ff.enum_values.clone(),
+                refers_to: ff.refers_to.clone(),
                 order: i as i64,
             })
             .collect();

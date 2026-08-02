@@ -53,7 +53,7 @@ fn main() {
     let mut out: Vec<String> = Vec::new();
     out.push("# TomSpecs SOM golden log — canonical cross-language reading.".to_string());
     out.push("# All nine per-language generators must emit byte-identical output.".to_string());
-    out.push("FORMAT\t8".to_string());
+    out.push("FORMAT\t9".to_string());
     out.push(format!("MODELVERSION\t{}", esc(&doc.model_version)));
 
     // Generic: content leaves, sorted by path.
@@ -310,7 +310,8 @@ fn main() {
     // Generalized over any list path whose element content is a form: emit one
     // MF line per field (declaration order) with type/required and the
     // enumValues column (FORMAT 7, YRD7 — comma-joined constant names, empty
-    // for non-enum fields).
+    // for non-enum fields) and the refersTo column (FORMAT 9, csrb3 —
+    // comma-joined registry keys, empty for non-reference fields).
     let mut meta_form = |list_path: &str| {
         let element = tree
             .by_path(list_path)
@@ -335,17 +336,21 @@ fn main() {
         let form_path = format!("{}/#element/content", list_path);
         for f in &form.fields {
             out.push(format!(
-                "MF\t{}\t{}\t{}\t{}\t{}",
+                "MF\t{}\t{}\t{}\t{}\t{}\t{}",
                 form_path,
                 esc(&f.name),
                 esc(&f.type_name),
                 if f.required { 1 } else { 0 },
                 esc(&f.enum_values.join(",")),
+                esc(&f.refers_to.join(",")),
             ));
         }
     };
     meta_form("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
     meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+    meta_form(
+        "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST",
+    );
 
     // Dot-notation navigation: the typed accessor must resolve to the same path
     // and the same node instance as by_path.

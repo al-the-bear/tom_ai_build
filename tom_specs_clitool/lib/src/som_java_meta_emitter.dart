@@ -416,12 +416,17 @@ class SomJavaMetaEmitter {
         final head = 'new SomFormFieldMeta(${_str(ff.name)}, ${_str(ff.type)}, '
             '${_str(ff.label)}, ${ff.required ? 'true' : 'false'}, '
             '${ff.hint != null ? _str(ff.hint!) : 'null'}, ';
-        if (ff.enumValues.isNotEmpty) {
-          // Enum-typed fields use the constructor that carries the enum value
-          // domain.
-          final enums = ff.enumValues.map(_str).join(', ');
-          fields.add('$head$i, '
-              'java.util.List.of($enums))');
+        // Java has no named arguments, so the trailing list members are carried
+        // by overloads: the 6-arg form for a plain field, the 7-arg form for an
+        // enum-typed one (YRD7), and the 8-arg form once a reference target is
+        // present (csrb3) — which must then also pass the (possibly empty)
+        // enum domain positionally.
+        final enums = 'java.util.List.of(${ff.enumValues.map(_str).join(', ')})';
+        if (ff.refersTo.isNotEmpty) {
+          final refs = 'java.util.List.of(${ff.refersTo.map(_str).join(', ')})';
+          fields.add('$head$i, $enums, $refs)');
+        } else if (ff.enumValues.isNotEmpty) {
+          fields.add('$head$i, $enums)');
         } else {
           fields.add('$head$i)');
         }

@@ -97,6 +97,28 @@ its items take — so a consumer must read them as a pair rather than treating t
 pattern as a fallback for a missing id. See `ModelJsonExporter` for the exact
 per-kind shape.
 
+### `formFields[]` entry
+
+Present on `form`-kind fields only. Each entry always carries `name`, `label`
+(the declared description, else the field name split on PascalCase), `type` (the
+Dart type name) and `required`; `hint`, `enumValues` and `refersTo` are omitted
+when empty.
+
+`enumValues` lists the constant names when `type` is a model enum, so a runtime
+can validate and convert a value without the analyzer.
+
+`refersTo` states that the field's value is **an id drawn from another section's
+registry** rather than free text. It is a list of registry keys, each written
+`<SECTIONID>.<formFieldName>` — the section id of the registry *entry* class
+(never its list container) plus the form field on that entry which declares the
+id. The list form is a disjunction: a value is valid when it resolves in **any**
+one of the listed registries, which is how a field such as
+`SCTREN.outcomeReference` names both `SYERCOEN.errorCode` and `VMT.messageId`. A
+single field value may itself name several ids, written comma-separated; each
+part is resolved independently. Consumers use it for the instance-tier
+dangling-reference check — a reference whose target id is not declared anywhere
+in the document is reported rather than silently generating broken code.
+
 ## Validation contract
 
 `validateSpecModelMeta(Object? meta)` returns a list of human-readable error

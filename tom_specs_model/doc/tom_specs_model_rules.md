@@ -560,7 +560,52 @@ How to choose:
   by its field-level `…-REF` id whose value is the referenced section id, and is
   never followed in traversal.
 
-### 6.2 Form decomposition
+**`@Reference` is not the same thing as a reference-valued form field.**
+`@Reference` sits on a *Dart member whose type is a section class*: it is a
+structural edge between sections that the traversal deliberately does not
+follow. A reference-valued form field is a **form** field — a bare `String`
+inside a `@Form` — whose *value* is an id that some other section's registry
+declares. Different carrier, different value kind, so the two never overlap and
+neither replaces the other. The form field states its target with the `refersTo:`
+parameter on `Field` (§6.2); an ordinary `@Reference` needs no such parameter,
+because its target is its Dart type.
+
+### 6.2 Reference-valued form fields (`refersTo:`)
+
+A form field whose value is an id drawn from another section's registry declares
+that contract with `refersTo:` on `Field`:
+
+```dart
+Field('sourceRouteId', String, required: true, refersTo: ['SCRTEN.routeId']),
+Field('outcomeReference', String,
+    refersTo: ['SYERCOEN.errorCode', 'VMT.messageId']),
+```
+
+Rules:
+
+1. **A target is written `<SECTIONID>.<formFieldName>`.** The section id alone
+   says where to look but not what to compare against, so the qualified form is
+   required, not optional.
+2. **The section id names the registry *entry* class, never its `-LST`
+   container.** The entries declare the ids; the container merely holds them —
+   so the target is `MSGKE.key`, not `MSGKR.key`.
+3. **The list is a disjunction.** A value is valid when it resolves in *any*
+   listed registry — that is how `SCTREN.outcomeReference` can hold either a
+   system error code or a validation message id. A single field value that names
+   several ids writes them comma-separated; each part resolves independently.
+4. **The named form field must exist and must be `required`.** An optional id
+   cannot be a registry key, because entries could omit it.
+
+Both validation tiers read this one declaration. The **static** tier
+(`tom_specs_clitool/lib/src/validator.dart`) checks the class graph: the target
+section id exists, it is reachable, and it really does declare that form field
+as required. The **instance** tier (`tom_som_dart_runtime`'s document validator)
+checks a concrete document: every id a reference field holds is actually declared
+by some entry of one of the named registries, and reports a dangling id
+otherwise. `refersTo` is carried through the meta into all nine language
+runtimes, so a non-Dart host can run the instance-tier check too.
+
+### 6.3 Form decomposition
 
 `@Form` sections target **3–10 fields**. Larger forms are decomposed so the
 document stays readable:

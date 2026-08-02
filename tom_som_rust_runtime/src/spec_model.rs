@@ -65,6 +65,11 @@ pub struct FormFieldSpec {
     /// Enum constant names when the field's value type is an enum (FORMAT 6,
     /// YRD7), empty for non-enum fields.
     pub enum_values: Vec<String>,
+    /// The registry key(s) this field's value is an id drawn from, each
+    /// written `<SECTIONID>.<formFieldName>` (csrb3); empty for a field that
+    /// is not a reference. A value is valid when it resolves in ANY listed
+    /// registry; a reference naming several ids writes them comma-separated.
+    pub refers_to: Vec<String>,
 }
 
 /// A single field of a [`SpecClass`].
@@ -584,6 +589,14 @@ fn field_from_json(f: &Json) -> SpecField {
                     }
                 }
             }
+            let mut ff_refers_to = Vec::new();
+            if let Some(arr) = ff.get("refersTo").and_then(|v| v.as_array()) {
+                for v in arr {
+                    if let Some(s) = v.as_str() {
+                        ff_refers_to.push(s.to_string());
+                    }
+                }
+            }
             form_fields.push(FormFieldSpec {
                 name: fname,
                 label,
@@ -591,6 +604,7 @@ fn field_from_json(f: &Json) -> SpecField {
                 hint: ff.str_or("hint"),
                 required: ff.bool_or("required"),
                 enum_values: ff_enum_values,
+                refers_to: ff_refers_to,
             });
         }
     }

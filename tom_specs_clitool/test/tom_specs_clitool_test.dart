@@ -2332,4 +2332,157 @@ void main() {
       expect(oneOfErrors(classes), isEmpty);
     });
   });
+
+  group('unit: Field.refersTo cross-registry references (csrb3)', () {
+    // A registry: a list of `RouteEntry` items, each declaring `routeId` as a
+    // @Form field. `Linker` holds the reference field under test.
+    Map<String, ModelClass> model({
+      required List<String> refersTo,
+      String referenceTypeName = 'String',
+      Map<String, ModelClass> extra = const {},
+      List<ModelField> rootExtraFields = const [],
+    }) =>
+        {
+          'D00SolutionBlueprint': ModelClass(
+            name: 'D00SolutionBlueprint',
+            annotations: [
+              AnnotationData('Document', {}),
+              AnnotationData('SectionId', {'id': 'SBP00'}),
+            ],
+            fields: [
+              _listField('routes', 'RouteEntry', [
+                AnnotationData('SectionId', {'id': 'RT-LST'}),
+                AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
+              ]),
+              _field('linker', 'Linker'),
+              ...rootExtraFields,
+            ],
+          ),
+          'RouteEntry': ModelClass(
+            name: 'RouteEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            formFields: [
+              FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
+            ],
+          ),
+          'Linker': ModelClass(
+            name: 'Linker',
+            annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
+            formFields: [
+              FormFieldInfo(
+                name: 'target',
+                typeName: referenceTypeName,
+                refersTo: refersTo,
+              ),
+            ],
+          ),
+          ...extra,
+        };
+
+    List<String> refErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('refersTo'))
+            .toList();
+    List<String> refWarnings(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .warnings
+            .where((e) => e.contains('refersTo'))
+            .toList();
+
+    test('a resolvable target produces no errors or warnings', () {
+      final classes = model(refersTo: ['RTEN.routeId']);
+      expect(refErrors(classes), isEmpty);
+      expect(refWarnings(classes), isEmpty);
+    });
+
+    test('a bare section id is rejected — the target must be qualified', () {
+      final errs = refErrors(model(refersTo: ['RTEN']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('<SECTIONID>.<formFieldName>'));
+    });
+
+    test('an over-qualified target is rejected', () {
+      final errs = refErrors(model(refersTo: ['RTEN.content.routeId']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('<SECTIONID>.<formFieldName>'));
+    });
+
+    test('a target section id that no class carries is rejected', () {
+      final errs = refErrors(model(refersTo: ['GHOST.routeId']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains("no class carries @SectionId('GHOST')"));
+    });
+
+    test('an ambiguous section id is rejected', () {
+      final errs = refErrors(model(
+        refersTo: ['RTEN.routeId'],
+        extra: {
+          'OtherRouteEntry': ModelClass(
+            name: 'OtherRouteEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            formFields: [FormFieldInfo(name: 'routeId', typeName: 'String')],
+          ),
+        },
+      ));
+      expect(errs.any((e) => e.contains('ambiguous')), isTrue,
+          reason: errs.join('\n'));
+    });
+
+    test('a target class that declares no such @Form field is rejected', () {
+      final errs = refErrors(model(refersTo: ['RTEN.screenId']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('declares no @Form field "screenId"'));
+    });
+
+    test('a target that is not a repeated registry entry is rejected', () {
+      // `Linker` itself is a singleton form section, never a list element.
+      final errs = refErrors(model(refersTo: ['LNK.target']));
+      expect(errs.any((e) => e.contains('not a repeated registry entry')), isTrue,
+          reason: errs.join('\n'));
+    });
+
+    test('every target of a multi-target reference is checked', () {
+      final errs = refErrors(model(refersTo: ['RTEN.routeId', 'GHOST.screenId']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('GHOST'));
+    });
+
+    test('a non-String reference field is a warning, not an error', () {
+      final classes =
+          model(refersTo: ['RTEN.routeId'], referenceTypeName: 'int');
+      expect(refErrors(classes), isEmpty);
+      final warns = refWarnings(classes);
+      expect(warns, hasLength(1));
+      expect(warns.single, contains('String-valued'));
+    });
+
+    test('a field-level @Form carries references too (shape 2/3)', () {
+      final classes = model(refersTo: const [], extra: {
+        'Inline': ModelClass(
+          name: 'Inline',
+          annotations: [AnnotationData('SectionId', {'id': 'INL'})],
+          fields: [
+            ModelField(
+              name: 'content',
+              typeName: 'String?',
+              isNullable: true,
+              formFields: [
+                FormFieldInfo(
+                  name: 'target',
+                  typeName: 'String',
+                  refersTo: const ['GHOST.routeId'],
+                ),
+              ],
+            ),
+          ],
+        ),
+      }, rootExtraFields: [
+        _field('inline', 'Inline'),
+      ]);
+      final errs = refErrors(classes);
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('Inline.target'));
+    });
+  });
 }

@@ -9543,6 +9543,7 @@ class FieldValidationRule extends DocSpecsSection {
       hint:
           'The error code emitted on failure — reference into the error-code '
           'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
+      refersTo: ['ERCEN.code'],
     ),
     Field(
       'errorMessage',

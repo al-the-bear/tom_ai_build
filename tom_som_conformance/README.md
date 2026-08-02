@@ -40,12 +40,12 @@ LF-terminated, ASCII-path, and value-escaped so it compares byte-for-byte
 across languages regardless of their native string/collection types. The format
 is versioned by a `FORMAT <n>` marker and has grown additively — `FORMAT 3`
 added stored headlines (YRD3), `FORMAT 5` typed role fields (YRD6), `FORMAT 6`
-typed non-String form fields + the meta-form `enumValues` column (YRD7). **All
-nine generators are at FORMAT 6** and the harness is byte-identity green (YRE4
-propagated the `enumValues` meta capability to the eight non-Dart runtimes and
-lifted their generators). Each log carries these sections, all model-derived so
-the lines are byte-identical across languages even though the accessor *names*
-differ:
+typed non-String form fields, `FORMAT 7` the meta-form `enumValues` column
+(YRD7), `FORMAT 8` the stored `codeSpec` member, and `FORMAT 9` the meta-form
+`refersTo` column (csrb3). **All nine generators are at FORMAT 9** and the
+harness is byte-identity green. Each log carries these sections, all
+model-derived so the lines are byte-identical across languages even though the
+accessor *names* differ:
 
 | Section | Content |
 | ------- | ------- |
@@ -92,17 +92,22 @@ or trailing-newline difference is caught. On a mismatch it reports the first
 differing line against the Dart reference and exits non-zero. A green run proves
 all nine language APIs yield exactly the same reading of the same specification.
 
-#### Format convergence at FORMAT 6 (YRE4, closed)
+#### The nine generators move together
 
-The eight non-Dart generators once lagged the Dart reference by one revision
-(FORMAT 5 vs FORMAT 6). YRE4 closed that gap: the `enumValues` meta capability
-(`SomFormFieldMeta.enumValues`) was added to all eight `tom_som_<lang>_runtime`
-packages, the eight meta-emitters were taught to emit it, and the eight golden
-generators were lifted to FORMAT 6 (typed non-String form fields + the meta-form
-`enumValues` column). All nine logs are now byte-identical (~152 KB each), so a
-green `compare_golden.dart` run again proves every language API yields exactly
-the same reading of the same specification. Any mismatch today is a genuine
-regression, not a known lag.
+The nine generators are always at the **same** `FORMAT` revision — there is no
+tolerated lag. Raising the format is therefore one indivisible change: add the
+capability to all nine `tom_som_<lang>_runtime` packages, teach the nine
+meta-emitters to emit it, lift the nine golden generators, and re-run
+`regenerate_golden.sh` until the comparison is green again. Because all nine
+logs are byte-identical, any mismatch is a genuine regression rather than a
+known lag.
+
+The Dart generator is the reference: write the new column there first, verify
+its output, then mirror it verbatim into the other eight. A column that is empty
+for every field proves nothing, so a format bump also adds (or re-targets) a
+sample call that exercises the new column with real values — `FORMAT 9`
+introduced its third `metaForm` call on `SCTREN-TRAN-LST` for exactly that
+reason: four reference fields, one of them naming two registries.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 

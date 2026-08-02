@@ -81,6 +81,11 @@ pub struct SomFormFieldMeta {
     /// field, so editors and the generic modification API can validate and
     /// convert without generated code.
     pub enum_values: Vec<String>,
+    /// The registry key(s) this field's value is an *id drawn from*, each
+    /// written `<SECTIONID>.<formFieldName>` (csrb3); empty for a field that is
+    /// not a reference. A value is valid when it resolves in *any* listed
+    /// registry; a reference naming several ids writes them comma-separated.
+    pub refers_to: Vec<String>,
 }
 
 /// The form metadata of a `@Form` node (SOM §7.1 FormMeta).

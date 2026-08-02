@@ -1359,6 +1359,7 @@ class ScreenEntry extends DocSpecsSection {
       'Route Pattern',
       hint: 'Route ID (SCRTEN registry) this screen is reached by — the path '
           'itself is declared once in the screen route map',
+      refersTo: ['SCRTEN.routeId'],
     ),
   ])
   @SerializationOrder(1)
@@ -1461,6 +1462,7 @@ class ScreenEntry extends DocSpecsSection {
       String,
       'Page Title Resource',
       hint: 'Message key (MSGKR registry) for the screen title text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'pageIconResource',
@@ -1677,6 +1679,7 @@ class ScreenSectionEntry extends DocSpecsSection {
       String,
       'Title Resource',
       hint: 'Message key (MSGKR registry) for section header text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'borderStyle',
@@ -1801,18 +1804,21 @@ class ScreenElementEntry extends DocSpecsSection {
       String,
       'Label Resource',
       hint: 'Message key (MSGKR registry) for display label',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'hintResource',
       String,
       'Hint Resource',
       hint: 'Message key (MSGKR registry) for tooltip/helper text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'descriptionResource',
       String,
       'Description Resource',
       hint: 'Message key (MSGKR registry) for extended description',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'iconResource',
@@ -2073,18 +2079,21 @@ class ScreenElementAction extends DocSpecsSection {
       String,
       'Confirmation Message Resource',
       hint: 'Message key (MSGKR registry) for confirmation prompt',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'loadingLabelResource',
       String,
       'Loading Label Resource',
       hint: 'Message key (MSGKR registry) for label during async execution',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'successMessageResource',
       String,
       'Success Message Resource',
       hint: 'Message key (MSGKR registry) for success notification',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'errorHandling',
@@ -2111,6 +2120,7 @@ class ScreenElementAction extends DocSpecsSection {
       String,
       'Navigate To',
       hint: 'Target screen ID or route after action',
+      refersTo: ['SCREN.screenId', 'SCRTEN.routeId'],
     ),
     Field(
       'navigateParams',
@@ -2169,6 +2179,7 @@ class ScreenElementFieldSpec extends DocSpecsSection {
       String,
       'Placeholder Resource',
       hint: 'Message key (MSGKR registry) for placeholder text',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @override
@@ -2405,6 +2416,7 @@ class ScreenElementDataDisplay extends DocSpecsSection {
       String,
       'Empty State Message',
       hint: 'Message key (MSGKR registry) for message when no data',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'emptyStateIconResource',
@@ -2438,6 +2450,7 @@ class ScreenElementDataDisplay extends DocSpecsSection {
       String,
       'Drill-Down Target',
       hint: 'Screen ID navigated to on click/tap',
+      refersTo: ['SCREN.screenId'],
     ),
   ])
   @SerializationOrder(1)
@@ -2514,12 +2527,14 @@ class ElementValidationRuleEntry extends DocSpecsSection {
       hint:
           'The error code emitted on failure — reference into the error-code '
           'registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX',
+      refersTo: ['ERCEN.code'],
     ),
     Field(
       'errorMessageResource',
       String,
       'Error Message Resource',
       hint: 'Message key (MSGKR registry) for validation error message',
+      refersTo: ['MSGKE.key'],
     ),
     Field('severity', String, 'Severity', hint: 'Error/Warning/Info'),
     Field(
@@ -2639,6 +2654,7 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Label Resource',
       hint: 'Message key (MSGKR registry) for button label',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'iconResource',
@@ -2715,6 +2731,7 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Confirmation Message',
       hint: 'Message key (MSGKR registry) for confirmation dialog',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'keyboardShortcut',
@@ -2729,12 +2746,14 @@ class ScreenActionEntry extends DocSpecsSection {
       hint: 'Route ID (SCRTEN registry) reached after the action succeeds — '
           'when the target depends on the outcome, declare the edges in the '
           'screen route map instead',
+      refersTo: ['SCRTEN.routeId'],
     ),
     Field(
       'successMessageResource',
       String,
       'Success Message',
       hint: 'Message key (MSGKR registry) for success notification',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @SerializationOrder(3)
@@ -2826,6 +2845,7 @@ class ScreenStateEntry extends DocSpecsSection {
       String,
       'Message Resource',
       hint: 'Message key (MSGKR registry) for state message',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'iconResource',
@@ -2844,6 +2864,7 @@ class ScreenStateEntry extends DocSpecsSection {
       String,
       'Primary Action Label',
       hint: 'Message key (MSGKR registry) for recovery action, e.g., Try Again',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'primaryActionTarget',
@@ -2856,6 +2877,7 @@ class ScreenStateEntry extends DocSpecsSection {
       String,
       'Secondary Action Label',
       hint: 'Message key (MSGKR registry) for alternative action',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @override
@@ -3247,6 +3269,7 @@ class ScreenRouteEntry extends DocSpecsSection {
       String,
       'Screen ID',
       hint: 'ID of the screen (SCREN registry) this route renders',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'routeParameters',
@@ -3290,6 +3313,7 @@ class FormScreenAssignmentEntry extends DocSpecsSection {
       'Route ID',
       required: true,
       hint: 'Route ID (SCRTEN registry) that hosts the form',
+      refersTo: ['SCRTEN.routeId'],
     ),
     Field(
       'presentationMode',
@@ -3328,6 +3352,7 @@ class ScreenTransitionEntry extends DocSpecsSection {
       'Source Route ID',
       required: true,
       hint: 'Route ID (SCRTEN registry) the user is on when the action runs',
+      refersTo: ['SCRTEN.routeId'],
     ),
     Field(
       'actionId',
@@ -3336,6 +3361,7 @@ class ScreenTransitionEntry extends DocSpecsSection {
       required: true,
       hint: 'ID of the triggering action (SCRAC registry) or of the screen '
           'element that raises it',
+      refersTo: ['SCRAC.actionId'],
     ),
     Field(
       'outcome',
@@ -3352,6 +3378,7 @@ class ScreenTransitionEntry extends DocSpecsSection {
       required: true,
       hint: 'Route ID (SCRTEN registry) reached for this outcome — name the '
           'source route itself when the user stays put',
+      refersTo: ['SCRTEN.routeId'],
     ),
     Field(
       'presentationMode',
@@ -3368,6 +3395,7 @@ class ScreenTransitionEntry extends DocSpecsSection {
       hint: 'For error, the system error code (SYERCOEN registry); for '
           'validationError, the validation message template (VMT registry) — '
           'empty for success',
+      refersTo: ['SYERCOEN.errorCode', 'VMT.messageId'],
     ),
   ])
   @override
@@ -3487,12 +3515,14 @@ class NavigationOverview extends DocSpecsSection {
       String,
       'Default Landing Screen',
       hint: 'Screen ID the user sees after login',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'unauthenticatedLanding',
       String,
       'Unauthenticated Landing',
       hint: 'Screen ID for unauthenticated users',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'navigationPersistence',
@@ -3607,6 +3637,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       'Label Resource',
       required: true,
       hint: 'Message key (MSGKR registry) for display label',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'groupIcon',
@@ -3619,6 +3650,7 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Description Resource',
       hint: 'Message key (MSGKR registry) for tooltip/subtitle',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @override
@@ -3774,6 +3806,7 @@ class NavigationItemEntry extends DocSpecsSection {
       'Label Resource',
       required: true,
       hint: 'Message key (MSGKR registry) for display label',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'targetRoute',
@@ -4326,6 +4359,7 @@ class TabItemEntry extends DocSpecsSection {
       'Label Resource',
       required: true,
       hint: 'Message key (MSGKR registry) for tab label',
+      refersTo: ['MSGKE.key'],
     ),
     Field('icon', String, 'Icon Resource', hint: 'Tab icon'),
     Field('displayOrder', int, 'Display Order', hint: 'Position in tab bar'),
@@ -4733,6 +4767,7 @@ Breadcrumbs, back navigation, related links.
       String,
       'Home Label Resource',
       hint: 'Message key (MSGKR registry) for home crumb',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'homeIcon',
@@ -5020,30 +5055,35 @@ class NavigationGuardEntry extends DocSpecsSection {
       String,
       'Applies To',
       hint: 'Route patterns or screen IDs this guard covers',
+      refersTo: ['SCRTEN.routeId', 'SCREN.screenId'],
     ),
     Field(
       'dialogTitleResource',
       String,
       'Dialog Title Resource',
       hint: 'Message key (MSGKR registry) for confirmation dialog title',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'dialogMessageResource',
       String,
       'Dialog Message Resource',
       hint: 'Message key (MSGKR registry) for confirmation dialog message',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'confirmActionResource',
       String,
       'Confirm Action Resource',
       hint: 'Message key (MSGKR registry) for confirm button, e.g., Discard',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'cancelActionResource',
       String,
       'Cancel Action Resource',
       hint: 'Message key (MSGKR registry) for cancel button, e.g., Stay',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @SerializationOrder(1)
@@ -9073,6 +9113,7 @@ class ValidationMessageTemplate extends DocSpecsSection {
           'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — '
           'the single author-once home for this validation copy and its '
           'locale variants',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @override
@@ -11885,6 +11926,7 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
       'Screen ID',
       required: true,
       hint: 'Unique identifier of the screen this rule applies to',
+      refersTo: ['SCREN.screenId'],
     ),
     Field(
       'screenName',
@@ -12582,6 +12624,7 @@ class FamilyComponentRef extends DocSpecsSection {
       'Component ID',
       required: true,
       hint: 'Identifier of the referenced component',
+      refersTo: ['CMPNT.componentId'],
     ),
     Field(
       'componentName',
@@ -13182,36 +13225,42 @@ class UiComponentEntry extends DocSpecsSection {
       String,
       'Label Resource',
       hint: 'Message key (MSGKR registry) for label text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'hintResource',
       String,
       'Hint Resource',
       hint: 'Message key (MSGKR registry) for hint text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'errorResource',
       String,
       'Error Resource',
       hint: 'Message key (MSGKR registry) for error messages',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'tooltipResource',
       String,
       'Tooltip Resource',
       hint: 'Message key (MSGKR registry) for tooltip text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'placeholderResource',
       String,
       'Placeholder Resource',
       hint: 'Message key (MSGKR registry) for placeholder text',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'ariaLabelResource',
       String,
       'ARIA Label Resource',
       hint: 'Message key (MSGKR registry) for the ARIA label',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'iconResource',

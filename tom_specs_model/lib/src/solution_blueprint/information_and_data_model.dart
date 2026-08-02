@@ -2635,6 +2635,7 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
       String,
       'Rule ID',
       hint: 'Reference to the business rule definition',
+      refersTo: ['BIRU.ruleId'],
     ),
     Field(
       'ruleName',
@@ -4626,6 +4627,7 @@ class DomainEnumValueEntry extends DocSpecsSection {
       'Copy Key',
       hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
           'for the display label (author copy once, reference here)',
+      refersTo: ['MSGKE.key'],
     ),
     Field(
       'description',
@@ -4757,6 +4759,7 @@ class ErrorCodeEntry extends DocSpecsSection {
       'Copy Key',
       hint: 'MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) '
           'for the default user-facing message (author copy once, reference here)',
+      refersTo: ['MSGKE.key'],
     ),
   ])
   @override
@@ -4877,6 +4880,7 @@ class ResultFieldDetailEntry extends DocSpecsSection {
       String,
       'Error Code',
       hint: 'Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code',
+      refersTo: ['ERCEN.code'],
     ),
     Field(
       'message',

@@ -57,7 +57,7 @@ void main(List<String> args) {
   final out = <String>[];
   out.add('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.add('# All nine per-language generators must emit byte-identical output.');
-  out.add('FORMAT\t8');
+  out.add('FORMAT\t9');
   out.add('MODELVERSION\t${esc(doc.modelVersion ?? '')}');
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -271,9 +271,12 @@ void main(List<String> args) {
   // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
   // through the metadata tree — one MF line per field (declaration order) with
   // type/required plus the enumValues column (comma-joined constant names,
-  // empty for non-enum fields). Emitted for the FRE requirement form (no
-  // enums) and the ISO 25010 coverage form (an enum-typed field). All values
-  // are model-derived. ---
+  // empty for non-enum fields) and, since FORMAT 9 (csrb3), the refersTo
+  // column (comma-joined registry keys, empty for non-reference fields).
+  // Emitted for the FRE requirement form (no enums, no references), the ISO
+  // 25010 coverage form (an enum-typed field) and the screen-transition form
+  // (four reference fields, one of them naming two registries). All values are
+  // model-derived. ---
   out.add('SECTION\tmeta-form');
   // Element subtrees have no static document path; use an ASCII marker
   // segment so the log path stays ASCII (mirrored verbatim per language).
@@ -292,13 +295,16 @@ void main(List<String> args) {
     final formPath = '$listPath/#element/content';
     for (final f in form.fields) {
       out.add('MF\t$formPath\t${esc(f.name)}\t${esc(f.typeName)}\t'
-          '${f.required ? 1 : 0}\t${esc(f.enumValues.join(','))}');
+          '${f.required ? 1 : 0}\t${esc(f.enumValues.join(','))}\t'
+          '${esc(f.refersTo.join(','))}');
     }
   }
 
   metaForm(
       'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
   metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
+  metaForm('SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/'
+      'screenRouteMap/SCTREN-TRAN-LST');
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance. The emitted line

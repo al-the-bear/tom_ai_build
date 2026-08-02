@@ -6713,7 +6713,7 @@ section-types:
     subsection-types:
       rsfde-fldd-lst:
         max-count: 1
-    description: "Result envelope — CE-ER canonical §7 success-or-error contract, shared."
+    description: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract."
   rucea:
     prefix: RUCEA
     format: rucea-form

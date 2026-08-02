@@ -79,6 +79,13 @@ class FormFieldSpec {
   /// without the analyzer.
   final List<String> enumValues;
 
+  /// The registry key(s) this field's value is an id drawn from, each written
+  /// `<SECTIONID>.<formFieldName>` (csrb3); empty for a non-reference field. A
+  /// reference field holds a free-text id that must already be declared by some
+  /// entry of the named registry, so a runtime can resolve it and report a
+  /// dangling id instead of generating broken code.
+  final List<String> refersTo;
+
   FormFieldSpec({
     required this.name,
     required this.label,
@@ -86,6 +93,7 @@ class FormFieldSpec {
     this.hint,
     this.required = false,
     this.enumValues = const [],
+    this.refersTo = const [],
   });
 
   factory FormFieldSpec.fromJson(Map<String, dynamic> j) => FormFieldSpec(
@@ -96,6 +104,9 @@ class FormFieldSpec {
         required: j['required'] as bool? ?? false,
         enumValues:
             (j['enumValues'] as List?)?.map((e) => e.toString()).toList() ??
+                const [],
+        refersTo:
+            (j['refersTo'] as List?)?.map((e) => e.toString()).toList() ??
                 const [],
       );
 }

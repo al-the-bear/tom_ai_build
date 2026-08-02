@@ -11140,6 +11140,7 @@ class RoleReferenceEntry extends DocSpecsSection {
       'Role Name',
       hint: 'Name of an existing authorization role being referenced',
       required: true,
+      refersTo: ['AZRO.roleName'],
     ),
   ])
   @override
@@ -11467,6 +11468,7 @@ class EntitlementReferenceEntry extends DocSpecsSection {
       'Entitlement Name',
       required: true,
       hint: 'Name of the entitlement.',
+      refersTo: ['ENT.entitlementName'],
     ),
     Field(
       'grantType',
@@ -11757,6 +11759,7 @@ class ResourceKeyReferenceEntry extends DocSpecsSection {
       'Resource Key',
       required: true,
       hint: 'Unique key of the referenced resource.',
+      refersTo: ['RESKEY.resourceKey'],
     ),
   ])
   @override

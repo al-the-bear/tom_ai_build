@@ -170,11 +170,29 @@ static void meta_node(const SomMetaTree *tree, SomStrList *out,
   free(headline);
 }
 
+/* Joins `len` strings with commas into one freshly allocated string ("" when
+ * empty). Both list-valued MF columns — enumValues and refersTo — are written
+ * this way, so the join lives here once. Caller frees. */
+static char *join_csv(char *const *items, size_t len) {
+  size_t joined_len = 0;
+  for (size_t j = 0; j < len; j++) {
+    joined_len += strlen(items[j]) + 1;
+  }
+  char *joined = malloc(joined_len + 1);
+  joined[0] = '\0';
+  for (size_t j = 0; j < len; j++) {
+    if (j > 0) strcat(joined, ",");
+    strcat(joined, items[j]);
+  }
+  return joined;
+}
+
 /* Emits the meta-form lines for any list path whose element content is a form:
- * one `MF` line per field (declaration order) with type/required and the
+ * one `MF` line per field (declaration order) with type/required, the
  * enumValues column (FORMAT 7, YRD7 — comma-joined constant names, empty for
- * non-enum fields). All values are model-derived, so the lines match across
- * every language. */
+ * non-enum fields) and the refersTo column (FORMAT 9, csrb3 — comma-joined
+ * registry keys, empty for non-reference fields). All values are
+ * model-derived, so the lines match across every language. */
 static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
                            const char *list_path) {
   const SomMetaNode *list_node = som_meta_tree_by_path(tree, list_path);
@@ -199,22 +217,17 @@ static void emit_meta_form(const SomMetaTree *tree, SomStrList *out,
     const SomFormFieldMeta *f = &form->fields[i];
     char *en = esc(f->name);
     char *et = esc(f->type_name);
-    /* Join the enum constant names with commas, then escape as one field. */
-    size_t joined_len = 0;
-    for (size_t j = 0; j < f->enum_values_len; j++) {
-      joined_len += strlen(f->enum_values[j]) + 1;
-    }
-    char *joined = malloc(joined_len + 1);
-    joined[0] = '\0';
-    for (size_t j = 0; j < f->enum_values_len; j++) {
-      if (j > 0) strcat(joined, ",");
-      strcat(joined, f->enum_values[j]);
-    }
-    char *ev = esc(joined);
-    som_strlist_push(out, fmt("MF\t%s\t%s\t%s\t%d\t%s", form_path, en, et,
-                              f->required ? 1 : 0, ev));
+    /* Both list columns: comma-join, then escape as one field. */
+    char *enum_joined = join_csv(f->enum_values, f->enum_values_len);
+    char *refs_joined = join_csv(f->refers_to, f->refers_to_len);
+    char *ev = esc(enum_joined);
+    char *rt = esc(refs_joined);
+    som_strlist_push(out, fmt("MF\t%s\t%s\t%s\t%d\t%s\t%s", form_path, en, et,
+                              f->required ? 1 : 0, ev, rt));
+    free(rt);
     free(ev);
-    free(joined);
+    free(refs_joined);
+    free(enum_joined);
     free(et);
     free(en);
   }
@@ -285,7 +298,7 @@ int main(int argc, char **argv) {
       "# TomSpecs SOM golden log — canonical cross-language reading.");
   som_strlist_push_copy(&out,
       "# All nine per-language generators must emit byte-identical output.");
-  som_strlist_push_copy(&out, "FORMAT\t8");
+  som_strlist_push_copy(&out, "FORMAT\t9");
   {
     const char *mv = doc->model_version != NULL ? doc->model_version : "";
     char *e = esc(mv);
@@ -582,15 +595,18 @@ int main(int argc, char **argv) {
   meta_node(meta_tree, &out, "SBP/requirements");
   meta_node(meta_tree, &out, "SBP/requirements/content");
 
-  /* --- Meta form fields (FORMAT 7, YRD7): the FRE list-element content form
-   * read through the metadata tree — one MF line per field (declaration
-   * order) with type/required plus the enumValues column. All values are
-   * model-derived. --- */
+  /* --- Meta form fields (FORMAT 7, YRD7): list-element content forms read
+   * through the metadata tree — one MF line per field (declaration order)
+   * with type/required plus the enumValues column and, since FORMAT 9
+   * (csrb3), the refersTo column. All values are model-derived. --- */
   som_strlist_push_copy(&out, "SECTION\tmeta-form");
   emit_meta_form(meta_tree, &out,
                  "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
   emit_meta_form(meta_tree, &out,
                  "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+  emit_meta_form(meta_tree, &out,
+                 "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
+                 "screenRouteMap/SCTREN-TRAN-LST");
 
   /* Dot-notation navigation: the typed nav accessors must resolve to exactly
    * the path byPath finds, and to the *same* node instance. */

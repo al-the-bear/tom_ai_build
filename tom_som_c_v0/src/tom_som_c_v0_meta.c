@@ -24979,6 +24979,9 @@ static void meta_build_business_rule_reference_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Reference to the business rule definition");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("BIRU.ruleId");
   n->form->fields[1].name = som_strdup("ruleName");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Rule Name");
@@ -36649,6 +36652,9 @@ static void meta_build_contextual_navigation_breadcrumbs(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for home crumb");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[6].name = som_strdup("homeIcon");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Home Icon Resource");
@@ -38819,7 +38825,7 @@ static void meta_build_d00_solution_blueprint_requirements(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 9;
   meta_set(&n->doc_comment, "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.");
-  meta_set(&n->class_doc_comment, "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed\nstays purely CodeSpecs-relevant.");
+  meta_set(&n->class_doc_comment, "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed\nstays purely CodeSpecs-relevant.");
 }
 static void meta_build_d00_solution_blueprint_solution_architecture_and_technology(SomMetaNode *n) {
   meta_set(&n->class_name, "SolutionArchitectureAndTechnology");
@@ -39401,8 +39407,8 @@ static void meta_build_d03_information_model_result_envelope(SomMetaNode *n) {
   meta_set(&n->type_name, "ResultEnvelope");
   n->has_serialization_order = 1;
   n->serialization_order = 16;
-  meta_set(&n->doc_comment, "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).");
-  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->doc_comment, "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home, realised by\ntom_core_kernel's `TomResult` (csmb5).");
+  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
 static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -39413,7 +39419,7 @@ static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n
   n->has_serialization_order = 1;
   n->serialization_order = 17;
   meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
@@ -40899,8 +40905,8 @@ static void meta_build_d13_code_specs_projection_result_envelope(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->comment, "locus: shared — CE-ER");
-  meta_set(&n->doc_comment, "Result envelope — CE-ER canonical §7 success-or-error contract, shared.");
-  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->doc_comment, "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).");
+  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
 static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -40912,7 +40918,7 @@ static void meta_build_d13_code_specs_projection_message_key_registry(SomMetaNod
   n->serialization_order = 5;
   meta_set(&n->comment, "locus: shared — CE-TX");
   meta_set(&n->doc_comment, "Message key registry — CE-TX author-copy-once keys, shared.");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_d13_code_specs_projection_notification_model(SomMetaNode *n) {
   meta_set(&n->class_name, "NotificationModel");
@@ -40962,7 +40968,7 @@ static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n) 
   n->serialization_order = 9;
   meta_set(&n->comment, "locus: server — CE-AZ");
   meta_set(&n->doc_comment, "Access control model — CE-AZ authorization/identity seed.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
 }
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
@@ -40987,7 +40993,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->serialization_order = 11;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
 }
 static void meta_build_dashboard_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DashboardEntry");
@@ -54634,7 +54640,7 @@ static void meta_build_document_control_reference_documents(SomMetaNode *n) {
   meta_set(&n->type_name, "ReferenceDocuments");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
-  meta_set(&n->doc_comment, "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). Re-homed here from\nthe former §3 `Administrative` wrapper in L34C-5: referenced documents are\nISO/IEC/IEEE 29148 §6 front matter and belong with document control.");
+  meta_set(&n->doc_comment, "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). They live here\nbecause referenced documents are ISO/IEC/IEEE 29148 §6 front matter and\nbelong with document control.");
   meta_set(&n->class_doc_comment, "Reference Documents.\n\nCatalog of all documents referenced by this project specification,\nincluding enterprise standards, technical guidelines, regulatory\nrequirements, and related project documentation.");
 }
 static void meta_build_document_header_content(SomMetaNode *n) {
@@ -55662,6 +55668,9 @@ static void meta_build_domain_enum_value_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("description");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Description");
@@ -56371,12 +56380,18 @@ static void meta_build_element_validation_rule_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ERCEN.code");
   n->form->fields[3].name = som_strdup("errorMessageResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Error Message Resource");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for validation error message");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[4].name = som_strdup("severity");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Severity");
@@ -57064,6 +57079,9 @@ static void meta_build_entitlement_reference_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Name of the entitlement.");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("ENT.entitlementName");
   n->form->fields[1].name = som_strdup("grantType");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Grant Type");
@@ -59051,6 +59069,9 @@ static void meta_build_error_code_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("MSGKE.key");
 }
 static void meta_build_error_code_registry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorCodeRegistry");
@@ -60732,7 +60753,7 @@ static void meta_build_experience_and_interface_design_experience_code_specs(Som
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
 }
 static void meta_build_experience_and_interface_design_design_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceDesignFollowUp");
@@ -60743,7 +60764,7 @@ static void meta_build_experience_and_interface_design_design_follow_up(SomMetaN
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "10.2. Experience Design — DOC follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.");
 }
 static void meta_build_experience_and_interface_design_localization_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceLocalizationFollowUp");
@@ -60754,7 +60775,7 @@ static void meta_build_experience_and_interface_design_localization_follow_up(So
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "10.3. Experience Localization — L10N follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.");
 }
 static void meta_build_experience_and_interface_design_authorization_compliance_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationComplianceFollowUp");
@@ -60765,7 +60786,7 @@ static void meta_build_experience_and_interface_design_authorization_compliance_
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "10.4. Authorization Compliance — CMP follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.");
 }
 static void meta_build_experience_code_specs_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceCodeSpecs");
@@ -63415,6 +63436,9 @@ static void meta_build_family_component_ref_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Identifier of the referenced component");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("CMPNT.componentId");
   n->form->fields[1].name = som_strdup("componentName");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Component Name");
@@ -65127,6 +65151,9 @@ static void meta_build_field_validation_rule_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("ERCEN.code");
   n->form->fields[3].name = som_strdup("errorMessage");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Error Message");
@@ -65736,6 +65763,9 @@ static void meta_build_form_screen_assignment_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Route ID (SCRTEN registry) that hosts the form");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("SCRTEN.routeId");
   n->form->fields[2].name = som_strdup("presentationMode");
   n->form->fields[2].type_name = som_strdup("ScreenPresentationMode");
   n->form->fields[2].description = som_strdup("Presentation Mode");
@@ -70684,7 +70714,7 @@ static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n
   n->has_serialization_order = 1;
   n->serialization_order = 7;
   meta_set(&n->doc_comment, "7.7. Result Envelope.");
-  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
+  meta_set(&n->class_doc_comment, "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.");
 }
 static void meta_build_information_and_data_model_message_key_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "MessageKeyRegistry");
@@ -70695,7 +70725,7 @@ static void meta_build_information_and_data_model_message_key_registry(SomMetaNo
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "7.8. Message Key Registry.");
-  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+  meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -86917,6 +86947,9 @@ static void meta_build_navigation_group_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("groupIcon");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Icon Resource");
@@ -86929,6 +86962,9 @@ static void meta_build_navigation_group_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for tooltip/subtitle");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
 }
 static void meta_build_navigation_group_entry_display(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationGroupEntry");
@@ -87130,30 +87166,46 @@ static void meta_build_navigation_guard_entry_dialog(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Route patterns or screen IDs this guard covers");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 2;
+  n->form->fields[0].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCRTEN.routeId");
+  n->form->fields[0].refers_to[1] = som_strdup("SCREN.screenId");
   n->form->fields[1].name = som_strdup("dialogTitleResource");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Dialog Title Resource");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog title");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("dialogMessageResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Dialog Message Resource");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog message");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("confirmActionResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Confirm Action Resource");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for confirm button, e.g., Discard");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[4].name = som_strdup("cancelActionResource");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Cancel Action Resource");
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for cancel button, e.g., Stay");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("MSGKE.key");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -87306,6 +87358,9 @@ static void meta_build_navigation_item_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("targetRoute");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Target Route");
@@ -87646,12 +87701,18 @@ static void meta_build_navigation_overview_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Screen ID the user sees after login");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[3].name = som_strdup("unauthenticatedLanding");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Unauthenticated Landing");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Screen ID for unauthenticated users");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[4].name = som_strdup("navigationPersistence");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Navigation Persistence");
@@ -106020,7 +106081,7 @@ static void meta_build_release_strategy_feature_flags(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"CI/CD — continuous delivery pipelines\",\"Twelve-Factor App — cloud-native ops\"],\"connotation\":\"Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.\"}", NULL);
   n->extra[1].annotation = som_strdup("CodeSpecKind");
-  n->extra[1].args = som_json_parse("{\"kinds\":[\"CodeSpecPart.serverConfiguration\"],\"note\":\"CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling.\"}", NULL);
+  n->extra[1].args = som_json_parse("{\"kinds\":[\"CodeSpecPart.serverConfiguration\"],\"note\":\"CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc codespecs_mapping.md §5.26). The deploy-from-release flag itself is deployment tooling.\"}", NULL);
 }
 static void meta_build_release_strategy_management(SomMetaNode *n) {
   meta_set(&n->class_name, "ReleaseStrategy");
@@ -110154,7 +110215,7 @@ static void meta_build_requirements_requirements_follow_up(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.");
-  meta_set(&n->class_doc_comment, "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)");
+  meta_set(&n->class_doc_comment, "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)");
 }
 static void meta_build_requirements_follow_up_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RequirementsFollowUp");
@@ -110644,6 +110705,9 @@ static void meta_build_resource_key_reference_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Unique key of the referenced resource.");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("RESKEY.resourceKey");
 }
 static void meta_build_resource_protection_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ResourceProtection");
@@ -111532,6 +111596,9 @@ static void meta_build_responsive_screen_rule_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Unique identifier of the screen this rule applies to");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[1].name = som_strdup("screenName");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Screen Name");
@@ -111650,6 +111717,9 @@ static void meta_build_result_field_detail_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("ERCEN.code");
   n->form->fields[2].name = som_strdup("message");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Default Message");
@@ -114463,6 +114533,9 @@ static void meta_build_role_reference_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Name of an existing authorization role being referenced");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
 }
 static void meta_build_rollback_strategy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "RollbackStrategy");
@@ -116926,6 +116999,9 @@ static void meta_build_screen_action_entry_visual(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for button label");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[1].name = som_strdup("iconResource");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Icon Resource");
@@ -117008,6 +117084,9 @@ static void meta_build_screen_action_entry_behavior(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation dialog");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("keyboardShortcut");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Keyboard Shortcut");
@@ -117020,12 +117099,18 @@ static void meta_build_screen_action_entry_behavior(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCRTEN.routeId");
   n->form->fields[4].name = som_strdup("successMessageResource");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Success Message");
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for success notification");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("MSGKE.key");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -117243,18 +117328,27 @@ static void meta_build_screen_element_action_execution(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for confirmation prompt");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("loadingLabelResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Loading Label Resource");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for label during async execution");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("successMessageResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Success Message Resource");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for success notification");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[4].name = som_strdup("errorHandling");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Error Handling");
@@ -117284,6 +117378,10 @@ static void meta_build_screen_element_action_navigation(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Target screen ID or route after action");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 2;
+  n->form->fields[0].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREN.screenId");
+  n->form->fields[0].refers_to[1] = som_strdup("SCRTEN.routeId");
   n->form->fields[1].name = som_strdup("navigateParams");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Navigate Params");
@@ -117329,6 +117427,9 @@ static void meta_build_screen_element_data_display_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for message when no data");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("emptyStateIconResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Empty State Icon");
@@ -117360,6 +117461,9 @@ static void meta_build_screen_element_data_display_behavior(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Screen ID navigated to on click/tap");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("SCREN.screenId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -117481,18 +117585,27 @@ static void meta_build_screen_element_entry_resources(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for display label");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[1].name = som_strdup("hintResource");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Hint Resource");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for tooltip/helper text");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("descriptionResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Description Resource");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for extended description");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("iconResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Icon Resource");
@@ -117782,6 +117895,9 @@ static void meta_build_screen_element_field_spec_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for placeholder text");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
 }
 static void meta_build_screen_element_field_spec_formatting(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementFieldSpec");
@@ -118096,6 +118212,9 @@ static void meta_build_screen_entry_classification(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("SCRTEN.routeId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -118207,6 +118326,9 @@ static void meta_build_screen_entry_presentation(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Message key (MSGKR registry) for the screen title text");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[1].name = som_strdup("pageIconResource");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Page Icon Resource");
@@ -118897,6 +119019,9 @@ static void meta_build_screen_route_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("ID of the screen (SCREN registry) this route renders");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCREN.screenId");
   n->form->fields[4].name = som_strdup("routeParameters");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Route Parameters");
@@ -119065,6 +119190,9 @@ static void meta_build_screen_section_entry_layout(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for section header text");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("borderStyle");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Border Style");
@@ -119199,6 +119327,9 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for state message");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("iconResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Icon Resource");
@@ -119217,6 +119348,9 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for recovery action, e.g., Try Again");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[6].name = som_strdup("primaryActionTarget");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Primary Action Target");
@@ -119229,6 +119363,9 @@ static void meta_build_screen_state_entry_content(SomMetaNode *n) {
   n->form->fields[7].required = 0;
   n->form->fields[7].hint = som_strdup("Message key (MSGKR registry) for alternative action");
   n->form->fields[7].order = 7;
+  n->form->fields[7].refers_to_len = 1;
+  n->form->fields[7].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[7].refers_to[0] = som_strdup("MSGKE.key");
 }
 static void meta_build_screen_states_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenStates");
@@ -119282,12 +119419,18 @@ static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Route ID (SCRTEN registry) the user is on when the action runs");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCRTEN.routeId");
   n->form->fields[1].name = som_strdup("actionId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Action ID");
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("ID of the triggering action (SCRAC registry) or of the screen element that raises it");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("SCRAC.actionId");
   n->form->fields[2].name = som_strdup("outcome");
   n->form->fields[2].type_name = som_strdup("ScreenFlowOutcome");
   n->form->fields[2].description = som_strdup("Outcome");
@@ -119305,6 +119448,9 @@ static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 1;
   n->form->fields[3].hint = som_strdup("Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("SCRTEN.routeId");
   n->form->fields[4].name = som_strdup("presentationMode");
   n->form->fields[4].type_name = som_strdup("ScreenPresentationMode");
   n->form->fields[4].description = som_strdup("Presentation Mode");
@@ -119321,6 +119467,10 @@ static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 2;
+  n->form->fields[5].refers_to = (char **)calloc(2, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("SYERCOEN.errorCode");
+  n->form->fields[5].refers_to[1] = som_strdup("VMT.messageId");
 }
 static void meta_build_screen_user_category_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenUserCategoryEntry");
@@ -119613,7 +119763,7 @@ static void meta_build_security_and_access_model_access_control(SomMetaNode *n) 
   n->has_serialization_order = 1;
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
 }
 static void meta_build_security_and_access_model_security_operations(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityOperationsFollowUp");
@@ -119624,7 +119774,7 @@ static void meta_build_security_and_access_model_security_operations(SomMetaNode
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "9.2. Security Operations — OPS follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.");
 }
 static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityComplianceFollowUp");
@@ -119635,7 +119785,7 @@ static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 3;
   meta_set(&n->doc_comment, "9.3. Compliance — CMP follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.");
 }
 static void meta_build_security_audit_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityAuditEntry");
@@ -125484,7 +125634,7 @@ static void meta_build_solution_architecture_and_technology_architecture_follow_
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Architecture / component-reuse DOC follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.");
+  meta_set(&n->class_doc_comment, "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (`codespecs_mapping.md` §8.3), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.");
 }
 static void meta_build_solution_architecture_follow_up_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SolutionArchitectureFollowUp");
@@ -129755,7 +129905,7 @@ static void meta_build_stakeholders_and_governance_stakeholder_register(SomMetaN
   n->has_serialization_order = 1;
   n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per stakeholder or group (STK-NNN).");
-  meta_set(&n->doc_comment, "Stakeholder register (§5 completeness addition).");
+  meta_set(&n->doc_comment, "Stakeholder register.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -136563,6 +136713,9 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for tab label");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("icon");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Icon Resource");
@@ -146456,36 +146609,54 @@ static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Message key (MSGKR registry) for label text");
   n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[2].name = som_strdup("hintResource");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Hint Resource");
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Message key (MSGKR registry) for hint text");
   n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[3].name = som_strdup("errorResource");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Error Resource");
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("Message key (MSGKR registry) for error messages");
   n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[4].name = som_strdup("tooltipResource");
   n->form->fields[4].type_name = som_strdup("String");
   n->form->fields[4].description = som_strdup("Tooltip Resource");
   n->form->fields[4].required = 0;
   n->form->fields[4].hint = som_strdup("Message key (MSGKR registry) for tooltip text");
   n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[5].name = som_strdup("placeholderResource");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Placeholder Resource");
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Message key (MSGKR registry) for placeholder text");
   n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[6].name = som_strdup("ariaLabelResource");
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("ARIA Label Resource");
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("Message key (MSGKR registry) for the ARIA label");
   n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("MSGKE.key");
   n->form->fields[7].name = som_strdup("iconResource");
   n->form->fields[7].type_name = som_strdup("String");
   n->form->fields[7].description = som_strdup("Icon Resource");
@@ -150753,6 +150924,9 @@ static void meta_build_validation_message_template_content(SomMetaNode *n) {
   n->form->fields[9].required = 0;
   n->form->fields[9].hint = som_strdup("MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants");
   n->form->fields[9].order = 9;
+  n->form->fields[9].refers_to_len = 1;
+  n->form->fields[9].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[9].refers_to[0] = som_strdup("MSGKE.key");
 }
 static void meta_build_value_proposition_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ValueProposition");
@@ -184655,8 +184829,8 @@ static SomMetaNode *meta_build_root_d00_solution_blueprint(void) {
   meta_set(&n->class_section_id, "SBP");
   n->kind = SOM_META_KIND_SECTION;
   meta_set(&n->type_name, "D00SolutionBlueprint");
-  meta_set(&n->doc_comment, "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).");
-  meta_set(&n->class_doc_comment, "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).");
+  meta_set(&n->doc_comment, "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.");
+  meta_set(&n->class_doc_comment, "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.");
   n->document = (SomDocMeta *)calloc(1, sizeof(SomDocMeta));
   n->document->name = som_strdup("Solution Blueprint");
   n->document->description = som_strdup("Comprehensive specification document covering all aspects of the system from current landscape through target operating model, information model, solution architecture, security, experience design, quality & acceptance, and delivery / transition planning.");

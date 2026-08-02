@@ -93,7 +93,7 @@ int main(int argc, char** argv) {
   out.push_back("# TomSpecs SOM golden log — canonical cross-language reading.");
   out.push_back(
       "# All nine per-language generators must emit byte-identical output.");
-  out.push_back("FORMAT\t8");
+  out.push_back("FORMAT\t9");
   out.push_back("MODELVERSION\t" + esc(doc.modelVersion));
 
   // --- Generic: every content leaf, sorted by path. ---
@@ -321,14 +321,26 @@ int main(int argc, char** argv) {
   metaNode("SBP/requirements");
   metaNode("SBP/requirements/content");
 
-  // --- Meta form fields (FORMAT 7, YRD7): the FRE list-element content form
-  // read through the metadata tree — one MF line per field (declaration
-  // order) with type/required plus the enumValues column. All values are
-  // model-derived. ---
+  // --- Meta form fields (FORMAT 7, YRD7): list-element content forms read
+  // through the metadata tree — one MF line per field (declaration order)
+  // with type/required plus the enumValues column and, since FORMAT 9
+  // (csrb3), the refersTo column. All values are model-derived. ---
   out.push_back("SECTION\tmeta-form");
+  // Comma-joins a list column ("" when empty); both list columns are written
+  // this way, so the join lives here once.
+  auto joinCsv = [](const std::vector<std::string>& items) {
+    std::string joined;
+    for (std::size_t j = 0; j < items.size(); j++) {
+      if (j > 0) joined += ",";
+      joined += items[j];
+    }
+    return joined;
+  };
   // Generalized over any list path whose element content is a form: emit one MF
-  // line per field (declaration order) with type/required and the enumValues
-  // column (comma-joined constant names, empty for non-enum fields).
+  // line per field (declaration order) with type/required, the enumValues
+  // column (comma-joined constant names, empty for non-enum fields) and the
+  // refersTo column (comma-joined registry keys, empty for non-reference
+  // fields).
   auto metaForm = [&](const std::string& listPath) {
     const som::SomMetaNode* listNode = metaTree.byPath(listPath);
     const som::SomMetaNode* element =
@@ -351,18 +363,17 @@ int main(int argc, char** argv) {
     // segment so the log path stays ASCII (mirrored verbatim per language).
     const std::string formPath = listPath + "/#element/content";
     for (const som::SomFormFieldMeta& f : form->fields) {
-      std::string joined;
-      for (std::size_t j = 0; j < f.enumValues.size(); j++) {
-        if (j > 0) joined += ",";
-        joined += f.enumValues[j];
-      }
       out.push_back("MF\t" + formPath + "\t" + esc(f.name) + "\t" +
                     esc(f.typeName) + "\t" + (f.required ? "1" : "0") + "\t" +
-                    esc(joined));
+                    esc(joinCsv(f.enumValues)) + "\t" +
+                    esc(joinCsv(f.refersTo)));
     }
   };
   metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
   metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+  metaForm(
+      "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
+      "screenRouteMap/SCTREN-TRAN-LST");
 
   // Dot-notation navigation: the typed nav accessors must resolve to exactly
   // the path byPath finds, and to the *same* node instance.

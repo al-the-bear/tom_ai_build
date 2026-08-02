@@ -162,6 +162,11 @@ class ModelJsonExporter {
                   // YRD7: enum-typed form fields carry their constant names
                   // so runtimes can validate/convert without the analyzer.
                   if (ff.enumValues.isNotEmpty) 'enumValues': ff.enumValues,
+                  // csrb3: the registry key(s) this field's id value is drawn
+                  // from, each `<SECTIONID>.<formFieldName>`. Carried across so
+                  // the eight non-Dart runtimes can run the instance-tier
+                  // dangling-reference check too.
+                  if (ff.refersTo.isNotEmpty) 'refersTo': ff.refersTo,
                 })
             .toList();
         break;

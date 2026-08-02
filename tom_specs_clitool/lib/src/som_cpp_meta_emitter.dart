@@ -650,11 +650,15 @@ class SomCppMetaEmitter {
       // vector.
       final enumArg = ', std::vector<std::string>{'
           '${ff.enumValues.map((e) => '"${_cppStr(e)}"').join(', ')}}';
+      // csrb3: same reasoning for the reference-target member — always emitted,
+      // empty for a non-reference field.
+      final refersToArg = ', std::vector<std::string>{'
+          '${ff.refersTo.map((e) => '"${_cppStr(e)}"').join(', ')}}';
       b.writeln('$indent$recv.form->fields.push_back(som::SomFormFieldMeta{'
           '"${_cppStr(ff.name)}", "${_cppStr(ff.type)}", '
           '"${_cppStr(ff.label)}", ${ff.required}, '
           '"${_cppStr(ff.hint ?? '')}", $i'
-          '$enumArg});');
+          '$enumArg$refersToArg});');
     }
   }
 

@@ -44,6 +44,12 @@ class MetaFormField {
   /// non-enum field types.
   final List<String> enumValues;
 
+  /// The registry key(s) this field's value is an id drawn from, each written
+  /// `<SECTIONID>.<formFieldName>` (csrb3). Empty for a non-reference field.
+  /// Carried into every language's meta so the eight non-Dart runtimes can run
+  /// the instance-tier dangling-reference check too.
+  final List<String> refersTo;
+
   const MetaFormField({
     required this.name,
     required this.typeName,
@@ -52,6 +58,7 @@ class MetaFormField {
     this.hint,
     required this.order,
     this.enumValues = const [],
+    this.refersTo = const [],
   });
 }
 
@@ -244,6 +251,7 @@ class MetaNode {
                       if (f.hint != null) 'hint': f.hint,
                       'order': f.order,
                       if (f.enumValues.isNotEmpty) 'enumValues': f.enumValues,
+                      if (f.refersTo.isNotEmpty) 'refersTo': f.refersTo,
                     })
                 .toList(),
           },
@@ -609,6 +617,7 @@ class _SlotCollector {
         hint: f.hint.isEmpty ? null : f.hint,
         order: i,
         enumValues: f.enumValues,
+        refersTo: f.refersTo,
       ));
     }
     return MetaFormInfo(fields);

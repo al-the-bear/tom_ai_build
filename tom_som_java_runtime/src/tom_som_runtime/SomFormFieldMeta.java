@@ -31,6 +31,15 @@ public final class SomFormFieldMeta {
    */
   public final java.util.List<String> enumValues;
 
+  /**
+   * The registry key(s) this field's value is an <em>id drawn from</em>, each
+   * written {@code <SECTIONID>.<formFieldName>} (csrb3); empty for a field that
+   * is not a reference. A value is valid when it resolves in <em>any</em>
+   * listed registry; a reference naming several ids writes them
+   * comma-separated.
+   */
+  public final java.util.List<String> refersTo;
+
   public SomFormFieldMeta(
       String name,
       String typeName,
@@ -49,6 +58,19 @@ public final class SomFormFieldMeta {
       String hint,
       int order,
       java.util.List<String> enumValues) {
+    this(name, typeName, description, required, hint, order, enumValues,
+        java.util.List.of());
+  }
+
+  public SomFormFieldMeta(
+      String name,
+      String typeName,
+      String description,
+      boolean required,
+      String hint,
+      int order,
+      java.util.List<String> enumValues,
+      java.util.List<String> refersTo) {
     this.name = name;
     this.typeName = typeName;
     this.description = description;
@@ -56,5 +78,6 @@ public final class SomFormFieldMeta {
     this.hint = hint;
     this.order = order;
     this.enumValues = enumValues;
+    this.refersTo = refersTo;
   }
 }

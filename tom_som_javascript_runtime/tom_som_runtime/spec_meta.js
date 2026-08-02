@@ -75,6 +75,7 @@ class SomFormFieldMeta {
     required = false,
     hint = null,
     enumValues = null,
+    refersTo = null,
   }) {
     /** The exact model field name (`approvedBy`). */
     this.name = name;
@@ -95,6 +96,13 @@ class SomFormFieldMeta {
      * convert without generated code.
      */
     this.enumValues = enumValues || [];
+    /**
+     * The registry key(s) this field's value is an *id drawn from*, each
+     * written `<SECTIONID>.<formFieldName>` (csrb3); empty for a field that is
+     * not a reference. A value is valid when it resolves in *any* listed
+     * registry; a reference naming several ids writes them comma-separated.
+     */
+    this.refersTo = refersTo || [];
   }
 }
 

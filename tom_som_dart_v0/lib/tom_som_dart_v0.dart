@@ -444,7 +444,7 @@ class AccessConstraintPolicies extends SomNode {
 /// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
 /// 
 /// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
-/// authorization seed (§8.3 of `codespecs_mapping.md`): user management,
+/// authorization seed (`codespecs_mapping.md` §8.3): user management,
 /// authentication, resource protection, authorization, and the role matrix.
 /// The container itself carries no `@CodeSpecKind` — the mapped parts live on
 /// the child sections (e.g. `authentication`) — but the whole subtree is the
@@ -1767,7 +1767,7 @@ class AuthenticationMethods extends SomNode {
 /// 
 /// Groups the UI authorization-compliance concern (how the interface adapts to
 /// roles and permissions as a compliance obligation), a **follow-up** (CMP)
-/// rather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).
+/// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).
 /// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
 class AuthorizationComplianceFollowUp extends SomNode {
   AuthorizationComplianceFollowUp(super.doc, super.path);
@@ -4876,7 +4876,7 @@ class CutoverProcedure extends SomNode {
 /// The complete Solution Blueprint (SBP) document.
 /// 
 /// Contains a [DocumentControl] header block and the SBP sections, sequenced
-/// per the public-standards order (§4 of the redesign proposal).
+/// per the public-standards order of the `@StandardReferences` below.
 class D00SolutionBlueprint extends SomNode {
   /// The model version this object model was generated against (SOM §4.2).
   static const String modelVersion = '1.0';
@@ -5221,8 +5221,10 @@ class D03InformationModel extends SomNode {
   /// (csmb5).
   ErrorCodeRegistry get errorCodeRegistry => ErrorCodeRegistry(doc, '$path/errorCodeRegistry');
 
-  /// Result envelope — the canonical success-or-error §7 Result contract
-  /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+  /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+  /// 
+  /// The success-or-error `Result` envelope; CE-ER home, realised by
+  /// tom_core_kernel's `TomResult` (csmb5).
   ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
 
   /// Message key registry — the single author-copy-once home for user-facing
@@ -6062,7 +6064,10 @@ class D13CodeSpecsProjection extends SomNode {
   /// Error code registry — CE-ER shared error-code vocabulary.
   ErrorCodeRegistry get errorCodeRegistry => ErrorCodeRegistry(doc, '$path/errorCodeRegistry');
 
-  /// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+  /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+  /// 
+  /// The shared success-or-error envelope: success payload **or** structured
+  /// error (code, message, field-level details).
   ResultEnvelope get resultEnvelope => ResultEnvelope(doc, '$path/resultEnvelope');
 
   /// Message key registry — CE-TX author-copy-once keys, shared.
@@ -8223,9 +8228,9 @@ class DocumentControl extends SomNode {
   SomList<ApprovalRecord> get approvals => SomList<ApprovalRecord>(doc, '$path/DOCTL-APRV-LST', (d, p) => ApprovalRecord(d, p), pattern: 'DOCTL-APRV-xxx');
 
   /// Reference documents — the catalogue of documents this specification draws
-  /// on (standards, policies, regulations, related specs). Re-homed here from
-  /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
-  /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+  /// on (standards, policies, regulations, related specs). They live here
+  /// because referenced documents are ISO/IEC/IEEE 29148 §6 front matter and
+  /// belong with document control.
   ReferenceDocuments get referenceDocuments => ReferenceDocuments(doc, '$path/referenceDocuments');
 }
 
@@ -9296,14 +9301,14 @@ class ExperienceAndInterfaceDesign extends SomNode {
 
 /// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
 /// 
-/// Groups the UI concerns CodeSpecs generates (§4.6 of
-/// `codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
-/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
-/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
-/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
-/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
-/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
-/// follow-up subtrees.
+/// Groups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):
+/// screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation
+/// (CE-NV), data-structure alignment (CE-DB cross-ref), error handling
+/// (CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component
+/// library (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the
+/// mapped parts live on the child sections — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up
+/// subtrees.
 class ExperienceCodeSpecs extends SomNode {
   ExperienceCodeSpecs(super.doc, super.path);
 
@@ -9336,10 +9341,10 @@ class ExperienceCodeSpecs extends SomNode {
 /// 
 /// Groups the design / documentation concerns that are **follow-up** (design
 /// vision, print & export layout, user assistance, accessibility, prototype,
-/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out. Accessibility's operational (OPS) facet is a
-/// secondary concern refined by the follow-up taxonomy pass.
+/// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
+/// §8.3). Carries no `@CodeSpecKind` — the whole subtree is
+/// generation-owned-out. Accessibility's operational (OPS) facet is a secondary
+/// concern refined by the follow-up taxonomy pass.
 class ExperienceDesignFollowUp extends SomNode {
   ExperienceDesignFollowUp(super.doc, super.path);
 
@@ -9374,7 +9379,7 @@ class ExperienceDesignFollowUp extends SomNode {
 /// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 /// 
 /// Groups the internationalization concern, a **follow-up** (L10N) rather than
-/// CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no
+/// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no
 /// `@CodeSpecKind` — the whole subtree is generation-owned-out.
 class ExperienceLocalizationFollowUp extends SomNode {
   ExperienceLocalizationFollowUp(super.doc, super.path);
@@ -12781,8 +12786,8 @@ class MessageKeyEntry extends SomNode {
 /// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
 /// as unvalidated free text, so the "author once, reference everywhere"
 /// invariant could not hold and the same string could diverge between the
-/// screen element, the validation message and the error copy (csm5 cross-cutting
-/// finding #1; `codespecs_mapping.md` §5.21).
+/// screen element, the validation message and the error copy (csm5
+/// cross-cutting finding #1; `codespecs_mapping.md` §5.21).
 /// 
 /// Each [MessageKeyEntry] declares a stable message key, its default (base
 /// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
@@ -17295,7 +17300,7 @@ class RequirementUiSpecification extends SomNode {
 /// 
 /// The framework-uncovered NFR follow-up sub-areas (localization,
 /// information-for-use, training) are grouped out of the seed subtree into
-/// [RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed
+/// [RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed
 /// stays purely CodeSpecs-relevant.
 class Requirements extends SomNode {
   Requirements(super.doc, super.path);
@@ -17314,8 +17319,8 @@ class Requirements extends SomNode {
 /// 
 /// Groups the framework-uncovered non-functional requirement sub-areas that are
 /// **follow-up** concerns (documentation, training, localization) rather than
-/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
 /// parent [Requirements] seed subtree purely CodeSpecs-relevant:
 /// 
 ///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
@@ -17573,11 +17578,11 @@ class ResponsiveScreenRuleEntry extends SomNode {
 /// 7.7. Result Envelope.
 /// 
 /// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
-/// the §7 server contract). This is the model-side counterpart of the
-/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
-/// every application outcome — success *or* structured error — is returned in a
-/// normal (2xx-transport) body as this one envelope; only 5xx are transport
-/// failures.
+/// the `codespecs_mapping.md` §7 server contract). This is the model-side
+/// counterpart of the `TomResult`/`TomErrorResult` envelope authored in
+/// `tom_core_kernel` (csmb4): every application outcome — success *or*
+/// structured error — is returned in a normal (2xx-transport) body as this one
+/// envelope; only 5xx are transport failures.
 /// 
 /// The envelope has two arms, distinguished by an **is-success discriminator**:
 /// 
@@ -19023,8 +19028,8 @@ class SecurityCodeReviewPolicy extends SomNode {
 /// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
 /// 
 /// Groups the compliance-framework concern, a **follow-up** (compliance
-/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
+/// governance) rather than CodeSpecs-generated behaviour
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
 /// subtree is generation-owned-out.
 class SecurityComplianceFollowUp extends SomNode {
   SecurityComplianceFollowUp(super.doc, super.path);
@@ -19144,7 +19149,7 @@ class SecurityEventsDefinition extends SomNode {
 /// 
 /// Groups the operational security concerns that are **follow-up** (key
 /// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
 /// whole subtree is generation-owned-out.
 class SecurityOperationsFollowUp extends SomNode {
   SecurityOperationsFollowUp(super.doc, super.path);
@@ -19967,7 +19972,7 @@ class SolutionArchitectureAndTechnology extends SomNode {
 /// Groups the descriptive-architecture concern that is **not** CodeSpecs-
 /// generated: the component-reuse rationale (component catalogue, third-party
 /// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-/// generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
+/// generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
 /// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
 /// CodeSpecs subtree.
 class SolutionArchitectureFollowUp extends SomNode {
@@ -20538,7 +20543,7 @@ class StakeholdersAndGovernance extends SomNode {
   /// Renamed to `LegalAndContractualRequirements` in L34C-9.
   LegalAndContractualRequirements get legalAndContractual => LegalAndContractualRequirements(doc, '$path/legalAndContractual');
 
-  /// Stakeholder register (§5 completeness addition).
+  /// Stakeholder register.
   SomList<StakeholderRegisterEntry> get stakeholderRegister => SomList<StakeholderRegisterEntry>(doc, '$path/STKRG-STAK-LST', (d, p) => StakeholderRegisterEntry(d, p), pattern: 'STKRG-STAK-xxx');
 }
 

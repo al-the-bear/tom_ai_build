@@ -870,6 +870,15 @@ void _validateStructuralInvariants(
   //   (iv)  every `@Case`-bound field is a complex subsection of the same
   //         container; and a `@Case` outside any `@OneOf` container is rejected.
   _validateOneOfGroups(classes, reachable, errors, warnings);
+
+  // --- 9. Cross-registry id references (`Field.refersTo`) -------------------
+  //
+  // A form field whose String value is an *id declared elsewhere* names its
+  // target registry key(s) as `<SECTIONID>.<formFieldName>`. The static tier
+  // checks the declaration is resolvable; the dangling-id check proper is the
+  // instance tier's job (`spec_validator.dart`), which needs document values
+  // the class graph cannot see.
+  _validateReferenceTargets(classes, reachable, errors, warnings);
 }
 
 /// Gathers every `@Form` field of [cls], from the class-level `@Form` and from
@@ -1016,6 +1025,131 @@ void _validateOneOfGroups(
         '${uncovered.length} enum constant(s) uncovered by any @Case '
         '(${uncovered.join(', ')}) — legal for kinds with no extra attributes',
       );
+    }
+  }
+}
+
+/// Static enforcement of the cross-registry id reference declaration
+/// (`Field.refersTo`, csrb3).
+///
+/// A `refersTo` entry is a *registry key* written `<SECTIONID>.<formFieldName>`
+/// — e.g. `'SCRTEN.routeId'`. The check confirms the declaration is resolvable
+/// end to end, so the instance tier can actually run it:
+///
+///   (i)   the entry parses as `<SECTIONID>.<formFieldName>`;
+///   (ii)  the section id resolves to exactly one class in the graph;
+///   (iii) that class declares a `@Form` field of that name;
+///   (iv)  that class is a *repeated registry entry* — used somewhere as the
+///         element type of a list — because an id is only meaningful when the
+///         entries that declare it can be enumerated.
+///
+/// (iv) is what stops a reference from pointing at a singleton form section
+/// that happens to carry a like-named field: nothing there would ever declare
+/// a set of ids to resolve against.
+void _validateReferenceTargets(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  List<String> errors,
+  List<String> warnings,
+) {
+  // Section id → class name(s). A duplicate section id is already an error of
+  // its own (§8.6 global uniqueness); here it only makes the target ambiguous.
+  final bySectionId = <String, List<String>>{};
+  for (final entry in classes.entries) {
+    final id = entry.value.getAnnotation('SectionId')?.arguments['id'];
+    if (id is String && id.isNotEmpty) {
+      bySectionId.putIfAbsent(id, () => []).add(entry.key);
+    }
+  }
+
+  // Classes used as a list element type anywhere in the model — the registry
+  // entries. Computed over the whole graph, not just [reachable], so a
+  // single-document validation run judges the target the same way a
+  // whole-model run does.
+  final listElementTypes = <String>{};
+  for (final cls in classes.values) {
+    for (final field in cls.fields) {
+      if (field.isList && field.listElementIsComplex) {
+        final inner = field.listElementTypeName;
+        if (inner != null) listElementTypes.add(inner);
+      }
+    }
+  }
+
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+
+    for (final formField in _allFormFields(cls)) {
+      for (final target in formField.refersTo) {
+        final where = '$className.${formField.name}';
+
+        // (i) Grammar. The qualified form is required: a bare section id says
+        // where to look but not what to compare against, so the instance tier
+        // could not run and the contract would stay unenforced for exactly the
+        // fields it exists to protect.
+        final dot = target.indexOf('.');
+        if (dot <= 0 || dot == target.length - 1 ||
+            target.indexOf('.', dot + 1) != -1) {
+          errors.add(
+            '$_invariants refersTo: $where declares target "$target" — a target '
+            'must be written <SECTIONID>.<formFieldName>',
+          );
+          continue;
+        }
+        final sectionId = target.substring(0, dot);
+        final fieldName = target.substring(dot + 1);
+
+        // (ii) The section id resolves.
+        final owners = bySectionId[sectionId];
+        if (owners == null || owners.isEmpty) {
+          errors.add(
+            '$_invariants refersTo: $where targets "$target" but no class carries '
+            '@SectionId(\'$sectionId\')',
+          );
+          continue;
+        }
+        if (owners.length > 1) {
+          errors.add(
+            '$_invariants refersTo: $where targets "$target" but section id '
+            '"$sectionId" is carried by ${owners.length} classes '
+            '(${(owners.toList()..sort()).join(', ')}) — the target is ambiguous',
+          );
+          continue;
+        }
+        final targetClass = classes[owners.single]!;
+
+        // (iii) The target declares that form field.
+        final hasField =
+            _allFormFields(targetClass).any((f) => f.name == fieldName);
+        if (!hasField) {
+          errors.add(
+            '$_invariants refersTo: $where targets "$target" but '
+            '${targetClass.name} declares no @Form field "$fieldName"',
+          );
+          continue;
+        }
+
+        // (iv) The target really is a repeated registry entry.
+        if (!listElementTypes.contains(targetClass.name)) {
+          errors.add(
+            '$_invariants refersTo: $where targets "$target" but '
+            '${targetClass.name} is not a repeated registry entry (it is never '
+            'a list element type) — an id reference needs a set of entries to '
+            'resolve against',
+          );
+          continue;
+        }
+
+        // The reference itself must be free text: an id is authored as a
+        // String, never as an enum or a number.
+        if (formField.typeName != 'String') {
+          warnings.add(
+            '$_invariants refersTo: $where declares a reference but its form '
+            'field type is ${formField.typeName} — id references are String-valued',
+          );
+        }
+      }
     }
   }
 }

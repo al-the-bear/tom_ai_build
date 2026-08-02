@@ -89,6 +89,13 @@ class SomFormFieldMeta {
   /// convert without generated code.
   final List<String> enumValues;
 
+  /// The registry key(s) this field's value is an id drawn from, each written
+  /// `<SECTIONID>.<formFieldName>` (csrb3); empty for a non-reference field. A
+  /// reference field holds a free-text id that must already be declared by some
+  /// entry of the named registry, so a runtime can resolve it and report a
+  /// dangling id instead of generating broken code.
+  final List<String> refersTo;
+
   const SomFormFieldMeta({
     required this.name,
     required this.typeName,
@@ -97,6 +104,7 @@ class SomFormFieldMeta {
     this.hint,
     required this.order,
     this.enumValues = const [],
+    this.refersTo = const [],
   });
 }
 

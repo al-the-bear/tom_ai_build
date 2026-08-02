@@ -179,6 +179,7 @@ SomMetaNode _fieldNode(
                 hint: field.formFields[i].hint,
                 order: i,
                 enumValues: field.formFields[i].enumValues,
+                refersTo: field.formFields[i].refersTo,
               ),
           ])
         : null,

@@ -405,7 +405,7 @@ impl AccessConstraintPolicies {
 /// SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).
 ///
 /// Groups the five access-control concerns that CodeSpecs consumes as the CE-AZ
-/// authorization seed (§8.3 of `codespecs_mapping.md`): user management,
+/// authorization seed (`codespecs_mapping.md` §8.3): user management,
 /// authentication, resource protection, authorization, and the role matrix.
 /// The container itself carries no `@CodeSpecKind` — the mapped parts live on
 /// the child sections (e.g. `authentication`) — but the whole subtree is the
@@ -3367,7 +3367,7 @@ impl AuthenticationMethods {
 ///
 /// Groups the UI authorization-compliance concern (how the interface adapts to
 /// roles and permissions as a compliance obligation), a **follow-up** (CMP)
-/// rather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).
+/// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).
 /// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
 pub struct AuthorizationComplianceFollowUp {
     pub node: som::SomNode,
@@ -10505,7 +10505,7 @@ impl CutoverProcedure {
 /// The complete Solution Blueprint (SBP) document.
 ///
 /// Contains a [DocumentControl] header block and the SBP sections, sequenced
-/// per the public-standards order (§4 of the redesign proposal).
+/// per the public-standards order of the `@StandardReferences` below.
 pub struct D00SolutionBlueprint {
     pub node: som::SomNode,
 }
@@ -11080,8 +11080,10 @@ impl D03InformationModel {
         ErrorCodeRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorCodeRegistry"))
     }
 
-    /// Result envelope — the canonical success-or-error §7 Result contract
-    /// (CE-ER home; realised by tom_core_kernel's TomResult, csmb5).
+    /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+    ///
+    /// The success-or-error `Result` envelope; CE-ER home, realised by
+    /// tom_core_kernel's `TomResult` (csmb5).
     pub fn result_envelope(&self) -> ResultEnvelope {
         ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
     }
@@ -12415,7 +12417,10 @@ impl D13CodeSpecsProjection {
         ErrorCodeRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorCodeRegistry"))
     }
 
-    /// Result envelope — CE-ER canonical §7 success-or-error contract, shared.
+    /// Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.
+    ///
+    /// The shared success-or-error envelope: success payload **or** structured
+    /// error (code, message, field-level details).
     pub fn result_envelope(&self) -> ResultEnvelope {
         ResultEnvelope::new(self.node.doc(), format!("{}/{}", self.node.path(), "resultEnvelope"))
     }
@@ -17242,9 +17247,9 @@ impl DocumentControl {
     }
 
     /// Reference documents — the catalogue of documents this specification draws
-    /// on (standards, policies, regulations, related specs). Re-homed here from
-    /// the former §3 `Administrative` wrapper in L34C-5: referenced documents are
-    /// ISO/IEC/IEEE 29148 §6 front matter and belong with document control.
+    /// on (standards, policies, regulations, related specs). They live here
+    /// because referenced documents are ISO/IEC/IEEE 29148 §6 front matter and
+    /// belong with document control.
     pub fn reference_documents(&self) -> ReferenceDocuments {
         ReferenceDocuments::new(self.node.doc(), format!("{}/{}", self.node.path(), "referenceDocuments"))
     }
@@ -19707,14 +19712,14 @@ impl ExperienceAndInterfaceDesign {
 
 /// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
 ///
-/// Groups the UI concerns CodeSpecs generates (§4.6 of
-/// `codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/
-/// CE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB
-/// cross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the
-/// reusable UI component library (CE-EL/CE-LO). The container itself carries no
-/// `@CodeSpecKind` — the mapped parts live on the child sections — but the whole
-/// subtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP
-/// follow-up subtrees.
+/// Groups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):
+/// screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation
+/// (CE-NV), data-structure alignment (CE-DB cross-ref), error handling
+/// (CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component
+/// library (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the
+/// mapped parts live on the child sections — but the whole subtree is the
+/// CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up
+/// subtrees.
 pub struct ExperienceCodeSpecs {
     pub node: som::SomNode,
 }
@@ -19774,10 +19779,10 @@ impl ExperienceCodeSpecs {
 ///
 /// Groups the design / documentation concerns that are **follow-up** (design
 /// vision, print & export layout, user assistance, accessibility, prototype,
-/// wireframes & mockups), not CodeSpecs-generated UI (§4.6 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out. Accessibility's operational (OPS) facet is a
-/// secondary concern refined by the follow-up taxonomy pass.
+/// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
+/// §8.3). Carries no `@CodeSpecKind` — the whole subtree is
+/// generation-owned-out. Accessibility's operational (OPS) facet is a secondary
+/// concern refined by the follow-up taxonomy pass.
 pub struct ExperienceDesignFollowUp {
     pub node: som::SomNode,
 }
@@ -19841,7 +19846,7 @@ impl ExperienceDesignFollowUp {
 /// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 ///
 /// Groups the internationalization concern, a **follow-up** (L10N) rather than
-/// CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no
+/// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no
 /// `@CodeSpecKind` — the whole subtree is generation-owned-out.
 pub struct ExperienceLocalizationFollowUp {
     pub node: som::SomNode,
@@ -27613,8 +27618,8 @@ impl MessageKeyEntry {
 /// scattered across per-field `*Resource` keys and `ValidationMessageTemplate`
 /// as unvalidated free text, so the "author once, reference everywhere"
 /// invariant could not hold and the same string could diverge between the
-/// screen element, the validation message and the error copy (csm5 cross-cutting
-/// finding #1; `codespecs_mapping.md` §5.21).
+/// screen element, the validation message and the error copy (csm5
+/// cross-cutting finding #1; `codespecs_mapping.md` §5.21).
 ///
 /// Each [MessageKeyEntry] declares a stable message key, its default (base
 /// locale) copy, and any [MessageKeyEntry.localeVariants] — so a single key
@@ -38102,7 +38107,7 @@ impl RequirementUiSpecification {
 ///
 /// The framework-uncovered NFR follow-up sub-areas (localization,
 /// information-for-use, training) are grouped out of the seed subtree into
-/// [RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed
+/// [RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed
 /// stays purely CodeSpecs-relevant.
 pub struct Requirements {
     pub node: som::SomNode,
@@ -38140,8 +38145,8 @@ impl Requirements {
 ///
 /// Groups the framework-uncovered non-functional requirement sub-areas that are
 /// **follow-up** concerns (documentation, training, localization) rather than
-/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree
-/// is generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
+/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole
+/// subtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
 /// parent [Requirements] seed subtree purely CodeSpecs-relevant:
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
@@ -38779,11 +38784,11 @@ impl ResponsiveScreenRuleEntry {
 /// 7.7. Result Envelope.
 ///
 /// The SOM home for the canonical **success-or-error Result envelope** (CE-ER,
-/// the §7 server contract). This is the model-side counterpart of the
-/// `TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):
-/// every application outcome — success *or* structured error — is returned in a
-/// normal (2xx-transport) body as this one envelope; only 5xx are transport
-/// failures.
+/// the `codespecs_mapping.md` §7 server contract). This is the model-side
+/// counterpart of the `TomResult`/`TomErrorResult` envelope authored in
+/// `tom_core_kernel` (csmb4): every application outcome — success *or*
+/// structured error — is returned in a normal (2xx-transport) body as this one
+/// envelope; only 5xx are transport failures.
 ///
 /// The envelope has two arms, distinguished by an **is-success discriminator**:
 ///
@@ -42073,8 +42078,8 @@ impl SecurityCodeReviewPolicy {
 /// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
 ///
 /// Groups the compliance-framework concern, a **follow-up** (compliance
-/// governance) rather than CodeSpecs-generated behaviour (§4.5 of
-/// `codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
+/// governance) rather than CodeSpecs-generated behaviour
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
 /// subtree is generation-owned-out.
 pub struct SecurityComplianceFollowUp {
     pub node: som::SomNode,
@@ -42345,7 +42350,7 @@ impl SecurityEventsDefinition {
 ///
 /// Groups the operational security concerns that are **follow-up** (key
 /// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the
+/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
 /// whole subtree is generation-owned-out.
 pub struct SecurityOperationsFollowUp {
     pub node: som::SomNode,
@@ -44095,7 +44100,7 @@ impl SolutionArchitectureAndTechnology {
 /// Groups the descriptive-architecture concern that is **not** CodeSpecs-
 /// generated: the component-reuse rationale (component catalogue, third-party
 /// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-/// generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the
+/// generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
 /// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
 /// CodeSpecs subtree.
 pub struct SolutionArchitectureFollowUp {
@@ -45340,7 +45345,7 @@ impl StakeholdersAndGovernance {
         LegalAndContractualRequirements::new(self.node.doc(), format!("{}/{}", self.node.path(), "legalAndContractual"))
     }
 
-    /// Stakeholder register (§5 completeness addition).
+    /// Stakeholder register.
     pub fn stakeholder_register(&self) -> som::SomList<StakeholderRegisterEntry> {
         som::SomList::new(
             self.node.doc(),

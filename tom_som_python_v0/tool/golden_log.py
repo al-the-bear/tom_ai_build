@@ -82,7 +82,7 @@ def main() -> None:
     out: list[str] = []
     out.append("# TomSpecs SOM golden log — canonical cross-language reading.")
     out.append("# All nine per-language generators must emit byte-identical output.")
-    out.append("FORMAT\t8")
+    out.append("FORMAT\t9")
     out.append("MODELVERSION\t" + esc(doc.model_version or ""))
 
     # Generic: content leaves, sorted by path.
@@ -266,8 +266,11 @@ def main() -> None:
     # --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
     # through the metadata tree — one MF line per field (declaration order) with
     # type/required plus the enumValues column (comma-joined constant names,
-    # empty for non-enum fields). Emitted for the FRE requirement form (no
-    # enums) and the ISO 25010 coverage form (an enum-typed field). All values
+    # empty for non-enum fields) and, since FORMAT 9 (csrb3), the refersTo
+    # column (comma-joined registry keys, empty for non-reference fields).
+    # Emitted for the FRE requirement form (no enums, no references), the ISO
+    # 25010 coverage form (an enum-typed field) and the screen-transition form
+    # (four reference fields, one of them naming two registries). All values
     # are model-derived. ---
     out.append("SECTION\tmeta-form")
 
@@ -287,17 +290,20 @@ def main() -> None:
         # segment so the log path stays ASCII (mirrored verbatim per language).
         form_path = list_path + "/#element/content"
         for f in form.fields:
-            out.append("MF\t%s\t%s\t%s\t%d\t%s" % (
+            out.append("MF\t%s\t%s\t%s\t%d\t%s\t%s" % (
                 form_path,
                 esc(f.name),
                 esc(f.type_name),
                 1 if f.required else 0,
                 esc(",".join(f.enum_values or [])),
+                esc(",".join(f.refers_to or [])),
             ))
 
     meta_form("SBP/introductionAndScope/requirements/"
               "functionalRequirements/FRE-REQU-LST")
     meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
+    meta_form("SBP/experienceAndInterfaceDesign/experienceCodeSpecs/"
+              "screenFlow/screenRouteMap/SCTREN-TRAN-LST")
 
     out.append("SECTION\tmeta-nav")
 

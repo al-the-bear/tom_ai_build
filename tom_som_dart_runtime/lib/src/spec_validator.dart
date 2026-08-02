@@ -30,6 +30,10 @@ enum SpecValidationCode {
   /// discriminator value does not select, or more than one subsection for the
   /// chosen case (`codespecs_mapping.md` §8.2, csmb6).
   oneOfCaseMismatch,
+
+  /// A reference form field (`Field.refersTo`) holds an id that no entry of any
+  /// of its target registries declares (csrb3).
+  danglingReference,
 }
 
 /// One problem found while validating a document.
@@ -141,6 +145,14 @@ List<SpecValidationError> validateDocument(SpecModel model, SpecDocument doc) {
   // *values* against them.
   errors.addAll(_validateOneOfInstances(refl, doc));
 
+  // 5. Cross-registry id references (instance tier, csrb3).
+  //
+  // A reference form field holds an id that must already be declared by some
+  // entry of a target registry. The static tier (validator.dart) has checked
+  // the `refersTo` targets are resolvable; only here can we see whether the id
+  // a document actually wrote is one the document also declares.
+  errors.addAll(_validateReferenceInstances(refl, doc));
+
   return errors;
 }
 
@@ -243,6 +255,95 @@ List<SpecValidationError> _validateOneOfInstances(
             'populated subsection (${presentForChosen.join(', ')}) — at most '
             'one case subsection may be present',
       ));
+    }
+  }
+
+  return errors;
+}
+
+/// Instance-tier cross-registry reference check (csrb3): every id written into
+/// a `refersTo` form field must be declared by some entry of one of its target
+/// registries *in this document*.
+///
+/// The pass is two sweeps over the document's form sections, so it costs one
+/// extra walk rather than a resolve per reference:
+///
+///  1. **Declare.** Every form instance whose class carries `@SectionId(X)` and
+///     declares form field `f` contributes its value of `f` to the registry key
+///     `X.f`. Registries are keyed by `<SECTIONID>.<formFieldName>` exactly as
+///     `Field.refersTo` writes them, so the lookup is a map hit.
+///  2. **Resolve.** Every form instance holding a `refersTo` field checks its
+///     value against those sets. A value naming several ids writes them
+///     comma-separated, so each segment resolves independently — a single- and
+///     a multi-valued reference need no different declaration.
+///
+/// A value is valid when it resolves in **any** listed registry: some fields
+/// legitimately accept an id from more than one (a screen transition outcome is
+/// a system error code *or* a validation message template).
+///
+/// An empty value is not a dangling reference — it means "not filled in yet",
+/// which is the schema-completeness concern this validator deliberately leaves
+/// to its caller.
+List<SpecValidationError> _validateReferenceInstances(
+  SpecReflection refl,
+  SpecDocument doc,
+) {
+  final errors = <SpecValidationError>[];
+
+  // Resolve every form path once; both sweeps read the same resolutions.
+  //
+  // A form resolution names the form *field*, not a class — the section id a
+  // registry key is written against belongs to the class the form sits on, so
+  // the owner is resolved from the parent path (root, complex, section and
+  // list-item resolutions all carry their class).
+  final forms = <({String path, SpecClass cls, SpecField field})>[];
+  for (final path in doc.formPaths.toList()..sort()) {
+    final res = refl.resolve(path);
+    if (res == null || res.kind != SpecNodeKind.form || res.field == null) {
+      continue;
+    }
+    final slash = path.lastIndexOf('/');
+    if (slash <= 0) continue;
+    final cls = refl.resolve(path.substring(0, slash))?.targetClass;
+    if (cls == null) continue;
+    forms.add((path: path, cls: cls, field: res.field!));
+  }
+
+  // 1. Declare.
+  final declared = <String, Set<String>>{};
+  for (final form in forms) {
+    final sectionId = form.cls.sectionId;
+    if (sectionId == null || sectionId.isEmpty) continue;
+    for (final ff in form.field.formFields) {
+      final value = doc.formField(form.path, ff.name);
+      if (value == null || value.trim().isEmpty) continue;
+      declared
+          .putIfAbsent('$sectionId.${ff.name}', () => <String>{})
+          .add(value.trim());
+    }
+  }
+
+  // 2. Resolve.
+  for (final form in forms) {
+    for (final ff in form.field.formFields) {
+      if (ff.refersTo.isEmpty) continue;
+      final value = doc.formField(form.path, ff.name);
+      if (value == null || value.trim().isEmpty) continue;
+
+      for (final segment in value.split(',')) {
+        final id = segment.trim();
+        if (id.isEmpty) continue;
+        final resolves =
+            ff.refersTo.any((target) => declared[target]?.contains(id) ?? false);
+        if (resolves) continue;
+        errors.add(SpecValidationError(
+          path: form.path,
+          code: SpecValidationCode.danglingReference,
+          message: 'form field "${ff.name}" references "$id", which no entry of '
+              '${ff.refersTo.length == 1 ? 'registry' : 'registries'} '
+              '${ff.refersTo.join(', ')} declares',
+        ));
+      }
     }
   }
 

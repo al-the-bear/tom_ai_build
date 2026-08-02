@@ -80,7 +80,7 @@ func main() {
 	var out []string
 	out = append(out, "# TomSpecs SOM golden log — canonical cross-language reading.")
 	out = append(out, "# All nine per-language generators must emit byte-identical output.")
-	out = append(out, "FORMAT\t8")
+	out = append(out, "FORMAT\t9")
 	out = append(out, "MODELVERSION\t"+esc(doc.ModelVersion))
 
 	// Generic: content leaves, sorted by path.
@@ -295,8 +295,11 @@ func main() {
 	// --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
 	// through the metadata tree — one MF line per field (declaration order) with
 	// type/required plus the enumValues column (comma-joined constant names,
-	// empty for non-enum fields). Emitted for the FRE requirement form (no
-	// enums) and the ISO 25010 coverage form (an enum-typed field). All values
+	// empty for non-enum fields) and, since FORMAT 9 (csrb3), the refersTo
+	// column (comma-joined registry keys, empty for non-reference fields).
+	// Emitted for the FRE requirement form (no enums, no references), the ISO
+	// 25010 coverage form (an enum-typed field) and the screen-transition form
+	// (four reference fields, one of them naming two registries). All values
 	// are model-derived. ---
 	out = append(out, "SECTION\tmeta-form")
 	metaForm := func(listPath string) {
@@ -329,14 +332,16 @@ func main() {
 			if f.Required {
 				required = 1
 			}
-			out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s",
+			out = append(out, fmt.Sprintf("MF\t%s\t%s\t%s\t%d\t%s\t%s",
 				formPath, esc(f.Name), esc(f.TypeName), required,
-				esc(strings.Join(f.EnumValues, ","))))
+				esc(strings.Join(f.EnumValues, ",")),
+				esc(strings.Join(f.RefersTo, ","))))
 		}
 	}
 
 	metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST")
 	metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
+	metaForm("SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST")
 
 	// Dot-notation navigation: the typed nav accessors must resolve to exactly
 	// the path ByPath finds, and to the same node instance.

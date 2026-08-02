@@ -72,6 +72,7 @@ export interface SomFormFieldMetaInit {
   required?: boolean;
   hint?: string | null;
   enumValues?: string[] | null;
+  refersTo?: string[] | null;
 }
 
 /** One field of a `@Form` section (SOM §7.1 `FormMeta.fields`). */
@@ -95,6 +96,13 @@ export class SomFormFieldMeta {
    * convert without generated code.
    */
   enumValues: string[];
+  /**
+   * The registry key(s) this field's value is an *id drawn from*, each written
+   * `<SECTIONID>.<formFieldName>` (csrb3); empty for a field that is not a
+   * reference. A value is valid when it resolves in *any* listed registry; a
+   * reference naming several ids writes them comma-separated.
+   */
+  refersTo: string[];
 
   constructor(init: SomFormFieldMetaInit) {
     this.name = init.name;
@@ -104,6 +112,7 @@ export class SomFormFieldMeta {
     this.hint = init.hint != null ? init.hint : null;
     this.order = init.order;
     this.enumValues = init.enumValues != null ? init.enumValues : [];
+    this.refersTo = init.refersTo != null ? init.refersTo : [];
   }
 }
 

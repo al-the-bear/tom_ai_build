@@ -35,6 +35,11 @@ class FormFieldInfo {
   /// needing the analyzer.
   final List<String> enumValues;
 
+  /// The registry key(s) this field's value is an id drawn from, each
+  /// `<SECTIONID>.<formFieldName>` (csrb3). Empty for a field that is not a
+  /// cross-registry reference. See `Field.refersTo` in `tom_specs_core`.
+  final List<String> refersTo;
+
   FormFieldInfo({
     required this.name,
     required this.typeName,
@@ -42,6 +47,7 @@ class FormFieldInfo {
     this.required = false,
     this.hint = '',
     this.enumValues = const [],
+    this.refersTo = const [],
   });
 }
 
@@ -635,6 +641,13 @@ class ModelReader {
             item.getField('description')?.toStringValue() ?? '';
         final required = item.getField('required')?.toBoolValue() ?? false;
         final hint = item.getField('hint')?.toStringValue() ?? '';
+        final refersTo = item
+                .getField('refersTo')
+                ?.toListValue()
+                ?.map((e) => e.toStringValue())
+                .whereType<String>()
+                .toList() ??
+            const <String>[];
 
         // Extract type name from the Type literal; resolve enum constant
         // names right here (YRD7) so downstream consumers need no analyzer.
@@ -655,6 +668,7 @@ class ModelReader {
           required: required,
           hint: hint,
           enumValues: enumValues,
+          refersTo: refersTo,
         ));
       }
       return result;

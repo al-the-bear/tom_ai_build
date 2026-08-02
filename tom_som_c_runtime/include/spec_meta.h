@@ -77,6 +77,13 @@ typedef struct {
                            * so editors and the generic modification API can
                            * validate and convert without generated code */
   size_t enum_values_len; /* number of entries in enum_values */
+  char **refers_to;       /* registry key(s) this field's value is an id drawn
+                           * from, each "<SECTIONID>.<formFieldName>" (csrb3);
+                           * NULL/empty for a field that is not a reference. A
+                           * value is valid when it resolves in ANY listed
+                           * registry; a reference naming several ids writes
+                           * them comma-separated */
+  size_t refers_to_len;   /* number of entries in refers_to */
 } SomFormFieldMeta;
 
 /* SomFormMeta is the form metadata of a @Form node (SOM §7.1 FormMeta). */

@@ -10328,7 +10328,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("ruleId", "String", "Rule ID", false, "Reference to the business rule definition", 0),
+            new SomFormFieldMeta("ruleId", "String", "Rule ID", false, "Reference to the business rule definition", 0, java.util.List.of(), java.util.List.of("BIRU.ruleId")),
             new SomFormFieldMeta("ruleName", "String", "Rule Name", true, "Name of the business rule", 1),
             new SomFormFieldMeta("ruleType", "String", "Rule Type", false, "Validation | Calculation | Constraint | Authorization | Workflow", 2),
             new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the rule", 3),
@@ -18406,7 +18406,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("maxVisibleItems", "int", "Max Visible Items", false, "Items before collapsing with ellipsis", 2),
             new SomFormFieldMeta("collapseBehavior", "String", "Collapse Behavior", false, "Ellipsis-Menu/Hide-Middle/Truncate", 3),
             new SomFormFieldMeta("showHomeItem", "String", "Show Home", false, "Yes/No — include root/home as first crumb", 4),
-            new SomFormFieldMeta("homeLabel", "String", "Home Label Resource", false, "Message key (MSGKR registry) for home crumb", 5),
+            new SomFormFieldMeta("homeLabel", "String", "Home Label Resource", false, "Message key (MSGKR registry) for home crumb", 5, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("homeIcon", "String", "Home Icon Resource", false, "Icon for home crumb", 6),
             new SomFormFieldMeta("separator", "String", "Separator", false, "Visual separator: / , > , chevron-icon", 7),
             new SomFormFieldMeta("currentItemStyle", "String", "Current Item Style", false, "Bold/Muted/Normal — style of last item", 8),
@@ -20426,7 +20426,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "REQS";
         n.serializationOrder = 9;
         n.docComment = "SBP.9 Requirements (functional + NFR sub-areas). Seeds → RSP.";
-        n.classDocComment = "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed\nstays purely CodeSpecs-relevant.";
+        n.classDocComment = "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed\nstays purely CodeSpecs-relevant.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -21176,8 +21176,8 @@ public final class TomSomV0Meta {
         n.memberName = "resultEnvelope";
         n.classSectionId = "RSLTE";
         n.serializationOrder = 16;
-        n.docComment = "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).";
-        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home, realised by\ntom_core_kernel's `TomResult` (csmb5).";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -21188,7 +21188,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "MSGKR";
         n.serializationOrder = 17;
         n.docComment = "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23321,8 +23321,8 @@ public final class TomSomV0Meta {
         n.classSectionId = "RSLTE";
         n.serializationOrder = 4;
         n.comment = "locus: shared — CE-ER";
-        n.docComment = "Result envelope — CE-ER canonical §7 success-or-error contract, shared.";
-        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.docComment = "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23334,7 +23334,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 5;
         n.comment = "locus: shared — CE-TX";
         n.docComment = "Message key registry — CE-TX author-copy-once keys, shared.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23384,7 +23384,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 9;
         n.comment = "locus: server — CE-AZ";
         n.docComment = "Access control model — CE-AZ authorization/identity seed.";
-        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
+        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -23409,7 +23409,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 11;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -32856,8 +32856,8 @@ public final class TomSomV0Meta {
         n.memberName = "solutionBlueprint";
         n.classSectionId = "SBP";
         n.serializationOrder = 0;
-        n.docComment = "D00 — the Solution Blueprint master and source of truth for all shared\ncontent. Listed first in the root navigator (§14).";
-        n.classDocComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).";
+        n.docComment = "D00 — the Solution Blueprint master and source of truth for all shared\ncontent. Listed first in the root navigator\n(`tom_specs_editor_specification.md` §14).";
+        n.classDocComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -33142,7 +33142,7 @@ public final class TomSomV0Meta {
         n.memberName = "referenceDocuments";
         n.classSectionId = "RD";
         n.serializationOrder = 4;
-        n.docComment = "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). Re-homed here from\nthe former §3 `Administrative` wrapper in L34C-5: referenced documents are\nISO/IEC/IEEE 29148 §6 front matter and belong with document control.";
+        n.docComment = "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). They live here\nbecause referenced documents are ISO/IEC/IEEE 29148 §6 front matter and\nbelong with document control.";
         n.classDocComment = "Reference Documents.\n\nCatalog of all documents referenced by this project specification,\nincluding enterprise standards, technical guidelines, regulatory\nrequirements, and related project documentation.";
         n.recursive = r;
         n.children = c;
@@ -34035,7 +34035,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("valueId", "String", "Value Id", true, "Stable value identifier (the enum constant / @Case token)", 0),
             new SomFormFieldMeta("backingValue", "String", "Backing Value", false, "Persisted/serialized code (int or string), if distinct from the id", 1),
-            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)", 2),
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("description", "String", "Description", false, "What this value means", 3)));
         out.add(n);
       }
@@ -34573,8 +34573,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type", true, "Required/Min-Length/Max-Length/Pattern/Range/Custom/Cross-Field/Async/Unique", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression", false, "Validation expression or pattern", 1),
-            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2),
-            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Message key (MSGKR registry) for validation error message", 3),
+            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, java.util.List.of(), java.util.List.of("ERCEN.code")),
+            new SomFormFieldMeta("errorMessageResource", "String", "Error Message Resource", false, "Message key (MSGKR registry) for validation error message", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Error/Warning/Info", 4),
             new SomFormFieldMeta("validateOn", "String", "Validate On", false, "On-Change/On-Blur/On-Submit", 5)));
         out.add(n);
@@ -35200,7 +35200,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entitlementName", "String", "Entitlement Name", true, "Name of the entitlement.", 0),
+            new SomFormFieldMeta("entitlementName", "String", "Entitlement Name", true, "Name of the entitlement.", 0, java.util.List.of(), java.util.List.of("ENT.entitlementName")),
             new SomFormFieldMeta("grantType", "String", "Grant Type", false, "Full | ReadOnly | Conditional | TimeLimited — type of access granted through this entitlement", 1),
             new SomFormFieldMeta("conditions", "String", "Conditions", false, "Conditions under which this entitlement is active (e.g. during business hours, from internal network)", 2),
             new SomFormFieldMeta("scope", "String", "Scope", false, "Specific scope within the entitlement (e.g. own-department, all-tenants, specific-project)", 3)));
@@ -36451,7 +36451,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("severity", "String", "Default Severity", false, "Default severity: Info | Warning | Error | Fatal", 2),
             new SomFormFieldMeta("retryable", "bool", "Retryable", false, "Whether retrying the same operation may reasonably succeed", 3),
             new SomFormFieldMeta("httpStatusHint", "int", "HTTP Status Hint", false, "Optional transport-status hint (application errors ride in a 2xx body; 5xx are transport failures)", 4),
-            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)", 5)));
+            new SomFormFieldMeta("copyKey", "String", "Copy Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)", 5, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       return out;
@@ -37578,7 +37578,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "XCS";
         n.serializationOrder = 1;
         n.docComment = "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -37589,7 +37589,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "XDFU";
         n.serializationOrder = 2;
         n.docComment = "10.2. Experience Design — DOC follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -37600,7 +37600,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "XLFU";
         n.serializationOrder = 3;
         n.docComment = "10.3. Experience Localization — L10N follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -37611,7 +37611,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "XCFU";
         n.serializationOrder = 4;
         n.docComment = "10.4. Authorization Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -39667,7 +39667,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentId", "String", "Component ID", true, "Identifier of the referenced component", 0),
+            new SomFormFieldMeta("componentId", "String", "Component ID", true, "Identifier of the referenced component", 0, java.util.List.of(), java.util.List.of("CMPNT.componentId")),
             new SomFormFieldMeta("componentName", "String", "Component Name", true, "Name of the referenced component", 1),
             new SomFormFieldMeta("familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 2),
             new SomFormFieldMeta("relationToOthers", "String", "Relation to Others", false, "How it relates to other family members", 3)));
@@ -40709,7 +40709,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleType", "String", "Rule Type (Required, Pattern, Range, Length, Custom, CrossField)", true, "Required, Pattern, Range, Length, Custom, or CrossField", 0),
             new SomFormFieldMeta("ruleExpression", "String", "Rule Expression / Formula", false, "Expression or formula implementing the rule", 1),
-            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2),
+            new SomFormFieldMeta("errorCode", "String", "Error Code", false, "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX", 2, java.util.List.of(), java.util.List.of("ERCEN.code")),
             new SomFormFieldMeta("errorMessage", "String", "Error Message", true, "Message shown when the rule fails", 3),
             new SomFormFieldMeta("severity", "String", "Severity (Error, Warning, Info)", false, "Error, Warning, or Info", 4),
             new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnBlur, OnChange, OnSubmit)", false, "OnBlur, OnChange, or OnSubmit", 5)));
@@ -41302,7 +41302,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("formId", "String", "Form ID", true, "ID of the form shown on this route", 0),
-            new SomFormFieldMeta("routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1),
+            new SomFormFieldMeta("routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
             new SomFormFieldMeta("presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, java.util.List.of("replace", "popupOverlay"))));
         out.add(n);
       }
@@ -44941,7 +44941,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "RSLTE";
         n.serializationOrder = 7;
         n.docComment = "7.7. Result Envelope.";
-        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
+        n.classDocComment = "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -44952,7 +44952,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "MSGKR";
         n.serializationOrder = 8;
         n.docComment = "7.8. Message Key Registry.";
-        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
+        n.classDocComment = "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].";
         n.recursive = r;
         n.children = c;
         return n;
@@ -56450,9 +56450,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("groupId", "String", "Group ID", true, "Unique identifier, e.g., nav-grp-sales", 0),
-            new SomFormFieldMeta("groupLabel", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1),
+            new SomFormFieldMeta("groupLabel", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("groupIcon", "String", "Icon Resource", false, "Resource key for group icon", 2),
-            new SomFormFieldMeta("groupDescription", "String", "Description Resource", false, "Message key (MSGKR registry) for tooltip/subtitle", 3)));
+            new SomFormFieldMeta("groupDescription", "String", "Description Resource", false, "Message key (MSGKR registry) for tooltip/subtitle", 3, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       {
@@ -56572,11 +56572,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Covered routes and dialog resources.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("appliesTo", "String", "Applies To", false, "Route patterns or screen IDs this guard covers", 0),
-            new SomFormFieldMeta("dialogTitleResource", "String", "Dialog Title Resource", false, "Message key (MSGKR registry) for confirmation dialog title", 1),
-            new SomFormFieldMeta("dialogMessageResource", "String", "Dialog Message Resource", false, "Message key (MSGKR registry) for confirmation dialog message", 2),
-            new SomFormFieldMeta("confirmActionResource", "String", "Confirm Action Resource", false, "Message key (MSGKR registry) for confirm button, e.g., Discard", 3),
-            new SomFormFieldMeta("cancelActionResource", "String", "Cancel Action Resource", false, "Message key (MSGKR registry) for cancel button, e.g., Stay", 4)));
+            new SomFormFieldMeta("appliesTo", "String", "Applies To", false, "Route patterns or screen IDs this guard covers", 0, java.util.List.of(), java.util.List.of("SCRTEN.routeId", "SCREN.screenId")),
+            new SomFormFieldMeta("dialogTitleResource", "String", "Dialog Title Resource", false, "Message key (MSGKR registry) for confirmation dialog title", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("dialogMessageResource", "String", "Dialog Message Resource", false, "Message key (MSGKR registry) for confirmation dialog message", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("confirmActionResource", "String", "Confirm Action Resource", false, "Message key (MSGKR registry) for confirm button, e.g., Discard", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("cancelActionResource", "String", "Cancel Action Resource", false, "Message key (MSGKR registry) for cancel button, e.g., Stay", 4, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use-error tolerance keeps users informed before a navigation guard discards their work", "ISO 9241-13:1998 — user guidance provides prompts and messages that explain the current situation"), "connotation", "The routes covered by a guard together with the dialog resources shown when it intervenes.")));
         out.add(n);
       }
@@ -56757,7 +56757,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("itemId", "String", "Item ID", true, "Unique identifier, e.g., nav-customers", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1),
+            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("targetRoute", "String", "Target Route", false, "Route path, e.g., /customers", 2)));
         out.add(n);
       }
@@ -57028,8 +57028,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("navigationStrategy", "String", "Navigation Strategy", false, "URL-based/State-based/Hybrid", 0),
             new SomFormFieldMeta("maxNavigationDepth", "int", "Max Navigation Depth", false, "Maximum levels of nesting the user encounters", 1),
-            new SomFormFieldMeta("defaultLandingScreen", "String", "Default Landing Screen", false, "Screen ID the user sees after login", 2),
-            new SomFormFieldMeta("unauthenticatedLanding", "String", "Unauthenticated Landing", false, "Screen ID for unauthenticated users", 3),
+            new SomFormFieldMeta("defaultLandingScreen", "String", "Default Landing Screen", false, "Screen ID the user sees after login", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
+            new SomFormFieldMeta("unauthenticatedLanding", "String", "Unauthenticated Landing", false, "Screen ID for unauthenticated users", 3, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("navigationPersistence", "String", "Navigation Persistence", false, "Whether navigation state survives app restart: Yes/No/Partial", 4),
             new SomFormFieldMeta("historyManagement", "String", "History Management", false, "Browser-like-stack/Flat/Tab-specific-stacks", 5),
             new SomFormFieldMeta("backBehavior", "String", "Back Button Behavior", false, "System-back/In-app-back/Both", 6)));
@@ -70482,7 +70482,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("featureFlagsEnabled", "bool", "Feature Flags Enabled", false, "Uses feature flags", 0),
             new SomFormFieldMeta("featureFlagProvider", "String", "Feature Flag Provider", false, "LaunchDarkly, Flagsmith, custom", 1),
             new SomFormFieldMeta("flagStrategy", "String", "Flag Strategy", false, "How flags are managed", 2)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"), "connotation", "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.")), new SomMetaExtra("CodeSpecKind", metaArgs("kinds", Arrays.asList("CodeSpecPart.serverConfiguration"), "note", "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling.")));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("CI/CD — continuous delivery pipelines", "Twelve-Factor App — cloud-native ops"), "connotation", "Defines feature-flag usage for decoupling deploy from release, including provider and flag-management strategy.")), new SomMetaExtra("CodeSpecKind", metaArgs("kinds", Arrays.asList("CodeSpecPart.serverConfiguration"), "note", "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc codespecs_mapping.md §5.26). The deploy-from-release flag itself is deployment tooling.")));
         out.add(n);
       }
       {
@@ -73223,7 +73223,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "REQFU";
         n.serializationOrder = 1;
         n.docComment = "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.";
-        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
+        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
         n.recursive = r;
         n.children = c;
         return n;
@@ -73665,7 +73665,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "Unique key of the referenced resource.", 0)));
+            new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "Unique key of the referenced resource.", 0, java.util.List.of(), java.util.List.of("RESKEY.resourceKey"))));
         out.add(n);
       }
       return out;
@@ -74364,7 +74364,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("screenId", "String", "Screen ID", true, "Unique identifier of the screen this rule applies to", 0),
+            new SomFormFieldMeta("screenId", "String", "Screen ID", true, "Unique identifier of the screen this rule applies to", 0, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("screenName", "String", "Screen Name", true, "Human-readable name of the screen", 1),
             new SomFormFieldMeta("mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 2),
             new SomFormFieldMeta("tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 3),
@@ -74456,7 +74456,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldPath", "String", "Field Path", true, "The field (or dotted path) the error applies to (e.g. email, address.postalCode)", 0),
-            new SomFormFieldMeta("errorCodeRef", "String", "Error Code", false, "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", 1),
+            new SomFormFieldMeta("errorCodeRef", "String", "Error Code", false, "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code", 1, java.util.List.of(), java.util.List.of("ERCEN.code")),
             new SomFormFieldMeta("message", "String", "Default Message", false, "Optional default message; user-facing copy resolves from the code via CE-TX", 2)));
         out.add(n);
       }
@@ -76518,7 +76518,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of an existing authorization role being referenced", 0)));
+            new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of an existing authorization role being referenced", 0, java.util.List.of(), java.util.List.of("AZRO.roleName"))));
         out.add(n);
       }
       return out;
@@ -78149,7 +78149,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Visual presentation of the action.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for button label", 0),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for button label", 0, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for action icon", 1),
             new SomFormFieldMeta("placement", "String", "Placement", false, "App-Bar/Toolbar/FAB/Context-Menu/Overflow-Menu", 2),
             new SomFormFieldMeta("buttonStyle", "String", "Button Style", false, "Primary/Secondary/Tertiary/Danger/Icon-Only/Text-Only", 3)));
@@ -78177,10 +78177,10 @@ public final class TomSomV0Meta {
         n.docComment = "Confirmation, navigation, and feedback behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No", 0),
-            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message", false, "Message key (MSGKR registry) for confirmation dialog", 1),
+            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message", false, "Message key (MSGKR registry) for confirmation dialog", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Shortcut binding, e.g., Ctrl+N", 2),
-            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead", 3),
-            new SomFormFieldMeta("successMessageResource", "String", "Success Message", false, "Message key (MSGKR registry) for success notification", 4)));
+            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead", 3, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
+            new SomFormFieldMeta("successMessageResource", "String", "Success Message", false, "Message key (MSGKR registry) for success notification", 4, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — controllability and use error tolerance for action execution", "ISO 9241-161:2016 — command and action user-interface elements"), "connotation", "The confirmation, navigation, and feedback behavior that governs how a screen action executes.")));
         out.add(n);
       }
@@ -78388,9 +78388,9 @@ public final class TomSomV0Meta {
         n.docComment = "Confirmation and execution feedback behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog?", 0),
-            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message Resource", false, "Message key (MSGKR registry) for confirmation prompt", 1),
-            new SomFormFieldMeta("loadingLabelResource", "String", "Loading Label Resource", false, "Message key (MSGKR registry) for label during async execution", 2),
-            new SomFormFieldMeta("successMessageResource", "String", "Success Message Resource", false, "Message key (MSGKR registry) for success notification", 3),
+            new SomFormFieldMeta("confirmationMessageResource", "String", "Confirmation Message Resource", false, "Message key (MSGKR registry) for confirmation prompt", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("loadingLabelResource", "String", "Loading Label Resource", false, "Message key (MSGKR registry) for label during async execution", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("successMessageResource", "String", "Success Message Resource", false, "Message key (MSGKR registry) for success notification", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("errorHandling", "String", "Error Handling", false, "Inline/Toast/Dialog/Banner", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use error tolerance and feedback during action execution", "ISO 9241-161:2016 — user-interface elements for confirmation and progress feedback"), "connotation", "The confirmation and execution-feedback behavior that governs how an action element runs and reports.")));
         out.add(n);
@@ -78402,7 +78402,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Post-action navigation rules.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Target screen ID or route after action", 0),
+            new SomFormFieldMeta("navigateTo", "String", "Navigate To", false, "Target screen ID or route after action", 0, java.util.List.of(), java.util.List.of("SCREN.screenId", "SCRTEN.routeId")),
             new SomFormFieldMeta("navigateParams", "String", "Navigate Params", false, "Parameters to pass to navigation target", 1),
             new SomFormFieldMeta("doubleClickPrevention", "String", "Double-Click Prevention", false, "Yes/No — disable during execution?", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation between screens following an action", "ISO 9241-110:2020 — conformity with user expectations for post-action navigation"), "connotation", "The navigation rules that determine where the user is taken after an action completes.")));
@@ -78444,7 +78444,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dataSource", "String", "Data Source", false, "Data entity or query reference", 0),
             new SomFormFieldMeta("displayFormat", "String", "Display Format", false, "How data is formatted for display", 1),
-            new SomFormFieldMeta("emptyStateMessageResource", "String", "Empty State Message", false, "Message key (MSGKR registry) for message when no data", 2),
+            new SomFormFieldMeta("emptyStateMessageResource", "String", "Empty State Message", false, "Message key (MSGKR registry) for message when no data", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("emptyStateIconResource", "String", "Empty State Icon", false, "Resource key for icon when no data", 3)));
         out.add(n);
       }
@@ -78456,7 +78456,7 @@ public final class TomSomV0Meta {
         n.docComment = "Refresh and drill-down behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("refreshMode", "String", "Refresh Mode", false, "Auto/Manual/Interval(seconds)", 0),
-            new SomFormFieldMeta("drillDownTarget", "String", "Drill-Down Target", false, "Screen ID navigated to on click/tap", 1)));
+            new SomFormFieldMeta("drillDownTarget", "String", "Drill-Down Target", false, "Screen ID navigated to on click/tap", 1, java.util.List.of(), java.util.List.of("SCREN.screenId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of information as it refreshes and updates", "ISO 9241-151:2008 — navigation such as drill-down between related views"), "connotation", "The refresh and drill-down behavior that governs how displayed data updates and navigates deeper.")));
         out.add(n);
       }
@@ -78521,9 +78521,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 1;
         n.docComment = "Labels and icon resources.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for display label", 0),
-            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for tooltip/helper text", 1),
-            new SomFormFieldMeta("descriptionResource", "String", "Description Resource", false, "Message key (MSGKR registry) for extended description", 2),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for display label", 0, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for tooltip/helper text", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("descriptionResource", "String", "Description Resource", false, "Message key (MSGKR registry) for extended description", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for icon", 3),
             new SomFormFieldMeta("iconPosition", "String", "Icon Position", false, "Leading/Trailing/Above/Below/Only", 4)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — labels, icons, and tooltips associated with user-interface elements", "ISO 9241-112:2017 — presentation of labels and identifying information to the user"), "connotation", "The label, hint, description, and icon resources that identify a screen element to the user.")));
@@ -78688,7 +78688,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldName", "String", "Field Name", false, "Logical form field name, maps to data model attribute", 0),
             new SomFormFieldMeta("dataType", "ScreenElementFieldKind", "Data Type", false, "The input data kind — selects the promoted options subsection.", 1, java.util.List.of("string", "integer", "decimal", "currency", "date", "dateTime", "time", "boolean", "enumeration", "email", "phone", "url", "password", "richText", "color", "file")),
-            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 2)));
+            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 2, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       {
@@ -78836,7 +78836,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0),
             new SomFormFieldMeta("parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1),
-            new SomFormFieldMeta("routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2)));
+            new SomFormFieldMeta("routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2, java.util.List.of(), java.util.List.of("SCRTEN.routeId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"), "connotation", "The classification and routing metadata that categorises a screen and locates it in the navigation structure.")));
         out.add(n);
       }
@@ -78876,7 +78876,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Presentation metadata.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 0),
+            new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 0, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("pageIconResource", "String", "Page Icon Resource", false, "Resource key for the screen icon", 1),
             new SomFormFieldMeta("helpTopicId", "String", "Help Topic ID", false, "Link to help/documentation topic", 2),
             new SomFormFieldMeta("layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3)));
@@ -79418,7 +79418,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0),
             new SomFormFieldMeta("routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1),
             new SomFormFieldMeta("routeTitle", "String", "Route Title", false, "Human-readable screen title shown in the title bar and history", 2),
-            new SomFormFieldMeta("screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 3),
+            new SomFormFieldMeta("screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 3, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 4)));
         out.add(n);
       }
@@ -79576,7 +79576,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("layoutDirection", "String", "Layout Direction", false, "Horizontal/Vertical/Wrap/Grid", 0),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in reading order", 1),
-            new SomFormFieldMeta("titleResource", "String", "Title Resource", false, "Message key (MSGKR registry) for section header text", 2),
+            new SomFormFieldMeta("titleResource", "String", "Title Resource", false, "Message key (MSGKR registry) for section header text", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("borderStyle", "String", "Border Style", false, "Named style or resource key", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-125:2017 — spatial layout and ordering of presented information", "ISO 9241-112:2017 — organisation of information within a display area"), "connotation", "The layout direction, order, and border styling that arrange a screen section within its screen.")));
         out.add(n);
@@ -79707,12 +79707,12 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateName", "String", "State Name", true, "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", 0),
             new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 1),
-            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2),
+            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 3),
             new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 4),
-            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5),
+            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6),
-            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7)));
+            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       return out;
@@ -79794,12 +79794,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sourceRouteId", "String", "Source Route ID", true, "Route ID (SCRTEN registry) the user is on when the action runs", 0),
-            new SomFormFieldMeta("actionId", "String", "Action ID", true, "ID of the triggering action (SCRAC registry) or of the screen element that raises it", 1),
+            new SomFormFieldMeta("sourceRouteId", "String", "Source Route ID", true, "Route ID (SCRTEN registry) the user is on when the action runs", 0, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
+            new SomFormFieldMeta("actionId", "String", "Action ID", true, "ID of the triggering action (SCRAC registry) or of the screen element that raises it", 1, java.util.List.of(), java.util.List.of("SCRAC.actionId")),
             new SomFormFieldMeta("outcome", "ScreenFlowOutcome", "Outcome", true, "success — the action completed; error — processing failed; validationError — the input was rejected", 2, java.util.List.of("success", "error", "validationError")),
-            new SomFormFieldMeta("targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3),
+            new SomFormFieldMeta("targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
             new SomFormFieldMeta("presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", 4, java.util.List.of("replace", "popupOverlay")),
-            new SomFormFieldMeta("outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", 5)));
+            new SomFormFieldMeta("outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", 5, java.util.List.of(), java.util.List.of("SYERCOEN.errorCode", "VMT.messageId"))));
         out.add(n);
       }
       return out;
@@ -80077,7 +80077,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "ACCM";
         n.serializationOrder = 1;
         n.docComment = "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
+        n.classDocComment = "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -80088,7 +80088,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SCOF";
         n.serializationOrder = 2;
         n.docComment = "9.2. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -80099,7 +80099,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SCCF";
         n.serializationOrder = 3;
         n.docComment = "9.3. Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
+        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -84503,7 +84503,7 @@ public final class TomSomV0Meta {
         n.classSectionId = "SATF";
         n.serializationOrder = 2;
         n.docComment = "Architecture / component-reuse DOC follow-up subtree.";
-        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.";
+        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (`codespecs_mapping.md` §8.3), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -87137,7 +87137,7 @@ public final class TomSomV0Meta {
         n.sectionIdPattern = "STKRG-STAK-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
-        n.docComment = "Stakeholder register (§5 completeness addition).";
+        n.docComment = "Stakeholder register.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"), "connotation", "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.")));
         n.elementNode = metaCx("StakeholderRegisterEntry", s, StakeholderRegisterEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("StakeholderRegisterEntry", SomMetaKind.COMPLEX, "StakeholderRegisterEntry");
@@ -92603,7 +92603,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabId", "String", "Tab ID", true, "Unique within tab bar", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1),
+            new SomFormFieldMeta("label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Tab icon", 2),
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in tab bar", 3),
             new SomFormFieldMeta("contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4),
@@ -99181,12 +99181,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 15;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceBasePath", "String", "Resource Base Path", false, "Base path for resource lookup", 0),
-            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for label text", 1),
-            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for hint text", 2),
-            new SomFormFieldMeta("errorResource", "String", "Error Resource", false, "Message key (MSGKR registry) for error messages", 3),
-            new SomFormFieldMeta("tooltipResource", "String", "Tooltip Resource", false, "Message key (MSGKR registry) for tooltip text", 4),
-            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 5),
-            new SomFormFieldMeta("ariaLabelResource", "String", "ARIA Label Resource", false, "Message key (MSGKR registry) for the ARIA label", 6),
+            new SomFormFieldMeta("labelResource", "String", "Label Resource", false, "Message key (MSGKR registry) for label text", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("hintResource", "String", "Hint Resource", false, "Message key (MSGKR registry) for hint text", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("errorResource", "String", "Error Resource", false, "Message key (MSGKR registry) for error messages", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("tooltipResource", "String", "Tooltip Resource", false, "Message key (MSGKR registry) for tooltip text", 4, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("placeholderResource", "String", "Placeholder Resource", false, "Message key (MSGKR registry) for placeholder text", 5, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("ariaLabelResource", "String", "ARIA Label Resource", false, "Message key (MSGKR registry) for the ARIA label", 6, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for icon selection", 7),
             new SomFormFieldMeta("resourceFallbacks", "String", "Resource Fallbacks", false, "Fallback behavior when resource missing", 8)));
         out.add(n);
@@ -102744,7 +102744,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("exampleCorrection", "String", "Example Correction", false, "Example of valid input", 6),
             new SomFormFieldMeta("severity", "String", "Severity", false, "Error, warning, info", 7),
             new SomFormFieldMeta("iconCode", "String", "Icon Code", false, "Icon to display with message", 8),
-            new SomFormFieldMeta("localizationKey", "String", "Localization Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", 9)));
+            new SomFormFieldMeta("localizationKey", "String", "Localization Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", 9, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       return out;
@@ -127756,8 +127756,8 @@ public final class TomSomV0Meta {
     SomMetaNode n = new SomMetaNode("D00SolutionBlueprint", SomMetaKind.SECTION, "D00SolutionBlueprint");
     n.sectionId = "SBP";
     n.classSectionId = "SBP";
-    n.docComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).";
-    n.classDocComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).";
+    n.docComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.";
+    n.classDocComment = "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.";
     n.document = new SomDocMeta("Solution Blueprint", "Comprehensive specification document covering all aspects of the system from current landscape through target operating model, information model, solution architecture, security, experience design, quality & acceptance, and delivery / transition planning.", null);
     n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 §6 — specification document structure", "BABOK v3 — solution scope and blueprint"), "connotation", "The umbrella specification aggregating every Solution Blueprint section, from current landscape through target operating model, architecture, quality, and delivery and transition.")));
     Set<String> stack = new HashSet<>();

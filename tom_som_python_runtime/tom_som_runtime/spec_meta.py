@@ -79,6 +79,7 @@ class SomFormFieldMeta:
         required: bool = False,
         hint: Optional[str] = None,
         enum_values: Optional[list[str]] = None,
+        refers_to: Optional[list[str]] = None,
     ) -> None:
         #: The exact model field name (``approvedBy``).
         self.name = name
@@ -97,6 +98,12 @@ class SomFormFieldMeta:
         #: enum-typed form field, so editors and the generic modification API
         #: can validate and convert without generated code.
         self.enum_values = list(enum_values) if enum_values else []
+        #: The registry key(s) this field's value is an *id drawn from*, each
+        #: written ``<SECTIONID>.<formFieldName>`` (csrb3); empty for a field
+        #: that is not a reference. A value is valid when it resolves in *any*
+        #: listed registry; a reference naming several ids writes them
+        #: comma-separated.
+        self.refers_to = list(refers_to) if refers_to else []
 
 
 class SomFormMeta:

@@ -783,6 +783,19 @@ class SomCMetaEmitter {
               '"${_cStr(ff.enumValues[j])}");');
         }
       }
+      // csrb3: reference fields carry their target registry key(s); calloc has
+      // already zero-inited refers_to/refers_to_len for the non-reference case.
+      if (ff.refersTo.isNotEmpty) {
+        b
+          ..writeln('\tn->form->fields[$i].refers_to_len = '
+              '${ff.refersTo.length};')
+          ..writeln('\tn->form->fields[$i].refers_to = (char **)calloc('
+              '${ff.refersTo.length}, sizeof(char *));');
+        for (var j = 0; j < ff.refersTo.length; j++) {
+          b.writeln('\tn->form->fields[$i].refers_to[$j] = som_strdup('
+              '"${_cStr(ff.refersTo[j])}");');
+        }
+      }
     }
   }
 

@@ -334,6 +334,8 @@ class SomTypeScriptMetaEmitter {
           'order: $i',
           if (ff.enumValues.isNotEmpty)
             'enumValues: [${ff.enumValues.map(_str).join(', ')}]',
+          if (ff.refersTo.isNotEmpty)
+            'refersTo: [${ff.refersTo.map(_str).join(', ')}]',
         ];
         fields.add('new SomFormFieldMeta({${ffArgs.join(', ')}})');
       }

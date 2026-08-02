@@ -83,7 +83,7 @@ function main(): void {
   const out: string[] = [];
   out.push('# TomSpecs SOM golden log — canonical cross-language reading.');
   out.push('# All nine per-language generators must emit byte-identical output.');
-  out.push('FORMAT\t8');
+  out.push('FORMAT\t9');
   out.push('MODELVERSION\t' + esc(doc.modelVersion || ''));
 
   out.push('SECTION\tgeneric-content');
@@ -275,9 +275,12 @@ function main(): void {
   // --- Meta form fields (FORMAT 7, YRD7): a list-element content form read
   // through the metadata tree — one MF line per field (declaration order) with
   // type/required plus the enumValues column (comma-joined constant names,
-  // empty for non-enum fields). Emitted for the FRE requirement form (no
-  // enums) and the ISO 25010 coverage form (an enum-typed field). All values
-  // are model-derived. ---
+  // empty for non-enum fields) and, since FORMAT 9 (csrb3), the refersTo
+  // column (comma-joined registry keys, empty for non-reference fields).
+  // Emitted for the FRE requirement form (no enums, no references), the ISO
+  // 25010 coverage form (an enum-typed field) and the screen-transition form
+  // (four reference fields, one of them naming two registries). All values are
+  // model-derived. ---
   out.push('SECTION\tmeta-form');
   const metaForm = (listPath: string): void => {
     const listNode = metaTree.byPath(listPath);
@@ -300,13 +303,16 @@ function main(): void {
     for (const f of form.fields) {
       out.push('MF\t' + formPath + '\t' + esc(f.name) + '\t' +
         esc(f.typeName) + '\t' + (f.required ? 1 : 0) + '\t' +
-        esc((f.enumValues || []).join(',')));
+        esc((f.enumValues || []).join(',')) + '\t' +
+        esc((f.refersTo || []).join(',')));
     }
   };
 
   metaForm(
     'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
   metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
+  metaForm('SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/' +
+    'screenRouteMap/SCTREN-TRAN-LST');
 
   out.push('SECTION\tmeta-nav');
   const metaNav = (ref: SomMetaRef, expectedPath: string): void => {

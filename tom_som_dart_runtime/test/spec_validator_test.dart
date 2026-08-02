@@ -201,4 +201,171 @@ void main() {
       expect(oneOf(doc), isEmpty);
     });
   });
+
+  group('refersTo instance tier (csrb3)', () {
+    // A minimal two-registry model: `routes` (RTEN entries declaring `routeId`)
+    // and `screens` (SCEN entries declaring `screenId`), plus `links` whose form
+    // holds one single-target and one two-target reference field.
+    SpecModel refModel() => SpecModel.fromJson({
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+          ],
+          'classes': {
+            'Catalog': {
+              'name': 'Catalog',
+              'sectionId': 'CT00',
+              'annotations': [
+                {'name': 'Document', 'arguments': {'title': 'Catalog'}},
+                {'name': 'SectionId', 'arguments': {'id': 'CT00'}},
+              ],
+              'fields': [
+                {
+                  'name': 'routes',
+                  'kind': 'list',
+                  'sectionId': 'RT-LST',
+                  'elementType': 'RouteEntry',
+                  'elementIsComplex': true,
+                },
+                {
+                  'name': 'screens',
+                  'kind': 'list',
+                  'sectionId': 'SC-LST',
+                  'elementType': 'ScreenEntry',
+                  'elementIsComplex': true,
+                },
+                {
+                  'name': 'links',
+                  'kind': 'list',
+                  'sectionId': 'LK-LST',
+                  'elementType': 'LinkEntry',
+                  'elementIsComplex': true,
+                },
+              ],
+            },
+            'RouteEntry': {
+              'name': 'RouteEntry',
+              'sectionId': 'RTEN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {'name': 'routeId', 'label': 'Route ID', 'type': 'String'},
+                  ],
+                },
+              ],
+            },
+            'ScreenEntry': {
+              'name': 'ScreenEntry',
+              'sectionId': 'SCEN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {'name': 'screenId', 'label': 'Screen ID', 'type': 'String'},
+                  ],
+                },
+              ],
+            },
+            'LinkEntry': {
+              'name': 'LinkEntry',
+              'sectionId': 'LKEN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {
+                      'name': 'targetRoute',
+                      'label': 'Target route',
+                      'type': 'String',
+                      'refersTo': ['RTEN.routeId'],
+                    },
+                    {
+                      'name': 'appliesTo',
+                      'label': 'Applies to',
+                      'type': 'String',
+                      'refersTo': ['RTEN.routeId', 'SCEN.screenId'],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        });
+
+    final m = refModel();
+
+    /// A document declaring route `r-home` and screen `s-home`, plus one empty
+    /// link entry whose form path is returned for the caller to fill in.
+    (SpecDocument, String) seeded() {
+      final doc = SpecDocument();
+      final route = doc.addListItem('CT00/RT-LST');
+      doc.setFormField('$route/content', 'routeId', 'r-home');
+      final screen = doc.addListItem('CT00/SC-LST');
+      doc.setFormField('$screen/content', 'screenId', 's-home');
+      final link = doc.addListItem('CT00/LK-LST');
+      return (doc, '$link/content');
+    }
+
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
+        .where((e) => e.code == SpecValidationCode.danglingReference)
+        .toList();
+
+    test('a reference to a declared id validates clean', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'targetRoute', 'r-home');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('a reference to an undeclared id is reported', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'targetRoute', 'r-ghost');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.path, link);
+      expect(errors.single.message, contains('r-ghost'));
+      expect(errors.single.message, contains('RTEN.routeId'));
+    });
+
+    test('a multi-target reference resolves in any listed registry', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'appliesTo', 's-home');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('a multi-target reference in no registry is reported once', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'appliesTo', 'x-none');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.message, contains('registries'));
+    });
+
+    test('a comma-separated value resolves each segment independently', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'appliesTo', 'r-home, s-home , x-none');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.message, contains('x-none'));
+    });
+
+    test('an empty reference is not a dangling reference', () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'targetRoute', '   ');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('an id declared in the wrong registry does not satisfy the reference',
+        () {
+      final (doc, link) = seeded();
+      doc.setFormField(link, 'targetRoute', 's-home');
+      expect(refs(doc), hasLength(1));
+    });
+  });
 }
