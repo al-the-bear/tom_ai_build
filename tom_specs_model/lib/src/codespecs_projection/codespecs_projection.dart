@@ -123,8 +123,19 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(7)
   DataModel dataModel = DataModel();
 
-  /// Technical framework — CE-CF platform/config foundation.
-  @Comment('locus: server — CE-CF')
+  /// Technical framework — the platform foundation and **all four settings
+  /// scopes**.
+  ///
+  /// The subtree spans both loci because the four configuration scopes are
+  /// authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+  /// server configuration (`SystemConfigurationManagement`) is server-only,
+  /// while CE-CC client configuration, CE-DS device settings and CE-UP user
+  /// settings are authored under the client-requirements subtree and route to
+  /// the client project. CE-UP additionally has a server-side persistence half
+  /// generated from the *same* declarations, so it appears in both projects —
+  /// the scope is expressed by which section a setting is declared in, never by
+  /// a discriminator field.
+  @Comment('locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)')
   @SerializationOrder(8)
   TechnicalFrameworkConcept technicalFramework = TechnicalFrameworkConcept();
 

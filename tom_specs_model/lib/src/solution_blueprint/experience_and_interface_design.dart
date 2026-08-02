@@ -14882,6 +14882,13 @@ class TrainingModuleEntry extends DocSpecsSection {
 /// 10.12.4. Language and Country Selection.
 ///
 /// UI specification for language and country selection.
+///
+/// This is the *picker* — how a user is offered languages and countries, what
+/// is preselected, how the choice is retained across a sign-in, and how the
+/// system falls back. The underlying `ui.language` / `ui.country` preference is
+/// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+/// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+/// setting declaration (`codespecs_mapping.md` §5.16).
 @StandardReferences(
   [
     'BCP 47 (W3C Internationalization) — language tags identify the languages offered in the picker',
@@ -14893,12 +14900,6 @@ class TrainingModuleEntry extends DocSpecsSection {
 @SectionId('LACOSE')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
-@CodeSpecKind(
-  [CodeSpecPart.userSettings],
-  note:
-      'CE-UP — a user language/country preference, a server-persisted user '
-      'setting restored on any device the user signs into (codespecs_mapping.md §11).',
-)
 class LanguageCountrySelection extends DocSpecsSection {
   @SectionId('LACOSE-LANG')
   @Form([

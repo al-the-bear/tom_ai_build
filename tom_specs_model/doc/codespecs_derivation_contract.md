@@ -20,7 +20,7 @@ plus the two facet value classes a marker carries (`CsFileReference` on
 **What this document decides.** It **decides** each annotation's argument shape.
 The shapes below are **authored** in `tom_code_specs` — the constructors, the
 `Cs*Ref` typed-reference family the arguments consume
-(`lib/src/annotations/cross_part_refs.dart`) and the 14 closed catalogues they
+(`lib/src/annotations/cross_part_refs.dart`) and the 15 closed catalogues they
 select from (`lib/src/annotations/vocabulary.dart`) — so every annotation call
 written to this contract compiles.
 
@@ -521,13 +521,13 @@ Cites slice 1 (domain enums, `CsResourceKeyRef`). Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | §8.5 records CE-CF as a **GAP** (`csrb9`) — there is no general SOM setting-*declaration* section yet; `csrb9` creates it for all four scopes. Consumed once it exists (§5.16): the setting's key, type and default, plus source key / precedence per §5.5. One CE-CF band is already authorable in the SOM: the audit-sink settings under `AuditLogFormat` (`AULOFO`) — record shape (`EVATPO`), storage (`LOSTPO`), tamper protection (`LOPRPO`) and retention (`LOREPO`) — which arrive as fixed-name form fields rather than a key/type/default list. |
+| **1 Input** | `ServerConfigurationSettingEntry` (`SCSET`), the declaration list under `SystemConfigurationManagement` (`SYCOMA`) — one entry per server setting (`codespecs_mapping.md` §5.16). A second CE-CF band arrives differently: the audit-sink settings under `AuditLogFormat` (`AULOFO`) — record shape (`EVATPO`), storage (`LOSTPO`), tamper protection (`LOPRPO`) and retention (`LOREPO`) — are fixed-name form fields rather than a key/type/default list, so their member names come from the form, not from N5 over a key. |
 | **2 Output** | A **configuration holder** (form 2) built on `TomBaseServerConfiguration` with `TomServerConfigResourceProvider` (`tom_core_server`), one `@CsServerConfig`-marked member per setting. Feature flags take the same shape — §5.5 lists them as a settings sub-case, not a separate mechanism. |
-| **3 Arguments** | `key` — **first positional, required** ← the setting key, **verbatim** (§5.23 exemption 1). `envAlias` / `cmdlineAlias` ← the environment-variable and command-line aliases, verbatim (same exemption). The setting's **type** is the member type and its **default** the member initialiser (test **a**). Precedence is not an argument: §5.16 fixes intra-scope and cross-scope precedence for everyone, so a per-setting override would be a second, disagreeing rule. |
+| **3 Arguments** | `key` — **first positional, required** ← `SCSET`'s setting key, **verbatim** (§5.23 exemption 1). `envAlias` / `cmdlineAlias` ← `SCSET`'s environment variable and command-line option, verbatim (same exemption). `secret` ← the secret mark, default `false` — the safe arm: a setting wrongly marked secret is merely stripped, one wrongly left unmarked ships its value. `overridableBy` (**required**, `CsOverridableBy {none, client, user, device}`) ← `SCSET`'s overridability opt-in; no default, because choosing a value's blast radius by omission is the exact failure §5.16's fail-safe rule prevents. The setting's **type** is the member type and its **default** the member initialiser (test **a**). *Precedence* is not an argument — §5.16 fixes intra- and cross-scope precedence for everyone; `overridableBy` grants the **permission** to contest, it does not order the contest. |
 | **4 Naming** | Holder = `<App>ServerConfig`; member = N5 over the setting key. |
 | **5 Locus** | `server`. Deployment-environment names appearing in values are §5.23 exemption 2 — verbatim strings, not refs. |
 | **6 Cross-refs** | None typed. Log format, storage, protection and retention land here rather than on CE-LG — they are sink deployment settings. The compliance *report* lands on neither: reviewing and reporting from the log is a follow-up process, not generated code (`codespecs_mapping.md` §4.3.2). |
-| **7 Back-link** | `@DocSpec([DocRef('<csrb9 section id>', 'supplies the setting key, type and default')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. |
 
 ### 3.4 Slice 4 — server behaviour
 
@@ -740,37 +740,37 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | **GAP** (`csrb9`), as §3.3.6. Consumed once it exists (§5.16): key, type, default, keyed by **(client app, machine)** — no user in the key, which is the discriminator against CE-DS. |
+| **1 Input** | `ClientConfigurationSettingEntry` (`CCSET`), the declaration list under `ClientConfiguration` (`CLICON`) — keyed by **(client app, machine)**, no user in the key, which is the discriminator against CE-DS (`codespecs_mapping.md` §5.16). |
 | **2 Output** | A configuration holder built on `TomBaseClientConfiguration` + `TomSetting<T>` + `TomClientConfigurationStore` (`tom_core_flutter`) over `TomConfigResourceProvider` (`tom_core_kernel`), form 2, one marked member per setting. |
-| **3 Arguments** | `key` — **first positional, required**, verbatim (§5.23 exemption 1). `envAlias` ← the environment alias, verbatim. Type and default are the member (test **a**). |
+| **3 Arguments** | `key` — **first positional, required**, verbatim (§5.23 exemption 1). `envAlias` ← the environment alias, verbatim. `overridableBy` (**required**, undefaulted) ← `CCSET`'s opt-in, naming which narrower scope may shadow the key — see §3.3.6 for why it has no default. Type and default are the member (test **a**). |
 | **4 Naming** | Holder = `<Client>Config`; member = N5 over the key. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | Cites its client by `Type`. |
-| **7 Back-link** | `@DocSpec([DocRef('<csrb9 section id>', 'supplies the per-install setting key, type and default')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('CCSET', 'supplies the per-install setting key, type, default and overridability')])`. |
 
 #### 3.6.4 `@CsDeviceSetting` — CE-DS device setting
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | **GAP** (`csrb9`). Consumed: key, type, default, keyed by **(user, device)** and persisted on the device. |
+| **1 Input** | `DeviceSettingEntry` (`DSSET`), the declaration list under `DeviceSettings` (`DEVSET`) — keyed by **(user, device)** and persisted on the device (`codespecs_mapping.md` §5.16). |
 | **2 Output** | A settings holder over the existing `tom_core` property/settings classes — §4.1 records CE-DS as reuse with **no new class**. Form 2. Device binding is implicit-by-storage: the store lives on the device and is keyed by the signed-in user; there is no wire-level device identity. |
-| **3 Arguments** | `key` — **first positional, required**, verbatim. Nothing else: type and default are the member. There is **no persistence mode argument** — §11 splits the four scopes by owner key, so the choice is *which marker you use*, never a mode on one of them. |
+| **3 Arguments** | `key` — **first positional, required**, verbatim. Nothing else: type and default are the member. There is **no persistence mode argument** — §11 splits the four scopes by owner key, so the choice is *which marker you use*, never a mode on one of them. There is also **no `overridableBy`**, and `DSSET` authors none: the opt-in is granted by the *wider* scope, and CE-DS is the narrowest, so the lattice bottoms out here and "shadowable by something narrower" is unsayable rather than merely wrong. |
 | **4 Naming** | Holder = `<App>DeviceSettings`; member = N5 over the key. |
 | **5 Locus** | `client` — a device setting never leaves the device. |
 | **6 Cross-refs** | None. |
-| **7 Back-link** | `@DocSpec([DocRef('<csrb9 section id>', 'supplies the per-user-per-device setting key, type and default')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('DSSET', 'supplies the per-user-per-device setting key, type and default')])`. |
 
 #### 3.6.5 `@CsUserSetting` — CE-UP user setting (both loci)
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | **GAP** (`csrb9`). Consumed: key, type, default, keyed by the **user** alone — the value follows the user onto any device. |
+| **1 Input** | `UserSettingEntry` (`USSET`), the declaration list under `UserSettings` (`USRSET`) — keyed by the **user** alone, so the value follows the user onto any device (`codespecs_mapping.md` §5.16). `LanguageCountrySelection` (`LACOSE`, D09 XDS) is **not** an input: it is the language/country picker screen that *edits* a CE-UP preference, and the preference itself is declared in `USSET`. |
 | **2 Output** | Two halves from one declaration. **Client:** the settings holder over `TomUserSettings` (`tom_core_codespecs`), reading `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). **Server:** the persistence, over `TomUserSettingsStore` (`tom_core_codespecs`) backed by the slice-3 repositories. Form 2 both sides. |
-| **3 Arguments** | `key` — **first positional, required**, verbatim. Single-moded, for the same §11 reason as §3.6.4: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. |
+| **3 Arguments** | `key` — **first positional, required**, verbatim. `overridableBy` (**required**, undefaulted) ← `USSET`'s opt-in; the only narrower scope it can name is `device`. Single-moded, for the same §11 reason as §3.6.4: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. |
 | **4 Naming** | Holder = `<App>UserSettings`; member = N5 over the key. Both halves use the **same** member names, so the wire mapping is identity. |
 | **5 Locus** | `client` for the shape (slice 6) **and** `server` for the persistence (slice 7) — the one part in this document whose two halves sit in different slices. |
 | **6 Cross-refs** | Server half cites its store repository by `Type`. |
-| **7 Back-link** | `@DocSpec([DocRef('<csrb9 section id>', 'supplies the per-user setting key, type and default')])` on both halves. |
+| **7 Back-link** | `@DocSpec([DocRef('USSET', 'supplies the per-user setting key, type, default and overridability')])` on both halves. |
 
 ### 3.7 Slice 7 — server operational
 
@@ -1034,10 +1034,10 @@ it is omitted below.
 | `@CsTable` | `(String table, {String? datasource, String? schema})` |
 | `@CsColumn` | `{String? column, String? columnType, int? length, CsResourceKeyRef? accessKey, CsFileReference? fileReference}` |
 | `@CsAuthorize` | `{required CsAuthRequirement requirement, List<CsRoleRef> roles = const [], List<String> groups = const [], List<String> entitlements = const [], CsResourceKeyRef? resourceKey, String? handler, String? resourceId, CsGradedAccess? graded}` |
-| `@CsServerConfig` | `(String key, {String? envAlias, String? cmdlineAlias})` |
-| `@CsClientConfig` | `(String key, {String? envAlias})` |
-| `@CsDeviceSetting` | `(String key)` |
-| `@CsUserSetting` | `(String key)` |
+| `@CsServerConfig` | `(String key, {required CsOverridableBy overridableBy, String? envAlias, String? cmdlineAlias, bool secret = false})` |
+| `@CsClientConfig` | `(String key, {required CsOverridableBy overridableBy, String? envAlias})` |
+| `@CsDeviceSetting` | `(String key)` — the narrowest scope, so no `overridableBy` |
+| `@CsUserSetting` | `(String key, {required CsOverridableBy overridableBy})` |
 | `@CsClient` | `(String clientId, {required CsClientKind kind})` |
 | `@CsIdentityAttribute` | `{required IdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — extends the shipped shape |
 | `@CsMigration` | `{required String datasource, required String schema, required CsMigrationKind kind}` |
@@ -1083,6 +1083,7 @@ every closed catalogue a marker selects from is declared locally, mirroring its
 | `CsClientKind` | `flutterApp, cli, server` | §4.1 |
 | `CsMigrationKind` | `initialDdl, baseData, iteration` | §5.27's three artifact kinds |
 | `CsJobTrigger` | `cron, calendar, event` | §5.29 |
+| `CsOverridableBy` | `none, client, user, device` | §5.16's opt-in cross-scope lattice `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF` |
 
 A named validator check asserts each mirror is complete: a `tom_core` catalogue
 that grows without its mirror growing is a build failure, not a silent
@@ -1102,16 +1103,16 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Why none of them is a const-constructor `assert`.** Checks 8, 10 and 14 are
-per-instance constraints on a single annotation's arguments, so the obvious home
-looks like an `assert` in the marker's const constructor. It does not work: Dart
-const-evaluates a const *expression* and reports a failing assert as a
+**Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15 and
+16 are per-instance constraints on a single annotation's arguments, so the obvious
+home looks like an `assert` in the marker's const constructor. It does not work:
+Dart const-evaluates a const *expression* and reports a failing assert as a
 compile-time error, but it does **not** const-evaluate an **annotation**. A
 violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** fourteen.
+validation pass over the resolved annotation for **all** sixteen.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1129,3 +1130,5 @@ validation pass over the resolved annotation for **all** fourteen.
 | 12 | A server handler's operation string equals its shared `CsOperationRef` | §3.4.2 |
 | 13 | Cumulative CE-MG DDL converges on the `@CsTable` / `@CsColumn` model | §3.3.5 |
 | 14 | `@CsValidation` never emits the non-declarable `compose` token | §3.2.2 |
+| 15 | `overridableBy` names a scope **strictly narrower** than the marker's own — `@CsUserSetting` may open only `device`, `@CsClientConfig` only `user`/`device`, `@CsServerConfig` any; `none` is always valid | §3.3.6, §5.3 |
+| 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 |

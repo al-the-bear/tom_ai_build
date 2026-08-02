@@ -259,6 +259,7 @@ class BackofficeClient {
   // CE-CC — per-machine settings of a client app, keyed by (client, machine).
   @CsClientConfig(
     'client.server.url',
+    overridableBy: CsOverridableBy.none,
     envAlias: 'BACKOFFICE_SERVER_URL',
     note: 'per-install',
   )
@@ -272,7 +273,11 @@ class BackofficeClient {
   // CE-UP — keyed by the user and persisted server-side, so it follows the user
   // onto any device they sign into. Single-moded: the scope key alone decides
   // where the value lives (`codespecs_mapping.md` §11).
-  @CsUserSetting('user.preferredLanguage', note: 'follows the user')
+  @CsUserSetting(
+    'user.preferredLanguage',
+    overridableBy: CsOverridableBy.device,
+    note: 'follows the user',
+  )
   String preferredLanguage = 'de';
 }
 
@@ -412,6 +417,7 @@ class CustomerService {
 class AppServerConfig {
   @CsServerConfig(
     'smtp.host',
+    overridableBy: CsOverridableBy.none,
     envAlias: 'SMTP_HOST',
     cmdlineAlias: '--smtp-host',
   )
@@ -419,12 +425,18 @@ class AppServerConfig {
 
   @CsServerConfig(
     'smtp.password',
+    overridableBy: CsOverridableBy.none,
     envAlias: 'SMTP_PASSWORD',
+    secret: true,
     note: 'secret-bearing: declaration authored, value never',
   )
   String smtpPassword = '';
 
-  @CsServerConfig('audit.retentionDays', note: 'CE-LG sink setting, not CE-LG')
+  @CsServerConfig(
+    'audit.retentionDays',
+    overridableBy: CsOverridableBy.none,
+    note: 'CE-LG sink setting, not CE-LG',
+  )
   int auditRetentionDays = 365;
 }
 
@@ -834,9 +846,10 @@ void main() {
       expect(column.fileReference, isNull);
     });
 
-    test('CsServerConfig carries the key and both aliases', () {
+    test('CsServerConfig carries the key, both aliases and the secret mark', () {
       const config = CsServerConfig(
         'smtp.host',
+        overridableBy: CsOverridableBy.none,
         envAlias: 'SMTP_HOST',
         cmdlineAlias: '--smtp-host',
         note: 'per-deployment',
@@ -844,6 +857,19 @@ void main() {
       expect(config.key, 'smtp.host');
       expect(config.envAlias, 'SMTP_HOST');
       expect(config.cmdlineAlias, '--smtp-host');
+
+      // `secret` defaults to false because "not a secret" is the safe arm: a
+      // setting wrongly marked secret is merely stripped, one wrongly left
+      // unmarked ships its value. `overridableBy` gets no default for the
+      // mirror-image reason — there is no safe arm to fall back to that is not
+      // also a silent decision about the value's blast radius.
+      expect(config.secret, isFalse);
+      const secretConfig = CsServerConfig(
+        'smtp.password',
+        overridableBy: CsOverridableBy.none,
+        secret: true,
+      );
+      expect(secretConfig.secret, isTrue);
     });
 
     test('CsMigration requires datasource, schema and artifact kind', () {
@@ -1064,6 +1090,7 @@ void main() {
     test('CsClientConfig carries the key and its env alias only', () {
       const config = CsClientConfig(
         'client.server.url',
+        overridableBy: CsOverridableBy.none,
         envAlias: 'BACKOFFICE_SERVER_URL',
       );
       expect(config.key, 'client.server.url');
@@ -1073,9 +1100,49 @@ void main() {
     // §11: the scope key alone decides where a value lives, so the four settings
     // markers are distinguished by WHICH MARKER IS USED, never by a mode
     // argument on one of them.
-    test('CsUserSetting and CsDeviceSetting carry a key and nothing else', () {
+    // The lattice bottoms out at CE-DS, and that is visible in the type
+    // system rather than only in prose: `CsDeviceSetting` has no
+    // `overridableBy` slot to fill, so "a device setting may be shadowed by
+    // something narrower" is unsayable rather than merely wrong.
+    test('the overridability opt-in is authored only at the wider scope', () {
+      expect(CsOverridableBy.values, hasLength(4));
+      expect(CsOverridableBy.values, [
+        CsOverridableBy.none,
+        CsOverridableBy.client,
+        CsOverridableBy.user,
+        CsOverridableBy.device,
+      ]);
+
+      // Each scope may only open itself to scopes NARROWER than itself, which
+      // is why the three markers that carry the slot carry different reachable
+      // subsets of the same catalogue: CE-CF may name any of the three below
+      // it, CE-UP only the one below it.
+      const serverPinned = CsServerConfig(
+        'server.isolateCount',
+        overridableBy: CsOverridableBy.none,
+      );
+      const serverOpen = CsServerConfig(
+        'ui.pageSize',
+        overridableBy: CsOverridableBy.user,
+      );
+      const clientOpen = CsClientConfig(
+        'ui.density',
+        overridableBy: CsOverridableBy.device,
+      );
+      const userOpen = CsUserSetting(
+        'ui.theme',
+        overridableBy: CsOverridableBy.device,
+      );
+      expect(serverPinned.overridableBy, CsOverridableBy.none);
+      expect(serverOpen.overridableBy, CsOverridableBy.user);
+      expect(clientOpen.overridableBy, CsOverridableBy.device);
+      expect(userOpen.overridableBy, CsOverridableBy.device);
+    });
+
+    test('CsUserSetting and CsDeviceSetting carry no persistence mode', () {
       const userSetting = CsUserSetting(
         'user.preferredLanguage',
+        overridableBy: CsOverridableBy.device,
         note: 'follows the user',
       );
       const deviceSetting = CsDeviceSetting(

@@ -16188,6 +16188,10 @@ Provide an overview of client requirements and support strategy.
   /// User-specific settings of a user-owned device (CE-DS).
   @SerializationOrder(13)
   DeviceSettings deviceSettings = DeviceSettings();
+
+  /// Server-persisted settings that follow the user across devices (CE-UP).
+  @SerializationOrder(14)
+  UserSettings userSettings = UserSettings();
 }
 
 /// Client configuration — per-machine settings of a client application (CE-CC).
@@ -16212,36 +16216,83 @@ Provide an overview of client requirements and support strategy.
       'machine); distinct from CE-CF server config and CE-UP user settings.',
 )
 class ClientConfiguration extends DocSpecsSection {
+  @ContentHelp('''
+Summarise how this client application is configured per install — which
+categories of setting exist, which are shipped as defaults in the app's
+configuration resources, and which an operator or user may override on a
+given machine.
+
+Declare the individual settings in the list below; keep this overview to
+the shape and the policy.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// The declared client configuration settings.
+  @StandardReferences([
+    'Twelve-Factor App — config stored in the environment, per deployment',
+    'ISO/IEC 25010 — portability / installability',
+  ], 'The client configuration settings declared for this application, one entry per key.')
+  @SectionId('CCSET-SETT-LST')
+  @SectionIdPattern('CCSET-SETT-xxx')
+  @ContentHelp(
+    'Add one entry per client configuration setting. Declare the setting — '
+    'key, value type and default — never its value on a particular machine: '
+    'the value comes from the app configuration resources or this install\'s '
+    'persisted overrides. Typical keys: api.baseUrl, app.environment, '
+    'app.updateChannel, device.options, feature.<name>.',
+  )
+  @SerializationOrder(1)
+  List<ClientConfigurationSettingEntry> settings = [];
+}
+
+/// A single declared client configuration setting (CE-CC).
+///
+/// The declaration only: key, value type, default, and which narrower scopes
+/// may shadow the key. The *value* is never authored — it comes from the client
+/// app's configuration resources or from this install's persisted overrides
+/// (`codespecs_mapping.md` §5.16).
+@StandardReferences(
+  [
+    'Twelve-Factor App — config stored in the environment, per deployment',
+    'ISO/IEC 25010 — portability / installability',
+  ],
+  'Declares one client configuration setting: its key, value type, default, and which narrower scopes may shadow it.',
+)
+@SectionId('CCSET')
+class ClientConfigurationSettingEntry extends DocSpecsSection {
   @Form([
     Field(
-      'apiBaseUrl',
+      'settingKey',
       String,
-      'API Base URL',
-      hint: 'The server/API endpoint this client install talks to',
+      'Setting Key',
+      required: true,
+      hint: 'The dotted key of the client setting, e.g. api.baseUrl',
     ),
     Field(
-      'environment',
+      'valueType',
       String,
-      'Environment',
-      hint: 'dev / staging / production for this install',
+      'Value Type',
+      hint: 'string / int / double / bool / enum',
     ),
     Field(
-      'deviceOptions',
+      'defaultValue',
       String,
-      'Device Options',
-      hint: 'Machine-specific device/hardware options for this install',
+      'Default Value',
+      hint:
+          'The value used until the app configuration resources or an '
+          'install-local override supply one',
     ),
     Field(
-      'featureToggles',
+      'overridableBy',
       String,
-      'Per-Install Feature Toggles',
-      hint: 'Client-side toggles applied to this install',
-    ),
-    Field(
-      'updateChannel',
-      String,
-      'Update Channel',
-      hint: 'stable / beta / canary for this install',
+      'Overridable By',
+      required: true,
+      hint:
+          'The narrowest scope permitted to shadow this key — every scope in '
+          'between is opened too: none (scope-pinned) / user / device. No '
+          'default: pinning a key must be authored, not fallen into',
     ),
   ])
   @override
@@ -16274,6 +16325,54 @@ class ClientConfiguration extends DocSpecsSection {
       '(no user in the key) and CE-UP user settings (follow the user).',
 )
 class DeviceSettings extends DocSpecsSection {
+  @ContentHelp('''
+Summarise which settings this system keeps per (user, device) rather than
+per user — the ones that describe how *this* machine is set up and would be
+wrong to carry to another one.
+
+Declare the individual settings in the list below; keep this overview to the
+policy and the reasoning for the device scope.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// The declared device settings.
+  @StandardReferences([
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ], 'The device settings declared for this system, one entry per key.')
+  @SectionId('DSSET-SETT-LST')
+  @SectionIdPattern('DSSET-SETT-xxx')
+  @ContentHelp(
+    'Add one entry per device setting. Declare the setting — key, value type '
+    'and default — never the user\'s chosen value: that lives in the '
+    'device-local store. Typical keys: window.layout, editor.fontSize, '
+    'recent.files, cache.sizeLimit.',
+  )
+  @SerializationOrder(1)
+  List<DeviceSettingEntry> settings = [];
+}
+
+/// A single declared device setting (CE-DS).
+///
+/// The declaration only: key, value type and default. The value is the user's
+/// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+///
+/// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+/// *wider* scope — a key is shadowable only because its wider-scope declaration
+/// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+/// open. Declaring the same relation from both ends would be two authored
+/// fields that can disagree.
+@StandardReferences(
+  [
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ],
+  'Declares one device setting: its key, value type and default.',
+)
+@SectionId('DSSET')
+class DeviceSettingEntry extends DocSpecsSection {
   @Form([
     Field(
       'settingKey',
@@ -16294,13 +16393,115 @@ class DeviceSettings extends DocSpecsSection {
       'Default Value',
       hint: 'The value used until the user changes the setting on this device',
     ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+/// User settings — server-persisted settings that follow the user (CE-UP).
+///
+/// Keyed by the user alone: no machine and no device in the key. A user
+/// setting is persisted on the server and re-materialised on whichever device
+/// the user signs in from, which is what distinguishes it from a device
+/// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+/// the device) and from client configuration ([ClientConfiguration], CE-CC —
+/// no user identity in the key) (`codespecs_mapping.md` §11).
+///
+/// The scope is expressed by *which section a setting is declared in*, never
+/// by a field on a shared section: there is no persistence discriminator
+/// anywhere in the four settings scopes.
+@StandardReferences(
+  [
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ],
+  'The settings that follow a user across devices — theme, language and country, notification preferences and comparable per-user choices, keyed by the user and persisted on the server.',
+)
+@SectionId('USRSET')
+@CodeSpecKind(
+  [CodeSpecPart.userSettings],
+  note:
+      'CE-UP — server-persisted per-user settings, keyed by the user and '
+      'restored on any device the user signs into; distinct from CE-DS device '
+      'settings (keyed by (user, device), device-local) and CE-CC client '
+      'configuration (no user in the key). Realised in both generated client '
+      'projects: the client shape in <app>_codespec_client and the persistence '
+      'half in <app>_codespec_server (codespecs_mapping.md §4.2/§11).',
+)
+class UserSettings extends DocSpecsSection {
+  @ContentHelp('''
+Summarise which settings follow the user rather than the device — the choices
+a user expects to find already applied the first time they sign in on a new
+machine.
+
+Declare the individual settings in the list below; keep this overview to the
+policy, and to how the settings are re-materialised at sign-in.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// The declared user settings.
+  @StandardReferences([
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ], 'The user settings declared for this system, one entry per key.')
+  @SectionId('USSET-SETT-LST')
+  @SectionIdPattern('USSET-SETT-xxx')
+  @ContentHelp(
+    'Add one entry per user setting. Declare the setting — key, value type '
+    'and default — never the user\'s chosen value: that is persisted per user '
+    'on the server. Typical keys: ui.theme, ui.language, ui.country, '
+    'notifications.<channel>.enabled, list.pageSize.',
+  )
+  @SerializationOrder(1)
+  List<UserSettingEntry> settings = [];
+}
+
+/// A single declared user setting (CE-UP).
+///
+/// The declaration only: key, value type, default, and whether a per-device
+/// value may shadow the key. The value is the user's choice and is never
+/// authored (`codespecs_mapping.md` §5.16).
+@StandardReferences(
+  [
+    'ISO 9241-110 — suitability for individualization (user-tailored settings)',
+    'ISO/IEC 25010 — usability / operability',
+  ],
+  'Declares one user setting: its key, value type, default, and whether a per-device value may shadow it.',
+)
+@SectionId('USSET')
+class UserSettingEntry extends DocSpecsSection {
+  @Form([
     Field(
-      'deviceOverridable',
-      bool,
-      'Shadows a Wider-Scope Key',
+      'settingKey',
+      String,
+      'Setting Key',
+      required: true,
+      hint: 'The dotted key of the user setting, e.g. ui.theme',
+    ),
+    Field(
+      'valueType',
+      String,
+      'Value Type',
+      hint: 'string / int / double / bool / enum',
+    ),
+    Field(
+      'defaultValue',
+      String,
+      'Default Value',
+      hint: 'The value used until the user changes the setting',
+    ),
+    Field(
+      'overridableBy',
+      String,
+      'Overridable By',
+      required: true,
       hint:
-          'Whether this key shadows a device-overridable wider-scope setting '
-          '(CE-UP user setting or CE-CC client configuration)',
+          'Whether a per-device value may shadow this key: none (scope-pinned) '
+          '/ device. No default: pinning a key must be authored, not fallen '
+          'into',
     ),
   ])
   @override
@@ -27708,6 +27909,111 @@ class SystemConfigurationManagement extends DocSpecsSection {
   ])
   @SerializationOrder(3)
   DocSpecsSection? governance;
+
+  /// The declared server configuration settings.
+  @StandardReferences([
+    'Twelve-Factor App — config stored in the environment',
+    'CIS Controls — secure configuration and administration',
+  ], 'The server / system configuration settings declared for this system, one entry per key.')
+  @SectionId('SCSET-SETT-LST')
+  @SectionIdPattern('SCSET-SETT-xxx')
+  @ContentHelp(
+    'Add one entry per server configuration setting. Declare the setting — '
+    'key, value type, default, the source key it is read from, whether it '
+    'carries a secret, and whether narrower scopes may shadow it. Never write '
+    'the value: it is supplied per deployment, and a secret-bearing setting '
+    'declares only its presence and shape, never its content. Typical keys: '
+    'server.host, server.port, server.isolateCount, log.level, '
+    'database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.',
+  )
+  @SerializationOrder(4)
+  List<ServerConfigurationSettingEntry> settings = [];
+}
+
+/// A single declared server / system configuration setting (CE-CF).
+///
+/// The declaration only: key, value type, default, the environment variable and
+/// command-line option it may also be read from, whether it carries a secret,
+/// and which narrower scopes may shadow it. The *value* is supplied per
+/// deployment through the configuration
+/// tree, the OS environment, a `.env` file or the command line (in that
+/// precedence, command line winning) and is never authored. A secret-bearing
+/// setting declares its presence and shape so deployment tooling can supply
+/// the content out of band (`codespecs_mapping.md` §5.16).
+///
+/// Security and infrastructure configuration is scope-pinned: it stays
+/// server-side unless the declaration explicitly opens it to a narrower scope.
+@StandardReferences(
+  [
+    'Twelve-Factor App — config stored in the environment',
+    'CIS Controls — secure configuration and administration',
+    'OWASP ASVS — secrets management',
+  ],
+  'Declares one server configuration setting: its key, value type, default, deployment source aliases, secret marking, and which narrower scopes may shadow it.',
+)
+@SectionId('SCSET')
+class ServerConfigurationSettingEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'settingKey',
+      String,
+      'Setting Key',
+      required: true,
+      hint: 'The dotted key of the server setting, e.g. server.isolateCount',
+    ),
+    Field(
+      'valueType',
+      String,
+      'Value Type',
+      hint: 'string / int / double / bool / enum',
+    ),
+    Field(
+      'defaultValue',
+      String,
+      'Default Value',
+      hint:
+          'The value used when no deployment source supplies one; leave empty '
+          'for a setting that must be supplied per deployment',
+    ),
+    Field(
+      'environmentVariable',
+      String,
+      'Environment Variable',
+      hint:
+          'The environment variable this setting may also be read from, e.g. '
+          'SERVER_ISOLATE_COUNT; leave empty if it is not readable that way',
+    ),
+    Field(
+      'commandLineOption',
+      String,
+      'Command-Line Option',
+      hint:
+          'The command-line option this setting may also be read from, e.g. '
+          '--isolates; the command line wins over every other source',
+    ),
+    Field(
+      'secret',
+      bool,
+      'Carries a Secret',
+      hint:
+          'Whether the value is a secret (certificate, private key, shared '
+          'secret) — declared here, supplied out of band, never written down',
+    ),
+    Field(
+      'overridableBy',
+      String,
+      'Overridable By',
+      required: true,
+      hint:
+          'The narrowest scope permitted to shadow this key — every scope in '
+          'between is opened too: none (scope-pinned, and the only correct '
+          'answer for security and infrastructure settings) / client / user / '
+          'device. No default: pinning a key must be authored, not fallen into',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// User provisioning and management tools.

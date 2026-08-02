@@ -71,7 +71,7 @@
       - content
     - `IntegrityConstraints`
       - content
-  - technicalFramework: `TechnicalFrameworkConcept` ← (locus: server — CE-CF)
+  - technicalFramework: `TechnicalFrameworkConcept` ← (locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP))
     - content
     - basicRequirements: `BasicTechnicalRequirements`
       - content
@@ -362,9 +362,17 @@
           - content @Form(localDataEncryption, secureStorage, cacheClearing), authentication, device, network,
             codeProtection
         - `ClientConfiguration`
-          - content @Form(apiBaseUrl, environment, deviceOptions, featureToggles, updateChannel)
+          - content
+          - settings: `ClientConfigurationSettingEntry`
+            - content @Form(settingKey, valueType, defaultValue, overridableBy)
         - `DeviceSettings`
-          - content @Form(settingKey, valueType, defaultValue, deviceOverridable)
+          - content
+          - settings: `DeviceSettingEntry`
+            - content @Form(settingKey, valueType, defaultValue)
+        - `UserSettings`
+          - content
+          - settings: `UserSettingEntry`
+            - content @Form(settingKey, valueType, defaultValue, overridableBy)
       - networkRequirements: `NetworkRequirementsSection`
         - content, overview @text
         - internalNetwork: `InternalNetworkRequirements`
@@ -535,6 +543,8 @@
           - configurationManagement: `SystemConfigurationManagement`
             - content @Form(configurationSource, configurationFormat, centralConfigService), dynamic, environment,
               governance
+            - settings: `ServerConfigurationSettingEntry`
+              - content @Form(settingKey, valueType, defaultValue, environmentVariable, commandLineOption, secret, overridableBy)
           - userProvisioning: `UserProvisioningTools`
             - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
               lifecycle, roleManagement, directoryIntegration

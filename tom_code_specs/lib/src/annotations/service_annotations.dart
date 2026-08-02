@@ -380,19 +380,42 @@ class CsServerConfig {
   /// The command-line option this setting may also be read from, verbatim.
   final String? cmdlineAlias;
 
+  /// Whether the value is a secret — a certificate, private key or shared
+  /// secret.
+  ///
+  /// The declaration states the setting's **presence and shape**; the content is
+  /// supplied out of band by deployment tooling and is never written into a
+  /// specification (`codespecs_mapping.md` §5.16). The marking is what lets
+  /// §12 production-stripping and the deployment tooling find these settings
+  /// mechanically instead of by naming convention.
+  final bool secret;
+
+  /// Which narrower scope, if any, may shadow this key.
+  ///
+  /// **Required** — the fail-safe rule that keeps `requirement` on
+  /// `@CsAuthorize` undefaulted applies here for the same reason: a setting's
+  /// blast radius chosen by omission is the failure the rule exists to prevent.
+  /// Security and infrastructure settings take [CsOverridableBy.none].
+  ///
+  /// This is the *permission*, not the precedence: `codespecs_mapping.md` §5.16
+  /// fixes the precedence order for every setting, so a per-setting ordering
+  /// would be a second rule that could disagree with the first. The permission
+  /// is authored only here, at the wider scope; the narrower scope's declaration
+  /// of the same key does the shadowing without re-stating the permission.
+  final CsOverridableBy overridableBy;
+
   /// Optional part-specific note.
   ///
   /// The setting's **type** is the member's declared type and its **default**
-  /// the member initialiser, so neither is an argument. Precedence is not one
-  /// either: `codespecs_mapping.md` §5.16 fixes intra-scope and cross-scope
-  /// precedence for every setting, so a per-setting override would be a second
-  /// rule that could disagree with the first.
+  /// the member initialiser, so neither is an argument.
   final String? note;
 
   const CsServerConfig(
     this.key, {
+    required this.overridableBy,
     this.envAlias,
     this.cmdlineAlias,
+    this.secret = false,
     this.note,
   });
 }

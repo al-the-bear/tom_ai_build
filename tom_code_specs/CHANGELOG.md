@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.10.0
+
+- csrb9: close the configuration/settings **declaration** loop. The SOM now
+  authors a repeating setting-declaration list per scope (`SCSET` / `CCSET` /
+  `DSSET` / `USSET`, `codespecs_mapping.md` §5.16), and this release gives the
+  four config markers the arguments needed to consume them — until now the SOM
+  could author an overridability opt-in and a secret mark that no `Cs*` marker
+  could carry.
+- Add `CsOverridableBy {none, client, user, device}` — the 15th closed
+  catalogue. It encodes §5.16's **opt-in** cross-scope lattice
+  `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF`: a key is scope-pinned unless its declaration
+  at the wider scope explicitly opens it.
+- `@CsServerConfig` gains `overridableBy` (**required**) and `secret`
+  (default `false`); `@CsClientConfig` and `@CsUserSetting` gain
+  `overridableBy` (**required**). `@CsDeviceSetting` deliberately gains
+  nothing: CE-DS is the narrowest scope, so the lattice bottoms out there and
+  "shadowable by something narrower" is unsayable rather than merely wrong.
+- The two defaults are **asymmetric on purpose**. `secret` defaults to `false`
+  because that is the safe arm — a setting wrongly marked secret is merely
+  stripped, one wrongly left unmarked ships its value. `overridableBy` gets no
+  default for the mirror-image reason: there is no safe arm to fall back to
+  that is not also a silent decision about the value's blast radius, which is
+  precisely what §5.16's fail-safe rule exists to prevent.
+- Making `overridableBy` required is a **breaking** change to three markers;
+  it is deliberate, and the compiler enumerating every call site is the point.
+
 ## 0.9.0
 
 - csrb4: give the `Cs*` family its **attribute surfaces**. It was complete as a

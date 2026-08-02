@@ -67,12 +67,24 @@ class CsClientConfig {
   /// The environment variable this setting may also be read from, verbatim.
   final String? envAlias;
 
+  /// Which narrower scope, if any, may shadow this key — a per-user setting
+  /// (CE-UP) or a per-user-per-device one (CE-DS).
+  ///
+  /// **Required**, undefaulted, and authored only here at the wider scope — see
+  /// [CsOverridableBy] for both reasons.
+  final CsOverridableBy overridableBy;
+
   /// Optional part-specific note.
   ///
   /// The setting's type and default are the member declaration.
   final String? note;
 
-  const CsClientConfig(this.key, {this.envAlias, this.note});
+  const CsClientConfig(
+    this.key, {
+    required this.overridableBy,
+    this.envAlias,
+    this.note,
+  });
 }
 
 /// CE-DS — a device setting: a *user-specific* setting of a user-owned device,
@@ -133,12 +145,19 @@ class CsUserSetting {
   /// member names, so the wire mapping is identity.
   final String key;
 
+  /// Whether a per-user-per-device setting (CE-DS) may shadow this key.
+  ///
+  /// **Required**, undefaulted, and authored only here at the wider scope — see
+  /// [CsOverridableBy] for both reasons. CE-DS is the narrowest scope, so
+  /// [CsDeviceSetting] carries no counterpart: the lattice bottoms out there.
+  final CsOverridableBy overridableBy;
+
   /// Optional part-specific note.
   ///
   /// Type and default are the member declaration.
   final String? note;
 
-  const CsUserSetting(this.key, {this.note});
+  const CsUserSetting(this.key, {required this.overridableBy, this.note});
 }
 
 /// CE-ID — the app's identity-extension declaration holder

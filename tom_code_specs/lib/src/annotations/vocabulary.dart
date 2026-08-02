@@ -331,3 +331,43 @@ enum IdentityAttributePlacement {
   /// layers.
   encrypted,
 }
+
+/// Which narrower configuration scope may shadow a setting
+/// (`codespecs_mapping.md` §5.16, §11).
+///
+/// The cross-scope precedence lattice `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF` is
+/// **opt-in**: a key is *scope-pinned* unless its declaration at the wider scope
+/// explicitly opens it. The opt-in is authored at the wider scope only — the
+/// narrower scope's declaration of the same key does the shadowing, but does not
+/// re-declare the permission, so the relation cannot be stated twice and
+/// disagree with itself.
+///
+/// The value names the **narrowest** scope permitted to shadow the key. Because
+/// the lattice is a total order, every scope between the declaring one and the
+/// named one is permitted too — a CE-CF setting declared `device` may be
+/// shadowed by CE-CC, CE-UP and CE-DS alike. A value must be **strictly
+/// narrower** than the scope of the marker it is written on; that is not a const
+/// `assert` (Dart does not const-evaluate an annotation) but a generation-time
+/// check (`codespecs_derivation_contract.md` §6).
+///
+/// [none] is the fail-safe arm and the value every security or infrastructure
+/// setting keeps: broadening a value's blast radius is a deliberate authored
+/// act. It is nevertheless **not a default** — the same reason `requirement` on
+/// `@CsAuthorize` has none: choosing a blast radius by omission is precisely the
+/// failure the fail-safe rule exists to prevent.
+enum CsOverridableBy {
+  /// Scope-pinned: no narrower scope may shadow this key.
+  none,
+
+  /// A per-install client configuration value may shadow this key — CE-CF only,
+  /// the sole scope wider than CE-CC.
+  client,
+
+  /// A per-user setting may shadow this key; so, transitively, may a device
+  /// setting.
+  user,
+
+  /// A per-user-per-device setting may shadow this key. The narrowest arm, so it
+  /// opens every intervening scope as well.
+  device,
+}

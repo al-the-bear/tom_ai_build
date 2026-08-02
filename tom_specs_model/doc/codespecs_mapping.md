@@ -1059,7 +1059,7 @@ therefore classified:
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
 landed, so **every slice is emission-, runtime- and verification-clear on the
 code side**. What remains is SOM-side: the sections that do not yet carry the
-surface a marker's arguments consume (`csrb9`–`csrb13`), plus `csrc1` at slice 7.
+surface a marker's arguments consume (`csrb10`–`csrb13`), plus `csrc1` at slice 7.
 **No `tom_core`-side blocker remains anywhere** — `csexb2` closed the last one by
 reconciling the CE-LO container-kind set with the ACL substrate at slice 6. The
 implied sequence: the SOM gaps next, then the standing ownership question
@@ -2292,6 +2292,44 @@ tooling supply them out-of-band.
 topology) + **D08 SAS** (which config carries secrets), per §8; the
 user-facing settings scopes (CE-DS/CE-UP) additionally from **D09 XDS**
 (preferences surfaced in UI).
+
+**Authoring homes.** Each scope has exactly one repeating declaration list, and
+the scope is expressed by *which list a setting is written in* — there is no
+`scope` column and no persistence discriminator anywhere (§11):
+
+| Scope | Declaration list (`@SectionId`) | Under | Authored per entry |
+|-------|--------------------------------|-------|--------------------|
+| CE-CF | `ServerConfigurationSettingEntry` (`SCSET`) | `SystemConfigurationManagement` (`SYCOMA`) | `settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy` |
+| CE-CC | `ClientConfigurationSettingEntry` (`CCSET`) | `ClientConfiguration` (`CLICON`) | `settingKey` · `valueType` · `defaultValue` · `overridableBy` |
+| CE-DS | `DeviceSettingEntry` (`DSSET`) | `DeviceSettings` (`DEVSET`) | `settingKey` · `valueType` · `defaultValue` |
+| CE-UP | `UserSettingEntry` (`USSET`) | `UserSettings` (`USRSET`) | `settingKey` · `valueType` · `defaultValue` · `overridableBy` |
+
+**The opt-in is authored once, at the wider scope.** `overridableBy` names the
+**narrowest** scope allowed to shadow this key; since the lattice is a total
+order, every scope in between is opened too, so a CE-CF key declared `device` may
+be shadowed by CE-CC, CE-UP and CE-DS alike. The narrower scope's declaration of
+the same key then does the shadowing, but never re-declares the permission.
+There is deliberately **no** narrow-side counterpart field: stating one relation
+from both ends would be two authored values that can disagree, and the
+authoritative end is the one the fail-safe rule protects — the scope whose blast
+radius is being broadened. CE-DS, the narrowest scope, therefore carries no
+`overridableBy` at all: the lattice bottoms out there and "shadowable by
+something narrower" is unsayable rather than merely wrong. CE-CF's is the one
+that must stay `none` for security and infrastructure settings. **It has no
+default** at either end — SOM field or `Cs*` argument: choosing a value's blast
+radius by omission is precisely the failure the fail-safe rule prevents.
+
+The `environmentVariable`, `commandLineOption` and `secret` fields are
+CE-CF-only. The first two are the deployment sources the server scope reads a
+value from, one-to-one with `@CsServerConfig`'s `envAlias` / `cmdlineAlias`; the
+third marks a setting whose content is supplied out of band, so only its presence
+and shape are authored.
+
+The surrounding sections keep their existing jobs: `SYCOMA` and
+`ConfigurationManagement` (`CM`) author *how configuration is operated* (source,
+format, vault, hot reload, versioning, audit), and `LanguageCountrySelection`
+(`LACOSE`, D09 XDS) authors the language/country **picker** — the screen that
+edits a CE-UP preference, not the declaration of it.
 
 ### 5.17 CE-SU service-unit attribute surface under the §5.1 boundary
 
@@ -3882,10 +3920,10 @@ A part is **COVERED** only when both hold.
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
 | CE-AZ | `authorization` | `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
-| CE-CF | `serverConfiguration` | 40 sections, 17 projected. The projected ones are the audit-sink band under `AuditLogFormat` AULOFO (§4.3.2) — genuine settings, but **fixed-name form fields**, not a `key · type · default` list; the rest is **operational policy** (`SystemConfigurationManagement` SYCOMA, `ConfigurationManagement` CM: source, format, vault, hot reload, versioning). No general setting-declaration surface. | **GAP** — `csrb9` |
-| CE-CC | `clientConfiguration` | `ClientConfiguration` CLICON — a single form with five **fixed named** settings, not a `key · type · default` declaration and not a list | **GAP** — `csrb9` |
-| CE-DS | `deviceSettings` | `DeviceSettings` DEVSET — correct §5.16 shape (`settingKey` · `valueType` · `defaultValue` · `deviceOverridable`) but a **single form**, so exactly one setting is authorable | **GAP** (cardinality only) — `csrb9` |
-| CE-UP | `userSettings` | `LanguageCountrySelection` LACOSE — a language/country **picker UX** section; cannot express `key · type · default` | **GAP** — `csrb9` |
+| CE-CF | `serverConfiguration` | `ServerConfigurationSettingEntry` SCSET — the declaration list under `SystemConfigurationManagement` SYCOMA (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`). The surrounding SYCOMA / `ConfigurationManagement` CM forms and the audit-sink band under `AuditLogFormat` AULOFO stay what they are — **operational policy** and fixed-name sink settings | COVERED |
+| CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | COVERED |
+| CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | COVERED |
+| CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | COVERED |
 | CE-CL | `client` | `ClientRequirementsSection` CLRESE — minimum browser/OS/device requirements, not an enumeration of client applications with platform targets and entry route | **GAP** — `csrb13` |
 | CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · the 42-section policy set | COVERED |
 | CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
@@ -3999,7 +4037,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb9` | Author the **setting-declaration surface for all four config scopes** — CE-CF / CE-CC / CE-DS / CE-UP (§8.5 gap, §5.16 surface). Today CE-CF has only operational policy, CE-CC a fixed five-field form, CE-DS a single non-repeating form and CE-UP a picker UX section. |
 | `csrb10` | Give **CE-API** the application's own operation surface (§8.5 gap). Its only homes describe *external* interfaces, are unreachable from `D13CodeSpecsProjection`, and carry an `httpMethod` field that contradicts §5.14/§7's fixed POST. |
 | `csrb11` | Route **CE-MG** into a Phase-3 document and the generation projection, and complete its §5.27 surface (environment tag, datasource/schema placement, seed-data artifact kind). `SCHMG` is currently reachable only from `D00SolutionBlueprint`. |
 | `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
@@ -4007,7 +4044,8 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `csrb14` | Place **CE-LG, CE-NT and CE-RP in the §4.4.3 slice table.** §4.2 puts all three in the server project, but no generation slice claims them, so the seven-slice execution order does not cover them. Raised by `csra12`. |
 | `csrb16` | Decide what a **CE-NT channel's fallback edge** references (§4.1.1). §5.23's closed thirteen have no notification-side ref type, and the edge's own referent is unsettled: a *channel's* fallback plausibly points at a sibling channel, not at a notification type. Settle the referent, then either add the ref type to §5.23 or state why the edge stays a string. Raised by `csra6`. |
 | `csrc1` | Type **`TomJobDeclaration.targetRefs`** (§5.29 scope part 3). The member is `List<String>`, while §5.29 and §4.4.1 require `Type` literals for CE-DB targets and `CsReportRef` for CE-RP targets. The only untyped holder left in the CE-JB scope. |
-| `csrc5` | Implement the **fourteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob` and §5.3's mirrored-enum completeness against `tom_core`. All fourteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
+| `csrc5` | Implement the **sixteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob` and §5.3's mirrored-enum completeness against `tom_core`. All sixteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
+| `csrc8` | Collapse or justify **CE-CF's two authoring shapes**. §5.16's `SCSET` list is the general keyed key/type/default declaration; the audit-sink band under `AuditLogFormat` (`AULOFO`) is fixed-name form fields. Both realise `@CsServerConfig`, so one part has two derivation paths, and the fixed-name one cannot declare `secret` or `overridableBy` — a log sink's credentials being the textbook case for the first. |
 | `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. Found the same way the file gap was: an `@OneOf` constant covered by no `@Case`. |
 
 Open todos in these series whose subject is **not** a mapping question are
@@ -4022,12 +4060,17 @@ Configuration and settings are four parts — one part per scope key, each
 single-moded (no persistence discriminator anywhere; the scope key alone decides
 where a value lives):
 
-| Part | Scope key | Persisted where | Example |
-|------|-----------|-----------------|---------|
-| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | DB connection, worker counts, feature flags (config toggles) |
-| **CE-CC** ClientConfiguration | (client app, machine) — no user | Client machine | API base URL, device options, per-install toggles |
-| **CE-DS** DeviceSettings | (user, device) | The device, per signed-in user | window layout, last-opened, machine-local cache preferences |
-| **CE-UP** UserSettings | (user) | Server (per user) | theme, language, notification prefs — restored on any device |
+| Part | Scope key | Persisted where | Declared in (`@SectionId`) | Example |
+|------|-----------|-----------------|----------------------------|---------|
+| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | `SCSET` under `SYCOMA` | DB connection, worker counts, feature flags (config toggles) |
+| **CE-CC** ClientConfiguration | (client app, machine) — no user | Client machine | `CCSET` under `CLICON` | API base URL, device options, per-install toggles |
+| **CE-DS** DeviceSettings | (user, device) | The device, per signed-in user | `DSSET` under `DEVSET` | window layout, last-opened, machine-local cache preferences |
+| **CE-UP** UserSettings | (user) | Server (per user) | `USSET` under `USRSET` | theme, language, notification prefs — restored on any device |
+
+The four declaration lists are the mechanism that makes "no persistence
+discriminator" true rather than merely intended: the scope is carried by *which
+list a setting is declared in*, so there is nothing on a setting for an author to
+set wrongly, and no shared section on which a `scope` column could grow (§5.16).
 
 - **CE-CF is server configuration only** — it never carries user or client-machine
   settings.
@@ -4045,7 +4088,8 @@ where a value lives):
   the user, re-materialised on any device the user signs into via the
   `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip. A CE-UP setting
   therefore has a client-side shape (CE-UP in `<app>_codespec_client`) and a
-  server-side persistence (in `<app>_codespec_server`).
+  server-side persistence (in `<app>_codespec_server`) — both generated from the
+  **same** `USSET` declarations, so the two halves cannot drift.
 
 ## 12. The `code_spec` architecture principles
 
