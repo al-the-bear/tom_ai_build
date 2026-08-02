@@ -55,7 +55,7 @@ generated language runtimes and two file formats.
 | Document | Authority for |
 |----------|---------------|
 | [codespecs_mapping.md](codespecs_mapping.md) | **Everything CodeSpecs *except* what code comes out.** The four pillars and the `tom_core`-family basis (§1.1), the neutral vocabulary (§1.2), the parts catalogue and the three generated projects (§4), the per-part gap analysis and spec-authorable attribute surfaces (§5), the server contract (§7), the SOM→CodeSpecs derivation *map* and the CodeSpecs/follow-up split (§8), the bidirectional DocSpecs↔CodeSpecs link (§9), the config/settings scope split and the `code_spec` architecture principles (§11–§12). |
-| [codespecs_derivation_contract.md](codespecs_derivation_contract.md) | **What code comes out.** The per-`Cs*`-annotation derivation contract: for every active marker, which SOM class and fields feed it, the exact Dart emitted and its `tom_core`-family superclass, how each annotation argument is derived, the deterministic naming rules (N1–N9), the locus project, the typed cross-references and the `@CodeSpec`/`@DocSpec` back-links — plus the constructor shapes `csrb4` authors and the validator checks that enforce them. |
+| [codespecs_derivation_contract.md](codespecs_derivation_contract.md) | **What code comes out.** The per-`Cs*`-annotation derivation contract: for every active marker, which SOM class and fields feed it, the exact Dart emitted and its `tom_core`-family superclass, how each annotation argument is derived, the deterministic naming rules (N1–N9), the locus project, the typed cross-references and the `@CodeSpec`/`@DocSpec` back-links — plus the constructor shape of every marker and the validator checks that enforce them. |
 
 ## The creation process
 

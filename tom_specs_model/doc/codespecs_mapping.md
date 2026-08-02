@@ -1003,8 +1003,8 @@ code side**. What remains is SOM-side: the sections that do not yet carry the
 surface a marker's arguments consume (`csrb9`–`csrb13`), plus `csrc1` at slice 7.
 **No `tom_core`-side blocker remains anywhere** — `csexb2` closed the last one by
 reconciling the CE-LO container-kind set with the ACL substrate at slice 6. The
-implied sequence: the SOM gaps next, then the two standing ownership questions
-(`csrb1`, `csrb2`).
+implied sequence: the SOM gaps next, then the standing ownership question
+(`csrb1`).
 
 #### 4.4.5 What the reference directions corrected
 
@@ -3856,12 +3856,11 @@ traceability and gap analysis become set operations in both directions.
 
 ## 10. Open work
 
-Everything still outstanding against this document is tracked as a **quest todo
-with the `csra` prefix** — plus `csrb` for follow-ups raised while executing a
-`csra` todo, and `qr` for findings raised by a quest-refresh pass — in
-`_ai/quests/tom_specs/todos.tom_specs.todo.yaml`. Each todo is self-contained —
-it carries the full context needed to execute it — so this list is an index, not
-a specification.
+Everything still outstanding against this document is tracked as a **quest todo**
+in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csrc` for the
+CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass.
+Each todo is self-contained — it carries the full context needed to execute it —
+so this list is an index, not a specification.
 
 SOM coverage is **not** an open item here: **§8.5** carries the standing
 per-part verdict, and each gap it records appears below as its own todo.
@@ -3881,12 +3880,11 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `csrc1` | Type **`TomJobDeclaration.targetRefs`** (§5.29 scope part 3). The member is `List<String>`, while §5.29 and §4.4.1 require `Type` literals for CE-DB targets and `CsReportRef` for CE-RP targets. The only untyped holder left in the CE-JB scope. |
 | `csrc5` | Implement the **fourteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob` and §5.3's mirrored-enum completeness against `tom_core`. All fourteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
 
-The `csrb` series has one member that is **deliberately absent** from this table:
-`csrb3` (SOM cross-registry id-reference integrity) was raised while executing a
-`csra` todo, but its subject is a **SOM validator capability** spanning every
-registry in the model — `tom_specs_model_rules.md` §10.2 territory, not a CodeSpecs
-mapping question. It is tracked in the quest todo file like the rest of the
-series; it simply has no open work *against this document*.
+Open todos in these series whose subject is **not** a mapping question are
+deliberately absent from this table — a SOM validator capability belongs to
+`tom_specs_model_rules.md` §10.2, an editor defect to
+`tom_specs_editor_specification.md`. They are tracked in the quest todo file like
+the rest; they simply have no open work *against this document*.
 
 ## 11. Configuration & settings — the four-scope owner-key split
 

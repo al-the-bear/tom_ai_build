@@ -13,17 +13,16 @@ something `codespecs_mapping.md` had left open, that document cites this one
 rather than restating it.
 
 **Scope.** One contract entry per active `Cs*` part marker — **39 markers**,
-plus the one facet value class a marker carries (`CsFileReference` on
-`CsColumn`), for **40 classes** in `tom_code_specs`. Deferred parts (§4.3) have
-no marker and therefore no entry.
+plus the two facet value classes a marker carries (`CsFileReference` on
+`CsColumn`, `CsGradedAccess` on `CsAuthorize`), for **41 classes** in
+`tom_code_specs`. Deferred parts (§4.3) have no marker and therefore no entry.
 
-**What this document decides and what authors it.** It **decides** each
-annotation's argument shape; `csrb4` **authors** those constructors. The
-`Cs*Ref` typed-reference family the arguments consume is already authored
-(`tom_code_specs/lib/src/annotations/cross_part_refs.dart`); until the
-constructors land, the shapes below are specified-but-not-yet-compilable — the
-same state `codespecs_mapping.md` §4.1.1 records for the attribute surfaces
-themselves.
+**What this document decides.** It **decides** each annotation's argument shape.
+The shapes below are **authored** in `tom_code_specs` — the constructors, the
+`Cs*Ref` typed-reference family the arguments consume
+(`lib/src/annotations/cross_part_refs.dart`) and the 14 closed catalogues they
+select from (`lib/src/annotations/vocabulary.dart`) — so every annotation call
+written to this contract compiles.
 
 **Citing.** Sections of `som_multiplatform_spec_model.md` are cited as `SOM §N`;
 everything else by file name plus section — `codespecs_mapping.md §5.13`,
@@ -1007,12 +1006,13 @@ class Customer {
 
 ---
 
-## 5. Constructor-shape summary — the input to `csrb4`
+## 5. Constructor-shape summary
 
-The 39 part markers, with the shape §3 decides for each. `csrb4` authors these
-constructors; the `Cs*Ref` types they consume already ship in
-`tom_code_specs/lib/src/annotations/cross_part_refs.dart`. Every marker keeps
-`String? note` as its final parameter and it is omitted below.
+The 39 part markers, with the shape §3 decides for each — the shape each
+constructor in `tom_code_specs/lib/src/annotations/` carries. The `Cs*Ref` types
+they consume ship in `cross_part_refs.dart` and the closed catalogues in
+`vocabulary.dart`. Every marker keeps `String? note` as its final parameter and
+it is omitted below.
 
 ### 5.1 Markers that gain arguments (24)
 
