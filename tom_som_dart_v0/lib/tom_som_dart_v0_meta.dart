@@ -1195,7 +1195,7 @@ List<SomMetaNode> _mc$AdministrationRequirementsSection(Set<String> s) => [
           typeName: 'BatchJobManagement',
           serializationOrder: 5,
           docComment: 'Batch job management.',
-          classDocComment: 'Batch job management.',
+          classDocComment: 'Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.',
           recursive: r,
           children: c)),
        SomMetaNode(
@@ -3826,7 +3826,8 @@ List<SomMetaNode> _mc$BatchJobManagement(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'schedulingEngine', typeName: 'String', description: 'Scheduling Engine', required: true, hint: 'Cron, Quartz, cloud scheduler, Airflow', order: 0), SomFormFieldMeta(name: 'scheduleDefinition', typeName: 'String', description: 'Schedule Definition', hint: 'Cron expression, calendar-based, event-driven', order: 1), SomFormFieldMeta(name: 'timeZoneHandling', typeName: 'String', description: 'Time Zone Handling', hint: 'UTC, local, configurable per job', order: 2)])),
+          contentHelp: 'Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework\'s own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler\'s own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'timeZoneHandling', typeName: 'String', description: 'Time Zone Handling', required: true, hint: 'The clock zone every schedule is interpreted in — UTC or the server\'s local zone', order: 0)])),
        SomMetaNode(
           className: 'BatchJobManagement',
           memberName: 'jobTypes',
@@ -3834,7 +3835,8 @@ List<SomMetaNode> _mc$BatchJobManagement(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 1,
-          docComment: 'Supported job categories.',
+          contentHelp: 'Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).',
+          docComment: 'Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dataProcessingJobs', typeName: 'String', description: 'Data Processing Jobs', hint: 'ETL, aggregation, cleanup', order: 0), SomFormFieldMeta(name: 'reportGenerationJobs', typeName: 'String', description: 'Report Generation Jobs', hint: 'Scheduled report creation', order: 1), SomFormFieldMeta(name: 'notificationJobs', typeName: 'String', description: 'Notification Jobs', hint: 'Digest emails, reminder notifications', order: 2), SomFormFieldMeta(name: 'maintenanceJobs', typeName: 'String', description: 'Maintenance Jobs', hint: 'Database cleanup, log rotation, temp file purge', order: 3), SomFormFieldMeta(name: 'integrationSyncJobs', typeName: 'String', description: 'Integration Sync Jobs', hint: 'External system synchronization', order: 4)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Google SRE — eliminating toil and operational procedures', 'ITIL 4 — change enablement and maintenance windows'], 'connotation': 'Supported job categories catalog the kinds of scheduled work the system performs.'})]),
        SomMetaNode(
@@ -3844,8 +3846,9 @@ List<SomMetaNode> _mc$BatchJobManagement(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 2,
-          docComment: 'Execution controls.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'concurrencyControl', typeName: 'String', description: 'Concurrency Control', hint: 'Max parallel jobs, queue depth', order: 0), SomFormFieldMeta(name: 'priorityLevels', typeName: 'String', description: 'Priority Levels', hint: 'Job priority classification', order: 1), SomFormFieldMeta(name: 'retryPolicy', typeName: 'String', description: 'Retry Policy', hint: 'Retry count, backoff, dead-letter', order: 2), SomFormFieldMeta(name: 'idempotency', typeName: 'bool', description: 'Idempotency', hint: 'Safe to re-run on failure', order: 3), SomFormFieldMeta(name: 'timeout', typeName: 'String', description: 'Timeout', hint: 'Maximum job execution time', order: 4)]),
+          contentHelp: 'State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits.',
+          docComment: 'Execution controls — the **default layer** for every job.\n\nRetry, timeout and idempotency stated here apply to every job that does\nnot say otherwise. A job that needs different numbers overrides them in\nits own failure-policy subsection, so this section is the rule and the\nentry is the exception — never the other way round.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'concurrencyControl', typeName: 'String', description: 'Concurrency Control', hint: 'Max parallel jobs, queue depth', order: 0), SomFormFieldMeta(name: 'priorityLevels', typeName: 'String', description: 'Priority Levels', hint: 'Job priority classification', order: 1), SomFormFieldMeta(name: 'retryPolicy', typeName: 'String', description: 'Default Retry Policy', hint: 'The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt', order: 2), SomFormFieldMeta(name: 'idempotency', typeName: 'bool', description: 'Idempotency', hint: 'Whether jobs are required to be safe to re-run after a failure', order: 3), SomFormFieldMeta(name: 'timeout', typeName: 'String', description: 'Default Timeout', hint: 'The maximum run time a job inherits unless it overrides it', order: 4)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Google SRE — eliminating toil and operational procedures', 'AWS Well-Architected — operational excellence (runbooks, playbooks)'], 'connotation': 'Execution controls define how batch jobs run, retry, and enforce timeouts.'})]),
        SomMetaNode(
           className: 'BatchJobManagement',
@@ -3855,8 +3858,20 @@ List<SomMetaNode> _mc$BatchJobManagement(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 3,
           docComment: 'Monitoring and manual controls.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'jobDashboard', typeName: 'bool', description: 'Job Dashboard', hint: 'Visual job status overview', order: 0), SomFormFieldMeta(name: 'executionHistory', typeName: 'bool', description: 'Execution History', hint: 'Job run history and logs', order: 1), SomFormFieldMeta(name: 'failureAlerts', typeName: 'String', description: 'Failure Alerts', hint: 'Notification on job failure', order: 2), SomFormFieldMeta(name: 'slaMonitoring', typeName: 'String', description: 'SLA Monitoring', hint: 'Alert if job exceeds expected duration', order: 3), SomFormFieldMeta(name: 'manualTrigger', typeName: 'bool', description: 'Manual Trigger', hint: 'Admin can trigger jobs on demand', order: 4), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional batch job notes', order: 5)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'jobDashboard', typeName: 'bool', description: 'Job Dashboard', hint: 'Visual job status overview', order: 0), SomFormFieldMeta(name: 'executionHistory', typeName: 'bool', description: 'Execution History', hint: 'Job run history and logs', order: 1), SomFormFieldMeta(name: 'failureAlerts', typeName: 'String', description: 'Default Failure Alerting', hint: 'What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here.', order: 2), SomFormFieldMeta(name: 'slaMonitoring', typeName: 'String', description: 'SLA Monitoring', hint: 'Alert if job exceeds expected duration', order: 3), SomFormFieldMeta(name: 'manualTrigger', typeName: 'bool', description: 'Manual Trigger', hint: 'Admin can trigger jobs on demand', order: 4), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional batch job notes', order: 5)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['AWS Well-Architected — operational excellence (runbooks, playbooks)', 'Google SRE — eliminating toil and operational procedures'], 'connotation': 'Monitoring and manual controls track batch job health and allow operators to intervene.'})]),
+       SomMetaNode(
+          className: 'BatchJobManagement',
+          memberName: 'scheduledJobs',
+          sectionId: 'SCJOB-JOB-LST',
+          sectionIdPattern: 'SCJOB-JOB-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ScheduledJobEntry',
+          serializationOrder: 4,
+          contentHelp: 'Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run.',
+          docComment: 'Scheduled jobs — one entry per job the system runs.\n\nThe declaration layer. Everything above is policy that applies to all\njobs; this is where a job actually comes into existence.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Google SRE — eliminating toil and operational procedures', 'ISO/IEC 11179 — metadata registries / data element definitions'], 'connotation': 'The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.'})],
+          elementNode: _cx('ScheduledJobEntry', s, _mc$ScheduledJobEntry, (r, c) => SomMetaNode(className: 'ScheduledJobEntry', classSectionId: 'SCJOB', kind: SomMetaKind.complex, typeName: 'ScheduledJobEntry', docComment: 'A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job\'s *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.', classDocComment: 'A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job\'s *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$BehaviorRuleEntry(Set<String> s) => [
@@ -4694,7 +4709,7 @@ List<SomMetaNode> _mc$BusinessObjectEntry(Set<String> s) => [
           serializationOrder: 5,
           contentHelp: 'Add one entry per integration point.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Domain-Driven Design — aggregates/entities/value objects', 'BPMN 2.0 — business process model & notation'], 'connotation': 'The integration points where this object exposes APIs or publishes and subscribes to events.'})],
-          elementNode: _cx('IntegrationPointEntry', s, _mc$IntegrationPointEntry, (r, c) => SomMetaNode(className: 'IntegrationPointEntry', classSectionId: 'INTEG', kind: SomMetaKind.complex, typeName: 'IntegrationPointEntry', docComment: 'A single integration point entry.', classDocComment: 'A single integration point entry.', recursive: r, children: c))),
+          elementNode: _cx('IntegrationPointEntry', s, _mc$IntegrationPointEntry, (r, c) => SomMetaNode(className: 'IntegrationPointEntry', classSectionId: 'INTEG', kind: SomMetaKind.complex, typeName: 'IntegrationPointEntry', docComment: 'A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application\'s own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.', classDocComment: 'A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application\'s own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.', recursive: r, children: c))),
        SomMetaNode(
           className: 'BusinessObjectEntry',
           memberName: 'attributes',
@@ -6344,14 +6359,48 @@ List<SomMetaNode> _mc$ClientAccessibilityRequirements(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['WCAG 2.2 — accessible client experience'], 'connotation': 'Captures the accessibility conformance standards such as WCAG level and Section 508 the client targets.'})]),
     ];
 
-List<SomMetaNode> _mc$ClientConfiguration(Set<String> s) => [
+List<SomMetaNode> _mc$ClientApplicationEntry(Set<String> s) => [
        SomMetaNode(
-          className: 'ClientConfiguration',
+          className: 'ClientApplicationEntry',
           memberName: 'content',
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'apiBaseUrl', typeName: 'String', description: 'API Base URL', hint: 'The server/API endpoint this client install talks to', order: 0), SomFormFieldMeta(name: 'environment', typeName: 'String', description: 'Environment', hint: 'dev / staging / production for this install', order: 1), SomFormFieldMeta(name: 'deviceOptions', typeName: 'String', description: 'Device Options', hint: 'Machine-specific device/hardware options for this install', order: 2), SomFormFieldMeta(name: 'featureToggles', typeName: 'String', description: 'Per-Install Feature Toggles', hint: 'Client-side toggles applied to this install', order: 3), SomFormFieldMeta(name: 'updateChannel', typeName: 'String', description: 'Update Channel', hint: 'stable / beta / canary for this install', order: 4)])),
+          contentHelp: 'One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'clientId', typeName: 'String', description: 'Client Id', required: true, hint: 'The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced', order: 0), SomFormFieldMeta(name: 'clientName', typeName: 'String', description: 'Client Name', required: true, hint: 'The name users and operators call this client by', order: 1), SomFormFieldMeta(name: 'clientKind', typeName: 'ClientApplicationKind', description: 'Client Kind', required: true, hint: 'What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)', order: 2, enumValues: ['graphicalApplication', 'commandLine', 'server']), SomFormFieldMeta(name: 'purpose', typeName: 'String', description: 'Purpose', required: true, hint: 'Who uses this client and what for — the reason it exists separately from the system\'s other clients', order: 3), SomFormFieldMeta(name: 'platformTargets', typeName: 'String', description: 'Platform Targets', hint: 'The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below', order: 4, refersTo: ['BROREQENT.browserName', 'DEOSREEN.osName', 'MODEREEN.platform']), SomFormFieldMeta(name: 'entryRoute', typeName: 'String', description: 'Entry Route', hint: 'The route this client opens on, by id from the screen route map. Empty for a client with no routes', order: 5, refersTo: ['SCRTEN.routeId']), SomFormFieldMeta(name: 'includedScreens', typeName: 'String', description: 'Included Screens', hint: 'The screens this client comprises, by id. Empty for a client with no screens', order: 6, refersTo: ['SCREN.screenId'])])),
+    ];
+
+List<SomMetaNode> _mc$ClientConfiguration(Set<String> s) => [
+       SomMetaNode(
+          className: 'ClientConfiguration',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app\'s\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n'),
+       SomMetaNode(
+          className: 'ClientConfiguration',
+          memberName: 'settings',
+          sectionId: 'CCSET-SETT-LST',
+          sectionIdPattern: 'CCSET-SETT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ClientConfigurationSettingEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install\'s persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>.',
+          docComment: 'The declared client configuration settings.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Twelve-Factor App — config stored in the environment, per deployment', 'ISO/IEC 25010 — portability / installability'], 'connotation': 'The client configuration settings declared by the system\'s client applications, one entry per key.'})],
+          elementNode: _cx('ClientConfigurationSettingEntry', s, _mc$ClientConfigurationSettingEntry, (r, c) => SomMetaNode(className: 'ClientConfigurationSettingEntry', classSectionId: 'CCSET', kind: SomMetaKind.complex, typeName: 'ClientConfigurationSettingEntry', docComment: 'A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp\'s configuration resources or from this install\'s persisted overrides\n(`codespecs_mapping.md` §5.16).', classDocComment: 'A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp\'s configuration resources or from this install\'s persisted overrides\n(`codespecs_mapping.md` §5.16).', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$ClientConfigurationSettingEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ClientConfigurationSettingEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'settingKey', typeName: 'String', description: 'Setting Key', required: true, hint: 'The dotted key of the client setting, e.g. api.baseUrl', order: 0), SomFormFieldMeta(name: 'client', typeName: 'String', description: 'Client', hint: 'The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client', order: 1, refersTo: ['CLIAPP.clientId']), SomFormFieldMeta(name: 'valueType', typeName: 'String', description: 'Value Type', hint: 'string / int / double / bool / enum', order: 2), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'The value used until the app configuration resources or an install-local override supply one', order: 3), SomFormFieldMeta(name: 'overridableBy', typeName: 'String', description: 'Overridable By', required: true, hint: 'The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into', order: 4)])),
     ];
 
 List<SomMetaNode> _mc$ClientHardwareRequirements(Set<String> s) => [
@@ -6473,12 +6522,24 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           docComment: 'Overview of client requirements strategy.'),
        SomMetaNode(
           className: 'ClientRequirementsSection',
+          memberName: 'clientApplications',
+          sectionId: 'CLIAPP-CLIE-LST',
+          sectionIdPattern: 'CLIAPP-CLIE-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ClientApplicationEntry',
+          serializationOrder: 2,
+          contentHelp: 'Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on.',
+          docComment: 'The client applications the system consists of (CE-CL).',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 42010 — architecture description', 'ISO/IEC 25010 — portability / installability'], 'connotation': 'The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.'})],
+          elementNode: _cx('ClientApplicationEntry', s, _mc$ClientApplicationEntry, (r, c) => SomMetaNode(className: 'ClientApplicationEntry', classSectionId: 'CLIAPP', kind: SomMetaKind.complex, typeName: 'ClientApplicationEntry', docComment: 'A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]\'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client\'s platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure\'s own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.', classDocComment: 'A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]\'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client\'s platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure\'s own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'ClientRequirementsSection',
           memberName: 'browserRequirements',
           sectionId: 'BRREEN-BROW-LST',
           sectionIdPattern: 'BRREEN-BROW-xxx',
           kind: SomMetaKind.list,
           typeName: 'BrowserRequirementEntry',
-          serializationOrder: 2,
+          serializationOrder: 3,
           contentHelp: 'Add one entry per supported web browser.',
           docComment: 'Web browser requirements.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['WHATWG / W3C — web platform / browser standards'], 'connotation': 'The web browsers the client must support.'})],
@@ -6490,7 +6551,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           sectionIdPattern: 'DORE1-DESK-xxx',
           kind: SomMetaKind.list,
           typeName: 'DesktopOsRequirementEntry',
-          serializationOrder: 3,
+          serializationOrder: 4,
           contentHelp: 'Add one entry per supported desktop operating system.',
           docComment: 'Desktop operating system requirements.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 25010 — performance efficiency / resource utilization'], 'connotation': 'The desktop operating systems the client must support.'})],
@@ -6502,7 +6563,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           sectionIdPattern: 'MDRE-MOBI-xxx',
           kind: SomMetaKind.list,
           typeName: 'MobileDeviceRequirementEntry',
-          serializationOrder: 4,
+          serializationOrder: 5,
           contentHelp: 'Add one entry per supported mobile platform.',
           docComment: 'Mobile device requirements.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Android CDD / Apple HIG — mobile device platform requirements'], 'connotation': 'The mobile platforms and devices the client must support.'})],
@@ -6513,7 +6574,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'DIRE',
           kind: SomMetaKind.complex,
           typeName: 'DisplayRequirements',
-          serializationOrder: 5,
+          serializationOrder: 6,
           docComment: 'Display and screen requirements.',
           classDocComment: 'Display and screen requirements.',
           recursive: r,
@@ -6524,7 +6585,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'CLNERE',
           kind: SomMetaKind.complex,
           typeName: 'ClientNetworkRequirements',
-          serializationOrder: 6,
+          serializationOrder: 7,
           docComment: 'Client network requirements.',
           classDocComment: 'Client network requirements.',
           recursive: r,
@@ -6535,7 +6596,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'CLHARE',
           kind: SomMetaKind.complex,
           typeName: 'ClientHardwareRequirements',
-          serializationOrder: 7,
+          serializationOrder: 8,
           docComment: 'Client hardware requirements.',
           classDocComment: 'Client hardware requirements.',
           recursive: r,
@@ -6546,7 +6607,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'CLACRE',
           kind: SomMetaKind.complex,
           typeName: 'ClientAccessibilityRequirements',
-          serializationOrder: 8,
+          serializationOrder: 9,
           docComment: 'Accessibility requirements for clients.',
           classDocComment: 'Client accessibility requirements.',
           recursive: r,
@@ -6557,7 +6618,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'PWRE',
           kind: SomMetaKind.complex,
           typeName: 'PwaRequirements',
-          serializationOrder: 9,
+          serializationOrder: 10,
           docComment: 'Progressive Web App (PWA) requirements.',
           classDocComment: 'Progressive Web App (PWA) requirements.',
           recursive: r,
@@ -6568,7 +6629,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'NAAPRE',
           kind: SomMetaKind.complex,
           typeName: 'NativeAppRequirements',
-          serializationOrder: 10,
+          serializationOrder: 11,
           docComment: 'Native app requirements.',
           classDocComment: 'Native app requirements.',
           recursive: r,
@@ -6579,7 +6640,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'CLSERE',
           kind: SomMetaKind.complex,
           typeName: 'ClientSecurityRequirements',
-          serializationOrder: 11,
+          serializationOrder: 12,
           docComment: 'Client security requirements.',
           classDocComment: 'Client security requirements.',
           recursive: r,
@@ -6590,7 +6651,7 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'CLICON',
           kind: SomMetaKind.complex,
           typeName: 'ClientConfiguration',
-          serializationOrder: 12,
+          serializationOrder: 13,
           docComment: 'Per-machine configuration of a client application (CE-CC).',
           classDocComment: 'Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user\'s preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).',
           recursive: r,
@@ -6601,9 +6662,20 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
           classSectionId: 'DEVSET',
           kind: SomMetaKind.complex,
           typeName: 'DeviceSettings',
-          serializationOrder: 13,
+          serializationOrder: 14,
           docComment: 'User-specific settings of a user-owned device (CE-DS).',
           classDocComment: 'Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).',
+          recursive: r,
+          children: c)),
+       _cx('UserSettings', s, _mc$UserSettings, (r, c) => SomMetaNode(
+          className: 'UserSettings',
+          memberName: 'userSettings',
+          classSectionId: 'USRSET',
+          kind: SomMetaKind.complex,
+          typeName: 'UserSettings',
+          serializationOrder: 15,
+          docComment: 'Server-persisted settings that follow the user across devices (CE-UP).',
+          classDocComment: 'User settings — server-persisted settings that follow the user (CE-UP).\n\nKeyed by the user alone: no machine and no device in the key. A user\nsetting is persisted on the server and re-materialised on whichever device\nthe user signs in from, which is what distinguishes it from a device\nsetting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves\nthe device) and from client configuration ([ClientConfiguration], CE-CC —\nno user identity in the key) (`codespecs_mapping.md` §11).\n\nThe scope is expressed by *which section a setting is declared in*, never\nby a field on a shared section: there is no persistence discriminator\nanywhere in the four settings scopes.',
           recursive: r,
           children: c)),
     ];
@@ -9904,7 +9976,7 @@ List<SomMetaNode> _mc$CurrentWorkflowEntry(Set<String> s) => [
           kind: SomMetaKind.list,
           typeName: 'WorkflowStepEntry',
           serializationOrder: 3,
-          contentHelp: 'Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.',
+          contentHelp: 'Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list.',
           docComment: 'Workflow steps in sequence.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 §10 — current-state analysis (workflow steps / activities)'], 'connotation': 'The ordered sequence of steps that make up the workflow.'})],
           elementNode: _cx('WorkflowStepEntry', s, _mc$WorkflowStepEntry, (r, c) => SomMetaNode(className: 'WorkflowStepEntry', classSectionId: 'WSE', kind: SomMetaKind.complex, typeName: 'WorkflowStepEntry', docComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', classDocComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', recursive: r, children: c))),
@@ -9970,35 +10042,11 @@ List<SomMetaNode> _mc$CurrentWorkflowEntry(Set<String> s) => [
           elementNode: _cx('WorkflowBusinessRule', s, _mc$WorkflowBusinessRule, (r, c) => SomMetaNode(className: 'WorkflowBusinessRule', classSectionId: 'WOBURU', kind: SomMetaKind.complex, typeName: 'WorkflowBusinessRule', docComment: 'A business rule governing workflow behavior.', classDocComment: 'A business rule governing workflow behavior.', recursive: r, children: c))),
        SomMetaNode(
           className: 'CurrentWorkflowEntry',
-          memberName: 'manualSteps',
-          sectionId: 'WSE-MANU-LST',
-          sectionIdPattern: 'WSE-MANU-xxx',
-          kind: SomMetaKind.list,
-          typeName: 'WorkflowStepEntry',
-          serializationOrder: 9,
-          contentHelp: 'Identify steps that cannot be automated or require human judgment.',
-          docComment: 'Manual steps requiring human intervention.',
-          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 §10 — current-state analysis (manual / non-automated steps)'], 'connotation': 'The subset of workflow steps that require human intervention.'})],
-          elementNode: _cx('WorkflowStepEntry', s, _mc$WorkflowStepEntry, (r, c) => SomMetaNode(className: 'WorkflowStepEntry', classSectionId: 'WSE', kind: SomMetaKind.complex, typeName: 'WorkflowStepEntry', docComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', classDocComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', recursive: r, children: c))),
-       SomMetaNode(
-          className: 'CurrentWorkflowEntry',
-          memberName: 'errorProneSteps',
-          sectionId: 'WSE-ERRO-LST',
-          sectionIdPattern: 'WSE-ERRO-xxx',
-          kind: SomMetaKind.list,
-          typeName: 'WorkflowStepEntry',
-          serializationOrder: 10,
-          contentHelp: 'Identify steps with known issues, high error rates, or workarounds.',
-          docComment: 'Error-prone steps with high failure rates.',
-          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 §10 — current-state analysis (error-prone steps)'], 'connotation': 'The subset of workflow steps known to have high error or failure rates.'})],
-          elementNode: _cx('WorkflowStepEntry', s, _mc$WorkflowStepEntry, (r, c) => SomMetaNode(className: 'WorkflowStepEntry', classSectionId: 'WSE', kind: SomMetaKind.complex, typeName: 'WorkflowStepEntry', docComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', classDocComment: 'A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.', recursive: r, children: c))),
-       SomMetaNode(
-          className: 'CurrentWorkflowEntry',
           memberName: 'timing',
           sectionId: 'WOTI',
           kind: SomMetaKind.form,
           typeName: 'String',
-          serializationOrder: 11,
+          serializationOrder: 9,
           docComment: 'Workflow timing and performance.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'startToEndTime', typeName: 'String', description: 'Start-to-End Time (total elapsed)', order: 0), SomFormFieldMeta(name: 'processingTime', typeName: 'String', description: 'Processing Time (active work time)', order: 1), SomFormFieldMeta(name: 'waitTime', typeName: 'String', description: 'Wait Time', order: 2), SomFormFieldMeta(name: 'slaTarget', typeName: 'String', description: 'SLA Target', order: 3), SomFormFieldMeta(name: 'slaMet', typeName: 'String', description: 'SLA Compliance Rate', order: 4), SomFormFieldMeta(name: 'peakPeriods', typeName: 'String', description: 'Peak Periods (times of highest volume)', order: 5), SomFormFieldMeta(name: 'bottlenecks', typeName: 'String', description: 'Bottlenecks (steps causing delays)', order: 6)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BABOK v3 §10 — current-state analysis (workflow timing and performance)'], 'connotation': 'The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks.'})]),
@@ -10008,7 +10056,7 @@ List<SomMetaNode> _mc$CurrentWorkflowEntry(Set<String> s) => [
           classSectionId: 'WOEX',
           kind: SomMetaKind.complex,
           typeName: 'WorkflowExceptions',
-          serializationOrder: 12,
+          serializationOrder: 10,
           docComment: 'Workflow exceptions and error handling.',
           classDocComment: 'Workflow exception handling.',
           recursive: r,
@@ -10671,6 +10719,28 @@ List<SomMetaNode> _mc$D03InformationModel(Set<String> s) => [
           serializationOrder: 17,
           docComment: 'Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).',
           classDocComment: '7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the "author once, reference everywhere"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].',
+          recursive: r,
+          children: c)),
+       _cx('ServerOperationRegistry', s, _mc$ServerOperationRegistry, (r, c) => SomMetaNode(
+          className: 'ServerOperationRegistry',
+          memberName: 'serverOperationRegistry',
+          classSectionId: 'SVOPR',
+          kind: SomMetaKind.complex,
+          typeName: 'ServerOperationRegistry',
+          serializationOrder: 18,
+          docComment: 'Server operation registry — the system\'s own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.',
+          classDocComment: '7.9. Server Operation Registry.\n\nThe authoring home for the **application\'s own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system\'s server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application\'s own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.',
+          recursive: r,
+          children: c)),
+       _cx('SchemaVersioningAndMigration', s, _mc$SchemaVersioningAndMigration, (r, c) => SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'schemaVersioningAndMigration',
+          classSectionId: 'SCHMG',
+          kind: SomMetaKind.complex,
+          typeName: 'SchemaVersioningAndMigration',
+          serializationOrder: 19,
+          docComment: 'Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.',
+          classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema\'s own evolution over releases.',
           recursive: r,
           children: c)),
     ];
@@ -11470,7 +11540,7 @@ List<SomMetaNode> _mc$D09ExperienceDesignSpecification(Set<String> s) => [
           typeName: 'LanguageCountrySelection',
           serializationOrder: 12,
           docComment: 'Language and country selection.',
-          classDocComment: '10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.',
+          classDocComment: '10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).',
           mapsTo: 'D09ExperienceDesignSpecification',
           detailedIn: 'D09ExperienceDesignSpecification',
           recursive: r,
@@ -12152,8 +12222,8 @@ List<SomMetaNode> _mc$D13CodeSpecsProjection(Set<String> s) => [
           kind: SomMetaKind.complex,
           typeName: 'TechnicalFrameworkConcept',
           serializationOrder: 8,
-          comment: 'locus: server — CE-CF',
-          docComment: 'Technical framework — CE-CF platform/config foundation.',
+          comment: 'locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)',
+          docComment: 'Technical framework — the platform foundation and **all four settings\nscopes**.\n\nThe subtree spans both loci because the four configuration scopes are\nauthored under it and route apart (`codespecs_mapping.md` §11): CE-CF\nserver configuration (`SystemConfigurationManagement`) is server-only,\nwhile CE-CC client configuration, CE-DS device settings and CE-UP user\nsettings are authored under the client-requirements subtree and route to\nthe client project. CE-UP additionally has a server-side persistence half\ngenerated from the *same* declarations, so it appears in both projects —\nthe scope is expressed by which section a setting is declared in, never by\na discriminator field.',
           classDocComment: '8. Technical Framework Concept. Seeds → ATS.',
           mapsTo: 'D06ArchitectureTechnologySpecification',
           recursive: r,
@@ -12195,13 +12265,37 @@ List<SomMetaNode> _mc$D13CodeSpecsProjection(Set<String> s) => [
           classDocComment: 'SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report\'s grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).',
           recursive: r,
           children: c)),
+       _cx('SchemaVersioningAndMigration', s, _mc$SchemaVersioningAndMigration, (r, c) => SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'schemaVersioningAndMigration',
+          classSectionId: 'SCHMG',
+          kind: SomMetaKind.complex,
+          typeName: 'SchemaVersioningAndMigration',
+          serializationOrder: 12,
+          comment: 'locus: server — CE-MG',
+          docComment: 'Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema\'s artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.',
+          classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema\'s own evolution over releases.',
+          recursive: r,
+          children: c)),
+       _cx('ServerOperationRegistry', s, _mc$ServerOperationRegistry, (r, c) => SomMetaNode(
+          className: 'ServerOperationRegistry',
+          memberName: 'serverOperationRegistry',
+          classSectionId: 'SVOPR',
+          kind: SomMetaKind.complex,
+          typeName: 'ServerOperationRegistry',
+          serializationOrder: 13,
+          comment: 'locus: shared(CE-API contract)+server(CE-API operations)',
+          docComment: 'Server operation registry — the application\'s **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation\'s primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.',
+          classDocComment: '7.9. Server Operation Registry.\n\nThe authoring home for the **application\'s own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system\'s server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application\'s own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.',
+          recursive: r,
+          children: c)),
        _cx('ProcessStepsAndActorInteractions', s, _mc$ProcessStepsAndActorInteractions, (r, c) => SomMetaNode(
           className: 'ProcessStepsAndActorInteractions',
           memberName: 'processStepsAndActorInteractions',
           classSectionId: 'PSAAI',
           kind: SomMetaKind.complex,
           typeName: 'ProcessStepsAndActorInteractions',
-          serializationOrder: 12,
+          serializationOrder: 14,
           comment: 'locus: server(CE-SU)+client(CE-SC)',
           docComment: 'Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.',
           classDocComment: '6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.',
@@ -12214,7 +12308,7 @@ List<SomMetaNode> _mc$D13CodeSpecsProjection(Set<String> s) => [
           classSectionId: 'XCS',
           kind: SomMetaKind.complex,
           typeName: 'ExperienceCodeSpecs',
-          serializationOrder: 13,
+          serializationOrder: 15,
           comment: 'locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER',
           docComment: 'Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.',
           classDocComment: 'SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.',
@@ -13496,7 +13590,7 @@ List<SomMetaNode> _mc$DataModelFollowUp(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           contentType: SomContentTypeMeta(type: 'mermaid-er', description: ''),
-          docComment: '7.9.1. Entity-Relationship Diagram (mermaid).'),
+          docComment: '7.10.1. Entity-Relationship Diagram (mermaid).'),
        SomMetaNode(
           className: 'DataModelFollowUp',
           memberName: 'entityFollowUps',
@@ -13506,7 +13600,7 @@ List<SomMetaNode> _mc$DataModelFollowUp(Set<String> s) => [
           typeName: 'EntityFollowUpEntry',
           serializationOrder: 2,
           contentHelp: 'Add one entry per entity that carries follow-up facets.',
-          docComment: '7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.',
+          docComment: '7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['DAMA-DMBOK2 — data management body of knowledge', 'ISO/IEC 25012 — data quality'], 'connotation': 'Per-entity operational, compliance, technical, and migration facets keyed to the source entity.'})],
           elementNode: _cx('EntityFollowUpEntry', s, _mc$EntityFollowUpEntry, (r, c) => SomMetaNode(className: 'EntityFollowUpEntry', classSectionId: 'DMFUE', kind: SomMetaKind.complex, typeName: 'EntityFollowUpEntry', docComment: 'A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.', classDocComment: 'A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.', recursive: r, children: c))),
     ];
@@ -16369,14 +16463,37 @@ List<SomMetaNode> _mc$DevelopmentQualityGates(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['CI/CD — continuous integration / delivery pipelines', 'ISO/IEC 25010 — maintainability quality attributes'], 'connotation': 'Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline.'})]),
     ];
 
-List<SomMetaNode> _mc$DeviceSettings(Set<String> s) => [
+List<SomMetaNode> _mc$DeviceSettingEntry(Set<String> s) => [
        SomMetaNode(
-          className: 'DeviceSettings',
+          className: 'DeviceSettingEntry',
           memberName: 'content',
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'settingKey', typeName: 'String', description: 'Setting Key', required: true, hint: 'The dotted key of the device setting, e.g. window.layout', order: 0), SomFormFieldMeta(name: 'valueType', typeName: 'String', description: 'Value Type', hint: 'string / int / double / bool / enum', order: 1), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'The value used until the user changes the setting on this device', order: 2), SomFormFieldMeta(name: 'deviceOverridable', typeName: 'bool', description: 'Shadows a Wider-Scope Key', hint: 'Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)', order: 3)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'settingKey', typeName: 'String', description: 'Setting Key', required: true, hint: 'The dotted key of the device setting, e.g. window.layout', order: 0), SomFormFieldMeta(name: 'valueType', typeName: 'String', description: 'Value Type', hint: 'string / int / double / bool / enum', order: 1), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'The value used until the user changes the setting on this device', order: 2)])),
+    ];
+
+List<SomMetaNode> _mc$DeviceSettings(Set<String> s) => [
+       SomMetaNode(
+          className: 'DeviceSettings',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n'),
+       SomMetaNode(
+          className: 'DeviceSettings',
+          memberName: 'settings',
+          sectionId: 'DSSET-SETT-LST',
+          sectionIdPattern: 'DSSET-SETT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'DeviceSettingEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per device setting. Declare the setting — key, value type and default — never the user\'s chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit.',
+          docComment: 'The declared device settings.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110 — suitability for individualization (user-tailored settings)', 'ISO/IEC 25010 — usability / operability'], 'connotation': 'The device settings declared for this system, one entry per key.'})],
+          elementNode: _cx('DeviceSettingEntry', s, _mc$DeviceSettingEntry, (r, c) => SomMetaNode(className: 'DeviceSettingEntry', classSectionId: 'DSSET', kind: SomMetaKind.complex, typeName: 'DeviceSettingEntry', docComment: 'A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user\'s\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.', classDocComment: 'A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user\'s\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$DisasterRecoveryRequirements(Set<String> s) => [
@@ -21963,7 +22080,7 @@ List<SomMetaNode> _mc$HardwareRequirements(Set<String> s) => [
           typeName: 'ClientRequirementsSection',
           serializationOrder: 2,
           docComment: '8.4.2. Client Requirements.',
-          classDocComment: '8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.',
+          classDocComment: '8.4.2. Client Requirements.\n\nTwo layers that answer two different questions.\n\n**Which client applications exist** — [clientApplications], one\n[ClientApplicationEntry] per client, naming its kind, its entry route and\nthe screens it comprises. This is the enumerable set of clients; a client\nnot listed there does not exist.\n\n**What a user\'s machine must provide** — every other subsection: browser,\ndesktop-OS, mobile-device, display, network, hardware, accessibility and\nsecurity minimums. These are deployment constraints on the *environment*,\nnot clients, which is why a client entry *references* them rather than\nrestating them.',
           recursive: r,
           children: c)),
        _cx('NetworkRequirementsSection', s, _mc$NetworkRequirementsSection, (r, c) => SomMetaNode(
@@ -22800,7 +22917,7 @@ List<SomMetaNode> _mc$InformationAndDataModel(Set<String> s) => [
           typeName: 'SchemaVersioningAndMigration',
           serializationOrder: 4,
           docComment: '7.4. Schema Versioning and Migration.',
-          classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema\'s own evolution over releases.',
+          classDocComment: '7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema\'s own evolution over releases.',
           recursive: r,
           children: c)),
        _cx('DomainEnumRegistry', s, _mc$DomainEnumRegistry, (r, c) => SomMetaNode(
@@ -22847,15 +22964,26 @@ List<SomMetaNode> _mc$InformationAndDataModel(Set<String> s) => [
           classDocComment: '7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the "author once, reference everywhere"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].',
           recursive: r,
           children: c)),
+       _cx('ServerOperationRegistry', s, _mc$ServerOperationRegistry, (r, c) => SomMetaNode(
+          className: 'ServerOperationRegistry',
+          memberName: 'serverOperationRegistry',
+          classSectionId: 'SVOPR',
+          kind: SomMetaKind.complex,
+          typeName: 'ServerOperationRegistry',
+          serializationOrder: 9,
+          docComment: '7.9. Server Operation Registry.\n\nThe system\'s **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.',
+          classDocComment: '7.9. Server Operation Registry.\n\nThe authoring home for the **application\'s own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system\'s server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application\'s own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.',
+          recursive: r,
+          children: c)),
        _cx('DataModelFollowUp', s, _mc$DataModelFollowUp, (r, c) => SomMetaNode(
           className: 'DataModelFollowUp',
           memberName: 'dataModelFollowUp',
           classSectionId: 'DMFU',
           kind: SomMetaKind.complex,
           typeName: 'DataModelFollowUp',
-          serializationOrder: 9,
-          docComment: '7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.',
-          classDocComment: '7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.',
+          serializationOrder: 10,
+          docComment: '7.10. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.',
+          classDocComment: '7.10. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.',
           recursive: r,
           children: c)),
     ];
@@ -24215,7 +24343,7 @@ List<SomMetaNode> _mc$InterfaceTechnicalSpec(Set<String> s) => [
           contentHelp: 'List the API operations or methods used: each with method, path, purpose, and request/response formats.',
           docComment: 'API operations/methods exposed or consumed.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['OpenAPI / AsyncAPI — API specification'], 'connotation': 'Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.'})],
-          elementNode: _cx('InterfaceOperationEntry', s, _mc$InterfaceOperationEntry, (r, c) => SomMetaNode(className: 'InterfaceOperationEntry', classSectionId: 'IOE', kind: SomMetaKind.complex, typeName: 'InterfaceOperationEntry', docComment: 'API operation entry.', classDocComment: 'API operation entry.', recursive: r, children: c))),
+          elementNode: _cx('InterfaceOperationEntry', s, _mc$InterfaceOperationEntry, (r, c) => SomMetaNode(className: 'InterfaceOperationEntry', classSectionId: 'IOE', kind: SomMetaKind.complex, typeName: 'InterfaceOperationEntry', docComment: 'An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system\'s own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application\'s own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.', classDocComment: 'An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system\'s own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application\'s own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.', recursive: r, children: c))),
        SomMetaNode(
           className: 'InterfaceTechnicalSpec',
           memberName: 'webhookSpec',
@@ -27547,6 +27675,16 @@ List<SomMetaNode> _mc$MigrationSystems(Set<String> s) => [
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceSystemInventory', typeName: 'String', description: 'Source System Inventory', hint: 'List of source systems', order: 0), SomFormFieldMeta(name: 'targetSystemDescription', typeName: 'String', description: 'Target System Description', hint: 'Target platform and architecture', order: 1), SomFormFieldMeta(name: 'schemaTransformationComplexity', typeName: 'String', description: 'Schema Transformation Complexity', required: true, hint: 'Low / Medium / High / VeryHigh', order: 2), SomFormFieldMeta(name: 'dataModelChangeSummary', typeName: 'String', description: 'Data Model Change Summary', hint: 'Key structural changes — table splits/merges, normalization', order: 3)])),
     ];
 
+List<SomMetaNode> _mc$MigrationTargetEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'MigrationTargetEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetName', typeName: 'String', description: 'Target Name', required: true, hint: 'The identifier migration artifacts use to name this target', order: 0), SomFormFieldMeta(name: 'dataSourceName', typeName: 'String', description: 'Data Source Name', required: true, hint: 'The registered data source the artifacts are applied against', order: 1), SomFormFieldMeta(name: 'schemaName', typeName: 'String', description: 'Schema Name', required: true, hint: 'The schema within that data source the artifacts act on', order: 2), SomFormFieldMeta(name: 'purpose', typeName: 'String', description: 'Purpose', hint: 'What this data source / schema holds and why it is separate', order: 3)])),
+    ];
+
 List<SomMetaNode> _mc$MobileCompatibilityEntry(Set<String> s) => [
        SomMetaNode(
           className: 'MobileCompatibilityEntry',
@@ -28200,7 +28338,7 @@ List<SomMetaNode> _mc$MultiLanguageSupport(Set<String> s) => [
           typeName: 'LanguageCountrySelection',
           serializationOrder: 2,
           docComment: '10.12.4. Language and Country Selection.',
-          classDocComment: '10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.',
+          classDocComment: '10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).',
           mapsTo: 'D09ExperienceDesignSpecification',
           detailedIn: 'D09ExperienceDesignSpecification',
           recursive: r,
@@ -38467,6 +38605,69 @@ List<SomMetaNode> _mc$ScenarioStepEntry(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['BPMN 2.0 — sequence flow / activities (scenario steps)', 'Cockburn — Writing Effective Use Cases: extensions & alternative flows'], 'connotation': 'Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.'})]),
     ];
 
+List<SomMetaNode> _mc$ScheduledJobEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentHelp: 'One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'jobName', typeName: 'String', description: 'Job Name', required: true, hint: 'The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced', order: 0), SomFormFieldMeta(name: 'purpose', typeName: 'String', description: 'Purpose', required: true, hint: 'Why this job exists — the operational or business reason it runs on its own rather than as part of a request', order: 1), SomFormFieldMeta(name: 'triggerKind', typeName: 'ScheduledJobTrigger', description: 'Trigger Kind', required: true, hint: 'What starts the job — selects the trigger subsection below', order: 2, enumValues: ['cron', 'calendar', 'event']), SomFormFieldMeta(name: 'primaryDataEntity', typeName: 'String', description: 'Primary Data Entity', required: true, hint: 'The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.', order: 3, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'enabled', typeName: 'bool', description: 'Enabled', hint: 'Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.', order: 4), SomFormFieldMeta(name: 'environments', typeName: 'String', description: 'Environments', hint: 'Comma-separated deployment environments this job runs in, or empty to run in every environment', order: 5)])),
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'cronTrigger',
+          sectionId: 'SCJOB-CRON',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 1,
+          docComment: 'Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'cronExpression', typeName: 'String', description: 'Recurrence Expression', required: true, hint: 'The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)', order: 0)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['POSIX crontab — the recurring-schedule expression convention', 'Google SRE — eliminating toil and operational procedures'], 'connotation': 'The recurring clock expression that starts this job.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScheduledJobTrigger.cron'})]),
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'calendarTrigger',
+          sectionId: 'SCJOB-CAL',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 2,
+          docComment: 'Calendar trigger — a promoted `@OneOf` case.\n\nPresent only for the `calendar` kind: a date rule a clock expression\ncannot state — the last day of the month, the third Monday of a quarter.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'calendarRule', typeName: 'String', description: 'Calendar Rule', required: true, hint: 'The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)', order: 0)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 8601 — date and time representation', 'Google SRE — eliminating toil and operational procedures'], 'connotation': 'The calendar date rule that starts this job.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScheduledJobTrigger.calendar'})]),
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'eventTrigger',
+          sectionId: 'SCJOB-EVNT',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 3,
+          docComment: 'Event trigger — a promoted `@OneOf` case.\n\nPresent only for the `event` kind. An event-triggered job does not fire on\ntime at all, so it has no schedule; what it has instead — and what neither\nother arm has — is an occurrence carrying data the work reads.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'eventName', typeName: 'String', description: 'Event Name', required: true, hint: 'The system occurrence that starts the job (e.g. order.payment.settled)', order: 0), SomFormFieldMeta(name: 'eventPayload', typeName: 'String', description: 'Event Payload', hint: 'What each occurrence carries that the work reads — typically the identity of the record the event is about', order: 1)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Enterprise Integration Patterns — event-driven consumer', 'Google SRE — eliminating toil and operational procedures'], 'connotation': 'The system event that starts this job and the data that event carries.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScheduledJobTrigger.event'})]),
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'workDefinition',
+          sectionId: 'SCJOB-WORK',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 4,
+          contentHelp: 'Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.',
+          docComment: 'What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'workSummary', typeName: 'String', description: 'Work Summary', required: true, hint: 'What the job does, step by step, in prose — the intent the work body must realise', order: 0), SomFormFieldMeta(name: 'readEntities', typeName: 'String', description: 'Read Entities', hint: 'The Data Model entities the job reads', order: 1, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'writtenEntities', typeName: 'String', description: 'Written Entities', hint: 'The Data Model entities the job writes, including the primary one', order: 2, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'targetReports', typeName: 'String', description: 'Target Reports', hint: 'The reports this job produces, where the work is a report run', order: 3, refersTo: ['REPENT.reportId'])]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148:2018 — requirements specification', 'DAMA-DMBOK2 — data management body of knowledge'], 'connotation': 'What the job does and which entities and reports it acts on.'})]),
+       SomMetaNode(
+          className: 'ScheduledJobEntry',
+          memberName: 'failurePolicy',
+          sectionId: 'SCJOB-FAIL',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 5,
+          contentHelp: 'Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.',
+          docComment: 'This job\'s departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'maxRetries', typeName: 'int', description: 'Maximum Retries', hint: 'How many times a failed run is retried, if not the default', order: 0), SomFormFieldMeta(name: 'retryBackoff', typeName: 'String', description: 'Retry Backoff', hint: 'The delay before the first retry and how it grows, if not the default', order: 1), SomFormFieldMeta(name: 'timeout', typeName: 'String', description: 'Timeout', hint: 'How long a single run may take before it is abandoned, if not the default', order: 2), SomFormFieldMeta(name: 'failureAlertMessage', typeName: 'String', description: 'Failure Alert Message', hint: 'The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.', order: 3, refersTo: ['MSGKE.key'])]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Google SRE — handling overload, retries and cascading failure', 'AWS Well-Architected — reliability (failure management)'], 'connotation': 'This job\'s retry, backoff, timeout and alerting overrides of the system-wide execution policy.'})]),
+    ];
+
 List<SomMetaNode> _mc$ScheduledMaintenancePolicy(Set<String> s) => [
        SomMetaNode(
           className: 'ScheduledMaintenancePolicy',
@@ -38524,7 +38725,38 @@ List<SomMetaNode> _mc$SchemaMigrationStepEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', hint: 'The schema version this step produces (e.g. V7, 2026-07-19-01)', order: 0), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', hint: 'What this migration changes and why', order: 1), SomFormFieldMeta(name: 'ddlOperations', typeName: 'String', description: 'DDL Operations', hint: 'CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)', order: 2), SomFormFieldMeta(name: 'affectedEntities', typeName: 'String', description: 'Affected Entities', hint: 'The Data Model entities this step touches', order: 3), SomFormFieldMeta(name: 'dataBackfill', typeName: 'String', description: 'Data Backfill', hint: 'Any data population/transformation done as part of the step, or None', order: 4), SomFormFieldMeta(name: 'reversible', typeName: 'bool', description: 'Reversible', hint: 'Whether a down/rollback migration is provided', order: 5)])),
+          contentHelp: 'One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'version', typeName: 'String', description: 'Version', required: true, hint: 'The version that orders this artifact in the set (e.g. 7, 42)', order: 0), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', required: true, hint: 'What this artifact does and why', order: 1), SomFormFieldMeta(name: 'artifactKind', typeName: 'MigrationArtifactKind', description: 'Artifact Kind', required: true, hint: 'What this artifact is — selects the definition subsection below', order: 2, enumValues: ['initialDdl', 'referenceData', 'schemaChange']), SomFormFieldMeta(name: 'migrationTarget', typeName: 'String', description: 'Migration Target', required: true, hint: 'The data source / schema target from 7.4.1 this applies to', order: 3, refersTo: ['MIGTG.targetName']), SomFormFieldMeta(name: 'environments', typeName: 'String', description: 'Environments', hint: 'Comma-separated deployment environments this is restricted to, or empty to apply everywhere', order: 4)])),
+       SomMetaNode(
+          className: 'SchemaMigrationStepEntry',
+          memberName: 'baselineSchema',
+          sectionId: 'SCMST-BASE',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 1,
+          docComment: 'Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'createdEntities', typeName: 'String', description: 'Created Entities', required: true, hint: 'The Data Model entities this baseline creates', order: 0, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'schemaStatements', typeName: 'String', description: 'Schema Statements', hint: 'The schema definition statements that create the tables', order: 1), SomFormFieldMeta(name: 'indexesAndConstraints', typeName: 'String', description: 'Indexes and Constraints', hint: 'Keys, indexes and constraints established with the baseline', order: 2)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 9075 (SQL) — schema definition statements', 'DAMA-DMBOK2 — data management body of knowledge'], 'connotation': 'The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'MigrationArtifactKind.initialDdl'})]),
+       SomMetaNode(
+          className: 'SchemaMigrationStepEntry',
+          memberName: 'referenceData',
+          sectionId: 'SCMST-REFD',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 2,
+          docComment: 'Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system\'s own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'targetEntities', typeName: 'String', description: 'Target Entities', required: true, hint: 'The Data Model entities this artifact populates', order: 0, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'valueSet', typeName: 'String', description: 'Value Set', required: true, hint: 'The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept', order: 1), SomFormFieldMeta(name: 'identityKey', typeName: 'String', description: 'Identity Key', hint: 'The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates', order: 2)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['DAMA-DMBOK2 — reference and master data management', 'ISO/IEC 11179 — permissible values of a data element'], 'connotation': 'The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'MigrationArtifactKind.referenceData'})]),
+       SomMetaNode(
+          className: 'SchemaMigrationStepEntry',
+          memberName: 'schemaChange',
+          sectionId: 'SCMST-CHNG',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 3,
+          docComment: 'Schema change — a promoted `@OneOf` case.\n\nPresent only for the `schemaChange` kind: an evolution step on top of an\nexisting schema. This is the only kind for which a delta of affected\nentities, a data backfill and reversibility are meaningful.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'schemaStatements', typeName: 'String', description: 'Schema Statements', required: true, hint: 'The schema changes performed on tables, columns, indexes and constraints', order: 0), SomFormFieldMeta(name: 'affectedEntities', typeName: 'String', description: 'Affected Entities', required: true, hint: 'The Data Model entities this change touches', order: 1, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'dataBackfill', typeName: 'String', description: 'Data Backfill', hint: 'Any data population or transformation performed as part of the change, or None', order: 2), SomFormFieldMeta(name: 'reversible', typeName: 'bool', description: 'Reversible', hint: 'Whether a rollback step is provided for this change', order: 3)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Evolutionary Database Design (Ambler & Sadalage) — database refactoring', 'ISO/IEC 9075 (SQL) — schema definition statements'], 'connotation': 'The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'MigrationArtifactKind.schemaChange'})]),
     ];
 
 List<SomMetaNode> _mc$SchemaVersioningAndMigration(Set<String> s) => [
@@ -38534,8 +38766,20 @@ List<SomMetaNode> _mc$SchemaVersioningAndMigration(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          contentHelp: 'Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system\'s own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'migrationTooling', typeName: 'String', description: 'Migration Tooling', hint: 'Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts', order: 0), SomFormFieldMeta(name: 'versioningStrategy', typeName: 'String', description: 'Versioning Strategy', hint: 'Sequential numbered | Timestamped | Semantic', order: 1), SomFormFieldMeta(name: 'forwardOnly', typeName: 'bool', description: 'Forward-Only', hint: 'Whether migrations are forward-only (no down migrations)', order: 2), SomFormFieldMeta(name: 'baselineVersion', typeName: 'String', description: 'Baseline Version', hint: 'The initial/baseline schema version migrations build on', order: 3), SomFormFieldMeta(name: 'zeroDowntimeApproach', typeName: 'String', description: 'Zero-Downtime Approach', hint: 'Expand/contract, online DDL, blue-green schema, or None', order: 4)])),
+          contentHelp: 'Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework\'s own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema\'s artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system\'s own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'versioningStrategy', typeName: 'String', description: 'Versioning Strategy', hint: 'Sequential numbered | Timestamped | Semantic', order: 0), SomFormFieldMeta(name: 'forwardOnly', typeName: 'bool', description: 'Forward-Only', hint: 'Whether schema changes are forward-only (no down steps)', order: 1), SomFormFieldMeta(name: 'baselineVersion', typeName: 'String', description: 'Baseline Version', hint: 'The initial/baseline schema version later artifacts build on', order: 2), SomFormFieldMeta(name: 'zeroDowntimeApproach', typeName: 'String', description: 'Zero-Downtime Approach', hint: 'Expand/contract, online DDL, blue-green schema, or None', order: 3)])),
+       SomMetaNode(
+          className: 'SchemaVersioningAndMigration',
+          memberName: 'migrationTargets',
+          sectionId: 'MIGTG-TARG-LST',
+          sectionIdPattern: 'MIGTG-TARG-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'MigrationTargetEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.',
+          docComment: '7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 9075 (SQL) — schema as the named container of database objects', 'DAMA-DMBOK2 — data management body of knowledge'], 'connotation': 'The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.'})],
+          elementNode: _cx('MigrationTargetEntry', s, _mc$MigrationTargetEntry, (r, c) => SomMetaNode(className: 'MigrationTargetEntry', classSectionId: 'MIGTG', kind: SomMetaKind.complex, typeName: 'MigrationTargetEntry', docComment: 'A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.', classDocComment: 'A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.', recursive: r, children: c))),
        SomMetaNode(
           className: 'SchemaVersioningAndMigration',
           memberName: 'migrationSteps',
@@ -38543,11 +38787,11 @@ List<SomMetaNode> _mc$SchemaVersioningAndMigration(Set<String> s) => [
           sectionIdPattern: 'SCMST-STEP-xxx',
           kind: SomMetaKind.list,
           typeName: 'SchemaMigrationStepEntry',
-          serializationOrder: 1,
-          contentHelp: 'Add one entry per versioned schema migration step.',
-          docComment: '7.4.1. Schema Migration Steps — one entry per versioned migration.',
-          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Evolutionary Database Design (Ambler & Sadalage) — database refactoring'], 'connotation': 'The ordered schema migration steps that evolve the database over releases.'})],
-          elementNode: _cx('SchemaMigrationStepEntry', s, _mc$SchemaMigrationStepEntry, (r, c) => SomMetaNode(className: 'SchemaMigrationStepEntry', classSectionId: 'SCMST', kind: SomMetaKind.complex, typeName: 'SchemaMigrationStepEntry', docComment: 'A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.', classDocComment: 'A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.', recursive: r, children: c))),
+          serializationOrder: 2,
+          contentHelp: 'Add one entry per versioned migration artifact.',
+          docComment: '7.4.2. Schema Migration Steps — one entry per versioned artifact.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Evolutionary Database Design (Ambler & Sadalage) — database refactoring'], 'connotation': 'The ordered schema migration artifacts that establish and evolve the database over releases.'})],
+          elementNode: _cx('SchemaMigrationStepEntry', s, _mc$SchemaMigrationStepEntry, (r, c) => SomMetaNode(className: 'SchemaMigrationStepEntry', classSectionId: 'SCMST', kind: SomMetaKind.complex, typeName: 'SchemaMigrationStepEntry', docComment: 'A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.', classDocComment: 'A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
@@ -38950,6 +39194,16 @@ List<SomMetaNode> _mc$ScreenElementFieldSpec(Set<String> s) => [
           docComment: 'Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'autocompleteSource', typeName: 'String', description: 'Autocomplete Source', hint: 'Source reference for autocomplete suggestions', order: 0), SomFormFieldMeta(name: 'optionsSource', typeName: 'String', description: 'Options Source', hint: 'For select fields: static list, API endpoint, or entity query', order: 1), SomFormFieldMeta(name: 'selectMode', typeName: 'String', description: 'Select Mode', hint: 'Single/Multi', order: 2), SomFormFieldMeta(name: 'displayMode', typeName: 'String', description: 'Display Mode', hint: 'Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-143:2012 — form fields with selection and input assistance', 'ISO 9241-161:2016 — selection controls such as dropdowns and radio groups'], 'connotation': 'The option source and selection-mode attributes for a select input field.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScreenElementFieldKind.enumeration'})]),
+       SomMetaNode(
+          className: 'ScreenElementFieldSpec',
+          memberName: 'fileOptions',
+          sectionId: 'SEFSU',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 7,
+          docComment: 'File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile\'s group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'acceptedContentKinds', typeName: 'String', description: 'Accepted Content Kinds', hint: 'What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions', order: 0), SomFormFieldMeta(name: 'maxFileSize', typeName: 'String', description: 'Maximum File Size', hint: 'Largest file the field accepts, e.g. 10 MB', order: 1), SomFormFieldMeta(name: 'presentation', typeName: 'String', description: 'Presentation (link, dropzone, thumbnail)', hint: 'How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)', order: 2), SomFormFieldMeta(name: 'uploadOnPick', typeName: 'String', description: 'Upload On Pick', hint: 'Yes/No — whether choosing a file uploads it immediately or the form uploads it on save', order: 3)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-143:2012 — form fields with input assistance such as file selection', 'ISO/IEC 2382:2015 — content and media type terminology'], 'connotation': 'What a file input accepts and how the chosen file is presented.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScreenElementFieldKind.file'})]),
     ];
 
 List<SomMetaNode> _mc$ScreenEntry(Set<String> s) => [
@@ -39159,11 +39413,21 @@ List<SomMetaNode> _mc$ScreenFieldEntry(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110 — dialogue principles', 'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements'], 'connotation': 'Where a choice field takes its options from — the option source and, for a static source, the values themselves.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScreenFieldKind.singleSelect'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScreenFieldKind.multiSelect'})]),
        SomMetaNode(
           className: 'ScreenFieldEntry',
+          memberName: 'fileConstraints',
+          sectionId: 'SCFIFI',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 8,
+          docComment: 'File-kind input constraints — a promoted `@OneOf` case (csrb8).\n\nConstraints only. **How** the file is presented — link, dropzone or\nthumbnail — is the D09 design pass\'s `fileOptions`\n(`ScreenElementFieldSpec`), because a requirement names the kind of value\na user supplies and the design names the concrete control. The storage\ngroup is neither side\'s: it is authored on the CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1).',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'acceptedContentKinds', typeName: 'String', description: 'Accepted Content Kinds', hint: 'What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions', order: 0), SomFormFieldMeta(name: 'maxFileSize', typeName: 'String', description: 'Maximum File Size', hint: 'Largest file the field accepts, e.g. 10 MB', order: 1)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148 §9 — input validation requirements', 'ISO/IEC 2382:2015 — content and media type terminology'], 'connotation': 'The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'ScreenFieldKind.file'})]),
+       SomMetaNode(
+          className: 'ScreenFieldEntry',
           memberName: 'layout',
           sectionId: 'SCFILA',
           kind: SomMetaKind.form,
           typeName: 'String',
-          serializationOrder: 8,
+          serializationOrder: 9,
           docComment: 'UI and layout.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dependsOn', typeName: 'String', description: 'Depends On (field IDs that affect this)', hint: 'Field IDs that affect this field', order: 0), SomFormFieldMeta(name: 'width', typeName: 'String', description: 'Width (full, half, third, quarter, custom)', hint: 'full, half, third, quarter, or custom', order: 1), SomFormFieldMeta(name: 'order', typeName: 'String', description: 'Display Order', hint: 'Order in which the field is displayed', order: 2), SomFormFieldMeta(name: 'grouping', typeName: 'String', description: 'Field Grouping / Section', hint: 'Group or section the field belongs to', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110 — dialogue principles', 'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements'], 'connotation': 'The layout and presentation of a screen field — its dependencies, width, display order, and grouping.'})]),
@@ -39174,7 +39438,7 @@ List<SomMetaNode> _mc$ScreenFieldEntry(Set<String> s) => [
           sectionIdPattern: 'FLDVL-VALI-xxx',
           kind: SomMetaKind.list,
           typeName: 'FieldValidationRule',
-          serializationOrder: 9,
+          serializationOrder: 10,
           contentHelp: 'Add one entry per validation rule applied to this field.',
           docComment: 'Field validation rules — contains 0+× FieldValidationRule.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 29148 §9 — input validation requirements', 'OWASP ASVS — input validation'], 'connotation': 'The list of individual validation rules applied to this field\'s input.'})],
@@ -40529,6 +40793,16 @@ List<SomMetaNode> _mc$SensitiveDataEncryption(Set<String> s) => [
           children: c)),
     ];
 
+List<SomMetaNode> _mc$ServerConfigurationSettingEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ServerConfigurationSettingEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'settingKey', typeName: 'String', description: 'Setting Key', required: true, hint: 'The dotted key of the server setting, e.g. server.isolateCount', order: 0), SomFormFieldMeta(name: 'valueType', typeName: 'String', description: 'Value Type', hint: 'string / int / double / bool / enum', order: 1), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment', order: 2), SomFormFieldMeta(name: 'environmentVariable', typeName: 'String', description: 'Environment Variable', hint: 'The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way', order: 3), SomFormFieldMeta(name: 'commandLineOption', typeName: 'String', description: 'Command-Line Option', hint: 'The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source', order: 4), SomFormFieldMeta(name: 'secret', typeName: 'bool', description: 'Carries a Secret', hint: 'Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down', order: 5), SomFormFieldMeta(name: 'overridableBy', typeName: 'String', description: 'Overridable By', required: true, hint: 'The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into', order: 6)])),
+    ];
+
 List<SomMetaNode> _mc$ServerEnvironmentEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ServerEnvironmentEntry',
@@ -40577,6 +40851,73 @@ List<SomMetaNode> _mc$ServerEnvironmentEntry(Set<String> s) => [
           docComment: 'Lifecycle rules.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'refreshSchedule', typeName: 'String', description: 'Refresh Schedule', hint: 'Data refresh schedule', order: 0), SomFormFieldMeta(name: 'retentionPolicy', typeName: 'String', description: 'Retention Policy', hint: 'Data retention policy', order: 1), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional environment notes', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['IaaS / cloud infrastructure — server provisioning', 'Twelve-Factor App — cloud-native deployment'], 'connotation': 'Captures the refresh schedule and retention policy for a server environment.'})]),
+    ];
+
+List<SomMetaNode> _mc$ServerOperationEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ServerOperationEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'operationName', typeName: 'String', description: 'Operation Name', required: true, hint: 'Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.', order: 0), SomFormFieldMeta(name: 'purpose', typeName: 'String', description: 'Purpose', hint: 'What the operation does, from the caller\'s point of view', order: 1), SomFormFieldMeta(name: 'primaryDataEntity', typeName: 'String', description: 'Primary Data Entity', hint: 'DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)', order: 2, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'authorizationRequirement', typeName: 'String', description: 'Authorization Requirement', required: true, hint: 'What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.', order: 3), SomFormFieldMeta(name: 'requiredRoles', typeName: 'String', description: 'Required Roles', hint: 'Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement', order: 4, refersTo: ['AZRO.roleName']), SomFormFieldMeta(name: 'requiredResourceKey', typeName: 'String', description: 'Required Resource Key', hint: 'ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement', order: 5, refersTo: ['RESKEY.resourceKey']), SomFormFieldMeta(name: 'descriptionKey', typeName: 'String', description: 'Description Copy Key', hint: 'MessageKeyEntry.key into the message key registry (MSGKR) for the operation\'s user-facing description (author copy once, reference here)', order: 6, refersTo: ['MSGKE.key']), SomFormFieldMeta(name: 'errorCodes', typeName: 'String', description: 'Error Codes', hint: 'Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope', order: 7, refersTo: ['ERCEN.code'])])),
+       SomMetaNode(
+          className: 'ServerOperationEntry',
+          memberName: 'requestMembers',
+          sectionId: 'SVOPM-REQM-LST',
+          sectionIdPattern: 'SVOPM-REQM-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ServerOperationMemberEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per member of the request shape.',
+          docComment: '7.9.x. Request Members — the members that make up the request shape.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 11179 — metadata registries / data element definitions'], 'connotation': 'The members that make up this operation\'s request shape.'})],
+          elementNode: _cx('ServerOperationMemberEntry', s, _mc$ServerOperationMemberEntry, (r, c) => SomMetaNode(className: 'ServerOperationMemberEntry', classSectionId: 'SVOPM', kind: SomMetaKind.complex, typeName: 'ServerOperationMemberEntry', docComment: 'A single member of an operation\'s request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.', classDocComment: 'A single member of an operation\'s request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.', recursive: r, children: c))),
+       SomMetaNode(
+          className: 'ServerOperationEntry',
+          memberName: 'responseMembers',
+          sectionId: 'SVOPM-RESM-LST',
+          sectionIdPattern: 'SVOPM-RESM-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ServerOperationMemberEntry',
+          serializationOrder: 2,
+          contentHelp: 'Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.',
+          docComment: '7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 11179 — metadata registries / data element definitions'], 'connotation': 'The members that make up the success payload this operation returns.'})],
+          elementNode: _cx('ServerOperationMemberEntry', s, _mc$ServerOperationMemberEntry, (r, c) => SomMetaNode(className: 'ServerOperationMemberEntry', classSectionId: 'SVOPM', kind: SomMetaKind.complex, typeName: 'ServerOperationMemberEntry', docComment: 'A single member of an operation\'s request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.', classDocComment: 'A single member of an operation\'s request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.', recursive: r, children: c))),
+    ];
+
+List<SomMetaNode> _mc$ServerOperationMemberEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ServerOperationMemberEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'memberName', typeName: 'String', description: 'Member Name', required: true, hint: 'Name of the member within the shape (e.g. customerId, includeArchived)', order: 0), SomFormFieldMeta(name: 'memberType', typeName: 'String', description: 'Member Type', required: true, hint: 'Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.', order: 1), SomFormFieldMeta(name: 'multiValued', typeName: 'bool', description: 'Multi-Valued', hint: 'Whether the member carries a collection of the type rather than a single value', order: 2), SomFormFieldMeta(name: 'required', typeName: 'bool', description: 'Required', hint: 'Whether the member must be present', order: 3), SomFormFieldMeta(name: 'dataEntity', typeName: 'String', description: 'Data Entity', hint: 'DataEntityEntry.entityName the member is typed by, when its type is DataEntity', order: 4, refersTo: ['DAENT.entityName']), SomFormFieldMeta(name: 'domainEnum', typeName: 'String', description: 'Domain Enum', hint: 'DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum', order: 5, refersTo: ['DMENE.enumName']), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', hint: 'What the member means and any authoring guidance', order: 6)])),
+    ];
+
+List<SomMetaNode> _mc$ServerOperationRegistry(Set<String> s) => [
+       SomMetaNode(
+          className: 'ServerOperationRegistry',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system\'s **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n'),
+       SomMetaNode(
+          className: 'ServerOperationRegistry',
+          memberName: 'operations',
+          sectionId: 'SVOPE-OPER-LST',
+          sectionIdPattern: 'SVOPE-OPER-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ServerOperationEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per operation the system answers.',
+          docComment: '7.9.1. Operations — one entry per operation the system answers.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 42010 — architecture description (interface contracts)'], 'connotation': 'The catalogued operations the application\'s own server surface answers.'})],
+          elementNode: _cx('ServerOperationEntry', s, _mc$ServerOperationEntry, (r, c) => SomMetaNode(className: 'ServerOperationEntry', classSectionId: 'SVOPE', kind: SomMetaKind.complex, typeName: 'ServerOperationEntry', docComment: 'A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).', classDocComment: 'A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$ServerOsRequirements(Set<String> s) => [
@@ -44074,6 +44415,18 @@ List<SomMetaNode> _mc$SystemConfigurationManagement(Set<String> s) => [
           docComment: 'Validation, diffing, and audit controls.',
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'configValidation', typeName: 'String', description: 'Config Validation', hint: 'Schema validation before deploy', order: 0), SomFormFieldMeta(name: 'configDiffing', typeName: 'bool', description: 'Config Diffing', hint: 'Compare configurations across envs', order: 1), SomFormFieldMeta(name: 'configAuditTrail', typeName: 'bool', description: 'Config Audit Trail', hint: 'Log who changed what and when', order: 2), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional configuration management notes', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 20000 — configuration and change management', 'ITIL 4 — service configuration management practice'], 'connotation': 'Validation, diffing, and audit controls ensure configuration changes are checked and traceable.'})]),
+       SomMetaNode(
+          className: 'SystemConfigurationManagement',
+          memberName: 'settings',
+          sectionId: 'SCSET-SETT-LST',
+          sectionIdPattern: 'SCSET-SETT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'ServerConfigurationSettingEntry',
+          serializationOrder: 4,
+          contentHelp: 'Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.',
+          docComment: 'The declared server configuration settings.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['Twelve-Factor App — config stored in the environment', 'CIS Controls — secure configuration and administration'], 'connotation': 'The server / system configuration settings declared for this system, one entry per key.'})],
+          elementNode: _cx('ServerConfigurationSettingEntry', s, _mc$ServerConfigurationSettingEntry, (r, c) => SomMetaNode(className: 'ServerConfigurationSettingEntry', classSectionId: 'SCSET', kind: SomMetaKind.complex, typeName: 'ServerConfigurationSettingEntry', docComment: 'A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.', classDocComment: 'A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.', recursive: r, children: c))),
     ];
 
 List<SomMetaNode> _mc$SystemContext(Set<String> s) => [
@@ -50680,6 +51033,39 @@ List<SomMetaNode> _mc$UserRegistrationProcess(Set<String> s) => [
           docComment: 'Registration Flow Diagram (mermaid-sequence).'),
     ];
 
+List<SomMetaNode> _mc$UserSettingEntry(Set<String> s) => [
+       SomMetaNode(
+          className: 'UserSettingEntry',
+          memberName: 'content',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 0,
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'settingKey', typeName: 'String', description: 'Setting Key', required: true, hint: 'The dotted key of the user setting, e.g. ui.theme', order: 0), SomFormFieldMeta(name: 'valueType', typeName: 'String', description: 'Value Type', hint: 'string / int / double / bool / enum', order: 1), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'The value used until the user changes the setting', order: 2), SomFormFieldMeta(name: 'overridableBy', typeName: 'String', description: 'Overridable By', required: true, hint: 'Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into', order: 3)])),
+    ];
+
+List<SomMetaNode> _mc$UserSettings(Set<String> s) => [
+       SomMetaNode(
+          className: 'UserSettings',
+          memberName: 'content',
+          kind: SomMetaKind.content,
+          typeName: 'String',
+          serializationOrder: 0,
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n'),
+       SomMetaNode(
+          className: 'UserSettings',
+          memberName: 'settings',
+          sectionId: 'USSET-SETT-LST',
+          sectionIdPattern: 'USSET-SETT-xxx',
+          kind: SomMetaKind.list,
+          typeName: 'UserSettingEntry',
+          serializationOrder: 1,
+          contentHelp: 'Add one entry per user setting. Declare the setting — key, value type and default — never the user\'s chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize.',
+          docComment: 'The declared user settings.',
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO 9241-110 — suitability for individualization (user-tailored settings)', 'ISO/IEC 25010 — usability / operability'], 'connotation': 'The user settings declared for this system, one entry per key.'})],
+          elementNode: _cx('UserSettingEntry', s, _mc$UserSettingEntry, (r, c) => SomMetaNode(className: 'UserSettingEntry', classSectionId: 'USSET', kind: SomMetaKind.complex, typeName: 'UserSettingEntry', docComment: 'A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user\'s choice and is never\nauthored (`codespecs_mapping.md` §5.16).', classDocComment: 'A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user\'s choice and is never\nauthored (`codespecs_mapping.md` §5.16).', recursive: r, children: c))),
+    ];
+
 List<SomMetaNode> _mc$UserTrainingRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'UserTrainingRequirements',
@@ -51528,7 +51914,7 @@ List<SomMetaNode> _mc$WorkflowStepEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'stepName', typeName: 'String', description: 'Step Name', required: true, order: 0), SomFormFieldMeta(name: 'stepNumber', typeName: 'int', description: 'Step Number (sequence order)', order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', order: 2), SomFormFieldMeta(name: 'responsibleActor', typeName: 'String', description: 'Responsible Actor', order: 3), SomFormFieldMeta(name: 'stepType', typeName: 'String', description: 'Step Type (e.g., Task, Decision, Wait, Subprocess)', order: 4), SomFormFieldMeta(name: 'isManual', typeName: 'bool', description: 'Is Manual (requires human intervention)', hint: 'Whether carrying the step out needs a person; an automated step runs without human intervention', order: 5), SomFormFieldMeta(name: 'isAutomatable', typeName: 'bool', description: 'Is Automatable', order: 6), SomFormFieldMeta(name: 'averageDuration', typeName: 'String', description: 'Average Duration', order: 7)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'stepName', typeName: 'String', description: 'Step Name', required: true, order: 0), SomFormFieldMeta(name: 'stepNumber', typeName: 'int', description: 'Step Number (sequence order)', order: 1), SomFormFieldMeta(name: 'description', typeName: 'String', description: 'Description', order: 2), SomFormFieldMeta(name: 'responsibleActor', typeName: 'String', description: 'Responsible Actor', order: 3), SomFormFieldMeta(name: 'stepType', typeName: 'String', description: 'Step Type (e.g., Task, Decision, Wait, Subprocess)', order: 4), SomFormFieldMeta(name: 'isManual', typeName: 'bool', description: 'Is Manual (requires human intervention)', hint: 'Whether carrying the step out needs a person; an automated step runs without human intervention', order: 5), SomFormFieldMeta(name: 'isAutomatable', typeName: 'bool', description: 'Is Automatable', order: 6), SomFormFieldMeta(name: 'isErrorProne', typeName: 'bool', description: 'Is Error-Prone (high error or failure rate)', hint: 'Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often', order: 7), SomFormFieldMeta(name: 'averageDuration', typeName: 'String', description: 'Average Duration', order: 8)])),
        SomMetaNode(
           className: 'WorkflowStepEntry',
           memberName: 'systemsUsed',
@@ -53358,6 +53744,7 @@ class BatchJobManagement$Nav extends SomMetaRef {
   SomMetaRef get jobTypes => SomMetaRef(tree, '$path/BJMJT');
   SomMetaRef get execution => SomMetaRef(tree, '$path/BJME');
   SomMetaRef get monitoring => SomMetaRef(tree, '$path/BJMM');
+  SomListMetaRef<ScheduledJobEntry$Nav> get scheduledJobs => SomListMetaRef(tree, '$path/SCJOB-JOB-LST', ScheduledJobEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `BehaviorRuleEntry` (SOM §8). Every getter is one
@@ -54021,12 +54408,31 @@ class ClientAccessibilityRequirements$Nav extends SomMetaRef {
   SomMetaRef get standards => SomMetaRef(tree, '$path/CARS');
 }
 
+/// Dot-notation accessors of `ClientApplicationEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ClientApplicationEntry$Nav extends SomMetaRef {
+  ClientApplicationEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `ClientConfiguration` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
 /// document positions while `.meta` throws (the metadata tree ends there).
 class ClientConfiguration$Nav extends SomMetaRef {
   ClientConfiguration$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ClientConfigurationSettingEntry$Nav> get settings => SomListMetaRef(tree, '$path/CCSET-SETT-LST', ClientConfigurationSettingEntry$Nav.new);
+}
+
+/// Dot-notation accessors of `ClientConfigurationSettingEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ClientConfigurationSettingEntry$Nav extends SomMetaRef {
+  ClientConfigurationSettingEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
@@ -54064,6 +54470,7 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
   ClientRequirementsSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
+  SomListMetaRef<ClientApplicationEntry$Nav> get clientApplications => SomListMetaRef(tree, '$path/CLIAPP-CLIE-LST', ClientApplicationEntry$Nav.new);
   SomListMetaRef<BrowserRequirementEntry$Nav> get browserRequirements => SomListMetaRef(tree, '$path/BRREEN-BROW-LST', BrowserRequirementEntry$Nav.new);
   SomListMetaRef<DesktopOsRequirementEntry$Nav> get desktopOsRequirements => SomListMetaRef(tree, '$path/DORE1-DESK-LST', DesktopOsRequirementEntry$Nav.new);
   SomListMetaRef<MobileDeviceRequirementEntry$Nav> get mobileRequirements => SomListMetaRef(tree, '$path/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Nav.new);
@@ -54076,6 +54483,7 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
   ClientSecurityRequirements$Nav get securityRequirements => ClientSecurityRequirements$Nav(tree, '$path/securityRequirements');
   ClientConfiguration$Nav get clientConfiguration => ClientConfiguration$Nav(tree, '$path/clientConfiguration');
   DeviceSettings$Nav get deviceSettings => DeviceSettings$Nav(tree, '$path/deviceSettings');
+  UserSettings$Nav get userSettings => UserSettings$Nav(tree, '$path/userSettings');
 }
 
 /// Dot-notation accessors of `ClientSecurityRequirements` (SOM §8). Every getter is one
@@ -55058,8 +55466,6 @@ class CurrentWorkflowEntry$Nav extends SomMetaRef {
   SomListMetaRef<WorkflowOutputEntry$Nav> get outputs => SomListMetaRef(tree, '$path/WOOUEN-OUTP-LST', WorkflowOutputEntry$Nav.new);
   SomListMetaRef<WorkflowDecisionPoint$Nav> get decisionPoints => SomListMetaRef(tree, '$path/WODEPO-DECI-LST', WorkflowDecisionPoint$Nav.new);
   SomListMetaRef<WorkflowBusinessRule$Nav> get businessRules => SomListMetaRef(tree, '$path/WOBURU-BUSI-LST', WorkflowBusinessRule$Nav.new);
-  SomListMetaRef<WorkflowStepEntry$Nav> get manualSteps => SomListMetaRef(tree, '$path/WSE-MANU-LST', WorkflowStepEntry$Nav.new);
-  SomListMetaRef<WorkflowStepEntry$Nav> get errorProneSteps => SomListMetaRef(tree, '$path/WSE-ERRO-LST', WorkflowStepEntry$Nav.new);
   SomMetaRef get timing => SomMetaRef(tree, '$path/WOTI');
   WorkflowExceptions$Nav get exceptions => WorkflowExceptions$Nav(tree, '$path/exceptions');
 }
@@ -55177,6 +55583,8 @@ class D03InformationModel$Nav extends SomMetaRef {
   ErrorCodeRegistry$Nav get errorCodeRegistry => ErrorCodeRegistry$Nav(tree, '$path/errorCodeRegistry');
   ResultEnvelope$Nav get resultEnvelope => ResultEnvelope$Nav(tree, '$path/resultEnvelope');
   MessageKeyRegistry$Nav get messageKeyRegistry => MessageKeyRegistry$Nav(tree, '$path/messageKeyRegistry');
+  ServerOperationRegistry$Nav get serverOperationRegistry => ServerOperationRegistry$Nav(tree, '$path/serverOperationRegistry');
+  SchemaVersioningAndMigration$Nav get schemaVersioningAndMigration => SchemaVersioningAndMigration$Nav(tree, '$path/schemaVersioningAndMigration');
 }
 
 /// Dot-notation accessors of `D04RequirementsSpecification` (SOM §8). Every getter is one
@@ -55385,6 +55793,8 @@ class D13CodeSpecsProjection$Nav extends SomMetaRef {
   AccessControlModel$Nav get accessControl => AccessControlModel$Nav(tree, '$path/accessControl');
   AuditAndLogging$Nav get auditAndLogging => AuditAndLogging$Nav(tree, '$path/auditAndLogging');
   ReportDefinitions$Nav get reportDefinitions => ReportDefinitions$Nav(tree, '$path/reportDefinitions');
+  SchemaVersioningAndMigration$Nav get schemaVersioningAndMigration => SchemaVersioningAndMigration$Nav(tree, '$path/schemaVersioningAndMigration');
+  ServerOperationRegistry$Nav get serverOperationRegistry => ServerOperationRegistry$Nav(tree, '$path/serverOperationRegistry');
   ProcessStepsAndActorInteractions$Nav get processStepsAndActorInteractions => ProcessStepsAndActorInteractions$Nav(tree, '$path/processStepsAndActorInteractions');
   ExperienceCodeSpecs$Nav get experienceCodeSpecs => ExperienceCodeSpecs$Nav(tree, '$path/experienceCodeSpecs');
 }
@@ -56536,6 +56946,15 @@ class DevelopmentQualityGates$Nav extends SomMetaRef {
   SomMetaRef get performance => SomMetaRef(tree, '$path/DQGP');
 }
 
+/// Dot-notation accessors of `DeviceSettingEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class DeviceSettingEntry$Nav extends SomMetaRef {
+  DeviceSettingEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `DeviceSettings` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -56543,6 +56962,7 @@ class DevelopmentQualityGates$Nav extends SomMetaRef {
 class DeviceSettings$Nav extends SomMetaRef {
   DeviceSettings$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<DeviceSettingEntry$Nav> get settings => SomListMetaRef(tree, '$path/DSSET-SETT-LST', DeviceSettingEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DisasterRecoveryRequirements` (SOM §8). Every getter is one
@@ -58446,6 +58866,7 @@ class InformationAndDataModel$Nav extends SomMetaRef {
   ErrorCodeRegistry$Nav get errorCodeRegistry => ErrorCodeRegistry$Nav(tree, '$path/errorCodeRegistry');
   ResultEnvelope$Nav get resultEnvelope => ResultEnvelope$Nav(tree, '$path/resultEnvelope');
   MessageKeyRegistry$Nav get messageKeyRegistry => MessageKeyRegistry$Nav(tree, '$path/messageKeyRegistry');
+  ServerOperationRegistry$Nav get serverOperationRegistry => ServerOperationRegistry$Nav(tree, '$path/serverOperationRegistry');
   DataModelFollowUp$Nav get dataModelFollowUp => DataModelFollowUp$Nav(tree, '$path/dataModelFollowUp');
 }
 
@@ -59903,6 +60324,15 @@ class MigrationStakeholders$Nav extends SomMetaRef {
 /// document positions while `.meta` throws (the metadata tree ends there).
 class MigrationSystems$Nav extends SomMetaRef {
   MigrationSystems$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `MigrationTargetEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class MigrationTargetEntry$Nav extends SomMetaRef {
+  MigrationTargetEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
 }
 
@@ -63340,6 +63770,20 @@ class ScenarioStepEntry$Nav extends SomMetaRef {
   SomMetaRef get execution => SomMetaRef(tree, '$path/SCSTENEX');
 }
 
+/// Dot-notation accessors of `ScheduledJobEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ScheduledJobEntry$Nav extends SomMetaRef {
+  ScheduledJobEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomMetaRef get cronTrigger => SomMetaRef(tree, '$path/SCJOB-CRON');
+  SomMetaRef get calendarTrigger => SomMetaRef(tree, '$path/SCJOB-CAL');
+  SomMetaRef get eventTrigger => SomMetaRef(tree, '$path/SCJOB-EVNT');
+  SomMetaRef get workDefinition => SomMetaRef(tree, '$path/SCJOB-WORK');
+  SomMetaRef get failurePolicy => SomMetaRef(tree, '$path/SCJOB-FAIL');
+}
+
 /// Dot-notation accessors of `ScheduledMaintenancePolicy` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -63360,6 +63804,9 @@ class ScheduledMaintenancePolicy$Nav extends SomMetaRef {
 class SchemaMigrationStepEntry$Nav extends SomMetaRef {
   SchemaMigrationStepEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomMetaRef get baselineSchema => SomMetaRef(tree, '$path/SCMST-BASE');
+  SomMetaRef get referenceData => SomMetaRef(tree, '$path/SCMST-REFD');
+  SomMetaRef get schemaChange => SomMetaRef(tree, '$path/SCMST-CHNG');
 }
 
 /// Dot-notation accessors of `SchemaVersioningAndMigration` (SOM §8). Every getter is one
@@ -63369,6 +63816,7 @@ class SchemaMigrationStepEntry$Nav extends SomMetaRef {
 class SchemaVersioningAndMigration$Nav extends SomMetaRef {
   SchemaVersioningAndMigration$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<MigrationTargetEntry$Nav> get migrationTargets => SomListMetaRef(tree, '$path/MIGTG-TARG-LST', MigrationTargetEntry$Nav.new);
   SomListMetaRef<SchemaMigrationStepEntry$Nav> get migrationSteps => SomListMetaRef(tree, '$path/SCMST-STEP-LST', SchemaMigrationStepEntry$Nav.new);
 }
 
@@ -63488,6 +63936,7 @@ class ScreenElementFieldSpec$Nav extends SomMetaRef {
   SomMetaRef get textOptions => SomMetaRef(tree, '$path/SEFST');
   SomMetaRef get validation => SomMetaRef(tree, '$path/SEFSV');
   SomMetaRef get selectOptions => SomMetaRef(tree, '$path/SEFSS');
+  SomMetaRef get fileOptions => SomMetaRef(tree, '$path/SEFSU');
 }
 
 /// Dot-notation accessors of `ScreenEntry` (SOM §8). Every getter is one
@@ -63524,6 +63973,7 @@ class ScreenFieldEntry$Nav extends SomMetaRef {
   SomMetaRef get numericConstraints => SomMetaRef(tree, '$path/SCFIVN');
   SomMetaRef get temporalConstraints => SomMetaRef(tree, '$path/SCFIVD');
   SomMetaRef get choiceOptions => SomMetaRef(tree, '$path/SCFICH');
+  SomMetaRef get fileConstraints => SomMetaRef(tree, '$path/SCFIFI');
   SomMetaRef get layout => SomMetaRef(tree, '$path/SCFILA');
   SomListMetaRef<FieldValidationRule$Nav> get validationRules => SomListMetaRef(tree, '$path/FLDVL-VALI-LST', FieldValidationRule$Nav.new);
 }
@@ -63946,6 +64396,15 @@ class SensitiveDataEncryption$Nav extends SomMetaRef {
   KeyManagement$Nav get keyManagement => KeyManagement$Nav(tree, '$path/keyManagement');
 }
 
+/// Dot-notation accessors of `ServerConfigurationSettingEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ServerConfigurationSettingEntry$Nav extends SomMetaRef {
+  ServerConfigurationSettingEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
 /// Dot-notation accessors of `ServerEnvironmentEntry` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -63957,6 +64416,36 @@ class ServerEnvironmentEntry$Nav extends SomMetaRef {
   SomMetaRef get scale => SomMetaRef(tree, '$path/SEES');
   SomMetaRef get access => SomMetaRef(tree, '$path/SEEA');
   SomMetaRef get lifecycle => SomMetaRef(tree, '$path/SEENENLI');
+}
+
+/// Dot-notation accessors of `ServerOperationEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ServerOperationEntry$Nav extends SomMetaRef {
+  ServerOperationEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ServerOperationMemberEntry$Nav> get requestMembers => SomListMetaRef(tree, '$path/SVOPM-REQM-LST', ServerOperationMemberEntry$Nav.new);
+  SomListMetaRef<ServerOperationMemberEntry$Nav> get responseMembers => SomListMetaRef(tree, '$path/SVOPM-RESM-LST', ServerOperationMemberEntry$Nav.new);
+}
+
+/// Dot-notation accessors of `ServerOperationMemberEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ServerOperationMemberEntry$Nav extends SomMetaRef {
+  ServerOperationMemberEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `ServerOperationRegistry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class ServerOperationRegistry$Nav extends SomMetaRef {
+  ServerOperationRegistry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<ServerOperationEntry$Nav> get operations => SomListMetaRef(tree, '$path/SVOPE-OPER-LST', ServerOperationEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ServerOsRequirements` (SOM §8). Every getter is one
@@ -64939,6 +65428,7 @@ class SystemConfigurationManagement$Nav extends SomMetaRef {
   SomMetaRef get dynamic => SomMetaRef(tree, '$path/SCMD');
   SomMetaRef get environment => SomMetaRef(tree, '$path/SCME');
   SomMetaRef get governance => SomMetaRef(tree, '$path/SCMG');
+  SomListMetaRef<ServerConfigurationSettingEntry$Nav> get settings => SomListMetaRef(tree, '$path/SCSET-SETT-LST', ServerConfigurationSettingEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SystemContext` (SOM §8). Every getter is one
@@ -66743,6 +67233,25 @@ class UserRegistrationProcess$Nav extends SomMetaRef {
   SomMetaRef get registrationFlowDiagram => SomMetaRef(tree, '$path/registrationFlowDiagram');
 }
 
+/// Dot-notation accessors of `UserSettingEntry` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class UserSettingEntry$Nav extends SomMetaRef {
+  UserSettingEntry$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+}
+
+/// Dot-notation accessors of `UserSettings` (SOM §8). Every getter is one
+/// navigable position: `.path` is the absolute document path, `.meta` the
+/// metadata node. Past a recursive re-entry `.path` chains remain valid
+/// document positions while `.meta` throws (the metadata tree ends there).
+class UserSettings$Nav extends SomMetaRef {
+  UserSettings$Nav(super.tree, super.path);
+  SomMetaRef get content => SomMetaRef(tree, '$path/content');
+  SomListMetaRef<UserSettingEntry$Nav> get settings => SomListMetaRef(tree, '$path/USSET-SETT-LST', UserSettingEntry$Nav.new);
+}
+
 /// Dot-notation accessors of `UserTrainingRequirements` (SOM §8). Every getter is one
 /// navigable position: `.path` is the absolute document path, `.meta` the
 /// metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -67720,6 +68229,20 @@ class ChannelIntegrations$Id extends SomMetaRef {
   ChannelIntegrations$Id(super.tree, super.path);
 }
 
+/// ID-tree accessors of `ClientApplicationEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ClientApplicationEntry$Id extends SomMetaRef {
+  ClientApplicationEntry$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `ClientConfigurationSettingEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ClientConfigurationSettingEntry$Id extends SomMetaRef {
+  ClientConfigurationSettingEntry$Id(super.tree, super.path);
+}
+
 /// ID-tree accessors of `CodingStandardEntry` (SOM §8): getters named by section
 /// id (`-` → `_`), hoisted through id-less members so every reachable id is
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
@@ -68015,8 +68538,6 @@ class CurrentWorkflowEntry$Id extends SomMetaRef {
   SomListMetaRef<WorkflowOutputEntry$Id> get WOOUEN_OUTP_LST => SomListMetaRef(tree, '$path/WOOUEN-OUTP-LST', WorkflowOutputEntry$Id.new);
   SomListMetaRef<WorkflowDecisionPoint$Id> get WODEPO_DECI_LST => SomListMetaRef(tree, '$path/WODEPO-DECI-LST', WorkflowDecisionPoint$Id.new);
   SomListMetaRef<WorkflowBusinessRule$Id> get WOBURU_BUSI_LST => SomListMetaRef(tree, '$path/WOBURU-BUSI-LST', WorkflowBusinessRule$Id.new);
-  SomListMetaRef<WorkflowStepEntry$Id> get WSE_MANU_LST => SomListMetaRef(tree, '$path/WSE-MANU-LST', WorkflowStepEntry$Id.new);
-  SomListMetaRef<WorkflowStepEntry$Id> get WSE_ERRO_LST => SomListMetaRef(tree, '$path/WSE-ERRO-LST', WorkflowStepEntry$Id.new);
   SomMetaRef get WOTI => SomMetaRef(tree, '$path/WOTI');
   SomListMetaRef<WorkflowExceptionEntry$Id> get WOEXEN_EXCE_LST => SomListMetaRef(tree, '$path/exceptions/WOEXEN-EXCE-LST', WorkflowExceptionEntry$Id.new);
 }
@@ -68342,11 +68863,13 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<FunctionEntry$Id> get FUNCT_FUNC_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/FUNCT-FUNC-LST', FunctionEntry$Id.new);
   SomListMetaRef<FunctionDataMatrixEntry$Id> get FNDMX_MATR_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/FNDMX-MATR-LST', FunctionDataMatrixEntry$Id.new);
   SomListMetaRef<BusinessRuleEntry$Id> get BIRU_BUSI_LST => SomListMetaRef(tree, '$path/informationAndDataModel/functionModel/BIRU-BUSI-LST', BusinessRuleEntry$Id.new);
+  SomListMetaRef<MigrationTargetEntry$Id> get MIGTG_TARG_LST => SomListMetaRef(tree, '$path/informationAndDataModel/schemaVersioningAndMigration/MIGTG-TARG-LST', MigrationTargetEntry$Id.new);
   SomListMetaRef<SchemaMigrationStepEntry$Id> get SCMST_STEP_LST => SomListMetaRef(tree, '$path/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST', SchemaMigrationStepEntry$Id.new);
   SomListMetaRef<DomainEnumEntry$Id> get DMENE_ENUM_LST => SomListMetaRef(tree, '$path/informationAndDataModel/domainEnumRegistry/DMENE-ENUM-LST', DomainEnumEntry$Id.new);
   SomListMetaRef<ErrorCodeEntry$Id> get ERCEN_CODE_LST => SomListMetaRef(tree, '$path/informationAndDataModel/errorCodeRegistry/ERCEN-CODE-LST', ErrorCodeEntry$Id.new);
   SomListMetaRef<ResultFieldDetailEntry$Id> get RSFDE_FLDD_LST => SomListMetaRef(tree, '$path/informationAndDataModel/resultEnvelope/RSFDE-FLDD-LST', ResultFieldDetailEntry$Id.new);
   SomListMetaRef<MessageKeyEntry$Id> get MSGKE_MKEY_LST => SomListMetaRef(tree, '$path/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST', MessageKeyEntry$Id.new);
+  SomListMetaRef<ServerOperationEntry$Id> get SVOPE_OPER_LST => SomListMetaRef(tree, '$path/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST', ServerOperationEntry$Id.new);
   SomListMetaRef<EntityFollowUpEntry$Id> get DMFUE_ENFU_LST => SomListMetaRef(tree, '$path/informationAndDataModel/dataModelFollowUp/DMFUE-ENFU-LST', EntityFollowUpEntry$Id.new);
   SomMetaRef get TRAREQ_TRAN => SomMetaRef(tree, '$path/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRAREQ-TRAN');
   SomMetaRef get TRRERT => SomMetaRef(tree, '$path/requirements/requirementsFollowUp/localizationTranslation/translationRequirements/TRRERT');
@@ -68593,6 +69116,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SORS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORS');
   SomMetaRef get SORM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL');
+  SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
   SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
   SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
   SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
@@ -68624,6 +69148,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get CSRD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRD');
   SomMetaRef get CSRN => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRN');
   SomMetaRef get CSRCP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP');
+  SomListMetaRef<ClientConfigurationSettingEntry$Id> get CCSET_SETT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST', ClientConfigurationSettingEntry$Id.new);
+  SomListMetaRef<DeviceSettingEntry$Id> get DSSET_SETT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST', DeviceSettingEntry$Id.new);
+  SomListMetaRef<UserSettingEntry$Id> get USSET_SETT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST', UserSettingEntry$Id.new);
   SomMetaRef get INRS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/internalNetwork/INRS');
   SomMetaRef get INRR => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/internalNetwork/INRR');
   SomMetaRef get INRIS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/internalNetwork/INRIS');
@@ -68823,12 +69350,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SCMD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD');
   SomMetaRef get SCME => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME');
   SomMetaRef get SCMG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG');
+  SomListMetaRef<ServerConfigurationSettingEntry$Id> get SCSET_SETT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST', ServerConfigurationSettingEntry$Id.new);
   SomMetaRef get UPTL => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL');
   SomMetaRef get UPTRM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM');
   SomMetaRef get UPTDI => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI');
   SomMetaRef get BJMJT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT');
   SomMetaRef get BJME => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME');
   SomMetaRef get BJMM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM');
+  SomListMetaRef<ScheduledJobEntry$Id> get SCJOB_JOB_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST', ScheduledJobEntry$Id.new);
   SomMetaRef get ADENMA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA');
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL');
@@ -69492,6 +70021,9 @@ class D03InformationModel$Id extends SomMetaRef {
   SomListMetaRef<ErrorCodeEntry$Id> get ERCEN_CODE_LST => SomListMetaRef(tree, '$path/errorCodeRegistry/ERCEN-CODE-LST', ErrorCodeEntry$Id.new);
   SomListMetaRef<ResultFieldDetailEntry$Id> get RSFDE_FLDD_LST => SomListMetaRef(tree, '$path/resultEnvelope/RSFDE-FLDD-LST', ResultFieldDetailEntry$Id.new);
   SomListMetaRef<MessageKeyEntry$Id> get MSGKE_MKEY_LST => SomListMetaRef(tree, '$path/messageKeyRegistry/MSGKE-MKEY-LST', MessageKeyEntry$Id.new);
+  SomListMetaRef<ServerOperationEntry$Id> get SVOPE_OPER_LST => SomListMetaRef(tree, '$path/serverOperationRegistry/SVOPE-OPER-LST', ServerOperationEntry$Id.new);
+  SomListMetaRef<MigrationTargetEntry$Id> get MIGTG_TARG_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/MIGTG-TARG-LST', MigrationTargetEntry$Id.new);
+  SomListMetaRef<SchemaMigrationStepEntry$Id> get SCMST_STEP_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/SCMST-STEP-LST', SchemaMigrationStepEntry$Id.new);
 }
 
 /// ID-tree accessors of `D04RequirementsSpecification` (SOM §8): getters named by section
@@ -69768,6 +70300,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get SORS => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/osRequirements/SORS');
   SomMetaRef get SORM => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/osRequirements/SORL');
+  SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
   SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
   SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
   SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
@@ -69799,6 +70332,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get CSRD => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/securityRequirements/CSRD');
   SomMetaRef get CSRN => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/securityRequirements/CSRN');
   SomMetaRef get CSRCP => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/securityRequirements/CSRCP');
+  SomListMetaRef<ClientConfigurationSettingEntry$Id> get CCSET_SETT_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/clientConfiguration/CCSET-SETT-LST', ClientConfigurationSettingEntry$Id.new);
+  SomListMetaRef<DeviceSettingEntry$Id> get DSSET_SETT_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/deviceSettings/DSSET-SETT-LST', DeviceSettingEntry$Id.new);
+  SomListMetaRef<UserSettingEntry$Id> get USSET_SETT_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/userSettings/USSET-SETT-LST', UserSettingEntry$Id.new);
   SomMetaRef get INRS => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/internalNetwork/INRS');
   SomMetaRef get INRR => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/internalNetwork/INRR');
   SomMetaRef get INRIS => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/internalNetwork/INRIS');
@@ -69998,12 +70534,14 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get SCMD => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCMD');
   SomMetaRef get SCME => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCME');
   SomMetaRef get SCMG => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCMG');
+  SomListMetaRef<ServerConfigurationSettingEntry$Id> get SCSET_SETT_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST', ServerConfigurationSettingEntry$Id.new);
   SomMetaRef get UPTL => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTL');
   SomMetaRef get UPTRM => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTRM');
   SomMetaRef get UPTDI => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTDI');
   SomMetaRef get BJMJT => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJMJT');
   SomMetaRef get BJME => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJME');
   SomMetaRef get BJMM => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJMM');
+  SomListMetaRef<ScheduledJobEntry$Id> get SCJOB_JOB_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST', ScheduledJobEntry$Id.new);
   SomMetaRef get ADENMA => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/ADENMA');
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTL');
@@ -70837,6 +71375,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SORS => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/osRequirements/SORS');
   SomMetaRef get SORM => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/osRequirements/SORL');
+  SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
   SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
   SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
   SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
@@ -70868,6 +71407,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get CSRD => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/securityRequirements/CSRD');
   SomMetaRef get CSRN => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/securityRequirements/CSRN');
   SomMetaRef get CSRCP => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP');
+  SomListMetaRef<ClientConfigurationSettingEntry$Id> get CCSET_SETT_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST', ClientConfigurationSettingEntry$Id.new);
+  SomListMetaRef<DeviceSettingEntry$Id> get DSSET_SETT_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST', DeviceSettingEntry$Id.new);
+  SomListMetaRef<UserSettingEntry$Id> get USSET_SETT_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST', UserSettingEntry$Id.new);
   SomMetaRef get INRS => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/internalNetwork/INRS');
   SomMetaRef get INRR => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/internalNetwork/INRR');
   SomMetaRef get INRIS => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/internalNetwork/INRIS');
@@ -71067,12 +71609,14 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SCMD => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMD');
   SomMetaRef get SCME => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCME');
   SomMetaRef get SCMG => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG');
+  SomListMetaRef<ServerConfigurationSettingEntry$Id> get SCSET_SETT_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST', ServerConfigurationSettingEntry$Id.new);
   SomMetaRef get UPTL => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL');
   SomMetaRef get UPTRM => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTRM');
   SomMetaRef get UPTDI => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTDI');
   SomMetaRef get BJMJT => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMJT');
   SomMetaRef get BJME => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJME');
   SomMetaRef get BJMM => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM');
+  SomListMetaRef<ScheduledJobEntry$Id> get SCJOB_JOB_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST', ScheduledJobEntry$Id.new);
   SomMetaRef get ADENMA => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/ADENMA');
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL');
@@ -71256,6 +71800,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomListMetaRef<TenantCustomizationEntry$Id> get TNCS_TENA_LST => SomListMetaRef(tree, '$path/accessControl/authorization/tenantIsolation/TNCS-TENA-LST', TenantCustomizationEntry$Id.new);
   SomListMetaRef<SecurityEventEntry$Id> get SEVT_CUST_LST => SomListMetaRef(tree, '$path/auditAndLogging/securityEvents/SEVT-CUST-LST', SecurityEventEntry$Id.new);
   SomListMetaRef<ReportEntry$Id> get REEN_REPO_LST => SomListMetaRef(tree, '$path/reportDefinitions/REEN-REPO-LST', ReportEntry$Id.new);
+  SomListMetaRef<MigrationTargetEntry$Id> get MIGTG_TARG_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/MIGTG-TARG-LST', MigrationTargetEntry$Id.new);
+  SomListMetaRef<SchemaMigrationStepEntry$Id> get SCMST_STEP_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/SCMST-STEP-LST', SchemaMigrationStepEntry$Id.new);
+  SomListMetaRef<ServerOperationEntry$Id> get SVOPE_OPER_LST => SomListMetaRef(tree, '$path/serverOperationRegistry/SVOPE-OPER-LST', ServerOperationEntry$Id.new);
   SomMetaRef get ACOVNA => SomMetaRef(tree, '$path/processStepsAndActorInteractions/actorOverview/ACOVNA');
   SomListMetaRef<ActorEntry$Id> get ACEN_ACTO_LST => SomListMetaRef(tree, '$path/processStepsAndActorInteractions/actorOverview/ACEN-ACTO-LST', ActorEntry$Id.new);
   SomMetaRef get ACCASU => SomMetaRef(tree, '$path/processStepsAndActorInteractions/actorOverview/ACCASU');
@@ -71703,6 +72250,13 @@ class DevelopmentConventionEntry$Id extends SomMetaRef {
   SomMetaRef get DCER => SomMetaRef(tree, '$path/DCER');
   SomMetaRef get DCEA => SomMetaRef(tree, '$path/DCEA');
   SomMetaRef get DCEE => SomMetaRef(tree, '$path/DCEE');
+}
+
+/// ID-tree accessors of `DeviceSettingEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class DeviceSettingEntry$Id extends SomMetaRef {
+  DeviceSettingEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `DisplayEquipmentEntry` (SOM §8): getters named by section
@@ -72801,6 +73355,13 @@ class MigrationStakeholders$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class MigrationSystems$Id extends SomMetaRef {
   MigrationSystems$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `MigrationTargetEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class MigrationTargetEntry$Id extends SomMetaRef {
+  MigrationTargetEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `MobileCompatibilityEntry` (SOM §8): getters named by section
@@ -73954,11 +74515,26 @@ class ScenarioStepEntry$Id extends SomMetaRef {
   SomMetaRef get SCSTENEX => SomMetaRef(tree, '$path/SCSTENEX');
 }
 
+/// ID-tree accessors of `ScheduledJobEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ScheduledJobEntry$Id extends SomMetaRef {
+  ScheduledJobEntry$Id(super.tree, super.path);
+  SomMetaRef get SCJOB_CRON => SomMetaRef(tree, '$path/SCJOB-CRON');
+  SomMetaRef get SCJOB_CAL => SomMetaRef(tree, '$path/SCJOB-CAL');
+  SomMetaRef get SCJOB_EVNT => SomMetaRef(tree, '$path/SCJOB-EVNT');
+  SomMetaRef get SCJOB_WORK => SomMetaRef(tree, '$path/SCJOB-WORK');
+  SomMetaRef get SCJOB_FAIL => SomMetaRef(tree, '$path/SCJOB-FAIL');
+}
+
 /// ID-tree accessors of `SchemaMigrationStepEntry` (SOM §8): getters named by section
 /// id (`-` → `_`), hoisted through id-less members so every reachable id is
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class SchemaMigrationStepEntry$Id extends SomMetaRef {
   SchemaMigrationStepEntry$Id(super.tree, super.path);
+  SomMetaRef get SCMST_BASE => SomMetaRef(tree, '$path/SCMST-BASE');
+  SomMetaRef get SCMST_REFD => SomMetaRef(tree, '$path/SCMST-REFD');
+  SomMetaRef get SCMST_CHNG => SomMetaRef(tree, '$path/SCMST-CHNG');
 }
 
 /// ID-tree accessors of `ScopeItemEntry` (SOM §8): getters named by section
@@ -74002,6 +74578,7 @@ class ScreenElementEntry$Id extends SomMetaRef {
   SomMetaRef get SEFST => SomMetaRef(tree, '$path/fieldSpec/SEFST');
   SomMetaRef get SEFSV => SomMetaRef(tree, '$path/fieldSpec/SEFSV');
   SomMetaRef get SEFSS => SomMetaRef(tree, '$path/fieldSpec/SEFSS');
+  SomMetaRef get SEFSU => SomMetaRef(tree, '$path/fieldSpec/SEFSU');
   SomMetaRef get SEDDB => SomMetaRef(tree, '$path/dataDisplay/SEDDB');
   SomMetaRef get SEDDO => SomMetaRef(tree, '$path/dataDisplay/SEDDO');
   SomListMetaRef<ElementValidationRuleEntry$Id> get EVRE_VALI_LST => SomListMetaRef(tree, '$path/EVRE-VALI-LST', ElementValidationRuleEntry$Id.new);
@@ -74036,6 +74613,7 @@ class ScreenFieldEntry$Id extends SomMetaRef {
   SomMetaRef get SCFIVN => SomMetaRef(tree, '$path/SCFIVN');
   SomMetaRef get SCFIVD => SomMetaRef(tree, '$path/SCFIVD');
   SomMetaRef get SCFICH => SomMetaRef(tree, '$path/SCFICH');
+  SomMetaRef get SCFIFI => SomMetaRef(tree, '$path/SCFIFI');
   SomMetaRef get SCFILA => SomMetaRef(tree, '$path/SCFILA');
   SomListMetaRef<FieldValidationRule$Id> get FLDVL_VALI_LST => SomListMetaRef(tree, '$path/FLDVL-VALI-LST', FieldValidationRule$Id.new);
 }
@@ -74149,6 +74727,13 @@ class SecurityStandardEntry$Id extends SomMetaRef {
   SomMetaRef get SSEV => SomMetaRef(tree, '$path/SSEV');
 }
 
+/// ID-tree accessors of `ServerConfigurationSettingEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ServerConfigurationSettingEntry$Id extends SomMetaRef {
+  ServerConfigurationSettingEntry$Id(super.tree, super.path);
+}
+
 /// ID-tree accessors of `ServerEnvironmentEntry` (SOM §8): getters named by section
 /// id (`-` → `_`), hoisted through id-less members so every reachable id is
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
@@ -74158,6 +74743,22 @@ class ServerEnvironmentEntry$Id extends SomMetaRef {
   SomMetaRef get SEES => SomMetaRef(tree, '$path/SEES');
   SomMetaRef get SEEA => SomMetaRef(tree, '$path/SEEA');
   SomMetaRef get SEENENLI => SomMetaRef(tree, '$path/SEENENLI');
+}
+
+/// ID-tree accessors of `ServerOperationEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ServerOperationEntry$Id extends SomMetaRef {
+  ServerOperationEntry$Id(super.tree, super.path);
+  SomListMetaRef<ServerOperationMemberEntry$Id> get SVOPM_REQM_LST => SomListMetaRef(tree, '$path/SVOPM-REQM-LST', ServerOperationMemberEntry$Id.new);
+  SomListMetaRef<ServerOperationMemberEntry$Id> get SVOPM_RESM_LST => SomListMetaRef(tree, '$path/SVOPM-RESM-LST', ServerOperationMemberEntry$Id.new);
+}
+
+/// ID-tree accessors of `ServerOperationMemberEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class ServerOperationMemberEntry$Id extends SomMetaRef {
+  ServerOperationMemberEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `ServerRoleEntry` (SOM §8): getters named by section
@@ -75003,6 +75604,13 @@ class UserLifecycleTransitionEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class UserNotificationPreferences$Id extends SomMetaRef {
   UserNotificationPreferences$Id(super.tree, super.path);
+}
+
+/// ID-tree accessors of `UserSettingEntry` (SOM §8): getters named by section
+/// id (`-` → `_`), hoisted through id-less members so every reachable id is
+/// one step. `.path` and `.meta` agree with the dot-notation surface.
+class UserSettingEntry$Id extends SomMetaRef {
+  UserSettingEntry$Id(super.tree, super.path);
 }
 
 /// ID-tree accessors of `UtilityMenuItemEntry` (SOM §8): getters named by section

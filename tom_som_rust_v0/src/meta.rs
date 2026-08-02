@@ -431,7 +431,7 @@ fn meta_children_administration_requirements_section(s: &mut HashSet<String>) ->
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("BatchJobManagement", s, meta_children_batch_job_management, |r, c| som::SomMetaNode {
-            class_name: "BatchJobManagement".to_string(), member_name: "batchJobs".to_string(), class_section_id: "BAJOMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BatchJobManagement".to_string(), serialization_order: Some(5), doc_comment: "Batch job management.".to_string(), class_doc_comment: "Batch job management.".to_string(),
+            class_name: "BatchJobManagement".to_string(), member_name: "batchJobs".to_string(), class_section_id: "BAJOMA".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BatchJobManagement".to_string(), serialization_order: Some(5), doc_comment: "Batch job management.".to_string(), class_doc_comment: "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         Rc::new(som::SomMetaNode { class_name: "AdministrationRequirementsSection".to_string(), member_name: "environmentManagement".to_string(), section_id: "ADENMA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(6), doc_comment: "Environment management.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "environmentCatalog".to_string(), type_name: "String".to_string(), description: "Environment Catalog".to_string(), required: false, hint: "List of managed environments".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentProvisioning".to_string(), type_name: "String".to_string(), description: "Environment Provisioning".to_string(), required: false, hint: "Automated, on-demand, scheduled".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentCloning".to_string(), type_name: "bool".to_string(), description: "Environment Cloning".to_string(), required: false, hint: "Clone environment for testing".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataSeeding".to_string(), type_name: "String".to_string(), description: "Data Seeding".to_string(), required: false, hint: "Seed data for non-production envs".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataAnonymization".to_string(), type_name: "bool".to_string(), description: "Data Anonymization".to_string(), required: false, hint: "Anonymize production data for dev/test".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataSyncBetweenEnvs".to_string(), type_name: "String".to_string(), description: "Data Sync Between Envs".to_string(), required: false, hint: "Selective data promotion".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentAccessControl".to_string(), type_name: "String".to_string(), description: "Environment Access Control".to_string(), required: false, hint: "Who can access which environment".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "productionAccessPolicy".to_string(), type_name: "String".to_string(), description: "Production Access Policy".to_string(), required: false, hint: "Break-glass, approval workflow".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentVariableManagement".to_string(), type_name: "String".to_string(), description: "Env Variable Management".to_string(), required: false, hint: "Per-env variable sets".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional environment management notes".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — service configuration management practice".to_string()), som::Json::Str("AWS Well-Architected — operational excellence (runbooks, playbooks)".to_string())])), ("connotation".to_string(), som::Json::Str("Administration environment management governs how environments are provisioned, seeded, and accessed.".to_string()))] }], ..som::SomMetaNode::default() }),
@@ -1335,12 +1335,20 @@ fn meta_children_basic_technical_requirements(s: &mut HashSet<String>) -> Vec<Rc
     ]
 }
 
-fn meta_children_batch_job_management(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_batch_job_management(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "schedulingEngine".to_string(), type_name: "String".to_string(), description: "Scheduling Engine".to_string(), required: true, hint: "Cron, Quartz, cloud scheduler, Airflow".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scheduleDefinition".to_string(), type_name: "String".to_string(), description: "Schedule Definition".to_string(), required: false, hint: "Cron expression, calendar-based, event-driven".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "timeZoneHandling".to_string(), type_name: "String".to_string(), description: "Time Zone Handling".to_string(), required: false, hint: "UTC, local, configurable per job".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "jobTypes".to_string(), section_id: "BJMJT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Supported job categories.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataProcessingJobs".to_string(), type_name: "String".to_string(), description: "Data Processing Jobs".to_string(), required: false, hint: "ETL, aggregation, cleanup".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reportGenerationJobs".to_string(), type_name: "String".to_string(), description: "Report Generation Jobs".to_string(), required: false, hint: "Scheduled report creation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notificationJobs".to_string(), type_name: "String".to_string(), description: "Notification Jobs".to_string(), required: false, hint: "Digest emails, reminder notifications".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maintenanceJobs".to_string(), type_name: "String".to_string(), description: "Maintenance Jobs".to_string(), required: false, hint: "Database cleanup, log rotation, temp file purge".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "integrationSyncJobs".to_string(), type_name: "String".to_string(), description: "Integration Sync Jobs".to_string(), required: false, hint: "External system synchronization".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string()), som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("Supported job categories catalog the kinds of scheduled work the system performs.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "execution".to_string(), section_id: "BJME".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Execution controls.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "concurrencyControl".to_string(), type_name: "String".to_string(), description: "Concurrency Control".to_string(), required: false, hint: "Max parallel jobs, queue depth".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "priorityLevels".to_string(), type_name: "String".to_string(), description: "Priority Levels".to_string(), required: false, hint: "Job priority classification".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryPolicy".to_string(), type_name: "String".to_string(), description: "Retry Policy".to_string(), required: false, hint: "Retry count, backoff, dead-letter".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "idempotency".to_string(), type_name: "bool".to_string(), description: "Idempotency".to_string(), required: false, hint: "Safe to re-run on failure".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "timeout".to_string(), type_name: "String".to_string(), description: "Timeout".to_string(), required: false, hint: "Maximum job execution time".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string()), som::Json::Str("AWS Well-Architected — operational excellence (runbooks, playbooks)".to_string())])), ("connotation".to_string(), som::Json::Str("Execution controls define how batch jobs run, retry, and enforce timeouts.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "monitoring".to_string(), section_id: "BJMM".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Monitoring and manual controls.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "jobDashboard".to_string(), type_name: "bool".to_string(), description: "Job Dashboard".to_string(), required: false, hint: "Visual job status overview".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "executionHistory".to_string(), type_name: "bool".to_string(), description: "Execution History".to_string(), required: false, hint: "Job run history and logs".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "failureAlerts".to_string(), type_name: "String".to_string(), description: "Failure Alerts".to_string(), required: false, hint: "Notification on job failure".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaMonitoring".to_string(), type_name: "String".to_string(), description: "SLA Monitoring".to_string(), required: false, hint: "Alert if job exceeds expected duration".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "manualTrigger".to_string(), type_name: "bool".to_string(), description: "Manual Trigger".to_string(), required: false, hint: "Admin can trigger jobs on demand".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional batch job notes".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("AWS Well-Architected — operational excellence (runbooks, playbooks)".to_string()), som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string())])), ("connotation".to_string(), som::Json::Str("Monitoring and manual controls track batch job health and allow operators to intervene.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "timeZoneHandling".to_string(), type_name: "String".to_string(), description: "Time Zone Handling".to_string(), required: true, hint: "The clock zone every schedule is interpreted in — UTC or the server's local zone".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "jobTypes".to_string(), section_id: "BJMJT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).".to_string(), doc_comment: "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataProcessingJobs".to_string(), type_name: "String".to_string(), description: "Data Processing Jobs".to_string(), required: false, hint: "ETL, aggregation, cleanup".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reportGenerationJobs".to_string(), type_name: "String".to_string(), description: "Report Generation Jobs".to_string(), required: false, hint: "Scheduled report creation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notificationJobs".to_string(), type_name: "String".to_string(), description: "Notification Jobs".to_string(), required: false, hint: "Digest emails, reminder notifications".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maintenanceJobs".to_string(), type_name: "String".to_string(), description: "Maintenance Jobs".to_string(), required: false, hint: "Database cleanup, log rotation, temp file purge".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "integrationSyncJobs".to_string(), type_name: "String".to_string(), description: "Integration Sync Jobs".to_string(), required: false, hint: "External system synchronization".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string()), som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("Supported job categories catalog the kinds of scheduled work the system performs.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "execution".to_string(), section_id: "BJME".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits.".to_string(), doc_comment: "Execution controls — the **default layer** for every job.\n\nRetry, timeout and idempotency stated here apply to every job that does\nnot say otherwise. A job that needs different numbers overrides them in\nits own failure-policy subsection, so this section is the rule and the\nentry is the exception — never the other way round.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "concurrencyControl".to_string(), type_name: "String".to_string(), description: "Concurrency Control".to_string(), required: false, hint: "Max parallel jobs, queue depth".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "priorityLevels".to_string(), type_name: "String".to_string(), description: "Priority Levels".to_string(), required: false, hint: "Job priority classification".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryPolicy".to_string(), type_name: "String".to_string(), description: "Default Retry Policy".to_string(), required: false, hint: "The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "idempotency".to_string(), type_name: "bool".to_string(), description: "Idempotency".to_string(), required: false, hint: "Whether jobs are required to be safe to re-run after a failure".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "timeout".to_string(), type_name: "String".to_string(), description: "Default Timeout".to_string(), required: false, hint: "The maximum run time a job inherits unless it overrides it".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string()), som::Json::Str("AWS Well-Architected — operational excellence (runbooks, playbooks)".to_string())])), ("connotation".to_string(), som::Json::Str("Execution controls define how batch jobs run, retry, and enforce timeouts.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "monitoring".to_string(), section_id: "BJMM".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Monitoring and manual controls.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "jobDashboard".to_string(), type_name: "bool".to_string(), description: "Job Dashboard".to_string(), required: false, hint: "Visual job status overview".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "executionHistory".to_string(), type_name: "bool".to_string(), description: "Execution History".to_string(), required: false, hint: "Job run history and logs".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "failureAlerts".to_string(), type_name: "String".to_string(), description: "Default Failure Alerting".to_string(), required: false, hint: "What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here.".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaMonitoring".to_string(), type_name: "String".to_string(), description: "SLA Monitoring".to_string(), required: false, hint: "Alert if job exceeds expected duration".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "manualTrigger".to_string(), type_name: "bool".to_string(), description: "Manual Trigger".to_string(), required: false, hint: "Admin can trigger jobs on demand".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional batch job notes".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("AWS Well-Architected — operational excellence (runbooks, playbooks)".to_string()), som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string())])), ("connotation".to_string(), som::Json::Str("Monitoring and manual controls track batch job health and allow operators to intervene.".to_string()))] }], ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "BatchJobManagement".to_string(), member_name: "scheduledJobs".to_string(), section_id: "SCJOB-JOB-LST".to_string(), section_id_pattern: "SCJOB-JOB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScheduledJobEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run.".to_string(), doc_comment: "Scheduled jobs — one entry per job the system runs.\n\nThe declaration layer. Everything above is policy that applies to all\njobs; this is where a job actually comes into existence.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string()), som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string())])), ("connotation".to_string(), som::Json::Str("The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ScheduledJobEntry", s, meta_children_scheduled_job_entry, |r, c| som::SomMetaNode {
+                class_name: "ScheduledJobEntry".to_string(), class_section_id: "SCJOB".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScheduledJobEntry".to_string(), doc_comment: "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.".to_string(), class_doc_comment: "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -1584,7 +1592,7 @@ fn meta_children_business_object_entry(s: &mut HashSet<String>) -> Vec<Rc<som::S
         {
             let mut n = som::SomMetaNode { class_name: "BusinessObjectEntry".to_string(), member_name: "integrationPoints".to_string(), section_id: "INTEG-INTE-LST".to_string(), section_id_pattern: "INTEG-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IntegrationPointEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per integration point.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — aggregates/entities/value objects".to_string()), som::Json::Str("BPMN 2.0 — business process model & notation".to_string())])), ("connotation".to_string(), som::Json::Str("The integration points where this object exposes APIs or publishes and subscribes to events.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("IntegrationPointEntry", s, meta_children_integration_point_entry, |r, c| som::SomMetaNode {
-                class_name: "IntegrationPointEntry".to_string(), class_section_id: "INTEG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrationPointEntry".to_string(), doc_comment: "A single integration point entry.".to_string(), class_doc_comment: "A single integration point entry.".to_string(), recursive: r, children: c,
+                class_name: "IntegrationPointEntry".to_string(), class_section_id: "INTEG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrationPointEntry".to_string(), doc_comment: "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.".to_string(), class_doc_comment: "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -2224,9 +2232,29 @@ fn meta_children_client_accessibility_requirements(_s: &mut HashSet<String>) -> 
     ]
 }
 
-fn meta_children_client_configuration(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_client_application_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "ClientConfiguration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "apiBaseUrl".to_string(), type_name: "String".to_string(), description: "API Base URL".to_string(), required: false, hint: "The server/API endpoint this client install talks to".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environment".to_string(), type_name: "String".to_string(), description: "Environment".to_string(), required: false, hint: "dev / staging / production for this install".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "deviceOptions".to_string(), type_name: "String".to_string(), description: "Device Options".to_string(), required: false, hint: "Machine-specific device/hardware options for this install".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "featureToggles".to_string(), type_name: "String".to_string(), description: "Per-Install Feature Toggles".to_string(), required: false, hint: "Client-side toggles applied to this install".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "updateChannel".to_string(), type_name: "String".to_string(), description: "Update Channel".to_string(), required: false, hint: "stable / beta / canary for this install".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ClientApplicationEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "clientId".to_string(), type_name: "String".to_string(), description: "Client Id".to_string(), required: true, hint: "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "clientName".to_string(), type_name: "String".to_string(), description: "Client Name".to_string(), required: true, hint: "The name users and operators call this client by".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "clientKind".to_string(), type_name: "ClientApplicationKind".to_string(), description: "Client Kind".to_string(), required: true, hint: "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)".to_string(), order: 2, enum_values: vec!["graphicalApplication".to_string(), "commandLine".to_string(), "server".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: true, hint: "Who uses this client and what for — the reason it exists separately from the system's other clients".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "platformTargets".to_string(), type_name: "String".to_string(), description: "Platform Targets".to_string(), required: false, hint: "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below".to_string(), order: 4, enum_values: vec![], refers_to: vec!["BROREQENT.browserName".to_string(), "DEOSREEN.osName".to_string(), "MODEREEN.platform".to_string()] }, som::SomFormFieldMeta { name: "entryRoute".to_string(), type_name: "String".to_string(), description: "Entry Route".to_string(), required: false, hint: "The route this client opens on, by id from the screen route map. Empty for a client with no routes".to_string(), order: 5, enum_values: vec![], refers_to: vec!["SCRTEN.routeId".to_string()] }, som::SomFormFieldMeta { name: "includedScreens".to_string(), type_name: "String".to_string(), description: "Included Screens".to_string(), required: false, hint: "The screens this client comprises, by id. Empty for a client with no screens".to_string(), order: 6, enum_values: vec![], refers_to: vec!["SCREN.screenId".to_string()] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_client_configuration(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ClientConfiguration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ClientConfiguration".to_string(), member_name: "settings".to_string(), section_id: "CCSET-SETT-LST".to_string(), section_id_pattern: "CCSET-SETT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ClientConfigurationSettingEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>.".to_string(), doc_comment: "The declared client configuration settings.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — config stored in the environment, per deployment".to_string()), som::Json::Str("ISO/IEC 25010 — portability / installability".to_string())])), ("connotation".to_string(), som::Json::Str("The client configuration settings declared by the system's client applications, one entry per key.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ClientConfigurationSettingEntry", s, meta_children_client_configuration_setting_entry, |r, c| som::SomMetaNode {
+                class_name: "ClientConfigurationSettingEntry".to_string(), class_section_id: "CCSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientConfigurationSettingEntry".to_string(), doc_comment: "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).".to_string(), class_doc_comment: "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_client_configuration_setting_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ClientConfigurationSettingEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the client setting, e.g. api.baseUrl".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "client".to_string(), type_name: "String".to_string(), description: "Client".to_string(), required: false, hint: "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client".to_string(), order: 1, enum_values: vec![], refers_to: vec!["CLIAPP.clientId".to_string()] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used until the app configuration resources or an install-local override supply one".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "overridableBy".to_string(), type_name: "String".to_string(), description: "Overridable By".to_string(), required: true, hint: "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -2255,7 +2283,15 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
         Rc::new(som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of client requirements and support strategy.\n\n**Include**:\n- Browser support matrix and testing approach\n- Mobile device tier definitions\n- Accessibility compliance target\n- Progressive enhancement strategy\n- Client update and compatibility policy\n\n**Best Practices**:\n- Test on real devices, not just emulators\n- Use browser usage analytics for prioritization\n- Plan for evergreen browser updates\n- Document graceful degradation strategy\n- Regular accessibility audits\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of client requirements strategy.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "browserRequirements".to_string(), section_id: "BRREEN-BROW-LST".to_string(), section_id_pattern: "BRREEN-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserRequirementEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per supported web browser.".to_string(), doc_comment: "Web browser requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string())])), ("connotation".to_string(), som::Json::Str("The web browsers the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "clientApplications".to_string(), section_id: "CLIAPP-CLIE-LST".to_string(), section_id_pattern: "CLIAPP-CLIE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ClientApplicationEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on.".to_string(), doc_comment: "The client applications the system consists of (CE-CL).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string()), som::Json::Str("ISO/IEC 25010 — portability / installability".to_string())])), ("connotation".to_string(), som::Json::Str("The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ClientApplicationEntry", s, meta_children_client_application_entry, |r, c| som::SomMetaNode {
+                class_name: "ClientApplicationEntry".to_string(), class_section_id: "CLIAPP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientApplicationEntry".to_string(), doc_comment: "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.".to_string(), class_doc_comment: "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "browserRequirements".to_string(), section_id: "BRREEN-BROW-LST".to_string(), section_id_pattern: "BRREEN-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserRequirementEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported web browser.".to_string(), doc_comment: "Web browser requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string())])), ("connotation".to_string(), som::Json::Str("The web browsers the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BrowserRequirementEntry", s, meta_children_browser_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "BrowserRequirementEntry".to_string(), class_section_id: "BROREQENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BrowserRequirementEntry".to_string(), doc_comment: "Browser requirement entry.".to_string(), class_doc_comment: "Browser requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2263,7 +2299,7 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "desktopOsRequirements".to_string(), section_id: "DORE1-DESK-LST".to_string(), section_id_pattern: "DORE1-DESK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported desktop operating system.".to_string(), doc_comment: "Desktop operating system requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("The desktop operating systems the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "desktopOsRequirements".to_string(), section_id: "DORE1-DESK-LST".to_string(), section_id_pattern: "DORE1-DESK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported desktop operating system.".to_string(), doc_comment: "Desktop operating system requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("The desktop operating systems the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DesktopOsRequirementEntry", s, meta_children_desktop_os_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "DesktopOsRequirementEntry".to_string(), class_section_id: "DEOSREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), doc_comment: "Desktop operating system requirement entry.".to_string(), class_doc_comment: "Desktop operating system requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2271,7 +2307,7 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "mobileRequirements".to_string(), section_id: "MDRE-MOBI-LST".to_string(), section_id_pattern: "MDRE-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Android CDD / Apple HIG — mobile device platform requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms and devices the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "mobileRequirements".to_string(), section_id: "MDRE-MOBI-LST".to_string(), section_id_pattern: "MDRE-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Android CDD / Apple HIG — mobile device platform requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms and devices the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MobileDeviceRequirementEntry", s, meta_children_mobile_device_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "MobileDeviceRequirementEntry".to_string(), class_section_id: "MODEREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), doc_comment: "Mobile device requirement entry.".to_string(), class_doc_comment: "Mobile device requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2279,39 +2315,43 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         meta_cx("DisplayRequirements", s, meta_children_display_requirements, |r, c| som::SomMetaNode {
-            class_name: "DisplayRequirements".to_string(), member_name: "displayRequirements".to_string(), class_section_id: "DIRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DisplayRequirements".to_string(), serialization_order: Some(5), doc_comment: "Display and screen requirements.".to_string(), class_doc_comment: "Display and screen requirements.".to_string(),
+            class_name: "DisplayRequirements".to_string(), member_name: "displayRequirements".to_string(), class_section_id: "DIRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DisplayRequirements".to_string(), serialization_order: Some(6), doc_comment: "Display and screen requirements.".to_string(), class_doc_comment: "Display and screen requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientNetworkRequirements", s, meta_children_client_network_requirements, |r, c| som::SomMetaNode {
-            class_name: "ClientNetworkRequirements".to_string(), member_name: "networkRequirements".to_string(), class_section_id: "CLNERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientNetworkRequirements".to_string(), serialization_order: Some(6), doc_comment: "Client network requirements.".to_string(), class_doc_comment: "Client network requirements.".to_string(),
+            class_name: "ClientNetworkRequirements".to_string(), member_name: "networkRequirements".to_string(), class_section_id: "CLNERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientNetworkRequirements".to_string(), serialization_order: Some(7), doc_comment: "Client network requirements.".to_string(), class_doc_comment: "Client network requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientHardwareRequirements", s, meta_children_client_hardware_requirements, |r, c| som::SomMetaNode {
-            class_name: "ClientHardwareRequirements".to_string(), member_name: "hardwareRequirements".to_string(), class_section_id: "CLHARE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientHardwareRequirements".to_string(), serialization_order: Some(7), doc_comment: "Client hardware requirements.".to_string(), class_doc_comment: "Client hardware requirements.".to_string(),
+            class_name: "ClientHardwareRequirements".to_string(), member_name: "hardwareRequirements".to_string(), class_section_id: "CLHARE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientHardwareRequirements".to_string(), serialization_order: Some(8), doc_comment: "Client hardware requirements.".to_string(), class_doc_comment: "Client hardware requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientAccessibilityRequirements", s, meta_children_client_accessibility_requirements, |r, c| som::SomMetaNode {
-            class_name: "ClientAccessibilityRequirements".to_string(), member_name: "accessibilityRequirements".to_string(), class_section_id: "CLACRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientAccessibilityRequirements".to_string(), serialization_order: Some(8), doc_comment: "Accessibility requirements for clients.".to_string(), class_doc_comment: "Client accessibility requirements.".to_string(),
+            class_name: "ClientAccessibilityRequirements".to_string(), member_name: "accessibilityRequirements".to_string(), class_section_id: "CLACRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientAccessibilityRequirements".to_string(), serialization_order: Some(9), doc_comment: "Accessibility requirements for clients.".to_string(), class_doc_comment: "Client accessibility requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("PwaRequirements", s, meta_children_pwa_requirements, |r, c| som::SomMetaNode {
-            class_name: "PwaRequirements".to_string(), member_name: "pwaRequirements".to_string(), class_section_id: "PWRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PwaRequirements".to_string(), serialization_order: Some(9), doc_comment: "Progressive Web App (PWA) requirements.".to_string(), class_doc_comment: "Progressive Web App (PWA) requirements.".to_string(),
+            class_name: "PwaRequirements".to_string(), member_name: "pwaRequirements".to_string(), class_section_id: "PWRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PwaRequirements".to_string(), serialization_order: Some(10), doc_comment: "Progressive Web App (PWA) requirements.".to_string(), class_doc_comment: "Progressive Web App (PWA) requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("NativeAppRequirements", s, meta_children_native_app_requirements, |r, c| som::SomMetaNode {
-            class_name: "NativeAppRequirements".to_string(), member_name: "nativeAppRequirements".to_string(), class_section_id: "NAAPRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "NativeAppRequirements".to_string(), serialization_order: Some(10), doc_comment: "Native app requirements.".to_string(), class_doc_comment: "Native app requirements.".to_string(),
+            class_name: "NativeAppRequirements".to_string(), member_name: "nativeAppRequirements".to_string(), class_section_id: "NAAPRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "NativeAppRequirements".to_string(), serialization_order: Some(11), doc_comment: "Native app requirements.".to_string(), class_doc_comment: "Native app requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientSecurityRequirements", s, meta_children_client_security_requirements, |r, c| som::SomMetaNode {
-            class_name: "ClientSecurityRequirements".to_string(), member_name: "securityRequirements".to_string(), class_section_id: "CLSERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientSecurityRequirements".to_string(), serialization_order: Some(11), doc_comment: "Client security requirements.".to_string(), class_doc_comment: "Client security requirements.".to_string(),
+            class_name: "ClientSecurityRequirements".to_string(), member_name: "securityRequirements".to_string(), class_section_id: "CLSERE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientSecurityRequirements".to_string(), serialization_order: Some(12), doc_comment: "Client security requirements.".to_string(), class_doc_comment: "Client security requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientConfiguration", s, meta_children_client_configuration, |r, c| som::SomMetaNode {
-            class_name: "ClientConfiguration".to_string(), member_name: "clientConfiguration".to_string(), class_section_id: "CLICON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientConfiguration".to_string(), serialization_order: Some(12), doc_comment: "Per-machine configuration of a client application (CE-CC).".to_string(), class_doc_comment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).".to_string(),
+            class_name: "ClientConfiguration".to_string(), member_name: "clientConfiguration".to_string(), class_section_id: "CLICON".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientConfiguration".to_string(), serialization_order: Some(13), doc_comment: "Per-machine configuration of a client application (CE-CC).".to_string(), class_doc_comment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DeviceSettings", s, meta_children_device_settings, |r, c| som::SomMetaNode {
-            class_name: "DeviceSettings".to_string(), member_name: "deviceSettings".to_string(), class_section_id: "DEVSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeviceSettings".to_string(), serialization_order: Some(13), doc_comment: "User-specific settings of a user-owned device (CE-DS).".to_string(), class_doc_comment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).".to_string(),
+            class_name: "DeviceSettings".to_string(), member_name: "deviceSettings".to_string(), class_section_id: "DEVSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeviceSettings".to_string(), serialization_order: Some(14), doc_comment: "User-specific settings of a user-owned device (CE-DS).".to_string(), class_doc_comment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("UserSettings", s, meta_children_user_settings, |r, c| som::SomMetaNode {
+            class_name: "UserSettings".to_string(), member_name: "userSettings".to_string(), class_section_id: "USRSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserSettings".to_string(), serialization_order: Some(15), doc_comment: "Server-persisted settings that follow the user across devices (CE-UP).".to_string(), class_doc_comment: "User settings — server-persisted settings that follow the user (CE-UP).\n\nKeyed by the user alone: no machine and no device in the key. A user\nsetting is persisted on the server and re-materialised on whichever device\nthe user signs in from, which is what distinguishes it from a device\nsetting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves\nthe device) and from client configuration ([ClientConfiguration], CE-CC —\nno user identity in the key) (`codespecs_mapping.md` §11).\n\nThe scope is expressed by *which section a setting is declared in*, never\nby a field on a shared section: there is no persistence discriminator\nanywhere in the four settings scopes.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3369,7 +3409,7 @@ fn meta_children_current_workflow_entry(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "steps".to_string(), section_id: "WSE-STEP-LST".to_string(), section_id_pattern: "WSE-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(3), content_help: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.".to_string(), doc_comment: "Workflow steps in sequence.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow steps / activities)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered sequence of steps that make up the workflow.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "steps".to_string(), section_id: "WSE-STEP-LST".to_string(), section_id_pattern: "WSE-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(3), content_help: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list.".to_string(), doc_comment: "Workflow steps in sequence.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow steps / activities)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered sequence of steps that make up the workflow.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("WorkflowStepEntry", s, meta_children_workflow_step_entry, |r, c| som::SomMetaNode {
                 class_name: "WorkflowStepEntry".to_string(), class_section_id: "WSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowStepEntry".to_string(), doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), class_doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3416,25 +3456,9 @@ fn meta_children_current_workflow_entry(s: &mut HashSet<String>) -> Vec<Rc<som::
             }));
             Rc::new(n)
         },
-        {
-            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "manualSteps".to_string(), section_id: "WSE-MANU-LST".to_string(), section_id_pattern: "WSE-MANU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(9), content_help: "Identify steps that cannot be automated or require human judgment.".to_string(), doc_comment: "Manual steps requiring human intervention.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (manual / non-automated steps)".to_string())])), ("connotation".to_string(), som::Json::Str("The subset of workflow steps that require human intervention.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("WorkflowStepEntry", s, meta_children_workflow_step_entry, |r, c| som::SomMetaNode {
-                class_name: "WorkflowStepEntry".to_string(), class_section_id: "WSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowStepEntry".to_string(), doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), class_doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        {
-            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "errorProneSteps".to_string(), section_id: "WSE-ERRO-LST".to_string(), section_id_pattern: "WSE-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepEntry".to_string(), serialization_order: Some(10), content_help: "Identify steps with known issues, high error rates, or workarounds.".to_string(), doc_comment: "Error-prone steps with high failure rates.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (error-prone steps)".to_string())])), ("connotation".to_string(), som::Json::Str("The subset of workflow steps known to have high error or failure rates.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("WorkflowStepEntry", s, meta_children_workflow_step_entry, |r, c| som::SomMetaNode {
-                class_name: "WorkflowStepEntry".to_string(), class_section_id: "WSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowStepEntry".to_string(), doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), class_doc_comment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
-        Rc::new(som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "timing".to_string(), section_id: "WOTI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(11), doc_comment: "Workflow timing and performance.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "startToEndTime".to_string(), type_name: "String".to_string(), description: "Start-to-End Time (total elapsed)".to_string(), required: false, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "processingTime".to_string(), type_name: "String".to_string(), description: "Processing Time (active work time)".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "waitTime".to_string(), type_name: "String".to_string(), description: "Wait Time".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaTarget".to_string(), type_name: "String".to_string(), description: "SLA Target".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaMet".to_string(), type_name: "String".to_string(), description: "SLA Compliance Rate".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "peakPeriods".to_string(), type_name: "String".to_string(), description: "Peak Periods (times of highest volume)".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "bottlenecks".to_string(), type_name: "String".to_string(), description: "Bottlenecks (steps causing delays)".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow timing and performance)".to_string())])), ("connotation".to_string(), som::Json::Str("The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "timing".to_string(), section_id: "WOTI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(9), doc_comment: "Workflow timing and performance.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "startToEndTime".to_string(), type_name: "String".to_string(), description: "Start-to-End Time (total elapsed)".to_string(), required: false, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "processingTime".to_string(), type_name: "String".to_string(), description: "Processing Time (active work time)".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "waitTime".to_string(), type_name: "String".to_string(), description: "Wait Time".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaTarget".to_string(), type_name: "String".to_string(), description: "SLA Target".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "slaMet".to_string(), type_name: "String".to_string(), description: "SLA Compliance Rate".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "peakPeriods".to_string(), type_name: "String".to_string(), description: "Peak Periods (times of highest volume)".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "bottlenecks".to_string(), type_name: "String".to_string(), description: "Bottlenecks (steps causing delays)".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow timing and performance)".to_string())])), ("connotation".to_string(), som::Json::Str("The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks.".to_string()))] }], ..som::SomMetaNode::default() }),
         meta_cx("WorkflowExceptions", s, meta_children_workflow_exceptions, |r, c| som::SomMetaNode {
-            class_name: "WorkflowExceptions".to_string(), member_name: "exceptions".to_string(), class_section_id: "WOEX".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowExceptions".to_string(), serialization_order: Some(12), doc_comment: "Workflow exceptions and error handling.".to_string(), class_doc_comment: "Workflow exception handling.".to_string(),
+            class_name: "WorkflowExceptions".to_string(), member_name: "exceptions".to_string(), class_section_id: "WOEX".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowExceptions".to_string(), serialization_order: Some(10), doc_comment: "Workflow exceptions and error handling.".to_string(), class_doc_comment: "Workflow exception handling.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3715,6 +3739,14 @@ fn meta_children_d03_information_model(s: &mut HashSet<String>) -> Vec<Rc<som::S
         }),
         meta_cx("MessageKeyRegistry", s, meta_children_message_key_registry, |r, c| som::SomMetaNode {
             class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(17), doc_comment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ServerOperationRegistry", s, meta_children_server_operation_registry, |r, c| som::SomMetaNode {
+            class_name: "ServerOperationRegistry".to_string(), member_name: "serverOperationRegistry".to_string(), class_section_id: "SVOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationRegistry".to_string(), serialization_order: Some(18), doc_comment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.".to_string(), class_doc_comment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
+            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(19), doc_comment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4015,7 +4047,7 @@ fn meta_children_d09_experience_design_specification(s: &mut HashSet<String>) ->
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("LanguageCountrySelection", s, meta_children_language_country_selection, |r, c| som::SomMetaNode {
-            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(12), doc_comment: "Language and country selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(12), doc_comment: "Language and country selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("Prototype", s, meta_children_prototype, |r, c| som::SomMetaNode {
@@ -4255,7 +4287,7 @@ fn meta_children_d13_code_specs_projection(s: &mut HashSet<String>) -> Vec<Rc<so
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("TechnicalFrameworkConcept", s, meta_children_technical_framework_concept, |r, c| som::SomMetaNode {
-            class_name: "TechnicalFrameworkConcept".to_string(), member_name: "technicalFramework".to_string(), class_section_id: "TECH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalFrameworkConcept".to_string(), serialization_order: Some(8), comment: "locus: server — CE-CF".to_string(), doc_comment: "Technical framework — CE-CF platform/config foundation.".to_string(), class_doc_comment: "8. Technical Framework Concept. Seeds → ATS.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(),
+            class_name: "TechnicalFrameworkConcept".to_string(), member_name: "technicalFramework".to_string(), class_section_id: "TECH".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnicalFrameworkConcept".to_string(), serialization_order: Some(8), comment: "locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)".to_string(), doc_comment: "Technical framework — the platform foundation and **all four settings\nscopes**.\n\nThe subtree spans both loci because the four configuration scopes are\nauthored under it and route apart (`codespecs_mapping.md` §11): CE-CF\nserver configuration (`SystemConfigurationManagement`) is server-only,\nwhile CE-CC client configuration, CE-DS device settings and CE-UP user\nsettings are authored under the client-requirements subtree and route to\nthe client project. CE-UP additionally has a server-side persistence half\ngenerated from the *same* declarations, so it appears in both projects —\nthe scope is expressed by which section a setting is declared in, never by\na discriminator field.".to_string(), class_doc_comment: "8. Technical Framework Concept. Seeds → ATS.".to_string(), maps_to: "D06ArchitectureTechnologySpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AccessControlModel", s, meta_children_access_control_model, |r, c| som::SomMetaNode {
@@ -4270,12 +4302,20 @@ fn meta_children_d13_code_specs_projection(s: &mut HashSet<String>) -> Vec<Rc<so
             class_name: "ReportDefinitions".to_string(), member_name: "reportDefinitions".to_string(), class_section_id: "REDF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportDefinitions".to_string(), serialization_order: Some(11), comment: "locus: server — CE-RP".to_string(), doc_comment: "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
+            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(12), comment: "locus: server — CE-MG".to_string(), doc_comment: "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ServerOperationRegistry", s, meta_children_server_operation_registry, |r, c| som::SomMetaNode {
+            class_name: "ServerOperationRegistry".to_string(), member_name: "serverOperationRegistry".to_string(), class_section_id: "SVOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationRegistry".to_string(), serialization_order: Some(13), comment: "locus: shared(CE-API contract)+server(CE-API operations)".to_string(), doc_comment: "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.".to_string(), class_doc_comment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
         meta_cx("ProcessStepsAndActorInteractions", s, meta_children_process_steps_and_actor_interactions, |r, c| som::SomMetaNode {
-            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(12), comment: "locus: server(CE-SU)+client(CE-SC)".to_string(), doc_comment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
+            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(14), comment: "locus: server(CE-SU)+client(CE-SC)".to_string(), doc_comment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExperienceCodeSpecs", s, meta_children_experience_code_specs, |r, c| som::SomMetaNode {
-            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(13), comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER".to_string(), doc_comment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.".to_string(),
+            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(15), comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER".to_string(), doc_comment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4705,9 +4745,9 @@ fn meta_children_data_model(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>
 fn meta_children_data_model_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "7.9.1. Entity-Relationship Diagram (mermaid).".to_string(), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "erDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-er".to_string(), description: "".to_string() }), doc_comment: "7.10.1. Entity-Relationship Diagram (mermaid).".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "entityFollowUps".to_string(), section_id: "DMFUE-ENFU-LST".to_string(), section_id_pattern: "DMFUE-ENFU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityFollowUpEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per entity that carries follow-up facets.".to_string(), doc_comment: "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Per-entity operational, compliance, technical, and migration facets keyed to the source entity.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DataModelFollowUp".to_string(), member_name: "entityFollowUps".to_string(), section_id: "DMFUE-ENFU-LST".to_string(), section_id_pattern: "DMFUE-ENFU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EntityFollowUpEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per entity that carries follow-up facets.".to_string(), doc_comment: "7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string()), som::Json::Str("ISO/IEC 25012 — data quality".to_string())])), ("connotation".to_string(), som::Json::Str("Per-entity operational, compliance, technical, and migration facets keyed to the source entity.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("EntityFollowUpEntry", s, meta_children_entity_follow_up_entry, |r, c| som::SomMetaNode {
                 class_name: "EntityFollowUpEntry".to_string(), class_section_id: "DMFUE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EntityFollowUpEntry".to_string(), doc_comment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.".to_string(), class_doc_comment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5581,9 +5621,23 @@ fn meta_children_development_quality_gates(_s: &mut HashSet<String>) -> Vec<Rc<s
     ]
 }
 
-fn meta_children_device_settings(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_device_setting_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "DeviceSettings".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the device setting, e.g. window.layout".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used until the user changes the setting on this device".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "deviceOverridable".to_string(), type_name: "bool".to_string(), description: "Shadows a Wider-Scope Key".to_string(), required: false, hint: "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "DeviceSettingEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the device setting, e.g. window.layout".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used until the user changes the setting on this device".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_device_settings(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "DeviceSettings".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "DeviceSettings".to_string(), member_name: "settings".to_string(), section_id: "DSSET-SETT-LST".to_string(), section_id_pattern: "DSSET-SETT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeviceSettingEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit.".to_string(), doc_comment: "The declared device settings.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — suitability for individualization (user-tailored settings)".to_string()), som::Json::Str("ISO/IEC 25010 — usability / operability".to_string())])), ("connotation".to_string(), som::Json::Str("The device settings declared for this system, one entry per key.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("DeviceSettingEntry", s, meta_children_device_setting_entry, |r, c| som::SomMetaNode {
+                class_name: "DeviceSettingEntry".to_string(), class_section_id: "DSSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeviceSettingEntry".to_string(), doc_comment: "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.".to_string(), class_doc_comment: "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -7565,7 +7619,7 @@ fn meta_children_hardware_requirements(s: &mut HashSet<String>) -> Vec<Rc<som::S
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ClientRequirementsSection", s, meta_children_client_requirements_section, |r, c| som::SomMetaNode {
-            class_name: "ClientRequirementsSection".to_string(), member_name: "clientRequirements".to_string(), class_section_id: "CLRESE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientRequirementsSection".to_string(), serialization_order: Some(2), doc_comment: "8.4.2. Client Requirements.".to_string(), class_doc_comment: "8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.".to_string(),
+            class_name: "ClientRequirementsSection".to_string(), member_name: "clientRequirements".to_string(), class_section_id: "CLRESE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ClientRequirementsSection".to_string(), serialization_order: Some(2), doc_comment: "8.4.2. Client Requirements.".to_string(), class_doc_comment: "8.4.2. Client Requirements.\n\nTwo layers that answer two different questions.\n\n**Which client applications exist** — [clientApplications], one\n[ClientApplicationEntry] per client, naming its kind, its entry route and\nthe screens it comprises. This is the enumerable set of clients; a client\nnot listed there does not exist.\n\n**What a user's machine must provide** — every other subsection: browser,\ndesktop-OS, mobile-device, display, network, hardware, accessibility and\nsecurity minimums. These are deployment constraints on the *environment*,\nnot clients, which is why a client entry *references* them rather than\nrestating them.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("NetworkRequirementsSection", s, meta_children_network_requirements_section, |r, c| som::SomMetaNode {
@@ -7816,7 +7870,7 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SchemaVersioningAndMigration", s, meta_children_schema_versioning_and_migration, |r, c| som::SomMetaNode {
-            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(4), doc_comment: "7.4. Schema Versioning and Migration.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.".to_string(),
+            class_name: "SchemaVersioningAndMigration".to_string(), member_name: "schemaVersioningAndMigration".to_string(), class_section_id: "SCHMG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaVersioningAndMigration".to_string(), serialization_order: Some(4), doc_comment: "7.4. Schema Versioning and Migration.".to_string(), class_doc_comment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("DomainEnumRegistry", s, meta_children_domain_enum_registry, |r, c| som::SomMetaNode {
@@ -7835,8 +7889,12 @@ fn meta_children_information_and_data_model(s: &mut HashSet<String>) -> Vec<Rc<s
             class_name: "MessageKeyRegistry".to_string(), member_name: "messageKeyRegistry".to_string(), class_section_id: "MSGKR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MessageKeyRegistry".to_string(), serialization_order: Some(8), doc_comment: "7.8. Message Key Registry.".to_string(), class_doc_comment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("ServerOperationRegistry", s, meta_children_server_operation_registry, |r, c| som::SomMetaNode {
+            class_name: "ServerOperationRegistry".to_string(), member_name: "serverOperationRegistry".to_string(), class_section_id: "SVOPR".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationRegistry".to_string(), serialization_order: Some(9), doc_comment: "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.".to_string(), class_doc_comment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
         meta_cx("DataModelFollowUp", s, meta_children_data_model_follow_up, |r, c| som::SomMetaNode {
-            class_name: "DataModelFollowUp".to_string(), member_name: "dataModelFollowUp".to_string(), class_section_id: "DMFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataModelFollowUp".to_string(), serialization_order: Some(9), doc_comment: "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.".to_string(), class_doc_comment: "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.".to_string(),
+            class_name: "DataModelFollowUp".to_string(), member_name: "dataModelFollowUp".to_string(), class_section_id: "DMFU".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataModelFollowUp".to_string(), serialization_order: Some(10), doc_comment: "7.10. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.".to_string(), class_doc_comment: "7.10. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -8276,7 +8334,7 @@ fn meta_children_interface_technical_spec(s: &mut HashSet<String>) -> Vec<Rc<som
         {
             let mut n = som::SomMetaNode { class_name: "InterfaceTechnicalSpec".to_string(), member_name: "operations".to_string(), section_id: "INOPEN-OPER-LST".to_string(), section_id_pattern: "INOPEN-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceOperationEntry".to_string(), serialization_order: Some(3), content_help: "List the API operations or methods used: each with method, path, purpose, and request/response formats.".to_string(), doc_comment: "API operations/methods exposed or consumed.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceOperationEntry", s, meta_children_interface_operation_entry, |r, c| som::SomMetaNode {
-                class_name: "InterfaceOperationEntry".to_string(), class_section_id: "IOE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceOperationEntry".to_string(), doc_comment: "API operation entry.".to_string(), class_doc_comment: "API operation entry.".to_string(), recursive: r, children: c,
+                class_name: "InterfaceOperationEntry".to_string(), class_section_id: "IOE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceOperationEntry".to_string(), doc_comment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.".to_string(), class_doc_comment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -9385,6 +9443,12 @@ fn meta_children_migration_systems(_s: &mut HashSet<String>) -> Vec<Rc<som::SomM
     ]
 }
 
+fn meta_children_migration_target_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "MigrationTargetEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "targetName".to_string(), type_name: "String".to_string(), description: "Target Name".to_string(), required: true, hint: "The identifier migration artifacts use to name this target".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataSourceName".to_string(), type_name: "String".to_string(), description: "Data Source Name".to_string(), required: true, hint: "The registered data source the artifacts are applied against".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "schemaName".to_string(), type_name: "String".to_string(), description: "Schema Name".to_string(), required: true, hint: "The schema within that data source the artifacts act on".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "What this data source / schema holds and why it is separate".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_mobile_compatibility_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "MobileCompatibilityEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "platform".to_string(), type_name: "String".to_string(), description: "Platform".to_string(), required: true, hint: "iOS, Android, Cross-platform".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "minVersion".to_string(), type_name: "String".to_string(), description: "Minimum Version".to_string(), required: true, hint: "Minimum OS version".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxVersion".to_string(), type_name: "String".to_string(), description: "Maximum Version".to_string(), required: false, hint: "Maximum tested version".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -9581,7 +9645,7 @@ fn meta_children_multi_language_support(s: &mut HashSet<String>) -> Vec<Rc<som::
         Rc::new(som::SomMetaNode { class_name: "MultiLanguageSupport".to_string(), member_name: "multiLanguageOverview".to_string(), section_id: "MLAR-MULT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "supportedLanguages".to_string(), type_name: "String".to_string(), description: "Supported Languages".to_string(), required: false, hint: "List of supported languages (e.g., en, de, fr, es)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "primaryLanguage".to_string(), type_name: "String".to_string(), description: "Primary Language".to_string(), required: false, hint: "Default/fallback language".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "futureLanguages".to_string(), type_name: "String".to_string(), description: "Future Languages".to_string(), required: false, hint: "Languages planned for future support".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "rtlLanguages".to_string(), type_name: "String".to_string(), description: "RTL Languages".to_string(), required: false, hint: "Right-to-left languages supported".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MultiLanguageSupport".to_string(), member_name: "overviewNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Executive summary of internationalization and localization approach for the system.".to_string(), doc_comment: "Multi-language overview narrative.".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("LanguageCountrySelection", s, meta_children_language_country_selection, |r, c| som::SomMetaNode {
-            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(2), doc_comment: "10.12.4. Language and Country Selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
+            class_name: "LanguageCountrySelection".to_string(), member_name: "languageCountrySelection".to_string(), class_section_id: "LACOSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LanguageCountrySelection".to_string(), serialization_order: Some(2), doc_comment: "10.12.4. Language and Country Selection.".to_string(), class_doc_comment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).".to_string(), maps_to: "D09ExperienceDesignSpecification".to_string(), detailed_in: "D09ExperienceDesignSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
@@ -13222,6 +13286,17 @@ fn meta_children_scenario_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::So
     ]
 }
 
+fn meta_children_scheduled_job_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "jobName".to_string(), type_name: "String".to_string(), description: "Job Name".to_string(), required: true, hint: "The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: true, hint: "Why this job exists — the operational or business reason it runs on its own rather than as part of a request".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "triggerKind".to_string(), type_name: "ScheduledJobTrigger".to_string(), description: "Trigger Kind".to_string(), required: true, hint: "What starts the job — selects the trigger subsection below".to_string(), order: 2, enum_values: vec!["cron".to_string(), "calendar".to_string(), "event".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "primaryDataEntity".to_string(), type_name: "String".to_string(), description: "Primary Data Entity".to_string(), required: true, hint: "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.".to_string(), order: 3, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "enabled".to_string(), type_name: "bool".to_string(), description: "Enabled".to_string(), required: false, hint: "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environments".to_string(), type_name: "String".to_string(), description: "Environments".to_string(), required: false, hint: "Comma-separated deployment environments this job runs in, or empty to run in every environment".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "cronTrigger".to_string(), section_id: "SCJOB-CRON".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "cronExpression".to_string(), type_name: "String".to_string(), description: "Recurrence Expression".to_string(), required: true, hint: "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("POSIX crontab — the recurring-schedule expression convention".to_string()), som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string())])), ("connotation".to_string(), som::Json::Str("The recurring clock expression that starts this job.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScheduledJobTrigger.cron".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "calendarTrigger".to_string(), section_id: "SCJOB-CAL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Calendar trigger — a promoted `@OneOf` case.\n\nPresent only for the `calendar` kind: a date rule a clock expression\ncannot state — the last day of the month, the third Monday of a quarter.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "calendarRule".to_string(), type_name: "String".to_string(), description: "Calendar Rule".to_string(), required: true, hint: "The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 8601 — date and time representation".to_string()), som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string())])), ("connotation".to_string(), som::Json::Str("The calendar date rule that starts this job.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScheduledJobTrigger.calendar".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "eventTrigger".to_string(), section_id: "SCJOB-EVNT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Event trigger — a promoted `@OneOf` case.\n\nPresent only for the `event` kind. An event-triggered job does not fire on\ntime at all, so it has no schedule; what it has instead — and what neither\nother arm has — is an occurrence carrying data the work reads.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "eventName".to_string(), type_name: "String".to_string(), description: "Event Name".to_string(), required: true, hint: "The system occurrence that starts the job (e.g. order.payment.settled)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "eventPayload".to_string(), type_name: "String".to_string(), description: "Event Payload".to_string(), required: false, hint: "What each occurrence carries that the work reads — typically the identity of the record the event is about".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns — event-driven consumer".to_string()), som::Json::Str("Google SRE — eliminating toil and operational procedures".to_string())])), ("connotation".to_string(), som::Json::Str("The system event that starts this job and the data that event carries.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScheduledJobTrigger.event".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "workDefinition".to_string(), section_id: "SCJOB-WORK".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.".to_string(), doc_comment: "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "workSummary".to_string(), type_name: "String".to_string(), description: "Work Summary".to_string(), required: true, hint: "What the job does, step by step, in prose — the intent the work body must realise".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "readEntities".to_string(), type_name: "String".to_string(), description: "Read Entities".to_string(), required: false, hint: "The Data Model entities the job reads".to_string(), order: 1, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "writtenEntities".to_string(), type_name: "String".to_string(), description: "Written Entities".to_string(), required: false, hint: "The Data Model entities the job writes, including the primary one".to_string(), order: 2, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "targetReports".to_string(), type_name: "String".to_string(), description: "Target Reports".to_string(), required: false, hint: "The reports this job produces, where the work is a report run".to_string(), order: 3, enum_values: vec![], refers_to: vec!["REPENT.reportId".to_string()] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 — requirements specification".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("What the job does and which entities and reports it acts on.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScheduledJobEntry".to_string(), member_name: "failurePolicy".to_string(), section_id: "SCJOB-FAIL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.".to_string(), doc_comment: "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "maxRetries".to_string(), type_name: "int".to_string(), description: "Maximum Retries".to_string(), required: false, hint: "How many times a failed run is retried, if not the default".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryBackoff".to_string(), type_name: "String".to_string(), description: "Retry Backoff".to_string(), required: false, hint: "The delay before the first retry and how it grows, if not the default".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "timeout".to_string(), type_name: "String".to_string(), description: "Timeout".to_string(), required: false, hint: "How long a single run may take before it is abandoned, if not the default".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "failureAlertMessage".to_string(), type_name: "String".to_string(), description: "Failure Alert Message".to_string(), required: false, hint: "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.".to_string(), order: 3, enum_values: vec![], refers_to: vec!["MSGKE.key".to_string()] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — handling overload, retries and cascading failure".to_string()), som::Json::Str("AWS Well-Architected — reliability (failure management)".to_string())])), ("connotation".to_string(), som::Json::Str("This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy.".to_string()))] }], ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_scheduled_maintenance_policy(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ScheduledMaintenancePolicy".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "maintenancePolicy".to_string(), type_name: "String".to_string(), description: "Maintenance Policy".to_string(), required: false, hint: "Overall maintenance approach".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeGoal".to_string(), type_name: "bool".to_string(), description: "Zero-Downtime Goal".to_string(), required: false, hint: "Strive for zero downtime".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maintenanceAgreement".to_string(), type_name: "String".to_string(), description: "Maintenance Agreement".to_string(), required: false, hint: "SLA for maintenance windows".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -13234,17 +13309,28 @@ fn meta_children_scheduled_maintenance_policy(_s: &mut HashSet<String>) -> Vec<R
 
 fn meta_children_schema_migration_step_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: false, hint: "The schema version this step produces (e.g. V7, 2026-07-19-01)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "What this migration changes and why".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "ddlOperations".to_string(), type_name: "String".to_string(), description: "DDL Operations".to_string(), required: false, hint: "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "affectedEntities".to_string(), type_name: "String".to_string(), description: "Affected Entities".to_string(), required: false, hint: "The Data Model entities this step touches".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataBackfill".to_string(), type_name: "String".to_string(), description: "Data Backfill".to_string(), required: false, hint: "Any data population/transformation done as part of the step, or None".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reversible".to_string(), type_name: "bool".to_string(), description: "Reversible".to_string(), required: false, hint: "Whether a down/rollback migration is provided".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "version".to_string(), type_name: "String".to_string(), description: "Version".to_string(), required: true, hint: "The version that orders this artifact in the set (e.g. 7, 42)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: true, hint: "What this artifact does and why".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "artifactKind".to_string(), type_name: "MigrationArtifactKind".to_string(), description: "Artifact Kind".to_string(), required: true, hint: "What this artifact is — selects the definition subsection below".to_string(), order: 2, enum_values: vec!["initialDdl".to_string(), "referenceData".to_string(), "schemaChange".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "migrationTarget".to_string(), type_name: "String".to_string(), description: "Migration Target".to_string(), required: true, hint: "The data source / schema target from 7.4.1 this applies to".to_string(), order: 3, enum_values: vec![], refers_to: vec!["MIGTG.targetName".to_string()] }, som::SomFormFieldMeta { name: "environments".to_string(), type_name: "String".to_string(), description: "Environments".to_string(), required: false, hint: "Comma-separated deployment environments this is restricted to, or empty to apply everywhere".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "baselineSchema".to_string(), section_id: "SCMST-BASE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "createdEntities".to_string(), type_name: "String".to_string(), description: "Created Entities".to_string(), required: true, hint: "The Data Model entities this baseline creates".to_string(), order: 0, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "schemaStatements".to_string(), type_name: "String".to_string(), description: "Schema Statements".to_string(), required: false, hint: "The schema definition statements that create the tables".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "indexesAndConstraints".to_string(), type_name: "String".to_string(), description: "Indexes and Constraints".to_string(), required: false, hint: "Keys, indexes and constraints established with the baseline".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 9075 (SQL) — schema definition statements".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("MigrationArtifactKind.initialDdl".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "referenceData".to_string(), section_id: "SCMST-REFD".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "targetEntities".to_string(), type_name: "String".to_string(), description: "Target Entities".to_string(), required: true, hint: "The Data Model entities this artifact populates".to_string(), order: 0, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "valueSet".to_string(), type_name: "String".to_string(), description: "Value Set".to_string(), required: true, hint: "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "identityKey".to_string(), type_name: "String".to_string(), description: "Identity Key".to_string(), required: false, hint: "The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — reference and master data management".to_string()), som::Json::Str("ISO/IEC 11179 — permissible values of a data element".to_string())])), ("connotation".to_string(), som::Json::Str("The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("MigrationArtifactKind.referenceData".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaMigrationStepEntry".to_string(), member_name: "schemaChange".to_string(), section_id: "SCMST-CHNG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Schema change — a promoted `@OneOf` case.\n\nPresent only for the `schemaChange` kind: an evolution step on top of an\nexisting schema. This is the only kind for which a delta of affected\nentities, a data backfill and reversibility are meaningful.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "schemaStatements".to_string(), type_name: "String".to_string(), description: "Schema Statements".to_string(), required: true, hint: "The schema changes performed on tables, columns, indexes and constraints".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "affectedEntities".to_string(), type_name: "String".to_string(), description: "Affected Entities".to_string(), required: true, hint: "The Data Model entities this change touches".to_string(), order: 1, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "dataBackfill".to_string(), type_name: "String".to_string(), description: "Data Backfill".to_string(), required: false, hint: "Any data population or transformation performed as part of the change, or None".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reversible".to_string(), type_name: "bool".to_string(), description: "Reversible".to_string(), required: false, hint: "Whether a rollback step is provided for this change".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Evolutionary Database Design (Ambler & Sadalage) — database refactoring".to_string()), som::Json::Str("ISO/IEC 9075 (SQL) — schema definition statements".to_string())])), ("connotation".to_string(), som::Json::Str("The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("MigrationArtifactKind.schemaChange".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
 fn meta_children_schema_versioning_and_migration(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "migrationTooling".to_string(), type_name: "String".to_string(), description: "Migration Tooling".to_string(), required: false, hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "versioningStrategy".to_string(), type_name: "String".to_string(), description: "Versioning Strategy".to_string(), required: false, hint: "Sequential numbered | Timestamped | Semantic".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "forwardOnly".to_string(), type_name: "bool".to_string(), description: "Forward-Only".to_string(), required: false, hint: "Whether migrations are forward-only (no down migrations)".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "baselineVersion".to_string(), type_name: "String".to_string(), description: "Baseline Version".to_string(), required: false, hint: "The initial/baseline schema version migrations build on".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeApproach".to_string(), type_name: "String".to_string(), description: "Zero-Downtime Approach".to_string(), required: false, hint: "Expand/contract, online DDL, blue-green schema, or None".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_help: "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "versioningStrategy".to_string(), type_name: "String".to_string(), description: "Versioning Strategy".to_string(), required: false, hint: "Sequential numbered | Timestamped | Semantic".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "forwardOnly".to_string(), type_name: "bool".to_string(), description: "Forward-Only".to_string(), required: false, hint: "Whether schema changes are forward-only (no down steps)".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "baselineVersion".to_string(), type_name: "String".to_string(), description: "Baseline Version".to_string(), required: false, hint: "The initial/baseline schema version later artifacts build on".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "zeroDowntimeApproach".to_string(), type_name: "String".to_string(), description: "Zero-Downtime Approach".to_string(), required: false, hint: "Expand/contract, online DDL, blue-green schema, or None".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "migrationSteps".to_string(), section_id: "SCMST-STEP-LST".to_string(), section_id_pattern: "SCMST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per versioned schema migration step.".to_string(), doc_comment: "7.4.1. Schema Migration Steps — one entry per versioned migration.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Evolutionary Database Design (Ambler & Sadalage) — database refactoring".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered schema migration steps that evolve the database over releases.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "migrationTargets".to_string(), section_id: "MIGTG-TARG-LST".to_string(), section_id_pattern: "MIGTG-TARG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MigrationTargetEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.".to_string(), doc_comment: "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 9075 (SQL) — schema as the named container of database objects".to_string()), som::Json::Str("DAMA-DMBOK2 — data management body of knowledge".to_string())])), ("connotation".to_string(), som::Json::Str("The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("MigrationTargetEntry", s, meta_children_migration_target_entry, |r, c| som::SomMetaNode {
+                class_name: "MigrationTargetEntry".to_string(), class_section_id: "MIGTG".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MigrationTargetEntry".to_string(), doc_comment: "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.".to_string(), class_doc_comment: "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "SchemaVersioningAndMigration".to_string(), member_name: "migrationSteps".to_string(), section_id: "SCMST-STEP-LST".to_string(), section_id_pattern: "SCMST-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per versioned migration artifact.".to_string(), doc_comment: "7.4.2. Schema Migration Steps — one entry per versioned artifact.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Evolutionary Database Design (Ambler & Sadalage) — database refactoring".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered schema migration artifacts that establish and evolve the database over releases.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SchemaMigrationStepEntry", s, meta_children_schema_migration_step_entry, |r, c| som::SomMetaNode {
-                class_name: "SchemaMigrationStepEntry".to_string(), class_section_id: "SCMST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), doc_comment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.".to_string(), class_doc_comment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.".to_string(), recursive: r, children: c,
+                class_name: "SchemaMigrationStepEntry".to_string(), class_section_id: "SCMST".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SchemaMigrationStepEntry".to_string(), doc_comment: "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.".to_string(), class_doc_comment: "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
@@ -13387,6 +13473,7 @@ fn meta_children_screen_element_field_spec(_s: &mut HashSet<String>) -> Vec<Rc<s
         Rc::new(som::SomMetaNode { class_name: "ScreenElementFieldSpec".to_string(), member_name: "textOptions".to_string(), section_id: "SEFST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "maxLength".to_string(), type_name: "int".to_string(), description: "Max Length".to_string(), required: false, hint: "Character limit".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "minLength".to_string(), type_name: "int".to_string(), description: "Min Length".to_string(), required: false, hint: "Minimum length".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — length constraints on text form-field input".to_string()), som::Json::Str("ISO 9241-110:2020 — use error tolerance through bounded text input".to_string())])), ("connotation".to_string(), som::Json::Str("The length constraints for a free-text input field.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.string".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.email".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.phone".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.url".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.password".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.richText".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenElementFieldSpec".to_string(), member_name: "validation".to_string(), section_id: "SEFSV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Validation behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "validationTrigger".to_string(), type_name: "String".to_string(), description: "Validation Trigger".to_string(), required: false, hint: "On-Change/On-Blur/On-Submit/Debounced".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "errorDisplayMode".to_string(), type_name: "String".to_string(), description: "Error Display Mode".to_string(), required: false, hint: "Below-Field/Tooltip/Inline/Banner".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "required".to_string(), type_name: "String".to_string(), description: "Required".to_string(), required: false, hint: "Yes/No/Conditional".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "requiredCondition".to_string(), type_name: "String".to_string(), description: "Required Condition".to_string(), required: false, hint: "Condition when field becomes required".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "clearButton".to_string(), type_name: "String".to_string(), description: "Clear Button".to_string(), required: false, hint: "Yes/No — show clear/reset affordance".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — use error tolerance through input validation and error display".to_string()), som::Json::Str("ISO 9241-143:2012 — validation behavior for form fields".to_string())])), ("connotation".to_string(), som::Json::Str("The validation behavior for a form field including trigger, required rules, and error display.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenElementFieldSpec".to_string(), member_name: "selectOptions".to_string(), section_id: "SEFSS".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(6), doc_comment: "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "autocompleteSource".to_string(), type_name: "String".to_string(), description: "Autocomplete Source".to_string(), required: false, hint: "Source reference for autocomplete suggestions".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "optionsSource".to_string(), type_name: "String".to_string(), description: "Options Source".to_string(), required: false, hint: "For select fields: static list, API endpoint, or entity query".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "selectMode".to_string(), type_name: "String".to_string(), description: "Select Mode".to_string(), required: false, hint: "Single/Multi".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "displayMode".to_string(), type_name: "String".to_string(), description: "Display Mode".to_string(), required: false, hint: "Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — form fields with selection and input assistance".to_string()), som::Json::Str("ISO 9241-161:2016 — selection controls such as dropdowns and radio groups".to_string())])), ("connotation".to_string(), som::Json::Str("The option source and selection-mode attributes for a select input field.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.enumeration".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenElementFieldSpec".to_string(), member_name: "fileOptions".to_string(), section_id: "SEFSU".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(7), doc_comment: "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "acceptedContentKinds".to_string(), type_name: "String".to_string(), description: "Accepted Content Kinds".to_string(), required: false, hint: "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxFileSize".to_string(), type_name: "String".to_string(), description: "Maximum File Size".to_string(), required: false, hint: "Largest file the field accepts, e.g. 10 MB".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "presentation".to_string(), type_name: "String".to_string(), description: "Presentation (link, dropzone, thumbnail)".to_string(), required: false, hint: "How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "uploadOnPick".to_string(), type_name: "String".to_string(), description: "Upload On Pick".to_string(), required: false, hint: "Yes/No — whether choosing a file uploads it immediately or the form uploads it on save".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — form fields with input assistance such as file selection".to_string()), som::Json::Str("ISO/IEC 2382:2015 — content and media type terminology".to_string())])), ("connotation".to_string(), som::Json::Str("What a file input accepts and how the chosen file is presented.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenElementFieldKind.file".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -13447,9 +13534,10 @@ fn meta_children_screen_field_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "numericConstraints".to_string(), section_id: "SCFIVN".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "minValue".to_string(), type_name: "String".to_string(), description: "Minimum Value".to_string(), required: false, hint: "Smallest value the field accepts".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxValue".to_string(), type_name: "String".to_string(), description: "Maximum Value".to_string(), required: false, hint: "Largest value the field accepts".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — input validation requirements".to_string()), som::Json::Str("OWASP ASVS — input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The input constraints that only apply to a numeric screen field — its value bounds.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.integer".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.decimal".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.currency".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "temporalConstraints".to_string(), section_id: "SCFIVD".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(6), doc_comment: "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "earliestValue".to_string(), type_name: "String".to_string(), description: "Earliest Accepted Value".to_string(), required: false, hint: "Earliest accepted date/time, absolute or relative (e.g. today)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "latestValue".to_string(), type_name: "String".to_string(), description: "Latest Accepted Value".to_string(), required: false, hint: "Latest accepted date/time, absolute or relative (e.g. today + 30d)".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — input validation requirements".to_string()), som::Json::Str("ISO 8601 — date and time representation".to_string())])), ("connotation".to_string(), som::Json::Str("The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.date".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.dateTime".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.time".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "choiceOptions".to_string(), section_id: "SCFICH".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(7), doc_comment: "Choice-kind option source — a promoted `@OneOf` case (csra4).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "optionSource".to_string(), type_name: "String".to_string(), description: "Option Source (static, API, entity)".to_string(), required: false, hint: "Where the options come from: static, API, or entity".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "staticOptions".to_string(), type_name: "String".to_string(), description: "Static Option Values".to_string(), required: false, hint: "The option values, when the source is static".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — dialogue principles".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §9.5 — UI functional requirements".to_string())])), ("connotation".to_string(), som::Json::Str("Where a choice field takes its options from — the option source and, for a static source, the values themselves.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.singleSelect".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.multiSelect".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "layout".to_string(), section_id: "SCFILA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(8), doc_comment: "UI and layout.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dependsOn".to_string(), type_name: "String".to_string(), description: "Depends On (field IDs that affect this)".to_string(), required: false, hint: "Field IDs that affect this field".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "width".to_string(), type_name: "String".to_string(), description: "Width (full, half, third, quarter, custom)".to_string(), required: false, hint: "full, half, third, quarter, or custom".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "order".to_string(), type_name: "String".to_string(), description: "Display Order".to_string(), required: false, hint: "Order in which the field is displayed".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "grouping".to_string(), type_name: "String".to_string(), description: "Field Grouping / Section".to_string(), required: false, hint: "Group or section the field belongs to".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — dialogue principles".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §9.5 — UI functional requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The layout and presentation of a screen field — its dependencies, width, display order, and grouping.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "fileConstraints".to_string(), section_id: "SCFIFI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(8), doc_comment: "File-kind input constraints — a promoted `@OneOf` case (csrb8).\n\nConstraints only. **How** the file is presented — link, dropzone or\nthumbnail — is the D09 design pass's `fileOptions`\n(`ScreenElementFieldSpec`), because a requirement names the kind of value\na user supplies and the design names the concrete control. The storage\ngroup is neither side's: it is authored on the CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "acceptedContentKinds".to_string(), type_name: "String".to_string(), description: "Accepted Content Kinds".to_string(), required: false, hint: "What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxFileSize".to_string(), type_name: "String".to_string(), description: "Maximum File Size".to_string(), required: false, hint: "Largest file the field accepts, e.g. 10 MB".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — input validation requirements".to_string()), som::Json::Str("ISO/IEC 2382:2015 — content and media type terminology".to_string())])), ("connotation".to_string(), som::Json::Str("The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be.".to_string()))] }, som::SomMetaExtra { annotation: "Case".to_string(), args: vec![("value".to_string(), som::Json::Str("ScreenFieldKind.file".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "layout".to_string(), section_id: "SCFILA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(9), doc_comment: "UI and layout.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dependsOn".to_string(), type_name: "String".to_string(), description: "Depends On (field IDs that affect this)".to_string(), required: false, hint: "Field IDs that affect this field".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "width".to_string(), type_name: "String".to_string(), description: "Width (full, half, third, quarter, custom)".to_string(), required: false, hint: "full, half, third, quarter, or custom".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "order".to_string(), type_name: "String".to_string(), description: "Display Order".to_string(), required: false, hint: "Order in which the field is displayed".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "grouping".to_string(), type_name: "String".to_string(), description: "Field Grouping / Section".to_string(), required: false, hint: "Group or section the field belongs to".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — dialogue principles".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §9.5 — UI functional requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The layout and presentation of a screen field — its dependencies, width, display order, and grouping.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "validationRules".to_string(), section_id: "FLDVL-VALI-LST".to_string(), section_id_pattern: "FLDVL-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FieldValidationRule".to_string(), serialization_order: Some(9), content_help: "Add one entry per validation rule applied to this field.".to_string(), doc_comment: "Field validation rules — contains 0+× FieldValidationRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — input validation requirements".to_string()), som::Json::Str("OWASP ASVS — input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual validation rules applied to this field's input.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScreenFieldEntry".to_string(), member_name: "validationRules".to_string(), section_id: "FLDVL-VALI-LST".to_string(), section_id_pattern: "FLDVL-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FieldValidationRule".to_string(), serialization_order: Some(10), content_help: "Add one entry per validation rule applied to this field.".to_string(), doc_comment: "Field validation rules — contains 0+× FieldValidationRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — input validation requirements".to_string()), som::Json::Str("OWASP ASVS — input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual validation rules applied to this field's input.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FieldValidationRule", s, meta_children_field_validation_rule, |r, c| som::SomMetaNode {
                 class_name: "FieldValidationRule".to_string(), class_section_id: "FLDVL".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FieldValidationRule".to_string(), doc_comment: "A field validation rule (form).".to_string(), class_doc_comment: "A field validation rule (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13940,6 +14028,12 @@ fn meta_children_sensitive_data_encryption(s: &mut HashSet<String>) -> Vec<Rc<so
     ]
 }
 
+fn meta_children_server_configuration_setting_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ServerConfigurationSettingEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the server setting, e.g. server.isolateCount".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentVariable".to_string(), type_name: "String".to_string(), description: "Environment Variable".to_string(), required: false, hint: "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "commandLineOption".to_string(), type_name: "String".to_string(), description: "Command-Line Option".to_string(), required: false, hint: "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "secret".to_string(), type_name: "bool".to_string(), description: "Carries a Secret".to_string(), required: false, hint: "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "overridableBy".to_string(), type_name: "String".to_string(), description: "Overridable By".to_string(), required: true, hint: "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
 fn meta_children_server_environment_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "environmentName".to_string(), type_name: "String".to_string(), description: "Environment Name".to_string(), required: true, hint: "E.g., Development, Staging, Production".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentType".to_string(), type_name: "String".to_string(), description: "Environment Type".to_string(), required: false, hint: "Development, QA, UAT, Staging, Production, DR".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "environmentCode".to_string(), type_name: "String".to_string(), description: "Environment Code".to_string(), required: false, hint: "dev, stg, prod, dr".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "Primary purpose of this environment".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -13947,6 +14041,48 @@ fn meta_children_server_environment_entry(_s: &mut HashSet<String>) -> Vec<Rc<so
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "scale".to_string(), section_id: "SEES".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Scale expectations.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "serverCount".to_string(), type_name: "int".to_string(), description: "Server Count".to_string(), required: false, hint: "Number of servers in environment".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "expectedUsers".to_string(), type_name: "String".to_string(), description: "Expected Users".to_string(), required: false, hint: "Concurrent users expected".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "expectedLoad".to_string(), type_name: "String".to_string(), description: "Expected Load".to_string(), required: false, hint: "Requests per second".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the server count, expected users, and load for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "access".to_string(), section_id: "SEEA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Access rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "accessRestrictions".to_string(), type_name: "String".to_string(), description: "Access Restrictions".to_string(), required: false, hint: "Who can access this environment".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "networkSegment".to_string(), type_name: "String".to_string(), description: "Network Segment".to_string(), required: false, hint: "VPC/network segment".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "vpnRequired".to_string(), type_name: "bool".to_string(), description: "VPN Required".to_string(), required: false, hint: "VPN access required".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27033 — network / infrastructure security".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the access restrictions, network segment, and VPN requirements for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerEnvironmentEntry".to_string(), member_name: "lifecycle".to_string(), section_id: "SEENENLI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Lifecycle rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "refreshSchedule".to_string(), type_name: "String".to_string(), description: "Refresh Schedule".to_string(), required: false, hint: "Data refresh schedule".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retentionPolicy".to_string(), type_name: "String".to_string(), description: "Retention Policy".to_string(), required: false, hint: "Data retention policy".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional environment notes".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IaaS / cloud infrastructure — server provisioning".to_string()), som::Json::Str("Twelve-Factor App — cloud-native deployment".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the refresh schedule and retention policy for a server environment.".to_string()))] }], ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_server_operation_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ServerOperationEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "operationName".to_string(), type_name: "String".to_string(), description: "Operation Name".to_string(), required: true, hint: "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "purpose".to_string(), type_name: "String".to_string(), description: "Purpose".to_string(), required: false, hint: "What the operation does, from the caller's point of view".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "primaryDataEntity".to_string(), type_name: "String".to_string(), description: "Primary Data Entity".to_string(), required: false, hint: "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)".to_string(), order: 2, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "authorizationRequirement".to_string(), type_name: "String".to_string(), description: "Authorization Requirement".to_string(), required: true, hint: "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "requiredRoles".to_string(), type_name: "String".to_string(), description: "Required Roles".to_string(), required: false, hint: "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement".to_string(), order: 4, enum_values: vec![], refers_to: vec!["AZRO.roleName".to_string()] }, som::SomFormFieldMeta { name: "requiredResourceKey".to_string(), type_name: "String".to_string(), description: "Required Resource Key".to_string(), required: false, hint: "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement".to_string(), order: 5, enum_values: vec![], refers_to: vec!["RESKEY.resourceKey".to_string()] }, som::SomFormFieldMeta { name: "descriptionKey".to_string(), type_name: "String".to_string(), description: "Description Copy Key".to_string(), required: false, hint: "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)".to_string(), order: 6, enum_values: vec![], refers_to: vec!["MSGKE.key".to_string()] }, som::SomFormFieldMeta { name: "errorCodes".to_string(), type_name: "String".to_string(), description: "Error Codes".to_string(), required: false, hint: "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope".to_string(), order: 7, enum_values: vec![], refers_to: vec!["ERCEN.code".to_string()] }] }), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ServerOperationEntry".to_string(), member_name: "requestMembers".to_string(), section_id: "SVOPM-REQM-LST".to_string(), section_id_pattern: "SVOPM-REQM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerOperationMemberEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per member of the request shape.".to_string(), doc_comment: "7.9.x. Request Members — the members that make up the request shape.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string())])), ("connotation".to_string(), som::Json::Str("The members that make up this operation's request shape.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerOperationMemberEntry", s, meta_children_server_operation_member_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerOperationMemberEntry".to_string(), class_section_id: "SVOPM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationMemberEntry".to_string(), doc_comment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.".to_string(), class_doc_comment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+        {
+            let mut n = som::SomMetaNode { class_name: "ServerOperationEntry".to_string(), member_name: "responseMembers".to_string(), section_id: "SVOPM-RESM-LST".to_string(), section_id_pattern: "SVOPM-RESM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerOperationMemberEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.".to_string(), doc_comment: "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 11179 — metadata registries / data element definitions".to_string())])), ("connotation".to_string(), som::Json::Str("The members that make up the success payload this operation returns.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerOperationMemberEntry", s, meta_children_server_operation_member_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerOperationMemberEntry".to_string(), class_section_id: "SVOPM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationMemberEntry".to_string(), doc_comment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.".to_string(), class_doc_comment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
+fn meta_children_server_operation_member_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ServerOperationMemberEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "memberName".to_string(), type_name: "String".to_string(), description: "Member Name".to_string(), required: true, hint: "Name of the member within the shape (e.g. customerId, includeArchived)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "memberType".to_string(), type_name: "String".to_string(), description: "Member Type".to_string(), required: true, hint: "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "multiValued".to_string(), type_name: "bool".to_string(), description: "Multi-Valued".to_string(), required: false, hint: "Whether the member carries a collection of the type rather than a single value".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "required".to_string(), type_name: "bool".to_string(), description: "Required".to_string(), required: false, hint: "Whether the member must be present".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataEntity".to_string(), type_name: "String".to_string(), description: "Data Entity".to_string(), required: false, hint: "DataEntityEntry.entityName the member is typed by, when its type is DataEntity".to_string(), order: 4, enum_values: vec![], refers_to: vec!["DAENT.entityName".to_string()] }, som::SomFormFieldMeta { name: "domainEnum".to_string(), type_name: "String".to_string(), description: "Domain Enum".to_string(), required: false, hint: "DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum".to_string(), order: 5, enum_values: vec![], refers_to: vec!["DMENE.enumName".to_string()] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "What the member means and any authoring guidance".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_server_operation_registry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "ServerOperationRegistry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "ServerOperationRegistry".to_string(), member_name: "operations".to_string(), section_id: "SVOPE-OPER-LST".to_string(), section_id_pattern: "SVOPE-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerOperationEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per operation the system answers.".to_string(), doc_comment: "7.9.1. Operations — one entry per operation the system answers.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description (interface contracts)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalogued operations the application's own server surface answers.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerOperationEntry", s, meta_children_server_operation_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerOperationEntry".to_string(), class_section_id: "SVOPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerOperationEntry".to_string(), doc_comment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).".to_string(), class_doc_comment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -15080,12 +15216,20 @@ fn meta_children_system_business_unit_entry(_s: &mut HashSet<String>) -> Vec<Rc<
     ]
 }
 
-fn meta_children_system_configuration_management(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+fn meta_children_system_configuration_management(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "SystemConfigurationManagement".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "configurationSource".to_string(), type_name: "String".to_string(), description: "Configuration Source".to_string(), required: true, hint: "Environment variables, config files, vault".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configurationFormat".to_string(), type_name: "String".to_string(), description: "Configuration Format".to_string(), required: false, hint: "YAML, JSON, TOML, properties".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "centralConfigService".to_string(), type_name: "String".to_string(), description: "Central Config Service".to_string(), required: false, hint: "Consul, Spring Cloud Config, AWS AppConfig".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemConfigurationManagement".to_string(), member_name: "dynamic".to_string(), section_id: "SCMD".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Dynamic configuration and rollback behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dynamicConfiguration".to_string(), type_name: "bool".to_string(), description: "Dynamic Configuration".to_string(), required: false, hint: "Change config without restart".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "hotReloadSupport".to_string(), type_name: "bool".to_string(), description: "Hot Reload Support".to_string(), required: false, hint: "Apply config changes live".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configVersioning".to_string(), type_name: "bool".to_string(), description: "Config Versioning".to_string(), required: false, hint: "Track configuration history".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configRollback".to_string(), type_name: "bool".to_string(), description: "Config Rollback".to_string(), required: false, hint: "Revert to previous configuration".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 20000 — configuration and change management".to_string()), som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("Dynamic configuration and rollback behavior describe how config changes are applied live and reverted.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemConfigurationManagement".to_string(), member_name: "environment".to_string(), section_id: "SCME".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Environment overrides and secrets handling.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "environmentOverrides".to_string(), type_name: "String".to_string(), description: "Environment Overrides".to_string(), required: false, hint: "Per-environment config layering".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "secretsManagement".to_string(), type_name: "String".to_string(), description: "Secrets Management".to_string(), required: false, hint: "Vault, AWS Secrets Manager, Azure Key Vault".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "secretRotation".to_string(), type_name: "bool".to_string(), description: "Secret Rotation".to_string(), required: false, hint: "Automated secret rotation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CIS Controls — secure configuration and administration".to_string()), som::Json::Str("ISO/IEC 27001 — operations security (A.12)".to_string())])), ("connotation".to_string(), som::Json::Str("Environment overrides and secrets handling govern per-environment configuration and credential storage.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemConfigurationManagement".to_string(), member_name: "governance".to_string(), section_id: "SCMG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Validation, diffing, and audit controls.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "configValidation".to_string(), type_name: "String".to_string(), description: "Config Validation".to_string(), required: false, hint: "Schema validation before deploy".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configDiffing".to_string(), type_name: "bool".to_string(), description: "Config Diffing".to_string(), required: false, hint: "Compare configurations across envs".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configAuditTrail".to_string(), type_name: "bool".to_string(), description: "Config Audit Trail".to_string(), required: false, hint: "Log who changed what and when".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional configuration management notes".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 20000 — configuration and change management".to_string()), som::Json::Str("ITIL 4 — service configuration management practice".to_string())])), ("connotation".to_string(), som::Json::Str("Validation, diffing, and audit controls ensure configuration changes are checked and traceable.".to_string()))] }], ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "SystemConfigurationManagement".to_string(), member_name: "settings".to_string(), section_id: "SCSET-SETT-LST".to_string(), section_id_pattern: "SCSET-SETT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerConfigurationSettingEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.".to_string(), doc_comment: "The declared server configuration settings.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — config stored in the environment".to_string()), som::Json::Str("CIS Controls — secure configuration and administration".to_string())])), ("connotation".to_string(), som::Json::Str("The server / system configuration settings declared for this system, one entry per key.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("ServerConfigurationSettingEntry", s, meta_children_server_configuration_setting_entry, |r, c| som::SomMetaNode {
+                class_name: "ServerConfigurationSettingEntry".to_string(), class_section_id: "SCSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerConfigurationSettingEntry".to_string(), doc_comment: "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.".to_string(), class_doc_comment: "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
     ]
 }
 
@@ -17278,6 +17422,26 @@ fn meta_children_user_registration_process(_s: &mut HashSet<String>) -> Vec<Rc<s
     ]
 }
 
+fn meta_children_user_setting_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "UserSettingEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "settingKey".to_string(), type_name: "String".to_string(), description: "Setting Key".to_string(), required: true, hint: "The dotted key of the user setting, e.g. ui.theme".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueType".to_string(), type_name: "String".to_string(), description: "Value Type".to_string(), required: false, hint: "string / int / double / bool / enum".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultValue".to_string(), type_name: "String".to_string(), description: "Default Value".to_string(), required: false, hint: "The value used until the user changes the setting".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "overridableBy".to_string(), type_name: "String".to_string(), description: "Overridable By".to_string(), required: true, hint: "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+    ]
+}
+
+fn meta_children_user_settings(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
+    vec![
+        Rc::new(som::SomMetaNode { class_name: "UserSettings".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n".to_string(), ..som::SomMetaNode::default() }),
+        {
+            let mut n = som::SomMetaNode { class_name: "UserSettings".to_string(), member_name: "settings".to_string(), section_id: "USSET-SETT-LST".to_string(), section_id_pattern: "USSET-SETT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserSettingEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize.".to_string(), doc_comment: "The declared user settings.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — suitability for individualization (user-tailored settings)".to_string()), som::Json::Str("ISO/IEC 25010 — usability / operability".to_string())])), ("connotation".to_string(), som::Json::Str("The user settings declared for this system, one entry per key.".to_string()))] }], ..som::SomMetaNode::default() };
+            n.element_node = Some(meta_cx("UserSettingEntry", s, meta_children_user_setting_entry, |r, c| som::SomMetaNode {
+                class_name: "UserSettingEntry".to_string(), class_section_id: "USSET".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserSettingEntry".to_string(), doc_comment: "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).".to_string(), class_doc_comment: "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).".to_string(), recursive: r, children: c,
+                ..som::SomMetaNode::default()
+            }));
+            Rc::new(n)
+        },
+    ]
+}
+
 fn meta_children_user_training_requirements(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "UserTrainingRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
@@ -17575,7 +17739,7 @@ fn meta_children_workflow_output_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::
 
 fn meta_children_workflow_step_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "WorkflowStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepName".to_string(), type_name: "String".to_string(), description: "Step Name".to_string(), required: true, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "int".to_string(), description: "Step Number (sequence order)".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "responsibleActor".to_string(), type_name: "String".to_string(), description: "Responsible Actor".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "stepType".to_string(), type_name: "String".to_string(), description: "Step Type (e.g., Task, Decision, Wait, Subprocess)".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isManual".to_string(), type_name: "bool".to_string(), description: "Is Manual (requires human intervention)".to_string(), required: false, hint: "Whether carrying the step out needs a person; an automated step runs without human intervention".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isAutomatable".to_string(), type_name: "bool".to_string(), description: "Is Automatable".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "averageDuration".to_string(), type_name: "String".to_string(), description: "Average Duration".to_string(), required: false, hint: "".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "WorkflowStepEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "stepName".to_string(), type_name: "String".to_string(), description: "Step Name".to_string(), required: true, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "stepNumber".to_string(), type_name: "int".to_string(), description: "Step Number (sequence order)".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Description".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "responsibleActor".to_string(), type_name: "String".to_string(), description: "Responsible Actor".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "stepType".to_string(), type_name: "String".to_string(), description: "Step Type (e.g., Task, Decision, Wait, Subprocess)".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isManual".to_string(), type_name: "bool".to_string(), description: "Is Manual (requires human intervention)".to_string(), required: false, hint: "Whether carrying the step out needs a person; an automated step runs without human intervention".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isAutomatable".to_string(), type_name: "bool".to_string(), description: "Is Automatable".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isErrorProne".to_string(), type_name: "bool".to_string(), description: "Is Error-Prone (high error or failure rate)".to_string(), required: false, hint: "Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "averageDuration".to_string(), type_name: "String".to_string(), description: "Average Duration".to_string(), required: false, hint: "".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "WorkflowStepEntry".to_string(), member_name: "systemsUsed".to_string(), section_id: "WOSTSY-SYST-LST".to_string(), section_id_pattern: "WOSTSY-SYST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowStepSystem".to_string(), serialization_order: Some(1), content_help: "Add one entry per system the step uses.".to_string(), doc_comment: "Systems used in this step.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (systems used in step)".to_string())])), ("connotation".to_string(), som::Json::Str("The systems this step relies on to perform its work.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("WorkflowStepSystem", s, meta_children_workflow_step_system, |r, c| som::SomMetaNode {
@@ -21879,6 +22043,10 @@ impl<'a> BatchJobManagementNav<'a> {
     pub fn monitoring(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BJMM"))
     }
+
+    pub fn scheduled_jobs(&self) -> som::SomListMetaRef<'a, ScheduledJobEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-JOB-LST"), ScheduledJobEntryNav::new)
+    }
 }
 
 /// BehaviorRuleEntryNav holds the dot-notation accessors of `BehaviorRuleEntry` (SOM §8).
@@ -24260,6 +24428,37 @@ impl<'a> ClientAccessibilityRequirementsNav<'a> {
     }
 }
 
+/// ClientApplicationEntryNav holds the dot-notation accessors of `ClientApplicationEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ClientApplicationEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ClientApplicationEntryNav<'a> {
+    /// Binds a ClientApplicationEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientApplicationEntryNav<'a> {
+        ClientApplicationEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// ClientConfigurationNav holds the dot-notation accessors of `ClientConfiguration` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -24274,6 +24473,41 @@ impl<'a> ClientConfigurationNav<'a> {
     /// Binds a ClientConfigurationNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientConfigurationNav<'a> {
         ClientConfigurationNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn settings(&self) -> som::SomListMetaRef<'a, ClientConfigurationSettingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CCSET-SETT-LST"), ClientConfigurationSettingEntryNav::new)
+    }
+}
+
+/// ClientConfigurationSettingEntryNav holds the dot-notation accessors of `ClientConfigurationSettingEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ClientConfigurationSettingEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ClientConfigurationSettingEntryNav<'a> {
+    /// Binds a ClientConfigurationSettingEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientConfigurationSettingEntryNav<'a> {
+        ClientConfigurationSettingEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -24419,6 +24653,10 @@ impl<'a> ClientRequirementsSectionNav<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "overview"))
     }
 
+    pub fn client_applications(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CLIAPP-CLIE-LST"), ClientApplicationEntryNav::new)
+    }
+
     pub fn browser_requirements(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BRREEN-BROW-LST"), BrowserRequirementEntryNav::new)
     }
@@ -24465,6 +24703,10 @@ impl<'a> ClientRequirementsSectionNav<'a> {
 
     pub fn device_settings(&self) -> DeviceSettingsNav<'a> {
         DeviceSettingsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deviceSettings"))
+    }
+
+    pub fn user_settings(&self) -> UserSettingsNav<'a> {
+        UserSettingsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userSettings"))
     }
 }
 
@@ -27985,14 +28227,6 @@ impl<'a> CurrentWorkflowEntryNav<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WOBURU-BUSI-LST"), WorkflowBusinessRuleNav::new)
     }
 
-    pub fn manual_steps(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSE-MANU-LST"), WorkflowStepEntryNav::new)
-    }
-
-    pub fn error_prone_steps(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSE-ERRO-LST"), WorkflowStepEntryNav::new)
-    }
-
     pub fn timing(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WOTI"))
     }
@@ -28424,6 +28658,14 @@ impl<'a> D03InformationModelNav<'a> {
 
     pub fn message_key_registry(&self) -> MessageKeyRegistryNav<'a> {
         MessageKeyRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry"))
+    }
+
+    pub fn server_operation_registry(&self) -> ServerOperationRegistryNav<'a> {
+        ServerOperationRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "serverOperationRegistry"))
+    }
+
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigrationNav<'a> {
+        SchemaVersioningAndMigrationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration"))
     }
 }
 
@@ -29206,6 +29448,14 @@ impl<'a> D13CodeSpecsProjectionNav<'a> {
 
     pub fn report_definitions(&self) -> ReportDefinitionsNav<'a> {
         ReportDefinitionsNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions"))
+    }
+
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigrationNav<'a> {
+        SchemaVersioningAndMigrationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration"))
+    }
+
+    pub fn server_operation_registry(&self) -> ServerOperationRegistryNav<'a> {
+        ServerOperationRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "serverOperationRegistry"))
     }
 
     pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractionsNav<'a> {
@@ -33340,6 +33590,37 @@ impl<'a> DevelopmentQualityGatesNav<'a> {
     }
 }
 
+/// DeviceSettingEntryNav holds the dot-notation accessors of `DeviceSettingEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct DeviceSettingEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DeviceSettingEntryNav<'a> {
+    /// Binds a DeviceSettingEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DeviceSettingEntryNav<'a> {
+        DeviceSettingEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// DeviceSettingsNav holds the dot-notation accessors of `DeviceSettings` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -33368,6 +33649,10 @@ impl<'a> DeviceSettingsNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn settings(&self) -> som::SomListMetaRef<'a, DeviceSettingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DSSET-SETT-LST"), DeviceSettingEntryNav::new)
     }
 }
 
@@ -40182,6 +40467,10 @@ impl<'a> InformationAndDataModelNav<'a> {
         MessageKeyRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry"))
     }
 
+    pub fn server_operation_registry(&self) -> ServerOperationRegistryNav<'a> {
+        ServerOperationRegistryNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "serverOperationRegistry"))
+    }
+
     pub fn data_model_follow_up(&self) -> DataModelFollowUpNav<'a> {
         DataModelFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataModelFollowUp"))
     }
@@ -45373,6 +45662,37 @@ impl<'a> MigrationSystemsNav<'a> {
     /// Binds a MigrationSystemsNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> MigrationSystemsNav<'a> {
         MigrationSystemsNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// MigrationTargetEntryNav holds the dot-notation accessors of `MigrationTargetEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct MigrationTargetEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> MigrationTargetEntryNav<'a> {
+    /// Binds a MigrationTargetEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> MigrationTargetEntryNav<'a> {
+        MigrationTargetEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -57636,6 +57956,57 @@ impl<'a> ScenarioStepEntryNav<'a> {
     }
 }
 
+/// ScheduledJobEntryNav holds the dot-notation accessors of `ScheduledJobEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ScheduledJobEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScheduledJobEntryNav<'a> {
+    /// Binds a ScheduledJobEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScheduledJobEntryNav<'a> {
+        ScheduledJobEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn cron_trigger(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-CRON"))
+    }
+
+    pub fn calendar_trigger(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-CAL"))
+    }
+
+    pub fn event_trigger(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-EVNT"))
+    }
+
+    pub fn work_definition(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-WORK"))
+    }
+
+    pub fn failure_policy(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-FAIL"))
+    }
+}
+
 /// ScheduledMaintenancePolicyNav holds the dot-notation accessors of `ScheduledMaintenancePolicy` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -57712,6 +58083,18 @@ impl<'a> SchemaMigrationStepEntryNav<'a> {
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
+
+    pub fn baseline_schema(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-BASE"))
+    }
+
+    pub fn reference_data(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-REFD"))
+    }
+
+    pub fn schema_change(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-CHNG"))
+    }
 }
 
 /// SchemaVersioningAndMigrationNav holds the dot-notation accessors of `SchemaVersioningAndMigration` (SOM §8).
@@ -57742,6 +58125,10 @@ impl<'a> SchemaVersioningAndMigrationNav<'a> {
 
     pub fn content(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn migration_targets(&self) -> som::SomListMetaRef<'a, MigrationTargetEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGTG-TARG-LST"), MigrationTargetEntryNav::new)
     }
 
     pub fn migration_steps(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryNav<'a>> {
@@ -58169,6 +58556,10 @@ impl<'a> ScreenElementFieldSpecNav<'a> {
     pub fn select_options(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEFSS"))
     }
+
+    pub fn file_options(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEFSU"))
+    }
 }
 
 /// ScreenEntryNav holds the dot-notation accessors of `ScreenEntry` (SOM §8).
@@ -58302,6 +58693,10 @@ impl<'a> ScreenFieldEntryNav<'a> {
 
     pub fn choice_options(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCFICH"))
+    }
+
+    pub fn file_constraints(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCFIFI"))
     }
 
     pub fn layout(&self) -> som::SomMetaRef<'a> {
@@ -59805,6 +60200,37 @@ impl<'a> SensitiveDataEncryptionNav<'a> {
     }
 }
 
+/// ServerConfigurationSettingEntryNav holds the dot-notation accessors of `ServerConfigurationSettingEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ServerConfigurationSettingEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerConfigurationSettingEntryNav<'a> {
+    /// Binds a ServerConfigurationSettingEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerConfigurationSettingEntryNav<'a> {
+        ServerConfigurationSettingEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
 /// ServerEnvironmentEntryNav holds the dot-notation accessors of `ServerEnvironmentEntry` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -59849,6 +60275,111 @@ impl<'a> ServerEnvironmentEntryNav<'a> {
 
     pub fn lifecycle(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEENENLI"))
+    }
+}
+
+/// ServerOperationEntryNav holds the dot-notation accessors of `ServerOperationEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ServerOperationEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerOperationEntryNav<'a> {
+    /// Binds a ServerOperationEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerOperationEntryNav<'a> {
+        ServerOperationEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn request_members(&self) -> som::SomListMetaRef<'a, ServerOperationMemberEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOPM-REQM-LST"), ServerOperationMemberEntryNav::new)
+    }
+
+    pub fn response_members(&self) -> som::SomListMetaRef<'a, ServerOperationMemberEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOPM-RESM-LST"), ServerOperationMemberEntryNav::new)
+    }
+}
+
+/// ServerOperationMemberEntryNav holds the dot-notation accessors of `ServerOperationMemberEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ServerOperationMemberEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerOperationMemberEntryNav<'a> {
+    /// Binds a ServerOperationMemberEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerOperationMemberEntryNav<'a> {
+        ServerOperationMemberEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// ServerOperationRegistryNav holds the dot-notation accessors of `ServerOperationRegistry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct ServerOperationRegistryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerOperationRegistryNav<'a> {
+    /// Binds a ServerOperationRegistryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerOperationRegistryNav<'a> {
+        ServerOperationRegistryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn operations(&self) -> som::SomListMetaRef<'a, ServerOperationEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOPE-OPER-LST"), ServerOperationEntryNav::new)
     }
 }
 
@@ -63377,6 +63908,10 @@ impl<'a> SystemConfigurationManagementNav<'a> {
 
     pub fn governance(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMG"))
+    }
+
+    pub fn settings(&self) -> som::SomListMetaRef<'a, ServerConfigurationSettingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCSET-SETT-LST"), ServerConfigurationSettingEntryNav::new)
     }
 }
 
@@ -69858,6 +70393,72 @@ impl<'a> UserRegistrationProcessNav<'a> {
     }
 }
 
+/// UserSettingEntryNav holds the dot-notation accessors of `UserSettingEntry` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct UserSettingEntryNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> UserSettingEntryNav<'a> {
+    /// Binds a UserSettingEntryNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> UserSettingEntryNav<'a> {
+        UserSettingEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+}
+
+/// UserSettingsNav holds the dot-notation accessors of `UserSettings` (SOM §8).
+/// Every method is one navigable position: `.path()` is the absolute document
+/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
+/// chains remain valid document positions while `.meta()` returns an error
+/// (the metadata tree ends there).
+pub struct UserSettingsNav<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> UserSettingsNav<'a> {
+    /// Binds a UserSettingsNav accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> UserSettingsNav<'a> {
+        UserSettingsNav { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn content(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
+    }
+
+    pub fn settings(&self) -> som::SomListMetaRef<'a, UserSettingEntryNav<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USSET-SETT-LST"), UserSettingEntryNav::new)
+    }
+}
+
 /// UserTrainingRequirementsNav holds the dot-notation accessors of `UserTrainingRequirements` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -73460,6 +74061,58 @@ impl<'a> ChannelIntegrationsId<'a> {
     }
 }
 
+/// ClientApplicationEntryId holds the ID-tree accessors of `ClientApplicationEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ClientApplicationEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ClientApplicationEntryId<'a> {
+    /// Binds a ClientApplicationEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientApplicationEntryId<'a> {
+        ClientApplicationEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// ClientConfigurationSettingEntryId holds the ID-tree accessors of `ClientConfigurationSettingEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ClientConfigurationSettingEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ClientConfigurationSettingEntryId<'a> {
+    /// Binds a ClientConfigurationSettingEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ClientConfigurationSettingEntryId<'a> {
+        ClientConfigurationSettingEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// CodingStandardEntryId holds the ID-tree accessors of `CodingStandardEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -74581,14 +75234,6 @@ impl<'a> CurrentWorkflowEntryId<'a> {
 
     pub fn WOBURU_BUSI_LST(&self) -> som::SomListMetaRef<'a, WorkflowBusinessRuleId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WOBURU-BUSI-LST"), WorkflowBusinessRuleId::new)
-    }
-
-    pub fn WSE_MANU_LST(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSE-MANU-LST"), WorkflowStepEntryId::new)
-    }
-
-    pub fn WSE_ERRO_LST(&self) -> som::SomListMetaRef<'a, WorkflowStepEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSE-ERRO-LST"), WorkflowStepEntryId::new)
     }
 
     pub fn WOTI(&self) -> som::SomMetaRef<'a> {
@@ -75885,6 +76530,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/functionModel/BIRU-BUSI-LST"), BusinessRuleEntryId::new)
     }
 
+    pub fn MIGTG_TARG_LST(&self) -> som::SomListMetaRef<'a, MigrationTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/schemaVersioningAndMigration/MIGTG-TARG-LST"), MigrationTargetEntryId::new)
+    }
+
     pub fn SCMST_STEP_LST(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST"), SchemaMigrationStepEntryId::new)
     }
@@ -75903,6 +76552,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
 
     pub fn MSGKE_MKEY_LST(&self) -> som::SomListMetaRef<'a, MessageKeyEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST"), MessageKeyEntryId::new)
+    }
+
+    pub fn SVOPE_OPER_LST(&self) -> som::SomListMetaRef<'a, ServerOperationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST"), ServerOperationEntryId::new)
     }
 
     pub fn DMFUE_ENFU_LST(&self) -> som::SomListMetaRef<'a, EntityFollowUpEntryId<'a>> {
@@ -76889,6 +77542,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
+    }
+
     pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
     }
@@ -77011,6 +77668,18 @@ impl<'a> D00SolutionBlueprintId<'a> {
 
     pub fn CSRCP(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"))
+    }
+
+    pub fn CCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ClientConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST"), ClientConfigurationSettingEntryId::new)
+    }
+
+    pub fn DSSET_SETT_LST(&self) -> som::SomListMetaRef<'a, DeviceSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST"), DeviceSettingEntryId::new)
+    }
+
+    pub fn USSET_SETT_LST(&self) -> som::SomListMetaRef<'a, UserSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST"), UserSettingEntryId::new)
     }
 
     pub fn INRS(&self) -> som::SomMetaRef<'a> {
@@ -77809,6 +78478,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"))
     }
 
+    pub fn SCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ServerConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST"), ServerConfigurationSettingEntryId::new)
+    }
+
     pub fn UPTL(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"))
     }
@@ -77831,6 +78504,10 @@ impl<'a> D00SolutionBlueprintId<'a> {
 
     pub fn BJMM(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"))
+    }
+
+    pub fn SCJOB_JOB_LST(&self) -> som::SomListMetaRef<'a, ScheduledJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST"), ScheduledJobEntryId::new)
     }
 
     pub fn ADENMA(&self) -> som::SomMetaRef<'a> {
@@ -80478,6 +81155,18 @@ impl<'a> D03InformationModelId<'a> {
     pub fn MSGKE_MKEY_LST(&self) -> som::SomListMetaRef<'a, MessageKeyEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "messageKeyRegistry/MSGKE-MKEY-LST"), MessageKeyEntryId::new)
     }
+
+    pub fn SVOPE_OPER_LST(&self) -> som::SomListMetaRef<'a, ServerOperationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "serverOperationRegistry/SVOPE-OPER-LST"), ServerOperationEntryId::new)
+    }
+
+    pub fn MIGTG_TARG_LST(&self) -> som::SomListMetaRef<'a, MigrationTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration/MIGTG-TARG-LST"), MigrationTargetEntryId::new)
+    }
+
+    pub fn SCMST_STEP_LST(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration/SCMST-STEP-LST"), SchemaMigrationStepEntryId::new)
+    }
 }
 
 /// D04RequirementsSpecificationId holds the ID-tree accessors of `D04RequirementsSpecification` (SOM §8):
@@ -81577,6 +82266,10 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
+    }
+
     pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
     }
@@ -81699,6 +82392,18 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
 
     pub fn CSRCP(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/securityRequirements/CSRCP"))
+    }
+
+    pub fn CCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ClientConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/clientConfiguration/CCSET-SETT-LST"), ClientConfigurationSettingEntryId::new)
+    }
+
+    pub fn DSSET_SETT_LST(&self) -> som::SomListMetaRef<'a, DeviceSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/deviceSettings/DSSET-SETT-LST"), DeviceSettingEntryId::new)
+    }
+
+    pub fn USSET_SETT_LST(&self) -> som::SomListMetaRef<'a, UserSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/userSettings/USSET-SETT-LST"), UserSettingEntryId::new)
     }
 
     pub fn INRS(&self) -> som::SomMetaRef<'a> {
@@ -82497,6 +83202,10 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCMG"))
     }
 
+    pub fn SCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ServerConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST"), ServerConfigurationSettingEntryId::new)
+    }
+
     pub fn UPTL(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTL"))
     }
@@ -82519,6 +83228,10 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
 
     pub fn BJMM(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJMM"))
+    }
+
+    pub fn SCJOB_JOB_LST(&self) -> som::SomListMetaRef<'a, ScheduledJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST"), ScheduledJobEntryId::new)
     }
 
     pub fn ADENMA(&self) -> som::SomMetaRef<'a> {
@@ -85839,6 +86552,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/osRequirements/SORL"))
     }
 
+    pub fn CLIAPP_CLIE_LST(&self) -> som::SomListMetaRef<'a, ClientApplicationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
+    }
+
     pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
     }
@@ -85961,6 +86678,18 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn CSRCP(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"))
+    }
+
+    pub fn CCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ClientConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST"), ClientConfigurationSettingEntryId::new)
+    }
+
+    pub fn DSSET_SETT_LST(&self) -> som::SomListMetaRef<'a, DeviceSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST"), DeviceSettingEntryId::new)
+    }
+
+    pub fn USSET_SETT_LST(&self) -> som::SomListMetaRef<'a, UserSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST"), UserSettingEntryId::new)
     }
 
     pub fn INRS(&self) -> som::SomMetaRef<'a> {
@@ -86759,6 +87488,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"))
     }
 
+    pub fn SCSET_SETT_LST(&self) -> som::SomListMetaRef<'a, ServerConfigurationSettingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST"), ServerConfigurationSettingEntryId::new)
+    }
+
     pub fn UPTL(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"))
     }
@@ -86781,6 +87514,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn BJMM(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"))
+    }
+
+    pub fn SCJOB_JOB_LST(&self) -> som::SomListMetaRef<'a, ScheduledJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST"), ScheduledJobEntryId::new)
     }
 
     pub fn ADENMA(&self) -> som::SomMetaRef<'a> {
@@ -87513,6 +88250,18 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions/REEN-REPO-LST"), ReportEntryId::new)
+    }
+
+    pub fn MIGTG_TARG_LST(&self) -> som::SomListMetaRef<'a, MigrationTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration/MIGTG-TARG-LST"), MigrationTargetEntryId::new)
+    }
+
+    pub fn SCMST_STEP_LST(&self) -> som::SomListMetaRef<'a, SchemaMigrationStepEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "schemaVersioningAndMigration/SCMST-STEP-LST"), SchemaMigrationStepEntryId::new)
+    }
+
+    pub fn SVOPE_OPER_LST(&self) -> som::SomListMetaRef<'a, ServerOperationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "serverOperationRegistry/SVOPE-OPER-LST"), ServerOperationEntryId::new)
     }
 
     pub fn ACOVNA(&self) -> som::SomMetaRef<'a> {
@@ -89223,6 +89972,32 @@ impl<'a> DevelopmentConventionEntryId<'a> {
 
     pub fn DCEE(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DCEE"))
+    }
+}
+
+/// DeviceSettingEntryId holds the ID-tree accessors of `DeviceSettingEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct DeviceSettingEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> DeviceSettingEntryId<'a> {
+    /// Binds a DeviceSettingEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> DeviceSettingEntryId<'a> {
+        DeviceSettingEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 
@@ -93375,6 +94150,32 @@ impl<'a> MigrationSystemsId<'a> {
     /// Binds a MigrationSystemsId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> MigrationSystemsId<'a> {
         MigrationSystemsId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// MigrationTargetEntryId holds the ID-tree accessors of `MigrationTargetEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct MigrationTargetEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> MigrationTargetEntryId<'a> {
+    /// Binds a MigrationTargetEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> MigrationTargetEntryId<'a> {
+        MigrationTargetEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -97738,6 +98539,52 @@ impl<'a> ScenarioStepEntryId<'a> {
     }
 }
 
+/// ScheduledJobEntryId holds the ID-tree accessors of `ScheduledJobEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ScheduledJobEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ScheduledJobEntryId<'a> {
+    /// Binds a ScheduledJobEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ScheduledJobEntryId<'a> {
+        ScheduledJobEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn SCJOB_CRON(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-CRON"))
+    }
+
+    pub fn SCJOB_CAL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-CAL"))
+    }
+
+    pub fn SCJOB_EVNT(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-EVNT"))
+    }
+
+    pub fn SCJOB_WORK(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-WORK"))
+    }
+
+    pub fn SCJOB_FAIL(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCJOB-FAIL"))
+    }
+}
+
 /// SchemaMigrationStepEntryId holds the ID-tree accessors of `SchemaMigrationStepEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -97761,6 +98608,18 @@ impl<'a> SchemaMigrationStepEntryId<'a> {
     /// The metadata node at this position (an error past a recursive re-entry).
     pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
         self.meta_ref.meta()
+    }
+
+    pub fn SCMST_BASE(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-BASE"))
+    }
+
+    pub fn SCMST_REFD(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-REFD"))
+    }
+
+    pub fn SCMST_CHNG(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCMST-CHNG"))
     }
 }
 
@@ -97927,6 +98786,10 @@ impl<'a> ScreenElementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "fieldSpec/SEFSS"))
     }
 
+    pub fn SEFSU(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "fieldSpec/SEFSU"))
+    }
+
     pub fn SEDDB(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataDisplay/SEDDB"))
     }
@@ -98057,6 +98920,10 @@ impl<'a> ScreenFieldEntryId<'a> {
 
     pub fn SCFICH(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCFICH"))
+    }
+
+    pub fn SCFIFI(&self) -> som::SomMetaRef<'a> {
+        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCFIFI"))
     }
 
     pub fn SCFILA(&self) -> som::SomMetaRef<'a> {
@@ -98480,6 +99347,32 @@ impl<'a> SecurityStandardEntryId<'a> {
     }
 }
 
+/// ServerConfigurationSettingEntryId holds the ID-tree accessors of `ServerConfigurationSettingEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ServerConfigurationSettingEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerConfigurationSettingEntryId<'a> {
+    /// Binds a ServerConfigurationSettingEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerConfigurationSettingEntryId<'a> {
+        ServerConfigurationSettingEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
 /// ServerEnvironmentEntryId holds the ID-tree accessors of `ServerEnvironmentEntry` (SOM §8):
 /// methods named by section id (`-` → `_`), hoisted through id-less members
 /// so every reachable id is one step. `.path` and `.meta()` agree with the
@@ -98519,6 +99412,66 @@ impl<'a> ServerEnvironmentEntryId<'a> {
 
     pub fn SEENENLI(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEENENLI"))
+    }
+}
+
+/// ServerOperationEntryId holds the ID-tree accessors of `ServerOperationEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ServerOperationEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerOperationEntryId<'a> {
+    /// Binds a ServerOperationEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerOperationEntryId<'a> {
+        ServerOperationEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+
+    pub fn SVOPM_REQM_LST(&self) -> som::SomListMetaRef<'a, ServerOperationMemberEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOPM-REQM-LST"), ServerOperationMemberEntryId::new)
+    }
+
+    pub fn SVOPM_RESM_LST(&self) -> som::SomListMetaRef<'a, ServerOperationMemberEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SVOPM-RESM-LST"), ServerOperationMemberEntryId::new)
+    }
+}
+
+/// ServerOperationMemberEntryId holds the ID-tree accessors of `ServerOperationMemberEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct ServerOperationMemberEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> ServerOperationMemberEntryId<'a> {
+    /// Binds a ServerOperationMemberEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ServerOperationMemberEntryId<'a> {
+        ServerOperationMemberEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
     }
 }
 
@@ -101721,6 +102674,32 @@ impl<'a> UserNotificationPreferencesId<'a> {
     /// Binds a UserNotificationPreferencesId accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> UserNotificationPreferencesId<'a> {
         UserNotificationPreferencesId { meta_ref: som::SomMetaRef::new(tree, path) }
+    }
+
+    /// The absolute document path of this position (SOM §8 path grammar).
+    pub fn path(&self) -> &str {
+        &self.meta_ref.path
+    }
+
+    /// The metadata node at this position (an error past a recursive re-entry).
+    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
+        self.meta_ref.meta()
+    }
+}
+
+/// UserSettingEntryId holds the ID-tree accessors of `UserSettingEntry` (SOM §8):
+/// methods named by section id (`-` → `_`), hoisted through id-less members
+/// so every reachable id is one step. `.path` and `.meta()` agree with the
+/// dot-notation surface.
+pub struct UserSettingEntryId<'a> {
+    /// The bound tree/path position of this accessor.
+    pub meta_ref: som::SomMetaRef<'a>,
+}
+
+impl<'a> UserSettingEntryId<'a> {
+    /// Binds a UserSettingEntryId accessor to a tree and a path.
+    pub fn new(tree: &'a som::SomMetaTree, path: String) -> UserSettingEntryId<'a> {
+        UserSettingEntryId { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).

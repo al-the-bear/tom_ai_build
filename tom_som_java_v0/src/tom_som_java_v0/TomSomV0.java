@@ -2952,7 +2952,18 @@ public final class TomSomV0 {
     }
   }
 
-  // Batch job management.
+  // Batch job management — the scheduled jobs and the policy they run under.
+  //
+  // Two layers, deliberately separated. This section and its policy subsections
+  // author what is true of *every* job — the time-zone basis, the execution
+  // controls, the monitoring surface. [scheduledJobs] authors the jobs
+  // themselves, one entry each. A specification that has only the policy layer
+  // can say how jobs are run in general but cannot name a single one, which is
+  // exactly what the job list exists to fix.
+  //
+  // The policy is the **default layer**: an execution control stated here applies
+  // to every job that does not override it, and an entry that does override it
+  // says so in its own failure-policy subsection.
   public static final class BatchJobManagement extends SomNode {
     public BatchJobManagement(SpecDocument doc, String path) {
       super(doc, path);
@@ -2963,11 +2974,21 @@ public final class TomSomV0 {
     }
 
     // Supported job categories.
+    //
+    // A category-level summary of the scheduled work the system performs — the
+    // shape of the workload, not its inventory. The authoritative per-job
+    // declarations are [scheduledJobs]; a category named here without a job in
+    // that list is a job the specification has not actually declared.
     public BatchJobManagementJobTypesForm jobTypes() {
       return new BatchJobManagementJobTypesForm(doc, path + "/BJMJT");
     }
 
-    // Execution controls.
+    // Execution controls — the **default layer** for every job.
+    //
+    // Retry, timeout and idempotency stated here apply to every job that does
+    // not say otherwise. A job that needs different numbers overrides them in
+    // its own failure-policy subsection, so this section is the rule and the
+    // entry is the exception — never the other way round.
     public BatchJobManagementExecutionForm execution() {
       return new BatchJobManagementExecutionForm(doc, path + "/BJME");
     }
@@ -2975,6 +2996,14 @@ public final class TomSomV0 {
     // Monitoring and manual controls.
     public BatchJobManagementMonitoringForm monitoring() {
       return new BatchJobManagementMonitoringForm(doc, path + "/BJMM");
+    }
+
+    // Scheduled jobs — one entry per job the system runs.
+    //
+    // The declaration layer. Everything above is policy that applies to all
+    // jobs; this is where a job actually comes into existence.
+    public SomList<ScheduledJobEntry> scheduledJobs() {
+      return new SomList<>(doc, path + "/SCJOB-JOB-LST", (d, p) -> new ScheduledJobEntry(d, p), "SCJOB-JOB-xxx");
     }
   }
 
@@ -4668,6 +4697,39 @@ public final class TomSomV0 {
     }
   }
 
+  // A single client application of the system (CE-CL).
+  //
+  // One client: what kind of application it is, which platforms it targets,
+  // where it starts, and which screens it comprises. This is the enumeration
+  // [ClientRequirementsSection]'s requirement subsections cannot give — they
+  // state what a *machine* must provide, which is a deployment constraint on
+  // every client rather than a statement that any particular client exists.
+  //
+  // **Platform targets are referenced, never restated.** A client's platform
+  // targets are ids already declared in the browser, desktop-OS and
+  // mobile-platform requirement lists of the enclosing section. Naming a
+  // platform here that no requirement entry declares is a dangling reference,
+  // which is the point: the minimum a platform must meet is stated once.
+  //
+  // **Configuration is not restated either.** Which settings a client carries
+  // is declared in [ClientConfiguration] (CE-CC), where each setting names the
+  // client that owns it. A client that also listed its settings would be the
+  // second source those two would eventually disagree through
+  // (`codespecs_mapping.md` §11).
+  //
+  // **Screens, not flows.** A client comprises screens; the flows *between*
+  // those screens are the screen flow structure's own subject (D09 XDS) and are
+  // reached through the entry route, not listed again per client.
+  public static final class ClientApplicationEntry extends SomNode {
+    public ClientApplicationEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ClientApplicationEntryContentForm content() {
+      return new ClientApplicationEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Client configuration — per-machine settings of a client application (CE-CC).
   //
   // Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -4680,8 +4742,39 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    public ClientConfigurationContentForm content() {
-      return new ClientConfigurationContentForm(doc, path + "/content");
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The declared client configuration settings.
+    public SomList<ClientConfigurationSettingEntry> settings() {
+      return new SomList<>(doc, path + "/CCSET-SETT-LST", (d, p) -> new ClientConfigurationSettingEntry(d, p), "CCSET-SETT-xxx");
+    }
+  }
+
+  // A single declared client configuration setting (CE-CC).
+  //
+  // The declaration only: key, value type, default, and which narrower scopes
+  // may shadow the key. The *value* is never authored — it comes from the client
+  // app's configuration resources or from this install's persisted overrides
+  // (`codespecs_mapping.md` §5.16).
+  public static final class ClientConfigurationSettingEntry extends SomNode {
+    public ClientConfigurationSettingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ClientConfigurationSettingEntryContentForm content() {
+      return new ClientConfigurationSettingEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -4749,8 +4842,18 @@ public final class TomSomV0 {
 
   // 8.4.2. Client Requirements.
   //
-  // Minimum client requirements: browser versions, operating systems, screen
-  // resolution, network bandwidth, and device capabilities.
+  // Two layers that answer two different questions.
+  //
+  // **Which client applications exist** — [clientApplications], one
+  // [ClientApplicationEntry] per client, naming its kind, its entry route and
+  // the screens it comprises. This is the enumerable set of clients; a client
+  // not listed there does not exist.
+  //
+  // **What a user's machine must provide** — every other subsection: browser,
+  // desktop-OS, mobile-device, display, network, hardware, accessibility and
+  // security minimums. These are deployment constraints on the *environment*,
+  // not clients, which is why a client entry *references* them rather than
+  // restating them.
   public static final class ClientRequirementsSection extends SomNode {
     public ClientRequirementsSection(SpecDocument doc, String path) {
       super(doc, path);
@@ -4772,6 +4875,11 @@ public final class TomSomV0 {
 
     // Overview of client requirements strategy.
     // (skipped: overview has no target type)
+
+    // The client applications the system consists of (CE-CL).
+    public SomList<ClientApplicationEntry> clientApplications() {
+      return new SomList<>(doc, path + "/CLIAPP-CLIE-LST", (d, p) -> new ClientApplicationEntry(d, p), "CLIAPP-CLIE-xxx");
+    }
 
     // Web browser requirements.
     public SomList<BrowserRequirementEntry> browserRequirements() {
@@ -4831,6 +4939,11 @@ public final class TomSomV0 {
     // User-specific settings of a user-owned device (CE-DS).
     public DeviceSettings deviceSettings() {
       return new DeviceSettings(doc, path + "/deviceSettings");
+    }
+
+    // Server-persisted settings that follow the user across devices (CE-UP).
+    public UserSettings userSettings() {
+      return new UserSettings(doc, path + "/userSettings");
     }
   }
 
@@ -7362,16 +7475,6 @@ public final class TomSomV0 {
       return new SomList<>(doc, path + "/WOBURU-BUSI-LST", (d, p) -> new WorkflowBusinessRule(d, p), "WOBURU-BUSI-xxx");
     }
 
-    // Manual steps requiring human intervention.
-    public SomList<WorkflowStepEntry> manualSteps() {
-      return new SomList<>(doc, path + "/WSE-MANU-LST", (d, p) -> new WorkflowStepEntry(d, p), "WSE-MANU-xxx");
-    }
-
-    // Error-prone steps with high failure rates.
-    public SomList<WorkflowStepEntry> errorProneSteps() {
-      return new SomList<>(doc, path + "/WSE-ERRO-LST", (d, p) -> new WorkflowStepEntry(d, p), "WSE-ERRO-xxx");
-    }
-
     // Workflow timing and performance.
     public CurrentWorkflowEntryTimingForm timing() {
       return new CurrentWorkflowEntryTimingForm(doc, path + "/WOTI");
@@ -7957,6 +8060,25 @@ public final class TomSomV0 {
     // (csmb7).
     public MessageKeyRegistry messageKeyRegistry() {
       return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
+    }
+
+    // Server operation registry — the system's own operation surface (CE-API):
+    // one entry per operation the server answers.
+    //
+    // Projected here rather than into a separate document because an operation is
+    // defined by the entity it reads and writes, which this document owns.
+    public ServerOperationRegistry serverOperationRegistry() {
+      return new ServerOperationRegistry(doc, path + "/serverOperationRegistry");
+    }
+
+    // Schema versioning and migration — the CE-MG home: the versioning policy,
+    // the data source / schema targets, and the ordered artifact set that
+    // establishes and evolves the schema.
+    //
+    // Projected here because the artifact chain must converge on the entity and
+    // attribute model this document owns.
+    public SchemaVersioningAndMigration schemaVersioningAndMigration() {
+      return new SchemaVersioningAndMigration(doc, path + "/schemaVersioningAndMigration");
     }
   }
 
@@ -9226,7 +9348,18 @@ public final class TomSomV0 {
       return new DataModel(doc, path + "/dataModel");
     }
 
-    // Technical framework — CE-CF platform/config foundation.
+    // Technical framework — the platform foundation and **all four settings
+    // scopes**.
+    //
+    // The subtree spans both loci because the four configuration scopes are
+    // authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+    // server configuration (`SystemConfigurationManagement`) is server-only,
+    // while CE-CC client configuration, CE-DS device settings and CE-UP user
+    // settings are authored under the client-requirements subtree and route to
+    // the client project. CE-UP additionally has a server-side persistence half
+    // generated from the *same* declarations, so it appears in both projects —
+    // the scope is expressed by which section a setting is declared in, never by
+    // a discriminator field.
     public TechnicalFrameworkConcept technicalFramework() {
       return new TechnicalFrameworkConcept(doc, path + "/technicalFramework");
     }
@@ -9260,6 +9393,41 @@ public final class TomSomV0 {
     // `PrintAndExportLayout`, deliberately unreachable from here.
     public ReportDefinitions reportDefinitions() {
       return new ReportDefinitions(doc, path + "/reportDefinitions");
+    }
+
+    // Schema versioning and migration — CE-MG migration artifacts.
+    //
+    // The artifacts ship with the server project because that is where the
+    // migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+    // supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+    // gives the data source / schema directory placement, `SCMST.artifactKind`
+    // the artifact kind, and `SCMST.environments` the filename environment tag.
+    // The artifact *filenames* are authored, not derived — a §5.23 string
+    // exemption — so they are not part of the generated surface.
+    //
+    // The subtree sits beside `dataModel` above for a reason: the cumulative
+    // effect of a schema's artifacts must converge on the CE-DB model that entry
+    // generates, and that convergence is a validator check over both.
+    public SchemaVersioningAndMigration schemaVersioningAndMigration() {
+      return new SchemaVersioningAndMigration(doc, path + "/schemaVersioningAndMigration");
+    }
+
+    // Server operation registry — the application's **own** CE-API surface.
+    //
+    // The one subtree that declares what the system answers. It spans two loci
+    // because a CE-API operation generates two halves (`codespecs_mapping.md`
+    // §4.2): the **operation catalogue and the request/response types** are
+    // shared — the client cites an operation and depends on its shapes — while
+    // the **operation itself** lands on the owning service unit in the server
+    // project. Which service unit that is follows from each operation's primary
+    // written data entity (§5.17), so ownership is derived here rather than
+    // declared.
+    //
+    // The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+    // reachable from this projection: it describes third-party interfaces the
+    // system talks to, not the surface the system generates.
+    public ServerOperationRegistry serverOperationRegistry() {
+      return new ServerOperationRegistry(doc, path + "/serverOperationRegistry");
     }
 
     // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -10211,7 +10379,7 @@ public final class TomSomV0 {
     }
   }
 
-  // 7.9. Data Model Follow-up Facets.
+  // 7.10. Data Model Follow-up Facets.
   //
   // Operational and governance facets that accompany the data model but are not
   // part of the generation-owned entity/attribute schema: the model-wide ER
@@ -10238,10 +10406,10 @@ public final class TomSomV0 {
       doc.setContent(path + "/content", value);
     }
 
-    // 7.9.1. Entity-Relationship Diagram (mermaid).
+    // 7.10.1. Entity-Relationship Diagram (mermaid).
     // (skipped: erDiagram has no target type)
 
-    // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    // 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
     public SomList<EntityFollowUpEntry> entityFollowUps() {
       return new SomList<>(doc, path + "/DMFUE-ENFU-LST", (d, p) -> new EntityFollowUpEntry(d, p), "DMFUE-ENFU-xxx");
     }
@@ -12330,6 +12498,26 @@ public final class TomSomV0 {
     }
   }
 
+  // A single declared device setting (CE-DS).
+  //
+  // The declaration only: key, value type and default. The value is the user's
+  // choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+  //
+  // There is deliberately no shadowing field. §5.16 puts the opt-in on the
+  // *wider* scope — a key is shadowable only because its wider-scope declaration
+  // says so — and CE-DS is the narrowest scope, so it has nothing below it to
+  // open. Declaring the same relation from both ends would be two authored
+  // fields that can disagree.
+  public static final class DeviceSettingEntry extends SomNode {
+    public DeviceSettingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public DeviceSettingEntryContentForm content() {
+      return new DeviceSettingEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Device settings — user-specific settings of a user-owned device (CE-DS).
   //
   // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -12344,8 +12532,23 @@ public final class TomSomV0 {
       super(doc, path);
     }
 
-    public DeviceSettingsContentForm content() {
-      return new DeviceSettingsContentForm(doc, path + "/content");
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The declared device settings.
+    public SomList<DeviceSettingEntry> settings() {
+      return new SomList<>(doc, path + "/DSSET-SETT-LST", (d, p) -> new DeviceSettingEntry(d, p), "DSSET-SETT-xxx");
     }
   }
 
@@ -17126,7 +17329,16 @@ public final class TomSomV0 {
       return new MessageKeyRegistry(doc, path + "/messageKeyRegistry");
     }
 
-    // 7.9. Data Model Follow-up Facets.
+    // 7.9. Server Operation Registry.
+    //
+    // The system's **own** operation surface (CE-API): one entry per operation
+    // the server answers, with its request/response members, the data entity it
+    // primarily writes, and its authorization requirement.
+    public ServerOperationRegistry serverOperationRegistry() {
+      return new ServerOperationRegistry(doc, path + "/serverOperationRegistry");
+    }
+
+    // 7.10. Data Model Follow-up Facets.
     //
     // Per-entity operational/governance facets (volume, compliance, technical
     // characteristics, migration mappings) and the model-wide ER diagram —
@@ -17537,6 +17749,13 @@ public final class TomSomV0 {
   }
 
   // A single integration point entry.
+  //
+  // How a domain object connects to the outside world. It describes *outward
+  // connections* — which interfaces surface the object, which events it takes
+  // part in, how it maps onto external systems — and deliberately declares no
+  // operation of the application's own: those live in the server operation
+  // registry (SVOPR), which is the one place an operation is named and given its
+  // request/response shapes.
   public static final class IntegrationPointEntry extends SomNode {
     public IntegrationPointEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -18040,7 +18259,16 @@ public final class TomSomV0 {
     // (skipped: changelog has no target type)
   }
 
-  // API operation entry.
+  // An operation of an **external** interface.
+  //
+  // One operation of a third-party system the application talks to, described in
+  // that system's own terms — including its transport method and path, which a
+  // foreign contract genuinely has.
+  //
+  // This is **not** where the application's own operations are declared: those
+  // live in the server operation registry (SVOPR), under the
+  // `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+  // the operation name the sole identifier.
   public static final class InterfaceOperationEntry extends SomNode {
     public InterfaceOperationEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -18945,6 +19173,13 @@ public final class TomSomV0 {
   // 10.12.4. Language and Country Selection.
   //
   // UI specification for language and country selection.
+  //
+  // This is the *picker* — how a user is offered languages and countries, what
+  // is preselected, how the choice is retained across a sign-in, and how the
+  // system falls back. The underlying `ui.language` / `ui.country` preference is
+  // **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+  // why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+  // setting declaration (`codespecs_mapping.md` §5.16).
   public static final class LanguageCountrySelection extends SomNode {
     public LanguageCountrySelection(SpecDocument doc, String path) {
       super(doc, path);
@@ -20659,6 +20894,22 @@ public final class TomSomV0 {
 
     public MigrationSystemsContentForm content() {
       return new MigrationSystemsContentForm(doc, path + "/content");
+    }
+  }
+
+  // A single migration target — one data source / schema pair (form).
+  //
+  // Migration artifacts are filed per data source and per schema within it, so a
+  // system with several databases — or several database *types* — needs no extra
+  // specification surface beyond naming each target once here. Every artifact in
+  // 7.4.2 then names the target it applies to rather than repeating the pair.
+  public static final class MigrationTargetEntry extends SomNode {
+    public MigrationTargetEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public MigrationTargetEntryContentForm content() {
+      return new MigrationTargetEntryContentForm(doc, path + "/content");
     }
   }
 
@@ -28838,6 +29089,90 @@ public final class TomSomV0 {
     }
   }
 
+  // A single scheduled job (form + trigger case + work definition + failure
+  // policy).
+  //
+  // One background job: what starts it, what it does, which data it acts on,
+  // what happens when it fails, and where it is deployed. Work that runs *off*
+  // the request thread is what separates a job from a server operation — the
+  // trigger is that axis, which is why it is a required, closed choice rather
+  // than free text.
+  //
+  // **Where the specification stops and the code begins.** This entry carries
+  // the job's *intent* — what it does, over which data, in what order. It does
+  // **not** carry the work body: the body is written in the CodeSpec as
+  // compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+  // §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+  // place. State the intent well enough that the body can be written from it,
+  // then stop.
+  //
+  // **Ownership is derived, not declared.** The service unit that owns a job
+  // follows from the entity it primarily writes, exactly as it does for a server
+  // operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+  // entity and never the unit. Two places to state one fact is how they come to
+  // disagree.
+  //
+  // **A scheduled report is not declared twice.** A report definition that names
+  // a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+  // comes from the report, not from an entry here. List a job here only when the
+  // work is not already the schedule of a report.
+  public static final class ScheduledJobEntry extends SomNode {
+    public ScheduledJobEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ScheduledJobEntryContentForm content() {
+      return new ScheduledJobEntryContentForm(doc, path + "/content");
+    }
+
+    // Cron trigger — a promoted `@OneOf` case.
+    //
+    // Present only for the `cron` kind: a recurring clock expression, taken
+    // verbatim. It is a single field because that is exactly what the trigger
+    // is — the zone it is read in is the system-wide one stated on
+    // [BatchJobManagement], and catch-up behaviour after a missed window is a
+    // scheduler setting rather than a specification statement.
+    public ScheduledJobEntryCronTriggerForm cronTrigger() {
+      return new ScheduledJobEntryCronTriggerForm(doc, path + "/SCJOB-CRON");
+    }
+
+    // Calendar trigger — a promoted `@OneOf` case.
+    //
+    // Present only for the `calendar` kind: a date rule a clock expression
+    // cannot state — the last day of the month, the third Monday of a quarter.
+    public ScheduledJobEntryCalendarTriggerForm calendarTrigger() {
+      return new ScheduledJobEntryCalendarTriggerForm(doc, path + "/SCJOB-CAL");
+    }
+
+    // Event trigger — a promoted `@OneOf` case.
+    //
+    // Present only for the `event` kind. An event-triggered job does not fire on
+    // time at all, so it has no schedule; what it has instead — and what neither
+    // other arm has — is an occurrence carrying data the work reads.
+    public ScheduledJobEntryEventTriggerForm eventTrigger() {
+      return new ScheduledJobEntryEventTriggerForm(doc, path + "/SCJOB-EVNT");
+    }
+
+    // What the job does and which data it acts on.
+    //
+    // The intent half of the work definition. The body that realises it is
+    // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+    // section says what that body must achieve and over which data, in enough
+    // detail that it can be written from here without a second conversation.
+    public ScheduledJobEntryWorkDefinitionForm workDefinition() {
+      return new ScheduledJobEntryWorkDefinitionForm(doc, path + "/SCJOB-WORK");
+    }
+
+    // This job's departures from the system-wide execution policy.
+    //
+    // Every field is an override. Left empty, the job inherits the Execution
+    // Controls (BJME) default; the policy stays the rule and the entry is the
+    // exception.
+    public ScheduledJobEntryFailurePolicyForm failurePolicy() {
+      return new ScheduledJobEntryFailurePolicyForm(doc, path + "/SCJOB-FAIL");
+    }
+  }
+
   // Scheduled maintenance policy.
   public static final class ScheduledMaintenancePolicy extends SomNode {
     public ScheduledMaintenancePolicy(SpecDocument doc, String path) {
@@ -28869,11 +29204,12 @@ public final class TomSomV0 {
     }
   }
 
-  // A single schema migration step (form).
+  // A single migration artifact (form).
   //
-  // One versioned change to the database schema — the DDL operations it applies,
-  // the entities it touches, whether it is reversible, and any data backfill it
-  // performs as part of the schema change.
+  // One versioned artifact in the migration set: what it is (baseline schema,
+  // reference data, or a schema change), which target it applies to, and which
+  // deployment environments it is restricted to. The kind-specific detail lives
+  // in the promoted case subsection its `artifactKind` selects.
   public static final class SchemaMigrationStepEntry extends SomNode {
     public SchemaMigrationStepEntry(SpecDocument doc, String path) {
       super(doc, path);
@@ -28882,15 +29218,44 @@ public final class TomSomV0 {
     public SchemaMigrationStepEntryContentForm content() {
       return new SchemaMigrationStepEntryContentForm(doc, path + "/content");
     }
+
+    // Baseline schema definition — a promoted `@OneOf` case.
+    //
+    // Present only for the `initialDdl` kind. It establishes the schema, so there
+    // is no prior state: no affected-entity delta, no backfill, and nothing to
+    // roll back to.
+    public SchemaMigrationStepEntryBaselineSchemaForm baselineSchema() {
+      return new SchemaMigrationStepEntryBaselineSchemaForm(doc, path + "/SCMST-BASE");
+    }
+
+    // Reference-data definition — a promoted `@OneOf` case.
+    //
+    // Present only for the `referenceData` kind. This artifact inserts rows, not
+    // schema, so it authors the value set rather than schema statements. It is
+    // the new system's own initial data — legacy business-data migration stays in
+    // the migration-mapping sections (`MIGME`).
+    public SchemaMigrationStepEntryReferenceDataForm referenceData() {
+      return new SchemaMigrationStepEntryReferenceDataForm(doc, path + "/SCMST-REFD");
+    }
+
+    // Schema change — a promoted `@OneOf` case.
+    //
+    // Present only for the `schemaChange` kind: an evolution step on top of an
+    // existing schema. This is the only kind for which a delta of affected
+    // entities, a data backfill and reversibility are meaningful.
+    public SchemaMigrationStepEntrySchemaChangeForm schemaChange() {
+      return new SchemaMigrationStepEntrySchemaChangeForm(doc, path + "/SCMST-CHNG");
+    }
   }
 
   // 7.4. Schema Versioning and Migration.
   //
   // Records how the database schema is *versioned and migrated* as the data
-  // model evolves — the ordered DDL / migration steps and the tooling and
-  // policy that govern them. This is distinct from business-data migration
-  // between systems (see `MigrationMappingEntry` for old→new field mapping):
-  // here the subject is the schema's own evolution over releases.
+  // model evolves — the versioning policy, the data source / schema targets, and
+  // the ordered artifact set that establishes and evolves the schema. This is
+  // distinct from business-data migration between systems (see
+  // `MigrationMappingEntry` for old→new field mapping): here the subject is the
+  // schema's own evolution over releases.
   public static final class SchemaVersioningAndMigration extends SomNode {
     public SchemaVersioningAndMigration(SpecDocument doc, String path) {
       super(doc, path);
@@ -28900,7 +29265,12 @@ public final class TomSomV0 {
       return new SchemaVersioningAndMigrationContentForm(doc, path + "/content");
     }
 
-    // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+    public SomList<MigrationTargetEntry> migrationTargets() {
+      return new SomList<>(doc, path + "/MIGTG-TARG-LST", (d, p) -> new MigrationTargetEntry(d, p), "MIGTG-TARG-xxx");
+    }
+
+    // 7.4.2. Schema Migration Steps — one entry per versioned artifact.
     public SomList<SchemaMigrationStepEntry> migrationSteps() {
       return new SomList<>(doc, path + "/SCMST-STEP-LST", (d, p) -> new SchemaMigrationStepEntry(d, p), "SCMST-STEP-xxx");
     }
@@ -29220,6 +29590,18 @@ public final class TomSomV0 {
     public ScreenElementFieldSpecSelectOptionsForm selectOptions() {
       return new ScreenElementFieldSpecSelectOptionsForm(doc, path + "/SEFSS");
     }
+
+    // File-kind options — a promoted `@OneOf` case (csrb8).
+    //
+    // Present only for the file field kind; carries what may be chosen and how
+    // the chosen file is shown. The **storage group** is deliberately absent: a
+    // file's group is authored once on its CE-DB file-reference column
+    // (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+    // name different groups. So is a download affordance, which follows from the
+    // field being wired for transfer and the file being stored (§5.18).
+    public ScreenElementFieldSpecFileOptionsForm fileOptions() {
+      return new ScreenElementFieldSpecFileOptionsForm(doc, path + "/SEFSU");
+    }
   }
 
   // A screen entry (form).
@@ -29337,6 +29719,18 @@ public final class TomSomV0 {
     // Choice-kind option source — a promoted `@OneOf` case (csra4).
     public ScreenFieldEntryChoiceOptionsForm choiceOptions() {
       return new ScreenFieldEntryChoiceOptionsForm(doc, path + "/SCFICH");
+    }
+
+    // File-kind input constraints — a promoted `@OneOf` case (csrb8).
+    //
+    // Constraints only. **How** the file is presented — link, dropzone or
+    // thumbnail — is the D09 design pass's `fileOptions`
+    // (`ScreenElementFieldSpec`), because a requirement names the kind of value
+    // a user supplies and the design names the concrete control. The storage
+    // group is neither side's: it is authored on the CE-DB file-reference column
+    // (`codespecs_mapping.md` §5.13.1).
+    public ScreenFieldEntryFileConstraintsForm fileConstraints() {
+      return new ScreenFieldEntryFileConstraintsForm(doc, path + "/SCFIFI");
     }
 
     // UI and layout.
@@ -30418,6 +30812,29 @@ public final class TomSomV0 {
     }
   }
 
+  // A single declared server / system configuration setting (CE-CF).
+  //
+  // The declaration only: key, value type, default, the environment variable and
+  // command-line option it may also be read from, whether it carries a secret,
+  // and which narrower scopes may shadow it. The *value* is supplied per
+  // deployment through the configuration
+  // tree, the OS environment, a `.env` file or the command line (in that
+  // precedence, command line winning) and is never authored. A secret-bearing
+  // setting declares its presence and shape so deployment tooling can supply
+  // the content out of band (`codespecs_mapping.md` §5.16).
+  //
+  // Security and infrastructure configuration is scope-pinned: it stays
+  // server-side unless the declaration explicitly opens it to a narrower scope.
+  public static final class ServerConfigurationSettingEntry extends SomNode {
+    public ServerConfigurationSettingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServerConfigurationSettingEntryContentForm content() {
+      return new ServerConfigurationSettingEntryContentForm(doc, path + "/content");
+    }
+  }
+
   // Server environment entry (development, staging, production, DR).
   public static final class ServerEnvironmentEntry extends SomNode {
     public ServerEnvironmentEntry(SpecDocument doc, String path) {
@@ -30446,6 +30863,110 @@ public final class TomSomV0 {
     // Lifecycle rules.
     public ServerEnvironmentEntryLifecycleForm lifecycle() {
       return new ServerEnvironmentEntryLifecycleForm(doc, path + "/SEENENLI");
+    }
+  }
+
+  // A single server operation (form + request/response members).
+  //
+  // One entry in the [ServerOperationRegistry]: the operation name that
+  // identifies it, its purpose, the data entity it primarily writes, its
+  // authorization requirement, the error codes it may return, and the members
+  // that make up its request and response shapes.
+  //
+  // The operation name is the join token the rest of the model references: the
+  // ISC step entries cite it as the target of a client call (CE-SC), and the
+  // service unit that owns the operation follows from
+  // [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+  // list (`codespecs_mapping.md` §5.17).
+  public static final class ServerOperationEntry extends SomNode {
+    public ServerOperationEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServerOperationEntryContentForm content() {
+      return new ServerOperationEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.9.x. Request Members — the members that make up the request shape.
+    public SomList<ServerOperationMemberEntry> requestMembers() {
+      return new SomList<>(doc, path + "/SVOPM-REQM-LST", (d, p) -> new ServerOperationMemberEntry(d, p), "SVOPM-REQM-xxx");
+    }
+
+    // 7.9.x. Response Members — the members the success payload carries.
+    //
+    // These members *are* the success payload the Result envelope wraps; the
+    // envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+    // authored per operation.
+    public SomList<ServerOperationMemberEntry> responseMembers() {
+      return new SomList<>(doc, path + "/SVOPM-RESM-LST", (d, p) -> new ServerOperationMemberEntry(d, p), "SVOPM-RESM-xxx");
+    }
+  }
+
+  // A single member of an operation's request or response shape (form).
+  //
+  // One named, typed member: its name, its type, whether it must be present, and
+  // — when the type is a domain concept rather than a primitive — the data
+  // entity or domain enum it draws from. The same shape serves both the request
+  // and the response side of a [ServerOperationEntry], so a member reads the
+  // same way whichever direction it travels.
+  public static final class ServerOperationMemberEntry extends SomNode {
+    public ServerOperationMemberEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public ServerOperationMemberEntryContentForm content() {
+      return new ServerOperationMemberEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // 7.9. Server Operation Registry.
+  //
+  // The authoring home for the **application's own** operation surface — the
+  // CE-API (`serverApi`) part. Every operation the system answers is declared
+  // once here; the client side (CE-SC) only *cites* an operation, and the
+  // service unit that owns it (CE-SU) is *derived* from the entity each
+  // operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+  // declare an operation, so without this registry the system's server API would
+  // be code with no specification source.
+  //
+  // This is distinct from the **external** interface inventory under
+  // `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+  // system talks to. Those carry a transport verb and a path because a
+  // third-party API really has them; the application's own contract does not —
+  // `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+  // whose **operation name** carries the intent, and §5.14 drops transport
+  // plumbing from the spec surface.
+  //
+  // **What is deliberately not authored here** (all fixed by §7 / §5.14):
+  //
+  // - no transport method and no path — the operation name is the identifier;
+  // - no response status codes — every application outcome, success *or* error,
+  //   rides in the [ResultEnvelope]; only infrastructure failures are transport
+  //   errors;
+  // - no encoding, header, redirect, CORS or credential plumbing — framework
+  //   transport members, never spec input.
+  public static final class ServerOperationRegistry extends SomNode {
+    public ServerOperationRegistry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // 7.9.1. Operations — one entry per operation the system answers.
+    public SomList<ServerOperationEntry> operations() {
+      return new SomList<>(doc, path + "/SVOPE-OPER-LST", (d, p) -> new ServerOperationEntry(d, p), "SVOPE-OPER-xxx");
     }
   }
 
@@ -33050,6 +33571,11 @@ public final class TomSomV0 {
     // Validation, diffing, and audit controls.
     public SystemConfigurationManagementGovernanceForm governance() {
       return new SystemConfigurationManagementGovernanceForm(doc, path + "/SCMG");
+    }
+
+    // The declared server configuration settings.
+    public SomList<ServerConfigurationSettingEntry> settings() {
+      return new SomList<>(doc, path + "/SCSET-SETT-LST", (d, p) -> new ServerConfigurationSettingEntry(d, p), "SCSET-SETT-xxx");
     }
   }
 
@@ -37753,6 +38279,58 @@ public final class TomSomV0 {
 
     // Registration Flow Diagram (mermaid-sequence).
     // (skipped: registrationFlowDiagram has no target type)
+  }
+
+  // A single declared user setting (CE-UP).
+  //
+  // The declaration only: key, value type, default, and whether a per-device
+  // value may shadow the key. The value is the user's choice and is never
+  // authored (`codespecs_mapping.md` §5.16).
+  public static final class UserSettingEntry extends SomNode {
+    public UserSettingEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public UserSettingEntryContentForm content() {
+      return new UserSettingEntryContentForm(doc, path + "/content");
+    }
+  }
+
+  // User settings — server-persisted settings that follow the user (CE-UP).
+  //
+  // Keyed by the user alone: no machine and no device in the key. A user
+  // setting is persisted on the server and re-materialised on whichever device
+  // the user signs in from, which is what distinguishes it from a device
+  // setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+  // the device) and from client configuration ([ClientConfiguration], CE-CC —
+  // no user identity in the key) (`codespecs_mapping.md` §11).
+  //
+  // The scope is expressed by *which section a setting is declared in*, never
+  // by a field on a shared section: there is no persistence discriminator
+  // anywhere in the four settings scopes.
+  public static final class UserSettings extends SomNode {
+    public UserSettings(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path + "/content");
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path + "/content", value);
+    }
+
+    // The declared user settings.
+    public SomList<UserSettingEntry> settings() {
+      return new SomList<>(doc, path + "/USSET-SETT-LST", (d, p) -> new UserSettingEntry(d, p), "USSET-SETT-xxx");
+    }
   }
 
   // 4.1.4.n.5. Training Requirements.
@@ -49319,24 +49897,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String schedulingEngine() {
-      String v = doc.formField(path, "schedulingEngine");
-      return v == null ? "" : v;
-    }
-
-    public void schedulingEngine(String value) {
-      doc.setFormField(path, "schedulingEngine", value);
-    }
-
-    public String scheduleDefinition() {
-      String v = doc.formField(path, "scheduleDefinition");
-      return v == null ? "" : v;
-    }
-
-    public void scheduleDefinition(String value) {
-      doc.setFormField(path, "scheduleDefinition", value);
-    }
-
     public String timeZoneHandling() {
       String v = doc.formField(path, "timeZoneHandling");
       return v == null ? "" : v;
@@ -57260,8 +57820,8 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class ClientConfigurationContentForm extends SomNode {
-    public ClientConfigurationContentForm(SpecDocument doc, String path) {
+  public static final class ClientApplicationEntryContentForm extends SomNode {
+    public ClientApplicationEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -57279,49 +57839,134 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String apiBaseUrl() {
-      String v = doc.formField(path, "apiBaseUrl");
+    public String clientId() {
+      String v = doc.formField(path, "clientId");
       return v == null ? "" : v;
     }
 
-    public void apiBaseUrl(String value) {
-      doc.setFormField(path, "apiBaseUrl", value);
+    public void clientId(String value) {
+      doc.setFormField(path, "clientId", value);
     }
 
-    public String environment() {
-      String v = doc.formField(path, "environment");
+    public String clientName() {
+      String v = doc.formField(path, "clientName");
       return v == null ? "" : v;
     }
 
-    public void environment(String value) {
-      doc.setFormField(path, "environment", value);
+    public void clientName(String value) {
+      doc.setFormField(path, "clientName", value);
     }
 
-    public String deviceOptions() {
-      String v = doc.formField(path, "deviceOptions");
+    public String clientKind() {
+      String v = doc.formField(path, "clientKind");
       return v == null ? "" : v;
     }
 
-    public void deviceOptions(String value) {
-      doc.setFormField(path, "deviceOptions", value);
+    public void clientKind(String value) {
+      doc.setFormField(path, "clientKind", value);
     }
 
-    public String featureToggles() {
-      String v = doc.formField(path, "featureToggles");
+    public String purpose() {
+      String v = doc.formField(path, "purpose");
       return v == null ? "" : v;
     }
 
-    public void featureToggles(String value) {
-      doc.setFormField(path, "featureToggles", value);
+    public void purpose(String value) {
+      doc.setFormField(path, "purpose", value);
     }
 
-    public String updateChannel() {
-      String v = doc.formField(path, "updateChannel");
+    public String platformTargets() {
+      String v = doc.formField(path, "platformTargets");
       return v == null ? "" : v;
     }
 
-    public void updateChannel(String value) {
-      doc.setFormField(path, "updateChannel", value);
+    public void platformTargets(String value) {
+      doc.setFormField(path, "platformTargets", value);
+    }
+
+    public String entryRoute() {
+      String v = doc.formField(path, "entryRoute");
+      return v == null ? "" : v;
+    }
+
+    public void entryRoute(String value) {
+      doc.setFormField(path, "entryRoute", value);
+    }
+
+    public String includedScreens() {
+      String v = doc.formField(path, "includedScreens");
+      return v == null ? "" : v;
+    }
+
+    public void includedScreens(String value) {
+      doc.setFormField(path, "includedScreens", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ClientConfigurationSettingEntryContentForm extends SomNode {
+    public ClientConfigurationSettingEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String settingKey() {
+      String v = doc.formField(path, "settingKey");
+      return v == null ? "" : v;
+    }
+
+    public void settingKey(String value) {
+      doc.setFormField(path, "settingKey", value);
+    }
+
+    public String client() {
+      String v = doc.formField(path, "client");
+      return v == null ? "" : v;
+    }
+
+    public void client(String value) {
+      doc.setFormField(path, "client", value);
+    }
+
+    public String valueType() {
+      String v = doc.formField(path, "valueType");
+      return v == null ? "" : v;
+    }
+
+    public void valueType(String value) {
+      doc.setFormField(path, "valueType", value);
+    }
+
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+
+    public String overridableBy() {
+      String v = doc.formField(path, "overridableBy");
+      return v == null ? "" : v;
+    }
+
+    public void overridableBy(String value) {
+      doc.setFormField(path, "overridableBy", value);
     }
   }
 
@@ -83528,8 +84173,8 @@ public final class TomSomV0 {
 
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class DeviceSettingsContentForm extends SomNode {
-    public DeviceSettingsContentForm(SpecDocument doc, String path) {
+  public static final class DeviceSettingEntryContentForm extends SomNode {
+    public DeviceSettingEntryContentForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -83572,16 +84217,6 @@ public final class TomSomV0 {
 
     public void defaultValue(String value) {
       doc.setFormField(path, "defaultValue", value);
-    }
-
-    public Boolean deviceOverridable() {
-      String v = doc.formField(path, "deviceOverridable");
-      if (v == null) return null;
-      return Boolean.valueOf("true".equals(v));
-    }
-
-    public void deviceOverridable(Boolean value) {
-      doc.setFormField(path, "deviceOverridable", value == null ? "" : (value ? "true" : "false"));
     }
   }
 
@@ -120762,6 +121397,64 @@ public final class TomSomV0 {
 
     public void dataModelChangeSummary(String value) {
       doc.setFormField(path, "dataModelChangeSummary", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class MigrationTargetEntryContentForm extends SomNode {
+    public MigrationTargetEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String targetName() {
+      String v = doc.formField(path, "targetName");
+      return v == null ? "" : v;
+    }
+
+    public void targetName(String value) {
+      doc.setFormField(path, "targetName", value);
+    }
+
+    public String dataSourceName() {
+      String v = doc.formField(path, "dataSourceName");
+      return v == null ? "" : v;
+    }
+
+    public void dataSourceName(String value) {
+      doc.setFormField(path, "dataSourceName", value);
+    }
+
+    public String schemaName() {
+      String v = doc.formField(path, "schemaName");
+      return v == null ? "" : v;
+    }
+
+    public void schemaName(String value) {
+      doc.setFormField(path, "schemaName", value);
+    }
+
+    public String purpose() {
+      String v = doc.formField(path, "purpose");
+      return v == null ? "" : v;
+    }
+
+    public void purpose(String value) {
+      doc.setFormField(path, "purpose", value);
     }
   }
 
@@ -158469,6 +159162,302 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `calendarTrigger` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryCalendarTriggerForm extends SomNode {
+    public ScheduledJobEntryCalendarTriggerForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String calendarRule() {
+      String v = doc.formField(path, "calendarRule");
+      return v == null ? "" : v;
+    }
+
+    public void calendarRule(String value) {
+      doc.setFormField(path, "calendarRule", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryContentForm extends SomNode {
+    public ScheduledJobEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String jobName() {
+      String v = doc.formField(path, "jobName");
+      return v == null ? "" : v;
+    }
+
+    public void jobName(String value) {
+      doc.setFormField(path, "jobName", value);
+    }
+
+    public String purpose() {
+      String v = doc.formField(path, "purpose");
+      return v == null ? "" : v;
+    }
+
+    public void purpose(String value) {
+      doc.setFormField(path, "purpose", value);
+    }
+
+    public String triggerKind() {
+      String v = doc.formField(path, "triggerKind");
+      return v == null ? "" : v;
+    }
+
+    public void triggerKind(String value) {
+      doc.setFormField(path, "triggerKind", value);
+    }
+
+    public String primaryDataEntity() {
+      String v = doc.formField(path, "primaryDataEntity");
+      return v == null ? "" : v;
+    }
+
+    public void primaryDataEntity(String value) {
+      doc.setFormField(path, "primaryDataEntity", value);
+    }
+
+    public Boolean enabled() {
+      String v = doc.formField(path, "enabled");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void enabled(Boolean value) {
+      doc.setFormField(path, "enabled", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String environments() {
+      String v = doc.formField(path, "environments");
+      return v == null ? "" : v;
+    }
+
+    public void environments(String value) {
+      doc.setFormField(path, "environments", value);
+    }
+  }
+
+  // Generated section facade for the `cronTrigger` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryCronTriggerForm extends SomNode {
+    public ScheduledJobEntryCronTriggerForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String cronExpression() {
+      String v = doc.formField(path, "cronExpression");
+      return v == null ? "" : v;
+    }
+
+    public void cronExpression(String value) {
+      doc.setFormField(path, "cronExpression", value);
+    }
+  }
+
+  // Generated section facade for the `eventTrigger` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryEventTriggerForm extends SomNode {
+    public ScheduledJobEntryEventTriggerForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String eventName() {
+      String v = doc.formField(path, "eventName");
+      return v == null ? "" : v;
+    }
+
+    public void eventName(String value) {
+      doc.setFormField(path, "eventName", value);
+    }
+
+    public String eventPayload() {
+      String v = doc.formField(path, "eventPayload");
+      return v == null ? "" : v;
+    }
+
+    public void eventPayload(String value) {
+      doc.setFormField(path, "eventPayload", value);
+    }
+  }
+
+  // Generated section facade for the `failurePolicy` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryFailurePolicyForm extends SomNode {
+    public ScheduledJobEntryFailurePolicyForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public Integer maxRetries() {
+      String v = doc.formField(path, "maxRetries");
+      if (v == null || v.isEmpty()) return null;
+      try { return Integer.parseInt(v); } catch (NumberFormatException e) { return null; }
+    }
+
+    public void maxRetries(Integer value) {
+      doc.setFormField(path, "maxRetries", value == null ? "" : String.valueOf(value));
+    }
+
+    public String retryBackoff() {
+      String v = doc.formField(path, "retryBackoff");
+      return v == null ? "" : v;
+    }
+
+    public void retryBackoff(String value) {
+      doc.setFormField(path, "retryBackoff", value);
+    }
+
+    public String timeout() {
+      String v = doc.formField(path, "timeout");
+      return v == null ? "" : v;
+    }
+
+    public void timeout(String value) {
+      doc.setFormField(path, "timeout", value);
+    }
+
+    public String failureAlertMessage() {
+      String v = doc.formField(path, "failureAlertMessage");
+      return v == null ? "" : v;
+    }
+
+    public void failureAlertMessage(String value) {
+      doc.setFormField(path, "failureAlertMessage", value);
+    }
+  }
+
+  // Generated section facade for the `workDefinition` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScheduledJobEntryWorkDefinitionForm extends SomNode {
+    public ScheduledJobEntryWorkDefinitionForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String workSummary() {
+      String v = doc.formField(path, "workSummary");
+      return v == null ? "" : v;
+    }
+
+    public void workSummary(String value) {
+      doc.setFormField(path, "workSummary", value);
+    }
+
+    public String readEntities() {
+      String v = doc.formField(path, "readEntities");
+      return v == null ? "" : v;
+    }
+
+    public void readEntities(String value) {
+      doc.setFormField(path, "readEntities", value);
+    }
+
+    public String writtenEntities() {
+      String v = doc.formField(path, "writtenEntities");
+      return v == null ? "" : v;
+    }
+
+    public void writtenEntities(String value) {
+      doc.setFormField(path, "writtenEntities", value);
+    }
+
+    public String targetReports() {
+      String v = doc.formField(path, "targetReports");
+      return v == null ? "" : v;
+    }
+
+    public void targetReports(String value) {
+      doc.setFormField(path, "targetReports", value);
+    }
+  }
+
   // Generated section facade for the `approval` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ScheduledMaintenancePolicyApprovalForm extends SomNode {
@@ -158734,6 +159723,55 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `baselineSchema` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SchemaMigrationStepEntryBaselineSchemaForm extends SomNode {
+    public SchemaMigrationStepEntryBaselineSchemaForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String createdEntities() {
+      String v = doc.formField(path, "createdEntities");
+      return v == null ? "" : v;
+    }
+
+    public void createdEntities(String value) {
+      doc.setFormField(path, "createdEntities", value);
+    }
+
+    public String schemaStatements() {
+      String v = doc.formField(path, "schemaStatements");
+      return v == null ? "" : v;
+    }
+
+    public void schemaStatements(String value) {
+      doc.setFormField(path, "schemaStatements", value);
+    }
+
+    public String indexesAndConstraints() {
+      String v = doc.formField(path, "indexesAndConstraints");
+      return v == null ? "" : v;
+    }
+
+    public void indexesAndConstraints(String value) {
+      doc.setFormField(path, "indexesAndConstraints", value);
+    }
+  }
+
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class SchemaMigrationStepEntryContentForm extends SomNode {
@@ -158773,13 +159811,111 @@ public final class TomSomV0 {
       doc.setFormField(path, "description", value);
     }
 
-    public String ddlOperations() {
-      String v = doc.formField(path, "ddlOperations");
+    public String artifactKind() {
+      String v = doc.formField(path, "artifactKind");
       return v == null ? "" : v;
     }
 
-    public void ddlOperations(String value) {
-      doc.setFormField(path, "ddlOperations", value);
+    public void artifactKind(String value) {
+      doc.setFormField(path, "artifactKind", value);
+    }
+
+    public String migrationTarget() {
+      String v = doc.formField(path, "migrationTarget");
+      return v == null ? "" : v;
+    }
+
+    public void migrationTarget(String value) {
+      doc.setFormField(path, "migrationTarget", value);
+    }
+
+    public String environments() {
+      String v = doc.formField(path, "environments");
+      return v == null ? "" : v;
+    }
+
+    public void environments(String value) {
+      doc.setFormField(path, "environments", value);
+    }
+  }
+
+  // Generated section facade for the `referenceData` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SchemaMigrationStepEntryReferenceDataForm extends SomNode {
+    public SchemaMigrationStepEntryReferenceDataForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String targetEntities() {
+      String v = doc.formField(path, "targetEntities");
+      return v == null ? "" : v;
+    }
+
+    public void targetEntities(String value) {
+      doc.setFormField(path, "targetEntities", value);
+    }
+
+    public String valueSet() {
+      String v = doc.formField(path, "valueSet");
+      return v == null ? "" : v;
+    }
+
+    public void valueSet(String value) {
+      doc.setFormField(path, "valueSet", value);
+    }
+
+    public String identityKey() {
+      String v = doc.formField(path, "identityKey");
+      return v == null ? "" : v;
+    }
+
+    public void identityKey(String value) {
+      doc.setFormField(path, "identityKey", value);
+    }
+  }
+
+  // Generated section facade for the `schemaChange` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class SchemaMigrationStepEntrySchemaChangeForm extends SomNode {
+    public SchemaMigrationStepEntrySchemaChangeForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String schemaStatements() {
+      String v = doc.formField(path, "schemaStatements");
+      return v == null ? "" : v;
+    }
+
+    public void schemaStatements(String value) {
+      doc.setFormField(path, "schemaStatements", value);
     }
 
     public String affectedEntities() {
@@ -158830,15 +159966,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
-    }
-
-    public String migrationTooling() {
-      String v = doc.formField(path, "migrationTooling");
-      return v == null ? "" : v;
-    }
-
-    public void migrationTooling(String value) {
-      doc.setFormField(path, "migrationTooling", value);
     }
 
     public String versioningStrategy() {
@@ -160028,6 +161155,64 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `fileOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenElementFieldSpecFileOptionsForm extends SomNode {
+    public ScreenElementFieldSpecFileOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String acceptedContentKinds() {
+      String v = doc.formField(path, "acceptedContentKinds");
+      return v == null ? "" : v;
+    }
+
+    public void acceptedContentKinds(String value) {
+      doc.setFormField(path, "acceptedContentKinds", value);
+    }
+
+    public String maxFileSize() {
+      String v = doc.formField(path, "maxFileSize");
+      return v == null ? "" : v;
+    }
+
+    public void maxFileSize(String value) {
+      doc.setFormField(path, "maxFileSize", value);
+    }
+
+    public String presentation() {
+      String v = doc.formField(path, "presentation");
+      return v == null ? "" : v;
+    }
+
+    public void presentation(String value) {
+      doc.setFormField(path, "presentation", value);
+    }
+
+    public String uploadOnPick() {
+      String v = doc.formField(path, "uploadOnPick");
+      return v == null ? "" : v;
+    }
+
+    public void uploadOnPick(String value) {
+      doc.setFormField(path, "uploadOnPick", value);
+    }
+  }
+
   // Generated section facade for the `formatting` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ScreenElementFieldSpecFormattingForm extends SomNode {
@@ -160804,6 +161989,46 @@ public final class TomSomV0 {
 
     public void helpText(String value) {
       doc.setFormField(path, "helpText", value);
+    }
+  }
+
+  // Generated section facade for the `fileConstraints` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ScreenFieldEntryFileConstraintsForm extends SomNode {
+    public ScreenFieldEntryFileConstraintsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String acceptedContentKinds() {
+      String v = doc.formField(path, "acceptedContentKinds");
+      return v == null ? "" : v;
+    }
+
+    public void acceptedContentKinds(String value) {
+      doc.setFormField(path, "acceptedContentKinds", value);
+    }
+
+    public String maxFileSize() {
+      String v = doc.formField(path, "maxFileSize");
+      return v == null ? "" : v;
+    }
+
+    public void maxFileSize(String value) {
+      doc.setFormField(path, "maxFileSize", value);
     }
   }
 
@@ -164568,6 +165793,92 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerConfigurationSettingEntryContentForm extends SomNode {
+    public ServerConfigurationSettingEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String settingKey() {
+      String v = doc.formField(path, "settingKey");
+      return v == null ? "" : v;
+    }
+
+    public void settingKey(String value) {
+      doc.setFormField(path, "settingKey", value);
+    }
+
+    public String valueType() {
+      String v = doc.formField(path, "valueType");
+      return v == null ? "" : v;
+    }
+
+    public void valueType(String value) {
+      doc.setFormField(path, "valueType", value);
+    }
+
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+
+    public String environmentVariable() {
+      String v = doc.formField(path, "environmentVariable");
+      return v == null ? "" : v;
+    }
+
+    public void environmentVariable(String value) {
+      doc.setFormField(path, "environmentVariable", value);
+    }
+
+    public String commandLineOption() {
+      String v = doc.formField(path, "commandLineOption");
+      return v == null ? "" : v;
+    }
+
+    public void commandLineOption(String value) {
+      doc.setFormField(path, "commandLineOption", value);
+    }
+
+    public Boolean secret() {
+      String v = doc.formField(path, "secret");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void secret(Boolean value) {
+      doc.setFormField(path, "secret", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String overridableBy() {
+      String v = doc.formField(path, "overridableBy");
+      return v == null ? "" : v;
+    }
+
+    public void overridableBy(String value) {
+      doc.setFormField(path, "overridableBy", value);
+    }
+  }
+
   // Generated section facade for the `access` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ServerEnvironmentEntryAccessForm extends SomNode {
@@ -164830,6 +166141,187 @@ public final class TomSomV0 {
 
     public void expectedLoad(String value) {
       doc.setFormField(path, "expectedLoad", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerOperationEntryContentForm extends SomNode {
+    public ServerOperationEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String operationName() {
+      String v = doc.formField(path, "operationName");
+      return v == null ? "" : v;
+    }
+
+    public void operationName(String value) {
+      doc.setFormField(path, "operationName", value);
+    }
+
+    public String purpose() {
+      String v = doc.formField(path, "purpose");
+      return v == null ? "" : v;
+    }
+
+    public void purpose(String value) {
+      doc.setFormField(path, "purpose", value);
+    }
+
+    public String primaryDataEntity() {
+      String v = doc.formField(path, "primaryDataEntity");
+      return v == null ? "" : v;
+    }
+
+    public void primaryDataEntity(String value) {
+      doc.setFormField(path, "primaryDataEntity", value);
+    }
+
+    public String authorizationRequirement() {
+      String v = doc.formField(path, "authorizationRequirement");
+      return v == null ? "" : v;
+    }
+
+    public void authorizationRequirement(String value) {
+      doc.setFormField(path, "authorizationRequirement", value);
+    }
+
+    public String requiredRoles() {
+      String v = doc.formField(path, "requiredRoles");
+      return v == null ? "" : v;
+    }
+
+    public void requiredRoles(String value) {
+      doc.setFormField(path, "requiredRoles", value);
+    }
+
+    public String requiredResourceKey() {
+      String v = doc.formField(path, "requiredResourceKey");
+      return v == null ? "" : v;
+    }
+
+    public void requiredResourceKey(String value) {
+      doc.setFormField(path, "requiredResourceKey", value);
+    }
+
+    public String descriptionKey() {
+      String v = doc.formField(path, "descriptionKey");
+      return v == null ? "" : v;
+    }
+
+    public void descriptionKey(String value) {
+      doc.setFormField(path, "descriptionKey", value);
+    }
+
+    public String errorCodes() {
+      String v = doc.formField(path, "errorCodes");
+      return v == null ? "" : v;
+    }
+
+    public void errorCodes(String value) {
+      doc.setFormField(path, "errorCodes", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ServerOperationMemberEntryContentForm extends SomNode {
+    public ServerOperationMemberEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String memberName() {
+      String v = doc.formField(path, "memberName");
+      return v == null ? "" : v;
+    }
+
+    public void memberName(String value) {
+      doc.setFormField(path, "memberName", value);
+    }
+
+    public String memberType() {
+      String v = doc.formField(path, "memberType");
+      return v == null ? "" : v;
+    }
+
+    public void memberType(String value) {
+      doc.setFormField(path, "memberType", value);
+    }
+
+    public Boolean multiValued() {
+      String v = doc.formField(path, "multiValued");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void multiValued(Boolean value) {
+      doc.setFormField(path, "multiValued", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean required() {
+      String v = doc.formField(path, "required");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void required(Boolean value) {
+      doc.setFormField(path, "required", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public String dataEntity() {
+      String v = doc.formField(path, "dataEntity");
+      return v == null ? "" : v;
+    }
+
+    public void dataEntity(String value) {
+      doc.setFormField(path, "dataEntity", value);
+    }
+
+    public String domainEnum() {
+      String v = doc.formField(path, "domainEnum");
+      return v == null ? "" : v;
+    }
+
+    public void domainEnum(String value) {
+      doc.setFormField(path, "domainEnum", value);
+    }
+
+    public String description() {
+      String v = doc.formField(path, "description");
+      return v == null ? "" : v;
+    }
+
+    public void description(String value) {
+      doc.setFormField(path, "description", value);
     }
   }
 
@@ -196512,6 +198004,64 @@ public final class TomSomV0 {
     }
   }
 
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class UserSettingEntryContentForm extends SomNode {
+    public UserSettingEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String settingKey() {
+      String v = doc.formField(path, "settingKey");
+      return v == null ? "" : v;
+    }
+
+    public void settingKey(String value) {
+      doc.setFormField(path, "settingKey", value);
+    }
+
+    public String valueType() {
+      String v = doc.formField(path, "valueType");
+      return v == null ? "" : v;
+    }
+
+    public void valueType(String value) {
+      doc.setFormField(path, "valueType", value);
+    }
+
+    public String defaultValue() {
+      String v = doc.formField(path, "defaultValue");
+      return v == null ? "" : v;
+    }
+
+    public void defaultValue(String value) {
+      doc.setFormField(path, "defaultValue", value);
+    }
+
+    public String overridableBy() {
+      String v = doc.formField(path, "overridableBy");
+      return v == null ? "" : v;
+    }
+
+    public void overridableBy(String value) {
+      doc.setFormField(path, "overridableBy", value);
+    }
+  }
+
   // Generated section facade for the `trainingForm` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class UserTrainingRequirementsTrainingFormForm extends SomNode {
@@ -199906,6 +201456,16 @@ public final class TomSomV0 {
 
     public void isAutomatable(Boolean value) {
       doc.setFormField(path, "isAutomatable", value == null ? "" : (value ? "true" : "false"));
+    }
+
+    public Boolean isErrorProne() {
+      String v = doc.formField(path, "isErrorProne");
+      if (v == null) return null;
+      return Boolean.valueOf("true".equals(v));
+    }
+
+    public void isErrorProne(Boolean value) {
+      doc.setFormField(path, "isErrorProne", value == null ? "" : (value ? "true" : "false"));
     }
 
     public String averageDuration() {

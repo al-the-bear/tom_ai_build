@@ -75,6 +75,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per business component.
+  cliapp-clie-lst:
+    prefix: CLIAPP_CLIE_LST
+    subsection-types:
+      cliapp-clie:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
   coreen-resp-lst:
     prefix: COREEN_RESP_LST
     subsection-types:
@@ -323,6 +331,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per build tool.
+  ccset-sett-lst:
+    prefix: CCSET_SETT_LST
+    subsection-types:
+      ccset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>."
   cmpnt-comp-lst:
     prefix: CMPNT_COMP_LST
     subsection-types:
@@ -355,6 +371,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per supported desktop operating system.
+  dsset-sett-lst:
+    prefix: DSSET_SETT_LST
+    subsection-types:
+      dsset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
   evcen-item-lst:
     prefix: EVCEN_ITEM_LST
     subsection-types:
@@ -435,6 +459,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per runtime dependency.
+  scset-sett-lst:
+    prefix: SCSET_SETT_LST
+    subsection-types:
+      scset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
   shlcp-shar-lst:
     prefix: SHLCP_SHAR_LST
     subsection-types:
@@ -459,6 +491,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per target platform.
+  usset-sett-lst:
+    prefix: USSET_SETT_LST
+    subsection-types:
+      usset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
   apcp-apic-lst:
     prefix: APCP_APIC_LST
     subsection-types:
@@ -595,6 +635,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per protocol.
+  scjob-job-lst:
+    prefix: SCJOB_JOB_LST
+    subsection-types:
+      scjob-job:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
   slen-slos-lst:
     prefix: SLEN_SLOS_LST
     subsection-types:
@@ -743,6 +791,12 @@ section-types:
       pattern: ^BUCOEN-BUSI-.+$
       error-message: IDs of this section must match BUCOEN-BUSI-xxx
     description: Add one entry per business component.
+  cliapp-clie:
+    prefix: CLIAPP_CLIE_
+    pattern-check-id:
+      pattern: ^CLIAPP-CLIE-.+$
+      error-message: IDs of this section must match CLIAPP-CLIE-xxx
+    description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
   comlicentcon:
     prefix: COMLICENTCON
     format: comlicentcon-form
@@ -1206,6 +1260,12 @@ section-types:
       pattern: ^BTCEN-BUIL-.+$
       error-message: IDs of this section must match BTCEN-BUIL-xxx
     description: Add one entry per build tool.
+  ccset-sett:
+    prefix: CCSET_SETT_
+    pattern-check-id:
+      pattern: ^CCSET-SETT-.+$
+      error-message: IDs of this section must match CCSET-SETT-xxx
+    description: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>."
   cmpnt-comp:
     prefix: CMPNT_COMP_
     subsection-types:
@@ -1264,6 +1324,12 @@ section-types:
       pattern: ^DORE1-DESK-.+$
       error-message: IDs of this section must match DORE1-DESK-xxx
     description: Add one entry per supported desktop operating system.
+  dsset-sett:
+    prefix: DSSET_SETT_
+    pattern-check-id:
+      pattern: ^DSSET-SETT-.+$
+      error-message: IDs of this section must match DSSET-SETT-xxx
+    description: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
   evcen-item:
     prefix: EVCEN_ITEM_
     subsection-types:
@@ -1406,6 +1472,12 @@ section-types:
       pattern: ^RNDEP-ITEM-.+$
       error-message: IDs of this section must match RNDEP-ITEM-xxx
     description: Add one entry per runtime dependency.
+  scset-sett:
+    prefix: SCSET_SETT_
+    pattern-check-id:
+      pattern: ^SCSET-SETT-.+$
+      error-message: IDs of this section must match SCSET-SETT-xxx
+    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
   shlcp-shar:
     prefix: SHLCP_SHAR_
     subsection-types:
@@ -1452,6 +1524,12 @@ section-types:
   trareq-tran:
     prefix: TRAREQ_TRAN
     format: trareq-tran-form
+  usset-sett:
+    prefix: USSET_SETT_
+    pattern-check-id:
+      pattern: ^USSET-SETT-.+$
+      error-message: IDs of this section must match USSET-SETT-xxx
+    description: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
   apcp-apic:
     prefix: APCP_APIC_
     subsection-types:
@@ -1708,6 +1786,39 @@ section-types:
     prefix: REUICOENIM
     format: reuicoenim-form
     description: Implementation details.
+  scjob-cron:
+    prefix: SCJOB_CRON
+    format: scjob-cron-form
+    description: "Cron trigger — a promoted `@OneOf` case."
+  scjob-evnt:
+    prefix: SCJOB_EVNT
+    format: scjob-evnt-form
+    description: "Event trigger — a promoted `@OneOf` case."
+  scjob-fail:
+    prefix: SCJOB_FAIL
+    format: scjob-fail-form
+    description: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case."
+  scjob-job:
+    prefix: SCJOB_JOB_
+    subsection-types:
+      scjob-cron:
+        max-count: 1
+      scjob-cal:
+        max-count: 1
+      scjob-evnt:
+        max-count: 1
+      scjob-work:
+        max-count: 1
+      scjob-fail:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCJOB-JOB-.+$
+      error-message: IDs of this section must match SCJOB-JOB-xxx
+    description: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
+  scjob-work:
+    prefix: SCJOB_WORK
+    format: scjob-work-form
+    description: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches."
   sestcoensc:
     prefix: SESTCOENSC
     format: sestcoensc-form
@@ -1770,6 +1881,10 @@ section-types:
   sasm-slao:
     prefix: SASM_SLAO
     format: sasm-slao-form
+  scjob-cal:
+    prefix: SCJOB_CAL
+    format: scjob-cal-form
+    description: "Calendar trigger — a promoted `@OneOf` case."
   teen-tech:
     prefix: TEEN_TECH
     format: teen-tech-form
@@ -2202,6 +2317,8 @@ section-types:
         max-count: 1
       bjmm:
         max-count: 1
+      scjob-job-lst:
+        max-count: 1
     description: Batch job management.
   bareco:
     prefix: BARECO
@@ -2319,6 +2436,9 @@ section-types:
     description: Client hardware requirements.
   clicon:
     prefix: CLICON
+    subsection-types:
+      ccset-sett-lst:
+        max-count: 1
     description: Per-machine configuration of a client application (CE-CC).
   clnere:
     prefix: CLNERE
@@ -2347,6 +2467,8 @@ section-types:
   clrese:
     prefix: CLRESE
     subsection-types:
+      cliapp-clie-lst:
+        max-count: 1
       brreen-brow-lst:
         max-count: 1
       dore1-desk-lst:
@@ -2370,6 +2492,8 @@ section-types:
       clicon:
         max-count: 1
       devset:
+        max-count: 1
+      usrset:
         max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,
@@ -2929,6 +3053,9 @@ section-types:
     description: Infrastructure layout.
   devset:
     prefix: DEVSET
+    subsection-types:
+      dsset-sett-lst:
+        max-count: 1
     description: User-specific settings of a user-owned device (CE-DS).
   direc1:
     prefix: DIREC1
@@ -3908,6 +4035,8 @@ section-types:
         max-count: 1
       scmg:
         max-count: 1
+      scset-sett-lst:
+        max-count: 1
     description: Configuration management.
   sydito:
     prefix: SYDITO
@@ -4021,6 +4150,12 @@ section-types:
       uptdi:
         max-count: 1
     description: User provisioning and management tools.
+  usrset:
+    prefix: USRSET
+    subsection-types:
+      usset-sett-lst:
+        max-count: 1
+    description: Server-persisted settings that follow the user across devices (CE-UP).
   vecoco:
     prefix: VECOCO
     subsection-types:
@@ -4066,7 +4201,7 @@ section-types:
   bjmjt:
     prefix: BJMJT
     format: bjmjt-form
-    description: Supported job categories.
+    description: "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB)."
   bmsfu:
     prefix: BMSFU
     format: bmsfu-form
@@ -5160,7 +5295,7 @@ section-types:
   bjme:
     prefix: BJME
     format: bjme-form
-    description: Execution controls.
+    description: "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits."
   bjmm:
     prefix: BJMM
     format: bjmm-form
@@ -13927,11 +14062,11 @@ form-types:
       - fieldname: priorityLevels
         description: Job priority classification
       - fieldname: retryPolicy
-        description: "Retry count, backoff, dead-letter"
+        description: "The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt"
       - fieldname: idempotency
-        description: Safe to re-run on failure
+        description: Whether jobs are required to be safe to re-run after a failure
       - fieldname: timeout
-        description: Maximum job execution time
+        description: The maximum run time a job inherits unless it overrides it
   bjmm-form:
     fields:
       - fieldname: jobDashboard
@@ -13939,13 +14074,51 @@ form-types:
       - fieldname: executionHistory
         description: Job run history and logs
       - fieldname: failureAlerts
-        description: Notification on job failure
+        description: "What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here."
       - fieldname: slaMonitoring
         description: Alert if job exceeds expected duration
       - fieldname: manualTrigger
         description: Admin can trigger jobs on demand
       - fieldname: notes
         description: Additional batch job notes
+  scjob-cron-form:
+    fields:
+      - fieldname: cronExpression
+        required: true
+        description: "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)"
+  scjob-cal-form:
+    fields:
+      - fieldname: calendarRule
+        required: true
+        description: The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)
+  scjob-evnt-form:
+    fields:
+      - fieldname: eventName
+        required: true
+        description: The system occurrence that starts the job (e.g. order.payment.settled)
+      - fieldname: eventPayload
+        description: What each occurrence carries that the work reads — typically the identity of the record the event is about
+  scjob-work-form:
+    fields:
+      - fieldname: workSummary
+        required: true
+        description: "What the job does, step by step, in prose — the intent the work body must realise"
+      - fieldname: readEntities
+        description: The Data Model entities the job reads
+      - fieldname: writtenEntities
+        description: "The Data Model entities the job writes, including the primary one"
+      - fieldname: targetReports
+        description: "The reports this job produces, where the work is a report run"
+  scjob-fail-form:
+    fields:
+      - fieldname: maxRetries
+        description: "How many times a failed run is retried, if not the default"
+      - fieldname: retryBackoff
+        description: "The delay before the first retry and how it grows, if not the default"
+      - fieldname: timeout
+        description: "How long a single run may take before it is abandoned, if not the default"
+      - fieldname: failureAlertMessage
+        description: The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.
   adenma-form:
     fields:
       - fieldname: environmentCatalog

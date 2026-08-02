@@ -164,7 +164,9 @@ class ChannelIntegrations;
 class CiCdPipelineConfiguration;
 class CiCdPipelineRequirements;
 class ClientAccessibilityRequirements;
+class ClientApplicationEntry;
 class ClientConfiguration;
+class ClientConfigurationSettingEntry;
 class ClientHardwareRequirements;
 class ClientNetworkRequirements;
 class ClientRequirementsSection;
@@ -360,6 +362,7 @@ class DeveloperOnboarding;
 class DevelopmentConventionEntry;
 class DevelopmentEnvironment;
 class DevelopmentQualityGates;
+class DeviceSettingEntry;
 class DeviceSettings;
 class DisasterRecoveryRequirements;
 class DisplayEquipmentEntry;
@@ -645,6 +648,7 @@ class MigrationRiskIndicators;
 class MigrationRisks;
 class MigrationStakeholders;
 class MigrationSystems;
+class MigrationTargetEntry;
 class MobileCompatibilityEntry;
 class MobileDeviceEntry;
 class MobileDeviceRequirementEntry;
@@ -936,6 +940,7 @@ class ScalingRequirements;
 class ScalingTriggersAndThresholds;
 class ScenarioEntry;
 class ScenarioStepEntry;
+class ScheduledJobEntry;
 class ScheduledMaintenancePolicy;
 class SchemaMigrationStepEntry;
 class SchemaVersioningAndMigration;
@@ -986,7 +991,11 @@ class SecurityTestingAutomation;
 class SelfRegistrationPolicy;
 class SelfServiceAccountManagement;
 class SensitiveDataEncryption;
+class ServerConfigurationSettingEntry;
 class ServerEnvironmentEntry;
+class ServerOperationEntry;
+class ServerOperationMemberEntry;
+class ServerOperationRegistry;
 class ServerOsRequirements;
 class ServerRequirementsSection;
 class ServerRoleEntry;
@@ -1211,6 +1220,8 @@ class UserPersonaDetails;
 class UserPersonas;
 class UserProvisioningTools;
 class UserRegistrationProcess;
+class UserSettingEntry;
+class UserSettings;
 class UserTrainingRequirements;
 class UtilityMenuItemEntry;
 class UtilityNavigation;
@@ -1565,7 +1576,8 @@ class ClientAccessibilityRequirementsContentForm;
 class ClientAccessibilityRequirementsMotorForm;
 class ClientAccessibilityRequirementsStandardsForm;
 class ClientAccessibilityRequirementsVisualForm;
-class ClientConfigurationContentForm;
+class ClientApplicationEntryContentForm;
+class ClientConfigurationSettingEntryContentForm;
 class ClientHardwareRequirementsContentForm;
 class ClientHardwareRequirementsGraphicsForm;
 class ClientHardwareRequirementsMemoryForm;
@@ -2025,7 +2037,7 @@ class DevelopmentQualityGatesCoverageForm;
 class DevelopmentQualityGatesDocumentationForm;
 class DevelopmentQualityGatesPerformanceForm;
 class DevelopmentQualityGatesSecurityForm;
-class DeviceSettingsContentForm;
+class DeviceSettingEntryContentForm;
 class DisasterRecoveryRequirementsContentForm;
 class DisasterRecoveryRequirementsContinuityForm;
 class DisasterRecoveryRequirementsFailbackForm;
@@ -2643,6 +2655,7 @@ class MigrationRisksReportingForm;
 class MigrationRisksThresholdsForm;
 class MigrationStakeholdersContentForm;
 class MigrationSystemsContentForm;
+class MigrationTargetEntryContentForm;
 class MobileCompatibilityEntryCapabilitiesForm;
 class MobileCompatibilityEntryContentForm;
 class MobileCompatibilityEntryDevicesForm;
@@ -3259,12 +3272,21 @@ class ScenarioEntryValidationForm;
 class ScenarioStepEntryContentForm;
 class ScenarioStepEntryContextForm;
 class ScenarioStepEntryExecutionForm;
+class ScheduledJobEntryCalendarTriggerForm;
+class ScheduledJobEntryContentForm;
+class ScheduledJobEntryCronTriggerForm;
+class ScheduledJobEntryEventTriggerForm;
+class ScheduledJobEntryFailurePolicyForm;
+class ScheduledJobEntryWorkDefinitionForm;
 class ScheduledMaintenancePolicyApprovalForm;
 class ScheduledMaintenancePolicyContentForm;
 class ScheduledMaintenancePolicyDurationForm;
 class ScheduledMaintenancePolicyNoticeForm;
 class ScheduledMaintenancePolicySchedulingForm;
+class SchemaMigrationStepEntryBaselineSchemaForm;
 class SchemaMigrationStepEntryContentForm;
+class SchemaMigrationStepEntryReferenceDataForm;
+class SchemaMigrationStepEntrySchemaChangeForm;
 class SchemaVersioningAndMigrationContentForm;
 class ScopeItemEntryContentForm;
 class ScreenActionEntryBehaviorForm;
@@ -3285,6 +3307,7 @@ class ScreenElementEntryPresentationForm;
 class ScreenElementEntryResourcesForm;
 class ScreenElementFieldSpecContentForm;
 class ScreenElementFieldSpecDateOptionsForm;
+class ScreenElementFieldSpecFileOptionsForm;
 class ScreenElementFieldSpecFormattingForm;
 class ScreenElementFieldSpecNumberOptionsForm;
 class ScreenElementFieldSpecSelectOptionsForm;
@@ -3299,6 +3322,7 @@ class ScreenFieldEntryChoiceOptionsForm;
 class ScreenFieldEntryConditionsForm;
 class ScreenFieldEntryContentForm;
 class ScreenFieldEntryDataBindingForm;
+class ScreenFieldEntryFileConstraintsForm;
 class ScreenFieldEntryLayoutForm;
 class ScreenFieldEntryNumericConstraintsForm;
 class ScreenFieldEntryTemporalConstraintsForm;
@@ -3367,11 +3391,14 @@ class SelfRegistrationPolicyContentForm;
 class SelfRegistrationPolicyFieldsForm;
 class SelfRegistrationPolicySecurityForm;
 class SelfRegistrationPolicyVerificationForm;
+class ServerConfigurationSettingEntryContentForm;
 class ServerEnvironmentEntryAccessForm;
 class ServerEnvironmentEntryContentForm;
 class ServerEnvironmentEntryLifecycleForm;
 class ServerEnvironmentEntryLocationForm;
 class ServerEnvironmentEntryScaleForm;
+class ServerOperationEntryContentForm;
+class ServerOperationMemberEntryContentForm;
 class ServerOsRequirementsContentForm;
 class ServerOsRequirementsHardeningForm;
 class ServerOsRequirementsLicensingForm;
@@ -3885,6 +3912,7 @@ class UserProvisioningToolsContentForm;
 class UserProvisioningToolsDirectoryIntegrationForm;
 class UserProvisioningToolsLifecycleForm;
 class UserProvisioningToolsRoleManagementForm;
+class UserSettingEntryContentForm;
 class UserTrainingRequirementsTrainingFormForm;
 class UtilityMenuItemEntryActionForm;
 class UtilityMenuItemEntryBehaviorForm;
@@ -5592,17 +5620,44 @@ class BasicTechnicalRequirements : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
-// Batch job management.
+// Batch job management — the scheduled jobs and the policy they run under.
+//
+// Two layers, deliberately separated. This section and its policy subsections
+// author what is true of *every* job — the time-zone basis, the execution
+// controls, the monitoring surface. [scheduledJobs] authors the jobs
+// themselves, one entry each. A specification that has only the policy layer
+// can say how jobs are run in general but cannot name a single one, which is
+// exactly what the job list exists to fix.
+//
+// The policy is the **default layer**: an execution control stated here applies
+// to every job that does not override it, and an entry that does override it
+// says so in its own failure-policy subsection.
 class BatchJobManagement : public som::SomNode {
  public:
   BatchJobManagement(som::SpecDocument& doc, std::string path);
   BatchJobManagementContentForm content() const;
   // Supported job categories.
+  //
+  // A category-level summary of the scheduled work the system performs — the
+  // shape of the workload, not its inventory. The authoritative per-job
+  // declarations are [scheduledJobs]; a category named here without a job in
+  // that list is a job the specification has not actually declared.
   BatchJobManagementJobTypesForm jobTypes() const;
-  // Execution controls.
+  // Execution controls — the **default layer** for every job.
+  //
+  // Retry, timeout and idempotency stated here apply to every job that does
+  // not say otherwise. A job that needs different numbers overrides them in
+  // its own failure-policy subsection, so this section is the rule and the
+  // entry is the exception — never the other way round.
   BatchJobManagementExecutionForm execution() const;
   // Monitoring and manual controls.
   BatchJobManagementMonitoringForm monitoring() const;
+  // Scheduled jobs — one entry per job the system runs.
+  //
+  // The declaration layer. Everything above is policy that applies to all
+  // jobs; this is where a job actually comes into existence.
+  // Returns the list view; element type: ScheduledJobEntry (construct from item paths).
+  som::SomList scheduledJobs() const;
 };
 
 // A single behavior rule entry.
@@ -6520,6 +6575,35 @@ class ClientAccessibilityRequirements : public som::SomNode {
   ClientAccessibilityRequirementsStandardsForm standards() const;
 };
 
+// A single client application of the system (CE-CL).
+//
+// One client: what kind of application it is, which platforms it targets,
+// where it starts, and which screens it comprises. This is the enumeration
+// [ClientRequirementsSection]'s requirement subsections cannot give — they
+// state what a *machine* must provide, which is a deployment constraint on
+// every client rather than a statement that any particular client exists.
+//
+// **Platform targets are referenced, never restated.** A client's platform
+// targets are ids already declared in the browser, desktop-OS and
+// mobile-platform requirement lists of the enclosing section. Naming a
+// platform here that no requirement entry declares is a dangling reference,
+// which is the point: the minimum a platform must meet is stated once.
+//
+// **Configuration is not restated either.** Which settings a client carries
+// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+// client that owns it. A client that also listed its settings would be the
+// second source those two would eventually disagree through
+// (`codespecs_mapping.md` §11).
+//
+// **Screens, not flows.** A client comprises screens; the flows *between*
+// those screens are the screen flow structure's own subject (D09 XDS) and are
+// reached through the entry route, not listed again per client.
+class ClientApplicationEntry : public som::SomNode {
+ public:
+  ClientApplicationEntry(som::SpecDocument& doc, std::string path);
+  ClientApplicationEntryContentForm content() const;
+};
+
 // Client configuration — per-machine settings of a client application (CE-CC).
 //
 // Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -6530,7 +6614,27 @@ class ClientAccessibilityRequirements : public som::SomNode {
 class ClientConfiguration : public som::SomNode {
  public:
   ClientConfiguration(som::SpecDocument& doc, std::string path);
-  ClientConfigurationContentForm content() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The declared client configuration settings.
+  // Returns the list view; element type: ClientConfigurationSettingEntry (construct from item paths).
+  som::SomList settings() const;
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// A single declared client configuration setting (CE-CC).
+//
+// The declaration only: key, value type, default, and which narrower scopes
+// may shadow the key. The *value* is never authored — it comes from the client
+// app's configuration resources or from this install's persisted overrides
+// (`codespecs_mapping.md` §5.16).
+class ClientConfigurationSettingEntry : public som::SomNode {
+ public:
+  ClientConfigurationSettingEntry(som::SpecDocument& doc, std::string path);
+  ClientConfigurationSettingEntryContentForm content() const;
 };
 
 // Client hardware requirements.
@@ -6565,8 +6669,18 @@ class ClientNetworkRequirements : public som::SomNode {
 
 // 8.4.2. Client Requirements.
 //
-// Minimum client requirements: browser versions, operating systems, screen
-// resolution, network bandwidth, and device capabilities.
+// Two layers that answer two different questions.
+//
+// **Which client applications exist** — [clientApplications], one
+// [ClientApplicationEntry] per client, naming its kind, its entry route and
+// the screens it comprises. This is the enumerable set of clients; a client
+// not listed there does not exist.
+//
+// **What a user's machine must provide** — every other subsection: browser,
+// desktop-OS, mobile-device, display, network, hardware, accessibility and
+// security minimums. These are deployment constraints on the *environment*,
+// not clients, which is why a client entry *references* them rather than
+// restating them.
 class ClientRequirementsSection : public som::SomNode {
  public:
   ClientRequirementsSection(som::SpecDocument& doc, std::string path);
@@ -6574,6 +6688,9 @@ class ClientRequirementsSection : public som::SomNode {
   void setContent(const std::string& value);
   // Overview of client requirements strategy.
   // (skipped: overview has no target type)
+  // The client applications the system consists of (CE-CL).
+  // Returns the list view; element type: ClientApplicationEntry (construct from item paths).
+  som::SomList clientApplications() const;
   // Web browser requirements.
   // Returns the list view; element type: BrowserRequirementEntry (construct from item paths).
   som::SomList browserRequirements() const;
@@ -6601,6 +6718,8 @@ class ClientRequirementsSection : public som::SomNode {
   ClientConfiguration clientConfiguration() const;
   // User-specific settings of a user-owned device (CE-DS).
   DeviceSettings deviceSettings() const;
+  // Server-persisted settings that follow the user across devices (CE-UP).
+  UserSettings userSettings() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -7991,12 +8110,6 @@ class CurrentWorkflowEntry : public som::SomNode {
   // Business rules governing the workflow.
   // Returns the list view; element type: WorkflowBusinessRule (construct from item paths).
   som::SomList businessRules() const;
-  // Manual steps requiring human intervention.
-  // Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-  som::SomList manualSteps() const;
-  // Error-prone steps with high failure rates.
-  // Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-  som::SomList errorProneSteps() const;
   // Workflow timing and performance.
   CurrentWorkflowEntryTimingForm timing() const;
   // Workflow exceptions and error handling.
@@ -8306,6 +8419,19 @@ class D03InformationModel : public som::SomNode {
   // copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
   // (csmb7).
   MessageKeyRegistry messageKeyRegistry() const;
+  // Server operation registry — the system's own operation surface (CE-API):
+  // one entry per operation the server answers.
+  //
+  // Projected here rather than into a separate document because an operation is
+  // defined by the entity it reads and writes, which this document owns.
+  ServerOperationRegistry serverOperationRegistry() const;
+  // Schema versioning and migration — the CE-MG home: the versioning policy,
+  // the data source / schema targets, and the ordered artifact set that
+  // establishes and evolves the schema.
+  //
+  // Projected here because the artifact chain must converge on the entity and
+  // attribute model this document owns.
+  SchemaVersioningAndMigration schemaVersioningAndMigration() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -8963,7 +9089,18 @@ class D13CodeSpecsProjection : public som::SomNode {
   NotificationModel notificationModel() const;
   // Data model — CE-DB persistence + CE-VA server-side rules.
   DataModel dataModel() const;
-  // Technical framework — CE-CF platform/config foundation.
+  // Technical framework — the platform foundation and **all four settings
+  // scopes**.
+  //
+  // The subtree spans both loci because the four configuration scopes are
+  // authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+  // server configuration (`SystemConfigurationManagement`) is server-only,
+  // while CE-CC client configuration, CE-DS device settings and CE-UP user
+  // settings are authored under the client-requirements subtree and route to
+  // the client project. CE-UP additionally has a server-side persistence half
+  // generated from the *same* declarations, so it appears in both projects —
+  // the scope is expressed by which section a setting is declared in, never by
+  // a discriminator field.
   TechnicalFrameworkConcept technicalFramework() const;
   // Access control model — CE-AZ authorization/identity seed.
   AccessControlModel accessControl() const;
@@ -8987,6 +9124,35 @@ class D13CodeSpecsProjection : public som::SomNode {
   // environment-wide print and export *settings* are CE-CF and live in
   // `PrintAndExportLayout`, deliberately unreachable from here.
   ReportDefinitions reportDefinitions() const;
+  // Schema versioning and migration — CE-MG migration artifacts.
+  //
+  // The artifacts ship with the server project because that is where the
+  // migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+  // supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+  // gives the data source / schema directory placement, `SCMST.artifactKind`
+  // the artifact kind, and `SCMST.environments` the filename environment tag.
+  // The artifact *filenames* are authored, not derived — a §5.23 string
+  // exemption — so they are not part of the generated surface.
+  //
+  // The subtree sits beside `dataModel` above for a reason: the cumulative
+  // effect of a schema's artifacts must converge on the CE-DB model that entry
+  // generates, and that convergence is a validator check over both.
+  SchemaVersioningAndMigration schemaVersioningAndMigration() const;
+  // Server operation registry — the application's **own** CE-API surface.
+  //
+  // The one subtree that declares what the system answers. It spans two loci
+  // because a CE-API operation generates two halves (`codespecs_mapping.md`
+  // §4.2): the **operation catalogue and the request/response types** are
+  // shared — the client cites an operation and depends on its shapes — while
+  // the **operation itself** lands on the owning service unit in the server
+  // project. Which service unit that is follows from each operation's primary
+  // written data entity (§5.17), so ownership is derived here rather than
+  // declared.
+  //
+  // The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+  // reachable from this projection: it describes third-party interfaces the
+  // system talks to, not the surface the system generates.
+  ServerOperationRegistry serverOperationRegistry() const;
   // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   // interaction; a single subtree whose parts split across both loci.
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
@@ -9509,7 +9675,7 @@ class DataModel : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
-// 7.9. Data Model Follow-up Facets.
+// 7.10. Data Model Follow-up Facets.
 //
 // Operational and governance facets that accompany the data model but are not
 // part of the generation-owned entity/attribute schema: the model-wide ER
@@ -9522,9 +9688,9 @@ class DataModelFollowUp : public som::SomNode {
   DataModelFollowUp(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 7.9.1. Entity-Relationship Diagram (mermaid).
+  // 7.10.1. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
-  // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  // 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
   // Returns the list view; element type: EntityFollowUpEntry (construct from item paths).
   som::SomList entityFollowUps() const;
   // This section type declares the standard `content` text leaf (SOM §21):
@@ -10638,6 +10804,22 @@ class DevelopmentQualityGates : public som::SomNode {
   DevelopmentQualityGatesPerformanceForm performance() const;
 };
 
+// A single declared device setting (CE-DS).
+//
+// The declaration only: key, value type and default. The value is the user's
+// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+//
+// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+// *wider* scope — a key is shadowable only because its wider-scope declaration
+// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+// open. Declaring the same relation from both ends would be two authored
+// fields that can disagree.
+class DeviceSettingEntry : public som::SomNode {
+ public:
+  DeviceSettingEntry(som::SpecDocument& doc, std::string path);
+  DeviceSettingEntryContentForm content() const;
+};
+
 // Device settings — user-specific settings of a user-owned device (CE-DS).
 //
 // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -10650,7 +10832,15 @@ class DevelopmentQualityGates : public som::SomNode {
 class DeviceSettings : public som::SomNode {
  public:
   DeviceSettings(som::SpecDocument& doc, std::string path);
-  DeviceSettingsContentForm content() const;
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The declared device settings.
+  // Returns the list view; element type: DeviceSettingEntry (construct from item paths).
+  som::SomList settings() const;
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
 };
 
 // Disaster recovery requirements.
@@ -13312,7 +13502,13 @@ class InformationAndDataModel : public som::SomNode {
   ResultEnvelope resultEnvelope() const;
   // 7.8. Message Key Registry.
   MessageKeyRegistry messageKeyRegistry() const;
-  // 7.9. Data Model Follow-up Facets.
+  // 7.9. Server Operation Registry.
+  //
+  // The system's **own** operation surface (CE-API): one entry per operation
+  // the server answers, with its request/response members, the data entity it
+  // primarily writes, and its authorization requirement.
+  ServerOperationRegistry serverOperationRegistry() const;
+  // 7.10. Data Model Follow-up Facets.
   //
   // Per-entity operational/governance facets (volume, compliance, technical
   // characteristics, migration mappings) and the model-wide ER diagram —
@@ -13547,6 +13743,13 @@ class IntegrationHealthSummary : public som::SomNode {
 };
 
 // A single integration point entry.
+//
+// How a domain object connects to the outside world. It describes *outward
+// connections* — which interfaces surface the object, which events it takes
+// part in, how it maps onto external systems — and deliberately declares no
+// operation of the application's own: those live in the server operation
+// registry (SVOPR), which is the one place an operation is named and given its
+// request/response shapes.
 class IntegrationPointEntry : public som::SomNode {
  public:
   IntegrationPointEntry(som::SpecDocument& doc, std::string path);
@@ -13840,7 +14043,16 @@ class InterfaceGovernance : public som::SomNode {
   // (skipped: changelog has no target type)
 };
 
-// API operation entry.
+// An operation of an **external** interface.
+//
+// One operation of a third-party system the application talks to, described in
+// that system's own terms — including its transport method and path, which a
+// foreign contract genuinely has.
+//
+// This is **not** where the application's own operations are declared: those
+// live in the server operation registry (SVOPR), under the
+// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+// the operation name the sole identifier.
 class InterfaceOperationEntry : public som::SomNode {
  public:
   InterfaceOperationEntry(som::SpecDocument& doc, std::string path);
@@ -14347,6 +14559,13 @@ class KnowledgeTransfer : public som::SomNode {
 // 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
+//
+// This is the *picker* — how a user is offered languages and countries, what
+// is preselected, how the choice is retained across a sign-in, and how the
+// system falls back. The underlying `ui.language` / `ui.country` preference is
+// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+// setting declaration (`codespecs_mapping.md` §5.16).
 class LanguageCountrySelection : public som::SomNode {
  public:
   LanguageCountrySelection(som::SpecDocument& doc, std::string path);
@@ -15328,6 +15547,18 @@ class MigrationSystems : public som::SomNode {
  public:
   MigrationSystems(som::SpecDocument& doc, std::string path);
   MigrationSystemsContentForm content() const;
+};
+
+// A single migration target — one data source / schema pair (form).
+//
+// Migration artifacts are filed per data source and per schema within it, so a
+// system with several databases — or several database *types* — needs no extra
+// specification surface beyond naming each target once here. Every artifact in
+// 7.4.2 then names the target it applies to rather than repeating the pair.
+class MigrationTargetEntry : public som::SomNode {
+ public:
+  MigrationTargetEntry(som::SpecDocument& doc, std::string path);
+  MigrationTargetEntryContentForm content() const;
 };
 
 // Mobile device compatibility entry.
@@ -19914,6 +20145,71 @@ class ScenarioStepEntry : public som::SomNode {
   ScenarioStepEntryExecutionForm execution() const;
 };
 
+// A single scheduled job (form + trigger case + work definition + failure
+// policy).
+//
+// One background job: what starts it, what it does, which data it acts on,
+// what happens when it fails, and where it is deployed. Work that runs *off*
+// the request thread is what separates a job from a server operation — the
+// trigger is that axis, which is why it is a required, closed choice rather
+// than free text.
+//
+// **Where the specification stops and the code begins.** This entry carries
+// the job's *intent* — what it does, over which data, in what order. It does
+// **not** carry the work body: the body is written in the CodeSpec as
+// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+// place. State the intent well enough that the body can be written from it,
+// then stop.
+//
+// **Ownership is derived, not declared.** The service unit that owns a job
+// follows from the entity it primarily writes, exactly as it does for a server
+// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+// entity and never the unit. Two places to state one fact is how they come to
+// disagree.
+//
+// **A scheduled report is not declared twice.** A report definition that names
+// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+// comes from the report, not from an entry here. List a job here only when the
+// work is not already the schedule of a report.
+class ScheduledJobEntry : public som::SomNode {
+ public:
+  ScheduledJobEntry(som::SpecDocument& doc, std::string path);
+  ScheduledJobEntryContentForm content() const;
+  // Cron trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `cron` kind: a recurring clock expression, taken
+  // verbatim. It is a single field because that is exactly what the trigger
+  // is — the zone it is read in is the system-wide one stated on
+  // [BatchJobManagement], and catch-up behaviour after a missed window is a
+  // scheduler setting rather than a specification statement.
+  ScheduledJobEntryCronTriggerForm cronTrigger() const;
+  // Calendar trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `calendar` kind: a date rule a clock expression
+  // cannot state — the last day of the month, the third Monday of a quarter.
+  ScheduledJobEntryCalendarTriggerForm calendarTrigger() const;
+  // Event trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `event` kind. An event-triggered job does not fire on
+  // time at all, so it has no schedule; what it has instead — and what neither
+  // other arm has — is an occurrence carrying data the work reads.
+  ScheduledJobEntryEventTriggerForm eventTrigger() const;
+  // What the job does and which data it acts on.
+  //
+  // The intent half of the work definition. The body that realises it is
+  // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+  // section says what that body must achieve and over which data, in enough
+  // detail that it can be written from here without a second conversation.
+  ScheduledJobEntryWorkDefinitionForm workDefinition() const;
+  // This job's departures from the system-wide execution policy.
+  //
+  // Every field is an override. Left empty, the job inherits the Execution
+  // Controls (BJME) default; the policy stays the rule and the entry is the
+  // exception.
+  ScheduledJobEntryFailurePolicyForm failurePolicy() const;
+};
+
 // Scheduled maintenance policy.
 class ScheduledMaintenancePolicy : public som::SomNode {
  public:
@@ -19929,29 +20225,53 @@ class ScheduledMaintenancePolicy : public som::SomNode {
   ScheduledMaintenancePolicyApprovalForm approval() const;
 };
 
-// A single schema migration step (form).
+// A single migration artifact (form).
 //
-// One versioned change to the database schema — the DDL operations it applies,
-// the entities it touches, whether it is reversible, and any data backfill it
-// performs as part of the schema change.
+// One versioned artifact in the migration set: what it is (baseline schema,
+// reference data, or a schema change), which target it applies to, and which
+// deployment environments it is restricted to. The kind-specific detail lives
+// in the promoted case subsection its `artifactKind` selects.
 class SchemaMigrationStepEntry : public som::SomNode {
  public:
   SchemaMigrationStepEntry(som::SpecDocument& doc, std::string path);
   SchemaMigrationStepEntryContentForm content() const;
+  // Baseline schema definition — a promoted `@OneOf` case.
+  //
+  // Present only for the `initialDdl` kind. It establishes the schema, so there
+  // is no prior state: no affected-entity delta, no backfill, and nothing to
+  // roll back to.
+  SchemaMigrationStepEntryBaselineSchemaForm baselineSchema() const;
+  // Reference-data definition — a promoted `@OneOf` case.
+  //
+  // Present only for the `referenceData` kind. This artifact inserts rows, not
+  // schema, so it authors the value set rather than schema statements. It is
+  // the new system's own initial data — legacy business-data migration stays in
+  // the migration-mapping sections (`MIGME`).
+  SchemaMigrationStepEntryReferenceDataForm referenceData() const;
+  // Schema change — a promoted `@OneOf` case.
+  //
+  // Present only for the `schemaChange` kind: an evolution step on top of an
+  // existing schema. This is the only kind for which a delta of affected
+  // entities, a data backfill and reversibility are meaningful.
+  SchemaMigrationStepEntrySchemaChangeForm schemaChange() const;
 };
 
 // 7.4. Schema Versioning and Migration.
 //
 // Records how the database schema is *versioned and migrated* as the data
-// model evolves — the ordered DDL / migration steps and the tooling and
-// policy that govern them. This is distinct from business-data migration
-// between systems (see `MigrationMappingEntry` for old→new field mapping):
-// here the subject is the schema's own evolution over releases.
+// model evolves — the versioning policy, the data source / schema targets, and
+// the ordered artifact set that establishes and evolves the schema. This is
+// distinct from business-data migration between systems (see
+// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+// schema's own evolution over releases.
 class SchemaVersioningAndMigration : public som::SomNode {
  public:
   SchemaVersioningAndMigration(som::SpecDocument& doc, std::string path);
   SchemaVersioningAndMigrationContentForm content() const;
-  // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+  // Returns the list view; element type: MigrationTargetEntry (construct from item paths).
+  som::SomList migrationTargets() const;
+  // 7.4.2. Schema Migration Steps — one entry per versioned artifact.
   // Returns the list view; element type: SchemaMigrationStepEntry (construct from item paths).
   som::SomList migrationSteps() const;
 };
@@ -20137,6 +20457,15 @@ class ScreenElementFieldSpec : public som::SomNode {
   // Present only for the enumeration (select) field kind; carries only the
   // option-source and selection-mode attributes.
   ScreenElementFieldSpecSelectOptionsForm selectOptions() const;
+  // File-kind options — a promoted `@OneOf` case (csrb8).
+  //
+  // Present only for the file field kind; carries what may be chosen and how
+  // the chosen file is shown. The **storage group** is deliberately absent: a
+  // file's group is authored once on its CE-DB file-reference column
+  // (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+  // name different groups. So is a download affordance, which follows from the
+  // field being wired for transfer and the file being stored (§5.18).
+  ScreenElementFieldSpecFileOptionsForm fileOptions() const;
 };
 
 // A screen entry (form).
@@ -20198,6 +20527,15 @@ class ScreenFieldEntry : public som::SomNode {
   ScreenFieldEntryTemporalConstraintsForm temporalConstraints() const;
   // Choice-kind option source — a promoted `@OneOf` case (csra4).
   ScreenFieldEntryChoiceOptionsForm choiceOptions() const;
+  // File-kind input constraints — a promoted `@OneOf` case (csrb8).
+  //
+  // Constraints only. **How** the file is presented — link, dropzone or
+  // thumbnail — is the D09 design pass's `fileOptions`
+  // (`ScreenElementFieldSpec`), because a requirement names the kind of value
+  // a user supplies and the design names the concrete control. The storage
+  // group is neither side's: it is authored on the CE-DB file-reference column
+  // (`codespecs_mapping.md` §5.13.1).
+  ScreenFieldEntryFileConstraintsForm fileConstraints() const;
   // UI and layout.
   ScreenFieldEntryLayoutForm layout() const;
   // Field validation rules — contains 0+× FieldValidationRule.
@@ -20808,6 +21146,25 @@ class SensitiveDataEncryption : public som::SomNode {
   bool canHaveContent() const override { return true; }
 };
 
+// A single declared server / system configuration setting (CE-CF).
+//
+// The declaration only: key, value type, default, the environment variable and
+// command-line option it may also be read from, whether it carries a secret,
+// and which narrower scopes may shadow it. The *value* is supplied per
+// deployment through the configuration
+// tree, the OS environment, a `.env` file or the command line (in that
+// precedence, command line winning) and is never authored. A secret-bearing
+// setting declares its presence and shape so deployment tooling can supply
+// the content out of band (`codespecs_mapping.md` §5.16).
+//
+// Security and infrastructure configuration is scope-pinned: it stays
+// server-side unless the declaration explicitly opens it to a narrower scope.
+class ServerConfigurationSettingEntry : public som::SomNode {
+ public:
+  ServerConfigurationSettingEntry(som::SpecDocument& doc, std::string path);
+  ServerConfigurationSettingEntryContentForm content() const;
+};
+
 // Server environment entry (development, staging, production, DR).
 class ServerEnvironmentEntry : public som::SomNode {
  public:
@@ -20821,6 +21178,87 @@ class ServerEnvironmentEntry : public som::SomNode {
   ServerEnvironmentEntryAccessForm access() const;
   // Lifecycle rules.
   ServerEnvironmentEntryLifecycleForm lifecycle() const;
+};
+
+// A single server operation (form + request/response members).
+//
+// One entry in the [ServerOperationRegistry]: the operation name that
+// identifies it, its purpose, the data entity it primarily writes, its
+// authorization requirement, the error codes it may return, and the members
+// that make up its request and response shapes.
+//
+// The operation name is the join token the rest of the model references: the
+// ISC step entries cite it as the target of a client call (CE-SC), and the
+// service unit that owns the operation follows from
+// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+// list (`codespecs_mapping.md` §5.17).
+class ServerOperationEntry : public som::SomNode {
+ public:
+  ServerOperationEntry(som::SpecDocument& doc, std::string path);
+  ServerOperationEntryContentForm content() const;
+  // 7.9.x. Request Members — the members that make up the request shape.
+  // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
+  som::SomList requestMembers() const;
+  // 7.9.x. Response Members — the members the success payload carries.
+  //
+  // These members *are* the success payload the Result envelope wraps; the
+  // envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+  // authored per operation.
+  // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
+  som::SomList responseMembers() const;
+};
+
+// A single member of an operation's request or response shape (form).
+//
+// One named, typed member: its name, its type, whether it must be present, and
+// — when the type is a domain concept rather than a primitive — the data
+// entity or domain enum it draws from. The same shape serves both the request
+// and the response side of a [ServerOperationEntry], so a member reads the
+// same way whichever direction it travels.
+class ServerOperationMemberEntry : public som::SomNode {
+ public:
+  ServerOperationMemberEntry(som::SpecDocument& doc, std::string path);
+  ServerOperationMemberEntryContentForm content() const;
+};
+
+// 7.9. Server Operation Registry.
+//
+// The authoring home for the **application's own** operation surface — the
+// CE-API (`serverApi`) part. Every operation the system answers is declared
+// once here; the client side (CE-SC) only *cites* an operation, and the
+// service unit that owns it (CE-SU) is *derived* from the entity each
+// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+// declare an operation, so without this registry the system's server API would
+// be code with no specification source.
+//
+// This is distinct from the **external** interface inventory under
+// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+// system talks to. Those carry a transport verb and a path because a
+// third-party API really has them; the application's own contract does not —
+// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+// whose **operation name** carries the intent, and §5.14 drops transport
+// plumbing from the spec surface.
+//
+// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+//
+// - no transport method and no path — the operation name is the identifier;
+// - no response status codes — every application outcome, success *or* error,
+//   rides in the [ResultEnvelope]; only infrastructure failures are transport
+//   errors;
+// - no encoding, header, redirect, CORS or credential plumbing — framework
+//   transport members, never spec input.
+class ServerOperationRegistry : public som::SomNode {
+ public:
+  ServerOperationRegistry(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 7.9.1. Operations — one entry per operation the system answers.
+  // Returns the list view; element type: ServerOperationEntry (construct from item paths).
+  som::SomList operations() const;
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
 };
 
 // Server operating system requirements.
@@ -22261,6 +22699,9 @@ class SystemConfigurationManagement : public som::SomNode {
   SystemConfigurationManagementEnvironmentForm environment() const;
   // Validation, diffing, and audit controls.
   SystemConfigurationManagementGovernanceForm governance() const;
+  // The declared server configuration settings.
+  // Returns the list view; element type: ServerConfigurationSettingEntry (construct from item paths).
+  som::SomList settings() const;
 };
 
 // 4.1.2. System Context.
@@ -24843,6 +25284,43 @@ class UserRegistrationProcess : public som::SomNode {
   // (skipped: registrationFlowDescription has no target type)
   // Registration Flow Diagram (mermaid-sequence).
   // (skipped: registrationFlowDiagram has no target type)
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
+};
+
+// A single declared user setting (CE-UP).
+//
+// The declaration only: key, value type, default, and whether a per-device
+// value may shadow the key. The value is the user's choice and is never
+// authored (`codespecs_mapping.md` §5.16).
+class UserSettingEntry : public som::SomNode {
+ public:
+  UserSettingEntry(som::SpecDocument& doc, std::string path);
+  UserSettingEntryContentForm content() const;
+};
+
+// User settings — server-persisted settings that follow the user (CE-UP).
+//
+// Keyed by the user alone: no machine and no device in the key. A user
+// setting is persisted on the server and re-materialised on whichever device
+// the user signs in from, which is what distinguishes it from a device
+// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+// the device) and from client configuration ([ClientConfiguration], CE-CC —
+// no user identity in the key) (`codespecs_mapping.md` §11).
+//
+// The scope is expressed by *which section a setting is declared in*, never
+// by a field on a shared section: there is no persistence discriminator
+// anywhere in the four settings scopes.
+class UserSettings : public som::SomNode {
+ public:
+  UserSettings(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // The declared user settings.
+  // Returns the list view; element type: UserSettingEntry (construct from item paths).
+  som::SomList settings() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
@@ -28629,10 +29107,6 @@ class BatchJobManagementContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string schedulingEngine() const;
-  void setSchedulingEngine(const std::string& value);
-  std::string scheduleDefinition() const;
-  void setScheduleDefinition(const std::string& value);
   std::string timeZoneHandling() const;
   void setTimeZoneHandling(const std::string& value);
 };
@@ -31086,23 +31560,47 @@ class ClientAccessibilityRequirementsVisualForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-class ClientConfigurationContentForm : public som::SomNode {
+class ClientApplicationEntryContentForm : public som::SomNode {
  public:
-  ClientConfigurationContentForm(som::SpecDocument& doc, std::string path);
+  ClientApplicationEntryContentForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string apiBaseUrl() const;
-  void setApiBaseUrl(const std::string& value);
-  std::string environment() const;
-  void setEnvironment(const std::string& value);
-  std::string deviceOptions() const;
-  void setDeviceOptions(const std::string& value);
-  std::string featureToggles() const;
-  void setFeatureToggles(const std::string& value);
-  std::string updateChannel() const;
-  void setUpdateChannel(const std::string& value);
+  std::string clientId() const;
+  void setClientId(const std::string& value);
+  std::string clientName() const;
+  void setClientName(const std::string& value);
+  std::string clientKind() const;
+  void setClientKind(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
+  std::string platformTargets() const;
+  void setPlatformTargets(const std::string& value);
+  std::string entryRoute() const;
+  void setEntryRoute(const std::string& value);
+  std::string includedScreens() const;
+  void setIncludedScreens(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ClientConfigurationSettingEntryContentForm : public som::SomNode {
+ public:
+  ClientConfigurationSettingEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string settingKey() const;
+  void setSettingKey(const std::string& value);
+  std::string client() const;
+  void setClient(const std::string& value);
+  std::string valueType() const;
+  void setValueType(const std::string& value);
+  std::string defaultValue() const;
+  void setDefaultValue(const std::string& value);
+  std::string overridableBy() const;
+  void setOverridableBy(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -39252,9 +39750,9 @@ class DevelopmentQualityGatesSecurityForm : public som::SomNode {
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-class DeviceSettingsContentForm : public som::SomNode {
+class DeviceSettingEntryContentForm : public som::SomNode {
  public:
-  DeviceSettingsContentForm(som::SpecDocument& doc, std::string path);
+  DeviceSettingEntryContentForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;
@@ -39265,8 +39763,6 @@ class DeviceSettingsContentForm : public som::SomNode {
   void setValueType(const std::string& value);
   std::string defaultValue() const;
   void setDefaultValue(const std::string& value);
-  std::optional<bool> deviceOverridable() const;
-  void setDeviceOverridable(std::optional<bool> value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -50639,6 +51135,24 @@ class MigrationSystemsContentForm : public som::SomNode {
   void setSchemaTransformationComplexity(const std::string& value);
   std::string dataModelChangeSummary() const;
   void setDataModelChangeSummary(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class MigrationTargetEntryContentForm : public som::SomNode {
+ public:
+  MigrationTargetEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string targetName() const;
+  void setTargetName(const std::string& value);
+  std::string dataSourceName() const;
+  void setDataSourceName(const std::string& value);
+  std::string schemaName() const;
+  void setSchemaName(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
 };
 
 // Generated section facade for the `capabilities` @Form section: its own `content` text followed by one typed member per form field.
@@ -62133,6 +62647,102 @@ class ScenarioStepEntryExecutionForm : public som::SomNode {
   void setNotes(const std::string& value);
 };
 
+// Generated section facade for the `calendarTrigger` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryCalendarTriggerForm : public som::SomNode {
+ public:
+  ScheduledJobEntryCalendarTriggerForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string calendarRule() const;
+  void setCalendarRule(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryContentForm : public som::SomNode {
+ public:
+  ScheduledJobEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string jobName() const;
+  void setJobName(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
+  std::string triggerKind() const;
+  void setTriggerKind(const std::string& value);
+  std::string primaryDataEntity() const;
+  void setPrimaryDataEntity(const std::string& value);
+  std::optional<bool> enabled() const;
+  void setEnabled(std::optional<bool> value);
+  std::string environments() const;
+  void setEnvironments(const std::string& value);
+};
+
+// Generated section facade for the `cronTrigger` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryCronTriggerForm : public som::SomNode {
+ public:
+  ScheduledJobEntryCronTriggerForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string cronExpression() const;
+  void setCronExpression(const std::string& value);
+};
+
+// Generated section facade for the `eventTrigger` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryEventTriggerForm : public som::SomNode {
+ public:
+  ScheduledJobEntryEventTriggerForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string eventName() const;
+  void setEventName(const std::string& value);
+  std::string eventPayload() const;
+  void setEventPayload(const std::string& value);
+};
+
+// Generated section facade for the `failurePolicy` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryFailurePolicyForm : public som::SomNode {
+ public:
+  ScheduledJobEntryFailurePolicyForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::optional<long> maxRetries() const;
+  void setMaxRetries(std::optional<long> value);
+  std::string retryBackoff() const;
+  void setRetryBackoff(const std::string& value);
+  std::string timeout() const;
+  void setTimeout(const std::string& value);
+  std::string failureAlertMessage() const;
+  void setFailureAlertMessage(const std::string& value);
+};
+
+// Generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryWorkDefinitionForm : public som::SomNode {
+ public:
+  ScheduledJobEntryWorkDefinitionForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string workSummary() const;
+  void setWorkSummary(const std::string& value);
+  std::string readEntities() const;
+  void setReadEntities(const std::string& value);
+  std::string writtenEntities() const;
+  void setWrittenEntities(const std::string& value);
+  std::string targetReports() const;
+  void setTargetReports(const std::string& value);
+};
+
 // Generated section facade for the `approval` @Form section: its own `content` text followed by one typed member per form field.
 class ScheduledMaintenancePolicyApprovalForm : public som::SomNode {
  public:
@@ -62217,6 +62827,22 @@ class ScheduledMaintenancePolicySchedulingForm : public som::SomNode {
   void setBlackoutPeriods(const std::string& value);
 };
 
+// Generated section facade for the `baselineSchema` @Form section: its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryBaselineSchemaForm : public som::SomNode {
+ public:
+  SchemaMigrationStepEntryBaselineSchemaForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string createdEntities() const;
+  void setCreatedEntities(const std::string& value);
+  std::string schemaStatements() const;
+  void setSchemaStatements(const std::string& value);
+  std::string indexesAndConstraints() const;
+  void setIndexesAndConstraints(const std::string& value);
+};
+
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class SchemaMigrationStepEntryContentForm : public som::SomNode {
  public:
@@ -62229,8 +62855,40 @@ class SchemaMigrationStepEntryContentForm : public som::SomNode {
   void setVersion(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
-  std::string ddlOperations() const;
-  void setDdlOperations(const std::string& value);
+  std::string artifactKind() const;
+  void setArtifactKind(const std::string& value);
+  std::string migrationTarget() const;
+  void setMigrationTarget(const std::string& value);
+  std::string environments() const;
+  void setEnvironments(const std::string& value);
+};
+
+// Generated section facade for the `referenceData` @Form section: its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryReferenceDataForm : public som::SomNode {
+ public:
+  SchemaMigrationStepEntryReferenceDataForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string targetEntities() const;
+  void setTargetEntities(const std::string& value);
+  std::string valueSet() const;
+  void setValueSet(const std::string& value);
+  std::string identityKey() const;
+  void setIdentityKey(const std::string& value);
+};
+
+// Generated section facade for the `schemaChange` @Form section: its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntrySchemaChangeForm : public som::SomNode {
+ public:
+  SchemaMigrationStepEntrySchemaChangeForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string schemaStatements() const;
+  void setSchemaStatements(const std::string& value);
   std::string affectedEntities() const;
   void setAffectedEntities(const std::string& value);
   std::string dataBackfill() const;
@@ -62247,8 +62905,6 @@ class SchemaVersioningAndMigrationContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string migrationTooling() const;
-  void setMigrationTooling(const std::string& value);
   std::string versioningStrategy() const;
   void setVersioningStrategy(const std::string& value);
   std::optional<bool> forwardOnly() const;
@@ -62611,6 +63267,24 @@ class ScreenElementFieldSpecDateOptionsForm : public som::SomNode {
   void setDateFormat(const std::string& value);
 };
 
+// Generated section facade for the `fileOptions` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecFileOptionsForm : public som::SomNode {
+ public:
+  ScreenElementFieldSpecFileOptionsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string acceptedContentKinds() const;
+  void setAcceptedContentKinds(const std::string& value);
+  std::string maxFileSize() const;
+  void setMaxFileSize(const std::string& value);
+  std::string presentation() const;
+  void setPresentation(const std::string& value);
+  std::string uploadOnPick() const;
+  void setUploadOnPick(const std::string& value);
+};
+
 // Generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 class ScreenElementFieldSpecFormattingForm : public som::SomNode {
  public:
@@ -62853,6 +63527,20 @@ class ScreenFieldEntryDataBindingForm : public som::SomNode {
   void setPlaceholder(const std::string& value);
   std::string helpText() const;
   void setHelpText(const std::string& value);
+};
+
+// Generated section facade for the `fileConstraints` @Form section: its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryFileConstraintsForm : public som::SomNode {
+ public:
+  ScreenFieldEntryFileConstraintsForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string acceptedContentKinds() const;
+  void setAcceptedContentKinds(const std::string& value);
+  std::string maxFileSize() const;
+  void setMaxFileSize(const std::string& value);
 };
 
 // Generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
@@ -64037,6 +64725,30 @@ class SelfRegistrationPolicyVerificationForm : public som::SomNode {
   void setPhoneVerificationMethod(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServerConfigurationSettingEntryContentForm : public som::SomNode {
+ public:
+  ServerConfigurationSettingEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string settingKey() const;
+  void setSettingKey(const std::string& value);
+  std::string valueType() const;
+  void setValueType(const std::string& value);
+  std::string defaultValue() const;
+  void setDefaultValue(const std::string& value);
+  std::string environmentVariable() const;
+  void setEnvironmentVariable(const std::string& value);
+  std::string commandLineOption() const;
+  void setCommandLineOption(const std::string& value);
+  std::optional<bool> secret() const;
+  void setSecret(std::optional<bool> value);
+  std::string overridableBy() const;
+  void setOverridableBy(const std::string& value);
+};
+
 // Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 class ServerEnvironmentEntryAccessForm : public som::SomNode {
  public:
@@ -64119,6 +64831,56 @@ class ServerEnvironmentEntryScaleForm : public som::SomNode {
   void setExpectedUsers(const std::string& value);
   std::string expectedLoad() const;
   void setExpectedLoad(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServerOperationEntryContentForm : public som::SomNode {
+ public:
+  ServerOperationEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string operationName() const;
+  void setOperationName(const std::string& value);
+  std::string purpose() const;
+  void setPurpose(const std::string& value);
+  std::string primaryDataEntity() const;
+  void setPrimaryDataEntity(const std::string& value);
+  std::string authorizationRequirement() const;
+  void setAuthorizationRequirement(const std::string& value);
+  std::string requiredRoles() const;
+  void setRequiredRoles(const std::string& value);
+  std::string requiredResourceKey() const;
+  void setRequiredResourceKey(const std::string& value);
+  std::string descriptionKey() const;
+  void setDescriptionKey(const std::string& value);
+  std::string errorCodes() const;
+  void setErrorCodes(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class ServerOperationMemberEntryContentForm : public som::SomNode {
+ public:
+  ServerOperationMemberEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string memberName() const;
+  void setMemberName(const std::string& value);
+  std::string memberType() const;
+  void setMemberType(const std::string& value);
+  std::optional<bool> multiValued() const;
+  void setMultiValued(std::optional<bool> value);
+  std::optional<bool> required() const;
+  void setRequired(std::optional<bool> value);
+  std::string dataEntity() const;
+  void setDataEntity(const std::string& value);
+  std::string domainEnum() const;
+  void setDomainEnum(const std::string& value);
+  std::string description() const;
+  void setDescription(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -73749,6 +74511,24 @@ class UserProvisioningToolsRoleManagementForm : public som::SomNode {
   void setAccessReviewProcess(const std::string& value);
 };
 
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class UserSettingEntryContentForm : public som::SomNode {
+ public:
+  UserSettingEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string settingKey() const;
+  void setSettingKey(const std::string& value);
+  std::string valueType() const;
+  void setValueType(const std::string& value);
+  std::string defaultValue() const;
+  void setDefaultValue(const std::string& value);
+  std::string overridableBy() const;
+  void setOverridableBy(const std::string& value);
+};
+
 // Generated section facade for the `trainingForm` @Form section: its own `content` text followed by one typed member per form field.
 class UserTrainingRequirementsTrainingFormForm : public som::SomNode {
  public:
@@ -74783,6 +75563,8 @@ class WorkflowStepEntryContentForm : public som::SomNode {
   void setIsManual(std::optional<bool> value);
   std::optional<bool> isAutomatable() const;
   void setIsAutomatable(std::optional<bool> value);
+  std::optional<bool> isErrorProne() const;
+  void setIsErrorProne(std::optional<bool> value);
   std::string averageDuration() const;
   void setAverageDuration(const std::string& value);
 };

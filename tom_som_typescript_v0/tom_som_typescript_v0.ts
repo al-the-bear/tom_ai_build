@@ -2880,7 +2880,18 @@ export class BasicTechnicalRequirements extends SomNode {
   }
 }
 
-// Batch job management.
+// Batch job management — the scheduled jobs and the policy they run under.
+//
+// Two layers, deliberately separated. This section and its policy subsections
+// author what is true of *every* job — the time-zone basis, the execution
+// controls, the monitoring surface. [scheduledJobs] authors the jobs
+// themselves, one entry each. A specification that has only the policy layer
+// can say how jobs are run in general but cannot name a single one, which is
+// exactly what the job list exists to fix.
+//
+// The policy is the **default layer**: an execution control stated here applies
+// to every job that does not override it, and an entry that does override it
+// says so in its own failure-policy subsection.
 export class BatchJobManagement extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -2891,11 +2902,21 @@ export class BatchJobManagement extends SomNode {
   }
 
   // Supported job categories.
+  //
+  // A category-level summary of the scheduled work the system performs — the
+  // shape of the workload, not its inventory. The authoritative per-job
+  // declarations are [scheduledJobs]; a category named here without a job in
+  // that list is a job the specification has not actually declared.
   get jobTypes(): BatchJobManagementJobTypesForm {
     return new BatchJobManagementJobTypesForm(this.doc, this.path + "/BJMJT");
   }
 
-  // Execution controls.
+  // Execution controls — the **default layer** for every job.
+  //
+  // Retry, timeout and idempotency stated here apply to every job that does
+  // not say otherwise. A job that needs different numbers overrides them in
+  // its own failure-policy subsection, so this section is the rule and the
+  // entry is the exception — never the other way round.
   get execution(): BatchJobManagementExecutionForm {
     return new BatchJobManagementExecutionForm(this.doc, this.path + "/BJME");
   }
@@ -2903,6 +2924,14 @@ export class BatchJobManagement extends SomNode {
   // Monitoring and manual controls.
   get monitoring(): BatchJobManagementMonitoringForm {
     return new BatchJobManagementMonitoringForm(this.doc, this.path + "/BJMM");
+  }
+
+  // Scheduled jobs — one entry per job the system runs.
+  //
+  // The declaration layer. Everything above is policy that applies to all
+  // jobs; this is where a job actually comes into existence.
+  get scheduledJobs(): SomList<ScheduledJobEntry> {
+    return new SomList(this.doc, this.path + "/SCJOB-JOB-LST", (d: SpecDocument, p: string) => new ScheduledJobEntry(d, p), "SCJOB-JOB-xxx");
   }
 }
 
@@ -4569,6 +4598,39 @@ export class ClientAccessibilityRequirements extends SomNode {
   }
 }
 
+// A single client application of the system (CE-CL).
+//
+// One client: what kind of application it is, which platforms it targets,
+// where it starts, and which screens it comprises. This is the enumeration
+// [ClientRequirementsSection]'s requirement subsections cannot give — they
+// state what a *machine* must provide, which is a deployment constraint on
+// every client rather than a statement that any particular client exists.
+//
+// **Platform targets are referenced, never restated.** A client's platform
+// targets are ids already declared in the browser, desktop-OS and
+// mobile-platform requirement lists of the enclosing section. Naming a
+// platform here that no requirement entry declares is a dangling reference,
+// which is the point: the minimum a platform must meet is stated once.
+//
+// **Configuration is not restated either.** Which settings a client carries
+// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+// client that owns it. A client that also listed its settings would be the
+// second source those two would eventually disagree through
+// (`codespecs_mapping.md` §11).
+//
+// **Screens, not flows.** A client comprises screens; the flows *between*
+// those screens are the screen flow structure's own subject (D09 XDS) and are
+// reached through the entry route, not listed again per client.
+export class ClientApplicationEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ClientApplicationEntryContentForm {
+    return new ClientApplicationEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Client configuration — per-machine settings of a client application (CE-CC).
 //
 // Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -4581,8 +4643,37 @@ export class ClientConfiguration extends SomNode {
     super(doc, path);
   }
 
-  get content(): ClientConfigurationContentForm {
-    return new ClientConfigurationContentForm(this.doc, this.path + "/content");
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The declared client configuration settings.
+  get settings(): SomList<ClientConfigurationSettingEntry> {
+    return new SomList(this.doc, this.path + "/CCSET-SETT-LST", (d: SpecDocument, p: string) => new ClientConfigurationSettingEntry(d, p), "CCSET-SETT-xxx");
+  }
+}
+
+// A single declared client configuration setting (CE-CC).
+//
+// The declaration only: key, value type, default, and which narrower scopes
+// may shadow the key. The *value* is never authored — it comes from the client
+// app's configuration resources or from this install's persisted overrides
+// (`codespecs_mapping.md` §5.16).
+export class ClientConfigurationSettingEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ClientConfigurationSettingEntryContentForm {
+    return new ClientConfigurationSettingEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -4650,8 +4741,18 @@ export class ClientNetworkRequirements extends SomNode {
 
 // 8.4.2. Client Requirements.
 //
-// Minimum client requirements: browser versions, operating systems, screen
-// resolution, network bandwidth, and device capabilities.
+// Two layers that answer two different questions.
+//
+// **Which client applications exist** — [clientApplications], one
+// [ClientApplicationEntry] per client, naming its kind, its entry route and
+// the screens it comprises. This is the enumerable set of clients; a client
+// not listed there does not exist.
+//
+// **What a user's machine must provide** — every other subsection: browser,
+// desktop-OS, mobile-device, display, network, hardware, accessibility and
+// security minimums. These are deployment constraints on the *environment*,
+// not clients, which is why a client entry *references* them rather than
+// restating them.
 export class ClientRequirementsSection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -4671,6 +4772,11 @@ export class ClientRequirementsSection extends SomNode {
 
   // Overview of client requirements strategy.
   // (skipped: overview has no target type)
+
+  // The client applications the system consists of (CE-CL).
+  get clientApplications(): SomList<ClientApplicationEntry> {
+    return new SomList(this.doc, this.path + "/CLIAPP-CLIE-LST", (d: SpecDocument, p: string) => new ClientApplicationEntry(d, p), "CLIAPP-CLIE-xxx");
+  }
 
   // Web browser requirements.
   get browserRequirements(): SomList<BrowserRequirementEntry> {
@@ -4730,6 +4836,11 @@ export class ClientRequirementsSection extends SomNode {
   // User-specific settings of a user-owned device (CE-DS).
   get deviceSettings(): DeviceSettings {
     return new DeviceSettings(this.doc, this.path + "/deviceSettings");
+  }
+
+  // Server-persisted settings that follow the user across devices (CE-UP).
+  get userSettings(): UserSettings {
+    return new UserSettings(this.doc, this.path + "/userSettings");
   }
 }
 
@@ -7202,16 +7313,6 @@ export class CurrentWorkflowEntry extends SomNode {
     return new SomList(this.doc, this.path + "/WOBURU-BUSI-LST", (d: SpecDocument, p: string) => new WorkflowBusinessRule(d, p), "WOBURU-BUSI-xxx");
   }
 
-  // Manual steps requiring human intervention.
-  get manualSteps(): SomList<WorkflowStepEntry> {
-    return new SomList(this.doc, this.path + "/WSE-MANU-LST", (d: SpecDocument, p: string) => new WorkflowStepEntry(d, p), "WSE-MANU-xxx");
-  }
-
-  // Error-prone steps with high failure rates.
-  get errorProneSteps(): SomList<WorkflowStepEntry> {
-    return new SomList(this.doc, this.path + "/WSE-ERRO-LST", (d: SpecDocument, p: string) => new WorkflowStepEntry(d, p), "WSE-ERRO-xxx");
-  }
-
   // Workflow timing and performance.
   get timing(): CurrentWorkflowEntryTimingForm {
     return new CurrentWorkflowEntryTimingForm(this.doc, this.path + "/WOTI");
@@ -7763,6 +7864,25 @@ export class D03InformationModel extends SomNode {
   // (csmb7).
   get messageKeyRegistry(): MessageKeyRegistry {
     return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
+  }
+
+  // Server operation registry — the system's own operation surface (CE-API):
+  // one entry per operation the server answers.
+  //
+  // Projected here rather than into a separate document because an operation is
+  // defined by the entity it reads and writes, which this document owns.
+  get serverOperationRegistry(): ServerOperationRegistry {
+    return new ServerOperationRegistry(this.doc, this.path + "/serverOperationRegistry");
+  }
+
+  // Schema versioning and migration — the CE-MG home: the versioning policy,
+  // the data source / schema targets, and the ordered artifact set that
+  // establishes and evolves the schema.
+  //
+  // Projected here because the artifact chain must converge on the entity and
+  // attribute model this document owns.
+  get schemaVersioningAndMigration(): SchemaVersioningAndMigration {
+    return new SchemaVersioningAndMigration(this.doc, this.path + "/schemaVersioningAndMigration");
   }
 }
 
@@ -8951,7 +9071,18 @@ export class D13CodeSpecsProjection extends SomNode {
     return new DataModel(this.doc, this.path + "/dataModel");
   }
 
-  // Technical framework — CE-CF platform/config foundation.
+  // Technical framework — the platform foundation and **all four settings
+  // scopes**.
+  //
+  // The subtree spans both loci because the four configuration scopes are
+  // authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+  // server configuration (`SystemConfigurationManagement`) is server-only,
+  // while CE-CC client configuration, CE-DS device settings and CE-UP user
+  // settings are authored under the client-requirements subtree and route to
+  // the client project. CE-UP additionally has a server-side persistence half
+  // generated from the *same* declarations, so it appears in both projects —
+  // the scope is expressed by which section a setting is declared in, never by
+  // a discriminator field.
   get technicalFramework(): TechnicalFrameworkConcept {
     return new TechnicalFrameworkConcept(this.doc, this.path + "/technicalFramework");
   }
@@ -8985,6 +9116,41 @@ export class D13CodeSpecsProjection extends SomNode {
   // `PrintAndExportLayout`, deliberately unreachable from here.
   get reportDefinitions(): ReportDefinitions {
     return new ReportDefinitions(this.doc, this.path + "/reportDefinitions");
+  }
+
+  // Schema versioning and migration — CE-MG migration artifacts.
+  //
+  // The artifacts ship with the server project because that is where the
+  // migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+  // supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+  // gives the data source / schema directory placement, `SCMST.artifactKind`
+  // the artifact kind, and `SCMST.environments` the filename environment tag.
+  // The artifact *filenames* are authored, not derived — a §5.23 string
+  // exemption — so they are not part of the generated surface.
+  //
+  // The subtree sits beside `dataModel` above for a reason: the cumulative
+  // effect of a schema's artifacts must converge on the CE-DB model that entry
+  // generates, and that convergence is a validator check over both.
+  get schemaVersioningAndMigration(): SchemaVersioningAndMigration {
+    return new SchemaVersioningAndMigration(this.doc, this.path + "/schemaVersioningAndMigration");
+  }
+
+  // Server operation registry — the application's **own** CE-API surface.
+  //
+  // The one subtree that declares what the system answers. It spans two loci
+  // because a CE-API operation generates two halves (`codespecs_mapping.md`
+  // §4.2): the **operation catalogue and the request/response types** are
+  // shared — the client cites an operation and depends on its shapes — while
+  // the **operation itself** lands on the owning service unit in the server
+  // project. Which service unit that is follows from each operation's primary
+  // written data entity (§5.17), so ownership is derived here rather than
+  // declared.
+  //
+  // The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+  // reachable from this projection: it describes third-party interfaces the
+  // system talks to, not the surface the system generates.
+  get serverOperationRegistry(): ServerOperationRegistry {
+    return new ServerOperationRegistry(this.doc, this.path + "/serverOperationRegistry");
   }
 
   // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -9916,7 +10082,7 @@ export class DataModel extends SomNode {
   }
 }
 
-// 7.9. Data Model Follow-up Facets.
+// 7.10. Data Model Follow-up Facets.
 //
 // Operational and governance facets that accompany the data model but are not
 // part of the generation-owned entity/attribute schema: the model-wide ER
@@ -9941,10 +10107,10 @@ export class DataModelFollowUp extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 7.9.1. Entity-Relationship Diagram (mermaid).
+  // 7.10.1. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
 
-  // 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  // 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
   get entityFollowUps(): SomList<EntityFollowUpEntry> {
     return new SomList(this.doc, this.path + "/DMFUE-ENFU-LST", (d: SpecDocument, p: string) => new EntityFollowUpEntry(d, p), "DMFUE-ENFU-xxx");
   }
@@ -11986,6 +12152,26 @@ export class DevelopmentQualityGates extends SomNode {
   }
 }
 
+// A single declared device setting (CE-DS).
+//
+// The declaration only: key, value type and default. The value is the user's
+// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+//
+// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+// *wider* scope — a key is shadowable only because its wider-scope declaration
+// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+// open. Declaring the same relation from both ends would be two authored
+// fields that can disagree.
+export class DeviceSettingEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): DeviceSettingEntryContentForm {
+    return new DeviceSettingEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Device settings — user-specific settings of a user-owned device (CE-DS).
 //
 // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -12000,8 +12186,21 @@ export class DeviceSettings extends SomNode {
     super(doc, path);
   }
 
-  get content(): DeviceSettingsContentForm {
-    return new DeviceSettingsContentForm(this.doc, this.path + "/content");
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The declared device settings.
+  get settings(): SomList<DeviceSettingEntry> {
+    return new SomList(this.doc, this.path + "/DSSET-SETT-LST", (d: SpecDocument, p: string) => new DeviceSettingEntry(d, p), "DSSET-SETT-xxx");
   }
 }
 
@@ -16681,7 +16880,16 @@ export class InformationAndDataModel extends SomNode {
     return new MessageKeyRegistry(this.doc, this.path + "/messageKeyRegistry");
   }
 
-  // 7.9. Data Model Follow-up Facets.
+  // 7.9. Server Operation Registry.
+  //
+  // The system's **own** operation surface (CE-API): one entry per operation
+  // the server answers, with its request/response members, the data entity it
+  // primarily writes, and its authorization requirement.
+  get serverOperationRegistry(): ServerOperationRegistry {
+    return new ServerOperationRegistry(this.doc, this.path + "/serverOperationRegistry");
+  }
+
+  // 7.10. Data Model Follow-up Facets.
   //
   // Per-entity operational/governance facets (volume, compliance, technical
   // characteristics, migration mappings) and the model-wide ER diagram —
@@ -17084,6 +17292,13 @@ export class IntegrationHealthSummary extends SomNode {
 }
 
 // A single integration point entry.
+//
+// How a domain object connects to the outside world. It describes *outward
+// connections* — which interfaces surface the object, which events it takes
+// part in, how it maps onto external systems — and deliberately declares no
+// operation of the application's own: those live in the server operation
+// registry (SVOPR), which is the one place an operation is named and given its
+// request/response shapes.
 export class IntegrationPointEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -17575,7 +17790,16 @@ export class InterfaceGovernance extends SomNode {
   // (skipped: changelog has no target type)
 }
 
-// API operation entry.
+// An operation of an **external** interface.
+//
+// One operation of a third-party system the application talks to, described in
+// that system's own terms — including its transport method and path, which a
+// foreign contract genuinely has.
+//
+// This is **not** where the application's own operations are declared: those
+// live in the server operation registry (SVOPR), under the
+// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+// the operation name the sole identifier.
 export class InterfaceOperationEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -18459,6 +18683,13 @@ export class KnowledgeTransfer extends SomNode {
 // 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
+//
+// This is the *picker* — how a user is offered languages and countries, what
+// is preselected, how the choice is retained across a sign-in, and how the
+// system falls back. The underlying `ui.language` / `ui.country` preference is
+// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+// setting declaration (`codespecs_mapping.md` §5.16).
 export class LanguageCountrySelection extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -20147,6 +20378,22 @@ export class MigrationSystems extends SomNode {
 
   get content(): MigrationSystemsContentForm {
     return new MigrationSystemsContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// A single migration target — one data source / schema pair (form).
+//
+// Migration artifacts are filed per data source and per schema within it, so a
+// system with several databases — or several database *types* — needs no extra
+// specification surface beyond naming each target once here. Every artifact in
+// 7.4.2 then names the target it applies to rather than repeating the pair.
+export class MigrationTargetEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): MigrationTargetEntryContentForm {
+    return new MigrationTargetEntryContentForm(this.doc, this.path + "/content");
   }
 }
 
@@ -28159,6 +28406,90 @@ export class ScenarioStepEntry extends SomNode {
   }
 }
 
+// A single scheduled job (form + trigger case + work definition + failure
+// policy).
+//
+// One background job: what starts it, what it does, which data it acts on,
+// what happens when it fails, and where it is deployed. Work that runs *off*
+// the request thread is what separates a job from a server operation — the
+// trigger is that axis, which is why it is a required, closed choice rather
+// than free text.
+//
+// **Where the specification stops and the code begins.** This entry carries
+// the job's *intent* — what it does, over which data, in what order. It does
+// **not** carry the work body: the body is written in the CodeSpec as
+// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+// place. State the intent well enough that the body can be written from it,
+// then stop.
+//
+// **Ownership is derived, not declared.** The service unit that owns a job
+// follows from the entity it primarily writes, exactly as it does for a server
+// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+// entity and never the unit. Two places to state one fact is how they come to
+// disagree.
+//
+// **A scheduled report is not declared twice.** A report definition that names
+// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+// comes from the report, not from an entry here. List a job here only when the
+// work is not already the schedule of a report.
+export class ScheduledJobEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ScheduledJobEntryContentForm {
+    return new ScheduledJobEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // Cron trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `cron` kind: a recurring clock expression, taken
+  // verbatim. It is a single field because that is exactly what the trigger
+  // is — the zone it is read in is the system-wide one stated on
+  // [BatchJobManagement], and catch-up behaviour after a missed window is a
+  // scheduler setting rather than a specification statement.
+  get cronTrigger(): ScheduledJobEntryCronTriggerForm {
+    return new ScheduledJobEntryCronTriggerForm(this.doc, this.path + "/SCJOB-CRON");
+  }
+
+  // Calendar trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `calendar` kind: a date rule a clock expression
+  // cannot state — the last day of the month, the third Monday of a quarter.
+  get calendarTrigger(): ScheduledJobEntryCalendarTriggerForm {
+    return new ScheduledJobEntryCalendarTriggerForm(this.doc, this.path + "/SCJOB-CAL");
+  }
+
+  // Event trigger — a promoted `@OneOf` case.
+  //
+  // Present only for the `event` kind. An event-triggered job does not fire on
+  // time at all, so it has no schedule; what it has instead — and what neither
+  // other arm has — is an occurrence carrying data the work reads.
+  get eventTrigger(): ScheduledJobEntryEventTriggerForm {
+    return new ScheduledJobEntryEventTriggerForm(this.doc, this.path + "/SCJOB-EVNT");
+  }
+
+  // What the job does and which data it acts on.
+  //
+  // The intent half of the work definition. The body that realises it is
+  // written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+  // section says what that body must achieve and over which data, in enough
+  // detail that it can be written from here without a second conversation.
+  get workDefinition(): ScheduledJobEntryWorkDefinitionForm {
+    return new ScheduledJobEntryWorkDefinitionForm(this.doc, this.path + "/SCJOB-WORK");
+  }
+
+  // This job's departures from the system-wide execution policy.
+  //
+  // Every field is an override. Left empty, the job inherits the Execution
+  // Controls (BJME) default; the policy stays the rule and the entry is the
+  // exception.
+  get failurePolicy(): ScheduledJobEntryFailurePolicyForm {
+    return new ScheduledJobEntryFailurePolicyForm(this.doc, this.path + "/SCJOB-FAIL");
+  }
+}
+
 // Scheduled maintenance policy.
 export class ScheduledMaintenancePolicy extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -28190,11 +28521,12 @@ export class ScheduledMaintenancePolicy extends SomNode {
   }
 }
 
-// A single schema migration step (form).
+// A single migration artifact (form).
 //
-// One versioned change to the database schema — the DDL operations it applies,
-// the entities it touches, whether it is reversible, and any data backfill it
-// performs as part of the schema change.
+// One versioned artifact in the migration set: what it is (baseline schema,
+// reference data, or a schema change), which target it applies to, and which
+// deployment environments it is restricted to. The kind-specific detail lives
+// in the promoted case subsection its `artifactKind` selects.
 export class SchemaMigrationStepEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -28203,15 +28535,44 @@ export class SchemaMigrationStepEntry extends SomNode {
   get content(): SchemaMigrationStepEntryContentForm {
     return new SchemaMigrationStepEntryContentForm(this.doc, this.path + "/content");
   }
+
+  // Baseline schema definition — a promoted `@OneOf` case.
+  //
+  // Present only for the `initialDdl` kind. It establishes the schema, so there
+  // is no prior state: no affected-entity delta, no backfill, and nothing to
+  // roll back to.
+  get baselineSchema(): SchemaMigrationStepEntryBaselineSchemaForm {
+    return new SchemaMigrationStepEntryBaselineSchemaForm(this.doc, this.path + "/SCMST-BASE");
+  }
+
+  // Reference-data definition — a promoted `@OneOf` case.
+  //
+  // Present only for the `referenceData` kind. This artifact inserts rows, not
+  // schema, so it authors the value set rather than schema statements. It is
+  // the new system's own initial data — legacy business-data migration stays in
+  // the migration-mapping sections (`MIGME`).
+  get referenceData(): SchemaMigrationStepEntryReferenceDataForm {
+    return new SchemaMigrationStepEntryReferenceDataForm(this.doc, this.path + "/SCMST-REFD");
+  }
+
+  // Schema change — a promoted `@OneOf` case.
+  //
+  // Present only for the `schemaChange` kind: an evolution step on top of an
+  // existing schema. This is the only kind for which a delta of affected
+  // entities, a data backfill and reversibility are meaningful.
+  get schemaChange(): SchemaMigrationStepEntrySchemaChangeForm {
+    return new SchemaMigrationStepEntrySchemaChangeForm(this.doc, this.path + "/SCMST-CHNG");
+  }
 }
 
 // 7.4. Schema Versioning and Migration.
 //
 // Records how the database schema is *versioned and migrated* as the data
-// model evolves — the ordered DDL / migration steps and the tooling and
-// policy that govern them. This is distinct from business-data migration
-// between systems (see `MigrationMappingEntry` for old→new field mapping):
-// here the subject is the schema's own evolution over releases.
+// model evolves — the versioning policy, the data source / schema targets, and
+// the ordered artifact set that establishes and evolves the schema. This is
+// distinct from business-data migration between systems (see
+// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+// schema's own evolution over releases.
 export class SchemaVersioningAndMigration extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
@@ -28221,7 +28582,12 @@ export class SchemaVersioningAndMigration extends SomNode {
     return new SchemaVersioningAndMigrationContentForm(this.doc, this.path + "/content");
   }
 
-  // 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  // 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+  get migrationTargets(): SomList<MigrationTargetEntry> {
+    return new SomList(this.doc, this.path + "/MIGTG-TARG-LST", (d: SpecDocument, p: string) => new MigrationTargetEntry(d, p), "MIGTG-TARG-xxx");
+  }
+
+  // 7.4.2. Schema Migration Steps — one entry per versioned artifact.
   get migrationSteps(): SomList<SchemaMigrationStepEntry> {
     return new SomList(this.doc, this.path + "/SCMST-STEP-LST", (d: SpecDocument, p: string) => new SchemaMigrationStepEntry(d, p), "SCMST-STEP-xxx");
   }
@@ -28535,6 +28901,18 @@ export class ScreenElementFieldSpec extends SomNode {
   get selectOptions(): ScreenElementFieldSpecSelectOptionsForm {
     return new ScreenElementFieldSpecSelectOptionsForm(this.doc, this.path + "/SEFSS");
   }
+
+  // File-kind options — a promoted `@OneOf` case (csrb8).
+  //
+  // Present only for the file field kind; carries what may be chosen and how
+  // the chosen file is shown. The **storage group** is deliberately absent: a
+  // file's group is authored once on its CE-DB file-reference column
+  // (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+  // name different groups. So is a download affordance, which follows from the
+  // field being wired for transfer and the file being stored (§5.18).
+  get fileOptions(): ScreenElementFieldSpecFileOptionsForm {
+    return new ScreenElementFieldSpecFileOptionsForm(this.doc, this.path + "/SEFSU");
+  }
 }
 
 // A screen entry (form).
@@ -28652,6 +29030,18 @@ export class ScreenFieldEntry extends SomNode {
   // Choice-kind option source — a promoted `@OneOf` case (csra4).
   get choiceOptions(): ScreenFieldEntryChoiceOptionsForm {
     return new ScreenFieldEntryChoiceOptionsForm(this.doc, this.path + "/SCFICH");
+  }
+
+  // File-kind input constraints — a promoted `@OneOf` case (csrb8).
+  //
+  // Constraints only. **How** the file is presented — link, dropzone or
+  // thumbnail — is the D09 design pass's `fileOptions`
+  // (`ScreenElementFieldSpec`), because a requirement names the kind of value
+  // a user supplies and the design names the concrete control. The storage
+  // group is neither side's: it is authored on the CE-DB file-reference column
+  // (`codespecs_mapping.md` §5.13.1).
+  get fileConstraints(): ScreenFieldEntryFileConstraintsForm {
+    return new ScreenFieldEntryFileConstraintsForm(this.doc, this.path + "/SCFIFI");
   }
 
   // UI and layout.
@@ -29703,6 +30093,29 @@ export class SensitiveDataEncryption extends SomNode {
   }
 }
 
+// A single declared server / system configuration setting (CE-CF).
+//
+// The declaration only: key, value type, default, the environment variable and
+// command-line option it may also be read from, whether it carries a secret,
+// and which narrower scopes may shadow it. The *value* is supplied per
+// deployment through the configuration
+// tree, the OS environment, a `.env` file or the command line (in that
+// precedence, command line winning) and is never authored. A secret-bearing
+// setting declares its presence and shape so deployment tooling can supply
+// the content out of band (`codespecs_mapping.md` §5.16).
+//
+// Security and infrastructure configuration is scope-pinned: it stays
+// server-side unless the declaration explicitly opens it to a narrower scope.
+export class ServerConfigurationSettingEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ServerConfigurationSettingEntryContentForm {
+    return new ServerConfigurationSettingEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
 // Server environment entry (development, staging, production, DR).
 export class ServerEnvironmentEntry extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -29731,6 +30144,108 @@ export class ServerEnvironmentEntry extends SomNode {
   // Lifecycle rules.
   get lifecycle(): ServerEnvironmentEntryLifecycleForm {
     return new ServerEnvironmentEntryLifecycleForm(this.doc, this.path + "/SEENENLI");
+  }
+}
+
+// A single server operation (form + request/response members).
+//
+// One entry in the [ServerOperationRegistry]: the operation name that
+// identifies it, its purpose, the data entity it primarily writes, its
+// authorization requirement, the error codes it may return, and the members
+// that make up its request and response shapes.
+//
+// The operation name is the join token the rest of the model references: the
+// ISC step entries cite it as the target of a client call (CE-SC), and the
+// service unit that owns the operation follows from
+// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+// list (`codespecs_mapping.md` §5.17).
+export class ServerOperationEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ServerOperationEntryContentForm {
+    return new ServerOperationEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.9.x. Request Members — the members that make up the request shape.
+  get requestMembers(): SomList<ServerOperationMemberEntry> {
+    return new SomList(this.doc, this.path + "/SVOPM-REQM-LST", (d: SpecDocument, p: string) => new ServerOperationMemberEntry(d, p), "SVOPM-REQM-xxx");
+  }
+
+  // 7.9.x. Response Members — the members the success payload carries.
+  //
+  // These members *are* the success payload the Result envelope wraps; the
+  // envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+  // authored per operation.
+  get responseMembers(): SomList<ServerOperationMemberEntry> {
+    return new SomList(this.doc, this.path + "/SVOPM-RESM-LST", (d: SpecDocument, p: string) => new ServerOperationMemberEntry(d, p), "SVOPM-RESM-xxx");
+  }
+}
+
+// A single member of an operation's request or response shape (form).
+//
+// One named, typed member: its name, its type, whether it must be present, and
+// — when the type is a domain concept rather than a primitive — the data
+// entity or domain enum it draws from. The same shape serves both the request
+// and the response side of a [ServerOperationEntry], so a member reads the
+// same way whichever direction it travels.
+export class ServerOperationMemberEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): ServerOperationMemberEntryContentForm {
+    return new ServerOperationMemberEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// 7.9. Server Operation Registry.
+//
+// The authoring home for the **application's own** operation surface — the
+// CE-API (`serverApi`) part. Every operation the system answers is declared
+// once here; the client side (CE-SC) only *cites* an operation, and the
+// service unit that owns it (CE-SU) is *derived* from the entity each
+// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+// declare an operation, so without this registry the system's server API would
+// be code with no specification source.
+//
+// This is distinct from the **external** interface inventory under
+// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+// system talks to. Those carry a transport verb and a path because a
+// third-party API really has them; the application's own contract does not —
+// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+// whose **operation name** carries the intent, and §5.14 drops transport
+// plumbing from the spec surface.
+//
+// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+//
+// - no transport method and no path — the operation name is the identifier;
+// - no response status codes — every application outcome, success *or* error,
+//   rides in the [ResultEnvelope]; only infrastructure failures are transport
+//   errors;
+// - no encoding, header, redirect, CORS or credential plumbing — framework
+//   transport members, never spec input.
+export class ServerOperationRegistry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 7.9.1. Operations — one entry per operation the system answers.
+  get operations(): SomList<ServerOperationEntry> {
+    return new SomList(this.doc, this.path + "/SVOPE-OPER-LST", (d: SpecDocument, p: string) => new ServerOperationEntry(d, p), "SVOPE-OPER-xxx");
   }
 }
 
@@ -32273,6 +32788,11 @@ export class SystemConfigurationManagement extends SomNode {
   // Validation, diffing, and audit controls.
   get governance(): SystemConfigurationManagementGovernanceForm {
     return new SystemConfigurationManagementGovernanceForm(this.doc, this.path + "/SCMG");
+  }
+
+  // The declared server configuration settings.
+  get settings(): SomList<ServerConfigurationSettingEntry> {
+    return new SomList(this.doc, this.path + "/SCSET-SETT-LST", (d: SpecDocument, p: string) => new ServerConfigurationSettingEntry(d, p), "SCSET-SETT-xxx");
   }
 }
 
@@ -36877,6 +37397,56 @@ export class UserRegistrationProcess extends SomNode {
 
   // Registration Flow Diagram (mermaid-sequence).
   // (skipped: registrationFlowDiagram has no target type)
+}
+
+// A single declared user setting (CE-UP).
+//
+// The declaration only: key, value type, default, and whether a per-device
+// value may shadow the key. The value is the user's choice and is never
+// authored (`codespecs_mapping.md` §5.16).
+export class UserSettingEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): UserSettingEntryContentForm {
+    return new UserSettingEntryContentForm(this.doc, this.path + "/content");
+  }
+}
+
+// User settings — server-persisted settings that follow the user (CE-UP).
+//
+// Keyed by the user alone: no machine and no device in the key. A user
+// setting is persisted on the server and re-materialised on whichever device
+// the user signs in from, which is what distinguishes it from a device
+// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+// the device) and from client configuration ([ClientConfiguration], CE-CC —
+// no user identity in the key) (`codespecs_mapping.md` §11).
+//
+// The scope is expressed by *which section a setting is declared in*, never
+// by a field on a shared section: there is no persistence discriminator
+// anywhere in the four settings scopes.
+export class UserSettings extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // The declared user settings.
+  get settings(): SomList<UserSettingEntry> {
+    return new SomList(this.doc, this.path + "/USSET-SETT-LST", (d: SpecDocument, p: string) => new UserSettingEntry(d, p), "USSET-SETT-xxx");
+  }
 }
 
 // 4.1.4.n.5. Training Requirements.
@@ -47148,22 +47718,6 @@ export class BatchJobManagementContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get schedulingEngine(): string {
-    return this.doc.formField(this.path, "schedulingEngine") || '';
-  }
-
-  set schedulingEngine(value: string) {
-    this.doc.setFormField(this.path, "schedulingEngine", value);
-  }
-
-  get scheduleDefinition(): string {
-    return this.doc.formField(this.path, "scheduleDefinition") || '';
-  }
-
-  set scheduleDefinition(value: string) {
-    this.doc.setFormField(this.path, "scheduleDefinition", value);
-  }
-
   get timeZoneHandling(): string {
     return this.doc.formField(this.path, "timeZoneHandling") || '';
   }
@@ -54135,7 +54689,7 @@ export class ClientAccessibilityRequirementsVisualForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
-export class ClientConfigurationContentForm extends SomNode {
+export class ClientApplicationEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -54152,44 +54706,119 @@ export class ClientConfigurationContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get apiBaseUrl(): string {
-    return this.doc.formField(this.path, "apiBaseUrl") || '';
+  get clientId(): string {
+    return this.doc.formField(this.path, "clientId") || '';
   }
 
-  set apiBaseUrl(value: string) {
-    this.doc.setFormField(this.path, "apiBaseUrl", value);
+  set clientId(value: string) {
+    this.doc.setFormField(this.path, "clientId", value);
   }
 
-  get environment(): string {
-    return this.doc.formField(this.path, "environment") || '';
+  get clientName(): string {
+    return this.doc.formField(this.path, "clientName") || '';
   }
 
-  set environment(value: string) {
-    this.doc.setFormField(this.path, "environment", value);
+  set clientName(value: string) {
+    this.doc.setFormField(this.path, "clientName", value);
   }
 
-  get deviceOptions(): string {
-    return this.doc.formField(this.path, "deviceOptions") || '';
+  get clientKind(): string {
+    return this.doc.formField(this.path, "clientKind") || '';
   }
 
-  set deviceOptions(value: string) {
-    this.doc.setFormField(this.path, "deviceOptions", value);
+  set clientKind(value: string) {
+    this.doc.setFormField(this.path, "clientKind", value);
   }
 
-  get featureToggles(): string {
-    return this.doc.formField(this.path, "featureToggles") || '';
+  get purpose(): string {
+    return this.doc.formField(this.path, "purpose") || '';
   }
 
-  set featureToggles(value: string) {
-    this.doc.setFormField(this.path, "featureToggles", value);
+  set purpose(value: string) {
+    this.doc.setFormField(this.path, "purpose", value);
   }
 
-  get updateChannel(): string {
-    return this.doc.formField(this.path, "updateChannel") || '';
+  get platformTargets(): string {
+    return this.doc.formField(this.path, "platformTargets") || '';
   }
 
-  set updateChannel(value: string) {
-    this.doc.setFormField(this.path, "updateChannel", value);
+  set platformTargets(value: string) {
+    this.doc.setFormField(this.path, "platformTargets", value);
+  }
+
+  get entryRoute(): string {
+    return this.doc.formField(this.path, "entryRoute") || '';
+  }
+
+  set entryRoute(value: string) {
+    this.doc.setFormField(this.path, "entryRoute", value);
+  }
+
+  get includedScreens(): string {
+    return this.doc.formField(this.path, "includedScreens") || '';
+  }
+
+  set includedScreens(value: string) {
+    this.doc.setFormField(this.path, "includedScreens", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ClientConfigurationSettingEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get settingKey(): string {
+    return this.doc.formField(this.path, "settingKey") || '';
+  }
+
+  set settingKey(value: string) {
+    this.doc.setFormField(this.path, "settingKey", value);
+  }
+
+  get client(): string {
+    return this.doc.formField(this.path, "client") || '';
+  }
+
+  set client(value: string) {
+    this.doc.setFormField(this.path, "client", value);
+  }
+
+  get valueType(): string {
+    return this.doc.formField(this.path, "valueType") || '';
+  }
+
+  set valueType(value: string) {
+    this.doc.setFormField(this.path, "valueType", value);
+  }
+
+  get defaultValue(): string {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value: string) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+
+  get overridableBy(): string {
+    return this.doc.formField(this.path, "overridableBy") || '';
+  }
+
+  set overridableBy(value: string) {
+    this.doc.setFormField(this.path, "overridableBy", value);
   }
 }
 
@@ -77240,7 +77869,7 @@ export class DevelopmentQualityGatesSecurityForm extends SomNode {
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
-export class DeviceSettingsContentForm extends SomNode {
+export class DeviceSettingEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -77279,15 +77908,6 @@ export class DeviceSettingsContentForm extends SomNode {
 
   set defaultValue(value: string) {
     this.doc.setFormField(this.path, "defaultValue", value);
-  }
-
-  get deviceOverridable(): boolean | null {
-    const v = this.doc.formField(this.path, "deviceOverridable");
-    return v == null ? null : v === 'true';
-  }
-
-  set deviceOverridable(value: boolean | null) {
-    this.doc.setFormField(this.path, "deviceOverridable", value == null ? '' : (value ? 'true' : 'false'));
   }
 }
 
@@ -110016,6 +110636,57 @@ export class MigrationSystemsContentForm extends SomNode {
 
   set dataModelChangeSummary(value: string) {
     this.doc.setFormField(this.path, "dataModelChangeSummary", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class MigrationTargetEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get targetName(): string {
+    return this.doc.formField(this.path, "targetName") || '';
+  }
+
+  set targetName(value: string) {
+    this.doc.setFormField(this.path, "targetName", value);
+  }
+
+  get dataSourceName(): string {
+    return this.doc.formField(this.path, "dataSourceName") || '';
+  }
+
+  set dataSourceName(value: string) {
+    this.doc.setFormField(this.path, "dataSourceName", value);
+  }
+
+  get schemaName(): string {
+    return this.doc.formField(this.path, "schemaName") || '';
+  }
+
+  set schemaName(value: string) {
+    this.doc.setFormField(this.path, "schemaName", value);
+  }
+
+  get purpose(): string {
+    return this.doc.formField(this.path, "purpose") || '';
+  }
+
+  set purpose(value: string) {
+    this.doc.setFormField(this.path, "purpose", value);
   }
 }
 
@@ -143209,6 +143880,266 @@ export class ScenarioStepEntryExecutionForm extends SomNode {
   }
 }
 
+// Generated section facade for the `calendarTrigger` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryCalendarTriggerForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get calendarRule(): string {
+    return this.doc.formField(this.path, "calendarRule") || '';
+  }
+
+  set calendarRule(value: string) {
+    this.doc.setFormField(this.path, "calendarRule", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get jobName(): string {
+    return this.doc.formField(this.path, "jobName") || '';
+  }
+
+  set jobName(value: string) {
+    this.doc.setFormField(this.path, "jobName", value);
+  }
+
+  get purpose(): string {
+    return this.doc.formField(this.path, "purpose") || '';
+  }
+
+  set purpose(value: string) {
+    this.doc.setFormField(this.path, "purpose", value);
+  }
+
+  get triggerKind(): string {
+    return this.doc.formField(this.path, "triggerKind") || '';
+  }
+
+  set triggerKind(value: string) {
+    this.doc.setFormField(this.path, "triggerKind", value);
+  }
+
+  get primaryDataEntity(): string {
+    return this.doc.formField(this.path, "primaryDataEntity") || '';
+  }
+
+  set primaryDataEntity(value: string) {
+    this.doc.setFormField(this.path, "primaryDataEntity", value);
+  }
+
+  get enabled(): boolean | null {
+    const v = this.doc.formField(this.path, "enabled");
+    return v == null ? null : v === 'true';
+  }
+
+  set enabled(value: boolean | null) {
+    this.doc.setFormField(this.path, "enabled", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get environments(): string {
+    return this.doc.formField(this.path, "environments") || '';
+  }
+
+  set environments(value: string) {
+    this.doc.setFormField(this.path, "environments", value);
+  }
+}
+
+// Generated section facade for the `cronTrigger` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryCronTriggerForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get cronExpression(): string {
+    return this.doc.formField(this.path, "cronExpression") || '';
+  }
+
+  set cronExpression(value: string) {
+    this.doc.setFormField(this.path, "cronExpression", value);
+  }
+}
+
+// Generated section facade for the `eventTrigger` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryEventTriggerForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get eventName(): string {
+    return this.doc.formField(this.path, "eventName") || '';
+  }
+
+  set eventName(value: string) {
+    this.doc.setFormField(this.path, "eventName", value);
+  }
+
+  get eventPayload(): string {
+    return this.doc.formField(this.path, "eventPayload") || '';
+  }
+
+  set eventPayload(value: string) {
+    this.doc.setFormField(this.path, "eventPayload", value);
+  }
+}
+
+// Generated section facade for the `failurePolicy` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryFailurePolicyForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get maxRetries(): number | null {
+    const v = this.doc.formField(this.path, "maxRetries");
+    return v == null || v === '' ? null : Number.parseInt(v, 10);
+  }
+
+  set maxRetries(value: number | null) {
+    this.doc.setFormField(this.path, "maxRetries", value == null ? '' : String(value));
+  }
+
+  get retryBackoff(): string {
+    return this.doc.formField(this.path, "retryBackoff") || '';
+  }
+
+  set retryBackoff(value: string) {
+    this.doc.setFormField(this.path, "retryBackoff", value);
+  }
+
+  get timeout(): string {
+    return this.doc.formField(this.path, "timeout") || '';
+  }
+
+  set timeout(value: string) {
+    this.doc.setFormField(this.path, "timeout", value);
+  }
+
+  get failureAlertMessage(): string {
+    return this.doc.formField(this.path, "failureAlertMessage") || '';
+  }
+
+  set failureAlertMessage(value: string) {
+    this.doc.setFormField(this.path, "failureAlertMessage", value);
+  }
+}
+
+// Generated section facade for the `workDefinition` @Form section: its own content text followed by one typed member per form field.
+export class ScheduledJobEntryWorkDefinitionForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get workSummary(): string {
+    return this.doc.formField(this.path, "workSummary") || '';
+  }
+
+  set workSummary(value: string) {
+    this.doc.setFormField(this.path, "workSummary", value);
+  }
+
+  get readEntities(): string {
+    return this.doc.formField(this.path, "readEntities") || '';
+  }
+
+  set readEntities(value: string) {
+    this.doc.setFormField(this.path, "readEntities", value);
+  }
+
+  get writtenEntities(): string {
+    return this.doc.formField(this.path, "writtenEntities") || '';
+  }
+
+  set writtenEntities(value: string) {
+    this.doc.setFormField(this.path, "writtenEntities", value);
+  }
+
+  get targetReports(): string {
+    return this.doc.formField(this.path, "targetReports") || '';
+  }
+
+  set targetReports(value: string) {
+    this.doc.setFormField(this.path, "targetReports", value);
+  }
+}
+
 // Generated section facade for the `approval` @Form section: its own content text followed by one typed member per form field.
 export class ScheduledMaintenancePolicyApprovalForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -143442,6 +144373,49 @@ export class ScheduledMaintenancePolicySchedulingForm extends SomNode {
   }
 }
 
+// Generated section facade for the `baselineSchema` @Form section: its own content text followed by one typed member per form field.
+export class SchemaMigrationStepEntryBaselineSchemaForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get createdEntities(): string {
+    return this.doc.formField(this.path, "createdEntities") || '';
+  }
+
+  set createdEntities(value: string) {
+    this.doc.setFormField(this.path, "createdEntities", value);
+  }
+
+  get schemaStatements(): string {
+    return this.doc.formField(this.path, "schemaStatements") || '';
+  }
+
+  set schemaStatements(value: string) {
+    this.doc.setFormField(this.path, "schemaStatements", value);
+  }
+
+  get indexesAndConstraints(): string {
+    return this.doc.formField(this.path, "indexesAndConstraints") || '';
+  }
+
+  set indexesAndConstraints(value: string) {
+    this.doc.setFormField(this.path, "indexesAndConstraints", value);
+  }
+}
+
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class SchemaMigrationStepEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -143476,12 +144450,98 @@ export class SchemaMigrationStepEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "description", value);
   }
 
-  get ddlOperations(): string {
-    return this.doc.formField(this.path, "ddlOperations") || '';
+  get artifactKind(): string {
+    return this.doc.formField(this.path, "artifactKind") || '';
   }
 
-  set ddlOperations(value: string) {
-    this.doc.setFormField(this.path, "ddlOperations", value);
+  set artifactKind(value: string) {
+    this.doc.setFormField(this.path, "artifactKind", value);
+  }
+
+  get migrationTarget(): string {
+    return this.doc.formField(this.path, "migrationTarget") || '';
+  }
+
+  set migrationTarget(value: string) {
+    this.doc.setFormField(this.path, "migrationTarget", value);
+  }
+
+  get environments(): string {
+    return this.doc.formField(this.path, "environments") || '';
+  }
+
+  set environments(value: string) {
+    this.doc.setFormField(this.path, "environments", value);
+  }
+}
+
+// Generated section facade for the `referenceData` @Form section: its own content text followed by one typed member per form field.
+export class SchemaMigrationStepEntryReferenceDataForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get targetEntities(): string {
+    return this.doc.formField(this.path, "targetEntities") || '';
+  }
+
+  set targetEntities(value: string) {
+    this.doc.setFormField(this.path, "targetEntities", value);
+  }
+
+  get valueSet(): string {
+    return this.doc.formField(this.path, "valueSet") || '';
+  }
+
+  set valueSet(value: string) {
+    this.doc.setFormField(this.path, "valueSet", value);
+  }
+
+  get identityKey(): string {
+    return this.doc.formField(this.path, "identityKey") || '';
+  }
+
+  set identityKey(value: string) {
+    this.doc.setFormField(this.path, "identityKey", value);
+  }
+}
+
+// Generated section facade for the `schemaChange` @Form section: its own content text followed by one typed member per form field.
+export class SchemaMigrationStepEntrySchemaChangeForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get schemaStatements(): string {
+    return this.doc.formField(this.path, "schemaStatements") || '';
+  }
+
+  set schemaStatements(value: string) {
+    this.doc.setFormField(this.path, "schemaStatements", value);
   }
 
   get affectedEntities(): string {
@@ -143526,14 +144586,6 @@ export class SchemaVersioningAndMigrationContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get migrationTooling(): string {
-    return this.doc.formField(this.path, "migrationTooling") || '';
-  }
-
-  set migrationTooling(value: string) {
-    this.doc.setFormField(this.path, "migrationTooling", value);
   }
 
   get versioningStrategy(): string {
@@ -144581,6 +145633,57 @@ export class ScreenElementFieldSpecDateOptionsForm extends SomNode {
   }
 }
 
+// Generated section facade for the `fileOptions` @Form section: its own content text followed by one typed member per form field.
+export class ScreenElementFieldSpecFileOptionsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get acceptedContentKinds(): string {
+    return this.doc.formField(this.path, "acceptedContentKinds") || '';
+  }
+
+  set acceptedContentKinds(value: string) {
+    this.doc.setFormField(this.path, "acceptedContentKinds", value);
+  }
+
+  get maxFileSize(): string {
+    return this.doc.formField(this.path, "maxFileSize") || '';
+  }
+
+  set maxFileSize(value: string) {
+    this.doc.setFormField(this.path, "maxFileSize", value);
+  }
+
+  get presentation(): string {
+    return this.doc.formField(this.path, "presentation") || '';
+  }
+
+  set presentation(value: string) {
+    this.doc.setFormField(this.path, "presentation", value);
+  }
+
+  get uploadOnPick(): string {
+    return this.doc.formField(this.path, "uploadOnPick") || '';
+  }
+
+  set uploadOnPick(value: string) {
+    this.doc.setFormField(this.path, "uploadOnPick", value);
+  }
+}
+
 // Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field.
 export class ScreenElementFieldSpecFormattingForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -145263,6 +146366,41 @@ export class ScreenFieldEntryDataBindingForm extends SomNode {
 
   set helpText(value: string) {
     this.doc.setFormField(this.path, "helpText", value);
+  }
+}
+
+// Generated section facade for the `fileConstraints` @Form section: its own content text followed by one typed member per form field.
+export class ScreenFieldEntryFileConstraintsForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get acceptedContentKinds(): string {
+    return this.doc.formField(this.path, "acceptedContentKinds") || '';
+  }
+
+  set acceptedContentKinds(value: string) {
+    this.doc.setFormField(this.path, "acceptedContentKinds", value);
+  }
+
+  get maxFileSize(): string {
+    return this.doc.formField(this.path, "maxFileSize") || '';
+  }
+
+  set maxFileSize(value: string) {
+    this.doc.setFormField(this.path, "maxFileSize", value);
   }
 }
 
@@ -148572,6 +149710,82 @@ export class SelfRegistrationPolicyVerificationForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ServerConfigurationSettingEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get settingKey(): string {
+    return this.doc.formField(this.path, "settingKey") || '';
+  }
+
+  set settingKey(value: string) {
+    this.doc.setFormField(this.path, "settingKey", value);
+  }
+
+  get valueType(): string {
+    return this.doc.formField(this.path, "valueType") || '';
+  }
+
+  set valueType(value: string) {
+    this.doc.setFormField(this.path, "valueType", value);
+  }
+
+  get defaultValue(): string {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value: string) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+
+  get environmentVariable(): string {
+    return this.doc.formField(this.path, "environmentVariable") || '';
+  }
+
+  set environmentVariable(value: string) {
+    this.doc.setFormField(this.path, "environmentVariable", value);
+  }
+
+  get commandLineOption(): string {
+    return this.doc.formField(this.path, "commandLineOption") || '';
+  }
+
+  set commandLineOption(value: string) {
+    this.doc.setFormField(this.path, "commandLineOption", value);
+  }
+
+  get secret(): boolean | null {
+    const v = this.doc.formField(this.path, "secret");
+    return v == null ? null : v === 'true';
+  }
+
+  set secret(value: boolean | null) {
+    this.doc.setFormField(this.path, "secret", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get overridableBy(): string {
+    return this.doc.formField(this.path, "overridableBy") || '';
+  }
+
+  set overridableBy(value: string) {
+    this.doc.setFormField(this.path, "overridableBy", value);
+  }
+}
+
 // Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
 export class ServerEnvironmentEntryAccessForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -148802,6 +150016,166 @@ export class ServerEnvironmentEntryScaleForm extends SomNode {
 
   set expectedLoad(value: string) {
     this.doc.setFormField(this.path, "expectedLoad", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ServerOperationEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get operationName(): string {
+    return this.doc.formField(this.path, "operationName") || '';
+  }
+
+  set operationName(value: string) {
+    this.doc.setFormField(this.path, "operationName", value);
+  }
+
+  get purpose(): string {
+    return this.doc.formField(this.path, "purpose") || '';
+  }
+
+  set purpose(value: string) {
+    this.doc.setFormField(this.path, "purpose", value);
+  }
+
+  get primaryDataEntity(): string {
+    return this.doc.formField(this.path, "primaryDataEntity") || '';
+  }
+
+  set primaryDataEntity(value: string) {
+    this.doc.setFormField(this.path, "primaryDataEntity", value);
+  }
+
+  get authorizationRequirement(): string {
+    return this.doc.formField(this.path, "authorizationRequirement") || '';
+  }
+
+  set authorizationRequirement(value: string) {
+    this.doc.setFormField(this.path, "authorizationRequirement", value);
+  }
+
+  get requiredRoles(): string {
+    return this.doc.formField(this.path, "requiredRoles") || '';
+  }
+
+  set requiredRoles(value: string) {
+    this.doc.setFormField(this.path, "requiredRoles", value);
+  }
+
+  get requiredResourceKey(): string {
+    return this.doc.formField(this.path, "requiredResourceKey") || '';
+  }
+
+  set requiredResourceKey(value: string) {
+    this.doc.setFormField(this.path, "requiredResourceKey", value);
+  }
+
+  get descriptionKey(): string {
+    return this.doc.formField(this.path, "descriptionKey") || '';
+  }
+
+  set descriptionKey(value: string) {
+    this.doc.setFormField(this.path, "descriptionKey", value);
+  }
+
+  get errorCodes(): string {
+    return this.doc.formField(this.path, "errorCodes") || '';
+  }
+
+  set errorCodes(value: string) {
+    this.doc.setFormField(this.path, "errorCodes", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class ServerOperationMemberEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get memberName(): string {
+    return this.doc.formField(this.path, "memberName") || '';
+  }
+
+  set memberName(value: string) {
+    this.doc.setFormField(this.path, "memberName", value);
+  }
+
+  get memberType(): string {
+    return this.doc.formField(this.path, "memberType") || '';
+  }
+
+  set memberType(value: string) {
+    this.doc.setFormField(this.path, "memberType", value);
+  }
+
+  get multiValued(): boolean | null {
+    const v = this.doc.formField(this.path, "multiValued");
+    return v == null ? null : v === 'true';
+  }
+
+  set multiValued(value: boolean | null) {
+    this.doc.setFormField(this.path, "multiValued", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get required(): boolean | null {
+    const v = this.doc.formField(this.path, "required");
+    return v == null ? null : v === 'true';
+  }
+
+  set required(value: boolean | null) {
+    this.doc.setFormField(this.path, "required", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get dataEntity(): string {
+    return this.doc.formField(this.path, "dataEntity") || '';
+  }
+
+  set dataEntity(value: string) {
+    this.doc.setFormField(this.path, "dataEntity", value);
+  }
+
+  get domainEnum(): string {
+    return this.doc.formField(this.path, "domainEnum") || '';
+  }
+
+  set domainEnum(value: string) {
+    this.doc.setFormField(this.path, "domainEnum", value);
+  }
+
+  get description(): string {
+    return this.doc.formField(this.path, "description") || '';
+  }
+
+  set description(value: string) {
+    this.doc.setFormField(this.path, "description", value);
   }
 }
 
@@ -176696,6 +178070,57 @@ export class UserProvisioningToolsRoleManagementForm extends SomNode {
   }
 }
 
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class UserSettingEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get settingKey(): string {
+    return this.doc.formField(this.path, "settingKey") || '';
+  }
+
+  set settingKey(value: string) {
+    this.doc.setFormField(this.path, "settingKey", value);
+  }
+
+  get valueType(): string {
+    return this.doc.formField(this.path, "valueType") || '';
+  }
+
+  set valueType(value: string) {
+    this.doc.setFormField(this.path, "valueType", value);
+  }
+
+  get defaultValue(): string {
+    return this.doc.formField(this.path, "defaultValue") || '';
+  }
+
+  set defaultValue(value: string) {
+    this.doc.setFormField(this.path, "defaultValue", value);
+  }
+
+  get overridableBy(): string {
+    return this.doc.formField(this.path, "overridableBy") || '';
+  }
+
+  set overridableBy(value: string) {
+    this.doc.setFormField(this.path, "overridableBy", value);
+  }
+}
+
 // Generated section facade for the `trainingForm` @Form section: its own content text followed by one typed member per form field.
 export class UserTrainingRequirementsTrainingFormForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -179684,6 +181109,15 @@ export class WorkflowStepEntryContentForm extends SomNode {
 
   set isAutomatable(value: boolean | null) {
     this.doc.setFormField(this.path, "isAutomatable", value == null ? '' : (value ? 'true' : 'false'));
+  }
+
+  get isErrorProne(): boolean | null {
+    const v = this.doc.formField(this.path, "isErrorProne");
+    return v == null ? null : v === 'true';
+  }
+
+  set isErrorProne(value: boolean | null) {
+    this.doc.setFormField(this.path, "isErrorProne", value == null ? '' : (value ? 'true' : 'false'));
   }
 
   get averageDuration(): string {

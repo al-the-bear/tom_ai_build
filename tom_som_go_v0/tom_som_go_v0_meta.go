@@ -405,7 +405,7 @@ func metaChildrenAdministrationRequirementsSection(s map[string]bool) []*som.Som
 			return &som.SomMetaNode{ClassName: "UserProvisioningTools", MemberName: "userProvisioning", ClassSectionID: "USPRTO", Kind: som.SomMetaKindComplex, TypeName: "UserProvisioningTools", SerializationOrder: metaIntPtr(4), DocComment: "User provisioning and management tools.", ClassDocComment: "User provisioning and management tools.", Recursive: r, Children: c}
 		}),
 		metaCx("BatchJobManagement", s, metaChildrenBatchJobManagement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "BatchJobManagement", MemberName: "batchJobs", ClassSectionID: "BAJOMA", Kind: som.SomMetaKindComplex, TypeName: "BatchJobManagement", SerializationOrder: metaIntPtr(5), DocComment: "Batch job management.", ClassDocComment: "Batch job management.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "BatchJobManagement", MemberName: "batchJobs", ClassSectionID: "BAJOMA", Kind: som.SomMetaKindComplex, TypeName: "BatchJobManagement", SerializationOrder: metaIntPtr(5), DocComment: "Batch job management.", ClassDocComment: "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.", Recursive: r, Children: c}
 		}),
 		{ClassName: "AdministrationRequirementsSection", MemberName: "environmentManagement", SectionID: "ADENMA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(6), DocComment: "Environment management.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "environmentCatalog", TypeName: "String", Description: "Environment Catalog", Hint: "List of managed environments", Order: 0}, {Name: "environmentProvisioning", TypeName: "String", Description: "Environment Provisioning", Hint: "Automated, on-demand, scheduled", Order: 1}, {Name: "environmentCloning", TypeName: "bool", Description: "Environment Cloning", Hint: "Clone environment for testing", Order: 2}, {Name: "dataSeeding", TypeName: "String", Description: "Data Seeding", Hint: "Seed data for non-production envs", Order: 3}, {Name: "dataAnonymization", TypeName: "bool", Description: "Data Anonymization", Hint: "Anonymize production data for dev/test", Order: 4}, {Name: "dataSyncBetweenEnvs", TypeName: "String", Description: "Data Sync Between Envs", Hint: "Selective data promotion", Order: 5}, {Name: "environmentAccessControl", TypeName: "String", Description: "Environment Access Control", Hint: "Who can access which environment", Order: 6}, {Name: "productionAccessPolicy", TypeName: "String", Description: "Production Access Policy", Hint: "Break-glass, approval workflow", Order: 7}, {Name: "environmentVariableManagement", TypeName: "String", Description: "Env Variable Management", Hint: "Per-env variable sets", Order: 8}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional environment management notes", Order: 9}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — service configuration management practice", "AWS Well-Architected — operational excellence (runbooks, playbooks)"}, "connotation": "Administration environment management governs how environments are provisioned, seeded, and accessed."}}}},
 		metaCx("SystemDiagnosticTools", s, metaChildrenSystemDiagnosticTools, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -1234,10 +1234,17 @@ func metaChildrenBasicTechnicalRequirements(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenBatchJobManagement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BatchJobManagement", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "schedulingEngine", TypeName: "String", Description: "Scheduling Engine", Required: true, Hint: "Cron, Quartz, cloud scheduler, Airflow", Order: 0}, {Name: "scheduleDefinition", TypeName: "String", Description: "Schedule Definition", Hint: "Cron expression, calendar-based, event-driven", Order: 1}, {Name: "timeZoneHandling", TypeName: "String", Description: "Time Zone Handling", Hint: "UTC, local, configurable per job", Order: 2}}}},
-		{ClassName: "BatchJobManagement", MemberName: "jobTypes", SectionID: "BJMJT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Supported job categories.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataProcessingJobs", TypeName: "String", Description: "Data Processing Jobs", Hint: "ETL, aggregation, cleanup", Order: 0}, {Name: "reportGenerationJobs", TypeName: "String", Description: "Report Generation Jobs", Hint: "Scheduled report creation", Order: 1}, {Name: "notificationJobs", TypeName: "String", Description: "Notification Jobs", Hint: "Digest emails, reminder notifications", Order: 2}, {Name: "maintenanceJobs", TypeName: "String", Description: "Maintenance Jobs", Hint: "Database cleanup, log rotation, temp file purge", Order: 3}, {Name: "integrationSyncJobs", TypeName: "String", Description: "Integration Sync Jobs", Hint: "External system synchronization", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — eliminating toil and operational procedures", "ITIL 4 — change enablement and maintenance windows"}, "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."}}}},
-		{ClassName: "BatchJobManagement", MemberName: "execution", SectionID: "BJME", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Execution controls.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "concurrencyControl", TypeName: "String", Description: "Concurrency Control", Hint: "Max parallel jobs, queue depth", Order: 0}, {Name: "priorityLevels", TypeName: "String", Description: "Priority Levels", Hint: "Job priority classification", Order: 1}, {Name: "retryPolicy", TypeName: "String", Description: "Retry Policy", Hint: "Retry count, backoff, dead-letter", Order: 2}, {Name: "idempotency", TypeName: "bool", Description: "Idempotency", Hint: "Safe to re-run on failure", Order: 3}, {Name: "timeout", TypeName: "String", Description: "Timeout", Hint: "Maximum job execution time", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — eliminating toil and operational procedures", "AWS Well-Architected — operational excellence (runbooks, playbooks)"}, "connotation": "Execution controls define how batch jobs run, retry, and enforce timeouts."}}}},
-		{ClassName: "BatchJobManagement", MemberName: "monitoring", SectionID: "BJMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Monitoring and manual controls.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "jobDashboard", TypeName: "bool", Description: "Job Dashboard", Hint: "Visual job status overview", Order: 0}, {Name: "executionHistory", TypeName: "bool", Description: "Execution History", Hint: "Job run history and logs", Order: 1}, {Name: "failureAlerts", TypeName: "String", Description: "Failure Alerts", Hint: "Notification on job failure", Order: 2}, {Name: "slaMonitoring", TypeName: "String", Description: "SLA Monitoring", Hint: "Alert if job exceeds expected duration", Order: 3}, {Name: "manualTrigger", TypeName: "bool", Description: "Manual Trigger", Hint: "Admin can trigger jobs on demand", Order: 4}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional batch job notes", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"AWS Well-Architected — operational excellence (runbooks, playbooks)", "Google SRE — eliminating toil and operational procedures"}, "connotation": "Monitoring and manual controls track batch job health and allow operators to intervene."}}}},
+		{ClassName: "BatchJobManagement", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "timeZoneHandling", TypeName: "String", Description: "Time Zone Handling", Required: true, Hint: "The clock zone every schedule is interpreted in — UTC or the server's local zone", Order: 0}}}},
+		{ClassName: "BatchJobManagement", MemberName: "jobTypes", SectionID: "BJMJT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).", DocComment: "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataProcessingJobs", TypeName: "String", Description: "Data Processing Jobs", Hint: "ETL, aggregation, cleanup", Order: 0}, {Name: "reportGenerationJobs", TypeName: "String", Description: "Report Generation Jobs", Hint: "Scheduled report creation", Order: 1}, {Name: "notificationJobs", TypeName: "String", Description: "Notification Jobs", Hint: "Digest emails, reminder notifications", Order: 2}, {Name: "maintenanceJobs", TypeName: "String", Description: "Maintenance Jobs", Hint: "Database cleanup, log rotation, temp file purge", Order: 3}, {Name: "integrationSyncJobs", TypeName: "String", Description: "Integration Sync Jobs", Hint: "External system synchronization", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — eliminating toil and operational procedures", "ITIL 4 — change enablement and maintenance windows"}, "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."}}}},
+		{ClassName: "BatchJobManagement", MemberName: "execution", SectionID: "BJME", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits.", DocComment: "Execution controls — the **default layer** for every job.\n\nRetry, timeout and idempotency stated here apply to every job that does\nnot say otherwise. A job that needs different numbers overrides them in\nits own failure-policy subsection, so this section is the rule and the\nentry is the exception — never the other way round.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "concurrencyControl", TypeName: "String", Description: "Concurrency Control", Hint: "Max parallel jobs, queue depth", Order: 0}, {Name: "priorityLevels", TypeName: "String", Description: "Priority Levels", Hint: "Job priority classification", Order: 1}, {Name: "retryPolicy", TypeName: "String", Description: "Default Retry Policy", Hint: "The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt", Order: 2}, {Name: "idempotency", TypeName: "bool", Description: "Idempotency", Hint: "Whether jobs are required to be safe to re-run after a failure", Order: 3}, {Name: "timeout", TypeName: "String", Description: "Default Timeout", Hint: "The maximum run time a job inherits unless it overrides it", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — eliminating toil and operational procedures", "AWS Well-Architected — operational excellence (runbooks, playbooks)"}, "connotation": "Execution controls define how batch jobs run, retry, and enforce timeouts."}}}},
+		{ClassName: "BatchJobManagement", MemberName: "monitoring", SectionID: "BJMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Monitoring and manual controls.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "jobDashboard", TypeName: "bool", Description: "Job Dashboard", Hint: "Visual job status overview", Order: 0}, {Name: "executionHistory", TypeName: "bool", Description: "Execution History", Hint: "Job run history and logs", Order: 1}, {Name: "failureAlerts", TypeName: "String", Description: "Default Failure Alerting", Hint: "What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here.", Order: 2}, {Name: "slaMonitoring", TypeName: "String", Description: "SLA Monitoring", Hint: "Alert if job exceeds expected duration", Order: 3}, {Name: "manualTrigger", TypeName: "bool", Description: "Manual Trigger", Hint: "Admin can trigger jobs on demand", Order: 4}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional batch job notes", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"AWS Well-Architected — operational excellence (runbooks, playbooks)", "Google SRE — eliminating toil and operational procedures"}, "connotation": "Monitoring and manual controls track batch job health and allow operators to intervene."}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "BatchJobManagement", MemberName: "scheduledJobs", SectionID: "SCJOB-JOB-LST", SectionIDPattern: "SCJOB-JOB-xxx", Kind: som.SomMetaKindList, TypeName: "ScheduledJobEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run.", DocComment: "Scheduled jobs — one entry per job the system runs.\n\nThe declaration layer. Everything above is policy that applies to all\njobs; this is where a job actually comes into existence.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — eliminating toil and operational procedures", "ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in."}}}}
+			n.ElementNode = metaCx("ScheduledJobEntry", s, metaChildrenScheduledJobEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ScheduledJobEntry", ClassSectionID: "SCJOB", Kind: som.SomMetaKindComplex, TypeName: "ScheduledJobEntry", DocComment: "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.", ClassDocComment: "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -1465,7 +1472,7 @@ func metaChildrenBusinessObjectEntry(s map[string]bool) []*som.SomMetaNode {
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "BusinessObjectEntry", MemberName: "integrationPoints", SectionID: "INTEG-INTE-LST", SectionIDPattern: "INTEG-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "IntegrationPointEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per integration point.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — aggregates/entities/value objects", "BPMN 2.0 — business process model & notation"}, "connotation": "The integration points where this object exposes APIs or publishes and subscribes to events."}}}}
 			n.ElementNode = metaCx("IntegrationPointEntry", s, metaChildrenIntegrationPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "IntegrationPointEntry", ClassSectionID: "INTEG", Kind: som.SomMetaKindComplex, TypeName: "IntegrationPointEntry", DocComment: "A single integration point entry.", ClassDocComment: "A single integration point entry.", Recursive: r, Children: c}
+				return &som.SomMetaNode{ClassName: "IntegrationPointEntry", ClassSectionID: "INTEG", Kind: som.SomMetaKindComplex, TypeName: "IntegrationPointEntry", DocComment: "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.", ClassDocComment: "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -2043,9 +2050,28 @@ func metaChildrenClientAccessibilityRequirements(s map[string]bool) []*som.SomMe
 	}
 }
 
+func metaChildrenClientApplicationEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ClientApplicationEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "clientId", TypeName: "String", Description: "Client Id", Required: true, Hint: "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", Order: 0}, {Name: "clientName", TypeName: "String", Description: "Client Name", Required: true, Hint: "The name users and operators call this client by", Order: 1}, {Name: "clientKind", TypeName: "ClientApplicationKind", Description: "Client Kind", Required: true, Hint: "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", Order: 2, EnumValues: []string{"graphicalApplication", "commandLine", "server"}}, {Name: "purpose", TypeName: "String", Description: "Purpose", Required: true, Hint: "Who uses this client and what for — the reason it exists separately from the system's other clients", Order: 3}, {Name: "platformTargets", TypeName: "String", Description: "Platform Targets", Hint: "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", Order: 4, RefersTo: []string{"BROREQENT.browserName", "DEOSREEN.osName", "MODEREEN.platform"}}, {Name: "entryRoute", TypeName: "String", Description: "Entry Route", Hint: "The route this client opens on, by id from the screen route map. Empty for a client with no routes", Order: 5, RefersTo: []string{"SCRTEN.routeId"}}, {Name: "includedScreens", TypeName: "String", Description: "Included Screens", Hint: "The screens this client comprises, by id. Empty for a client with no screens", Order: 6, RefersTo: []string{"SCREN.screenId"}}}}},
+	}
+}
+
 func metaChildrenClientConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ClientConfiguration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "apiBaseUrl", TypeName: "String", Description: "API Base URL", Hint: "The server/API endpoint this client install talks to", Order: 0}, {Name: "environment", TypeName: "String", Description: "Environment", Hint: "dev / staging / production for this install", Order: 1}, {Name: "deviceOptions", TypeName: "String", Description: "Device Options", Hint: "Machine-specific device/hardware options for this install", Order: 2}, {Name: "featureToggles", TypeName: "String", Description: "Per-Install Feature Toggles", Hint: "Client-side toggles applied to this install", Order: 3}, {Name: "updateChannel", TypeName: "String", Description: "Update Channel", Hint: "stable / beta / canary for this install", Order: 4}}}},
+		{ClassName: "ClientConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ClientConfiguration", MemberName: "settings", SectionID: "CCSET-SETT-LST", SectionIDPattern: "CCSET-SETT-xxx", Kind: som.SomMetaKindList, TypeName: "ClientConfigurationSettingEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>.", DocComment: "The declared client configuration settings.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — config stored in the environment, per deployment", "ISO/IEC 25010 — portability / installability"}, "connotation": "The client configuration settings declared by the system's client applications, one entry per key."}}}}
+			n.ElementNode = metaCx("ClientConfigurationSettingEntry", s, metaChildrenClientConfigurationSettingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ClientConfigurationSettingEntry", ClassSectionID: "CCSET", Kind: som.SomMetaKindComplex, TypeName: "ClientConfigurationSettingEntry", DocComment: "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).", ClassDocComment: "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenClientConfigurationSettingEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ClientConfigurationSettingEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the client setting, e.g. api.baseUrl", Order: 0}, {Name: "client", TypeName: "String", Description: "Client", Hint: "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client", Order: 1, RefersTo: []string{"CLIAPP.clientId"}}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 2}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used until the app configuration resources or an install-local override supply one", Order: 3}, {Name: "overridableBy", TypeName: "String", Description: "Overridable By", Required: true, Hint: "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into", Order: 4}}}},
 	}
 }
 
@@ -2074,52 +2100,62 @@ func metaChildrenClientRequirementsSection(s map[string]bool) []*som.SomMetaNode
 		{ClassName: "ClientRequirementsSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of client requirements and support strategy.\n\n**Include**:\n- Browser support matrix and testing approach\n- Mobile device tier definitions\n- Accessibility compliance target\n- Progressive enhancement strategy\n- Client update and compatibility policy\n\n**Best Practices**:\n- Test on real devices, not just emulators\n- Use browser usage analytics for prioritization\n- Plan for evergreen browser updates\n- Document graceful degradation strategy\n- Regular accessibility audits\n"},
 		{ClassName: "ClientRequirementsSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of client requirements strategy."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "browserRequirements", SectionID: "BRREEN-BROW-LST", SectionIDPattern: "BRREEN-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per supported web browser.", DocComment: "Web browser requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards"}, "connotation": "The web browsers the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "clientApplications", SectionID: "CLIAPP-CLIE-LST", SectionIDPattern: "CLIAPP-CLIE-xxx", Kind: som.SomMetaKindList, TypeName: "ClientApplicationEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on.", DocComment: "The client applications the system consists of (CE-CL).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description", "ISO/IEC 25010 — portability / installability"}, "connotation": "The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises."}}}}
+			n.ElementNode = metaCx("ClientApplicationEntry", s, metaChildrenClientApplicationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ClientApplicationEntry", ClassSectionID: "CLIAPP", Kind: som.SomMetaKindComplex, TypeName: "ClientApplicationEntry", DocComment: "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.", ClassDocComment: "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "browserRequirements", SectionID: "BRREEN-BROW-LST", SectionIDPattern: "BRREEN-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserRequirementEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported web browser.", DocComment: "Web browser requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards"}, "connotation": "The web browsers the client must support."}}}}
 			n.ElementNode = metaCx("BrowserRequirementEntry", s, metaChildrenBrowserRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BrowserRequirementEntry", ClassSectionID: "BROREQENT", Kind: som.SomMetaKindComplex, TypeName: "BrowserRequirementEntry", DocComment: "Browser requirement entry.", ClassDocComment: "Browser requirement entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "desktopOsRequirements", SectionID: "DORE1-DESK-LST", SectionIDPattern: "DORE1-DESK-xxx", Kind: som.SomMetaKindList, TypeName: "DesktopOsRequirementEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported desktop operating system.", DocComment: "Desktop operating system requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — performance efficiency / resource utilization"}, "connotation": "The desktop operating systems the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "desktopOsRequirements", SectionID: "DORE1-DESK-LST", SectionIDPattern: "DORE1-DESK-xxx", Kind: som.SomMetaKindList, TypeName: "DesktopOsRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported desktop operating system.", DocComment: "Desktop operating system requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — performance efficiency / resource utilization"}, "connotation": "The desktop operating systems the client must support."}}}}
 			n.ElementNode = metaCx("DesktopOsRequirementEntry", s, metaChildrenDesktopOsRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DesktopOsRequirementEntry", ClassSectionID: "DEOSREEN", Kind: som.SomMetaKindComplex, TypeName: "DesktopOsRequirementEntry", DocComment: "Desktop operating system requirement entry.", ClassDocComment: "Desktop operating system requirement entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "mobileRequirements", SectionID: "MDRE-MOBI-LST", SectionIDPattern: "MDRE-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileDeviceRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Android CDD / Apple HIG — mobile device platform requirements"}, "connotation": "The mobile platforms and devices the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "mobileRequirements", SectionID: "MDRE-MOBI-LST", SectionIDPattern: "MDRE-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileDeviceRequirementEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Android CDD / Apple HIG — mobile device platform requirements"}, "connotation": "The mobile platforms and devices the client must support."}}}}
 			n.ElementNode = metaCx("MobileDeviceRequirementEntry", s, metaChildrenMobileDeviceRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MobileDeviceRequirementEntry", ClassSectionID: "MODEREEN", Kind: som.SomMetaKindComplex, TypeName: "MobileDeviceRequirementEntry", DocComment: "Mobile device requirement entry.", ClassDocComment: "Mobile device requirement entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		metaCx("DisplayRequirements", s, metaChildrenDisplayRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DisplayRequirements", MemberName: "displayRequirements", ClassSectionID: "DIRE", Kind: som.SomMetaKindComplex, TypeName: "DisplayRequirements", SerializationOrder: metaIntPtr(5), DocComment: "Display and screen requirements.", ClassDocComment: "Display and screen requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DisplayRequirements", MemberName: "displayRequirements", ClassSectionID: "DIRE", Kind: som.SomMetaKindComplex, TypeName: "DisplayRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Display and screen requirements.", ClassDocComment: "Display and screen requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientNetworkRequirements", s, metaChildrenClientNetworkRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientNetworkRequirements", MemberName: "networkRequirements", ClassSectionID: "CLNERE", Kind: som.SomMetaKindComplex, TypeName: "ClientNetworkRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Client network requirements.", ClassDocComment: "Client network requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientNetworkRequirements", MemberName: "networkRequirements", ClassSectionID: "CLNERE", Kind: som.SomMetaKindComplex, TypeName: "ClientNetworkRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Client network requirements.", ClassDocComment: "Client network requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientHardwareRequirements", s, metaChildrenClientHardwareRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientHardwareRequirements", MemberName: "hardwareRequirements", ClassSectionID: "CLHARE", Kind: som.SomMetaKindComplex, TypeName: "ClientHardwareRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Client hardware requirements.", ClassDocComment: "Client hardware requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientHardwareRequirements", MemberName: "hardwareRequirements", ClassSectionID: "CLHARE", Kind: som.SomMetaKindComplex, TypeName: "ClientHardwareRequirements", SerializationOrder: metaIntPtr(8), DocComment: "Client hardware requirements.", ClassDocComment: "Client hardware requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientAccessibilityRequirements", s, metaChildrenClientAccessibilityRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientAccessibilityRequirements", MemberName: "accessibilityRequirements", ClassSectionID: "CLACRE", Kind: som.SomMetaKindComplex, TypeName: "ClientAccessibilityRequirements", SerializationOrder: metaIntPtr(8), DocComment: "Accessibility requirements for clients.", ClassDocComment: "Client accessibility requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientAccessibilityRequirements", MemberName: "accessibilityRequirements", ClassSectionID: "CLACRE", Kind: som.SomMetaKindComplex, TypeName: "ClientAccessibilityRequirements", SerializationOrder: metaIntPtr(9), DocComment: "Accessibility requirements for clients.", ClassDocComment: "Client accessibility requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("PwaRequirements", s, metaChildrenPwaRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PwaRequirements", MemberName: "pwaRequirements", ClassSectionID: "PWRE", Kind: som.SomMetaKindComplex, TypeName: "PwaRequirements", SerializationOrder: metaIntPtr(9), DocComment: "Progressive Web App (PWA) requirements.", ClassDocComment: "Progressive Web App (PWA) requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PwaRequirements", MemberName: "pwaRequirements", ClassSectionID: "PWRE", Kind: som.SomMetaKindComplex, TypeName: "PwaRequirements", SerializationOrder: metaIntPtr(10), DocComment: "Progressive Web App (PWA) requirements.", ClassDocComment: "Progressive Web App (PWA) requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("NativeAppRequirements", s, metaChildrenNativeAppRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "NativeAppRequirements", MemberName: "nativeAppRequirements", ClassSectionID: "NAAPRE", Kind: som.SomMetaKindComplex, TypeName: "NativeAppRequirements", SerializationOrder: metaIntPtr(10), DocComment: "Native app requirements.", ClassDocComment: "Native app requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "NativeAppRequirements", MemberName: "nativeAppRequirements", ClassSectionID: "NAAPRE", Kind: som.SomMetaKindComplex, TypeName: "NativeAppRequirements", SerializationOrder: metaIntPtr(11), DocComment: "Native app requirements.", ClassDocComment: "Native app requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientSecurityRequirements", s, metaChildrenClientSecurityRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientSecurityRequirements", MemberName: "securityRequirements", ClassSectionID: "CLSERE", Kind: som.SomMetaKindComplex, TypeName: "ClientSecurityRequirements", SerializationOrder: metaIntPtr(11), DocComment: "Client security requirements.", ClassDocComment: "Client security requirements.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientSecurityRequirements", MemberName: "securityRequirements", ClassSectionID: "CLSERE", Kind: som.SomMetaKindComplex, TypeName: "ClientSecurityRequirements", SerializationOrder: metaIntPtr(12), DocComment: "Client security requirements.", ClassDocComment: "Client security requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientConfiguration", s, metaChildrenClientConfiguration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientConfiguration", MemberName: "clientConfiguration", ClassSectionID: "CLICON", Kind: som.SomMetaKindComplex, TypeName: "ClientConfiguration", SerializationOrder: metaIntPtr(12), DocComment: "Per-machine configuration of a client application (CE-CC).", ClassDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientConfiguration", MemberName: "clientConfiguration", ClassSectionID: "CLICON", Kind: som.SomMetaKindComplex, TypeName: "ClientConfiguration", SerializationOrder: metaIntPtr(13), DocComment: "Per-machine configuration of a client application (CE-CC).", ClassDocComment: "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).", Recursive: r, Children: c}
 		}),
 		metaCx("DeviceSettings", s, metaChildrenDeviceSettings, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DeviceSettings", MemberName: "deviceSettings", ClassSectionID: "DEVSET", Kind: som.SomMetaKindComplex, TypeName: "DeviceSettings", SerializationOrder: metaIntPtr(13), DocComment: "User-specific settings of a user-owned device (CE-DS).", ClassDocComment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DeviceSettings", MemberName: "deviceSettings", ClassSectionID: "DEVSET", Kind: som.SomMetaKindComplex, TypeName: "DeviceSettings", SerializationOrder: metaIntPtr(14), DocComment: "User-specific settings of a user-owned device (CE-DS).", ClassDocComment: "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).", Recursive: r, Children: c}
+		}),
+		metaCx("UserSettings", s, metaChildrenUserSettings, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "UserSettings", MemberName: "userSettings", ClassSectionID: "USRSET", Kind: som.SomMetaKindComplex, TypeName: "UserSettings", SerializationOrder: metaIntPtr(15), DocComment: "Server-persisted settings that follow the user across devices (CE-UP).", ClassDocComment: "User settings — server-persisted settings that follow the user (CE-UP).\n\nKeyed by the user alone: no machine and no device in the key. A user\nsetting is persisted on the server and re-materialised on whichever device\nthe user signs in from, which is what distinguishes it from a device\nsetting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves\nthe device) and from client configuration ([ClientConfiguration], CE-CC —\nno user identity in the key) (`codespecs_mapping.md` §11).\n\nThe scope is expressed by *which section a setting is declared in*, never\nby a field on a shared section: there is no persistence discriminator\nanywhere in the four settings scopes.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3108,7 +3144,7 @@ func metaChildrenCurrentWorkflowEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WorkflowTriggers", MemberName: "triggers", ClassSectionID: "WOTR", Kind: som.SomMetaKindComplex, TypeName: "WorkflowTriggers", SerializationOrder: metaIntPtr(2), DocComment: "Workflow triggers and initiation.", ClassDocComment: "Workflow triggers and initiation conditions.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "steps", SectionID: "WSE-STEP-LST", SectionIDPattern: "WSE-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.", DocComment: "Workflow steps in sequence.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow steps / activities)"}, "connotation": "The ordered sequence of steps that make up the workflow."}}}}
+			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "steps", SectionID: "WSE-STEP-LST", SectionIDPattern: "WSE-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list.", DocComment: "Workflow steps in sequence.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow steps / activities)"}, "connotation": "The ordered sequence of steps that make up the workflow."}}}}
 			n.ElementNode = metaCx("WorkflowStepEntry", s, metaChildrenWorkflowStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "WorkflowStepEntry", ClassSectionID: "WSE", Kind: som.SomMetaKindComplex, TypeName: "WorkflowStepEntry", DocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", ClassDocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", Recursive: r, Children: c}
 			})
@@ -3149,23 +3185,9 @@ func metaChildrenCurrentWorkflowEntry(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "manualSteps", SectionID: "WSE-MANU-LST", SectionIDPattern: "WSE-MANU-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Identify steps that cannot be automated or require human judgment.", DocComment: "Manual steps requiring human intervention.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (manual / non-automated steps)"}, "connotation": "The subset of workflow steps that require human intervention."}}}}
-			n.ElementNode = metaCx("WorkflowStepEntry", s, metaChildrenWorkflowStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "WorkflowStepEntry", ClassSectionID: "WSE", Kind: som.SomMetaKindComplex, TypeName: "WorkflowStepEntry", DocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", ClassDocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "errorProneSteps", SectionID: "WSE-ERRO-LST", SectionIDPattern: "WSE-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowStepEntry", SerializationOrder: metaIntPtr(10), ContentHelp: "Identify steps with known issues, high error rates, or workarounds.", DocComment: "Error-prone steps with high failure rates.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (error-prone steps)"}, "connotation": "The subset of workflow steps known to have high error or failure rates."}}}}
-			n.ElementNode = metaCx("WorkflowStepEntry", s, metaChildrenWorkflowStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "WorkflowStepEntry", ClassSectionID: "WSE", Kind: som.SomMetaKindComplex, TypeName: "WorkflowStepEntry", DocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", ClassDocComment: "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		{ClassName: "CurrentWorkflowEntry", MemberName: "timing", SectionID: "WOTI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(11), DocComment: "Workflow timing and performance.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "startToEndTime", TypeName: "String", Description: "Start-to-End Time (total elapsed)", Order: 0}, {Name: "processingTime", TypeName: "String", Description: "Processing Time (active work time)", Order: 1}, {Name: "waitTime", TypeName: "String", Description: "Wait Time", Order: 2}, {Name: "slaTarget", TypeName: "String", Description: "SLA Target", Order: 3}, {Name: "slaMet", TypeName: "String", Description: "SLA Compliance Rate", Order: 4}, {Name: "peakPeriods", TypeName: "String", Description: "Peak Periods (times of highest volume)", Order: 5}, {Name: "bottlenecks", TypeName: "String", Description: "Bottlenecks (steps causing delays)", Order: 6}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow timing and performance)"}, "connotation": "The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks."}}}},
+		{ClassName: "CurrentWorkflowEntry", MemberName: "timing", SectionID: "WOTI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(9), DocComment: "Workflow timing and performance.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "startToEndTime", TypeName: "String", Description: "Start-to-End Time (total elapsed)", Order: 0}, {Name: "processingTime", TypeName: "String", Description: "Processing Time (active work time)", Order: 1}, {Name: "waitTime", TypeName: "String", Description: "Wait Time", Order: 2}, {Name: "slaTarget", TypeName: "String", Description: "SLA Target", Order: 3}, {Name: "slaMet", TypeName: "String", Description: "SLA Compliance Rate", Order: 4}, {Name: "peakPeriods", TypeName: "String", Description: "Peak Periods (times of highest volume)", Order: 5}, {Name: "bottlenecks", TypeName: "String", Description: "Bottlenecks (steps causing delays)", Order: 6}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow timing and performance)"}, "connotation": "The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks."}}}},
 		metaCx("WorkflowExceptions", s, metaChildrenWorkflowExceptions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WorkflowExceptions", MemberName: "exceptions", ClassSectionID: "WOEX", Kind: som.SomMetaKindComplex, TypeName: "WorkflowExceptions", SerializationOrder: metaIntPtr(12), DocComment: "Workflow exceptions and error handling.", ClassDocComment: "Workflow exception handling.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WorkflowExceptions", MemberName: "exceptions", ClassSectionID: "WOEX", Kind: som.SomMetaKindComplex, TypeName: "WorkflowExceptions", SerializationOrder: metaIntPtr(10), DocComment: "Workflow exceptions and error handling.", ClassDocComment: "Workflow exception handling.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3396,6 +3418,12 @@ func metaChildrenD03InformationModel(s map[string]bool) []*som.SomMetaNode {
 		}),
 		metaCx("MessageKeyRegistry", s, metaChildrenMessageKeyRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(17), DocComment: "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].", Recursive: r, Children: c}
+		}),
+		metaCx("ServerOperationRegistry", s, metaChildrenServerOperationRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "serverOperationRegistry", ClassSectionID: "SVOPR", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationRegistry", SerializationOrder: metaIntPtr(18), DocComment: "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.", ClassDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.", Recursive: r, Children: c}
+		}),
+		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(19), DocComment: "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3635,7 +3663,7 @@ func metaChildrenD09ExperienceDesignSpecification(s map[string]bool) []*som.SomM
 			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(11), DocComment: "UI components.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("LanguageCountrySelection", s, metaChildrenLanguageCountrySelection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(12), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(12), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Prototype", s, metaChildrenPrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(13), DocComment: "Prototype.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
@@ -3822,7 +3850,7 @@ func metaChildrenD13CodeSpecsProjection(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DataModel", MemberName: "dataModel", ClassSectionID: "DATMD", Kind: som.SomMetaKindComplex, TypeName: "DataModel", SerializationOrder: metaIntPtr(7), Comment: "locus: server — CE-DB/CE-VA", DocComment: "Data model — CE-DB persistence + CE-VA server-side rules.", ClassDocComment: "7.1. Data Model.", MapsTo: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("TechnicalFrameworkConcept", s, metaChildrenTechnicalFrameworkConcept, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "TechnicalFrameworkConcept", MemberName: "technicalFramework", ClassSectionID: "TECH", Kind: som.SomMetaKindComplex, TypeName: "TechnicalFrameworkConcept", SerializationOrder: metaIntPtr(8), Comment: "locus: server — CE-CF", DocComment: "Technical framework — CE-CF platform/config foundation.", ClassDocComment: "8. Technical Framework Concept. Seeds → ATS.", MapsTo: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "TechnicalFrameworkConcept", MemberName: "technicalFramework", ClassSectionID: "TECH", Kind: som.SomMetaKindComplex, TypeName: "TechnicalFrameworkConcept", SerializationOrder: metaIntPtr(8), Comment: "locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)", DocComment: "Technical framework — the platform foundation and **all four settings\nscopes**.\n\nThe subtree spans both loci because the four configuration scopes are\nauthored under it and route apart (`codespecs_mapping.md` §11): CE-CF\nserver configuration (`SystemConfigurationManagement`) is server-only,\nwhile CE-CC client configuration, CE-DS device settings and CE-UP user\nsettings are authored under the client-requirements subtree and route to\nthe client project. CE-UP additionally has a server-side persistence half\ngenerated from the *same* declarations, so it appears in both projects —\nthe scope is expressed by which section a setting is declared in, never by\na discriminator field.", ClassDocComment: "8. Technical Framework Concept. Seeds → ATS.", MapsTo: "D06ArchitectureTechnologySpecification", Recursive: r, Children: c}
 		}),
 		metaCx("AccessControlModel", s, metaChildrenAccessControlModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AccessControlModel", MemberName: "accessControl", ClassSectionID: "ACCM", Kind: som.SomMetaKindComplex, TypeName: "AccessControlModel", SerializationOrder: metaIntPtr(9), Comment: "locus: server — CE-AZ", DocComment: "Access control model — CE-AZ authorization/identity seed.", ClassDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
@@ -3833,11 +3861,17 @@ func metaChildrenD13CodeSpecsProjection(s map[string]bool) []*som.SomMetaNode {
 		metaCx("ReportDefinitions", s, metaChildrenReportDefinitions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(11), Comment: "locus: server — CE-RP", DocComment: "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
 		}),
+		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(12), Comment: "locus: server — CE-MG", DocComment: "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.", Recursive: r, Children: c}
+		}),
+		metaCx("ServerOperationRegistry", s, metaChildrenServerOperationRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "serverOperationRegistry", ClassSectionID: "SVOPR", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationRegistry", SerializationOrder: metaIntPtr(13), Comment: "locus: shared(CE-API contract)+server(CE-API operations)", DocComment: "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.", ClassDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.", Recursive: r, Children: c}
+		}),
 		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(12), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(14), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
 		}),
 		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(13), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(15), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -4236,9 +4270,9 @@ func metaChildrenDataModel(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenDataModelFollowUp(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DataModelFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Follow-up facets for the data model. These describe operational, capacity,\ncompliance, and migration concerns that accompany — but are not part of — the\ncore entity/attribute schema.\n\n**Subsections:**\n- ER Diagram — Visual entity-relationship diagram (Mermaid)\n- Per-entity follow-up facets — Volume, compliance, technical characteristics,\n  and migration mappings for each entity in the data model\n"},
-		{ClassName: "DataModelFollowUp", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "7.9.1. Entity-Relationship Diagram (mermaid)."},
+		{ClassName: "DataModelFollowUp", MemberName: "erDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-er", Description: ""}, DocComment: "7.10.1. Entity-Relationship Diagram (mermaid)."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "entityFollowUps", SectionID: "DMFUE-ENFU-LST", SectionIDPattern: "DMFUE-ENFU-xxx", Kind: som.SomMetaKindList, TypeName: "EntityFollowUpEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per entity that carries follow-up facets.", DocComment: "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."}}}}
+			n := &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "entityFollowUps", SectionID: "DMFUE-ENFU-LST", SectionIDPattern: "DMFUE-ENFU-xxx", Kind: som.SomMetaKindList, TypeName: "EntityFollowUpEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per entity that carries follow-up facets.", DocComment: "7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data management body of knowledge", "ISO/IEC 25012 — data quality"}, "connotation": "Per-entity operational, compliance, technical, and migration facets keyed to the source entity."}}}}
 			n.ElementNode = metaCx("EntityFollowUpEntry", s, metaChildrenEntityFollowUpEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "EntityFollowUpEntry", ClassSectionID: "DMFUE", Kind: som.SomMetaKindComplex, TypeName: "EntityFollowUpEntry", DocComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", ClassDocComment: "A per-entity follow-up facet block (form + lists).\n\nGroups the volume, compliance, technical, and migration facets for a single\ndata entity, correlated back to `dataModel.entities` by name/alias.", Recursive: r, Children: c}
 			})
@@ -5046,9 +5080,22 @@ func metaChildrenDevelopmentQualityGates(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenDeviceSettingEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "DeviceSettingEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the device setting, e.g. window.layout", Order: 0}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 1}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used until the user changes the setting on this device", Order: 2}}}},
+	}
+}
+
 func metaChildrenDeviceSettings(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DeviceSettings", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the device setting, e.g. window.layout", Order: 0}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 1}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used until the user changes the setting on this device", Order: 2}, {Name: "deviceOverridable", TypeName: "bool", Description: "Shadows a Wider-Scope Key", Hint: "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)", Order: 3}}}},
+		{ClassName: "DeviceSettings", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "DeviceSettings", MemberName: "settings", SectionID: "DSSET-SETT-LST", SectionIDPattern: "DSSET-SETT-xxx", Kind: som.SomMetaKindList, TypeName: "DeviceSettingEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit.", DocComment: "The declared device settings.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — suitability for individualization (user-tailored settings)", "ISO/IEC 25010 — usability / operability"}, "connotation": "The device settings declared for this system, one entry per key."}}}}
+			n.ElementNode = metaCx("DeviceSettingEntry", s, metaChildrenDeviceSettingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "DeviceSettingEntry", ClassSectionID: "DSSET", Kind: som.SomMetaKindComplex, TypeName: "DeviceSettingEntry", DocComment: "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.", ClassDocComment: "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -6871,7 +6918,7 @@ func metaChildrenHardwareRequirements(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ServerRequirementsSection", MemberName: "serverRequirements", ClassSectionID: "SRS", Kind: som.SomMetaKindComplex, TypeName: "ServerRequirementsSection", SerializationOrder: metaIntPtr(1), DocComment: "8.4.1. Server Requirements.", ClassDocComment: "8.4.1. Server Requirements.\n\nServer compute requirements: CPU, memory, storage, expected load profile,\nand scaling requirements.", Recursive: r, Children: c}
 		}),
 		metaCx("ClientRequirementsSection", s, metaChildrenClientRequirementsSection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "clientRequirements", ClassSectionID: "CLRESE", Kind: som.SomMetaKindComplex, TypeName: "ClientRequirementsSection", SerializationOrder: metaIntPtr(2), DocComment: "8.4.2. Client Requirements.", ClassDocComment: "8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "clientRequirements", ClassSectionID: "CLRESE", Kind: som.SomMetaKindComplex, TypeName: "ClientRequirementsSection", SerializationOrder: metaIntPtr(2), DocComment: "8.4.2. Client Requirements.", ClassDocComment: "8.4.2. Client Requirements.\n\nTwo layers that answer two different questions.\n\n**Which client applications exist** — [clientApplications], one\n[ClientApplicationEntry] per client, naming its kind, its entry route and\nthe screens it comprises. This is the enumerable set of clients; a client\nnot listed there does not exist.\n\n**What a user's machine must provide** — every other subsection: browser,\ndesktop-OS, mobile-device, display, network, hardware, accessibility and\nsecurity minimums. These are deployment constraints on the *environment*,\nnot clients, which is why a client entry *references* them rather than\nrestating them.", Recursive: r, Children: c}
 		}),
 		metaCx("NetworkRequirementsSection", s, metaChildrenNetworkRequirementsSection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "NetworkRequirementsSection", MemberName: "networkRequirements", ClassSectionID: "NRS", Kind: som.SomMetaKindComplex, TypeName: "NetworkRequirementsSection", SerializationOrder: metaIntPtr(3), DocComment: "8.4.3. Network Requirements.", ClassDocComment: "8.4.3. Network Requirements.\n\nNetwork requirements: bandwidth, latency, availability, VPN/firewall rules,\nand geographic distribution.", Recursive: r, Children: c}
@@ -7102,7 +7149,7 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "FunctionModel", MemberName: "functionModel", ClassSectionID: "FUMO", Kind: som.SomMetaKindComplex, TypeName: "FunctionModel", SerializationOrder: metaIntPtr(3), DocComment: "7.3. Function Model.", ClassDocComment: "7.3. Function Model.\n\nBusiness functions, their decomposition, and relationships to data objects.", MapsTo: "D03InformationModel", Recursive: r, Children: c}
 		}),
 		metaCx("SchemaVersioningAndMigration", s, metaChildrenSchemaVersioningAndMigration, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(4), DocComment: "7.4. Schema Versioning and Migration.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "schemaVersioningAndMigration", ClassSectionID: "SCHMG", Kind: som.SomMetaKindComplex, TypeName: "SchemaVersioningAndMigration", SerializationOrder: metaIntPtr(4), DocComment: "7.4. Schema Versioning and Migration.", ClassDocComment: "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.", Recursive: r, Children: c}
 		}),
 		metaCx("DomainEnumRegistry", s, metaChildrenDomainEnumRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DomainEnumRegistry", MemberName: "domainEnumRegistry", ClassSectionID: "DOMEN", Kind: som.SomMetaKindComplex, TypeName: "DomainEnumRegistry", SerializationOrder: metaIntPtr(5), DocComment: "7.5. Domain Enum Registry.", ClassDocComment: "7.5. Domain Enum Registry.\n\nThe first-class SOM home for the system's **domain enums** — the closed\nvalue sets the business data model relies on (order status, currency,\naccount type, …). Before this registry existed, closed value sets could\nonly be captured as free-text `@Form` hints (`dataType`/`elementType`) or\ninline option lists, so the `domainEnum` CodeSpecs member kind had no\nexpressible home and the closed-choice mechanism had no real enum to use as\na discriminator.\n\nThis registry serves **two** roles:\n\n1. **`domainEnum` home** — each [DomainEnumEntry] carries the enum's name, backing\n   type and default, and its [DomainEnumEntry.values] each carry a value id,\n   a backing value and a copy reference into the CE-TX message registry.\n2. **Closed-choice discriminator source** — because each enum is *named* and\n   exposes an *enumerable* set of value ids, a future `@OneOf`\n   discriminator (csm-7-4) can name a `DomainEnumEntry` as its source and\n   match its `@Case`s to [DomainEnumValueEntry.valueId]. This registry\n   provides that source; the `@OneOf`/`@Case` annotations themselves are a\n   separate part.", Recursive: r, Children: c}
@@ -7116,8 +7163,11 @@ func metaChildrenInformationAndDataModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("MessageKeyRegistry", s, metaChildrenMessageKeyRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "MessageKeyRegistry", MemberName: "messageKeyRegistry", ClassSectionID: "MSGKR", Kind: som.SomMetaKindComplex, TypeName: "MessageKeyRegistry", SerializationOrder: metaIntPtr(8), DocComment: "7.8. Message Key Registry.", ClassDocComment: "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].", Recursive: r, Children: c}
 		}),
+		metaCx("ServerOperationRegistry", s, metaChildrenServerOperationRegistry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "serverOperationRegistry", ClassSectionID: "SVOPR", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationRegistry", SerializationOrder: metaIntPtr(9), DocComment: "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.", ClassDocComment: "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.", Recursive: r, Children: c}
+		}),
 		metaCx("DataModelFollowUp", s, metaChildrenDataModelFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "dataModelFollowUp", ClassSectionID: "DMFU", Kind: som.SomMetaKindComplex, TypeName: "DataModelFollowUp", SerializationOrder: metaIntPtr(9), DocComment: "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.", ClassDocComment: "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DataModelFollowUp", MemberName: "dataModelFollowUp", ClassSectionID: "DMFU", Kind: som.SomMetaKindComplex, TypeName: "DataModelFollowUp", SerializationOrder: metaIntPtr(10), DocComment: "7.10. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.", ClassDocComment: "7.10. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -7537,7 +7587,7 @@ func metaChildrenInterfaceTechnicalSpec(s map[string]bool) []*som.SomMetaNode {
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "InterfaceTechnicalSpec", MemberName: "operations", SectionID: "INOPEN-OPER-LST", SectionIDPattern: "INOPEN-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceOperationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "List the API operations or methods used: each with method, path, purpose, and request/response formats.", DocComment: "API operations/methods exposed or consumed.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation."}}}}
 			n.ElementNode = metaCx("InterfaceOperationEntry", s, metaChildrenInterfaceOperationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "InterfaceOperationEntry", ClassSectionID: "IOE", Kind: som.SomMetaKindComplex, TypeName: "InterfaceOperationEntry", DocComment: "API operation entry.", ClassDocComment: "API operation entry.", Recursive: r, Children: c}
+				return &som.SomMetaNode{ClassName: "InterfaceOperationEntry", ClassSectionID: "IOE", Kind: som.SomMetaKindComplex, TypeName: "InterfaceOperationEntry", DocComment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.", ClassDocComment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -8570,6 +8620,12 @@ func metaChildrenMigrationSystems(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenMigrationTargetEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "MigrationTargetEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "targetName", TypeName: "String", Description: "Target Name", Required: true, Hint: "The identifier migration artifacts use to name this target", Order: 0}, {Name: "dataSourceName", TypeName: "String", Description: "Data Source Name", Required: true, Hint: "The registered data source the artifacts are applied against", Order: 1}, {Name: "schemaName", TypeName: "String", Description: "Schema Name", Required: true, Hint: "The schema within that data source the artifacts act on", Order: 2}, {Name: "purpose", TypeName: "String", Description: "Purpose", Hint: "What this data source / schema holds and why it is separate", Order: 3}}}},
+	}
+}
+
 func metaChildrenMobileCompatibilityEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "MobileCompatibilityEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "platform", TypeName: "String", Description: "Platform", Required: true, Hint: "iOS, Android, Cross-platform", Order: 0}, {Name: "minVersion", TypeName: "String", Description: "Minimum Version", Required: true, Hint: "Minimum OS version", Order: 1}, {Name: "maxVersion", TypeName: "String", Description: "Maximum Version", Hint: "Maximum tested version", Order: 2}}}},
@@ -8748,7 +8804,7 @@ func metaChildrenMultiLanguageSupport(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageOverview", SectionID: "MLAR-MULT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "supportedLanguages", TypeName: "String", Description: "Supported Languages", Hint: "List of supported languages (e.g., en, de, fr, es)", Order: 0}, {Name: "primaryLanguage", TypeName: "String", Description: "Primary Language", Hint: "Default/fallback language", Order: 1}, {Name: "futureLanguages", TypeName: "String", Description: "Future Languages", Hint: "Languages planned for future support", Order: 2}, {Name: "rtlLanguages", TypeName: "String", Description: "RTL Languages", Hint: "Right-to-left languages supported", Order: 3}}}},
 		{ClassName: "MultiLanguageSupport", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of internationalization and localization approach for the system.", DocComment: "Multi-language overview narrative."},
 		metaCx("LanguageCountrySelection", s, metaChildrenLanguageCountrySelection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(2), DocComment: "10.12.4. Language and Country Selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(2), DocComment: "10.12.4. Language and Country Selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "supportedLocales", SectionID: "SULOEN-SUPP-LST", SectionIDPattern: "SULOEN-SUPP-xxx", Kind: som.SomMetaKindList, TypeName: "SupportedLocaleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported locale.", DocComment: "Supported locale entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 639 — language codes identify each supported locale", "ISO 3166 — country and region codes complete each locale identifier", "W3C Internationalization / BCP 47 — language tags name the supported locales"}, "connotation": "The collection of locales the system supports."}}}}
@@ -12144,6 +12200,17 @@ func metaChildrenScenarioStepEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenScheduledJobEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ScheduledJobEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "jobName", TypeName: "String", Description: "Job Name", Required: true, Hint: "The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced", Order: 0}, {Name: "purpose", TypeName: "String", Description: "Purpose", Required: true, Hint: "Why this job exists — the operational or business reason it runs on its own rather than as part of a request", Order: 1}, {Name: "triggerKind", TypeName: "ScheduledJobTrigger", Description: "Trigger Kind", Required: true, Hint: "What starts the job — selects the trigger subsection below", Order: 2, EnumValues: []string{"cron", "calendar", "event"}}, {Name: "primaryDataEntity", TypeName: "String", Description: "Primary Data Entity", Required: true, Hint: "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", Order: 3, RefersTo: []string{"DAENT.entityName"}}, {Name: "enabled", TypeName: "bool", Description: "Enabled", Hint: "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", Order: 4}, {Name: "environments", TypeName: "String", Description: "Environments", Hint: "Comma-separated deployment environments this job runs in, or empty to run in every environment", Order: 5}}}},
+		{ClassName: "ScheduledJobEntry", MemberName: "cronTrigger", SectionID: "SCJOB-CRON", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "cronExpression", TypeName: "String", Description: "Recurrence Expression", Required: true, Hint: "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"POSIX crontab — the recurring-schedule expression convention", "Google SRE — eliminating toil and operational procedures"}, "connotation": "The recurring clock expression that starts this job."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScheduledJobTrigger.cron"}}}},
+		{ClassName: "ScheduledJobEntry", MemberName: "calendarTrigger", SectionID: "SCJOB-CAL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Calendar trigger — a promoted `@OneOf` case.\n\nPresent only for the `calendar` kind: a date rule a clock expression\ncannot state — the last day of the month, the third Monday of a quarter.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "calendarRule", TypeName: "String", Description: "Calendar Rule", Required: true, Hint: "The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 8601 — date and time representation", "Google SRE — eliminating toil and operational procedures"}, "connotation": "The calendar date rule that starts this job."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScheduledJobTrigger.calendar"}}}},
+		{ClassName: "ScheduledJobEntry", MemberName: "eventTrigger", SectionID: "SCJOB-EVNT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Event trigger — a promoted `@OneOf` case.\n\nPresent only for the `event` kind. An event-triggered job does not fire on\ntime at all, so it has no schedule; what it has instead — and what neither\nother arm has — is an occurrence carrying data the work reads.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "eventName", TypeName: "String", Description: "Event Name", Required: true, Hint: "The system occurrence that starts the job (e.g. order.payment.settled)", Order: 0}, {Name: "eventPayload", TypeName: "String", Description: "Event Payload", Hint: "What each occurrence carries that the work reads — typically the identity of the record the event is about", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns — event-driven consumer", "Google SRE — eliminating toil and operational procedures"}, "connotation": "The system event that starts this job and the data that event carries."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScheduledJobTrigger.event"}}}},
+		{ClassName: "ScheduledJobEntry", MemberName: "workDefinition", SectionID: "SCJOB-WORK", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.", DocComment: "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "workSummary", TypeName: "String", Description: "Work Summary", Required: true, Hint: "What the job does, step by step, in prose — the intent the work body must realise", Order: 0}, {Name: "readEntities", TypeName: "String", Description: "Read Entities", Hint: "The Data Model entities the job reads", Order: 1, RefersTo: []string{"DAENT.entityName"}}, {Name: "writtenEntities", TypeName: "String", Description: "Written Entities", Hint: "The Data Model entities the job writes, including the primary one", Order: 2, RefersTo: []string{"DAENT.entityName"}}, {Name: "targetReports", TypeName: "String", Description: "Target Reports", Hint: "The reports this job produces, where the work is a report run", Order: 3, RefersTo: []string{"REPENT.reportId"}}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 — requirements specification", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "What the job does and which entities and reports it acts on."}}}},
+		{ClassName: "ScheduledJobEntry", MemberName: "failurePolicy", SectionID: "SCJOB-FAIL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.", DocComment: "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maxRetries", TypeName: "int", Description: "Maximum Retries", Hint: "How many times a failed run is retried, if not the default", Order: 0}, {Name: "retryBackoff", TypeName: "String", Description: "Retry Backoff", Hint: "The delay before the first retry and how it grows, if not the default", Order: 1}, {Name: "timeout", TypeName: "String", Description: "Timeout", Hint: "How long a single run may take before it is abandoned, if not the default", Order: 2}, {Name: "failureAlertMessage", TypeName: "String", Description: "Failure Alert Message", Hint: "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.", Order: 3, RefersTo: []string{"MSGKE.key"}}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — handling overload, retries and cascading failure", "AWS Well-Architected — reliability (failure management)"}, "connotation": "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy."}}}},
+	}
+}
+
 func metaChildrenScheduledMaintenancePolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ScheduledMaintenancePolicy", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maintenancePolicy", TypeName: "String", Description: "Maintenance Policy", Hint: "Overall maintenance approach", Order: 0}, {Name: "zeroDowntimeGoal", TypeName: "bool", Description: "Zero-Downtime Goal", Hint: "Strive for zero downtime", Order: 1}, {Name: "maintenanceAgreement", TypeName: "String", Description: "Maintenance Agreement", Hint: "SLA for maintenance windows", Order: 2}}}},
@@ -12156,17 +12223,27 @@ func metaChildrenScheduledMaintenancePolicy(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenSchemaMigrationStepEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SchemaMigrationStepEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Hint: "The schema version this step produces (e.g. V7, 2026-07-19-01)", Order: 0}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What this migration changes and why", Order: 1}, {Name: "ddlOperations", TypeName: "String", Description: "DDL Operations", Hint: "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)", Order: 2}, {Name: "affectedEntities", TypeName: "String", Description: "Affected Entities", Hint: "The Data Model entities this step touches", Order: 3}, {Name: "dataBackfill", TypeName: "String", Description: "Data Backfill", Hint: "Any data population/transformation done as part of the step, or None", Order: 4}, {Name: "reversible", TypeName: "bool", Description: "Reversible", Hint: "Whether a down/rollback migration is provided", Order: 5}}}},
+		{ClassName: "SchemaMigrationStepEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "version", TypeName: "String", Description: "Version", Required: true, Hint: "The version that orders this artifact in the set (e.g. 7, 42)", Order: 0}, {Name: "description", TypeName: "String", Description: "Description", Required: true, Hint: "What this artifact does and why", Order: 1}, {Name: "artifactKind", TypeName: "MigrationArtifactKind", Description: "Artifact Kind", Required: true, Hint: "What this artifact is — selects the definition subsection below", Order: 2, EnumValues: []string{"initialDdl", "referenceData", "schemaChange"}}, {Name: "migrationTarget", TypeName: "String", Description: "Migration Target", Required: true, Hint: "The data source / schema target from 7.4.1 this applies to", Order: 3, RefersTo: []string{"MIGTG.targetName"}}, {Name: "environments", TypeName: "String", Description: "Environments", Hint: "Comma-separated deployment environments this is restricted to, or empty to apply everywhere", Order: 4}}}},
+		{ClassName: "SchemaMigrationStepEntry", MemberName: "baselineSchema", SectionID: "SCMST-BASE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "createdEntities", TypeName: "String", Description: "Created Entities", Required: true, Hint: "The Data Model entities this baseline creates", Order: 0, RefersTo: []string{"DAENT.entityName"}}, {Name: "schemaStatements", TypeName: "String", Description: "Schema Statements", Hint: "The schema definition statements that create the tables", Order: 1}, {Name: "indexesAndConstraints", TypeName: "String", Description: "Indexes and Constraints", Hint: "Keys, indexes and constraints established with the baseline", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 9075 (SQL) — schema definition statements", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "MigrationArtifactKind.initialDdl"}}}},
+		{ClassName: "SchemaMigrationStepEntry", MemberName: "referenceData", SectionID: "SCMST-REFD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "targetEntities", TypeName: "String", Description: "Target Entities", Required: true, Hint: "The Data Model entities this artifact populates", Order: 0, RefersTo: []string{"DAENT.entityName"}}, {Name: "valueSet", TypeName: "String", Description: "Value Set", Required: true, Hint: "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept", Order: 1}, {Name: "identityKey", TypeName: "String", Description: "Identity Key", Hint: "The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — reference and master data management", "ISO/IEC 11179 — permissible values of a data element"}, "connotation": "The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "MigrationArtifactKind.referenceData"}}}},
+		{ClassName: "SchemaMigrationStepEntry", MemberName: "schemaChange", SectionID: "SCMST-CHNG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Schema change — a promoted `@OneOf` case.\n\nPresent only for the `schemaChange` kind: an evolution step on top of an\nexisting schema. This is the only kind for which a delta of affected\nentities, a data backfill and reversibility are meaningful.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "schemaStatements", TypeName: "String", Description: "Schema Statements", Required: true, Hint: "The schema changes performed on tables, columns, indexes and constraints", Order: 0}, {Name: "affectedEntities", TypeName: "String", Description: "Affected Entities", Required: true, Hint: "The Data Model entities this change touches", Order: 1, RefersTo: []string{"DAENT.entityName"}}, {Name: "dataBackfill", TypeName: "String", Description: "Data Backfill", Hint: "Any data population or transformation performed as part of the change, or None", Order: 2}, {Name: "reversible", TypeName: "bool", Description: "Reversible", Hint: "Whether a rollback step is provided for this change", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Evolutionary Database Design (Ambler & Sadalage) — database refactoring", "ISO/IEC 9075 (SQL) — schema definition statements"}, "connotation": "The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "MigrationArtifactKind.schemaChange"}}}},
 	}
 }
 
 func metaChildrenSchemaVersioningAndMigration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SchemaVersioningAndMigration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "migrationTooling", TypeName: "String", Description: "Migration Tooling", Hint: "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts", Order: 0}, {Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "Sequential numbered | Timestamped | Semantic", Order: 1}, {Name: "forwardOnly", TypeName: "bool", Description: "Forward-Only", Hint: "Whether migrations are forward-only (no down migrations)", Order: 2}, {Name: "baselineVersion", TypeName: "String", Description: "Baseline Version", Hint: "The initial/baseline schema version migrations build on", Order: 3}, {Name: "zeroDowntimeApproach", TypeName: "String", Description: "Zero-Downtime Approach", Hint: "Expand/contract, online DDL, blue-green schema, or None", Order: 4}}}},
+		{ClassName: "SchemaVersioningAndMigration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentHelp: "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "versioningStrategy", TypeName: "String", Description: "Versioning Strategy", Hint: "Sequential numbered | Timestamped | Semantic", Order: 0}, {Name: "forwardOnly", TypeName: "bool", Description: "Forward-Only", Hint: "Whether schema changes are forward-only (no down steps)", Order: 1}, {Name: "baselineVersion", TypeName: "String", Description: "Baseline Version", Hint: "The initial/baseline schema version later artifacts build on", Order: 2}, {Name: "zeroDowntimeApproach", TypeName: "String", Description: "Zero-Downtime Approach", Hint: "Expand/contract, online DDL, blue-green schema, or None", Order: 3}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "migrationSteps", SectionID: "SCMST-STEP-LST", SectionIDPattern: "SCMST-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "SchemaMigrationStepEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per versioned schema migration step.", DocComment: "7.4.1. Schema Migration Steps — one entry per versioned migration.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Evolutionary Database Design (Ambler & Sadalage) — database refactoring"}, "connotation": "The ordered schema migration steps that evolve the database over releases."}}}}
+			n := &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "migrationTargets", SectionID: "MIGTG-TARG-LST", SectionIDPattern: "MIGTG-TARG-xxx", Kind: som.SomMetaKindList, TypeName: "MigrationTargetEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.", DocComment: "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 9075 (SQL) — schema as the named container of database objects", "DAMA-DMBOK2 — data management body of knowledge"}, "connotation": "The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one."}}}}
+			n.ElementNode = metaCx("MigrationTargetEntry", s, metaChildrenMigrationTargetEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "MigrationTargetEntry", ClassSectionID: "MIGTG", Kind: som.SomMetaKindComplex, TypeName: "MigrationTargetEntry", DocComment: "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.", ClassDocComment: "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "SchemaVersioningAndMigration", MemberName: "migrationSteps", SectionID: "SCMST-STEP-LST", SectionIDPattern: "SCMST-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "SchemaMigrationStepEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per versioned migration artifact.", DocComment: "7.4.2. Schema Migration Steps — one entry per versioned artifact.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Evolutionary Database Design (Ambler & Sadalage) — database refactoring"}, "connotation": "The ordered schema migration artifacts that establish and evolve the database over releases."}}}}
 			n.ElementNode = metaCx("SchemaMigrationStepEntry", s, metaChildrenSchemaMigrationStepEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "SchemaMigrationStepEntry", ClassSectionID: "SCMST", Kind: som.SomMetaKindComplex, TypeName: "SchemaMigrationStepEntry", DocComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", ClassDocComment: "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.", Recursive: r, Children: c}
+				return &som.SomMetaNode{ClassName: "SchemaMigrationStepEntry", ClassSectionID: "SCMST", Kind: som.SomMetaKindComplex, TypeName: "SchemaMigrationStepEntry", DocComment: "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.", ClassDocComment: "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
@@ -12298,6 +12375,7 @@ func metaChildrenScreenElementFieldSpec(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ScreenElementFieldSpec", MemberName: "textOptions", SectionID: "SEFST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Text-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for free-text field kinds; carries only length constraints.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maxLength", TypeName: "int", Description: "Max Length", Hint: "Character limit", Order: 0}, {Name: "minLength", TypeName: "int", Description: "Min Length", Hint: "Minimum length", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — length constraints on text form-field input", "ISO 9241-110:2020 — use error tolerance through bounded text input"}, "connotation": "The length constraints for a free-text input field."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.string"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.email"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.phone"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.url"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.password"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.richText"}}}},
 		{ClassName: "ScreenElementFieldSpec", MemberName: "validation", SectionID: "SEFSV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Validation behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "validationTrigger", TypeName: "String", Description: "Validation Trigger", Hint: "On-Change/On-Blur/On-Submit/Debounced", Order: 0}, {Name: "errorDisplayMode", TypeName: "String", Description: "Error Display Mode", Hint: "Below-Field/Tooltip/Inline/Banner", Order: 1}, {Name: "required", TypeName: "String", Description: "Required", Hint: "Yes/No/Conditional", Order: 2}, {Name: "requiredCondition", TypeName: "String", Description: "Required Condition", Hint: "Condition when field becomes required", Order: 3}, {Name: "clearButton", TypeName: "String", Description: "Clear Button", Hint: "Yes/No — show clear/reset affordance", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — use error tolerance through input validation and error display", "ISO 9241-143:2012 — validation behavior for form fields"}, "connotation": "The validation behavior for a form field including trigger, required rules, and error display."}}}},
 		{ClassName: "ScreenElementFieldSpec", MemberName: "selectOptions", SectionID: "SEFSS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(6), DocComment: "Select-kind options — a promoted `@OneOf` case (csmb6).\n\nPresent only for the enumeration (select) field kind; carries only the\noption-source and selection-mode attributes.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "autocompleteSource", TypeName: "String", Description: "Autocomplete Source", Hint: "Source reference for autocomplete suggestions", Order: 0}, {Name: "optionsSource", TypeName: "String", Description: "Options Source", Hint: "For select fields: static list, API endpoint, or entity query", Order: 1}, {Name: "selectMode", TypeName: "String", Description: "Select Mode", Hint: "Single/Multi", Order: 2}, {Name: "displayMode", TypeName: "String", Description: "Display Mode", Hint: "Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — form fields with selection and input assistance", "ISO 9241-161:2016 — selection controls such as dropdowns and radio groups"}, "connotation": "The option source and selection-mode attributes for a select input field."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.enumeration"}}}},
+		{ClassName: "ScreenElementFieldSpec", MemberName: "fileOptions", SectionID: "SEFSU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(7), DocComment: "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "acceptedContentKinds", TypeName: "String", Description: "Accepted Content Kinds", Hint: "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions", Order: 0}, {Name: "maxFileSize", TypeName: "String", Description: "Maximum File Size", Hint: "Largest file the field accepts, e.g. 10 MB", Order: 1}, {Name: "presentation", TypeName: "String", Description: "Presentation (link, dropzone, thumbnail)", Hint: "How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)", Order: 2}, {Name: "uploadOnPick", TypeName: "String", Description: "Upload On Pick", Hint: "Yes/No — whether choosing a file uploads it immediately or the form uploads it on save", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — form fields with input assistance such as file selection", "ISO/IEC 2382:2015 — content and media type terminology"}, "connotation": "What a file input accepts and how the chosen file is presented."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementFieldKind.file"}}}},
 	}
 }
 
@@ -12352,9 +12430,10 @@ func metaChildrenScreenFieldEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ScreenFieldEntry", MemberName: "numericConstraints", SectionID: "SCFIVN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Numeric-kind input constraints — a promoted `@OneOf` case (csra4).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "minValue", TypeName: "String", Description: "Minimum Value", Hint: "Smallest value the field accepts", Order: 0}, {Name: "maxValue", TypeName: "String", Description: "Maximum Value", Hint: "Largest value the field accepts", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"}, "connotation": "The input constraints that only apply to a numeric screen field — its value bounds."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.integer"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.decimal"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.currency"}}}},
 		{ClassName: "ScreenFieldEntry", MemberName: "temporalConstraints", SectionID: "SCFIVD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(6), DocComment: "Temporal-kind input constraints — a promoted `@OneOf` case (csra4).\n\nKept apart from [numericConstraints] because a date boundary is expressed\nas a date or a relative expression (\"today + 30d\"), not as a number.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "earliestValue", TypeName: "String", Description: "Earliest Accepted Value", Hint: "Earliest accepted date/time, absolute or relative (e.g. today)", Order: 0}, {Name: "latestValue", TypeName: "String", Description: "Latest Accepted Value", Hint: "Latest accepted date/time, absolute or relative (e.g. today + 30d)", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — input validation requirements", "ISO 8601 — date and time representation"}, "connotation": "The input constraints that only apply to a temporal screen field — its earliest and latest accepted instant."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.date"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.dateTime"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.time"}}}},
 		{ClassName: "ScreenFieldEntry", MemberName: "choiceOptions", SectionID: "SCFICH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(7), DocComment: "Choice-kind option source — a promoted `@OneOf` case (csra4).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "optionSource", TypeName: "String", Description: "Option Source (static, API, entity)", Hint: "Where the options come from: static, API, or entity", Order: 0}, {Name: "staticOptions", TypeName: "String", Description: "Static Option Values", Hint: "The option values, when the source is static", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "Where a choice field takes its options from — the option source and, for a static source, the values themselves."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.singleSelect"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.multiSelect"}}}},
-		{ClassName: "ScreenFieldEntry", MemberName: "layout", SectionID: "SCFILA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(8), DocComment: "UI and layout.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dependsOn", TypeName: "String", Description: "Depends On (field IDs that affect this)", Hint: "Field IDs that affect this field", Order: 0}, {Name: "width", TypeName: "String", Description: "Width (full, half, third, quarter, custom)", Hint: "full, half, third, quarter, or custom", Order: 1}, {Name: "order", TypeName: "String", Description: "Display Order", Hint: "Order in which the field is displayed", Order: 2}, {Name: "grouping", TypeName: "String", Description: "Field Grouping / Section", Hint: "Group or section the field belongs to", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."}}}},
+		{ClassName: "ScreenFieldEntry", MemberName: "fileConstraints", SectionID: "SCFIFI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(8), DocComment: "File-kind input constraints — a promoted `@OneOf` case (csrb8).\n\nConstraints only. **How** the file is presented — link, dropzone or\nthumbnail — is the D09 design pass's `fileOptions`\n(`ScreenElementFieldSpec`), because a requirement names the kind of value\na user supplies and the design names the concrete control. The storage\ngroup is neither side's: it is authored on the CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "acceptedContentKinds", TypeName: "String", Description: "Accepted Content Kinds", Hint: "What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions", Order: 0}, {Name: "maxFileSize", TypeName: "String", Description: "Maximum File Size", Hint: "Largest file the field accepts, e.g. 10 MB", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — input validation requirements", "ISO/IEC 2382:2015 — content and media type terminology"}, "connotation": "The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be."}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenFieldKind.file"}}}},
+		{ClassName: "ScreenFieldEntry", MemberName: "layout", SectionID: "SCFILA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(9), DocComment: "UI and layout.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dependsOn", TypeName: "String", Description: "Depends On (field IDs that affect this)", Hint: "Field IDs that affect this field", Order: 0}, {Name: "width", TypeName: "String", Description: "Width (full, half, third, quarter, custom)", Hint: "full, half, third, quarter, or custom", Order: 1}, {Name: "order", TypeName: "String", Description: "Display Order", Hint: "Order in which the field is displayed", Order: 2}, {Name: "grouping", TypeName: "String", Description: "Field Grouping / Section", Hint: "Group or section the field belongs to", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScreenFieldEntry", MemberName: "validationRules", SectionID: "FLDVL-VALI-LST", SectionIDPattern: "FLDVL-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "FieldValidationRule", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per validation rule applied to this field.", DocComment: "Field validation rules — contains 0+× FieldValidationRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"}, "connotation": "The list of individual validation rules applied to this field's input."}}}}
+			n := &som.SomMetaNode{ClassName: "ScreenFieldEntry", MemberName: "validationRules", SectionID: "FLDVL-VALI-LST", SectionIDPattern: "FLDVL-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "FieldValidationRule", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per validation rule applied to this field.", DocComment: "Field validation rules — contains 0+× FieldValidationRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — input validation requirements", "OWASP ASVS — input validation"}, "connotation": "The list of individual validation rules applied to this field's input."}}}}
 			n.ElementNode = metaCx("FieldValidationRule", s, metaChildrenFieldValidationRule, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FieldValidationRule", ClassSectionID: "FLDVL", Kind: som.SomMetaKindComplex, TypeName: "FieldValidationRule", DocComment: "A field validation rule (form).", ClassDocComment: "A field validation rule (form).", Recursive: r, Children: c}
 			})
@@ -12803,6 +12882,12 @@ func metaChildrenSensitiveDataEncryption(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenServerConfigurationSettingEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ServerConfigurationSettingEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the server setting, e.g. server.isolateCount", Order: 0}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 1}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment", Order: 2}, {Name: "environmentVariable", TypeName: "String", Description: "Environment Variable", Hint: "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way", Order: 3}, {Name: "commandLineOption", TypeName: "String", Description: "Command-Line Option", Hint: "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source", Order: 4}, {Name: "secret", TypeName: "bool", Description: "Carries a Secret", Hint: "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down", Order: 5}, {Name: "overridableBy", TypeName: "String", Description: "Overridable By", Required: true, Hint: "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into", Order: 6}}}},
+	}
+}
+
 func metaChildrenServerEnvironmentEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ServerEnvironmentEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "environmentName", TypeName: "String", Description: "Environment Name", Required: true, Hint: "E.g., Development, Staging, Production", Order: 0}, {Name: "environmentType", TypeName: "String", Description: "Environment Type", Hint: "Development, QA, UAT, Staging, Production, DR", Order: 1}, {Name: "environmentCode", TypeName: "String", Description: "Environment Code", Hint: "dev, stg, prod, dr", Order: 2}, {Name: "purpose", TypeName: "String", Description: "Purpose", Hint: "Primary purpose of this environment", Order: 3}}}},
@@ -12810,6 +12895,45 @@ func metaChildrenServerEnvironmentEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ServerEnvironmentEntry", MemberName: "scale", SectionID: "SEES", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Scale expectations.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "serverCount", TypeName: "int", Description: "Server Count", Hint: "Number of servers in environment", Order: 0}, {Name: "expectedUsers", TypeName: "String", Description: "Expected Users", Hint: "Concurrent users expected", Order: 1}, {Name: "expectedLoad", TypeName: "String", Description: "Expected Load", Hint: "Requests per second", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — performance efficiency / resource utilization"}, "connotation": "Captures the server count, expected users, and load for a server environment."}}}},
 		{ClassName: "ServerEnvironmentEntry", MemberName: "access", SectionID: "SEEA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Access rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessRestrictions", TypeName: "String", Description: "Access Restrictions", Hint: "Who can access this environment", Order: 0}, {Name: "networkSegment", TypeName: "String", Description: "Network Segment", Hint: "VPC/network segment", Order: 1}, {Name: "vpnRequired", TypeName: "bool", Description: "VPN Required", Hint: "VPN access required", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27033 — network / infrastructure security"}, "connotation": "Captures the access restrictions, network segment, and VPN requirements for a server environment."}}}},
 		{ClassName: "ServerEnvironmentEntry", MemberName: "lifecycle", SectionID: "SEENENLI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Lifecycle rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "refreshSchedule", TypeName: "String", Description: "Refresh Schedule", Hint: "Data refresh schedule", Order: 0}, {Name: "retentionPolicy", TypeName: "String", Description: "Retention Policy", Hint: "Data retention policy", Order: 1}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional environment notes", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IaaS / cloud infrastructure — server provisioning", "Twelve-Factor App — cloud-native deployment"}, "connotation": "Captures the refresh schedule and retention policy for a server environment."}}}},
+	}
+}
+
+func metaChildrenServerOperationEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ServerOperationEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "operationName", TypeName: "String", Description: "Operation Name", Required: true, Hint: "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", Order: 0}, {Name: "purpose", TypeName: "String", Description: "Purpose", Hint: "What the operation does, from the caller's point of view", Order: 1}, {Name: "primaryDataEntity", TypeName: "String", Description: "Primary Data Entity", Hint: "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", Order: 2, RefersTo: []string{"DAENT.entityName"}}, {Name: "authorizationRequirement", TypeName: "String", Description: "Authorization Requirement", Required: true, Hint: "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.", Order: 3}, {Name: "requiredRoles", TypeName: "String", Description: "Required Roles", Hint: "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement", Order: 4, RefersTo: []string{"AZRO.roleName"}}, {Name: "requiredResourceKey", TypeName: "String", Description: "Required Resource Key", Hint: "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement", Order: 5, RefersTo: []string{"RESKEY.resourceKey"}}, {Name: "descriptionKey", TypeName: "String", Description: "Description Copy Key", Hint: "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", Order: 6, RefersTo: []string{"MSGKE.key"}}, {Name: "errorCodes", TypeName: "String", Description: "Error Codes", Hint: "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", Order: 7, RefersTo: []string{"ERCEN.code"}}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ServerOperationEntry", MemberName: "requestMembers", SectionID: "SVOPM-REQM-LST", SectionIDPattern: "SVOPM-REQM-xxx", Kind: som.SomMetaKindList, TypeName: "ServerOperationMemberEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per member of the request shape.", DocComment: "7.9.x. Request Members — the members that make up the request shape.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "The members that make up this operation's request shape."}}}}
+			n.ElementNode = metaCx("ServerOperationMemberEntry", s, metaChildrenServerOperationMemberEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ServerOperationMemberEntry", ClassSectionID: "SVOPM", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationMemberEntry", DocComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", ClassDocComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ServerOperationEntry", MemberName: "responseMembers", SectionID: "SVOPM-RESM-LST", SectionIDPattern: "SVOPM-RESM-xxx", Kind: som.SomMetaKindList, TypeName: "ServerOperationMemberEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.", DocComment: "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 11179 — metadata registries / data element definitions"}, "connotation": "The members that make up the success payload this operation returns."}}}}
+			n.ElementNode = metaCx("ServerOperationMemberEntry", s, metaChildrenServerOperationMemberEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ServerOperationMemberEntry", ClassSectionID: "SVOPM", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationMemberEntry", DocComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", ClassDocComment: "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
+func metaChildrenServerOperationMemberEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ServerOperationMemberEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "memberName", TypeName: "String", Description: "Member Name", Required: true, Hint: "Name of the member within the shape (e.g. customerId, includeArchived)", Order: 0}, {Name: "memberType", TypeName: "String", Description: "Member Type", Required: true, Hint: "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", Order: 1}, {Name: "multiValued", TypeName: "bool", Description: "Multi-Valued", Hint: "Whether the member carries a collection of the type rather than a single value", Order: 2}, {Name: "required", TypeName: "bool", Description: "Required", Hint: "Whether the member must be present", Order: 3}, {Name: "dataEntity", TypeName: "String", Description: "Data Entity", Hint: "DataEntityEntry.entityName the member is typed by, when its type is DataEntity", Order: 4, RefersTo: []string{"DAENT.entityName"}}, {Name: "domainEnum", TypeName: "String", Description: "Domain Enum", Hint: "DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum", Order: 5, RefersTo: []string{"DMENE.enumName"}}, {Name: "description", TypeName: "String", Description: "Description", Hint: "What the member means and any authoring guidance", Order: 6}}}},
+	}
+}
+
+func metaChildrenServerOperationRegistry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ServerOperationRegistry", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ServerOperationRegistry", MemberName: "operations", SectionID: "SVOPE-OPER-LST", SectionIDPattern: "SVOPE-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "ServerOperationEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per operation the system answers.", DocComment: "7.9.1. Operations — one entry per operation the system answers.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description (interface contracts)"}, "connotation": "The catalogued operations the application's own server surface answers."}}}}
+			n.ElementNode = metaCx("ServerOperationEntry", s, metaChildrenServerOperationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ServerOperationEntry", ClassSectionID: "SVOPE", Kind: som.SomMetaKindComplex, TypeName: "ServerOperationEntry", DocComment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).", ClassDocComment: "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -13866,6 +13990,13 @@ func metaChildrenSystemConfigurationManagement(s map[string]bool) []*som.SomMeta
 		{ClassName: "SystemConfigurationManagement", MemberName: "dynamic", SectionID: "SCMD", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Dynamic configuration and rollback behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dynamicConfiguration", TypeName: "bool", Description: "Dynamic Configuration", Hint: "Change config without restart", Order: 0}, {Name: "hotReloadSupport", TypeName: "bool", Description: "Hot Reload Support", Hint: "Apply config changes live", Order: 1}, {Name: "configVersioning", TypeName: "bool", Description: "Config Versioning", Hint: "Track configuration history", Order: 2}, {Name: "configRollback", TypeName: "bool", Description: "Config Rollback", Hint: "Revert to previous configuration", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 20000 — configuration and change management", "ITIL 4 — change enablement and maintenance windows"}, "connotation": "Dynamic configuration and rollback behavior describe how config changes are applied live and reverted."}}}},
 		{ClassName: "SystemConfigurationManagement", MemberName: "environment", SectionID: "SCME", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Environment overrides and secrets handling.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "environmentOverrides", TypeName: "String", Description: "Environment Overrides", Hint: "Per-environment config layering", Order: 0}, {Name: "secretsManagement", TypeName: "String", Description: "Secrets Management", Hint: "Vault, AWS Secrets Manager, Azure Key Vault", Order: 1}, {Name: "secretRotation", TypeName: "bool", Description: "Secret Rotation", Hint: "Automated secret rotation", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CIS Controls — secure configuration and administration", "ISO/IEC 27001 — operations security (A.12)"}, "connotation": "Environment overrides and secrets handling govern per-environment configuration and credential storage."}}}},
 		{ClassName: "SystemConfigurationManagement", MemberName: "governance", SectionID: "SCMG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Validation, diffing, and audit controls.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "configValidation", TypeName: "String", Description: "Config Validation", Hint: "Schema validation before deploy", Order: 0}, {Name: "configDiffing", TypeName: "bool", Description: "Config Diffing", Hint: "Compare configurations across envs", Order: 1}, {Name: "configAuditTrail", TypeName: "bool", Description: "Config Audit Trail", Hint: "Log who changed what and when", Order: 2}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional configuration management notes", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 20000 — configuration and change management", "ITIL 4 — service configuration management practice"}, "connotation": "Validation, diffing, and audit controls ensure configuration changes are checked and traceable."}}}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "SystemConfigurationManagement", MemberName: "settings", SectionID: "SCSET-SETT-LST", SectionIDPattern: "SCSET-SETT-xxx", Kind: som.SomMetaKindList, TypeName: "ServerConfigurationSettingEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.", DocComment: "The declared server configuration settings.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — config stored in the environment", "CIS Controls — secure configuration and administration"}, "connotation": "The server / system configuration settings declared for this system, one entry per key."}}}}
+			n.ElementNode = metaCx("ServerConfigurationSettingEntry", s, metaChildrenServerConfigurationSettingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ServerConfigurationSettingEntry", ClassSectionID: "SCSET", Kind: som.SomMetaKindComplex, TypeName: "ServerConfigurationSettingEntry", DocComment: "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.", ClassDocComment: "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -15867,6 +15998,25 @@ func metaChildrenUserRegistrationProcess(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
+func metaChildrenUserSettingEntry(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "UserSettingEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "settingKey", TypeName: "String", Description: "Setting Key", Required: true, Hint: "The dotted key of the user setting, e.g. ui.theme", Order: 0}, {Name: "valueType", TypeName: "String", Description: "Value Type", Hint: "string / int / double / bool / enum", Order: 1}, {Name: "defaultValue", TypeName: "String", Description: "Default Value", Hint: "The value used until the user changes the setting", Order: 2}, {Name: "overridableBy", TypeName: "String", Description: "Overridable By", Required: true, Hint: "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into", Order: 3}}}},
+	}
+}
+
+func metaChildrenUserSettings(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "UserSettings", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n"},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "UserSettings", MemberName: "settings", SectionID: "USSET-SETT-LST", SectionIDPattern: "USSET-SETT-xxx", Kind: som.SomMetaKindList, TypeName: "UserSettingEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize.", DocComment: "The declared user settings.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — suitability for individualization (user-tailored settings)", "ISO/IEC 25010 — usability / operability"}, "connotation": "The user settings declared for this system, one entry per key."}}}}
+			n.ElementNode = metaCx("UserSettingEntry", s, metaChildrenUserSettingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "UserSettingEntry", ClassSectionID: "USSET", Kind: som.SomMetaKindComplex, TypeName: "UserSettingEntry", DocComment: "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).", ClassDocComment: "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
+	}
+}
+
 func metaChildrenUserTrainingRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UserTrainingRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
@@ -16153,7 +16303,7 @@ func metaChildrenWorkflowOutputEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenWorkflowStepEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "WorkflowStepEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "stepName", TypeName: "String", Description: "Step Name", Required: true, Order: 0}, {Name: "stepNumber", TypeName: "int", Description: "Step Number (sequence order)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Order: 2}, {Name: "responsibleActor", TypeName: "String", Description: "Responsible Actor", Order: 3}, {Name: "stepType", TypeName: "String", Description: "Step Type (e.g., Task, Decision, Wait, Subprocess)", Order: 4}, {Name: "isManual", TypeName: "bool", Description: "Is Manual (requires human intervention)", Hint: "Whether carrying the step out needs a person; an automated step runs without human intervention", Order: 5}, {Name: "isAutomatable", TypeName: "bool", Description: "Is Automatable", Order: 6}, {Name: "averageDuration", TypeName: "String", Description: "Average Duration", Order: 7}}}},
+		{ClassName: "WorkflowStepEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "stepName", TypeName: "String", Description: "Step Name", Required: true, Order: 0}, {Name: "stepNumber", TypeName: "int", Description: "Step Number (sequence order)", Order: 1}, {Name: "description", TypeName: "String", Description: "Description", Order: 2}, {Name: "responsibleActor", TypeName: "String", Description: "Responsible Actor", Order: 3}, {Name: "stepType", TypeName: "String", Description: "Step Type (e.g., Task, Decision, Wait, Subprocess)", Order: 4}, {Name: "isManual", TypeName: "bool", Description: "Is Manual (requires human intervention)", Hint: "Whether carrying the step out needs a person; an automated step runs without human intervention", Order: 5}, {Name: "isAutomatable", TypeName: "bool", Description: "Is Automatable", Order: 6}, {Name: "isErrorProne", TypeName: "bool", Description: "Is Error-Prone (high error or failure rate)", Hint: "Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often", Order: 7}, {Name: "averageDuration", TypeName: "String", Description: "Average Duration", Order: 8}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "WorkflowStepEntry", MemberName: "systemsUsed", SectionID: "WOSTSY-SYST-LST", SectionIDPattern: "WOSTSY-SYST-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowStepSystem", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per system the step uses.", DocComment: "Systems used in this step.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (systems used in step)"}, "connotation": "The systems this step relies on to perform its work."}}}}
 			n.ElementNode = metaCx("WorkflowStepSystem", s, metaChildrenWorkflowStepSystem, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -19222,6 +19372,12 @@ func (x *BatchJobManagementNav) Monitoring() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/BJMM"}
 }
 
+func (x *BatchJobManagementNav) ScheduledJobs() *som.SomListMetaRef[*ScheduledJobEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCJOB-JOB-LST", func(t *som.SomMetaTree, p string) *ScheduledJobEntryNav {
+		return newScheduledJobEntryNav(t, p)
+	})
+}
+
 // BehaviorRuleEntryNav holds the dot-notation accessors of `BehaviorRuleEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -20984,6 +21140,24 @@ func (x *ClientAccessibilityRequirementsNav) Standards() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/CARS"}
 }
 
+// ClientApplicationEntryNav holds the dot-notation accessors of `ClientApplicationEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ClientApplicationEntryNav struct {
+	som.SomMetaRef
+}
+
+// newClientApplicationEntryNav binds a ClientApplicationEntryNav accessor to a tree and a path.
+func newClientApplicationEntryNav(tree *som.SomMetaTree, path string) *ClientApplicationEntryNav {
+	return &ClientApplicationEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ClientApplicationEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // ClientConfigurationNav holds the dot-notation accessors of `ClientConfiguration` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -20999,6 +21173,30 @@ func newClientConfigurationNav(tree *som.SomMetaTree, path string) *ClientConfig
 }
 
 func (x *ClientConfigurationNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ClientConfigurationNav) Settings() *som.SomListMetaRef[*ClientConfigurationSettingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ClientConfigurationSettingEntryNav {
+		return newClientConfigurationSettingEntryNav(t, p)
+	})
+}
+
+// ClientConfigurationSettingEntryNav holds the dot-notation accessors of `ClientConfigurationSettingEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ClientConfigurationSettingEntryNav struct {
+	som.SomMetaRef
+}
+
+// newClientConfigurationSettingEntryNav binds a ClientConfigurationSettingEntryNav accessor to a tree and a path.
+func newClientConfigurationSettingEntryNav(tree *som.SomMetaTree, path string) *ClientConfigurationSettingEntryNav {
+	return &ClientConfigurationSettingEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ClientConfigurationSettingEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
@@ -21092,6 +21290,12 @@ func (x *ClientRequirementsSectionNav) Overview() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/overview"}
 }
 
+func (x *ClientRequirementsSectionNav) ClientApplications() *som.SomListMetaRef[*ClientApplicationEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CLIAPP-CLIE-LST", func(t *som.SomMetaTree, p string) *ClientApplicationEntryNav {
+		return newClientApplicationEntryNav(t, p)
+	})
+}
+
 func (x *ClientRequirementsSectionNav) BrowserRequirements() *som.SomListMetaRef[*BrowserRequirementEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryNav {
 		return newBrowserRequirementEntryNav(t, p)
@@ -21144,6 +21348,10 @@ func (x *ClientRequirementsSectionNav) ClientConfiguration() *ClientConfiguratio
 
 func (x *ClientRequirementsSectionNav) DeviceSettings() *DeviceSettingsNav {
 	return newDeviceSettingsNav(x.Tree, x.Path+"/deviceSettings")
+}
+
+func (x *ClientRequirementsSectionNav) UserSettings() *UserSettingsNav {
+	return newUserSettingsNav(x.Tree, x.Path+"/userSettings")
 }
 
 // ClientSecurityRequirementsNav holds the dot-notation accessors of `ClientSecurityRequirements` (SOM §8).
@@ -23674,18 +23882,6 @@ func (x *CurrentWorkflowEntryNav) BusinessRules() *som.SomListMetaRef[*WorkflowB
 	})
 }
 
-func (x *CurrentWorkflowEntryNav) ManualSteps() *som.SomListMetaRef[*WorkflowStepEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WSE-MANU-LST", func(t *som.SomMetaTree, p string) *WorkflowStepEntryNav {
-		return newWorkflowStepEntryNav(t, p)
-	})
-}
-
-func (x *CurrentWorkflowEntryNav) ErrorProneSteps() *som.SomListMetaRef[*WorkflowStepEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WSE-ERRO-LST", func(t *som.SomMetaTree, p string) *WorkflowStepEntryNav {
-		return newWorkflowStepEntryNav(t, p)
-	})
-}
-
 func (x *CurrentWorkflowEntryNav) Timing() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/WOTI"}
 }
@@ -24044,6 +24240,14 @@ func (x *D03InformationModelNav) ResultEnvelope() *ResultEnvelopeNav {
 
 func (x *D03InformationModelNav) MessageKeyRegistry() *MessageKeyRegistryNav {
 	return newMessageKeyRegistryNav(x.Tree, x.Path+"/messageKeyRegistry")
+}
+
+func (x *D03InformationModelNav) ServerOperationRegistry() *ServerOperationRegistryNav {
+	return newServerOperationRegistryNav(x.Tree, x.Path+"/serverOperationRegistry")
+}
+
+func (x *D03InformationModelNav) SchemaVersioningAndMigration() *SchemaVersioningAndMigrationNav {
+	return newSchemaVersioningAndMigrationNav(x.Tree, x.Path+"/schemaVersioningAndMigration")
 }
 
 // D04RequirementsSpecificationNav holds the dot-notation accessors of `D04RequirementsSpecification` (SOM §8).
@@ -24708,6 +24912,14 @@ func (x *D13CodeSpecsProjectionNav) AuditAndLogging() *AuditAndLoggingNav {
 
 func (x *D13CodeSpecsProjectionNav) ReportDefinitions() *ReportDefinitionsNav {
 	return newReportDefinitionsNav(x.Tree, x.Path+"/reportDefinitions")
+}
+
+func (x *D13CodeSpecsProjectionNav) SchemaVersioningAndMigration() *SchemaVersioningAndMigrationNav {
+	return newSchemaVersioningAndMigrationNav(x.Tree, x.Path+"/schemaVersioningAndMigration")
+}
+
+func (x *D13CodeSpecsProjectionNav) ServerOperationRegistry() *ServerOperationRegistryNav {
+	return newServerOperationRegistryNav(x.Tree, x.Path+"/serverOperationRegistry")
 }
 
 func (x *D13CodeSpecsProjectionNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
@@ -27704,6 +27916,24 @@ func (x *DevelopmentQualityGatesNav) Performance() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DQGP"}
 }
 
+// DeviceSettingEntryNav holds the dot-notation accessors of `DeviceSettingEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type DeviceSettingEntryNav struct {
+	som.SomMetaRef
+}
+
+// newDeviceSettingEntryNav binds a DeviceSettingEntryNav accessor to a tree and a path.
+func newDeviceSettingEntryNav(tree *som.SomMetaTree, path string) *DeviceSettingEntryNav {
+	return &DeviceSettingEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *DeviceSettingEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // DeviceSettingsNav holds the dot-notation accessors of `DeviceSettings` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -27720,6 +27950,12 @@ func newDeviceSettingsNav(tree *som.SomMetaTree, path string) *DeviceSettingsNav
 
 func (x *DeviceSettingsNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *DeviceSettingsNav) Settings() *som.SomListMetaRef[*DeviceSettingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DSSET-SETT-LST", func(t *som.SomMetaTree, p string) *DeviceSettingEntryNav {
+		return newDeviceSettingEntryNav(t, p)
+	})
 }
 
 // DisasterRecoveryRequirementsNav holds the dot-notation accessors of `DisasterRecoveryRequirements` (SOM §8).
@@ -32596,6 +32832,10 @@ func (x *InformationAndDataModelNav) MessageKeyRegistry() *MessageKeyRegistryNav
 	return newMessageKeyRegistryNav(x.Tree, x.Path+"/messageKeyRegistry")
 }
 
+func (x *InformationAndDataModelNav) ServerOperationRegistry() *ServerOperationRegistryNav {
+	return newServerOperationRegistryNav(x.Tree, x.Path+"/serverOperationRegistry")
+}
+
 func (x *InformationAndDataModelNav) DataModelFollowUp() *DataModelFollowUpNav {
 	return newDataModelFollowUpNav(x.Tree, x.Path+"/dataModelFollowUp")
 }
@@ -36287,6 +36527,24 @@ func newMigrationSystemsNav(tree *som.SomMetaTree, path string) *MigrationSystem
 }
 
 func (x *MigrationSystemsNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// MigrationTargetEntryNav holds the dot-notation accessors of `MigrationTargetEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type MigrationTargetEntryNav struct {
+	som.SomMetaRef
+}
+
+// newMigrationTargetEntryNav binds a MigrationTargetEntryNav accessor to a tree and a path.
+func newMigrationTargetEntryNav(tree *som.SomMetaTree, path string) *MigrationTargetEntryNav {
+	return &MigrationTargetEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *MigrationTargetEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
@@ -44926,6 +45184,44 @@ func (x *ScenarioStepEntryNav) Execution() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCSTENEX"}
 }
 
+// ScheduledJobEntryNav holds the dot-notation accessors of `ScheduledJobEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ScheduledJobEntryNav struct {
+	som.SomMetaRef
+}
+
+// newScheduledJobEntryNav binds a ScheduledJobEntryNav accessor to a tree and a path.
+func newScheduledJobEntryNav(tree *som.SomMetaTree, path string) *ScheduledJobEntryNav {
+	return &ScheduledJobEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ScheduledJobEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ScheduledJobEntryNav) CronTrigger() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-CRON"}
+}
+
+func (x *ScheduledJobEntryNav) CalendarTrigger() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-CAL"}
+}
+
+func (x *ScheduledJobEntryNav) EventTrigger() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-EVNT"}
+}
+
+func (x *ScheduledJobEntryNav) WorkDefinition() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-WORK"}
+}
+
+func (x *ScheduledJobEntryNav) FailurePolicy() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-FAIL"}
+}
+
 // ScheduledMaintenancePolicyNav holds the dot-notation accessors of `ScheduledMaintenancePolicy` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -44978,6 +45274,18 @@ func (x *SchemaMigrationStepEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
+func (x *SchemaMigrationStepEntryNav) BaselineSchema() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-BASE"}
+}
+
+func (x *SchemaMigrationStepEntryNav) ReferenceData() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-REFD"}
+}
+
+func (x *SchemaMigrationStepEntryNav) SchemaChange() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-CHNG"}
+}
+
 // SchemaVersioningAndMigrationNav holds the dot-notation accessors of `SchemaVersioningAndMigration` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -44994,6 +45302,12 @@ func newSchemaVersioningAndMigrationNav(tree *som.SomMetaTree, path string) *Sch
 
 func (x *SchemaVersioningAndMigrationNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *SchemaVersioningAndMigrationNav) MigrationTargets() *som.SomListMetaRef[*MigrationTargetEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGTG-TARG-LST", func(t *som.SomMetaTree, p string) *MigrationTargetEntryNav {
+		return newMigrationTargetEntryNav(t, p)
+	})
 }
 
 func (x *SchemaVersioningAndMigrationNav) MigrationSteps() *som.SomListMetaRef[*SchemaMigrationStepEntryNav] {
@@ -45306,6 +45620,10 @@ func (x *ScreenElementFieldSpecNav) SelectOptions() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SEFSS"}
 }
 
+func (x *ScreenElementFieldSpecNav) FileOptions() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SEFSU"}
+}
+
 // ScreenEntryNav holds the dot-notation accessors of `ScreenEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -45418,6 +45736,10 @@ func (x *ScreenFieldEntryNav) TemporalConstraints() *som.SomMetaRef {
 
 func (x *ScreenFieldEntryNav) ChoiceOptions() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCFICH"}
+}
+
+func (x *ScreenFieldEntryNav) FileConstraints() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCFIFI"}
 }
 
 func (x *ScreenFieldEntryNav) Layout() *som.SomMetaRef {
@@ -46478,6 +46800,24 @@ func (x *SensitiveDataEncryptionNav) KeyManagement() *KeyManagementNav {
 	return newKeyManagementNav(x.Tree, x.Path+"/keyManagement")
 }
 
+// ServerConfigurationSettingEntryNav holds the dot-notation accessors of `ServerConfigurationSettingEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ServerConfigurationSettingEntryNav struct {
+	som.SomMetaRef
+}
+
+// newServerConfigurationSettingEntryNav binds a ServerConfigurationSettingEntryNav accessor to a tree and a path.
+func newServerConfigurationSettingEntryNav(tree *som.SomMetaTree, path string) *ServerConfigurationSettingEntryNav {
+	return &ServerConfigurationSettingEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ServerConfigurationSettingEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
 // ServerEnvironmentEntryNav holds the dot-notation accessors of `ServerEnvironmentEntry` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -46510,6 +46850,78 @@ func (x *ServerEnvironmentEntryNav) Access() *som.SomMetaRef {
 
 func (x *ServerEnvironmentEntryNav) Lifecycle() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SEENENLI"}
+}
+
+// ServerOperationEntryNav holds the dot-notation accessors of `ServerOperationEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ServerOperationEntryNav struct {
+	som.SomMetaRef
+}
+
+// newServerOperationEntryNav binds a ServerOperationEntryNav accessor to a tree and a path.
+func newServerOperationEntryNav(tree *som.SomMetaTree, path string) *ServerOperationEntryNav {
+	return &ServerOperationEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ServerOperationEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ServerOperationEntryNav) RequestMembers() *som.SomListMetaRef[*ServerOperationMemberEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SVOPM-REQM-LST", func(t *som.SomMetaTree, p string) *ServerOperationMemberEntryNav {
+		return newServerOperationMemberEntryNav(t, p)
+	})
+}
+
+func (x *ServerOperationEntryNav) ResponseMembers() *som.SomListMetaRef[*ServerOperationMemberEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SVOPM-RESM-LST", func(t *som.SomMetaTree, p string) *ServerOperationMemberEntryNav {
+		return newServerOperationMemberEntryNav(t, p)
+	})
+}
+
+// ServerOperationMemberEntryNav holds the dot-notation accessors of `ServerOperationMemberEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ServerOperationMemberEntryNav struct {
+	som.SomMetaRef
+}
+
+// newServerOperationMemberEntryNav binds a ServerOperationMemberEntryNav accessor to a tree and a path.
+func newServerOperationMemberEntryNav(tree *som.SomMetaTree, path string) *ServerOperationMemberEntryNav {
+	return &ServerOperationMemberEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ServerOperationMemberEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// ServerOperationRegistryNav holds the dot-notation accessors of `ServerOperationRegistry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ServerOperationRegistryNav struct {
+	som.SomMetaRef
+}
+
+// newServerOperationRegistryNav binds a ServerOperationRegistryNav accessor to a tree and a path.
+func newServerOperationRegistryNav(tree *som.SomMetaTree, path string) *ServerOperationRegistryNav {
+	return &ServerOperationRegistryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ServerOperationRegistryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ServerOperationRegistryNav) Operations() *som.SomListMetaRef[*ServerOperationEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SVOPE-OPER-LST", func(t *som.SomMetaTree, p string) *ServerOperationEntryNav {
+		return newServerOperationEntryNav(t, p)
+	})
 }
 
 // ServerOsRequirementsNav holds the dot-notation accessors of `ServerOsRequirements` (SOM §8).
@@ -49078,6 +49490,12 @@ func (x *SystemConfigurationManagementNav) Environment() *som.SomMetaRef {
 
 func (x *SystemConfigurationManagementNav) Governance() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMG"}
+}
+
+func (x *SystemConfigurationManagementNav) Settings() *som.SomListMetaRef[*ServerConfigurationSettingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ServerConfigurationSettingEntryNav {
+		return newServerConfigurationSettingEntryNav(t, p)
+	})
 }
 
 // SystemContextNav holds the dot-notation accessors of `SystemContext` (SOM §8).
@@ -53820,6 +54238,48 @@ func (x *UserRegistrationProcessNav) RegistrationFlowDiagram() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/registrationFlowDiagram"}
 }
 
+// UserSettingEntryNav holds the dot-notation accessors of `UserSettingEntry` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type UserSettingEntryNav struct {
+	som.SomMetaRef
+}
+
+// newUserSettingEntryNav binds a UserSettingEntryNav accessor to a tree and a path.
+func newUserSettingEntryNav(tree *som.SomMetaTree, path string) *UserSettingEntryNav {
+	return &UserSettingEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *UserSettingEntryNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+// UserSettingsNav holds the dot-notation accessors of `UserSettings` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type UserSettingsNav struct {
+	som.SomMetaRef
+}
+
+// newUserSettingsNav binds a UserSettingsNav accessor to a tree and a path.
+func newUserSettingsNav(tree *som.SomMetaTree, path string) *UserSettingsNav {
+	return &UserSettingsNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *UserSettingsNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *UserSettingsNav) Settings() *som.SomListMetaRef[*UserSettingEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/USSET-SETT-LST", func(t *som.SomMetaTree, p string) *UserSettingEntryNav {
+		return newUserSettingEntryNav(t, p)
+	})
+}
+
 // UserTrainingRequirementsNav holds the dot-notation accessors of `UserTrainingRequirements` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -56335,6 +56795,32 @@ func newChannelIntegrationsID(tree *som.SomMetaTree, path string) *ChannelIntegr
 	return &ChannelIntegrationsID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
+// ClientApplicationEntryID holds the ID-tree accessors of `ClientApplicationEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ClientApplicationEntryID struct {
+	som.SomMetaRef
+}
+
+// newClientApplicationEntryID binds a ClientApplicationEntryID accessor to a tree and a path.
+func newClientApplicationEntryID(tree *som.SomMetaTree, path string) *ClientApplicationEntryID {
+	return &ClientApplicationEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// ClientConfigurationSettingEntryID holds the ID-tree accessors of `ClientConfigurationSettingEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ClientConfigurationSettingEntryID struct {
+	som.SomMetaRef
+}
+
+// newClientConfigurationSettingEntryID binds a ClientConfigurationSettingEntryID accessor to a tree and a path.
+func newClientConfigurationSettingEntryID(tree *som.SomMetaTree, path string) *ClientConfigurationSettingEntryID {
+	return &ClientConfigurationSettingEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // CodingStandardEntryID holds the ID-tree accessors of `CodingStandardEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -57084,18 +57570,6 @@ func (x *CurrentWorkflowEntryID) WODEPO_DECI_LST() *som.SomListMetaRef[*Workflow
 func (x *CurrentWorkflowEntryID) WOBURU_BUSI_LST() *som.SomListMetaRef[*WorkflowBusinessRuleID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/WOBURU-BUSI-LST", func(t *som.SomMetaTree, p string) *WorkflowBusinessRuleID {
 		return newWorkflowBusinessRuleID(t, p)
-	})
-}
-
-func (x *CurrentWorkflowEntryID) WSE_MANU_LST() *som.SomListMetaRef[*WorkflowStepEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WSE-MANU-LST", func(t *som.SomMetaTree, p string) *WorkflowStepEntryID {
-		return newWorkflowStepEntryID(t, p)
-	})
-}
-
-func (x *CurrentWorkflowEntryID) WSE_ERRO_LST() *som.SomListMetaRef[*WorkflowStepEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WSE-ERRO-LST", func(t *som.SomMetaTree, p string) *WorkflowStepEntryID {
-		return newWorkflowStepEntryID(t, p)
 	})
 }
 
@@ -58686,6 +59160,12 @@ func (x *D00SolutionBlueprintID) BIRU_BUSI_LST() *som.SomListMetaRef[*BusinessRu
 	})
 }
 
+func (x *D00SolutionBlueprintID) MIGTG_TARG_LST() *som.SomListMetaRef[*MigrationTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/schemaVersioningAndMigration/MIGTG-TARG-LST", func(t *som.SomMetaTree, p string) *MigrationTargetEntryID {
+		return newMigrationTargetEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) SCMST_STEP_LST() *som.SomListMetaRef[*SchemaMigrationStepEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST", func(t *som.SomMetaTree, p string) *SchemaMigrationStepEntryID {
 		return newSchemaMigrationStepEntryID(t, p)
@@ -58713,6 +59193,12 @@ func (x *D00SolutionBlueprintID) RSFDE_FLDD_LST() *som.SomListMetaRef[*ResultFie
 func (x *D00SolutionBlueprintID) MSGKE_MKEY_LST() *som.SomListMetaRef[*MessageKeyEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST", func(t *som.SomMetaTree, p string) *MessageKeyEntryID {
 		return newMessageKeyEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) SVOPE_OPER_LST() *som.SomListMetaRef[*ServerOperationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST", func(t *som.SomMetaTree, p string) *ServerOperationEntryID {
+		return newServerOperationEntryID(t, p)
 	})
 }
 
@@ -59790,6 +60276,12 @@ func (x *D00SolutionBlueprintID) SORL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL"}
 }
 
+func (x *D00SolutionBlueprintID) CLIAPP_CLIE_LST() *som.SomListMetaRef[*ClientApplicationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", func(t *som.SomMetaTree, p string) *ClientApplicationEntryID {
+		return newClientApplicationEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
@@ -59918,6 +60410,24 @@ func (x *D00SolutionBlueprintID) CSRN() *som.SomMetaRef {
 
 func (x *D00SolutionBlueprintID) CSRCP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"}
+}
+
+func (x *D00SolutionBlueprintID) CCSET_SETT_LST() *som.SomListMetaRef[*ClientConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ClientConfigurationSettingEntryID {
+		return newClientConfigurationSettingEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) DSSET_SETT_LST() *som.SomListMetaRef[*DeviceSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST", func(t *som.SomMetaTree, p string) *DeviceSettingEntryID {
+		return newDeviceSettingEntryID(t, p)
+	})
+}
+
+func (x *D00SolutionBlueprintID) USSET_SETT_LST() *som.SomListMetaRef[*UserSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST", func(t *som.SomMetaTree, p string) *UserSettingEntryID {
+		return newUserSettingEntryID(t, p)
+	})
 }
 
 func (x *D00SolutionBlueprintID) INRS() *som.SomMetaRef {
@@ -60728,6 +61238,12 @@ func (x *D00SolutionBlueprintID) SCMG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"}
 }
 
+func (x *D00SolutionBlueprintID) SCSET_SETT_LST() *som.SomListMetaRef[*ServerConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ServerConfigurationSettingEntryID {
+		return newServerConfigurationSettingEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) UPTL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"}
 }
@@ -60750,6 +61266,12 @@ func (x *D00SolutionBlueprintID) BJME() *som.SomMetaRef {
 
 func (x *D00SolutionBlueprintID) BJMM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"}
+}
+
+func (x *D00SolutionBlueprintID) SCJOB_JOB_LST() *som.SomListMetaRef[*ScheduledJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST", func(t *som.SomMetaTree, p string) *ScheduledJobEntryID {
+		return newScheduledJobEntryID(t, p)
+	})
 }
 
 func (x *D00SolutionBlueprintID) ADENMA() *som.SomMetaRef {
@@ -63699,6 +64221,24 @@ func (x *D03InformationModelID) MSGKE_MKEY_LST() *som.SomListMetaRef[*MessageKey
 	})
 }
 
+func (x *D03InformationModelID) SVOPE_OPER_LST() *som.SomListMetaRef[*ServerOperationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/serverOperationRegistry/SVOPE-OPER-LST", func(t *som.SomMetaTree, p string) *ServerOperationEntryID {
+		return newServerOperationEntryID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) MIGTG_TARG_LST() *som.SomListMetaRef[*MigrationTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/schemaVersioningAndMigration/MIGTG-TARG-LST", func(t *som.SomMetaTree, p string) *MigrationTargetEntryID {
+		return newMigrationTargetEntryID(t, p)
+	})
+}
+
+func (x *D03InformationModelID) SCMST_STEP_LST() *som.SomListMetaRef[*SchemaMigrationStepEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/schemaVersioningAndMigration/SCMST-STEP-LST", func(t *som.SomMetaTree, p string) *SchemaMigrationStepEntryID {
+		return newSchemaMigrationStepEntryID(t, p)
+	})
+}
+
 // D04RequirementsSpecificationID holds the ID-tree accessors of `D04RequirementsSpecification` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -64862,6 +65402,12 @@ func (x *D06ArchitectureTechnologySpecificationID) SORL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/hardwareRequirements/serverRequirements/osRequirements/SORL"}
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) CLIAPP_CLIE_LST() *som.SomListMetaRef[*ClientApplicationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", func(t *som.SomMetaTree, p string) *ClientApplicationEntryID {
+		return newClientApplicationEntryID(t, p)
+	})
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
@@ -64990,6 +65536,24 @@ func (x *D06ArchitectureTechnologySpecificationID) CSRN() *som.SomMetaRef {
 
 func (x *D06ArchitectureTechnologySpecificationID) CSRCP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/hardwareRequirements/clientRequirements/securityRequirements/CSRCP"}
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) CCSET_SETT_LST() *som.SomListMetaRef[*ClientConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/clientConfiguration/CCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ClientConfigurationSettingEntryID {
+		return newClientConfigurationSettingEntryID(t, p)
+	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) DSSET_SETT_LST() *som.SomListMetaRef[*DeviceSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/deviceSettings/DSSET-SETT-LST", func(t *som.SomMetaTree, p string) *DeviceSettingEntryID {
+		return newDeviceSettingEntryID(t, p)
+	})
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) USSET_SETT_LST() *som.SomListMetaRef[*UserSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/userSettings/USSET-SETT-LST", func(t *som.SomMetaTree, p string) *UserSettingEntryID {
+		return newUserSettingEntryID(t, p)
+	})
 }
 
 func (x *D06ArchitectureTechnologySpecificationID) INRS() *som.SomMetaRef {
@@ -65800,6 +66364,12 @@ func (x *D06ArchitectureTechnologySpecificationID) SCMG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCMG"}
 }
 
+func (x *D06ArchitectureTechnologySpecificationID) SCSET_SETT_LST() *som.SomListMetaRef[*ServerConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ServerConfigurationSettingEntryID {
+		return newServerConfigurationSettingEntryID(t, p)
+	})
+}
+
 func (x *D06ArchitectureTechnologySpecificationID) UPTL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTL"}
 }
@@ -65822,6 +66392,12 @@ func (x *D06ArchitectureTechnologySpecificationID) BJME() *som.SomMetaRef {
 
 func (x *D06ArchitectureTechnologySpecificationID) BJMM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJMM"}
+}
+
+func (x *D06ArchitectureTechnologySpecificationID) SCJOB_JOB_LST() *som.SomListMetaRef[*ScheduledJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST", func(t *som.SomMetaTree, p string) *ScheduledJobEntryID {
+		return newScheduledJobEntryID(t, p)
+	})
 }
 
 func (x *D06ArchitectureTechnologySpecificationID) ADENMA() *som.SomMetaRef {
@@ -69393,6 +69969,12 @@ func (x *D13CodeSpecsProjectionID) SORL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/serverRequirements/osRequirements/SORL"}
 }
 
+func (x *D13CodeSpecsProjectionID) CLIAPP_CLIE_LST() *som.SomListMetaRef[*ClientApplicationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", func(t *som.SomMetaTree, p string) *ClientApplicationEntryID {
+		return newClientApplicationEntryID(t, p)
+	})
+}
+
 func (x *D13CodeSpecsProjectionID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
@@ -69521,6 +70103,24 @@ func (x *D13CodeSpecsProjectionID) CSRN() *som.SomMetaRef {
 
 func (x *D13CodeSpecsProjectionID) CSRCP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP"}
+}
+
+func (x *D13CodeSpecsProjectionID) CCSET_SETT_LST() *som.SomListMetaRef[*ClientConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ClientConfigurationSettingEntryID {
+		return newClientConfigurationSettingEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) DSSET_SETT_LST() *som.SomListMetaRef[*DeviceSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST", func(t *som.SomMetaTree, p string) *DeviceSettingEntryID {
+		return newDeviceSettingEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) USSET_SETT_LST() *som.SomListMetaRef[*UserSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST", func(t *som.SomMetaTree, p string) *UserSettingEntryID {
+		return newUserSettingEntryID(t, p)
+	})
 }
 
 func (x *D13CodeSpecsProjectionID) INRS() *som.SomMetaRef {
@@ -70331,6 +70931,12 @@ func (x *D13CodeSpecsProjectionID) SCMG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCMG"}
 }
 
+func (x *D13CodeSpecsProjectionID) SCSET_SETT_LST() *som.SomListMetaRef[*ServerConfigurationSettingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST", func(t *som.SomMetaTree, p string) *ServerConfigurationSettingEntryID {
+		return newServerConfigurationSettingEntryID(t, p)
+	})
+}
+
 func (x *D13CodeSpecsProjectionID) UPTL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL"}
 }
@@ -70353,6 +70959,12 @@ func (x *D13CodeSpecsProjectionID) BJME() *som.SomMetaRef {
 
 func (x *D13CodeSpecsProjectionID) BJMM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM"}
+}
+
+func (x *D13CodeSpecsProjectionID) SCJOB_JOB_LST() *som.SomListMetaRef[*ScheduledJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST", func(t *som.SomMetaTree, p string) *ScheduledJobEntryID {
+		return newScheduledJobEntryID(t, p)
+	})
 }
 
 func (x *D13CodeSpecsProjectionID) ADENMA() *som.SomMetaRef {
@@ -71146,6 +71758,24 @@ func (x *D13CodeSpecsProjectionID) SEVT_CUST_LST() *som.SomListMetaRef[*Security
 func (x *D13CodeSpecsProjectionID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
 		return newReportEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) MIGTG_TARG_LST() *som.SomListMetaRef[*MigrationTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/schemaVersioningAndMigration/MIGTG-TARG-LST", func(t *som.SomMetaTree, p string) *MigrationTargetEntryID {
+		return newMigrationTargetEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SCMST_STEP_LST() *som.SomListMetaRef[*SchemaMigrationStepEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/schemaVersioningAndMigration/SCMST-STEP-LST", func(t *som.SomMetaTree, p string) *SchemaMigrationStepEntryID {
+		return newSchemaMigrationStepEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SVOPE_OPER_LST() *som.SomListMetaRef[*ServerOperationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/serverOperationRegistry/SVOPE-OPER-LST", func(t *som.SomMetaTree, p string) *ServerOperationEntryID {
+		return newServerOperationEntryID(t, p)
 	})
 }
 
@@ -72426,6 +73056,19 @@ func (x *DevelopmentConventionEntryID) DCEA() *som.SomMetaRef {
 
 func (x *DevelopmentConventionEntryID) DCEE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DCEE"}
+}
+
+// DeviceSettingEntryID holds the ID-tree accessors of `DeviceSettingEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type DeviceSettingEntryID struct {
+	som.SomMetaRef
+}
+
+// newDeviceSettingEntryID binds a DeviceSettingEntryID accessor to a tree and a path.
+func newDeviceSettingEntryID(tree *som.SomMetaTree, path string) *DeviceSettingEntryID {
+	return &DeviceSettingEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // DisplayEquipmentEntryID holds the ID-tree accessors of `DisplayEquipmentEntry` (SOM §8): methods
@@ -75189,6 +75832,19 @@ type MigrationSystemsID struct {
 // newMigrationSystemsID binds a MigrationSystemsID accessor to a tree and a path.
 func newMigrationSystemsID(tree *som.SomMetaTree, path string) *MigrationSystemsID {
 	return &MigrationSystemsID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// MigrationTargetEntryID holds the ID-tree accessors of `MigrationTargetEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type MigrationTargetEntryID struct {
+	som.SomMetaRef
+}
+
+// newMigrationTargetEntryID binds a MigrationTargetEntryID accessor to a tree and a path.
+func newMigrationTargetEntryID(tree *som.SomMetaTree, path string) *MigrationTargetEntryID {
+	return &MigrationTargetEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // MobileCompatibilityEntryID holds the ID-tree accessors of `MobileCompatibilityEntry` (SOM §8): methods
@@ -77956,6 +78612,39 @@ func (x *ScenarioStepEntryID) SCSTENEX() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCSTENEX"}
 }
 
+// ScheduledJobEntryID holds the ID-tree accessors of `ScheduledJobEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ScheduledJobEntryID struct {
+	som.SomMetaRef
+}
+
+// newScheduledJobEntryID binds a ScheduledJobEntryID accessor to a tree and a path.
+func newScheduledJobEntryID(tree *som.SomMetaTree, path string) *ScheduledJobEntryID {
+	return &ScheduledJobEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ScheduledJobEntryID) SCJOB_CRON() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-CRON"}
+}
+
+func (x *ScheduledJobEntryID) SCJOB_CAL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-CAL"}
+}
+
+func (x *ScheduledJobEntryID) SCJOB_EVNT() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-EVNT"}
+}
+
+func (x *ScheduledJobEntryID) SCJOB_WORK() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-WORK"}
+}
+
+func (x *ScheduledJobEntryID) SCJOB_FAIL() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCJOB-FAIL"}
+}
+
 // SchemaMigrationStepEntryID holds the ID-tree accessors of `SchemaMigrationStepEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -77967,6 +78656,18 @@ type SchemaMigrationStepEntryID struct {
 // newSchemaMigrationStepEntryID binds a SchemaMigrationStepEntryID accessor to a tree and a path.
 func newSchemaMigrationStepEntryID(tree *som.SomMetaTree, path string) *SchemaMigrationStepEntryID {
 	return &SchemaMigrationStepEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *SchemaMigrationStepEntryID) SCMST_BASE() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-BASE"}
+}
+
+func (x *SchemaMigrationStepEntryID) SCMST_REFD() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-REFD"}
+}
+
+func (x *SchemaMigrationStepEntryID) SCMST_CHNG() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCMST-CHNG"}
 }
 
 // ScopeItemEntryID holds the ID-tree accessors of `ScopeItemEntry` (SOM §8): methods
@@ -78079,6 +78780,10 @@ func (x *ScreenElementEntryID) SEFSV() *som.SomMetaRef {
 
 func (x *ScreenElementEntryID) SEFSS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/fieldSpec/SEFSS"}
+}
+
+func (x *ScreenElementEntryID) SEFSU() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/fieldSpec/SEFSU"}
 }
 
 func (x *ScreenElementEntryID) SEDDB() *som.SomMetaRef {
@@ -78199,6 +78904,10 @@ func (x *ScreenFieldEntryID) SCFIVD() *som.SomMetaRef {
 
 func (x *ScreenFieldEntryID) SCFICH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCFICH"}
+}
+
+func (x *ScreenFieldEntryID) SCFIFI() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SCFIFI"}
 }
 
 func (x *ScreenFieldEntryID) SCFILA() *som.SomMetaRef {
@@ -78475,6 +79184,19 @@ func (x *SecurityStandardEntryID) SSEV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SSEV"}
 }
 
+// ServerConfigurationSettingEntryID holds the ID-tree accessors of `ServerConfigurationSettingEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ServerConfigurationSettingEntryID struct {
+	som.SomMetaRef
+}
+
+// newServerConfigurationSettingEntryID binds a ServerConfigurationSettingEntryID accessor to a tree and a path.
+func newServerConfigurationSettingEntryID(tree *som.SomMetaTree, path string) *ServerConfigurationSettingEntryID {
+	return &ServerConfigurationSettingEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
 // ServerEnvironmentEntryID holds the ID-tree accessors of `ServerEnvironmentEntry` (SOM §8): methods
 // named by section id (`-` → `_`), hoisted through id-less members so every
 // reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
@@ -78502,6 +79224,44 @@ func (x *ServerEnvironmentEntryID) SEEA() *som.SomMetaRef {
 
 func (x *ServerEnvironmentEntryID) SEENENLI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SEENENLI"}
+}
+
+// ServerOperationEntryID holds the ID-tree accessors of `ServerOperationEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ServerOperationEntryID struct {
+	som.SomMetaRef
+}
+
+// newServerOperationEntryID binds a ServerOperationEntryID accessor to a tree and a path.
+func newServerOperationEntryID(tree *som.SomMetaTree, path string) *ServerOperationEntryID {
+	return &ServerOperationEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ServerOperationEntryID) SVOPM_REQM_LST() *som.SomListMetaRef[*ServerOperationMemberEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SVOPM-REQM-LST", func(t *som.SomMetaTree, p string) *ServerOperationMemberEntryID {
+		return newServerOperationMemberEntryID(t, p)
+	})
+}
+
+func (x *ServerOperationEntryID) SVOPM_RESM_LST() *som.SomListMetaRef[*ServerOperationMemberEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SVOPM-RESM-LST", func(t *som.SomMetaTree, p string) *ServerOperationMemberEntryID {
+		return newServerOperationMemberEntryID(t, p)
+	})
+}
+
+// ServerOperationMemberEntryID holds the ID-tree accessors of `ServerOperationMemberEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type ServerOperationMemberEntryID struct {
+	som.SomMetaRef
+}
+
+// newServerOperationMemberEntryID binds a ServerOperationMemberEntryID accessor to a tree and a path.
+func newServerOperationMemberEntryID(tree *som.SomMetaTree, path string) *ServerOperationMemberEntryID {
+	return &ServerOperationMemberEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // ServerRoleEntryID holds the ID-tree accessors of `ServerRoleEntry` (SOM §8): methods
@@ -80718,6 +81478,19 @@ type UserNotificationPreferencesID struct {
 // newUserNotificationPreferencesID binds a UserNotificationPreferencesID accessor to a tree and a path.
 func newUserNotificationPreferencesID(tree *som.SomMetaTree, path string) *UserNotificationPreferencesID {
 	return &UserNotificationPreferencesID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+// UserSettingEntryID holds the ID-tree accessors of `UserSettingEntry` (SOM §8): methods
+// named by section id (`-` → `_`), hoisted through id-less members so every
+// reachable id is one step. `.Path` and `.Meta()` agree with the dot-notation
+// surface.
+type UserSettingEntryID struct {
+	som.SomMetaRef
+}
+
+// newUserSettingEntryID binds a UserSettingEntryID accessor to a tree and a path.
+func newUserSettingEntryID(tree *som.SomMetaTree, path string) *UserSettingEntryID {
+	return &UserSettingEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
 // UtilityMenuItemEntryID holds the ID-tree accessors of `UtilityMenuItemEntry` (SOM §8): methods

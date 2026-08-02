@@ -210,7 +210,9 @@ static SomMetaNode **meta_children_channel_integrations(SomStrList *stack, size_
 static SomMetaNode **meta_children_ci_cd_pipeline_configuration(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_ci_cd_pipeline_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_accessibility_requirements(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_client_application_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_configuration(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_client_configuration_setting_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_hardware_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_network_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_client_requirements_section(SomStrList *stack, size_t *len);
@@ -406,6 +408,7 @@ static SomMetaNode **meta_children_developer_onboarding(SomStrList *stack, size_
 static SomMetaNode **meta_children_development_convention_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_development_environment(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_development_quality_gates(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_device_setting_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_device_settings(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_disaster_recovery_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_display_equipment_entry(SomStrList *stack, size_t *len);
@@ -691,6 +694,7 @@ static SomMetaNode **meta_children_migration_risk_indicators(SomStrList *stack, 
 static SomMetaNode **meta_children_migration_risks(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_migration_stakeholders(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_migration_systems(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_migration_target_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_mobile_compatibility_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_mobile_device_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_mobile_device_requirement_entry(SomStrList *stack, size_t *len);
@@ -982,6 +986,7 @@ static SomMetaNode **meta_children_scaling_requirements(SomStrList *stack, size_
 static SomMetaNode **meta_children_scaling_triggers_and_thresholds(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scenario_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_schema_migration_step_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_schema_versioning_and_migration(SomStrList *stack, size_t *len);
@@ -1032,7 +1037,11 @@ static SomMetaNode **meta_children_security_testing_automation(SomStrList *stack
 static SomMetaNode **meta_children_self_registration_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_self_service_account_management(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_sensitive_data_encryption(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_server_configuration_setting_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_environment_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_server_operation_member_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_server_operation_registry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_os_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_requirements_section(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_server_role_entry(SomStrList *stack, size_t *len);
@@ -1257,6 +1266,8 @@ static SomMetaNode **meta_children_user_persona_details(SomStrList *stack, size_
 static SomMetaNode **meta_children_user_personas(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_provisioning_tools(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_registration_process(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_user_setting_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_user_settings(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_user_training_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_utility_menu_item_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_utility_navigation(SomStrList *stack, size_t *len);
@@ -1698,6 +1709,8 @@ static void meta_build_batch_job_management_content(SomMetaNode *n);
 static void meta_build_batch_job_management_job_types(SomMetaNode *n);
 static void meta_build_batch_job_management_execution(SomMetaNode *n);
 static void meta_build_batch_job_management_monitoring(SomMetaNode *n);
+static void meta_build_batch_job_management_scheduled_jobs(SomMetaNode *n);
+static void meta_build_batch_job_management_scheduled_jobs_elem(SomMetaNode *n);
 static void meta_build_behavior_rule_entry_content(SomMetaNode *n);
 static void meta_build_biometric_authentication_policy_content(SomMetaNode *n);
 static void meta_build_biometric_authentication_policy_biometric_details(SomMetaNode *n);
@@ -1971,7 +1984,11 @@ static void meta_build_client_accessibility_requirements_visual(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_motor(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_cognitive(SomMetaNode *n);
 static void meta_build_client_accessibility_requirements_standards(SomMetaNode *n);
+static void meta_build_client_application_entry_content(SomMetaNode *n);
 static void meta_build_client_configuration_content(SomMetaNode *n);
+static void meta_build_client_configuration_settings(SomMetaNode *n);
+static void meta_build_client_configuration_settings_elem(SomMetaNode *n);
+static void meta_build_client_configuration_setting_entry_content(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_content(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_memory(SomMetaNode *n);
 static void meta_build_client_hardware_requirements_storage(SomMetaNode *n);
@@ -1984,6 +2001,8 @@ static void meta_build_client_network_requirements_protocols(SomMetaNode *n);
 static void meta_build_client_network_requirements_proxy(SomMetaNode *n);
 static void meta_build_client_requirements_section_content(SomMetaNode *n);
 static void meta_build_client_requirements_section_overview(SomMetaNode *n);
+static void meta_build_client_requirements_section_client_applications(SomMetaNode *n);
+static void meta_build_client_requirements_section_client_applications_elem(SomMetaNode *n);
 static void meta_build_client_requirements_section_browser_requirements(SomMetaNode *n);
 static void meta_build_client_requirements_section_browser_requirements_elem(SomMetaNode *n);
 static void meta_build_client_requirements_section_desktop_os_requirements(SomMetaNode *n);
@@ -1999,6 +2018,7 @@ static void meta_build_client_requirements_section_native_app_requirements(SomMe
 static void meta_build_client_requirements_section_security_requirements(SomMetaNode *n);
 static void meta_build_client_requirements_section_client_configuration(SomMetaNode *n);
 static void meta_build_client_requirements_section_device_settings(SomMetaNode *n);
+static void meta_build_client_requirements_section_user_settings(SomMetaNode *n);
 static void meta_build_client_security_requirements_content(SomMetaNode *n);
 static void meta_build_client_security_requirements_authentication(SomMetaNode *n);
 static void meta_build_client_security_requirements_device(SomMetaNode *n);
@@ -2361,10 +2381,6 @@ static void meta_build_current_workflow_entry_decision_points(SomMetaNode *n);
 static void meta_build_current_workflow_entry_decision_points_elem(SomMetaNode *n);
 static void meta_build_current_workflow_entry_business_rules(SomMetaNode *n);
 static void meta_build_current_workflow_entry_business_rules_elem(SomMetaNode *n);
-static void meta_build_current_workflow_entry_manual_steps(SomMetaNode *n);
-static void meta_build_current_workflow_entry_manual_steps_elem(SomMetaNode *n);
-static void meta_build_current_workflow_entry_error_prone_steps(SomMetaNode *n);
-static void meta_build_current_workflow_entry_error_prone_steps_elem(SomMetaNode *n);
 static void meta_build_current_workflow_entry_timing(SomMetaNode *n);
 static void meta_build_current_workflow_entry_exceptions(SomMetaNode *n);
 static void meta_build_custom_distribution_group_content(SomMetaNode *n);
@@ -2435,6 +2451,8 @@ static void meta_build_d03_information_model_domain_enum_registry(SomMetaNode *n
 static void meta_build_d03_information_model_error_code_registry(SomMetaNode *n);
 static void meta_build_d03_information_model_result_envelope(SomMetaNode *n);
 static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n);
+static void meta_build_d03_information_model_server_operation_registry(SomMetaNode *n);
+static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_header(SomMetaNode *n);
 static void meta_build_d04_requirements_specification_functional_requirements(SomMetaNode *n);
@@ -2569,6 +2587,8 @@ static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode
 static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_schema_versioning_and_migration(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_server_operation_registry(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNode *n);
 static void meta_build_dashboard_entry_content(SomMetaNode *n);
@@ -3010,7 +3030,10 @@ static void meta_build_development_quality_gates_complexity(SomMetaNode *n);
 static void meta_build_development_quality_gates_security(SomMetaNode *n);
 static void meta_build_development_quality_gates_documentation(SomMetaNode *n);
 static void meta_build_development_quality_gates_performance(SomMetaNode *n);
+static void meta_build_device_setting_entry_content(SomMetaNode *n);
 static void meta_build_device_settings_content(SomMetaNode *n);
+static void meta_build_device_settings_settings(SomMetaNode *n);
+static void meta_build_device_settings_settings_elem(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_failover(SomMetaNode *n);
 static void meta_build_disaster_recovery_requirements_failback(SomMetaNode *n);
@@ -3689,6 +3712,7 @@ static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNo
 static void meta_build_information_and_data_model_error_code_registry(SomMetaNode *n);
 static void meta_build_information_and_data_model_result_envelope(SomMetaNode *n);
 static void meta_build_information_and_data_model_message_key_registry(SomMetaNode *n);
+static void meta_build_information_and_data_model_server_operation_registry(SomMetaNode *n);
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n);
 static void meta_build_information_architecture_content(SomMetaNode *n);
 static void meta_build_information_architecture_site_map(SomMetaNode *n);
@@ -4191,6 +4215,7 @@ static void meta_build_migration_risks_items(SomMetaNode *n);
 static void meta_build_migration_risks_items_elem(SomMetaNode *n);
 static void meta_build_migration_stakeholders_content(SomMetaNode *n);
 static void meta_build_migration_systems_content(SomMetaNode *n);
+static void meta_build_migration_target_entry_content(SomMetaNode *n);
 static void meta_build_mobile_compatibility_entry_content(SomMetaNode *n);
 static void meta_build_mobile_compatibility_entry_devices(SomMetaNode *n);
 static void meta_build_mobile_compatibility_entry_hardware(SomMetaNode *n);
@@ -5361,13 +5386,24 @@ static void meta_build_scenario_entry_validation(SomMetaNode *n);
 static void meta_build_scenario_step_entry_content(SomMetaNode *n);
 static void meta_build_scenario_step_entry_context(SomMetaNode *n);
 static void meta_build_scenario_step_entry_execution(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_content(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_calendar_trigger(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_event_trigger(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n);
+static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_content(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_scheduling(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_duration(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_notice(SomMetaNode *n);
 static void meta_build_scheduled_maintenance_policy_approval(SomMetaNode *n);
 static void meta_build_schema_migration_step_entry_content(SomMetaNode *n);
+static void meta_build_schema_migration_step_entry_baseline_schema(SomMetaNode *n);
+static void meta_build_schema_migration_step_entry_reference_data(SomMetaNode *n);
+static void meta_build_schema_migration_step_entry_schema_change(SomMetaNode *n);
 static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n);
+static void meta_build_schema_versioning_and_migration_migration_targets(SomMetaNode *n);
+static void meta_build_schema_versioning_and_migration_migration_targets_elem(SomMetaNode *n);
 static void meta_build_schema_versioning_and_migration_migration_steps(SomMetaNode *n);
 static void meta_build_schema_versioning_and_migration_migration_steps_elem(SomMetaNode *n);
 static void meta_build_scope_boundaries_content(SomMetaNode *n);
@@ -5413,6 +5449,7 @@ static void meta_build_screen_element_field_spec_date_options(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_text_options(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_validation(SomMetaNode *n);
 static void meta_build_screen_element_field_spec_select_options(SomMetaNode *n);
+static void meta_build_screen_element_field_spec_file_options(SomMetaNode *n);
 static void meta_build_screen_entry_content(SomMetaNode *n);
 static void meta_build_screen_entry_classification(SomMetaNode *n);
 static void meta_build_screen_entry_access(SomMetaNode *n);
@@ -5436,6 +5473,7 @@ static void meta_build_screen_field_entry_text_constraints(SomMetaNode *n);
 static void meta_build_screen_field_entry_numeric_constraints(SomMetaNode *n);
 static void meta_build_screen_field_entry_temporal_constraints(SomMetaNode *n);
 static void meta_build_screen_field_entry_choice_options(SomMetaNode *n);
+static void meta_build_screen_field_entry_file_constraints(SomMetaNode *n);
 static void meta_build_screen_field_entry_layout(SomMetaNode *n);
 static void meta_build_screen_field_entry_validation_rules(SomMetaNode *n);
 static void meta_build_screen_field_entry_validation_rules_elem(SomMetaNode *n);
@@ -5580,11 +5618,21 @@ static void meta_build_sensitive_data_encryption_content(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_encryption_at_rest(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_encryption_in_transit(SomMetaNode *n);
 static void meta_build_sensitive_data_encryption_key_management(SomMetaNode *n);
+static void meta_build_server_configuration_setting_entry_content(SomMetaNode *n);
 static void meta_build_server_environment_entry_content(SomMetaNode *n);
 static void meta_build_server_environment_entry_location(SomMetaNode *n);
 static void meta_build_server_environment_entry_scale(SomMetaNode *n);
 static void meta_build_server_environment_entry_access(SomMetaNode *n);
 static void meta_build_server_environment_entry_lifecycle(SomMetaNode *n);
+static void meta_build_server_operation_entry_content(SomMetaNode *n);
+static void meta_build_server_operation_entry_request_members(SomMetaNode *n);
+static void meta_build_server_operation_entry_request_members_elem(SomMetaNode *n);
+static void meta_build_server_operation_entry_response_members(SomMetaNode *n);
+static void meta_build_server_operation_entry_response_members_elem(SomMetaNode *n);
+static void meta_build_server_operation_member_entry_content(SomMetaNode *n);
+static void meta_build_server_operation_registry_content(SomMetaNode *n);
+static void meta_build_server_operation_registry_operations(SomMetaNode *n);
+static void meta_build_server_operation_registry_operations_elem(SomMetaNode *n);
 static void meta_build_server_os_requirements_content(SomMetaNode *n);
 static void meta_build_server_os_requirements_hardening(SomMetaNode *n);
 static void meta_build_server_os_requirements_security(SomMetaNode *n);
@@ -5963,6 +6011,8 @@ static void meta_build_system_configuration_management_content(SomMetaNode *n);
 static void meta_build_system_configuration_management_dynamic(SomMetaNode *n);
 static void meta_build_system_configuration_management_environment(SomMetaNode *n);
 static void meta_build_system_configuration_management_governance(SomMetaNode *n);
+static void meta_build_system_configuration_management_settings(SomMetaNode *n);
+static void meta_build_system_configuration_management_settings_elem(SomMetaNode *n);
 static void meta_build_system_context_content(SomMetaNode *n);
 static void meta_build_system_context_context_diagram(SomMetaNode *n);
 static void meta_build_system_context_it_landscape_position(SomMetaNode *n);
@@ -6656,6 +6706,10 @@ static void meta_build_user_provisioning_tools_directory_integration(SomMetaNode
 static void meta_build_user_registration_process_content(SomMetaNode *n);
 static void meta_build_user_registration_process_registration_flow_description(SomMetaNode *n);
 static void meta_build_user_registration_process_registration_flow_diagram(SomMetaNode *n);
+static void meta_build_user_setting_entry_content(SomMetaNode *n);
+static void meta_build_user_settings_content(SomMetaNode *n);
+static void meta_build_user_settings_settings(SomMetaNode *n);
+static void meta_build_user_settings_settings_elem(SomMetaNode *n);
 static void meta_build_user_training_requirements_content(SomMetaNode *n);
 static void meta_build_user_training_requirements_training_form(SomMetaNode *n);
 static void meta_build_user_training_requirements_training_topics(SomMetaNode *n);
@@ -7064,6 +7118,16 @@ static void *meta_nav_factory_channel_integrations(const SomMetaTree *tree, cons
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_client_application_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_client_application_entry *r = (som_nav_client_application_entry *)malloc(sizeof(som_nav_client_application_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_client_configuration_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_client_configuration_setting_entry *r = (som_nav_client_configuration_setting_entry *)malloc(sizeof(som_nav_client_configuration_setting_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_coding_standard_entry(const SomMetaTree *tree, const char *path) {
   som_nav_coding_standard_entry *r = (som_nav_coding_standard_entry *)malloc(sizeof(som_nav_coding_standard_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -7426,6 +7490,11 @@ static void *meta_nav_factory_detailed_process_workflow(const SomMetaTree *tree,
 }
 static void *meta_nav_factory_development_convention_entry(const SomMetaTree *tree, const char *path) {
   som_nav_development_convention_entry *r = (som_nav_development_convention_entry *)malloc(sizeof(som_nav_development_convention_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_device_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_device_setting_entry *r = (som_nav_device_setting_entry *)malloc(sizeof(som_nav_device_setting_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8001,6 +8070,11 @@ static void *meta_nav_factory_migration_stakeholders(const SomMetaTree *tree, co
 }
 static void *meta_nav_factory_migration_systems(const SomMetaTree *tree, const char *path) {
   som_nav_migration_systems *r = (som_nav_migration_systems *)malloc(sizeof(som_nav_migration_systems));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_migration_target_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_migration_target_entry *r = (som_nav_migration_target_entry *)malloc(sizeof(som_nav_migration_target_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -8639,6 +8713,11 @@ static void *meta_nav_factory_scenario_step_entry(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_scheduled_job_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_scheduled_job_entry *r = (som_nav_scheduled_job_entry *)malloc(sizeof(som_nav_scheduled_job_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_schema_migration_step_entry(const SomMetaTree *tree, const char *path) {
   som_nav_schema_migration_step_entry *r = (som_nav_schema_migration_step_entry *)malloc(sizeof(som_nav_schema_migration_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -8734,8 +8813,23 @@ static void *meta_nav_factory_security_standard_entry(const SomMetaTree *tree, c
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_server_configuration_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_server_configuration_setting_entry *r = (som_nav_server_configuration_setting_entry *)malloc(sizeof(som_nav_server_configuration_setting_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_server_environment_entry(const SomMetaTree *tree, const char *path) {
   som_nav_server_environment_entry *r = (som_nav_server_environment_entry *)malloc(sizeof(som_nav_server_environment_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_server_operation_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_server_operation_entry *r = (som_nav_server_operation_entry *)malloc(sizeof(som_nav_server_operation_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_server_operation_member_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_server_operation_member_entry *r = (som_nav_server_operation_member_entry *)malloc(sizeof(som_nav_server_operation_member_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -9159,6 +9253,11 @@ static void *meta_nav_factory_user_notification_preferences(const SomMetaTree *t
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_nav_factory_user_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_user_setting_entry *r = (som_nav_user_setting_entry *)malloc(sizeof(som_nav_user_setting_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_nav_factory_utility_menu_item_entry(const SomMetaTree *tree, const char *path) {
   som_nav_utility_menu_item_entry *r = (som_nav_utility_menu_item_entry *)malloc(sizeof(som_nav_utility_menu_item_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9529,6 +9628,16 @@ static void *meta_id_factory_channel_integrations(const SomMetaTree *tree, const
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_client_application_entry(const SomMetaTree *tree, const char *path) {
+  som_id_client_application_entry *r = (som_id_client_application_entry *)malloc(sizeof(som_id_client_application_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_client_configuration_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_id_client_configuration_setting_entry *r = (som_id_client_configuration_setting_entry *)malloc(sizeof(som_id_client_configuration_setting_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_coding_standard_entry(const SomMetaTree *tree, const char *path) {
   som_id_coding_standard_entry *r = (som_id_coding_standard_entry *)malloc(sizeof(som_id_coding_standard_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -9891,6 +10000,11 @@ static void *meta_id_factory_detailed_process_workflow(const SomMetaTree *tree, 
 }
 static void *meta_id_factory_development_convention_entry(const SomMetaTree *tree, const char *path) {
   som_id_development_convention_entry *r = (som_id_development_convention_entry *)malloc(sizeof(som_id_development_convention_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_device_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_id_device_setting_entry *r = (som_id_device_setting_entry *)malloc(sizeof(som_id_device_setting_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10466,6 +10580,11 @@ static void *meta_id_factory_migration_stakeholders(const SomMetaTree *tree, con
 }
 static void *meta_id_factory_migration_systems(const SomMetaTree *tree, const char *path) {
   som_id_migration_systems *r = (som_id_migration_systems *)malloc(sizeof(som_id_migration_systems));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_migration_target_entry(const SomMetaTree *tree, const char *path) {
+  som_id_migration_target_entry *r = (som_id_migration_target_entry *)malloc(sizeof(som_id_migration_target_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11104,6 +11223,11 @@ static void *meta_id_factory_scenario_step_entry(const SomMetaTree *tree, const 
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_scheduled_job_entry(const SomMetaTree *tree, const char *path) {
+  som_id_scheduled_job_entry *r = (som_id_scheduled_job_entry *)malloc(sizeof(som_id_scheduled_job_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_schema_migration_step_entry(const SomMetaTree *tree, const char *path) {
   som_id_schema_migration_step_entry *r = (som_id_schema_migration_step_entry *)malloc(sizeof(som_id_schema_migration_step_entry));
   som_meta_ref_init(&r->ref, tree, path);
@@ -11199,8 +11323,23 @@ static void *meta_id_factory_security_standard_entry(const SomMetaTree *tree, co
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
+static void *meta_id_factory_server_configuration_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_id_server_configuration_setting_entry *r = (som_id_server_configuration_setting_entry *)malloc(sizeof(som_id_server_configuration_setting_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
 static void *meta_id_factory_server_environment_entry(const SomMetaTree *tree, const char *path) {
   som_id_server_environment_entry *r = (som_id_server_environment_entry *)malloc(sizeof(som_id_server_environment_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_server_operation_entry(const SomMetaTree *tree, const char *path) {
+  som_id_server_operation_entry *r = (som_id_server_operation_entry *)malloc(sizeof(som_id_server_operation_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_server_operation_member_entry(const SomMetaTree *tree, const char *path) {
+  som_id_server_operation_member_entry *r = (som_id_server_operation_member_entry *)malloc(sizeof(som_id_server_operation_member_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -11621,6 +11760,11 @@ static void *meta_id_factory_user_lifecycle_transition_entry(const SomMetaTree *
 }
 static void *meta_id_factory_user_notification_preferences(const SomMetaTree *tree, const char *path) {
   som_id_user_notification_preferences *r = (som_id_user_notification_preferences *)malloc(sizeof(som_id_user_notification_preferences));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_user_setting_entry(const SomMetaTree *tree, const char *path) {
+  som_id_user_setting_entry *r = (som_id_user_setting_entry *)malloc(sizeof(som_id_user_setting_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -14611,7 +14755,7 @@ static void meta_build_administration_requirements_section_batch_jobs(SomMetaNod
   n->has_serialization_order = 1;
   n->serialization_order = 5;
   meta_set(&n->doc_comment, "Batch job management.");
-  meta_set(&n->class_doc_comment, "Batch job management.");
+  meta_set(&n->class_doc_comment, "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.");
 }
 static void meta_build_administration_requirements_section_environment_management(SomMetaNode *n) {
   meta_set(&n->class_name, "AdministrationRequirementsSection");
@@ -21425,27 +21569,16 @@ static void meta_build_batch_job_management_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->content_help, "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("schedulingEngine");
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("timeZoneHandling");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Scheduling Engine");
+  n->form->fields[0].description = som_strdup("Time Zone Handling");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Cron, Quartz, cloud scheduler, Airflow");
+  n->form->fields[0].hint = som_strdup("The clock zone every schedule is interpreted in — UTC or the server's local zone");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("scheduleDefinition");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Schedule Definition");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Cron expression, calendar-based, event-driven");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("timeZoneHandling");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Time Zone Handling");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("UTC, local, configurable per job");
-  n->form->fields[2].order = 2;
 }
 static void meta_build_batch_job_management_job_types(SomMetaNode *n) {
   meta_set(&n->class_name, "BatchJobManagement");
@@ -21455,7 +21588,8 @@ static void meta_build_batch_job_management_job_types(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "Supported job categories.");
+  meta_set(&n->content_help, "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).");
+  meta_set(&n->doc_comment, "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -21502,7 +21636,8 @@ static void meta_build_batch_job_management_execution(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Execution controls.");
+  meta_set(&n->content_help, "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits.");
+  meta_set(&n->doc_comment, "Execution controls — the **default layer** for every job.\n\nRetry, timeout and idempotency stated here apply to every job that does\nnot say otherwise. A job that needs different numbers overrides them in\nits own failure-policy subsection, so this section is the rule and the\nentry is the exception — never the other way round.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -21520,21 +21655,21 @@ static void meta_build_batch_job_management_execution(SomMetaNode *n) {
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("retryPolicy");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Retry Policy");
+  n->form->fields[2].description = som_strdup("Default Retry Policy");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Retry count, backoff, dead-letter");
+  n->form->fields[2].hint = som_strdup("The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("idempotency");
   n->form->fields[3].type_name = som_strdup("bool");
   n->form->fields[3].description = som_strdup("Idempotency");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Safe to re-run on failure");
+  n->form->fields[3].hint = som_strdup("Whether jobs are required to be safe to re-run after a failure");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("timeout");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Timeout");
+  n->form->fields[4].description = som_strdup("Default Timeout");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Maximum job execution time");
+  n->form->fields[4].hint = som_strdup("The maximum run time a job inherits unless it overrides it");
   n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -21567,9 +21702,9 @@ static void meta_build_batch_job_management_monitoring(SomMetaNode *n) {
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("failureAlerts");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Failure Alerts");
+  n->form->fields[2].description = som_strdup("Default Failure Alerting");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Notification on job failure");
+  n->form->fields[2].hint = som_strdup("What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here.");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("slaMonitoring");
   n->form->fields[3].type_name = som_strdup("String");
@@ -21593,6 +21728,30 @@ static void meta_build_batch_job_management_monitoring(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"AWS Well-Architected — operational excellence (runbooks, playbooks)\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"Monitoring and manual controls track batch job health and allow operators to intervene.\"}", NULL);
+}
+static void meta_build_batch_job_management_scheduled_jobs(SomMetaNode *n) {
+  meta_set(&n->class_name, "BatchJobManagement");
+  meta_set(&n->member_name, "scheduledJobs");
+  meta_set(&n->section_id, "SCJOB-JOB-LST");
+  meta_set(&n->section_id_pattern, "SCJOB-JOB-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ScheduledJobEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->content_help, "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run.");
+  meta_set(&n->doc_comment, "Scheduled jobs — one entry per job the system runs.\n\nThe declaration layer. Everything above is policy that applies to all\njobs; this is where a job actually comes into existence.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — eliminating toil and operational procedures\",\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in.\"}", NULL);
+}
+static void meta_build_batch_job_management_scheduled_jobs_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->class_section_id, "SCJOB");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ScheduledJobEntry");
+  meta_set(&n->doc_comment, "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.");
+  meta_set(&n->class_doc_comment, "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.");
 }
 static void meta_build_behavior_rule_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "BehaviorRuleEntry");
@@ -24091,8 +24250,8 @@ static void meta_build_business_object_entry_integration_points_elem(SomMetaNode
   meta_set(&n->class_section_id, "INTEG");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IntegrationPointEntry");
-  meta_set(&n->doc_comment, "A single integration point entry.");
-  meta_set(&n->class_doc_comment, "A single integration point entry.");
+  meta_set(&n->doc_comment, "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.");
+  meta_set(&n->class_doc_comment, "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.");
 }
 static void meta_build_business_object_entry_attributes(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessObjectEntry");
@@ -28398,8 +28557,114 @@ static void meta_build_client_accessibility_requirements_standards(SomMetaNode *
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"WCAG 2.2 — accessible client experience\"],\"connotation\":\"Captures the accessibility conformance standards such as WCAG level and Section 508 the client targets.\"}", NULL);
 }
+static void meta_build_client_application_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientApplicationEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("clientId");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Client Id");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("clientName");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Client Name");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The name users and operators call this client by");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("clientKind");
+  n->form->fields[2].type_name = som_strdup("ClientApplicationKind");
+  n->form->fields[2].description = som_strdup("Client Kind");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 3;
+  n->form->fields[2].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("graphicalApplication");
+  n->form->fields[2].enum_values[1] = som_strdup("commandLine");
+  n->form->fields[2].enum_values[2] = som_strdup("server");
+  n->form->fields[3].name = som_strdup("purpose");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Purpose");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("Who uses this client and what for — the reason it exists separately from the system's other clients");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("platformTargets");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Platform Targets");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 3;
+  n->form->fields[4].refers_to = (char **)calloc(3, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("BROREQENT.browserName");
+  n->form->fields[4].refers_to[1] = som_strdup("DEOSREEN.osName");
+  n->form->fields[4].refers_to[2] = som_strdup("MODEREEN.platform");
+  n->form->fields[5].name = som_strdup("entryRoute");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Entry Route");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("The route this client opens on, by id from the screen route map. Empty for a client with no routes");
+  n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("SCRTEN.routeId");
+  n->form->fields[6].name = som_strdup("includedScreens");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Included Screens");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("The screens this client comprises, by id. Empty for a client with no screens");
+  n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("SCREN.screenId");
+}
 static void meta_build_client_configuration_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientConfiguration");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n");
+}
+static void meta_build_client_configuration_settings(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientConfiguration");
+  meta_set(&n->member_name, "settings");
+  meta_set(&n->section_id, "CCSET-SETT-LST");
+  meta_set(&n->section_id_pattern, "CCSET-SETT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ClientConfigurationSettingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>.");
+  meta_set(&n->doc_comment, "The declared client configuration settings.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Twelve-Factor App — config stored in the environment, per deployment\",\"ISO/IEC 25010 — portability / installability\"],\"connotation\":\"The client configuration settings declared by the system's client applications, one entry per key.\"}", NULL);
+}
+static void meta_build_client_configuration_settings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientConfigurationSettingEntry");
+  meta_set(&n->class_section_id, "CCSET");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ClientConfigurationSettingEntry");
+  meta_set(&n->doc_comment, "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).");
+  meta_set(&n->class_doc_comment, "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).");
+}
+static void meta_build_client_configuration_setting_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientConfigurationSettingEntry");
   meta_set(&n->member_name, "content");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
@@ -28408,35 +28673,38 @@ static void meta_build_client_configuration_content(SomMetaNode *n) {
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("apiBaseUrl");
+  n->form->fields[0].name = som_strdup("settingKey");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("API Base URL");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("The server/API endpoint this client install talks to");
+  n->form->fields[0].description = som_strdup("Setting Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The dotted key of the client setting, e.g. api.baseUrl");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("environment");
+  n->form->fields[1].name = som_strdup("client");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Environment");
+  n->form->fields[1].description = som_strdup("Client");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("dev / staging / production for this install");
+  n->form->fields[1].hint = som_strdup("The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("deviceOptions");
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("CLIAPP.clientId");
+  n->form->fields[2].name = som_strdup("valueType");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Device Options");
+  n->form->fields[2].description = som_strdup("Value Type");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Machine-specific device/hardware options for this install");
+  n->form->fields[2].hint = som_strdup("string / int / double / bool / enum");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("featureToggles");
+  n->form->fields[3].name = som_strdup("defaultValue");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Per-Install Feature Toggles");
+  n->form->fields[3].description = som_strdup("Default Value");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Client-side toggles applied to this install");
+  n->form->fields[3].hint = som_strdup("The value used until the app configuration resources or an install-local override supply one");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("updateChannel");
+  n->form->fields[4].name = som_strdup("overridableBy");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Update Channel");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("stable / beta / canary for this install");
+  n->form->fields[4].description = som_strdup("Overridable By");
+  n->form->fields[4].required = 1;
+  n->form->fields[4].hint = som_strdup("The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into");
   n->form->fields[4].order = 4;
 }
 static void meta_build_client_hardware_requirements_content(SomMetaNode *n) {
@@ -28819,6 +29087,30 @@ static void meta_build_client_requirements_section_overview(SomMetaNode *n) {
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Overview of client requirements strategy.");
 }
+static void meta_build_client_requirements_section_client_applications(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientRequirementsSection");
+  meta_set(&n->member_name, "clientApplications");
+  meta_set(&n->section_id, "CLIAPP-CLIE-LST");
+  meta_set(&n->section_id_pattern, "CLIAPP-CLIE-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ClientApplicationEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on.");
+  meta_set(&n->doc_comment, "The client applications the system consists of (CE-CL).");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description\",\"ISO/IEC 25010 — portability / installability\"],\"connotation\":\"The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.\"}", NULL);
+}
+static void meta_build_client_requirements_section_client_applications_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ClientApplicationEntry");
+  meta_set(&n->class_section_id, "CLIAPP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ClientApplicationEntry");
+  meta_set(&n->doc_comment, "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.");
+  meta_set(&n->class_doc_comment, "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.");
+}
 static void meta_build_client_requirements_section_browser_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientRequirementsSection");
   meta_set(&n->member_name, "browserRequirements");
@@ -28827,7 +29119,7 @@ static void meta_build_client_requirements_section_browser_requirements(SomMetaN
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BrowserRequirementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per supported web browser.");
   meta_set(&n->doc_comment, "Web browser requirements.");
   n->extra_len = 1;
@@ -28851,7 +29143,7 @@ static void meta_build_client_requirements_section_desktop_os_requirements(SomMe
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DesktopOsRequirementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per supported desktop operating system.");
   meta_set(&n->doc_comment, "Desktop operating system requirements.");
   n->extra_len = 1;
@@ -28875,7 +29167,7 @@ static void meta_build_client_requirements_section_mobile_requirements(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MobileDeviceRequirementEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->content_help, "Add one entry per supported mobile platform.");
   meta_set(&n->doc_comment, "Mobile device requirements.");
   n->extra_len = 1;
@@ -28898,7 +29190,7 @@ static void meta_build_client_requirements_section_display_requirements(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DisplayRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Display and screen requirements.");
   meta_set(&n->class_doc_comment, "Display and screen requirements.");
 }
@@ -28909,7 +29201,7 @@ static void meta_build_client_requirements_section_network_requirements(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ClientNetworkRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Client network requirements.");
   meta_set(&n->class_doc_comment, "Client network requirements.");
 }
@@ -28920,7 +29212,7 @@ static void meta_build_client_requirements_section_hardware_requirements(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ClientHardwareRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Client hardware requirements.");
   meta_set(&n->class_doc_comment, "Client hardware requirements.");
 }
@@ -28931,7 +29223,7 @@ static void meta_build_client_requirements_section_accessibility_requirements(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ClientAccessibilityRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Accessibility requirements for clients.");
   meta_set(&n->class_doc_comment, "Client accessibility requirements.");
 }
@@ -28942,7 +29234,7 @@ static void meta_build_client_requirements_section_pwa_requirements(SomMetaNode 
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PwaRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Progressive Web App (PWA) requirements.");
   meta_set(&n->class_doc_comment, "Progressive Web App (PWA) requirements.");
 }
@@ -28953,7 +29245,7 @@ static void meta_build_client_requirements_section_native_app_requirements(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "NativeAppRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "Native app requirements.");
   meta_set(&n->class_doc_comment, "Native app requirements.");
 }
@@ -28964,7 +29256,7 @@ static void meta_build_client_requirements_section_security_requirements(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ClientSecurityRequirements");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Client security requirements.");
   meta_set(&n->class_doc_comment, "Client security requirements.");
 }
@@ -28975,7 +29267,7 @@ static void meta_build_client_requirements_section_client_configuration(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ClientConfiguration");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Per-machine configuration of a client application (CE-CC).");
   meta_set(&n->class_doc_comment, "Client configuration — per-machine settings of a client application (CE-CC).\n\nDistinct from server/system configuration ([SystemConfigurationManagement],\nCE-CF) and from a user's preferences (CE-UP): this is the configuration a\nspecific *install* of a client app on a *specific machine* carries, keyed by\nthe (client app, machine) pair. Two installs of the same client on two\nmachines have independent client configuration (`codespecs_mapping.md` §11).");
 }
@@ -28986,9 +29278,20 @@ static void meta_build_client_requirements_section_device_settings(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DeviceSettings");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "User-specific settings of a user-owned device (CE-DS).");
   meta_set(&n->class_doc_comment, "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).");
+}
+static void meta_build_client_requirements_section_user_settings(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserSettings");
+  meta_set(&n->member_name, "userSettings");
+  meta_set(&n->class_section_id, "USRSET");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "UserSettings");
+  n->has_serialization_order = 1;
+  n->serialization_order = 15;
+  meta_set(&n->doc_comment, "Server-persisted settings that follow the user across devices (CE-UP).");
+  meta_set(&n->class_doc_comment, "User settings — server-persisted settings that follow the user (CE-UP).\n\nKeyed by the user alone: no machine and no device in the key. A user\nsetting is persisted on the server and re-materialised on whichever device\nthe user signs in from, which is what distinguishes it from a device\nsetting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves\nthe device) and from client configuration ([ClientConfiguration], CE-CC —\nno user identity in the key) (`codespecs_mapping.md` §11).\n\nThe scope is expressed by *which section a setting is declared in*, never\nby a field on a shared section: there is no persistence discriminator\nanywhere in the four settings scopes.");
 }
 static void meta_build_client_security_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientSecurityRequirements");
@@ -38315,7 +38618,7 @@ static void meta_build_current_workflow_entry_steps(SomMetaNode *n) {
   meta_set(&n->type_name, "WorkflowStepEntry");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->content_help, "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.");
+  meta_set(&n->content_help, "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list.");
   meta_set(&n->doc_comment, "Workflow steps in sequence.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -38450,54 +38753,6 @@ static void meta_build_current_workflow_entry_business_rules_elem(SomMetaNode *n
   meta_set(&n->doc_comment, "A business rule governing workflow behavior.");
   meta_set(&n->class_doc_comment, "A business rule governing workflow behavior.");
 }
-static void meta_build_current_workflow_entry_manual_steps(SomMetaNode *n) {
-  meta_set(&n->class_name, "CurrentWorkflowEntry");
-  meta_set(&n->member_name, "manualSteps");
-  meta_set(&n->section_id, "WSE-MANU-LST");
-  meta_set(&n->section_id_pattern, "WSE-MANU-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "WorkflowStepEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 9;
-  meta_set(&n->content_help, "Identify steps that cannot be automated or require human judgment.");
-  meta_set(&n->doc_comment, "Manual steps requiring human intervention.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (manual / non-automated steps)\"],\"connotation\":\"The subset of workflow steps that require human intervention.\"}", NULL);
-}
-static void meta_build_current_workflow_entry_manual_steps_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "WorkflowStepEntry");
-  meta_set(&n->class_section_id, "WSE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "WorkflowStepEntry");
-  meta_set(&n->doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
-  meta_set(&n->class_doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
-}
-static void meta_build_current_workflow_entry_error_prone_steps(SomMetaNode *n) {
-  meta_set(&n->class_name, "CurrentWorkflowEntry");
-  meta_set(&n->member_name, "errorProneSteps");
-  meta_set(&n->section_id, "WSE-ERRO-LST");
-  meta_set(&n->section_id_pattern, "WSE-ERRO-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "WorkflowStepEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 10;
-  meta_set(&n->content_help, "Identify steps with known issues, high error rates, or workarounds.");
-  meta_set(&n->doc_comment, "Error-prone steps with high failure rates.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"BABOK v3 §10 — current-state analysis (error-prone steps)\"],\"connotation\":\"The subset of workflow steps known to have high error or failure rates.\"}", NULL);
-}
-static void meta_build_current_workflow_entry_error_prone_steps_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "WorkflowStepEntry");
-  meta_set(&n->class_section_id, "WSE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "WorkflowStepEntry");
-  meta_set(&n->doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
-  meta_set(&n->class_doc_comment, "A workflow step entry (form).\n\nDetailed documentation of a single step within a workflow.");
-}
 static void meta_build_current_workflow_entry_timing(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentWorkflowEntry");
   meta_set(&n->member_name, "timing");
@@ -38505,7 +38760,7 @@ static void meta_build_current_workflow_entry_timing(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Workflow timing and performance.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 7;
@@ -38564,7 +38819,7 @@ static void meta_build_current_workflow_entry_exceptions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WorkflowExceptions");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Workflow exceptions and error handling.");
   meta_set(&n->class_doc_comment, "Workflow exception handling.");
 }
@@ -39416,6 +39671,28 @@ static void meta_build_d03_information_model_message_key_registry(SomMetaNode *n
   n->serialization_order = 17;
   meta_set(&n->doc_comment, "Message key registry — the single author-copy-once home for user-facing\ncopy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes\n(csmb7).");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
+}
+static void meta_build_d03_information_model_server_operation_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "serverOperationRegistry");
+  meta_set(&n->class_section_id, "SVOPR");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 18;
+  meta_set(&n->doc_comment, "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+}
+static void meta_build_d03_information_model_schema_versioning_and_migration(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "schemaVersioningAndMigration");
+  meta_set(&n->class_section_id, "SCHMG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "SchemaVersioningAndMigration");
+  n->has_serialization_order = 1;
+  n->serialization_order = 19;
+  meta_set(&n->doc_comment, "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.");
+  meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
 }
 static void meta_build_d04_requirements_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D04RequirementsSpecification");
@@ -40275,7 +40552,7 @@ static void meta_build_d09_experience_design_specification_language_country_sele
   n->has_serialization_order = 1;
   n->serialization_order = 12;
   meta_set(&n->doc_comment, "Language and country selection.");
-  meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.");
+  meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
@@ -40971,8 +41248,8 @@ static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode
   meta_set(&n->type_name, "TechnicalFrameworkConcept");
   n->has_serialization_order = 1;
   n->serialization_order = 8;
-  meta_set(&n->comment, "locus: server — CE-CF");
-  meta_set(&n->doc_comment, "Technical framework — CE-CF platform/config foundation.");
+  meta_set(&n->comment, "locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)");
+  meta_set(&n->doc_comment, "Technical framework — the platform foundation and **all four settings\nscopes**.\n\nThe subtree spans both loci because the four configuration scopes are\nauthored under it and route apart (`codespecs_mapping.md` §11): CE-CF\nserver configuration (`SystemConfigurationManagement`) is server-only,\nwhile CE-CC client configuration, CE-DS device settings and CE-UP user\nsettings are authored under the client-requirements subtree and route to\nthe client project. CE-UP additionally has a server-side persistence half\ngenerated from the *same* declarations, so it appears in both projects —\nthe scope is expressed by which section a setting is declared in, never by\na discriminator field.");
   meta_set(&n->class_doc_comment, "8. Technical Framework Concept. Seeds → ATS.");
   meta_set(&n->maps_to, "D06ArchitectureTechnologySpecification");
 }
@@ -41013,6 +41290,30 @@ static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode 
   meta_set(&n->doc_comment, "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
 }
+static void meta_build_d13_code_specs_projection_schema_versioning_and_migration(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "schemaVersioningAndMigration");
+  meta_set(&n->class_section_id, "SCHMG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "SchemaVersioningAndMigration");
+  n->has_serialization_order = 1;
+  n->serialization_order = 12;
+  meta_set(&n->comment, "locus: server — CE-MG");
+  meta_set(&n->doc_comment, "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.");
+  meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
+}
+static void meta_build_d13_code_specs_projection_server_operation_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "serverOperationRegistry");
+  meta_set(&n->class_section_id, "SVOPR");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 13;
+  meta_set(&n->comment, "locus: shared(CE-API contract)+server(CE-API operations)");
+  meta_set(&n->doc_comment, "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+}
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
   meta_set(&n->member_name, "processStepsAndActorInteractions");
@@ -41020,7 +41321,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsAndActorInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 14;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
@@ -41033,7 +41334,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceCodeSpecs");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 15;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
@@ -44994,7 +45295,7 @@ static void meta_build_data_model_follow_up_er_diagram(SomMetaNode *n) {
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("mermaid-er");
   n->content_type->description = som_strdup("");
-  meta_set(&n->doc_comment, "7.9.1. Entity-Relationship Diagram (mermaid).");
+  meta_set(&n->doc_comment, "7.10.1. Entity-Relationship Diagram (mermaid).");
 }
 static void meta_build_data_model_follow_up_entity_follow_ups(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
@@ -45006,7 +45307,7 @@ static void meta_build_data_model_follow_up_entity_follow_ups(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per entity that carries follow-up facets.");
-  meta_set(&n->doc_comment, "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.");
+  meta_set(&n->doc_comment, "7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -52991,16 +53292,16 @@ static void meta_build_development_quality_gates_performance(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"CI/CD — continuous integration / delivery pipelines\",\"ISO/IEC 25010 — maintainability quality attributes\"],\"connotation\":\"Captures performance quality gates such as budgets, bundle size, and startup time limits enforced in the pipeline.\"}", NULL);
 }
-static void meta_build_device_settings_content(SomMetaNode *n) {
-  meta_set(&n->class_name, "DeviceSettings");
+static void meta_build_device_setting_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DeviceSettingEntry");
   meta_set(&n->member_name, "content");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("settingKey");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Setting Key");
@@ -53019,12 +53320,42 @@ static void meta_build_device_settings_content(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("The value used until the user changes the setting on this device");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("deviceOverridable");
-  n->form->fields[3].type_name = som_strdup("bool");
-  n->form->fields[3].description = som_strdup("Shadows a Wider-Scope Key");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)");
-  n->form->fields[3].order = 3;
+}
+static void meta_build_device_settings_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "DeviceSettings");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n");
+}
+static void meta_build_device_settings_settings(SomMetaNode *n) {
+  meta_set(&n->class_name, "DeviceSettings");
+  meta_set(&n->member_name, "settings");
+  meta_set(&n->section_id, "DSSET-SETT-LST");
+  meta_set(&n->section_id_pattern, "DSSET-SETT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "DeviceSettingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit.");
+  meta_set(&n->doc_comment, "The declared device settings.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110 — suitability for individualization (user-tailored settings)\",\"ISO/IEC 25010 — usability / operability\"],\"connotation\":\"The device settings declared for this system, one entry per key.\"}", NULL);
+}
+static void meta_build_device_settings_settings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "DeviceSettingEntry");
+  meta_set(&n->class_section_id, "DSSET");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "DeviceSettingEntry");
+  meta_set(&n->doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.");
+  meta_set(&n->class_doc_comment, "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.");
 }
 static void meta_build_disaster_recovery_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DisasterRecoveryRequirements");
@@ -68289,7 +68620,7 @@ static void meta_build_hardware_requirements_client_requirements(SomMetaNode *n)
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "8.4.2. Client Requirements.");
-  meta_set(&n->class_doc_comment, "8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.");
+  meta_set(&n->class_doc_comment, "8.4.2. Client Requirements.\n\nTwo layers that answer two different questions.\n\n**Which client applications exist** — [clientApplications], one\n[ClientApplicationEntry] per client, naming its kind, its entry route and\nthe screens it comprises. This is the enumerable set of clients; a client\nnot listed there does not exist.\n\n**What a user's machine must provide** — every other subsection: browser,\ndesktop-OS, mobile-device, display, network, hardware, accessibility and\nsecurity minimums. These are deployment constraints on the *environment*,\nnot clients, which is why a client entry *references* them rather than\nrestating them.");
 }
 static void meta_build_hardware_requirements_network_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "NetworkRequirementsSection");
@@ -70735,7 +71066,7 @@ static void meta_build_information_and_data_model_schema_versioning_and_migratio
   n->has_serialization_order = 1;
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "7.4. Schema Versioning and Migration.");
-  meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.");
+  meta_set(&n->class_doc_comment, "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.");
 }
 static void meta_build_information_and_data_model_domain_enum_registry(SomMetaNode *n) {
   meta_set(&n->class_name, "DomainEnumRegistry");
@@ -70781,6 +71112,17 @@ static void meta_build_information_and_data_model_message_key_registry(SomMetaNo
   meta_set(&n->doc_comment, "7.8. Message Key Registry.");
   meta_set(&n->class_doc_comment, "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].");
 }
+static void meta_build_information_and_data_model_server_operation_registry(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "serverOperationRegistry");
+  meta_set(&n->class_section_id, "SVOPR");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationRegistry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 9;
+  meta_set(&n->doc_comment, "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.");
+  meta_set(&n->class_doc_comment, "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.");
+}
 static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "DataModelFollowUp");
   meta_set(&n->member_name, "dataModelFollowUp");
@@ -70788,9 +71130,9 @@ static void meta_build_information_and_data_model_data_model_follow_up(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataModelFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
-  meta_set(&n->doc_comment, "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.");
-  meta_set(&n->class_doc_comment, "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.");
+  n->serialization_order = 10;
+  meta_set(&n->doc_comment, "7.10. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.");
+  meta_set(&n->class_doc_comment, "7.10. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.");
 }
 static void meta_build_information_architecture_content(SomMetaNode *n) {
   meta_set(&n->class_name, "InformationArchitecture");
@@ -75144,8 +75486,8 @@ static void meta_build_interface_technical_spec_operations_elem(SomMetaNode *n) 
   meta_set(&n->class_section_id, "IOE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceOperationEntry");
-  meta_set(&n->doc_comment, "API operation entry.");
-  meta_set(&n->class_doc_comment, "API operation entry.");
+  meta_set(&n->doc_comment, "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.");
+  meta_set(&n->class_doc_comment, "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.");
 }
 static void meta_build_interface_technical_spec_webhook_spec(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceTechnicalSpec");
@@ -84627,6 +84969,41 @@ static void meta_build_migration_systems_content(SomMetaNode *n) {
   n->form->fields[3].hint = som_strdup("Key structural changes — table splits/merges, normalization");
   n->form->fields[3].order = 3;
 }
+static void meta_build_migration_target_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "MigrationTargetEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("targetName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Target Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The identifier migration artifacts use to name this target");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("dataSourceName");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Data Source Name");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The registered data source the artifacts are applied against");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("schemaName");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Schema Name");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("The schema within that data source the artifacts act on");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("purpose");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Purpose");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("What this data source / schema holds and why it is separate");
+  n->form->fields[3].order = 3;
+}
 static void meta_build_mobile_compatibility_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "MobileCompatibilityEntry");
   meta_set(&n->member_name, "content");
@@ -86462,7 +86839,7 @@ static void meta_build_multi_language_support_language_country_selection(SomMeta
   n->has_serialization_order = 1;
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "10.12.4. Language and Country Selection.");
-  meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.");
+  meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
@@ -116587,6 +116964,239 @@ static void meta_build_scenario_step_entry_execution(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"BPMN 2.0 — sequence flow / activities (scenario steps)\",\"Cockburn — Writing Effective Use Cases: extensions & alternative flows\"],\"connotation\":\"Captures the execution details of a scenario step: any decision/branch point, expected timing, and clarifying notes.\"}", NULL);
 }
+static void meta_build_scheduled_job_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("jobName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Job Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("purpose");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Purpose");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("Why this job exists — the operational or business reason it runs on its own rather than as part of a request");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("triggerKind");
+  n->form->fields[2].type_name = som_strdup("ScheduledJobTrigger");
+  n->form->fields[2].description = som_strdup("Trigger Kind");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("What starts the job — selects the trigger subsection below");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].enum_values_len = 3;
+  n->form->fields[2].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("cron");
+  n->form->fields[2].enum_values[1] = som_strdup("calendar");
+  n->form->fields[2].enum_values[2] = som_strdup("event");
+  n->form->fields[3].name = som_strdup("primaryDataEntity");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Primary Data Entity");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[4].name = som_strdup("enabled");
+  n->form->fields[4].type_name = som_strdup("bool");
+  n->form->fields[4].description = som_strdup("Enabled");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("environments");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Environments");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("Comma-separated deployment environments this job runs in, or empty to run in every environment");
+  n->form->fields[5].order = 5;
+}
+static void meta_build_scheduled_job_entry_cron_trigger(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "cronTrigger");
+  meta_set(&n->section_id, "SCJOB-CRON");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("cronExpression");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Recurrence Expression");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)");
+  n->form->fields[0].order = 0;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"POSIX crontab — the recurring-schedule expression convention\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The recurring clock expression that starts this job.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScheduledJobTrigger.cron\"}", NULL);
+}
+static void meta_build_scheduled_job_entry_calendar_trigger(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "calendarTrigger");
+  meta_set(&n->section_id, "SCJOB-CAL");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Calendar trigger — a promoted `@OneOf` case.\n\nPresent only for the `calendar` kind: a date rule a clock expression\ncannot state — the last day of the month, the third Monday of a quarter.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("calendarRule");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Calendar Rule");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)");
+  n->form->fields[0].order = 0;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 8601 — date and time representation\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The calendar date rule that starts this job.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScheduledJobTrigger.calendar\"}", NULL);
+}
+static void meta_build_scheduled_job_entry_event_trigger(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "eventTrigger");
+  meta_set(&n->section_id, "SCJOB-EVNT");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Event trigger — a promoted `@OneOf` case.\n\nPresent only for the `event` kind. An event-triggered job does not fire on\ntime at all, so it has no schedule; what it has instead — and what neither\nother arm has — is an occurrence carrying data the work reads.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("eventName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Event Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The system occurrence that starts the job (e.g. order.payment.settled)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("eventPayload");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Event Payload");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What each occurrence carries that the work reads — typically the identity of the record the event is about");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Enterprise Integration Patterns — event-driven consumer\",\"Google SRE — eliminating toil and operational procedures\"],\"connotation\":\"The system event that starts this job and the data that event carries.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScheduledJobTrigger.event\"}", NULL);
+}
+static void meta_build_scheduled_job_entry_work_definition(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "workDefinition");
+  meta_set(&n->section_id, "SCJOB-WORK");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->content_help, "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.");
+  meta_set(&n->doc_comment, "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("workSummary");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Work Summary");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("What the job does, step by step, in prose — the intent the work body must realise");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("readEntities");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Read Entities");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The Data Model entities the job reads");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[2].name = som_strdup("writtenEntities");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Written Entities");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The Data Model entities the job writes, including the primary one");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[3].name = som_strdup("targetReports");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Target Reports");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The reports this job produces, where the work is a report run");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("REPENT.reportId");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — requirements specification\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"What the job does and which entities and reports it acts on.\"}", NULL);
+}
+static void meta_build_scheduled_job_entry_failure_policy(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScheduledJobEntry");
+  meta_set(&n->member_name, "failurePolicy");
+  meta_set(&n->section_id, "SCJOB-FAIL");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->content_help, "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.");
+  meta_set(&n->doc_comment, "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("maxRetries");
+  n->form->fields[0].type_name = som_strdup("int");
+  n->form->fields[0].description = som_strdup("Maximum Retries");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("How many times a failed run is retried, if not the default");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("retryBackoff");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Retry Backoff");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The delay before the first retry and how it grows, if not the default");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("timeout");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Timeout");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("How long a single run may take before it is abandoned, if not the default");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("failureAlertMessage");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Failure Alert Message");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.");
+  n->form->fields[3].order = 3;
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Google SRE — handling overload, retries and cascading failure\",\"AWS Well-Architected — reliability (failure management)\"],\"connotation\":\"This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy.\"}", NULL);
+}
 static void meta_build_scheduled_maintenance_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScheduledMaintenancePolicy");
   meta_set(&n->member_name, "content");
@@ -116775,45 +117385,174 @@ static void meta_build_schema_migration_step_entry_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
+  meta_set(&n->content_help, "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("version");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Version");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("The schema version this step produces (e.g. V7, 2026-07-19-01)");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The version that orders this artifact in the set (e.g. 7, 42)");
   n->form->fields[0].order = 0;
   n->form->fields[1].name = som_strdup("description");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Description");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("What this migration changes and why");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("What this artifact does and why");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("ddlOperations");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("DDL Operations");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)");
+  n->form->fields[2].name = som_strdup("artifactKind");
+  n->form->fields[2].type_name = som_strdup("MigrationArtifactKind");
+  n->form->fields[2].description = som_strdup("Artifact Kind");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("What this artifact is — selects the definition subsection below");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("affectedEntities");
+  n->form->fields[2].enum_values_len = 3;
+  n->form->fields[2].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[2].enum_values[0] = som_strdup("initialDdl");
+  n->form->fields[2].enum_values[1] = som_strdup("referenceData");
+  n->form->fields[2].enum_values[2] = som_strdup("schemaChange");
+  n->form->fields[3].name = som_strdup("migrationTarget");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Affected Entities");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("The Data Model entities this step touches");
+  n->form->fields[3].description = som_strdup("Migration Target");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("The data source / schema target from 7.4.1 this applies to");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("dataBackfill");
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MIGTG.targetName");
+  n->form->fields[4].name = som_strdup("environments");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Data Backfill");
+  n->form->fields[4].description = som_strdup("Environments");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Any data population/transformation done as part of the step, or None");
+  n->form->fields[4].hint = som_strdup("Comma-separated deployment environments this is restricted to, or empty to apply everywhere");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("reversible");
-  n->form->fields[5].type_name = som_strdup("bool");
-  n->form->fields[5].description = som_strdup("Reversible");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Whether a down/rollback migration is provided");
-  n->form->fields[5].order = 5;
+}
+static void meta_build_schema_migration_step_entry_baseline_schema(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaMigrationStepEntry");
+  meta_set(&n->member_name, "baselineSchema");
+  meta_set(&n->section_id, "SCMST-BASE");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("createdEntities");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Created Entities");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The Data Model entities this baseline creates");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[1].name = som_strdup("schemaStatements");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Schema Statements");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The schema definition statements that create the tables");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("indexesAndConstraints");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Indexes and Constraints");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Keys, indexes and constraints established with the baseline");
+  n->form->fields[2].order = 2;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 9075 (SQL) — schema definition statements\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"MigrationArtifactKind.initialDdl\"}", NULL);
+}
+static void meta_build_schema_migration_step_entry_reference_data(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaMigrationStepEntry");
+  meta_set(&n->member_name, "referenceData");
+  meta_set(&n->section_id, "SCMST-REFD");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("targetEntities");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Target Entities");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The Data Model entities this artifact populates");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[1].name = som_strdup("valueSet");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Value Set");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("identityKey");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Identity Key");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates");
+  n->form->fields[2].order = 2;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"DAMA-DMBOK2 — reference and master data management\",\"ISO/IEC 11179 — permissible values of a data element\"],\"connotation\":\"The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"MigrationArtifactKind.referenceData\"}", NULL);
+}
+static void meta_build_schema_migration_step_entry_schema_change(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaMigrationStepEntry");
+  meta_set(&n->member_name, "schemaChange");
+  meta_set(&n->section_id, "SCMST-CHNG");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Schema change — a promoted `@OneOf` case.\n\nPresent only for the `schemaChange` kind: an evolution step on top of an\nexisting schema. This is the only kind for which a delta of affected\nentities, a data backfill and reversibility are meaningful.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("schemaStatements");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Schema Statements");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The schema changes performed on tables, columns, indexes and constraints");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("affectedEntities");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Affected Entities");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("The Data Model entities this change touches");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[2].name = som_strdup("dataBackfill");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Data Backfill");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Any data population or transformation performed as part of the change, or None");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("reversible");
+  n->form->fields[3].type_name = som_strdup("bool");
+  n->form->fields[3].description = som_strdup("Reversible");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Whether a rollback step is provided for this change");
+  n->form->fields[3].order = 3;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Evolutionary Database Design (Ambler & Sadalage) — database refactoring\",\"ISO/IEC 9075 (SQL) — schema definition statements\"],\"connotation\":\"The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"MigrationArtifactKind.schemaChange\"}", NULL);
 }
 static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -116822,40 +117561,58 @@ static void meta_build_schema_versioning_and_migration_content(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 0;
-  meta_set(&n->content_help, "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n");
+  meta_set(&n->content_help, "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("migrationTooling");
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("versioningStrategy");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Migration Tooling");
+  n->form->fields[0].description = som_strdup("Versioning Strategy");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts");
+  n->form->fields[0].hint = som_strdup("Sequential numbered | Timestamped | Semantic");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("versioningStrategy");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Versioning Strategy");
+  n->form->fields[1].name = som_strdup("forwardOnly");
+  n->form->fields[1].type_name = som_strdup("bool");
+  n->form->fields[1].description = som_strdup("Forward-Only");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Sequential numbered | Timestamped | Semantic");
+  n->form->fields[1].hint = som_strdup("Whether schema changes are forward-only (no down steps)");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("forwardOnly");
-  n->form->fields[2].type_name = som_strdup("bool");
-  n->form->fields[2].description = som_strdup("Forward-Only");
+  n->form->fields[2].name = som_strdup("baselineVersion");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Baseline Version");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Whether migrations are forward-only (no down migrations)");
+  n->form->fields[2].hint = som_strdup("The initial/baseline schema version later artifacts build on");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("baselineVersion");
+  n->form->fields[3].name = som_strdup("zeroDowntimeApproach");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Baseline Version");
+  n->form->fields[3].description = som_strdup("Zero-Downtime Approach");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("The initial/baseline schema version migrations build on");
+  n->form->fields[3].hint = som_strdup("Expand/contract, online DDL, blue-green schema, or None");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("zeroDowntimeApproach");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Zero-Downtime Approach");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Expand/contract, online DDL, blue-green schema, or None");
-  n->form->fields[4].order = 4;
+}
+static void meta_build_schema_versioning_and_migration_migration_targets(SomMetaNode *n) {
+  meta_set(&n->class_name, "SchemaVersioningAndMigration");
+  meta_set(&n->member_name, "migrationTargets");
+  meta_set(&n->section_id, "MIGTG-TARG-LST");
+  meta_set(&n->section_id_pattern, "MIGTG-TARG-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "MigrationTargetEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.");
+  meta_set(&n->doc_comment, "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 9075 (SQL) — schema as the named container of database objects\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.\"}", NULL);
+}
+static void meta_build_schema_versioning_and_migration_migration_targets_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "MigrationTargetEntry");
+  meta_set(&n->class_section_id, "MIGTG");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "MigrationTargetEntry");
+  meta_set(&n->doc_comment, "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.");
+  meta_set(&n->class_doc_comment, "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.");
 }
 static void meta_build_schema_versioning_and_migration_migration_steps(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaVersioningAndMigration");
@@ -116865,21 +117622,21 @@ static void meta_build_schema_versioning_and_migration_migration_steps(SomMetaNo
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SchemaMigrationStepEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
-  meta_set(&n->content_help, "Add one entry per versioned schema migration step.");
-  meta_set(&n->doc_comment, "7.4.1. Schema Migration Steps — one entry per versioned migration.");
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per versioned migration artifact.");
+  meta_set(&n->doc_comment, "7.4.2. Schema Migration Steps — one entry per versioned artifact.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"Evolutionary Database Design (Ambler & Sadalage) — database refactoring\"],\"connotation\":\"The ordered schema migration steps that evolve the database over releases.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Evolutionary Database Design (Ambler & Sadalage) — database refactoring\"],\"connotation\":\"The ordered schema migration artifacts that establish and evolve the database over releases.\"}", NULL);
 }
 static void meta_build_schema_versioning_and_migration_migration_steps_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SchemaMigrationStepEntry");
   meta_set(&n->class_section_id, "SCMST");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SchemaMigrationStepEntry");
-  meta_set(&n->doc_comment, "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.");
-  meta_set(&n->class_doc_comment, "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.");
+  meta_set(&n->doc_comment, "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.");
+  meta_set(&n->class_doc_comment, "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.");
 }
 static void meta_build_scope_boundaries_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScopeBoundaries");
@@ -118218,6 +118975,49 @@ static void meta_build_screen_element_field_spec_select_options(SomMetaNode *n) 
   n->extra[1].annotation = som_strdup("Case");
   n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.enumeration\"}", NULL);
 }
+static void meta_build_screen_element_field_spec_file_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenElementFieldSpec");
+  meta_set(&n->member_name, "fileOptions");
+  meta_set(&n->section_id, "SEFSU");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("acceptedContentKinds");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Accepted Content Kinds");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("maxFileSize");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Maximum File Size");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Largest file the field accepts, e.g. 10 MB");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("presentation");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Presentation (link, dropzone, thumbnail)");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("uploadOnPick");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Upload On Pick");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Yes/No — whether choosing a file uploads it immediately or the form uploads it on save");
+  n->form->fields[3].order = 3;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-143:2012 — form fields with input assistance such as file selection\",\"ISO/IEC 2382:2015 — content and media type terminology\"],\"connotation\":\"What a file input accepts and how the chosen file is presented.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenElementFieldKind.file\"}", NULL);
+}
 static void meta_build_screen_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenEntry");
   meta_set(&n->member_name, "content");
@@ -118848,6 +119648,37 @@ static void meta_build_screen_field_entry_choice_options(SomMetaNode *n) {
   n->extra[2].annotation = som_strdup("Case");
   n->extra[2].args = som_json_parse("{\"value\":\"ScreenFieldKind.multiSelect\"}", NULL);
 }
+static void meta_build_screen_field_entry_file_constraints(SomMetaNode *n) {
+  meta_set(&n->class_name, "ScreenFieldEntry");
+  meta_set(&n->member_name, "fileConstraints");
+  meta_set(&n->section_id, "SCFIFI");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 8;
+  meta_set(&n->doc_comment, "File-kind input constraints — a promoted `@OneOf` case (csrb8).\n\nConstraints only. **How** the file is presented — link, dropzone or\nthumbnail — is the D09 design pass's `fileOptions`\n(`ScreenElementFieldSpec`), because a requirement names the kind of value\na user supplies and the design names the concrete control. The storage\ngroup is neither side's: it is authored on the CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1).");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("acceptedContentKinds");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Accepted Content Kinds");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("maxFileSize");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Maximum File Size");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Largest file the field accepts, e.g. 10 MB");
+  n->form->fields[1].order = 1;
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 29148 §9 — input validation requirements\",\"ISO/IEC 2382:2015 — content and media type terminology\"],\"connotation\":\"The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"ScreenFieldKind.file\"}", NULL);
+}
 static void meta_build_screen_field_entry_layout(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenFieldEntry");
   meta_set(&n->member_name, "layout");
@@ -118855,7 +119686,7 @@ static void meta_build_screen_field_entry_layout(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "UI and layout.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -118897,7 +119728,7 @@ static void meta_build_screen_field_entry_validation_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "FieldValidationRule");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per validation rule applied to this field.");
   meta_set(&n->doc_comment, "Field validation rules — contains 0+× FieldValidationRule.");
   n->extra_len = 1;
@@ -122240,6 +123071,59 @@ static void meta_build_sensitive_data_encryption_key_management(SomMetaNode *n) 
   meta_set(&n->doc_comment, "9.5.3. Key Management.");
   meta_set(&n->class_doc_comment, "9.5.3. Key Management.\n\nDefines cryptographic key management policies covering the full key\nlifecycle: generation, storage, rotation, escrow/backup, and compromise\nrecovery. Aligns with OWASP Key Management Cheat Sheet and\nNIST SP 800-57 (Recommendation for Key Management).");
 }
+static void meta_build_server_configuration_setting_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerConfigurationSettingEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("settingKey");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Setting Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The dotted key of the server setting, e.g. server.isolateCount");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("valueType");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Value Type");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("string / int / double / bool / enum");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("defaultValue");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Default Value");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("environmentVariable");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Environment Variable");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("commandLineOption");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Command-Line Option");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source");
+  n->form->fields[4].order = 4;
+  n->form->fields[5].name = som_strdup("secret");
+  n->form->fields[5].type_name = som_strdup("bool");
+  n->form->fields[5].description = som_strdup("Carries a Secret");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down");
+  n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("overridableBy");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Overridable By");
+  n->form->fields[6].required = 1;
+  n->form->fields[6].hint = som_strdup("The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into");
+  n->form->fields[6].order = 6;
+}
 static void meta_build_server_environment_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerEnvironmentEntry");
   meta_set(&n->member_name, "content");
@@ -122420,6 +123304,223 @@ static void meta_build_server_environment_entry_lifecycle(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"IaaS / cloud infrastructure — server provisioning\",\"Twelve-Factor App — cloud-native deployment\"],\"connotation\":\"Captures the refresh schedule and retention policy for a server environment.\"}", NULL);
+}
+static void meta_build_server_operation_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("operationName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Operation Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("purpose");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Purpose");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("What the operation does, from the caller's point of view");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("primaryDataEntity");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Primary Data Entity");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)");
+  n->form->fields[2].order = 2;
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[3].name = som_strdup("authorizationRequirement");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Authorization Requirement");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("requiredRoles");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Required Roles");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("AZRO.roleName");
+  n->form->fields[5].name = som_strdup("requiredResourceKey");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Required Resource Key");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement");
+  n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("RESKEY.resourceKey");
+  n->form->fields[6].name = som_strdup("descriptionKey");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Description Copy Key");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)");
+  n->form->fields[6].order = 6;
+  n->form->fields[6].refers_to_len = 1;
+  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[6].refers_to[0] = som_strdup("MSGKE.key");
+  n->form->fields[7].name = som_strdup("errorCodes");
+  n->form->fields[7].type_name = som_strdup("String");
+  n->form->fields[7].description = som_strdup("Error Codes");
+  n->form->fields[7].required = 0;
+  n->form->fields[7].hint = som_strdup("Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope");
+  n->form->fields[7].order = 7;
+  n->form->fields[7].refers_to_len = 1;
+  n->form->fields[7].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[7].refers_to[0] = som_strdup("ERCEN.code");
+}
+static void meta_build_server_operation_entry_request_members(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->member_name, "requestMembers");
+  meta_set(&n->section_id, "SVOPM-REQM-LST");
+  meta_set(&n->section_id_pattern, "SVOPM-REQM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerOperationMemberEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per member of the request shape.");
+  meta_set(&n->doc_comment, "7.9.x. Request Members — the members that make up the request shape.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"The members that make up this operation's request shape.\"}", NULL);
+}
+static void meta_build_server_operation_entry_request_members_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationMemberEntry");
+  meta_set(&n->class_section_id, "SVOPM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationMemberEntry");
+  meta_set(&n->doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
+  meta_set(&n->class_doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
+}
+static void meta_build_server_operation_entry_response_members(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->member_name, "responseMembers");
+  meta_set(&n->section_id, "SVOPM-RESM-LST");
+  meta_set(&n->section_id_pattern, "SVOPM-RESM-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerOperationMemberEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->content_help, "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.");
+  meta_set(&n->doc_comment, "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"The members that make up the success payload this operation returns.\"}", NULL);
+}
+static void meta_build_server_operation_entry_response_members_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationMemberEntry");
+  meta_set(&n->class_section_id, "SVOPM");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationMemberEntry");
+  meta_set(&n->doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
+  meta_set(&n->class_doc_comment, "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.");
+}
+static void meta_build_server_operation_member_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationMemberEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("memberName");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Member Name");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Name of the member within the shape (e.g. customerId, includeArchived)");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("memberType");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Member Type");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("multiValued");
+  n->form->fields[2].type_name = som_strdup("bool");
+  n->form->fields[2].description = som_strdup("Multi-Valued");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("Whether the member carries a collection of the type rather than a single value");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("required");
+  n->form->fields[3].type_name = som_strdup("bool");
+  n->form->fields[3].description = som_strdup("Required");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("Whether the member must be present");
+  n->form->fields[3].order = 3;
+  n->form->fields[4].name = som_strdup("dataEntity");
+  n->form->fields[4].type_name = som_strdup("String");
+  n->form->fields[4].description = som_strdup("Data Entity");
+  n->form->fields[4].required = 0;
+  n->form->fields[4].hint = som_strdup("DataEntityEntry.entityName the member is typed by, when its type is DataEntity");
+  n->form->fields[4].order = 4;
+  n->form->fields[4].refers_to_len = 1;
+  n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[4].refers_to[0] = som_strdup("DAENT.entityName");
+  n->form->fields[5].name = som_strdup("domainEnum");
+  n->form->fields[5].type_name = som_strdup("String");
+  n->form->fields[5].description = som_strdup("Domain Enum");
+  n->form->fields[5].required = 0;
+  n->form->fields[5].hint = som_strdup("DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum");
+  n->form->fields[5].order = 5;
+  n->form->fields[5].refers_to_len = 1;
+  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[5].refers_to[0] = som_strdup("DMENE.enumName");
+  n->form->fields[6].name = som_strdup("description");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Description");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("What the member means and any authoring guidance");
+  n->form->fields[6].order = 6;
+}
+static void meta_build_server_operation_registry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n");
+}
+static void meta_build_server_operation_registry_operations(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationRegistry");
+  meta_set(&n->member_name, "operations");
+  meta_set(&n->section_id, "SVOPE-OPER-LST");
+  meta_set(&n->section_id_pattern, "SVOPE-OPER-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerOperationEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per operation the system answers.");
+  meta_set(&n->doc_comment, "7.9.1. Operations — one entry per operation the system answers.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 42010 — architecture description (interface contracts)\"],\"connotation\":\"The catalogued operations the application's own server surface answers.\"}", NULL);
+}
+static void meta_build_server_operation_registry_operations_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerOperationEntry");
+  meta_set(&n->class_section_id, "SVOPE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerOperationEntry");
+  meta_set(&n->doc_comment, "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).");
+  meta_set(&n->class_doc_comment, "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).");
 }
 static void meta_build_server_os_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOsRequirements");
@@ -132362,6 +133463,30 @@ static void meta_build_system_configuration_management_governance(SomMetaNode *n
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 20000 — configuration and change management\",\"ITIL 4 — service configuration management practice\"],\"connotation\":\"Validation, diffing, and audit controls ensure configuration changes are checked and traceable.\"}", NULL);
+}
+static void meta_build_system_configuration_management_settings(SomMetaNode *n) {
+  meta_set(&n->class_name, "SystemConfigurationManagement");
+  meta_set(&n->member_name, "settings");
+  meta_set(&n->section_id, "SCSET-SETT-LST");
+  meta_set(&n->section_id_pattern, "SCSET-SETT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ServerConfigurationSettingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->content_help, "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.");
+  meta_set(&n->doc_comment, "The declared server configuration settings.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"Twelve-Factor App — config stored in the environment\",\"CIS Controls — secure configuration and administration\"],\"connotation\":\"The server / system configuration settings declared for this system, one entry per key.\"}", NULL);
+}
+static void meta_build_system_configuration_management_settings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ServerConfigurationSettingEntry");
+  meta_set(&n->class_section_id, "SCSET");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ServerConfigurationSettingEntry");
+  meta_set(&n->doc_comment, "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.");
+  meta_set(&n->class_doc_comment, "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.");
 }
 static void meta_build_system_context_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemContext");
@@ -150281,6 +151406,77 @@ static void meta_build_user_registration_process_registration_flow_diagram(SomMe
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Registration Flow Diagram (mermaid-sequence).");
 }
+static void meta_build_user_setting_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserSettingEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 4;
+  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("settingKey");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Setting Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The dotted key of the user setting, e.g. ui.theme");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("valueType");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Value Type");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("string / int / double / bool / enum");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("defaultValue");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Default Value");
+  n->form->fields[2].required = 0;
+  n->form->fields[2].hint = som_strdup("The value used until the user changes the setting");
+  n->form->fields[2].order = 2;
+  n->form->fields[3].name = som_strdup("overridableBy");
+  n->form->fields[3].type_name = som_strdup("String");
+  n->form->fields[3].description = som_strdup("Overridable By");
+  n->form->fields[3].required = 1;
+  n->form->fields[3].hint = som_strdup("Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into");
+  n->form->fields[3].order = 3;
+}
+static void meta_build_user_settings_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserSettings");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("text");
+  n->content_type->description = som_strdup("");
+  meta_set(&n->content_help, "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n");
+}
+static void meta_build_user_settings_settings(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserSettings");
+  meta_set(&n->member_name, "settings");
+  meta_set(&n->section_id, "USSET-SETT-LST");
+  meta_set(&n->section_id_pattern, "USSET-SETT-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "UserSettingEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize.");
+  meta_set(&n->doc_comment, "The declared user settings.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110 — suitability for individualization (user-tailored settings)\",\"ISO/IEC 25010 — usability / operability\"],\"connotation\":\"The user settings declared for this system, one entry per key.\"}", NULL);
+}
+static void meta_build_user_settings_settings_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "UserSettingEntry");
+  meta_set(&n->class_section_id, "USSET");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "UserSettingEntry");
+  meta_set(&n->doc_comment, "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).");
+  meta_set(&n->class_doc_comment, "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).");
+}
 static void meta_build_user_training_requirements_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UserTrainingRequirements");
   meta_set(&n->member_name, "content");
@@ -152941,8 +154137,8 @@ static void meta_build_workflow_step_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 9;
+  n->form->fields = (SomFormFieldMeta *)calloc(9, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("stepName");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Step Name");
@@ -152985,12 +154181,18 @@ static void meta_build_workflow_step_entry_content(SomMetaNode *n) {
   n->form->fields[6].required = 0;
   n->form->fields[6].hint = som_strdup("");
   n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("averageDuration");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Average Duration");
+  n->form->fields[7].name = som_strdup("isErrorProne");
+  n->form->fields[7].type_name = som_strdup("bool");
+  n->form->fields[7].description = som_strdup("Is Error-Prone (high error or failure rate)");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("");
+  n->form->fields[7].hint = som_strdup("Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often");
   n->form->fields[7].order = 7;
+  n->form->fields[8].name = som_strdup("averageDuration");
+  n->form->fields[8].type_name = som_strdup("String");
+  n->form->fields[8].description = som_strdup("Average Duration");
+  n->form->fields[8].required = 0;
+  n->form->fields[8].hint = som_strdup("");
+  n->form->fields[8].order = 8;
 }
 static void meta_build_workflow_step_entry_systems_used(SomMetaNode *n) {
   meta_set(&n->class_name, "WorkflowStepEntry");
@@ -156070,7 +157272,6 @@ static SomMetaNode **meta_children_basic_technical_requirements(SomStrList *stac
 }
 
 static SomMetaNode **meta_children_batch_job_management(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -156093,6 +157294,12 @@ static SomMetaNode **meta_children_batch_job_management(SomStrList *stack, size_
     SomMetaNode *n = som_meta_node_new();
     meta_build_batch_job_management_monitoring(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_batch_job_management_scheduled_jobs(ln);
+    ln->element_node = meta_cx("ScheduledJobEntry", stack, meta_children_scheduled_job_entry, meta_build_batch_job_management_scheduled_jobs_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -157552,14 +158759,45 @@ static SomMetaNode **meta_children_client_accessibility_requirements(SomStrList 
   return arr;
 }
 
-static SomMetaNode **meta_children_client_configuration(SomStrList *stack, size_t *len) {
+static SomMetaNode **meta_children_client_application_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
   {
     SomMetaNode *n = som_meta_node_new();
+    meta_build_client_application_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_client_configuration(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
     meta_build_client_configuration_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_client_configuration_settings(ln);
+    ln->element_node = meta_cx("ClientConfigurationSettingEntry", stack, meta_children_client_configuration_setting_entry, meta_build_client_configuration_settings_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_client_configuration_setting_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_client_configuration_setting_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -157647,6 +158885,12 @@ static SomMetaNode **meta_children_client_requirements_section(SomStrList *stack
   }
   {
     SomMetaNode *ln = som_meta_node_new();
+    meta_build_client_requirements_section_client_applications(ln);
+    ln->element_node = meta_cx("ClientApplicationEntry", stack, meta_children_client_application_entry, meta_build_client_requirements_section_client_applications_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
     meta_build_client_requirements_section_browser_requirements(ln);
     ln->element_node = meta_cx("BrowserRequirementEntry", stack, meta_children_browser_requirement_entry, meta_build_client_requirements_section_browser_requirements_elem);
     meta_push(&arr, len, &cap, ln);
@@ -157672,6 +158916,7 @@ static SomMetaNode **meta_children_client_requirements_section(SomStrList *stack
   meta_push(&arr, len, &cap, meta_cx("ClientSecurityRequirements", stack, meta_children_client_security_requirements, meta_build_client_requirements_section_security_requirements));
   meta_push(&arr, len, &cap, meta_cx("ClientConfiguration", stack, meta_children_client_configuration, meta_build_client_requirements_section_client_configuration));
   meta_push(&arr, len, &cap, meta_cx("DeviceSettings", stack, meta_children_device_settings, meta_build_client_requirements_section_device_settings));
+  meta_push(&arr, len, &cap, meta_cx("UserSettings", stack, meta_children_user_settings, meta_build_client_requirements_section_user_settings));
   return arr;
 }
 
@@ -159822,18 +161067,6 @@ static SomMetaNode **meta_children_current_workflow_entry(SomStrList *stack, siz
     meta_push(&arr, len, &cap, ln);
   }
   {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_current_workflow_entry_manual_steps(ln);
-    ln->element_node = meta_cx("WorkflowStepEntry", stack, meta_children_workflow_step_entry, meta_build_current_workflow_entry_manual_steps_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
-    meta_build_current_workflow_entry_error_prone_steps(ln);
-    ln->element_node = meta_cx("WorkflowStepEntry", stack, meta_children_workflow_step_entry, meta_build_current_workflow_entry_error_prone_steps_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  {
     SomMetaNode *n = som_meta_node_new();
     meta_build_current_workflow_entry_timing(n);
     meta_push(&arr, len, &cap, n);
@@ -160030,6 +161263,8 @@ static SomMetaNode **meta_children_d03_information_model(SomStrList *stack, size
   meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_d03_information_model_error_code_registry));
   meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_d03_information_model_result_envelope));
   meta_push(&arr, len, &cap, meta_cx("MessageKeyRegistry", stack, meta_children_message_key_registry, meta_build_d03_information_model_message_key_registry));
+  meta_push(&arr, len, &cap, meta_cx("ServerOperationRegistry", stack, meta_children_server_operation_registry, meta_build_d03_information_model_server_operation_registry));
+  meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_d03_information_model_schema_versioning_and_migration));
   return arr;
 }
 
@@ -160302,6 +161537,8 @@ static SomMetaNode **meta_children_d13_code_specs_projection(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_d13_code_specs_projection_access_control));
   meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_d13_code_specs_projection_audit_and_logging));
   meta_push(&arr, len, &cap, meta_cx("ReportDefinitions", stack, meta_children_report_definitions, meta_build_d13_code_specs_projection_report_definitions));
+  meta_push(&arr, len, &cap, meta_cx("SchemaVersioningAndMigration", stack, meta_children_schema_versioning_and_migration, meta_build_d13_code_specs_projection_schema_versioning_and_migration));
+  meta_push(&arr, len, &cap, meta_cx("ServerOperationRegistry", stack, meta_children_server_operation_registry, meta_build_d13_code_specs_projection_server_operation_registry));
   meta_push(&arr, len, &cap, meta_cx("ProcessStepsAndActorInteractions", stack, meta_children_process_steps_and_actor_interactions, meta_build_d13_code_specs_projection_process_steps_and_actor_interactions));
   meta_push(&arr, len, &cap, meta_cx("ExperienceCodeSpecs", stack, meta_children_experience_code_specs, meta_build_d13_code_specs_projection_experience_code_specs));
   return arr;
@@ -162829,8 +164066,20 @@ static SomMetaNode **meta_children_development_quality_gates(SomStrList *stack, 
   return arr;
 }
 
-static SomMetaNode **meta_children_device_settings(SomStrList *stack, size_t *len) {
+static SomMetaNode **meta_children_device_setting_entry(SomStrList *stack, size_t *len) {
   (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_device_setting_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_device_settings(SomStrList *stack, size_t *len) {
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -162838,6 +164087,12 @@ static SomMetaNode **meta_children_device_settings(SomStrList *stack, size_t *le
     SomMetaNode *n = som_meta_node_new();
     meta_build_device_settings_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_device_settings_settings(ln);
+    ln->element_node = meta_cx("DeviceSettingEntry", stack, meta_children_device_setting_entry, meta_build_device_settings_settings_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -166749,6 +168004,7 @@ static SomMetaNode **meta_children_information_and_data_model(SomStrList *stack,
   meta_push(&arr, len, &cap, meta_cx("ErrorCodeRegistry", stack, meta_children_error_code_registry, meta_build_information_and_data_model_error_code_registry));
   meta_push(&arr, len, &cap, meta_cx("ResultEnvelope", stack, meta_children_result_envelope, meta_build_information_and_data_model_result_envelope));
   meta_push(&arr, len, &cap, meta_cx("MessageKeyRegistry", stack, meta_children_message_key_registry, meta_build_information_and_data_model_message_key_registry));
+  meta_push(&arr, len, &cap, meta_cx("ServerOperationRegistry", stack, meta_children_server_operation_registry, meta_build_information_and_data_model_server_operation_registry));
   meta_push(&arr, len, &cap, meta_cx("DataModelFollowUp", stack, meta_children_data_model_follow_up, meta_build_information_and_data_model_data_model_follow_up));
   return arr;
 }
@@ -169834,6 +171090,19 @@ static SomMetaNode **meta_children_migration_systems(SomStrList *stack, size_t *
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_migration_systems_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_migration_target_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_migration_target_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
   return arr;
@@ -176853,6 +178122,44 @@ static SomMetaNode **meta_children_scenario_step_entry(SomStrList *stack, size_t
   return arr;
 }
 
+static SomMetaNode **meta_children_scheduled_job_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_cron_trigger(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_calendar_trigger(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_event_trigger(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_work_definition(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_scheduled_job_entry_failure_policy(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_scheduled_maintenance_policy(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -176896,6 +178203,21 @@ static SomMetaNode **meta_children_schema_migration_step_entry(SomStrList *stack
     meta_build_schema_migration_step_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_schema_migration_step_entry_baseline_schema(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_schema_migration_step_entry_reference_data(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_schema_migration_step_entry_schema_change(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -176907,6 +178229,12 @@ static SomMetaNode **meta_children_schema_versioning_and_migration(SomStrList *s
     SomMetaNode *n = som_meta_node_new();
     meta_build_schema_versioning_and_migration_content(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_schema_versioning_and_migration_migration_targets(ln);
+    ln->element_node = meta_cx("MigrationTargetEntry", stack, meta_children_migration_target_entry, meta_build_schema_versioning_and_migration_migration_targets_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   {
     SomMetaNode *ln = som_meta_node_new();
@@ -177165,6 +178493,11 @@ static SomMetaNode **meta_children_screen_element_field_spec(SomStrList *stack, 
     meta_build_screen_element_field_spec_select_options(n);
     meta_push(&arr, len, &cap, n);
   }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_element_field_spec_file_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
   return arr;
 }
 
@@ -177268,6 +178601,11 @@ static SomMetaNode **meta_children_screen_field_entry(SomStrList *stack, size_t 
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_screen_field_entry_choice_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_screen_field_entry_file_constraints(n);
     meta_push(&arr, len, &cap, n);
   }
   {
@@ -178088,6 +179426,19 @@ static SomMetaNode **meta_children_sensitive_data_encryption(SomStrList *stack, 
   return arr;
 }
 
+static SomMetaNode **meta_children_server_configuration_setting_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_configuration_setting_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
 static SomMetaNode **meta_children_server_environment_entry(SomStrList *stack, size_t *len) {
   (void)stack;
   SomMetaNode **arr = NULL;
@@ -178117,6 +179468,61 @@ static SomMetaNode **meta_children_server_environment_entry(SomStrList *stack, s
     SomMetaNode *n = som_meta_node_new();
     meta_build_server_environment_entry_lifecycle(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_operation_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_server_operation_entry_request_members(ln);
+    ln->element_node = meta_cx("ServerOperationMemberEntry", stack, meta_children_server_operation_member_entry, meta_build_server_operation_entry_request_members_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_server_operation_entry_response_members(ln);
+    ln->element_node = meta_cx("ServerOperationMemberEntry", stack, meta_children_server_operation_member_entry, meta_build_server_operation_entry_response_members_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_server_operation_member_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_operation_member_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_server_operation_registry(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_server_operation_registry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_server_operation_registry_operations(ln);
+    ln->element_node = meta_cx("ServerOperationEntry", stack, meta_children_server_operation_entry, meta_build_server_operation_registry_operations_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -180258,7 +181664,6 @@ static SomMetaNode **meta_children_system_business_unit_entry(SomStrList *stack,
 }
 
 static SomMetaNode **meta_children_system_configuration_management(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -180281,6 +181686,12 @@ static SomMetaNode **meta_children_system_configuration_management(SomStrList *s
     SomMetaNode *n = som_meta_node_new();
     meta_build_system_configuration_management_governance(n);
     meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_system_configuration_management_settings(ln);
+    ln->element_node = meta_cx("ServerConfigurationSettingEntry", stack, meta_children_server_configuration_setting_entry, meta_build_system_configuration_management_settings_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -184082,6 +185493,37 @@ static SomMetaNode **meta_children_user_registration_process(SomStrList *stack, 
     SomMetaNode *n = som_meta_node_new();
     meta_build_user_registration_process_registration_flow_diagram(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_user_setting_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_setting_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_user_settings(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_user_settings_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_user_settings_settings(ln);
+    ln->element_node = meta_cx("UserSettingEntry", stack, meta_children_user_setting_entry, meta_build_user_settings_settings_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -188200,6 +189642,13 @@ SomMetaRef batch_job_management_nav_monitoring(som_nav_batch_job_management x) {
   free(path);
   return out;
 }
+SomListMetaRef batch_job_management_nav_scheduled_jobs(som_nav_batch_job_management x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-JOB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_scheduled_job_entry);
+  free(path);
+  return out;
+}
 SomMetaRef behavior_rule_entry_nav_content(som_nav_behavior_rule_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -189859,7 +191308,28 @@ SomMetaRef client_accessibility_requirements_nav_standards(som_nav_client_access
   free(path);
   return out;
 }
+SomMetaRef client_application_entry_nav_content(som_nav_client_application_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef client_configuration_nav_content(som_nav_client_configuration x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef client_configuration_nav_settings(som_nav_client_configuration x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "CCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_client_configuration_setting_entry);
+  free(path);
+  return out;
+}
+SomMetaRef client_configuration_setting_entry_nav_content(som_nav_client_configuration_setting_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -189950,6 +191420,13 @@ SomMetaRef client_requirements_section_nav_overview(som_nav_client_requirements_
   free(path);
   return out;
 }
+SomListMetaRef client_requirements_section_nav_client_applications(som_nav_client_requirements_section x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "CLIAPP-CLIE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_client_application_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef client_requirements_section_nav_browser_requirements(som_nav_client_requirements_section x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "BRREEN-BROW-LST");
@@ -190030,6 +191507,13 @@ som_nav_client_configuration client_requirements_section_nav_client_configuratio
 som_nav_device_settings client_requirements_section_nav_device_settings(som_nav_client_requirements_section x) {
   som_nav_device_settings out;
   char *path = spec_path_join(x.ref.path, "deviceSettings");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_user_settings client_requirements_section_nav_user_settings(som_nav_client_requirements_section x) {
+  som_nav_user_settings out;
+  char *path = spec_path_join(x.ref.path, "userSettings");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -192316,20 +193800,6 @@ SomListMetaRef current_workflow_entry_nav_business_rules(som_nav_current_workflo
   free(path);
   return out;
 }
-SomListMetaRef current_workflow_entry_nav_manual_steps(som_nav_current_workflow_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "WSE-MANU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_workflow_step_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef current_workflow_entry_nav_error_prone_steps(som_nav_current_workflow_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "WSE-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_workflow_step_entry);
-  free(path);
-  return out;
-}
 SomMetaRef current_workflow_entry_nav_timing(som_nav_current_workflow_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WOTI");
@@ -192753,6 +194223,20 @@ som_nav_result_envelope d03_information_model_nav_result_envelope(som_nav_d03_in
 som_nav_message_key_registry d03_information_model_nav_message_key_registry(som_nav_d03_information_model x) {
   som_nav_message_key_registry out;
   char *path = spec_path_join(x.ref.path, "messageKeyRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_server_operation_registry d03_information_model_nav_server_operation_registry(som_nav_d03_information_model x) {
+  som_nav_server_operation_registry out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_schema_versioning_and_migration d03_information_model_nav_schema_versioning_and_migration(som_nav_d03_information_model x) {
+  som_nav_schema_versioning_and_migration out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -193649,6 +195133,20 @@ som_nav_audit_and_logging d13_code_specs_projection_nav_audit_and_logging(som_na
 som_nav_report_definitions d13_code_specs_projection_nav_report_definitions(som_nav_d13_code_specs_projection x) {
   som_nav_report_definitions out;
   char *path = spec_path_join(x.ref.path, "reportDefinitions");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_schema_versioning_and_migration d13_code_specs_projection_nav_schema_versioning_and_migration(som_nav_d13_code_specs_projection x) {
+  som_nav_schema_versioning_and_migration out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_server_operation_registry d13_code_specs_projection_nav_server_operation_registry(som_nav_d13_code_specs_projection x) {
+  som_nav_server_operation_registry out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -196488,10 +197986,24 @@ SomMetaRef development_quality_gates_nav_performance(som_nav_development_quality
   free(path);
   return out;
 }
+SomMetaRef device_setting_entry_nav_content(som_nav_device_setting_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef device_settings_nav_content(som_nav_device_settings x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef device_settings_nav_settings(som_nav_device_settings x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DSSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_device_setting_entry);
   free(path);
   return out;
 }
@@ -200758,6 +202270,13 @@ som_nav_message_key_registry information_and_data_model_nav_message_key_registry
   free(path);
   return out;
 }
+som_nav_server_operation_registry information_and_data_model_nav_server_operation_registry(som_nav_information_and_data_model x) {
+  som_nav_server_operation_registry out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_data_model_follow_up information_and_data_model_nav_data_model_follow_up(som_nav_information_and_data_model x) {
   som_nav_data_model_follow_up out;
   char *path = spec_path_join(x.ref.path, "dataModelFollowUp");
@@ -203958,6 +205477,13 @@ SomMetaRef migration_stakeholders_nav_content(som_nav_migration_stakeholders x) 
   return out;
 }
 SomMetaRef migration_systems_nav_content(som_nav_migration_systems x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef migration_target_entry_nav_content(som_nav_migration_target_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
@@ -211265,6 +212791,48 @@ SomMetaRef scenario_step_entry_nav_execution(som_nav_scenario_step_entry x) {
   free(path);
   return out;
 }
+SomMetaRef scheduled_job_entry_nav_content(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_cron_trigger(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-CRON");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_calendar_trigger(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-CAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_event_trigger(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-EVNT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_work_definition(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-WORK");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_nav_failure_policy(som_nav_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-FAIL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef scheduled_maintenance_policy_nav_content(som_nav_scheduled_maintenance_policy x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -211307,10 +212875,38 @@ SomMetaRef schema_migration_step_entry_nav_content(som_nav_schema_migration_step
   free(path);
   return out;
 }
+SomMetaRef schema_migration_step_entry_nav_baseline_schema(som_nav_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-BASE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_nav_reference_data(som_nav_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-REFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_nav_schema_change(som_nav_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-CHNG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef schema_versioning_and_migration_nav_content(som_nav_schema_versioning_and_migration x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef schema_versioning_and_migration_nav_migration_targets(som_nav_schema_versioning_and_migration x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "MIGTG-TARG-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_migration_target_entry);
   free(path);
   return out;
 }
@@ -211587,6 +213183,13 @@ SomMetaRef screen_element_field_spec_nav_select_options(som_nav_screen_element_f
   free(path);
   return out;
 }
+SomMetaRef screen_element_field_spec_nav_file_options(som_nav_screen_element_field_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SEFSU");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef screen_entry_nav_content(som_nav_screen_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -211723,6 +213326,13 @@ SomMetaRef screen_field_entry_nav_temporal_constraints(som_nav_screen_field_entr
 SomMetaRef screen_field_entry_nav_choice_options(som_nav_screen_field_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCFICH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_nav_file_constraints(som_nav_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIFI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -212644,6 +214254,13 @@ som_nav_key_management sensitive_data_encryption_nav_key_management(som_nav_sens
   free(path);
   return out;
 }
+SomMetaRef server_configuration_setting_entry_nav_content(som_nav_server_configuration_setting_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef server_environment_entry_nav_content(som_nav_server_environment_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -212676,6 +214293,48 @@ SomMetaRef server_environment_entry_nav_lifecycle(som_nav_server_environment_ent
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SEENENLI");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_nav_content(som_nav_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_nav_request_members(som_nav_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOPM-REQM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_operation_member_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_nav_response_members(som_nav_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOPM-RESM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_operation_member_entry);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_member_entry_nav_content(som_nav_server_operation_member_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_registry_nav_content(som_nav_server_operation_registry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_registry_nav_operations(som_nav_server_operation_registry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOPE-OPER-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_operation_entry);
   free(path);
   return out;
 }
@@ -215063,6 +216722,13 @@ SomMetaRef system_configuration_management_nav_governance(som_nav_system_configu
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCMG");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef system_configuration_management_nav_settings(som_nav_system_configuration_management x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_server_configuration_setting_entry);
   free(path);
   return out;
 }
@@ -219483,6 +221149,27 @@ SomMetaRef user_registration_process_nav_registration_flow_diagram(som_nav_user_
   free(path);
   return out;
 }
+SomMetaRef user_setting_entry_nav_content(som_nav_user_setting_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef user_settings_nav_content(som_nav_user_settings x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef user_settings_nav_settings(som_nav_user_settings x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "USSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_user_setting_entry);
+  free(path);
+  return out;
+}
 SomMetaRef user_training_requirements_nav_content(som_nav_user_training_requirements x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -221997,20 +223684,6 @@ SomListMetaRef current_workflow_entry_id_woburu_busi_lst(som_id_current_workflow
   free(path);
   return out;
 }
-SomListMetaRef current_workflow_entry_id_wse_manu_lst(som_id_current_workflow_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "WSE-MANU-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_step_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef current_workflow_entry_id_wse_erro_lst(som_id_current_workflow_entry x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "WSE-ERRO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_workflow_step_entry);
-  free(path);
-  return out;
-}
 SomMetaRef current_workflow_entry_id_woti(som_id_current_workflow_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "WOTI");
@@ -224139,6 +225812,13 @@ SomListMetaRef d00_solution_blueprint_id_biru_busi_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_migtg_targ_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/schemaVersioningAndMigration/MIGTG-TARG-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_migration_target_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_scmst_step_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/schemaVersioningAndMigration/SCMST-STEP-LST");
@@ -224171,6 +225851,13 @@ SomListMetaRef d00_solution_blueprint_id_msgke_mkey_lst(som_id_d00_solution_blue
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "informationAndDataModel/messageKeyRegistry/MSGKE-MKEY-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_message_key_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_svope_oper_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "informationAndDataModel/serverOperationRegistry/SVOPE-OPER-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_entry);
   free(path);
   return out;
 }
@@ -225896,6 +227583,13 @@ SomMetaRef d00_solution_blueprint_id_sorl(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_cliapp_clie_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_application_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_brreen_brow_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST");
@@ -226110,6 +227804,27 @@ SomMetaRef d00_solution_blueprint_id_csrcp(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_ccset_sett_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_configuration_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_dsset_sett_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_device_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_usset_sett_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_setting_entry);
   free(path);
   return out;
 }
@@ -227506,6 +229221,13 @@ SomMetaRef d00_solution_blueprint_id_scmg(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_scset_sett_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_configuration_setting_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d00_solution_blueprint_id_uptl(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL");
@@ -227545,6 +229267,13 @@ SomMetaRef d00_solution_blueprint_id_bjmm(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d00_solution_blueprint_id_scjob_job_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_scheduled_job_entry);
   free(path);
   return out;
 }
@@ -232042,6 +233771,27 @@ SomListMetaRef d03_information_model_id_msgke_mkey_lst(som_id_d03_information_mo
   free(path);
   return out;
 }
+SomListMetaRef d03_information_model_id_svope_oper_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry/SVOPE-OPER-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_migtg_targ_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration/MIGTG-TARG-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_migration_target_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d03_information_model_id_scmst_step_lst(som_id_d03_information_model x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration/SCMST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_schema_migration_step_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d04_requirements_specification_id_fr_summ(som_id_d04_requirements_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "functionalRequirements/FR-SUMM");
@@ -233827,6 +235577,13 @@ SomMetaRef d06_architecture_technology_specification_id_sorl(som_id_d06_architec
   free(path);
   return out;
 }
+SomListMetaRef d06_architecture_technology_specification_id_cliapp_clie_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_application_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d06_architecture_technology_specification_id_brreen_brow_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/BRREEN-BROW-LST");
@@ -234041,6 +235798,27 @@ SomMetaRef d06_architecture_technology_specification_id_csrcp(som_id_d06_archite
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/securityRequirements/CSRCP");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_ccset_sett_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/clientConfiguration/CCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_configuration_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_dsset_sett_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/deviceSettings/DSSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_device_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_usset_sett_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/userSettings/USSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_setting_entry);
   free(path);
   return out;
 }
@@ -235437,6 +237215,13 @@ SomMetaRef d06_architecture_technology_specification_id_scmg(som_id_d06_architec
   free(path);
   return out;
 }
+SomListMetaRef d06_architecture_technology_specification_id_scset_sett_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_configuration_setting_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d06_architecture_technology_specification_id_uptl(som_id_d06_architecture_technology_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/userProvisioning/UPTL");
@@ -235476,6 +237261,13 @@ SomMetaRef d06_architecture_technology_specification_id_bjmm(som_id_d06_architec
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/BJMM");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d06_architecture_technology_specification_id_scjob_job_lst(som_id_d06_architecture_technology_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_scheduled_job_entry);
   free(path);
   return out;
 }
@@ -240967,6 +242759,13 @@ SomMetaRef d13_code_specs_projection_id_sorl(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_cliapp_clie_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_application_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d13_code_specs_projection_id_brreen_brow_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST");
@@ -241181,6 +242980,27 @@ SomMetaRef d13_code_specs_projection_id_csrcp(som_id_d13_code_specs_projection x
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/securityRequirements/CSRCP");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_ccset_sett_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/clientConfiguration/CCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_client_configuration_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_dsset_sett_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/deviceSettings/DSSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_device_setting_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_usset_sett_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/userSettings/USSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_setting_entry);
   free(path);
   return out;
 }
@@ -242577,6 +244397,13 @@ SomMetaRef d13_code_specs_projection_id_scmg(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
+SomListMetaRef d13_code_specs_projection_id_scset_sett_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/configurationManagement/SCSET-SETT-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_configuration_setting_entry);
+  free(path);
+  return out;
+}
 SomMetaRef d13_code_specs_projection_id_uptl(som_id_d13_code_specs_projection x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/userProvisioning/UPTL");
@@ -242616,6 +244443,13 @@ SomMetaRef d13_code_specs_projection_id_bjmm(som_id_d13_code_specs_projection x)
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/BJMM");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_scjob_job_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/batchJobs/SCJOB-JOB-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_scheduled_job_entry);
   free(path);
   return out;
 }
@@ -243897,6 +245731,27 @@ SomListMetaRef d13_code_specs_projection_id_reen_repo_lst(som_id_d13_code_specs_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "reportDefinitions/REEN-REPO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_migtg_targ_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration/MIGTG-TARG-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_migration_target_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_scmst_step_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "schemaVersioningAndMigration/SCMST-STEP-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_schema_migration_step_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_svope_oper_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "serverOperationRegistry/SVOPE-OPER-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_entry);
   free(path);
   return out;
 }
@@ -249003,6 +250858,62 @@ SomMetaRef scenario_step_entry_id_scstenex(som_id_scenario_step_entry x) {
   free(path);
   return out;
 }
+SomMetaRef scheduled_job_entry_id_scjob_cron(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-CRON");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_id_scjob_cal(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-CAL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_id_scjob_evnt(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-EVNT");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_id_scjob_work(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-WORK");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef scheduled_job_entry_id_scjob_fail(som_id_scheduled_job_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCJOB-FAIL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_id_scmst_base(som_id_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-BASE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_id_scmst_refd(som_id_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-REFD");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef schema_migration_step_entry_id_scmst_chng(som_id_schema_migration_step_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCMST-CHNG");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef screen_action_entry_id_saev(som_id_screen_action_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SAEV");
@@ -249104,6 +251015,13 @@ SomMetaRef screen_element_entry_id_sefsv(som_id_screen_element_entry x) {
 SomMetaRef screen_element_entry_id_sefss(som_id_screen_element_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "fieldSpec/SEFSS");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_sefsu(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "fieldSpec/SEFSU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -249244,6 +251162,13 @@ SomMetaRef screen_field_entry_id_scfivd(som_id_screen_field_entry x) {
 SomMetaRef screen_field_entry_id_scfich(som_id_screen_field_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCFICH");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_field_entry_id_scfifi(som_id_screen_field_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SCFIFI");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -249462,6 +251387,20 @@ SomMetaRef server_environment_entry_id_seenenli(som_id_server_environment_entry 
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SEENENLI");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_id_svopm_reqm_lst(som_id_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOPM-REQM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_member_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_id_svopm_resm_lst(som_id_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "SVOPM-RESM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_server_operation_member_entry);
   free(path);
   return out;
 }

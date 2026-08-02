@@ -197,6 +197,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per notification rule, capturing who is notified at each stage of the change process."
+  cliapp-clie-lst:
+    prefix: CLIAPP_CLIE_LST
+    subsection-types:
+      cliapp-clie:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
   cochen-comm-lst:
     prefix: COCHEN_COMM_LST
     subsection-types:
@@ -1334,7 +1342,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+    description: "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
   wodepo-deci-lst:
     prefix: WODEPO_DECI_LST
     subsection-types:
@@ -1358,7 +1366,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+    description: "Add one entry per input the workflow consumes, with its source, format, and validation rules."
   woouen-outp-lst:
     prefix: WOOUEN_OUTP_LST
     subsection-types:
@@ -1366,7 +1374,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per output this step produces, with its destination and format."
+    description: "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
   wostis-know-lst:
     prefix: WOSTIS_KNOW_LST
     subsection-types:
@@ -1457,6 +1465,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per category dependency.
+  ccset-sett-lst:
+    prefix: CCSET_SETT_LST
+    subsection-types:
+      ccset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>."
   chang-chan-lst:
     prefix: CHANG_CHAN_LST
     subsection-types:
@@ -1708,6 +1724,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per supported desktop operating system.
+  dsset-sett-lst:
+    prefix: DSSET_SETT_LST
+    subsection-types:
+      dsset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
   encns-cons-lst:
     prefix: ENCNS_CONS_LST
     subsection-types:
@@ -2203,6 +2227,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration mapping.
+  migtg-targ-lst:
+    prefix: MIGTG_TARG_LST
+    subsection-types:
+      migtg-targ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.
   mndep-item-lst:
     prefix: MNDEP_ITEM_LST
     subsection-types:
@@ -2909,7 +2941,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per versioned schema migration step.
+    description: Add one entry per versioned migration artifact.
   scnry-scen-lst:
     prefix: SCNRY_SCEN_LST
     subsection-types:
@@ -2977,6 +3009,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen state.
+  scset-sett-lst:
+    prefix: SCSET_SETT_LST
+    subsection-types:
+      scset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
   secct-cont-lst:
     prefix: SECCT_CONT_LST
     subsection-types:
@@ -3099,6 +3139,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Sub-stages and Milestones — contains 0+× SubStage.
+  svope-oper-lst:
+    prefix: SVOPE_OPER_LST
+    subsection-types:
+      svope-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per operation the system answers.
+  svopm-reqm-lst:
+    prefix: SVOPM_REQM_LST
+    subsection-types:
+      svopm-reqm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per member of the request shape.
+  svopm-resm-lst:
+    prefix: SVOPM_RESM_LST
+    subsection-types:
+      svopm-resm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
   swdlv-item-lst:
     prefix: SWDLV_ITEM_LST
     subsection-types:
@@ -3252,6 +3316,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per pain point or friction in the user journey.
+  usset-sett-lst:
+    prefix: USSET_SETT_LST
+    subsection-types:
+      usset-sett:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
   valid-vali-lst:
     prefix: VALID_VALI_LST
     subsection-types:
@@ -4119,6 +4191,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per business unit using the system; note user count and dependency level.
+  scjob-job-lst:
+    prefix: SCJOB_JOB_LST
+    subsection-types:
+      scjob-job:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
   sece-erro-lst:
     prefix: SECE_ERRO_LST
     subsection-types:
@@ -4793,6 +4873,12 @@ section-types:
       pattern: ^CHNORU-NOTI-.+$
       error-message: IDs of this section must match CHNORU-NOTI-xxx
     description: "Add one entry per notification rule, capturing who is notified at each stage of the change process."
+  cliapp-clie:
+    prefix: CLIAPP_CLIE_
+    pattern-check-id:
+      pattern: ^CLIAPP-CLIE-.+$
+      error-message: IDs of this section must match CLIAPP-CLIE-xxx
+    description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
   cochen-comm:
     prefix: COCHEN_COMM_
     pattern-check-id:
@@ -6492,7 +6578,7 @@ section-types:
     pattern-check-id:
       pattern: ^WOBURU-BUSI-.+$
       error-message: IDs of this section must match WOBURU-BUSI-xxx
-    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+    description: "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
   wodepo-deci:
     prefix: WODEPO_DECI_
     pattern-check-id:
@@ -6510,13 +6596,13 @@ section-types:
     pattern-check-id:
       pattern: ^WOINEN-INPU-.+$
       error-message: IDs of this section must match WOINEN-INPU-xxx
-    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+    description: "Add one entry per input the workflow consumes, with its source, format, and validation rules."
   woouen-outp:
     prefix: WOOUEN_OUTP_
     pattern-check-id:
       pattern: ^WOOUEN-OUTP-.+$
       error-message: IDs of this section must match WOOUEN-OUTP-xxx
-    description: "Add one entry per output this step produces, with its destination and format."
+    description: "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
   wostis-know:
     prefix: WOSTIS_KNOW_
     pattern-check-id:
@@ -6544,22 +6630,6 @@ section-types:
       pattern: ^WOTREN-TRIG-.+$
       error-message: IDs of this section must match WOTREN-TRIG-xxx
     description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
-  wse-erro-lst:
-    prefix: WSE_ERRO_LST
-    subsection-types:
-      wse-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Identify steps with known issues, high error rates, or workarounds."
-  wse-manu-lst:
-    prefix: WSE_MANU_LST
-    subsection-types:
-      wse-manu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Identify steps that cannot be automated or require human judgment.
   wse-step-lst:
     prefix: WSE_STEP_LST
     subsection-types:
@@ -6567,7 +6637,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
+    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list."
   access-acce:
     prefix: ACCESS_ACCE
     format: access-acce-form
@@ -6676,6 +6746,12 @@ section-types:
       pattern: ^CATEG-CATE-.+$
       error-message: IDs of this section must match CATEG-CATE-xxx
     description: Add one entry per category dependency.
+  ccset-sett:
+    prefix: CCSET_SETT_
+    pattern-check-id:
+      pattern: ^CCSET-SETT-.+$
+      error-message: IDs of this section must match CCSET-SETT-xxx
+    description: "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>."
   chang-chan:
     prefix: CHANG_CHAN_
     pattern-check-id:
@@ -7037,6 +7113,12 @@ section-types:
       pattern: ^DORE1-DESK-.+$
       error-message: IDs of this section must match DORE1-DESK-xxx
     description: Add one entry per supported desktop operating system.
+  dsset-sett:
+    prefix: DSSET_SETT_
+    pattern-check-id:
+      pattern: ^DSSET-SETT-.+$
+      error-message: IDs of this section must match DSSET-SETT-xxx
+    description: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
   encns-cons:
     prefix: ENCNS_CONS_
     pattern-check-id:
@@ -7607,6 +7689,12 @@ section-types:
       pattern: ^MIGME-MIGR-.+$
       error-message: IDs of this section must match MIGME-MIGR-xxx
     description: Add one entry per migration mapping.
+  migtg-targ:
+    prefix: MIGTG_TARG_
+    pattern-check-id:
+      pattern: ^MIGTG-TARG-.+$
+      error-message: IDs of this section must match MIGTG-TARG-xxx
+    description: Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.
   mndep-item:
     prefix: MNDEP_ITEM_
     subsection-types:
@@ -8399,6 +8487,8 @@ section-types:
         max-count: 1
       scfich:
         max-count: 1
+      scfifi:
+        max-count: 1
       scfila:
         max-count: 1
       fldvl-vali-lst:
@@ -8421,10 +8511,17 @@ section-types:
     description: List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.
   scmst-step:
     prefix: SCMST_STEP_
+    subsection-types:
+      scmst-base:
+        max-count: 1
+      scmst-refd:
+        max-count: 1
+      scmst-chng:
+        max-count: 1
     pattern-check-id:
       pattern: ^SCMST-STEP-.+$
       error-message: IDs of this section must match SCMST-STEP-xxx
-    description: Add one entry per versioned schema migration step.
+    description: Add one entry per versioned migration artifact.
   scnry-scen:
     prefix: SCNRY_SCEN_
     subsection-types:
@@ -8546,6 +8643,12 @@ section-types:
       pattern: ^SCRST-ITEM-.+$
       error-message: IDs of this section must match SCRST-ITEM-xxx
     description: Add one entry per screen state.
+  scset-sett:
+    prefix: SCSET_SETT_
+    pattern-check-id:
+      pattern: ^SCSET-SETT-.+$
+      error-message: IDs of this section must match SCSET-SETT-xxx
+    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
   secct-cont:
     prefix: SECCT_CONT_
     subsection-types:
@@ -8734,6 +8837,29 @@ section-types:
       pattern: ^SUSST-SUBS-.+$
       error-message: IDs of this section must match SUSST-SUBS-xxx
     description: A sub-stage or milestone entry (form).
+  svope-oper:
+    prefix: SVOPE_OPER_
+    subsection-types:
+      svopm-reqm-lst:
+        max-count: 1
+      svopm-resm-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SVOPE-OPER-.+$
+      error-message: IDs of this section must match SVOPE-OPER-xxx
+    description: Add one entry per operation the system answers.
+  svopm-reqm:
+    prefix: SVOPM_REQM_
+    pattern-check-id:
+      pattern: ^SVOPM-REQM-.+$
+      error-message: IDs of this section must match SVOPM-REQM-xxx
+    description: Add one entry per member of the request shape.
+  svopm-resm:
+    prefix: SVOPM_RESM_
+    pattern-check-id:
+      pattern: ^SVOPM-RESM-.+$
+      error-message: IDs of this section must match SVOPM-RESM-xxx
+    description: Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
   swdlv-item:
     prefix: SWDLV_ITEM_
     subsection-types:
@@ -8973,6 +9099,12 @@ section-types:
       pattern: ^USERJ-PAIN-.+$
       error-message: IDs of this section must match USERJ-PAIN-xxx
     description: Add one entry per pain point or friction in the user journey.
+  usset-sett:
+    prefix: USSET_SETT_
+    pattern-check-id:
+      pattern: ^USSET-SETT-.+$
+      error-message: IDs of this section must match USSET-SETT-xxx
+    description: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
   ustrre-trai:
     prefix: USTRRE_TRAI
     format: ustrre-trai-form
@@ -10251,6 +10383,51 @@ section-types:
       pattern: ^SBUE-BUSI-.+$
       error-message: IDs of this section must match SBUE-BUSI-xxx
     description: Add one entry per business unit using the system; note user count and dependency level.
+  scjob-cron:
+    prefix: SCJOB_CRON
+    format: scjob-cron-form
+    description: "Cron trigger — a promoted `@OneOf` case."
+  scjob-evnt:
+    prefix: SCJOB_EVNT
+    format: scjob-evnt-form
+    description: "Event trigger — a promoted `@OneOf` case."
+  scjob-fail:
+    prefix: SCJOB_FAIL
+    format: scjob-fail-form
+    description: "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case."
+  scjob-job:
+    prefix: SCJOB_JOB_
+    subsection-types:
+      scjob-cron:
+        max-count: 1
+      scjob-cal:
+        max-count: 1
+      scjob-evnt:
+        max-count: 1
+      scjob-work:
+        max-count: 1
+      scjob-fail:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCJOB-JOB-.+$
+      error-message: IDs of this section must match SCJOB-JOB-xxx
+    description: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
+  scjob-work:
+    prefix: SCJOB_WORK
+    format: scjob-work-form
+    description: "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches."
+  scmst-base:
+    prefix: SCMST_BASE
+    format: scmst-base-form
+    description: "Baseline schema definition — a promoted `@OneOf` case."
+  scmst-chng:
+    prefix: SCMST_CHNG
+    format: scmst-chng-form
+    description: "Schema change — a promoted `@OneOf` case."
+  scmst-refd:
+    prefix: SCMST_REFD
+    format: scmst-refd-form
+    description: "Reference-data definition — a promoted `@OneOf` case."
   sece-erro:
     prefix: SECE_ERRO_
     subsection-types:
@@ -10819,10 +10996,6 @@ section-types:
         max-count: 1
       woburu-busi-lst:
         max-count: 1
-      wse-manu-lst:
-        max-count: 1
-      wse-erro-lst:
-        max-count: 1
       woti:
         max-count: 1
       woex:
@@ -11107,6 +11280,10 @@ section-types:
       pattern: ^SCE-ITEM-.+$
       error-message: IDs of this section must match SCE-ITEM-xxx
     description: "Define individual success criteria. Include criteria for business outcomes, user satisfaction, technical quality, and compliance requirements."
+  scjob-cal:
+    prefix: SCJOB_CAL
+    format: scjob-cal-form
+    description: "Calendar trigger — a promoted `@OneOf` case."
   secc-secu:
     prefix: SECC_SECU
     format: secc-secu-form
@@ -11171,40 +11348,6 @@ section-types:
     prefix: WODE_WORK
     format: mermaid-flowchart
     description: Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.
-  wse-erro:
-    prefix: WSE_ERRO_
-    subsection-types:
-      wostsy-syst-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wostis-know-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^WSE-ERRO-.+$
-      error-message: IDs of this section must match WSE-ERRO-xxx
-    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
-  wse-manu:
-    prefix: WSE_MANU_
-    subsection-types:
-      wostsy-syst-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wostis-know-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^WSE-MANU-.+$
-      error-message: IDs of this section must match WSE-MANU-xxx
-    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   wse-step:
     prefix: WSE_STEP_
     subsection-types:
@@ -11769,7 +11912,7 @@ section-types:
         max-count: 1
       acchls:
         max-count: 1
-    description: 10.2.4. Accessibility. Seeds → XDS.
+    description: 10.3.4. Accessibility. Seeds → XDS.
   acchls:
     prefix: ACCHLS
     subsection-types:
@@ -12109,6 +12252,8 @@ section-types:
         max-count: 1
       bjmm:
         max-count: 1
+      scjob-job-lst:
+        max-count: 1
     description: Batch job management.
   bareco:
     prefix: BARECO
@@ -12347,6 +12492,9 @@ section-types:
     description: Client hardware requirements.
   clicon:
     prefix: CLICON
+    subsection-types:
+      ccset-sett-lst:
+        max-count: 1
     description: Per-machine configuration of a client application (CE-CC).
   clnere:
     prefix: CLNERE
@@ -12375,6 +12523,8 @@ section-types:
   clrese:
     prefix: CLRESE
     subsection-types:
+      cliapp-clie-lst:
+        max-count: 1
       brreen-brow-lst:
         max-count: 1
       dore1-desk-lst:
@@ -12398,6 +12548,8 @@ section-types:
       clicon:
         max-count: 1
       devset:
+        max-count: 1
+      usrset:
         max-count: 1
     description: |
       Specify client device requirements including browsers, operating systems,
@@ -13282,6 +13434,9 @@ section-types:
     description: Infrastructure layout.
   devset:
     prefix: DEVSET
+    subsection-types:
+      dsset-sett-lst:
+        max-count: 1
     description: User-specific settings of a user-owned device (CE-DS).
   digrsu:
     prefix: DIGRSU
@@ -14829,7 +14984,7 @@ section-types:
         max-count: 1
       prtyse:
         max-count: 1
-    description: 10.2.5. Prototype. Seeds → XDS.
+    description: 10.3.5. Prototype. Seeds → XDS.
   provdi:
     prefix: PROVDI
     subsection-types:
@@ -15341,6 +15496,10 @@ section-types:
     prefix: SCFICO
     format: scfico-form
     description: Conditional behavior.
+  scfifi:
+    prefix: SCFIFI
+    format: scfifi-form
+    description: "File-kind input constraints — a promoted `@OneOf` case (csrb8)."
   scfila:
     prefix: SCFILA
     format: scfila-form
@@ -15938,6 +16097,8 @@ section-types:
         max-count: 1
       scmg:
         max-count: 1
+      scset-sett-lst:
+        max-count: 1
     description: Configuration management.
   sydasc:
     prefix: SYDASC
@@ -16411,6 +16572,12 @@ section-types:
   usrman:
     prefix: USRMAN
     description: 15.3. User Manuals.
+  usrset:
+    prefix: USRSET
+    subsection-types:
+      usset-sett-lst:
+        max-count: 1
+    description: Server-persisted settings that follow the user across devices (CE-UP).
   ustrre:
     prefix: USTRRE
     subsection-types:
@@ -16495,7 +16662,7 @@ section-types:
     description: 11.6.1. Weighted Quality Matrix.
   wianmo:
     prefix: WIANMO
-    description: 10.2.6. Wireframes and Mockups.
+    description: 10.3.6. Wireframes and Mockups.
   wosore:
     prefix: WOSORE
     subsection-types:
@@ -16591,7 +16758,7 @@ section-types:
   bjmjt:
     prefix: BJMJT
     format: bjmjt-form
-    description: Supported job categories.
+    description: "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB)."
   bjomd:
     prefix: BJOMD
     subsection-types:
@@ -16892,7 +17059,7 @@ section-types:
         max-count: 1
       usper:
         max-count: 1
-    description: 10.2.1. Design Vision. Seeds → XDS.
+    description: 10.3.1. Design Vision. Seeds → XDS.
   dfcdt:
     prefix: DFCDT
     format: dfcdt-form
@@ -18231,6 +18398,8 @@ section-types:
   schmg:
     prefix: SCHMG
     subsection-types:
+      migtg-targ-lst:
+        max-count: 1
       scmst-step-lst:
         max-count: 1
     description: 7.4. Schema Versioning and Migration.
@@ -18302,6 +18471,10 @@ section-types:
     prefix: SEFST
     format: sefst-form
     description: "Text-kind options — a promoted `@OneOf` case (csmb6)."
+  sefsu:
+    prefix: SEFSU
+    format: sefsu-form
+    description: "File-kind options — a promoted `@OneOf` case (csrb8)."
   sefsv:
     prefix: SEFSV
     format: sefsv-form
@@ -18482,6 +18655,12 @@ section-types:
     prefix: SUICP
     format: suicp-form
     description: User-facing change profile.
+  svopr:
+    prefix: SVOPR
+    subsection-types:
+      svope-oper-lst:
+        max-count: 1
+    description: 7.9. Server Operation Registry.
   swdlv:
     prefix: SWDLV
     subsection-types:
@@ -19597,7 +19776,7 @@ section-types:
   bjme:
     prefix: BJME
     format: bjme-form
-    description: Execution controls.
+    description: "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits."
   bjmm:
     prefix: BJMM
     format: bjmm-form
@@ -20702,7 +20881,7 @@ section-types:
     subsection-types:
       dmfue-enfu-lst:
         max-count: 1
-    description: 7.9. Data Model Follow-up Facets.
+    description: 7.10. Data Model Follow-up Facets.
   dmrc:
     prefix: DMRC
     format: dmrc-form
@@ -21656,6 +21835,8 @@ section-types:
         max-count: 1
       msgkr:
         max-count: 1
+      svopr:
+        max-count: 1
       dmfu:
         max-count: 1
     description: "SBP.8 Information & Data Model. Seeds → IFM."
@@ -22376,7 +22557,7 @@ section-types:
         max-count: 1
       suloen-supp-lst:
         max-count: 1
-    description: 10.3.1. Multi-language Support.
+    description: 10.4.1. Multi-language Support.
   mntc:
     prefix: MNTC
     subsection-types:
@@ -23129,13 +23310,11 @@ section-types:
         max-count: 1
       prlaar:
         max-count: 1
-      reen-repo-lst:
-        max-count: 1
       exfoen-expo-lst:
         max-count: 1
       exteen-expo-lst:
         max-count: 1
-    description: 10.2.2. Print Layout. Seeds → XDS.
+    description: "10.3.2. Print & Export Layout. Seeds → XDS."
   prna:
     prefix: PRNA
     subsection-types:
@@ -23364,6 +23543,12 @@ section-types:
       rebe:
         max-count: 1
     description: 10.1.5. Responsive Design. Seeds → XDS.
+  redf:
+    prefix: REDF
+    subsection-types:
+      reen-repo-lst:
+        max-count: 1
+    description: 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
   refo:
     prefix: REFO
     format: refo-form
@@ -24074,6 +24259,8 @@ section-types:
       sefsv:
         max-count: 1
       sefss:
+        max-count: 1
+      sefsu:
         max-count: 1
     description: 10.2.1.n.m.k.2. Element Field Spec.
   selp:
@@ -25159,7 +25346,7 @@ section-types:
         max-count: 1
       suac:
         max-count: 1
-    description: 10.2.3. User Assistance. Seeds → XDS.
+    description: 10.3.3. User Assistance. Seeds → XDS.
   usau:
     prefix: USAU
     subsection-types:
@@ -25354,7 +25541,7 @@ section-types:
     description: Security and collaboration software stack.
   xcfu:
     prefix: XCFU
-    description: 10.4. Authorization Compliance — CMP follow-up subtree.
+    description: 10.5. Authorization Compliance — CMP follow-up subtree.
   xdfu:
     prefix: XDFU
     subsection-types:
@@ -25370,13 +25557,13 @@ section-types:
         max-count: 1
       wianmo:
         max-count: 1
-    description: 10.2. Experience Design — DOC follow-up subtree.
+    description: 10.3. Experience Design — DOC follow-up subtree.
   xlfu:
     prefix: XLFU
     subsection-types:
       mlar:
         max-count: 1
-    description: 10.3. Experience Localization — L10N follow-up subtree.
+    description: 10.4. Experience Localization — L10N follow-up subtree.
   aap:
     prefix: AAP
     format: aap-form
@@ -26245,6 +26432,8 @@ section-types:
     prefix: XID
     subsection-types:
       xcs:
+        max-count: 1
+      redf:
         max-count: 1
       xdfu:
         max-count: 1
@@ -27796,6 +27985,12 @@ form-types:
         description: "Where the options come from: static, API, or entity"
       - fieldname: staticOptions
         description: "The option values, when the source is static"
+  scfifi-form:
+    fields:
+      - fieldname: acceptedContentKinds
+        description: "What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions"
+      - fieldname: maxFileSize
+        description: "Largest file the field accepts, e.g. 10 MB"
   scfila-form:
     fields:
       - fieldname: dependsOn
@@ -33108,6 +33303,37 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  scmst-base-form:
+    fields:
+      - fieldname: createdEntities
+        required: true
+        description: The Data Model entities this baseline creates
+      - fieldname: schemaStatements
+        description: The schema definition statements that create the tables
+      - fieldname: indexesAndConstraints
+        description: "Keys, indexes and constraints established with the baseline"
+  scmst-refd-form:
+    fields:
+      - fieldname: targetEntities
+        required: true
+        description: The Data Model entities this artifact populates
+      - fieldname: valueSet
+        required: true
+        description: "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept"
+      - fieldname: identityKey
+        description: "The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates"
+  scmst-chng-form:
+    fields:
+      - fieldname: schemaStatements
+        required: true
+        description: "The schema changes performed on tables, columns, indexes and constraints"
+      - fieldname: affectedEntities
+        required: true
+        description: The Data Model entities this change touches
+      - fieldname: dataBackfill
+        description: "Any data population or transformation performed as part of the change, or None"
+      - fieldname: reversible
+        description: Whether a rollback step is provided for this change
   dmfue-enti-form:
     fields:
       - fieldname: entityName
@@ -38710,11 +38936,11 @@ form-types:
       - fieldname: priorityLevels
         description: Job priority classification
       - fieldname: retryPolicy
-        description: "Retry count, backoff, dead-letter"
+        description: "The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt"
       - fieldname: idempotency
-        description: Safe to re-run on failure
+        description: Whether jobs are required to be safe to re-run after a failure
       - fieldname: timeout
-        description: Maximum job execution time
+        description: The maximum run time a job inherits unless it overrides it
   bjmm-form:
     fields:
       - fieldname: jobDashboard
@@ -38722,13 +38948,51 @@ form-types:
       - fieldname: executionHistory
         description: Job run history and logs
       - fieldname: failureAlerts
-        description: Notification on job failure
+        description: "What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here."
       - fieldname: slaMonitoring
         description: Alert if job exceeds expected duration
       - fieldname: manualTrigger
         description: Admin can trigger jobs on demand
       - fieldname: notes
         description: Additional batch job notes
+  scjob-cron-form:
+    fields:
+      - fieldname: cronExpression
+        required: true
+        description: "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)"
+  scjob-cal-form:
+    fields:
+      - fieldname: calendarRule
+        required: true
+        description: The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)
+  scjob-evnt-form:
+    fields:
+      - fieldname: eventName
+        required: true
+        description: The system occurrence that starts the job (e.g. order.payment.settled)
+      - fieldname: eventPayload
+        description: What each occurrence carries that the work reads — typically the identity of the record the event is about
+  scjob-work-form:
+    fields:
+      - fieldname: workSummary
+        required: true
+        description: "What the job does, step by step, in prose — the intent the work body must realise"
+      - fieldname: readEntities
+        description: The Data Model entities the job reads
+      - fieldname: writtenEntities
+        description: "The Data Model entities the job writes, including the primary one"
+      - fieldname: targetReports
+        description: "The reports this job produces, where the work is a report run"
+  scjob-fail-form:
+    fields:
+      - fieldname: maxRetries
+        description: "How many times a failed run is retried, if not the default"
+      - fieldname: retryBackoff
+        description: "The delay before the first retry and how it grows, if not the default"
+      - fieldname: timeout
+        description: "How long a single run may take before it is abandoned, if not the default"
+      - fieldname: failureAlertMessage
+        description: The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.
   adenma-form:
     fields:
       - fieldname: environmentCatalog
@@ -43037,6 +43301,16 @@ form-types:
         description: Single/Multi
       - fieldname: displayMode
         description: Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker
+  sefsu-form:
+    fields:
+      - fieldname: acceptedContentKinds
+        description: "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions"
+      - fieldname: maxFileSize
+        description: "Largest file the field accepts, e.g. 10 MB"
+      - fieldname: presentation
+        description: "How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)"
+      - fieldname: uploadOnPick
+        description: Yes/No — whether choosing a file uploads it immediately or the form uploads it on save
   seddb-form:
     fields:
       - fieldname: refreshMode
@@ -43947,94 +44221,6 @@ form-types:
         description: What happens when the action fails
       - fieldname: successFeedback
         description: Confirmation shown on success
-  peprf-form:
-    fields:
-      - fieldname: bio
-        description: Brief biographical context
-      - fieldname: technicalProficiency
-        description: Beginner/Intermediate/Advanced — with context
-      - fieldname: accessibilityNeeds
-        description: Visual/Motor/Cognitive/None
-  pectx-form:
-    fields:
-      - fieldname: typicalUsage
-        description: "Frequency, duration, and primary activities"
-      - fieldname: primaryDevice
-        description: Desktop/Laptop/Tablet/Mobile
-      - fieldname: additionalDevices
-        description: Secondary devices used
-      - fieldname: workEnvironment
-        description: Office/Remote/Field/Hybrid
-  pends-form:
-    fields:
-      - fieldname: motivations
-        description: What drives their behavior
-      - fieldname: frustrationsWithCurrent
-        description: Issues with existing solutions
-      - fieldname: successCriteria
-        description: How they measure success
-      - fieldname: quote
-        description: A quote that captures their perspective
-  plps-form:
-    fields:
-      - fieldname: defaultMarginTop
-        description: "Top margin, e.g. 20mm"
-      - fieldname: defaultMarginBottom
-        description: "Bottom margin, e.g. 20mm"
-      - fieldname: defaultMarginLeft
-        description: "Left margin, e.g. 15mm"
-      - fieldname: defaultMarginRight
-        description: "Right margin, e.g. 15mm"
-  prlabr-form:
-    fields:
-      - fieldname: brandingLogoResource
-        description: Resource key or path for company logo
-      - fieldname: brandingColorPrimary
-        description: "Primary brand color, e.g. #003366"
-      - fieldname: brandingColorSecondary
-        description: Secondary brand color for subheadings
-      - fieldname: brandingFontFamily
-        description: "Font family, e.g. Helvetica, Arial"
-      - fieldname: brandingFontSizeBase
-        description: "Base font size, e.g. 10pt"
-  prlawa-form:
-    fields:
-      - fieldname: watermarkText
-        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
-      - fieldname: watermarkImageResource
-        description: Resource key for image watermark
-      - fieldname: watermarkOpacity
-        description: "Watermark opacity, e.g. 0.1"
-      - fieldname: confidentialityMarking
-        description: Internal / Confidential / Public
-      - fieldname: confidentialityPosition
-        description: Header / Footer / Both / Watermark
-  plhf-form:
-    fields:
-      - fieldname: defaultHeaderContent
-        description: "Header template, e.g. {logo} {reportTitle} {date}"
-      - fieldname: defaultFooterContent
-        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
-      - fieldname: defaultDateFormat
-        description: "Date format, e.g. dd.MM.yyyy"
-      - fieldname: defaultNumberFormat
-        description: "Number format, e.g. #,##0.00"
-      - fieldname: defaultCurrencyFormat
-        description: "Currency format, e.g. €#,##0.00"
-      - fieldname: defaultTimezone
-        description: "Timezone, e.g. Europe/Berlin"
-      - fieldname: defaultLocale
-        description: "Locale, e.g. de-DE"
-  prlaar-form:
-    fields:
-      - fieldname: archivePolicy
-        description: None / 30-days / 1-year / Permanent
-      - fieldname: reportNamingConvention
-        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
-      - fieldname: batchGenerationSupport
-        description: Yes / No — support batch report generation
-      - fieldname: maxConcurrentReports
-        description: Maximum concurrent reports
   reid-form:
     fields:
       - fieldname: description
@@ -44509,6 +44695,94 @@ form-types:
         description: Date this recipient is removed; empty = indefinite
       - fieldname: notes
         description: Design notes
+  peprf-form:
+    fields:
+      - fieldname: bio
+        description: Brief biographical context
+      - fieldname: technicalProficiency
+        description: Beginner/Intermediate/Advanced — with context
+      - fieldname: accessibilityNeeds
+        description: Visual/Motor/Cognitive/None
+  pectx-form:
+    fields:
+      - fieldname: typicalUsage
+        description: "Frequency, duration, and primary activities"
+      - fieldname: primaryDevice
+        description: Desktop/Laptop/Tablet/Mobile
+      - fieldname: additionalDevices
+        description: Secondary devices used
+      - fieldname: workEnvironment
+        description: Office/Remote/Field/Hybrid
+  pends-form:
+    fields:
+      - fieldname: motivations
+        description: What drives their behavior
+      - fieldname: frustrationsWithCurrent
+        description: Issues with existing solutions
+      - fieldname: successCriteria
+        description: How they measure success
+      - fieldname: quote
+        description: A quote that captures their perspective
+  plps-form:
+    fields:
+      - fieldname: defaultMarginTop
+        description: "Top margin, e.g. 20mm"
+      - fieldname: defaultMarginBottom
+        description: "Bottom margin, e.g. 20mm"
+      - fieldname: defaultMarginLeft
+        description: "Left margin, e.g. 15mm"
+      - fieldname: defaultMarginRight
+        description: "Right margin, e.g. 15mm"
+  prlabr-form:
+    fields:
+      - fieldname: brandingLogoResource
+        description: Resource key or path for company logo
+      - fieldname: brandingColorPrimary
+        description: "Primary brand color, e.g. #003366"
+      - fieldname: brandingColorSecondary
+        description: Secondary brand color for subheadings
+      - fieldname: brandingFontFamily
+        description: "Font family, e.g. Helvetica, Arial"
+      - fieldname: brandingFontSizeBase
+        description: "Base font size, e.g. 10pt"
+  prlawa-form:
+    fields:
+      - fieldname: watermarkText
+        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
+      - fieldname: watermarkImageResource
+        description: Resource key for image watermark
+      - fieldname: watermarkOpacity
+        description: "Watermark opacity, e.g. 0.1"
+      - fieldname: confidentialityMarking
+        description: Internal / Confidential / Public
+      - fieldname: confidentialityPosition
+        description: Header / Footer / Both / Watermark
+  plhf-form:
+    fields:
+      - fieldname: defaultHeaderContent
+        description: "Header template, e.g. {logo} {reportTitle} {date}"
+      - fieldname: defaultFooterContent
+        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
+      - fieldname: defaultDateFormat
+        description: "Date format, e.g. dd.MM.yyyy"
+      - fieldname: defaultNumberFormat
+        description: "Number format, e.g. #,##0.00"
+      - fieldname: defaultCurrencyFormat
+        description: "Currency format, e.g. €#,##0.00"
+      - fieldname: defaultTimezone
+        description: "Timezone, e.g. Europe/Berlin"
+      - fieldname: defaultLocale
+        description: "Locale, e.g. de-DE"
+  prlaar-form:
+    fields:
+      - fieldname: archivePolicy
+        description: None / 30-days / 1-year / Permanent
+      - fieldname: reportNamingConvention
+        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
+      - fieldname: batchGenerationSupport
+        description: Yes / No — support batch report generation
+      - fieldname: maxConcurrentReports
+        description: Maximum concurrent reports
   exid-form:
     fields:
       - fieldname: description

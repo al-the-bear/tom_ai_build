@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-07-28T05:35:46.193448Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 9,
+  "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
-  "classCount": 1248,
+  "classCount": 1259,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -20049,7 +20049,7 @@
     "BatchJobManagement": {
       "name": "BatchJobManagement",
       "sectionId": "BAJOMA",
-      "doc": "Batch job management.",
+      "doc": "Batch job management — the scheduled jobs and the policy they run under.\n\nTwo layers, deliberately separated. This section and its policy subsections\nauthor what is true of *every* job — the time-zone basis, the execution\ncontrols, the monitoring surface. [scheduledJobs] authors the jobs\nthemselves, one entry each. A specification that has only the policy layer\ncan say how jobs are run in general but cannot name a single one, which is\nexactly what the job list exists to fix.\n\nThe policy is the **default layer**: an execution control stated here applies\nto every job that does not override it, and an entry that does override it\nsays so in its own failure-policy subsection.",
       "standardReferences": {
         "standards": [
           "Google SRE — eliminating toil and operational procedures",
@@ -20073,23 +20073,21 @@
           "arguments": {
             "id": "BAJOMA"
           }
-        },
-        {
-          "name": "CodeSpecKind",
-          "arguments": {
-            "kinds": [
-              "CodeSpecPart.backgroundJob"
-            ],
-            "note": "CE-JB — scheduled / background / queued jobs (cron | calendar | event triggers), distinct from request-driven serverApi. Active (codespecs_mapping.md §4.1): @CsJob, server locus; work bodies are TomCommand on the tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); the typed job-definition holder is a tom_core_codespecs gap; execution runs under the server principal; scheduled reports (CE-RP) are realized as CE-JB jobs; scheduler runtime / job queue / multi-node locking are framework roadmap (codespecs_mapping.md §5.29)."
-          }
         }
       ],
       "fields": [
         {
           "name": "content",
           "kind": "form",
+          "help": "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Describe the ground rules every scheduled job runs under.\n\n**The scheduling substrate is fixed, so there is no engine decision to record\nhere.** Jobs are run by the framework's own scheduler; this section says under\nwhat rules they run, never with what.\n\n**Time zone is a system-wide choice, not a per-job one.** Every schedule is\ninterpreted in the scheduler's own clock zone, so state that zone once here\nrather than per job.\n\nThe jobs themselves are declared one by one in Scheduled Jobs (SCJOB); the\nsubsections below carry the defaults those declarations inherit.\n"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -20105,32 +20103,19 @@
           ],
           "formFields": [
             {
-              "name": "schedulingEngine",
-              "label": "Scheduling Engine",
-              "hint": "Cron, Quartz, cloud scheduler, Airflow",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "scheduleDefinition",
-              "label": "Schedule Definition",
-              "hint": "Cron expression, calendar-based, event-driven",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "timeZoneHandling",
               "label": "Time Zone Handling",
-              "hint": "UTC, local, configurable per job",
+              "hint": "The clock zone every schedule is interpreted in — UTC or the server's local zone",
               "type": "String",
-              "required": false
+              "required": true
             }
           ]
         },
         {
           "name": "jobTypes",
           "kind": "form",
-          "doc": "Supported job categories.",
+          "doc": "Supported job categories.\n\nA category-level summary of the scheduled work the system performs — the\nshape of the workload, not its inventory. The authoritative per-job\ndeclarations are [scheduledJobs]; a category named here without a job in\nthat list is a job the specification has not actually declared.",
+          "help": "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB).",
           "sectionId": "BJMJT",
           "standardReferences": {
             "standards": [
@@ -20155,6 +20140,12 @@
                   "ITIL 4 — change enablement and maintenance windows"
                 ],
                 "connotation": "Supported job categories catalog the kinds of scheduled work the system performs."
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Summarise which categories of scheduled work exist and why, one line each. This is the shape of the workload, not the job inventory — declare each job individually in Scheduled Jobs (SCJOB)."
               }
             },
             {
@@ -20211,7 +20202,8 @@
         {
           "name": "execution",
           "kind": "form",
-          "doc": "Execution controls.",
+          "doc": "Execution controls — the **default layer** for every job.\n\nRetry, timeout and idempotency stated here apply to every job that does\nnot say otherwise. A job that needs different numbers overrides them in\nits own failure-policy subsection, so this section is the rule and the\nentry is the exception — never the other way round.",
+          "help": "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits.",
           "sectionId": "BJME",
           "standardReferences": {
             "standards": [
@@ -20236,6 +20228,12 @@
                   "AWS Well-Architected — operational excellence (runbooks, playbooks)"
                 ],
                 "connotation": "Execution controls define how batch jobs run, retry, and enforce timeouts."
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "State the controls that apply to every job. A job that needs different retry, backoff or timeout numbers overrides them in its own entry (SCJOB); what is stated here is what every other job inherits."
               }
             },
             {
@@ -20268,22 +20266,22 @@
             },
             {
               "name": "retryPolicy",
-              "label": "Retry Policy",
-              "hint": "Retry count, backoff, dead-letter",
+              "label": "Default Retry Policy",
+              "hint": "The retry count and backoff a job inherits unless it overrides them, plus what happens after the last attempt",
               "type": "String",
               "required": false
             },
             {
               "name": "idempotency",
               "label": "Idempotency",
-              "hint": "Safe to re-run on failure",
+              "hint": "Whether jobs are required to be safe to re-run after a failure",
               "type": "bool",
               "required": false
             },
             {
               "name": "timeout",
-              "label": "Timeout",
-              "hint": "Maximum job execution time",
+              "label": "Default Timeout",
+              "hint": "The maximum run time a job inherits unless it overrides it",
               "type": "String",
               "required": false
             }
@@ -20349,8 +20347,8 @@
             },
             {
               "name": "failureAlerts",
-              "label": "Failure Alerts",
-              "hint": "Notification on job failure",
+              "label": "Default Failure Alerting",
+              "hint": "What is raised when a job fails, for jobs that do not name their own alert message. The destination the alert is delivered to is a deployment setting, not authored here.",
               "type": "String",
               "required": false
             },
@@ -20376,6 +20374,60 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "scheduledJobs",
+          "kind": "list",
+          "doc": "Scheduled jobs — one entry per job the system runs.\n\nThe declaration layer. Everything above is policy that applies to all\njobs; this is where a job actually comes into existence.",
+          "help": "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run.",
+          "sectionId": "SCJOB-JOB-LST",
+          "sectionIdPattern": "SCJOB-JOB-xxx",
+          "standardReferences": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Google SRE — eliminating toil and operational procedures",
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "The declared background jobs: each with its trigger, the work it performs, the data it acts on, its failure policy and the environments it runs in."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-JOB-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SCJOB-JOB-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "elementType": "ScheduledJobEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -33960,6 +34012,140 @@
         }
       ]
     },
+    "ClientApplicationEntry": {
+      "name": "ClientApplicationEntry",
+      "sectionId": "CLIAPP",
+      "doc": "A single client application of the system (CE-CL).\n\nOne client: what kind of application it is, which platforms it targets,\nwhere it starts, and which screens it comprises. This is the enumeration\n[ClientRequirementsSection]'s requirement subsections cannot give — they\nstate what a *machine* must provide, which is a deployment constraint on\nevery client rather than a statement that any particular client exists.\n\n**Platform targets are referenced, never restated.** A client's platform\ntargets are ids already declared in the browser, desktop-OS and\nmobile-platform requirement lists of the enclosing section. Naming a\nplatform here that no requirement entry declares is a dangling reference,\nwhich is the point: the minimum a platform must meet is stated once.\n\n**Configuration is not restated either.** Which settings a client carries\nis declared in [ClientConfiguration] (CE-CC), where each setting names the\nclient that owns it. A client that also listed its settings would be the\nsecond source those two would eventually disagree through\n(`codespecs_mapping.md` §11).\n\n**Screens, not flows.** A client comprises screens; the flows *between*\nthose screens are the screen flow structure's own subject (D09 XDS) and are\nreached through the entry route, not listed again per client.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description",
+          "ISO/IEC 25010 — portability / installability"
+        ],
+        "connotation": "A single client application: its identity, kind, platform targets, entry route and constituent screens."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — portability / installability"
+            ],
+            "connotation": "A single client application: its identity, kind, platform targets, entry route and constituent screens."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CLIAPP"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.client"
+            ],
+            "note": "CE-CL — one client application of the system. Active (codespecs_mapping.md §4.1): @CsClient, client locus. clientId supplies the marker's first positional argument and clientKind its required kind; platformTargets, entryRoute and includedScreens become members of the generated descriptor, the entry route as a CsRouteRef. The client's configuration is not declared here — CE-CC settings name their owning client (codespecs_mapping.md §11)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "clientId",
+              "label": "Client Id",
+              "hint": "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "clientName",
+              "label": "Client Name",
+              "hint": "The name users and operators call this client by",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "clientKind",
+              "label": "Client Kind",
+              "hint": "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)",
+              "type": "ClientApplicationKind",
+              "required": true,
+              "enumValues": [
+                "graphicalApplication",
+                "commandLine",
+                "server"
+              ]
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "Who uses this client and what for — the reason it exists separately from the system's other clients",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "platformTargets",
+              "label": "Platform Targets",
+              "hint": "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "BROREQENT.browserName",
+                "DEOSREEN.osName",
+                "MODEREEN.platform"
+              ]
+            },
+            {
+              "name": "entryRoute",
+              "label": "Entry Route",
+              "hint": "The route this client opens on, by id from the screen route map. Empty for a client with no routes",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
+            },
+            {
+              "name": "includedScreens",
+              "label": "Included Screens",
+              "hint": "The screens this client comprises, by id. Empty for a client with no screens",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "ClientConfiguration": {
       "name": "ClientConfiguration",
       "sectionId": "CLICON",
@@ -34001,6 +34187,113 @@
       "fields": [
         {
           "name": "content",
+          "kind": "content",
+          "help": "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Summarise how this client application is configured per install — which\ncategories of setting exist, which are shipped as defaults in the app's\nconfiguration resources, and which an operator or user may override on a\ngiven machine.\n\nDeclare the individual settings in the list below; keep this overview to\nthe shape and the policy.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "settings",
+          "kind": "list",
+          "doc": "The declared client configuration settings.",
+          "help": "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>.",
+          "sectionId": "CCSET-SETT-LST",
+          "sectionIdPattern": "CCSET-SETT-xxx",
+          "standardReferences": {
+            "standards": [
+              "Twelve-Factor App — config stored in the environment, per deployment",
+              "ISO/IEC 25010 — portability / installability"
+            ],
+            "connotation": "The client configuration settings declared by the system's client applications, one entry per key."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Twelve-Factor App — config stored in the environment, per deployment",
+                  "ISO/IEC 25010 — portability / installability"
+                ],
+                "connotation": "The client configuration settings declared by the system's client applications, one entry per key."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CCSET-SETT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "CCSET-SETT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per client configuration setting, naming the client application that declares it. Declare the setting — key, value type and default — never its value on a particular machine: the value comes from the app configuration resources or this install's persisted overrides. Typical keys: api.baseUrl, app.environment, app.updateChannel, device.options, feature.<name>."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ClientConfigurationSettingEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "ClientConfigurationSettingEntry": {
+      "name": "ClientConfigurationSettingEntry",
+      "sectionId": "CCSET",
+      "doc": "A single declared client configuration setting (CE-CC).\n\nThe declaration only: key, value type, default, and which narrower scopes\nmay shadow the key. The *value* is never authored — it comes from the client\napp's configuration resources or from this install's persisted overrides\n(`codespecs_mapping.md` §5.16).",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — config stored in the environment, per deployment",
+          "ISO/IEC 25010 — portability / installability"
+        ],
+        "connotation": "Declares one client configuration setting: its key, value type, default, and which narrower scopes may shadow it."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — config stored in the environment, per deployment",
+              "ISO/IEC 25010 — portability / installability"
+            ],
+            "connotation": "Declares one client configuration setting: its key, value type, default, and which narrower scopes may shadow it."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CCSET"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
           "kind": "form",
           "serializationOrder": 0,
           "annotations": [
@@ -34019,39 +34312,42 @@
           ],
           "formFields": [
             {
-              "name": "apiBaseUrl",
-              "label": "API Base URL",
-              "hint": "The server/API endpoint this client install talks to",
+              "name": "settingKey",
+              "label": "Setting Key",
+              "hint": "The dotted key of the client setting, e.g. api.baseUrl",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "client",
+              "label": "Client",
+              "hint": "The client application that declares this setting, by id. CE-CC is keyed by (client app, machine), so the owning client is part of the key. Empty where the system has a single client",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "CLIAPP.clientId"
+              ]
+            },
+            {
+              "name": "valueType",
+              "label": "Value Type",
+              "hint": "string / int / double / bool / enum",
               "type": "String",
               "required": false
             },
             {
-              "name": "environment",
-              "label": "Environment",
-              "hint": "dev / staging / production for this install",
+              "name": "defaultValue",
+              "label": "Default Value",
+              "hint": "The value used until the app configuration resources or an install-local override supply one",
               "type": "String",
               "required": false
             },
             {
-              "name": "deviceOptions",
-              "label": "Device Options",
-              "hint": "Machine-specific device/hardware options for this install",
+              "name": "overridableBy",
+              "label": "Overridable By",
+              "hint": "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned) / user / device. No default: pinning a key must be authored, not fallen into",
               "type": "String",
-              "required": false
-            },
-            {
-              "name": "featureToggles",
-              "label": "Per-Install Feature Toggles",
-              "hint": "Client-side toggles applied to this install",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "updateChannel",
-              "label": "Update Channel",
-              "hint": "stable / beta / canary for this install",
-              "type": "String",
-              "required": false
+              "required": true
             }
           ]
         }
@@ -34753,7 +35049,7 @@
     "ClientRequirementsSection": {
       "name": "ClientRequirementsSection",
       "sectionId": "CLRESE",
-      "doc": "8.4.2. Client Requirements.\n\nMinimum client requirements: browser versions, operating systems, screen\nresolution, network bandwidth, and device capabilities.",
+      "doc": "8.4.2. Client Requirements.\n\nTwo layers that answer two different questions.\n\n**Which client applications exist** — [clientApplications], one\n[ClientApplicationEntry] per client, naming its kind, its entry route and\nthe screens it comprises. This is the enumerable set of clients; a client\nnot listed there does not exist.\n\n**What a user's machine must provide** — every other subsection: browser,\ndesktop-OS, mobile-device, display, network, hardware, accessibility and\nsecurity minimums. These are deployment constraints on the *environment*,\nnot clients, which is why a client entry *references* them rather than\nrestating them.",
       "help": "Specify client device requirements including browsers, operating systems,\ndisplay specifications, and accessibility needs. Client requirements\ndefine the user experience boundary conditions.\n\n**Browser Requirements**:\n- Supported browsers with minimum versions\n- Browser feature requirements (WebGL, WebRTC, Service Workers)\n- Mobile browser considerations (Safari iOS, Chrome Android)\n- Progressive Web App (PWA) requirements\n\n**Desktop Requirements**:\n- Operating systems: Windows 10/11, macOS 12+, Linux distributions\n- Hardware minimums: CPU, RAM, disk space\n- Required software: .NET runtime, Java, etc.\n- Installation and update mechanisms\n\n**Mobile Requirements**:\n- iOS minimum version and device support\n- Android API level and device compatibility\n- Form factors: phone, tablet, foldable\n- App store requirements and restrictions\n\n**Display Requirements**:\n- Minimum screen resolution\n- Responsive design breakpoints\n- Touch vs. mouse/keyboard interactions\n- HiDPI and retina display support\n\n**Accessibility Requirements**:\n- WCAG 2.1 compliance level (A, AA, AAA)\n- Screen reader compatibility\n- Keyboard navigation\n- Color contrast and visual accommodations\n",
       "standardReferences": {
         "standards": [
@@ -34783,15 +35079,6 @@
           "name": "SectionId",
           "arguments": {
             "id": "CLRESE"
-          }
-        },
-        {
-          "name": "CodeSpecKind",
-          "arguments": {
-            "kinds": [
-              "CodeSpecPart.client"
-            ],
-            "note": "CE-CL — the client applications that exist (Flutter app, CLI, other server) and the environments they must run in."
           }
         }
       ],
@@ -34834,6 +35121,60 @@
           "sectionType": "TextSection"
         },
         {
+          "name": "clientApplications",
+          "kind": "list",
+          "doc": "The client applications the system consists of (CE-CL).",
+          "help": "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on.",
+          "sectionId": "CLIAPP-CLIE-LST",
+          "sectionIdPattern": "CLIAPP-CLIE-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description",
+              "ISO/IEC 25010 — portability / installability"
+            ],
+            "connotation": "The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description",
+                  "ISO/IEC 25010 — portability / installability"
+                ],
+                "connotation": "The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "CLIAPP-CLIE-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "CLIAPP-CLIE-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ClientApplicationEntry",
+          "elementIsComplex": true
+        },
+        {
           "name": "browserRequirements",
           "kind": "list",
           "doc": "Web browser requirements.",
@@ -34846,7 +35187,7 @@
             ],
             "connotation": "The web browsers the client must support."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 3,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -34878,7 +35219,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 3
               }
             }
           ],
@@ -34898,7 +35239,7 @@
             ],
             "connotation": "The desktop operating systems the client must support."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 4,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -34930,7 +35271,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 4
               }
             }
           ],
@@ -34950,7 +35291,7 @@
             ],
             "connotation": "The mobile platforms and devices the client must support."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -34982,7 +35323,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 5
               }
             }
           ],
@@ -34993,21 +35334,6 @@
           "name": "displayRequirements",
           "kind": "complex",
           "doc": "Display and screen requirements.",
-          "serializationOrder": 5,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 5
-              }
-            }
-          ],
-          "type": "DisplayRequirements"
-        },
-        {
-          "name": "networkRequirements",
-          "kind": "complex",
-          "doc": "Client network requirements.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -35017,12 +35343,12 @@
               }
             }
           ],
-          "type": "ClientNetworkRequirements"
+          "type": "DisplayRequirements"
         },
         {
-          "name": "hardwareRequirements",
+          "name": "networkRequirements",
           "kind": "complex",
-          "doc": "Client hardware requirements.",
+          "doc": "Client network requirements.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -35032,12 +35358,12 @@
               }
             }
           ],
-          "type": "ClientHardwareRequirements"
+          "type": "ClientNetworkRequirements"
         },
         {
-          "name": "accessibilityRequirements",
+          "name": "hardwareRequirements",
           "kind": "complex",
-          "doc": "Accessibility requirements for clients.",
+          "doc": "Client hardware requirements.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -35047,12 +35373,12 @@
               }
             }
           ],
-          "type": "ClientAccessibilityRequirements"
+          "type": "ClientHardwareRequirements"
         },
         {
-          "name": "pwaRequirements",
+          "name": "accessibilityRequirements",
           "kind": "complex",
-          "doc": "Progressive Web App (PWA) requirements.",
+          "doc": "Accessibility requirements for clients.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -35062,12 +35388,12 @@
               }
             }
           ],
-          "type": "PwaRequirements"
+          "type": "ClientAccessibilityRequirements"
         },
         {
-          "name": "nativeAppRequirements",
+          "name": "pwaRequirements",
           "kind": "complex",
-          "doc": "Native app requirements.",
+          "doc": "Progressive Web App (PWA) requirements.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -35077,12 +35403,12 @@
               }
             }
           ],
-          "type": "NativeAppRequirements"
+          "type": "PwaRequirements"
         },
         {
-          "name": "securityRequirements",
+          "name": "nativeAppRequirements",
           "kind": "complex",
-          "doc": "Client security requirements.",
+          "doc": "Native app requirements.",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -35092,12 +35418,12 @@
               }
             }
           ],
-          "type": "ClientSecurityRequirements"
+          "type": "NativeAppRequirements"
         },
         {
-          "name": "clientConfiguration",
+          "name": "securityRequirements",
           "kind": "complex",
-          "doc": "Per-machine configuration of a client application (CE-CC).",
+          "doc": "Client security requirements.",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -35107,12 +35433,12 @@
               }
             }
           ],
-          "type": "ClientConfiguration"
+          "type": "ClientSecurityRequirements"
         },
         {
-          "name": "deviceSettings",
+          "name": "clientConfiguration",
           "kind": "complex",
-          "doc": "User-specific settings of a user-owned device (CE-DS).",
+          "doc": "Per-machine configuration of a client application (CE-CC).",
           "serializationOrder": 13,
           "annotations": [
             {
@@ -35122,7 +35448,37 @@
               }
             }
           ],
+          "type": "ClientConfiguration"
+        },
+        {
+          "name": "deviceSettings",
+          "kind": "complex",
+          "doc": "User-specific settings of a user-owned device (CE-DS).",
+          "serializationOrder": 14,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 14
+              }
+            }
+          ],
           "type": "DeviceSettings"
+        },
+        {
+          "name": "userSettings",
+          "kind": "complex",
+          "doc": "Server-persisted settings that follow the user across devices (CE-UP).",
+          "serializationOrder": 15,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 15
+              }
+            }
+          ],
+          "type": "UserSettings"
         }
       ]
     },
@@ -54170,7 +54526,7 @@
           "name": "steps",
           "kind": "list",
           "doc": "Workflow steps in sequence.",
-          "help": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual.",
+          "help": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list.",
           "sectionId": "WSE-STEP-LST",
           "sectionIdPattern": "WSE-STEP-xxx",
           "standardReferences": {
@@ -54205,7 +54561,7 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
+                "guidance": "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list."
               }
             },
             {
@@ -54481,110 +54837,6 @@
           "elementIsComplex": true
         },
         {
-          "name": "manualSteps",
-          "kind": "list",
-          "doc": "Manual steps requiring human intervention.",
-          "help": "Identify steps that cannot be automated or require human judgment.",
-          "sectionId": "WSE-MANU-LST",
-          "sectionIdPattern": "WSE-MANU-xxx",
-          "standardReferences": {
-            "standards": [
-              "BABOK v3 §10 — current-state analysis (manual / non-automated steps)"
-            ],
-            "connotation": "The subset of workflow steps that require human intervention."
-          },
-          "serializationOrder": 9,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "BABOK v3 §10 — current-state analysis (manual / non-automated steps)"
-                ],
-                "connotation": "The subset of workflow steps that require human intervention."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "WSE-MANU-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "WSE-MANU-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Identify steps that cannot be automated or require human judgment."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 9
-              }
-            }
-          ],
-          "elementType": "WorkflowStepEntry",
-          "elementIsComplex": true
-        },
-        {
-          "name": "errorProneSteps",
-          "kind": "list",
-          "doc": "Error-prone steps with high failure rates.",
-          "help": "Identify steps with known issues, high error rates, or workarounds.",
-          "sectionId": "WSE-ERRO-LST",
-          "sectionIdPattern": "WSE-ERRO-xxx",
-          "standardReferences": {
-            "standards": [
-              "BABOK v3 §10 — current-state analysis (error-prone steps)"
-            ],
-            "connotation": "The subset of workflow steps known to have high error or failure rates."
-          },
-          "serializationOrder": 10,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "BABOK v3 §10 — current-state analysis (error-prone steps)"
-                ],
-                "connotation": "The subset of workflow steps known to have high error or failure rates."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "WSE-ERRO-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "WSE-ERRO-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Identify steps with known issues, high error rates, or workarounds."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 10
-              }
-            }
-          ],
-          "elementType": "WorkflowStepEntry",
-          "elementIsComplex": true
-        },
-        {
           "name": "timing",
           "kind": "form",
           "doc": "Workflow timing and performance.",
@@ -54595,7 +54847,7 @@
             ],
             "connotation": "The timing profile of the workflow: elapsed, processing and wait times, SLA performance, peak periods, and bottlenecks."
           },
-          "serializationOrder": 11,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -54621,7 +54873,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 9
               }
             }
           ],
@@ -54674,12 +54926,12 @@
           "name": "exceptions",
           "kind": "complex",
           "doc": "Workflow exceptions and error handling.",
-          "serializationOrder": 12,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 10
               }
             }
           ],
@@ -56151,6 +56403,36 @@
             }
           ],
           "type": "MessageKeyRegistry"
+        },
+        {
+          "name": "serverOperationRegistry",
+          "kind": "complex",
+          "doc": "Server operation registry — the system's own operation surface (CE-API):\none entry per operation the server answers.\n\nProjected here rather than into a separate document because an operation is\ndefined by the entity it reads and writes, which this document owns.",
+          "serializationOrder": 18,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 18
+              }
+            }
+          ],
+          "type": "ServerOperationRegistry"
+        },
+        {
+          "name": "schemaVersioningAndMigration",
+          "kind": "complex",
+          "doc": "Schema versioning and migration — the CE-MG home: the versioning policy,\nthe data source / schema targets, and the ordered artifact set that\nestablishes and evolves the schema.\n\nProjected here because the artifact chain must converge on the entity and\nattribute model this document owns.",
+          "serializationOrder": 19,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 19
+              }
+            }
+          ],
+          "type": "SchemaVersioningAndMigration"
         }
       ]
     },
@@ -58641,13 +58923,13 @@
         {
           "name": "technicalFramework",
           "kind": "complex",
-          "doc": "Technical framework — CE-CF platform/config foundation.",
+          "doc": "Technical framework — the platform foundation and **all four settings\nscopes**.\n\nThe subtree spans both loci because the four configuration scopes are\nauthored under it and route apart (`codespecs_mapping.md` §11): CE-CF\nserver configuration (`SystemConfigurationManagement`) is server-only,\nwhile CE-CC client configuration, CE-DS device settings and CE-UP user\nsettings are authored under the client-requirements subtree and route to\nthe client project. CE-UP additionally has a server-side persistence half\ngenerated from the *same* declarations, so it appears in both projects —\nthe scope is expressed by which section a setting is declared in, never by\na discriminator field.",
           "serializationOrder": 8,
           "annotations": [
             {
               "name": "Comment",
               "arguments": {
-                "text": "locus: server — CE-CF"
+                "text": "locus: server(CE-CF)+client(CE-CC/CE-DS/CE-UP)"
               }
             },
             {
@@ -58723,10 +59005,52 @@
           "type": "ReportDefinitions"
         },
         {
+          "name": "schemaVersioningAndMigration",
+          "kind": "complex",
+          "doc": "Schema versioning and migration — CE-MG migration artifacts.\n\nThe artifacts ship with the server project because that is where the\nmigration engine runs them (`codespecs_mapping.md` §4.2). The subtree\nsupplies all three inputs the `@CsMigration` declaration needs: `MIGTG`\ngives the data source / schema directory placement, `SCMST.artifactKind`\nthe artifact kind, and `SCMST.environments` the filename environment tag.\nThe artifact *filenames* are authored, not derived — a §5.23 string\nexemption — so they are not part of the generated surface.\n\nThe subtree sits beside `dataModel` above for a reason: the cumulative\neffect of a schema's artifacts must converge on the CE-DB model that entry\ngenerates, and that convergence is a validator check over both.",
+          "serializationOrder": 12,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-MG"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 12
+              }
+            }
+          ],
+          "type": "SchemaVersioningAndMigration"
+        },
+        {
+          "name": "serverOperationRegistry",
+          "kind": "complex",
+          "doc": "Server operation registry — the application's **own** CE-API surface.\n\nThe one subtree that declares what the system answers. It spans two loci\nbecause a CE-API operation generates two halves (`codespecs_mapping.md`\n§4.2): the **operation catalogue and the request/response types** are\nshared — the client cites an operation and depends on its shapes — while\nthe **operation itself** lands on the owning service unit in the server\nproject. Which service unit that is follows from each operation's primary\nwritten data entity (§5.17), so ownership is derived here rather than\ndeclared.\n\nThe external-interface inventory (EXIN, D07 IIS) is deliberately **not**\nreachable from this projection: it describes third-party interfaces the\nsystem talks to, not the surface the system generates.",
+          "serializationOrder": 13,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: shared(CE-API contract)+server(CE-API operations)"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 13
+              }
+            }
+          ],
+          "type": "ServerOperationRegistry"
+        },
+        {
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 12,
+          "serializationOrder": 14,
           "annotations": [
             {
               "name": "Comment",
@@ -58737,7 +59061,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 14
               }
             }
           ],
@@ -58747,7 +59071,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 13,
+          "serializationOrder": 15,
           "annotations": [
             {
               "name": "Comment",
@@ -58758,7 +59082,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 13
+                "order": 15
               }
             }
           ],
@@ -66502,7 +66826,7 @@
     "DataModelFollowUp": {
       "name": "DataModelFollowUp",
       "sectionId": "DMFU",
-      "doc": "7.9. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.",
+      "doc": "7.10. Data Model Follow-up Facets.\n\nOperational and governance facets that accompany the data model but are not\npart of the generation-owned entity/attribute schema: the model-wide ER\ndiagram plus per-entity volume, compliance, technical, and migration\nfacets. Each per-entity block references its source entity by name/alias so\nthe facets stay correlated with `dataModel.entities` without being nested\ninside the generation-owned `DataEntityEntry`.",
       "standardReferences": {
         "standards": [
           "DAMA-DMBOK2 — data management body of knowledge",
@@ -66564,7 +66888,7 @@
         {
           "name": "erDiagram",
           "kind": "section",
-          "doc": "7.9.1. Entity-Relationship Diagram (mermaid).",
+          "doc": "7.10.1. Entity-Relationship Diagram (mermaid).",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -66580,7 +66904,7 @@
         {
           "name": "entityFollowUps",
           "kind": "list",
-          "doc": "7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.",
+          "doc": "7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.",
           "help": "Add one entry per entity that carries follow-up facets.",
           "sectionId": "DMFUE-ENFU-LST",
           "sectionIdPattern": "DMFUE-ENFU-xxx",
@@ -82685,16 +83009,16 @@
         }
       ]
     },
-    "DeviceSettings": {
-      "name": "DeviceSettings",
-      "sectionId": "DEVSET",
-      "doc": "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).",
+    "DeviceSettingEntry": {
+      "name": "DeviceSettingEntry",
+      "sectionId": "DSSET",
+      "doc": "A single declared device setting (CE-DS).\n\nThe declaration only: key, value type and default. The value is the user's\nchoice on this device and is never authored (`codespecs_mapping.md` §5.16).\n\nThere is deliberately no shadowing field. §5.16 puts the opt-in on the\n*wider* scope — a key is shadowable only because its wider-scope declaration\nsays so — and CE-DS is the narrowest scope, so it has nothing below it to\nopen. Declaring the same relation from both ends would be two authored\nfields that can disagree.",
       "standardReferences": {
         "standards": [
           "ISO 9241-110 — suitability for individualization (user-tailored settings)",
           "ISO/IEC 25010 — usability / operability"
         ],
-        "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+        "connotation": "Declares one device setting: its key, value type and default."
       },
       "annotations": [
         {
@@ -82704,22 +83028,13 @@
               "ISO 9241-110 — suitability for individualization (user-tailored settings)",
               "ISO/IEC 25010 — usability / operability"
             ],
-            "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+            "connotation": "Declares one device setting: its key, value type and default."
           }
         },
         {
           "name": "SectionId",
           "arguments": {
-            "id": "DEVSET"
-          }
-        },
-        {
-          "name": "CodeSpecKind",
-          "arguments": {
-            "kinds": [
-              "CodeSpecPart.deviceSettings"
-            ],
-            "note": "CE-DS — user-specific device settings, keyed by (user, device) and persisted on the device; distinct from CE-CC client configuration (no user in the key) and CE-UP user settings (follow the user)."
+            "id": "DSSET"
           }
         }
       ],
@@ -82763,15 +83078,124 @@
               "hint": "The value used until the user changes the setting on this device",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "deviceOverridable",
-              "label": "Shadows a Wider-Scope Key",
-              "hint": "Whether this key shadows a device-overridable wider-scope setting (CE-UP user setting or CE-CC client configuration)",
-              "type": "bool",
-              "required": false
             }
           ]
+        }
+      ]
+    },
+    "DeviceSettings": {
+      "name": "DeviceSettings",
+      "sectionId": "DEVSET",
+      "doc": "Device settings — user-specific settings of a user-owned device (CE-DS).\n\nDistinct from client configuration ([ClientConfiguration], CE-CC — no user\nidentity in the key) and from user settings (CE-UP — server-persisted,\nfollow the user): a device setting is keyed by the (user, device) pair and\npersisted on the device itself (window layout, last-opened items,\nmachine-local cache preferences). The same user gets independent values on\neach device; another user on the same device gets their own values\n(`codespecs_mapping.md` §11).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+          "ISO/IEC 25010 — usability / operability"
+        ],
+        "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "The user-specific settings of a user-owned device — window layout, last-opened items, and machine-local preferences keyed by (user, device) and persisted on the device."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "DEVSET"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.deviceSettings"
+            ],
+            "note": "CE-DS — user-specific device settings, keyed by (user, device) and persisted on the device; distinct from CE-CC client configuration (no user in the key) and CE-UP user settings (follow the user)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Summarise which settings this system keeps per (user, device) rather than\nper user — the ones that describe how *this* machine is set up and would be\nwrong to carry to another one.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy and the reasoning for the device scope.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "settings",
+          "kind": "list",
+          "doc": "The declared device settings.",
+          "help": "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit.",
+          "sectionId": "DSSET-SETT-LST",
+          "sectionIdPattern": "DSSET-SETT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "The device settings declared for this system, one entry per key."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+                  "ISO/IEC 25010 — usability / operability"
+                ],
+                "connotation": "The device settings declared for this system, one entry per key."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DSSET-SETT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "DSSET-SETT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "DeviceSettingEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -118861,15 +119285,30 @@
           "type": "MessageKeyRegistry"
         },
         {
-          "name": "dataModelFollowUp",
+          "name": "serverOperationRegistry",
           "kind": "complex",
-          "doc": "7.9. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.",
+          "doc": "7.9. Server Operation Registry.\n\nThe system's **own** operation surface (CE-API): one entry per operation\nthe server answers, with its request/response members, the data entity it\nprimarily writes, and its authorization requirement.",
           "serializationOrder": 9,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 9
+              }
+            }
+          ],
+          "type": "ServerOperationRegistry"
+        },
+        {
+          "name": "dataModelFollowUp",
+          "kind": "complex",
+          "doc": "7.10. Data Model Follow-up Facets.\n\nPer-entity operational/governance facets (volume, compliance, technical\ncharacteristics, migration mappings) and the model-wide ER diagram —\nseparated from `dataModel` so the entity/attribute subtree stays purely\nCE-DB / CE-VA generation-owned while these follow-up facets are authored\nalongside, keyed back to their source entity.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
               }
             }
           ],
@@ -122114,7 +122553,7 @@
     "IntegrationPointEntry": {
       "name": "IntegrationPointEntry",
       "sectionId": "INTEG",
-      "doc": "A single integration point entry.",
+      "doc": "A single integration point entry.\n\nHow a domain object connects to the outside world. It describes *outward\nconnections* — which interfaces surface the object, which events it takes\npart in, how it maps onto external systems — and deliberately declares no\noperation of the application's own: those live in the server operation\nregistry (SVOPR), which is the one place an operation is named and given its\nrequest/response shapes.",
       "standardReferences": {
         "standards": [
           "UML 2.5.1 (ISO/IEC 19505) — class/object modeling"
@@ -122141,10 +122580,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.serverApi",
               "CodeSpecPart.serverCall"
             ],
-            "note": "Integration point: an exposed API → CE-API; a consumed integration → CE-SC."
+            "note": "CE-SC — the consumed side of an integration point: the external systems this object is exchanged with. The application's own operations are declared in the server operation registry (SVOPR), not here."
           }
         }
       ],
@@ -126244,12 +126682,12 @@
     "InterfaceOperationEntry": {
       "name": "InterfaceOperationEntry",
       "sectionId": "IOE",
-      "doc": "API operation entry.",
+      "doc": "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.",
       "standardReferences": {
         "standards": [
           "OpenAPI / AsyncAPI — API specification"
         ],
-        "connotation": "Documents a single API operation including method, path, idempotency, and request/response formats."
+        "connotation": "Documents a single operation of an external interface including method, path, idempotency, and request/response formats."
       },
       "annotations": [
         {
@@ -126258,7 +126696,7 @@
             "standards": [
               "OpenAPI / AsyncAPI — API specification"
             ],
-            "connotation": "Documents a single API operation including method, path, idempotency, and request/response formats."
+            "connotation": "Documents a single operation of an external interface including method, path, idempotency, and request/response formats."
           }
         },
         {
@@ -126271,10 +126709,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.serverApi",
               "CodeSpecPart.serverCall"
             ],
-            "note": "A single boundary operation with its request/response pair. Under the codespecs_mapping.md §7 contract (POST-only, operation-named, typed T/R, CE-ER envelope) it is realised as a serverApi (CsEndpoint) when inbound (we expose) and a serverCall (CsServerCall) when outbound (we call the external system); direction-dependent, hence list-valued."
+            "note": "CE-SC — one operation of an **external** interface: a call the application makes on a third-party system, realised as a serverCall (CsServerCall). Deliberately not a serverApi — the application's own operations are declared in the server operation registry (SVOPR), where the codespecs_mapping.md §7 contract applies. Here the foreign system's method and path are part of the contract being described."
           }
         }
       ],
@@ -132727,7 +133164,7 @@
     "LanguageCountrySelection": {
       "name": "LanguageCountrySelection",
       "sectionId": "LACOSE",
-      "doc": "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.",
+      "doc": "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).",
       "mapsTo": "D09ExperienceDesignSpecification",
       "detailedIn": "D09ExperienceDesignSpecification",
       "standardReferences": {
@@ -132766,15 +133203,6 @@
           "name": "DetailedIn",
           "arguments": {
             "documentClass": "D09ExperienceDesignSpecification"
-          }
-        },
-        {
-          "name": "CodeSpecKind",
-          "arguments": {
-            "kinds": [
-              "CodeSpecPart.userSettings"
-            ],
-            "note": "CE-UP — a user language/country preference, a server-persisted user setting restored on any device the user signs into (codespecs_mapping.md §11)."
           }
         }
       ],
@@ -146639,6 +147067,87 @@
               "name": "dataModelChangeSummary",
               "label": "Data Model Change Summary",
               "hint": "Key structural changes — table splits/merges, normalization",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "MigrationTargetEntry": {
+      "name": "MigrationTargetEntry",
+      "sectionId": "MIGTG",
+      "doc": "A single migration target — one data source / schema pair (form).\n\nMigration artifacts are filed per data source and per schema within it, so a\nsystem with several databases — or several database *types* — needs no extra\nspecification surface beyond naming each target once here. Every artifact in\n7.4.2 then names the target it applies to rather than repeating the pair.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 9075 (SQL) — schema as the named container of database objects",
+          "DAMA-DMBOK2 — data management body of knowledge"
+        ],
+        "connotation": "A named data source / schema pair that migration artifacts are filed under and applied to."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 9075 (SQL) — schema as the named container of database objects",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "A named data source / schema pair that migration artifacts are filed under and applied to."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "MIGTG"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "targetName",
+              "label": "Target Name",
+              "hint": "The identifier migration artifacts use to name this target",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "dataSourceName",
+              "label": "Data Source Name",
+              "hint": "The registered data source the artifacts are applied against",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "schemaName",
+              "label": "Schema Name",
+              "hint": "The schema within that data source the artifacts act on",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "What this data source / schema holds and why it is separate",
               "type": "String",
               "required": false
             }
@@ -211751,6 +212260,490 @@
         }
       ]
     },
+    "ScheduledJobEntry": {
+      "name": "ScheduledJobEntry",
+      "sectionId": "SCJOB",
+      "doc": "A single scheduled job (form + trigger case + work definition + failure\npolicy).\n\nOne background job: what starts it, what it does, which data it acts on,\nwhat happens when it fails, and where it is deployed. Work that runs *off*\nthe request thread is what separates a job from a server operation — the\ntrigger is that axis, which is why it is a required, closed choice rather\nthan free text.\n\n**Where the specification stops and the code begins.** This entry carries\nthe job's *intent* — what it does, over which data, in what order. It does\n**not** carry the work body: the body is written in the CodeSpec as\ncompilable pseudo-code over a later-injected service (`codespecs_mapping.md`\n§5.29 scope part 2), and pseudo-code in a specification is code in the wrong\nplace. State the intent well enough that the body can be written from it,\nthen stop.\n\n**Ownership is derived, not declared.** The service unit that owns a job\nfollows from the entity it primarily writes, exactly as it does for a server\noperation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the\nentity and never the unit. Two places to state one fact is how they come to\ndisagree.\n\n**A scheduled report is not declared twice.** A report definition that names\na schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job\ncomes from the report, not from an entry here. List a job here only when the\nwork is not already the schedule of a report.",
+      "standardReferences": {
+        "standards": [
+          "Google SRE — eliminating toil and operational procedures",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "A single background job: its identity, trigger, work definition, target data, failure policy and deployment envelope."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Google SRE — eliminating toil and operational procedures",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "A single background job: its identity, trigger, work definition, target data, failure policy and deployment envelope."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCJOB"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.backgroundJob"
+            ],
+            "note": "CE-JB — one declared background job, distinct from request-driven serverApi by the fact that it runs off the request thread. Active (codespecs_mapping.md §4.1): @CsJob, server locus. triggerKind and its case subsection supply the trigger and its per-kind slot; the failure-policy subsection supplies maxRetries / backoff / timeout / failureAlert; enabled, environments and the target set ride the TomJobDeclaration envelope; the owning service unit is derived from primaryDataEntity. The work body is compilable pseudo-code over a later-injected abstract service and is written in the CodeSpec, not here (codespecs_mapping.md §5.29)."
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "triggerKind",
+            "note": "Job trigger closed choice: the kind selects its promoted trigger subsection — a recurring clock expression, a calendar date rule, or a named system event. Each kind is started by a different thing and states a different rule, so every kind binds a case."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "jobName",
+              "label": "Job Name",
+              "hint": "The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "Why this job exists — the operational or business reason it runs on its own rather than as part of a request",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "triggerKind",
+              "label": "Trigger Kind",
+              "hint": "What starts the job — selects the trigger subsection below",
+              "type": "ScheduledJobTrigger",
+              "required": true,
+              "enumValues": [
+                "cron",
+                "calendar",
+                "event"
+              ]
+            },
+            {
+              "name": "primaryDataEntity",
+              "label": "Primary Data Entity",
+              "hint": "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "enabled",
+              "label": "Enabled",
+              "hint": "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "environments",
+              "label": "Environments",
+              "hint": "Comma-separated deployment environments this job runs in, or empty to run in every environment",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "cronTrigger",
+          "kind": "form",
+          "doc": "Cron trigger — a promoted `@OneOf` case.\n\nPresent only for the `cron` kind: a recurring clock expression, taken\nverbatim. It is a single field because that is exactly what the trigger\nis — the zone it is read in is the system-wide one stated on\n[BatchJobManagement], and catch-up behaviour after a missed window is a\nscheduler setting rather than a specification statement.",
+          "sectionId": "SCJOB-CRON",
+          "standardReferences": {
+            "standards": [
+              "POSIX crontab — the recurring-schedule expression convention",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "The recurring clock expression that starts this job."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-CRON"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "POSIX crontab — the recurring-schedule expression convention",
+                  "Google SRE — eliminating toil and operational procedures"
+                ],
+                "connotation": "The recurring clock expression that starts this job."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScheduledJobTrigger.cron"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "cronExpression",
+              "label": "Recurrence Expression",
+              "hint": "The recurrence expression, verbatim (e.g. 0 2 * * * for daily at 02:00)",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "calendarTrigger",
+          "kind": "form",
+          "doc": "Calendar trigger — a promoted `@OneOf` case.\n\nPresent only for the `calendar` kind: a date rule a clock expression\ncannot state — the last day of the month, the third Monday of a quarter.",
+          "sectionId": "SCJOB-CAL",
+          "standardReferences": {
+            "standards": [
+              "ISO 8601 — date and time representation",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "The calendar date rule that starts this job."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-CAL"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 8601 — date and time representation",
+                  "Google SRE — eliminating toil and operational procedures"
+                ],
+                "connotation": "The calendar date rule that starts this job."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScheduledJobTrigger.calendar"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "calendarRule",
+              "label": "Calendar Rule",
+              "hint": "The date rule and time of day (e.g. last day of each month at 02:00; third Monday of each quarter at 06:00)",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "eventTrigger",
+          "kind": "form",
+          "doc": "Event trigger — a promoted `@OneOf` case.\n\nPresent only for the `event` kind. An event-triggered job does not fire on\ntime at all, so it has no schedule; what it has instead — and what neither\nother arm has — is an occurrence carrying data the work reads.",
+          "sectionId": "SCJOB-EVNT",
+          "standardReferences": {
+            "standards": [
+              "Enterprise Integration Patterns — event-driven consumer",
+              "Google SRE — eliminating toil and operational procedures"
+            ],
+            "connotation": "The system event that starts this job and the data that event carries."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-EVNT"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Enterprise Integration Patterns — event-driven consumer",
+                  "Google SRE — eliminating toil and operational procedures"
+                ],
+                "connotation": "The system event that starts this job and the data that event carries."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScheduledJobTrigger.event"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "eventName",
+              "label": "Event Name",
+              "hint": "The system occurrence that starts the job (e.g. order.payment.settled)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "eventPayload",
+              "label": "Event Payload",
+              "hint": "What each occurrence carries that the work reads — typically the identity of the record the event is about",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "workDefinition",
+          "kind": "form",
+          "doc": "What the job does and which data it acts on.\n\nThe intent half of the work definition. The body that realises it is\nwritten in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this\nsection says what that body must achieve and over which data, in enough\ndetail that it can be written from here without a second conversation.",
+          "help": "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches.",
+          "sectionId": "SCJOB-WORK",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148:2018 — requirements specification",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "What the job does and which entities and reports it acts on."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-WORK"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148:2018 — requirements specification",
+                  "DAMA-DMBOK2 — data management body of knowledge"
+                ],
+                "connotation": "What the job does and which entities and reports it acts on."
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Describe what the job does, in order, as prose an implementer can work from. Do not write code here — the work body is written in the CodeSpec; what this section owes it is a complete statement of intent and of the data the work touches."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "workSummary",
+              "label": "Work Summary",
+              "hint": "What the job does, step by step, in prose — the intent the work body must realise",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "readEntities",
+              "label": "Read Entities",
+              "hint": "The Data Model entities the job reads",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "writtenEntities",
+              "label": "Written Entities",
+              "hint": "The Data Model entities the job writes, including the primary one",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "targetReports",
+              "label": "Target Reports",
+              "hint": "The reports this job produces, where the work is a report run",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "REPENT.reportId"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "failurePolicy",
+          "kind": "form",
+          "doc": "This job's departures from the system-wide execution policy.\n\nEvery field is an override. Left empty, the job inherits the Execution\nControls (BJME) default; the policy stays the rule and the entry is the\nexception.",
+          "help": "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case.",
+          "sectionId": "SCJOB-FAIL",
+          "standardReferences": {
+            "standards": [
+              "Google SRE — handling overload, retries and cascading failure",
+              "AWS Well-Architected — reliability (failure management)"
+            ],
+            "connotation": "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy."
+          },
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCJOB-FAIL"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Google SRE — handling overload, retries and cascading failure",
+                  "AWS Well-Architected — reliability (failure management)"
+                ],
+                "connotation": "This job's retry, backoff, timeout and alerting overrides of the system-wide execution policy."
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Fill in only what differs from the Execution Controls (BJME) default. An empty field means the job inherits the default, which is the normal case."
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "maxRetries",
+              "label": "Maximum Retries",
+              "hint": "How many times a failed run is retried, if not the default",
+              "type": "int",
+              "required": false
+            },
+            {
+              "name": "retryBackoff",
+              "label": "Retry Backoff",
+              "hint": "The delay before the first retry and how it grows, if not the default",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "timeout",
+              "label": "Timeout",
+              "hint": "How long a single run may take before it is abandoned, if not the default",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "failureAlertMessage",
+              "label": "Failure Alert Message",
+              "hint": "The message raised when this job fails permanently. The job names the message; the deployment names where it is delivered.",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "ScheduledMaintenancePolicy": {
       "name": "ScheduledMaintenancePolicy",
       "sectionId": "SCMAPO",
@@ -212110,13 +213103,13 @@
     "SchemaMigrationStepEntry": {
       "name": "SchemaMigrationStepEntry",
       "sectionId": "SCMST",
-      "doc": "A single schema migration step (form).\n\nOne versioned change to the database schema — the DDL operations it applies,\nthe entities it touches, whether it is reversible, and any data backfill it\nperforms as part of the schema change.",
+      "doc": "A single migration artifact (form).\n\nOne versioned artifact in the migration set: what it is (baseline schema,\nreference data, or a schema change), which target it applies to, and which\ndeployment environments it is restricted to. The kind-specific detail lives\nin the promoted case subsection its `artifactKind` selects.",
       "standardReferences": {
         "standards": [
           "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
           "DAMA-DMBOK2 — data management body of knowledge"
         ],
-        "connotation": "A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill."
+        "connotation": "A single versioned migration artifact: its kind, target, environment restriction, and the kind-specific definition it carries."
       },
       "annotations": [
         {
@@ -212126,7 +213119,7 @@
               "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
               "DAMA-DMBOK2 — data management body of knowledge"
             ],
-            "connotation": "A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill."
+            "connotation": "A single versioned migration artifact: its kind, target, environment restriction, and the kind-specific definition it carries."
           }
         },
         {
@@ -212134,14 +213127,28 @@
           "arguments": {
             "id": "SCMST"
           }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "artifactKind",
+            "note": "Migration artifact-kind closed choice: the kind selects its promoted definition subsection — a baseline schema definition, a reference-data definition, or a schema change. Each kind authors a different thing, so every kind binds a case."
+          }
         }
       ],
       "fields": [
         {
           "name": "content",
           "kind": "form",
+          "help": "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n",
           "serializationOrder": 0,
           "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "One artifact in the migration set.\n\n**Ordering.** Artifacts are applied in ascending version order across the whole\nset for a target, so the version is what places this artifact in the sequence.\n\n**Environments.** Leave *Environments* empty to apply the artifact everywhere.\nNaming one or more deployment environments restricts it to those — the way to\nseed development or test data that must never reach production. Use the\nenvironment names exactly as they are configured; they are matched verbatim.\n\n**Immutability.** Once this artifact has been applied anywhere, do not edit it.\nAuthor the further change as a new entry with the next version.\n"
+              }
+            },
             {
               "name": "Form",
               "arguments": {
@@ -212159,42 +213166,278 @@
             {
               "name": "version",
               "label": "Version",
-              "hint": "The schema version this step produces (e.g. V7, 2026-07-19-01)",
+              "hint": "The version that orders this artifact in the set (e.g. 7, 42)",
               "type": "String",
-              "required": false
+              "required": true
             },
             {
               "name": "description",
               "label": "Description",
-              "hint": "What this migration changes and why",
+              "hint": "What this artifact does and why",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "artifactKind",
+              "label": "Artifact Kind",
+              "hint": "What this artifact is — selects the definition subsection below",
+              "type": "MigrationArtifactKind",
+              "required": true,
+              "enumValues": [
+                "initialDdl",
+                "referenceData",
+                "schemaChange"
+              ]
+            },
+            {
+              "name": "migrationTarget",
+              "label": "Migration Target",
+              "hint": "The data source / schema target from 7.4.1 this applies to",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "MIGTG.targetName"
+              ]
+            },
+            {
+              "name": "environments",
+              "label": "Environments",
+              "hint": "Comma-separated deployment environments this is restricted to, or empty to apply everywhere",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "baselineSchema",
+          "kind": "form",
+          "doc": "Baseline schema definition — a promoted `@OneOf` case.\n\nPresent only for the `initialDdl` kind. It establishes the schema, so there\nis no prior state: no affected-entity delta, no backfill, and nothing to\nroll back to.",
+          "sectionId": "SCMST-BASE",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 9075 (SQL) — schema definition statements",
+              "DAMA-DMBOK2 — data management body of knowledge"
+            ],
+            "connotation": "The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCMST-BASE"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 9075 (SQL) — schema definition statements",
+                  "DAMA-DMBOK2 — data management body of knowledge"
+                ],
+                "connotation": "The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "MigrationArtifactKind.initialDdl"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "createdEntities",
+              "label": "Created Entities",
+              "hint": "The Data Model entities this baseline creates",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "schemaStatements",
+              "label": "Schema Statements",
+              "hint": "The schema definition statements that create the tables",
               "type": "String",
               "required": false
             },
             {
-              "name": "ddlOperations",
-              "label": "DDL Operations",
-              "hint": "CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)",
+              "name": "indexesAndConstraints",
+              "label": "Indexes and Constraints",
+              "hint": "Keys, indexes and constraints established with the baseline",
               "type": "String",
               "required": false
+            }
+          ]
+        },
+        {
+          "name": "referenceData",
+          "kind": "form",
+          "doc": "Reference-data definition — a promoted `@OneOf` case.\n\nPresent only for the `referenceData` kind. This artifact inserts rows, not\nschema, so it authors the value set rather than schema statements. It is\nthe new system's own initial data — legacy business-data migration stays in\nthe migration-mapping sections (`MIGME`).",
+          "sectionId": "SCMST-REFD",
+          "standardReferences": {
+            "standards": [
+              "DAMA-DMBOK2 — reference and master data management",
+              "ISO/IEC 11179 — permissible values of a data element"
+            ],
+            "connotation": "The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCMST-REFD"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "DAMA-DMBOK2 — reference and master data management",
+                  "ISO/IEC 11179 — permissible values of a data element"
+                ],
+                "connotation": "The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "MigrationArtifactKind.referenceData"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "targetEntities",
+              "label": "Target Entities",
+              "hint": "The Data Model entities this artifact populates",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "valueSet",
+              "label": "Value Set",
+              "hint": "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "identityKey",
+              "label": "Identity Key",
+              "hint": "The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "schemaChange",
+          "kind": "form",
+          "doc": "Schema change — a promoted `@OneOf` case.\n\nPresent only for the `schemaChange` kind: an evolution step on top of an\nexisting schema. This is the only kind for which a delta of affected\nentities, a data backfill and reversibility are meaningful.",
+          "sectionId": "SCMST-CHNG",
+          "standardReferences": {
+            "standards": [
+              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
+              "ISO/IEC 9075 (SQL) — schema definition statements"
+            ],
+            "connotation": "The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible."
+          },
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Evolutionary Database Design (Ambler & Sadalage) — database refactoring",
+                  "ISO/IEC 9075 (SQL) — schema definition statements"
+                ],
+                "connotation": "The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCMST-CHNG"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "MigrationArtifactKind.schemaChange"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "schemaStatements",
+              "label": "Schema Statements",
+              "hint": "The schema changes performed on tables, columns, indexes and constraints",
+              "type": "String",
+              "required": true
             },
             {
               "name": "affectedEntities",
               "label": "Affected Entities",
-              "hint": "The Data Model entities this step touches",
+              "hint": "The Data Model entities this change touches",
               "type": "String",
-              "required": false
+              "required": true,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
             },
             {
               "name": "dataBackfill",
               "label": "Data Backfill",
-              "hint": "Any data population/transformation done as part of the step, or None",
+              "hint": "Any data population or transformation performed as part of the change, or None",
               "type": "String",
               "required": false
             },
             {
               "name": "reversible",
               "label": "Reversible",
-              "hint": "Whether a down/rollback migration is provided",
+              "hint": "Whether a rollback step is provided for this change",
               "type": "bool",
               "required": false
             }
@@ -212205,13 +213448,13 @@
     "SchemaVersioningAndMigration": {
       "name": "SchemaVersioningAndMigration",
       "sectionId": "SCHMG",
-      "doc": "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the ordered DDL / migration steps and the tooling and\npolicy that govern them. This is distinct from business-data migration\nbetween systems (see `MigrationMappingEntry` for old→new field mapping):\nhere the subject is the schema's own evolution over releases.",
+      "doc": "7.4. Schema Versioning and Migration.\n\nRecords how the database schema is *versioned and migrated* as the data\nmodel evolves — the versioning policy, the data source / schema targets, and\nthe ordered artifact set that establishes and evolves the schema. This is\ndistinct from business-data migration between systems (see\n`MigrationMappingEntry` for old→new field mapping): here the subject is the\nschema's own evolution over releases.",
       "standardReferences": {
         "standards": [
           "DAMA-DMBOK2 — data management body of knowledge",
           "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
         ],
-        "connotation": "Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems."
+        "connotation": "Captures the schema versioning strategy, the data source / schema targets, and the ordered migration artifacts derived from the data model’s evolution — the schema’s own history, not business-data migration between systems."
       },
       "annotations": [
         {
@@ -212221,7 +213464,7 @@
               "DAMA-DMBOK2 — data management body of knowledge",
               "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
             ],
-            "connotation": "Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems."
+            "connotation": "Captures the schema versioning strategy, the data source / schema targets, and the ordered migration artifacts derived from the data model’s evolution — the schema’s own history, not business-data migration between systems."
           }
         },
         {
@@ -212236,7 +213479,7 @@
             "kinds": [
               "CodeSpecPart.schemaMigration"
             ],
-            "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc codespecs_mapping.md §5.27)."
+            "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc codespecs_mapping.md §5.27). MIGTG supplies the datasource/schema directory placement; SCMST.artifactKind supplies CsMigrationKind and SCMST.environments the filename environment tag."
           }
         }
       ],
@@ -212244,13 +213487,13 @@
         {
           "name": "content",
           "kind": "form",
-          "help": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n",
+          "help": "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n",
           "serializationOrder": 0,
           "annotations": [
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Describe how the database schema is versioned and how migrations are authored,\nordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The migration tooling and where migration scripts live\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback migrations are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Base/seed data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Iteration scripts** — the append-only schema evolution steps per release\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: base/seed data is\nthe new system's own initial reference data, while old→new data mapping and\ncutover from legacy systems stay in the migration-mapping sections (MIGME).\n"
+                "guidance": "Describe how the database schema is versioned and how schema changes are\nauthored, ordered, and applied as the data model evolves across releases.\n\n**Covers:**\n- The versioning strategy (sequential, timestamped, semantic)\n- Whether down/rollback steps are supported (forward-only vs reversible)\n- The baseline schema version and any zero-downtime approach (expand/contract)\n- The data sources and schemas the artifacts target (7.4.1)\n- The ordered artifact set itself (7.4.2)\n\nThe migration artifact set spans three kinds:\n- **Initial DDL** — the baseline schema (tables, indexes, constraints)\n- **Reference data** — the initial reference data of the NEW system (lookup\n  tables, defaults, built-in roles)\n- **Schema change** — the append-only evolution steps applied per release\n\n**The migration engine is fixed, so there is no tooling decision to record\nhere.** Artifacts are applied by the framework's own migration engine; this\nsection says *what* to apply and *where*, never *with what*.\n\n**Applied artifacts are immutable.** The engine records each applied artifact\nand, on re-encountering it, verifies rather than re-applies it. An artifact\nthat has been applied anywhere is never edited — a further schema change is\nalways a *new* artifact with the next version. Author revisions of an already\nreleased artifact as an additional entry, not as a change to the existing one.\n\n**The artifact chain must converge on the data model.** The cumulative effect\nof a schema's artifacts must produce exactly the shape the entities and\nattributes of the Data Model (7.1) declare. That convergence is a mechanical\ncheck, so a divergence is a defect in one of the two — not a matter of\nauthoring judgement.\n\nThis section is derived from the evolution of the entities in the Data Model\n(7.1). It is NOT business-data migration between systems: reference data is\nthe new system's own initial data, while old→new data mapping and cutover from\nlegacy systems stay in the migration-mapping sections (MIGME).\n"
               }
             },
             {
@@ -212268,13 +213511,6 @@
           ],
           "formFields": [
             {
-              "name": "migrationTooling",
-              "label": "Migration Tooling",
-              "hint": "Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "versioningStrategy",
               "label": "Versioning Strategy",
               "hint": "Sequential numbered | Timestamped | Semantic",
@@ -212284,14 +213520,14 @@
             {
               "name": "forwardOnly",
               "label": "Forward-Only",
-              "hint": "Whether migrations are forward-only (no down migrations)",
+              "hint": "Whether schema changes are forward-only (no down steps)",
               "type": "bool",
               "required": false
             },
             {
               "name": "baselineVersion",
               "label": "Baseline Version",
-              "hint": "The initial/baseline schema version migrations build on",
+              "hint": "The initial/baseline schema version later artifacts build on",
               "type": "String",
               "required": false
             },
@@ -212305,17 +213541,18 @@
           ]
         },
         {
-          "name": "migrationSteps",
+          "name": "migrationTargets",
           "kind": "list",
-          "doc": "7.4.1. Schema Migration Steps — one entry per versioned migration.",
-          "help": "Add one entry per versioned schema migration step.",
-          "sectionId": "SCMST-STEP-LST",
-          "sectionIdPattern": "SCMST-STEP-xxx",
+          "doc": "7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.",
+          "help": "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.",
+          "sectionId": "MIGTG-TARG-LST",
+          "sectionIdPattern": "MIGTG-TARG-xxx",
           "standardReferences": {
             "standards": [
-              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+              "ISO/IEC 9075 (SQL) — schema as the named container of database objects",
+              "DAMA-DMBOK2 — data management body of knowledge"
             ],
-            "connotation": "The ordered schema migration steps that evolve the database over releases."
+            "connotation": "The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one."
           },
           "serializationOrder": 1,
           "annotations": [
@@ -212323,9 +213560,62 @@
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
+                  "ISO/IEC 9075 (SQL) — schema as the named container of database objects",
+                  "DAMA-DMBOK2 — data management body of knowledge"
+                ],
+                "connotation": "The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "MIGTG-TARG-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "MIGTG-TARG-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "MigrationTargetEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "migrationSteps",
+          "kind": "list",
+          "doc": "7.4.2. Schema Migration Steps — one entry per versioned artifact.",
+          "help": "Add one entry per versioned migration artifact.",
+          "sectionId": "SCMST-STEP-LST",
+          "sectionIdPattern": "SCMST-STEP-xxx",
+          "standardReferences": {
+            "standards": [
+              "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
+            ],
+            "connotation": "The ordered schema migration artifacts that establish and evolve the database over releases."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
                   "Evolutionary Database Design (Ambler & Sadalage) — database refactoring"
                 ],
-                "connotation": "The ordered schema migration steps that evolve the database over releases."
+                "connotation": "The ordered schema migration artifacts that establish and evolve the database over releases."
               }
             },
             {
@@ -212343,13 +213633,13 @@
             {
               "name": "ContentHelp",
               "arguments": {
-                "guidance": "Add one entry per versioned schema migration step."
+                "guidance": "Add one entry per versioned migration artifact."
               }
             },
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 1
+                "order": 2
               }
             }
           ],
@@ -214524,7 +215814,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
-            "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text); boolean, color and file kinds carry only the common formatting + validation subsections."
+            "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text / file); boolean and color kinds carry only the common formatting + validation subsections."
           }
         },
         {
@@ -215097,6 +216387,86 @@
               "name": "displayMode",
               "label": "Display Mode",
               "hint": "Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "fileOptions",
+          "kind": "form",
+          "doc": "File-kind options — a promoted `@OneOf` case (csrb8).\n\nPresent only for the file field kind; carries what may be chosen and how\nthe chosen file is shown. The **storage group** is deliberately absent: a\nfile's group is authored once on its CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1) and derived here, so the two can never\nname different groups. So is a download affordance, which follows from the\nfield being wired for transfer and the file being stored (§5.18).",
+          "sectionId": "SEFSU",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-143:2012 — form fields with input assistance such as file selection",
+              "ISO/IEC 2382:2015 — content and media type terminology"
+            ],
+            "connotation": "What a file input accepts and how the chosen file is presented."
+          },
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SEFSU"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-143:2012 — form fields with input assistance such as file selection",
+                  "ISO/IEC 2382:2015 — content and media type terminology"
+                ],
+                "connotation": "What a file input accepts and how the chosen file is presented."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenElementFieldKind.file"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "acceptedContentKinds",
+              "label": "Accepted Content Kinds",
+              "hint": "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxFileSize",
+              "label": "Maximum File Size",
+              "hint": "Largest file the field accepts, e.g. 10 MB",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "presentation",
+              "label": "Presentation (link, dropzone, thumbnail)",
+              "hint": "How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "uploadOnPick",
+              "label": "Upload On Pick",
+              "hint": "Yes/No — whether choosing a file uploads it immediately or the form uploads it on save",
               "type": "String",
               "required": false
             }
@@ -216366,6 +217736,72 @@
           ]
         },
         {
+          "name": "fileConstraints",
+          "kind": "form",
+          "doc": "File-kind input constraints — a promoted `@OneOf` case (csrb8).\n\nConstraints only. **How** the file is presented — link, dropzone or\nthumbnail — is the D09 design pass's `fileOptions`\n(`ScreenElementFieldSpec`), because a requirement names the kind of value\na user supplies and the design names the concrete control. The storage\ngroup is neither side's: it is authored on the CE-DB file-reference column\n(`codespecs_mapping.md` §5.13.1).",
+          "sectionId": "SCFIFI",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+              "ISO/IEC 2382:2015 — content and media type terminology"
+            ],
+            "connotation": "The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be."
+          },
+          "serializationOrder": 8,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCFIFI"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 29148 §9 — input validation requirements",
+                  "ISO/IEC 2382:2015 — content and media type terminology"
+                ],
+                "connotation": "The input constraints that only apply to a file-valued screen field — what content kinds it accepts and how large a file may be."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ScreenFieldKind.file"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 8
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "acceptedContentKinds",
+              "label": "Accepted Content Kinds",
+              "hint": "What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "maxFileSize",
+              "label": "Maximum File Size",
+              "hint": "Largest file the field accepts, e.g. 10 MB",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
           "name": "layout",
           "kind": "form",
           "doc": "UI and layout.",
@@ -216377,7 +217813,7 @@
             ],
             "connotation": "The layout and presentation of a screen field — its dependencies, width, display order, and grouping."
           },
-          "serializationOrder": 8,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -216404,7 +217840,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 9
               }
             }
           ],
@@ -216453,7 +217889,7 @@
             ],
             "connotation": "The list of individual validation rules applied to this field's input."
           },
-          "serializationOrder": 9,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -216486,7 +217922,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 10
               }
             }
           ],
@@ -223516,6 +224952,110 @@
         }
       ]
     },
+    "ServerConfigurationSettingEntry": {
+      "name": "ServerConfigurationSettingEntry",
+      "sectionId": "SCSET",
+      "doc": "A single declared server / system configuration setting (CE-CF).\n\nThe declaration only: key, value type, default, the environment variable and\ncommand-line option it may also be read from, whether it carries a secret,\nand which narrower scopes may shadow it. The *value* is supplied per\ndeployment through the configuration\ntree, the OS environment, a `.env` file or the command line (in that\nprecedence, command line winning) and is never authored. A secret-bearing\nsetting declares its presence and shape so deployment tooling can supply\nthe content out of band (`codespecs_mapping.md` §5.16).\n\nSecurity and infrastructure configuration is scope-pinned: it stays\nserver-side unless the declaration explicitly opens it to a narrower scope.",
+      "standardReferences": {
+        "standards": [
+          "Twelve-Factor App — config stored in the environment",
+          "CIS Controls — secure configuration and administration",
+          "OWASP ASVS — secrets management"
+        ],
+        "connotation": "Declares one server configuration setting: its key, value type, default, deployment source aliases, secret marking, and which narrower scopes may shadow it."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "Twelve-Factor App — config stored in the environment",
+              "CIS Controls — secure configuration and administration",
+              "OWASP ASVS — secrets management"
+            ],
+            "connotation": "Declares one server configuration setting: its key, value type, default, deployment source aliases, secret marking, and which narrower scopes may shadow it."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SCSET"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "settingKey",
+              "label": "Setting Key",
+              "hint": "The dotted key of the server setting, e.g. server.isolateCount",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "valueType",
+              "label": "Value Type",
+              "hint": "string / int / double / bool / enum",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defaultValue",
+              "label": "Default Value",
+              "hint": "The value used when no deployment source supplies one; leave empty for a setting that must be supplied per deployment",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "environmentVariable",
+              "label": "Environment Variable",
+              "hint": "The environment variable this setting may also be read from, e.g. SERVER_ISOLATE_COUNT; leave empty if it is not readable that way",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "commandLineOption",
+              "label": "Command-Line Option",
+              "hint": "The command-line option this setting may also be read from, e.g. --isolates; the command line wins over every other source",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "secret",
+              "label": "Carries a Secret",
+              "hint": "Whether the value is a secret (certificate, private key, shared secret) — declared here, supplied out of band, never written down",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "overridableBy",
+              "label": "Overridable By",
+              "hint": "The narrowest scope permitted to shadow this key — every scope in between is opened too: none (scope-pinned, and the only correct answer for security and infrastructure settings) / client / user / device. No default: pinning a key must be authored, not fallen into",
+              "type": "String",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
     "ServerEnvironmentEntry": {
       "name": "ServerEnvironmentEntry",
       "sectionId": "SEE",
@@ -223865,6 +225405,465 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "ServerOperationEntry": {
+      "name": "ServerOperationEntry",
+      "sectionId": "SVOPE",
+      "doc": "A single server operation (form + request/response members).\n\nOne entry in the [ServerOperationRegistry]: the operation name that\nidentifies it, its purpose, the data entity it primarily writes, its\nauthorization requirement, the error codes it may return, and the members\nthat make up its request and response shapes.\n\nThe operation name is the join token the rest of the model references: the\nISC step entries cite it as the target of a client call (CE-SC), and the\nservice unit that owns the operation follows from\n[ServerOperationEntry.primaryDataEntity] rather than from a hand-written\nlist (`codespecs_mapping.md` §5.17).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "A single server operation: its name, purpose, primary written data entity, authorization requirement, error codes, and its request and response members."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "A single server operation: its name, purpose, primary written data entity, authorization requirement, error codes, and its request and response members."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVOPE"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "CE-API — the application's own operation surface. Under the codespecs_mapping.md §7 contract the operation name is the sole identifier (no method, no path) and the response is always the CE-ER Result envelope, so only the name, the two typed shapes, the primary written entity, the CE-AZ requirement and the returnable error codes are authored. The request/response member shapes generate into the shared project; the operation itself into the server project (§4.2)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "operationName",
+              "label": "Operation Name",
+              "hint": "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "purpose",
+              "label": "Purpose",
+              "hint": "What the operation does, from the caller's point of view",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "primaryDataEntity",
+              "label": "Primary Data Entity",
+              "hint": "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "authorizationRequirement",
+              "label": "Authorization Requirement",
+              "hint": "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "requiredRoles",
+              "label": "Required Roles",
+              "hint": "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "AZRO.roleName"
+              ]
+            },
+            {
+              "name": "requiredResourceKey",
+              "label": "Required Resource Key",
+              "hint": "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "RESKEY.resourceKey"
+              ]
+            },
+            {
+              "name": "descriptionKey",
+              "label": "Description Copy Key",
+              "hint": "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
+            },
+            {
+              "name": "errorCodes",
+              "label": "Error Codes",
+              "hint": "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "ERCEN.code"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "requestMembers",
+          "kind": "list",
+          "doc": "7.9.x. Request Members — the members that make up the request shape.",
+          "help": "Add one entry per member of the request shape.",
+          "sectionId": "SVOPM-REQM-LST",
+          "sectionIdPattern": "SVOPM-REQM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The members that make up this operation's request shape."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "The members that make up this operation's request shape."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOPM-REQM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVOPM-REQM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per member of the request shape."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ServerOperationMemberEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "responseMembers",
+          "kind": "list",
+          "doc": "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.",
+          "help": "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.",
+          "sectionId": "SVOPM-RESM-LST",
+          "sectionIdPattern": "SVOPM-RESM-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The members that make up the success payload this operation returns."
+          },
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — metadata registries / data element definitions"
+                ],
+                "connotation": "The members that make up the success payload this operation returns."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOPM-RESM-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVOPM-RESM-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "elementType": "ServerOperationMemberEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
+    "ServerOperationMemberEntry": {
+      "name": "ServerOperationMemberEntry",
+      "sectionId": "SVOPM",
+      "doc": "A single member of an operation's request or response shape (form).\n\nOne named, typed member: its name, its type, whether it must be present, and\n— when the type is a domain concept rather than a primitive — the data\nentity or domain enum it draws from. The same shape serves both the request\nand the response side of a [ServerOperationEntry], so a member reads the\nsame way whichever direction it travels.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 11179 — metadata registries / data element definitions",
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+        ],
+        "connotation": "A single member of an operation's request or response shape: its name, type, presence requirement, and the data entity or domain enum it draws from."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 11179 — metadata registries / data element definitions",
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "A single member of an operation's request or response shape: its name, type, presence requirement, and the data entity or domain enum it draws from."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVOPM"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.serverApi"
+            ],
+            "note": "CE-API — one member of an operation request or response shape. The members of a shape become the shared request/response type both sides depend on (§4.2 shared locus); a member typed by a data entity or a domain enum reuses that declaration rather than restating it."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "memberName",
+              "label": "Member Name",
+              "hint": "Name of the member within the shape (e.g. customerId, includeArchived)",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "memberType",
+              "label": "Member Type",
+              "hint": "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "multiValued",
+              "label": "Multi-Valued",
+              "hint": "Whether the member carries a collection of the type rather than a single value",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "required",
+              "label": "Required",
+              "hint": "Whether the member must be present",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "dataEntity",
+              "label": "Data Entity",
+              "hint": "DataEntityEntry.entityName the member is typed by, when its type is DataEntity",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DAENT.entityName"
+              ]
+            },
+            {
+              "name": "domainEnum",
+              "label": "Domain Enum",
+              "hint": "DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum",
+              "type": "String",
+              "required": false,
+              "refersTo": [
+                "DMENE.enumName"
+              ]
+            },
+            {
+              "name": "description",
+              "label": "Description",
+              "hint": "What the member means and any authoring guidance",
+              "type": "String",
+              "required": false
+            }
+          ]
+        }
+      ]
+    },
+    "ServerOperationRegistry": {
+      "name": "ServerOperationRegistry",
+      "sectionId": "SVOPR",
+      "doc": "7.9. Server Operation Registry.\n\nThe authoring home for the **application's own** operation surface — the\nCE-API (`serverApi`) part. Every operation the system answers is declared\nonce here; the client side (CE-SC) only *cites* an operation, and the\nservice unit that owns it (CE-SU) is *derived* from the entity each\noperation primarily writes (`codespecs_mapping.md` §5.17). Neither can\ndeclare an operation, so without this registry the system's server API would\nbe code with no specification source.\n\nThis is distinct from the **external** interface inventory under\n`ExternalInterfaces` (D07 IIS), which describes third-party interfaces the\nsystem talks to. Those carry a transport verb and a path because a\nthird-party API really has them; the application's own contract does not —\n`codespecs_mapping.md` §7 fixes every operation as a single transport shape\nwhose **operation name** carries the intent, and §5.14 drops transport\nplumbing from the spec surface.\n\n**What is deliberately not authored here** (all fixed by §7 / §5.14):\n\n- no transport method and no path — the operation name is the identifier;\n- no response status codes — every application outcome, success *or* error,\n  rides in the [ResultEnvelope]; only infrastructure failures are transport\n  errors;\n- no encoding, header, redirect, CORS or credential plumbing — framework\n  transport members, never spec input.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+          "ISO/IEC 11179 — metadata registries / data element definitions"
+        ],
+        "connotation": "The registry of the application's own server operations (CE-API): each with its operation name, request and response members, primary written data entity, and authorization requirement."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
+              "ISO/IEC 11179 — metadata registries / data element definitions"
+            ],
+            "connotation": "The registry of the application's own server operations (CE-API): each with its operation name, request and response members, primary written data entity, and authorization requirement."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SVOPR"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Catalogue the operations the system itself answers. Add one entry per\noperation; each one declares:\n- the **operation name** — the single identifier callers use,\n- the **request members** and **response members** that make up its shapes,\n- the **primary data entity** it writes (this determines which service unit\n  owns it — never list ownership by hand),\n- its **authorization requirement**,\n- the **error codes** it may return, from the error-code registry (ERCRG).\n\nDo **not** author a transport method, a path or response status codes: the\noperation name carries the intent, and every outcome — success or structured\nerror — is returned in the Result envelope (RSLTE).\n\nThis registry is for the system's **own** operations. Interfaces to third-party\nsystems are inventoried under External Interfaces (EXIN) instead.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "operations",
+          "kind": "list",
+          "doc": "7.9.1. Operations — one entry per operation the system answers.",
+          "help": "Add one entry per operation the system answers.",
+          "sectionId": "SVOPE-OPER-LST",
+          "sectionIdPattern": "SVOPE-OPER-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+            ],
+            "connotation": "The catalogued operations the application's own server surface answers."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 42010 — architecture description (interface contracts)"
+                ],
+                "connotation": "The catalogued operations the application's own server surface answers."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SVOPE-OPER-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SVOPE-OPER-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per operation the system answers."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ServerOperationEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -243392,6 +245391,60 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "settings",
+          "kind": "list",
+          "doc": "The declared server configuration settings.",
+          "help": "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.",
+          "sectionId": "SCSET-SETT-LST",
+          "sectionIdPattern": "SCSET-SETT-xxx",
+          "standardReferences": {
+            "standards": [
+              "Twelve-Factor App — config stored in the environment",
+              "CIS Controls — secure configuration and administration"
+            ],
+            "connotation": "The server / system configuration settings declared for this system, one entry per key."
+          },
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "Twelve-Factor App — config stored in the environment",
+                  "CIS Controls — secure configuration and administration"
+                ],
+                "connotation": "The server / system configuration settings declared for this system, one entry per key."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "SCSET-SETT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "SCSET-SETT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "elementType": "ServerConfigurationSettingEntry",
+          "elementIsComplex": true
         }
       ]
     },
@@ -278875,6 +280928,203 @@
         }
       ]
     },
+    "UserSettingEntry": {
+      "name": "UserSettingEntry",
+      "sectionId": "USSET",
+      "doc": "A single declared user setting (CE-UP).\n\nThe declaration only: key, value type, default, and whether a per-device\nvalue may shadow the key. The value is the user's choice and is never\nauthored (`codespecs_mapping.md` §5.16).",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+          "ISO/IEC 25010 — usability / operability"
+        ],
+        "connotation": "Declares one user setting: its key, value type, default, and whether a per-device value may shadow it."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "Declares one user setting: its key, value type, default, and whether a per-device value may shadow it."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "USSET"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "settingKey",
+              "label": "Setting Key",
+              "hint": "The dotted key of the user setting, e.g. ui.theme",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "valueType",
+              "label": "Value Type",
+              "hint": "string / int / double / bool / enum",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "defaultValue",
+              "label": "Default Value",
+              "hint": "The value used until the user changes the setting",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "overridableBy",
+              "label": "Overridable By",
+              "hint": "Whether a per-device value may shadow this key: none (scope-pinned) / device. No default: pinning a key must be authored, not fallen into",
+              "type": "String",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    "UserSettings": {
+      "name": "UserSettings",
+      "sectionId": "USRSET",
+      "doc": "User settings — server-persisted settings that follow the user (CE-UP).\n\nKeyed by the user alone: no machine and no device in the key. A user\nsetting is persisted on the server and re-materialised on whichever device\nthe user signs in from, which is what distinguishes it from a device\nsetting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves\nthe device) and from client configuration ([ClientConfiguration], CE-CC —\nno user identity in the key) (`codespecs_mapping.md` §11).\n\nThe scope is expressed by *which section a setting is declared in*, never\nby a field on a shared section: there is no persistence discriminator\nanywhere in the four settings scopes.",
+      "standardReferences": {
+        "standards": [
+          "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+          "ISO/IEC 25010 — usability / operability"
+        ],
+        "connotation": "The settings that follow a user across devices — theme, language and country, notification preferences and comparable per-user choices, keyed by the user and persisted on the server."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "The settings that follow a user across devices — theme, language and country, notification preferences and comparable per-user choices, keyed by the user and persisted on the server."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "USRSET"
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.userSettings"
+            ],
+            "note": "CE-UP — server-persisted per-user settings, keyed by the user and restored on any device the user signs into; distinct from CE-DS device settings (keyed by (user, device), device-local) and CE-CC client configuration (no user in the key). Realised in both generated client projects: the client shape in <app>_codespec_client and the persistence half in <app>_codespec_server (codespecs_mapping.md §4.2/§11)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "help": "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Summarise which settings follow the user rather than the device — the choices\na user expects to find already applied the first time they sign in on a new\nmachine.\n\nDeclare the individual settings in the list below; keep this overview to the\npolicy, and to how the settings are re-materialised at sign-in.\n"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "text"
+        },
+        {
+          "name": "settings",
+          "kind": "list",
+          "doc": "The declared user settings.",
+          "help": "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize.",
+          "sectionId": "USSET-SETT-LST",
+          "sectionIdPattern": "USSET-SETT-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+              "ISO/IEC 25010 — usability / operability"
+            ],
+            "connotation": "The user settings declared for this system, one entry per key."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO 9241-110 — suitability for individualization (user-tailored settings)",
+                  "ISO/IEC 25010 — usability / operability"
+                ],
+                "connotation": "The user settings declared for this system, one entry per key."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "USSET-SETT-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "USSET-SETT-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "UserSettingEntry",
+          "elementIsComplex": true
+        }
+      ]
+    },
     "UserTrainingRequirements": {
       "name": "UserTrainingRequirements",
       "sectionId": "USTRRE",
@@ -284477,6 +286727,13 @@
             {
               "name": "isAutomatable",
               "label": "Is Automatable",
+              "type": "bool",
+              "required": false
+            },
+            {
+              "name": "isErrorProne",
+              "label": "Is Error-Prone (high error or failure rate)",
+              "hint": "Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often",
               "type": "bool",
               "required": false
             },

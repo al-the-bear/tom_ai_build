@@ -2808,7 +2808,19 @@ class BasicTechnicalRequirements(SomNode):
         return DesignPatternsAndStandards(self.doc, f"{self.path}/designPatternsAndStandards")
 
 class BatchJobManagement(SomNode):
-    """Batch job management."""
+    """Batch job management — the scheduled jobs and the policy they run under.
+    
+    Two layers, deliberately separated. This section and its policy subsections
+    author what is true of *every* job — the time-zone basis, the execution
+    controls, the monitoring surface. [scheduledJobs] authors the jobs
+    themselves, one entry each. A specification that has only the policy layer
+    can say how jobs are run in general but cannot name a single one, which is
+    exactly what the job list exists to fix.
+    
+    The policy is the **default layer**: an execution control stated here applies
+    to every job that does not override it, and an entry that does override it
+    says so in its own failure-policy subsection.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -2817,11 +2829,21 @@ class BatchJobManagement(SomNode):
         return BatchJobManagementContentForm(self.doc, f"{self.path}/content")
 
     # Supported job categories.
+    #
+    # A category-level summary of the scheduled work the system performs — the
+    # shape of the workload, not its inventory. The authoritative per-job
+    # declarations are [scheduledJobs]; a category named here without a job in
+    # that list is a job the specification has not actually declared.
     @property
     def jobTypes(self):
         return BatchJobManagementJobTypesForm(self.doc, f"{self.path}/BJMJT")
 
-    # Execution controls.
+    # Execution controls — the **default layer** for every job.
+    #
+    # Retry, timeout and idempotency stated here apply to every job that does
+    # not say otherwise. A job that needs different numbers overrides them in
+    # its own failure-policy subsection, so this section is the rule and the
+    # entry is the exception — never the other way round.
     @property
     def execution(self):
         return BatchJobManagementExecutionForm(self.doc, f"{self.path}/BJME")
@@ -2830,6 +2852,14 @@ class BatchJobManagement(SomNode):
     @property
     def monitoring(self):
         return BatchJobManagementMonitoringForm(self.doc, f"{self.path}/BJMM")
+
+    # Scheduled jobs — one entry per job the system runs.
+    #
+    # The declaration layer. Everything above is policy that applies to all
+    # jobs; this is where a job actually comes into existence.
+    @property
+    def scheduledJobs(self):
+        return SomList(self.doc, f"{self.path}/SCJOB-JOB-LST", lambda d, p: ScheduledJobEntry(d, p), pattern="SCJOB-JOB-xxx")
 
 class BehaviorRuleEntry(SomNode):
     """A single behavior rule entry."""
@@ -4435,6 +4465,38 @@ class ClientAccessibilityRequirements(SomNode):
     def standards(self):
         return ClientAccessibilityRequirementsStandardsForm(self.doc, f"{self.path}/CARS")
 
+class ClientApplicationEntry(SomNode):
+    """A single client application of the system (CE-CL).
+    
+    One client: what kind of application it is, which platforms it targets,
+    where it starts, and which screens it comprises. This is the enumeration
+    [ClientRequirementsSection]'s requirement subsections cannot give — they
+    state what a *machine* must provide, which is a deployment constraint on
+    every client rather than a statement that any particular client exists.
+    
+    **Platform targets are referenced, never restated.** A client's platform
+    targets are ids already declared in the browser, desktop-OS and
+    mobile-platform requirement lists of the enclosing section. Naming a
+    platform here that no requirement entry declares is a dangling reference,
+    which is the point: the minimum a platform must meet is stated once.
+    
+    **Configuration is not restated either.** Which settings a client carries
+    is declared in [ClientConfiguration] (CE-CC), where each setting names the
+    client that owns it. A client that also listed its settings would be the
+    second source those two would eventually disagree through
+    (`codespecs_mapping.md` §11).
+    
+    **Screens, not flows.** A client comprises screens; the flows *between*
+    those screens are the screen flow structure's own subject (D09 XDS) and are
+    reached through the entry route, not listed again per client.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ClientApplicationEntryContentForm(self.doc, f"{self.path}/content")
+
 class ClientConfiguration(SomNode):
     """Client configuration — per-machine settings of a client application (CE-CC).
     
@@ -4448,8 +4510,36 @@ class ClientConfiguration(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
-        return ClientConfigurationContentForm(self.doc, f"{self.path}/content")
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The declared client configuration settings.
+    @property
+    def settings(self):
+        return SomList(self.doc, f"{self.path}/CCSET-SETT-LST", lambda d, p: ClientConfigurationSettingEntry(d, p), pattern="CCSET-SETT-xxx")
+
+class ClientConfigurationSettingEntry(SomNode):
+    """A single declared client configuration setting (CE-CC).
+    
+    The declaration only: key, value type, default, and which narrower scopes
+    may shadow the key. The *value* is never authored — it comes from the client
+    app's configuration resources or from this install's persisted overrides
+    (`codespecs_mapping.md` §5.16).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ClientConfigurationSettingEntryContentForm(self.doc, f"{self.path}/content")
 
 class ClientHardwareRequirements(SomNode):
     """Client hardware requirements."""
@@ -4512,8 +4602,18 @@ class ClientNetworkRequirements(SomNode):
 class ClientRequirementsSection(SomNode):
     """8.4.2. Client Requirements.
     
-    Minimum client requirements: browser versions, operating systems, screen
-    resolution, network bandwidth, and device capabilities.
+    Two layers that answer two different questions.
+    
+    **Which client applications exist** — [clientApplications], one
+    [ClientApplicationEntry] per client, naming its kind, its entry route and
+    the screens it comprises. This is the enumerable set of clients; a client
+    not listed there does not exist.
+    
+    **What a user's machine must provide** — every other subsection: browser,
+    desktop-OS, mobile-device, display, network, hardware, accessibility and
+    security minimums. These are deployment constraints on the *environment*,
+    not clients, which is why a client entry *references* them rather than
+    restating them.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -4534,6 +4634,11 @@ class ClientRequirementsSection(SomNode):
     @property
     def overview(self):
         return None  # (skipped: no target type)
+
+    # The client applications the system consists of (CE-CL).
+    @property
+    def clientApplications(self):
+        return SomList(self.doc, f"{self.path}/CLIAPP-CLIE-LST", lambda d, p: ClientApplicationEntry(d, p), pattern="CLIAPP-CLIE-xxx")
 
     # Web browser requirements.
     @property
@@ -4594,6 +4699,11 @@ class ClientRequirementsSection(SomNode):
     @property
     def deviceSettings(self):
         return DeviceSettings(self.doc, f"{self.path}/deviceSettings")
+
+    # Server-persisted settings that follow the user across devices (CE-UP).
+    @property
+    def userSettings(self):
+        return UserSettings(self.doc, f"{self.path}/userSettings")
 
 class ClientSecurityRequirements(SomNode):
     """Client security requirements."""
@@ -6986,16 +7096,6 @@ class CurrentWorkflowEntry(SomNode):
     def businessRules(self):
         return SomList(self.doc, f"{self.path}/WOBURU-BUSI-LST", lambda d, p: WorkflowBusinessRule(d, p), pattern="WOBURU-BUSI-xxx")
 
-    # Manual steps requiring human intervention.
-    @property
-    def manualSteps(self):
-        return SomList(self.doc, f"{self.path}/WSE-MANU-LST", lambda d, p: WorkflowStepEntry(d, p), pattern="WSE-MANU-xxx")
-
-    # Error-prone steps with high failure rates.
-    @property
-    def errorProneSteps(self):
-        return SomList(self.doc, f"{self.path}/WSE-ERRO-LST", lambda d, p: WorkflowStepEntry(d, p), pattern="WSE-ERRO-xxx")
-
     # Workflow timing and performance.
     @property
     def timing(self):
@@ -7535,6 +7635,25 @@ class D03InformationModel(SomNode):
     @property
     def messageKeyRegistry(self):
         return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
+
+    # Server operation registry — the system's own operation surface (CE-API):
+    # one entry per operation the server answers.
+    #
+    # Projected here rather than into a separate document because an operation is
+    # defined by the entity it reads and writes, which this document owns.
+    @property
+    def serverOperationRegistry(self):
+        return ServerOperationRegistry(self.doc, f"{self.path}/serverOperationRegistry")
+
+    # Schema versioning and migration — the CE-MG home: the versioning policy,
+    # the data source / schema targets, and the ordered artifact set that
+    # establishes and evolves the schema.
+    #
+    # Projected here because the artifact chain must converge on the entity and
+    # attribute model this document owns.
+    @property
+    def schemaVersioningAndMigration(self):
+        return SchemaVersioningAndMigration(self.doc, f"{self.path}/schemaVersioningAndMigration")
 
 class D04RequirementsSpecification(SomNode):
     """RSP00 Requirements Specification.
@@ -8692,7 +8811,18 @@ class D13CodeSpecsProjection(SomNode):
     def dataModel(self):
         return DataModel(self.doc, f"{self.path}/dataModel")
 
-    # Technical framework — CE-CF platform/config foundation.
+    # Technical framework — the platform foundation and **all four settings
+    # scopes**.
+    #
+    # The subtree spans both loci because the four configuration scopes are
+    # authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+    # server configuration (`SystemConfigurationManagement`) is server-only,
+    # while CE-CC client configuration, CE-DS device settings and CE-UP user
+    # settings are authored under the client-requirements subtree and route to
+    # the client project. CE-UP additionally has a server-side persistence half
+    # generated from the *same* declarations, so it appears in both projects —
+    # the scope is expressed by which section a setting is declared in, never by
+    # a discriminator field.
     @property
     def technicalFramework(self):
         return TechnicalFrameworkConcept(self.doc, f"{self.path}/technicalFramework")
@@ -8727,6 +8857,41 @@ class D13CodeSpecsProjection(SomNode):
     @property
     def reportDefinitions(self):
         return ReportDefinitions(self.doc, f"{self.path}/reportDefinitions")
+
+    # Schema versioning and migration — CE-MG migration artifacts.
+    #
+    # The artifacts ship with the server project because that is where the
+    # migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+    # supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+    # gives the data source / schema directory placement, `SCMST.artifactKind`
+    # the artifact kind, and `SCMST.environments` the filename environment tag.
+    # The artifact *filenames* are authored, not derived — a §5.23 string
+    # exemption — so they are not part of the generated surface.
+    #
+    # The subtree sits beside `dataModel` above for a reason: the cumulative
+    # effect of a schema's artifacts must converge on the CE-DB model that entry
+    # generates, and that convergence is a validator check over both.
+    @property
+    def schemaVersioningAndMigration(self):
+        return SchemaVersioningAndMigration(self.doc, f"{self.path}/schemaVersioningAndMigration")
+
+    # Server operation registry — the application's **own** CE-API surface.
+    #
+    # The one subtree that declares what the system answers. It spans two loci
+    # because a CE-API operation generates two halves (`codespecs_mapping.md`
+    # §4.2): the **operation catalogue and the request/response types** are
+    # shared — the client cites an operation and depends on its shapes — while
+    # the **operation itself** lands on the owning service unit in the server
+    # project. Which service unit that is follows from each operation's primary
+    # written data entity (§5.17), so ownership is derived here rather than
+    # declared.
+    #
+    # The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+    # reachable from this projection: it describes third-party interfaces the
+    # system talks to, not the surface the system generates.
+    @property
+    def serverOperationRegistry(self):
+        return ServerOperationRegistry(self.doc, f"{self.path}/serverOperationRegistry")
 
     # Process steps & actor interactions — CE-SU server-use + CE-SC client-side
     # interaction; a single subtree whose parts split across both loci.
@@ -9623,7 +9788,7 @@ class DataModel(SomNode):
         return IntegrityConstraints(self.doc, f"{self.path}/integrityConstraints")
 
 class DataModelFollowUp(SomNode):
-    """7.9. Data Model Follow-up Facets.
+    """7.10. Data Model Follow-up Facets.
     
     Operational and governance facets that accompany the data model but are not
     part of the generation-owned entity/attribute schema: the model-wide ER
@@ -9647,12 +9812,12 @@ class DataModelFollowUp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 7.9.1. Entity-Relationship Diagram (mermaid).
+    # 7.10.1. Entity-Relationship Diagram (mermaid).
     @property
     def erDiagram(self):
         return None  # (skipped: no target type)
 
-    # 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    # 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
     @property
     def entityFollowUps(self):
         return SomList(self.doc, f"{self.path}/DMFUE-ENFU-LST", lambda d, p: EntityFollowUpEntry(d, p), pattern="DMFUE-ENFU-xxx")
@@ -11619,6 +11784,25 @@ class DevelopmentQualityGates(SomNode):
     def performance(self):
         return DevelopmentQualityGatesPerformanceForm(self.doc, f"{self.path}/DQGP")
 
+class DeviceSettingEntry(SomNode):
+    """A single declared device setting (CE-DS).
+    
+    The declaration only: key, value type and default. The value is the user's
+    choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+    
+    There is deliberately no shadowing field. §5.16 puts the opt-in on the
+    *wider* scope — a key is shadowable only because its wider-scope declaration
+    says so — and CE-DS is the narrowest scope, so it has nothing below it to
+    open. Declaring the same relation from both ends would be two authored
+    fields that can disagree.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return DeviceSettingEntryContentForm(self.doc, f"{self.path}/content")
+
 class DeviceSettings(SomNode):
     """Device settings — user-specific settings of a user-owned device (CE-DS).
     
@@ -11634,8 +11818,21 @@ class DeviceSettings(SomNode):
         super().__init__(doc, path)
 
     @property
+    def can_have_content(self):
+        return True
+
+    @property
     def content(self):
-        return DeviceSettingsContentForm(self.doc, f"{self.path}/content")
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The declared device settings.
+    @property
+    def settings(self):
+        return SomList(self.doc, f"{self.path}/DSSET-SETT-LST", lambda d, p: DeviceSettingEntry(d, p), pattern="DSSET-SETT-xxx")
 
 class DisasterRecoveryRequirements(SomNode):
     """Disaster recovery requirements."""
@@ -16144,7 +16341,16 @@ class InformationAndDataModel(SomNode):
     def messageKeyRegistry(self):
         return MessageKeyRegistry(self.doc, f"{self.path}/messageKeyRegistry")
 
-    # 7.9. Data Model Follow-up Facets.
+    # 7.9. Server Operation Registry.
+    #
+    # The system's **own** operation surface (CE-API): one entry per operation
+    # the server answers, with its request/response members, the data entity it
+    # primarily writes, and its authorization requirement.
+    @property
+    def serverOperationRegistry(self):
+        return ServerOperationRegistry(self.doc, f"{self.path}/serverOperationRegistry")
+
+    # 7.10. Data Model Follow-up Facets.
     #
     # Per-entity operational/governance facets (volume, compliance, technical
     # characteristics, migration mappings) and the model-wide ER diagram —
@@ -16532,7 +16738,15 @@ class IntegrationHealthSummary(SomNode):
         return SomList(self.doc, f"{self.path}/FRAGI-FRAG-LST", lambda d, p: SomScalar(d, p), pattern="FRAGI-FRAG-xxx")
 
 class IntegrationPointEntry(SomNode):
-    """A single integration point entry."""
+    """A single integration point entry.
+    
+    How a domain object connects to the outside world. It describes *outward
+    connections* — which interfaces surface the object, which events it takes
+    part in, how it maps onto external systems — and deliberately declares no
+    operation of the application's own: those live in the server operation
+    registry (SVOPR), which is the one place an operation is named and given its
+    request/response shapes.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17001,7 +17215,17 @@ class InterfaceGovernance(SomNode):
         return None  # (skipped: no target type)
 
 class InterfaceOperationEntry(SomNode):
-    """API operation entry."""
+    """An operation of an **external** interface.
+    
+    One operation of a third-party system the application talks to, described in
+    that system's own terms — including its transport method and path, which a
+    foreign contract genuinely has.
+    
+    This is **not** where the application's own operations are declared: those
+    live in the server operation registry (SVOPR), under the
+    `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+    the operation name the sole identifier.
+    """
     def __init__(self, doc, path):
         super().__init__(doc, path)
 
@@ -17858,6 +18082,13 @@ class LanguageCountrySelection(SomNode):
     """10.12.4. Language and Country Selection.
     
     UI specification for language and country selection.
+    
+    This is the *picker* — how a user is offered languages and countries, what
+    is preselected, how the choice is retained across a sign-in, and how the
+    system falls back. The underlying `ui.language` / `ui.country` preference is
+    **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+    why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+    setting declaration (`codespecs_mapping.md` §5.16).
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -19516,6 +19747,21 @@ class MigrationSystems(SomNode):
     @property
     def content(self):
         return MigrationSystemsContentForm(self.doc, f"{self.path}/content")
+
+class MigrationTargetEntry(SomNode):
+    """A single migration target — one data source / schema pair (form).
+    
+    Migration artifacts are filed per data source and per schema within it, so a
+    system with several databases — or several database *types* — needs no extra
+    specification surface beyond naming each target once here. Every artifact in
+    7.4.2 then names the target it applies to rather than repeating the pair.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return MigrationTargetEntryContentForm(self.doc, f"{self.path}/content")
 
 class MobileCompatibilityEntry(SomNode):
     """Mobile device compatibility entry."""
@@ -27216,6 +27462,89 @@ class ScenarioStepEntry(SomNode):
     def execution(self):
         return ScenarioStepEntryExecutionForm(self.doc, f"{self.path}/SCSTENEX")
 
+class ScheduledJobEntry(SomNode):
+    """A single scheduled job (form + trigger case + work definition + failure
+    policy).
+    
+    One background job: what starts it, what it does, which data it acts on,
+    what happens when it fails, and where it is deployed. Work that runs *off*
+    the request thread is what separates a job from a server operation — the
+    trigger is that axis, which is why it is a required, closed choice rather
+    than free text.
+    
+    **Where the specification stops and the code begins.** This entry carries
+    the job's *intent* — what it does, over which data, in what order. It does
+    **not** carry the work body: the body is written in the CodeSpec as
+    compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+    §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+    place. State the intent well enough that the body can be written from it,
+    then stop.
+    
+    **Ownership is derived, not declared.** The service unit that owns a job
+    follows from the entity it primarily writes, exactly as it does for a server
+    operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+    entity and never the unit. Two places to state one fact is how they come to
+    disagree.
+    
+    **A scheduled report is not declared twice.** A report definition that names
+    a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+    comes from the report, not from an entry here. List a job here only when the
+    work is not already the schedule of a report.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ScheduledJobEntryContentForm(self.doc, f"{self.path}/content")
+
+    # Cron trigger — a promoted `@OneOf` case.
+    #
+    # Present only for the `cron` kind: a recurring clock expression, taken
+    # verbatim. It is a single field because that is exactly what the trigger
+    # is — the zone it is read in is the system-wide one stated on
+    # [BatchJobManagement], and catch-up behaviour after a missed window is a
+    # scheduler setting rather than a specification statement.
+    @property
+    def cronTrigger(self):
+        return ScheduledJobEntryCronTriggerForm(self.doc, f"{self.path}/SCJOB-CRON")
+
+    # Calendar trigger — a promoted `@OneOf` case.
+    #
+    # Present only for the `calendar` kind: a date rule a clock expression
+    # cannot state — the last day of the month, the third Monday of a quarter.
+    @property
+    def calendarTrigger(self):
+        return ScheduledJobEntryCalendarTriggerForm(self.doc, f"{self.path}/SCJOB-CAL")
+
+    # Event trigger — a promoted `@OneOf` case.
+    #
+    # Present only for the `event` kind. An event-triggered job does not fire on
+    # time at all, so it has no schedule; what it has instead — and what neither
+    # other arm has — is an occurrence carrying data the work reads.
+    @property
+    def eventTrigger(self):
+        return ScheduledJobEntryEventTriggerForm(self.doc, f"{self.path}/SCJOB-EVNT")
+
+    # What the job does and which data it acts on.
+    #
+    # The intent half of the work definition. The body that realises it is
+    # written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+    # section says what that body must achieve and over which data, in enough
+    # detail that it can be written from here without a second conversation.
+    @property
+    def workDefinition(self):
+        return ScheduledJobEntryWorkDefinitionForm(self.doc, f"{self.path}/SCJOB-WORK")
+
+    # This job's departures from the system-wide execution policy.
+    #
+    # Every field is an override. Left empty, the job inherits the Execution
+    # Controls (BJME) default; the policy stays the rule and the entry is the
+    # exception.
+    @property
+    def failurePolicy(self):
+        return ScheduledJobEntryFailurePolicyForm(self.doc, f"{self.path}/SCJOB-FAIL")
+
 class ScheduledMaintenancePolicy(SomNode):
     """Scheduled maintenance policy."""
     def __init__(self, doc, path):
@@ -27246,11 +27575,12 @@ class ScheduledMaintenancePolicy(SomNode):
         return ScheduledMaintenancePolicyApprovalForm(self.doc, f"{self.path}/SMPA")
 
 class SchemaMigrationStepEntry(SomNode):
-    """A single schema migration step (form).
+    """A single migration artifact (form).
     
-    One versioned change to the database schema — the DDL operations it applies,
-    the entities it touches, whether it is reversible, and any data backfill it
-    performs as part of the schema change.
+    One versioned artifact in the migration set: what it is (baseline schema,
+    reference data, or a schema change), which target it applies to, and which
+    deployment environments it is restricted to. The kind-specific detail lives
+    in the promoted case subsection its `artifactKind` selects.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -27259,14 +27589,43 @@ class SchemaMigrationStepEntry(SomNode):
     def content(self):
         return SchemaMigrationStepEntryContentForm(self.doc, f"{self.path}/content")
 
+    # Baseline schema definition — a promoted `@OneOf` case.
+    #
+    # Present only for the `initialDdl` kind. It establishes the schema, so there
+    # is no prior state: no affected-entity delta, no backfill, and nothing to
+    # roll back to.
+    @property
+    def baselineSchema(self):
+        return SchemaMigrationStepEntryBaselineSchemaForm(self.doc, f"{self.path}/SCMST-BASE")
+
+    # Reference-data definition — a promoted `@OneOf` case.
+    #
+    # Present only for the `referenceData` kind. This artifact inserts rows, not
+    # schema, so it authors the value set rather than schema statements. It is
+    # the new system's own initial data — legacy business-data migration stays in
+    # the migration-mapping sections (`MIGME`).
+    @property
+    def referenceData(self):
+        return SchemaMigrationStepEntryReferenceDataForm(self.doc, f"{self.path}/SCMST-REFD")
+
+    # Schema change — a promoted `@OneOf` case.
+    #
+    # Present only for the `schemaChange` kind: an evolution step on top of an
+    # existing schema. This is the only kind for which a delta of affected
+    # entities, a data backfill and reversibility are meaningful.
+    @property
+    def schemaChange(self):
+        return SchemaMigrationStepEntrySchemaChangeForm(self.doc, f"{self.path}/SCMST-CHNG")
+
 class SchemaVersioningAndMigration(SomNode):
     """7.4. Schema Versioning and Migration.
     
     Records how the database schema is *versioned and migrated* as the data
-    model evolves — the ordered DDL / migration steps and the tooling and
-    policy that govern them. This is distinct from business-data migration
-    between systems (see `MigrationMappingEntry` for old→new field mapping):
-    here the subject is the schema's own evolution over releases.
+    model evolves — the versioning policy, the data source / schema targets, and
+    the ordered artifact set that establishes and evolves the schema. This is
+    distinct from business-data migration between systems (see
+    `MigrationMappingEntry` for old→new field mapping): here the subject is the
+    schema's own evolution over releases.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -27275,7 +27634,12 @@ class SchemaVersioningAndMigration(SomNode):
     def content(self):
         return SchemaVersioningAndMigrationContentForm(self.doc, f"{self.path}/content")
 
-    # 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    # 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+    @property
+    def migrationTargets(self):
+        return SomList(self.doc, f"{self.path}/MIGTG-TARG-LST", lambda d, p: MigrationTargetEntry(d, p), pattern="MIGTG-TARG-xxx")
+
+    # 7.4.2. Schema Migration Steps — one entry per versioned artifact.
     @property
     def migrationSteps(self):
         return SomList(self.doc, f"{self.path}/SCMST-STEP-LST", lambda d, p: SchemaMigrationStepEntry(d, p), pattern="SCMST-STEP-xxx")
@@ -27578,6 +27942,18 @@ class ScreenElementFieldSpec(SomNode):
     def selectOptions(self):
         return ScreenElementFieldSpecSelectOptionsForm(self.doc, f"{self.path}/SEFSS")
 
+    # File-kind options — a promoted `@OneOf` case (csrb8).
+    #
+    # Present only for the file field kind; carries what may be chosen and how
+    # the chosen file is shown. The **storage group** is deliberately absent: a
+    # file's group is authored once on its CE-DB file-reference column
+    # (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+    # name different groups. So is a download affordance, which follows from the
+    # field being wired for transfer and the file being stored (§5.18).
+    @property
+    def fileOptions(self):
+        return ScreenElementFieldSpecFileOptionsForm(self.doc, f"{self.path}/SEFSU")
+
 class ScreenEntry(SomNode):
     """A screen entry (form).
     
@@ -27695,6 +28071,18 @@ class ScreenFieldEntry(SomNode):
     @property
     def choiceOptions(self):
         return ScreenFieldEntryChoiceOptionsForm(self.doc, f"{self.path}/SCFICH")
+
+    # File-kind input constraints — a promoted `@OneOf` case (csrb8).
+    #
+    # Constraints only. **How** the file is presented — link, dropzone or
+    # thumbnail — is the D09 design pass's `fileOptions`
+    # (`ScreenElementFieldSpec`), because a requirement names the kind of value
+    # a user supplies and the design names the concrete control. The storage
+    # group is neither side's: it is authored on the CE-DB file-reference column
+    # (`codespecs_mapping.md` §5.13.1).
+    @property
+    def fileConstraints(self):
+        return ScreenFieldEntryFileConstraintsForm(self.doc, f"{self.path}/SCFIFI")
 
     # UI and layout.
     @property
@@ -28716,6 +29104,28 @@ class SensitiveDataEncryption(SomNode):
     def keyManagement(self):
         return KeyManagement(self.doc, f"{self.path}/keyManagement")
 
+class ServerConfigurationSettingEntry(SomNode):
+    """A single declared server / system configuration setting (CE-CF).
+    
+    The declaration only: key, value type, default, the environment variable and
+    command-line option it may also be read from, whether it carries a secret,
+    and which narrower scopes may shadow it. The *value* is supplied per
+    deployment through the configuration
+    tree, the OS environment, a `.env` file or the command line (in that
+    precedence, command line winning) and is never authored. A secret-bearing
+    setting declares its presence and shape so deployment tooling can supply
+    the content out of band (`codespecs_mapping.md` §5.16).
+    
+    Security and infrastructure configuration is scope-pinned: it stays
+    server-side unless the declaration explicitly opens it to a narrower scope.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ServerConfigurationSettingEntryContentForm(self.doc, f"{self.path}/content")
+
 class ServerEnvironmentEntry(SomNode):
     """Server environment entry (development, staging, production, DR)."""
     def __init__(self, doc, path):
@@ -28744,6 +29154,105 @@ class ServerEnvironmentEntry(SomNode):
     @property
     def lifecycle(self):
         return ServerEnvironmentEntryLifecycleForm(self.doc, f"{self.path}/SEENENLI")
+
+class ServerOperationEntry(SomNode):
+    """A single server operation (form + request/response members).
+    
+    One entry in the [ServerOperationRegistry]: the operation name that
+    identifies it, its purpose, the data entity it primarily writes, its
+    authorization requirement, the error codes it may return, and the members
+    that make up its request and response shapes.
+    
+    The operation name is the join token the rest of the model references: the
+    ISC step entries cite it as the target of a client call (CE-SC), and the
+    service unit that owns the operation follows from
+    [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+    list (`codespecs_mapping.md` §5.17).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ServerOperationEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.9.x. Request Members — the members that make up the request shape.
+    @property
+    def requestMembers(self):
+        return SomList(self.doc, f"{self.path}/SVOPM-REQM-LST", lambda d, p: ServerOperationMemberEntry(d, p), pattern="SVOPM-REQM-xxx")
+
+    # 7.9.x. Response Members — the members the success payload carries.
+    #
+    # These members *are* the success payload the Result envelope wraps; the
+    # envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+    # authored per operation.
+    @property
+    def responseMembers(self):
+        return SomList(self.doc, f"{self.path}/SVOPM-RESM-LST", lambda d, p: ServerOperationMemberEntry(d, p), pattern="SVOPM-RESM-xxx")
+
+class ServerOperationMemberEntry(SomNode):
+    """A single member of an operation's request or response shape (form).
+    
+    One named, typed member: its name, its type, whether it must be present, and
+    — when the type is a domain concept rather than a primitive — the data
+    entity or domain enum it draws from. The same shape serves both the request
+    and the response side of a [ServerOperationEntry], so a member reads the
+    same way whichever direction it travels.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return ServerOperationMemberEntryContentForm(self.doc, f"{self.path}/content")
+
+class ServerOperationRegistry(SomNode):
+    """7.9. Server Operation Registry.
+    
+    The authoring home for the **application's own** operation surface — the
+    CE-API (`serverApi`) part. Every operation the system answers is declared
+    once here; the client side (CE-SC) only *cites* an operation, and the
+    service unit that owns it (CE-SU) is *derived* from the entity each
+    operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+    declare an operation, so without this registry the system's server API would
+    be code with no specification source.
+    
+    This is distinct from the **external** interface inventory under
+    `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+    system talks to. Those carry a transport verb and a path because a
+    third-party API really has them; the application's own contract does not —
+    `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+    whose **operation name** carries the intent, and §5.14 drops transport
+    plumbing from the spec surface.
+    
+    **What is deliberately not authored here** (all fixed by §7 / §5.14):
+    
+    - no transport method and no path — the operation name is the identifier;
+    - no response status codes — every application outcome, success *or* error,
+      rides in the [ResultEnvelope]; only infrastructure failures are transport
+      errors;
+    - no encoding, header, redirect, CORS or credential plumbing — framework
+      transport members, never spec input.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 7.9.1. Operations — one entry per operation the system answers.
+    @property
+    def operations(self):
+        return SomList(self.doc, f"{self.path}/SVOPE-OPER-LST", lambda d, p: ServerOperationEntry(d, p), pattern="SVOPE-OPER-xxx")
 
 class ServerOsRequirements(SomNode):
     """Server operating system requirements."""
@@ -31231,6 +31740,11 @@ class SystemConfigurationManagement(SomNode):
     @property
     def governance(self):
         return SystemConfigurationManagementGovernanceForm(self.doc, f"{self.path}/SCMG")
+
+    # The declared server configuration settings.
+    @property
+    def settings(self):
+        return SomList(self.doc, f"{self.path}/SCSET-SETT-LST", lambda d, p: ServerConfigurationSettingEntry(d, p), pattern="SCSET-SETT-xxx")
 
 class SystemContext(SomNode):
     """4.1.2. System Context.
@@ -35714,6 +36228,54 @@ class UserRegistrationProcess(SomNode):
     @property
     def registrationFlowDiagram(self):
         return None  # (skipped: no target type)
+
+class UserSettingEntry(SomNode):
+    """A single declared user setting (CE-UP).
+    
+    The declaration only: key, value type, default, and whether a per-device
+    value may shadow the key. The value is the user's choice and is never
+    authored (`codespecs_mapping.md` §5.16).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return UserSettingEntryContentForm(self.doc, f"{self.path}/content")
+
+class UserSettings(SomNode):
+    """User settings — server-persisted settings that follow the user (CE-UP).
+    
+    Keyed by the user alone: no machine and no device in the key. A user
+    setting is persisted on the server and re-materialised on whichever device
+    the user signs in from, which is what distinguishes it from a device
+    setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+    the device) and from client configuration ([ClientConfiguration], CE-CC —
+    no user identity in the key) (`codespecs_mapping.md` §11).
+    
+    The scope is expressed by *which section a setting is declared in*, never
+    by a field on a shared section: there is no persistence discriminator
+    anywhere in the four settings scopes.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # The declared user settings.
+    @property
+    def settings(self):
+        return SomList(self.doc, f"{self.path}/USSET-SETT-LST", lambda d, p: UserSettingEntry(d, p), pattern="USSET-SETT-xxx")
 
 class UserTrainingRequirements(SomNode):
     """4.1.4.n.5. Training Requirements.
@@ -45611,22 +46173,6 @@ class BatchJobManagementContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def schedulingEngine(self) -> str:
-        return self.doc.form_field(self.path, "schedulingEngine") or ""
-
-    @schedulingEngine.setter
-    def schedulingEngine(self, value):
-        self.doc.set_form_field(self.path, "schedulingEngine", value)
-
-    @property
-    def scheduleDefinition(self) -> str:
-        return self.doc.form_field(self.path, "scheduleDefinition") or ""
-
-    @scheduleDefinition.setter
-    def scheduleDefinition(self, value):
-        self.doc.set_form_field(self.path, "scheduleDefinition", value)
-
-    @property
     def timeZoneHandling(self) -> str:
         return self.doc.form_field(self.path, "timeZoneHandling") or ""
 
@@ -52371,7 +52917,7 @@ class ClientAccessibilityRequirementsVisualForm(SomNode):
     def fontScaling(self, value):
         self.doc.set_form_field(self.path, "fontScaling", value)
 
-class ClientConfigurationContentForm(SomNode):
+class ClientApplicationEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
@@ -52389,44 +52935,117 @@ class ClientConfigurationContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def apiBaseUrl(self) -> str:
-        return self.doc.form_field(self.path, "apiBaseUrl") or ""
+    def clientId(self) -> str:
+        return self.doc.form_field(self.path, "clientId") or ""
 
-    @apiBaseUrl.setter
-    def apiBaseUrl(self, value):
-        self.doc.set_form_field(self.path, "apiBaseUrl", value)
-
-    @property
-    def environment(self) -> str:
-        return self.doc.form_field(self.path, "environment") or ""
-
-    @environment.setter
-    def environment(self, value):
-        self.doc.set_form_field(self.path, "environment", value)
+    @clientId.setter
+    def clientId(self, value):
+        self.doc.set_form_field(self.path, "clientId", value)
 
     @property
-    def deviceOptions(self) -> str:
-        return self.doc.form_field(self.path, "deviceOptions") or ""
+    def clientName(self) -> str:
+        return self.doc.form_field(self.path, "clientName") or ""
 
-    @deviceOptions.setter
-    def deviceOptions(self, value):
-        self.doc.set_form_field(self.path, "deviceOptions", value)
-
-    @property
-    def featureToggles(self) -> str:
-        return self.doc.form_field(self.path, "featureToggles") or ""
-
-    @featureToggles.setter
-    def featureToggles(self, value):
-        self.doc.set_form_field(self.path, "featureToggles", value)
+    @clientName.setter
+    def clientName(self, value):
+        self.doc.set_form_field(self.path, "clientName", value)
 
     @property
-    def updateChannel(self) -> str:
-        return self.doc.form_field(self.path, "updateChannel") or ""
+    def clientKind(self) -> str:
+        return self.doc.form_field(self.path, "clientKind") or ""
 
-    @updateChannel.setter
-    def updateChannel(self, value):
-        self.doc.set_form_field(self.path, "updateChannel", value)
+    @clientKind.setter
+    def clientKind(self, value):
+        self.doc.set_form_field(self.path, "clientKind", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
+
+    @property
+    def platformTargets(self) -> str:
+        return self.doc.form_field(self.path, "platformTargets") or ""
+
+    @platformTargets.setter
+    def platformTargets(self, value):
+        self.doc.set_form_field(self.path, "platformTargets", value)
+
+    @property
+    def entryRoute(self) -> str:
+        return self.doc.form_field(self.path, "entryRoute") or ""
+
+    @entryRoute.setter
+    def entryRoute(self, value):
+        self.doc.set_form_field(self.path, "entryRoute", value)
+
+    @property
+    def includedScreens(self) -> str:
+        return self.doc.form_field(self.path, "includedScreens") or ""
+
+    @includedScreens.setter
+    def includedScreens(self, value):
+        self.doc.set_form_field(self.path, "includedScreens", value)
+
+class ClientConfigurationSettingEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def settingKey(self) -> str:
+        return self.doc.form_field(self.path, "settingKey") or ""
+
+    @settingKey.setter
+    def settingKey(self, value):
+        self.doc.set_form_field(self.path, "settingKey", value)
+
+    @property
+    def client(self) -> str:
+        return self.doc.form_field(self.path, "client") or ""
+
+    @client.setter
+    def client(self, value):
+        self.doc.set_form_field(self.path, "client", value)
+
+    @property
+    def valueType(self) -> str:
+        return self.doc.form_field(self.path, "valueType") or ""
+
+    @valueType.setter
+    def valueType(self, value):
+        self.doc.set_form_field(self.path, "valueType", value)
+
+    @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+    @property
+    def overridableBy(self) -> str:
+        return self.doc.form_field(self.path, "overridableBy") or ""
+
+    @overridableBy.setter
+    def overridableBy(self, value):
+        self.doc.set_form_field(self.path, "overridableBy", value)
 
 class ClientHardwareRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -74681,7 +75300,7 @@ class DevelopmentQualityGatesSecurityForm(SomNode):
     def licenseCompliance(self, value):
         self.doc.set_form_field(self.path, "licenseCompliance", value)
 
-class DeviceSettingsContentForm(SomNode):
+class DeviceSettingEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
@@ -74721,15 +75340,6 @@ class DeviceSettingsContentForm(SomNode):
     @defaultValue.setter
     def defaultValue(self, value):
         self.doc.set_form_field(self.path, "defaultValue", value)
-
-    @property
-    def deviceOverridable(self) -> "bool | None":
-        v = self.doc.form_field(self.path, "deviceOverridable")
-        return None if v is None else (v == "true")
-
-    @deviceOverridable.setter
-    def deviceOverridable(self, value):
-        self.doc.set_form_field(self.path, "deviceOverridable", "" if value is None else ("true" if value else "false"))
 
 class DisasterRecoveryRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -106474,6 +107084,55 @@ class MigrationSystemsContentForm(SomNode):
     @dataModelChangeSummary.setter
     def dataModelChangeSummary(self, value):
         self.doc.set_form_field(self.path, "dataModelChangeSummary", value)
+
+class MigrationTargetEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def targetName(self) -> str:
+        return self.doc.form_field(self.path, "targetName") or ""
+
+    @targetName.setter
+    def targetName(self, value):
+        self.doc.set_form_field(self.path, "targetName", value)
+
+    @property
+    def dataSourceName(self) -> str:
+        return self.doc.form_field(self.path, "dataSourceName") or ""
+
+    @dataSourceName.setter
+    def dataSourceName(self, value):
+        self.doc.set_form_field(self.path, "dataSourceName", value)
+
+    @property
+    def schemaName(self) -> str:
+        return self.doc.form_field(self.path, "schemaName") or ""
+
+    @schemaName.setter
+    def schemaName(self, value):
+        self.doc.set_form_field(self.path, "schemaName", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
 
 class MobileCompatibilityEntryCapabilitiesForm(SomNode):
     """Generated section facade for the `capabilities` @Form section: its own content text followed by one typed member per form field."""
@@ -138838,6 +139497,259 @@ class ScenarioStepEntryExecutionForm(SomNode):
     def notes(self, value):
         self.doc.set_form_field(self.path, "notes", value)
 
+class ScheduledJobEntryCalendarTriggerForm(SomNode):
+    """Generated section facade for the `calendarTrigger` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def calendarRule(self) -> str:
+        return self.doc.form_field(self.path, "calendarRule") or ""
+
+    @calendarRule.setter
+    def calendarRule(self, value):
+        self.doc.set_form_field(self.path, "calendarRule", value)
+
+class ScheduledJobEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def jobName(self) -> str:
+        return self.doc.form_field(self.path, "jobName") or ""
+
+    @jobName.setter
+    def jobName(self, value):
+        self.doc.set_form_field(self.path, "jobName", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
+
+    @property
+    def triggerKind(self) -> str:
+        return self.doc.form_field(self.path, "triggerKind") or ""
+
+    @triggerKind.setter
+    def triggerKind(self, value):
+        self.doc.set_form_field(self.path, "triggerKind", value)
+
+    @property
+    def primaryDataEntity(self) -> str:
+        return self.doc.form_field(self.path, "primaryDataEntity") or ""
+
+    @primaryDataEntity.setter
+    def primaryDataEntity(self, value):
+        self.doc.set_form_field(self.path, "primaryDataEntity", value)
+
+    @property
+    def enabled(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "enabled")
+        return None if v is None else (v == "true")
+
+    @enabled.setter
+    def enabled(self, value):
+        self.doc.set_form_field(self.path, "enabled", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def environments(self) -> str:
+        return self.doc.form_field(self.path, "environments") or ""
+
+    @environments.setter
+    def environments(self, value):
+        self.doc.set_form_field(self.path, "environments", value)
+
+class ScheduledJobEntryCronTriggerForm(SomNode):
+    """Generated section facade for the `cronTrigger` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def cronExpression(self) -> str:
+        return self.doc.form_field(self.path, "cronExpression") or ""
+
+    @cronExpression.setter
+    def cronExpression(self, value):
+        self.doc.set_form_field(self.path, "cronExpression", value)
+
+class ScheduledJobEntryEventTriggerForm(SomNode):
+    """Generated section facade for the `eventTrigger` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def eventName(self) -> str:
+        return self.doc.form_field(self.path, "eventName") or ""
+
+    @eventName.setter
+    def eventName(self, value):
+        self.doc.set_form_field(self.path, "eventName", value)
+
+    @property
+    def eventPayload(self) -> str:
+        return self.doc.form_field(self.path, "eventPayload") or ""
+
+    @eventPayload.setter
+    def eventPayload(self, value):
+        self.doc.set_form_field(self.path, "eventPayload", value)
+
+class ScheduledJobEntryFailurePolicyForm(SomNode):
+    """Generated section facade for the `failurePolicy` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def maxRetries(self) -> "int | None":
+        v = self.doc.form_field(self.path, "maxRetries")
+        if v is None or v == "":
+            return None
+        try:
+            return int(v)
+        except (TypeError, ValueError):
+            return None
+
+    @maxRetries.setter
+    def maxRetries(self, value):
+        self.doc.set_form_field(self.path, "maxRetries", "" if value is None else str(value))
+
+    @property
+    def retryBackoff(self) -> str:
+        return self.doc.form_field(self.path, "retryBackoff") or ""
+
+    @retryBackoff.setter
+    def retryBackoff(self, value):
+        self.doc.set_form_field(self.path, "retryBackoff", value)
+
+    @property
+    def timeout(self) -> str:
+        return self.doc.form_field(self.path, "timeout") or ""
+
+    @timeout.setter
+    def timeout(self, value):
+        self.doc.set_form_field(self.path, "timeout", value)
+
+    @property
+    def failureAlertMessage(self) -> str:
+        return self.doc.form_field(self.path, "failureAlertMessage") or ""
+
+    @failureAlertMessage.setter
+    def failureAlertMessage(self, value):
+        self.doc.set_form_field(self.path, "failureAlertMessage", value)
+
+class ScheduledJobEntryWorkDefinitionForm(SomNode):
+    """Generated section facade for the `workDefinition` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def workSummary(self) -> str:
+        return self.doc.form_field(self.path, "workSummary") or ""
+
+    @workSummary.setter
+    def workSummary(self, value):
+        self.doc.set_form_field(self.path, "workSummary", value)
+
+    @property
+    def readEntities(self) -> str:
+        return self.doc.form_field(self.path, "readEntities") or ""
+
+    @readEntities.setter
+    def readEntities(self, value):
+        self.doc.set_form_field(self.path, "readEntities", value)
+
+    @property
+    def writtenEntities(self) -> str:
+        return self.doc.form_field(self.path, "writtenEntities") or ""
+
+    @writtenEntities.setter
+    def writtenEntities(self, value):
+        self.doc.set_form_field(self.path, "writtenEntities", value)
+
+    @property
+    def targetReports(self) -> str:
+        return self.doc.form_field(self.path, "targetReports") or ""
+
+    @targetReports.setter
+    def targetReports(self, value):
+        self.doc.set_form_field(self.path, "targetReports", value)
+
 class ScheduledMaintenancePolicyApprovalForm(SomNode):
     """Generated section facade for the `approval` @Form section: its own content text followed by one typed member per form field."""
 
@@ -139061,6 +139973,47 @@ class ScheduledMaintenancePolicySchedulingForm(SomNode):
     def blackoutPeriods(self, value):
         self.doc.set_form_field(self.path, "blackoutPeriods", value)
 
+class SchemaMigrationStepEntryBaselineSchemaForm(SomNode):
+    """Generated section facade for the `baselineSchema` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def createdEntities(self) -> str:
+        return self.doc.form_field(self.path, "createdEntities") or ""
+
+    @createdEntities.setter
+    def createdEntities(self, value):
+        self.doc.set_form_field(self.path, "createdEntities", value)
+
+    @property
+    def schemaStatements(self) -> str:
+        return self.doc.form_field(self.path, "schemaStatements") or ""
+
+    @schemaStatements.setter
+    def schemaStatements(self, value):
+        self.doc.set_form_field(self.path, "schemaStatements", value)
+
+    @property
+    def indexesAndConstraints(self) -> str:
+        return self.doc.form_field(self.path, "indexesAndConstraints") or ""
+
+    @indexesAndConstraints.setter
+    def indexesAndConstraints(self, value):
+        self.doc.set_form_field(self.path, "indexesAndConstraints", value)
+
 class SchemaMigrationStepEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -139095,12 +140048,94 @@ class SchemaMigrationStepEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "description", value)
 
     @property
-    def ddlOperations(self) -> str:
-        return self.doc.form_field(self.path, "ddlOperations") or ""
+    def artifactKind(self) -> str:
+        return self.doc.form_field(self.path, "artifactKind") or ""
 
-    @ddlOperations.setter
-    def ddlOperations(self, value):
-        self.doc.set_form_field(self.path, "ddlOperations", value)
+    @artifactKind.setter
+    def artifactKind(self, value):
+        self.doc.set_form_field(self.path, "artifactKind", value)
+
+    @property
+    def migrationTarget(self) -> str:
+        return self.doc.form_field(self.path, "migrationTarget") or ""
+
+    @migrationTarget.setter
+    def migrationTarget(self, value):
+        self.doc.set_form_field(self.path, "migrationTarget", value)
+
+    @property
+    def environments(self) -> str:
+        return self.doc.form_field(self.path, "environments") or ""
+
+    @environments.setter
+    def environments(self, value):
+        self.doc.set_form_field(self.path, "environments", value)
+
+class SchemaMigrationStepEntryReferenceDataForm(SomNode):
+    """Generated section facade for the `referenceData` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def targetEntities(self) -> str:
+        return self.doc.form_field(self.path, "targetEntities") or ""
+
+    @targetEntities.setter
+    def targetEntities(self, value):
+        self.doc.set_form_field(self.path, "targetEntities", value)
+
+    @property
+    def valueSet(self) -> str:
+        return self.doc.form_field(self.path, "valueSet") or ""
+
+    @valueSet.setter
+    def valueSet(self, value):
+        self.doc.set_form_field(self.path, "valueSet", value)
+
+    @property
+    def identityKey(self) -> str:
+        return self.doc.form_field(self.path, "identityKey") or ""
+
+    @identityKey.setter
+    def identityKey(self, value):
+        self.doc.set_form_field(self.path, "identityKey", value)
+
+class SchemaMigrationStepEntrySchemaChangeForm(SomNode):
+    """Generated section facade for the `schemaChange` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def schemaStatements(self) -> str:
+        return self.doc.form_field(self.path, "schemaStatements") or ""
+
+    @schemaStatements.setter
+    def schemaStatements(self, value):
+        self.doc.set_form_field(self.path, "schemaStatements", value)
 
     @property
     def affectedEntities(self) -> str:
@@ -139143,14 +140178,6 @@ class SchemaVersioningAndMigrationContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def migrationTooling(self) -> str:
-        return self.doc.form_field(self.path, "migrationTooling") or ""
-
-    @migrationTooling.setter
-    def migrationTooling(self, value):
-        self.doc.set_form_field(self.path, "migrationTooling", value)
 
     @property
     def versioningStrategy(self) -> str:
@@ -140168,6 +141195,55 @@ class ScreenElementFieldSpecDateOptionsForm(SomNode):
     def dateFormat(self, value):
         self.doc.set_form_field(self.path, "dateFormat", value)
 
+class ScreenElementFieldSpecFileOptionsForm(SomNode):
+    """Generated section facade for the `fileOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def acceptedContentKinds(self) -> str:
+        return self.doc.form_field(self.path, "acceptedContentKinds") or ""
+
+    @acceptedContentKinds.setter
+    def acceptedContentKinds(self, value):
+        self.doc.set_form_field(self.path, "acceptedContentKinds", value)
+
+    @property
+    def maxFileSize(self) -> str:
+        return self.doc.form_field(self.path, "maxFileSize") or ""
+
+    @maxFileSize.setter
+    def maxFileSize(self, value):
+        self.doc.set_form_field(self.path, "maxFileSize", value)
+
+    @property
+    def presentation(self) -> str:
+        return self.doc.form_field(self.path, "presentation") or ""
+
+    @presentation.setter
+    def presentation(self, value):
+        self.doc.set_form_field(self.path, "presentation", value)
+
+    @property
+    def uploadOnPick(self) -> str:
+        return self.doc.form_field(self.path, "uploadOnPick") or ""
+
+    @uploadOnPick.setter
+    def uploadOnPick(self, value):
+        self.doc.set_form_field(self.path, "uploadOnPick", value)
+
 class ScreenElementFieldSpecFormattingForm(SomNode):
     """Generated section facade for the `formatting` @Form section: its own content text followed by one typed member per form field."""
 
@@ -140839,6 +141915,39 @@ class ScreenFieldEntryDataBindingForm(SomNode):
     @helpText.setter
     def helpText(self, value):
         self.doc.set_form_field(self.path, "helpText", value)
+
+class ScreenFieldEntryFileConstraintsForm(SomNode):
+    """Generated section facade for the `fileConstraints` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def acceptedContentKinds(self) -> str:
+        return self.doc.form_field(self.path, "acceptedContentKinds") or ""
+
+    @acceptedContentKinds.setter
+    def acceptedContentKinds(self, value):
+        self.doc.set_form_field(self.path, "acceptedContentKinds", value)
+
+    @property
+    def maxFileSize(self) -> str:
+        return self.doc.form_field(self.path, "maxFileSize") or ""
+
+    @maxFileSize.setter
+    def maxFileSize(self, value):
+        self.doc.set_form_field(self.path, "maxFileSize", value)
 
 class ScreenFieldEntryLayoutForm(SomNode):
     """Generated section facade for the `layout` @Form section: its own content text followed by one typed member per form field."""
@@ -144015,6 +145124,80 @@ class SelfRegistrationPolicyVerificationForm(SomNode):
     def phoneVerificationMethod(self, value):
         self.doc.set_form_field(self.path, "phoneVerificationMethod", value)
 
+class ServerConfigurationSettingEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def settingKey(self) -> str:
+        return self.doc.form_field(self.path, "settingKey") or ""
+
+    @settingKey.setter
+    def settingKey(self, value):
+        self.doc.set_form_field(self.path, "settingKey", value)
+
+    @property
+    def valueType(self) -> str:
+        return self.doc.form_field(self.path, "valueType") or ""
+
+    @valueType.setter
+    def valueType(self, value):
+        self.doc.set_form_field(self.path, "valueType", value)
+
+    @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+    @property
+    def environmentVariable(self) -> str:
+        return self.doc.form_field(self.path, "environmentVariable") or ""
+
+    @environmentVariable.setter
+    def environmentVariable(self, value):
+        self.doc.set_form_field(self.path, "environmentVariable", value)
+
+    @property
+    def commandLineOption(self) -> str:
+        return self.doc.form_field(self.path, "commandLineOption") or ""
+
+    @commandLineOption.setter
+    def commandLineOption(self, value):
+        self.doc.set_form_field(self.path, "commandLineOption", value)
+
+    @property
+    def secret(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "secret")
+        return None if v is None else (v == "true")
+
+    @secret.setter
+    def secret(self, value):
+        self.doc.set_form_field(self.path, "secret", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def overridableBy(self) -> str:
+        return self.doc.form_field(self.path, "overridableBy") or ""
+
+    @overridableBy.setter
+    def overridableBy(self, value):
+        self.doc.set_form_field(self.path, "overridableBy", value)
+
 class ServerEnvironmentEntryAccessForm(SomNode):
     """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
 
@@ -144242,6 +145425,162 @@ class ServerEnvironmentEntryScaleForm(SomNode):
     @expectedLoad.setter
     def expectedLoad(self, value):
         self.doc.set_form_field(self.path, "expectedLoad", value)
+
+class ServerOperationEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def operationName(self) -> str:
+        return self.doc.form_field(self.path, "operationName") or ""
+
+    @operationName.setter
+    def operationName(self, value):
+        self.doc.set_form_field(self.path, "operationName", value)
+
+    @property
+    def purpose(self) -> str:
+        return self.doc.form_field(self.path, "purpose") or ""
+
+    @purpose.setter
+    def purpose(self, value):
+        self.doc.set_form_field(self.path, "purpose", value)
+
+    @property
+    def primaryDataEntity(self) -> str:
+        return self.doc.form_field(self.path, "primaryDataEntity") or ""
+
+    @primaryDataEntity.setter
+    def primaryDataEntity(self, value):
+        self.doc.set_form_field(self.path, "primaryDataEntity", value)
+
+    @property
+    def authorizationRequirement(self) -> str:
+        return self.doc.form_field(self.path, "authorizationRequirement") or ""
+
+    @authorizationRequirement.setter
+    def authorizationRequirement(self, value):
+        self.doc.set_form_field(self.path, "authorizationRequirement", value)
+
+    @property
+    def requiredRoles(self) -> str:
+        return self.doc.form_field(self.path, "requiredRoles") or ""
+
+    @requiredRoles.setter
+    def requiredRoles(self, value):
+        self.doc.set_form_field(self.path, "requiredRoles", value)
+
+    @property
+    def requiredResourceKey(self) -> str:
+        return self.doc.form_field(self.path, "requiredResourceKey") or ""
+
+    @requiredResourceKey.setter
+    def requiredResourceKey(self, value):
+        self.doc.set_form_field(self.path, "requiredResourceKey", value)
+
+    @property
+    def descriptionKey(self) -> str:
+        return self.doc.form_field(self.path, "descriptionKey") or ""
+
+    @descriptionKey.setter
+    def descriptionKey(self, value):
+        self.doc.set_form_field(self.path, "descriptionKey", value)
+
+    @property
+    def errorCodes(self) -> str:
+        return self.doc.form_field(self.path, "errorCodes") or ""
+
+    @errorCodes.setter
+    def errorCodes(self, value):
+        self.doc.set_form_field(self.path, "errorCodes", value)
+
+class ServerOperationMemberEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def memberName(self) -> str:
+        return self.doc.form_field(self.path, "memberName") or ""
+
+    @memberName.setter
+    def memberName(self, value):
+        self.doc.set_form_field(self.path, "memberName", value)
+
+    @property
+    def memberType(self) -> str:
+        return self.doc.form_field(self.path, "memberType") or ""
+
+    @memberType.setter
+    def memberType(self, value):
+        self.doc.set_form_field(self.path, "memberType", value)
+
+    @property
+    def multiValued(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "multiValued")
+        return None if v is None else (v == "true")
+
+    @multiValued.setter
+    def multiValued(self, value):
+        self.doc.set_form_field(self.path, "multiValued", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def required(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "required")
+        return None if v is None else (v == "true")
+
+    @required.setter
+    def required(self, value):
+        self.doc.set_form_field(self.path, "required", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def dataEntity(self) -> str:
+        return self.doc.form_field(self.path, "dataEntity") or ""
+
+    @dataEntity.setter
+    def dataEntity(self, value):
+        self.doc.set_form_field(self.path, "dataEntity", value)
+
+    @property
+    def domainEnum(self) -> str:
+        return self.doc.form_field(self.path, "domainEnum") or ""
+
+    @domainEnum.setter
+    def domainEnum(self, value):
+        self.doc.set_form_field(self.path, "domainEnum", value)
+
+    @property
+    def description(self) -> str:
+        return self.doc.form_field(self.path, "description") or ""
+
+    @description.setter
+    def description(self, value):
+        self.doc.set_form_field(self.path, "description", value)
 
 class ServerOsRequirementsContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -171433,6 +172772,55 @@ class UserProvisioningToolsRoleManagementForm(SomNode):
     def accessReviewProcess(self, value):
         self.doc.set_form_field(self.path, "accessReviewProcess", value)
 
+class UserSettingEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def settingKey(self) -> str:
+        return self.doc.form_field(self.path, "settingKey") or ""
+
+    @settingKey.setter
+    def settingKey(self, value):
+        self.doc.set_form_field(self.path, "settingKey", value)
+
+    @property
+    def valueType(self) -> str:
+        return self.doc.form_field(self.path, "valueType") or ""
+
+    @valueType.setter
+    def valueType(self, value):
+        self.doc.set_form_field(self.path, "valueType", value)
+
+    @property
+    def defaultValue(self) -> str:
+        return self.doc.form_field(self.path, "defaultValue") or ""
+
+    @defaultValue.setter
+    def defaultValue(self, value):
+        self.doc.set_form_field(self.path, "defaultValue", value)
+
+    @property
+    def overridableBy(self) -> str:
+        return self.doc.form_field(self.path, "overridableBy") or ""
+
+    @overridableBy.setter
+    def overridableBy(self, value):
+        self.doc.set_form_field(self.path, "overridableBy", value)
+
 class UserTrainingRequirementsTrainingFormForm(SomNode):
     """Generated section facade for the `trainingForm` @Form section: its own content text followed by one typed member per form field."""
 
@@ -174336,6 +175724,15 @@ class WorkflowStepEntryContentForm(SomNode):
     @isAutomatable.setter
     def isAutomatable(self, value):
         self.doc.set_form_field(self.path, "isAutomatable", "" if value is None else ("true" if value else "false"))
+
+    @property
+    def isErrorProne(self) -> "bool | None":
+        v = self.doc.form_field(self.path, "isErrorProne")
+        return None if v is None else (v == "true")
+
+    @isErrorProne.setter
+    def isErrorProne(self, value):
+        self.doc.set_form_field(self.path, "isErrorProne", "" if value is None else ("true" if value else "false"))
 
     @property
     def averageDuration(self) -> str:

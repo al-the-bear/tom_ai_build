@@ -198,6 +198,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per lifecycle transition.
+  migtg-targ-lst:
+    prefix: MIGTG_TARG_LST
+    subsection-types:
+      migtg-targ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.
   msgke-mkey-lst:
     prefix: MSGKE_MKEY_LST
     subsection-types:
@@ -246,6 +254,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per field-level detail the error arm may report.
+  scmst-step-lst:
+    prefix: SCMST_STEP_LST
+    subsection-types:
+      scmst-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per versioned migration artifact.
+  svope-oper-lst:
+    prefix: SVOPE_OPER_LST
+    subsection-types:
+      svope-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per operation the system answers.
+  svopm-reqm-lst:
+    prefix: SVOPM_REQM_LST
+    subsection-types:
+      svopm-reqm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per member of the request shape.
+  svopm-resm-lst:
+    prefix: SVOPM_RESM_LST
+    subsection-types:
+      svopm-resm:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
   affn-affe-lst:
     prefix: AFFN_AFFE_LST
     subsection-types:
@@ -575,6 +615,12 @@ section-types:
       pattern: ^LFTRS-LIFE-.+$
       error-message: IDs of this section must match LFTRS-LIFE-xxx
     description: Add one entry per lifecycle transition.
+  migtg-targ:
+    prefix: MIGTG_TARG_
+    pattern-check-id:
+      pattern: ^MIGTG-TARG-.+$
+      error-message: IDs of this section must match MIGTG-TARG-xxx
+    description: Add one entry per data source / schema pair that migration artifacts apply to. Every artifact in 7.4.2 names one of these targets.
   msgke-mkey:
     prefix: MSGKE_MKEY_
     subsection-types:
@@ -614,6 +660,42 @@ section-types:
       pattern: ^RSFDE-FLDD-.+$
       error-message: IDs of this section must match RSFDE-FLDD-xxx
     description: Add one entry per field-level detail the error arm may report.
+  scmst-step:
+    prefix: SCMST_STEP_
+    subsection-types:
+      scmst-base:
+        max-count: 1
+      scmst-refd:
+        max-count: 1
+      scmst-chng:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SCMST-STEP-.+$
+      error-message: IDs of this section must match SCMST-STEP-xxx
+    description: Add one entry per versioned migration artifact.
+  svope-oper:
+    prefix: SVOPE_OPER_
+    subsection-types:
+      svopm-reqm-lst:
+        max-count: 1
+      svopm-resm-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SVOPE-OPER-.+$
+      error-message: IDs of this section must match SVOPE-OPER-xxx
+    description: Add one entry per operation the system answers.
+  svopm-reqm:
+    prefix: SVOPM_REQM_
+    pattern-check-id:
+      pattern: ^SVOPM-REQM-.+$
+      error-message: IDs of this section must match SVOPM-REQM-xxx
+    description: Add one entry per member of the request shape.
+  svopm-resm:
+    prefix: SVOPM_RESM_
+    pattern-check-id:
+      pattern: ^SVOPM-RESM-.+$
+      error-message: IDs of this section must match SVOPM-RESM-xxx
+    description: Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
   affn-affe:
     prefix: AFFN_AFFE_
     subsection-types:
@@ -765,6 +847,18 @@ section-types:
       pattern: ^OBST-KEYS-.+$
       error-message: IDs of this section must match OBST-KEYS-xxx
     description: Add one entry per object state.
+  scmst-base:
+    prefix: SCMST_BASE
+    format: scmst-base-form
+    description: "Baseline schema definition — a promoted `@OneOf` case."
+  scmst-chng:
+    prefix: SCMST_CHNG
+    format: scmst-chng-form
+    description: "Schema change — a promoted `@OneOf` case."
+  scmst-refd:
+    prefix: SCMST_REFD
+    format: scmst-refd-form
+    description: "Reference-data definition — a promoted `@OneOf` case."
   sufn-subf:
     prefix: SUFN_SUBF_
     pattern-check-id:
@@ -866,6 +960,20 @@ section-types:
       rsfde-fldd-lst:
         max-count: 1
     description: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract."
+  schmg:
+    prefix: SCHMG
+    subsection-types:
+      migtg-targ-lst:
+        max-count: 1
+      scmst-step-lst:
+        max-count: 1
+    description: "Schema versioning and migration — the CE-MG home: the versioning policy,"
+  svopr:
+    prefix: SVOPR
+    subsection-types:
+      svope-oper-lst:
+        max-count: 1
+    description: "Server operation registry — the system's own operation surface (CE-API):"
   dadi:
     prefix: DADI
     description: Data dictionary.
@@ -1406,6 +1514,37 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  scmst-base-form:
+    fields:
+      - fieldname: createdEntities
+        required: true
+        description: The Data Model entities this baseline creates
+      - fieldname: schemaStatements
+        description: The schema definition statements that create the tables
+      - fieldname: indexesAndConstraints
+        description: "Keys, indexes and constraints established with the baseline"
+  scmst-refd-form:
+    fields:
+      - fieldname: targetEntities
+        required: true
+        description: The Data Model entities this artifact populates
+      - fieldname: valueSet
+        required: true
+        description: "The reference values loaded — lookup values, defaults, built-in roles — or where the authoritative list is kept"
+      - fieldname: identityKey
+        description: "The key that identifies an existing row, so that re-applying the artifact updates rather than duplicates"
+  scmst-chng-form:
+    fields:
+      - fieldname: schemaStatements
+        required: true
+        description: "The schema changes performed on tables, columns, indexes and constraints"
+      - fieldname: affectedEntities
+        required: true
+        description: The Data Model entities this change touches
+      - fieldname: dataBackfill
+        description: "Any data population or transformation performed as part of the change, or None"
+      - fieldname: reversible
+        description: Whether a rollback step is provided for this change
 document:
   sections:
     dochd:
@@ -1449,4 +1588,10 @@ document:
       optional: true
     msgkr:
       section-type: msgkr
+      optional: true
+    svopr:
+      section-type: svopr
+      optional: true
+    schmg:
+      section-type: schmg
       optional: true

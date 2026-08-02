@@ -2456,7 +2456,10 @@ class CurrentWorkflowEntry extends DocSpecsSection {
   @SectionIdPattern('WSE-STEP-xxx')
   @ContentHelp(
     'Add the workflow steps in execution order, capturing the '
-    'responsible actor, inputs/outputs, and whether each is manual.',
+    'responsible actor, inputs/outputs, and whether each is manual, '
+    'automatable and error-prone. Steps are listed here once: mark a step '
+    'that needs human judgment or that fails often with the corresponding '
+    'flag rather than repeating it in a second list.',
   )
   @SerializationOrder(3)
   List<WorkflowStepEntry> steps = [];
@@ -2528,30 +2531,6 @@ class CurrentWorkflowEntry extends DocSpecsSection {
   @SerializationOrder(8)
   List<WorkflowBusinessRule> businessRules = [];
 
-  /// Manual steps requiring human intervention.
-  @StandardReferences([
-    'BABOK v3 §10 — current-state analysis (manual / non-automated steps)',
-  ], 'The subset of workflow steps that require human intervention.')
-  @SectionId('WSE-MANU-LST')
-  @SectionIdPattern('WSE-MANU-xxx')
-  @ContentHelp(
-    'Identify steps that cannot be automated or require human judgment.',
-  )
-  @SerializationOrder(9)
-  List<WorkflowStepEntry> manualSteps = [];
-
-  /// Error-prone steps with high failure rates.
-  @StandardReferences([
-    'BABOK v3 §10 — current-state analysis (error-prone steps)',
-  ], 'The subset of workflow steps known to have high error or failure rates.')
-  @SectionId('WSE-ERRO-LST')
-  @SectionIdPattern('WSE-ERRO-xxx')
-  @ContentHelp(
-    'Identify steps with known issues, high error rates, or workarounds.',
-  )
-  @SerializationOrder(10)
-  List<WorkflowStepEntry> errorProneSteps = [];
-
   /// Workflow timing and performance.
   @SectionId('WOTI')
   @StandardReferences(
@@ -2568,11 +2547,11 @@ class CurrentWorkflowEntry extends DocSpecsSection {
     Field('peakPeriods', String, 'Peak Periods (times of highest volume)'),
     Field('bottlenecks', String, 'Bottlenecks (steps causing delays)'),
   ])
-  @SerializationOrder(11)
+  @SerializationOrder(9)
   DocSpecsSection? timing;
 
   /// Workflow exceptions and error handling.
-  @SerializationOrder(12)
+  @SerializationOrder(10)
   WorkflowExceptions exceptions = WorkflowExceptions();
 }
 
@@ -2680,6 +2659,13 @@ class WorkflowStepEntry extends DocSpecsSection {
           'runs without human intervention',
     ),
     Field('isAutomatable', bool, 'Is Automatable'),
+    Field(
+      'isErrorProne',
+      bool,
+      'Is Error-Prone (high error or failure rate)',
+      hint: 'Whether the step fails or is got wrong often enough to matter; '
+          'the known issues below record which failures and how often',
+    ),
     Field('averageDuration', String, 'Average Duration'),
   ])
   @override

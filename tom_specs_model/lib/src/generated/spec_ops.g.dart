@@ -1938,6 +1938,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.jobTypes, (v) => n.jobTypes = v as DocSpecsSection?, label: 'jobTypes'),
         SpecSlot.node(() => n.execution, (v) => n.execution = v as DocSpecsSection?, label: 'execution'),
         SpecSlot.node(() => n.monitoring, (v) => n.monitoring = v as DocSpecsSection?, label: 'monitoring'),
+        SpecSlot.list(() => n.scheduledJobs, (v) => n.scheduledJobs = v.cast<ScheduledJobEntry>(), label: 'scheduledJobs'),
       ];
     },
     cloneShallow: (o) {
@@ -1946,7 +1947,8 @@ void registerSpecOps() {
         ..content = n.content
         ..jobTypes = n.jobTypes
         ..execution = n.execution
-        ..monitoring = n.monitoring;
+        ..monitoring = n.monitoring
+        ..scheduledJobs = n.scheduledJobs;
     },
     yamlScalar: (o) => (o as BatchJobManagement).content,
   ));
@@ -2983,14 +2985,38 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ClientAccessibilityRequirements).content,
   ));
-  SpecRegistry.register(ClientConfiguration, SpecClassOps(
+  SpecRegistry.register(ClientApplicationEntry, SpecClassOps(
     slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ClientApplicationEntry;
+      return ClientApplicationEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ClientApplicationEntry).content,
+  ));
+  SpecRegistry.register(ClientConfiguration, SpecClassOps(
+    slots: (o) {
+      final n = o as ClientConfiguration;
+      return [
+        SpecSlot.list(() => n.settings, (v) => n.settings = v.cast<ClientConfigurationSettingEntry>(), label: 'settings'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as ClientConfiguration;
       return ClientConfiguration()
-        ..content = n.content;
+        ..content = n.content
+        ..settings = n.settings;
     },
     yamlScalar: (o) => (o as ClientConfiguration).content,
+  ));
+  SpecRegistry.register(ClientConfigurationSettingEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ClientConfigurationSettingEntry;
+      return ClientConfigurationSettingEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ClientConfigurationSettingEntry).content,
   ));
   SpecRegistry.register(ClientHardwareRequirements, SpecClassOps(
     slots: (o) {
@@ -3039,6 +3065,7 @@ void registerSpecOps() {
       final n = o as ClientRequirementsSection;
       return [
         SpecSlot.node(() => n.overview, (v) => n.overview = v as TextSection, label: 'overview'),
+        SpecSlot.list(() => n.clientApplications, (v) => n.clientApplications = v.cast<ClientApplicationEntry>(), label: 'clientApplications'),
         SpecSlot.list(() => n.browserRequirements, (v) => n.browserRequirements = v.cast<BrowserRequirementEntry>(), label: 'browserRequirements'),
         SpecSlot.list(() => n.desktopOsRequirements, (v) => n.desktopOsRequirements = v.cast<DesktopOsRequirementEntry>(), label: 'desktopOsRequirements'),
         SpecSlot.list(() => n.mobileRequirements, (v) => n.mobileRequirements = v.cast<MobileDeviceRequirementEntry>(), label: 'mobileRequirements'),
@@ -3051,6 +3078,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.securityRequirements, (v) => n.securityRequirements = v as ClientSecurityRequirements, label: 'securityRequirements'),
         SpecSlot.node(() => n.clientConfiguration, (v) => n.clientConfiguration = v as ClientConfiguration, label: 'clientConfiguration'),
         SpecSlot.node(() => n.deviceSettings, (v) => n.deviceSettings = v as DeviceSettings, label: 'deviceSettings'),
+        SpecSlot.node(() => n.userSettings, (v) => n.userSettings = v as UserSettings, label: 'userSettings'),
       ];
     },
     cloneShallow: (o) {
@@ -3058,6 +3086,7 @@ void registerSpecOps() {
       return ClientRequirementsSection()
         ..content = n.content
         ..overview = n.overview
+        ..clientApplications = n.clientApplications
         ..browserRequirements = n.browserRequirements
         ..desktopOsRequirements = n.desktopOsRequirements
         ..mobileRequirements = n.mobileRequirements
@@ -3069,7 +3098,8 @@ void registerSpecOps() {
         ..nativeAppRequirements = n.nativeAppRequirements
         ..securityRequirements = n.securityRequirements
         ..clientConfiguration = n.clientConfiguration
-        ..deviceSettings = n.deviceSettings;
+        ..deviceSettings = n.deviceSettings
+        ..userSettings = n.userSettings;
     },
     yamlScalar: (o) => (o as ClientRequirementsSection).content,
   ));
@@ -4522,8 +4552,6 @@ void registerSpecOps() {
         SpecSlot.list(() => n.outputs, (v) => n.outputs = v.cast<WorkflowOutputEntry>(), label: 'outputs'),
         SpecSlot.list(() => n.decisionPoints, (v) => n.decisionPoints = v.cast<WorkflowDecisionPoint>(), label: 'decisionPoints'),
         SpecSlot.list(() => n.businessRules, (v) => n.businessRules = v.cast<WorkflowBusinessRule>(), label: 'businessRules'),
-        SpecSlot.list(() => n.manualSteps, (v) => n.manualSteps = v.cast<WorkflowStepEntry>(), label: 'manualSteps'),
-        SpecSlot.list(() => n.errorProneSteps, (v) => n.errorProneSteps = v.cast<WorkflowStepEntry>(), label: 'errorProneSteps'),
         SpecSlot.node(() => n.timing, (v) => n.timing = v as DocSpecsSection?, label: 'timing'),
         SpecSlot.node(() => n.exceptions, (v) => n.exceptions = v as WorkflowExceptions, label: 'exceptions'),
       ];
@@ -4540,8 +4568,6 @@ void registerSpecOps() {
         ..outputs = n.outputs
         ..decisionPoints = n.decisionPoints
         ..businessRules = n.businessRules
-        ..manualSteps = n.manualSteps
-        ..errorProneSteps = n.errorProneSteps
         ..timing = n.timing
         ..exceptions = n.exceptions;
     },
@@ -4708,6 +4734,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
         SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
+        SpecSlot.node(() => n.serverOperationRegistry, (v) => n.serverOperationRegistry = v as ServerOperationRegistry, label: 'serverOperationRegistry'),
+        SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration'),
       ];
     },
     cloneShallow: (o) {
@@ -4730,7 +4758,9 @@ void registerSpecOps() {
         ..domainEnumRegistry = n.domainEnumRegistry
         ..errorCodeRegistry = n.errorCodeRegistry
         ..resultEnvelope = n.resultEnvelope
-        ..messageKeyRegistry = n.messageKeyRegistry;
+        ..messageKeyRegistry = n.messageKeyRegistry
+        ..serverOperationRegistry = n.serverOperationRegistry
+        ..schemaVersioningAndMigration = n.schemaVersioningAndMigration;
     },
     yamlScalar: (o) => (o as D03InformationModel).content,
   ));
@@ -5080,6 +5110,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
         SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
         SpecSlot.node(() => n.reportDefinitions, (v) => n.reportDefinitions = v as ReportDefinitions, label: 'reportDefinitions'),
+        SpecSlot.node(() => n.schemaVersioningAndMigration, (v) => n.schemaVersioningAndMigration = v as SchemaVersioningAndMigration, label: 'schemaVersioningAndMigration'),
+        SpecSlot.node(() => n.serverOperationRegistry, (v) => n.serverOperationRegistry = v as ServerOperationRegistry, label: 'serverOperationRegistry'),
         SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
         SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
       ];
@@ -5099,6 +5131,8 @@ void registerSpecOps() {
         ..accessControl = n.accessControl
         ..auditAndLogging = n.auditAndLogging
         ..reportDefinitions = n.reportDefinitions
+        ..schemaVersioningAndMigration = n.schemaVersioningAndMigration
+        ..serverOperationRegistry = n.serverOperationRegistry
         ..processStepsAndActorInteractions = n.processStepsAndActorInteractions
         ..experienceCodeSpecs = n.experienceCodeSpecs;
     },
@@ -6857,12 +6891,27 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as DevelopmentQualityGates).content,
   ));
-  SpecRegistry.register(DeviceSettings, SpecClassOps(
+  SpecRegistry.register(DeviceSettingEntry, SpecClassOps(
     slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as DeviceSettingEntry;
+      return DeviceSettingEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as DeviceSettingEntry).content,
+  ));
+  SpecRegistry.register(DeviceSettings, SpecClassOps(
+    slots: (o) {
+      final n = o as DeviceSettings;
+      return [
+        SpecSlot.list(() => n.settings, (v) => n.settings = v.cast<DeviceSettingEntry>(), label: 'settings'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as DeviceSettings;
       return DeviceSettings()
-        ..content = n.content;
+        ..content = n.content
+        ..settings = n.settings;
     },
     yamlScalar: (o) => (o as DeviceSettings).content,
   ));
@@ -9710,6 +9759,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
         SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
+        SpecSlot.node(() => n.serverOperationRegistry, (v) => n.serverOperationRegistry = v as ServerOperationRegistry, label: 'serverOperationRegistry'),
         SpecSlot.node(() => n.dataModelFollowUp, (v) => n.dataModelFollowUp = v as DataModelFollowUp, label: 'dataModelFollowUp'),
       ];
     },
@@ -9725,6 +9775,7 @@ void registerSpecOps() {
         ..errorCodeRegistry = n.errorCodeRegistry
         ..resultEnvelope = n.resultEnvelope
         ..messageKeyRegistry = n.messageKeyRegistry
+        ..serverOperationRegistry = n.serverOperationRegistry
         ..dataModelFollowUp = n.dataModelFollowUp;
     },
     yamlScalar: (o) => (o as InformationAndDataModel).content,
@@ -11881,6 +11932,15 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as MigrationSystems).content,
+  ));
+  SpecRegistry.register(MigrationTargetEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as MigrationTargetEntry;
+      return MigrationTargetEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as MigrationTargetEntry).content,
   ));
   SpecRegistry.register(MobileCompatibilityEntry, SpecClassOps(
     slots: (o) {
@@ -16932,6 +16992,29 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ScenarioStepEntry).content,
   ));
+  SpecRegistry.register(ScheduledJobEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as ScheduledJobEntry;
+      return [
+        SpecSlot.node(() => n.cronTrigger, (v) => n.cronTrigger = v as DocSpecsSection?, label: 'cronTrigger'),
+        SpecSlot.node(() => n.calendarTrigger, (v) => n.calendarTrigger = v as DocSpecsSection?, label: 'calendarTrigger'),
+        SpecSlot.node(() => n.eventTrigger, (v) => n.eventTrigger = v as DocSpecsSection?, label: 'eventTrigger'),
+        SpecSlot.node(() => n.workDefinition, (v) => n.workDefinition = v as DocSpecsSection?, label: 'workDefinition'),
+        SpecSlot.node(() => n.failurePolicy, (v) => n.failurePolicy = v as DocSpecsSection?, label: 'failurePolicy'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ScheduledJobEntry;
+      return ScheduledJobEntry()
+        ..content = n.content
+        ..cronTrigger = n.cronTrigger
+        ..calendarTrigger = n.calendarTrigger
+        ..eventTrigger = n.eventTrigger
+        ..workDefinition = n.workDefinition
+        ..failurePolicy = n.failurePolicy;
+    },
+    yamlScalar: (o) => (o as ScheduledJobEntry).content,
+  ));
   SpecRegistry.register(ScheduledMaintenancePolicy, SpecClassOps(
     slots: (o) {
       final n = o as ScheduledMaintenancePolicy;
@@ -16954,11 +17037,21 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as ScheduledMaintenancePolicy).content,
   ));
   SpecRegistry.register(SchemaMigrationStepEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as SchemaMigrationStepEntry;
+      return [
+        SpecSlot.node(() => n.baselineSchema, (v) => n.baselineSchema = v as DocSpecsSection?, label: 'baselineSchema'),
+        SpecSlot.node(() => n.referenceData, (v) => n.referenceData = v as DocSpecsSection?, label: 'referenceData'),
+        SpecSlot.node(() => n.schemaChange, (v) => n.schemaChange = v as DocSpecsSection?, label: 'schemaChange'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as SchemaMigrationStepEntry;
       return SchemaMigrationStepEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..baselineSchema = n.baselineSchema
+        ..referenceData = n.referenceData
+        ..schemaChange = n.schemaChange;
     },
     yamlScalar: (o) => (o as SchemaMigrationStepEntry).content,
   ));
@@ -16966,6 +17059,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as SchemaVersioningAndMigration;
       return [
+        SpecSlot.list(() => n.migrationTargets, (v) => n.migrationTargets = v.cast<MigrationTargetEntry>(), label: 'migrationTargets'),
         SpecSlot.list(() => n.migrationSteps, (v) => n.migrationSteps = v.cast<SchemaMigrationStepEntry>(), label: 'migrationSteps'),
       ];
     },
@@ -16973,6 +17067,7 @@ void registerSpecOps() {
       final n = o as SchemaVersioningAndMigration;
       return SchemaVersioningAndMigration()
         ..content = n.content
+        ..migrationTargets = n.migrationTargets
         ..migrationSteps = n.migrationSteps;
     },
     yamlScalar: (o) => (o as SchemaVersioningAndMigration).content,
@@ -17140,6 +17235,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.textOptions, (v) => n.textOptions = v as DocSpecsSection?, label: 'textOptions'),
         SpecSlot.node(() => n.validation, (v) => n.validation = v as DocSpecsSection?, label: 'validation'),
         SpecSlot.node(() => n.selectOptions, (v) => n.selectOptions = v as DocSpecsSection?, label: 'selectOptions'),
+        SpecSlot.node(() => n.fileOptions, (v) => n.fileOptions = v as DocSpecsSection?, label: 'fileOptions'),
       ];
     },
     cloneShallow: (o) {
@@ -17151,7 +17247,8 @@ void registerSpecOps() {
         ..dateOptions = n.dateOptions
         ..textOptions = n.textOptions
         ..validation = n.validation
-        ..selectOptions = n.selectOptions;
+        ..selectOptions = n.selectOptions
+        ..fileOptions = n.fileOptions;
     },
     yamlScalar: (o) => (o as ScreenElementFieldSpec).content,
   ));
@@ -17201,6 +17298,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.numericConstraints, (v) => n.numericConstraints = v as DocSpecsSection?, label: 'numericConstraints'),
         SpecSlot.node(() => n.temporalConstraints, (v) => n.temporalConstraints = v as DocSpecsSection?, label: 'temporalConstraints'),
         SpecSlot.node(() => n.choiceOptions, (v) => n.choiceOptions = v as DocSpecsSection?, label: 'choiceOptions'),
+        SpecSlot.node(() => n.fileConstraints, (v) => n.fileConstraints = v as DocSpecsSection?, label: 'fileConstraints'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
         SpecSlot.list(() => n.validationRules, (v) => n.validationRules = v.cast<FieldValidationRule>(), label: 'validationRules'),
       ];
@@ -17216,6 +17314,7 @@ void registerSpecOps() {
         ..numericConstraints = n.numericConstraints
         ..temporalConstraints = n.temporalConstraints
         ..choiceOptions = n.choiceOptions
+        ..fileConstraints = n.fileConstraints
         ..layout = n.layout
         ..validationRules = n.validationRules;
     },
@@ -17840,6 +17939,15 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as SensitiveDataEncryption).content,
   ));
+  SpecRegistry.register(ServerConfigurationSettingEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ServerConfigurationSettingEntry;
+      return ServerConfigurationSettingEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ServerConfigurationSettingEntry).content,
+  ));
   SpecRegistry.register(ServerEnvironmentEntry, SpecClassOps(
     slots: (o) {
       final n = o as ServerEnvironmentEntry;
@@ -17860,6 +17968,47 @@ void registerSpecOps() {
         ..lifecycle = n.lifecycle;
     },
     yamlScalar: (o) => (o as ServerEnvironmentEntry).content,
+  ));
+  SpecRegistry.register(ServerOperationEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as ServerOperationEntry;
+      return [
+        SpecSlot.list(() => n.requestMembers, (v) => n.requestMembers = v.cast<ServerOperationMemberEntry>(), label: 'requestMembers'),
+        SpecSlot.list(() => n.responseMembers, (v) => n.responseMembers = v.cast<ServerOperationMemberEntry>(), label: 'responseMembers'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ServerOperationEntry;
+      return ServerOperationEntry()
+        ..content = n.content
+        ..requestMembers = n.requestMembers
+        ..responseMembers = n.responseMembers;
+    },
+    yamlScalar: (o) => (o as ServerOperationEntry).content,
+  ));
+  SpecRegistry.register(ServerOperationMemberEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as ServerOperationMemberEntry;
+      return ServerOperationMemberEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as ServerOperationMemberEntry).content,
+  ));
+  SpecRegistry.register(ServerOperationRegistry, SpecClassOps(
+    slots: (o) {
+      final n = o as ServerOperationRegistry;
+      return [
+        SpecSlot.list(() => n.operations, (v) => n.operations = v.cast<ServerOperationEntry>(), label: 'operations'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ServerOperationRegistry;
+      return ServerOperationRegistry()
+        ..content = n.content
+        ..operations = n.operations;
+    },
+    yamlScalar: (o) => (o as ServerOperationRegistry).content,
   ));
   SpecRegistry.register(ServerOsRequirements, SpecClassOps(
     slots: (o) {
@@ -19341,6 +19490,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.dynamic, (v) => n.dynamic = v as DocSpecsSection?, label: 'dynamic'),
         SpecSlot.node(() => n.environment, (v) => n.environment = v as DocSpecsSection?, label: 'environment'),
         SpecSlot.node(() => n.governance, (v) => n.governance = v as DocSpecsSection?, label: 'governance'),
+        SpecSlot.list(() => n.settings, (v) => n.settings = v.cast<ServerConfigurationSettingEntry>(), label: 'settings'),
       ];
     },
     cloneShallow: (o) {
@@ -19349,7 +19499,8 @@ void registerSpecOps() {
         ..content = n.content
         ..dynamic = n.dynamic
         ..environment = n.environment
-        ..governance = n.governance;
+        ..governance = n.governance
+        ..settings = n.settings;
     },
     yamlScalar: (o) => (o as SystemConfigurationManagement).content,
   ));
@@ -22094,6 +22245,30 @@ void registerSpecOps() {
         ..registrationFlowDiagram = n.registrationFlowDiagram;
     },
     yamlScalar: (o) => (o as UserRegistrationProcess).content,
+  ));
+  SpecRegistry.register(UserSettingEntry, SpecClassOps(
+    slots: (o) => const [],
+    cloneShallow: (o) {
+      final n = o as UserSettingEntry;
+      return UserSettingEntry()
+        ..content = n.content;
+    },
+    yamlScalar: (o) => (o as UserSettingEntry).content,
+  ));
+  SpecRegistry.register(UserSettings, SpecClassOps(
+    slots: (o) {
+      final n = o as UserSettings;
+      return [
+        SpecSlot.list(() => n.settings, (v) => n.settings = v.cast<UserSettingEntry>(), label: 'settings'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as UserSettings;
+      return UserSettings()
+        ..content = n.content
+        ..settings = n.settings;
+    },
+    yamlScalar: (o) => (o as UserSettings).content,
   ));
   SpecRegistry.register(UserTrainingRequirements, SpecClassOps(
     slots: (o) {

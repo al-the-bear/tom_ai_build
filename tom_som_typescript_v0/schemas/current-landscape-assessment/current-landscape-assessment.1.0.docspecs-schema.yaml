@@ -190,7 +190,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+    description: "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
   wodepo-deci-lst:
     prefix: WODEPO_DECI_LST
     subsection-types:
@@ -214,7 +214,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+    description: "Add one entry per input the workflow consumes, with its source, format, and validation rules."
   woouen-outp-lst:
     prefix: WOOUEN_OUTP_LST
     subsection-types:
@@ -222,7 +222,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per output this step produces, with its destination and format."
+    description: "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
   wostis-know-lst:
     prefix: WOSTIS_KNOW_LST
     subsection-types:
@@ -991,7 +991,7 @@ section-types:
     pattern-check-id:
       pattern: ^WOBURU-BUSI-.+$
       error-message: IDs of this section must match WOBURU-BUSI-xxx
-    description: "Add one entry per business rule constraining this step, with its logic, source, and exceptions."
+    description: "Add one entry per business rule constraining this workflow, with its logic, source, and exceptions."
   wodepo-deci:
     prefix: WODEPO_DECI_
     pattern-check-id:
@@ -1009,13 +1009,13 @@ section-types:
     pattern-check-id:
       pattern: ^WOINEN-INPU-.+$
       error-message: IDs of this section must match WOINEN-INPU-xxx
-    description: "Add one entry per input this step consumes, with its source, format, and validation rules."
+    description: "Add one entry per input the workflow consumes, with its source, format, and validation rules."
   woouen-outp:
     prefix: WOOUEN_OUTP_
     pattern-check-id:
       pattern: ^WOOUEN-OUTP-.+$
       error-message: IDs of this section must match WOOUEN-OUTP-xxx
-    description: "Add one entry per output this step produces, with its destination and format."
+    description: "Add one entry per output the workflow produces, with its destination, format, and retention requirements."
   wostis-know:
     prefix: WOSTIS_KNOW_
     pattern-check-id:
@@ -1043,22 +1043,6 @@ section-types:
       pattern: ^WOTREN-TRIG-.+$
       error-message: IDs of this section must match WOTREN-TRIG-xxx
     description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
-  wse-erro-lst:
-    prefix: WSE_ERRO_LST
-    subsection-types:
-      wse-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Identify steps with known issues, high error rates, or workarounds."
-  wse-manu-lst:
-    prefix: WSE_MANU_LST
-    subsection-types:
-      wse-manu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Identify steps that cannot be automated or require human judgment.
   wse-step-lst:
     prefix: WSE_STEP_LST
     subsection-types:
@@ -1066,7 +1050,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual."
+    description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list."
   criti-crit:
     prefix: CRITI_CRIT_
     pattern-check-id:
@@ -1524,10 +1508,6 @@ section-types:
         max-count: 1
       woburu-busi-lst:
         max-count: 1
-      wse-manu-lst:
-        max-count: 1
-      wse-erro-lst:
-        max-count: 1
       woti:
         max-count: 1
       woex:
@@ -1615,40 +1595,6 @@ section-types:
     prefix: WODE_WORK
     format: mermaid-flowchart
     description: Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.
-  wse-erro:
-    prefix: WSE_ERRO_
-    subsection-types:
-      wostsy-syst-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wostis-know-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^WSE-ERRO-.+$
-      error-message: IDs of this section must match WSE-ERRO-xxx
-    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
-  wse-manu:
-    prefix: WSE_MANU_
-    subsection-types:
-      wostsy-syst-lst:
-        max-count: 1
-      woinen-inpu-lst:
-        max-count: 1
-      woouen-outp-lst:
-        max-count: 1
-      woburu-busi-lst:
-        max-count: 1
-      wostis-know-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^WSE-MANU-.+$
-      error-message: IDs of this section must match WSE-MANU-xxx
-    description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
   wse-step:
     prefix: WSE_STEP_
     subsection-types:

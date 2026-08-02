@@ -529,6 +529,41 @@ collapsible-wrapper warnings. Census tools:
 `tom_specs_clitool/tool/keep_class_census.dart`, `tool/tsma4_census.dart`,
 `tool/yrd10_list_wrapper_census.dart`.
 
+### 5.9 List ownership — a subset is never a second list
+
+A `List<T>` field **owns** its elements: each element is a document sub-section
+that exists at exactly one place in the tree. Two same-type sibling lists in one
+class must therefore **partition** their elements — no element may appear in
+both.
+
+A list holding a *subset* of a sibling list breaks that. It re-states sections
+the sibling already owns, and neither the model nor either wire format keeps the
+two copies in agreement: the author writes the element twice, then edits one of
+them. The duplication is not merely wasteful, it is **unresolvable** — a reader
+finding two differing copies has no rule saying which is current.
+
+A subset takes one of two other shapes, chosen by what the subset actually *is*:
+
+| The subset is… | Shape |
+|----------------|-------|
+| **A property of the element** — its members share an attribute the element itself carries (manual, error-prone, deprecated) | An `@Form` field on the element type. The subset is a **view**, computed by filtering; it is not a section. |
+| **One end of a relation to a *different* owned collection** — its members are picked out by a link to some other section, not by anything intrinsic | A `@Reference` list (§6.1 **ref**) on the section at the other end. |
+
+**The type boundary tells them apart.** A `@Reference` list points from a section
+of type A at sections of type B ≠ A: `WorkflowActorEntry.participatingSteps`
+records which steps *this actor* takes part in, a fact about the actor↔step pair
+that is stored nowhere else. A subset list points from the owner of a `List<T>`
+at part of that same `List<T>` — no second party, and so no fact beyond an
+attribute the element can carry itself. Reaching for `@Reference` to express a
+subset therefore misapplies it: it borrows the pointer semantics while there is
+nothing at the far end to point *from*.
+
+**An aggregate elsewhere does not justify a list.** A roll-up such as
+`ProcessPerformanceSummary.errorProneStepsCount` counts a property, so the
+property is what must exist per element; the aggregate reads it. A count with no
+element-level property behind it is a symptom that a subset list is standing in
+for a missing field.
+
 ---
 
 ## 6. Field classification and form decomposition
@@ -558,7 +593,9 @@ How to choose:
 - **ref** if the data is *owned by another section* and this field only points at
   it. A `@Reference` renders as an ordinary content-kind inline sub-section keyed
   by its field-level `…-REF` id whose value is the referenced section id, and is
-  never followed in traversal.
+  never followed in traversal. A `@Reference` **list** points at a *different*
+  owned collection; it is never a subset of a sibling list in the same class
+  (§5.9).
 
 **`@Reference` is not the same thing as a reference-valued form field.**
 `@Reference` sits on a *Dart member whose type is a section class*: it is a
@@ -738,19 +775,17 @@ sibling lists *and* the element type also carries a field naming which list it
 belongs to, that field is redundant with its container id and is dropped in
 favour of the list membership.
 
-Two conditions decide it, and both must hold before the field goes:
+That redundancy holds only because sibling lists **partition** their elements
+(§5.9) — membership determines the property exactly when each element sits in
+one list and no other. §5.9 guarantees the partition, so one further condition
+decides the field:
 
-- **The lists must partition their elements.** A group of *highlight* lists that
-  re-lists entries already held by a full-sequence list (`steps` plus
-  `manualSteps` / `errorProneSteps`) is not a partition — an element sits in two
-  of them at once, so membership does not determine the property. There the flag
-  is an intrinsic property of the element and is kept.
 - **The field must add no state that is not otherwise expressible** — neither by
   the lists themselves nor by another field of the same element. A scope field
   offering "Deferred" alongside In-/Out-of-Scope adds nothing where the element
   already carries a target-phase field.
 
-A field that survives both tests is kept, and its hint is rewritten to describe
+A field that survives that test is kept, and its hint is rewritten to describe
 the state **intrinsically** rather than by restating which list the element is
 in. The same applies where an element type is used by both a grouped and an
 ungrouped list: the field carries the grouping only for the ungrouped entries,

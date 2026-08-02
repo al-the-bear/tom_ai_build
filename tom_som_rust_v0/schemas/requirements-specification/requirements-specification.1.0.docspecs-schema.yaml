@@ -227,6 +227,8 @@ section-types:
         max-count: 1
       scfich:
         max-count: 1
+      scfifi:
+        max-count: 1
       scfila:
         max-count: 1
       fldvl-vali-lst:
@@ -445,6 +447,10 @@ section-types:
     prefix: SCFICO
     format: scfico-form
     description: Conditional behavior.
+  scfifi:
+    prefix: SCFIFI
+    format: scfifi-form
+    description: "File-kind input constraints — a promoted `@OneOf` case (csrb8)."
   scfila:
     prefix: SCFILA
     format: scfila-form
@@ -773,6 +779,12 @@ form-types:
         description: "Where the options come from: static, API, or entity"
       - fieldname: staticOptions
         description: "The option values, when the source is static"
+  scfifi-form:
+    fields:
+      - fieldname: acceptedContentKinds
+        description: "What may be supplied: a content-kind family (any/image/video/audio) and/or the accepted file extensions"
+      - fieldname: maxFileSize
+        description: "Largest file the field accepts, e.g. 10 MB"
   scfila-form:
     fields:
       - fieldname: dependsOn

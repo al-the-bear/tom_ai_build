@@ -3313,7 +3313,18 @@ func (x *BasicTechnicalRequirements) DesignPatternsAndStandards() *DesignPattern
 	return NewDesignPatternsAndStandards(x.Doc(), x.Path()+"/designPatternsAndStandards")
 }
 
-// Batch job management.
+// Batch job management — the scheduled jobs and the policy they run under.
+//
+// Two layers, deliberately separated. This section and its policy subsections
+// author what is true of *every* job — the time-zone basis, the execution
+// controls, the monitoring surface. [scheduledJobs] authors the jobs
+// themselves, one entry each. A specification that has only the policy layer
+// can say how jobs are run in general but cannot name a single one, which is
+// exactly what the job list exists to fix.
+//
+// The policy is the **default layer**: an execution control stated here applies
+// to every job that does not override it, and an entry that does override it
+// says so in its own failure-policy subsection.
 type BatchJobManagement struct {
 	som.SomNode
 }
@@ -3328,11 +3339,21 @@ func (x *BatchJobManagement) Content() *BatchJobManagementContentForm {
 }
 
 // Supported job categories.
+//
+// A category-level summary of the scheduled work the system performs — the
+// shape of the workload, not its inventory. The authoritative per-job
+// declarations are [scheduledJobs]; a category named here without a job in
+// that list is a job the specification has not actually declared.
 func (x *BatchJobManagement) JobTypes() *BatchJobManagementJobTypesForm {
 	return NewBatchJobManagementJobTypesForm(x.Doc(), x.Path()+"/BJMJT")
 }
 
-// Execution controls.
+// Execution controls — the **default layer** for every job.
+//
+// Retry, timeout and idempotency stated here apply to every job that does
+// not say otherwise. A job that needs different numbers overrides them in
+// its own failure-policy subsection, so this section is the rule and the
+// entry is the exception — never the other way round.
 func (x *BatchJobManagement) Execution() *BatchJobManagementExecutionForm {
 	return NewBatchJobManagementExecutionForm(x.Doc(), x.Path()+"/BJME")
 }
@@ -3340,6 +3361,16 @@ func (x *BatchJobManagement) Execution() *BatchJobManagementExecutionForm {
 // Monitoring and manual controls.
 func (x *BatchJobManagement) Monitoring() *BatchJobManagementMonitoringForm {
 	return NewBatchJobManagementMonitoringForm(x.Doc(), x.Path()+"/BJMM")
+}
+
+// Scheduled jobs — one entry per job the system runs.
+//
+// The declaration layer. Everything above is policy that applies to all
+// jobs; this is where a job actually comes into existence.
+func (x *BatchJobManagement) ScheduledJobs() *som.SomList[*ScheduledJobEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCJOB-JOB-LST", func(d *som.SpecDocument, p string) *ScheduledJobEntry {
+		return NewScheduledJobEntry(d, p)
+	}, "SCJOB-JOB-xxx")
 }
 
 // A single behavior rule entry.
@@ -5262,6 +5293,42 @@ func (x *ClientAccessibilityRequirements) Standards() *ClientAccessibilityRequir
 	return NewClientAccessibilityRequirementsStandardsForm(x.Doc(), x.Path()+"/CARS")
 }
 
+// A single client application of the system (CE-CL).
+//
+// One client: what kind of application it is, which platforms it targets,
+// where it starts, and which screens it comprises. This is the enumeration
+// [ClientRequirementsSection]'s requirement subsections cannot give — they
+// state what a *machine* must provide, which is a deployment constraint on
+// every client rather than a statement that any particular client exists.
+//
+// **Platform targets are referenced, never restated.** A client's platform
+// targets are ids already declared in the browser, desktop-OS and
+// mobile-platform requirement lists of the enclosing section. Naming a
+// platform here that no requirement entry declares is a dangling reference,
+// which is the point: the minimum a platform must meet is stated once.
+//
+// **Configuration is not restated either.** Which settings a client carries
+// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+// client that owns it. A client that also listed its settings would be the
+// second source those two would eventually disagree through
+// (`codespecs_mapping.md` §11).
+//
+// **Screens, not flows.** A client comprises screens; the flows *between*
+// those screens are the screen flow structure's own subject (D09 XDS) and are
+// reached through the entry route, not listed again per client.
+type ClientApplicationEntry struct {
+	som.SomNode
+}
+
+// NewClientApplicationEntry binds a ClientApplicationEntry facade to a document and a path.
+func NewClientApplicationEntry(doc *som.SpecDocument, path string) *ClientApplicationEntry {
+	return &ClientApplicationEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ClientApplicationEntry) Content() *ClientApplicationEntryContentForm {
+	return NewClientApplicationEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Client configuration — per-machine settings of a client application (CE-CC).
 //
 // Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -5278,8 +5345,44 @@ func NewClientConfiguration(doc *som.SpecDocument, path string) *ClientConfigura
 	return &ClientConfiguration{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *ClientConfiguration) Content() *ClientConfigurationContentForm {
-	return NewClientConfigurationContentForm(x.Doc(), x.Path()+"/content")
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ClientConfiguration) CanHaveContent() bool {
+	return true
+}
+
+func (x *ClientConfiguration) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ClientConfiguration) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// The declared client configuration settings.
+func (x *ClientConfiguration) Settings() *som.SomList[*ClientConfigurationSettingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CCSET-SETT-LST", func(d *som.SpecDocument, p string) *ClientConfigurationSettingEntry {
+		return NewClientConfigurationSettingEntry(d, p)
+	}, "CCSET-SETT-xxx")
+}
+
+// A single declared client configuration setting (CE-CC).
+//
+// The declaration only: key, value type, default, and which narrower scopes
+// may shadow the key. The *value* is never authored — it comes from the client
+// app's configuration resources or from this install's persisted overrides
+// (`codespecs_mapping.md` §5.16).
+type ClientConfigurationSettingEntry struct {
+	som.SomNode
+}
+
+// NewClientConfigurationSettingEntry binds a ClientConfigurationSettingEntry facade to a document and a path.
+func NewClientConfigurationSettingEntry(doc *som.SpecDocument, path string) *ClientConfigurationSettingEntry {
+	return &ClientConfigurationSettingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ClientConfigurationSettingEntry) Content() *ClientConfigurationSettingEntryContentForm {
+	return NewClientConfigurationSettingEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Client hardware requirements.
@@ -5352,8 +5455,18 @@ func (x *ClientNetworkRequirements) Proxy() *ClientNetworkRequirementsProxyForm 
 
 // 8.4.2. Client Requirements.
 //
-// Minimum client requirements: browser versions, operating systems, screen
-// resolution, network bandwidth, and device capabilities.
+// Two layers that answer two different questions.
+//
+// **Which client applications exist** — [clientApplications], one
+// [ClientApplicationEntry] per client, naming its kind, its entry route and
+// the screens it comprises. This is the enumerable set of clients; a client
+// not listed there does not exist.
+//
+// **What a user's machine must provide** — every other subsection: browser,
+// desktop-OS, mobile-device, display, network, hardware, accessibility and
+// security minimums. These are deployment constraints on the *environment*,
+// not clients, which is why a client entry *references* them rather than
+// restating them.
 type ClientRequirementsSection struct {
 	som.SomNode
 }
@@ -5379,6 +5492,13 @@ func (x *ClientRequirementsSection) SetContent(value string) {
 
 // Overview of client requirements strategy.
 // (skipped: overview has no target type)
+
+// The client applications the system consists of (CE-CL).
+func (x *ClientRequirementsSection) ClientApplications() *som.SomList[*ClientApplicationEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/CLIAPP-CLIE-LST", func(d *som.SpecDocument, p string) *ClientApplicationEntry {
+		return NewClientApplicationEntry(d, p)
+	}, "CLIAPP-CLIE-xxx")
+}
 
 // Web browser requirements.
 func (x *ClientRequirementsSection) BrowserRequirements() *som.SomList[*BrowserRequirementEntry] {
@@ -5444,6 +5564,11 @@ func (x *ClientRequirementsSection) ClientConfiguration() *ClientConfiguration {
 // User-specific settings of a user-owned device (CE-DS).
 func (x *ClientRequirementsSection) DeviceSettings() *DeviceSettings {
 	return NewDeviceSettings(x.Doc(), x.Path()+"/deviceSettings")
+}
+
+// Server-persisted settings that follow the user across devices (CE-UP).
+func (x *ClientRequirementsSection) UserSettings() *UserSettings {
+	return NewUserSettings(x.Doc(), x.Path()+"/userSettings")
 }
 
 // Client security requirements.
@@ -8288,20 +8413,6 @@ func (x *CurrentWorkflowEntry) BusinessRules() *som.SomList[*WorkflowBusinessRul
 	}, "WOBURU-BUSI-xxx")
 }
 
-// Manual steps requiring human intervention.
-func (x *CurrentWorkflowEntry) ManualSteps() *som.SomList[*WorkflowStepEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/WSE-MANU-LST", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
-		return NewWorkflowStepEntry(d, p)
-	}, "WSE-MANU-xxx")
-}
-
-// Error-prone steps with high failure rates.
-func (x *CurrentWorkflowEntry) ErrorProneSteps() *som.SomList[*WorkflowStepEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/WSE-ERRO-LST", func(d *som.SpecDocument, p string) *WorkflowStepEntry {
-		return NewWorkflowStepEntry(d, p)
-	}, "WSE-ERRO-xxx")
-}
-
 // Workflow timing and performance.
 func (x *CurrentWorkflowEntry) Timing() *CurrentWorkflowEntryTimingForm {
 	return NewCurrentWorkflowEntryTimingForm(x.Doc(), x.Path()+"/WOTI")
@@ -8962,6 +9073,25 @@ func (x *D03InformationModel) ResultEnvelope() *ResultEnvelope {
 // (csmb7).
 func (x *D03InformationModel) MessageKeyRegistry() *MessageKeyRegistry {
 	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
+}
+
+// Server operation registry — the system's own operation surface (CE-API):
+// one entry per operation the server answers.
+//
+// Projected here rather than into a separate document because an operation is
+// defined by the entity it reads and writes, which this document owns.
+func (x *D03InformationModel) ServerOperationRegistry() *ServerOperationRegistry {
+	return NewServerOperationRegistry(x.Doc(), x.Path()+"/serverOperationRegistry")
+}
+
+// Schema versioning and migration — the CE-MG home: the versioning policy,
+// the data source / schema targets, and the ordered artifact set that
+// establishes and evolves the schema.
+//
+// Projected here because the artifact chain must converge on the entity and
+// attribute model this document owns.
+func (x *D03InformationModel) SchemaVersioningAndMigration() *SchemaVersioningAndMigration {
+	return NewSchemaVersioningAndMigration(x.Doc(), x.Path()+"/schemaVersioningAndMigration")
 }
 
 // RSP00 Requirements Specification.
@@ -10362,7 +10492,18 @@ func (x *D13CodeSpecsProjection) DataModel() *DataModel {
 	return NewDataModel(x.Doc(), x.Path()+"/dataModel")
 }
 
-// Technical framework — CE-CF platform/config foundation.
+// Technical framework — the platform foundation and **all four settings
+// scopes**.
+//
+// The subtree spans both loci because the four configuration scopes are
+// authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+// server configuration (`SystemConfigurationManagement`) is server-only,
+// while CE-CC client configuration, CE-DS device settings and CE-UP user
+// settings are authored under the client-requirements subtree and route to
+// the client project. CE-UP additionally has a server-side persistence half
+// generated from the *same* declarations, so it appears in both projects —
+// the scope is expressed by which section a setting is declared in, never by
+// a discriminator field.
 func (x *D13CodeSpecsProjection) TechnicalFramework() *TechnicalFrameworkConcept {
 	return NewTechnicalFrameworkConcept(x.Doc(), x.Path()+"/technicalFramework")
 }
@@ -10396,6 +10537,41 @@ func (x *D13CodeSpecsProjection) AuditAndLogging() *AuditAndLogging {
 // `PrintAndExportLayout`, deliberately unreachable from here.
 func (x *D13CodeSpecsProjection) ReportDefinitions() *ReportDefinitions {
 	return NewReportDefinitions(x.Doc(), x.Path()+"/reportDefinitions")
+}
+
+// Schema versioning and migration — CE-MG migration artifacts.
+//
+// The artifacts ship with the server project because that is where the
+// migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+// gives the data source / schema directory placement, `SCMST.artifactKind`
+// the artifact kind, and `SCMST.environments` the filename environment tag.
+// The artifact *filenames* are authored, not derived — a §5.23 string
+// exemption — so they are not part of the generated surface.
+//
+// The subtree sits beside `dataModel` above for a reason: the cumulative
+// effect of a schema's artifacts must converge on the CE-DB model that entry
+// generates, and that convergence is a validator check over both.
+func (x *D13CodeSpecsProjection) SchemaVersioningAndMigration() *SchemaVersioningAndMigration {
+	return NewSchemaVersioningAndMigration(x.Doc(), x.Path()+"/schemaVersioningAndMigration")
+}
+
+// Server operation registry — the application's **own** CE-API surface.
+//
+// The one subtree that declares what the system answers. It spans two loci
+// because a CE-API operation generates two halves (`codespecs_mapping.md`
+// §4.2): the **operation catalogue and the request/response types** are
+// shared — the client cites an operation and depends on its shapes — while
+// the **operation itself** lands on the owning service unit in the server
+// project. Which service unit that is follows from each operation's primary
+// written data entity (§5.17), so ownership is derived here rather than
+// declared.
+//
+// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+// reachable from this projection: it describes third-party interfaces the
+// system talks to, not the surface the system generates.
+func (x *D13CodeSpecsProjection) ServerOperationRegistry() *ServerOperationRegistry {
+	return NewServerOperationRegistry(x.Doc(), x.Path()+"/serverOperationRegistry")
 }
 
 // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -11460,7 +11636,7 @@ func (x *DataModel) IntegrityConstraints() *IntegrityConstraints {
 	return NewIntegrityConstraints(x.Doc(), x.Path()+"/integrityConstraints")
 }
 
-// 7.9. Data Model Follow-up Facets.
+// 7.10. Data Model Follow-up Facets.
 //
 // Operational and governance facets that accompany the data model but are not
 // part of the generation-owned entity/attribute schema: the model-wide ER
@@ -11491,10 +11667,10 @@ func (x *DataModelFollowUp) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 7.9.1. Entity-Relationship Diagram (mermaid).
+// 7.10.1. Entity-Relationship Diagram (mermaid).
 // (skipped: erDiagram has no target type)
 
-// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
 func (x *DataModelFollowUp) EntityFollowUps() *som.SomList[*EntityFollowUpEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/DMFUE-ENFU-LST", func(d *som.SpecDocument, p string) *EntityFollowUpEntry {
 		return NewEntityFollowUpEntry(d, p)
@@ -13807,6 +13983,29 @@ func (x *DevelopmentQualityGates) Performance() *DevelopmentQualityGatesPerforma
 	return NewDevelopmentQualityGatesPerformanceForm(x.Doc(), x.Path()+"/DQGP")
 }
 
+// A single declared device setting (CE-DS).
+//
+// The declaration only: key, value type and default. The value is the user's
+// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+//
+// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+// *wider* scope — a key is shadowable only because its wider-scope declaration
+// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+// open. Declaring the same relation from both ends would be two authored
+// fields that can disagree.
+type DeviceSettingEntry struct {
+	som.SomNode
+}
+
+// NewDeviceSettingEntry binds a DeviceSettingEntry facade to a document and a path.
+func NewDeviceSettingEntry(doc *som.SpecDocument, path string) *DeviceSettingEntry {
+	return &DeviceSettingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *DeviceSettingEntry) Content() *DeviceSettingEntryContentForm {
+	return NewDeviceSettingEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Device settings — user-specific settings of a user-owned device (CE-DS).
 //
 // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -13825,8 +14024,25 @@ func NewDeviceSettings(doc *som.SpecDocument, path string) *DeviceSettings {
 	return &DeviceSettings{SomNode: som.NewSomNode(doc, path)}
 }
 
-func (x *DeviceSettings) Content() *DeviceSettingsContentForm {
-	return NewDeviceSettingsContentForm(x.Doc(), x.Path()+"/content")
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DeviceSettings) CanHaveContent() bool {
+	return true
+}
+
+func (x *DeviceSettings) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *DeviceSettings) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// The declared device settings.
+func (x *DeviceSettings) Settings() *som.SomList[*DeviceSettingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/DSSET-SETT-LST", func(d *som.SpecDocument, p string) *DeviceSettingEntry {
+		return NewDeviceSettingEntry(d, p)
+	}, "DSSET-SETT-xxx")
 }
 
 // Disaster recovery requirements.
@@ -19217,7 +19433,16 @@ func (x *InformationAndDataModel) MessageKeyRegistry() *MessageKeyRegistry {
 	return NewMessageKeyRegistry(x.Doc(), x.Path()+"/messageKeyRegistry")
 }
 
-// 7.9. Data Model Follow-up Facets.
+// 7.9. Server Operation Registry.
+//
+// The system's **own** operation surface (CE-API): one entry per operation
+// the server answers, with its request/response members, the data entity it
+// primarily writes, and its authorization requirement.
+func (x *InformationAndDataModel) ServerOperationRegistry() *ServerOperationRegistry {
+	return NewServerOperationRegistry(x.Doc(), x.Path()+"/serverOperationRegistry")
+}
+
+// 7.10. Data Model Follow-up Facets.
 //
 // Per-entity operational/governance facets (volume, compliance, technical
 // characteristics, migration mappings) and the model-wide ER diagram —
@@ -19677,6 +19902,13 @@ func (x *IntegrationHealthSummary) FragilePoints() *som.SomList[*som.SomScalar] 
 }
 
 // A single integration point entry.
+//
+// How a domain object connects to the outside world. It describes *outward
+// connections* — which interfaces surface the object, which events it takes
+// part in, how it maps onto external systems — and deliberately declares no
+// operation of the application's own: those live in the server operation
+// registry (SVOPR), which is the one place an operation is named and given its
+// request/response shapes.
 type IntegrationPointEntry struct {
 	som.SomNode
 }
@@ -20267,7 +20499,16 @@ func (x *InterfaceGovernance) Lifecycle() *InterfaceGovernanceLifecycleForm {
 // Integration changelog.
 // (skipped: changelog has no target type)
 
-// API operation entry.
+// An operation of an **external** interface.
+//
+// One operation of a third-party system the application talks to, described in
+// that system's own terms — including its transport method and path, which a
+// foreign contract genuinely has.
+//
+// This is **not** where the application's own operations are declared: those
+// live in the server operation registry (SVOPR), under the
+// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+// the operation name the sole identifier.
 type InterfaceOperationEntry struct {
 	som.SomNode
 }
@@ -21287,6 +21528,13 @@ func (x *KnowledgeTransfer) SetContent(value string) {
 // 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
+//
+// This is the *picker* — how a user is offered languages and countries, what
+// is preselected, how the choice is retained across a sign-in, and how the
+// system falls back. The underlying `ui.language` / `ui.country` preference is
+// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+// setting declaration (`codespecs_mapping.md` §5.16).
 type LanguageCountrySelection struct {
 	som.SomNode
 }
@@ -23234,6 +23482,25 @@ func NewMigrationSystems(doc *som.SpecDocument, path string) *MigrationSystems {
 
 func (x *MigrationSystems) Content() *MigrationSystemsContentForm {
 	return NewMigrationSystemsContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// A single migration target — one data source / schema pair (form).
+//
+// Migration artifacts are filed per data source and per schema within it, so a
+// system with several databases — or several database *types* — needs no extra
+// specification surface beyond naming each target once here. Every artifact in
+// 7.4.2 then names the target it applies to rather than repeating the pair.
+type MigrationTargetEntry struct {
+	som.SomNode
+}
+
+// NewMigrationTargetEntry binds a MigrationTargetEntry facade to a document and a path.
+func NewMigrationTargetEntry(doc *som.SpecDocument, path string) *MigrationTargetEntry {
+	return &MigrationTargetEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *MigrationTargetEntry) Content() *MigrationTargetEntryContentForm {
+	return NewMigrationTargetEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
 // Mobile device compatibility entry.
@@ -32534,6 +32801,93 @@ func (x *ScenarioStepEntry) Execution() *ScenarioStepEntryExecutionForm {
 	return NewScenarioStepEntryExecutionForm(x.Doc(), x.Path()+"/SCSTENEX")
 }
 
+// A single scheduled job (form + trigger case + work definition + failure
+// policy).
+//
+// One background job: what starts it, what it does, which data it acts on,
+// what happens when it fails, and where it is deployed. Work that runs *off*
+// the request thread is what separates a job from a server operation — the
+// trigger is that axis, which is why it is a required, closed choice rather
+// than free text.
+//
+// **Where the specification stops and the code begins.** This entry carries
+// the job's *intent* — what it does, over which data, in what order. It does
+// **not** carry the work body: the body is written in the CodeSpec as
+// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+// place. State the intent well enough that the body can be written from it,
+// then stop.
+//
+// **Ownership is derived, not declared.** The service unit that owns a job
+// follows from the entity it primarily writes, exactly as it does for a server
+// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+// entity and never the unit. Two places to state one fact is how they come to
+// disagree.
+//
+// **A scheduled report is not declared twice.** A report definition that names
+// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+// comes from the report, not from an entry here. List a job here only when the
+// work is not already the schedule of a report.
+type ScheduledJobEntry struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntry binds a ScheduledJobEntry facade to a document and a path.
+func NewScheduledJobEntry(doc *som.SpecDocument, path string) *ScheduledJobEntry {
+	return &ScheduledJobEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ScheduledJobEntry) Content() *ScheduledJobEntryContentForm {
+	return NewScheduledJobEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Cron trigger — a promoted `@OneOf` case.
+//
+// Present only for the `cron` kind: a recurring clock expression, taken
+// verbatim. It is a single field because that is exactly what the trigger
+// is — the zone it is read in is the system-wide one stated on
+// [BatchJobManagement], and catch-up behaviour after a missed window is a
+// scheduler setting rather than a specification statement.
+func (x *ScheduledJobEntry) CronTrigger() *ScheduledJobEntryCronTriggerForm {
+	return NewScheduledJobEntryCronTriggerForm(x.Doc(), x.Path()+"/SCJOB-CRON")
+}
+
+// Calendar trigger — a promoted `@OneOf` case.
+//
+// Present only for the `calendar` kind: a date rule a clock expression
+// cannot state — the last day of the month, the third Monday of a quarter.
+func (x *ScheduledJobEntry) CalendarTrigger() *ScheduledJobEntryCalendarTriggerForm {
+	return NewScheduledJobEntryCalendarTriggerForm(x.Doc(), x.Path()+"/SCJOB-CAL")
+}
+
+// Event trigger — a promoted `@OneOf` case.
+//
+// Present only for the `event` kind. An event-triggered job does not fire on
+// time at all, so it has no schedule; what it has instead — and what neither
+// other arm has — is an occurrence carrying data the work reads.
+func (x *ScheduledJobEntry) EventTrigger() *ScheduledJobEntryEventTriggerForm {
+	return NewScheduledJobEntryEventTriggerForm(x.Doc(), x.Path()+"/SCJOB-EVNT")
+}
+
+// What the job does and which data it acts on.
+//
+// The intent half of the work definition. The body that realises it is
+// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+// section says what that body must achieve and over which data, in enough
+// detail that it can be written from here without a second conversation.
+func (x *ScheduledJobEntry) WorkDefinition() *ScheduledJobEntryWorkDefinitionForm {
+	return NewScheduledJobEntryWorkDefinitionForm(x.Doc(), x.Path()+"/SCJOB-WORK")
+}
+
+// This job's departures from the system-wide execution policy.
+//
+// Every field is an override. Left empty, the job inherits the Execution
+// Controls (BJME) default; the policy stays the rule and the entry is the
+// exception.
+func (x *ScheduledJobEntry) FailurePolicy() *ScheduledJobEntryFailurePolicyForm {
+	return NewScheduledJobEntryFailurePolicyForm(x.Doc(), x.Path()+"/SCJOB-FAIL")
+}
+
 // Scheduled maintenance policy.
 type ScheduledMaintenancePolicy struct {
 	som.SomNode
@@ -32568,11 +32922,12 @@ func (x *ScheduledMaintenancePolicy) Approval() *ScheduledMaintenancePolicyAppro
 	return NewScheduledMaintenancePolicyApprovalForm(x.Doc(), x.Path()+"/SMPA")
 }
 
-// A single schema migration step (form).
+// A single migration artifact (form).
 //
-// One versioned change to the database schema — the DDL operations it applies,
-// the entities it touches, whether it is reversible, and any data backfill it
-// performs as part of the schema change.
+// One versioned artifact in the migration set: what it is (baseline schema,
+// reference data, or a schema change), which target it applies to, and which
+// deployment environments it is restricted to. The kind-specific detail lives
+// in the promoted case subsection its `artifactKind` selects.
 type SchemaMigrationStepEntry struct {
 	som.SomNode
 }
@@ -32586,13 +32941,42 @@ func (x *SchemaMigrationStepEntry) Content() *SchemaMigrationStepEntryContentFor
 	return NewSchemaMigrationStepEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// Baseline schema definition — a promoted `@OneOf` case.
+//
+// Present only for the `initialDdl` kind. It establishes the schema, so there
+// is no prior state: no affected-entity delta, no backfill, and nothing to
+// roll back to.
+func (x *SchemaMigrationStepEntry) BaselineSchema() *SchemaMigrationStepEntryBaselineSchemaForm {
+	return NewSchemaMigrationStepEntryBaselineSchemaForm(x.Doc(), x.Path()+"/SCMST-BASE")
+}
+
+// Reference-data definition — a promoted `@OneOf` case.
+//
+// Present only for the `referenceData` kind. This artifact inserts rows, not
+// schema, so it authors the value set rather than schema statements. It is
+// the new system's own initial data — legacy business-data migration stays in
+// the migration-mapping sections (`MIGME`).
+func (x *SchemaMigrationStepEntry) ReferenceData() *SchemaMigrationStepEntryReferenceDataForm {
+	return NewSchemaMigrationStepEntryReferenceDataForm(x.Doc(), x.Path()+"/SCMST-REFD")
+}
+
+// Schema change — a promoted `@OneOf` case.
+//
+// Present only for the `schemaChange` kind: an evolution step on top of an
+// existing schema. This is the only kind for which a delta of affected
+// entities, a data backfill and reversibility are meaningful.
+func (x *SchemaMigrationStepEntry) SchemaChange() *SchemaMigrationStepEntrySchemaChangeForm {
+	return NewSchemaMigrationStepEntrySchemaChangeForm(x.Doc(), x.Path()+"/SCMST-CHNG")
+}
+
 // 7.4. Schema Versioning and Migration.
 //
 // Records how the database schema is *versioned and migrated* as the data
-// model evolves — the ordered DDL / migration steps and the tooling and
-// policy that govern them. This is distinct from business-data migration
-// between systems (see `MigrationMappingEntry` for old→new field mapping):
-// here the subject is the schema's own evolution over releases.
+// model evolves — the versioning policy, the data source / schema targets, and
+// the ordered artifact set that establishes and evolves the schema. This is
+// distinct from business-data migration between systems (see
+// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+// schema's own evolution over releases.
 type SchemaVersioningAndMigration struct {
 	som.SomNode
 }
@@ -32606,7 +32990,14 @@ func (x *SchemaVersioningAndMigration) Content() *SchemaVersioningAndMigrationCo
 	return NewSchemaVersioningAndMigrationContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+func (x *SchemaVersioningAndMigration) MigrationTargets() *som.SomList[*MigrationTargetEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/MIGTG-TARG-LST", func(d *som.SpecDocument, p string) *MigrationTargetEntry {
+		return NewMigrationTargetEntry(d, p)
+	}, "MIGTG-TARG-xxx")
+}
+
+// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
 func (x *SchemaVersioningAndMigration) MigrationSteps() *som.SomList[*SchemaMigrationStepEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/SCMST-STEP-LST", func(d *som.SpecDocument, p string) *SchemaMigrationStepEntry {
 		return NewSchemaMigrationStepEntry(d, p)
@@ -32971,6 +33362,18 @@ func (x *ScreenElementFieldSpec) SelectOptions() *ScreenElementFieldSpecSelectOp
 	return NewScreenElementFieldSpecSelectOptionsForm(x.Doc(), x.Path()+"/SEFSS")
 }
 
+// File-kind options — a promoted `@OneOf` case (csrb8).
+//
+// Present only for the file field kind; carries what may be chosen and how
+// the chosen file is shown. The **storage group** is deliberately absent: a
+// file's group is authored once on its CE-DB file-reference column
+// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+// name different groups. So is a download affordance, which follows from the
+// field being wired for transfer and the file being stored (§5.18).
+func (x *ScreenElementFieldSpec) FileOptions() *ScreenElementFieldSpecFileOptionsForm {
+	return NewScreenElementFieldSpecFileOptionsForm(x.Doc(), x.Path()+"/SEFSU")
+}
+
 // A screen entry (form).
 //
 // Comprehensive specification of a single application screen, covering
@@ -33099,6 +33502,18 @@ func (x *ScreenFieldEntry) TemporalConstraints() *ScreenFieldEntryTemporalConstr
 // Choice-kind option source — a promoted `@OneOf` case (csra4).
 func (x *ScreenFieldEntry) ChoiceOptions() *ScreenFieldEntryChoiceOptionsForm {
 	return NewScreenFieldEntryChoiceOptionsForm(x.Doc(), x.Path()+"/SCFICH")
+}
+
+// File-kind input constraints — a promoted `@OneOf` case (csrb8).
+//
+// Constraints only. **How** the file is presented — link, dropzone or
+// thumbnail — is the D09 design pass's `fileOptions`
+// (`ScreenElementFieldSpec`), because a requirement names the kind of value
+// a user supplies and the design names the concrete control. The storage
+// group is neither side's: it is authored on the CE-DB file-reference column
+// (`codespecs_mapping.md` §5.13.1).
+func (x *ScreenFieldEntry) FileConstraints() *ScreenFieldEntryFileConstraintsForm {
+	return NewScreenFieldEntryFileConstraintsForm(x.Doc(), x.Path()+"/SCFIFI")
 }
 
 // UI and layout.
@@ -34310,6 +34725,32 @@ func (x *SensitiveDataEncryption) KeyManagement() *KeyManagement {
 	return NewKeyManagement(x.Doc(), x.Path()+"/keyManagement")
 }
 
+// A single declared server / system configuration setting (CE-CF).
+//
+// The declaration only: key, value type, default, the environment variable and
+// command-line option it may also be read from, whether it carries a secret,
+// and which narrower scopes may shadow it. The *value* is supplied per
+// deployment through the configuration
+// tree, the OS environment, a `.env` file or the command line (in that
+// precedence, command line winning) and is never authored. A secret-bearing
+// setting declares its presence and shape so deployment tooling can supply
+// the content out of band (`codespecs_mapping.md` §5.16).
+//
+// Security and infrastructure configuration is scope-pinned: it stays
+// server-side unless the declaration explicitly opens it to a narrower scope.
+type ServerConfigurationSettingEntry struct {
+	som.SomNode
+}
+
+// NewServerConfigurationSettingEntry binds a ServerConfigurationSettingEntry facade to a document and a path.
+func NewServerConfigurationSettingEntry(doc *som.SpecDocument, path string) *ServerConfigurationSettingEntry {
+	return &ServerConfigurationSettingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServerConfigurationSettingEntry) Content() *ServerConfigurationSettingEntryContentForm {
+	return NewServerConfigurationSettingEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
 // Server environment entry (development, staging, production, DR).
 type ServerEnvironmentEntry struct {
 	som.SomNode
@@ -34342,6 +34783,125 @@ func (x *ServerEnvironmentEntry) Access() *ServerEnvironmentEntryAccessForm {
 // Lifecycle rules.
 func (x *ServerEnvironmentEntry) Lifecycle() *ServerEnvironmentEntryLifecycleForm {
 	return NewServerEnvironmentEntryLifecycleForm(x.Doc(), x.Path()+"/SEENENLI")
+}
+
+// A single server operation (form + request/response members).
+//
+// One entry in the [ServerOperationRegistry]: the operation name that
+// identifies it, its purpose, the data entity it primarily writes, its
+// authorization requirement, the error codes it may return, and the members
+// that make up its request and response shapes.
+//
+// The operation name is the join token the rest of the model references: the
+// ISC step entries cite it as the target of a client call (CE-SC), and the
+// service unit that owns the operation follows from
+// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+// list (`codespecs_mapping.md` §5.17).
+type ServerOperationEntry struct {
+	som.SomNode
+}
+
+// NewServerOperationEntry binds a ServerOperationEntry facade to a document and a path.
+func NewServerOperationEntry(doc *som.SpecDocument, path string) *ServerOperationEntry {
+	return &ServerOperationEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServerOperationEntry) Content() *ServerOperationEntryContentForm {
+	return NewServerOperationEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9.x. Request Members — the members that make up the request shape.
+func (x *ServerOperationEntry) RequestMembers() *som.SomList[*ServerOperationMemberEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVOPM-REQM-LST", func(d *som.SpecDocument, p string) *ServerOperationMemberEntry {
+		return NewServerOperationMemberEntry(d, p)
+	}, "SVOPM-REQM-xxx")
+}
+
+// 7.9.x. Response Members — the members the success payload carries.
+//
+// These members *are* the success payload the Result envelope wraps; the
+// envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+// authored per operation.
+func (x *ServerOperationEntry) ResponseMembers() *som.SomList[*ServerOperationMemberEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVOPM-RESM-LST", func(d *som.SpecDocument, p string) *ServerOperationMemberEntry {
+		return NewServerOperationMemberEntry(d, p)
+	}, "SVOPM-RESM-xxx")
+}
+
+// A single member of an operation's request or response shape (form).
+//
+// One named, typed member: its name, its type, whether it must be present, and
+// — when the type is a domain concept rather than a primitive — the data
+// entity or domain enum it draws from. The same shape serves both the request
+// and the response side of a [ServerOperationEntry], so a member reads the
+// same way whichever direction it travels.
+type ServerOperationMemberEntry struct {
+	som.SomNode
+}
+
+// NewServerOperationMemberEntry binds a ServerOperationMemberEntry facade to a document and a path.
+func NewServerOperationMemberEntry(doc *som.SpecDocument, path string) *ServerOperationMemberEntry {
+	return &ServerOperationMemberEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *ServerOperationMemberEntry) Content() *ServerOperationMemberEntryContentForm {
+	return NewServerOperationMemberEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9. Server Operation Registry.
+//
+// The authoring home for the **application's own** operation surface — the
+// CE-API (`serverApi`) part. Every operation the system answers is declared
+// once here; the client side (CE-SC) only *cites* an operation, and the
+// service unit that owns it (CE-SU) is *derived* from the entity each
+// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+// declare an operation, so without this registry the system's server API would
+// be code with no specification source.
+//
+// This is distinct from the **external** interface inventory under
+// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+// system talks to. Those carry a transport verb and a path because a
+// third-party API really has them; the application's own contract does not —
+// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+// whose **operation name** carries the intent, and §5.14 drops transport
+// plumbing from the spec surface.
+//
+// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+//
+// - no transport method and no path — the operation name is the identifier;
+// - no response status codes — every application outcome, success *or* error,
+//   rides in the [ResultEnvelope]; only infrastructure failures are transport
+//   errors;
+// - no encoding, header, redirect, CORS or credential plumbing — framework
+//   transport members, never spec input.
+type ServerOperationRegistry struct {
+	som.SomNode
+}
+
+// NewServerOperationRegistry binds a ServerOperationRegistry facade to a document and a path.
+func NewServerOperationRegistry(doc *som.SpecDocument, path string) *ServerOperationRegistry {
+	return &ServerOperationRegistry{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerOperationRegistry) CanHaveContent() bool {
+	return true
+}
+
+func (x *ServerOperationRegistry) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ServerOperationRegistry) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 7.9.1. Operations — one entry per operation the system answers.
+func (x *ServerOperationRegistry) Operations() *som.SomList[*ServerOperationEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SVOPE-OPER-LST", func(d *som.SpecDocument, p string) *ServerOperationEntry {
+		return NewServerOperationEntry(d, p)
+	}, "SVOPE-OPER-xxx")
 }
 
 // Server operating system requirements.
@@ -37256,6 +37816,13 @@ func (x *SystemConfigurationManagement) Environment() *SystemConfigurationManage
 // Validation, diffing, and audit controls.
 func (x *SystemConfigurationManagement) Governance() *SystemConfigurationManagementGovernanceForm {
 	return NewSystemConfigurationManagementGovernanceForm(x.Doc(), x.Path()+"/SCMG")
+}
+
+// The declared server configuration settings.
+func (x *SystemConfigurationManagement) Settings() *som.SomList[*ServerConfigurationSettingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/SCSET-SETT-LST", func(d *som.SpecDocument, p string) *ServerConfigurationSettingEntry {
+		return NewServerConfigurationSettingEntry(d, p)
+	}, "SCSET-SETT-xxx")
 }
 
 // 4.1.2. System Context.
@@ -42547,6 +43114,66 @@ func (x *UserRegistrationProcess) SetContent(value string) {
 
 // Registration Flow Diagram (mermaid-sequence).
 // (skipped: registrationFlowDiagram has no target type)
+
+// A single declared user setting (CE-UP).
+//
+// The declaration only: key, value type, default, and whether a per-device
+// value may shadow the key. The value is the user's choice and is never
+// authored (`codespecs_mapping.md` §5.16).
+type UserSettingEntry struct {
+	som.SomNode
+}
+
+// NewUserSettingEntry binds a UserSettingEntry facade to a document and a path.
+func NewUserSettingEntry(doc *som.SpecDocument, path string) *UserSettingEntry {
+	return &UserSettingEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *UserSettingEntry) Content() *UserSettingEntryContentForm {
+	return NewUserSettingEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// User settings — server-persisted settings that follow the user (CE-UP).
+//
+// Keyed by the user alone: no machine and no device in the key. A user
+// setting is persisted on the server and re-materialised on whichever device
+// the user signs in from, which is what distinguishes it from a device
+// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+// the device) and from client configuration ([ClientConfiguration], CE-CC —
+// no user identity in the key) (`codespecs_mapping.md` §11).
+//
+// The scope is expressed by *which section a setting is declared in*, never
+// by a field on a shared section: there is no persistence discriminator
+// anywhere in the four settings scopes.
+type UserSettings struct {
+	som.SomNode
+}
+
+// NewUserSettings binds a UserSettings facade to a document and a path.
+func NewUserSettings(doc *som.SpecDocument, path string) *UserSettings {
+	return &UserSettings{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserSettings) CanHaveContent() bool {
+	return true
+}
+
+func (x *UserSettings) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *UserSettings) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// The declared user settings.
+func (x *UserSettings) Settings() *som.SomList[*UserSettingEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/USSET-SETT-LST", func(d *som.SpecDocument, p string) *UserSettingEntry {
+		return NewUserSettingEntry(d, p)
+	}, "USSET-SETT-xxx")
+}
 
 // 4.1.4.n.5. Training Requirements.
 //
@@ -55194,22 +55821,6 @@ func (x *BatchJobManagementContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BatchJobManagementContentForm) SchedulingEngine() string {
-	return x.Doc().FormFieldOr(x.Path(), "schedulingEngine")
-}
-
-func (x *BatchJobManagementContentForm) SetSchedulingEngine(value string) {
-	x.Doc().SetFormField(x.Path(), "schedulingEngine", value)
-}
-
-func (x *BatchJobManagementContentForm) ScheduleDefinition() string {
-	return x.Doc().FormFieldOr(x.Path(), "scheduleDefinition")
-}
-
-func (x *BatchJobManagementContentForm) SetScheduleDefinition(value string) {
-	x.Doc().SetFormField(x.Path(), "scheduleDefinition", value)
-}
-
 func (x *BatchJobManagementContentForm) TimeZoneHandling() string {
 	return x.Doc().FormFieldOr(x.Path(), "timeZoneHandling")
 }
@@ -63680,70 +64291,152 @@ func (x *ClientAccessibilityRequirementsVisualForm) SetFontScaling(value string)
 	x.Doc().SetFormField(x.Path(), "fontScaling", value)
 }
 
-// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+// ClientApplicationEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
-type ClientConfigurationContentForm struct {
+type ClientApplicationEntryContentForm struct {
 	som.SomNode
 }
 
-// NewClientConfigurationContentForm binds a ClientConfigurationContentForm facade to a document and a path.
-func NewClientConfigurationContentForm(doc *som.SpecDocument, path string) *ClientConfigurationContentForm {
-	return &ClientConfigurationContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewClientApplicationEntryContentForm binds a ClientApplicationEntryContentForm facade to a document and a path.
+func NewClientApplicationEntryContentForm(doc *som.SpecDocument, path string) *ClientApplicationEntryContentForm {
+	return &ClientApplicationEntryContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
 // form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ClientConfigurationContentForm) CanHaveContent() bool {
+func (x *ClientApplicationEntryContentForm) CanHaveContent() bool {
 	return true
 }
 
 // Content is the section's own free-text content, before the form fields.
-func (x *ClientConfigurationContentForm) Content() string {
+func (x *ClientApplicationEntryContentForm) Content() string {
 	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *ClientConfigurationContentForm) SetContent(value string) {
+func (x *ClientApplicationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ClientConfigurationContentForm) ApiBaseUrl() string {
-	return x.Doc().FormFieldOr(x.Path(), "apiBaseUrl")
+func (x *ClientApplicationEntryContentForm) ClientId() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientId")
 }
 
-func (x *ClientConfigurationContentForm) SetApiBaseUrl(value string) {
-	x.Doc().SetFormField(x.Path(), "apiBaseUrl", value)
+func (x *ClientApplicationEntryContentForm) SetClientId(value string) {
+	x.Doc().SetFormField(x.Path(), "clientId", value)
 }
 
-func (x *ClientConfigurationContentForm) Environment() string {
-	return x.Doc().FormFieldOr(x.Path(), "environment")
+func (x *ClientApplicationEntryContentForm) ClientName() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientName")
 }
 
-func (x *ClientConfigurationContentForm) SetEnvironment(value string) {
-	x.Doc().SetFormField(x.Path(), "environment", value)
+func (x *ClientApplicationEntryContentForm) SetClientName(value string) {
+	x.Doc().SetFormField(x.Path(), "clientName", value)
 }
 
-func (x *ClientConfigurationContentForm) DeviceOptions() string {
-	return x.Doc().FormFieldOr(x.Path(), "deviceOptions")
+func (x *ClientApplicationEntryContentForm) ClientKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "clientKind")
 }
 
-func (x *ClientConfigurationContentForm) SetDeviceOptions(value string) {
-	x.Doc().SetFormField(x.Path(), "deviceOptions", value)
+func (x *ClientApplicationEntryContentForm) SetClientKind(value string) {
+	x.Doc().SetFormField(x.Path(), "clientKind", value)
 }
 
-func (x *ClientConfigurationContentForm) FeatureToggles() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureToggles")
+func (x *ClientApplicationEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
 
-func (x *ClientConfigurationContentForm) SetFeatureToggles(value string) {
-	x.Doc().SetFormField(x.Path(), "featureToggles", value)
+func (x *ClientApplicationEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
 }
 
-func (x *ClientConfigurationContentForm) UpdateChannel() string {
-	return x.Doc().FormFieldOr(x.Path(), "updateChannel")
+func (x *ClientApplicationEntryContentForm) PlatformTargets() string {
+	return x.Doc().FormFieldOr(x.Path(), "platformTargets")
 }
 
-func (x *ClientConfigurationContentForm) SetUpdateChannel(value string) {
-	x.Doc().SetFormField(x.Path(), "updateChannel", value)
+func (x *ClientApplicationEntryContentForm) SetPlatformTargets(value string) {
+	x.Doc().SetFormField(x.Path(), "platformTargets", value)
+}
+
+func (x *ClientApplicationEntryContentForm) EntryRoute() string {
+	return x.Doc().FormFieldOr(x.Path(), "entryRoute")
+}
+
+func (x *ClientApplicationEntryContentForm) SetEntryRoute(value string) {
+	x.Doc().SetFormField(x.Path(), "entryRoute", value)
+}
+
+func (x *ClientApplicationEntryContentForm) IncludedScreens() string {
+	return x.Doc().FormFieldOr(x.Path(), "includedScreens")
+}
+
+func (x *ClientApplicationEntryContentForm) SetIncludedScreens(value string) {
+	x.Doc().SetFormField(x.Path(), "includedScreens", value)
+}
+
+// ClientConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ClientConfigurationSettingEntryContentForm struct {
+	som.SomNode
+}
+
+// NewClientConfigurationSettingEntryContentForm binds a ClientConfigurationSettingEntryContentForm facade to a document and a path.
+func NewClientConfigurationSettingEntryContentForm(doc *som.SpecDocument, path string) *ClientConfigurationSettingEntryContentForm {
+	return &ClientConfigurationSettingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ClientConfigurationSettingEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ClientConfigurationSettingEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SettingKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "settingKey")
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetSettingKey(value string) {
+	x.Doc().SetFormField(x.Path(), "settingKey", value)
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) Client() string {
+	return x.Doc().FormFieldOr(x.Path(), "client")
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetClient(value string) {
+	x.Doc().SetFormField(x.Path(), "client", value)
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) ValueType() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueType")
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetValueType(value string) {
+	x.Doc().SetFormField(x.Path(), "valueType", value)
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) DefaultValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetDefaultValue(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultValue", value)
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) OverridableBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+}
+
+func (x *ClientConfigurationSettingEntryContentForm) SetOverridableBy(value string) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", value)
 }
 
 // ClientHardwareRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -91192,75 +91885,54 @@ func (x *DevelopmentQualityGatesSecurityForm) SetLicenseCompliance(value string)
 	x.Doc().SetFormField(x.Path(), "licenseCompliance", value)
 }
 
-// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own
+// DeviceSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
-type DeviceSettingsContentForm struct {
+type DeviceSettingEntryContentForm struct {
 	som.SomNode
 }
 
-// NewDeviceSettingsContentForm binds a DeviceSettingsContentForm facade to a document and a path.
-func NewDeviceSettingsContentForm(doc *som.SpecDocument, path string) *DeviceSettingsContentForm {
-	return &DeviceSettingsContentForm{SomNode: som.NewSomNode(doc, path)}
+// NewDeviceSettingEntryContentForm binds a DeviceSettingEntryContentForm facade to a document and a path.
+func NewDeviceSettingEntryContentForm(doc *som.SpecDocument, path string) *DeviceSettingEntryContentForm {
+	return &DeviceSettingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
 // form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *DeviceSettingsContentForm) CanHaveContent() bool {
+func (x *DeviceSettingEntryContentForm) CanHaveContent() bool {
 	return true
 }
 
 // Content is the section's own free-text content, before the form fields.
-func (x *DeviceSettingsContentForm) Content() string {
+func (x *DeviceSettingEntryContentForm) Content() string {
 	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *DeviceSettingsContentForm) SetContent(value string) {
+func (x *DeviceSettingEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeviceSettingsContentForm) SettingKey() string {
+func (x *DeviceSettingEntryContentForm) SettingKey() string {
 	return x.Doc().FormFieldOr(x.Path(), "settingKey")
 }
 
-func (x *DeviceSettingsContentForm) SetSettingKey(value string) {
+func (x *DeviceSettingEntryContentForm) SetSettingKey(value string) {
 	x.Doc().SetFormField(x.Path(), "settingKey", value)
 }
 
-func (x *DeviceSettingsContentForm) ValueType() string {
+func (x *DeviceSettingEntryContentForm) ValueType() string {
 	return x.Doc().FormFieldOr(x.Path(), "valueType")
 }
 
-func (x *DeviceSettingsContentForm) SetValueType(value string) {
+func (x *DeviceSettingEntryContentForm) SetValueType(value string) {
 	x.Doc().SetFormField(x.Path(), "valueType", value)
 }
 
-func (x *DeviceSettingsContentForm) DefaultValue() string {
+func (x *DeviceSettingEntryContentForm) DefaultValue() string {
 	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
 }
 
-func (x *DeviceSettingsContentForm) SetDefaultValue(value string) {
+func (x *DeviceSettingEntryContentForm) SetDefaultValue(value string) {
 	x.Doc().SetFormField(x.Path(), "defaultValue", value)
-}
-
-func (x *DeviceSettingsContentForm) DeviceOverridable() *bool {
-	v := x.Doc().FormFieldOr(x.Path(), "deviceOverridable")
-	if v == "" {
-		return nil
-	}
-	result := v == "true"
-	return &result
-}
-
-func (x *DeviceSettingsContentForm) SetDeviceOverridable(value *bool) {
-	if value == nil {
-		x.Doc().SetFormField(x.Path(), "deviceOverridable", "")
-		return
-	}
-	if *value {
-		x.Doc().SetFormField(x.Path(), "deviceOverridable", "true")
-	} else {
-		x.Doc().SetFormField(x.Path(), "deviceOverridable", "false")
-	}
 }
 
 // DisasterRecoveryRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -130624,6 +131296,64 @@ func (x *MigrationSystemsContentForm) SetDataModelChangeSummary(value string) {
 	x.Doc().SetFormField(x.Path(), "dataModelChangeSummary", value)
 }
 
+// MigrationTargetEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type MigrationTargetEntryContentForm struct {
+	som.SomNode
+}
+
+// NewMigrationTargetEntryContentForm binds a MigrationTargetEntryContentForm facade to a document and a path.
+func NewMigrationTargetEntryContentForm(doc *som.SpecDocument, path string) *MigrationTargetEntryContentForm {
+	return &MigrationTargetEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *MigrationTargetEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *MigrationTargetEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *MigrationTargetEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *MigrationTargetEntryContentForm) TargetName() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetName")
+}
+
+func (x *MigrationTargetEntryContentForm) SetTargetName(value string) {
+	x.Doc().SetFormField(x.Path(), "targetName", value)
+}
+
+func (x *MigrationTargetEntryContentForm) DataSourceName() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataSourceName")
+}
+
+func (x *MigrationTargetEntryContentForm) SetDataSourceName(value string) {
+	x.Doc().SetFormField(x.Path(), "dataSourceName", value)
+}
+
+func (x *MigrationTargetEntryContentForm) SchemaName() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaName")
+}
+
+func (x *MigrationTargetEntryContentForm) SetSchemaName(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaName", value)
+}
+
+func (x *MigrationTargetEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *MigrationTargetEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
+}
+
 // MobileCompatibilityEntryCapabilitiesForm is the generated section facade for the `capabilities` @Form section: its own
 // content text followed by one typed member per form field.
 type MobileCompatibilityEntryCapabilitiesForm struct {
@@ -169941,6 +170671,331 @@ func (x *ScenarioStepEntryExecutionForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
+// ScheduledJobEntryCalendarTriggerForm is the generated section facade for the `calendarTrigger` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryCalendarTriggerForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryCalendarTriggerForm binds a ScheduledJobEntryCalendarTriggerForm facade to a document and a path.
+func NewScheduledJobEntryCalendarTriggerForm(doc *som.SpecDocument, path string) *ScheduledJobEntryCalendarTriggerForm {
+	return &ScheduledJobEntryCalendarTriggerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryCalendarTriggerForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryCalendarTriggerForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryCalendarTriggerForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryCalendarTriggerForm) CalendarRule() string {
+	return x.Doc().FormFieldOr(x.Path(), "calendarRule")
+}
+
+func (x *ScheduledJobEntryCalendarTriggerForm) SetCalendarRule(value string) {
+	x.Doc().SetFormField(x.Path(), "calendarRule", value)
+}
+
+// ScheduledJobEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryContentForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryContentForm binds a ScheduledJobEntryContentForm facade to a document and a path.
+func NewScheduledJobEntryContentForm(doc *som.SpecDocument, path string) *ScheduledJobEntryContentForm {
+	return &ScheduledJobEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryContentForm) JobName() string {
+	return x.Doc().FormFieldOr(x.Path(), "jobName")
+}
+
+func (x *ScheduledJobEntryContentForm) SetJobName(value string) {
+	x.Doc().SetFormField(x.Path(), "jobName", value)
+}
+
+func (x *ScheduledJobEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ScheduledJobEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
+}
+
+func (x *ScheduledJobEntryContentForm) TriggerKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "triggerKind")
+}
+
+func (x *ScheduledJobEntryContentForm) SetTriggerKind(value string) {
+	x.Doc().SetFormField(x.Path(), "triggerKind", value)
+}
+
+func (x *ScheduledJobEntryContentForm) PrimaryDataEntity() string {
+	return x.Doc().FormFieldOr(x.Path(), "primaryDataEntity")
+}
+
+func (x *ScheduledJobEntryContentForm) SetPrimaryDataEntity(value string) {
+	x.Doc().SetFormField(x.Path(), "primaryDataEntity", value)
+}
+
+func (x *ScheduledJobEntryContentForm) Enabled() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "enabled")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ScheduledJobEntryContentForm) SetEnabled(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "enabled", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "enabled", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "enabled", "false")
+	}
+}
+
+func (x *ScheduledJobEntryContentForm) Environments() string {
+	return x.Doc().FormFieldOr(x.Path(), "environments")
+}
+
+func (x *ScheduledJobEntryContentForm) SetEnvironments(value string) {
+	x.Doc().SetFormField(x.Path(), "environments", value)
+}
+
+// ScheduledJobEntryCronTriggerForm is the generated section facade for the `cronTrigger` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryCronTriggerForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryCronTriggerForm binds a ScheduledJobEntryCronTriggerForm facade to a document and a path.
+func NewScheduledJobEntryCronTriggerForm(doc *som.SpecDocument, path string) *ScheduledJobEntryCronTriggerForm {
+	return &ScheduledJobEntryCronTriggerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryCronTriggerForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryCronTriggerForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryCronTriggerForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryCronTriggerForm) CronExpression() string {
+	return x.Doc().FormFieldOr(x.Path(), "cronExpression")
+}
+
+func (x *ScheduledJobEntryCronTriggerForm) SetCronExpression(value string) {
+	x.Doc().SetFormField(x.Path(), "cronExpression", value)
+}
+
+// ScheduledJobEntryEventTriggerForm is the generated section facade for the `eventTrigger` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryEventTriggerForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryEventTriggerForm binds a ScheduledJobEntryEventTriggerForm facade to a document and a path.
+func NewScheduledJobEntryEventTriggerForm(doc *som.SpecDocument, path string) *ScheduledJobEntryEventTriggerForm {
+	return &ScheduledJobEntryEventTriggerForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryEventTriggerForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryEventTriggerForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryEventTriggerForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryEventTriggerForm) EventName() string {
+	return x.Doc().FormFieldOr(x.Path(), "eventName")
+}
+
+func (x *ScheduledJobEntryEventTriggerForm) SetEventName(value string) {
+	x.Doc().SetFormField(x.Path(), "eventName", value)
+}
+
+func (x *ScheduledJobEntryEventTriggerForm) EventPayload() string {
+	return x.Doc().FormFieldOr(x.Path(), "eventPayload")
+}
+
+func (x *ScheduledJobEntryEventTriggerForm) SetEventPayload(value string) {
+	x.Doc().SetFormField(x.Path(), "eventPayload", value)
+}
+
+// ScheduledJobEntryFailurePolicyForm is the generated section facade for the `failurePolicy` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryFailurePolicyForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryFailurePolicyForm binds a ScheduledJobEntryFailurePolicyForm facade to a document and a path.
+func NewScheduledJobEntryFailurePolicyForm(doc *som.SpecDocument, path string) *ScheduledJobEntryFailurePolicyForm {
+	return &ScheduledJobEntryFailurePolicyForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryFailurePolicyForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryFailurePolicyForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) MaxRetries() *int {
+	v := x.Doc().FormFieldOr(x.Path(), "maxRetries")
+	if v == "" {
+		return nil
+	}
+	n, err := strconv.Atoi(v)
+	if err != nil {
+		return nil
+	}
+	return &n
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetMaxRetries(value *int) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "maxRetries", "")
+		return
+	}
+	x.Doc().SetFormField(x.Path(), "maxRetries", strconv.Itoa(*value))
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) RetryBackoff() string {
+	return x.Doc().FormFieldOr(x.Path(), "retryBackoff")
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetRetryBackoff(value string) {
+	x.Doc().SetFormField(x.Path(), "retryBackoff", value)
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) Timeout() string {
+	return x.Doc().FormFieldOr(x.Path(), "timeout")
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetTimeout(value string) {
+	x.Doc().SetFormField(x.Path(), "timeout", value)
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) FailureAlertMessage() string {
+	return x.Doc().FormFieldOr(x.Path(), "failureAlertMessage")
+}
+
+func (x *ScheduledJobEntryFailurePolicyForm) SetFailureAlertMessage(value string) {
+	x.Doc().SetFormField(x.Path(), "failureAlertMessage", value)
+}
+
+// ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own
+// content text followed by one typed member per form field.
+type ScheduledJobEntryWorkDefinitionForm struct {
+	som.SomNode
+}
+
+// NewScheduledJobEntryWorkDefinitionForm binds a ScheduledJobEntryWorkDefinitionForm facade to a document and a path.
+func NewScheduledJobEntryWorkDefinitionForm(doc *som.SpecDocument, path string) *ScheduledJobEntryWorkDefinitionForm {
+	return &ScheduledJobEntryWorkDefinitionForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScheduledJobEntryWorkDefinitionForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScheduledJobEntryWorkDefinitionForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) WorkSummary() string {
+	return x.Doc().FormFieldOr(x.Path(), "workSummary")
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) SetWorkSummary(value string) {
+	x.Doc().SetFormField(x.Path(), "workSummary", value)
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) ReadEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "readEntities")
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) SetReadEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "readEntities", value)
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) WrittenEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "writtenEntities")
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) SetWrittenEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "writtenEntities", value)
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) TargetReports() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetReports")
+}
+
+func (x *ScheduledJobEntryWorkDefinitionForm) SetTargetReports(value string) {
+	x.Doc().SetFormField(x.Path(), "targetReports", value)
+}
+
 // ScheduledMaintenancePolicyApprovalForm is the generated section facade for the `approval` @Form section: its own
 // content text followed by one typed member per form field.
 type ScheduledMaintenancePolicyApprovalForm struct {
@@ -170233,6 +171288,56 @@ func (x *ScheduledMaintenancePolicySchedulingForm) SetBlackoutPeriods(value stri
 	x.Doc().SetFormField(x.Path(), "blackoutPeriods", value)
 }
 
+// SchemaMigrationStepEntryBaselineSchemaForm is the generated section facade for the `baselineSchema` @Form section: its own
+// content text followed by one typed member per form field.
+type SchemaMigrationStepEntryBaselineSchemaForm struct {
+	som.SomNode
+}
+
+// NewSchemaMigrationStepEntryBaselineSchemaForm binds a SchemaMigrationStepEntryBaselineSchemaForm facade to a document and a path.
+func NewSchemaMigrationStepEntryBaselineSchemaForm(doc *som.SpecDocument, path string) *SchemaMigrationStepEntryBaselineSchemaForm {
+	return &SchemaMigrationStepEntryBaselineSchemaForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) CreatedEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "createdEntities")
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) SetCreatedEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "createdEntities", value)
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) SchemaStatements() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaStatements")
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) SetSchemaStatements(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaStatements", value)
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) IndexesAndConstraints() string {
+	return x.Doc().FormFieldOr(x.Path(), "indexesAndConstraints")
+}
+
+func (x *SchemaMigrationStepEntryBaselineSchemaForm) SetIndexesAndConstraints(value string) {
+	x.Doc().SetFormField(x.Path(), "indexesAndConstraints", value)
+}
+
 // SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type SchemaMigrationStepEntryContentForm struct {
@@ -170275,31 +171380,131 @@ func (x *SchemaMigrationStepEntryContentForm) SetDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
-func (x *SchemaMigrationStepEntryContentForm) DdlOperations() string {
-	return x.Doc().FormFieldOr(x.Path(), "ddlOperations")
+func (x *SchemaMigrationStepEntryContentForm) ArtifactKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "artifactKind")
 }
 
-func (x *SchemaMigrationStepEntryContentForm) SetDdlOperations(value string) {
-	x.Doc().SetFormField(x.Path(), "ddlOperations", value)
+func (x *SchemaMigrationStepEntryContentForm) SetArtifactKind(value string) {
+	x.Doc().SetFormField(x.Path(), "artifactKind", value)
 }
 
-func (x *SchemaMigrationStepEntryContentForm) AffectedEntities() string {
+func (x *SchemaMigrationStepEntryContentForm) MigrationTarget() string {
+	return x.Doc().FormFieldOr(x.Path(), "migrationTarget")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetMigrationTarget(value string) {
+	x.Doc().SetFormField(x.Path(), "migrationTarget", value)
+}
+
+func (x *SchemaMigrationStepEntryContentForm) Environments() string {
+	return x.Doc().FormFieldOr(x.Path(), "environments")
+}
+
+func (x *SchemaMigrationStepEntryContentForm) SetEnvironments(value string) {
+	x.Doc().SetFormField(x.Path(), "environments", value)
+}
+
+// SchemaMigrationStepEntryReferenceDataForm is the generated section facade for the `referenceData` @Form section: its own
+// content text followed by one typed member per form field.
+type SchemaMigrationStepEntryReferenceDataForm struct {
+	som.SomNode
+}
+
+// NewSchemaMigrationStepEntryReferenceDataForm binds a SchemaMigrationStepEntryReferenceDataForm facade to a document and a path.
+func NewSchemaMigrationStepEntryReferenceDataForm(doc *som.SpecDocument, path string) *SchemaMigrationStepEntryReferenceDataForm {
+	return &SchemaMigrationStepEntryReferenceDataForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SchemaMigrationStepEntryReferenceDataForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SchemaMigrationStepEntryReferenceDataForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) TargetEntities() string {
+	return x.Doc().FormFieldOr(x.Path(), "targetEntities")
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) SetTargetEntities(value string) {
+	x.Doc().SetFormField(x.Path(), "targetEntities", value)
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) ValueSet() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueSet")
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) SetValueSet(value string) {
+	x.Doc().SetFormField(x.Path(), "valueSet", value)
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) IdentityKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "identityKey")
+}
+
+func (x *SchemaMigrationStepEntryReferenceDataForm) SetIdentityKey(value string) {
+	x.Doc().SetFormField(x.Path(), "identityKey", value)
+}
+
+// SchemaMigrationStepEntrySchemaChangeForm is the generated section facade for the `schemaChange` @Form section: its own
+// content text followed by one typed member per form field.
+type SchemaMigrationStepEntrySchemaChangeForm struct {
+	som.SomNode
+}
+
+// NewSchemaMigrationStepEntrySchemaChangeForm binds a SchemaMigrationStepEntrySchemaChangeForm facade to a document and a path.
+func NewSchemaMigrationStepEntrySchemaChangeForm(doc *som.SpecDocument, path string) *SchemaMigrationStepEntrySchemaChangeForm {
+	return &SchemaMigrationStepEntrySchemaChangeForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *SchemaMigrationStepEntrySchemaChangeForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *SchemaMigrationStepEntrySchemaChangeForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SchemaStatements() string {
+	return x.Doc().FormFieldOr(x.Path(), "schemaStatements")
+}
+
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SetSchemaStatements(value string) {
+	x.Doc().SetFormField(x.Path(), "schemaStatements", value)
+}
+
+func (x *SchemaMigrationStepEntrySchemaChangeForm) AffectedEntities() string {
 	return x.Doc().FormFieldOr(x.Path(), "affectedEntities")
 }
 
-func (x *SchemaMigrationStepEntryContentForm) SetAffectedEntities(value string) {
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SetAffectedEntities(value string) {
 	x.Doc().SetFormField(x.Path(), "affectedEntities", value)
 }
 
-func (x *SchemaMigrationStepEntryContentForm) DataBackfill() string {
+func (x *SchemaMigrationStepEntrySchemaChangeForm) DataBackfill() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataBackfill")
 }
 
-func (x *SchemaMigrationStepEntryContentForm) SetDataBackfill(value string) {
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SetDataBackfill(value string) {
 	x.Doc().SetFormField(x.Path(), "dataBackfill", value)
 }
 
-func (x *SchemaMigrationStepEntryContentForm) Reversible() *bool {
+func (x *SchemaMigrationStepEntrySchemaChangeForm) Reversible() *bool {
 	v := x.Doc().FormFieldOr(x.Path(), "reversible")
 	if v == "" {
 		return nil
@@ -170308,7 +171513,7 @@ func (x *SchemaMigrationStepEntryContentForm) Reversible() *bool {
 	return &result
 }
 
-func (x *SchemaMigrationStepEntryContentForm) SetReversible(value *bool) {
+func (x *SchemaMigrationStepEntrySchemaChangeForm) SetReversible(value *bool) {
 	if value == nil {
 		x.Doc().SetFormField(x.Path(), "reversible", "")
 		return
@@ -170344,14 +171549,6 @@ func (x *SchemaVersioningAndMigrationContentForm) Content() string {
 
 func (x *SchemaVersioningAndMigrationContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SchemaVersioningAndMigrationContentForm) MigrationTooling() string {
-	return x.Doc().FormFieldOr(x.Path(), "migrationTooling")
-}
-
-func (x *SchemaVersioningAndMigrationContentForm) SetMigrationTooling(value string) {
-	x.Doc().SetFormField(x.Path(), "migrationTooling", value)
 }
 
 func (x *SchemaVersioningAndMigrationContentForm) VersioningStrategy() string {
@@ -171565,6 +172762,64 @@ func (x *ScreenElementFieldSpecDateOptionsForm) SetDateFormat(value string) {
 	x.Doc().SetFormField(x.Path(), "dateFormat", value)
 }
 
+// ScreenElementFieldSpecFileOptionsForm is the generated section facade for the `fileOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenElementFieldSpecFileOptionsForm struct {
+	som.SomNode
+}
+
+// NewScreenElementFieldSpecFileOptionsForm binds a ScreenElementFieldSpecFileOptionsForm facade to a document and a path.
+func NewScreenElementFieldSpecFileOptionsForm(doc *som.SpecDocument, path string) *ScreenElementFieldSpecFileOptionsForm {
+	return &ScreenElementFieldSpecFileOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScreenElementFieldSpecFileOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenElementFieldSpecFileOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) AcceptedContentKinds() string {
+	return x.Doc().FormFieldOr(x.Path(), "acceptedContentKinds")
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) SetAcceptedContentKinds(value string) {
+	x.Doc().SetFormField(x.Path(), "acceptedContentKinds", value)
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) MaxFileSize() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxFileSize")
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) SetMaxFileSize(value string) {
+	x.Doc().SetFormField(x.Path(), "maxFileSize", value)
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) Presentation() string {
+	return x.Doc().FormFieldOr(x.Path(), "presentation")
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) SetPresentation(value string) {
+	x.Doc().SetFormField(x.Path(), "presentation", value)
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) UploadOnPick() string {
+	return x.Doc().FormFieldOr(x.Path(), "uploadOnPick")
+}
+
+func (x *ScreenElementFieldSpecFileOptionsForm) SetUploadOnPick(value string) {
+	x.Doc().SetFormField(x.Path(), "uploadOnPick", value)
+}
+
 // ScreenElementFieldSpecFormattingForm is the generated section facade for the `formatting` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenElementFieldSpecFormattingForm struct {
@@ -172379,6 +173634,48 @@ func (x *ScreenFieldEntryDataBindingForm) HelpText() string {
 
 func (x *ScreenFieldEntryDataBindingForm) SetHelpText(value string) {
 	x.Doc().SetFormField(x.Path(), "helpText", value)
+}
+
+// ScreenFieldEntryFileConstraintsForm is the generated section facade for the `fileConstraints` @Form section: its own
+// content text followed by one typed member per form field.
+type ScreenFieldEntryFileConstraintsForm struct {
+	som.SomNode
+}
+
+// NewScreenFieldEntryFileConstraintsForm binds a ScreenFieldEntryFileConstraintsForm facade to a document and a path.
+func NewScreenFieldEntryFileConstraintsForm(doc *som.SpecDocument, path string) *ScreenFieldEntryFileConstraintsForm {
+	return &ScreenFieldEntryFileConstraintsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ScreenFieldEntryFileConstraintsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ScreenFieldEntryFileConstraintsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ScreenFieldEntryFileConstraintsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ScreenFieldEntryFileConstraintsForm) AcceptedContentKinds() string {
+	return x.Doc().FormFieldOr(x.Path(), "acceptedContentKinds")
+}
+
+func (x *ScreenFieldEntryFileConstraintsForm) SetAcceptedContentKinds(value string) {
+	x.Doc().SetFormField(x.Path(), "acceptedContentKinds", value)
+}
+
+func (x *ScreenFieldEntryFileConstraintsForm) MaxFileSize() string {
+	return x.Doc().FormFieldOr(x.Path(), "maxFileSize")
+}
+
+func (x *ScreenFieldEntryFileConstraintsForm) SetMaxFileSize(value string) {
+	x.Doc().SetFormField(x.Path(), "maxFileSize", value)
 }
 
 // ScreenFieldEntryLayoutForm is the generated section facade for the `layout` @Form section: its own
@@ -176234,6 +177531,101 @@ func (x *SelfRegistrationPolicyVerificationForm) SetPhoneVerificationMethod(valu
 	x.Doc().SetFormField(x.Path(), "phoneVerificationMethod", value)
 }
 
+// ServerConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerConfigurationSettingEntryContentForm struct {
+	som.SomNode
+}
+
+// NewServerConfigurationSettingEntryContentForm binds a ServerConfigurationSettingEntryContentForm facade to a document and a path.
+func NewServerConfigurationSettingEntryContentForm(doc *som.SpecDocument, path string) *ServerConfigurationSettingEntryContentForm {
+	return &ServerConfigurationSettingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerConfigurationSettingEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerConfigurationSettingEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SettingKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "settingKey")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetSettingKey(value string) {
+	x.Doc().SetFormField(x.Path(), "settingKey", value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) ValueType() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueType")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetValueType(value string) {
+	x.Doc().SetFormField(x.Path(), "valueType", value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) DefaultValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetDefaultValue(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultValue", value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) EnvironmentVariable() string {
+	return x.Doc().FormFieldOr(x.Path(), "environmentVariable")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetEnvironmentVariable(value string) {
+	x.Doc().SetFormField(x.Path(), "environmentVariable", value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) CommandLineOption() string {
+	return x.Doc().FormFieldOr(x.Path(), "commandLineOption")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetCommandLineOption(value string) {
+	x.Doc().SetFormField(x.Path(), "commandLineOption", value)
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) Secret() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "secret")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetSecret(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "secret", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "secret", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "secret", "false")
+	}
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) OverridableBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+}
+
+func (x *ServerConfigurationSettingEntryContentForm) SetOverridableBy(value string) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", value)
+}
+
 // ServerEnvironmentEntryAccessForm is the generated section facade for the `access` @Form section: its own
 // content text followed by one typed member per form field.
 type ServerEnvironmentEntryAccessForm struct {
@@ -176523,6 +177915,204 @@ func (x *ServerEnvironmentEntryScaleForm) ExpectedLoad() string {
 
 func (x *ServerEnvironmentEntryScaleForm) SetExpectedLoad(value string) {
 	x.Doc().SetFormField(x.Path(), "expectedLoad", value)
+}
+
+// ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerOperationEntryContentForm struct {
+	som.SomNode
+}
+
+// NewServerOperationEntryContentForm binds a ServerOperationEntryContentForm facade to a document and a path.
+func NewServerOperationEntryContentForm(doc *som.SpecDocument, path string) *ServerOperationEntryContentForm {
+	return &ServerOperationEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerOperationEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerOperationEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerOperationEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerOperationEntryContentForm) OperationName() string {
+	return x.Doc().FormFieldOr(x.Path(), "operationName")
+}
+
+func (x *ServerOperationEntryContentForm) SetOperationName(value string) {
+	x.Doc().SetFormField(x.Path(), "operationName", value)
+}
+
+func (x *ServerOperationEntryContentForm) Purpose() string {
+	return x.Doc().FormFieldOr(x.Path(), "purpose")
+}
+
+func (x *ServerOperationEntryContentForm) SetPurpose(value string) {
+	x.Doc().SetFormField(x.Path(), "purpose", value)
+}
+
+func (x *ServerOperationEntryContentForm) PrimaryDataEntity() string {
+	return x.Doc().FormFieldOr(x.Path(), "primaryDataEntity")
+}
+
+func (x *ServerOperationEntryContentForm) SetPrimaryDataEntity(value string) {
+	x.Doc().SetFormField(x.Path(), "primaryDataEntity", value)
+}
+
+func (x *ServerOperationEntryContentForm) AuthorizationRequirement() string {
+	return x.Doc().FormFieldOr(x.Path(), "authorizationRequirement")
+}
+
+func (x *ServerOperationEntryContentForm) SetAuthorizationRequirement(value string) {
+	x.Doc().SetFormField(x.Path(), "authorizationRequirement", value)
+}
+
+func (x *ServerOperationEntryContentForm) RequiredRoles() string {
+	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
+}
+
+func (x *ServerOperationEntryContentForm) SetRequiredRoles(value string) {
+	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
+}
+
+func (x *ServerOperationEntryContentForm) RequiredResourceKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "requiredResourceKey")
+}
+
+func (x *ServerOperationEntryContentForm) SetRequiredResourceKey(value string) {
+	x.Doc().SetFormField(x.Path(), "requiredResourceKey", value)
+}
+
+func (x *ServerOperationEntryContentForm) DescriptionKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "descriptionKey")
+}
+
+func (x *ServerOperationEntryContentForm) SetDescriptionKey(value string) {
+	x.Doc().SetFormField(x.Path(), "descriptionKey", value)
+}
+
+func (x *ServerOperationEntryContentForm) ErrorCodes() string {
+	return x.Doc().FormFieldOr(x.Path(), "errorCodes")
+}
+
+func (x *ServerOperationEntryContentForm) SetErrorCodes(value string) {
+	x.Doc().SetFormField(x.Path(), "errorCodes", value)
+}
+
+// ServerOperationMemberEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type ServerOperationMemberEntryContentForm struct {
+	som.SomNode
+}
+
+// NewServerOperationMemberEntryContentForm binds a ServerOperationMemberEntryContentForm facade to a document and a path.
+func NewServerOperationMemberEntryContentForm(doc *som.SpecDocument, path string) *ServerOperationMemberEntryContentForm {
+	return &ServerOperationMemberEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ServerOperationMemberEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ServerOperationMemberEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ServerOperationMemberEntryContentForm) MemberName() string {
+	return x.Doc().FormFieldOr(x.Path(), "memberName")
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetMemberName(value string) {
+	x.Doc().SetFormField(x.Path(), "memberName", value)
+}
+
+func (x *ServerOperationMemberEntryContentForm) MemberType() string {
+	return x.Doc().FormFieldOr(x.Path(), "memberType")
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetMemberType(value string) {
+	x.Doc().SetFormField(x.Path(), "memberType", value)
+}
+
+func (x *ServerOperationMemberEntryContentForm) MultiValued() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "multiValued")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetMultiValued(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "multiValued", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "multiValued", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "multiValued", "false")
+	}
+}
+
+func (x *ServerOperationMemberEntryContentForm) Required() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "required")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetRequired(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "required", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "required", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "required", "false")
+	}
+}
+
+func (x *ServerOperationMemberEntryContentForm) DataEntity() string {
+	return x.Doc().FormFieldOr(x.Path(), "dataEntity")
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetDataEntity(value string) {
+	x.Doc().SetFormField(x.Path(), "dataEntity", value)
+}
+
+func (x *ServerOperationMemberEntryContentForm) DomainEnum() string {
+	return x.Doc().FormFieldOr(x.Path(), "domainEnum")
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetDomainEnum(value string) {
+	x.Doc().SetFormField(x.Path(), "domainEnum", value)
+}
+
+func (x *ServerOperationMemberEntryContentForm) Description() string {
+	return x.Doc().FormFieldOr(x.Path(), "description")
+}
+
+func (x *ServerOperationMemberEntryContentForm) SetDescription(value string) {
+	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
 // ServerOsRequirementsContentForm is the generated section facade for the `content` @Form section: its own
@@ -209766,6 +211356,64 @@ func (x *UserProvisioningToolsRoleManagementForm) SetAccessReviewProcess(value s
 	x.Doc().SetFormField(x.Path(), "accessReviewProcess", value)
 }
 
+// UserSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type UserSettingEntryContentForm struct {
+	som.SomNode
+}
+
+// NewUserSettingEntryContentForm binds a UserSettingEntryContentForm facade to a document and a path.
+func NewUserSettingEntryContentForm(doc *som.SpecDocument, path string) *UserSettingEntryContentForm {
+	return &UserSettingEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *UserSettingEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *UserSettingEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *UserSettingEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *UserSettingEntryContentForm) SettingKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "settingKey")
+}
+
+func (x *UserSettingEntryContentForm) SetSettingKey(value string) {
+	x.Doc().SetFormField(x.Path(), "settingKey", value)
+}
+
+func (x *UserSettingEntryContentForm) ValueType() string {
+	return x.Doc().FormFieldOr(x.Path(), "valueType")
+}
+
+func (x *UserSettingEntryContentForm) SetValueType(value string) {
+	x.Doc().SetFormField(x.Path(), "valueType", value)
+}
+
+func (x *UserSettingEntryContentForm) DefaultValue() string {
+	return x.Doc().FormFieldOr(x.Path(), "defaultValue")
+}
+
+func (x *UserSettingEntryContentForm) SetDefaultValue(value string) {
+	x.Doc().SetFormField(x.Path(), "defaultValue", value)
+}
+
+func (x *UserSettingEntryContentForm) OverridableBy() string {
+	return x.Doc().FormFieldOr(x.Path(), "overridableBy")
+}
+
+func (x *UserSettingEntryContentForm) SetOverridableBy(value string) {
+	x.Doc().SetFormField(x.Path(), "overridableBy", value)
+}
+
 // UserTrainingRequirementsTrainingFormForm is the generated section facade for the `trainingForm` @Form section: its own
 // content text followed by one typed member per form field.
 type UserTrainingRequirementsTrainingFormForm struct {
@@ -213417,6 +215065,27 @@ func (x *WorkflowStepEntryContentForm) SetIsAutomatable(value *bool) {
 		x.Doc().SetFormField(x.Path(), "isAutomatable", "true")
 	} else {
 		x.Doc().SetFormField(x.Path(), "isAutomatable", "false")
+	}
+}
+
+func (x *WorkflowStepEntryContentForm) IsErrorProne() *bool {
+	v := x.Doc().FormFieldOr(x.Path(), "isErrorProne")
+	if v == "" {
+		return nil
+	}
+	result := v == "true"
+	return &result
+}
+
+func (x *WorkflowStepEntryContentForm) SetIsErrorProne(value *bool) {
+	if value == nil {
+		x.Doc().SetFormField(x.Path(), "isErrorProne", "")
+		return
+	}
+	if *value {
+		x.Doc().SetFormField(x.Path(), "isErrorProne", "true")
+	} else {
+		x.Doc().SetFormField(x.Path(), "isErrorProne", "false")
 	}
 }
 

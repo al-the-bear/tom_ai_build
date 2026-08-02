@@ -190,7 +190,9 @@ typedef struct { SomNode node; } ChannelIntegrations;
 typedef struct { SomNode node; } CiCdPipelineConfiguration;
 typedef struct { SomNode node; } CiCdPipelineRequirements;
 typedef struct { SomNode node; } ClientAccessibilityRequirements;
+typedef struct { SomNode node; } ClientApplicationEntry;
 typedef struct { SomNode node; } ClientConfiguration;
+typedef struct { SomNode node; } ClientConfigurationSettingEntry;
 typedef struct { SomNode node; } ClientHardwareRequirements;
 typedef struct { SomNode node; } ClientNetworkRequirements;
 typedef struct { SomNode node; } ClientRequirementsSection;
@@ -386,6 +388,7 @@ typedef struct { SomNode node; } DeveloperOnboarding;
 typedef struct { SomNode node; } DevelopmentConventionEntry;
 typedef struct { SomNode node; } DevelopmentEnvironment;
 typedef struct { SomNode node; } DevelopmentQualityGates;
+typedef struct { SomNode node; } DeviceSettingEntry;
 typedef struct { SomNode node; } DeviceSettings;
 typedef struct { SomNode node; } DisasterRecoveryRequirements;
 typedef struct { SomNode node; } DisplayEquipmentEntry;
@@ -671,6 +674,7 @@ typedef struct { SomNode node; } MigrationRiskIndicators;
 typedef struct { SomNode node; } MigrationRisks;
 typedef struct { SomNode node; } MigrationStakeholders;
 typedef struct { SomNode node; } MigrationSystems;
+typedef struct { SomNode node; } MigrationTargetEntry;
 typedef struct { SomNode node; } MobileCompatibilityEntry;
 typedef struct { SomNode node; } MobileDeviceEntry;
 typedef struct { SomNode node; } MobileDeviceRequirementEntry;
@@ -962,6 +966,7 @@ typedef struct { SomNode node; } ScalingRequirements;
 typedef struct { SomNode node; } ScalingTriggersAndThresholds;
 typedef struct { SomNode node; } ScenarioEntry;
 typedef struct { SomNode node; } ScenarioStepEntry;
+typedef struct { SomNode node; } ScheduledJobEntry;
 typedef struct { SomNode node; } ScheduledMaintenancePolicy;
 typedef struct { SomNode node; } SchemaMigrationStepEntry;
 typedef struct { SomNode node; } SchemaVersioningAndMigration;
@@ -1012,7 +1017,11 @@ typedef struct { SomNode node; } SecurityTestingAutomation;
 typedef struct { SomNode node; } SelfRegistrationPolicy;
 typedef struct { SomNode node; } SelfServiceAccountManagement;
 typedef struct { SomNode node; } SensitiveDataEncryption;
+typedef struct { SomNode node; } ServerConfigurationSettingEntry;
 typedef struct { SomNode node; } ServerEnvironmentEntry;
+typedef struct { SomNode node; } ServerOperationEntry;
+typedef struct { SomNode node; } ServerOperationMemberEntry;
+typedef struct { SomNode node; } ServerOperationRegistry;
 typedef struct { SomNode node; } ServerOsRequirements;
 typedef struct { SomNode node; } ServerRequirementsSection;
 typedef struct { SomNode node; } ServerRoleEntry;
@@ -1237,6 +1246,8 @@ typedef struct { SomNode node; } UserPersonaDetails;
 typedef struct { SomNode node; } UserPersonas;
 typedef struct { SomNode node; } UserProvisioningTools;
 typedef struct { SomNode node; } UserRegistrationProcess;
+typedef struct { SomNode node; } UserSettingEntry;
+typedef struct { SomNode node; } UserSettings;
 typedef struct { SomNode node; } UserTrainingRequirements;
 typedef struct { SomNode node; } UtilityMenuItemEntry;
 typedef struct { SomNode node; } UtilityNavigation;
@@ -1591,7 +1602,8 @@ typedef struct { SomNode node; } ClientAccessibilityRequirementsContentForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsMotorForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsStandardsForm;
 typedef struct { SomNode node; } ClientAccessibilityRequirementsVisualForm;
-typedef struct { SomNode node; } ClientConfigurationContentForm;
+typedef struct { SomNode node; } ClientApplicationEntryContentForm;
+typedef struct { SomNode node; } ClientConfigurationSettingEntryContentForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsContentForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsGraphicsForm;
 typedef struct { SomNode node; } ClientHardwareRequirementsMemoryForm;
@@ -2051,7 +2063,7 @@ typedef struct { SomNode node; } DevelopmentQualityGatesCoverageForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesDocumentationForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesPerformanceForm;
 typedef struct { SomNode node; } DevelopmentQualityGatesSecurityForm;
-typedef struct { SomNode node; } DeviceSettingsContentForm;
+typedef struct { SomNode node; } DeviceSettingEntryContentForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsContentForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsContinuityForm;
 typedef struct { SomNode node; } DisasterRecoveryRequirementsFailbackForm;
@@ -2669,6 +2681,7 @@ typedef struct { SomNode node; } MigrationRisksReportingForm;
 typedef struct { SomNode node; } MigrationRisksThresholdsForm;
 typedef struct { SomNode node; } MigrationStakeholdersContentForm;
 typedef struct { SomNode node; } MigrationSystemsContentForm;
+typedef struct { SomNode node; } MigrationTargetEntryContentForm;
 typedef struct { SomNode node; } MobileCompatibilityEntryCapabilitiesForm;
 typedef struct { SomNode node; } MobileCompatibilityEntryContentForm;
 typedef struct { SomNode node; } MobileCompatibilityEntryDevicesForm;
@@ -3285,12 +3298,21 @@ typedef struct { SomNode node; } ScenarioEntryValidationForm;
 typedef struct { SomNode node; } ScenarioStepEntryContentForm;
 typedef struct { SomNode node; } ScenarioStepEntryContextForm;
 typedef struct { SomNode node; } ScenarioStepEntryExecutionForm;
+typedef struct { SomNode node; } ScheduledJobEntryCalendarTriggerForm;
+typedef struct { SomNode node; } ScheduledJobEntryContentForm;
+typedef struct { SomNode node; } ScheduledJobEntryCronTriggerForm;
+typedef struct { SomNode node; } ScheduledJobEntryEventTriggerForm;
+typedef struct { SomNode node; } ScheduledJobEntryFailurePolicyForm;
+typedef struct { SomNode node; } ScheduledJobEntryWorkDefinitionForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyApprovalForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyContentForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyDurationForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicyNoticeForm;
 typedef struct { SomNode node; } ScheduledMaintenancePolicySchedulingForm;
+typedef struct { SomNode node; } SchemaMigrationStepEntryBaselineSchemaForm;
 typedef struct { SomNode node; } SchemaMigrationStepEntryContentForm;
+typedef struct { SomNode node; } SchemaMigrationStepEntryReferenceDataForm;
+typedef struct { SomNode node; } SchemaMigrationStepEntrySchemaChangeForm;
 typedef struct { SomNode node; } SchemaVersioningAndMigrationContentForm;
 typedef struct { SomNode node; } ScopeItemEntryContentForm;
 typedef struct { SomNode node; } ScreenActionEntryBehaviorForm;
@@ -3311,6 +3333,7 @@ typedef struct { SomNode node; } ScreenElementEntryPresentationForm;
 typedef struct { SomNode node; } ScreenElementEntryResourcesForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecContentForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecDateOptionsForm;
+typedef struct { SomNode node; } ScreenElementFieldSpecFileOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecFormattingForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecNumberOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecSelectOptionsForm;
@@ -3325,6 +3348,7 @@ typedef struct { SomNode node; } ScreenFieldEntryChoiceOptionsForm;
 typedef struct { SomNode node; } ScreenFieldEntryConditionsForm;
 typedef struct { SomNode node; } ScreenFieldEntryContentForm;
 typedef struct { SomNode node; } ScreenFieldEntryDataBindingForm;
+typedef struct { SomNode node; } ScreenFieldEntryFileConstraintsForm;
 typedef struct { SomNode node; } ScreenFieldEntryLayoutForm;
 typedef struct { SomNode node; } ScreenFieldEntryNumericConstraintsForm;
 typedef struct { SomNode node; } ScreenFieldEntryTemporalConstraintsForm;
@@ -3393,11 +3417,14 @@ typedef struct { SomNode node; } SelfRegistrationPolicyContentForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyFieldsForm;
 typedef struct { SomNode node; } SelfRegistrationPolicySecurityForm;
 typedef struct { SomNode node; } SelfRegistrationPolicyVerificationForm;
+typedef struct { SomNode node; } ServerConfigurationSettingEntryContentForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryAccessForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryContentForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryLifecycleForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryLocationForm;
 typedef struct { SomNode node; } ServerEnvironmentEntryScaleForm;
+typedef struct { SomNode node; } ServerOperationEntryContentForm;
+typedef struct { SomNode node; } ServerOperationMemberEntryContentForm;
 typedef struct { SomNode node; } ServerOsRequirementsContentForm;
 typedef struct { SomNode node; } ServerOsRequirementsHardeningForm;
 typedef struct { SomNode node; } ServerOsRequirementsLicensingForm;
@@ -3911,6 +3938,7 @@ typedef struct { SomNode node; } UserProvisioningToolsContentForm;
 typedef struct { SomNode node; } UserProvisioningToolsDirectoryIntegrationForm;
 typedef struct { SomNode node; } UserProvisioningToolsLifecycleForm;
 typedef struct { SomNode node; } UserProvisioningToolsRoleManagementForm;
+typedef struct { SomNode node; } UserSettingEntryContentForm;
 typedef struct { SomNode node; } UserTrainingRequirementsTrainingFormForm;
 typedef struct { SomNode node; } UtilityMenuItemEntryActionForm;
 typedef struct { SomNode node; } UtilityMenuItemEntryBehaviorForm;
@@ -5564,7 +5592,18 @@ ArchitectureStyle basic_technical_requirements_architecture_style(const BasicTec
 // 8.1.3. Design Patterns and Standards.
 DesignPatternsAndStandards basic_technical_requirements_design_patterns_and_standards(const BasicTechnicalRequirements *self);
 
-// Batch job management.
+// Batch job management — the scheduled jobs and the policy they run under.
+//
+// Two layers, deliberately separated. This section and its policy subsections
+// author what is true of *every* job — the time-zone basis, the execution
+// controls, the monitoring surface. [scheduledJobs] authors the jobs
+// themselves, one entry each. A specification that has only the policy layer
+// can say how jobs are run in general but cannot name a single one, which is
+// exactly what the job list exists to fix.
+//
+// The policy is the **default layer**: an execution control stated here applies
+// to every job that does not override it, and an entry that does override it
+// says so in its own failure-policy subsection.
 // Binds a BatchJobManagement facade to a document and a path (path copied).
 void batch_job_management_init(BatchJobManagement *self, SpecDocument *doc, const char *path);
 void batch_job_management_free(BatchJobManagement *self);
@@ -5572,11 +5611,27 @@ void batch_job_management_free(BatchJobManagement *self);
 int batch_job_management_can_have_content(const BatchJobManagement *self);
 BatchJobManagementContentForm batch_job_management_content(const BatchJobManagement *self);
 // Supported job categories.
+//
+// A category-level summary of the scheduled work the system performs — the
+// shape of the workload, not its inventory. The authoritative per-job
+// declarations are [scheduledJobs]; a category named here without a job in
+// that list is a job the specification has not actually declared.
 BatchJobManagementJobTypesForm batch_job_management_job_types(const BatchJobManagement *self);
-// Execution controls.
+// Execution controls — the **default layer** for every job.
+//
+// Retry, timeout and idempotency stated here apply to every job that does
+// not say otherwise. A job that needs different numbers overrides them in
+// its own failure-policy subsection, so this section is the rule and the
+// entry is the exception — never the other way round.
 BatchJobManagementExecutionForm batch_job_management_execution(const BatchJobManagement *self);
 // Monitoring and manual controls.
 BatchJobManagementMonitoringForm batch_job_management_monitoring(const BatchJobManagement *self);
+// Scheduled jobs — one entry per job the system runs.
+//
+// The declaration layer. Everything above is policy that applies to all
+// jobs; this is where a job actually comes into existence.
+// Returns the list view; element type: ScheduledJobEntry (construct from item paths).
+SomList batch_job_management_scheduled_jobs(const BatchJobManagement *self);
 
 // A single behavior rule entry.
 // Binds a BehaviorRuleEntry facade to a document and a path (path copied).
@@ -6494,6 +6549,36 @@ ClientAccessibilityRequirementsCognitiveForm client_accessibility_requirements_c
 // Standards and notes.
 ClientAccessibilityRequirementsStandardsForm client_accessibility_requirements_standards(const ClientAccessibilityRequirements *self);
 
+// A single client application of the system (CE-CL).
+//
+// One client: what kind of application it is, which platforms it targets,
+// where it starts, and which screens it comprises. This is the enumeration
+// [ClientRequirementsSection]'s requirement subsections cannot give — they
+// state what a *machine* must provide, which is a deployment constraint on
+// every client rather than a statement that any particular client exists.
+//
+// **Platform targets are referenced, never restated.** A client's platform
+// targets are ids already declared in the browser, desktop-OS and
+// mobile-platform requirement lists of the enclosing section. Naming a
+// platform here that no requirement entry declares is a dangling reference,
+// which is the point: the minimum a platform must meet is stated once.
+//
+// **Configuration is not restated either.** Which settings a client carries
+// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+// client that owns it. A client that also listed its settings would be the
+// second source those two would eventually disagree through
+// (`codespecs_mapping.md` §11).
+//
+// **Screens, not flows.** A client comprises screens; the flows *between*
+// those screens are the screen flow structure's own subject (D09 XDS) and are
+// reached through the entry route, not listed again per client.
+// Binds a ClientApplicationEntry facade to a document and a path (path copied).
+void client_application_entry_init(ClientApplicationEntry *self, SpecDocument *doc, const char *path);
+void client_application_entry_free(ClientApplicationEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int client_application_entry_can_have_content(const ClientApplicationEntry *self);
+ClientApplicationEntryContentForm client_application_entry_content(const ClientApplicationEntry *self);
+
 // Client configuration — per-machine settings of a client application (CE-CC).
 //
 // Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -6506,7 +6591,24 @@ void client_configuration_init(ClientConfiguration *self, SpecDocument *doc, con
 void client_configuration_free(ClientConfiguration *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int client_configuration_can_have_content(const ClientConfiguration *self);
-ClientConfigurationContentForm client_configuration_content(const ClientConfiguration *self);
+char *client_configuration_content(const ClientConfiguration *self);
+void client_configuration_set_content(ClientConfiguration *self, const char *value);
+// The declared client configuration settings.
+// Returns the list view; element type: ClientConfigurationSettingEntry (construct from item paths).
+SomList client_configuration_settings(const ClientConfiguration *self);
+
+// A single declared client configuration setting (CE-CC).
+//
+// The declaration only: key, value type, default, and which narrower scopes
+// may shadow the key. The *value* is never authored — it comes from the client
+// app's configuration resources or from this install's persisted overrides
+// (`codespecs_mapping.md` §5.16).
+// Binds a ClientConfigurationSettingEntry facade to a document and a path (path copied).
+void client_configuration_setting_entry_init(ClientConfigurationSettingEntry *self, SpecDocument *doc, const char *path);
+void client_configuration_setting_entry_free(ClientConfigurationSettingEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int client_configuration_setting_entry_can_have_content(const ClientConfigurationSettingEntry *self);
+ClientConfigurationSettingEntryContentForm client_configuration_setting_entry_content(const ClientConfigurationSettingEntry *self);
 
 // Client hardware requirements.
 // Binds a ClientHardwareRequirements facade to a document and a path (path copied).
@@ -6542,8 +6644,18 @@ ClientNetworkRequirementsProxyForm client_network_requirements_proxy(const Clien
 
 // 8.4.2. Client Requirements.
 //
-// Minimum client requirements: browser versions, operating systems, screen
-// resolution, network bandwidth, and device capabilities.
+// Two layers that answer two different questions.
+//
+// **Which client applications exist** — [clientApplications], one
+// [ClientApplicationEntry] per client, naming its kind, its entry route and
+// the screens it comprises. This is the enumerable set of clients; a client
+// not listed there does not exist.
+//
+// **What a user's machine must provide** — every other subsection: browser,
+// desktop-OS, mobile-device, display, network, hardware, accessibility and
+// security minimums. These are deployment constraints on the *environment*,
+// not clients, which is why a client entry *references* them rather than
+// restating them.
 // Binds a ClientRequirementsSection facade to a document and a path (path copied).
 void client_requirements_section_init(ClientRequirementsSection *self, SpecDocument *doc, const char *path);
 void client_requirements_section_free(ClientRequirementsSection *self);
@@ -6553,6 +6665,9 @@ char *client_requirements_section_content(const ClientRequirementsSection *self)
 void client_requirements_section_set_content(ClientRequirementsSection *self, const char *value);
 // Overview of client requirements strategy.
 // (skipped: overview has no target type)
+// The client applications the system consists of (CE-CL).
+// Returns the list view; element type: ClientApplicationEntry (construct from item paths).
+SomList client_requirements_section_client_applications(const ClientRequirementsSection *self);
 // Web browser requirements.
 // Returns the list view; element type: BrowserRequirementEntry (construct from item paths).
 SomList client_requirements_section_browser_requirements(const ClientRequirementsSection *self);
@@ -6580,6 +6695,8 @@ ClientSecurityRequirements client_requirements_section_security_requirements(con
 ClientConfiguration client_requirements_section_client_configuration(const ClientRequirementsSection *self);
 // User-specific settings of a user-owned device (CE-DS).
 DeviceSettings client_requirements_section_device_settings(const ClientRequirementsSection *self);
+// Server-persisted settings that follow the user across devices (CE-UP).
+UserSettings client_requirements_section_user_settings(const ClientRequirementsSection *self);
 
 // Client security requirements.
 // Binds a ClientSecurityRequirements facade to a document and a path (path copied).
@@ -7948,12 +8065,6 @@ SomList current_workflow_entry_decision_points(const CurrentWorkflowEntry *self)
 // Business rules governing the workflow.
 // Returns the list view; element type: WorkflowBusinessRule (construct from item paths).
 SomList current_workflow_entry_business_rules(const CurrentWorkflowEntry *self);
-// Manual steps requiring human intervention.
-// Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-SomList current_workflow_entry_manual_steps(const CurrentWorkflowEntry *self);
-// Error-prone steps with high failure rates.
-// Returns the list view; element type: WorkflowStepEntry (construct from item paths).
-SomList current_workflow_entry_error_prone_steps(const CurrentWorkflowEntry *self);
 // Workflow timing and performance.
 CurrentWorkflowEntryTimingForm current_workflow_entry_timing(const CurrentWorkflowEntry *self);
 // Workflow exceptions and error handling.
@@ -8254,6 +8365,19 @@ ResultEnvelope d03_information_model_result_envelope(const D03InformationModel *
 // copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
 // (csmb7).
 MessageKeyRegistry d03_information_model_message_key_registry(const D03InformationModel *self);
+// Server operation registry — the system's own operation surface (CE-API):
+// one entry per operation the server answers.
+//
+// Projected here rather than into a separate document because an operation is
+// defined by the entity it reads and writes, which this document owns.
+ServerOperationRegistry d03_information_model_server_operation_registry(const D03InformationModel *self);
+// Schema versioning and migration — the CE-MG home: the versioning policy,
+// the data source / schema targets, and the ordered artifact set that
+// establishes and evolves the schema.
+//
+// Projected here because the artifact chain must converge on the entity and
+// attribute model this document owns.
+SchemaVersioningAndMigration d03_information_model_schema_versioning_and_migration(const D03InformationModel *self);
 
 // RSP00 Requirements Specification.
 //
@@ -8881,7 +9005,18 @@ MessageKeyRegistry d13_code_specs_projection_message_key_registry(const D13CodeS
 NotificationModel d13_code_specs_projection_notification_model(const D13CodeSpecsProjection *self);
 // Data model — CE-DB persistence + CE-VA server-side rules.
 DataModel d13_code_specs_projection_data_model(const D13CodeSpecsProjection *self);
-// Technical framework — CE-CF platform/config foundation.
+// Technical framework — the platform foundation and **all four settings
+// scopes**.
+//
+// The subtree spans both loci because the four configuration scopes are
+// authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+// server configuration (`SystemConfigurationManagement`) is server-only,
+// while CE-CC client configuration, CE-DS device settings and CE-UP user
+// settings are authored under the client-requirements subtree and route to
+// the client project. CE-UP additionally has a server-side persistence half
+// generated from the *same* declarations, so it appears in both projects —
+// the scope is expressed by which section a setting is declared in, never by
+// a discriminator field.
 TechnicalFrameworkConcept d13_code_specs_projection_technical_framework(const D13CodeSpecsProjection *self);
 // Access control model — CE-AZ authorization/identity seed.
 AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsProjection *self);
@@ -8905,6 +9040,35 @@ AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsPr
 // environment-wide print and export *settings* are CE-CF and live in
 // `PrintAndExportLayout`, deliberately unreachable from here.
 ReportDefinitions d13_code_specs_projection_report_definitions(const D13CodeSpecsProjection *self);
+// Schema versioning and migration — CE-MG migration artifacts.
+//
+// The artifacts ship with the server project because that is where the
+// migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+// gives the data source / schema directory placement, `SCMST.artifactKind`
+// the artifact kind, and `SCMST.environments` the filename environment tag.
+// The artifact *filenames* are authored, not derived — a §5.23 string
+// exemption — so they are not part of the generated surface.
+//
+// The subtree sits beside `dataModel` above for a reason: the cumulative
+// effect of a schema's artifacts must converge on the CE-DB model that entry
+// generates, and that convergence is a validator check over both.
+SchemaVersioningAndMigration d13_code_specs_projection_schema_versioning_and_migration(const D13CodeSpecsProjection *self);
+// Server operation registry — the application's **own** CE-API surface.
+//
+// The one subtree that declares what the system answers. It spans two loci
+// because a CE-API operation generates two halves (`codespecs_mapping.md`
+// §4.2): the **operation catalogue and the request/response types** are
+// shared — the client cites an operation and depends on its shapes — while
+// the **operation itself** lands on the owning service unit in the server
+// project. Which service unit that is follows from each operation's primary
+// written data entity (§5.17), so ownership is derived here rather than
+// declared.
+//
+// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+// reachable from this projection: it describes third-party interfaces the
+// system talks to, not the surface the system generates.
+ServerOperationRegistry d13_code_specs_projection_server_operation_registry(const D13CodeSpecsProjection *self);
 // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
 // interaction; a single subtree whose parts split across both loci.
 ProcessStepsAndActorInteractions d13_code_specs_projection_process_steps_and_actor_interactions(const D13CodeSpecsProjection *self);
@@ -9418,7 +9582,7 @@ ValidationConstraints data_model_validation_constraints(const DataModel *self);
 // from `List<IntegrityConstraints>` (L34C-12 SR-25).
 IntegrityConstraints data_model_integrity_constraints(const DataModel *self);
 
-// 7.9. Data Model Follow-up Facets.
+// 7.10. Data Model Follow-up Facets.
 //
 // Operational and governance facets that accompany the data model but are not
 // part of the generation-owned entity/attribute schema: the model-wide ER
@@ -9433,9 +9597,9 @@ void data_model_follow_up_free(DataModelFollowUp *self);
 int data_model_follow_up_can_have_content(const DataModelFollowUp *self);
 char *data_model_follow_up_content(const DataModelFollowUp *self);
 void data_model_follow_up_set_content(DataModelFollowUp *self, const char *value);
-// 7.9.1. Entity-Relationship Diagram (mermaid).
+// 7.10.1. Entity-Relationship Diagram (mermaid).
 // (skipped: erDiagram has no target type)
-// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
 // Returns the list view; element type: EntityFollowUpEntry (construct from item paths).
 SomList data_model_follow_up_entity_follow_ups(const DataModelFollowUp *self);
 
@@ -10524,6 +10688,23 @@ DevelopmentQualityGatesDocumentationForm development_quality_gates_documentation
 // Performance checks.
 DevelopmentQualityGatesPerformanceForm development_quality_gates_performance(const DevelopmentQualityGates *self);
 
+// A single declared device setting (CE-DS).
+//
+// The declaration only: key, value type and default. The value is the user's
+// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+//
+// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+// *wider* scope — a key is shadowable only because its wider-scope declaration
+// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+// open. Declaring the same relation from both ends would be two authored
+// fields that can disagree.
+// Binds a DeviceSettingEntry facade to a document and a path (path copied).
+void device_setting_entry_init(DeviceSettingEntry *self, SpecDocument *doc, const char *path);
+void device_setting_entry_free(DeviceSettingEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int device_setting_entry_can_have_content(const DeviceSettingEntry *self);
+DeviceSettingEntryContentForm device_setting_entry_content(const DeviceSettingEntry *self);
+
 // Device settings — user-specific settings of a user-owned device (CE-DS).
 //
 // Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -10538,7 +10719,11 @@ void device_settings_init(DeviceSettings *self, SpecDocument *doc, const char *p
 void device_settings_free(DeviceSettings *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int device_settings_can_have_content(const DeviceSettings *self);
-DeviceSettingsContentForm device_settings_content(const DeviceSettings *self);
+char *device_settings_content(const DeviceSettings *self);
+void device_settings_set_content(DeviceSettings *self, const char *value);
+// The declared device settings.
+// Returns the list view; element type: DeviceSettingEntry (construct from item paths).
+SomList device_settings_settings(const DeviceSettings *self);
 
 // Disaster recovery requirements.
 // Binds a DisasterRecoveryRequirements facade to a document and a path (path copied).
@@ -13179,7 +13364,13 @@ ErrorCodeRegistry information_and_data_model_error_code_registry(const Informati
 ResultEnvelope information_and_data_model_result_envelope(const InformationAndDataModel *self);
 // 7.8. Message Key Registry.
 MessageKeyRegistry information_and_data_model_message_key_registry(const InformationAndDataModel *self);
-// 7.9. Data Model Follow-up Facets.
+// 7.9. Server Operation Registry.
+//
+// The system's **own** operation surface (CE-API): one entry per operation
+// the server answers, with its request/response members, the data entity it
+// primarily writes, and its authorization requirement.
+ServerOperationRegistry information_and_data_model_server_operation_registry(const InformationAndDataModel *self);
+// 7.10. Data Model Follow-up Facets.
 //
 // Per-entity operational/governance facets (volume, compliance, technical
 // characteristics, migration mappings) and the model-wide ER diagram —
@@ -13407,6 +13598,13 @@ IntegrationHealthSummaryContentForm integration_health_summary_content(const Int
 SomList integration_health_summary_fragile_points(const IntegrationHealthSummary *self);
 
 // A single integration point entry.
+//
+// How a domain object connects to the outside world. It describes *outward
+// connections* — which interfaces surface the object, which events it takes
+// part in, how it maps onto external systems — and deliberately declares no
+// operation of the application's own: those live in the server operation
+// registry (SVOPR), which is the one place an operation is named and given its
+// request/response shapes.
 // Binds a IntegrationPointEntry facade to a document and a path (path copied).
 void integration_point_entry_init(IntegrationPointEntry *self, SpecDocument *doc, const char *path);
 void integration_point_entry_free(IntegrationPointEntry *self);
@@ -13695,7 +13893,16 @@ InterfaceGovernanceLifecycleForm interface_governance_lifecycle(const InterfaceG
 // Integration changelog.
 // (skipped: changelog has no target type)
 
-// API operation entry.
+// An operation of an **external** interface.
+//
+// One operation of a third-party system the application talks to, described in
+// that system's own terms — including its transport method and path, which a
+// foreign contract genuinely has.
+//
+// This is **not** where the application's own operations are declared: those
+// live in the server operation registry (SVOPR), under the
+// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+// the operation name the sole identifier.
 // Binds a InterfaceOperationEntry facade to a document and a path (path copied).
 void interface_operation_entry_init(InterfaceOperationEntry *self, SpecDocument *doc, const char *path);
 void interface_operation_entry_free(InterfaceOperationEntry *self);
@@ -14198,6 +14405,13 @@ void knowledge_transfer_set_content(KnowledgeTransfer *self, const char *value);
 // 10.12.4. Language and Country Selection.
 //
 // UI specification for language and country selection.
+//
+// This is the *picker* — how a user is offered languages and countries, what
+// is preselected, how the choice is retained across a sign-in, and how the
+// system falls back. The underlying `ui.language` / `ui.country` preference is
+// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+// setting declaration (`codespecs_mapping.md` §5.16).
 // Binds a LanguageCountrySelection facade to a document and a path (path copied).
 void language_country_selection_init(LanguageCountrySelection *self, SpecDocument *doc, const char *path);
 void language_country_selection_free(LanguageCountrySelection *self);
@@ -15188,6 +15402,19 @@ void migration_systems_free(MigrationSystems *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int migration_systems_can_have_content(const MigrationSystems *self);
 MigrationSystemsContentForm migration_systems_content(const MigrationSystems *self);
+
+// A single migration target — one data source / schema pair (form).
+//
+// Migration artifacts are filed per data source and per schema within it, so a
+// system with several databases — or several database *types* — needs no extra
+// specification surface beyond naming each target once here. Every artifact in
+// 7.4.2 then names the target it applies to rather than repeating the pair.
+// Binds a MigrationTargetEntry facade to a document and a path (path copied).
+void migration_target_entry_init(MigrationTargetEntry *self, SpecDocument *doc, const char *path);
+void migration_target_entry_free(MigrationTargetEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int migration_target_entry_can_have_content(const MigrationTargetEntry *self);
+MigrationTargetEntryContentForm migration_target_entry_content(const MigrationTargetEntry *self);
 
 // Mobile device compatibility entry.
 // Binds a MobileCompatibilityEntry facade to a document and a path (path copied).
@@ -19760,6 +19987,72 @@ ScenarioStepEntryContextForm scenario_step_entry_context(const ScenarioStepEntry
 // Branching, timing, and notes.
 ScenarioStepEntryExecutionForm scenario_step_entry_execution(const ScenarioStepEntry *self);
 
+// A single scheduled job (form + trigger case + work definition + failure
+// policy).
+//
+// One background job: what starts it, what it does, which data it acts on,
+// what happens when it fails, and where it is deployed. Work that runs *off*
+// the request thread is what separates a job from a server operation — the
+// trigger is that axis, which is why it is a required, closed choice rather
+// than free text.
+//
+// **Where the specification stops and the code begins.** This entry carries
+// the job's *intent* — what it does, over which data, in what order. It does
+// **not** carry the work body: the body is written in the CodeSpec as
+// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+// place. State the intent well enough that the body can be written from it,
+// then stop.
+//
+// **Ownership is derived, not declared.** The service unit that owns a job
+// follows from the entity it primarily writes, exactly as it does for a server
+// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+// entity and never the unit. Two places to state one fact is how they come to
+// disagree.
+//
+// **A scheduled report is not declared twice.** A report definition that names
+// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+// comes from the report, not from an entry here. List a job here only when the
+// work is not already the schedule of a report.
+// Binds a ScheduledJobEntry facade to a document and a path (path copied).
+void scheduled_job_entry_init(ScheduledJobEntry *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_free(ScheduledJobEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int scheduled_job_entry_can_have_content(const ScheduledJobEntry *self);
+ScheduledJobEntryContentForm scheduled_job_entry_content(const ScheduledJobEntry *self);
+// Cron trigger — a promoted `@OneOf` case.
+//
+// Present only for the `cron` kind: a recurring clock expression, taken
+// verbatim. It is a single field because that is exactly what the trigger
+// is — the zone it is read in is the system-wide one stated on
+// [BatchJobManagement], and catch-up behaviour after a missed window is a
+// scheduler setting rather than a specification statement.
+ScheduledJobEntryCronTriggerForm scheduled_job_entry_cron_trigger(const ScheduledJobEntry *self);
+// Calendar trigger — a promoted `@OneOf` case.
+//
+// Present only for the `calendar` kind: a date rule a clock expression
+// cannot state — the last day of the month, the third Monday of a quarter.
+ScheduledJobEntryCalendarTriggerForm scheduled_job_entry_calendar_trigger(const ScheduledJobEntry *self);
+// Event trigger — a promoted `@OneOf` case.
+//
+// Present only for the `event` kind. An event-triggered job does not fire on
+// time at all, so it has no schedule; what it has instead — and what neither
+// other arm has — is an occurrence carrying data the work reads.
+ScheduledJobEntryEventTriggerForm scheduled_job_entry_event_trigger(const ScheduledJobEntry *self);
+// What the job does and which data it acts on.
+//
+// The intent half of the work definition. The body that realises it is
+// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+// section says what that body must achieve and over which data, in enough
+// detail that it can be written from here without a second conversation.
+ScheduledJobEntryWorkDefinitionForm scheduled_job_entry_work_definition(const ScheduledJobEntry *self);
+// This job's departures from the system-wide execution policy.
+//
+// Every field is an override. Left empty, the job inherits the Execution
+// Controls (BJME) default; the policy stays the rule and the entry is the
+// exception.
+ScheduledJobEntryFailurePolicyForm scheduled_job_entry_failure_policy(const ScheduledJobEntry *self);
+
 // Scheduled maintenance policy.
 // Binds a ScheduledMaintenancePolicy facade to a document and a path (path copied).
 void scheduled_maintenance_policy_init(ScheduledMaintenancePolicy *self, SpecDocument *doc, const char *path);
@@ -19776,32 +20069,56 @@ ScheduledMaintenancePolicyNoticeForm scheduled_maintenance_policy_notice(const S
 // Approval requirements.
 ScheduledMaintenancePolicyApprovalForm scheduled_maintenance_policy_approval(const ScheduledMaintenancePolicy *self);
 
-// A single schema migration step (form).
+// A single migration artifact (form).
 //
-// One versioned change to the database schema — the DDL operations it applies,
-// the entities it touches, whether it is reversible, and any data backfill it
-// performs as part of the schema change.
+// One versioned artifact in the migration set: what it is (baseline schema,
+// reference data, or a schema change), which target it applies to, and which
+// deployment environments it is restricted to. The kind-specific detail lives
+// in the promoted case subsection its `artifactKind` selects.
 // Binds a SchemaMigrationStepEntry facade to a document and a path (path copied).
 void schema_migration_step_entry_init(SchemaMigrationStepEntry *self, SpecDocument *doc, const char *path);
 void schema_migration_step_entry_free(SchemaMigrationStepEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int schema_migration_step_entry_can_have_content(const SchemaMigrationStepEntry *self);
 SchemaMigrationStepEntryContentForm schema_migration_step_entry_content(const SchemaMigrationStepEntry *self);
+// Baseline schema definition — a promoted `@OneOf` case.
+//
+// Present only for the `initialDdl` kind. It establishes the schema, so there
+// is no prior state: no affected-entity delta, no backfill, and nothing to
+// roll back to.
+SchemaMigrationStepEntryBaselineSchemaForm schema_migration_step_entry_baseline_schema(const SchemaMigrationStepEntry *self);
+// Reference-data definition — a promoted `@OneOf` case.
+//
+// Present only for the `referenceData` kind. This artifact inserts rows, not
+// schema, so it authors the value set rather than schema statements. It is
+// the new system's own initial data — legacy business-data migration stays in
+// the migration-mapping sections (`MIGME`).
+SchemaMigrationStepEntryReferenceDataForm schema_migration_step_entry_reference_data(const SchemaMigrationStepEntry *self);
+// Schema change — a promoted `@OneOf` case.
+//
+// Present only for the `schemaChange` kind: an evolution step on top of an
+// existing schema. This is the only kind for which a delta of affected
+// entities, a data backfill and reversibility are meaningful.
+SchemaMigrationStepEntrySchemaChangeForm schema_migration_step_entry_schema_change(const SchemaMigrationStepEntry *self);
 
 // 7.4. Schema Versioning and Migration.
 //
 // Records how the database schema is *versioned and migrated* as the data
-// model evolves — the ordered DDL / migration steps and the tooling and
-// policy that govern them. This is distinct from business-data migration
-// between systems (see `MigrationMappingEntry` for old→new field mapping):
-// here the subject is the schema's own evolution over releases.
+// model evolves — the versioning policy, the data source / schema targets, and
+// the ordered artifact set that establishes and evolves the schema. This is
+// distinct from business-data migration between systems (see
+// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+// schema's own evolution over releases.
 // Binds a SchemaVersioningAndMigration facade to a document and a path (path copied).
 void schema_versioning_and_migration_init(SchemaVersioningAndMigration *self, SpecDocument *doc, const char *path);
 void schema_versioning_and_migration_free(SchemaVersioningAndMigration *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int schema_versioning_and_migration_can_have_content(const SchemaVersioningAndMigration *self);
 SchemaVersioningAndMigrationContentForm schema_versioning_and_migration_content(const SchemaVersioningAndMigration *self);
-// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+// Returns the list view; element type: MigrationTargetEntry (construct from item paths).
+SomList schema_versioning_and_migration_migration_targets(const SchemaVersioningAndMigration *self);
+// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
 // Returns the list view; element type: SchemaMigrationStepEntry (construct from item paths).
 SomList schema_versioning_and_migration_migration_steps(const SchemaVersioningAndMigration *self);
 
@@ -19985,6 +20302,15 @@ ScreenElementFieldSpecValidationForm screen_element_field_spec_validation(const 
 // Present only for the enumeration (select) field kind; carries only the
 // option-source and selection-mode attributes.
 ScreenElementFieldSpecSelectOptionsForm screen_element_field_spec_select_options(const ScreenElementFieldSpec *self);
+// File-kind options — a promoted `@OneOf` case (csrb8).
+//
+// Present only for the file field kind; carries what may be chosen and how
+// the chosen file is shown. The **storage group** is deliberately absent: a
+// file's group is authored once on its CE-DB file-reference column
+// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+// name different groups. So is a download affordance, which follows from the
+// field being wired for transfer and the file being stored (§5.18).
+ScreenElementFieldSpecFileOptionsForm screen_element_field_spec_file_options(const ScreenElementFieldSpec *self);
 
 // A screen entry (form).
 //
@@ -20048,6 +20374,15 @@ ScreenFieldEntryNumericConstraintsForm screen_field_entry_numeric_constraints(co
 ScreenFieldEntryTemporalConstraintsForm screen_field_entry_temporal_constraints(const ScreenFieldEntry *self);
 // Choice-kind option source — a promoted `@OneOf` case (csra4).
 ScreenFieldEntryChoiceOptionsForm screen_field_entry_choice_options(const ScreenFieldEntry *self);
+// File-kind input constraints — a promoted `@OneOf` case (csrb8).
+//
+// Constraints only. **How** the file is presented — link, dropzone or
+// thumbnail — is the D09 design pass's `fileOptions`
+// (`ScreenElementFieldSpec`), because a requirement names the kind of value
+// a user supplies and the design names the concrete control. The storage
+// group is neither side's: it is authored on the CE-DB file-reference column
+// (`codespecs_mapping.md` §5.13.1).
+ScreenFieldEntryFileConstraintsForm screen_field_entry_file_constraints(const ScreenFieldEntry *self);
 // UI and layout.
 ScreenFieldEntryLayoutForm screen_field_entry_layout(const ScreenFieldEntry *self);
 // Field validation rules — contains 0+× FieldValidationRule.
@@ -20632,6 +20967,26 @@ EncryptionInTransit sensitive_data_encryption_encryption_in_transit(const Sensit
 // 9.5.3. Key Management.
 KeyManagement sensitive_data_encryption_key_management(const SensitiveDataEncryption *self);
 
+// A single declared server / system configuration setting (CE-CF).
+//
+// The declaration only: key, value type, default, the environment variable and
+// command-line option it may also be read from, whether it carries a secret,
+// and which narrower scopes may shadow it. The *value* is supplied per
+// deployment through the configuration
+// tree, the OS environment, a `.env` file or the command line (in that
+// precedence, command line winning) and is never authored. A secret-bearing
+// setting declares its presence and shape so deployment tooling can supply
+// the content out of band (`codespecs_mapping.md` §5.16).
+//
+// Security and infrastructure configuration is scope-pinned: it stays
+// server-side unless the declaration explicitly opens it to a narrower scope.
+// Binds a ServerConfigurationSettingEntry facade to a document and a path (path copied).
+void server_configuration_setting_entry_init(ServerConfigurationSettingEntry *self, SpecDocument *doc, const char *path);
+void server_configuration_setting_entry_free(ServerConfigurationSettingEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int server_configuration_setting_entry_can_have_content(const ServerConfigurationSettingEntry *self);
+ServerConfigurationSettingEntryContentForm server_configuration_setting_entry_content(const ServerConfigurationSettingEntry *self);
+
 // Server environment entry (development, staging, production, DR).
 // Binds a ServerEnvironmentEntry facade to a document and a path (path copied).
 void server_environment_entry_init(ServerEnvironmentEntry *self, SpecDocument *doc, const char *path);
@@ -20647,6 +21002,86 @@ ServerEnvironmentEntryScaleForm server_environment_entry_scale(const ServerEnvir
 ServerEnvironmentEntryAccessForm server_environment_entry_access(const ServerEnvironmentEntry *self);
 // Lifecycle rules.
 ServerEnvironmentEntryLifecycleForm server_environment_entry_lifecycle(const ServerEnvironmentEntry *self);
+
+// A single server operation (form + request/response members).
+//
+// One entry in the [ServerOperationRegistry]: the operation name that
+// identifies it, its purpose, the data entity it primarily writes, its
+// authorization requirement, the error codes it may return, and the members
+// that make up its request and response shapes.
+//
+// The operation name is the join token the rest of the model references: the
+// ISC step entries cite it as the target of a client call (CE-SC), and the
+// service unit that owns the operation follows from
+// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+// list (`codespecs_mapping.md` §5.17).
+// Binds a ServerOperationEntry facade to a document and a path (path copied).
+void server_operation_entry_init(ServerOperationEntry *self, SpecDocument *doc, const char *path);
+void server_operation_entry_free(ServerOperationEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int server_operation_entry_can_have_content(const ServerOperationEntry *self);
+ServerOperationEntryContentForm server_operation_entry_content(const ServerOperationEntry *self);
+// 7.9.x. Request Members — the members that make up the request shape.
+// Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
+SomList server_operation_entry_request_members(const ServerOperationEntry *self);
+// 7.9.x. Response Members — the members the success payload carries.
+//
+// These members *are* the success payload the Result envelope wraps; the
+// envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+// authored per operation.
+// Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
+SomList server_operation_entry_response_members(const ServerOperationEntry *self);
+
+// A single member of an operation's request or response shape (form).
+//
+// One named, typed member: its name, its type, whether it must be present, and
+// — when the type is a domain concept rather than a primitive — the data
+// entity or domain enum it draws from. The same shape serves both the request
+// and the response side of a [ServerOperationEntry], so a member reads the
+// same way whichever direction it travels.
+// Binds a ServerOperationMemberEntry facade to a document and a path (path copied).
+void server_operation_member_entry_init(ServerOperationMemberEntry *self, SpecDocument *doc, const char *path);
+void server_operation_member_entry_free(ServerOperationMemberEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int server_operation_member_entry_can_have_content(const ServerOperationMemberEntry *self);
+ServerOperationMemberEntryContentForm server_operation_member_entry_content(const ServerOperationMemberEntry *self);
+
+// 7.9. Server Operation Registry.
+//
+// The authoring home for the **application's own** operation surface — the
+// CE-API (`serverApi`) part. Every operation the system answers is declared
+// once here; the client side (CE-SC) only *cites* an operation, and the
+// service unit that owns it (CE-SU) is *derived* from the entity each
+// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+// declare an operation, so without this registry the system's server API would
+// be code with no specification source.
+//
+// This is distinct from the **external** interface inventory under
+// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+// system talks to. Those carry a transport verb and a path because a
+// third-party API really has them; the application's own contract does not —
+// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+// whose **operation name** carries the intent, and §5.14 drops transport
+// plumbing from the spec surface.
+//
+// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+//
+// - no transport method and no path — the operation name is the identifier;
+// - no response status codes — every application outcome, success *or* error,
+//   rides in the [ResultEnvelope]; only infrastructure failures are transport
+//   errors;
+// - no encoding, header, redirect, CORS or credential plumbing — framework
+//   transport members, never spec input.
+// Binds a ServerOperationRegistry facade to a document and a path (path copied).
+void server_operation_registry_init(ServerOperationRegistry *self, SpecDocument *doc, const char *path);
+void server_operation_registry_free(ServerOperationRegistry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int server_operation_registry_can_have_content(const ServerOperationRegistry *self);
+char *server_operation_registry_content(const ServerOperationRegistry *self);
+void server_operation_registry_set_content(ServerOperationRegistry *self, const char *value);
+// 7.9.1. Operations — one entry per operation the system answers.
+// Returns the list view; element type: ServerOperationEntry (construct from item paths).
+SomList server_operation_registry_operations(const ServerOperationRegistry *self);
 
 // Server operating system requirements.
 // Binds a ServerOsRequirements facade to a document and a path (path copied).
@@ -22054,6 +22489,9 @@ SystemConfigurationManagementDynamicForm system_configuration_management_dynamic
 SystemConfigurationManagementEnvironmentForm system_configuration_management_environment(const SystemConfigurationManagement *self);
 // Validation, diffing, and audit controls.
 SystemConfigurationManagementGovernanceForm system_configuration_management_governance(const SystemConfigurationManagement *self);
+// The declared server configuration settings.
+// Returns the list view; element type: ServerConfigurationSettingEntry (construct from item paths).
+SomList system_configuration_management_settings(const SystemConfigurationManagement *self);
 
 // 4.1.2. System Context.
 //
@@ -24597,6 +25035,41 @@ void user_registration_process_set_content(UserRegistrationProcess *self, const 
 // (skipped: registrationFlowDescription has no target type)
 // Registration Flow Diagram (mermaid-sequence).
 // (skipped: registrationFlowDiagram has no target type)
+
+// A single declared user setting (CE-UP).
+//
+// The declaration only: key, value type, default, and whether a per-device
+// value may shadow the key. The value is the user's choice and is never
+// authored (`codespecs_mapping.md` §5.16).
+// Binds a UserSettingEntry facade to a document and a path (path copied).
+void user_setting_entry_init(UserSettingEntry *self, SpecDocument *doc, const char *path);
+void user_setting_entry_free(UserSettingEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int user_setting_entry_can_have_content(const UserSettingEntry *self);
+UserSettingEntryContentForm user_setting_entry_content(const UserSettingEntry *self);
+
+// User settings — server-persisted settings that follow the user (CE-UP).
+//
+// Keyed by the user alone: no machine and no device in the key. A user
+// setting is persisted on the server and re-materialised on whichever device
+// the user signs in from, which is what distinguishes it from a device
+// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+// the device) and from client configuration ([ClientConfiguration], CE-CC —
+// no user identity in the key) (`codespecs_mapping.md` §11).
+//
+// The scope is expressed by *which section a setting is declared in*, never
+// by a field on a shared section: there is no persistence discriminator
+// anywhere in the four settings scopes.
+// Binds a UserSettings facade to a document and a path (path copied).
+void user_settings_init(UserSettings *self, SpecDocument *doc, const char *path);
+void user_settings_free(UserSettings *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int user_settings_can_have_content(const UserSettings *self);
+char *user_settings_content(const UserSettings *self);
+void user_settings_set_content(UserSettings *self, const char *value);
+// The declared user settings.
+// Returns the list view; element type: UserSettingEntry (construct from item paths).
+SomList user_settings_settings(const UserSettings *self);
 
 // 4.1.4.n.5. Training Requirements.
 //
@@ -27844,10 +28317,6 @@ void batch_job_management_content_form_free(BatchJobManagementContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *batch_job_management_content_form_content(const BatchJobManagementContentForm *self);
 void batch_job_management_content_form_set_content(BatchJobManagementContentForm *self, const char *value);
-char *batch_job_management_content_form_scheduling_engine(const BatchJobManagementContentForm *self);
-void batch_job_management_content_form_set_scheduling_engine(BatchJobManagementContentForm *self, const char *value);
-char *batch_job_management_content_form_schedule_definition(const BatchJobManagementContentForm *self);
-void batch_job_management_content_form_set_schedule_definition(BatchJobManagementContentForm *self, const char *value);
 char *batch_job_management_content_form_time_zone_handling(const BatchJobManagementContentForm *self);
 void batch_job_management_content_form_set_time_zone_handling(BatchJobManagementContentForm *self, const char *value);
 
@@ -29888,22 +30357,43 @@ void client_accessibility_requirements_visual_form_set_zoom_support(ClientAccess
 char *client_accessibility_requirements_visual_form_font_scaling(const ClientAccessibilityRequirementsVisualForm *self);
 void client_accessibility_requirements_visual_form_set_font_scaling(ClientAccessibilityRequirementsVisualForm *self, const char *value);
 
-// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-void client_configuration_content_form_init(ClientConfigurationContentForm *self, SpecDocument *doc, const char *path);
-void client_configuration_content_form_free(ClientConfigurationContentForm *self);
+// ClientApplicationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void client_application_entry_content_form_init(ClientApplicationEntryContentForm *self, SpecDocument *doc, const char *path);
+void client_application_entry_content_form_free(ClientApplicationEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
-char *client_configuration_content_form_content(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_content(ClientConfigurationContentForm *self, const char *value);
-char *client_configuration_content_form_api_base_url(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_api_base_url(ClientConfigurationContentForm *self, const char *value);
-char *client_configuration_content_form_environment(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_environment(ClientConfigurationContentForm *self, const char *value);
-char *client_configuration_content_form_device_options(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_device_options(ClientConfigurationContentForm *self, const char *value);
-char *client_configuration_content_form_feature_toggles(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_feature_toggles(ClientConfigurationContentForm *self, const char *value);
-char *client_configuration_content_form_update_channel(const ClientConfigurationContentForm *self);
-void client_configuration_content_form_set_update_channel(ClientConfigurationContentForm *self, const char *value);
+char *client_application_entry_content_form_content(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_content(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_client_id(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_client_id(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_client_name(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_client_name(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_client_kind(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_client_kind(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_purpose(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_purpose(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_platform_targets(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_platform_targets(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_entry_route(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_entry_route(ClientApplicationEntryContentForm *self, const char *value);
+char *client_application_entry_content_form_included_screens(const ClientApplicationEntryContentForm *self);
+void client_application_entry_content_form_set_included_screens(ClientApplicationEntryContentForm *self, const char *value);
+
+// ClientConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void client_configuration_setting_entry_content_form_init(ClientConfigurationSettingEntryContentForm *self, SpecDocument *doc, const char *path);
+void client_configuration_setting_entry_content_form_free(ClientConfigurationSettingEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *client_configuration_setting_entry_content_form_content(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_content(ClientConfigurationSettingEntryContentForm *self, const char *value);
+char *client_configuration_setting_entry_content_form_setting_key(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_setting_key(ClientConfigurationSettingEntryContentForm *self, const char *value);
+char *client_configuration_setting_entry_content_form_client(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_client(ClientConfigurationSettingEntryContentForm *self, const char *value);
+char *client_configuration_setting_entry_content_form_value_type(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_value_type(ClientConfigurationSettingEntryContentForm *self, const char *value);
+char *client_configuration_setting_entry_content_form_default_value(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_default_value(ClientConfigurationSettingEntryContentForm *self, const char *value);
+char *client_configuration_setting_entry_content_form_overridable_by(const ClientConfigurationSettingEntryContentForm *self);
+void client_configuration_setting_entry_content_form_set_overridable_by(ClientConfigurationSettingEntryContentForm *self, const char *value);
 
 // ClientHardwareRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void client_hardware_requirements_content_form_init(ClientHardwareRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -36674,20 +37164,18 @@ void development_quality_gates_security_form_set_secrets_scanning(DevelopmentQua
 char *development_quality_gates_security_form_license_compliance(const DevelopmentQualityGatesSecurityForm *self);
 void development_quality_gates_security_form_set_license_compliance(DevelopmentQualityGatesSecurityForm *self, const char *value);
 
-// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
-void device_settings_content_form_init(DeviceSettingsContentForm *self, SpecDocument *doc, const char *path);
-void device_settings_content_form_free(DeviceSettingsContentForm *self);
+// DeviceSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void device_setting_entry_content_form_init(DeviceSettingEntryContentForm *self, SpecDocument *doc, const char *path);
+void device_setting_entry_content_form_free(DeviceSettingEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
-char *device_settings_content_form_content(const DeviceSettingsContentForm *self);
-void device_settings_content_form_set_content(DeviceSettingsContentForm *self, const char *value);
-char *device_settings_content_form_setting_key(const DeviceSettingsContentForm *self);
-void device_settings_content_form_set_setting_key(DeviceSettingsContentForm *self, const char *value);
-char *device_settings_content_form_value_type(const DeviceSettingsContentForm *self);
-void device_settings_content_form_set_value_type(DeviceSettingsContentForm *self, const char *value);
-char *device_settings_content_form_default_value(const DeviceSettingsContentForm *self);
-void device_settings_content_form_set_default_value(DeviceSettingsContentForm *self, const char *value);
-bool device_settings_content_form_device_overridable(const DeviceSettingsContentForm *self);
-void device_settings_content_form_set_device_overridable(DeviceSettingsContentForm *self, bool value);
+char *device_setting_entry_content_form_content(const DeviceSettingEntryContentForm *self);
+void device_setting_entry_content_form_set_content(DeviceSettingEntryContentForm *self, const char *value);
+char *device_setting_entry_content_form_setting_key(const DeviceSettingEntryContentForm *self);
+void device_setting_entry_content_form_set_setting_key(DeviceSettingEntryContentForm *self, const char *value);
+char *device_setting_entry_content_form_value_type(const DeviceSettingEntryContentForm *self);
+void device_setting_entry_content_form_set_value_type(DeviceSettingEntryContentForm *self, const char *value);
+char *device_setting_entry_content_form_default_value(const DeviceSettingEntryContentForm *self);
+void device_setting_entry_content_form_set_default_value(DeviceSettingEntryContentForm *self, const char *value);
 
 // DisasterRecoveryRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void disaster_recovery_requirements_content_form_init(DisasterRecoveryRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -46209,6 +46697,21 @@ char *migration_systems_content_form_schema_transformation_complexity(const Migr
 void migration_systems_content_form_set_schema_transformation_complexity(MigrationSystemsContentForm *self, const char *value);
 char *migration_systems_content_form_data_model_change_summary(const MigrationSystemsContentForm *self);
 void migration_systems_content_form_set_data_model_change_summary(MigrationSystemsContentForm *self, const char *value);
+
+// MigrationTargetEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void migration_target_entry_content_form_init(MigrationTargetEntryContentForm *self, SpecDocument *doc, const char *path);
+void migration_target_entry_content_form_free(MigrationTargetEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *migration_target_entry_content_form_content(const MigrationTargetEntryContentForm *self);
+void migration_target_entry_content_form_set_content(MigrationTargetEntryContentForm *self, const char *value);
+char *migration_target_entry_content_form_target_name(const MigrationTargetEntryContentForm *self);
+void migration_target_entry_content_form_set_target_name(MigrationTargetEntryContentForm *self, const char *value);
+char *migration_target_entry_content_form_data_source_name(const MigrationTargetEntryContentForm *self);
+void migration_target_entry_content_form_set_data_source_name(MigrationTargetEntryContentForm *self, const char *value);
+char *migration_target_entry_content_form_schema_name(const MigrationTargetEntryContentForm *self);
+void migration_target_entry_content_form_set_schema_name(MigrationTargetEntryContentForm *self, const char *value);
+char *migration_target_entry_content_form_purpose(const MigrationTargetEntryContentForm *self);
+void migration_target_entry_content_form_set_purpose(MigrationTargetEntryContentForm *self, const char *value);
 
 // MobileCompatibilityEntryCapabilitiesForm is the generated section facade for the `capabilities` @Form section: its own `content` text followed by one typed member per form field.
 void mobile_compatibility_entry_capabilities_form_init(MobileCompatibilityEntryCapabilitiesForm *self, SpecDocument *doc, const char *path);
@@ -55854,6 +56357,84 @@ void scenario_step_entry_execution_form_set_timing(ScenarioStepEntryExecutionFor
 char *scenario_step_entry_execution_form_notes(const ScenarioStepEntryExecutionForm *self);
 void scenario_step_entry_execution_form_set_notes(ScenarioStepEntryExecutionForm *self, const char *value);
 
+// ScheduledJobEntryCalendarTriggerForm is the generated section facade for the `calendarTrigger` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_calendar_trigger_form_init(ScheduledJobEntryCalendarTriggerForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_calendar_trigger_form_free(ScheduledJobEntryCalendarTriggerForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_calendar_trigger_form_content(const ScheduledJobEntryCalendarTriggerForm *self);
+void scheduled_job_entry_calendar_trigger_form_set_content(ScheduledJobEntryCalendarTriggerForm *self, const char *value);
+char *scheduled_job_entry_calendar_trigger_form_calendar_rule(const ScheduledJobEntryCalendarTriggerForm *self);
+void scheduled_job_entry_calendar_trigger_form_set_calendar_rule(ScheduledJobEntryCalendarTriggerForm *self, const char *value);
+
+// ScheduledJobEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_content_form_init(ScheduledJobEntryContentForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_content_form_free(ScheduledJobEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_content_form_content(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_content(ScheduledJobEntryContentForm *self, const char *value);
+char *scheduled_job_entry_content_form_job_name(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_job_name(ScheduledJobEntryContentForm *self, const char *value);
+char *scheduled_job_entry_content_form_purpose(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_purpose(ScheduledJobEntryContentForm *self, const char *value);
+char *scheduled_job_entry_content_form_trigger_kind(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_trigger_kind(ScheduledJobEntryContentForm *self, const char *value);
+char *scheduled_job_entry_content_form_primary_data_entity(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_primary_data_entity(ScheduledJobEntryContentForm *self, const char *value);
+bool scheduled_job_entry_content_form_enabled(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_enabled(ScheduledJobEntryContentForm *self, bool value);
+char *scheduled_job_entry_content_form_environments(const ScheduledJobEntryContentForm *self);
+void scheduled_job_entry_content_form_set_environments(ScheduledJobEntryContentForm *self, const char *value);
+
+// ScheduledJobEntryCronTriggerForm is the generated section facade for the `cronTrigger` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_cron_trigger_form_init(ScheduledJobEntryCronTriggerForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_cron_trigger_form_free(ScheduledJobEntryCronTriggerForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_cron_trigger_form_content(const ScheduledJobEntryCronTriggerForm *self);
+void scheduled_job_entry_cron_trigger_form_set_content(ScheduledJobEntryCronTriggerForm *self, const char *value);
+char *scheduled_job_entry_cron_trigger_form_cron_expression(const ScheduledJobEntryCronTriggerForm *self);
+void scheduled_job_entry_cron_trigger_form_set_cron_expression(ScheduledJobEntryCronTriggerForm *self, const char *value);
+
+// ScheduledJobEntryEventTriggerForm is the generated section facade for the `eventTrigger` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_event_trigger_form_init(ScheduledJobEntryEventTriggerForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_event_trigger_form_free(ScheduledJobEntryEventTriggerForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_event_trigger_form_content(const ScheduledJobEntryEventTriggerForm *self);
+void scheduled_job_entry_event_trigger_form_set_content(ScheduledJobEntryEventTriggerForm *self, const char *value);
+char *scheduled_job_entry_event_trigger_form_event_name(const ScheduledJobEntryEventTriggerForm *self);
+void scheduled_job_entry_event_trigger_form_set_event_name(ScheduledJobEntryEventTriggerForm *self, const char *value);
+char *scheduled_job_entry_event_trigger_form_event_payload(const ScheduledJobEntryEventTriggerForm *self);
+void scheduled_job_entry_event_trigger_form_set_event_payload(ScheduledJobEntryEventTriggerForm *self, const char *value);
+
+// ScheduledJobEntryFailurePolicyForm is the generated section facade for the `failurePolicy` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_failure_policy_form_init(ScheduledJobEntryFailurePolicyForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_failure_policy_form_free(ScheduledJobEntryFailurePolicyForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_failure_policy_form_content(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_content(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+long scheduled_job_entry_failure_policy_form_max_retries(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_max_retries(ScheduledJobEntryFailurePolicyForm *self, long value);
+char *scheduled_job_entry_failure_policy_form_retry_backoff(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_retry_backoff(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+char *scheduled_job_entry_failure_policy_form_timeout(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_timeout(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+char *scheduled_job_entry_failure_policy_form_failure_alert_message(const ScheduledJobEntryFailurePolicyForm *self);
+void scheduled_job_entry_failure_policy_form_set_failure_alert_message(ScheduledJobEntryFailurePolicyForm *self, const char *value);
+
+// ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own `content` text followed by one typed member per form field.
+void scheduled_job_entry_work_definition_form_init(ScheduledJobEntryWorkDefinitionForm *self, SpecDocument *doc, const char *path);
+void scheduled_job_entry_work_definition_form_free(ScheduledJobEntryWorkDefinitionForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *scheduled_job_entry_work_definition_form_content(const ScheduledJobEntryWorkDefinitionForm *self);
+void scheduled_job_entry_work_definition_form_set_content(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+char *scheduled_job_entry_work_definition_form_work_summary(const ScheduledJobEntryWorkDefinitionForm *self);
+void scheduled_job_entry_work_definition_form_set_work_summary(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+char *scheduled_job_entry_work_definition_form_read_entities(const ScheduledJobEntryWorkDefinitionForm *self);
+void scheduled_job_entry_work_definition_form_set_read_entities(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+char *scheduled_job_entry_work_definition_form_written_entities(const ScheduledJobEntryWorkDefinitionForm *self);
+void scheduled_job_entry_work_definition_form_set_written_entities(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+char *scheduled_job_entry_work_definition_form_target_reports(const ScheduledJobEntryWorkDefinitionForm *self);
+void scheduled_job_entry_work_definition_form_set_target_reports(ScheduledJobEntryWorkDefinitionForm *self, const char *value);
+
 // ScheduledMaintenancePolicyApprovalForm is the generated section facade for the `approval` @Form section: its own `content` text followed by one typed member per form field.
 void scheduled_maintenance_policy_approval_form_init(ScheduledMaintenancePolicyApprovalForm *self, SpecDocument *doc, const char *path);
 void scheduled_maintenance_policy_approval_form_free(ScheduledMaintenancePolicyApprovalForm *self);
@@ -55923,6 +56504,19 @@ void scheduled_maintenance_policy_scheduling_form_set_max_frequency(ScheduledMai
 char *scheduled_maintenance_policy_scheduling_form_blackout_periods(const ScheduledMaintenancePolicySchedulingForm *self);
 void scheduled_maintenance_policy_scheduling_form_set_blackout_periods(ScheduledMaintenancePolicySchedulingForm *self, const char *value);
 
+// SchemaMigrationStepEntryBaselineSchemaForm is the generated section facade for the `baselineSchema` @Form section: its own `content` text followed by one typed member per form field.
+void schema_migration_step_entry_baseline_schema_form_init(SchemaMigrationStepEntryBaselineSchemaForm *self, SpecDocument *doc, const char *path);
+void schema_migration_step_entry_baseline_schema_form_free(SchemaMigrationStepEntryBaselineSchemaForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *schema_migration_step_entry_baseline_schema_form_content(const SchemaMigrationStepEntryBaselineSchemaForm *self);
+void schema_migration_step_entry_baseline_schema_form_set_content(SchemaMigrationStepEntryBaselineSchemaForm *self, const char *value);
+char *schema_migration_step_entry_baseline_schema_form_created_entities(const SchemaMigrationStepEntryBaselineSchemaForm *self);
+void schema_migration_step_entry_baseline_schema_form_set_created_entities(SchemaMigrationStepEntryBaselineSchemaForm *self, const char *value);
+char *schema_migration_step_entry_baseline_schema_form_schema_statements(const SchemaMigrationStepEntryBaselineSchemaForm *self);
+void schema_migration_step_entry_baseline_schema_form_set_schema_statements(SchemaMigrationStepEntryBaselineSchemaForm *self, const char *value);
+char *schema_migration_step_entry_baseline_schema_form_indexes_and_constraints(const SchemaMigrationStepEntryBaselineSchemaForm *self);
+void schema_migration_step_entry_baseline_schema_form_set_indexes_and_constraints(SchemaMigrationStepEntryBaselineSchemaForm *self, const char *value);
+
 // SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void schema_migration_step_entry_content_form_init(SchemaMigrationStepEntryContentForm *self, SpecDocument *doc, const char *path);
 void schema_migration_step_entry_content_form_free(SchemaMigrationStepEntryContentForm *self);
@@ -55933,14 +56527,40 @@ char *schema_migration_step_entry_content_form_version(const SchemaMigrationStep
 void schema_migration_step_entry_content_form_set_version(SchemaMigrationStepEntryContentForm *self, const char *value);
 char *schema_migration_step_entry_content_form_description(const SchemaMigrationStepEntryContentForm *self);
 void schema_migration_step_entry_content_form_set_description(SchemaMigrationStepEntryContentForm *self, const char *value);
-char *schema_migration_step_entry_content_form_ddl_operations(const SchemaMigrationStepEntryContentForm *self);
-void schema_migration_step_entry_content_form_set_ddl_operations(SchemaMigrationStepEntryContentForm *self, const char *value);
-char *schema_migration_step_entry_content_form_affected_entities(const SchemaMigrationStepEntryContentForm *self);
-void schema_migration_step_entry_content_form_set_affected_entities(SchemaMigrationStepEntryContentForm *self, const char *value);
-char *schema_migration_step_entry_content_form_data_backfill(const SchemaMigrationStepEntryContentForm *self);
-void schema_migration_step_entry_content_form_set_data_backfill(SchemaMigrationStepEntryContentForm *self, const char *value);
-bool schema_migration_step_entry_content_form_reversible(const SchemaMigrationStepEntryContentForm *self);
-void schema_migration_step_entry_content_form_set_reversible(SchemaMigrationStepEntryContentForm *self, bool value);
+char *schema_migration_step_entry_content_form_artifact_kind(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_artifact_kind(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_migration_target(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_migration_target(SchemaMigrationStepEntryContentForm *self, const char *value);
+char *schema_migration_step_entry_content_form_environments(const SchemaMigrationStepEntryContentForm *self);
+void schema_migration_step_entry_content_form_set_environments(SchemaMigrationStepEntryContentForm *self, const char *value);
+
+// SchemaMigrationStepEntryReferenceDataForm is the generated section facade for the `referenceData` @Form section: its own `content` text followed by one typed member per form field.
+void schema_migration_step_entry_reference_data_form_init(SchemaMigrationStepEntryReferenceDataForm *self, SpecDocument *doc, const char *path);
+void schema_migration_step_entry_reference_data_form_free(SchemaMigrationStepEntryReferenceDataForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *schema_migration_step_entry_reference_data_form_content(const SchemaMigrationStepEntryReferenceDataForm *self);
+void schema_migration_step_entry_reference_data_form_set_content(SchemaMigrationStepEntryReferenceDataForm *self, const char *value);
+char *schema_migration_step_entry_reference_data_form_target_entities(const SchemaMigrationStepEntryReferenceDataForm *self);
+void schema_migration_step_entry_reference_data_form_set_target_entities(SchemaMigrationStepEntryReferenceDataForm *self, const char *value);
+char *schema_migration_step_entry_reference_data_form_value_set(const SchemaMigrationStepEntryReferenceDataForm *self);
+void schema_migration_step_entry_reference_data_form_set_value_set(SchemaMigrationStepEntryReferenceDataForm *self, const char *value);
+char *schema_migration_step_entry_reference_data_form_identity_key(const SchemaMigrationStepEntryReferenceDataForm *self);
+void schema_migration_step_entry_reference_data_form_set_identity_key(SchemaMigrationStepEntryReferenceDataForm *self, const char *value);
+
+// SchemaMigrationStepEntrySchemaChangeForm is the generated section facade for the `schemaChange` @Form section: its own `content` text followed by one typed member per form field.
+void schema_migration_step_entry_schema_change_form_init(SchemaMigrationStepEntrySchemaChangeForm *self, SpecDocument *doc, const char *path);
+void schema_migration_step_entry_schema_change_form_free(SchemaMigrationStepEntrySchemaChangeForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *schema_migration_step_entry_schema_change_form_content(const SchemaMigrationStepEntrySchemaChangeForm *self);
+void schema_migration_step_entry_schema_change_form_set_content(SchemaMigrationStepEntrySchemaChangeForm *self, const char *value);
+char *schema_migration_step_entry_schema_change_form_schema_statements(const SchemaMigrationStepEntrySchemaChangeForm *self);
+void schema_migration_step_entry_schema_change_form_set_schema_statements(SchemaMigrationStepEntrySchemaChangeForm *self, const char *value);
+char *schema_migration_step_entry_schema_change_form_affected_entities(const SchemaMigrationStepEntrySchemaChangeForm *self);
+void schema_migration_step_entry_schema_change_form_set_affected_entities(SchemaMigrationStepEntrySchemaChangeForm *self, const char *value);
+char *schema_migration_step_entry_schema_change_form_data_backfill(const SchemaMigrationStepEntrySchemaChangeForm *self);
+void schema_migration_step_entry_schema_change_form_set_data_backfill(SchemaMigrationStepEntrySchemaChangeForm *self, const char *value);
+bool schema_migration_step_entry_schema_change_form_reversible(const SchemaMigrationStepEntrySchemaChangeForm *self);
+void schema_migration_step_entry_schema_change_form_set_reversible(SchemaMigrationStepEntrySchemaChangeForm *self, bool value);
 
 // SchemaVersioningAndMigrationContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void schema_versioning_and_migration_content_form_init(SchemaVersioningAndMigrationContentForm *self, SpecDocument *doc, const char *path);
@@ -55948,8 +56568,6 @@ void schema_versioning_and_migration_content_form_free(SchemaVersioningAndMigrat
 // The section's own free-text content, before the form fields (owned).
 char *schema_versioning_and_migration_content_form_content(const SchemaVersioningAndMigrationContentForm *self);
 void schema_versioning_and_migration_content_form_set_content(SchemaVersioningAndMigrationContentForm *self, const char *value);
-char *schema_versioning_and_migration_content_form_migration_tooling(const SchemaVersioningAndMigrationContentForm *self);
-void schema_versioning_and_migration_content_form_set_migration_tooling(SchemaVersioningAndMigrationContentForm *self, const char *value);
 char *schema_versioning_and_migration_content_form_versioning_strategy(const SchemaVersioningAndMigrationContentForm *self);
 void schema_versioning_and_migration_content_form_set_versioning_strategy(SchemaVersioningAndMigrationContentForm *self, const char *value);
 bool schema_versioning_and_migration_content_form_forward_only(const SchemaVersioningAndMigrationContentForm *self);
@@ -56254,6 +56872,21 @@ void screen_element_field_spec_date_options_form_set_last_date(ScreenElementFiel
 char *screen_element_field_spec_date_options_form_date_format(const ScreenElementFieldSpecDateOptionsForm *self);
 void screen_element_field_spec_date_options_form_set_date_format(ScreenElementFieldSpecDateOptionsForm *self, const char *value);
 
+// ScreenElementFieldSpecFileOptionsForm is the generated section facade for the `fileOptions` @Form section: its own `content` text followed by one typed member per form field.
+void screen_element_field_spec_file_options_form_init(ScreenElementFieldSpecFileOptionsForm *self, SpecDocument *doc, const char *path);
+void screen_element_field_spec_file_options_form_free(ScreenElementFieldSpecFileOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_element_field_spec_file_options_form_content(const ScreenElementFieldSpecFileOptionsForm *self);
+void screen_element_field_spec_file_options_form_set_content(ScreenElementFieldSpecFileOptionsForm *self, const char *value);
+char *screen_element_field_spec_file_options_form_accepted_content_kinds(const ScreenElementFieldSpecFileOptionsForm *self);
+void screen_element_field_spec_file_options_form_set_accepted_content_kinds(ScreenElementFieldSpecFileOptionsForm *self, const char *value);
+char *screen_element_field_spec_file_options_form_max_file_size(const ScreenElementFieldSpecFileOptionsForm *self);
+void screen_element_field_spec_file_options_form_set_max_file_size(ScreenElementFieldSpecFileOptionsForm *self, const char *value);
+char *screen_element_field_spec_file_options_form_presentation(const ScreenElementFieldSpecFileOptionsForm *self);
+void screen_element_field_spec_file_options_form_set_presentation(ScreenElementFieldSpecFileOptionsForm *self, const char *value);
+char *screen_element_field_spec_file_options_form_upload_on_pick(const ScreenElementFieldSpecFileOptionsForm *self);
+void screen_element_field_spec_file_options_form_set_upload_on_pick(ScreenElementFieldSpecFileOptionsForm *self, const char *value);
+
 // ScreenElementFieldSpecFormattingForm is the generated section facade for the `formatting` @Form section: its own `content` text followed by one typed member per form field.
 void screen_element_field_spec_formatting_form_init(ScreenElementFieldSpecFormattingForm *self, SpecDocument *doc, const char *path);
 void screen_element_field_spec_formatting_form_free(ScreenElementFieldSpecFormattingForm *self);
@@ -56455,6 +57088,17 @@ char *screen_field_entry_data_binding_form_placeholder(const ScreenFieldEntryDat
 void screen_field_entry_data_binding_form_set_placeholder(ScreenFieldEntryDataBindingForm *self, const char *value);
 char *screen_field_entry_data_binding_form_help_text(const ScreenFieldEntryDataBindingForm *self);
 void screen_field_entry_data_binding_form_set_help_text(ScreenFieldEntryDataBindingForm *self, const char *value);
+
+// ScreenFieldEntryFileConstraintsForm is the generated section facade for the `fileConstraints` @Form section: its own `content` text followed by one typed member per form field.
+void screen_field_entry_file_constraints_form_init(ScreenFieldEntryFileConstraintsForm *self, SpecDocument *doc, const char *path);
+void screen_field_entry_file_constraints_form_free(ScreenFieldEntryFileConstraintsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *screen_field_entry_file_constraints_form_content(const ScreenFieldEntryFileConstraintsForm *self);
+void screen_field_entry_file_constraints_form_set_content(ScreenFieldEntryFileConstraintsForm *self, const char *value);
+char *screen_field_entry_file_constraints_form_accepted_content_kinds(const ScreenFieldEntryFileConstraintsForm *self);
+void screen_field_entry_file_constraints_form_set_accepted_content_kinds(ScreenFieldEntryFileConstraintsForm *self, const char *value);
+char *screen_field_entry_file_constraints_form_max_file_size(const ScreenFieldEntryFileConstraintsForm *self);
+void screen_field_entry_file_constraints_form_set_max_file_size(ScreenFieldEntryFileConstraintsForm *self, const char *value);
 
 // ScreenFieldEntryLayoutForm is the generated section facade for the `layout` @Form section: its own `content` text followed by one typed member per form field.
 void screen_field_entry_layout_form_init(ScreenFieldEntryLayoutForm *self, SpecDocument *doc, const char *path);
@@ -57434,6 +58078,27 @@ void self_registration_policy_verification_form_set_phone_verification_required(
 char *self_registration_policy_verification_form_phone_verification_method(const SelfRegistrationPolicyVerificationForm *self);
 void self_registration_policy_verification_form_set_phone_verification_method(SelfRegistrationPolicyVerificationForm *self, const char *value);
 
+// ServerConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void server_configuration_setting_entry_content_form_init(ServerConfigurationSettingEntryContentForm *self, SpecDocument *doc, const char *path);
+void server_configuration_setting_entry_content_form_free(ServerConfigurationSettingEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_configuration_setting_entry_content_form_content(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_content(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_setting_key(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_setting_key(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_value_type(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_value_type(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_default_value(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_default_value(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_environment_variable(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_environment_variable(ServerConfigurationSettingEntryContentForm *self, const char *value);
+char *server_configuration_setting_entry_content_form_command_line_option(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_command_line_option(ServerConfigurationSettingEntryContentForm *self, const char *value);
+bool server_configuration_setting_entry_content_form_secret(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_secret(ServerConfigurationSettingEntryContentForm *self, bool value);
+char *server_configuration_setting_entry_content_form_overridable_by(const ServerConfigurationSettingEntryContentForm *self);
+void server_configuration_setting_entry_content_form_set_overridable_by(ServerConfigurationSettingEntryContentForm *self, const char *value);
+
 // ServerEnvironmentEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
 void server_environment_entry_access_form_init(ServerEnvironmentEntryAccessForm *self, SpecDocument *doc, const char *path);
 void server_environment_entry_access_form_free(ServerEnvironmentEntryAccessForm *self);
@@ -57502,6 +58167,50 @@ char *server_environment_entry_scale_form_expected_users(const ServerEnvironment
 void server_environment_entry_scale_form_set_expected_users(ServerEnvironmentEntryScaleForm *self, const char *value);
 char *server_environment_entry_scale_form_expected_load(const ServerEnvironmentEntryScaleForm *self);
 void server_environment_entry_scale_form_set_expected_load(ServerEnvironmentEntryScaleForm *self, const char *value);
+
+// ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void server_operation_entry_content_form_init(ServerOperationEntryContentForm *self, SpecDocument *doc, const char *path);
+void server_operation_entry_content_form_free(ServerOperationEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_operation_entry_content_form_content(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_primary_data_entity(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_authorization_requirement(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_authorization_requirement(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_required_roles(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_required_roles(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_required_resource_key(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_required_resource_key(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_description_key(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_description_key(ServerOperationEntryContentForm *self, const char *value);
+char *server_operation_entry_content_form_error_codes(const ServerOperationEntryContentForm *self);
+void server_operation_entry_content_form_set_error_codes(ServerOperationEntryContentForm *self, const char *value);
+
+// ServerOperationMemberEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void server_operation_member_entry_content_form_init(ServerOperationMemberEntryContentForm *self, SpecDocument *doc, const char *path);
+void server_operation_member_entry_content_form_free(ServerOperationMemberEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *server_operation_member_entry_content_form_content(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_content(ServerOperationMemberEntryContentForm *self, const char *value);
+char *server_operation_member_entry_content_form_member_name(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_member_name(ServerOperationMemberEntryContentForm *self, const char *value);
+char *server_operation_member_entry_content_form_member_type(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_member_type(ServerOperationMemberEntryContentForm *self, const char *value);
+bool server_operation_member_entry_content_form_multi_valued(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_multi_valued(ServerOperationMemberEntryContentForm *self, bool value);
+bool server_operation_member_entry_content_form_required(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_required(ServerOperationMemberEntryContentForm *self, bool value);
+char *server_operation_member_entry_content_form_data_entity(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_data_entity(ServerOperationMemberEntryContentForm *self, const char *value);
+char *server_operation_member_entry_content_form_domain_enum(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_domain_enum(ServerOperationMemberEntryContentForm *self, const char *value);
+char *server_operation_member_entry_content_form_description(const ServerOperationMemberEntryContentForm *self);
+void server_operation_member_entry_content_form_set_description(ServerOperationMemberEntryContentForm *self, const char *value);
 
 // ServerOsRequirementsContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void server_os_requirements_content_form_init(ServerOsRequirementsContentForm *self, SpecDocument *doc, const char *path);
@@ -65592,6 +66301,21 @@ void user_provisioning_tools_role_management_form_set_delegated_administration(U
 char *user_provisioning_tools_role_management_form_access_review_process(const UserProvisioningToolsRoleManagementForm *self);
 void user_provisioning_tools_role_management_form_set_access_review_process(UserProvisioningToolsRoleManagementForm *self, const char *value);
 
+// UserSettingEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void user_setting_entry_content_form_init(UserSettingEntryContentForm *self, SpecDocument *doc, const char *path);
+void user_setting_entry_content_form_free(UserSettingEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *user_setting_entry_content_form_content(const UserSettingEntryContentForm *self);
+void user_setting_entry_content_form_set_content(UserSettingEntryContentForm *self, const char *value);
+char *user_setting_entry_content_form_setting_key(const UserSettingEntryContentForm *self);
+void user_setting_entry_content_form_set_setting_key(UserSettingEntryContentForm *self, const char *value);
+char *user_setting_entry_content_form_value_type(const UserSettingEntryContentForm *self);
+void user_setting_entry_content_form_set_value_type(UserSettingEntryContentForm *self, const char *value);
+char *user_setting_entry_content_form_default_value(const UserSettingEntryContentForm *self);
+void user_setting_entry_content_form_set_default_value(UserSettingEntryContentForm *self, const char *value);
+char *user_setting_entry_content_form_overridable_by(const UserSettingEntryContentForm *self);
+void user_setting_entry_content_form_set_overridable_by(UserSettingEntryContentForm *self, const char *value);
+
 // UserTrainingRequirementsTrainingFormForm is the generated section facade for the `trainingForm` @Form section: its own `content` text followed by one typed member per form field.
 void user_training_requirements_training_form_form_init(UserTrainingRequirementsTrainingFormForm *self, SpecDocument *doc, const char *path);
 void user_training_requirements_training_form_form_free(UserTrainingRequirementsTrainingFormForm *self);
@@ -66459,6 +67183,8 @@ bool workflow_step_entry_content_form_is_manual(const WorkflowStepEntryContentFo
 void workflow_step_entry_content_form_set_is_manual(WorkflowStepEntryContentForm *self, bool value);
 bool workflow_step_entry_content_form_is_automatable(const WorkflowStepEntryContentForm *self);
 void workflow_step_entry_content_form_set_is_automatable(WorkflowStepEntryContentForm *self, bool value);
+bool workflow_step_entry_content_form_is_error_prone(const WorkflowStepEntryContentForm *self);
+void workflow_step_entry_content_form_set_is_error_prone(WorkflowStepEntryContentForm *self, bool value);
 char *workflow_step_entry_content_form_average_duration(const WorkflowStepEntryContentForm *self);
 void workflow_step_entry_content_form_set_average_duration(WorkflowStepEntryContentForm *self, const char *value);
 

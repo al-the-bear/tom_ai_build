@@ -6,6 +6,22 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'tom_som_dart_v0_meta.dart';
 export 'tom_som_dart_v0_meta.dart';
 
+/// Generated enum for `ClientApplicationKind` values.
+enum ClientApplicationKind {
+  graphicalApplication,
+  commandLine,
+  server;
+}
+
+/// Parses a stored token into a [ClientApplicationKind], or `null`.
+ClientApplicationKind? _parseClientApplicationKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ClientApplicationKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `DataAttributeKind` values.
 enum DataAttributeKind {
   string,
@@ -71,6 +87,22 @@ Iso25010Characteristic? _parseIso25010Characteristic(String? token) {
   return null;
 }
 
+/// Generated enum for `MigrationArtifactKind` values.
+enum MigrationArtifactKind {
+  initialDdl,
+  referenceData,
+  schemaChange;
+}
+
+/// Parses a stored token into a [MigrationArtifactKind], or `null`.
+MigrationArtifactKind? _parseMigrationArtifactKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in MigrationArtifactKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `ObjectLifecycleKind` values.
 enum ObjectLifecycleKind {
   initial,
@@ -123,6 +155,22 @@ enum ReportFilterValueKind {
 ReportFilterValueKind? _parseReportFilterValueKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ReportFilterValueKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `ScheduledJobTrigger` values.
+enum ScheduledJobTrigger {
+  cron,
+  calendar,
+  event;
+}
+
+/// Parses a stored token into a [ScheduledJobTrigger], or `null`.
+ScheduledJobTrigger? _parseScheduledJobTrigger(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in ScheduledJobTrigger.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -2105,20 +2153,47 @@ class BasicTechnicalRequirements extends SomNode {
   DesignPatternsAndStandards get designPatternsAndStandards => DesignPatternsAndStandards(doc, '$path/designPatternsAndStandards');
 }
 
-/// Batch job management.
+/// Batch job management — the scheduled jobs and the policy they run under.
+/// 
+/// Two layers, deliberately separated. This section and its policy subsections
+/// author what is true of *every* job — the time-zone basis, the execution
+/// controls, the monitoring surface. [scheduledJobs] authors the jobs
+/// themselves, one entry each. A specification that has only the policy layer
+/// can say how jobs are run in general but cannot name a single one, which is
+/// exactly what the job list exists to fix.
+/// 
+/// The policy is the **default layer**: an execution control stated here applies
+/// to every job that does not override it, and an entry that does override it
+/// says so in its own failure-policy subsection.
 class BatchJobManagement extends SomNode {
   BatchJobManagement(super.doc, super.path);
 
   BatchJobManagementContentForm get content => BatchJobManagementContentForm(doc, '$path/content');
 
   /// Supported job categories.
+  /// 
+  /// A category-level summary of the scheduled work the system performs — the
+  /// shape of the workload, not its inventory. The authoritative per-job
+  /// declarations are [scheduledJobs]; a category named here without a job in
+  /// that list is a job the specification has not actually declared.
   BatchJobManagementJobTypesForm get jobTypes => BatchJobManagementJobTypesForm(doc, '$path/BJMJT');
 
-  /// Execution controls.
+  /// Execution controls — the **default layer** for every job.
+  /// 
+  /// Retry, timeout and idempotency stated here apply to every job that does
+  /// not say otherwise. A job that needs different numbers overrides them in
+  /// its own failure-policy subsection, so this section is the rule and the
+  /// entry is the exception — never the other way round.
   BatchJobManagementExecutionForm get execution => BatchJobManagementExecutionForm(doc, '$path/BJME');
 
   /// Monitoring and manual controls.
   BatchJobManagementMonitoringForm get monitoring => BatchJobManagementMonitoringForm(doc, '$path/BJMM');
+
+  /// Scheduled jobs — one entry per job the system runs.
+  /// 
+  /// The declaration layer. Everything above is policy that applies to all
+  /// jobs; this is where a job actually comes into existence.
+  SomList<ScheduledJobEntry> get scheduledJobs => SomList<ScheduledJobEntry>(doc, '$path/SCJOB-JOB-LST', (d, p) => ScheduledJobEntry(d, p), pattern: 'SCJOB-JOB-xxx');
 }
 
 /// A single behavior rule entry.
@@ -3171,6 +3246,35 @@ class ClientAccessibilityRequirements extends SomNode {
   ClientAccessibilityRequirementsStandardsForm get standards => ClientAccessibilityRequirementsStandardsForm(doc, '$path/CARS');
 }
 
+/// A single client application of the system (CE-CL).
+/// 
+/// One client: what kind of application it is, which platforms it targets,
+/// where it starts, and which screens it comprises. This is the enumeration
+/// [ClientRequirementsSection]'s requirement subsections cannot give — they
+/// state what a *machine* must provide, which is a deployment constraint on
+/// every client rather than a statement that any particular client exists.
+/// 
+/// **Platform targets are referenced, never restated.** A client's platform
+/// targets are ids already declared in the browser, desktop-OS and
+/// mobile-platform requirement lists of the enclosing section. Naming a
+/// platform here that no requirement entry declares is a dangling reference,
+/// which is the point: the minimum a platform must meet is stated once.
+/// 
+/// **Configuration is not restated either.** Which settings a client carries
+/// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+/// client that owns it. A client that also listed its settings would be the
+/// second source those two would eventually disagree through
+/// (`codespecs_mapping.md` §11).
+/// 
+/// **Screens, not flows.** A client comprises screens; the flows *between*
+/// those screens are the screen flow structure's own subject (D09 XDS) and are
+/// reached through the entry route, not listed again per client.
+class ClientApplicationEntry extends SomNode {
+  ClientApplicationEntry(super.doc, super.path);
+
+  ClientApplicationEntryContentForm get content => ClientApplicationEntryContentForm(doc, '$path/content');
+}
+
 /// Client configuration — per-machine settings of a client application (CE-CC).
 /// 
 /// Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -3181,7 +3285,26 @@ class ClientAccessibilityRequirements extends SomNode {
 class ClientConfiguration extends SomNode {
   ClientConfiguration(super.doc, super.path);
 
-  ClientConfigurationContentForm get content => ClientConfigurationContentForm(doc, '$path/content');
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// The declared client configuration settings.
+  SomList<ClientConfigurationSettingEntry> get settings => SomList<ClientConfigurationSettingEntry>(doc, '$path/CCSET-SETT-LST', (d, p) => ClientConfigurationSettingEntry(d, p), pattern: 'CCSET-SETT-xxx');
+}
+
+/// A single declared client configuration setting (CE-CC).
+/// 
+/// The declaration only: key, value type, default, and which narrower scopes
+/// may shadow the key. The *value* is never authored — it comes from the client
+/// app's configuration resources or from this install's persisted overrides
+/// (`codespecs_mapping.md` §5.16).
+class ClientConfigurationSettingEntry extends SomNode {
+  ClientConfigurationSettingEntry(super.doc, super.path);
+
+  ClientConfigurationSettingEntryContentForm get content => ClientConfigurationSettingEntryContentForm(doc, '$path/content');
 }
 
 /// Client hardware requirements.
@@ -3224,8 +3347,18 @@ class ClientNetworkRequirements extends SomNode {
 
 /// 8.4.2. Client Requirements.
 /// 
-/// Minimum client requirements: browser versions, operating systems, screen
-/// resolution, network bandwidth, and device capabilities.
+/// Two layers that answer two different questions.
+/// 
+/// **Which client applications exist** — [clientApplications], one
+/// [ClientApplicationEntry] per client, naming its kind, its entry route and
+/// the screens it comprises. This is the enumerable set of clients; a client
+/// not listed there does not exist.
+/// 
+/// **What a user's machine must provide** — every other subsection: browser,
+/// desktop-OS, mobile-device, display, network, hardware, accessibility and
+/// security minimums. These are deployment constraints on the *environment*,
+/// not clients, which is why a client entry *references* them rather than
+/// restating them.
 class ClientRequirementsSection extends SomNode {
   ClientRequirementsSection(super.doc, super.path);
 
@@ -3237,6 +3370,9 @@ class ClientRequirementsSection extends SomNode {
 
   /// Overview of client requirements strategy.
   // (skipped: overview has no target type)
+
+  /// The client applications the system consists of (CE-CL).
+  SomList<ClientApplicationEntry> get clientApplications => SomList<ClientApplicationEntry>(doc, '$path/CLIAPP-CLIE-LST', (d, p) => ClientApplicationEntry(d, p), pattern: 'CLIAPP-CLIE-xxx');
 
   /// Web browser requirements.
   SomList<BrowserRequirementEntry> get browserRequirements => SomList<BrowserRequirementEntry>(doc, '$path/BRREEN-BROW-LST', (d, p) => BrowserRequirementEntry(d, p), pattern: 'BRREEN-BROW-xxx');
@@ -3273,6 +3409,9 @@ class ClientRequirementsSection extends SomNode {
 
   /// User-specific settings of a user-owned device (CE-DS).
   DeviceSettings get deviceSettings => DeviceSettings(doc, '$path/deviceSettings');
+
+  /// Server-persisted settings that follow the user across devices (CE-UP).
+  UserSettings get userSettings => UserSettings(doc, '$path/userSettings');
 }
 
 /// Client security requirements.
@@ -4841,12 +4980,6 @@ class CurrentWorkflowEntry extends SomNode {
   /// Business rules governing the workflow.
   SomList<WorkflowBusinessRule> get businessRules => SomList<WorkflowBusinessRule>(doc, '$path/WOBURU-BUSI-LST', (d, p) => WorkflowBusinessRule(d, p), pattern: 'WOBURU-BUSI-xxx');
 
-  /// Manual steps requiring human intervention.
-  SomList<WorkflowStepEntry> get manualSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-MANU-LST', (d, p) => WorkflowStepEntry(d, p), pattern: 'WSE-MANU-xxx');
-
-  /// Error-prone steps with high failure rates.
-  SomList<WorkflowStepEntry> get errorProneSteps => SomList<WorkflowStepEntry>(doc, '$path/WSE-ERRO-LST', (d, p) => WorkflowStepEntry(d, p), pattern: 'WSE-ERRO-xxx');
-
   /// Workflow timing and performance.
   CurrentWorkflowEntryTimingForm get timing => CurrentWorkflowEntryTimingForm(doc, '$path/WOTI');
 
@@ -5243,6 +5376,21 @@ class D03InformationModel extends SomNode {
   /// copy (CE-TX), referenced by CE-EL/CE-AC/CE-ER/CE-VA and `domainEnum` copy attributes
   /// (csmb7).
   MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
+
+  /// Server operation registry — the system's own operation surface (CE-API):
+  /// one entry per operation the server answers.
+  /// 
+  /// Projected here rather than into a separate document because an operation is
+  /// defined by the entity it reads and writes, which this document owns.
+  ServerOperationRegistry get serverOperationRegistry => ServerOperationRegistry(doc, '$path/serverOperationRegistry');
+
+  /// Schema versioning and migration — the CE-MG home: the versioning policy,
+  /// the data source / schema targets, and the ordered artifact set that
+  /// establishes and evolves the schema.
+  /// 
+  /// Projected here because the artifact chain must converge on the entity and
+  /// attribute model this document owns.
+  SchemaVersioningAndMigration get schemaVersioningAndMigration => SchemaVersioningAndMigration(doc, '$path/schemaVersioningAndMigration');
 }
 
 /// RSP00 Requirements Specification.
@@ -6109,7 +6257,18 @@ class D13CodeSpecsProjection extends SomNode {
   /// Data model — CE-DB persistence + CE-VA server-side rules.
   DataModel get dataModel => DataModel(doc, '$path/dataModel');
 
-  /// Technical framework — CE-CF platform/config foundation.
+  /// Technical framework — the platform foundation and **all four settings
+  /// scopes**.
+  /// 
+  /// The subtree spans both loci because the four configuration scopes are
+  /// authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+  /// server configuration (`SystemConfigurationManagement`) is server-only,
+  /// while CE-CC client configuration, CE-DS device settings and CE-UP user
+  /// settings are authored under the client-requirements subtree and route to
+  /// the client project. CE-UP additionally has a server-side persistence half
+  /// generated from the *same* declarations, so it appears in both projects —
+  /// the scope is expressed by which section a setting is declared in, never by
+  /// a discriminator field.
   TechnicalFrameworkConcept get technicalFramework => TechnicalFrameworkConcept(doc, '$path/technicalFramework');
 
   /// Access control model — CE-AZ authorization/identity seed.
@@ -6136,6 +6295,37 @@ class D13CodeSpecsProjection extends SomNode {
   /// environment-wide print and export *settings* are CE-CF and live in
   /// `PrintAndExportLayout`, deliberately unreachable from here.
   ReportDefinitions get reportDefinitions => ReportDefinitions(doc, '$path/reportDefinitions');
+
+  /// Schema versioning and migration — CE-MG migration artifacts.
+  /// 
+  /// The artifacts ship with the server project because that is where the
+  /// migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+  /// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+  /// gives the data source / schema directory placement, `SCMST.artifactKind`
+  /// the artifact kind, and `SCMST.environments` the filename environment tag.
+  /// The artifact *filenames* are authored, not derived — a §5.23 string
+  /// exemption — so they are not part of the generated surface.
+  /// 
+  /// The subtree sits beside `dataModel` above for a reason: the cumulative
+  /// effect of a schema's artifacts must converge on the CE-DB model that entry
+  /// generates, and that convergence is a validator check over both.
+  SchemaVersioningAndMigration get schemaVersioningAndMigration => SchemaVersioningAndMigration(doc, '$path/schemaVersioningAndMigration');
+
+  /// Server operation registry — the application's **own** CE-API surface.
+  /// 
+  /// The one subtree that declares what the system answers. It spans two loci
+  /// because a CE-API operation generates two halves (`codespecs_mapping.md`
+  /// §4.2): the **operation catalogue and the request/response types** are
+  /// shared — the client cites an operation and depends on its shapes — while
+  /// the **operation itself** lands on the owning service unit in the server
+  /// project. Which service unit that is follows from each operation's primary
+  /// written data entity (§5.17), so ownership is derived here rather than
+  /// declared.
+  /// 
+  /// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+  /// reachable from this projection: it describes third-party interfaces the
+  /// system talks to, not the surface the system generates.
+  ServerOperationRegistry get serverOperationRegistry => ServerOperationRegistry(doc, '$path/serverOperationRegistry');
 
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
@@ -6726,7 +6916,7 @@ class DataModel extends SomNode {
   IntegrityConstraints get integrityConstraints => IntegrityConstraints(doc, '$path/integrityConstraints');
 }
 
-/// 7.9. Data Model Follow-up Facets.
+/// 7.10. Data Model Follow-up Facets.
 /// 
 /// Operational and governance facets that accompany the data model but are not
 /// part of the generation-owned entity/attribute schema: the model-wide ER
@@ -6743,10 +6933,10 @@ class DataModelFollowUp extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 7.9.1. Entity-Relationship Diagram (mermaid).
+  /// 7.10.1. Entity-Relationship Diagram (mermaid).
   // (skipped: erDiagram has no target type)
 
-  /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  /// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
   SomList<EntityFollowUpEntry> get entityFollowUps => SomList<EntityFollowUpEntry>(doc, '$path/DMFUE-ENFU-LST', (d, p) => EntityFollowUpEntry(d, p), pattern: 'DMFUE-ENFU-xxx');
 }
 
@@ -8029,6 +8219,22 @@ class DevelopmentQualityGates extends SomNode {
   DevelopmentQualityGatesPerformanceForm get performance => DevelopmentQualityGatesPerformanceForm(doc, '$path/DQGP');
 }
 
+/// A single declared device setting (CE-DS).
+/// 
+/// The declaration only: key, value type and default. The value is the user's
+/// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+/// 
+/// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+/// *wider* scope — a key is shadowable only because its wider-scope declaration
+/// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+/// open. Declaring the same relation from both ends would be two authored
+/// fields that can disagree.
+class DeviceSettingEntry extends SomNode {
+  DeviceSettingEntry(super.doc, super.path);
+
+  DeviceSettingEntryContentForm get content => DeviceSettingEntryContentForm(doc, '$path/content');
+}
+
 /// Device settings — user-specific settings of a user-owned device (CE-DS).
 /// 
 /// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -8041,7 +8247,14 @@ class DevelopmentQualityGates extends SomNode {
 class DeviceSettings extends SomNode {
   DeviceSettings(super.doc, super.path);
 
-  DeviceSettingsContentForm get content => DeviceSettingsContentForm(doc, '$path/content');
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// The declared device settings.
+  SomList<DeviceSettingEntry> get settings => SomList<DeviceSettingEntry>(doc, '$path/DSSET-SETT-LST', (d, p) => DeviceSettingEntry(d, p), pattern: 'DSSET-SETT-xxx');
 }
 
 /// Disaster recovery requirements.
@@ -11041,7 +11254,14 @@ class InformationAndDataModel extends SomNode {
   /// 7.8. Message Key Registry.
   MessageKeyRegistry get messageKeyRegistry => MessageKeyRegistry(doc, '$path/messageKeyRegistry');
 
-  /// 7.9. Data Model Follow-up Facets.
+  /// 7.9. Server Operation Registry.
+  /// 
+  /// The system's **own** operation surface (CE-API): one entry per operation
+  /// the server answers, with its request/response members, the data entity it
+  /// primarily writes, and its authorization requirement.
+  ServerOperationRegistry get serverOperationRegistry => ServerOperationRegistry(doc, '$path/serverOperationRegistry');
+
+  /// 7.10. Data Model Follow-up Facets.
   /// 
   /// Per-entity operational/governance facets (volume, compliance, technical
   /// characteristics, migration mappings) and the model-wide ER diagram —
@@ -11302,6 +11522,13 @@ class IntegrationHealthSummary extends SomNode {
 }
 
 /// A single integration point entry.
+/// 
+/// How a domain object connects to the outside world. It describes *outward
+/// connections* — which interfaces surface the object, which events it takes
+/// part in, how it maps onto external systems — and deliberately declares no
+/// operation of the application's own: those live in the server operation
+/// registry (SVOPR), which is the one place an operation is named and given its
+/// request/response shapes.
 class IntegrationPointEntry extends SomNode {
   IntegrationPointEntry(super.doc, super.path);
 
@@ -11615,7 +11842,16 @@ class InterfaceGovernance extends SomNode {
   // (skipped: changelog has no target type)
 }
 
-/// API operation entry.
+/// An operation of an **external** interface.
+/// 
+/// One operation of a third-party system the application talks to, described in
+/// that system's own terms — including its transport method and path, which a
+/// foreign contract genuinely has.
+/// 
+/// This is **not** where the application's own operations are declared: those
+/// live in the server operation registry (SVOPR), under the
+/// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+/// the operation name the sole identifier.
 class InterfaceOperationEntry extends SomNode {
   InterfaceOperationEntry(super.doc, super.path);
 
@@ -12184,6 +12420,13 @@ class KnowledgeTransfer extends SomNode {
 /// 10.12.4. Language and Country Selection.
 /// 
 /// UI specification for language and country selection.
+/// 
+/// This is the *picker* — how a user is offered languages and countries, what
+/// is preselected, how the choice is retained across a sign-in, and how the
+/// system falls back. The underlying `ui.language` / `ui.country` preference is
+/// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+/// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+/// setting declaration (`codespecs_mapping.md` §5.16).
 class LanguageCountrySelection extends SomNode {
   LanguageCountrySelection(super.doc, super.path);
 
@@ -13297,6 +13540,18 @@ class MigrationSystems extends SomNode {
   MigrationSystems(super.doc, super.path);
 
   MigrationSystemsContentForm get content => MigrationSystemsContentForm(doc, '$path/content');
+}
+
+/// A single migration target — one data source / schema pair (form).
+/// 
+/// Migration artifacts are filed per data source and per schema within it, so a
+/// system with several databases — or several database *types* — needs no extra
+/// specification surface beyond naming each target once here. Every artifact in
+/// 7.4.2 then names the target it applies to rather than repeating the pair.
+class MigrationTargetEntry extends SomNode {
+  MigrationTargetEntry(super.doc, super.path);
+
+  MigrationTargetEntryContentForm get content => MigrationTargetEntryContentForm(doc, '$path/content');
 }
 
 /// Mobile device compatibility entry.
@@ -18427,6 +18682,76 @@ class ScenarioStepEntry extends SomNode {
   ScenarioStepEntryExecutionForm get execution => ScenarioStepEntryExecutionForm(doc, '$path/SCSTENEX');
 }
 
+/// A single scheduled job (form + trigger case + work definition + failure
+/// policy).
+/// 
+/// One background job: what starts it, what it does, which data it acts on,
+/// what happens when it fails, and where it is deployed. Work that runs *off*
+/// the request thread is what separates a job from a server operation — the
+/// trigger is that axis, which is why it is a required, closed choice rather
+/// than free text.
+/// 
+/// **Where the specification stops and the code begins.** This entry carries
+/// the job's *intent* — what it does, over which data, in what order. It does
+/// **not** carry the work body: the body is written in the CodeSpec as
+/// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+/// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+/// place. State the intent well enough that the body can be written from it,
+/// then stop.
+/// 
+/// **Ownership is derived, not declared.** The service unit that owns a job
+/// follows from the entity it primarily writes, exactly as it does for a server
+/// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+/// entity and never the unit. Two places to state one fact is how they come to
+/// disagree.
+/// 
+/// **A scheduled report is not declared twice.** A report definition that names
+/// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+/// comes from the report, not from an entry here. List a job here only when the
+/// work is not already the schedule of a report.
+class ScheduledJobEntry extends SomNode {
+  ScheduledJobEntry(super.doc, super.path);
+
+  ScheduledJobEntryContentForm get content => ScheduledJobEntryContentForm(doc, '$path/content');
+
+  /// Cron trigger — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `cron` kind: a recurring clock expression, taken
+  /// verbatim. It is a single field because that is exactly what the trigger
+  /// is — the zone it is read in is the system-wide one stated on
+  /// [BatchJobManagement], and catch-up behaviour after a missed window is a
+  /// scheduler setting rather than a specification statement.
+  ScheduledJobEntryCronTriggerForm get cronTrigger => ScheduledJobEntryCronTriggerForm(doc, '$path/SCJOB-CRON');
+
+  /// Calendar trigger — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `calendar` kind: a date rule a clock expression
+  /// cannot state — the last day of the month, the third Monday of a quarter.
+  ScheduledJobEntryCalendarTriggerForm get calendarTrigger => ScheduledJobEntryCalendarTriggerForm(doc, '$path/SCJOB-CAL');
+
+  /// Event trigger — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `event` kind. An event-triggered job does not fire on
+  /// time at all, so it has no schedule; what it has instead — and what neither
+  /// other arm has — is an occurrence carrying data the work reads.
+  ScheduledJobEntryEventTriggerForm get eventTrigger => ScheduledJobEntryEventTriggerForm(doc, '$path/SCJOB-EVNT');
+
+  /// What the job does and which data it acts on.
+  /// 
+  /// The intent half of the work definition. The body that realises it is
+  /// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+  /// section says what that body must achieve and over which data, in enough
+  /// detail that it can be written from here without a second conversation.
+  ScheduledJobEntryWorkDefinitionForm get workDefinition => ScheduledJobEntryWorkDefinitionForm(doc, '$path/SCJOB-WORK');
+
+  /// This job's departures from the system-wide execution policy.
+  /// 
+  /// Every field is an override. Left empty, the job inherits the Execution
+  /// Controls (BJME) default; the policy stays the rule and the entry is the
+  /// exception.
+  ScheduledJobEntryFailurePolicyForm get failurePolicy => ScheduledJobEntryFailurePolicyForm(doc, '$path/SCJOB-FAIL');
+}
+
 /// Scheduled maintenance policy.
 class ScheduledMaintenancePolicy extends SomNode {
   ScheduledMaintenancePolicy(super.doc, super.path);
@@ -18446,30 +18771,57 @@ class ScheduledMaintenancePolicy extends SomNode {
   ScheduledMaintenancePolicyApprovalForm get approval => ScheduledMaintenancePolicyApprovalForm(doc, '$path/SMPA');
 }
 
-/// A single schema migration step (form).
+/// A single migration artifact (form).
 /// 
-/// One versioned change to the database schema — the DDL operations it applies,
-/// the entities it touches, whether it is reversible, and any data backfill it
-/// performs as part of the schema change.
+/// One versioned artifact in the migration set: what it is (baseline schema,
+/// reference data, or a schema change), which target it applies to, and which
+/// deployment environments it is restricted to. The kind-specific detail lives
+/// in the promoted case subsection its `artifactKind` selects.
 class SchemaMigrationStepEntry extends SomNode {
   SchemaMigrationStepEntry(super.doc, super.path);
 
   SchemaMigrationStepEntryContentForm get content => SchemaMigrationStepEntryContentForm(doc, '$path/content');
+
+  /// Baseline schema definition — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `initialDdl` kind. It establishes the schema, so there
+  /// is no prior state: no affected-entity delta, no backfill, and nothing to
+  /// roll back to.
+  SchemaMigrationStepEntryBaselineSchemaForm get baselineSchema => SchemaMigrationStepEntryBaselineSchemaForm(doc, '$path/SCMST-BASE');
+
+  /// Reference-data definition — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `referenceData` kind. This artifact inserts rows, not
+  /// schema, so it authors the value set rather than schema statements. It is
+  /// the new system's own initial data — legacy business-data migration stays in
+  /// the migration-mapping sections (`MIGME`).
+  SchemaMigrationStepEntryReferenceDataForm get referenceData => SchemaMigrationStepEntryReferenceDataForm(doc, '$path/SCMST-REFD');
+
+  /// Schema change — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `schemaChange` kind: an evolution step on top of an
+  /// existing schema. This is the only kind for which a delta of affected
+  /// entities, a data backfill and reversibility are meaningful.
+  SchemaMigrationStepEntrySchemaChangeForm get schemaChange => SchemaMigrationStepEntrySchemaChangeForm(doc, '$path/SCMST-CHNG');
 }
 
 /// 7.4. Schema Versioning and Migration.
 /// 
 /// Records how the database schema is *versioned and migrated* as the data
-/// model evolves — the ordered DDL / migration steps and the tooling and
-/// policy that govern them. This is distinct from business-data migration
-/// between systems (see `MigrationMappingEntry` for old→new field mapping):
-/// here the subject is the schema's own evolution over releases.
+/// model evolves — the versioning policy, the data source / schema targets, and
+/// the ordered artifact set that establishes and evolves the schema. This is
+/// distinct from business-data migration between systems (see
+/// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+/// schema's own evolution over releases.
 class SchemaVersioningAndMigration extends SomNode {
   SchemaVersioningAndMigration(super.doc, super.path);
 
   SchemaVersioningAndMigrationContentForm get content => SchemaVersioningAndMigrationContentForm(doc, '$path/content');
 
-  /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+  SomList<MigrationTargetEntry> get migrationTargets => SomList<MigrationTargetEntry>(doc, '$path/MIGTG-TARG-LST', (d, p) => MigrationTargetEntry(d, p), pattern: 'MIGTG-TARG-xxx');
+
+  /// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
   SomList<SchemaMigrationStepEntry> get migrationSteps => SomList<SchemaMigrationStepEntry>(doc, '$path/SCMST-STEP-LST', (d, p) => SchemaMigrationStepEntry(d, p), pattern: 'SCMST-STEP-xxx');
 }
 
@@ -18673,6 +19025,16 @@ class ScreenElementFieldSpec extends SomNode {
   /// Present only for the enumeration (select) field kind; carries only the
   /// option-source and selection-mode attributes.
   ScreenElementFieldSpecSelectOptionsForm get selectOptions => ScreenElementFieldSpecSelectOptionsForm(doc, '$path/SEFSS');
+
+  /// File-kind options — a promoted `@OneOf` case (csrb8).
+  /// 
+  /// Present only for the file field kind; carries what may be chosen and how
+  /// the chosen file is shown. The **storage group** is deliberately absent: a
+  /// file's group is authored once on its CE-DB file-reference column
+  /// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+  /// name different groups. So is a download affordance, which follows from the
+  /// field being wired for transfer and the file being stored (§5.18).
+  ScreenElementFieldSpecFileOptionsForm get fileOptions => ScreenElementFieldSpecFileOptionsForm(doc, '$path/SEFSU');
 }
 
 /// A screen entry (form).
@@ -18749,6 +19111,16 @@ class ScreenFieldEntry extends SomNode {
 
   /// Choice-kind option source — a promoted `@OneOf` case (csra4).
   ScreenFieldEntryChoiceOptionsForm get choiceOptions => ScreenFieldEntryChoiceOptionsForm(doc, '$path/SCFICH');
+
+  /// File-kind input constraints — a promoted `@OneOf` case (csrb8).
+  /// 
+  /// Constraints only. **How** the file is presented — link, dropzone or
+  /// thumbnail — is the D09 design pass's `fileOptions`
+  /// (`ScreenElementFieldSpec`), because a requirement names the kind of value
+  /// a user supplies and the design names the concrete control. The storage
+  /// group is neither side's: it is authored on the CE-DB file-reference column
+  /// (`codespecs_mapping.md` §5.13.1).
+  ScreenFieldEntryFileConstraintsForm get fileConstraints => ScreenFieldEntryFileConstraintsForm(doc, '$path/SCFIFI');
 
   /// UI and layout.
   ScreenFieldEntryLayoutForm get layout => ScreenFieldEntryLayoutForm(doc, '$path/SCFILA');
@@ -19427,6 +19799,25 @@ class SensitiveDataEncryption extends SomNode {
   KeyManagement get keyManagement => KeyManagement(doc, '$path/keyManagement');
 }
 
+/// A single declared server / system configuration setting (CE-CF).
+/// 
+/// The declaration only: key, value type, default, the environment variable and
+/// command-line option it may also be read from, whether it carries a secret,
+/// and which narrower scopes may shadow it. The *value* is supplied per
+/// deployment through the configuration
+/// tree, the OS environment, a `.env` file or the command line (in that
+/// precedence, command line winning) and is never authored. A secret-bearing
+/// setting declares its presence and shape so deployment tooling can supply
+/// the content out of band (`codespecs_mapping.md` §5.16).
+/// 
+/// Security and infrastructure configuration is scope-pinned: it stays
+/// server-side unless the declaration explicitly opens it to a narrower scope.
+class ServerConfigurationSettingEntry extends SomNode {
+  ServerConfigurationSettingEntry(super.doc, super.path);
+
+  ServerConfigurationSettingEntryContentForm get content => ServerConfigurationSettingEntryContentForm(doc, '$path/content');
+}
+
 /// Server environment entry (development, staging, production, DR).
 class ServerEnvironmentEntry extends SomNode {
   ServerEnvironmentEntry(super.doc, super.path);
@@ -19444,6 +19835,86 @@ class ServerEnvironmentEntry extends SomNode {
 
   /// Lifecycle rules.
   ServerEnvironmentEntryLifecycleForm get lifecycle => ServerEnvironmentEntryLifecycleForm(doc, '$path/SEENENLI');
+}
+
+/// A single server operation (form + request/response members).
+/// 
+/// One entry in the [ServerOperationRegistry]: the operation name that
+/// identifies it, its purpose, the data entity it primarily writes, its
+/// authorization requirement, the error codes it may return, and the members
+/// that make up its request and response shapes.
+/// 
+/// The operation name is the join token the rest of the model references: the
+/// ISC step entries cite it as the target of a client call (CE-SC), and the
+/// service unit that owns the operation follows from
+/// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+/// list (`codespecs_mapping.md` §5.17).
+class ServerOperationEntry extends SomNode {
+  ServerOperationEntry(super.doc, super.path);
+
+  ServerOperationEntryContentForm get content => ServerOperationEntryContentForm(doc, '$path/content');
+
+  /// 7.9.x. Request Members — the members that make up the request shape.
+  SomList<ServerOperationMemberEntry> get requestMembers => SomList<ServerOperationMemberEntry>(doc, '$path/SVOPM-REQM-LST', (d, p) => ServerOperationMemberEntry(d, p), pattern: 'SVOPM-REQM-xxx');
+
+  /// 7.9.x. Response Members — the members the success payload carries.
+  /// 
+  /// These members *are* the success payload the Result envelope wraps; the
+  /// envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+  /// authored per operation.
+  SomList<ServerOperationMemberEntry> get responseMembers => SomList<ServerOperationMemberEntry>(doc, '$path/SVOPM-RESM-LST', (d, p) => ServerOperationMemberEntry(d, p), pattern: 'SVOPM-RESM-xxx');
+}
+
+/// A single member of an operation's request or response shape (form).
+/// 
+/// One named, typed member: its name, its type, whether it must be present, and
+/// — when the type is a domain concept rather than a primitive — the data
+/// entity or domain enum it draws from. The same shape serves both the request
+/// and the response side of a [ServerOperationEntry], so a member reads the
+/// same way whichever direction it travels.
+class ServerOperationMemberEntry extends SomNode {
+  ServerOperationMemberEntry(super.doc, super.path);
+
+  ServerOperationMemberEntryContentForm get content => ServerOperationMemberEntryContentForm(doc, '$path/content');
+}
+
+/// 7.9. Server Operation Registry.
+/// 
+/// The authoring home for the **application's own** operation surface — the
+/// CE-API (`serverApi`) part. Every operation the system answers is declared
+/// once here; the client side (CE-SC) only *cites* an operation, and the
+/// service unit that owns it (CE-SU) is *derived* from the entity each
+/// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+/// declare an operation, so without this registry the system's server API would
+/// be code with no specification source.
+/// 
+/// This is distinct from the **external** interface inventory under
+/// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+/// system talks to. Those carry a transport verb and a path because a
+/// third-party API really has them; the application's own contract does not —
+/// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+/// whose **operation name** carries the intent, and §5.14 drops transport
+/// plumbing from the spec surface.
+/// 
+/// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+/// 
+/// - no transport method and no path — the operation name is the identifier;
+/// - no response status codes — every application outcome, success *or* error,
+///   rides in the [ResultEnvelope]; only infrastructure failures are transport
+///   errors;
+/// - no encoding, header, redirect, CORS or credential plumbing — framework
+///   transport members, never spec input.
+class ServerOperationRegistry extends SomNode {
+  ServerOperationRegistry(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// 7.9.1. Operations — one entry per operation the system answers.
+  SomList<ServerOperationEntry> get operations => SomList<ServerOperationEntry>(doc, '$path/SVOPE-OPER-LST', (d, p) => ServerOperationEntry(d, p), pattern: 'SVOPE-OPER-xxx');
 }
 
 /// Server operating system requirements.
@@ -21078,6 +21549,9 @@ class SystemConfigurationManagement extends SomNode {
 
   /// Validation, diffing, and audit controls.
   SystemConfigurationManagementGovernanceForm get governance => SystemConfigurationManagementGovernanceForm(doc, '$path/SCMG');
+
+  /// The declared server configuration settings.
+  SomList<ServerConfigurationSettingEntry> get settings => SomList<ServerConfigurationSettingEntry>(doc, '$path/SCSET-SETT-LST', (d, p) => ServerConfigurationSettingEntry(d, p), pattern: 'SCSET-SETT-xxx');
 }
 
 /// 4.1.2. System Context.
@@ -24024,6 +24498,42 @@ class UserRegistrationProcess extends SomNode {
 
   /// Registration Flow Diagram (mermaid-sequence).
   // (skipped: registrationFlowDiagram has no target type)
+}
+
+/// A single declared user setting (CE-UP).
+/// 
+/// The declaration only: key, value type, default, and whether a per-device
+/// value may shadow the key. The value is the user's choice and is never
+/// authored (`codespecs_mapping.md` §5.16).
+class UserSettingEntry extends SomNode {
+  UserSettingEntry(super.doc, super.path);
+
+  UserSettingEntryContentForm get content => UserSettingEntryContentForm(doc, '$path/content');
+}
+
+/// User settings — server-persisted settings that follow the user (CE-UP).
+/// 
+/// Keyed by the user alone: no machine and no device in the key. A user
+/// setting is persisted on the server and re-materialised on whichever device
+/// the user signs in from, which is what distinguishes it from a device
+/// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+/// the device) and from client configuration ([ClientConfiguration], CE-CC —
+/// no user identity in the key) (`codespecs_mapping.md` §11).
+/// 
+/// The scope is expressed by *which section a setting is declared in*, never
+/// by a field on a shared section: there is no persistence discriminator
+/// anywhere in the four settings scopes.
+class UserSettings extends SomNode {
+  UserSettings(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  String get content => doc.content('$path/content') ?? '';
+  set content(String value) => doc.setContent('$path/content', value);
+
+  /// The declared user settings.
+  SomList<UserSettingEntry> get settings => SomList<UserSettingEntry>(doc, '$path/USSET-SETT-LST', (d, p) => UserSettingEntry(d, p), pattern: 'USSET-SETT-xxx');
 }
 
 /// 4.1.4.n.5. Training Requirements.
@@ -29125,12 +29635,6 @@ class BatchJobManagementContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get schedulingEngine => doc.formField(path, 'schedulingEngine') ?? '';
-  set schedulingEngine(String value) => doc.setFormField(path, 'schedulingEngine', value);
-
-  String get scheduleDefinition => doc.formField(path, 'scheduleDefinition') ?? '';
-  set scheduleDefinition(String value) => doc.setFormField(path, 'scheduleDefinition', value);
-
   String get timeZoneHandling => doc.formField(path, 'timeZoneHandling') ?? '';
   set timeZoneHandling(String value) => doc.setFormField(path, 'timeZoneHandling', value);
 }
@@ -32535,8 +33039,8 @@ class ClientAccessibilityRequirementsVisualForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class ClientConfigurationContentForm extends SomNode {
-  ClientConfigurationContentForm(super.doc, super.path);
+class ClientApplicationEntryContentForm extends SomNode {
+  ClientApplicationEntryContentForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -32545,20 +33049,54 @@ class ClientConfigurationContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get apiBaseUrl => doc.formField(path, 'apiBaseUrl') ?? '';
-  set apiBaseUrl(String value) => doc.setFormField(path, 'apiBaseUrl', value);
+  String get clientId => doc.formField(path, 'clientId') ?? '';
+  set clientId(String value) => doc.setFormField(path, 'clientId', value);
 
-  String get environment => doc.formField(path, 'environment') ?? '';
-  set environment(String value) => doc.setFormField(path, 'environment', value);
+  String get clientName => doc.formField(path, 'clientName') ?? '';
+  set clientName(String value) => doc.setFormField(path, 'clientName', value);
 
-  String get deviceOptions => doc.formField(path, 'deviceOptions') ?? '';
-  set deviceOptions(String value) => doc.setFormField(path, 'deviceOptions', value);
+  ClientApplicationKind? get clientKind => _parseClientApplicationKind(doc.formField(path, 'clientKind'));
+  set clientKind(ClientApplicationKind? value) => doc.setFormField(path, 'clientKind', value?.name ?? '');
 
-  String get featureToggles => doc.formField(path, 'featureToggles') ?? '';
-  set featureToggles(String value) => doc.setFormField(path, 'featureToggles', value);
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
-  String get updateChannel => doc.formField(path, 'updateChannel') ?? '';
-  set updateChannel(String value) => doc.setFormField(path, 'updateChannel', value);
+  String get platformTargets => doc.formField(path, 'platformTargets') ?? '';
+  set platformTargets(String value) => doc.setFormField(path, 'platformTargets', value);
+
+  String get entryRoute => doc.formField(path, 'entryRoute') ?? '';
+  set entryRoute(String value) => doc.setFormField(path, 'entryRoute', value);
+
+  String get includedScreens => doc.formField(path, 'includedScreens') ?? '';
+  set includedScreens(String value) => doc.setFormField(path, 'includedScreens', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ClientConfigurationSettingEntryContentForm extends SomNode {
+  ClientConfigurationSettingEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get settingKey => doc.formField(path, 'settingKey') ?? '';
+  set settingKey(String value) => doc.setFormField(path, 'settingKey', value);
+
+  String get client => doc.formField(path, 'client') ?? '';
+  set client(String value) => doc.setFormField(path, 'client', value);
+
+  String get valueType => doc.formField(path, 'valueType') ?? '';
+  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+
+  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
+  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+
+  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
+  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -43864,8 +44402,8 @@ class DevelopmentQualityGatesSecurityForm extends SomNode {
 
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class DeviceSettingsContentForm extends SomNode {
-  DeviceSettingsContentForm(super.doc, super.path);
+class DeviceSettingEntryContentForm extends SomNode {
+  DeviceSettingEntryContentForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -43882,9 +44420,6 @@ class DeviceSettingsContentForm extends SomNode {
 
   String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
   set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
-
-  bool? get deviceOverridable => somParseBool(doc.formField(path, 'deviceOverridable'));
-  set deviceOverridable(bool? value) => doc.setFormField(path, 'deviceOverridable', somFormatBool(value));
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -59709,6 +60244,31 @@ class MigrationSystemsContentForm extends SomNode {
 
   String get dataModelChangeSummary => doc.formField(path, 'dataModelChangeSummary') ?? '';
   set dataModelChangeSummary(String value) => doc.setFormField(path, 'dataModelChangeSummary', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class MigrationTargetEntryContentForm extends SomNode {
+  MigrationTargetEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get targetName => doc.formField(path, 'targetName') ?? '';
+  set targetName(String value) => doc.setFormField(path, 'targetName', value);
+
+  String get dataSourceName => doc.formField(path, 'dataSourceName') ?? '';
+  set dataSourceName(String value) => doc.setFormField(path, 'dataSourceName', value);
+
+  String get schemaName => doc.formField(path, 'schemaName') ?? '';
+  set schemaName(String value) => doc.setFormField(path, 'schemaName', value);
+
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
 
 /// Generated section facade for the `capabilities` `@Form` section:
@@ -75717,6 +76277,138 @@ class ScenarioStepEntryExecutionForm extends SomNode {
   set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
+/// Generated section facade for the `calendarTrigger` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryCalendarTriggerForm extends SomNode {
+  ScheduledJobEntryCalendarTriggerForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get calendarRule => doc.formField(path, 'calendarRule') ?? '';
+  set calendarRule(String value) => doc.setFormField(path, 'calendarRule', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryContentForm extends SomNode {
+  ScheduledJobEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get jobName => doc.formField(path, 'jobName') ?? '';
+  set jobName(String value) => doc.setFormField(path, 'jobName', value);
+
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
+
+  ScheduledJobTrigger? get triggerKind => _parseScheduledJobTrigger(doc.formField(path, 'triggerKind'));
+  set triggerKind(ScheduledJobTrigger? value) => doc.setFormField(path, 'triggerKind', value?.name ?? '');
+
+  String get primaryDataEntity => doc.formField(path, 'primaryDataEntity') ?? '';
+  set primaryDataEntity(String value) => doc.setFormField(path, 'primaryDataEntity', value);
+
+  bool? get enabled => somParseBool(doc.formField(path, 'enabled'));
+  set enabled(bool? value) => doc.setFormField(path, 'enabled', somFormatBool(value));
+
+  String get environments => doc.formField(path, 'environments') ?? '';
+  set environments(String value) => doc.setFormField(path, 'environments', value);
+}
+
+/// Generated section facade for the `cronTrigger` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryCronTriggerForm extends SomNode {
+  ScheduledJobEntryCronTriggerForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get cronExpression => doc.formField(path, 'cronExpression') ?? '';
+  set cronExpression(String value) => doc.setFormField(path, 'cronExpression', value);
+}
+
+/// Generated section facade for the `eventTrigger` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryEventTriggerForm extends SomNode {
+  ScheduledJobEntryEventTriggerForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get eventName => doc.formField(path, 'eventName') ?? '';
+  set eventName(String value) => doc.setFormField(path, 'eventName', value);
+
+  String get eventPayload => doc.formField(path, 'eventPayload') ?? '';
+  set eventPayload(String value) => doc.setFormField(path, 'eventPayload', value);
+}
+
+/// Generated section facade for the `failurePolicy` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryFailurePolicyForm extends SomNode {
+  ScheduledJobEntryFailurePolicyForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  int? get maxRetries => somParseInt(doc.formField(path, 'maxRetries'));
+  set maxRetries(int? value) => doc.setFormField(path, 'maxRetries', somFormatInt(value));
+
+  String get retryBackoff => doc.formField(path, 'retryBackoff') ?? '';
+  set retryBackoff(String value) => doc.setFormField(path, 'retryBackoff', value);
+
+  String get timeout => doc.formField(path, 'timeout') ?? '';
+  set timeout(String value) => doc.setFormField(path, 'timeout', value);
+
+  String get failureAlertMessage => doc.formField(path, 'failureAlertMessage') ?? '';
+  set failureAlertMessage(String value) => doc.setFormField(path, 'failureAlertMessage', value);
+}
+
+/// Generated section facade for the `workDefinition` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScheduledJobEntryWorkDefinitionForm extends SomNode {
+  ScheduledJobEntryWorkDefinitionForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get workSummary => doc.formField(path, 'workSummary') ?? '';
+  set workSummary(String value) => doc.setFormField(path, 'workSummary', value);
+
+  String get readEntities => doc.formField(path, 'readEntities') ?? '';
+  set readEntities(String value) => doc.setFormField(path, 'readEntities', value);
+
+  String get writtenEntities => doc.formField(path, 'writtenEntities') ?? '';
+  set writtenEntities(String value) => doc.setFormField(path, 'writtenEntities', value);
+
+  String get targetReports => doc.formField(path, 'targetReports') ?? '';
+  set targetReports(String value) => doc.setFormField(path, 'targetReports', value);
+}
+
 /// Generated section facade for the `approval` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ScheduledMaintenancePolicyApprovalForm extends SomNode {
@@ -75833,6 +76525,28 @@ class ScheduledMaintenancePolicySchedulingForm extends SomNode {
   set blackoutPeriods(String value) => doc.setFormField(path, 'blackoutPeriods', value);
 }
 
+/// Generated section facade for the `baselineSchema` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryBaselineSchemaForm extends SomNode {
+  SchemaMigrationStepEntryBaselineSchemaForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get createdEntities => doc.formField(path, 'createdEntities') ?? '';
+  set createdEntities(String value) => doc.setFormField(path, 'createdEntities', value);
+
+  String get schemaStatements => doc.formField(path, 'schemaStatements') ?? '';
+  set schemaStatements(String value) => doc.setFormField(path, 'schemaStatements', value);
+
+  String get indexesAndConstraints => doc.formField(path, 'indexesAndConstraints') ?? '';
+  set indexesAndConstraints(String value) => doc.setFormField(path, 'indexesAndConstraints', value);
+}
+
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class SchemaMigrationStepEntryContentForm extends SomNode {
@@ -75851,8 +76565,52 @@ class SchemaMigrationStepEntryContentForm extends SomNode {
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
-  String get ddlOperations => doc.formField(path, 'ddlOperations') ?? '';
-  set ddlOperations(String value) => doc.setFormField(path, 'ddlOperations', value);
+  MigrationArtifactKind? get artifactKind => _parseMigrationArtifactKind(doc.formField(path, 'artifactKind'));
+  set artifactKind(MigrationArtifactKind? value) => doc.setFormField(path, 'artifactKind', value?.name ?? '');
+
+  String get migrationTarget => doc.formField(path, 'migrationTarget') ?? '';
+  set migrationTarget(String value) => doc.setFormField(path, 'migrationTarget', value);
+
+  String get environments => doc.formField(path, 'environments') ?? '';
+  set environments(String value) => doc.setFormField(path, 'environments', value);
+}
+
+/// Generated section facade for the `referenceData` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntryReferenceDataForm extends SomNode {
+  SchemaMigrationStepEntryReferenceDataForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get targetEntities => doc.formField(path, 'targetEntities') ?? '';
+  set targetEntities(String value) => doc.setFormField(path, 'targetEntities', value);
+
+  String get valueSet => doc.formField(path, 'valueSet') ?? '';
+  set valueSet(String value) => doc.setFormField(path, 'valueSet', value);
+
+  String get identityKey => doc.formField(path, 'identityKey') ?? '';
+  set identityKey(String value) => doc.setFormField(path, 'identityKey', value);
+}
+
+/// Generated section facade for the `schemaChange` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class SchemaMigrationStepEntrySchemaChangeForm extends SomNode {
+  SchemaMigrationStepEntrySchemaChangeForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get schemaStatements => doc.formField(path, 'schemaStatements') ?? '';
+  set schemaStatements(String value) => doc.setFormField(path, 'schemaStatements', value);
 
   String get affectedEntities => doc.formField(path, 'affectedEntities') ?? '';
   set affectedEntities(String value) => doc.setFormField(path, 'affectedEntities', value);
@@ -75875,9 +76633,6 @@ class SchemaVersioningAndMigrationContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get migrationTooling => doc.formField(path, 'migrationTooling') ?? '';
-  set migrationTooling(String value) => doc.setFormField(path, 'migrationTooling', value);
 
   String get versioningStrategy => doc.formField(path, 'versioningStrategy') ?? '';
   set versioningStrategy(String value) => doc.setFormField(path, 'versioningStrategy', value);
@@ -76382,6 +77137,31 @@ class ScreenElementFieldSpecDateOptionsForm extends SomNode {
   set dateFormat(String value) => doc.setFormField(path, 'dateFormat', value);
 }
 
+/// Generated section facade for the `fileOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenElementFieldSpecFileOptionsForm extends SomNode {
+  ScreenElementFieldSpecFileOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get acceptedContentKinds => doc.formField(path, 'acceptedContentKinds') ?? '';
+  set acceptedContentKinds(String value) => doc.setFormField(path, 'acceptedContentKinds', value);
+
+  String get maxFileSize => doc.formField(path, 'maxFileSize') ?? '';
+  set maxFileSize(String value) => doc.setFormField(path, 'maxFileSize', value);
+
+  String get presentation => doc.formField(path, 'presentation') ?? '';
+  set presentation(String value) => doc.setFormField(path, 'presentation', value);
+
+  String get uploadOnPick => doc.formField(path, 'uploadOnPick') ?? '';
+  set uploadOnPick(String value) => doc.setFormField(path, 'uploadOnPick', value);
+}
+
 /// Generated section facade for the `formatting` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ScreenElementFieldSpecFormattingForm extends SomNode {
@@ -76718,6 +77498,25 @@ class ScreenFieldEntryDataBindingForm extends SomNode {
 
   String get helpText => doc.formField(path, 'helpText') ?? '';
   set helpText(String value) => doc.setFormField(path, 'helpText', value);
+}
+
+/// Generated section facade for the `fileConstraints` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ScreenFieldEntryFileConstraintsForm extends SomNode {
+  ScreenFieldEntryFileConstraintsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get acceptedContentKinds => doc.formField(path, 'acceptedContentKinds') ?? '';
+  set acceptedContentKinds(String value) => doc.setFormField(path, 'acceptedContentKinds', value);
+
+  String get maxFileSize => doc.formField(path, 'maxFileSize') ?? '';
+  set maxFileSize(String value) => doc.setFormField(path, 'maxFileSize', value);
 }
 
 /// Generated section facade for the `layout` `@Form` section:
@@ -78357,6 +79156,40 @@ class SelfRegistrationPolicyVerificationForm extends SomNode {
   set phoneVerificationMethod(String value) => doc.setFormField(path, 'phoneVerificationMethod', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerConfigurationSettingEntryContentForm extends SomNode {
+  ServerConfigurationSettingEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get settingKey => doc.formField(path, 'settingKey') ?? '';
+  set settingKey(String value) => doc.setFormField(path, 'settingKey', value);
+
+  String get valueType => doc.formField(path, 'valueType') ?? '';
+  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+
+  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
+  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+
+  String get environmentVariable => doc.formField(path, 'environmentVariable') ?? '';
+  set environmentVariable(String value) => doc.setFormField(path, 'environmentVariable', value);
+
+  String get commandLineOption => doc.formField(path, 'commandLineOption') ?? '';
+  set commandLineOption(String value) => doc.setFormField(path, 'commandLineOption', value);
+
+  bool? get secret => somParseBool(doc.formField(path, 'secret'));
+  set secret(bool? value) => doc.setFormField(path, 'secret', somFormatBool(value));
+
+  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
+  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
+}
+
 /// Generated section facade for the `access` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ServerEnvironmentEntryAccessForm extends SomNode {
@@ -78471,6 +79304,77 @@ class ServerEnvironmentEntryScaleForm extends SomNode {
 
   String get expectedLoad => doc.formField(path, 'expectedLoad') ?? '';
   set expectedLoad(String value) => doc.setFormField(path, 'expectedLoad', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerOperationEntryContentForm extends SomNode {
+  ServerOperationEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get operationName => doc.formField(path, 'operationName') ?? '';
+  set operationName(String value) => doc.setFormField(path, 'operationName', value);
+
+  String get purpose => doc.formField(path, 'purpose') ?? '';
+  set purpose(String value) => doc.setFormField(path, 'purpose', value);
+
+  String get primaryDataEntity => doc.formField(path, 'primaryDataEntity') ?? '';
+  set primaryDataEntity(String value) => doc.setFormField(path, 'primaryDataEntity', value);
+
+  String get authorizationRequirement => doc.formField(path, 'authorizationRequirement') ?? '';
+  set authorizationRequirement(String value) => doc.setFormField(path, 'authorizationRequirement', value);
+
+  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
+  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
+
+  String get requiredResourceKey => doc.formField(path, 'requiredResourceKey') ?? '';
+  set requiredResourceKey(String value) => doc.setFormField(path, 'requiredResourceKey', value);
+
+  String get descriptionKey => doc.formField(path, 'descriptionKey') ?? '';
+  set descriptionKey(String value) => doc.setFormField(path, 'descriptionKey', value);
+
+  String get errorCodes => doc.formField(path, 'errorCodes') ?? '';
+  set errorCodes(String value) => doc.setFormField(path, 'errorCodes', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ServerOperationMemberEntryContentForm extends SomNode {
+  ServerOperationMemberEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get memberName => doc.formField(path, 'memberName') ?? '';
+  set memberName(String value) => doc.setFormField(path, 'memberName', value);
+
+  String get memberType => doc.formField(path, 'memberType') ?? '';
+  set memberType(String value) => doc.setFormField(path, 'memberType', value);
+
+  bool? get multiValued => somParseBool(doc.formField(path, 'multiValued'));
+  set multiValued(bool? value) => doc.setFormField(path, 'multiValued', somFormatBool(value));
+
+  bool? get required => somParseBool(doc.formField(path, 'required'));
+  set required(bool? value) => doc.setFormField(path, 'required', somFormatBool(value));
+
+  String get dataEntity => doc.formField(path, 'dataEntity') ?? '';
+  set dataEntity(String value) => doc.setFormField(path, 'dataEntity', value);
+
+  String get domainEnum => doc.formField(path, 'domainEnum') ?? '';
+  set domainEnum(String value) => doc.setFormField(path, 'domainEnum', value);
+
+  String get description => doc.formField(path, 'description') ?? '';
+  set description(String value) => doc.setFormField(path, 'description', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -91889,6 +92793,31 @@ class UserProvisioningToolsRoleManagementForm extends SomNode {
   set accessReviewProcess(String value) => doc.setFormField(path, 'accessReviewProcess', value);
 }
 
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class UserSettingEntryContentForm extends SomNode {
+  UserSettingEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get settingKey => doc.formField(path, 'settingKey') ?? '';
+  set settingKey(String value) => doc.setFormField(path, 'settingKey', value);
+
+  String get valueType => doc.formField(path, 'valueType') ?? '';
+  set valueType(String value) => doc.setFormField(path, 'valueType', value);
+
+  String get defaultValue => doc.formField(path, 'defaultValue') ?? '';
+  set defaultValue(String value) => doc.setFormField(path, 'defaultValue', value);
+
+  String get overridableBy => doc.formField(path, 'overridableBy') ?? '';
+  set overridableBy(String value) => doc.setFormField(path, 'overridableBy', value);
+}
+
 /// Generated section facade for the `trainingForm` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class UserTrainingRequirementsTrainingFormForm extends SomNode {
@@ -93329,6 +94258,9 @@ class WorkflowStepEntryContentForm extends SomNode {
 
   bool? get isAutomatable => somParseBool(doc.formField(path, 'isAutomatable'));
   set isAutomatable(bool? value) => doc.setFormField(path, 'isAutomatable', somFormatBool(value));
+
+  bool? get isErrorProne => somParseBool(doc.formField(path, 'isErrorProne'));
+  set isErrorProne(bool? value) => doc.setFormField(path, 'isErrorProne', somFormatBool(value));
 
   String get averageDuration => doc.formField(path, 'averageDuration') ?? '';
   set averageDuration(String value) => doc.setFormField(path, 'averageDuration', value);

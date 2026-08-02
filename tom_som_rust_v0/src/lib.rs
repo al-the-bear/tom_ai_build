@@ -4114,7 +4114,18 @@ impl BasicTechnicalRequirements {
     }
 }
 
-/// Batch job management.
+/// Batch job management — the scheduled jobs and the policy they run under.
+///
+/// Two layers, deliberately separated. This section and its policy subsections
+/// author what is true of *every* job — the time-zone basis, the execution
+/// controls, the monitoring surface. [scheduledJobs] authors the jobs
+/// themselves, one entry each. A specification that has only the policy layer
+/// can say how jobs are run in general but cannot name a single one, which is
+/// exactly what the job list exists to fix.
+///
+/// The policy is the **default layer**: an execution control stated here applies
+/// to every job that does not override it, and an entry that does override it
+/// says so in its own failure-policy subsection.
 pub struct BatchJobManagement {
     pub node: som::SomNode,
 }
@@ -4137,11 +4148,21 @@ impl BatchJobManagement {
     }
 
     /// Supported job categories.
+    ///
+    /// A category-level summary of the scheduled work the system performs — the
+    /// shape of the workload, not its inventory. The authoritative per-job
+    /// declarations are [scheduledJobs]; a category named here without a job in
+    /// that list is a job the specification has not actually declared.
     pub fn job_types(&self) -> BatchJobManagementJobTypesForm {
         BatchJobManagementJobTypesForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJMJT"))
     }
 
-    /// Execution controls.
+    /// Execution controls — the **default layer** for every job.
+    ///
+    /// Retry, timeout and idempotency stated here apply to every job that does
+    /// not say otherwise. A job that needs different numbers overrides them in
+    /// its own failure-policy subsection, so this section is the rule and the
+    /// entry is the exception — never the other way round.
     pub fn execution(&self) -> BatchJobManagementExecutionForm {
         BatchJobManagementExecutionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJME"))
     }
@@ -4149,6 +4170,19 @@ impl BatchJobManagement {
     /// Monitoring and manual controls.
     pub fn monitoring(&self) -> BatchJobManagementMonitoringForm {
         BatchJobManagementMonitoringForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "BJMM"))
+    }
+
+    /// Scheduled jobs — one entry per job the system runs.
+    ///
+    /// The declaration layer. Everything above is policy that applies to all
+    /// jobs; this is where a job actually comes into existence.
+    pub fn scheduled_jobs(&self) -> som::SomList<ScheduledJobEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SCJOB-JOB-LST"),
+            Box::new(ScheduledJobEntry::new),
+            "SCJOB-JOB-xxx".to_string(),
+        )
     }
 }
 
@@ -6593,6 +6627,51 @@ impl ClientAccessibilityRequirements {
     }
 }
 
+/// A single client application of the system (CE-CL).
+///
+/// One client: what kind of application it is, which platforms it targets,
+/// where it starts, and which screens it comprises. This is the enumeration
+/// [ClientRequirementsSection]'s requirement subsections cannot give — they
+/// state what a *machine* must provide, which is a deployment constraint on
+/// every client rather than a statement that any particular client exists.
+///
+/// **Platform targets are referenced, never restated.** A client's platform
+/// targets are ids already declared in the browser, desktop-OS and
+/// mobile-platform requirement lists of the enclosing section. Naming a
+/// platform here that no requirement entry declares is a dangling reference,
+/// which is the point: the minimum a platform must meet is stated once.
+///
+/// **Configuration is not restated either.** Which settings a client carries
+/// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+/// client that owns it. A client that also listed its settings would be the
+/// second source those two would eventually disagree through
+/// (`codespecs_mapping.md` §11).
+///
+/// **Screens, not flows.** A client comprises screens; the flows *between*
+/// those screens are the screen flow structure's own subject (D09 XDS) and are
+/// reached through the entry route, not listed again per client.
+pub struct ClientApplicationEntry {
+    pub node: som::SomNode,
+}
+
+impl ClientApplicationEntry {
+    /// Binds a ClientApplicationEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientApplicationEntry {
+        ClientApplicationEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ClientApplicationEntryContentForm {
+        ClientApplicationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Client configuration — per-machine settings of a client application (CE-CC).
 ///
 /// Distinct from server/system configuration ([SystemConfigurationManagement],
@@ -6614,11 +6693,54 @@ impl ClientConfiguration {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The declared client configuration settings.
+    pub fn settings(&self) -> som::SomList<ClientConfigurationSettingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CCSET-SETT-LST"),
+            Box::new(ClientConfigurationSettingEntry::new),
+            "CCSET-SETT-xxx".to_string(),
+        )
+    }
+}
+
+/// A single declared client configuration setting (CE-CC).
+///
+/// The declaration only: key, value type, default, and which narrower scopes
+/// may shadow the key. The *value* is never authored — it comes from the client
+/// app's configuration resources or from this install's persisted overrides
+/// (`codespecs_mapping.md` §5.16).
+pub struct ClientConfigurationSettingEntry {
+    pub node: som::SomNode,
+}
+
+impl ClientConfigurationSettingEntry {
+    /// Binds a ClientConfigurationSettingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientConfigurationSettingEntry {
+        ClientConfigurationSettingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
         false
     }
 
-    pub fn content(&self) -> ClientConfigurationContentForm {
-        ClientConfigurationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> ClientConfigurationSettingEntryContentForm {
+        ClientConfigurationSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -6710,8 +6832,18 @@ impl ClientNetworkRequirements {
 
 /// 8.4.2. Client Requirements.
 ///
-/// Minimum client requirements: browser versions, operating systems, screen
-/// resolution, network bandwidth, and device capabilities.
+/// Two layers that answer two different questions.
+///
+/// **Which client applications exist** — [clientApplications], one
+/// [ClientApplicationEntry] per client, naming its kind, its entry route and
+/// the screens it comprises. This is the enumerable set of clients; a client
+/// not listed there does not exist.
+///
+/// **What a user's machine must provide** — every other subsection: browser,
+/// desktop-OS, mobile-device, display, network, hardware, accessibility and
+/// security minimums. These are deployment constraints on the *environment*,
+/// not clients, which is why a client entry *references* them rather than
+/// restating them.
 pub struct ClientRequirementsSection {
     pub node: som::SomNode,
 }
@@ -6740,6 +6872,16 @@ impl ClientRequirementsSection {
 
     // Overview of client requirements strategy.
     // (skipped: overview has no target type)
+
+    /// The client applications the system consists of (CE-CL).
+    pub fn client_applications(&self) -> som::SomList<ClientApplicationEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "CLIAPP-CLIE-LST"),
+            Box::new(ClientApplicationEntry::new),
+            "CLIAPP-CLIE-xxx".to_string(),
+        )
+    }
 
     /// Web browser requirements.
     pub fn browser_requirements(&self) -> som::SomList<BrowserRequirementEntry> {
@@ -6814,6 +6956,11 @@ impl ClientRequirementsSection {
     /// User-specific settings of a user-owned device (CE-DS).
     pub fn device_settings(&self) -> DeviceSettings {
         DeviceSettings::new(self.node.doc(), format!("{}/{}", self.node.path(), "deviceSettings"))
+    }
+
+    /// Server-persisted settings that follow the user across devices (CE-UP).
+    pub fn user_settings(&self) -> UserSettings {
+        UserSettings::new(self.node.doc(), format!("{}/{}", self.node.path(), "userSettings"))
     }
 }
 
@@ -10394,26 +10541,6 @@ impl CurrentWorkflowEntry {
         )
     }
 
-    /// Manual steps requiring human intervention.
-    pub fn manual_steps(&self) -> som::SomList<WorkflowStepEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WSE-MANU-LST"),
-            Box::new(WorkflowStepEntry::new),
-            "WSE-MANU-xxx".to_string(),
-        )
-    }
-
-    /// Error-prone steps with high failure rates.
-    pub fn error_prone_steps(&self) -> som::SomList<WorkflowStepEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "WSE-ERRO-LST"),
-            Box::new(WorkflowStepEntry::new),
-            "WSE-ERRO-xxx".to_string(),
-        )
-    }
-
     /// Workflow timing and performance.
     pub fn timing(&self) -> CurrentWorkflowEntryTimingForm {
         CurrentWorkflowEntryTimingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "WOTI"))
@@ -11103,6 +11230,25 @@ impl D03InformationModel {
     /// (csmb7).
     pub fn message_key_registry(&self) -> MessageKeyRegistry {
         MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
+    }
+
+    /// Server operation registry — the system's own operation surface (CE-API):
+    /// one entry per operation the server answers.
+    ///
+    /// Projected here rather than into a separate document because an operation is
+    /// defined by the entity it reads and writes, which this document owns.
+    pub fn server_operation_registry(&self) -> ServerOperationRegistry {
+        ServerOperationRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "serverOperationRegistry"))
+    }
+
+    /// Schema versioning and migration — the CE-MG home: the versioning policy,
+    /// the data source / schema targets, and the ordered artifact set that
+    /// establishes and evolves the schema.
+    ///
+    /// Projected here because the artifact chain must converge on the entity and
+    /// attribute model this document owns.
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigration {
+        SchemaVersioningAndMigration::new(self.node.doc(), format!("{}/{}", self.node.path(), "schemaVersioningAndMigration"))
     }
 }
 
@@ -12472,7 +12618,18 @@ impl D13CodeSpecsProjection {
         DataModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "dataModel"))
     }
 
-    /// Technical framework — CE-CF platform/config foundation.
+    /// Technical framework — the platform foundation and **all four settings
+    /// scopes**.
+    ///
+    /// The subtree spans both loci because the four configuration scopes are
+    /// authored under it and route apart (`codespecs_mapping.md` §11): CE-CF
+    /// server configuration (`SystemConfigurationManagement`) is server-only,
+    /// while CE-CC client configuration, CE-DS device settings and CE-UP user
+    /// settings are authored under the client-requirements subtree and route to
+    /// the client project. CE-UP additionally has a server-side persistence half
+    /// generated from the *same* declarations, so it appears in both projects —
+    /// the scope is expressed by which section a setting is declared in, never by
+    /// a discriminator field.
     pub fn technical_framework(&self) -> TechnicalFrameworkConcept {
         TechnicalFrameworkConcept::new(self.node.doc(), format!("{}/{}", self.node.path(), "technicalFramework"))
     }
@@ -12506,6 +12663,41 @@ impl D13CodeSpecsProjection {
     /// `PrintAndExportLayout`, deliberately unreachable from here.
     pub fn report_definitions(&self) -> ReportDefinitions {
         ReportDefinitions::new(self.node.doc(), format!("{}/{}", self.node.path(), "reportDefinitions"))
+    }
+
+    /// Schema versioning and migration — CE-MG migration artifacts.
+    ///
+    /// The artifacts ship with the server project because that is where the
+    /// migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+    /// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+    /// gives the data source / schema directory placement, `SCMST.artifactKind`
+    /// the artifact kind, and `SCMST.environments` the filename environment tag.
+    /// The artifact *filenames* are authored, not derived — a §5.23 string
+    /// exemption — so they are not part of the generated surface.
+    ///
+    /// The subtree sits beside `dataModel` above for a reason: the cumulative
+    /// effect of a schema's artifacts must converge on the CE-DB model that entry
+    /// generates, and that convergence is a validator check over both.
+    pub fn schema_versioning_and_migration(&self) -> SchemaVersioningAndMigration {
+        SchemaVersioningAndMigration::new(self.node.doc(), format!("{}/{}", self.node.path(), "schemaVersioningAndMigration"))
+    }
+
+    /// Server operation registry — the application's **own** CE-API surface.
+    ///
+    /// The one subtree that declares what the system answers. It spans two loci
+    /// because a CE-API operation generates two halves (`codespecs_mapping.md`
+    /// §4.2): the **operation catalogue and the request/response types** are
+    /// shared — the client cites an operation and depends on its shapes — while
+    /// the **operation itself** lands on the owning service unit in the server
+    /// project. Which service unit that is follows from each operation's primary
+    /// written data entity (§5.17), so ownership is derived here rather than
+    /// declared.
+    ///
+    /// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+    /// reachable from this projection: it describes third-party interfaces the
+    /// system talks to, not the surface the system generates.
+    pub fn server_operation_registry(&self) -> ServerOperationRegistry {
+        ServerOperationRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "serverOperationRegistry"))
     }
 
     /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -13838,7 +14030,7 @@ impl DataModel {
     }
 }
 
-/// 7.9. Data Model Follow-up Facets.
+/// 7.10. Data Model Follow-up Facets.
 ///
 /// Operational and governance facets that accompany the data model but are not
 /// part of the generation-owned entity/attribute schema: the model-wide ER
@@ -13872,10 +14064,10 @@ impl DataModelFollowUp {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    // 7.9.1. Entity-Relationship Diagram (mermaid).
+    // 7.10.1. Entity-Relationship Diagram (mermaid).
     // (skipped: erDiagram has no target type)
 
-    /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+    /// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
     pub fn entity_follow_ups(&self) -> som::SomList<EntityFollowUpEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -16722,6 +16914,38 @@ impl DevelopmentQualityGates {
     }
 }
 
+/// A single declared device setting (CE-DS).
+///
+/// The declaration only: key, value type and default. The value is the user's
+/// choice on this device and is never authored (`codespecs_mapping.md` §5.16).
+///
+/// There is deliberately no shadowing field. §5.16 puts the opt-in on the
+/// *wider* scope — a key is shadowable only because its wider-scope declaration
+/// says so — and CE-DS is the narrowest scope, so it has nothing below it to
+/// open. Declaring the same relation from both ends would be two authored
+/// fields that can disagree.
+pub struct DeviceSettingEntry {
+    pub node: som::SomNode,
+}
+
+impl DeviceSettingEntry {
+    /// Binds a DeviceSettingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DeviceSettingEntry {
+        DeviceSettingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> DeviceSettingEntryContentForm {
+        DeviceSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Device settings — user-specific settings of a user-owned device (CE-DS).
 ///
 /// Distinct from client configuration ([ClientConfiguration], CE-CC — no user
@@ -16745,11 +16969,26 @@ impl DeviceSettings {
     /// (SOM §21) — a **structural** predicate answering "can this section hold
     /// body text?" as a compile-time constant, without probing the document.
     pub fn can_have_content(&self) -> bool {
-        false
+        true
     }
 
-    pub fn content(&self) -> DeviceSettingsContentForm {
-        DeviceSettingsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The declared device settings.
+    pub fn settings(&self) -> som::SomList<DeviceSettingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "DSSET-SETT-LST"),
+            Box::new(DeviceSettingEntry::new),
+            "DSSET-SETT-xxx".to_string(),
+        )
     }
 }
 
@@ -23563,7 +23802,16 @@ impl InformationAndDataModel {
         MessageKeyRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "messageKeyRegistry"))
     }
 
-    /// 7.9. Data Model Follow-up Facets.
+    /// 7.9. Server Operation Registry.
+    ///
+    /// The system's **own** operation surface (CE-API): one entry per operation
+    /// the server answers, with its request/response members, the data entity it
+    /// primarily writes, and its authorization requirement.
+    pub fn server_operation_registry(&self) -> ServerOperationRegistry {
+        ServerOperationRegistry::new(self.node.doc(), format!("{}/{}", self.node.path(), "serverOperationRegistry"))
+    }
+
+    /// 7.10. Data Model Follow-up Facets.
     ///
     /// Per-entity operational/governance facets (volume, compliance, technical
     /// characteristics, migration mappings) and the model-wide ER diagram —
@@ -24142,6 +24390,13 @@ impl IntegrationHealthSummary {
 }
 
 /// A single integration point entry.
+///
+/// How a domain object connects to the outside world. It describes *outward
+/// connections* — which interfaces surface the object, which events it takes
+/// part in, how it maps onto external systems — and deliberately declares no
+/// operation of the application's own: those live in the server operation
+/// registry (SVOPR), which is the one place an operation is named and given its
+/// request/response shapes.
 pub struct IntegrationPointEntry {
     pub node: som::SomNode,
 }
@@ -24918,7 +25173,16 @@ impl InterfaceGovernance {
     // (skipped: changelog has no target type)
 }
 
-/// API operation entry.
+/// An operation of an **external** interface.
+///
+/// One operation of a third-party system the application talks to, described in
+/// that system's own terms — including its transport method and path, which a
+/// foreign contract genuinely has.
+///
+/// This is **not** where the application's own operations are declared: those
+/// live in the server operation registry (SVOPR), under the
+/// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+/// the operation name the sole identifier.
 pub struct InterfaceOperationEntry {
     pub node: som::SomNode,
 }
@@ -26217,6 +26481,13 @@ impl KnowledgeTransfer {
 /// 10.12.4. Language and Country Selection.
 ///
 /// UI specification for language and country selection.
+///
+/// This is the *picker* — how a user is offered languages and countries, what
+/// is preselected, how the choice is retained across a sign-in, and how the
+/// system falls back. The underlying `ui.language` / `ui.country` preference is
+/// **declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is
+/// why this section carries no `@CodeSpecKind`: a picker is a screen, not a
+/// setting declaration (`codespecs_mapping.md` §5.16).
 pub struct LanguageCountrySelection {
     pub node: som::SomNode,
 }
@@ -28716,6 +28987,34 @@ impl MigrationSystems {
 
     pub fn content(&self) -> MigrationSystemsContentForm {
         MigrationSystemsContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// A single migration target — one data source / schema pair (form).
+///
+/// Migration artifacts are filed per data source and per schema within it, so a
+/// system with several databases — or several database *types* — needs no extra
+/// specification surface beyond naming each target once here. Every artifact in
+/// 7.4.2 then names the target it applies to rather than repeating the pair.
+pub struct MigrationTargetEntry {
+    pub node: som::SomNode,
+}
+
+impl MigrationTargetEntry {
+    /// Binds a MigrationTargetEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MigrationTargetEntry {
+        MigrationTargetEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> MigrationTargetEntryContentForm {
+        MigrationTargetEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 }
 
@@ -40667,6 +40966,102 @@ impl ScenarioStepEntry {
     }
 }
 
+/// A single scheduled job (form + trigger case + work definition + failure
+/// policy).
+///
+/// One background job: what starts it, what it does, which data it acts on,
+/// what happens when it fails, and where it is deployed. Work that runs *off*
+/// the request thread is what separates a job from a server operation — the
+/// trigger is that axis, which is why it is a required, closed choice rather
+/// than free text.
+///
+/// **Where the specification stops and the code begins.** This entry carries
+/// the job's *intent* — what it does, over which data, in what order. It does
+/// **not** carry the work body: the body is written in the CodeSpec as
+/// compilable pseudo-code over a later-injected service (`codespecs_mapping.md`
+/// §5.29 scope part 2), and pseudo-code in a specification is code in the wrong
+/// place. State the intent well enough that the body can be written from it,
+/// then stop.
+///
+/// **Ownership is derived, not declared.** The service unit that owns a job
+/// follows from the entity it primarily writes, exactly as it does for a server
+/// operation (`codespecs_mapping.md` §5.17) — so [ScheduledJobEntry] names the
+/// entity and never the unit. Two places to state one fact is how they come to
+/// disagree.
+///
+/// **A scheduled report is not declared twice.** A report definition that names
+/// a schedule is *realised as* a job (`codespecs_mapping.md` §5.28); that job
+/// comes from the report, not from an entry here. List a job here only when the
+/// work is not already the schedule of a report.
+pub struct ScheduledJobEntry {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntry {
+    /// Binds a ScheduledJobEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntry {
+        ScheduledJobEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ScheduledJobEntryContentForm {
+        ScheduledJobEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Cron trigger — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `cron` kind: a recurring clock expression, taken
+    /// verbatim. It is a single field because that is exactly what the trigger
+    /// is — the zone it is read in is the system-wide one stated on
+    /// [BatchJobManagement], and catch-up behaviour after a missed window is a
+    /// scheduler setting rather than a specification statement.
+    pub fn cron_trigger(&self) -> ScheduledJobEntryCronTriggerForm {
+        ScheduledJobEntryCronTriggerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-CRON"))
+    }
+
+    /// Calendar trigger — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `calendar` kind: a date rule a clock expression
+    /// cannot state — the last day of the month, the third Monday of a quarter.
+    pub fn calendar_trigger(&self) -> ScheduledJobEntryCalendarTriggerForm {
+        ScheduledJobEntryCalendarTriggerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-CAL"))
+    }
+
+    /// Event trigger — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `event` kind. An event-triggered job does not fire on
+    /// time at all, so it has no schedule; what it has instead — and what neither
+    /// other arm has — is an occurrence carrying data the work reads.
+    pub fn event_trigger(&self) -> ScheduledJobEntryEventTriggerForm {
+        ScheduledJobEntryEventTriggerForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-EVNT"))
+    }
+
+    /// What the job does and which data it acts on.
+    ///
+    /// The intent half of the work definition. The body that realises it is
+    /// written in the CodeSpec (`codespecs_mapping.md` §5.29 scope part 2); this
+    /// section says what that body must achieve and over which data, in enough
+    /// detail that it can be written from here without a second conversation.
+    pub fn work_definition(&self) -> ScheduledJobEntryWorkDefinitionForm {
+        ScheduledJobEntryWorkDefinitionForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-WORK"))
+    }
+
+    /// This job's departures from the system-wide execution policy.
+    ///
+    /// Every field is an override. Left empty, the job inherits the Execution
+    /// Controls (BJME) default; the policy stays the rule and the entry is the
+    /// exception.
+    pub fn failure_policy(&self) -> ScheduledJobEntryFailurePolicyForm {
+        ScheduledJobEntryFailurePolicyForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCJOB-FAIL"))
+    }
+}
+
 /// Scheduled maintenance policy.
 pub struct ScheduledMaintenancePolicy {
     pub node: som::SomNode,
@@ -40710,11 +41105,12 @@ impl ScheduledMaintenancePolicy {
     }
 }
 
-/// A single schema migration step (form).
+/// A single migration artifact (form).
 ///
-/// One versioned change to the database schema — the DDL operations it applies,
-/// the entities it touches, whether it is reversible, and any data backfill it
-/// performs as part of the schema change.
+/// One versioned artifact in the migration set: what it is (baseline schema,
+/// reference data, or a schema change), which target it applies to, and which
+/// deployment environments it is restricted to. The kind-specific detail lives
+/// in the promoted case subsection its `artifactKind` selects.
 pub struct SchemaMigrationStepEntry {
     pub node: som::SomNode,
 }
@@ -40735,15 +41131,44 @@ impl SchemaMigrationStepEntry {
     pub fn content(&self) -> SchemaMigrationStepEntryContentForm {
         SchemaMigrationStepEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+
+    /// Baseline schema definition — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `initialDdl` kind. It establishes the schema, so there
+    /// is no prior state: no affected-entity delta, no backfill, and nothing to
+    /// roll back to.
+    pub fn baseline_schema(&self) -> SchemaMigrationStepEntryBaselineSchemaForm {
+        SchemaMigrationStepEntryBaselineSchemaForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCMST-BASE"))
+    }
+
+    /// Reference-data definition — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `referenceData` kind. This artifact inserts rows, not
+    /// schema, so it authors the value set rather than schema statements. It is
+    /// the new system's own initial data — legacy business-data migration stays in
+    /// the migration-mapping sections (`MIGME`).
+    pub fn reference_data(&self) -> SchemaMigrationStepEntryReferenceDataForm {
+        SchemaMigrationStepEntryReferenceDataForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCMST-REFD"))
+    }
+
+    /// Schema change — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `schemaChange` kind: an evolution step on top of an
+    /// existing schema. This is the only kind for which a delta of affected
+    /// entities, a data backfill and reversibility are meaningful.
+    pub fn schema_change(&self) -> SchemaMigrationStepEntrySchemaChangeForm {
+        SchemaMigrationStepEntrySchemaChangeForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCMST-CHNG"))
+    }
 }
 
 /// 7.4. Schema Versioning and Migration.
 ///
 /// Records how the database schema is *versioned and migrated* as the data
-/// model evolves — the ordered DDL / migration steps and the tooling and
-/// policy that govern them. This is distinct from business-data migration
-/// between systems (see `MigrationMappingEntry` for old→new field mapping):
-/// here the subject is the schema's own evolution over releases.
+/// model evolves — the versioning policy, the data source / schema targets, and
+/// the ordered artifact set that establishes and evolves the schema. This is
+/// distinct from business-data migration between systems (see
+/// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+/// schema's own evolution over releases.
 pub struct SchemaVersioningAndMigration {
     pub node: som::SomNode,
 }
@@ -40765,7 +41190,17 @@ impl SchemaVersioningAndMigration {
         SchemaVersioningAndMigrationContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+    /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+    pub fn migration_targets(&self) -> som::SomList<MigrationTargetEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "MIGTG-TARG-LST"),
+            Box::new(MigrationTargetEntry::new),
+            "MIGTG-TARG-xxx".to_string(),
+        )
+    }
+
+    /// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
     pub fn migration_steps(&self) -> som::SomList<SchemaMigrationStepEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -41225,6 +41660,18 @@ impl ScreenElementFieldSpec {
     pub fn select_options(&self) -> ScreenElementFieldSpecSelectOptionsForm {
         ScreenElementFieldSpecSelectOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSS"))
     }
+
+    /// File-kind options — a promoted `@OneOf` case (csrb8).
+    ///
+    /// Present only for the file field kind; carries what may be chosen and how
+    /// the chosen file is shown. The **storage group** is deliberately absent: a
+    /// file's group is authored once on its CE-DB file-reference column
+    /// (`codespecs_mapping.md` §5.13.1) and derived here, so the two can never
+    /// name different groups. So is a download affordance, which follows from the
+    /// field being wired for transfer and the file being stored (§5.18).
+    pub fn file_options(&self) -> ScreenElementFieldSpecFileOptionsForm {
+        ScreenElementFieldSpecFileOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEFSU"))
+    }
 }
 
 /// A screen entry (form).
@@ -41381,6 +41828,18 @@ impl ScreenFieldEntry {
     /// Choice-kind option source — a promoted `@OneOf` case (csra4).
     pub fn choice_options(&self) -> ScreenFieldEntryChoiceOptionsForm {
         ScreenFieldEntryChoiceOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFICH"))
+    }
+
+    /// File-kind input constraints — a promoted `@OneOf` case (csrb8).
+    ///
+    /// Constraints only. **How** the file is presented — link, dropzone or
+    /// thumbnail — is the D09 design pass's `fileOptions`
+    /// (`ScreenElementFieldSpec`), because a requirement names the kind of value
+    /// a user supplies and the design names the concrete control. The storage
+    /// group is neither side's: it is authored on the CE-DB file-reference column
+    /// (`codespecs_mapping.md` §5.13.1).
+    pub fn file_constraints(&self) -> ScreenFieldEntryFileConstraintsForm {
+        ScreenFieldEntryFileConstraintsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCFIFI"))
     }
 
     /// UI and layout.
@@ -42872,6 +43331,41 @@ impl SensitiveDataEncryption {
     }
 }
 
+/// A single declared server / system configuration setting (CE-CF).
+///
+/// The declaration only: key, value type, default, the environment variable and
+/// command-line option it may also be read from, whether it carries a secret,
+/// and which narrower scopes may shadow it. The *value* is supplied per
+/// deployment through the configuration
+/// tree, the OS environment, a `.env` file or the command line (in that
+/// precedence, command line winning) and is never authored. A secret-bearing
+/// setting declares its presence and shape so deployment tooling can supply
+/// the content out of band (`codespecs_mapping.md` §5.16).
+///
+/// Security and infrastructure configuration is scope-pinned: it stays
+/// server-side unless the declaration explicitly opens it to a narrower scope.
+pub struct ServerConfigurationSettingEntry {
+    pub node: som::SomNode,
+}
+
+impl ServerConfigurationSettingEntry {
+    /// Binds a ServerConfigurationSettingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerConfigurationSettingEntry {
+        ServerConfigurationSettingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ServerConfigurationSettingEntryContentForm {
+        ServerConfigurationSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
 /// Server environment entry (development, staging, production, DR).
 pub struct ServerEnvironmentEntry {
     pub node: som::SomNode,
@@ -42912,6 +43406,156 @@ impl ServerEnvironmentEntry {
     /// Lifecycle rules.
     pub fn lifecycle(&self) -> ServerEnvironmentEntryLifecycleForm {
         ServerEnvironmentEntryLifecycleForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEENENLI"))
+    }
+}
+
+/// A single server operation (form + request/response members).
+///
+/// One entry in the [ServerOperationRegistry]: the operation name that
+/// identifies it, its purpose, the data entity it primarily writes, its
+/// authorization requirement, the error codes it may return, and the members
+/// that make up its request and response shapes.
+///
+/// The operation name is the join token the rest of the model references: the
+/// ISC step entries cite it as the target of a client call (CE-SC), and the
+/// service unit that owns the operation follows from
+/// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+/// list (`codespecs_mapping.md` §5.17).
+pub struct ServerOperationEntry {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationEntry {
+    /// Binds a ServerOperationEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationEntry {
+        ServerOperationEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ServerOperationEntryContentForm {
+        ServerOperationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.9.x. Request Members — the members that make up the request shape.
+    pub fn request_members(&self) -> som::SomList<ServerOperationMemberEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVOPM-REQM-LST"),
+            Box::new(ServerOperationMemberEntry::new),
+            "SVOPM-REQM-xxx".to_string(),
+        )
+    }
+
+    /// 7.9.x. Response Members — the members the success payload carries.
+    ///
+    /// These members *are* the success payload the Result envelope wraps; the
+    /// envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+    /// authored per operation.
+    pub fn response_members(&self) -> som::SomList<ServerOperationMemberEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVOPM-RESM-LST"),
+            Box::new(ServerOperationMemberEntry::new),
+            "SVOPM-RESM-xxx".to_string(),
+        )
+    }
+}
+
+/// A single member of an operation's request or response shape (form).
+///
+/// One named, typed member: its name, its type, whether it must be present, and
+/// — when the type is a domain concept rather than a primitive — the data
+/// entity or domain enum it draws from. The same shape serves both the request
+/// and the response side of a [ServerOperationEntry], so a member reads the
+/// same way whichever direction it travels.
+pub struct ServerOperationMemberEntry {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationMemberEntry {
+    /// Binds a ServerOperationMemberEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationMemberEntry {
+        ServerOperationMemberEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> ServerOperationMemberEntryContentForm {
+        ServerOperationMemberEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// 7.9. Server Operation Registry.
+///
+/// The authoring home for the **application's own** operation surface — the
+/// CE-API (`serverApi`) part. Every operation the system answers is declared
+/// once here; the client side (CE-SC) only *cites* an operation, and the
+/// service unit that owns it (CE-SU) is *derived* from the entity each
+/// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+/// declare an operation, so without this registry the system's server API would
+/// be code with no specification source.
+///
+/// This is distinct from the **external** interface inventory under
+/// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+/// system talks to. Those carry a transport verb and a path because a
+/// third-party API really has them; the application's own contract does not —
+/// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+/// whose **operation name** carries the intent, and §5.14 drops transport
+/// plumbing from the spec surface.
+///
+/// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+///
+/// - no transport method and no path — the operation name is the identifier;
+/// - no response status codes — every application outcome, success *or* error,
+///   rides in the [ResultEnvelope]; only infrastructure failures are transport
+///   errors;
+/// - no encoding, header, redirect, CORS or credential plumbing — framework
+///   transport members, never spec input.
+pub struct ServerOperationRegistry {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationRegistry {
+    /// Binds a ServerOperationRegistry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationRegistry {
+        ServerOperationRegistry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 7.9.1. Operations — one entry per operation the system answers.
+    pub fn operations(&self) -> som::SomList<ServerOperationEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SVOPE-OPER-LST"),
+            Box::new(ServerOperationEntry::new),
+            "SVOPE-OPER-xxx".to_string(),
+        )
     }
 }
 
@@ -46524,6 +47168,16 @@ impl SystemConfigurationManagement {
     /// Validation, diffing, and audit controls.
     pub fn governance(&self) -> SystemConfigurationManagementGovernanceForm {
         SystemConfigurationManagementGovernanceForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCMG"))
+    }
+
+    /// The declared server configuration settings.
+    pub fn settings(&self) -> som::SomList<ServerConfigurationSettingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "SCSET-SETT-LST"),
+            Box::new(ServerConfigurationSettingEntry::new),
+            "SCSET-SETT-xxx".to_string(),
+        )
     }
 }
 
@@ -53127,6 +53781,82 @@ impl UserRegistrationProcess {
 
     // Registration Flow Diagram (mermaid-sequence).
     // (skipped: registrationFlowDiagram has no target type)
+}
+
+/// A single declared user setting (CE-UP).
+///
+/// The declaration only: key, value type, default, and whether a per-device
+/// value may shadow the key. The value is the user's choice and is never
+/// authored (`codespecs_mapping.md` §5.16).
+pub struct UserSettingEntry {
+    pub node: som::SomNode,
+}
+
+impl UserSettingEntry {
+    /// Binds a UserSettingEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserSettingEntry {
+        UserSettingEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> UserSettingEntryContentForm {
+        UserSettingEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+}
+
+/// User settings — server-persisted settings that follow the user (CE-UP).
+///
+/// Keyed by the user alone: no machine and no device in the key. A user
+/// setting is persisted on the server and re-materialised on whichever device
+/// the user signs in from, which is what distinguishes it from a device
+/// setting ([DeviceSettings], CE-DS — keyed by (user, device), never leaves
+/// the device) and from client configuration ([ClientConfiguration], CE-CC —
+/// no user identity in the key) (`codespecs_mapping.md` §11).
+///
+/// The scope is expressed by *which section a setting is declared in*, never
+/// by a field on a shared section: there is no persistence discriminator
+/// anywhere in the four settings scopes.
+pub struct UserSettings {
+    pub node: som::SomNode,
+}
+
+impl UserSettings {
+    /// Binds a UserSettings facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserSettings {
+        UserSettings { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// The declared user settings.
+    pub fn settings(&self) -> som::SomList<UserSettingEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "USSET-SETT-LST"),
+            Box::new(UserSettingEntry::new),
+            "USSET-SETT-xxx".to_string(),
+        )
+    }
 }
 
 /// 4.1.4.n.5. Training Requirements.
@@ -66711,24 +67441,6 @@ impl BatchJobManagementContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn scheduling_engine(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "schedulingEngine")
-    }
-
-    pub fn set_scheduling_engine(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "schedulingEngine", value);
-    }
-
-    pub fn schedule_definition(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scheduleDefinition")
-    }
-
-    pub fn set_schedule_definition(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scheduleDefinition", value);
-    }
-
     pub fn time_zone_handling(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "timeZoneHandling")
     }
@@ -75792,16 +76504,16 @@ impl ClientAccessibilityRequirementsVisualForm {
     }
 }
 
-/// ClientConfigurationContentForm is the generated section facade for the `content` @Form section: its own
+/// ClientApplicationEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct ClientConfigurationContentForm {
+pub struct ClientApplicationEntryContentForm {
     pub node: som::SomNode,
 }
 
-impl ClientConfigurationContentForm {
-    /// Binds a ClientConfigurationContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ClientConfigurationContentForm {
-        ClientConfigurationContentForm { node: som::SomNode::new(doc, path) }
+impl ClientApplicationEntryContentForm {
+    /// Binds a ClientApplicationEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientApplicationEntryContentForm {
+        ClientApplicationEntryContentForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -75821,49 +76533,142 @@ impl ClientConfigurationContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn api_base_url(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "apiBaseUrl")
+    pub fn client_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientId")
     }
 
-    pub fn set_api_base_url(&self, value: &str) {
+    pub fn set_client_id(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "apiBaseUrl", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "clientId", value);
     }
 
-    pub fn environment(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "environment")
+    pub fn client_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientName")
     }
 
-    pub fn set_environment(&self, value: &str) {
+    pub fn set_client_name(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "environment", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "clientName", value);
     }
 
-    pub fn device_options(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deviceOptions")
+    pub fn client_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "clientKind")
     }
 
-    pub fn set_device_options(&self, value: &str) {
+    pub fn set_client_kind(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deviceOptions", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "clientKind", value);
     }
 
-    pub fn feature_toggles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureToggles")
+    pub fn purpose(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
     }
 
-    pub fn set_feature_toggles(&self, value: &str) {
+    pub fn set_purpose(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureToggles", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
     }
 
-    pub fn update_channel(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "updateChannel")
+    pub fn platform_targets(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "platformTargets")
     }
 
-    pub fn set_update_channel(&self, value: &str) {
+    pub fn set_platform_targets(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "updateChannel", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "platformTargets", value);
+    }
+
+    pub fn entry_route(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "entryRoute")
+    }
+
+    pub fn set_entry_route(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "entryRoute", value);
+    }
+
+    pub fn included_screens(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "includedScreens")
+    }
+
+    pub fn set_included_screens(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "includedScreens", value);
+    }
+}
+
+/// ClientConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ClientConfigurationSettingEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ClientConfigurationSettingEntryContentForm {
+    /// Binds a ClientConfigurationSettingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ClientConfigurationSettingEntryContentForm {
+        ClientConfigurationSettingEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn setting_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "settingKey")
+    }
+
+    pub fn set_setting_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
+    }
+
+    pub fn client(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "client")
+    }
+
+    pub fn set_client(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "client", value);
+    }
+
+    pub fn value_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    }
+
+    pub fn set_value_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+    }
+
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+
+    pub fn overridable_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    }
+
+    pub fn set_overridable_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
     }
 }
 
@@ -105841,16 +106646,16 @@ impl DevelopmentQualityGatesSecurityForm {
     }
 }
 
-/// DeviceSettingsContentForm is the generated section facade for the `content` @Form section: its own
+/// DeviceSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct DeviceSettingsContentForm {
+pub struct DeviceSettingEntryContentForm {
     pub node: som::SomNode,
 }
 
-impl DeviceSettingsContentForm {
-    /// Binds a DeviceSettingsContentForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> DeviceSettingsContentForm {
-        DeviceSettingsContentForm { node: som::SomNode::new(doc, path) }
+impl DeviceSettingEntryContentForm {
+    /// Binds a DeviceSettingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DeviceSettingEntryContentForm {
+        DeviceSettingEntryContentForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -105895,17 +106700,6 @@ impl DeviceSettingsContentForm {
     pub fn set_default_value(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
-    }
-
-    pub fn device_overridable(&self) -> Option<bool> {
-        let v = self.node.doc().borrow().form_field_or(self.node.path(), "deviceOverridable");
-        if v.is_empty() { None } else { Some(v == "true") }
-    }
-
-    pub fn set_device_overridable(&self, value: Option<bool>) {
-        let path = self.node.path().to_string();
-        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
-        self.node.doc().borrow_mut().set_form_field(&path, "deviceOverridable", &text);
     }
 }
 
@@ -148219,6 +149013,72 @@ impl MigrationSystemsContentForm {
     pub fn set_data_model_change_summary(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "dataModelChangeSummary", value);
+    }
+}
+
+/// MigrationTargetEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct MigrationTargetEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl MigrationTargetEntryContentForm {
+    /// Binds a MigrationTargetEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> MigrationTargetEntryContentForm {
+        MigrationTargetEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn target_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetName")
+    }
+
+    pub fn set_target_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetName", value);
+    }
+
+    pub fn data_source_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataSourceName")
+    }
+
+    pub fn set_data_source_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataSourceName", value);
+    }
+
+    pub fn schema_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaName")
+    }
+
+    pub fn set_schema_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaName", value);
+    }
+
+    pub fn purpose(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
+    }
+
+    pub fn set_purpose(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
     }
 }
 
@@ -191012,6 +191872,352 @@ impl ScenarioStepEntryExecutionForm {
     }
 }
 
+/// ScheduledJobEntryCalendarTriggerForm is the generated section facade for the `calendarTrigger` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryCalendarTriggerForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryCalendarTriggerForm {
+    /// Binds a ScheduledJobEntryCalendarTriggerForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryCalendarTriggerForm {
+        ScheduledJobEntryCalendarTriggerForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn calendar_rule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "calendarRule")
+    }
+
+    pub fn set_calendar_rule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "calendarRule", value);
+    }
+}
+
+/// ScheduledJobEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryContentForm {
+    /// Binds a ScheduledJobEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryContentForm {
+        ScheduledJobEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn job_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "jobName")
+    }
+
+    pub fn set_job_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "jobName", value);
+    }
+
+    pub fn purpose(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
+    }
+
+    pub fn set_purpose(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
+    }
+
+    pub fn trigger_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "triggerKind")
+    }
+
+    pub fn set_trigger_kind(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "triggerKind", value);
+    }
+
+    pub fn primary_data_entity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "primaryDataEntity")
+    }
+
+    pub fn set_primary_data_entity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "primaryDataEntity", value);
+    }
+
+    pub fn enabled(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "enabled");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_enabled(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "enabled", &text);
+    }
+
+    pub fn environments(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environments")
+    }
+
+    pub fn set_environments(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environments", value);
+    }
+}
+
+/// ScheduledJobEntryCronTriggerForm is the generated section facade for the `cronTrigger` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryCronTriggerForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryCronTriggerForm {
+    /// Binds a ScheduledJobEntryCronTriggerForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryCronTriggerForm {
+        ScheduledJobEntryCronTriggerForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn cron_expression(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "cronExpression")
+    }
+
+    pub fn set_cron_expression(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "cronExpression", value);
+    }
+}
+
+/// ScheduledJobEntryEventTriggerForm is the generated section facade for the `eventTrigger` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryEventTriggerForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryEventTriggerForm {
+    /// Binds a ScheduledJobEntryEventTriggerForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryEventTriggerForm {
+        ScheduledJobEntryEventTriggerForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn event_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "eventName")
+    }
+
+    pub fn set_event_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "eventName", value);
+    }
+
+    pub fn event_payload(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "eventPayload")
+    }
+
+    pub fn set_event_payload(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "eventPayload", value);
+    }
+}
+
+/// ScheduledJobEntryFailurePolicyForm is the generated section facade for the `failurePolicy` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryFailurePolicyForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryFailurePolicyForm {
+    /// Binds a ScheduledJobEntryFailurePolicyForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryFailurePolicyForm {
+        ScheduledJobEntryFailurePolicyForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn max_retries(&self) -> Option<i64> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "maxRetries");
+        if v.is_empty() { None } else { v.parse::<i64>().ok() }
+    }
+
+    pub fn set_max_retries(&self, value: Option<i64>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(v) => v.to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "maxRetries", &text);
+    }
+
+    pub fn retry_backoff(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "retryBackoff")
+    }
+
+    pub fn set_retry_backoff(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "retryBackoff", value);
+    }
+
+    pub fn timeout(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "timeout")
+    }
+
+    pub fn set_timeout(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "timeout", value);
+    }
+
+    pub fn failure_alert_message(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "failureAlertMessage")
+    }
+
+    pub fn set_failure_alert_message(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "failureAlertMessage", value);
+    }
+}
+
+/// ScheduledJobEntryWorkDefinitionForm is the generated section facade for the `workDefinition` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScheduledJobEntryWorkDefinitionForm {
+    pub node: som::SomNode,
+}
+
+impl ScheduledJobEntryWorkDefinitionForm {
+    /// Binds a ScheduledJobEntryWorkDefinitionForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScheduledJobEntryWorkDefinitionForm {
+        ScheduledJobEntryWorkDefinitionForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn work_summary(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "workSummary")
+    }
+
+    pub fn set_work_summary(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "workSummary", value);
+    }
+
+    pub fn read_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "readEntities")
+    }
+
+    pub fn set_read_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "readEntities", value);
+    }
+
+    pub fn written_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "writtenEntities")
+    }
+
+    pub fn set_written_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "writtenEntities", value);
+    }
+
+    pub fn target_reports(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetReports")
+    }
+
+    pub fn set_target_reports(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetReports", value);
+    }
+}
+
 /// ScheduledMaintenancePolicyApprovalForm is the generated section facade for the `approval` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ScheduledMaintenancePolicyApprovalForm {
@@ -191319,6 +192525,63 @@ impl ScheduledMaintenancePolicySchedulingForm {
     }
 }
 
+/// SchemaMigrationStepEntryBaselineSchemaForm is the generated section facade for the `baselineSchema` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SchemaMigrationStepEntryBaselineSchemaForm {
+    pub node: som::SomNode,
+}
+
+impl SchemaMigrationStepEntryBaselineSchemaForm {
+    /// Binds a SchemaMigrationStepEntryBaselineSchemaForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaMigrationStepEntryBaselineSchemaForm {
+        SchemaMigrationStepEntryBaselineSchemaForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn created_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "createdEntities")
+    }
+
+    pub fn set_created_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "createdEntities", value);
+    }
+
+    pub fn schema_statements(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaStatements")
+    }
+
+    pub fn set_schema_statements(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaStatements", value);
+    }
+
+    pub fn indexes_and_constraints(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "indexesAndConstraints")
+    }
+
+    pub fn set_indexes_and_constraints(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "indexesAndConstraints", value);
+    }
+}
+
 /// SchemaMigrationStepEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct SchemaMigrationStepEntryContentForm {
@@ -191366,13 +192629,127 @@ impl SchemaMigrationStepEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 
-    pub fn ddl_operations(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "ddlOperations")
+    pub fn artifact_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "artifactKind")
     }
 
-    pub fn set_ddl_operations(&self, value: &str) {
+    pub fn set_artifact_kind(&self, value: &str) {
         let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "ddlOperations", value);
+        self.node.doc().borrow_mut().set_form_field(&path, "artifactKind", value);
+    }
+
+    pub fn migration_target(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "migrationTarget")
+    }
+
+    pub fn set_migration_target(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "migrationTarget", value);
+    }
+
+    pub fn environments(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environments")
+    }
+
+    pub fn set_environments(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environments", value);
+    }
+}
+
+/// SchemaMigrationStepEntryReferenceDataForm is the generated section facade for the `referenceData` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SchemaMigrationStepEntryReferenceDataForm {
+    pub node: som::SomNode,
+}
+
+impl SchemaMigrationStepEntryReferenceDataForm {
+    /// Binds a SchemaMigrationStepEntryReferenceDataForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaMigrationStepEntryReferenceDataForm {
+        SchemaMigrationStepEntryReferenceDataForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn target_entities(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "targetEntities")
+    }
+
+    pub fn set_target_entities(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "targetEntities", value);
+    }
+
+    pub fn value_set(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueSet")
+    }
+
+    pub fn set_value_set(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueSet", value);
+    }
+
+    pub fn identity_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "identityKey")
+    }
+
+    pub fn set_identity_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "identityKey", value);
+    }
+}
+
+/// SchemaMigrationStepEntrySchemaChangeForm is the generated section facade for the `schemaChange` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct SchemaMigrationStepEntrySchemaChangeForm {
+    pub node: som::SomNode,
+}
+
+impl SchemaMigrationStepEntrySchemaChangeForm {
+    /// Binds a SchemaMigrationStepEntrySchemaChangeForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> SchemaMigrationStepEntrySchemaChangeForm {
+        SchemaMigrationStepEntrySchemaChangeForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn schema_statements(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "schemaStatements")
+    }
+
+    pub fn set_schema_statements(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "schemaStatements", value);
     }
 
     pub fn affected_entities(&self) -> String {
@@ -191432,15 +192809,6 @@ impl SchemaVersioningAndMigrationContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn migration_tooling(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "migrationTooling")
-    }
-
-    pub fn set_migration_tooling(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "migrationTooling", value);
     }
 
     pub fn versioning_strategy(&self) -> String {
@@ -192785,6 +194153,72 @@ impl ScreenElementFieldSpecDateOptionsForm {
     }
 }
 
+/// ScreenElementFieldSpecFileOptionsForm is the generated section facade for the `fileOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenElementFieldSpecFileOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenElementFieldSpecFileOptionsForm {
+    /// Binds a ScreenElementFieldSpecFileOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenElementFieldSpecFileOptionsForm {
+        ScreenElementFieldSpecFileOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn accepted_content_kinds(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "acceptedContentKinds")
+    }
+
+    pub fn set_accepted_content_kinds(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "acceptedContentKinds", value);
+    }
+
+    pub fn max_file_size(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxFileSize")
+    }
+
+    pub fn set_max_file_size(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxFileSize", value);
+    }
+
+    pub fn presentation(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "presentation")
+    }
+
+    pub fn set_presentation(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "presentation", value);
+    }
+
+    pub fn upload_on_pick(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "uploadOnPick")
+    }
+
+    pub fn set_upload_on_pick(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "uploadOnPick", value);
+    }
+}
+
 /// ScreenElementFieldSpecFormattingForm is the generated section facade for the `formatting` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ScreenElementFieldSpecFormattingForm {
@@ -193676,6 +195110,54 @@ impl ScreenFieldEntryDataBindingForm {
     pub fn set_help_text(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "helpText", value);
+    }
+}
+
+/// ScreenFieldEntryFileConstraintsForm is the generated section facade for the `fileConstraints` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ScreenFieldEntryFileConstraintsForm {
+    pub node: som::SomNode,
+}
+
+impl ScreenFieldEntryFileConstraintsForm {
+    /// Binds a ScreenFieldEntryFileConstraintsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ScreenFieldEntryFileConstraintsForm {
+        ScreenFieldEntryFileConstraintsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn accepted_content_kinds(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "acceptedContentKinds")
+    }
+
+    pub fn set_accepted_content_kinds(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "acceptedContentKinds", value);
+    }
+
+    pub fn max_file_size(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "maxFileSize")
+    }
+
+    pub fn set_max_file_size(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "maxFileSize", value);
     }
 }
 
@@ -197990,6 +199472,101 @@ impl SelfRegistrationPolicyVerificationForm {
     }
 }
 
+/// ServerConfigurationSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerConfigurationSettingEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServerConfigurationSettingEntryContentForm {
+    /// Binds a ServerConfigurationSettingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerConfigurationSettingEntryContentForm {
+        ServerConfigurationSettingEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn setting_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "settingKey")
+    }
+
+    pub fn set_setting_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
+    }
+
+    pub fn value_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    }
+
+    pub fn set_value_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+    }
+
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+
+    pub fn environment_variable(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "environmentVariable")
+    }
+
+    pub fn set_environment_variable(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "environmentVariable", value);
+    }
+
+    pub fn command_line_option(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "commandLineOption")
+    }
+
+    pub fn set_command_line_option(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "commandLineOption", value);
+    }
+
+    pub fn secret(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "secret");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_secret(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "secret", &text);
+    }
+
+    pub fn overridable_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    }
+
+    pub fn set_overridable_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
+    }
+}
+
 /// ServerEnvironmentEntryAccessForm is the generated section facade for the `access` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ServerEnvironmentEntryAccessForm {
@@ -198294,6 +199871,205 @@ impl ServerEnvironmentEntryScaleForm {
     pub fn set_expected_load(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "expectedLoad", value);
+    }
+}
+
+/// ServerOperationEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerOperationEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationEntryContentForm {
+    /// Binds a ServerOperationEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationEntryContentForm {
+        ServerOperationEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn operation_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "operationName")
+    }
+
+    pub fn set_operation_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "operationName", value);
+    }
+
+    pub fn purpose(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
+    }
+
+    pub fn set_purpose(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "purpose", value);
+    }
+
+    pub fn primary_data_entity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "primaryDataEntity")
+    }
+
+    pub fn set_primary_data_entity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "primaryDataEntity", value);
+    }
+
+    pub fn authorization_requirement(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationRequirement")
+    }
+
+    pub fn set_authorization_requirement(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "authorizationRequirement", value);
+    }
+
+    pub fn required_roles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
+    }
+
+    pub fn set_required_roles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
+    }
+
+    pub fn required_resource_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requiredResourceKey")
+    }
+
+    pub fn set_required_resource_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requiredResourceKey", value);
+    }
+
+    pub fn description_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "descriptionKey")
+    }
+
+    pub fn set_description_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "descriptionKey", value);
+    }
+
+    pub fn error_codes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "errorCodes")
+    }
+
+    pub fn set_error_codes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "errorCodes", value);
+    }
+}
+
+/// ServerOperationMemberEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ServerOperationMemberEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl ServerOperationMemberEntryContentForm {
+    /// Binds a ServerOperationMemberEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ServerOperationMemberEntryContentForm {
+        ServerOperationMemberEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn member_name(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "memberName")
+    }
+
+    pub fn set_member_name(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "memberName", value);
+    }
+
+    pub fn member_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "memberType")
+    }
+
+    pub fn set_member_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "memberType", value);
+    }
+
+    pub fn multi_valued(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "multiValued");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_multi_valued(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "multiValued", &text);
+    }
+
+    pub fn required(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "required");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_required(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "required", &text);
+    }
+
+    pub fn data_entity(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "dataEntity")
+    }
+
+    pub fn set_data_entity(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "dataEntity", value);
+    }
+
+    pub fn domain_enum(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "domainEnum")
+    }
+
+    pub fn set_domain_enum(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "domainEnum", value);
+    }
+
+    pub fn description(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "description")
+    }
+
+    pub fn set_description(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 }
 
@@ -234232,6 +236008,72 @@ impl UserProvisioningToolsRoleManagementForm {
     }
 }
 
+/// UserSettingEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct UserSettingEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl UserSettingEntryContentForm {
+    /// Binds a UserSettingEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> UserSettingEntryContentForm {
+        UserSettingEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn setting_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "settingKey")
+    }
+
+    pub fn set_setting_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "settingKey", value);
+    }
+
+    pub fn value_type(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "valueType")
+    }
+
+    pub fn set_value_type(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "valueType", value);
+    }
+
+    pub fn default_value(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "defaultValue")
+    }
+
+    pub fn set_default_value(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "defaultValue", value);
+    }
+
+    pub fn overridable_by(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "overridableBy")
+    }
+
+    pub fn set_overridable_by(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "overridableBy", value);
+    }
+}
+
 /// UserTrainingRequirementsTrainingFormForm is the generated section facade for the `trainingForm` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct UserTrainingRequirementsTrainingFormForm {
@@ -238097,6 +239939,17 @@ impl WorkflowStepEntryContentForm {
         let path = self.node.path().to_string();
         let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
         self.node.doc().borrow_mut().set_form_field(&path, "isAutomatable", &text);
+    }
+
+    pub fn is_error_prone(&self) -> Option<bool> {
+        let v = self.node.doc().borrow().form_field_or(self.node.path(), "isErrorProne");
+        if v.is_empty() { None } else { Some(v == "true") }
+    }
+
+    pub fn set_is_error_prone(&self, value: Option<bool>) {
+        let path = self.node.path().to_string();
+        let text = match value { Some(true) => "true".to_string(), Some(false) => "false".to_string(), None => String::new() };
+        self.node.doc().borrow_mut().set_form_field(&path, "isErrorProne", &text);
     }
 
     pub fn average_duration(&self) -> String {

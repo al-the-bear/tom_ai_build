@@ -2030,6 +2030,10 @@ section-types:
     prefix: SEFST
     format: sefst-form
     description: "Text-kind options — a promoted `@OneOf` case (csmb6)."
+  sefsu:
+    prefix: SEFSU
+    format: sefsu-form
+    description: "File-kind options — a promoted `@OneOf` case (csrb8)."
   sefsv:
     prefix: SEFSV
     format: sefsv-form
@@ -2403,8 +2407,6 @@ section-types:
         max-count: 1
       prlaar:
         max-count: 1
-      reen-repo-lst:
-        max-count: 1
       exfoen-expo-lst:
         max-count: 1
       exteen-expo-lst:
@@ -2458,6 +2460,12 @@ section-types:
       rebe:
         max-count: 1
     description: Responsive design.
+  redf:
+    prefix: REDF
+    subsection-types:
+      reen-repo-lst:
+        max-count: 1
+    description: Report definitions — the CE-RP report projections over the domain model.
   refo:
     prefix: REFO
     format: refo-form
@@ -2622,6 +2630,8 @@ section-types:
       sefsv:
         max-count: 1
       sefss:
+        max-count: 1
+      sefsu:
         max-count: 1
     description: 10.2.1.n.m.k.2. Element Field Spec.
   sena:
@@ -3011,6 +3021,16 @@ form-types:
         description: Single/Multi
       - fieldname: displayMode
         description: Dropdown/Radio-Group/Chip-Group/Segmented-Button/Autocomplete/Dialog-Picker
+  sefsu-form:
+    fields:
+      - fieldname: acceptedContentKinds
+        description: "What may be chosen: a content-kind family (any/image/video/audio) and/or the accepted file extensions"
+      - fieldname: maxFileSize
+        description: "Largest file the field accepts, e.g. 10 MB"
+      - fieldname: presentation
+        description: "How the file is shown: link (name with affordances), dropzone (drop surface), or thumbnail (inline preview)"
+      - fieldname: uploadOnPick
+        description: Yes/No — whether choosing a file uploads it immediately or the form uploads it on save
   seddb-form:
     fields:
       - fieldname: refreshMode
@@ -3323,6 +3343,190 @@ form-types:
         description: Yes / No — support batch report generation
       - fieldname: maxConcurrentReports
         description: Maximum concurrent reports
+  exid-form:
+    fields:
+      - fieldname: description
+        description: Business purpose of this export
+      - fieldname: relatedDataEntities
+        description: IFM entity references included in export
+      - fieldname: dataSource
+        description: Data source or query reference
+      - fieldname: dataScope
+        description: Scope of exported data
+  exfifo-form:
+    fields:
+      - fieldname: fileNamingPattern
+        description: "Output filename pattern, e.g. orders_{date}.csv"
+      - fieldname: encoding
+        description: UTF-8 / UTF-16 / ISO-8859-1 / ASCII
+      - fieldname: lineEnding
+        description: CRLF / LF / CR
+  exde-form:
+    fields:
+      - fieldname: delimiter
+        description: "Column delimiter: Comma / Semicolon / Tab / Pipe"
+      - fieldname: quoteCharacter
+        description: Field quote character
+      - fieldname: headerRow
+        description: Yes / No — include column header row
+      - fieldname: headerStyle
+        description: Display-Labels / Field-Names / Custom-Mapping
+  exdafo-form:
+    fields:
+      - fieldname: dateFormat
+        description: "Date format, e.g. yyyy-MM-dd / ISO-8601"
+      - fieldname: numberFormat
+        description: Locale-default / US / EU / Raw
+      - fieldname: decimalSeparator
+        description: ". or ,"
+      - fieldname: currencyFormat
+        description: Symbol-prefix / Code-suffix / Raw-number
+      - fieldname: booleanTrueValue
+        description: "String value for true, e.g. 1, true, Yes"
+      - fieldname: booleanFalseValue
+        description: "String value for false, e.g. 0, false, No"
+      - fieldname: nullHandling
+        description: Empty-string / Null-literal / Custom-value
+  exse-form:
+    fields:
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP / BZIP2
+      - fieldname: encryptionEnabled
+        description: Yes / No
+      - fieldname: encryptionMethod
+        description: AES-256 / Password-Protected-ZIP / PGP / None
+  exou-form:
+    fields:
+      - fieldname: outputDestination
+        description: Download / File-Share / S3 / SFTP / API / Email
+      - fieldname: outputPath
+        description: Path or URL for destination
+      - fieldname: schedulingEnabled
+        description: Yes / No — can this export be scheduled
+      - fieldname: schedulingExpression
+        description: Cron-like expression for automated export
+  exac-form:
+    fields:
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific
+      - fieldname: requiredRoles
+        description: Roles permitted to run this export
+      - fieldname: auditLogging
+        description: Yes / No — log export executions
+      - fieldname: previewAvailable
+        description: Yes / No — allow user to preview
+      - fieldname: notes
+        description: Design notes
+  efmef-form:
+    fields:
+      - fieldname: displayOrder
+        description: Position in the export output (column order)
+      - fieldname: dataType
+        description: The field value type — selects the promoted output subsection.
+  efmefn-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Numeric output format, e.g. #,##0.00"
+      - fieldname: decimalSeparator
+        description: "Character used as the decimal mark, e.g. . or ,"
+  efmefd-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Temporal output format, e.g. dd.MM.yyyy"
+      - fieldname: timezoneHandling
+        description: UTC / Local / With-Offset
+  efmefb-form:
+    fields:
+      - fieldname: trueLiteral
+        description: "Emitted for true, e.g. true / Y / 1"
+      - fieldname: falseLiteral
+        description: "Emitted for false, e.g. false / N / 0"
+  efmefe-form:
+    fields:
+      - fieldname: emittedForm
+        description: Value-Id / Display-Label / Numeric-Ordinal
+      - fieldname: unmappedValueBehavior
+        description: Emit-Raw / Emit-Empty / Fail-Export
+  efmeft-form:
+    fields:
+      - fieldname: maxLength
+        description: Truncate output to this character length
+      - fieldname: padding
+        description: None / Left-Pad / Right-Pad for fixed-width output
+  efmet-form:
+    fields:
+      - fieldname: transformationRule
+        description: "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom"
+      - fieldname: transformationExpression
+        description: "Expression for transform, e.g. firstName + lastName"
+      - fieldname: valueMapping
+        description: "Value substitution map, e.g. ACTIVE→A, INACTIVE→I"
+  efmei-form:
+    fields:
+      - fieldname: defaultValue
+        description: Value to use when source is null/empty
+      - fieldname: includeInExport
+        description: Yes / No / Conditional
+      - fieldname: inclusionCondition
+        description: Condition for conditional inclusion
+  efmel-form:
+    fields:
+      - fieldname: paddingChar
+        description: "For fixed-width: padding character, e.g. space or 0"
+      - fieldname: paddingDirection
+        description: Left / Right for fixed-width formats
+      - fieldname: fixedWidth
+        description: Column width for fixed-width format exports
+      - fieldname: quoteAlways
+        description: Yes / No — always quote this field in CSV
+      - fieldname: notes
+        description: Design notes
+  etef-form:
+    fields:
+      - fieldname: description
+        description: Purpose and use cases for this template
+      - fieldname: encoding
+        description: Default encoding for this template
+      - fieldname: delimiter
+        description: Default delimiter
+      - fieldname: headerRow
+        description: Yes / No
+      - fieldname: dateFormat
+        description: Default date format
+      - fieldname: numberFormat
+        description: Default number format
+  exteenfi-form:
+    fields:
+      - fieldname: fieldSet
+        description: Comma-separated field names included in this template
+      - fieldname: defaultFilters
+        description: "Pre-applied filters, e.g. status=active"
+      - fieldname: defaultSortField
+        description: Default sort column
+      - fieldname: defaultSortDirection
+        description: Ascending / Descending
+  etel-form:
+    fields:
+      - fieldname: headerConfig
+        description: Header content template for PDF/Excel exports
+      - fieldname: footerConfig
+        description: Footer content template for PDF/Excel exports
+      - fieldname: brandingOverride
+        description: Template-specific branding (for PDF)
+      - fieldname: compressionFormat
+        description: None / ZIP / GZIP
+  etea-form:
+    fields:
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific
+      - fieldname: requiredRoles
+        description: Roles permitted to use this template
+      - fieldname: reusableAcrossReports
+        description: Yes / No — can this template be used by multiple reports/exports
+      - fieldname: version
+        description: "Template version, e.g. 1.0"
+      - fieldname: notes
+        description: Design notes
   reid-form:
     fields:
       - fieldname: description
@@ -3795,190 +3999,6 @@ form-types:
         description: Date this recipient is added
       - fieldname: effectiveTo
         description: Date this recipient is removed; empty = indefinite
-      - fieldname: notes
-        description: Design notes
-  exid-form:
-    fields:
-      - fieldname: description
-        description: Business purpose of this export
-      - fieldname: relatedDataEntities
-        description: IFM entity references included in export
-      - fieldname: dataSource
-        description: Data source or query reference
-      - fieldname: dataScope
-        description: Scope of exported data
-  exfifo-form:
-    fields:
-      - fieldname: fileNamingPattern
-        description: "Output filename pattern, e.g. orders_{date}.csv"
-      - fieldname: encoding
-        description: UTF-8 / UTF-16 / ISO-8859-1 / ASCII
-      - fieldname: lineEnding
-        description: CRLF / LF / CR
-  exde-form:
-    fields:
-      - fieldname: delimiter
-        description: "Column delimiter: Comma / Semicolon / Tab / Pipe"
-      - fieldname: quoteCharacter
-        description: Field quote character
-      - fieldname: headerRow
-        description: Yes / No — include column header row
-      - fieldname: headerStyle
-        description: Display-Labels / Field-Names / Custom-Mapping
-  exdafo-form:
-    fields:
-      - fieldname: dateFormat
-        description: "Date format, e.g. yyyy-MM-dd / ISO-8601"
-      - fieldname: numberFormat
-        description: Locale-default / US / EU / Raw
-      - fieldname: decimalSeparator
-        description: ". or ,"
-      - fieldname: currencyFormat
-        description: Symbol-prefix / Code-suffix / Raw-number
-      - fieldname: booleanTrueValue
-        description: "String value for true, e.g. 1, true, Yes"
-      - fieldname: booleanFalseValue
-        description: "String value for false, e.g. 0, false, No"
-      - fieldname: nullHandling
-        description: Empty-string / Null-literal / Custom-value
-  exse-form:
-    fields:
-      - fieldname: compressionFormat
-        description: None / ZIP / GZIP / BZIP2
-      - fieldname: encryptionEnabled
-        description: Yes / No
-      - fieldname: encryptionMethod
-        description: AES-256 / Password-Protected-ZIP / PGP / None
-  exou-form:
-    fields:
-      - fieldname: outputDestination
-        description: Download / File-Share / S3 / SFTP / API / Email
-      - fieldname: outputPath
-        description: Path or URL for destination
-      - fieldname: schedulingEnabled
-        description: Yes / No — can this export be scheduled
-      - fieldname: schedulingExpression
-        description: Cron-like expression for automated export
-  exac-form:
-    fields:
-      - fieldname: accessLevel
-        description: Public / Authenticated / Role-specific
-      - fieldname: requiredRoles
-        description: Roles permitted to run this export
-      - fieldname: auditLogging
-        description: Yes / No — log export executions
-      - fieldname: previewAvailable
-        description: Yes / No — allow user to preview
-      - fieldname: notes
-        description: Design notes
-  efmef-form:
-    fields:
-      - fieldname: displayOrder
-        description: Position in the export output (column order)
-      - fieldname: dataType
-        description: The field value type — selects the promoted output subsection.
-  efmefn-form:
-    fields:
-      - fieldname: formatPattern
-        description: "Numeric output format, e.g. #,##0.00"
-      - fieldname: decimalSeparator
-        description: "Character used as the decimal mark, e.g. . or ,"
-  efmefd-form:
-    fields:
-      - fieldname: formatPattern
-        description: "Temporal output format, e.g. dd.MM.yyyy"
-      - fieldname: timezoneHandling
-        description: UTC / Local / With-Offset
-  efmefb-form:
-    fields:
-      - fieldname: trueLiteral
-        description: "Emitted for true, e.g. true / Y / 1"
-      - fieldname: falseLiteral
-        description: "Emitted for false, e.g. false / N / 0"
-  efmefe-form:
-    fields:
-      - fieldname: emittedForm
-        description: Value-Id / Display-Label / Numeric-Ordinal
-      - fieldname: unmappedValueBehavior
-        description: Emit-Raw / Emit-Empty / Fail-Export
-  efmeft-form:
-    fields:
-      - fieldname: maxLength
-        description: Truncate output to this character length
-      - fieldname: padding
-        description: None / Left-Pad / Right-Pad for fixed-width output
-  efmet-form:
-    fields:
-      - fieldname: transformationRule
-        description: "Value transformation: None / Uppercase / Lowercase / Trim / Truncate(n) / Map / Concatenate / Calculate / Custom"
-      - fieldname: transformationExpression
-        description: "Expression for transform, e.g. firstName + lastName"
-      - fieldname: valueMapping
-        description: "Value substitution map, e.g. ACTIVE→A, INACTIVE→I"
-  efmei-form:
-    fields:
-      - fieldname: defaultValue
-        description: Value to use when source is null/empty
-      - fieldname: includeInExport
-        description: Yes / No / Conditional
-      - fieldname: inclusionCondition
-        description: Condition for conditional inclusion
-  efmel-form:
-    fields:
-      - fieldname: paddingChar
-        description: "For fixed-width: padding character, e.g. space or 0"
-      - fieldname: paddingDirection
-        description: Left / Right for fixed-width formats
-      - fieldname: fixedWidth
-        description: Column width for fixed-width format exports
-      - fieldname: quoteAlways
-        description: Yes / No — always quote this field in CSV
-      - fieldname: notes
-        description: Design notes
-  etef-form:
-    fields:
-      - fieldname: description
-        description: Purpose and use cases for this template
-      - fieldname: encoding
-        description: Default encoding for this template
-      - fieldname: delimiter
-        description: Default delimiter
-      - fieldname: headerRow
-        description: Yes / No
-      - fieldname: dateFormat
-        description: Default date format
-      - fieldname: numberFormat
-        description: Default number format
-  exteenfi-form:
-    fields:
-      - fieldname: fieldSet
-        description: Comma-separated field names included in this template
-      - fieldname: defaultFilters
-        description: "Pre-applied filters, e.g. status=active"
-      - fieldname: defaultSortField
-        description: Default sort column
-      - fieldname: defaultSortDirection
-        description: Ascending / Descending
-  etel-form:
-    fields:
-      - fieldname: headerConfig
-        description: Header content template for PDF/Excel exports
-      - fieldname: footerConfig
-        description: Footer content template for PDF/Excel exports
-      - fieldname: brandingOverride
-        description: Template-specific branding (for PDF)
-      - fieldname: compressionFormat
-        description: None / ZIP / GZIP
-  etea-form:
-    fields:
-      - fieldname: accessLevel
-        description: Public / Authenticated / Role-specific
-      - fieldname: requiredRoles
-        description: Roles permitted to use this template
-      - fieldname: reusableAcrossReports
-        description: Yes / No — can this template be used by multiple reports/exports
-      - fieldname: version
-        description: "Template version, e.g. 1.0"
       - fieldname: notes
         description: Design notes
   erhaco-erro-form:
@@ -5184,6 +5204,9 @@ document:
       optional: true
     prla:
       section-type: prla
+      optional: true
+    redf:
+      section-type: redf
       optional: true
     erhaco:
       section-type: erhaco

@@ -741,7 +741,7 @@
                 - triggers: `WorkflowTriggerEntry`
                   - content @Form(triggerName, triggerType, triggerSource, triggerCondition, frequency)
               - steps: `WorkflowStepEntry`
-                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
                 - systemsUsed: `WorkflowStepSystem`
                   - name
                 - inputs: `WorkflowInputEntry`
@@ -755,7 +755,7 @@
               - actors: `WorkflowActorEntry`
                 - content @Form(actorName, actorType, role, responsibilities, authorizationLevel, availabilityRequirements, skillRequirements, headcount)
                 - participatingSteps: `WorkflowStepEntry`
-                  - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+                  - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
                   - systemsUsed: `WorkflowStepSystem`
                     - name
                   - inputs: `WorkflowInputEntry`
@@ -774,30 +774,6 @@
                 - content @Form(decisionName, decisionCriteria, decisionMaker, outcomes, escalationPath, slaForDecision)
               - businessRules: `WorkflowBusinessRule`
                 - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-              - manualSteps: `WorkflowStepEntry`
-                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
-                - systemsUsed: `WorkflowStepSystem`
-                  - name
-                - inputs: `WorkflowInputEntry`
-                  - content @Form(inputName, inputType, source, format, isRequired, validationRules)
-                - outputs: `WorkflowOutputEntry`
-                  - content @Form(outputName, outputType, destination, format, retentionRequirements)
-                - businessRules: `WorkflowBusinessRule`
-                  - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-                - knownIssues: `WorkflowStepIssue`
-                  - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
-              - errorProneSteps: `WorkflowStepEntry`
-                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
-                - systemsUsed: `WorkflowStepSystem`
-                  - name
-                - inputs: `WorkflowInputEntry`
-                  - content @Form(inputName, inputType, source, format, isRequired, validationRules)
-                - outputs: `WorkflowOutputEntry`
-                  - content @Form(outputName, outputType, destination, format, retentionRequirements)
-                - businessRules: `WorkflowBusinessRule`
-                  - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-                - knownIssues: `WorkflowStepIssue`
-                  - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
               - exceptions: `WorkflowExceptions`
                 - content @description
                 - exceptions: `WorkflowExceptionEntry`
@@ -3783,7 +3759,7 @@
               - triggers: `WorkflowTriggerEntry`
                 - content @Form(triggerName, triggerType, triggerSource, triggerCondition, frequency)
             - steps: `WorkflowStepEntry`
-              - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+              - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
               - systemsUsed: `WorkflowStepSystem`
                 - name
               - inputs: `WorkflowInputEntry`
@@ -3797,7 +3773,7 @@
             - actors: `WorkflowActorEntry`
               - content @Form(actorName, actorType, role, responsibilities, authorizationLevel, availabilityRequirements, skillRequirements, headcount)
               - participatingSteps: `WorkflowStepEntry`
-                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
+                - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, isErrorProne, averageDuration)
                 - systemsUsed: `WorkflowStepSystem`
                   - name
                 - inputs: `WorkflowInputEntry`
@@ -3816,30 +3792,6 @@
               - content @Form(decisionName, decisionCriteria, decisionMaker, outcomes, escalationPath, slaForDecision)
             - businessRules: `WorkflowBusinessRule`
               - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-            - manualSteps: `WorkflowStepEntry`
-              - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
-              - systemsUsed: `WorkflowStepSystem`
-                - name
-              - inputs: `WorkflowInputEntry`
-                - content @Form(inputName, inputType, source, format, isRequired, validationRules)
-              - outputs: `WorkflowOutputEntry`
-                - content @Form(outputName, outputType, destination, format, retentionRequirements)
-              - businessRules: `WorkflowBusinessRule`
-                - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-              - knownIssues: `WorkflowStepIssue`
-                - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
-            - errorProneSteps: `WorkflowStepEntry`
-              - content @Form(stepName, stepNumber, description, responsibleActor, stepType, isManual, isAutomatable, averageDuration)
-              - systemsUsed: `WorkflowStepSystem`
-                - name
-              - inputs: `WorkflowInputEntry`
-                - content @Form(inputName, inputType, source, format, isRequired, validationRules)
-              - outputs: `WorkflowOutputEntry`
-                - content @Form(outputName, outputType, destination, format, retentionRequirements)
-              - businessRules: `WorkflowBusinessRule`
-                - content @Form(ruleName, ruleDescription, ruleLogic, ruleSource, exceptions)
-              - knownIssues: `WorkflowStepIssue`
-                - content @Form(issueName, issueDescription, frequency, impact, currentWorkaround)
             - exceptions: `WorkflowExceptions`
               - content @description
               - exceptions: `WorkflowExceptionEntry`
