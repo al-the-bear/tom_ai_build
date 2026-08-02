@@ -343,6 +343,19 @@ surface — pillar (a)/(b)):
   it like any other `@CodeSpecKind` value; the SOM `DomainEnumRegistry` (DOMEN)
   stays the single document-model authoring home for closed value sets, while
   the owning part determines where the generated enum lives.
+- **A domain enum holds no authored attributes of its own** — which is *why*
+  the realisation is a plain `enum` and not a holder class. Each attribute a
+  holder would have carried already belongs to something else, and belongs
+  there exclusively: the **value token** is the enum constant's own identifier
+  (there is no second `valueId` string that could drift from the name); the
+  **value label** is CE-TX copy, resolved through the message-key registry like
+  every other label — §1.2 consequence 1 names domain-enum value labels
+  explicitly, and §5.21 fixes the catalogued shape; the **description** is the
+  doc comment the generator writes above the enum and above each constant
+  (`codespecs_derivation_contract.md` §3.1.1); and a **default value** belongs
+  to the enum-typed member that has one — a CE-DB column, a CE-CF/CE-CC/CE-DS/
+  CE-UP setting, a CE-ST field — never to the enum, since two members of the
+  same type may default differently. Nothing is left for a holder to hold.
 - **CE-AZ is a modifier**, applied as a `@CsAuthorize` attribute on the owning
   `@CsEndpoint`.
 - **Settings parts are owner-keyed and single-moded.** Each configuration/
@@ -3905,7 +3918,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
 | `csrb8` | Add a **file / upload semantic kind** to the CE-EL closed catalogue (§5.18). The catalogue's ten kinds have no file arm, while the SOM already offers `ScreenElementFieldKind.file` and `ScreenFieldKind.file` — so a file input can be specified but not realised. Pairs with §5.13.1: CE-DB now stores the reference, CE-EL still cannot present it. |
 | `csrb9` | Author the **setting-declaration surface for all four config scopes** — CE-CF / CE-CC / CE-DS / CE-UP (§8.5 gap, §5.16 surface). Today CE-CF has only operational policy, CE-CC a fixed five-field form, CE-DS a single non-repeating form and CE-UP a picker UX section. |
 | `csrb10` | Give **CE-API** the application's own operation surface (§8.5 gap). Its only homes describe *external* interfaces, are unreachable from `D13CodeSpecsProjection`, and carry an `httpMethod` field that contradicts §5.14/§7's fixed POST. |

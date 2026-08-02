@@ -332,8 +332,8 @@ this slice.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list. Consumed: the enum's designated name field, its description, and each value's name + description. |
-| **2 Output** | A **plain Dart `enum`** — no superclass, no `tom_core` basis; §4.1 records `domainEnum` as a *member kind*, so there is nothing to build on. Doc comments carry the descriptions. Emitted only into `shared` **iff** a shared contract type references it (§4.1); otherwise into the single project that does. |
+| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list. Consumed: the enum's designated name field, its description, and each value's name + description. **Value *labels* are not consumed here** — display copy for a domain-enum value is CE-TX, catalogued in the message-key registry like every other label (`codespecs_mapping.md` §1.2 consequence 1, §5.21), so it reaches code through §3.1.3, not through this entry. |
+| **2 Output** | A **plain Dart `enum`** — no superclass, no `tom_core` basis; §4.1 records `domainEnum` as a *member kind*, so there is nothing to build on. Doc comments carry the descriptions. **No enhanced-enum members are emitted**: the constant's identifier *is* the value token, the display label is CE-TX copy (see point 1) and a default belongs to the enum-typed member, so the enum has no field to hold (`codespecs_mapping.md` §4.1). Emitted only into `shared` **iff** a shared contract type references it (§4.1); otherwise into the single project that does. |
 | **3 Arguments** | None. `@CsEnum({String? note})` is unchanged: the enum's name and its complete value list are the declaration (test **a**). |
 | **4 Naming** | Enum type = PascalCase of `DMENE`'s name field; each constant = camelCase of `DMEVA`'s name field. N6 applies per constant (`default` → `defaultDomainEnum`). |
 | **5 Locus** | `shared` when any shared contract type (CE-API DTO, CE-ER, CE-RP envelope) names it; otherwise the referencing project. A domain enum referenced from **both** client and server is shared by that rule, never duplicated. |
@@ -1055,6 +1055,11 @@ have carried is already held by the declaration (test **a**) or by a substrate
 constructor (test **b**). `@CsReport` is the clearest case — §5.28's 22-row
 surface is large, and *all* of it landed on `TomReportDefinition` and its
 dimension/measure members, leaving the marker nothing to hold.
+
+`@CsEnum` is the opposite extreme and the only marker with **no substrate at
+all**: there is nothing on either side of the test, because a domain enum has no
+authored attribute of its own (§3.1.1, `codespecs_mapping.md` §4.1). It is
+note-only *and* generates a plain `enum` for the same reason.
 
 ### 5.3 Value classes and closed enums `tom_code_specs` must add
 
