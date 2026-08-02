@@ -5064,10 +5064,17 @@ AssumptionConstraintDependencyRegister assumptions_constraints_dependencies_regi
 
 // 9.6. Audit and Logging.
 //
-// Security audit and event logging requirements covering security event
-// definitions, audit log format and structure, and compliance reporting.
-// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
-// Computer Security Log Management).
+// Security audit and event logging **declarations**: which security events are
+// captured (CE-LG) and how the log sink is configured (CE-CF). Aligns with
+// OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log
+// Management).
+//
+// A purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a
+// `D13CodeSpecsProjection` root at the server locus. The operational half —
+// the review, reporting and anomaly-detection routines run against the log —
+// is the sibling `ComplianceReporting` follow-up under
+// `SecurityOperationsFollowUp`, deliberately outside this subtree so the
+// generation projection cannot reach it.
 // Binds a AuditAndLogging facade to a document and a path (path copied).
 void audit_and_logging_init(AuditAndLogging *self, SpecDocument *doc, const char *path);
 void audit_and_logging_free(AuditAndLogging *self);
@@ -5075,12 +5082,10 @@ void audit_and_logging_free(AuditAndLogging *self);
 int audit_and_logging_can_have_content(const AuditAndLogging *self);
 char *audit_and_logging_content(const AuditAndLogging *self);
 void audit_and_logging_set_content(AuditAndLogging *self, const char *value);
-// 9.6.1. Security Events.
+// 9.6.1. Security Events — the CE-LG declared half.
 SecurityEventsDefinition audit_and_logging_security_events(const AuditAndLogging *self);
-// 9.6.2. Audit Log Format.
+// 9.6.2. Audit Log Format — the CE-CF log-sink settings.
 AuditLogFormat audit_and_logging_audit_log_format(const AuditAndLogging *self);
-// 9.6.3. Compliance Reporting.
-ComplianceReporting audit_and_logging_compliance_reporting(const AuditAndLogging *self);
 
 // An audit entry.
 // Binds a AuditEntry facade to a document and a path (path copied).
@@ -6959,6 +6964,14 @@ ComplianceMilestoneEntryContentForm compliance_milestone_entry_content(const Com
 //
 // Describes compliance reporting requirements: periodic access reviews,
 // privilege usage reports, anomaly detection, and regulatory audit support.
+//
+// A **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under
+// `SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`
+// CodeSpecs subtree. Everything here is a routine run *against* an existing
+// audit log — reviewing it on a cadence, reporting privileged use from it,
+// watching it for anomalies, producing evidence from it for a regulator.
+// None of it is a declaration a generator can read: the log the routines
+// consume is declared by CE-LG and configured by CE-CF next door.
 // Binds a ComplianceReporting facade to a document and a path (path copied).
 void compliance_reporting_init(ComplianceReporting *self, SpecDocument *doc, const char *path);
 void compliance_reporting_free(ComplianceReporting *self);
@@ -8519,12 +8532,21 @@ ResourceProtection d08_security_access_specification_resource_protection(const D
 UserAuthorization d08_security_access_specification_user_authorization(const D08SecurityAccessSpecification *self);
 // Sensitive data encryption.
 SensitiveDataEncryption d08_security_access_specification_sensitive_data_encryption(const D08SecurityAccessSpecification *self);
-// Audit and logging.
+// Audit and logging — the CE-LG / CE-CF declarations.
 AuditAndLogging d08_security_access_specification_audit_and_logging(const D08SecurityAccessSpecification *self);
 // Role matrix.
 RoleMatrix d08_security_access_specification_role_matrix(const D08SecurityAccessSpecification *self);
 // Compliance framework.
 ComplianceFramework d08_security_access_specification_compliance_framework(const D08SecurityAccessSpecification *self);
+// Compliance reporting — the review / reporting routines run against the
+// audit log.
+//
+// Projected directly rather than through `AuditAndLogging`: the audit
+// section was split so its CodeSpecs bands can be a generation-projection
+// root, which put this follow-up subtree under `SecurityOperationsFollowUp`
+// (`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches
+// it here.
+ComplianceReporting d08_security_access_specification_compliance_reporting(const D08SecurityAccessSpecification *self);
 
 // XDS00 Experience Design Specification.
 //
@@ -8860,6 +8882,16 @@ DataModel d13_code_specs_projection_data_model(const D13CodeSpecsProjection *sel
 TechnicalFrameworkConcept d13_code_specs_projection_technical_framework(const D13CodeSpecsProjection *self);
 // Access control model — CE-AZ authorization/identity seed.
 AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsProjection *self);
+// Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+//
+// Both bands are server-side and both are authored input: CE-LG declares
+// *what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`
+// beside the framework's `@TomAudited`), CE-CF configures the sink that
+// receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
+// operational half — the review, reporting and anomaly-detection routines
+// run against the log — is a follow-up subtree under
+// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsProjection *self);
 // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
 // interaction; a single subtree whose parts split across both loci.
 ProcessStepsAndActorInteractions d13_code_specs_projection_process_steps_and_actor_interactions(const D13CodeSpecsProjection *self);
@@ -20185,9 +20217,11 @@ char *security_and_access_model_content(const SecurityAndAccessModel *self);
 void security_and_access_model_set_content(SecurityAndAccessModel *self, const char *value);
 // 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
 AccessControlModel security_and_access_model_access_control(const SecurityAndAccessModel *self);
-// 9.2. Security Operations — OPS follow-up subtree.
+// 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
+AuditAndLogging security_and_access_model_audit_and_logging(const SecurityAndAccessModel *self);
+// 9.3. Security Operations — OPS follow-up subtree.
 SecurityOperationsFollowUp security_and_access_model_security_operations(const SecurityAndAccessModel *self);
-// 9.3. Compliance — CMP follow-up subtree.
+// 9.4. Compliance — CMP follow-up subtree.
 SecurityComplianceFollowUp security_and_access_model_compliance(const SecurityAndAccessModel *self);
 
 // A security audit requirement entry (form).
@@ -20395,9 +20429,16 @@ SomList security_events_definition_custom_events(const SecurityEventsDefinition 
 // SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 //
 // Groups the operational security concerns that are **follow-up** (key
-// management and audit/logging operations), not CodeSpecs-generated behaviour
-// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
-// whole subtree is generation-owned-out.
+// management and the routines run *against* the audit log), not
+// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
+// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+//
+// The audit log's *declarations* are not here: which events are auditable and
+// how the sink is configured are the CE-LG / CE-CF bands, which live in the
+// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
+// `ComplianceReporting` — periodic access review, privilege-usage reporting,
+// anomaly detection and regulatory audit support are processes people run, not
+// code a generator emits.
 // Binds a SecurityOperationsFollowUp facade to a document and a path (path copied).
 void security_operations_follow_up_init(SecurityOperationsFollowUp *self, SpecDocument *doc, const char *path);
 void security_operations_follow_up_free(SecurityOperationsFollowUp *self);
@@ -20405,10 +20446,10 @@ void security_operations_follow_up_free(SecurityOperationsFollowUp *self);
 int security_operations_follow_up_can_have_content(const SecurityOperationsFollowUp *self);
 char *security_operations_follow_up_content(const SecurityOperationsFollowUp *self);
 void security_operations_follow_up_set_content(SecurityOperationsFollowUp *self, const char *value);
-// 9.2.1. Sensitive Data Encryption.
+// 9.3.1. Sensitive Data Encryption.
 SensitiveDataEncryption security_operations_follow_up_encryption(const SecurityOperationsFollowUp *self);
-// 9.2.2. Audit and Logging.
-AuditAndLogging security_operations_follow_up_audit_and_logging(const SecurityOperationsFollowUp *self);
+// 9.3.2. Compliance Reporting.
+ComplianceReporting security_operations_follow_up_compliance_reporting(const SecurityOperationsFollowUp *self);
 
 // A security requirement entry.
 //

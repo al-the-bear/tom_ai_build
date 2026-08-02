@@ -308,21 +308,21 @@
       - logRetention: `LogRetentionPolicy`
         - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
           notes @text
-    - `ComplianceReporting`
-      - content, notes @text
-      - periodicReviews: `PeriodicReviewPolicy`
-        - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
-          notes @text
-      - privilegeUsageReports: `PrivilegeUsageReporting`
-        - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
-          notes @text
-      - anomalyDetection: `AnomalyDetectionPolicy`
-        - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
-          notes @text
-      - `RegulatoryAuditSupport`
-        - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
-          notes @text
   - `RoleMatrix`
     - content
   - `ComplianceFramework`
     - content
+  - `ComplianceReporting`
+    - content, notes @text
+    - periodicReviews: `PeriodicReviewPolicy`
+      - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+        notes @text
+    - privilegeUsageReports: `PrivilegeUsageReporting`
+      - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
+        notes @text
+    - anomalyDetection: `AnomalyDetectionPolicy`
+      - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
+        notes @text
+    - `RegulatoryAuditSupport`
+      - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
+        notes @text

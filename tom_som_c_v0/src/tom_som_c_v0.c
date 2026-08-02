@@ -2475,13 +2475,6 @@ AuditLogFormat audit_and_logging_audit_log_format(const AuditAndLogging *self) {
   free(path);
   return out;
 }
-ComplianceReporting audit_and_logging_compliance_reporting(const AuditAndLogging *self) {
-  char *path = spec_path_join(self->node.path, "complianceReporting");
-  ComplianceReporting out;
-  compliance_reporting_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
 
 void audit_entry_init(AuditEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -10634,6 +10627,13 @@ ComplianceFramework d08_security_access_specification_compliance_framework(const
   free(path);
   return out;
 }
+ComplianceReporting d08_security_access_specification_compliance_reporting(const D08SecurityAccessSpecification *self) {
+  char *path = spec_path_join(self->node.path, "complianceReporting");
+  ComplianceReporting out;
+  compliance_reporting_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 int d09_experience_design_specification_new(D09ExperienceDesignSpecification *self, SpecDocument *doc, const char *document_version, char **err) {
   if (check_som_model_version(D09_EXPERIENCE_DESIGN_SPECIFICATION_MODEL_VERSION, document_version, err) != 0) {
@@ -11386,6 +11386,13 @@ AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsPr
   char *path = spec_path_join(self->node.path, "accessControl");
   AccessControlModel out;
   access_control_model_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsProjection *self) {
+  char *path = spec_path_join(self->node.path, "auditAndLogging");
+  AuditAndLogging out;
+  audit_and_logging_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -37323,6 +37330,13 @@ AccessControlModel security_and_access_model_access_control(const SecurityAndAcc
   free(path);
   return out;
 }
+AuditAndLogging security_and_access_model_audit_and_logging(const SecurityAndAccessModel *self) {
+  char *path = spec_path_join(self->node.path, "auditAndLogging");
+  AuditAndLogging out;
+  audit_and_logging_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 SecurityOperationsFollowUp security_and_access_model_security_operations(const SecurityAndAccessModel *self) {
   char *path = spec_path_join(self->node.path, "securityOperations");
   SecurityOperationsFollowUp out;
@@ -37827,10 +37841,10 @@ SensitiveDataEncryption security_operations_follow_up_encryption(const SecurityO
   free(path);
   return out;
 }
-AuditAndLogging security_operations_follow_up_audit_and_logging(const SecurityOperationsFollowUp *self) {
-  char *path = spec_path_join(self->node.path, "auditAndLogging");
-  AuditAndLogging out;
-  audit_and_logging_init(&out, self->node.doc, path);
+ComplianceReporting security_operations_follow_up_compliance_reporting(const SecurityOperationsFollowUp *self) {
+  char *path = spec_path_join(self->node.path, "complianceReporting");
+  ComplianceReporting out;
+  compliance_reporting_init(&out, self->node.doc, path);
   free(path);
   return out;
 }

@@ -972,9 +972,6 @@ SecurityEventsDefinition AuditAndLogging::securityEvents() const {
 AuditLogFormat AuditAndLogging::auditLogFormat() const {
   return AuditLogFormat(doc(), som::joinPath(path(), "auditLogFormat"));
 }
-ComplianceReporting AuditAndLogging::complianceReporting() const {
-  return ComplianceReporting(doc(), som::joinPath(path(), "complianceReporting"));
-}
 
 AuditEntry::AuditEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -4332,6 +4329,9 @@ RoleMatrix D08SecurityAccessSpecification::roleMatrix() const {
 ComplianceFramework D08SecurityAccessSpecification::complianceFramework() const {
   return ComplianceFramework(doc(), som::joinPath(path(), "complianceFramework"));
 }
+ComplianceReporting D08SecurityAccessSpecification::complianceReporting() const {
+  return ComplianceReporting(doc(), som::joinPath(path(), "complianceReporting"));
+}
 
 D09ExperienceDesignSpecification::D09ExperienceDesignSpecification(som::SpecDocument& doc, const std::string& documentVersion)
     : som::SomNode(doc, "XDS") {
@@ -4711,6 +4711,9 @@ TechnicalFrameworkConcept D13CodeSpecsProjection::technicalFramework() const {
 }
 AccessControlModel D13CodeSpecsProjection::accessControl() const {
   return AccessControlModel(doc(), som::joinPath(path(), "accessControl"));
+}
+AuditAndLogging D13CodeSpecsProjection::auditAndLogging() const {
+  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
 }
 ProcessStepsAndActorInteractions D13CodeSpecsProjection::processStepsAndActorInteractions() const {
   return ProcessStepsAndActorInteractions(doc(), som::joinPath(path(), "processStepsAndActorInteractions"));
@@ -14828,6 +14831,9 @@ void SecurityAndAccessModel::setContent(const std::string& value) {
 AccessControlModel SecurityAndAccessModel::accessControl() const {
   return AccessControlModel(doc(), som::joinPath(path(), "accessControl"));
 }
+AuditAndLogging SecurityAndAccessModel::auditAndLogging() const {
+  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
+}
 SecurityOperationsFollowUp SecurityAndAccessModel::securityOperations() const {
   return SecurityOperationsFollowUp(doc(), som::joinPath(path(), "securityOperations"));
 }
@@ -15026,8 +15032,8 @@ void SecurityOperationsFollowUp::setContent(const std::string& value) {
 SensitiveDataEncryption SecurityOperationsFollowUp::encryption() const {
   return SensitiveDataEncryption(doc(), som::joinPath(path(), "encryption"));
 }
-AuditAndLogging SecurityOperationsFollowUp::auditAndLogging() const {
-  return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
+ComplianceReporting SecurityOperationsFollowUp::complianceReporting() const {
+  return ComplianceReporting(doc(), som::joinPath(path(), "complianceReporting"));
 }
 
 SecurityRequirementEntry::SecurityRequirementEntry(som::SpecDocument& doc, std::string path)

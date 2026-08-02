@@ -1559,7 +1559,6 @@ static void meta_build_assumptions_constraints_dependencies_register(SomMetaNode
 static void meta_build_audit_and_logging_content(SomMetaNode *n);
 static void meta_build_audit_and_logging_security_events(SomMetaNode *n);
 static void meta_build_audit_and_logging_audit_log_format(SomMetaNode *n);
-static void meta_build_audit_and_logging_compliance_reporting(SomMetaNode *n);
 static void meta_build_audit_entry_content(SomMetaNode *n);
 static void meta_build_audit_evidence_requirements_content(SomMetaNode *n);
 static void meta_build_audit_evidence_requirements_evidence_types(SomMetaNode *n);
@@ -2494,6 +2493,7 @@ static void meta_build_d08_security_access_specification_sensitive_data_encrypti
 static void meta_build_d08_security_access_specification_audit_and_logging(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_role_matrix(SomMetaNode *n);
 static void meta_build_d08_security_access_specification_compliance_framework(SomMetaNode *n);
+static void meta_build_d08_security_access_specification_compliance_reporting(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_content(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_header(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_design_vision(SomMetaNode *n);
@@ -2565,6 +2565,7 @@ static void meta_build_d13_code_specs_projection_notification_model(SomMetaNode 
 static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNode *n);
 static void meta_build_dashboard_entry_content(SomMetaNode *n);
@@ -5477,6 +5478,7 @@ static void meta_build_security_compliance(SomMetaNode *n);
 static void meta_build_security_narrative(SomMetaNode *n);
 static void meta_build_security_and_access_model_content(SomMetaNode *n);
 static void meta_build_security_and_access_model_access_control(SomMetaNode *n);
+static void meta_build_security_and_access_model_audit_and_logging(SomMetaNode *n);
 static void meta_build_security_and_access_model_security_operations(SomMetaNode *n);
 static void meta_build_security_and_access_model_compliance(SomMetaNode *n);
 static void meta_build_security_audit_entry_content(SomMetaNode *n);
@@ -5531,7 +5533,7 @@ static void meta_build_security_events_definition_custom_events(SomMetaNode *n);
 static void meta_build_security_events_definition_custom_events_elem(SomMetaNode *n);
 static void meta_build_security_operations_follow_up_content(SomMetaNode *n);
 static void meta_build_security_operations_follow_up_encryption(SomMetaNode *n);
-static void meta_build_security_operations_follow_up_audit_and_logging(SomMetaNode *n);
+static void meta_build_security_operations_follow_up_compliance_reporting(SomMetaNode *n);
 static void meta_build_security_requirement_entry_content(SomMetaNode *n);
 static void meta_build_security_requirement_entry_classification(SomMetaNode *n);
 static void meta_build_security_requirement_entry_compliance(SomMetaNode *n);
@@ -18470,7 +18472,7 @@ static void meta_build_audit_and_logging_security_events(SomMetaNode *n) {
   meta_set(&n->type_name, "SecurityEventsDefinition");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "9.6.1. Security Events.");
+  meta_set(&n->doc_comment, "9.6.1. Security Events — the CE-LG declared half.");
   meta_set(&n->class_doc_comment, "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.");
 }
 static void meta_build_audit_and_logging_audit_log_format(SomMetaNode *n) {
@@ -18481,19 +18483,8 @@ static void meta_build_audit_and_logging_audit_log_format(SomMetaNode *n) {
   meta_set(&n->type_name, "AuditLogFormat");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "9.6.2. Audit Log Format.");
+  meta_set(&n->doc_comment, "9.6.2. Audit Log Format — the CE-CF log-sink settings.");
   meta_set(&n->class_doc_comment, "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.");
-}
-static void meta_build_audit_and_logging_compliance_reporting(SomMetaNode *n) {
-  meta_set(&n->class_name, "ComplianceReporting");
-  meta_set(&n->member_name, "complianceReporting");
-  meta_set(&n->class_section_id, "COMREP");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ComplianceReporting");
-  n->has_serialization_order = 1;
-  n->serialization_order = 3;
-  meta_set(&n->doc_comment, "9.6.3. Compliance Reporting.");
-  meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.");
 }
 static void meta_build_audit_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AuditEntry");
@@ -40080,8 +40071,8 @@ static void meta_build_d08_security_access_specification_audit_and_logging(SomMe
   meta_set(&n->type_name, "AuditAndLogging");
   n->has_serialization_order = 1;
   n->serialization_order = 7;
-  meta_set(&n->doc_comment, "Audit and logging.");
-  meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).");
+  meta_set(&n->doc_comment, "Audit and logging — the CE-LG / CE-CF declarations.");
+  meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
 static void meta_build_d08_security_access_specification_role_matrix(SomMetaNode *n) {
@@ -40107,6 +40098,17 @@ static void meta_build_d08_security_access_specification_compliance_framework(So
   meta_set(&n->doc_comment, "Compliance framework.");
   meta_set(&n->class_doc_comment, "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
+}
+static void meta_build_d08_security_access_specification_compliance_reporting(SomMetaNode *n) {
+  meta_set(&n->class_name, "ComplianceReporting");
+  meta_set(&n->member_name, "complianceReporting");
+  meta_set(&n->class_section_id, "COMREP");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ComplianceReporting");
+  n->has_serialization_order = 1;
+  n->serialization_order = 10;
+  meta_set(&n->doc_comment, "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.");
+  meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.");
 }
 static void meta_build_d09_experience_design_specification_content(SomMetaNode *n) {
   meta_set(&n->class_name, "D09ExperienceDesignSpecification");
@@ -40970,6 +40972,19 @@ static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n) 
   meta_set(&n->doc_comment, "Access control model — CE-AZ authorization/identity seed.");
   meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
 }
+static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuditAndLogging");
+  meta_set(&n->member_name, "auditAndLogging");
+  meta_set(&n->class_section_id, "AUANLO");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuditAndLogging");
+  n->has_serialization_order = 1;
+  n->serialization_order = 10;
+  meta_set(&n->comment, "locus: server — CE-LG/CE-CF");
+  meta_set(&n->doc_comment, "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.");
+  meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
+  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
+}
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
   meta_set(&n->member_name, "processStepsAndActorInteractions");
@@ -40977,7 +40992,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsAndActorInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
@@ -40990,7 +41005,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceCodeSpecs");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
@@ -119765,6 +119780,18 @@ static void meta_build_security_and_access_model_access_control(SomMetaNode *n) 
   meta_set(&n->doc_comment, "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.");
   meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.");
 }
+static void meta_build_security_and_access_model_audit_and_logging(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuditAndLogging");
+  meta_set(&n->member_name, "auditAndLogging");
+  meta_set(&n->class_section_id, "AUANLO");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuditAndLogging");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.");
+  meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
+  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
+}
 static void meta_build_security_and_access_model_security_operations(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityOperationsFollowUp");
   meta_set(&n->member_name, "securityOperations");
@@ -119772,9 +119799,9 @@ static void meta_build_security_and_access_model_security_operations(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityOperationsFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
-  meta_set(&n->doc_comment, "9.2. Security Operations — OPS follow-up subtree.");
-  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.");
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "9.3. Security Operations — OPS follow-up subtree.");
+  meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.");
 }
 static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityComplianceFollowUp");
@@ -119783,8 +119810,8 @@ static void meta_build_security_and_access_model_compliance(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityComplianceFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
-  meta_set(&n->doc_comment, "9.3. Compliance — CMP follow-up subtree.");
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "9.4. Compliance — CMP follow-up subtree.");
   meta_set(&n->class_doc_comment, "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.");
 }
 static void meta_build_security_audit_entry_content(SomMetaNode *n) {
@@ -120960,7 +120987,7 @@ static void meta_build_security_operations_follow_up_content(SomMetaNode *n) {
   n->serialization_order = 0;
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("description");
-  n->content_type->description = som_strdup("Summarize the operational security follow-up: encryption / key management and audit / logging.");
+  n->content_type->description = som_strdup("Summarize the operational security follow-up: encryption / key management and audit review / reporting routines.");
 }
 static void meta_build_security_operations_follow_up_encryption(SomMetaNode *n) {
   meta_set(&n->class_name, "SensitiveDataEncryption");
@@ -120970,21 +120997,20 @@ static void meta_build_security_operations_follow_up_encryption(SomMetaNode *n) 
   meta_set(&n->type_name, "SensitiveDataEncryption");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "9.2.1. Sensitive Data Encryption.");
+  meta_set(&n->doc_comment, "9.3.1. Sensitive Data Encryption.");
   meta_set(&n->class_doc_comment, "9.5. Sensitive Data Encryption.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
-static void meta_build_security_operations_follow_up_audit_and_logging(SomMetaNode *n) {
-  meta_set(&n->class_name, "AuditAndLogging");
-  meta_set(&n->member_name, "auditAndLogging");
-  meta_set(&n->class_section_id, "AUANLO");
+static void meta_build_security_operations_follow_up_compliance_reporting(SomMetaNode *n) {
+  meta_set(&n->class_name, "ComplianceReporting");
+  meta_set(&n->member_name, "complianceReporting");
+  meta_set(&n->class_section_id, "COMREP");
   n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "AuditAndLogging");
+  meta_set(&n->type_name, "ComplianceReporting");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "9.2.2. Audit and Logging.");
-  meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).");
-  meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
+  meta_set(&n->doc_comment, "9.3.2. Compliance Reporting.");
+  meta_set(&n->class_doc_comment, "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.");
 }
 static void meta_build_security_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityRequirementEntry");
@@ -155303,7 +155329,6 @@ static SomMetaNode **meta_children_audit_and_logging(SomStrList *stack, size_t *
   }
   meta_push(&arr, len, &cap, meta_cx("SecurityEventsDefinition", stack, meta_children_security_events_definition, meta_build_audit_and_logging_security_events));
   meta_push(&arr, len, &cap, meta_cx("AuditLogFormat", stack, meta_children_audit_log_format, meta_build_audit_and_logging_audit_log_format));
-  meta_push(&arr, len, &cap, meta_cx("ComplianceReporting", stack, meta_children_compliance_reporting, meta_build_audit_and_logging_compliance_reporting));
   return arr;
 }
 
@@ -160093,6 +160118,7 @@ static SomMetaNode **meta_children_d08_security_access_specification(SomStrList 
   meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_d08_security_access_specification_audit_and_logging));
   meta_push(&arr, len, &cap, meta_cx("RoleMatrix", stack, meta_children_role_matrix, meta_build_d08_security_access_specification_role_matrix));
   meta_push(&arr, len, &cap, meta_cx("ComplianceFramework", stack, meta_children_compliance_framework, meta_build_d08_security_access_specification_compliance_framework));
+  meta_push(&arr, len, &cap, meta_cx("ComplianceReporting", stack, meta_children_compliance_reporting, meta_build_d08_security_access_specification_compliance_reporting));
   return arr;
 }
 
@@ -160223,6 +160249,7 @@ static SomMetaNode **meta_children_d13_code_specs_projection(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("DataModel", stack, meta_children_data_model, meta_build_d13_code_specs_projection_data_model));
   meta_push(&arr, len, &cap, meta_cx("TechnicalFrameworkConcept", stack, meta_children_technical_framework_concept, meta_build_d13_code_specs_projection_technical_framework));
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_d13_code_specs_projection_access_control));
+  meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_d13_code_specs_projection_audit_and_logging));
   meta_push(&arr, len, &cap, meta_cx("ProcessStepsAndActorInteractions", stack, meta_children_process_steps_and_actor_interactions, meta_build_d13_code_specs_projection_process_steps_and_actor_interactions));
   meta_push(&arr, len, &cap, meta_cx("ExperienceCodeSpecs", stack, meta_children_experience_code_specs, meta_build_d13_code_specs_projection_experience_code_specs));
   return arr;
@@ -177469,6 +177496,7 @@ static SomMetaNode **meta_children_security_and_access_model(SomStrList *stack, 
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_security_and_access_model_access_control));
+  meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_security_and_access_model_audit_and_logging));
   meta_push(&arr, len, &cap, meta_cx("SecurityOperationsFollowUp", stack, meta_children_security_operations_follow_up, meta_build_security_and_access_model_security_operations));
   meta_push(&arr, len, &cap, meta_cx("SecurityComplianceFollowUp", stack, meta_children_security_compliance_follow_up, meta_build_security_and_access_model_compliance));
   return arr;
@@ -177757,7 +177785,7 @@ static SomMetaNode **meta_children_security_operations_follow_up(SomStrList *sta
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("SensitiveDataEncryption", stack, meta_children_sensitive_data_encryption, meta_build_security_operations_follow_up_encryption));
-  meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_security_operations_follow_up_audit_and_logging));
+  meta_push(&arr, len, &cap, meta_cx("ComplianceReporting", stack, meta_children_compliance_reporting, meta_build_security_operations_follow_up_compliance_reporting));
   return arr;
 }
 
@@ -187225,13 +187253,6 @@ som_nav_audit_log_format audit_and_logging_nav_audit_log_format(som_nav_audit_an
   free(path);
   return out;
 }
-som_nav_compliance_reporting audit_and_logging_nav_compliance_reporting(som_nav_audit_and_logging x) {
-  som_nav_compliance_reporting out;
-  char *path = spec_path_join(x.ref.path, "complianceReporting");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
 SomMetaRef audit_entry_nav_content(som_nav_audit_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -193049,6 +193070,13 @@ som_nav_compliance_framework d08_security_access_specification_nav_compliance_fr
   free(path);
   return out;
 }
+som_nav_compliance_reporting d08_security_access_specification_nav_compliance_reporting(som_nav_d08_security_access_specification x) {
+  som_nav_compliance_reporting out;
+  char *path = spec_path_join(x.ref.path, "complianceReporting");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef d09_experience_design_specification_nav_content(som_nav_d09_experience_design_specification x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -193535,6 +193563,13 @@ som_nav_technical_framework_concept d13_code_specs_projection_nav_technical_fram
 som_nav_access_control_model d13_code_specs_projection_nav_access_control(som_nav_d13_code_specs_projection x) {
   som_nav_access_control_model out;
   char *path = spec_path_join(x.ref.path, "accessControl");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_audit_and_logging d13_code_specs_projection_nav_audit_and_logging(som_nav_d13_code_specs_projection x) {
+  som_nav_audit_and_logging out;
+  char *path = spec_path_join(x.ref.path, "auditAndLogging");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -211865,6 +211900,13 @@ som_nav_access_control_model security_and_access_model_nav_access_control(som_na
   free(path);
   return out;
 }
+som_nav_audit_and_logging security_and_access_model_nav_audit_and_logging(som_nav_security_and_access_model x) {
+  som_nav_audit_and_logging out;
+  char *path = spec_path_join(x.ref.path, "auditAndLogging");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_security_operations_follow_up security_and_access_model_nav_security_operations(som_nav_security_and_access_model x) {
   som_nav_security_operations_follow_up out;
   char *path = spec_path_join(x.ref.path, "securityOperations");
@@ -212222,9 +212264,9 @@ som_nav_sensitive_data_encryption security_operations_follow_up_nav_encryption(s
   free(path);
   return out;
 }
-som_nav_audit_and_logging security_operations_follow_up_nav_audit_and_logging(som_nav_security_operations_follow_up x) {
-  som_nav_audit_and_logging out;
-  char *path = spec_path_join(x.ref.path, "auditAndLogging");
+som_nav_compliance_reporting security_operations_follow_up_nav_compliance_reporting(som_nav_security_operations_follow_up x) {
+  som_nav_compliance_reporting out;
+  char *path = spec_path_join(x.ref.path, "complianceReporting");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -228764,6 +228806,13 @@ SomListMetaRef d00_solution_blueprint_id_tncs_tena_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_sevt_cust_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_event_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_endaca_encr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST");
@@ -228775,13 +228824,6 @@ SomListMetaRef d00_solution_blueprint_id_cochen_comm_lst(som_id_d00_solution_blu
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_communication_channel_encryption_entry);
-  free(path);
-  return out;
-}
-SomListMetaRef d00_solution_blueprint_id_sevt_cust_lst(som_id_d00_solution_blueprint x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_event_entry);
   free(path);
   return out;
 }
@@ -243748,6 +243790,13 @@ SomListMetaRef d13_code_specs_projection_id_tncs_tena_lst(som_id_d13_code_specs_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_tenant_customization_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_sevt_cust_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_event_entry);
   free(path);
   return out;
 }

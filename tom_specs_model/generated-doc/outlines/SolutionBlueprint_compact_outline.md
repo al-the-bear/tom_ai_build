@@ -779,10 +779,24 @@
       - `ResourceProtection` → SAS
       - authorization: `UserAuthorization` → SAS
       - `RoleMatrix` → SAS
+    - `AuditAndLogging` → SAS
     - securityOperations: `SecurityOperationsFollowUp`
       - content @description
       - encryption: `SensitiveDataEncryption` → SAS
-      - `AuditAndLogging` → SAS
+      - `ComplianceReporting`
+        - content, notes @text
+        - periodicReviews: `PeriodicReviewPolicy`
+          - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+            notes @text
+        - privilegeUsageReports: `PrivilegeUsageReporting`
+          - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
+            notes @text
+        - anomalyDetection: `AnomalyDetectionPolicy`
+          - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
+            notes @text
+        - `RegulatoryAuditSupport`
+          - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
+            notes @text
     - compliance: `SecurityComplianceFollowUp`
       - content @description
       - `ComplianceFramework` → SAS

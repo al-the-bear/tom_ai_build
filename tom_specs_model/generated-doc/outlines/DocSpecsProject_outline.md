@@ -2267,6 +2267,41 @@
               - content, boundaryEnforcementDetails @text
         - `RoleMatrix`
           - content
+      - `AuditAndLogging`
+        - content
+        - securityEvents: `SecurityEventsDefinition`
+          - content
+          - loggingPolicy: `SecurityEventLoggingPolicy`
+            - content @Form(defaultLoggingLevel, piiHandling, eventClassificationScheme, severityLevels, timeSynchronization, correlationIdentifiers),
+              notes @text
+          - authenticationEvents: `AuthenticationEventPolicy`
+            - content @Form(logSuccessfulLogins, logFailedLogins, logPasswordChanges, logMfaEvents, logSessionEvents, logAccountLockouts, logTokenEvents),
+              notes @text
+          - authorizationEvents: `AuthorizationEventPolicy`
+            - content @Form(logAccessGranted, logAccessDenied, logPrivilegeEscalation, logRoleChanges, logPermissionChanges, logResourceAccessPatterns),
+              notes @text
+          - dataAccessEvents: `DataAccessEventPolicy`
+            - content @Form(logDataCreation, logDataModification, logDataDeletion, logDataExport, logDataImport, logBulkOperations, logSensitiveDataAccess),
+              notes @text
+          - administrativeEvents: `AdministrativeEventPolicy`
+            - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
+              notes @text
+          - customEvents: `SecurityEventEntry`
+            - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
+        - `AuditLogFormat`
+          - content, notes @text
+          - eventAttributes: `EventAttributePolicy`
+            - content @Form(timestampFormat, applicationIdentifier, sourceAddress, userIdentity, eventType, eventSeverity, actionAndObject, resultStatus, extendedDetails),
+              notes @text
+          - logStorage: `LogStoragePolicy`
+            - content @Form(primaryStorage, storageFormat, storageLocation, centralizedLogging, storageEncryption, accessPermissions),
+              notes @text
+          - logProtection: `LogProtectionPolicy`
+            - content @Form(tamperDetection, integrityVerification, writeProtection, deletionControls, transmissionProtection, originVerification),
+              notes @text
+          - logRetention: `LogRetentionPolicy`
+            - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
+              notes @text
       - securityOperations: `SecurityOperationsFollowUp`
         - content @description
         - encryption: `SensitiveDataEncryption`
@@ -2312,55 +2347,20 @@
             - `KeyCompromiseRecoveryPolicy`
               - content @Form(compromiseDetection, notificationProcedure, recoveryPersonnel, rekeyingMethod, revocationProcess, keyInventoryMaintenance, impactAssessment, compromiseRecoveryPlanReference),
                 notes @text
-        - `AuditAndLogging`
-          - content
-          - securityEvents: `SecurityEventsDefinition`
-            - content
-            - loggingPolicy: `SecurityEventLoggingPolicy`
-              - content @Form(defaultLoggingLevel, piiHandling, eventClassificationScheme, severityLevels, timeSynchronization, correlationIdentifiers),
-                notes @text
-            - authenticationEvents: `AuthenticationEventPolicy`
-              - content @Form(logSuccessfulLogins, logFailedLogins, logPasswordChanges, logMfaEvents, logSessionEvents, logAccountLockouts, logTokenEvents),
-                notes @text
-            - authorizationEvents: `AuthorizationEventPolicy`
-              - content @Form(logAccessGranted, logAccessDenied, logPrivilegeEscalation, logRoleChanges, logPermissionChanges, logResourceAccessPatterns),
-                notes @text
-            - dataAccessEvents: `DataAccessEventPolicy`
-              - content @Form(logDataCreation, logDataModification, logDataDeletion, logDataExport, logDataImport, logBulkOperations, logSensitiveDataAccess),
-                notes @text
-            - administrativeEvents: `AdministrativeEventPolicy`
-              - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
-                notes @text
-            - customEvents: `SecurityEventEntry`
-              - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
-          - `AuditLogFormat`
-            - content, notes @text
-            - eventAttributes: `EventAttributePolicy`
-              - content @Form(timestampFormat, applicationIdentifier, sourceAddress, userIdentity, eventType, eventSeverity, actionAndObject, resultStatus, extendedDetails),
-                notes @text
-            - logStorage: `LogStoragePolicy`
-              - content @Form(primaryStorage, storageFormat, storageLocation, centralizedLogging, storageEncryption, accessPermissions),
-                notes @text
-            - logProtection: `LogProtectionPolicy`
-              - content @Form(tamperDetection, integrityVerification, writeProtection, deletionControls, transmissionProtection, originVerification),
-                notes @text
-            - logRetention: `LogRetentionPolicy`
-              - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
-                notes @text
-          - `ComplianceReporting`
-            - content, notes @text
-            - periodicReviews: `PeriodicReviewPolicy`
-              - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
-                notes @text
-            - privilegeUsageReports: `PrivilegeUsageReporting`
-              - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
-                notes @text
-            - anomalyDetection: `AnomalyDetectionPolicy`
-              - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
-                notes @text
-            - `RegulatoryAuditSupport`
-              - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
-                notes @text
+        - `ComplianceReporting`
+          - content, notes @text
+          - periodicReviews: `PeriodicReviewPolicy`
+            - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+              notes @text
+          - privilegeUsageReports: `PrivilegeUsageReporting`
+            - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
+              notes @text
+          - anomalyDetection: `AnomalyDetectionPolicy`
+            - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
+              notes @text
+          - `RegulatoryAuditSupport`
+            - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
+              notes @text
       - compliance: `SecurityComplianceFollowUp`
         - content @description
         - `ComplianceFramework`
@@ -3278,24 +3278,24 @@
         - logRetention: `LogRetentionPolicy`
           - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
             notes @text
-      - `ComplianceReporting`
-        - content, notes @text
-        - periodicReviews: `PeriodicReviewPolicy`
-          - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
-            notes @text
-        - privilegeUsageReports: `PrivilegeUsageReporting`
-          - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
-            notes @text
-        - anomalyDetection: `AnomalyDetectionPolicy`
-          - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
-            notes @text
-        - `RegulatoryAuditSupport`
-          - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
-            notes @text
     - `RoleMatrix`
       - content
     - `ComplianceFramework`
       - content
+    - `ComplianceReporting`
+      - content, notes @text
+      - periodicReviews: `PeriodicReviewPolicy`
+        - content @Form(accessReviewFrequency, privilegedAccountReview, reviewers, dormantAccountReview, segregationOfDutiesReview, reviewDocumentation),
+          notes @text
+      - privilegeUsageReports: `PrivilegeUsageReporting`
+        - content @Form(adminActivityReports, privilegeEscalationReports, breakGlassReports, accessPatternReports, reportRecipients, reportFrequency),
+          notes @text
+      - anomalyDetection: `AnomalyDetectionPolicy`
+        - content @Form(behaviorBaseline, anomalyTypes, detectionMechanism, alertThresholds, alertRecipients, responseActions),
+          notes @text
+      - `RegulatoryAuditSupport`
+        - content @Form(applicableRegulations, auditTrailAvailability, reportGeneration, evidencePreservation, auditorAccess, complianceCertifications),
+          notes @text
   - informationModel: `D03InformationModel`
     - content, erDiagram @mermaid-er, objectDiagram @mermaid
     - header: `DocumentHeader`
@@ -6150,6 +6150,41 @@
             - content, boundaryEnforcementDetails @text
       - `RoleMatrix`
         - content
+    - `AuditAndLogging` ← (locus: server — CE-LG/CE-CF)
+      - content
+      - securityEvents: `SecurityEventsDefinition`
+        - content
+        - loggingPolicy: `SecurityEventLoggingPolicy`
+          - content @Form(defaultLoggingLevel, piiHandling, eventClassificationScheme, severityLevels, timeSynchronization, correlationIdentifiers),
+            notes @text
+        - authenticationEvents: `AuthenticationEventPolicy`
+          - content @Form(logSuccessfulLogins, logFailedLogins, logPasswordChanges, logMfaEvents, logSessionEvents, logAccountLockouts, logTokenEvents),
+            notes @text
+        - authorizationEvents: `AuthorizationEventPolicy`
+          - content @Form(logAccessGranted, logAccessDenied, logPrivilegeEscalation, logRoleChanges, logPermissionChanges, logResourceAccessPatterns),
+            notes @text
+        - dataAccessEvents: `DataAccessEventPolicy`
+          - content @Form(logDataCreation, logDataModification, logDataDeletion, logDataExport, logDataImport, logBulkOperations, logSensitiveDataAccess),
+            notes @text
+        - administrativeEvents: `AdministrativeEventPolicy`
+          - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
+            notes @text
+        - customEvents: `SecurityEventEntry`
+          - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
+      - `AuditLogFormat`
+        - content, notes @text
+        - eventAttributes: `EventAttributePolicy`
+          - content @Form(timestampFormat, applicationIdentifier, sourceAddress, userIdentity, eventType, eventSeverity, actionAndObject, resultStatus, extendedDetails),
+            notes @text
+        - logStorage: `LogStoragePolicy`
+          - content @Form(primaryStorage, storageFormat, storageLocation, centralizedLogging, storageEncryption, accessPermissions),
+            notes @text
+        - logProtection: `LogProtectionPolicy`
+          - content @Form(tamperDetection, integrityVerification, writeProtection, deletionControls, transmissionProtection, originVerification),
+            notes @text
+        - logRetention: `LogRetentionPolicy`
+          - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
+            notes @text
     - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
       - content
       - overview: `ProcessStepsOverview`

@@ -804,15 +804,31 @@ so no ordering of preferences can remove them.
 
 **Projection membership.** CE-NT's SOM home `NotificationModel` (NM) is a clean
 CodeSpecs subtree — content plus three entry lists, nothing follow-up — so it
-joins `D13CodeSpecsProjection` directly, at the shared locus. CE-LG's home
-`AuditAndLogging` (SAS) does not: it mixes the authorable half
-(`SecurityEventsDefinition`) with CE-CF sink settings (`AuditLogFormat`'s
-storage / retention / protection) and an ops follow-up (`ComplianceReporting`).
-Projecting it wholesale would drag follow-up content into generation, so the
-section needs a Band-F-style split before it can be a projection field. Until
-then CE-LG's declarations reach generation through the endpoints and
-repositories they annotate — the part is active, its projection route is not yet
-carved.
+joins `D13CodeSpecsProjection` directly, at the shared locus.
+
+CE-LG's home `AuditAndLogging` (`AUANLO`, SAS) needed a split first: it grouped
+three bands with different destinations. The split ran the boundary the
+paragraph above draws — **declared vs deployed vs performed**:
+
+| Band | Content | Destination |
+|------|---------|-------------|
+| Declared | `SecurityEventsDefinition` SEEVDE + its five policy forms | **CE-LG** — `@CsAudited` |
+| Deployed | `AuditLogFormat` AULOFO + storage / protection / retention / attribute policies | **CE-CF** — `@CsServerConfig` |
+| Performed | `ComplianceReporting` COMREP + review / privilege-usage / anomaly / regulatory-support | **Follow-up** — `@FollowUpKind([ops, cmp])` |
+
+The first two are both authored input and both server locus, so they stay
+together under `AUANLO`, which is now a purely-CodeSpecs subtree and a
+`D13CodeSpecsProjection` root (`locus: server — CE-LG/CE-CF`). Keeping the sink
+settings beside the events they configure — rather than re-homing them next to
+the other CE-CF content in `TechnicalFrameworkConcept` — is deliberate: a
+retention period is only meaningful against the event set it retains, and
+`@CodeSpecKind` is list-valued precisely so one subtree can name two parts.
+
+The third band is the only one that leaves. It moved to
+`SecurityOperationsFollowUp` (`SCOF`), where the audit *operations* already
+belonged — everything in it is a routine run against an existing log rather than
+a declaration a generator can read. D08 reaches it directly, since SAS still
+owns the content.
 
 ### 4.4 Generation slices — the per-slice `tom_core` capability contract
 
@@ -3636,7 +3652,7 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
 | SBP.8 IFM | `DataModel` (entity/attribute core) | per-entity facets: Volume→CAP, Compliance→CMP, Technical→CAP, Migration→MIG, erDiagram→DOC |
 | SBP.9 RSP | functional requirements + the CE-VA/CE-ER-bearing NFRs (consumed as a *seed*) | L10N/DOC/TRN NFR sub-areas |
 | SBP.11 ATS | `TechnicalFrameworkConcept` (CE-CF configuration facets) | architecture/component narrative → DOC |
-| SBP.12 SAS | `AccessControlModel` (userMgmt / auth / resourceProtection / authorization / roleMatrix) | encryption + audit → OPS, compliance → CMP |
+| SBP.12 SAS | `AccessControlModel` (userMgmt / auth / resourceProtection / authorization / roleMatrix) **and** `AuditAndLogging` (the CE-LG event declarations + the CE-CF sink settings) | encryption + audit reporting/review (`ComplianceReporting`) → OPS/CMP, compliance framework → CMP |
 | SBP.13 XDS | `ExperienceCodeSpecs` (screens / screenFlow / errorHandling / responsive / uiComponents / dataStructureAlignment) | design, doc and L10N children |
 
 **Constraints any further re-homing must honour:**
@@ -3660,14 +3676,14 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
 concrete input the Phase-4 generator consumes end-to-end is
 **`D13CodeSpecsProjection`** (`@SectionId('CGP')`, in
 `tom_specs_model/lib/src/codespecs_projection/codespecs_projection.dart`) — a
-flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **nine isolated
-subtree roots directly**, with no container classes, grouped into
+flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **eleven
+isolated subtree roots directly**, with no container classes, grouped into
 shared → server → client locus bands by `@Comment('locus: …')`:
 
 | Locus | Roots |
 |-------|-------|
-| shared | `DomainEnumRegistry`, `ErrorCodeRegistry`, `ResultEnvelope`, `MessageKeyRegistry` |
-| server | `DataModel`, `TechnicalFrameworkConcept`, `AccessControlModel` |
+| shared | `DomainEnumRegistry`, `ErrorCodeRegistry`, `ResultEnvelope`, `MessageKeyRegistry`, `NotificationModel` |
+| server | `DataModel`, `TechnicalFrameworkConcept`, `AccessControlModel`, `AuditAndLogging` |
 | server + client | `ProcessStepsAndActorInteractions` |
 | client | `ExperienceCodeSpecs` |
 
@@ -3734,7 +3750,7 @@ A part is **COVERED** only when both hold.
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
 | CE-AZ | `authorization` | `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
-| CE-CF | `serverConfiguration` | 34 sections, 11 projected — but all are **operational policy** (`SystemConfigurationManagement` SYCOMA, `ConfigurationManagement` CM: source, format, vault, hot reload, versioning). No setting-declaration surface. | **GAP** — `csrb9` |
+| CE-CF | `serverConfiguration` | 40 sections, 17 projected. The projected ones are the audit-sink band under `AuditLogFormat` AULOFO (§4.3.2) — genuine settings, but **fixed-name form fields**, not a `key · type · default` list; the rest is **operational policy** (`SystemConfigurationManagement` SYCOMA, `ConfigurationManagement` CM: source, format, vault, hot reload, versioning). No general setting-declaration surface. | **GAP** — `csrb9` |
 | CE-CC | `clientConfiguration` | `ClientConfiguration` CLICON — a single form with five **fixed named** settings, not a `key · type · default` declaration and not a list | **GAP** — `csrb9` |
 | CE-DS | `deviceSettings` | `DeviceSettings` DEVSET — correct §5.16 shape (`settingKey` · `valueType` · `defaultValue` · `deviceOverridable`) but a **single form**, so exactly one setting is authorable | **GAP** (cardinality only) — `csrb9` |
 | CE-UP | `userSettings` | `LanguageCountrySelection` LACOSE — a language/country **picker UX** section; cannot express `key · type · default` | **GAP** — `csrb9` |
@@ -3743,7 +3759,7 @@ A part is **COVERED** only when both hold.
 | CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
 | CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG + `SchemaMigrationStepEntry` SCMST — reachable **only from D00**, and missing the §5.27 environment tag, datasource/schema placement and seed-data artifact kind | **GAP** — `csrb11` |
 | CE-JB | `backgroundJob` | `BatchJobManagement` BAJOMA — system-wide scheduling *policy* with **no per-job declaration list** | **GAP** — `csrb12` |
-| CE-LG | `auditLog` | `SecurityEventEntry` SEVT · `AuditLogFormat` AULOFO · `EventAttributePolicy` EVATPO — authorable; only 3 of 16 sections projected pending the `AuditAndLogging` split | COVERED (projection narrow — `csrb5`) |
+| CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
 | CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under `PrintAndExportLayout` PRLA — authorable, but 0 of 11 sections projected | Known — §5.28 / `csrb6` (**not** a new gap) |
 | — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | COVERED |
@@ -3852,8 +3868,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb5` | Split the mixed `AuditAndLogging` (SAS) SOM subtree — the CE-LG authorable band, the CE-CF sink settings and the `ComplianceReporting` follow-up — so the promoted CE-LG part gets a `D13CodeSpecsProjection` field at the server locus (§4.3.2). |
-| `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The same defect as `csrb5`, in a different document. |
+| `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The last promoted part still without a projection route; §4.3.2 records the equivalent split for `AuditAndLogging`. |
 | `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
 | `csrb8` | Add a **file / upload semantic kind** to the CE-EL closed catalogue (§5.18). The catalogue's ten kinds have no file arm, while the SOM already offers `ScreenElementFieldKind.file` and `ScreenFieldKind.file` — so a file input can be specified but not realised. Pairs with §5.13.1: CE-DB now stores the reference, CE-EL still cannot present it. |
 | `csrb9` | Author the **setting-declaration surface for all four config scopes** — CE-CF / CE-CC / CE-DS / CE-UP (§8.5 gap, §5.16 surface). Today CE-CF has only operational policy, CE-CC a fixed five-field form, CE-DS a single non-repeating form and CE-UP a picker UX section. |

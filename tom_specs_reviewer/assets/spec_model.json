@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-28T15:43:42.555953Z",
+  "generatedAt": "2026-08-02T12:44:56.860817Z",
   "metaSchemaVersion": 1,
   "modelVersion": 9,
   "modelVersionLabel": "1.0.0+9",
@@ -12,7 +12,7 @@
       "title": "Solution Blueprint",
       "sectionId": "SBP",
       "description": "Comprehensive specification document covering all aspects of the system from current landscape through target operating model, information model, solution architecture, security, experience design, quality & acceptance, and delivery / transition planning.",
-      "doc": "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal)."
+      "doc": "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below."
     },
     {
       "type": "D01CurrentLandscapeAssessment",
@@ -1750,7 +1750,7 @@
     "AccessControlModel": {
       "name": "AccessControlModel",
       "sectionId": "ACCM",
-      "doc": "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (§8.3 of `codespecs_mapping.md`): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
+      "doc": "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 24760 — IAM: a framework for identity management",
@@ -13998,7 +13998,7 @@
     "AuditAndLogging": {
       "name": "AuditAndLogging",
       "sectionId": "AUANLO",
-      "doc": "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
+      "doc": "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
       "detailedIn": "D08SecurityAccessSpecification",
       "standardReferences": {
         "standards": [
@@ -14006,7 +14006,7 @@
           "NIST SP 800-92 — guide to computer security log management",
           "GDPR — Article 5(2) accountability"
         ],
-        "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+        "connotation": "This section covers the security audit and event logging declarations: which events are captured and how the audit log sink is structured, stored, protected and retained."
       },
       "annotations": [
         {
@@ -14017,7 +14017,7 @@
               "NIST SP 800-92 — guide to computer security log management",
               "GDPR — Article 5(2) accountability"
             ],
-            "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+            "connotation": "This section covers the security audit and event logging declarations: which events are captured and how the audit log sink is structured, stored, protected and retained."
           }
         },
         {
@@ -14036,9 +14036,10 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
+              "CodeSpecPart.auditLog",
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-LG — logging & audit trail (who did what, when) as a cross-cutting effect. Active part (§4.1): realised as @CsAudited alongside the framework @TomAudited declaration, server locus. The declared half only — retention and log format are CE-CF."
+            "note": "Two bands, both generation input, both server locus. CE-LG — the declared half of the audit trail (which invocations are auditable, whether reads count, which fields are redacted), realised as @CsAudited alongside the framework @TomAudited declaration. CE-CF — the log sink settings (format, storage, protection, retention), realised as @CsServerConfig (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -14067,7 +14068,7 @@
         {
           "name": "securityEvents",
           "kind": "complex",
-          "doc": "9.6.1. Security Events.",
+          "doc": "9.6.1. Security Events — the CE-LG declared half.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -14082,7 +14083,7 @@
         {
           "name": "auditLogFormat",
           "kind": "complex",
-          "doc": "9.6.2. Audit Log Format.",
+          "doc": "9.6.2. Audit Log Format — the CE-CF log-sink settings.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -14093,21 +14094,6 @@
             }
           ],
           "type": "AuditLogFormat"
-        },
-        {
-          "name": "complianceReporting",
-          "kind": "complex",
-          "doc": "9.6.3. Compliance Reporting.",
-          "serializationOrder": 3,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 3
-              }
-            }
-          ],
-          "type": "ComplianceReporting"
         }
       ]
     },
@@ -14455,8 +14441,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF, not CE-LG (codespecs_mapping.md §4.3.2): the log record shape, storage, protection and retention are deployment settings on the audit sink, realised as @CsServerConfig. CE-LG owns only what is declared as auditable, in the sibling SEEVDE band."
           }
         }
       ],
@@ -15845,7 +15832,7 @@
     "AuthorizationComplianceFollowUp": {
       "name": "AuthorizationComplianceFollowUp",
       "sectionId": "XCFU",
-      "doc": "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
+      "doc": "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — information security management",
@@ -20093,7 +20080,7 @@
             "kinds": [
               "CodeSpecPart.backgroundJob"
             ],
-            "note": "CE-JB — scheduled / background / queued jobs (cron | calendar | event triggers), distinct from request-driven serverApi. Active (§4.1): @CsJob, server locus; work bodies are TomCommand on the tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); the typed job-definition holder is a tom_core_codespecs gap; execution runs under the server principal; scheduled reports (CE-RP) are realized as CE-JB jobs; scheduler runtime / job queue / multi-node locking are framework roadmap (§5.29)."
+            "note": "CE-JB — scheduled / background / queued jobs (cron | calendar | event triggers), distinct from request-driven serverApi. Active (codespecs_mapping.md §4.1): @CsJob, server locus; work bodies are TomCommand on the tom_core_kernel isolate-pooling substrate (TomExecutor/TomWorker); the typed job-definition holder is a tom_core_codespecs gap; execution runs under the server principal; scheduled reports (CE-RP) are realized as CE-JB jobs; scheduler runtime / job queue / multi-node locking are framework roadmap (codespecs_mapping.md §5.29)."
           }
         }
       ],
@@ -25797,7 +25784,7 @@
             "kinds": [
               "CodeSpecPart.viewState"
             ],
-            "note": "DDD domain object catalog → observable view-model (CE-ST). Physical persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU root aggregate (§5.17)."
+            "note": "DDD domain object catalog → observable view-model (CE-ST). Physical persistence is DataEntity (CE-DB); AggregateRoot entries are the CE-SU root aggregate (codespecs_mapping.md §5.17)."
           }
         }
       ],
@@ -27196,7 +27183,10 @@
               "label": "Rule ID",
               "hint": "Reference to the business rule definition",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "BIRU.ruleId"
+              ]
             },
             {
               "name": "ruleName",
@@ -41066,7 +41056,7 @@
     "ComplianceReporting": {
       "name": "ComplianceReporting",
       "sectionId": "COMREP",
-      "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.",
+      "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
@@ -41085,6 +41075,16 @@
               "GDPR — Article 30 records of processing activities"
             ],
             "connotation": "This section describes compliance reporting requirements that satisfy regulatory audits and internal governance across access reviews and anomaly detection."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.cmp"
+            ],
+            "note": "OPS — periodic access review, privilege-usage reporting and anomaly detection are monitoring routines the run organisation performs. CMP — regulatory audit support is the evidence arm, delivered by the compliance process. Both, because the same four sections feed both."
           }
         },
         {
@@ -50646,7 +50646,10 @@
               "label": "Home Label Resource",
               "hint": "Message key (MSGKR registry) for home crumb",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "homeIcon",
@@ -51701,7 +51704,7 @@
             "kinds": [
               "CodeSpecPart.errorResult"
             ],
-            "note": "Cross-boundary failure-propagation policy shared by all interfaces — the canonical CE-ER error codes/envelope that propagate across boundaries (§7.3/§7.4)."
+            "note": "Cross-boundary failure-propagation policy shared by all interfaces — the canonical CE-ER error codes/envelope that propagate across boundaries (codespecs_mapping.md §7 points 3/4)."
           }
         }
       ],
@@ -55001,7 +55004,7 @@
     "D00SolutionBlueprint": {
       "name": "D00SolutionBlueprint",
       "sectionId": "SBP",
-      "doc": "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order (§4 of the redesign proposal).",
+      "doc": "The complete Solution Blueprint (SBP) document.\n\nContains a [DocumentControl] header block and the SBP sections, sequenced\nper the public-standards order of the `@StandardReferences` below.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 29148:2018 §6 — specification document structure",
@@ -56122,7 +56125,7 @@
         {
           "name": "resultEnvelope",
           "kind": "complex",
-          "doc": "Result envelope — the canonical success-or-error §7 Result contract\n(CE-ER home; realised by tom_core_kernel's TomResult, csmb5).",
+          "doc": "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe success-or-error `Result` envelope; CE-ER home, realised by\ntom_core_kernel's `TomResult` (csmb5).",
           "serializationOrder": 16,
           "annotations": [
             {
@@ -57242,7 +57245,7 @@
         {
           "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "Audit and logging.",
+          "doc": "Audit and logging — the CE-LG / CE-CF declarations.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -57283,6 +57286,21 @@
             }
           ],
           "type": "ComplianceFramework"
+        },
+        {
+          "name": "complianceReporting",
+          "kind": "complex",
+          "doc": "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "type": "ComplianceReporting"
         }
       ]
     },
@@ -58524,7 +58542,7 @@
         {
           "name": "resultEnvelope",
           "kind": "complex",
-          "doc": "Result envelope — CE-ER canonical §7 success-or-error contract, shared.",
+          "doc": "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract.\n\nThe shared success-or-error envelope: success payload **or** structured\nerror (code, message, field-level details).",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -58648,10 +58666,31 @@
           "type": "AccessControlModel"
         },
         {
+          "name": "auditAndLogging",
+          "kind": "complex",
+          "doc": "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-LG/CE-CF"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "type": "AuditAndLogging"
+        },
+        {
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "Comment",
@@ -58662,7 +58701,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -58672,7 +58711,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 11,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "Comment",
@@ -58683,7 +58722,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],
@@ -81092,7 +81131,7 @@
             "kinds": [
               "CodeSpecPart.workflow"
             ],
-            "note": "CE-WF — multi-step process / workflow orchestration (state machines, long-running processes). Deferred PERMANENTLY (§4.3.1, §4.3.2): this section is free text, so there is no machine-readable input a generator could read. Mapping-only; the realistic cases are served by CE-JB jobs, CE-AC actions and CE-DB state."
+            "note": "CE-WF — multi-step process / workflow orchestration (state machines, long-running processes). Deferred PERMANENTLY (codespecs_mapping.md §4.3.1, codespecs_mapping.md §4.3.2): this section is free text, so there is no machine-readable input a generator could read. Mapping-only; the realistic cases are served by CE-JB jobs, CE-AC actions and CE-DB state."
           }
         }
       ],
@@ -85727,12 +85766,12 @@
     },
     "DocSpecsProject": {
       "name": "DocSpecsProject",
-      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with fourteen entry points: the\n[D00SolutionBlueprint] master, the twelve Phase 3 projection roots, and the\n[D13CodeSpecsProjection] Phase-4 generation projection. This class gives that\ndocument a **single true root** — every document root hangs off one object,\nso the editor can load, serialize, snapshot, and undo the entire spec by\noperating on a single [DocSpecsProject] instance instead of fourteen\ndisconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not* a\nfifteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [solutionBlueprint] first, then the twelve\nPhase-3 projection roots, then the [D13CodeSpecsProjection]. Tooling\n(`ModelJsonExporter`, the §8.6 validator, the outliner) treats it as the\ncanonical root and exempts it from `@SectionId` coverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3 roots\nand the [D13CodeSpecsProjection] are `@Document(basedOn: [D00SolutionBlueprint])`\n*projections* that reference the same SBP sections through their `@MapsTo` /\n`@DetailedIn` links (Phase-3) or `@CodeSpecKind` tags (D13); they do not own\ncopies. Editing through any projection edits the shared underlying Solution\nBlueprint sections (§14).\n\nThis class is the structural anchor only. The global `toYaml` save\n(Solution-Blueprint-only, §15.1) and the projection connect pass (N11) are\nadded in a later step; here the container simply wires the fourteen roots\nonto one tree.",
+      "doc": "Canonical container root for the whole TomSpecs object model (V2, N9).\n\nA spec is **one document** with fourteen entry points: the\n[D00SolutionBlueprint] master, the twelve Phase 3 projection roots, and the\n[D13CodeSpecsProjection] Phase-4 generation projection. This class gives that\ndocument a **single true root** — every document root hangs off one object,\nso the editor can load, serialize, snapshot, and undo the entire spec by\noperating on a single [DocSpecsProject] instance instead of fourteen\ndisconnected entry points.\n\n**Not a document node (N9).** The container carries **no `@SectionId`** and\n**no `@Document`** annotation: it is the tree root the tooling walks, *not*\na fifteenth sibling document. It never renders in the root navigator as\ncontent — the navigator lists [solutionBlueprint] first, then the twelve\nPhase-3 projection roots, then the [D13CodeSpecsProjection]. Tooling\n(`ModelJsonExporter`, the `tom_specs_model_rules.md` §10.2 validator, the\noutliner) treats it as the canonical root and exempts it from `@SectionId`\ncoverage/uniqueness (T1).\n\n**The D00SolutionBlueprint is the source of truth.** The twelve Phase 3\nroots and the [D13CodeSpecsProjection] are `@Document(basedOn:\n[D00SolutionBlueprint])` *projections* that reference the same SBP sections\nthrough their `@MapsTo` / `@DetailedIn` links (Phase-3) or `@CodeSpecKind`\ntags (D13); they do not own copies. Editing through any projection edits the\nshared underlying Solution Blueprint sections\n(`tom_specs_editor_specification.md` §14).\n\nThis class is the structural anchor only. The global `toYaml` save\n(Solution-Blueprint-only, `tom_specs_editor_specification.md` §15.1) and the\nprojection connect pass (N11) are added in a later step; here the container\nsimply wires the fourteen roots onto one tree.",
       "fields": [
         {
           "name": "solutionBlueprint",
           "kind": "complex",
-          "doc": "D00 — the Solution Blueprint master and source of truth for all shared\ncontent. Listed first in the root navigator (§14).",
+          "doc": "D00 — the Solution Blueprint master and source of truth for all shared\ncontent. Listed first in the root navigator\n(`tom_specs_editor_specification.md` §14).",
           "serializationOrder": 0,
           "annotations": [
             {
@@ -86123,7 +86162,7 @@
         {
           "name": "referenceDocuments",
           "kind": "complex",
-          "doc": "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). Re-homed here from\nthe former §3 `Administrative` wrapper in L34C-5: referenced documents are\nISO/IEC/IEEE 29148 §6 front matter and belong with document control.",
+          "doc": "Reference documents — the catalogue of documents this specification draws\non (standards, policies, regulations, related specs). They live here\nbecause referenced documents are ISO/IEC/IEEE 29148 §6 front matter and\nbelong with document control.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -88400,7 +88439,10 @@
               "label": "Copy Key",
               "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the display label (author copy once, reference here)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "description",
@@ -89891,14 +89933,20 @@
               "label": "Error Code",
               "hint": "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ERCEN.code"
+              ]
             },
             {
               "name": "errorMessageResource",
               "label": "Error Message Resource",
               "hint": "Message key (MSGKR registry) for validation error message",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "severity",
@@ -91392,7 +91440,10 @@
               "label": "Entitlement Name",
               "hint": "Name of the entitlement.",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "ENT.entitlementName"
+              ]
             },
             {
               "name": "grantType",
@@ -95176,7 +95227,10 @@
               "label": "Copy Key",
               "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) for the default user-facing message (author copy once, reference here)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         }
@@ -97152,8 +97206,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — the audit record's attribute set is a sink setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -98559,7 +98614,7 @@
     "ExperienceCodeSpecs": {
       "name": "ExperienceCodeSpecs",
       "sectionId": "XCS",
-      "doc": "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (§4.6 of\n`codespecs_mapping.md` §8.3): screen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/\nCE-AC), screen-flow navigation (CE-NV), data-structure alignment (CE-DB\ncross-ref), error handling (CE-ER/CE-VA), responsive design (CE-LO), and the\nreusable UI component library (CE-EL/CE-LO). The container itself carries no\n`@CodeSpecKind` — the mapped parts live on the child sections — but the whole\nsubtree is the CodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP\nfollow-up subtrees.",
+      "doc": "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.",
       "standardReferences": {
         "standards": [
           "ISO 9241-210:2019 — human-centred design for interactive systems",
@@ -98703,7 +98758,7 @@
     "ExperienceDesignFollowUp": {
       "name": "ExperienceDesignFollowUp",
       "sectionId": "XDFU",
-      "doc": "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (§4.6 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out. Accessibility's operational (OPS) facet is a\nsecondary concern refined by the follow-up taxonomy pass.",
+      "doc": "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.",
       "standardReferences": {
         "standards": [
           "ISO 9241-210:2019 — human-centred design for interactive systems",
@@ -98856,7 +98911,7 @@
     "ExperienceLocalizationFollowUp": {
       "name": "ExperienceLocalizationFollowUp",
       "sectionId": "XLFU",
-      "doc": "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (§8.3 of `codespecs_mapping.md`). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
+      "doc": "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 25010:2023 — portability / adaptability",
@@ -98970,7 +99025,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -99677,7 +99732,7 @@
             "kinds": [
               "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
+            "note": "CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -100400,7 +100455,7 @@
             "kinds": [
               "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
+            "note": "CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -100483,7 +100538,7 @@
             "kinds": [
               "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-CF — renderer settings, not CE-RP. The §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
+            "note": "CE-CF — renderer settings, not CE-RP. The codespecs_mapping.md §5.28 scope boundary puts the rendering engine and its per-format mechanics on the implementation side: what a specification authors about an export is the projection (CE-RP), while the format catalogue, page geometry and template assets are deployment settings on the renderer."
           }
         }
       ],
@@ -103967,7 +104022,10 @@
               "label": "Component ID",
               "hint": "Identifier of the referenced component",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "CMPNT.componentId"
+              ]
             },
             {
               "name": "componentName",
@@ -107247,7 +107305,10 @@
               "label": "Error Code",
               "hint": "The error code emitted on failure — reference into the error-code registry (ERCRG / ErrorCodeEntry.code), shared with CE-ER and CE-TX",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ERCEN.code"
+              ]
             },
             {
               "name": "errorMessage",
@@ -108590,7 +108651,10 @@
               "label": "Route ID",
               "hint": "Route ID (SCRTEN registry) that hosts the form",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
             },
             {
               "name": "presentationMode",
@@ -109690,7 +109754,7 @@
             "kinds": [
               "CodeSpecPart.serviceUnit"
             ],
-            "note": "Business function decomposition → logical service unit (§5.17)."
+            "note": "Business function decomposition → logical service unit (codespecs_mapping.md §5.17)."
           }
         }
       ],
@@ -125566,7 +125630,7 @@
             "kinds": [
               "CodeSpecPart.errorResult"
             ],
-            "note": "Per-interface structured error handling — the application-level error outcomes carried in the CE-ER Result/ErrorResult envelope (§7.3), not 5xx transport failures."
+            "note": "Per-interface structured error handling — the application-level error outcomes carried in the CE-ER Result/ErrorResult envelope (codespecs_mapping.md §7 point 3), not 5xx transport failures."
           }
         }
       ],
@@ -126159,7 +126223,7 @@
               "CodeSpecPart.serverApi",
               "CodeSpecPart.serverCall"
             ],
-            "note": "A single boundary operation with its request/response pair. Under the §7 contract (POST-only, operation-named, typed T/R, CE-ER envelope) it is realised as a serverApi (CsEndpoint) when inbound (we expose) and a serverCall (CsServerCall) when outbound (we call the external system); direction-dependent, hence list-valued."
+            "note": "A single boundary operation with its request/response pair. Under the codespecs_mapping.md §7 contract (POST-only, operation-named, typed T/R, CE-ER envelope) it is realised as a serverApi (CsEndpoint) when inbound (we expose) and a serverCall (CsServerCall) when outbound (we call the external system); direction-dependent, hence list-valued."
           }
         }
       ],
@@ -132659,7 +132723,7 @@
             "kinds": [
               "CodeSpecPart.userSettings"
             ],
-            "note": "CE-UP — a user language/country preference, a server-persisted user setting restored on any device the user signs into (§11)."
+            "note": "CE-UP — a user language/country preference, a server-persisted user setting restored on any device the user signs into (codespecs_mapping.md §11)."
           }
         }
       ],
@@ -136715,8 +136779,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — tamper protection of the sink is a deployment setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -136834,8 +136899,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — retention is the canonical §4.3.2 example of a sink setting that is not CE-LG."
           }
         }
       ],
@@ -136953,8 +137019,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — where the audit log is written is a deployment setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -140748,7 +140815,7 @@
     "MessageKeyRegistry": {
       "name": "MessageKeyRegistry",
       "sectionId": "MSGKR",
-      "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5 cross-cutting\nfinding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
+      "doc": "7.8. Message Key Registry.\n\nThe single **author-copy-once, reference-everywhere** home for user-facing\ncopy — the CE-TX (`text`) part. Before this registry existed, copy was\nscattered across per-field `*Resource` keys and `ValidationMessageTemplate`\nas unvalidated free text, so the \"author once, reference everywhere\"\ninvariant could not hold and the same string could diverge between the\nscreen element, the validation message and the error copy (csm5\ncross-cutting finding #1; `codespecs_mapping.md` §5.21).\n\nEach [MessageKeyEntry] declares a stable message key, its default (base\nlocale) copy, and any [MessageKeyEntry.localeVariants] — so a single key\nresolves to the right copy in each locale. The other CodeSpecs parts stop\ncarrying inline copy and instead reference a key here:\n\n- **CE-EL / CE-AC** element and action labels, placeholders and help copy;\n- **`domainEnum`** value labels ([DomainEnumValueEntry.copyKey]);\n- **CE-ER** error copy keyed by error code ([ErrorCodeEntry.copyKey]);\n- **CE-VA** validation-failure messages.\n\ncsmb3 and csmb5 already modelled their `copyKey` references as plain\nmessage-key strings anticipating this registry; those keys now resolve\nagainst [MessageKeyEntry.key].",
       "standardReferences": {
         "standards": [
           "ISO/IEC 11179 — metadata registries / data element definitions",
@@ -151132,7 +151199,10 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "groupIcon",
@@ -151146,7 +151216,10 @@
               "label": "Description Resource",
               "hint": "Message key (MSGKR registry) for tooltip/subtitle",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         },
@@ -151566,35 +151639,51 @@
               "label": "Applies To",
               "hint": "Route patterns or screen IDs this guard covers",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCRTEN.routeId",
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "dialogTitleResource",
               "label": "Dialog Title Resource",
               "hint": "Message key (MSGKR registry) for confirmation dialog title",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "dialogMessageResource",
               "label": "Dialog Message Resource",
               "hint": "Message key (MSGKR registry) for confirmation dialog message",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "confirmActionResource",
               "label": "Confirm Action Resource",
               "hint": "Message key (MSGKR registry) for confirm button, e.g., Discard",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "cancelActionResource",
               "label": "Cancel Action Resource",
               "hint": "Message key (MSGKR registry) for cancel button, e.g., Stay",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         },
@@ -151978,7 +152067,10 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "targetRoute",
@@ -152611,14 +152703,20 @@
               "label": "Default Landing Screen",
               "hint": "Screen ID the user sees after login",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "unauthenticatedLanding",
               "label": "Unauthenticated Landing",
               "hint": "Screen ID for unauthenticated users",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "navigationPersistence",
@@ -156078,7 +156176,7 @@
             "kinds": [
               "CodeSpecPart.notification"
             ],
-            "note": "CE-NT — outbound communications (email/push/SMS/webhooks) as a first-class effect. Active part (§4.1): the type/channel/preference declarations are realised as @CsNotification and @CsNotificationChannel over the tom_core_codespecs notification model (shared locus); delivery rides the tom_core_server messaging transport (server locus)."
+            "note": "CE-NT — outbound communications (email/push/SMS/webhooks) as a first-class effect. Active part (codespecs_mapping.md §4.1): the type/channel/preference declarations are realised as @CsNotification and @CsNotificationChannel over the tom_core_codespecs notification model (shared locus); delivery rides the tom_core_server messaging transport (server locus)."
           }
         }
       ],
@@ -170500,7 +170598,7 @@
               "CodeSpecPart.serverConfiguration",
               "CodeSpecPart.reporting"
             ],
-            "note": "A mixed subtree, hence two kinds. This section own fields — print strategy, paper size, orientation, page setup, branding, watermark, header/footer, archive — are CE-CF renderer settings; its child lists are CE-RP report definitions. §8.3 requires an isolated subtree before a D13CodeSpecsProjection field can reach the CE-RP band, so the reporting half is annotated but not yet projected (§5.28)."
+            "note": "A mixed subtree, hence two kinds. This section own fields — print strategy, paper size, orientation, page setup, branding, watermark, header/footer, archive — are CE-CF renderer settings; its child lists are CE-RP report definitions. codespecs_mapping.md §8.3 requires an isolated subtree before a D13CodeSpecsProjection field can reach the CE-RP band, so the reporting half is annotated but not yet projected (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -189808,7 +189906,7 @@
                 "kinds": [
                   "CodeSpecPart.serverConfiguration"
                 ],
-                "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc §5.26). The deploy-from-release flag itself is deployment tooling."
+                "note": "CE-CF — feature flags are config toggles authored as server configuration values; authorization-derived feature grants are server-level entitlements (mapping doc codespecs_mapping.md §5.26). The deploy-from-release flag itself is deployment tooling."
               }
             },
             {
@@ -191329,7 +191427,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -191468,7 +191566,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -191897,7 +191995,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -192679,7 +192777,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -193019,7 +193117,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -194194,7 +194292,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -194973,7 +195071,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -195278,7 +195376,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -195676,7 +195774,7 @@
             "kinds": [
               "CodeSpecPart.reporting"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (§4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (§5.28)."
+            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
           }
         }
       ],
@@ -198290,7 +198388,7 @@
     "Requirements": {
       "name": "Requirements",
       "sectionId": "REQS",
-      "doc": "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (§8.3 of `codespecs_mapping.md`) so the seed\nstays purely CodeSpecs-relevant.",
+      "doc": "SBP.9 Requirements.\n\nFunctional requirements seed the Requirements Specification (RSP); this\nsection is the CodeSpecs **seed** subtree — its functional requirements plus\nthe validation/error NFRs drive CE-VA / CE-ER but are consumed *as\nrequirements*, not generated. Functional-requirement modelling is expanded\nin a later IP step.\n\nThe framework-uncovered NFR follow-up sub-areas (localization,\ninformation-for-use, training) are grouped out of the seed subtree into\n[RequirementsFollowUp] (`codespecs_mapping.md` §8.3) so the seed\nstays purely CodeSpecs-relevant.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 29148:2018 — SRS / SyRS",
@@ -198360,7 +198458,7 @@
     "RequirementsFollowUp": {
       "name": "RequirementsFollowUp",
       "sectionId": "REQFU",
-      "doc": "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole subtree\nis generation-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)",
+      "doc": "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)",
       "standardReferences": {
         "standards": [
           "ISO/IEC 25010:2023 — portability",
@@ -199376,7 +199474,10 @@
               "label": "Resource Key",
               "hint": "Unique key of the referenced resource.",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "RESKEY.resourceKey"
+              ]
             }
           ]
         }
@@ -201258,7 +201359,10 @@
               "label": "Screen ID",
               "hint": "Unique identifier of the screen this rule applies to",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "screenName",
@@ -201302,13 +201406,13 @@
     "ResultEnvelope": {
       "name": "ResultEnvelope",
       "sectionId": "RSLTE",
-      "doc": "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe §7 server contract). This is the model-side counterpart of the\n`TomResult`/`TomErrorResult` envelope authored in `tom_core_kernel` (csmb4):\nevery application outcome — success *or* structured error — is returned in a\nnormal (2xx-transport) body as this one envelope; only 5xx are transport\nfailures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
+      "doc": "7.7. Result Envelope.\n\nThe SOM home for the canonical **success-or-error Result envelope** (CE-ER,\nthe `codespecs_mapping.md` §7 server contract). This is the model-side\ncounterpart of the `TomResult`/`TomErrorResult` envelope authored in\n`tom_core_kernel` (csmb4): every application outcome — success *or*\nstructured error — is returned in a normal (2xx-transport) body as this one\nenvelope; only 5xx are transport failures.\n\nThe envelope has two arms, distinguished by an **is-success discriminator**:\n\n1. **success** — carries a value payload;\n2. **error** — carries a code (from the [ErrorCodeRegistry]), a\n   retryable/severity hint, and an optional list of field-level details\n   ([ResultFieldDetailEntry]) for input-attributable failures.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
           "REST / RPC result-envelope patterns — success-or-error response modelling"
         ],
-        "connotation": "The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
+        "connotation": "The canonical success-or-error Result envelope (CE-ER, codespecs_mapping.md §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
       },
       "annotations": [
         {
@@ -201318,7 +201422,7 @@
               "ISO/IEC/IEEE 42010 — architecture description (interface contracts)",
               "REST / RPC result-envelope patterns — success-or-error response modelling"
             ],
-            "connotation": "The canonical success-or-error Result envelope (CE-ER, §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
+            "connotation": "The canonical success-or-error Result envelope (CE-ER, codespecs_mapping.md §7): a success arm, an is-success discriminator, a field-level detail list, and retryable/severity on the error arm."
           }
         },
         {
@@ -201333,7 +201437,7 @@
             "kinds": [
               "CodeSpecPart.errorResult"
             ],
-            "note": "CE-ER — the canonical §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised by tom_core_kernel's TomResult/TomErrorResult (csmb4)."
+            "note": "CE-ER — the canonical codespecs_mapping.md §7 Result/ErrorResult envelope: a success arm or a structured error arm carrying a code (from the error-code registry), field-level details, and retryable/severity. Realised by tom_core_kernel's TomResult/TomErrorResult (csmb4)."
           }
         }
       ],
@@ -201509,7 +201613,10 @@
               "label": "Error Code",
               "hint": "Reference into the error-code registry (ERCRG) — ErrorCodeEntry.code",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "ERCEN.code"
+              ]
             },
             {
               "name": "message",
@@ -207419,7 +207526,10 @@
               "label": "Role Name",
               "hint": "Name of an existing authorization role being referenced",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "AZRO.roleName"
+              ]
             }
           ]
         }
@@ -212023,7 +212133,7 @@
             "kinds": [
               "CodeSpecPart.schemaMigration"
             ],
-            "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc §5.27)."
+            "note": "CE-MG — schema migration artifacts derived from the data model evolution: @CsMigration-marked SQL files (initial DDL, base/seed data, iteration scripts), server locus, built on the tom_core_server migration engine (TomDbMigrations, mapping doc codespecs_mapping.md §5.27)."
           }
         }
       ],
@@ -212622,7 +212732,10 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for button label",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "iconResource",
@@ -212770,7 +212883,10 @@
               "label": "Confirmation Message",
               "hint": "Message key (MSGKR registry) for confirmation dialog",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "keyboardShortcut",
@@ -212784,14 +212900,20 @@
               "label": "Navigate To",
               "hint": "Route ID (SCRTEN registry) reached after the action succeeds — when the target depends on the outcome, declare the edges in the screen route map instead",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
             },
             {
               "name": "successMessageResource",
               "label": "Success Message",
               "hint": "Message key (MSGKR registry) for success notification",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         }
@@ -213291,21 +213413,30 @@
               "label": "Confirmation Message Resource",
               "hint": "Message key (MSGKR registry) for confirmation prompt",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "loadingLabelResource",
               "label": "Loading Label Resource",
               "hint": "Message key (MSGKR registry) for label during async execution",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "successMessageResource",
               "label": "Success Message Resource",
               "hint": "Message key (MSGKR registry) for success notification",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "errorHandling",
@@ -213365,7 +213496,11 @@
               "label": "Navigate To",
               "hint": "Target screen ID or route after action",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId",
+                "SCRTEN.routeId"
+              ]
             },
             {
               "name": "navigateParams",
@@ -213462,7 +213597,10 @@
               "label": "Empty State Message",
               "hint": "Message key (MSGKR registry) for message when no data",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "emptyStateIconResource",
@@ -213529,7 +213667,10 @@
               "label": "Drill-Down Target",
               "hint": "Screen ID navigated to on click/tap",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             }
           ]
         },
@@ -213775,21 +213916,30 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for display label",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "hintResource",
               "label": "Hint Resource",
               "hint": "Message key (MSGKR registry) for tooltip/helper text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "descriptionResource",
               "label": "Description Resource",
               "hint": "Message key (MSGKR registry) for extended description",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "iconResource",
@@ -214341,7 +214491,10 @@
               "label": "Placeholder Resource",
               "hint": "Message key (MSGKR registry) for placeholder text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         },
@@ -214993,7 +215146,10 @@
               "label": "Route Pattern",
               "hint": "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
             }
           ]
         },
@@ -215201,7 +215357,10 @@
               "label": "Page Title Resource",
               "hint": "Message key (MSGKR registry) for the screen title text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "pageIconResource",
@@ -216655,7 +216814,10 @@
               "label": "Screen ID",
               "hint": "ID of the screen (SCREN registry) this route renders",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SCREN.screenId"
+              ]
             },
             {
               "name": "routeParameters",
@@ -217048,7 +217210,10 @@
               "label": "Title Resource",
               "hint": "Message key (MSGKR registry) for section header text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "borderStyle",
@@ -217366,7 +217531,10 @@
               "label": "Message Resource",
               "hint": "Message key (MSGKR registry) for state message",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "iconResource",
@@ -217387,7 +217555,10 @@
               "label": "Primary Action Label",
               "hint": "Message key (MSGKR registry) for recovery action, e.g., Try Again",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "primaryActionTarget",
@@ -217401,7 +217572,10 @@
               "label": "Secondary Action Label",
               "hint": "Message key (MSGKR registry) for alternative action",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         }
@@ -217577,14 +217751,20 @@
               "label": "Source Route ID",
               "hint": "Route ID (SCRTEN registry) the user is on when the action runs",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
             },
             {
               "name": "actionId",
               "label": "Action ID",
               "hint": "ID of the triggering action (SCRAC registry) or of the screen element that raises it",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCRAC.actionId"
+              ]
             },
             {
               "name": "outcome",
@@ -217603,7 +217783,10 @@
               "label": "Target Route ID",
               "hint": "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCRTEN.routeId"
+              ]
             },
             {
               "name": "presentationMode",
@@ -217621,7 +217804,11 @@
               "label": "Outcome Reference",
               "hint": "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "SYERCOEN.errorCode",
+                "VMT.messageId"
+              ]
             }
           ]
         }
@@ -218327,9 +218514,9 @@
           "type": "AccessControlModel"
         },
         {
-          "name": "securityOperations",
+          "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "9.2. Security Operations — OPS follow-up subtree.",
+          "doc": "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -218339,18 +218526,33 @@
               }
             }
           ],
-          "type": "SecurityOperationsFollowUp"
+          "type": "AuditAndLogging"
         },
         {
-          "name": "compliance",
+          "name": "securityOperations",
           "kind": "complex",
-          "doc": "9.3. Compliance — CMP follow-up subtree.",
+          "doc": "9.3. Security Operations — OPS follow-up subtree.",
           "serializationOrder": 3,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
+              }
+            }
+          ],
+          "type": "SecurityOperationsFollowUp"
+        },
+        {
+          "name": "compliance",
+          "kind": "complex",
+          "doc": "9.4. Compliance — CMP follow-up subtree.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
               }
             }
           ],
@@ -219637,7 +219839,7 @@
     "SecurityComplianceFollowUp": {
       "name": "SecurityComplianceFollowUp",
       "sectionId": "SCCF",
-      "doc": "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour (§4.5 of\n`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.",
+      "doc": "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — information security management",
@@ -220781,13 +220983,13 @@
     "SecurityOperationsFollowUp": {
       "name": "SecurityOperationsFollowUp",
       "sectionId": "SCOF",
-      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(§8.3 of `codespecs_mapping.md`). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.",
+      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
           "NIST SP 800-57 — key management"
         ],
-        "connotation": "The OPS follow-up: sensitive-data encryption (key management) and audit / logging operations, consumed operationally rather than generated."
+        "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
       },
       "annotations": [
         {
@@ -220797,7 +220999,7 @@
               "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
               "NIST SP 800-57 — key management"
             ],
-            "connotation": "The OPS follow-up: sensitive-data encryption (key management) and audit / logging operations, consumed operationally rather than generated."
+            "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
           }
         },
         {
@@ -220825,7 +221027,7 @@
               "name": "ContentType",
               "arguments": {
                 "type": "description",
-                "description": "Summarize the operational security follow-up: encryption / key management and audit / logging."
+                "description": "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines."
               }
             },
             {
@@ -220840,7 +221042,7 @@
         {
           "name": "encryption",
           "kind": "complex",
-          "doc": "9.2.1. Sensitive Data Encryption.",
+          "doc": "9.3.1. Sensitive Data Encryption.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -220853,9 +221055,9 @@
           "type": "SensitiveDataEncryption"
         },
         {
-          "name": "auditAndLogging",
+          "name": "complianceReporting",
           "kind": "complex",
-          "doc": "9.2.2. Audit and Logging.",
+          "doc": "9.3.2. Compliance Reporting.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -220865,7 +221067,7 @@
               }
             }
           ],
-          "type": "AuditAndLogging"
+          "type": "ComplianceReporting"
         }
       ]
     },
@@ -230380,7 +230582,7 @@
     "SolutionArchitectureFollowUp": {
       "name": "SolutionArchitectureFollowUp",
       "sectionId": "SATF",
-      "doc": "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (§8.3 of `codespecs_mapping.md`), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.",
+      "doc": "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (`codespecs_mapping.md` §8.3), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 42010:2011 — architecture description"
@@ -238067,7 +238269,7 @@
         {
           "name": "stakeholderRegister",
           "kind": "list",
-          "doc": "Stakeholder register (§5 completeness addition).",
+          "doc": "Stakeholder register.",
           "help": "Add one entry per stakeholder or group (STK-NNN).",
           "sectionId": "STKRG-STAK-LST",
           "sectionIdPattern": "STKRG-STAK-xxx",
@@ -251659,7 +251861,10 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for tab label",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "icon",
@@ -270850,42 +271055,60 @@
               "label": "Label Resource",
               "hint": "Message key (MSGKR registry) for label text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "hintResource",
               "label": "Hint Resource",
               "hint": "Message key (MSGKR registry) for hint text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "errorResource",
               "label": "Error Resource",
               "hint": "Message key (MSGKR registry) for error messages",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "tooltipResource",
               "label": "Tooltip Resource",
               "hint": "Message key (MSGKR registry) for tooltip text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "placeholderResource",
               "label": "Placeholder Resource",
               "hint": "Message key (MSGKR registry) for placeholder text",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "ariaLabelResource",
               "label": "ARIA Label Resource",
               "hint": "Message key (MSGKR registry) for the ARIA label",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             },
             {
               "name": "iconResource",
@@ -280085,7 +280308,10 @@
               "label": "Localization Key",
               "hint": "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "MSGKE.key"
+              ]
             }
           ]
         }

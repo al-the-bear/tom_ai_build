@@ -33,24 +33,16 @@
 /// acceptance source), not emitted as generated code, so it is not part of the
 /// generation projection (`codespecs_mapping.md` §8.3).
 ///
-/// **CE-LG is promoted but not yet projected.** Its SOM home `AuditAndLogging`
-/// (SAS) mixes the CodeSpecs-authorable half (`SecurityEventsDefinition`'s
-/// policy forms, which map onto `@TomAudited`) with CE-CF sink settings
-/// (`AuditLogFormat`'s storage / retention / protection) and an ops follow-up
-/// (`ComplianceReporting`). Referencing the subtree wholesale would pull
-/// follow-up content into generation, so the section needs a Band-F-style split
-/// first — until it lands, CE-LG is an active part whose declarations reach
-/// generation through the endpoints and repositories they annotate rather than
-/// through a projection field of their own.
-///
-/// **CE-RP is promoted but not yet projected, for the same reason.** Its SOM
+/// **CE-RP is promoted but not yet projected.** Its SOM
 /// home `PrintAndExportLayout` (XDS) mixes CE-CF renderer and export settings —
 /// the section's own print/paper/branding fields plus the export format, size
 /// and template entries — with the CE-RP report band (`ReportEntry` and its
 /// subtree). The report list cannot simply be lifted into a projection field of
 /// its own, because its `@SectionId`/`@SectionIdPattern` are declared on
-/// `PrintAndExportLayout`; the split has to move it. Meanwhile CE-RP reaches
-/// generation the same way CE-LG does.
+/// `PrintAndExportLayout`; the split has to move it. Meanwhile CE-RP is an
+/// active part whose declarations reach generation through the endpoints and
+/// repositories they annotate rather than through a projection field of their
+/// own.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -151,12 +143,25 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(9)
   AccessControlModel accessControl = AccessControlModel();
 
+  /// Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+  ///
+  /// Both bands are server-side and both are authored input: CE-LG declares
+  /// *what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`
+  /// beside the framework's `@TomAudited`), CE-CF configures the sink that
+  /// receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
+  /// operational half — the review, reporting and anomaly-detection routines
+  /// run against the log — is a follow-up subtree under
+  /// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+  @Comment('locus: server — CE-LG/CE-CF')
+  @SerializationOrder(10)
+  AuditAndLogging auditAndLogging = AuditAndLogging();
+
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
 
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -164,6 +169,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

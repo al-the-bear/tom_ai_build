@@ -2724,7 +2724,7 @@ def _mc_AuditAndLogging(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityEventsDefinition",
                 serialization_order=1,
-                doc_comment="9.6.1. Security Events.",
+                doc_comment="9.6.1. Security Events — the CE-LG declared half.",
                 class_doc_comment="9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.",
                 recursive=r,
                 children=c)),
@@ -2736,20 +2736,8 @@ def _mc_AuditAndLogging(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="AuditLogFormat",
                 serialization_order=2,
-                doc_comment="9.6.2. Audit Log Format.",
+                doc_comment="9.6.2. Audit Log Format — the CE-CF log-sink settings.",
                 class_doc_comment="9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.",
-                recursive=r,
-                children=c)),
-         _cx("ComplianceReporting", s, _mc_ComplianceReporting,
-            lambda r, c: SomMetaNode(
-                class_name="ComplianceReporting",
-                member_name="complianceReporting",
-                class_section_id="COMREP",
-                kind=SomMetaKind.COMPLEX,
-                type_name="ComplianceReporting",
-                serialization_order=3,
-                doc_comment="9.6.3. Compliance Reporting.",
-                class_doc_comment="9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.",
                 recursive=r,
                 children=c)),
     ]
@@ -12034,8 +12022,8 @@ def _mc_D08SecurityAccessSpecification(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="AuditAndLogging",
                 serialization_order=7,
-                doc_comment="Audit and logging.",
-                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
+                doc_comment="Audit and logging — the CE-LG / CE-CF declarations.",
+                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
                 detailed_in="D08SecurityAccessSpecification",
                 recursive=r,
                 children=c)),
@@ -12063,6 +12051,18 @@ def _mc_D08SecurityAccessSpecification(s):
                 doc_comment="Compliance framework.",
                 class_doc_comment="9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.",
                 detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
+         _cx("ComplianceReporting", s, _mc_ComplianceReporting,
+            lambda r, c: SomMetaNode(
+                class_name="ComplianceReporting",
+                member_name="complianceReporting",
+                class_section_id="COMREP",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ComplianceReporting",
+                serialization_order=10,
+                doc_comment="Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
+                class_doc_comment="9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
                 recursive=r,
                 children=c)),
     ]
@@ -12986,6 +12986,20 @@ def _mc_D13CodeSpecsProjection(s):
                 class_doc_comment="SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
                 recursive=r,
                 children=c)),
+         _cx("AuditAndLogging", s, _mc_AuditAndLogging,
+            lambda r, c: SomMetaNode(
+                class_name="AuditAndLogging",
+                member_name="auditAndLogging",
+                class_section_id="AUANLO",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuditAndLogging",
+                serialization_order=10,
+                comment="locus: server — CE-LG/CE-CF",
+                doc_comment="Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.",
+                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
          _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
             lambda r, c: SomMetaNode(
                 class_name="ProcessStepsAndActorInteractions",
@@ -12993,7 +13007,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="PSAAI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessStepsAndActorInteractions",
-                serialization_order=10,
+                serialization_order=11,
                 comment="locus: server(CE-SU)+client(CE-SC)",
                 doc_comment="Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
                 class_doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
@@ -13007,7 +13021,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="XCS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExperienceCodeSpecs",
-                serialization_order=11,
+                serialization_order=12,
                 comment="locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER",
                 doc_comment="Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
                 class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.",
@@ -42123,6 +42137,19 @@ def _mc_SecurityAndAccessModel(s):
                 class_doc_comment="SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.",
                 recursive=r,
                 children=c)),
+         _cx("AuditAndLogging", s, _mc_AuditAndLogging,
+            lambda r, c: SomMetaNode(
+                class_name="AuditAndLogging",
+                member_name="auditAndLogging",
+                class_section_id="AUANLO",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuditAndLogging",
+                serialization_order=2,
+                doc_comment="9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.",
+                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
+                detailed_in="D08SecurityAccessSpecification",
+                recursive=r,
+                children=c)),
          _cx("SecurityOperationsFollowUp", s, _mc_SecurityOperationsFollowUp,
             lambda r, c: SomMetaNode(
                 class_name="SecurityOperationsFollowUp",
@@ -42130,9 +42157,9 @@ def _mc_SecurityAndAccessModel(s):
                 class_section_id="SCOF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityOperationsFollowUp",
-                serialization_order=2,
-                doc_comment="9.2. Security Operations — OPS follow-up subtree.",
-                class_doc_comment="SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.",
+                serialization_order=3,
+                doc_comment="9.3. Security Operations — OPS follow-up subtree.",
+                class_doc_comment="SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.",
                 recursive=r,
                 children=c)),
          _cx("SecurityComplianceFollowUp", s, _mc_SecurityComplianceFollowUp,
@@ -42142,8 +42169,8 @@ def _mc_SecurityAndAccessModel(s):
                 class_section_id="SCCF",
                 kind=SomMetaKind.COMPLEX,
                 type_name="SecurityComplianceFollowUp",
-                serialization_order=3,
-                doc_comment="9.3. Compliance — CMP follow-up subtree.",
+                serialization_order=4,
+                doc_comment="9.4. Compliance — CMP follow-up subtree.",
                 class_doc_comment="SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.",
                 recursive=r,
                 children=c)),
@@ -42685,7 +42712,7 @@ def _mc_SecurityOperationsFollowUp(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="description", description="Summarize the operational security follow-up: encryption / key management and audit / logging.")),
+            content_type=SomContentTypeMeta(type="description", description="Summarize the operational security follow-up: encryption / key management and audit review / reporting routines.")),
          _cx("SensitiveDataEncryption", s, _mc_SensitiveDataEncryption,
             lambda r, c: SomMetaNode(
                 class_name="SensitiveDataEncryption",
@@ -42694,22 +42721,21 @@ def _mc_SecurityOperationsFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="SensitiveDataEncryption",
                 serialization_order=1,
-                doc_comment="9.2.1. Sensitive Data Encryption.",
+                doc_comment="9.3.1. Sensitive Data Encryption.",
                 class_doc_comment="9.5. Sensitive Data Encryption.",
                 detailed_in="D08SecurityAccessSpecification",
                 recursive=r,
                 children=c)),
-         _cx("AuditAndLogging", s, _mc_AuditAndLogging,
+         _cx("ComplianceReporting", s, _mc_ComplianceReporting,
             lambda r, c: SomMetaNode(
-                class_name="AuditAndLogging",
-                member_name="auditAndLogging",
-                class_section_id="AUANLO",
+                class_name="ComplianceReporting",
+                member_name="complianceReporting",
+                class_section_id="COMREP",
                 kind=SomMetaKind.COMPLEX,
-                type_name="AuditAndLogging",
+                type_name="ComplianceReporting",
                 serialization_order=2,
-                doc_comment="9.2.2. Audit and Logging.",
-                class_doc_comment="9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
-                detailed_in="D08SecurityAccessSpecification",
+                doc_comment="9.3.2. Compliance Reporting.",
+                class_doc_comment="9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
                 recursive=r,
                 children=c)),
     ]
@@ -56619,10 +56645,6 @@ class AuditAndLoggingNav(SomMetaRef):
     def auditLogFormat(self):
         return AuditLogFormatNav(self.tree, f"{self.path}/auditLogFormat")
 
-    @property
-    def complianceReporting(self):
-        return ComplianceReportingNav(self.tree, f"{self.path}/complianceReporting")
-
 
 class AuditEntryNav(SomMetaRef):
     """Dot-notation accessors of ``AuditEntry`` (SOM §8). Every getter is
@@ -61200,6 +61222,10 @@ class D08SecurityAccessSpecificationNav(SomMetaRef):
     def complianceFramework(self):
         return ComplianceFrameworkNav(self.tree, f"{self.path}/complianceFramework")
 
+    @property
+    def complianceReporting(self):
+        return ComplianceReportingNav(self.tree, f"{self.path}/complianceReporting")
+
 
 class D09ExperienceDesignSpecificationNav(SomMetaRef):
     """Dot-notation accessors of ``D09ExperienceDesignSpecification`` (SOM §8). Every getter is
@@ -61514,6 +61540,10 @@ class D13CodeSpecsProjectionNav(SomMetaRef):
     @property
     def accessControl(self):
         return AccessControlModelNav(self.tree, f"{self.path}/accessControl")
+
+    @property
+    def auditAndLogging(self):
+        return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
 
     @property
     def processStepsAndActorInteractions(self):
@@ -77018,6 +77048,10 @@ class SecurityAndAccessModelNav(SomMetaRef):
         return AccessControlModelNav(self.tree, f"{self.path}/accessControl")
 
     @property
+    def auditAndLogging(self):
+        return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
+
+    @property
     def securityOperations(self):
         return SecurityOperationsFollowUpNav(self.tree, f"{self.path}/securityOperations")
 
@@ -77313,8 +77347,8 @@ class SecurityOperationsFollowUpNav(SomMetaRef):
         return SensitiveDataEncryptionNav(self.tree, f"{self.path}/encryption")
 
     @property
-    def auditAndLogging(self):
-        return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
+    def complianceReporting(self):
+        return ComplianceReportingNav(self.tree, f"{self.path}/complianceReporting")
 
 
 class SecurityRequirementEntryNav(SomMetaRef):
@@ -89324,16 +89358,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", TenantCustomizationEntryId)
 
     @property
+    def SEVT_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
+
+    @property
     def ENDACA_ENCR_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST", EncryptedDataCategoryEntryId)
 
     @property
     def COCHEN_COMM_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST", CommunicationChannelEncryptionEntryId)
-
-    @property
-    def SEVT_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
 
     @property
     def SCREN_ITEM_LST(self):
@@ -97977,6 +98011,10 @@ class D13CodeSpecsProjectionId(SomMetaRef):
     @property
     def TNCS_TENA_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", TenantCustomizationEntryId)
+
+    @property
+    def SEVT_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
 
     @property
     def ACOVNA(self):

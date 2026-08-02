@@ -5562,7 +5562,7 @@ void buildAuditAndLoggingChildren(som::SomMetaNode& parent, std::vector<std::str
         n.typeName = "SecurityEventsDefinition";
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
-        n.docComment = "9.6.1. Security Events.";
+        n.docComment = "9.6.1. Security Events — the CE-LG declared half.";
         n.classDocComment = "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.";
       },
       buildSecurityEventsDefinitionChildren);
@@ -5578,26 +5578,10 @@ void buildAuditAndLoggingChildren(som::SomMetaNode& parent, std::vector<std::str
         n.typeName = "AuditLogFormat";
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
-        n.docComment = "9.6.2. Audit Log Format.";
+        n.docComment = "9.6.2. Audit Log Format — the CE-CF log-sink settings.";
         n.classDocComment = "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.";
       },
       buildAuditLogFormatChildren);
-    parent.addChild(std::move(n));
-  }
-  {
-    auto n = metaCx("ComplianceReporting", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ComplianceReporting";
-        n.memberName = "complianceReporting";
-        n.classSectionId = "COMREP";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ComplianceReporting";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
-        n.docComment = "9.6.3. Compliance Reporting.";
-        n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.";
-      },
-      buildComplianceReportingChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -20445,8 +20429,8 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.typeName = "AuditAndLogging";
         n.hasSerializationOrder = true;
         n.serializationOrder = 7;
-        n.docComment = "Audit and logging.";
-        n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).";
+        n.docComment = "Audit and logging — the CE-LG / CE-CF declarations.";
+        n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
         n.detailedIn = "D08SecurityAccessSpecification";
       },
       buildAuditAndLoggingChildren);
@@ -20484,6 +20468,22 @@ void buildD08SecurityAccessSpecificationChildren(som::SomMetaNode& parent, std::
         n.detailedIn = "D08SecurityAccessSpecification";
       },
       buildComplianceFrameworkChildren);
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("ComplianceReporting", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ComplianceReporting";
+        n.memberName = "complianceReporting";
+        n.classSectionId = "COMREP";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ComplianceReporting";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 10;
+        n.docComment = "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.";
+        n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
+      },
+      buildComplianceReportingChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -21688,6 +21688,24 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("AuditAndLogging", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuditAndLogging";
+        n.memberName = "auditAndLogging";
+        n.classSectionId = "AUANLO";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuditAndLogging";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 10;
+        n.comment = "locus: server — CE-LG/CE-CF";
+        n.docComment = "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.";
+        n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
+        n.detailedIn = "D08SecurityAccessSpecification";
+      },
+      buildAuditAndLoggingChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("ProcessStepsAndActorInteractions", stack,
       [](som::SomMetaNode& n) {
         n.className = "ProcessStepsAndActorInteractions";
@@ -21696,7 +21714,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessStepsAndActorInteractions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
         n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
@@ -21714,7 +21732,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExperienceCodeSpecs";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
@@ -69284,6 +69302,23 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("AuditAndLogging", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuditAndLogging";
+        n.memberName = "auditAndLogging";
+        n.classSectionId = "AUANLO";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuditAndLogging";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.";
+        n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.";
+        n.detailedIn = "D08SecurityAccessSpecification";
+      },
+      buildAuditAndLoggingChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("SecurityOperationsFollowUp", stack,
       [](som::SomMetaNode& n) {
         n.className = "SecurityOperationsFollowUp";
@@ -69292,9 +69327,9 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SecurityOperationsFollowUp";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
-        n.docComment = "9.2. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.";
+        n.serializationOrder = 3;
+        n.docComment = "9.3. Security Operations — OPS follow-up subtree.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.";
       },
       buildSecurityOperationsFollowUpChildren);
     parent.addChild(std::move(n));
@@ -69308,8 +69343,8 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SecurityComplianceFollowUp";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
-        n.docComment = "9.3. Compliance — CMP follow-up subtree.";
+        n.serializationOrder = 4;
+        n.docComment = "9.4. Compliance — CMP follow-up subtree.";
         n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
       },
       buildSecurityComplianceFollowUpChildren);
@@ -70136,7 +70171,7 @@ void buildSecurityOperationsFollowUpChildren(som::SomMetaNode& parent, std::vect
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
-    (*n).contentType = som::SomContentTypeMeta{"description", "Summarize the operational security follow-up: encryption / key management and audit / logging."};
+    (*n).contentType = som::SomContentTypeMeta{"description", "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines."};
     parent.addChild(std::move(n));
   }
   {
@@ -70149,7 +70184,7 @@ void buildSecurityOperationsFollowUpChildren(som::SomMetaNode& parent, std::vect
         n.typeName = "SensitiveDataEncryption";
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
-        n.docComment = "9.2.1. Sensitive Data Encryption.";
+        n.docComment = "9.3.1. Sensitive Data Encryption.";
         n.classDocComment = "9.5. Sensitive Data Encryption.";
         n.detailedIn = "D08SecurityAccessSpecification";
       },
@@ -70157,20 +70192,19 @@ void buildSecurityOperationsFollowUpChildren(som::SomMetaNode& parent, std::vect
     parent.addChild(std::move(n));
   }
   {
-    auto n = metaCx("AuditAndLogging", stack,
+    auto n = metaCx("ComplianceReporting", stack,
       [](som::SomMetaNode& n) {
-        n.className = "AuditAndLogging";
-        n.memberName = "auditAndLogging";
-        n.classSectionId = "AUANLO";
+        n.className = "ComplianceReporting";
+        n.memberName = "complianceReporting";
+        n.classSectionId = "COMREP";
         n.kind = som::kSomMetaKindComplex;
-        n.typeName = "AuditAndLogging";
+        n.typeName = "ComplianceReporting";
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
-        n.docComment = "9.2.2. Audit and Logging.";
-        n.classDocComment = "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).";
-        n.detailedIn = "D08SecurityAccessSpecification";
+        n.docComment = "9.3.2. Compliance Reporting.";
+        n.classDocComment = "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.";
       },
-      buildAuditAndLoggingChildren);
+      buildComplianceReportingChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -94522,9 +94556,6 @@ NavSecurityEventsDefinition navAuditAndLogging_securityEvents(NavAuditAndLogging
 NavAuditLogFormat navAuditAndLogging_auditLogFormat(NavAuditAndLogging x) {
   return NavAuditLogFormat{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditLogFormat"))};
 }
-NavComplianceReporting navAuditAndLogging_complianceReporting(NavAuditAndLogging x) {
-  return NavComplianceReporting{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "complianceReporting"))};
-}
 som::SomMetaRef navAuditEntry_content(NavAuditEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -97018,6 +97049,9 @@ NavRoleMatrix navD08SecurityAccessSpecification_roleMatrix(NavD08SecurityAccessS
 NavComplianceFramework navD08SecurityAccessSpecification_complianceFramework(NavD08SecurityAccessSpecification x) {
   return NavComplianceFramework{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "complianceFramework"))};
 }
+NavComplianceReporting navD08SecurityAccessSpecification_complianceReporting(NavD08SecurityAccessSpecification x) {
+  return NavComplianceReporting{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "complianceReporting"))};
+}
 som::SomMetaRef navD09ExperienceDesignSpecification_content(NavD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -97227,6 +97261,9 @@ NavTechnicalFrameworkConcept navD13CodeSpecsProjection_technicalFramework(NavD13
 }
 NavAccessControlModel navD13CodeSpecsProjection_accessControl(NavD13CodeSpecsProjection x) {
   return NavAccessControlModel{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControl"))};
+}
+NavAuditAndLogging navD13CodeSpecsProjection_auditAndLogging(NavD13CodeSpecsProjection x) {
+  return NavAuditAndLogging{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging"))};
 }
 NavProcessStepsAndActorInteractions navD13CodeSpecsProjection_processStepsAndActorInteractions(NavD13CodeSpecsProjection x) {
   return NavProcessStepsAndActorInteractions{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsAndActorInteractions"))};
@@ -105082,6 +105119,9 @@ som::SomMetaRef navSecurityAndAccessModel_content(NavSecurityAndAccessModel x) {
 NavAccessControlModel navSecurityAndAccessModel_accessControl(NavSecurityAndAccessModel x) {
   return NavAccessControlModel{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControl"))};
 }
+NavAuditAndLogging navSecurityAndAccessModel_auditAndLogging(NavSecurityAndAccessModel x) {
+  return NavAuditAndLogging{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging"))};
+}
 NavSecurityOperationsFollowUp navSecurityAndAccessModel_securityOperations(NavSecurityAndAccessModel x) {
   return NavSecurityOperationsFollowUp{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityOperations"))};
 }
@@ -105235,8 +105275,8 @@ som::SomMetaRef navSecurityOperationsFollowUp_content(NavSecurityOperationsFollo
 NavSensitiveDataEncryption navSecurityOperationsFollowUp_encryption(NavSecurityOperationsFollowUp x) {
   return NavSensitiveDataEncryption{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "encryption"))};
 }
-NavAuditAndLogging navSecurityOperationsFollowUp_auditAndLogging(NavSecurityOperationsFollowUp x) {
-  return NavAuditAndLogging{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging"))};
+NavComplianceReporting navSecurityOperationsFollowUp_complianceReporting(NavSecurityOperationsFollowUp x) {
+  return NavComplianceReporting{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "complianceReporting"))};
 }
 som::SomMetaRef navSecurityRequirementEntry_content(NavSecurityRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112325,14 +112365,14 @@ som::SomListMetaRef idD00SolutionBlueprint_GBRLX_GLOB_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_TNCS_TENA_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), metaIdFactoryTenantCustomizationEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_SEVT_CUST_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_ENDACA_ENCR_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST"), metaIdFactoryEncryptedDataCategoryEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_COCHEN_COMM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST"), metaIdFactoryCommunicationChannelEncryptionEntry);
-}
-som::SomListMetaRef idD00SolutionBlueprint_SEVT_CUST_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_SCREN_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST"), metaIdFactoryScreenEntry);
@@ -118747,6 +118787,9 @@ som::SomListMetaRef idD13CodeSpecsProjection_GBRLX_GLOB_LST(IdD13CodeSpecsProjec
 }
 som::SomListMetaRef idD13CodeSpecsProjection_TNCS_TENA_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), metaIdFactoryTenantCustomizationEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_SEVT_CUST_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_ACOVNA(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsAndActorInteractions/actorOverview/ACOVNA"));

@@ -61,7 +61,7 @@ class D08SecurityAccessSpecification extends DocSpecsSection {
   @SerializationOrder(6)
   SensitiveDataEncryption sensitiveDataEncryption = SensitiveDataEncryption();
 
-  /// Audit and logging.
+  /// Audit and logging — the CE-LG / CE-CF declarations.
   @SerializationOrder(7)
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
@@ -72,4 +72,15 @@ class D08SecurityAccessSpecification extends DocSpecsSection {
   /// Compliance framework.
   @SerializationOrder(9)
   ComplianceFramework complianceFramework = ComplianceFramework();
+
+  /// Compliance reporting — the review / reporting routines run against the
+  /// audit log.
+  ///
+  /// Projected directly rather than through `AuditAndLogging`: the audit
+  /// section was split so its CodeSpecs bands can be a generation-projection
+  /// root, which put this follow-up subtree under `SecurityOperationsFollowUp`
+  /// (`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches
+  /// it here.
+  @SerializationOrder(10)
+  ComplianceReporting complianceReporting = ComplianceReporting();
 }

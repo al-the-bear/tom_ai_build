@@ -879,15 +879,11 @@ fn meta_children_audit_and_logging(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
     vec![
         Rc::new(som::SomMetaNode { class_name: "AuditAndLogging".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Define security audit and logging requirements. Comprehensive logging enables\nincident detection, forensic investigation, and compliance reporting.\n\n**Logging objectives:**\n- Detect security incidents in real-time or near-real-time\n- Support forensic investigation after incidents\n- Demonstrate compliance to auditors\n- Enable trend analysis and security posture improvement\n\n**Key event categories:**\n- Authentication events (login success/failure, logout, MFA)\n- Authorization events (access granted/denied, privilege changes)\n- Data access events (CRUD operations on sensitive data)\n- Administrative events (config changes, user management)\n- Security events (input validation failures, anomalies)\n\n**Log format:**\n- Structured format (JSON) for machine parsing\n- Consistent timestamp format (ISO 8601 UTC)\n- Unique event IDs for correlation\n- Who, what, when, where, result for each event\n\n**Log protection:**\n- Immutable logs (append-only, write-once storage)\n- Integrity protection (hashing, signing)\n- Access control (limited read access, no delete)\n\n**Retention and compliance:**\n- Define retention periods per log type and regulation\n- PCI DSS: 1 year online, 3 months immediately available\n- HIPAA: 6 years for covered entity records\n- Secure deletion after retention period\n\n**Reference:**\n- OWASP Logging Cheat Sheet\n- NIST SP 800-92: Guide to Computer Security Log Management\n".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("SecurityEventsDefinition", s, meta_children_security_events_definition, |r, c| som::SomMetaNode {
-            class_name: "SecurityEventsDefinition".to_string(), member_name: "securityEvents".to_string(), class_section_id: "SEEVDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityEventsDefinition".to_string(), serialization_order: Some(1), doc_comment: "9.6.1. Security Events.".to_string(), class_doc_comment: "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.".to_string(),
+            class_name: "SecurityEventsDefinition".to_string(), member_name: "securityEvents".to_string(), class_section_id: "SEEVDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityEventsDefinition".to_string(), serialization_order: Some(1), doc_comment: "9.6.1. Security Events — the CE-LG declared half.".to_string(), class_doc_comment: "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AuditLogFormat", s, meta_children_audit_log_format, |r, c| som::SomMetaNode {
-            class_name: "AuditLogFormat".to_string(), member_name: "auditLogFormat".to_string(), class_section_id: "AULOFO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditLogFormat".to_string(), serialization_order: Some(2), doc_comment: "9.6.2. Audit Log Format.".to_string(), class_doc_comment: "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.".to_string(),
-            recursive: r, children: c, ..som::SomMetaNode::default()
-        }),
-        meta_cx("ComplianceReporting", s, meta_children_compliance_reporting, |r, c| som::SomMetaNode {
-            class_name: "ComplianceReporting".to_string(), member_name: "complianceReporting".to_string(), class_section_id: "COMREP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceReporting".to_string(), serialization_order: Some(3), doc_comment: "9.6.3. Compliance Reporting.".to_string(), class_doc_comment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.".to_string(),
+            class_name: "AuditLogFormat".to_string(), member_name: "auditLogFormat".to_string(), class_section_id: "AULOFO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditLogFormat".to_string(), serialization_order: Some(2), doc_comment: "9.6.2. Audit Log Format — the CE-CF log-sink settings.".to_string(), class_doc_comment: "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -3953,7 +3949,7 @@ fn meta_children_d08_security_access_specification(s: &mut HashSet<String>) -> V
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
-            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(7), doc_comment: "Audit and logging.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(7), doc_comment: "Audit and logging — the CE-LG / CE-CF declarations.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("RoleMatrix", s, meta_children_role_matrix, |r, c| som::SomMetaNode {
@@ -3962,6 +3958,10 @@ fn meta_children_d08_security_access_specification(s: &mut HashSet<String>) -> V
         }),
         meta_cx("ComplianceFramework", s, meta_children_compliance_framework, |r, c| som::SomMetaNode {
             class_name: "ComplianceFramework".to_string(), member_name: "complianceFramework".to_string(), class_section_id: "CF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceFramework".to_string(), serialization_order: Some(9), doc_comment: "Compliance framework.".to_string(), class_doc_comment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
+        meta_cx("ComplianceReporting", s, meta_children_compliance_reporting, |r, c| som::SomMetaNode {
+            class_name: "ComplianceReporting".to_string(), member_name: "complianceReporting".to_string(), class_section_id: "COMREP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceReporting".to_string(), serialization_order: Some(10), doc_comment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.".to_string(), class_doc_comment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -4258,12 +4258,16 @@ fn meta_children_d13_code_specs_projection(s: &mut HashSet<String>) -> Vec<Rc<so
             class_name: "AccessControlModel".to_string(), member_name: "accessControl".to_string(), class_section_id: "ACCM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AccessControlModel".to_string(), serialization_order: Some(9), comment: "locus: server — CE-AZ".to_string(), doc_comment: "Access control model — CE-AZ authorization/identity seed.".to_string(), class_doc_comment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
+            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(10), comment: "locus: server — CE-LG/CE-CF".to_string(), doc_comment: "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
         meta_cx("ProcessStepsAndActorInteractions", s, meta_children_process_steps_and_actor_interactions, |r, c| som::SomMetaNode {
-            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(10), comment: "locus: server(CE-SU)+client(CE-SC)".to_string(), doc_comment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
+            class_name: "ProcessStepsAndActorInteractions".to_string(), member_name: "processStepsAndActorInteractions".to_string(), class_section_id: "PSAAI".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProcessStepsAndActorInteractions".to_string(), serialization_order: Some(11), comment: "locus: server(CE-SU)+client(CE-SC)".to_string(), doc_comment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.".to_string(), class_doc_comment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.".to_string(), maps_to: "D05InteractionScenarios".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("ExperienceCodeSpecs", s, meta_children_experience_code_specs, |r, c| som::SomMetaNode {
-            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(11), comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER".to_string(), doc_comment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.".to_string(),
+            class_name: "ExperienceCodeSpecs".to_string(), member_name: "experienceCodeSpecs".to_string(), class_section_id: "XCS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExperienceCodeSpecs".to_string(), serialization_order: Some(12), comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER".to_string(), doc_comment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.".to_string(), class_doc_comment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -13611,12 +13615,16 @@ fn meta_children_security_and_access_model(s: &mut HashSet<String>) -> Vec<Rc<so
             class_name: "AccessControlModel".to_string(), member_name: "accessControl".to_string(), class_section_id: "ACCM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AccessControlModel".to_string(), serialization_order: Some(1), doc_comment: "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
+        meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
+            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(2), doc_comment: "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            recursive: r, children: c, ..som::SomMetaNode::default()
+        }),
         meta_cx("SecurityOperationsFollowUp", s, meta_children_security_operations_follow_up, |r, c| som::SomMetaNode {
-            class_name: "SecurityOperationsFollowUp".to_string(), member_name: "securityOperations".to_string(), class_section_id: "SCOF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityOperationsFollowUp".to_string(), serialization_order: Some(2), doc_comment: "9.2. Security Operations — OPS follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.".to_string(),
+            class_name: "SecurityOperationsFollowUp".to_string(), member_name: "securityOperations".to_string(), class_section_id: "SCOF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityOperationsFollowUp".to_string(), serialization_order: Some(3), doc_comment: "9.3. Security Operations — OPS follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         meta_cx("SecurityComplianceFollowUp", s, meta_children_security_compliance_follow_up, |r, c| som::SomMetaNode {
-            class_name: "SecurityComplianceFollowUp".to_string(), member_name: "compliance".to_string(), class_section_id: "SCCF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityComplianceFollowUp".to_string(), serialization_order: Some(3), doc_comment: "9.3. Compliance — CMP follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.".to_string(),
+            class_name: "SecurityComplianceFollowUp".to_string(), member_name: "compliance".to_string(), class_section_id: "SCCF".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityComplianceFollowUp".to_string(), serialization_order: Some(4), doc_comment: "9.4. Compliance — CMP follow-up subtree.".to_string(), class_doc_comment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -13794,13 +13802,13 @@ fn meta_children_security_events_definition(s: &mut HashSet<String>) -> Vec<Rc<s
 
 fn meta_children_security_operations_follow_up(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
-        Rc::new(som::SomMetaNode { class_name: "SecurityOperationsFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the operational security follow-up: encryption / key management and audit / logging.".to_string() }), ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SecurityOperationsFollowUp".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines.".to_string() }), ..som::SomMetaNode::default() }),
         meta_cx("SensitiveDataEncryption", s, meta_children_sensitive_data_encryption, |r, c| som::SomMetaNode {
-            class_name: "SensitiveDataEncryption".to_string(), member_name: "encryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(1), doc_comment: "9.2.1. Sensitive Data Encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+            class_name: "SensitiveDataEncryption".to_string(), member_name: "encryption".to_string(), class_section_id: "SEDAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SensitiveDataEncryption".to_string(), serialization_order: Some(1), doc_comment: "9.3.1. Sensitive Data Encryption.".to_string(), class_doc_comment: "9.5. Sensitive Data Encryption.".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        meta_cx("AuditAndLogging", s, meta_children_audit_and_logging, |r, c| som::SomMetaNode {
-            class_name: "AuditAndLogging".to_string(), member_name: "auditAndLogging".to_string(), class_section_id: "AUANLO".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AuditAndLogging".to_string(), serialization_order: Some(2), doc_comment: "9.2.2. Audit and Logging.".to_string(), class_doc_comment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).".to_string(), detailed_in: "D08SecurityAccessSpecification".to_string(),
+        meta_cx("ComplianceReporting", s, meta_children_compliance_reporting, |r, c| som::SomMetaNode {
+            class_name: "ComplianceReporting".to_string(), member_name: "complianceReporting".to_string(), class_section_id: "COMREP".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComplianceReporting".to_string(), serialization_order: Some(2), doc_comment: "9.3.2. Compliance Reporting.".to_string(), class_doc_comment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
     ]
@@ -20592,10 +20600,6 @@ impl<'a> AuditAndLoggingNav<'a> {
 
     pub fn audit_log_format(&self) -> AuditLogFormatNav<'a> {
         AuditLogFormatNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditLogFormat"))
-    }
-
-    pub fn compliance_reporting(&self) -> ComplianceReportingNav<'a> {
-        ComplianceReportingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceReporting"))
     }
 }
 
@@ -28754,6 +28758,10 @@ impl<'a> D08SecurityAccessSpecificationNav<'a> {
     pub fn compliance_framework(&self) -> ComplianceFrameworkNav<'a> {
         ComplianceFrameworkNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceFramework"))
     }
+
+    pub fn compliance_reporting(&self) -> ComplianceReportingNav<'a> {
+        ComplianceReportingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceReporting"))
+    }
 }
 
 /// D09ExperienceDesignSpecificationNav holds the dot-notation accessors of `D09ExperienceDesignSpecification` (SOM §8).
@@ -29168,6 +29176,10 @@ impl<'a> D13CodeSpecsProjectionNav<'a> {
 
     pub fn access_control(&self) -> AccessControlModelNav<'a> {
         AccessControlModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl"))
+    }
+
+    pub fn audit_and_logging(&self) -> AuditAndLoggingNav<'a> {
+        AuditAndLoggingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging"))
     }
 
     pub fn process_steps_and_actor_interactions(&self) -> ProcessStepsAndActorInteractionsNav<'a> {
@@ -58792,6 +58804,10 @@ impl<'a> SecurityAndAccessModelNav<'a> {
         AccessControlModelNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl"))
     }
 
+    pub fn audit_and_logging(&self) -> AuditAndLoggingNav<'a> {
+        AuditAndLoggingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging"))
+    }
+
     pub fn security_operations(&self) -> SecurityOperationsFollowUpNav<'a> {
         SecurityOperationsFollowUpNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityOperations"))
     }
@@ -59347,8 +59363,8 @@ impl<'a> SecurityOperationsFollowUpNav<'a> {
         SensitiveDataEncryptionNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "encryption"))
     }
 
-    pub fn audit_and_logging(&self) -> AuditAndLoggingNav<'a> {
-        AuditAndLoggingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging"))
+    pub fn compliance_reporting(&self) -> ComplianceReportingNav<'a> {
+        ComplianceReportingNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "complianceReporting"))
     }
 }
 
@@ -78528,16 +78544,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
     }
 
+    pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
+    }
+
     pub fn ENDACA_ENCR_LST(&self) -> som::SomListMetaRef<'a, EncryptedDataCategoryEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST"), EncryptedDataCategoryEntryId::new)
     }
 
     pub fn COCHEN_COMM_LST(&self) -> som::SomListMetaRef<'a, CommunicationChannelEncryptionEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST"), CommunicationChannelEncryptionEntryId::new)
-    }
-
-    pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
     }
 
     pub fn SCREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, ScreenEntryId<'a>> {
@@ -87428,6 +87444,10 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
 
     pub fn TNCS_TENA_LST(&self) -> som::SomListMetaRef<'a, TenantCustomizationEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authorization/tenantIsolation/TNCS-TENA-LST"), TenantCustomizationEntryId::new)
+    }
+
+    pub fn SEVT_CUST_LST(&self) -> som::SomListMetaRef<'a, SecurityEventEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
     }
 
     pub fn ACOVNA(&self) -> som::SomMetaRef<'a> {

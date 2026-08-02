@@ -825,13 +825,10 @@ func metaChildrenAuditAndLogging(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AuditAndLogging", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Define security audit and logging requirements. Comprehensive logging enables\nincident detection, forensic investigation, and compliance reporting.\n\n**Logging objectives:**\n- Detect security incidents in real-time or near-real-time\n- Support forensic investigation after incidents\n- Demonstrate compliance to auditors\n- Enable trend analysis and security posture improvement\n\n**Key event categories:**\n- Authentication events (login success/failure, logout, MFA)\n- Authorization events (access granted/denied, privilege changes)\n- Data access events (CRUD operations on sensitive data)\n- Administrative events (config changes, user management)\n- Security events (input validation failures, anomalies)\n\n**Log format:**\n- Structured format (JSON) for machine parsing\n- Consistent timestamp format (ISO 8601 UTC)\n- Unique event IDs for correlation\n- Who, what, when, where, result for each event\n\n**Log protection:**\n- Immutable logs (append-only, write-once storage)\n- Integrity protection (hashing, signing)\n- Access control (limited read access, no delete)\n\n**Retention and compliance:**\n- Define retention periods per log type and regulation\n- PCI DSS: 1 year online, 3 months immediately available\n- HIPAA: 6 years for covered entity records\n- Secure deletion after retention period\n\n**Reference:**\n- OWASP Logging Cheat Sheet\n- NIST SP 800-92: Guide to Computer Security Log Management\n"},
 		metaCx("SecurityEventsDefinition", s, metaChildrenSecurityEventsDefinition, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SecurityEventsDefinition", MemberName: "securityEvents", ClassSectionID: "SEEVDE", Kind: som.SomMetaKindComplex, TypeName: "SecurityEventsDefinition", SerializationOrder: metaIntPtr(1), DocComment: "9.6.1. Security Events.", ClassDocComment: "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SecurityEventsDefinition", MemberName: "securityEvents", ClassSectionID: "SEEVDE", Kind: som.SomMetaKindComplex, TypeName: "SecurityEventsDefinition", SerializationOrder: metaIntPtr(1), DocComment: "9.6.1. Security Events — the CE-LG declared half.", ClassDocComment: "9.6.1. Security Events.\n\nDefines which security events must be logged: authentication attempts,\nauthorization failures, data access, configuration changes, admin actions,\ninput validation failures, and higher-risk functionality usage.", Recursive: r, Children: c}
 		}),
 		metaCx("AuditLogFormat", s, metaChildrenAuditLogFormat, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuditLogFormat", MemberName: "auditLogFormat", ClassSectionID: "AULOFO", Kind: som.SomMetaKindComplex, TypeName: "AuditLogFormat", SerializationOrder: metaIntPtr(2), DocComment: "9.6.2. Audit Log Format.", ClassDocComment: "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.", Recursive: r, Children: c}
-		}),
-		metaCx("ComplianceReporting", s, metaChildrenComplianceReporting, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ComplianceReporting", MemberName: "complianceReporting", ClassSectionID: "COMREP", Kind: som.SomMetaKindComplex, TypeName: "ComplianceReporting", SerializationOrder: metaIntPtr(3), DocComment: "9.6.3. Compliance Reporting.", ClassDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AuditLogFormat", MemberName: "auditLogFormat", ClassSectionID: "AULOFO", Kind: som.SomMetaKindComplex, TypeName: "AuditLogFormat", SerializationOrder: metaIntPtr(2), DocComment: "9.6.2. Audit Log Format — the CE-CF log-sink settings.", ClassDocComment: "9.6.2. Audit Log Format.\n\nDefines the audit log format: fields to capture (who, what, when, where,\nresult), log retention period, and tamper protection requirements.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3587,13 +3584,16 @@ func metaChildrenD08SecurityAccessSpecification(s map[string]bool) []*som.SomMet
 			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "sensitiveDataEncryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(6), DocComment: "Sensitive data encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(7), DocComment: "Audit and logging.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(7), DocComment: "Audit and logging — the CE-LG / CE-CF declarations.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("RoleMatrix", s, metaChildrenRoleMatrix, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "RoleMatrix", MemberName: "roleMatrix", ClassSectionID: "ROMA", Kind: som.SomMetaKindComplex, TypeName: "RoleMatrix", SerializationOrder: metaIntPtr(8), DocComment: "Role matrix.", ClassDocComment: "9.7. Role Matrix.\n\nRole-to-permission assignment matrix covering\nAuthorization Model.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ComplianceFramework", s, metaChildrenComplianceFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ComplianceFramework", MemberName: "complianceFramework", ClassSectionID: "CF", Kind: som.SomMetaKindComplex, TypeName: "ComplianceFramework", SerializationOrder: metaIntPtr(9), DocComment: "Compliance framework.", ClassDocComment: "9.8. Compliance Framework.\n\nNIST / SOC 2 / ISO 27001 / OWASP alignment for access and\nauthorization. Pulls the compliance references currently scattered\nacross @ContentHelp strings into an explicit section.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
+		metaCx("ComplianceReporting", s, metaChildrenComplianceReporting, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ComplianceReporting", MemberName: "complianceReporting", ClassSectionID: "COMREP", Kind: som.SomMetaKindComplex, TypeName: "ComplianceReporting", SerializationOrder: metaIntPtr(10), DocComment: "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.", ClassDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3824,11 +3824,14 @@ func metaChildrenD13CodeSpecsProjection(s map[string]bool) []*som.SomMetaNode {
 		metaCx("AccessControlModel", s, metaChildrenAccessControlModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AccessControlModel", MemberName: "accessControl", ClassSectionID: "ACCM", Kind: som.SomMetaKindComplex, TypeName: "AccessControlModel", SerializationOrder: metaIntPtr(9), Comment: "locus: server — CE-AZ", DocComment: "Access control model — CE-AZ authorization/identity seed.", ClassDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
+		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(10), Comment: "locus: server — CE-LG/CE-CF", DocComment: "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
 		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(10), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(11), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
 		}),
 		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(11), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(12), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -12508,11 +12511,14 @@ func metaChildrenSecurityAndAccessModel(s map[string]bool) []*som.SomMetaNode {
 		metaCx("AccessControlModel", s, metaChildrenAccessControlModel, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AccessControlModel", MemberName: "accessControl", ClassSectionID: "ACCM", Kind: som.SomMetaKindComplex, TypeName: "AccessControlModel", SerializationOrder: metaIntPtr(1), DocComment: "9.1. Access Control Model — the CE-AZ CodeSpecs subtree.", ClassDocComment: "SBP.12 Security & Access — Access Control Model (CE-AZ CodeSpecs subtree).\n\nGroups the five access-control concerns that CodeSpecs consumes as the CE-AZ\nauthorization seed (`codespecs_mapping.md` §8.3): user management,\nauthentication, resource protection, authorization, and the role matrix.\nThe container itself carries no `@CodeSpecKind` — the mapped parts live on\nthe child sections (e.g. `authentication`) — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the OPS/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
+		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(2), DocComment: "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		}),
 		metaCx("SecurityOperationsFollowUp", s, metaChildrenSecurityOperationsFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SecurityOperationsFollowUp", MemberName: "securityOperations", ClassSectionID: "SCOF", Kind: som.SomMetaKindComplex, TypeName: "SecurityOperationsFollowUp", SerializationOrder: metaIntPtr(2), DocComment: "9.2. Security Operations — OPS follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SecurityOperationsFollowUp", MemberName: "securityOperations", ClassSectionID: "SCOF", Kind: som.SomMetaKindComplex, TypeName: "SecurityOperationsFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "9.3. Security Operations — OPS follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.", Recursive: r, Children: c}
 		}),
 		metaCx("SecurityComplianceFollowUp", s, metaChildrenSecurityComplianceFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SecurityComplianceFollowUp", MemberName: "compliance", ClassSectionID: "SCCF", Kind: som.SomMetaKindComplex, TypeName: "SecurityComplianceFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "9.3. Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SecurityComplianceFollowUp", MemberName: "compliance", ClassSectionID: "SCCF", Kind: som.SomMetaKindComplex, TypeName: "SecurityComplianceFollowUp", SerializationOrder: metaIntPtr(4), DocComment: "9.4. Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -12672,12 +12678,12 @@ func metaChildrenSecurityEventsDefinition(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenSecurityOperationsFollowUp(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SecurityOperationsFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the operational security follow-up: encryption / key management and audit / logging."}},
+		{ClassName: "SecurityOperationsFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines."}},
 		metaCx("SensitiveDataEncryption", s, metaChildrenSensitiveDataEncryption, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "encryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(1), DocComment: "9.2.1. Sensitive Data Encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "SensitiveDataEncryption", MemberName: "encryption", ClassSectionID: "SEDAEN", Kind: som.SomMetaKindComplex, TypeName: "SensitiveDataEncryption", SerializationOrder: metaIntPtr(1), DocComment: "9.3.1. Sensitive Data Encryption.", ClassDocComment: "9.5. Sensitive Data Encryption.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
-		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(2), DocComment: "9.2.2. Audit and Logging.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
+		metaCx("ComplianceReporting", s, metaChildrenComplianceReporting, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ComplianceReporting", MemberName: "complianceReporting", ClassSectionID: "COMREP", Kind: som.SomMetaKindComplex, TypeName: "ComplianceReporting", SerializationOrder: metaIntPtr(2), DocComment: "9.3.2. Compliance Reporting.", ClassDocComment: "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -18279,10 +18285,6 @@ func (x *AuditAndLoggingNav) SecurityEvents() *SecurityEventsDefinitionNav {
 
 func (x *AuditAndLoggingNav) AuditLogFormat() *AuditLogFormatNav {
 	return newAuditLogFormatNav(x.Tree, x.Path+"/auditLogFormat")
-}
-
-func (x *AuditAndLoggingNav) ComplianceReporting() *ComplianceReportingNav {
-	return newComplianceReportingNav(x.Tree, x.Path+"/complianceReporting")
 }
 
 // AuditEntryNav holds the dot-notation accessors of `AuditEntry` (SOM §8).
@@ -24325,6 +24327,10 @@ func (x *D08SecurityAccessSpecificationNav) ComplianceFramework() *ComplianceFra
 	return newComplianceFrameworkNav(x.Tree, x.Path+"/complianceFramework")
 }
 
+func (x *D08SecurityAccessSpecificationNav) ComplianceReporting() *ComplianceReportingNav {
+	return newComplianceReportingNav(x.Tree, x.Path+"/complianceReporting")
+}
+
 // D09ExperienceDesignSpecificationNav holds the dot-notation accessors of `D09ExperienceDesignSpecification` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -24675,6 +24681,10 @@ func (x *D13CodeSpecsProjectionNav) TechnicalFramework() *TechnicalFrameworkConc
 
 func (x *D13CodeSpecsProjectionNav) AccessControl() *AccessControlModelNav {
 	return newAccessControlModelNav(x.Tree, x.Path+"/accessControl")
+}
+
+func (x *D13CodeSpecsProjectionNav) AuditAndLogging() *AuditAndLoggingNav {
+	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
 }
 
 func (x *D13CodeSpecsProjectionNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
@@ -45749,6 +45759,10 @@ func (x *SecurityAndAccessModelNav) AccessControl() *AccessControlModelNav {
 	return newAccessControlModelNav(x.Tree, x.Path+"/accessControl")
 }
 
+func (x *SecurityAndAccessModelNav) AuditAndLogging() *AuditAndLoggingNav {
+	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
+}
+
 func (x *SecurityAndAccessModelNav) SecurityOperations() *SecurityOperationsFollowUpNav {
 	return newSecurityOperationsFollowUpNav(x.Tree, x.Path+"/securityOperations")
 }
@@ -46141,8 +46155,8 @@ func (x *SecurityOperationsFollowUpNav) Encryption() *SensitiveDataEncryptionNav
 	return newSensitiveDataEncryptionNav(x.Tree, x.Path+"/encryption")
 }
 
-func (x *SecurityOperationsFollowUpNav) AuditAndLogging() *AuditAndLoggingNav {
-	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
+func (x *SecurityOperationsFollowUpNav) ComplianceReporting() *ComplianceReportingNav {
+	return newComplianceReportingNav(x.Tree, x.Path+"/complianceReporting")
 }
 
 // SecurityRequirementEntryNav holds the dot-notation accessors of `SecurityRequirementEntry` (SOM §8).
@@ -61537,6 +61551,12 @@ func (x *D00SolutionBlueprintID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCust
 	})
 }
 
+func (x *D00SolutionBlueprintID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
+		return newSecurityEventEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) ENDACA_ENCR_LST() *som.SomListMetaRef[*EncryptedDataCategoryEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST", func(t *som.SomMetaTree, p string) *EncryptedDataCategoryEntryID {
 		return newEncryptedDataCategoryEntryID(t, p)
@@ -61546,12 +61566,6 @@ func (x *D00SolutionBlueprintID) ENDACA_ENCR_LST() *som.SomListMetaRef[*Encrypte
 func (x *D00SolutionBlueprintID) COCHEN_COMM_LST() *som.SomListMetaRef[*CommunicationChannelEncryptionEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST", func(t *som.SomMetaTree, p string) *CommunicationChannelEncryptionEntryID {
 		return newCommunicationChannelEncryptionEntryID(t, p)
-	})
-}
-
-func (x *D00SolutionBlueprintID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/securityOperations/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
-		return newSecurityEventEntryID(t, p)
 	})
 }
 
@@ -71075,6 +71089,12 @@ func (x *D13CodeSpecsProjectionID) GBRLX_GLOB_LST() *som.SomListMetaRef[*GlobalR
 func (x *D13CodeSpecsProjectionID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCustomizationEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authorization/tenantIsolation/TNCS-TENA-LST", func(t *som.SomMetaTree, p string) *TenantCustomizationEntryID {
 		return newTenantCustomizationEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
+		return newSecurityEventEntryID(t, p)
 	})
 }
 

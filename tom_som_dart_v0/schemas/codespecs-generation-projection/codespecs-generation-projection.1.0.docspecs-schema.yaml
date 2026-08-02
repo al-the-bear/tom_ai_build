@@ -1310,6 +1310,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per system error code.
+  sevt-cust-lst:
+    prefix: SEVT_CUST_LST
+    subsection-types:
+      sevt-cust:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per custom security event.
   slen-slos-lst:
     prefix: SLEN_SLOS_LST
     subsection-types:
@@ -3363,6 +3371,12 @@ section-types:
     prefix: SESTCOENST
     format: sestcoenst-form
     description: Overall status.
+  sevt-cust:
+    prefix: SEVT_CUST_
+    pattern-check-id:
+      pattern: ^SEVT-CUST-.+$
+      error-message: IDs of this section must match SEVT-CUST-xxx
+    description: Add one entry per custom security event.
   slen-slos:
     prefix: SLEN_SLOS_
     subsection-types:
@@ -3824,6 +3838,9 @@ section-types:
     prefix: ADENMA
     format: adenma-form
     description: Environment management.
+  adevpo:
+    prefix: ADEVPO
+    description: Administrative Events.
   adinre:
     prefix: ADINRE
     subsection-types:
@@ -3948,6 +3965,32 @@ section-types:
     prefix: AROVEV
     format: arovev-form
     description: Evolution planning.
+  auanlo:
+    prefix: AUANLO
+    subsection-types:
+      seevde:
+        max-count: 1
+      aulofo:
+        max-count: 1
+    description: Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+  auevp1:
+    prefix: AUEVP1
+    description: Authorization Events.
+  auevpo:
+    prefix: AUEVPO
+    description: Authentication Events.
+  aulofo:
+    prefix: AULOFO
+    subsection-types:
+      evatpo:
+        max-count: 1
+      lostpo:
+        max-count: 1
+      loprpo:
+        max-count: 1
+      lorepo:
+        max-count: 1
+    description: 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   authen:
     prefix: AUTHEN
     subsection-types:
@@ -4921,6 +4964,9 @@ section-types:
       erhastre:
         max-count: 1
     description: Error handling and exception patterns.
+  evatpo:
+    prefix: EVATPO
+    description: Event Attribute Policy.
   exnere:
     prefix: EXNERE
     subsection-types:
@@ -5173,6 +5219,9 @@ section-types:
       lomareco:
         max-count: 1
     description: Log management requirements.
+  loprpo:
+    prefix: LOPRPO
+    description: Log Protection Policy.
   loprre:
     prefix: LOPRRE
     subsection-types:
@@ -5183,6 +5232,12 @@ section-types:
       lprpt:
         max-count: 1
     description: Load profile and capacity planning.
+  lorepo:
+    prefix: LOREPO
+    description: Log Retention Policy.
+  lostpo:
+    prefix: LOSTPO
+    description: Log Storage Policy.
   machma:
     prefix: MACHMA
     subsection-types:
@@ -5756,6 +5811,22 @@ section-types:
       sdlr:
         max-count: 1
     description: Security development lifecycle.
+  seevde:
+    prefix: SEEVDE
+    subsection-types:
+      selp:
+        max-count: 1
+      auevpo:
+        max-count: 1
+      auevp1:
+        max-count: 1
+      daep:
+        max-count: 1
+      adevpo:
+        max-count: 1
+      sevt-cust-lst:
+        max-count: 1
+    description: 9.6.1. Security Events — the CE-LG declared half.
   selein:
     prefix: SELEIN
     subsection-types:
@@ -6713,7 +6784,7 @@ section-types:
     subsection-types:
       rsfde-fldd-lst:
         max-count: 1
-    description: "Result envelope — CE-ER canonical §7 success-or-error contract, shared."
+    description: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract."
   rucea:
     prefix: RUCEA
     format: rucea-form
@@ -8034,6 +8105,9 @@ section-types:
   dadi:
     prefix: DADI
     description: 7.1.4. Data Dictionary..
+  daep:
+    prefix: DAEP
+    description: Data Access Events.
   dare:
     prefix: DARE
     subsection-types:
@@ -10181,6 +10255,9 @@ section-types:
       sefss:
         max-count: 1
     description: 10.2.1.n.m.k.2. Element Field Spec.
+  selp:
+    prefix: SELP
+    description: Security Event Logging Policy.
   sema:
     prefix: SEMA
     subsection-types:
@@ -22332,6 +22409,9 @@ document:
       optional: true
     accm:
       section-type: accm
+      optional: true
+    auanlo:
+      section-type: auanlo
       optional: true
     psaai:
       section-type: psaai

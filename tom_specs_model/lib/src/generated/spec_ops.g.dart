@@ -1387,7 +1387,6 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.securityEvents, (v) => n.securityEvents = v as SecurityEventsDefinition, label: 'securityEvents'),
         SpecSlot.node(() => n.auditLogFormat, (v) => n.auditLogFormat = v as AuditLogFormat, label: 'auditLogFormat'),
-        SpecSlot.node(() => n.complianceReporting, (v) => n.complianceReporting = v as ComplianceReporting, label: 'complianceReporting'),
       ];
     },
     cloneShallow: (o) {
@@ -1395,8 +1394,7 @@ void registerSpecOps() {
       return AuditAndLogging()
         ..content = n.content
         ..securityEvents = n.securityEvents
-        ..auditLogFormat = n.auditLogFormat
-        ..complianceReporting = n.complianceReporting;
+        ..auditLogFormat = n.auditLogFormat;
     },
     yamlScalar: (o) => (o as AuditAndLogging).content,
   ));
@@ -4881,6 +4879,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
         SpecSlot.node(() => n.roleMatrix, (v) => n.roleMatrix = v as RoleMatrix, label: 'roleMatrix'),
         SpecSlot.node(() => n.complianceFramework, (v) => n.complianceFramework = v as ComplianceFramework, label: 'complianceFramework'),
+        SpecSlot.node(() => n.complianceReporting, (v) => n.complianceReporting = v as ComplianceReporting, label: 'complianceReporting'),
       ];
     },
     cloneShallow: (o) {
@@ -4895,7 +4894,8 @@ void registerSpecOps() {
         ..sensitiveDataEncryption = n.sensitiveDataEncryption
         ..auditAndLogging = n.auditAndLogging
         ..roleMatrix = n.roleMatrix
-        ..complianceFramework = n.complianceFramework;
+        ..complianceFramework = n.complianceFramework
+        ..complianceReporting = n.complianceReporting;
     },
     yamlScalar: (o) => (o as D08SecurityAccessSpecification).content,
   ));
@@ -5072,9 +5072,11 @@ void registerSpecOps() {
         SpecSlot.node(() => n.errorCodeRegistry, (v) => n.errorCodeRegistry = v as ErrorCodeRegistry, label: 'errorCodeRegistry'),
         SpecSlot.node(() => n.resultEnvelope, (v) => n.resultEnvelope = v as ResultEnvelope, label: 'resultEnvelope'),
         SpecSlot.node(() => n.messageKeyRegistry, (v) => n.messageKeyRegistry = v as MessageKeyRegistry, label: 'messageKeyRegistry'),
+        SpecSlot.node(() => n.notificationModel, (v) => n.notificationModel = v as NotificationModel, label: 'notificationModel'),
         SpecSlot.node(() => n.dataModel, (v) => n.dataModel = v as DataModel, label: 'dataModel'),
         SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
         SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
+        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
         SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
         SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
       ];
@@ -5088,9 +5090,11 @@ void registerSpecOps() {
         ..errorCodeRegistry = n.errorCodeRegistry
         ..resultEnvelope = n.resultEnvelope
         ..messageKeyRegistry = n.messageKeyRegistry
+        ..notificationModel = n.notificationModel
         ..dataModel = n.dataModel
         ..technicalFramework = n.technicalFramework
         ..accessControl = n.accessControl
+        ..auditAndLogging = n.auditAndLogging
         ..processStepsAndActorInteractions = n.processStepsAndActorInteractions
         ..experienceCodeSpecs = n.experienceCodeSpecs;
     },
@@ -5215,6 +5219,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.numericTypeOptions, (v) => n.numericTypeOptions = v as DocSpecsSection?, label: 'numericTypeOptions'),
         SpecSlot.node(() => n.temporalTypeOptions, (v) => n.temporalTypeOptions = v as DocSpecsSection?, label: 'temporalTypeOptions'),
         SpecSlot.node(() => n.binaryTypeOptions, (v) => n.binaryTypeOptions = v as DocSpecsSection?, label: 'binaryTypeOptions'),
+        SpecSlot.node(() => n.fileReferenceOptions, (v) => n.fileReferenceOptions = v as DocSpecsSection?, label: 'fileReferenceOptions'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<DataAttributeConstraintEntry>(), label: 'constraints'),
         SpecSlot.node(() => n.derivation, (v) => n.derivation = v as DocSpecsSection?, label: 'derivation'),
         SpecSlot.node(() => n.securityClassification, (v) => n.securityClassification = v as DocSpecsSection?, label: 'securityClassification'),
@@ -5231,6 +5236,7 @@ void registerSpecOps() {
         ..numericTypeOptions = n.numericTypeOptions
         ..temporalTypeOptions = n.temporalTypeOptions
         ..binaryTypeOptions = n.binaryTypeOptions
+        ..fileReferenceOptions = n.fileReferenceOptions
         ..constraints = n.constraints
         ..derivation = n.derivation
         ..securityClassification = n.securityClassification
@@ -17392,6 +17398,7 @@ void registerSpecOps() {
       final n = o as SecurityAndAccessModel;
       return [
         SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
+        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
         SpecSlot.node(() => n.securityOperations, (v) => n.securityOperations = v as SecurityOperationsFollowUp, label: 'securityOperations'),
         SpecSlot.node(() => n.compliance, (v) => n.compliance = v as SecurityComplianceFollowUp, label: 'compliance'),
       ];
@@ -17401,6 +17408,7 @@ void registerSpecOps() {
       return SecurityAndAccessModel()
         ..content = n.content
         ..accessControl = n.accessControl
+        ..auditAndLogging = n.auditAndLogging
         ..securityOperations = n.securityOperations
         ..compliance = n.compliance;
     },
@@ -17633,7 +17641,7 @@ void registerSpecOps() {
       final n = o as SecurityOperationsFollowUp;
       return [
         SpecSlot.node(() => n.encryption, (v) => n.encryption = v as SensitiveDataEncryption, label: 'encryption'),
-        SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
+        SpecSlot.node(() => n.complianceReporting, (v) => n.complianceReporting = v as ComplianceReporting, label: 'complianceReporting'),
       ];
     },
     cloneShallow: (o) {
@@ -17641,7 +17649,7 @@ void registerSpecOps() {
       return SecurityOperationsFollowUp()
         ..content = n.content
         ..encryption = n.encryption
-        ..auditAndLogging = n.auditAndLogging;
+        ..complianceReporting = n.complianceReporting;
     },
     yamlScalar: (o) => (o as SecurityOperationsFollowUp).content,
   ));

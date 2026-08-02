@@ -12007,9 +12007,7 @@ section-types:
         max-count: 1
       aulofo:
         max-count: 1
-      comrep:
-        max-count: 1
-    description: 9.2.2. Audit and Logging.
+    description: 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
   auevp1:
     prefix: AUEVP1
     description: Authorization Events.
@@ -12033,7 +12031,7 @@ section-types:
         max-count: 1
       lorepo:
         max-count: 1
-    description: 9.6.2. Audit Log Format.
+    description: 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   authen:
     prefix: AUTHEN
     subsection-types:
@@ -12591,7 +12589,7 @@ section-types:
         max-count: 1
       reausu:
         max-count: 1
-    description: 9.6.3. Compliance Reporting.
+    description: 9.3.2. Compliance Reporting.
   comreq:
     prefix: COMREQ
     subsection-types:
@@ -15433,7 +15431,7 @@ section-types:
         max-count: 1
       kema:
         max-count: 1
-    description: 9.2.1. Sensitive Data Encryption.
+    description: 9.3.1. Sensitive Data Encryption.
   sedeli:
     prefix: SEDELI
     subsection-types:
@@ -15459,7 +15457,7 @@ section-types:
         max-count: 1
       sevt-cust-lst:
         max-count: 1
-    description: 9.6.1. Security Events.
+    description: 9.6.1. Security Events — the CE-LG declared half.
   selein:
     prefix: SELEIN
     subsection-types:
@@ -23676,6 +23674,8 @@ section-types:
     subsection-types:
       accm:
         max-count: 1
+      auanlo:
+        max-count: 1
       scof:
         max-count: 1
       sccf:
@@ -23849,7 +23849,7 @@ section-types:
     subsection-types:
       cf:
         max-count: 1
-    description: 9.3. Compliance — CMP follow-up subtree.
+    description: 9.4. Compliance — CMP follow-up subtree.
   scco:
     prefix: SCCO
     format: scco-form
@@ -23887,9 +23887,9 @@ section-types:
     subsection-types:
       sedaen:
         max-count: 1
-      auanlo:
+      comrep:
         max-count: 1
-    description: 9.2. Security Operations — OPS follow-up subtree.
+    description: 9.3. Security Operations — OPS follow-up subtree.
   scov:
     prefix: SCOV
     format: scov-form

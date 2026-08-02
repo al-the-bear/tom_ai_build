@@ -865,7 +865,7 @@ section-types:
     subsection-types:
       rsfde-fldd-lst:
         max-count: 1
-    description: Result envelope — the canonical success-or-error §7 Result contract
+    description: "Result envelope — the canonical CE-ER `codespecs_mapping.md` §7 contract."
   dadi:
     prefix: DADI
     description: Data dictionary.

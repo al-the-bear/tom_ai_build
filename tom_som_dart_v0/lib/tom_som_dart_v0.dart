@@ -1513,10 +1513,17 @@ class AssumptionsConstraintsDependencies extends SomNode {
 
 /// 9.6. Audit and Logging.
 /// 
-/// Security audit and event logging requirements covering security event
-/// definitions, audit log format and structure, and compliance reporting.
-/// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
-/// Computer Security Log Management).
+/// Security audit and event logging **declarations**: which security events are
+/// captured (CE-LG) and how the log sink is configured (CE-CF). Aligns with
+/// OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log
+/// Management).
+/// 
+/// A purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a
+/// `D13CodeSpecsProjection` root at the server locus. The operational half —
+/// the review, reporting and anomaly-detection routines run against the log —
+/// is the sibling `ComplianceReporting` follow-up under
+/// `SecurityOperationsFollowUp`, deliberately outside this subtree so the
+/// generation projection cannot reach it.
 class AuditAndLogging extends SomNode {
   AuditAndLogging(super.doc, super.path);
 
@@ -1526,14 +1533,11 @@ class AuditAndLogging extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.6.1. Security Events.
+  /// 9.6.1. Security Events — the CE-LG declared half.
   SecurityEventsDefinition get securityEvents => SecurityEventsDefinition(doc, '$path/securityEvents');
 
-  /// 9.6.2. Audit Log Format.
+  /// 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   AuditLogFormat get auditLogFormat => AuditLogFormat(doc, '$path/auditLogFormat');
-
-  /// 9.6.3. Compliance Reporting.
-  ComplianceReporting get complianceReporting => ComplianceReporting(doc, '$path/complianceReporting');
 }
 
 /// An audit entry.
@@ -3688,6 +3692,14 @@ class ComplianceMilestoneEntry extends SomNode {
 /// 
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
+/// 
+/// A **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under
+/// `SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`
+/// CodeSpecs subtree. Everything here is a routine run *against* an existing
+/// audit log — reviewing it on a cadence, reporting privileged use from it,
+/// watching it for anomalies, producing evidence from it for a regulator.
+/// None of it is a declaration a generator can read: the log the routines
+/// consume is declared by CE-LG and configured by CE-CF next door.
 class ComplianceReporting extends SomNode {
   ComplianceReporting(super.doc, super.path);
 
@@ -5617,7 +5629,7 @@ class D08SecurityAccessSpecification extends SomNode {
   /// Sensitive data encryption.
   SensitiveDataEncryption get sensitiveDataEncryption => SensitiveDataEncryption(doc, '$path/sensitiveDataEncryption');
 
-  /// Audit and logging.
+  /// Audit and logging — the CE-LG / CE-CF declarations.
   AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
 
   /// Role matrix.
@@ -5625,6 +5637,16 @@ class D08SecurityAccessSpecification extends SomNode {
 
   /// Compliance framework.
   ComplianceFramework get complianceFramework => ComplianceFramework(doc, '$path/complianceFramework');
+
+  /// Compliance reporting — the review / reporting routines run against the
+  /// audit log.
+  /// 
+  /// Projected directly rather than through `AuditAndLogging`: the audit
+  /// section was split so its CodeSpecs bands can be a generation-projection
+  /// root, which put this follow-up subtree under `SecurityOperationsFollowUp`
+  /// (`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches
+  /// it here.
+  ComplianceReporting get complianceReporting => ComplianceReporting(doc, '$path/complianceReporting');
 }
 
 /// XDS00 Experience Design Specification.
@@ -6089,6 +6111,17 @@ class D13CodeSpecsProjection extends SomNode {
 
   /// Access control model — CE-AZ authorization/identity seed.
   AccessControlModel get accessControl => AccessControlModel(doc, '$path/accessControl');
+
+  /// Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+  /// 
+  /// Both bands are server-side and both are authored input: CE-LG declares
+  /// *what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`
+  /// beside the framework's `@TomAudited`), CE-CF configures the sink that
+  /// receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
+  /// operational half — the review, reporting and anomaly-detection routines
+  /// run against the log — is a follow-up subtree under
+  /// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
 
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
@@ -18904,10 +18937,13 @@ class SecurityAndAccessModel extends SomNode {
   /// 9.1. Access Control Model — the CE-AZ CodeSpecs subtree.
   AccessControlModel get accessControl => AccessControlModel(doc, '$path/accessControl');
 
-  /// 9.2. Security Operations — OPS follow-up subtree.
+  /// 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
+  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
+
+  /// 9.3. Security Operations — OPS follow-up subtree.
   SecurityOperationsFollowUp get securityOperations => SecurityOperationsFollowUp(doc, '$path/securityOperations');
 
-  /// 9.3. Compliance — CMP follow-up subtree.
+  /// 9.4. Compliance — CMP follow-up subtree.
   SecurityComplianceFollowUp get compliance => SecurityComplianceFollowUp(doc, '$path/compliance');
 }
 
@@ -19148,9 +19184,16 @@ class SecurityEventsDefinition extends SomNode {
 /// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 /// 
 /// Groups the operational security concerns that are **follow-up** (key
-/// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
-/// whole subtree is generation-owned-out.
+/// management and the routines run *against* the audit log), not
+/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+/// 
+/// The audit log's *declarations* are not here: which events are auditable and
+/// how the sink is configured are the CE-LG / CE-CF bands, which live in the
+/// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
+/// `ComplianceReporting` — periodic access review, privilege-usage reporting,
+/// anomaly detection and regulatory audit support are processes people run, not
+/// code a generator emits.
 class SecurityOperationsFollowUp extends SomNode {
   SecurityOperationsFollowUp(super.doc, super.path);
 
@@ -19160,11 +19203,11 @@ class SecurityOperationsFollowUp extends SomNode {
   String get content => doc.content('$path/content') ?? '';
   set content(String value) => doc.setContent('$path/content', value);
 
-  /// 9.2.1. Sensitive Data Encryption.
+  /// 9.3.1. Sensitive Data Encryption.
   SensitiveDataEncryption get encryption => SensitiveDataEncryption(doc, '$path/encryption');
 
-  /// 9.2.2. Audit and Logging.
-  AuditAndLogging get auditAndLogging => AuditAndLogging(doc, '$path/auditAndLogging');
+  /// 9.3.2. Compliance Reporting.
+  ComplianceReporting get complianceReporting => ComplianceReporting(doc, '$path/complianceReporting');
 }
 
 /// A security requirement entry.

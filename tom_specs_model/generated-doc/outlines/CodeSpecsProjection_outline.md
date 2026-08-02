@@ -915,6 +915,41 @@
           - content, boundaryEnforcementDetails @text
     - `RoleMatrix`
       - content
+  - `AuditAndLogging` ← (locus: server — CE-LG/CE-CF)
+    - content
+    - securityEvents: `SecurityEventsDefinition`
+      - content
+      - loggingPolicy: `SecurityEventLoggingPolicy`
+        - content @Form(defaultLoggingLevel, piiHandling, eventClassificationScheme, severityLevels, timeSynchronization, correlationIdentifiers),
+          notes @text
+      - authenticationEvents: `AuthenticationEventPolicy`
+        - content @Form(logSuccessfulLogins, logFailedLogins, logPasswordChanges, logMfaEvents, logSessionEvents, logAccountLockouts, logTokenEvents),
+          notes @text
+      - authorizationEvents: `AuthorizationEventPolicy`
+        - content @Form(logAccessGranted, logAccessDenied, logPrivilegeEscalation, logRoleChanges, logPermissionChanges, logResourceAccessPatterns),
+          notes @text
+      - dataAccessEvents: `DataAccessEventPolicy`
+        - content @Form(logDataCreation, logDataModification, logDataDeletion, logDataExport, logDataImport, logBulkOperations, logSensitiveDataAccess),
+          notes @text
+      - administrativeEvents: `AdministrativeEventPolicy`
+        - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
+          notes @text
+      - customEvents: `SecurityEventEntry`
+        - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
+    - `AuditLogFormat`
+      - content, notes @text
+      - eventAttributes: `EventAttributePolicy`
+        - content @Form(timestampFormat, applicationIdentifier, sourceAddress, userIdentity, eventType, eventSeverity, actionAndObject, resultStatus, extendedDetails),
+          notes @text
+      - logStorage: `LogStoragePolicy`
+        - content @Form(primaryStorage, storageFormat, storageLocation, centralizedLogging, storageEncryption, accessPermissions),
+          notes @text
+      - logProtection: `LogProtectionPolicy`
+        - content @Form(tamperDetection, integrityVerification, writeProtection, deletionControls, transmissionProtection, originVerification),
+          notes @text
+      - logRetention: `LogRetentionPolicy`
+        - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
+          notes @text
   - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
     - content
     - overview: `ProcessStepsOverview`

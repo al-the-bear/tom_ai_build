@@ -48,12 +48,16 @@ access and authorization concerns.
   @SerializationOrder(1)
   AccessControlModel accessControl = AccessControlModel();
 
-  /// 9.2. Security Operations — OPS follow-up subtree.
+  /// 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
   @SerializationOrder(2)
+  AuditAndLogging auditAndLogging = AuditAndLogging();
+
+  /// 9.3. Security Operations — OPS follow-up subtree.
+  @SerializationOrder(3)
   SecurityOperationsFollowUp securityOperations = SecurityOperationsFollowUp();
 
-  /// 9.3. Compliance — CMP follow-up subtree.
-  @SerializationOrder(3)
+  /// 9.4. Compliance — CMP follow-up subtree.
+  @SerializationOrder(4)
   SecurityComplianceFollowUp compliance = SecurityComplianceFollowUp();
 }
 
@@ -108,33 +112,41 @@ class AccessControlModel extends DocSpecsSection {
 /// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 ///
 /// Groups the operational security concerns that are **follow-up** (key
-/// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
-/// whole subtree is generation-owned-out.
+/// management and the routines run *against* the audit log), not
+/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+///
+/// The audit log's *declarations* are not here: which events are auditable and
+/// how the sink is configured are the CE-LG / CE-CF bands, which live in the
+/// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
+/// `ComplianceReporting` — periodic access review, privilege-usage reporting,
+/// anomaly detection and regulatory audit support are processes people run, not
+/// code a generator emits.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging',
     'NIST SP 800-57 — key management',
   ],
-  'The OPS follow-up: sensitive-data encryption (key management) and audit / '
-  'logging operations, consumed operationally rather than generated.',
+  'The OPS follow-up: sensitive-data encryption (key management) and the '
+  'reporting / review routines run against the audit log, consumed '
+  'operationally rather than generated.',
 )
 @FollowUpKind([FollowUpProcess.ops])
 @SectionId('SCOF')
 class SecurityOperationsFollowUp extends DocSpecsSection {
   @ContentType('description', 'Summarize the operational security follow-up: '
-      'encryption / key management and audit / logging.')
+      'encryption / key management and audit review / reporting routines.')
   @override
   @SerializationOrder(0)
   String? content;
 
-  /// 9.2.1. Sensitive Data Encryption.
+  /// 9.3.1. Sensitive Data Encryption.
   @SerializationOrder(1)
   SensitiveDataEncryption encryption = SensitiveDataEncryption();
 
-  /// 9.2.2. Audit and Logging.
+  /// 9.3.2. Compliance Reporting.
   @SerializationOrder(2)
-  AuditAndLogging auditAndLogging = AuditAndLogging();
+  ComplianceReporting complianceReporting = ComplianceReporting();
 }
 
 /// SBP.12 Security & Access — Compliance (CMP follow-up subtree).
@@ -13473,25 +13485,34 @@ class KeyCompromiseRecoveryPolicy extends DocSpecsSection {
 
 /// 9.6. Audit and Logging.
 ///
-/// Security audit and event logging requirements covering security event
-/// definitions, audit log format and structure, and compliance reporting.
-/// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
-/// Computer Security Log Management).
+/// Security audit and event logging **declarations**: which security events are
+/// captured (CE-LG) and how the log sink is configured (CE-CF). Aligns with
+/// OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log
+/// Management).
+///
+/// A purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a
+/// `D13CodeSpecsProjection` root at the server locus. The operational half —
+/// the review, reporting and anomaly-detection routines run against the log —
+/// is the sibling `ComplianceReporting` follow-up under
+/// `SecurityOperationsFollowUp`, deliberately outside this subtree so the
+/// generation projection cannot reach it.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — control A.8.15 logging',
     'NIST SP 800-92 — guide to computer security log management',
     'GDPR — Article 5(2) accountability',
   ],
-  'This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting.',
+  'This section covers the security audit and event logging declarations: which events are captured and how the audit log sink is structured, stored, protected and retained.',
 )
 @SectionId('AUANLO')
 @DetailedIn(D08SecurityAccessSpecification)
-@CodeSpecKind([CodeSpecPart.auditLog],
-    note: 'CE-LG — logging & audit trail (who did what, when) as a '
-        'cross-cutting effect. Active part (codespecs_mapping.md §4.1): realised as @CsAudited '
-        'alongside the framework @TomAudited declaration, server locus. The '
-        'declared half only — retention and log format are CE-CF.')
+@CodeSpecKind([CodeSpecPart.auditLog, CodeSpecPart.serverConfiguration],
+    note: 'Two bands, both generation input, both server locus. CE-LG — the '
+        'declared half of the audit trail (which invocations are auditable, '
+        'whether reads count, which fields are redacted), realised as @CsAudited '
+        'alongside the framework @TomAudited declaration. CE-CF — the log '
+        'sink settings (format, storage, protection, retention), realised as '
+        '@CsServerConfig (codespecs_mapping.md §4.3.2).')
 class AuditAndLogging extends DocSpecsSection {
   @ContentHelp('''
 Define security audit and logging requirements. Comprehensive logging enables
@@ -13535,17 +13556,13 @@ incident detection, forensic investigation, and compliance reporting.
   @SerializationOrder(0)
   String? content;
 
-  /// 9.6.1. Security Events.
+  /// 9.6.1. Security Events — the CE-LG declared half.
   @SerializationOrder(1)
   SecurityEventsDefinition securityEvents = SecurityEventsDefinition();
 
-  /// 9.6.2. Audit Log Format.
+  /// 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   @SerializationOrder(2)
   AuditLogFormat auditLogFormat = AuditLogFormat();
-
-  /// 9.6.3. Compliance Reporting.
-  @SerializationOrder(3)
-  ComplianceReporting complianceReporting = ComplianceReporting();
 }
 
 // ---------------------------------------------------------------------------
@@ -14056,7 +14073,11 @@ class SecurityEventEntry extends DocSpecsSection {
   'This section defines the structure and format of audit log entries so they are consistent, parsable, and useful for forensic investigation.',
 )
 @SectionId('AULOFO')
-@CodeSpecKind([CodeSpecPart.auditLog])
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF, not CE-LG (codespecs_mapping.md §4.3.2): the log record '
+        'shape, storage, protection and retention are deployment settings on '
+        'the audit sink, realised as @CsServerConfig. CE-LG owns only what is '
+        'declared as auditable, in the sibling SEEVDE band.')
 class AuditLogFormat extends DocSpecsSection {
   @ContentHelp('''
 Define the structure and format of audit log entries for consistency,
@@ -14134,7 +14155,9 @@ parsability, and forensic utility.
   'This section defines which attributes are captured for each log event, covering when, where, who, and what information.',
 )
 @SectionId('EVATPO')
-@CodeSpecKind([CodeSpecPart.auditLog])
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — the audit record\'s attribute set is a sink setting '
+        '(codespecs_mapping.md §4.3.2).')
 class EventAttributePolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14212,7 +14235,9 @@ class EventAttributePolicy extends DocSpecsSection {
   'This section defines where and how log data is stored, including centralization, storage format, and encryption at rest.',
 )
 @SectionId('LOSTPO')
-@CodeSpecKind([CodeSpecPart.auditLog])
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — where the audit log is written is a deployment setting '
+        '(codespecs_mapping.md §4.3.2).')
 class LogStoragePolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14272,7 +14297,9 @@ class LogStoragePolicy extends DocSpecsSection {
   'This section defines tamper protection and integrity verification for audit logs, including write protection and deletion controls.',
 )
 @SectionId('LOPRPO')
-@CodeSpecKind([CodeSpecPart.auditLog])
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — tamper protection of the sink is a deployment setting '
+        '(codespecs_mapping.md §4.3.2).')
 class LogProtectionPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14338,7 +14365,9 @@ class LogProtectionPolicy extends DocSpecsSection {
   'This section defines log retention periods, archival, and secure disposal, including handling of legal holds.',
 )
 @SectionId('LOREPO')
-@CodeSpecKind([CodeSpecPart.auditLog])
+@CodeSpecKind([CodeSpecPart.serverConfiguration],
+    note: 'CE-CF — retention is the canonical §4.3.2 example of a sink '
+        'setting that is not CE-LG.')
 class LogRetentionPolicy extends DocSpecsSection {
   @Form([
     Field(
@@ -14395,6 +14424,14 @@ class LogRetentionPolicy extends DocSpecsSection {
 ///
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
+///
+/// A **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under
+/// `SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`
+/// CodeSpecs subtree. Everything here is a routine run *against* an existing
+/// audit log — reviewing it on a cadence, reporting privileged use from it,
+/// watching it for anomalies, producing evidence from it for a regulator.
+/// None of it is a declaration a generator can read: the log the routines
+/// consume is declared by CE-LG and configured by CE-CF next door.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards',
@@ -14403,6 +14440,11 @@ class LogRetentionPolicy extends DocSpecsSection {
   ],
   'This section describes compliance reporting requirements that satisfy regulatory audits and internal governance across access reviews and anomaly detection.',
 )
+@FollowUpKind([FollowUpProcess.ops, FollowUpProcess.cmp],
+    note: 'OPS — periodic access review, privilege-usage reporting and anomaly '
+        'detection are monitoring routines the run organisation performs. '
+        'CMP — regulatory audit support is the evidence arm, delivered by the '
+        'compliance process. Both, because the same four sections feed both.')
 @SectionId('COMREP')
 class ComplianceReporting extends DocSpecsSection {
   @ContentHelp('''

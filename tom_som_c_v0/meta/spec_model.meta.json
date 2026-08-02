@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-28T05:35:46.193448Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 9,
+  "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
   "classCount": 1247,
   "rootCount": 14,
@@ -13998,7 +13998,7 @@
     "AuditAndLogging": {
       "name": "AuditAndLogging",
       "sectionId": "AUANLO",
-      "doc": "9.6. Audit and Logging.\n\nSecurity audit and event logging requirements covering security event\ndefinitions, audit log format and structure, and compliance reporting.\nAligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to\nComputer Security Log Management).",
+      "doc": "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.",
       "detailedIn": "D08SecurityAccessSpecification",
       "standardReferences": {
         "standards": [
@@ -14006,7 +14006,7 @@
           "NIST SP 800-92 — guide to computer security log management",
           "GDPR — Article 5(2) accountability"
         ],
-        "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+        "connotation": "This section covers the security audit and event logging declarations: which events are captured and how the audit log sink is structured, stored, protected and retained."
       },
       "annotations": [
         {
@@ -14017,7 +14017,7 @@
               "NIST SP 800-92 — guide to computer security log management",
               "GDPR — Article 5(2) accountability"
             ],
-            "connotation": "This section covers security audit and event logging requirements, spanning event definitions, audit log format, and compliance reporting."
+            "connotation": "This section covers the security audit and event logging declarations: which events are captured and how the audit log sink is structured, stored, protected and retained."
           }
         },
         {
@@ -14036,9 +14036,10 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
+              "CodeSpecPart.auditLog",
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-LG — logging & audit trail (who did what, when) as a cross-cutting effect. Active part (codespecs_mapping.md §4.1): realised as @CsAudited alongside the framework @TomAudited declaration, server locus. The declared half only — retention and log format are CE-CF."
+            "note": "Two bands, both generation input, both server locus. CE-LG — the declared half of the audit trail (which invocations are auditable, whether reads count, which fields are redacted), realised as @CsAudited alongside the framework @TomAudited declaration. CE-CF — the log sink settings (format, storage, protection, retention), realised as @CsServerConfig (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -14067,7 +14068,7 @@
         {
           "name": "securityEvents",
           "kind": "complex",
-          "doc": "9.6.1. Security Events.",
+          "doc": "9.6.1. Security Events — the CE-LG declared half.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -14082,7 +14083,7 @@
         {
           "name": "auditLogFormat",
           "kind": "complex",
-          "doc": "9.6.2. Audit Log Format.",
+          "doc": "9.6.2. Audit Log Format — the CE-CF log-sink settings.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -14093,21 +14094,6 @@
             }
           ],
           "type": "AuditLogFormat"
-        },
-        {
-          "name": "complianceReporting",
-          "kind": "complex",
-          "doc": "9.6.3. Compliance Reporting.",
-          "serializationOrder": 3,
-          "annotations": [
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 3
-              }
-            }
-          ],
-          "type": "ComplianceReporting"
         }
       ]
     },
@@ -14455,8 +14441,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF, not CE-LG (codespecs_mapping.md §4.3.2): the log record shape, storage, protection and retention are deployment settings on the audit sink, realised as @CsServerConfig. CE-LG owns only what is declared as auditable, in the sibling SEEVDE band."
           }
         }
       ],
@@ -41069,7 +41056,7 @@
     "ComplianceReporting": {
       "name": "ComplianceReporting",
       "sectionId": "COMREP",
-      "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.",
+      "doc": "9.6.3. Compliance Reporting.\n\nDescribes compliance reporting requirements: periodic access reviews,\nprivilege usage reports, anomaly detection, and regulatory audit support.\n\nA **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under\n`SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`\nCodeSpecs subtree. Everything here is a routine run *against* an existing\naudit log — reviewing it on a cadence, reporting privileged use from it,\nwatching it for anomalies, producing evidence from it for a regulator.\nNone of it is a declaration a generator can read: the log the routines\nconsume is declared by CE-LG and configured by CE-CF next door.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — control A.5.36 compliance with policies and standards",
@@ -41088,6 +41075,16 @@
               "GDPR — Article 30 records of processing activities"
             ],
             "connotation": "This section describes compliance reporting requirements that satisfy regulatory audits and internal governance across access reviews and anomaly detection."
+          }
+        },
+        {
+          "name": "FollowUpKind",
+          "arguments": {
+            "processes": [
+              "FollowUpProcess.ops",
+              "FollowUpProcess.cmp"
+            ],
+            "note": "OPS — periodic access review, privilege-usage reporting and anomaly detection are monitoring routines the run organisation performs. CMP — regulatory audit support is the evidence arm, delivered by the compliance process. Both, because the same four sections feed both."
           }
         },
         {
@@ -57248,7 +57245,7 @@
         {
           "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "Audit and logging.",
+          "doc": "Audit and logging — the CE-LG / CE-CF declarations.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -57289,6 +57286,21 @@
             }
           ],
           "type": "ComplianceFramework"
+        },
+        {
+          "name": "complianceReporting",
+          "kind": "complex",
+          "doc": "Compliance reporting — the review / reporting routines run against the\naudit log.\n\nProjected directly rather than through `AuditAndLogging`: the audit\nsection was split so its CodeSpecs bands can be a generation-projection\nroot, which put this follow-up subtree under `SecurityOperationsFollowUp`\n(`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches\nit here.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "type": "ComplianceReporting"
         }
       ]
     },
@@ -58654,10 +58666,31 @@
           "type": "AccessControlModel"
         },
         {
+          "name": "auditAndLogging",
+          "kind": "complex",
+          "doc": "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.",
+          "serializationOrder": 10,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-LG/CE-CF"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 10
+              }
+            }
+          ],
+          "type": "AuditAndLogging"
+        },
+        {
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "Comment",
@@ -58668,7 +58701,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -58678,7 +58711,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 11,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "Comment",
@@ -58689,7 +58722,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],
@@ -97173,8 +97206,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — the audit record's attribute set is a sink setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -136745,8 +136779,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — tamper protection of the sink is a deployment setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -136864,8 +136899,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — retention is the canonical §4.3.2 example of a sink setting that is not CE-LG."
           }
         }
       ],
@@ -136983,8 +137019,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.auditLog"
-            ]
+              "CodeSpecPart.serverConfiguration"
+            ],
+            "note": "CE-CF — where the audit log is written is a deployment setting (codespecs_mapping.md §4.3.2)."
           }
         }
       ],
@@ -218477,9 +218514,9 @@
           "type": "AccessControlModel"
         },
         {
-          "name": "securityOperations",
+          "name": "auditAndLogging",
           "kind": "complex",
-          "doc": "9.2. Security Operations — OPS follow-up subtree.",
+          "doc": "9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -218489,18 +218526,33 @@
               }
             }
           ],
-          "type": "SecurityOperationsFollowUp"
+          "type": "AuditAndLogging"
         },
         {
-          "name": "compliance",
+          "name": "securityOperations",
           "kind": "complex",
-          "doc": "9.3. Compliance — CMP follow-up subtree.",
+          "doc": "9.3. Security Operations — OPS follow-up subtree.",
           "serializationOrder": 3,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 3
+              }
+            }
+          ],
+          "type": "SecurityOperationsFollowUp"
+        },
+        {
+          "name": "compliance",
+          "kind": "complex",
+          "doc": "9.4. Compliance — CMP follow-up subtree.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
               }
             }
           ],
@@ -220931,13 +220983,13 @@
     "SecurityOperationsFollowUp": {
       "name": "SecurityOperationsFollowUp",
       "sectionId": "SCOF",
-      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and audit/logging operations), not CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the\nwhole subtree is generation-owned-out.",
+      "doc": "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.",
       "standardReferences": {
         "standards": [
           "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
           "NIST SP 800-57 — key management"
         ],
-        "connotation": "The OPS follow-up: sensitive-data encryption (key management) and audit / logging operations, consumed operationally rather than generated."
+        "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
       },
       "annotations": [
         {
@@ -220947,7 +220999,7 @@
               "ISO/IEC 27001:2022 — A.8.24 use of cryptography, A.8.15 logging",
               "NIST SP 800-57 — key management"
             ],
-            "connotation": "The OPS follow-up: sensitive-data encryption (key management) and audit / logging operations, consumed operationally rather than generated."
+            "connotation": "The OPS follow-up: sensitive-data encryption (key management) and the reporting / review routines run against the audit log, consumed operationally rather than generated."
           }
         },
         {
@@ -220975,7 +221027,7 @@
               "name": "ContentType",
               "arguments": {
                 "type": "description",
-                "description": "Summarize the operational security follow-up: encryption / key management and audit / logging."
+                "description": "Summarize the operational security follow-up: encryption / key management and audit review / reporting routines."
               }
             },
             {
@@ -220990,7 +221042,7 @@
         {
           "name": "encryption",
           "kind": "complex",
-          "doc": "9.2.1. Sensitive Data Encryption.",
+          "doc": "9.3.1. Sensitive Data Encryption.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -221003,9 +221055,9 @@
           "type": "SensitiveDataEncryption"
         },
         {
-          "name": "auditAndLogging",
+          "name": "complianceReporting",
           "kind": "complex",
-          "doc": "9.2.2. Audit and Logging.",
+          "doc": "9.3.2. Compliance Reporting.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -221015,7 +221067,7 @@
               }
             }
           ],
-          "type": "AuditAndLogging"
+          "type": "ComplianceReporting"
         }
       ]
     },

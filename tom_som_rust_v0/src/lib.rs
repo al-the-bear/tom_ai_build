@@ -2832,10 +2832,17 @@ impl AssumptionsConstraintsDependencies {
 
 /// 9.6. Audit and Logging.
 ///
-/// Security audit and event logging requirements covering security event
-/// definitions, audit log format and structure, and compliance reporting.
-/// Aligns with OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to
-/// Computer Security Log Management).
+/// Security audit and event logging **declarations**: which security events are
+/// captured (CE-LG) and how the log sink is configured (CE-CF). Aligns with
+/// OWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log
+/// Management).
+///
+/// A purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a
+/// `D13CodeSpecsProjection` root at the server locus. The operational half —
+/// the review, reporting and anomaly-detection routines run against the log —
+/// is the sibling `ComplianceReporting` follow-up under
+/// `SecurityOperationsFollowUp`, deliberately outside this subtree so the
+/// generation projection cannot reach it.
 pub struct AuditAndLogging {
     pub node: som::SomNode,
 }
@@ -2862,19 +2869,14 @@ impl AuditAndLogging {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.6.1. Security Events.
+    /// 9.6.1. Security Events — the CE-LG declared half.
     pub fn security_events(&self) -> SecurityEventsDefinition {
         SecurityEventsDefinition::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityEvents"))
     }
 
-    /// 9.6.2. Audit Log Format.
+    /// 9.6.2. Audit Log Format — the CE-CF log-sink settings.
     pub fn audit_log_format(&self) -> AuditLogFormat {
         AuditLogFormat::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditLogFormat"))
-    }
-
-    /// 9.6.3. Compliance Reporting.
-    pub fn compliance_reporting(&self) -> ComplianceReporting {
-        ComplianceReporting::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceReporting"))
     }
 }
 
@@ -7853,6 +7855,14 @@ impl ComplianceMilestoneEntry {
 ///
 /// Describes compliance reporting requirements: periodic access reviews,
 /// privilege usage reports, anomaly detection, and regulatory audit support.
+///
+/// A **follow-up** subtree root (`codespecs_mapping.md` §8.3), rooted under
+/// `SecurityOperationsFollowUp` rather than the sibling `AuditAndLogging`
+/// CodeSpecs subtree. Everything here is a routine run *against* an existing
+/// audit log — reviewing it on a cadence, reporting privileged use from it,
+/// watching it for anomalies, producing evidence from it for a regulator.
+/// None of it is a declaration a generator can read: the log the routines
+/// consume is declared by CE-LG and configured by CE-CF next door.
 pub struct ComplianceReporting {
     pub node: som::SomNode,
 }
@@ -11721,7 +11731,7 @@ impl D08SecurityAccessSpecification {
         SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "sensitiveDataEncryption"))
     }
 
-    /// Audit and logging.
+    /// Audit and logging — the CE-LG / CE-CF declarations.
     pub fn audit_and_logging(&self) -> AuditAndLogging {
         AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
     }
@@ -11734,6 +11744,18 @@ impl D08SecurityAccessSpecification {
     /// Compliance framework.
     pub fn compliance_framework(&self) -> ComplianceFramework {
         ComplianceFramework::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceFramework"))
+    }
+
+    /// Compliance reporting — the review / reporting routines run against the
+    /// audit log.
+    ///
+    /// Projected directly rather than through `AuditAndLogging`: the audit
+    /// section was split so its CodeSpecs bands can be a generation-projection
+    /// root, which put this follow-up subtree under `SecurityOperationsFollowUp`
+    /// (`codespecs_mapping.md` §8.3). SAS still owns the content, so D08 reaches
+    /// it here.
+    pub fn compliance_reporting(&self) -> ComplianceReporting {
+        ComplianceReporting::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceReporting"))
     }
 }
 
@@ -12453,6 +12475,19 @@ impl D13CodeSpecsProjection {
     /// Access control model — CE-AZ authorization/identity seed.
     pub fn access_control(&self) -> AccessControlModel {
         AccessControlModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessControl"))
+    }
+
+    /// Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+    ///
+    /// Both bands are server-side and both are authored input: CE-LG declares
+    /// *what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`
+    /// beside the framework's `@TomAudited`), CE-CF configures the sink that
+    /// receives it (`AuditLogFormat`, realised as `@CsServerConfig`). The
+    /// operational half — the review, reporting and anomaly-detection routines
+    /// run against the log — is a follow-up subtree under
+    /// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
     }
 
     /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -41826,12 +41861,17 @@ impl SecurityAndAccessModel {
         AccessControlModel::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessControl"))
     }
 
-    /// 9.2. Security Operations — OPS follow-up subtree.
+    /// 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
+    pub fn audit_and_logging(&self) -> AuditAndLogging {
+        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    }
+
+    /// 9.3. Security Operations — OPS follow-up subtree.
     pub fn security_operations(&self) -> SecurityOperationsFollowUp {
         SecurityOperationsFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "securityOperations"))
     }
 
-    /// 9.3. Compliance — CMP follow-up subtree.
+    /// 9.4. Compliance — CMP follow-up subtree.
     pub fn compliance(&self) -> SecurityComplianceFollowUp {
         SecurityComplianceFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "compliance"))
     }
@@ -42349,9 +42389,16 @@ impl SecurityEventsDefinition {
 /// SBP.12 Security & Access — Security Operations (OPS follow-up subtree).
 ///
 /// Groups the operational security concerns that are **follow-up** (key
-/// management and audit/logging operations), not CodeSpecs-generated behaviour
-/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the
-/// whole subtree is generation-owned-out.
+/// management and the routines run *against* the audit log), not
+/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
+/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+///
+/// The audit log's *declarations* are not here: which events are auditable and
+/// how the sink is configured are the CE-LG / CE-CF bands, which live in the
+/// sibling `AuditAndLogging` CodeSpecs subtree. What remains operational is
+/// `ComplianceReporting` — periodic access review, privilege-usage reporting,
+/// anomaly detection and regulatory audit support are processes people run, not
+/// code a generator emits.
 pub struct SecurityOperationsFollowUp {
     pub node: som::SomNode,
 }
@@ -42378,14 +42425,14 @@ impl SecurityOperationsFollowUp {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 9.2.1. Sensitive Data Encryption.
+    /// 9.3.1. Sensitive Data Encryption.
     pub fn encryption(&self) -> SensitiveDataEncryption {
         SensitiveDataEncryption::new(self.node.doc(), format!("{}/{}", self.node.path(), "encryption"))
     }
 
-    /// 9.2.2. Audit and Logging.
-    pub fn audit_and_logging(&self) -> AuditAndLogging {
-        AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    /// 9.3.2. Compliance Reporting.
+    pub fn compliance_reporting(&self) -> ComplianceReporting {
+        ComplianceReporting::new(self.node.doc(), format!("{}/{}", self.node.path(), "complianceReporting"))
     }
 }
 
