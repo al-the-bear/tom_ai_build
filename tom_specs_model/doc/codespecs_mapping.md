@@ -436,7 +436,7 @@ reads in that order: the core todo lands first, then the mapping-side one.
 
 | Part ID | Part Description | Mapping to CodeSpecs | Gap analysis `tom_core` | Gap analysis `tom_code_specs` |
 |---------|------------------|----------------------|-------------------------|-------------------------------|
-| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: `csexb1` added the `TomFormNullableBoolField` family for `tristate` and the `minItems`/`maxItems` field rules the MultiChoice selection bounds desugar to, and FileInput reuses the shipped `TomFormFileField` family. One per-kind *value* is still uncarried — FileInput's `presentation: thumbnail` — and its carrier is a `tom_flutter_ui` concrete, not a `tom_core_codespecs` class (§4.1.2). **Two shipped-behaviour gaps sit under the emitted widgets** rather than above them, so neither wants a new class. A *Choice* / *MultiChoice* element's **per-value** copy has no carrier: `TomFormEnumField<T>` resolves its own label through `TomCtr.textOrNull`, but its dropdown renders `Text(it.label)` from the caller-supplied `TomSelectableSource` item literal (`forms/fields/tom_form_enum_object_fields.dart`), so §3.1.1's and §5.21's promise that a value label is a `CsMessageKey` is dropped at emission — mode **E(lossy)** (`tcca9` → `qrc5`). And `TomTextFormFieldBase.set()` / `reset()` write the text controller without the re-entrancy guard the field's own `_setControllerText` applies (`forms/tom_form.dart:1229` / `:1241` vs the guarded `:1150`), so a programmatic write re-enters the input listener — mode **R** (`tcca15` → `qrc4`). | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (§2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
+| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`/`TomFormFileThumbnail`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: `csexb1` added the `TomFormNullableBoolField` family for `tristate` and the `minItems`/`maxItems` field rules the MultiChoice selection bounds desugar to, and FileInput reuses the shipped `TomFormFileField` family, all three `presentation` values included (§4.1.2). **Two shipped-behaviour gaps sit under the emitted widgets** rather than above them, so neither wants a new class. A *Choice* / *MultiChoice* element's **per-value** copy has no carrier: `TomFormEnumField<T>` resolves its own label through `TomCtr.textOrNull`, but its dropdown renders `Text(it.label)` from the caller-supplied `TomSelectableSource` item literal (`forms/fields/tom_form_enum_object_fields.dart`), so §3.1.1's and §5.21's promise that a value label is a `CsMessageKey` is dropped at emission — mode **E(lossy)** (`tcca9` → `qrc5`). And `TomTextFormFieldBase.set()` / `reset()` write the text controller without the re-entrancy guard the field's own `_setControllerText` applies (`forms/tom_form.dart:1229` / `:1241` vs the guarded `:1150`), so a programmatic write re-enters the input listener — mode **R** (`tcca15` → `qrc4`). | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (§2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
 | **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm()` on the class, with `@CodeSpec` carrying its id; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm() @CodeSpec('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | No class gap — full reuse. One shipped-behaviour gap is inherited from CE-EL: the form's load path writes each field through `TomField.set()`, which on a text field is the unguarded controller write named there — mode **R** (`tcca15` → `qrc4`). | `@CsForm` stays note-only. Each of the three things it might have carried already has a carrier: the bound view-model link is the `TomForm<T>` **generic** (§2.3 test **a**), the submit target is **derived from the `@CsTrigger`** that fires the submitting action rather than authored a second time, and form-level grade defaults ride the field declarations. The form's id is `@CodeSpec`'s. |
 | **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class; the concrete node-model class lives in `tom_core_codespecs` (§5.2, §5.12). The runtime `Acl*` classes themselves are ready. | `@CsLayout` carries the node **id** as its required first positional argument — the one thing the `Acl*` substrate genuinely lacks, and what the whole §5.22 delta grammar addresses nodes by. **Slot hints** are `AclComponent` properties and **container kind** is which `Acl*` class is instantiated, so neither is an argument (§2.3 test **b**). A delta targets a node *within the same layout declaration*, so addressing it by id string is a local coordinate, not a §5.23 cross-part reference. |
 | **CE-TX** Text | User-visible text: message/i18n **keys** (shared), per-client **copy**. | **Built on:** `TomTextResourceProvider` (`tom_core_kernel`, `tombase/resources/tom_resource_provider.dart`) resolves keys; copy is basePath-derived client-side.<br>**Annotations:** `@CsText` on each **member** of a message-key catalogue class in the shared project; keys as §5.23 `CsMessageKey` consts.<br>**Example:** `class Messages { @CsText(baseCopy: 'Customer name') static const custNameLabel = CsMessageKey('customer.name.label'); }` | **Gap** — the typed **message-key registry** model (the catalogue of keys, SOM home MSGKR) has no core class; the concrete registry class lives in `tom_core_codespecs` (§5.8, §5.21). | `@CsText` carries the **base-language copy** (required — a key with no copy is a key with no message), the **role** the copy plays and which catalogue **half** it belongs to. The **key** is not an argument: it is the `CsMessageKey` const the member already holds. Nor are the message **parameters**: §5.21 derives them from the copy's placeholders, so a second parameter list would be a source that could disagree with the copy it describes. A validator asserts `role == error ⇒ category == errorCopy`. |
@@ -587,7 +587,7 @@ enforceable only if every entry has a carrier.
   the `wrap` and `grid` kinds as row-generating containers over the existing
   engine, one widget test each. Every kind in §5.22's table now names an ACL
   source.
-- **§5.18 CE-EL — 11 kinds, one uncarried per-kind value.** Every kind
+- **§5.18 CE-EL — 11 kinds, every attribute and every per-kind value carried.** Every kind
   resolves to a shipped widget/field and every base attribute has a carrier
   (`tomId`, `validators`, `authorizer`, `autoValidate`, `form`). The three
   attributes that once had none were carried by `csexb1`: **`tristate`** by the
@@ -598,23 +598,23 @@ enforceable only if every entry has a carrier.
   by the `Validators.minItems` / `Validators.maxItems` field rules registered in
   `TomValidatorRegistry` (the §5.18 desugaring boundary — a selection bound is a
   CE-VA rule, not a widget-level cap). The eleventh kind, **FileInput**,
-  reuses the shipped `TomFormFileField` family whole —
-  `TomFormFileUpload` / `TomFormFileDropzone` / `TomCupertinoFormFileUpload` via
-  `FormFieldFamily.fileUpload`, with `allowedExtensions`, `maxSizeBytes`,
-  `pickKind` and `autoUpload` all carried and the storage group derived from the
-  §5.13.1 column. **One value of one attribute is uncarried**: `presentation:
-  thumbnail` has no concrete — both Material affordances render a file-kind icon,
-  never the content — so the substrate item is a `TomFormFileThumbnail`
-  (Material + Cupertino, reachable through `FormFieldFamily`). Like the `csexb1`
-  items before it, it is a **`tom_flutter_ui` extension, not a
-  `tom_core_codespecs` class**: CE-EL is a documented catalogue over reused
-  widgets (§5.7.1), so a missing rendering is a missing widget.
+  reuses the shipped `TomFormFileField` family whole, with `allowedExtensions`,
+  `maxSizeBytes`, `pickKind` and `autoUpload` all carried and the storage group
+  derived from the §5.13.1 column. Each of the three `presentation` values has a
+  concrete reachable through `FormFieldFamily`: *link* is `TomFormFileUpload` /
+  `TomCupertinoFormFileUpload` (`fileUpload`), *dropzone* is
+  `TomFormFileDropzone`, and *thumbnail* is `TomFormFileThumbnail` /
+  `TomCupertinoFormFileThumbnail` (`fileThumbnail`). The thumbnail paints the
+  file's own content and falls back to the file-kind icon for anything Flutter
+  has no codec for, so a non-image file stays authorable under that value. Its
+  carrier is a **`tom_flutter_ui` extension, not a `tom_core_codespecs`
+  class**, on the same grounds as the `tristate` family: CE-EL is a documented
+  catalogue over reused widgets (§5.7.1), so a missing rendering is a missing
+  widget.
 
-**Consequence for §4.1.1.** CE-EL stays **READY** on the strength of its
-catalogue mapping 1:1 onto shipped widgets, with the single exception recorded
-above: a spec that authors `presentation: thumbnail` renders as *link* until the
-concrete exists, which is a degraded rendering rather than a dropped
-specification. CE-VA and CE-AZ keep their classifications —
+**Consequence for §4.1.1.** CE-EL is **READY** without qualification — its
+catalogue maps 1:1 onto shipped widgets, per-kind values included.
+CE-VA and CE-AZ keep their classifications —
 CE-VA's catalogue grew from eight rules to ten to absorb the selection bounds.
 CE-LO's substrate-level item is **closed** (`csexb2`): its only remaining
 dependency is the node-model gap class in `tom_core_codespecs`.
@@ -2614,16 +2614,15 @@ stays CE-API (§5.13.1).
 is the attribute §5.13.1 delegates here, and it is a closed three-value set:
 *link* — the compact chooser showing the file's name with its affordances
 (`TomFormFileUpload`); *dropzone* — the large drop surface
-(`TomFormFileDropzone`); *thumbnail* — an inline preview of the file's content.
+(`TomFormFileDropzone`); *thumbnail* — a square preview of the file's own
+content (`TomFormFileThumbnail`, reachable through
+`FormFieldFamily.fileThumbnail`), which falls back to the file-kind icon for
+anything Flutter has no codec for, so a non-image file stays authorable under
+that value too.
 **Whether a download affordance appears is not one of the values**: it is derived
 from whether the field is wired for transfer and the file is stored
 (`canDownload`), so authoring it would be the second rule §5.13.1 warns against —
-one that could disagree with the first. *thumbnail* is the **one value with no
-concrete**: `tom_flutter_ui` renders a file-kind icon, never the content. The
-substrate item is therefore a `TomFormFileThumbnail` concrete (Material and
-Cupertino, reachable through `FormFieldFamily`), recorded in §4.1.2 the way
-csexb1's items were before they were carried — the value stays in the catalogue
-because removing it would leave §5.13.1's delegation with no home again.
+one that could disagree with the first.
 
 **The storage group is authored on the column, not here.** A CE-DB
 file-reference column already names the group its files are filed under
@@ -4351,8 +4350,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) once `tcca9` lands. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) once `tcca11` lands, and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tcca10` lands. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
-| `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. Found the same way the file gap was: an `@OneOf` constant covered by no `@Case`. |
-| `csrc6` | Add the **`TomFormFileThumbnail`** concrete to `tom_flutter_ui` (§4.1.2 CE-EL, §5.18), then record the position here. `presentation: thumbnail` is the one CE-EL per-kind *value* with no widget behind it — both shipped Material affordances render a file-kind icon, never the content — so a spec that authors it renders as *link*. Like `csrc7` this is a catalogue-vs-substrate gap, and like the `csexb1` items it is a `tom_flutter_ui` extension rather than a `tom_core_codespecs` class. |
+| `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. It surfaces the way a catalogue-vs-substrate gap always does: an `@OneOf` constant covered by no `@Case`. |
 
 Open todos in these series whose subject is **not** a mapping question are
 deliberately absent from this table — a SOM validator capability belongs to
