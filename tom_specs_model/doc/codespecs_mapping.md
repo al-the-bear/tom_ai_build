@@ -597,8 +597,8 @@ enforceable only if every entry has a carrier.
   `FormFieldFamily.nullableBoolToggle`; and **`minSelections` / `maxSelections`**
   by the `Validators.minItems` / `Validators.maxItems` field rules registered in
   `TomValidatorRegistry` (the §5.18 desugaring boundary — a selection bound is a
-  CE-VA rule, not a widget-level cap). The eleventh kind, **FileInput**
-  (`csrb8`), reuses the shipped `TomFormFileField` family whole —
+  CE-VA rule, not a widget-level cap). The eleventh kind, **FileInput**,
+  reuses the shipped `TomFormFileField` family whole —
   `TomFormFileUpload` / `TomFormFileDropzone` / `TomCupertinoFormFileUpload` via
   `FormFieldFamily.fileUpload`, with `allowedExtensions`, `maxSizeBytes`,
   `pickKind` and `autoUpload` all carried and the storage group derived from the
@@ -4281,6 +4281,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) once `tcca11` lands, and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tcca10` lands. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
 | `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. Found the same way the file gap was: an `@OneOf` constant covered by no `@Case`. |
+| `csrc6` | Add the **`TomFormFileThumbnail`** concrete to `tom_flutter_ui` (§4.1.2 CE-EL, §5.18), then record the position here. `presentation: thumbnail` is the one CE-EL per-kind *value* with no widget behind it — both shipped Material affordances render a file-kind icon, never the content — so a spec that authors it renders as *link*. Like `csrc7` this is a catalogue-vs-substrate gap, and like the `csexb1` items it is a `tom_flutter_ui` extension rather than a `tom_core_codespecs` class. |
 
 Open todos in these series whose subject is **not** a mapping question are
 deliberately absent from this table — a SOM validator capability belongs to
