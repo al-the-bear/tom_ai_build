@@ -3758,11 +3758,17 @@ form.
 **policy** from **declaration**, and a job comes into existence only in the
 second layer:
 
-- **Policy (the default layer)** — `BJMJT` names the *categories* of job the
-  system runs; `BJME` authors the execution defaults (concurrency, priority,
-  retry, idempotency, timeout); `BJMM` authors default monitoring and failure
-  alerting; the head form authors system-wide time-zone handling. All of it
-  applies to every job.
+- **Policy (the default layer)** — `BJMJT` is a narrative *workload shape*, the
+  orientation paragraph above the job list; `BJME` authors the execution
+  defaults (concurrency, priority, retry, idempotency, timeout); `BJMM` authors
+  default monitoring and failure alerting; the head form authors system-wide
+  time-zone handling. All of it applies to every job.
+
+  `BJMJT` is deliberately prose and not a form. A form of fixed
+  category slots is an inventory grouped by category, so it would be a second
+  place to state which jobs exist and could disagree with `SCJOB` — which is
+  the layer the generator reads. `BJMJT` carries no `@CodeSpecKind` and
+  generates nothing; it earns its place as orientation, not as data.
 - **Declaration** — `SCJOB-JOB-LST`, a repeated `ScheduledJobEntry` (`SCJOB`),
   one entry per job. *A job that is not listed here does not exist*, however
   thoroughly the policy layer describes how jobs are run. `SCJOB` carries the

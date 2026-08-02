@@ -1935,7 +1935,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as BatchJobManagement;
       return [
-        SpecSlot.node(() => n.jobTypes, (v) => n.jobTypes = v as DocSpecsSection?, label: 'jobTypes'),
+        SpecSlot.node(() => n.workloadShape, (v) => n.workloadShape = v as DocSpecsSection?, label: 'workloadShape'),
         SpecSlot.node(() => n.execution, (v) => n.execution = v as DocSpecsSection?, label: 'execution'),
         SpecSlot.node(() => n.monitoring, (v) => n.monitoring = v as DocSpecsSection?, label: 'monitoring'),
         SpecSlot.list(() => n.scheduledJobs, (v) => n.scheduledJobs = v.cast<ScheduledJobEntry>(), label: 'scheduledJobs'),
@@ -1945,7 +1945,7 @@ void registerSpecOps() {
       final n = o as BatchJobManagement;
       return BatchJobManagement()
         ..content = n.content
-        ..jobTypes = n.jobTypes
+        ..workloadShape = n.workloadShape
         ..execution = n.execution
         ..monitoring = n.monitoring
         ..scheduledJobs = n.scheduledJobs;

@@ -28406,57 +28406,43 @@ subsections below carry the defaults those declarations inherit.
   @SerializationOrder(0)
   String? content;
 
-  /// Supported job categories.
+  /// Workload shape — orientation above the job list, deliberately narrative.
   ///
-  /// A category-level summary of the scheduled work the system performs — the
-  /// shape of the workload, not its inventory. The authoritative per-job
-  /// declarations are [scheduledJobs]; a category named here without a job in
-  /// that list is a job the specification has not actually declared.
+  /// What kind of batch surface this system has, in prose: mostly a nightly
+  /// financial rollup with a small maintenance tail, or a continuous
+  /// integration-sync load, or a report factory. It is the paragraph a reader
+  /// wants *before* thirty [scheduledJobs] entries, for the same reason an
+  /// architecture overview sits above a component list.
+  ///
+  /// **It is narrative and not a form, on purpose.** This section used to carry
+  /// five fixed category slots — data processing, report generation,
+  /// notification, maintenance, integration sync. A form of five slots each
+  /// labelled "… Jobs" *is* an inventory grouped by category, whatever the help
+  /// text says, so it became a second place to state which jobs exist and could
+  /// disagree with [scheduledJobs] — which is authoritative and is what the
+  /// CodeSpecs generator reads. The fixed five were also a closed taxonomy with
+  /// no basis: a system whose batch work is model retraining or index rebuilding
+  /// had no slot. One prose field can describe any workload and cannot be
+  /// mistaken for the inventory.
+  ///
+  /// [scheduledJobs] remains the only place a job comes into existence. A shape
+  /// described here that no entry there realises is a workload the specification
+  /// has not actually declared.
   @SectionId('BJMJT')
   @StandardReferences(
     [
       'Google SRE — eliminating toil and operational procedures',
       'ITIL 4 — change enablement and maintenance windows',
     ],
-    'Supported job categories catalog the kinds of scheduled work the system performs.',
+    'The shape of the scheduled workload — what kind of batch surface the system has, as orientation above the job list.',
   )
-  @ContentHelp('Summarise which categories of scheduled work exist and why, one '
-      'line each. This is the shape of the workload, not the job inventory — '
-      'declare each job individually in Scheduled Jobs (SCJOB).')
-  @Form([
-    Field(
-      'dataProcessingJobs',
-      String,
-      'Data Processing Jobs',
-      hint: 'ETL, aggregation, cleanup',
-    ),
-    Field(
-      'reportGenerationJobs',
-      String,
-      'Report Generation Jobs',
-      hint: 'Scheduled report creation',
-    ),
-    Field(
-      'notificationJobs',
-      String,
-      'Notification Jobs',
-      hint: 'Digest emails, reminder notifications',
-    ),
-    Field(
-      'maintenanceJobs',
-      String,
-      'Maintenance Jobs',
-      hint: 'Database cleanup, log rotation, temp file purge',
-    ),
-    Field(
-      'integrationSyncJobs',
-      String,
-      'Integration Sync Jobs',
-      hint: 'External system synchronization',
-    ),
-  ])
+  @ContentHelp('Describe the shape of the scheduled workload in a short '
+      'paragraph: what the batch surface of this system is mostly made of, and '
+      'why it exists. This is orientation, not the job inventory — every job is '
+      'declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; '
+      'a list in two places is a list that can disagree with itself.')
   @SerializationOrder(1)
-  DocSpecsSection? jobTypes;
+  DocSpecsSection? workloadShape;
 
   /// Execution controls — the **default layer** for every job.
   ///

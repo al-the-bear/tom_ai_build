@@ -471,7 +471,7 @@
           - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
             lifecycle, roleManagement, directoryIntegration
         - batchJobs: `BatchJobManagement`
-          - content @Form(timeZoneHandling), jobTypes, execution, monitoring
+          - content @Form(timeZoneHandling), workloadShape, execution, monitoring
           - scheduledJobs: `ScheduledJobEntry`
             - content @Form(jobName, purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
               calendarTrigger, eventTrigger, workDefinition, failurePolicy
