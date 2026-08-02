@@ -16064,8 +16064,18 @@ class ServerOsRequirements extends DocSpecsSection {
 
 /// 8.4.2. Client Requirements.
 ///
-/// Minimum client requirements: browser versions, operating systems, screen
-/// resolution, network bandwidth, and device capabilities.
+/// Two layers that answer two different questions.
+///
+/// **Which client applications exist** — [clientApplications], one
+/// [ClientApplicationEntry] per client, naming its kind, its entry route and
+/// the screens it comprises. This is the enumerable set of clients; a client
+/// not listed there does not exist.
+///
+/// **What a user's machine must provide** — every other subsection: browser,
+/// desktop-OS, mobile-device, display, network, hardware, accessibility and
+/// security minimums. These are deployment constraints on the *environment*,
+/// not clients, which is why a client entry *references* them rather than
+/// restating them.
 @ContentHelp('''
 Specify client device requirements including browsers, operating systems,
 display specifications, and accessibility needs. Client requirements
@@ -16109,12 +16119,6 @@ define the user experience boundary conditions.
   'Describes the end-user client requirements across browsers, desktop, mobile, display, network, hardware, accessibility, and security.',
 )
 @SectionId('CLRESE')
-@CodeSpecKind(
-  [CodeSpecPart.client],
-  note:
-      'CE-CL — the client applications that exist (Flutter app, CLI, '
-      'other server) and the environments they must run in.',
-)
 class ClientRequirementsSection extends DocSpecsSection {
   @ContentHelp('''
 Provide an overview of client requirements and support strategy.
@@ -16141,6 +16145,21 @@ Provide an overview of client requirements and support strategy.
   @SerializationOrder(1)
   TextSection overview = TextSection();
 
+  /// The client applications the system consists of (CE-CL).
+  @StandardReferences([
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — portability / installability',
+  ], 'The client applications the system consists of, each with its kind, platform targets, entry route and the screens it comprises.')
+  @SectionId('CLIAPP-CLIE-LST')
+  @SectionIdPattern('CLIAPP-CLIE-xxx')
+  @ContentHelp(
+    'Add one entry per client application of the system. A client that is not '
+    'listed here does not exist, however thoroughly the requirement '
+    'subsections below describe the machines it would run on.',
+  )
+  @SerializationOrder(2)
+  List<ClientApplicationEntry> clientApplications = [];
+
   /// Web browser requirements.
   @StandardReferences([
     'WHATWG / W3C — web platform / browser standards',
@@ -16148,7 +16167,7 @@ Provide an overview of client requirements and support strategy.
   @SectionId('BRREEN-BROW-LST')
   @SectionIdPattern('BRREEN-BROW-xxx')
   @ContentHelp('Add one entry per supported web browser.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<BrowserRequirementEntry> browserRequirements = [];
 
   /// Desktop operating system requirements.
@@ -16158,7 +16177,7 @@ Provide an overview of client requirements and support strategy.
   @SectionId('DORE1-DESK-LST')
   @SectionIdPattern('DORE1-DESK-xxx')
   @ContentHelp('Add one entry per supported desktop operating system.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
 
   /// Mobile device requirements.
@@ -16168,51 +16187,191 @@ Provide an overview of client requirements and support strategy.
   @SectionId('MDRE-MOBI-LST')
   @SectionIdPattern('MDRE-MOBI-xxx')
   @ContentHelp('Add one entry per supported mobile platform.')
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
 
   /// Display and screen requirements.
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DisplayRequirements displayRequirements = DisplayRequirements();
 
   /// Client network requirements.
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   ClientNetworkRequirements networkRequirements = ClientNetworkRequirements();
 
   /// Client hardware requirements.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   ClientHardwareRequirements hardwareRequirements =
       ClientHardwareRequirements();
 
   /// Accessibility requirements for clients.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   ClientAccessibilityRequirements accessibilityRequirements =
       ClientAccessibilityRequirements();
 
   /// Progressive Web App (PWA) requirements.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   PwaRequirements pwaRequirements = PwaRequirements();
 
   /// Native app requirements.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   NativeAppRequirements nativeAppRequirements = NativeAppRequirements();
 
   /// Client security requirements.
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   ClientSecurityRequirements securityRequirements =
       ClientSecurityRequirements();
 
   /// Per-machine configuration of a client application (CE-CC).
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   ClientConfiguration clientConfiguration = ClientConfiguration();
 
   /// User-specific settings of a user-owned device (CE-DS).
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   DeviceSettings deviceSettings = DeviceSettings();
 
   /// Server-persisted settings that follow the user across devices (CE-UP).
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   UserSettings userSettings = UserSettings();
+}
+
+/// The kind of a client application (`codespecs_mapping.md` §4.1).
+///
+/// The kind decides which other CodeSpecs parts the client may carry — a
+/// command-line client has no screen elements — so it is a required, closed
+/// choice rather than free text.
+enum ClientApplicationKind {
+  /// A graphical application with screens, forms and navigation.
+  graphicalApplication,
+
+  /// A command-line client driven by arguments and standard streams.
+  commandLine,
+
+  /// Another server calling this system as a client.
+  server,
+}
+
+/// A single client application of the system (CE-CL).
+///
+/// One client: what kind of application it is, which platforms it targets,
+/// where it starts, and which screens it comprises. This is the enumeration
+/// [ClientRequirementsSection]'s requirement subsections cannot give — they
+/// state what a *machine* must provide, which is a deployment constraint on
+/// every client rather than a statement that any particular client exists.
+///
+/// **Platform targets are referenced, never restated.** A client's platform
+/// targets are ids already declared in the browser, desktop-OS and
+/// mobile-platform requirement lists of the enclosing section. Naming a
+/// platform here that no requirement entry declares is a dangling reference,
+/// which is the point: the minimum a platform must meet is stated once.
+///
+/// **Configuration is not restated either.** Which settings a client carries
+/// is declared in [ClientConfiguration] (CE-CC), where each setting names the
+/// client that owns it. A client that also listed its settings would be the
+/// second source those two would eventually disagree through
+/// (`codespecs_mapping.md` §11).
+///
+/// **Screens, not flows.** A client comprises screens; the flows *between*
+/// those screens are the screen flow structure's own subject (D09 XDS) and are
+/// reached through the entry route, not listed again per client.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description',
+    'ISO/IEC 25010 — portability / installability',
+  ],
+  'A single client application: its identity, kind, platform targets, entry route and constituent screens.',
+)
+@SectionId('CLIAPP')
+@CodeSpecKind(
+  [CodeSpecPart.client],
+  note:
+      'CE-CL — one client application of the system. Active '
+      '(codespecs_mapping.md §4.1): @CsClient, client locus. clientId supplies '
+      'the marker\'s first positional argument and clientKind its required '
+      'kind; platformTargets, entryRoute and includedScreens become members of '
+      'the generated descriptor, the entry route as a CsRouteRef. The client\'s '
+      'configuration is not declared here — CE-CC settings name their owning '
+      'client (codespecs_mapping.md §11).',
+)
+class ClientApplicationEntry extends DocSpecsSection {
+  @ContentHelp('''
+One client application of the system.
+
+**The kind is the constraining choice.** A graphical application has screens,
+an entry route and platform targets; a command-line client has none of those
+and states its invocation in *Purpose* instead; a server client is another
+system calling in, and is listed here so the clients of this system are
+enumerable in one place.
+
+**Reference, do not restate.** *Platform Targets* holds ids from the browser,
+desktop-OS and mobile-platform requirement lists below; *Entry Route* holds a
+route id from the screen route map; *Included Screens* holds screen ids. Every
+one of them is declared elsewhere — writing the name of something that is not
+declared makes the reference dangle.
+''')
+  @Form([
+    Field(
+      'clientId',
+      String,
+      'Client Id',
+      required: true,
+      hint: 'The one identifier for this client application (e.g. backoffice) '
+          '— cited wherever the client is referenced',
+    ),
+    Field(
+      'clientName',
+      String,
+      'Client Name',
+      required: true,
+      hint: 'The name users and operators call this client by',
+    ),
+    Field(
+      'clientKind',
+      ClientApplicationKind,
+      'Client Kind',
+      required: true,
+      hint: 'What kind of application this client is — decides which other '
+          'parts it can carry (a command-line client has no screens)',
+    ),
+    Field(
+      'purpose',
+      String,
+      'Purpose',
+      required: true,
+      hint: 'Who uses this client and what for — the reason it exists '
+          'separately from the system\'s other clients',
+    ),
+    Field(
+      'platformTargets',
+      String,
+      'Platform Targets',
+      refersTo: [
+        'BROREQENT.browserName',
+        'DEOSREEN.osName',
+        'MODEREEN.platform',
+      ],
+      hint: 'The platforms this client runs on, by id from the browser, '
+          'desktop-OS and mobile-platform requirement lists below',
+    ),
+    Field(
+      'entryRoute',
+      String,
+      'Entry Route',
+      refersTo: ['SCRTEN.routeId'],
+      hint: 'The route this client opens on, by id from the screen route map. '
+          'Empty for a client with no routes',
+    ),
+    Field(
+      'includedScreens',
+      String,
+      'Included Screens',
+      refersTo: ['SCREN.screenId'],
+      hint: 'The screens this client comprises, by id. Empty for a client '
+          'with no screens',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
 }
 
 /// Client configuration — per-machine settings of a client application (CE-CC).
@@ -16254,11 +16413,12 @@ the shape and the policy.
   @StandardReferences([
     'Twelve-Factor App — config stored in the environment, per deployment',
     'ISO/IEC 25010 — portability / installability',
-  ], 'The client configuration settings declared for this application, one entry per key.')
+  ], 'The client configuration settings declared by the system\'s client applications, one entry per key.')
   @SectionId('CCSET-SETT-LST')
   @SectionIdPattern('CCSET-SETT-xxx')
   @ContentHelp(
-    'Add one entry per client configuration setting. Declare the setting — '
+    'Add one entry per client configuration setting, naming the client '
+    'application that declares it. Declare the setting — '
     'key, value type and default — never its value on a particular machine: '
     'the value comes from the app configuration resources or this install\'s '
     'persisted overrides. Typical keys: api.baseUrl, app.environment, '
@@ -16290,6 +16450,15 @@ class ClientConfigurationSettingEntry extends DocSpecsSection {
       'Setting Key',
       required: true,
       hint: 'The dotted key of the client setting, e.g. api.baseUrl',
+    ),
+    Field(
+      'client',
+      String,
+      'Client',
+      refersTo: ['CLIAPP.clientId'],
+      hint: 'The client application that declares this setting, by id. CE-CC '
+          'is keyed by (client app, machine), so the owning client is part of '
+          'the key. Empty where the system has a single client',
     ),
     Field(
       'valueType',

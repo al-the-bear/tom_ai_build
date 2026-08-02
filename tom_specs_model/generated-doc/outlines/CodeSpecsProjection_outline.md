@@ -335,6 +335,8 @@
             licensing
       - clientRequirements: `ClientRequirementsSection`
         - content, overview @text
+        - clientApplications: `ClientApplicationEntry`
+          - content @Form(clientId, clientName, clientKind, purpose, platformTargets, entryRoute, includedScreens)
         - browserRequirements: `BrowserRequirementEntry`
           - content @Form(browserName, browserEngine, minVersion, recommendedVersion), support, features, testing,
             issues
@@ -364,7 +366,7 @@
         - `ClientConfiguration`
           - content
           - settings: `ClientConfigurationSettingEntry`
-            - content @Form(settingKey, valueType, defaultValue, overridableBy)
+            - content @Form(settingKey, client, valueType, defaultValue, overridableBy)
         - `DeviceSettings`
           - content
           - settings: `DeviceSettingEntry`
