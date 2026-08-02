@@ -100,6 +100,25 @@ export 'src/serialization_order.dart'
         findUnstampedModelMembers;
 export 'src/validator.dart'
     show validateModel, validateStructuralInvariants, sectionIdCoverageGaps;
+// The codespecs_derivation_contract.md §6 validation pass over an emitted
+// CodeSpecs trio.
+export 'src/codespecs/cs_model.dart';
+export 'src/codespecs/cs_reader.dart'
+    show readCsLocusProject, readCsLocusProjectFromDirectory, readEnumValues;
+export 'src/codespecs/cs_checks.dart'
+    show
+        CodeSpecsCheck,
+        CodeSpecsViolation,
+        codeSpecsChecks,
+        csMirroredEnumPairs,
+        applyMigrations;
+export 'src/codespecs/codespecs_validator.dart'
+    show
+        CodeSpecsValidationReport,
+        CodeSpecsValidationException,
+        runCodeSpecsChecks,
+        assertCodeSpecsValid,
+        readCsEnumMirrors;
 export 'src/packaging.dart'
     show
         ManifestFormat,

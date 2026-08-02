@@ -1,0 +1,525 @@
+/// The source model the CodeSpecs validator checks run over.
+///
+/// This is a **reading** of emitted CodeSpecs Dart, not a re-derivation of it:
+/// one [CsLocusProject] per generated project of the
+/// `codespecs_mapping.md` §4.2 trio, each holding the declarations, their `Cs*`
+/// markers with argument values, the back-link annotations, the method-body
+/// shapes and the substrate constructions the
+/// `codespecs_derivation_contract.md` §6 checks read.
+///
+/// Values are modelled rather than resolved. A generated file writes every
+/// marker inline with literal, enum-access or `Cs*Ref` const arguments
+/// (`codespecs_derivation_contract.md` §2.7), so the constant surface the checks
+/// need is exactly what the syntax carries.
+library;
+
+/// One of the three generated projects (`codespecs_mapping.md` §4.2).
+enum CsLocus {
+  /// The project both others depend on.
+  shared,
+
+  /// The client-only project.
+  client,
+
+  /// The server-only project.
+  server;
+
+  /// The name used in violation messages.
+  String get label => name;
+}
+
+/// Where a violation is (file plus 1-based line).
+class CsLocation {
+  /// The file the element was read from, as given to the reader.
+  final String file;
+
+  /// The 1-based line of the element.
+  final int line;
+
+  /// Creates a location.
+  const CsLocation(this.file, this.line);
+
+  @override
+  String toString() => '$file:$line';
+}
+
+// ---------------------------------------------------------------------------
+// Constant values
+// ---------------------------------------------------------------------------
+
+/// A constant value read off a CodeSpecs annotation argument or a substrate
+/// constructor argument.
+sealed class CsValue {
+  /// Creates a value.
+  const CsValue();
+}
+
+/// A string literal.
+class CsStringValue extends CsValue {
+  /// The literal text.
+  final String value;
+
+  /// Creates a string value.
+  const CsStringValue(this.value);
+
+  @override
+  String toString() => "'$value'";
+}
+
+/// A boolean literal.
+class CsBoolValue extends CsValue {
+  /// The literal value.
+  final bool value;
+
+  /// Creates a boolean value.
+  const CsBoolValue(this.value);
+
+  @override
+  String toString() => '$value';
+}
+
+/// An integer literal.
+class CsIntValue extends CsValue {
+  /// The literal value.
+  final int value;
+
+  /// Creates an integer value.
+  const CsIntValue(this.value);
+
+  @override
+  String toString() => '$value';
+}
+
+/// A `null` literal — written where a per-kind slot is deliberately absent.
+class CsNullValue extends CsValue {
+  /// Creates a null value.
+  const CsNullValue();
+
+  @override
+  String toString() => 'null';
+}
+
+/// A qualified identifier: an enum access (`CsTextRole.error`) or a catalogue
+/// const reference (`SharedOperations.login`). Which of the two it is depends on
+/// the reading check, so the model keeps both parts and decides nothing.
+class CsQualifiedValue extends CsValue {
+  /// The part before the dot — an enum type or a catalogue holder.
+  final String prefix;
+
+  /// The part after the dot — an enum constant or a const member.
+  final String name;
+
+  /// Creates a qualified value.
+  const CsQualifiedValue(this.prefix, this.name);
+
+  /// The dotted source form.
+  String get path => '$prefix.$name';
+
+  @override
+  String toString() => path;
+}
+
+/// A constructor call — a `Cs*Ref` const, a value class such as
+/// `CsGradedAccess`, or a `tom_core` substrate construction.
+class CsConstructionValue extends CsValue {
+  /// The constructed type name.
+  final String type;
+
+  /// Positional arguments, in source order.
+  final List<CsValue> positional;
+
+  /// Named arguments.
+  final Map<String, CsValue> named;
+
+  /// Creates a construction value.
+  const CsConstructionValue(this.type, this.positional, this.named);
+
+  /// The first positional argument as a string, when it is one.
+  ///
+  /// Every `Cs*Ref` in `cross_part_refs.dart` wraps exactly one id string in its
+  /// first positional slot, so this is the ref id.
+  String? get idArgument {
+    final first = positional.isEmpty ? null : positional.first;
+    return first is CsStringValue ? first.value : null;
+  }
+
+  @override
+  String toString() {
+    final args = [
+      ...positional.map((v) => '$v'),
+      ...named.entries.map((e) => '${e.key}: ${e.value}'),
+    ];
+    return '$type(${args.join(', ')})';
+  }
+}
+
+/// A list literal.
+class CsListValue extends CsValue {
+  /// The elements, in source order.
+  final List<CsValue> values;
+
+  /// Creates a list value.
+  const CsListValue(this.values);
+
+  @override
+  String toString() => '[${values.join(', ')}]';
+}
+
+/// An expression the reader did not model — kept with its source text so a
+/// message can quote it rather than say "something".
+class CsUnknownValue extends CsValue {
+  /// The source text of the expression.
+  final String source;
+
+  /// Creates an unknown value.
+  const CsUnknownValue(this.source);
+
+  @override
+  String toString() => source;
+}
+
+// ---------------------------------------------------------------------------
+// Annotations
+// ---------------------------------------------------------------------------
+
+/// One `Cs*` part marker as written on a declaration.
+class CsMarker {
+  /// The marker name without the `@` (`CsTrigger`).
+  final String name;
+
+  /// Positional arguments, in source order.
+  final List<CsValue> positional;
+
+  /// Named arguments.
+  final Map<String, CsValue> named;
+
+  /// Where the marker is written.
+  final CsLocation location;
+
+  /// Creates a marker.
+  const CsMarker(this.name, this.positional, this.named, this.location);
+
+  /// The first positional argument, or `null` when the marker has none.
+  ///
+  /// `codespecs_derivation_contract.md` §2.3 puts the authored identifier in
+  /// exactly this slot for every marker that has one.
+  CsValue? get firstPositional =>
+      positional.isEmpty ? null : positional.first;
+
+  /// The first positional argument as a string, when it is one.
+  String? get firstPositionalString {
+    final first = firstPositional;
+    return first is CsStringValue ? first.value : null;
+  }
+
+  /// Named arguments that are neither absent nor an explicit `null`.
+  Map<String, CsValue> get presentNamed => {
+        for (final e in named.entries)
+          if (e.value is! CsNullValue) e.key: e.value,
+      };
+}
+
+/// One `DocRef` tuple of a `@DocSpec` annotation.
+class CsDocRef {
+  /// The SOM section id, verbatim.
+  final String sectionId;
+
+  /// The one-sentence edge description.
+  final String description;
+
+  /// Creates a doc reference.
+  const CsDocRef(this.sectionId, this.description);
+}
+
+/// A `@CodeSpec` back-link.
+class CsCodeSpecLink {
+  /// The stable CodeSpec id, `<canonical id>.<identifier>`.
+  final String id;
+
+  /// The flat set of SOM sections that fed the element.
+  final List<String> source;
+
+  /// Where the annotation is written.
+  final CsLocation location;
+
+  /// Creates a `@CodeSpec` link.
+  const CsCodeSpecLink(this.id, this.source, this.location);
+
+  /// The identifier half of [id] — what N1 derived, or empty when it derived
+  /// nothing.
+  String get identifier {
+    final dot = id.indexOf('.');
+    return dot < 0 ? id : id.substring(dot + 1);
+  }
+
+  /// The canonical part id half of [id].
+  String get canonicalId {
+    final dot = id.indexOf('.');
+    return dot < 0 ? '' : id.substring(0, dot);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Declarations
+// ---------------------------------------------------------------------------
+
+/// What a method body does, as far as the "compiles but does not execute"
+/// invariants of `codespecs_derivation_contract.md` §2.4 care.
+enum CsBodyShape {
+  /// No body at all — abstract, external, or a field/getter declaration.
+  none,
+
+  /// The entire body is a single `throw`.
+  throwOnly,
+
+  /// The body returns a value.
+  returnsValue,
+
+  /// A body that is neither of the above.
+  other,
+}
+
+/// A method or accessor body of a generated declaration.
+class CsMethodBody {
+  /// The method name.
+  final String name;
+
+  /// What the body does.
+  final CsBodyShape shape;
+
+  /// The literal argument of the `throw`, when the body is a single throw of a
+  /// constructor call with a string literal. `null` when unreadable.
+  final String? thrownMessage;
+
+  /// The thrown type, when the body is a single throw of a constructor call.
+  final String? thrownType;
+
+  /// Whether the method is declared `async` / `async*`.
+  final bool isAsync;
+
+  /// Where the method is declared.
+  final CsLocation location;
+
+  /// Creates a method body.
+  const CsMethodBody({
+    required this.name,
+    required this.shape,
+    required this.location,
+    this.thrownMessage,
+    this.thrownType,
+    this.isAsync = false,
+  });
+}
+
+/// A generated declaration — a top-level class/enum/variable, or a member of
+/// one.
+class CsDeclaration {
+  /// The locus project the declaration belongs to.
+  final CsLocus locus;
+
+  /// The declaration name (`Customer`, `save`).
+  final String name;
+
+  /// The owning declaration name for a member; `null` for a top-level one.
+  final String? owner;
+
+  /// The `Cs*` part markers written on the declaration.
+  final List<CsMarker> markers;
+
+  /// The `@CodeSpec` back-link, when present.
+  final CsCodeSpecLink? codeSpec;
+
+  /// The `@DocSpec` tuples, or `null` when the annotation is absent.
+  final List<CsDocRef>? docSpec;
+
+  /// Whether a variable declaration carries an initialiser.
+  final bool hasInitialiser;
+
+  /// The method bodies this declaration declares.
+  final List<CsMethodBody> bodies;
+
+  /// Where the declaration is written.
+  final CsLocation location;
+
+  /// Creates a declaration.
+  const CsDeclaration({
+    required this.locus,
+    required this.name,
+    required this.markers,
+    required this.location,
+    this.owner,
+    this.codeSpec,
+    this.docSpec,
+    this.hasInitialiser = false,
+    this.bodies = const [],
+  });
+
+  /// Whether this is a top-level declaration.
+  bool get isTopLevel => owner == null;
+
+  /// The `<owner>.<member>` path for a member, the bare name for a top-level
+  /// declaration — the N9 form of a reference target.
+  String get path => owner == null ? name : '$owner.$name';
+
+  /// The first marker with [markerName], or `null`.
+  CsMarker? marker(String markerName) {
+    for (final m in markers) {
+      if (m.name == markerName) return m;
+    }
+    return null;
+  }
+
+  /// Whether the declaration carries [markerName].
+  bool has(String markerName) => marker(markerName) != null;
+}
+
+/// A `tom_core`-family construction in generated code — read for the checks
+/// whose subject is a substrate constructor argument rather than a marker one.
+class CsConstruction {
+  /// The constructed type name.
+  final String type;
+
+  /// Positional arguments, in source order.
+  final List<CsValue> positional;
+
+  /// Named arguments.
+  final Map<String, CsValue> named;
+
+  /// The declaration the construction is the value of, when it has one.
+  final String? holder;
+
+  /// Where the construction is written.
+  final CsLocation location;
+
+  /// Creates a construction.
+  const CsConstruction({
+    required this.type,
+    required this.positional,
+    required this.named,
+    required this.location,
+    this.holder,
+  });
+
+  /// The named argument [argument] as a string, when it is a string literal.
+  String? stringArgument(String argument) {
+    final value = named[argument];
+    return value is CsStringValue ? value.value : null;
+  }
+}
+
+/// One generated Dart file.
+class CsFile {
+  /// The file path as given to the reader.
+  final String path;
+
+  /// The `import` URIs the file declares.
+  final List<String> imports;
+
+  /// The declarations the file contributes.
+  final List<CsDeclaration> declarations;
+
+  /// The substrate constructions the file contains.
+  final List<CsConstruction> constructions;
+
+  /// Creates a file.
+  const CsFile({
+    required this.path,
+    required this.imports,
+    required this.declarations,
+    required this.constructions,
+  });
+}
+
+/// One generated project of the §4.2 trio.
+class CsLocusProject {
+  /// Which project this is.
+  final CsLocus locus;
+
+  /// The package name, used by the locus-arrow check to recognise an import of
+  /// a sibling project.
+  final String packageName;
+
+  /// The files the project contributes.
+  final List<CsFile> files;
+
+  /// Creates a locus project.
+  const CsLocusProject({
+    required this.locus,
+    required this.packageName,
+    required this.files,
+  });
+
+  /// Every declaration in the project.
+  Iterable<CsDeclaration> get declarations =>
+      files.expand((f) => f.declarations);
+
+  /// Every construction in the project.
+  Iterable<CsConstruction> get constructions =>
+      files.expand((f) => f.constructions);
+}
+
+/// A closed catalogue and the `tom_core` catalogue it mirrors
+/// (`codespecs_derivation_contract.md` §5.3).
+class CsEnumMirror {
+  /// The `tom_code_specs` enum name.
+  final String csEnumName;
+
+  /// The `tom_core` enum name it mirrors.
+  final String coreEnumName;
+
+  /// The mirror's values, in declaration order.
+  final List<String> csValues;
+
+  /// The counterpart's values, in declaration order.
+  final List<String> coreValues;
+
+  /// Creates a mirror pair.
+  const CsEnumMirror({
+    required this.csEnumName,
+    required this.coreEnumName,
+    required this.csValues,
+    required this.coreValues,
+  });
+}
+
+/// Everything the eighteen checks read.
+class CodeSpecsValidationInput {
+  /// The shared project.
+  final CsLocusProject shared;
+
+  /// The client project.
+  final CsLocusProject client;
+
+  /// The server project.
+  final CsLocusProject server;
+
+  /// The CE-MG migration artifacts, relative path → SQL text, for the
+  /// cumulative-DDL convergence check.
+  final Map<String, String> migrations;
+
+  /// The mirrored-catalogue pairs, for the mirror-completeness check.
+  final List<CsEnumMirror> enumMirrors;
+
+  /// Creates a validation input.
+  const CodeSpecsValidationInput({
+    required this.shared,
+    required this.client,
+    required this.server,
+    this.migrations = const {},
+    this.enumMirrors = const [],
+  });
+
+  /// The three projects, in emission order.
+  List<CsLocusProject> get projects => [shared, client, server];
+
+  /// The project for [locus].
+  CsLocusProject project(CsLocus locus) => switch (locus) {
+        CsLocus.shared => shared,
+        CsLocus.client => client,
+        CsLocus.server => server,
+      };
+
+  /// Every declaration across the trio.
+  Iterable<CsDeclaration> get declarations =>
+      projects.expand((p) => p.declarations);
+}
