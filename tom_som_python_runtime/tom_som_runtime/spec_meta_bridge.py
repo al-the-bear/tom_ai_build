@@ -187,6 +187,8 @@ def _field_node(
                     required=ff.required,
                     hint=ff.hint,
                     order=i,
+                    enum_values=ff.enum_values,
+                    refers_to=ff.refers_to,
                 )
                 for i, ff in enumerate(field.form_fields)
             ]

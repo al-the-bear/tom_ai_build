@@ -69,6 +69,20 @@ export class FormFieldSpec {
   type: string;
   hint: string | null;
   required: boolean;
+  /**
+   * Enum constant names when {@link type} is a model enum; empty for non-enum
+   * field types. Lets consumers validate and convert values without the
+   * analyzer.
+   */
+  enumValues: string[];
+  /**
+   * The registry key(s) this field's value is an id drawn from, each written
+   * `<SECTIONID>.<formFieldName>`; empty for a non-reference field. A reference
+   * field holds a free-text id that must already be declared by some entry of
+   * the named registry, so a runtime can resolve it and report a dangling id
+   * instead of generating broken code.
+   */
+  refersTo: string[];
 
   constructor(props: {
     name: string;
@@ -76,12 +90,16 @@ export class FormFieldSpec {
     type?: string;
     hint?: string | null;
     required?: boolean;
+    enumValues?: string[];
+    refersTo?: string[];
   }) {
     this.name = props.name;
     this.label = props.label;
     this.type = props.type != null ? props.type : 'String';
     this.hint = props.hint != null ? props.hint : null;
     this.required = Boolean(props.required || false);
+    this.enumValues = props.enumValues || [];
+    this.refersTo = props.refersTo || [];
   }
 
   static fromJson(j: any): FormFieldSpec {
@@ -91,6 +109,8 @@ export class FormFieldSpec {
       type: j.type || 'String',
       hint: j.hint != null ? j.hint : null,
       required: Boolean(j.required || false),
+      enumValues: (j.enumValues || []).map((e: unknown) => String(e)),
+      refersTo: (j.refersTo || []).map((e: unknown) => String(e)),
     });
   }
 }

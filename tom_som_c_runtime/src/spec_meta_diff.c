@@ -117,6 +117,20 @@ static int strlist_eq(const SomStrList *a, const SomStrList *b) {
   return 1;
 }
 
+/* Element-wise equality of two `char **` + length string arrays — the shape the
+   meta layer uses where SomStrList is not available. */
+static int strarr_eq(char *const *a, size_t an, char *const *b, size_t bn) {
+  if (an != bn) {
+    return 0;
+  }
+  for (size_t i = 0; i < an; i++) {
+    if (strcmp(a[i], b[i]) != 0) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
 static char *concat_at(const char *at, const char *suffix) {
   SomBuf b;
   som_buf_init(&b);
@@ -406,7 +420,11 @@ static char *meta_form_diff(const char *at, const SomFormMeta *a,
         strcmp(fa->type_name, fb->type_name) != 0 ||
         strcmp(fa->description, fb->description) != 0 ||
         fa->required != fb->required || strcmp(fa->hint, fb->hint) != 0 ||
-        fa->order != fb->order) {
+        fa->order != fb->order ||
+        !strarr_eq(fa->enum_values, fa->enum_values_len, fb->enum_values,
+                   fb->enum_values_len) ||
+        !strarr_eq(fa->refers_to, fa->refers_to_len, fb->refers_to,
+                   fb->refers_to_len)) {
       SomBuf buf;
       som_buf_init(&buf);
       som_buf_puts(&buf, at);

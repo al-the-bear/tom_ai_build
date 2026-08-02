@@ -70,6 +70,16 @@ class FormFieldSpec:
     type: str = "String"
     hint: Optional[str] = None
     required: bool = False
+    #: Enum constant names when :attr:`type` is a model enum (YRD7); empty for
+    #: non-enum field types. Lets consumers validate and convert values without
+    #: the analyzer.
+    enum_values: list[str] = field(default_factory=list)
+    #: The registry key(s) this field's value is an id drawn from, each written
+    #: ``<SECTIONID>.<formFieldName>``; empty for a non-reference field. A
+    #: reference field holds a free-text id that must already be declared by
+    #: some entry of the named registry, so a runtime can resolve it and report
+    #: a dangling id instead of generating broken code.
+    refers_to: list[str] = field(default_factory=list)
 
     @staticmethod
     def from_json(j: dict[str, Any]) -> "FormFieldSpec":
@@ -79,6 +89,8 @@ class FormFieldSpec:
             type=j.get("type") or "String",
             hint=j.get("hint"),
             required=bool(j.get("required") or False),
+            enum_values=[str(e) for e in (j.get("enumValues") or [])],
+            refers_to=[str(e) for e in (j.get("refersTo") or [])],
         )
 
 

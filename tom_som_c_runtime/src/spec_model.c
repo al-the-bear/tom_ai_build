@@ -114,6 +114,21 @@ static SpecAnnotationList annotations_from_json(const SomJson *v) {
   return out;
 }
 
+/* Fills `out` with the string elements of `parent[key]`; leaves it empty when
+   the key is absent, so a meta file predating the key still loads. */
+static void strlist_from_json(const SomJson *parent, const char *key,
+                              SomStrList *out) {
+  som_strlist_init(out);
+  const SomJson *arr = som_json_get(parent, key);
+  size_t n = som_json_array_len(arr);
+  for (size_t i = 0; i < n; i++) {
+    const char *s = som_json_as_str(som_json_array_at(arr, i));
+    if (s != NULL) {
+      som_strlist_push_copy(out, s);
+    }
+  }
+}
+
 static void field_from_json(const SomJson *f, SpecField *out) {
   memset(out, 0, sizeof(*out));
   som_strlist_init(&out->enum_values);
@@ -142,14 +157,7 @@ static void field_from_json(const SomJson *f, SpecField *out) {
   out->section_type = str_or_dup(f, "sectionType");
   out->enum_type = str_or_dup(f, "enumType");
 
-  const SomJson *evs = som_json_get(f, "enumValues");
-  size_t en = som_json_array_len(evs);
-  for (size_t i = 0; i < en; i++) {
-    const char *s = som_json_as_str(som_json_array_at(evs, i));
-    if (s != NULL) {
-      som_strlist_push_copy(&out->enum_values, s);
-    }
-  }
+  strlist_from_json(f, "enumValues", &out->enum_values);
 
   out->type = str_or_dup(f, "type");
 
@@ -167,6 +175,8 @@ static void field_from_json(const SomJson *f, SpecField *out) {
       out->form_fields[i].label = som_strdup(label[0] != '\0' ? label : fname);
       out->form_fields[i].hint = str_or_dup(ff, "hint");
       out->form_fields[i].required = som_json_bool_or(ff, "required");
+      strlist_from_json(ff, "enumValues", &out->form_fields[i].enum_values);
+      strlist_from_json(ff, "refersTo", &out->form_fields[i].refers_to);
     }
     out->form_fields_len = fn;
   }
@@ -510,6 +520,8 @@ static void field_free(SpecField *f) {
     free(f->form_fields[i].label);
     free(f->form_fields[i].type);
     free(f->form_fields[i].hint);
+    som_strlist_free(&f->form_fields[i].enum_values);
+    som_strlist_free(&f->form_fields[i].refers_to);
   }
   free(f->form_fields);
   annotations_free(&f->annotations);

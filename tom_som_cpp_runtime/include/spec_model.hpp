@@ -54,6 +54,15 @@ struct FormFieldSpec {
   std::string type;  // defaults to "String"
   std::string hint;
   bool required = false;
+  // Enum constant names when `type` is a model enum; empty for non-enum field
+  // types. Lets consumers validate and convert values without the analyzer.
+  std::vector<std::string> enumValues;
+  // The registry key(s) this field's value is an id drawn from, each written
+  // `<SECTIONID>.<formFieldName>`; empty for a non-reference field. A reference
+  // field holds a free-text id that must already be declared by some entry of
+  // the named registry, so a runtime can resolve it and report a dangling id
+  // instead of generating broken code.
+  std::vector<std::string> refersTo;
 };
 
 struct SpecField {

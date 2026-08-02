@@ -216,6 +216,8 @@ function _fieldNode(
             required: ff.required,
             hint: ff.hint,
             order: i,
+            enumValues: ff.enumValues,
+            refersTo: ff.refersTo,
           }),
       ),
     );

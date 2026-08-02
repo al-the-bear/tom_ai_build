@@ -35,6 +35,19 @@ static const SpecAnnotation *ann_named(const SpecAnnotationList *l,
   return NULL;
 }
 
+/* Copies `src` into the meta layer's owning `char **` + length pair. */
+static void copy_strlist(const SomStrList *src, char ***items, size_t *len) {
+  *len = src->len;
+  if (src->len == 0) {
+    *items = NULL;
+    return;
+  }
+  *items = calloc(src->len, sizeof(char *));
+  for (size_t i = 0; i < src->len; i++) {
+    (*items)[i] = som_strdup(src->items[i]);
+  }
+}
+
 /* Replaces the owned string at `*slot` with a copy of `v` ("" for NULL). */
 static void set_str(char **slot, const char *v) {
   free(*slot);
@@ -216,6 +229,9 @@ static SomMetaNode *bridge_field_node(const SpecModel *model,
         out->required = ff->required;
         out->hint = som_strdup(ff->hint);
         out->order = (long long)i;
+        copy_strlist(&ff->enum_values, &out->enum_values,
+                     &out->enum_values_len);
+        copy_strlist(&ff->refers_to, &out->refers_to, &out->refers_to_len);
       }
     }
   }

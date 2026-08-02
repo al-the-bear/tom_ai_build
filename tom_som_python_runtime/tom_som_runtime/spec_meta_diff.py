@@ -126,6 +126,8 @@ def _form_diff(
             or fa.required != fb.required
             or fa.hint != fb.hint
             or fa.order != fb.order
+            or list(fa.enum_values) != list(fb.enum_values)
+            or list(fa.refers_to) != list(fb.refers_to)
         ):
             return f"{at}: form field {fa.name} differs"
     return None

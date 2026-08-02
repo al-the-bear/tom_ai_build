@@ -70,6 +70,16 @@ type FormFieldSpec struct {
 	Type     string `json:"type"`
 	Hint     string `json:"hint"`
 	Required bool   `json:"required"`
+	// EnumValues holds the enum constant names when Type is a model enum;
+	// empty for non-enum field types. Lets consumers validate and convert
+	// values without the analyzer.
+	EnumValues []string `json:"enumValues"`
+	// RefersTo holds the registry key(s) this field's value is an id drawn
+	// from, each written `<SECTIONID>.<formFieldName>`; empty for a
+	// non-reference field. A reference field holds a free-text id that must
+	// already be declared by some entry of the named registry, so a runtime can
+	// resolve it and report a dangling id instead of generating broken code.
+	RefersTo []string `json:"refersTo"`
 }
 
 // SpecField is a single field of a SpecClass.
@@ -497,6 +507,14 @@ func SpecModelFromJSON(data []byte) (*SpecModel, error) {
 				}
 				if form.Label == "" {
 					form.Label = form.Name
+				}
+				// A meta file predating these keys leaves the slices nil; the
+				// other ports default them to an empty collection.
+				if form.EnumValues == nil {
+					form.EnumValues = []string{}
+				}
+				if form.RefersTo == nil {
+					form.RefersTo = []string{}
 				}
 			}
 		}

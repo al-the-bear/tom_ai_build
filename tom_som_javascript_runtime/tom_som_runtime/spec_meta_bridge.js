@@ -202,6 +202,8 @@ function _fieldNode(model, owner, field, stack) {
             required: ff.required,
             hint: ff.hint,
             order: i,
+            enumValues: ff.enumValues,
+            refersTo: ff.refersTo,
           }),
       ),
     );

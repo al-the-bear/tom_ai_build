@@ -147,6 +147,22 @@ static std::vector<SpecAnnotation> annotationsFromJson(const JsonRef& v) {
   return out;
 }
 
+// Returns the string elements of `parent[key]`, empty when the key is absent —
+// so a meta file predating the key still loads.
+static std::vector<std::string> strListFromJson(const JsonRef& parent,
+                                                const char* key) {
+  std::vector<std::string> out;
+  JsonRef arr = jsonGet(parent, key);
+  std::size_t n = jsonArrayLen(arr);
+  for (std::size_t i = 0; i < n; i++) {
+    const std::string* s = jsonAsStr(jsonArrayAt(arr, i));
+    if (s != nullptr) {
+      out.push_back(*s);
+    }
+  }
+  return out;
+}
+
 static SpecField fieldFromJson(const JsonRef& f) {
   SpecField out;
   out.name = jsonStrOr(f, "name");
@@ -168,14 +184,7 @@ static SpecField fieldFromJson(const JsonRef& f) {
   out.sectionType = jsonStrOr(f, "sectionType");
   out.enumType = jsonStrOr(f, "enumType");
 
-  JsonRef evs = jsonGet(f, "enumValues");
-  std::size_t en = jsonArrayLen(evs);
-  for (std::size_t i = 0; i < en; i++) {
-    const std::string* s = jsonAsStr(jsonArrayAt(evs, i));
-    if (s != nullptr) {
-      out.enumValues.push_back(*s);
-    }
-  }
+  out.enumValues = strListFromJson(f, "enumValues");
 
   out.type = jsonStrOr(f, "type");
 
@@ -198,6 +207,8 @@ static SpecField fieldFromJson(const JsonRef& f) {
     ffs_out.label = !label.empty() ? label : fname;
     ffs_out.hint = jsonStrOr(ff, "hint");
     ffs_out.required = jsonBoolOr(ff, "required");
+    ffs_out.enumValues = strListFromJson(ff, "enumValues");
+    ffs_out.refersTo = strListFromJson(ff, "refersTo");
     out.formFields.push_back(std::move(ffs_out));
   }
 

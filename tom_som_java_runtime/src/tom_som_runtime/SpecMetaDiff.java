@@ -222,7 +222,9 @@ public final class SpecMetaDiff {
           || !Objects.equals(fa.description, fb.description)
           || fa.required != fb.required
           || !Objects.equals(fa.hint, fb.hint)
-          || fa.order != fb.order) {
+          || fa.order != fb.order
+          || !stringListEq(fa.enumValues, fb.enumValues)
+          || !stringListEq(fa.refersTo, fb.refersTo)) {
         return at + ": form field " + fa.name + " differs";
       }
     }
