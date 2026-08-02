@@ -3,7 +3,7 @@
 /// project (`pubspec.yaml` + generated typed `lib/`), the lossless object-model
 /// **meta-data file**, and the **DocSpecs schemas**.
 ///
-/// This is the wiring item #7 of the multi-platform plan: it composes the
+/// This is the wiring layer of the multi-platform generation: it composes the
 /// already-tested pieces — [ModelReader] (analysis), [ModelJsonExporter]
 /// (meta-data), [SpecModel] + [SomDartEmitter] (typed Dart facade), and
 /// [DocSpecsSchemaGenerator] (schemas) — analysing the model **once** and

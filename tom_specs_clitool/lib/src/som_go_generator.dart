@@ -5,9 +5,9 @@
 ///
 /// This is the Go counterpart of `som_generator.dart` /
 /// `som_python_generator.dart` / `som_java_generator.dart` /
-/// `som_javascript_generator.dart` / `som_typescript_generator.dart` (plan
-/// item #11). The **meta-data file and the DocSpecs schemas are
-/// language-agnostic**, so this reuses the exact same [ModelJsonExporter] +
+/// `som_javascript_generator.dart` / `som_typescript_generator.dart`. The
+/// **meta-data file and the DocSpecs schemas are language-agnostic**, so this
+/// reuses the exact same [ModelJsonExporter] +
 /// [DocSpecsSchemaGenerator] the other paths use (byte-identical across
 /// languages); only the typed source emitter ([SomGoEmitter]) and the module
 /// manifest differ. Generation is deterministic and idempotency-stabilised (the
