@@ -215905,7 +215905,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
-            "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text / file); boolean and color kinds carry only the common formatting + validation subsections."
+            "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text / file). Two kinds carry only the common formatting + validation subsections, for different reasons: boolean has no kind-specific attributes at all, while color desugars onto the text or single-choice arm (codespecs_mapping.md §5.18) and so is configured by whichever arm it lowers to."
           }
         },
         {

@@ -2585,6 +2585,40 @@ entry stays CE-NV (`TomNavigationDestination`, §5.11) — MenuEntry covers
 separation (§5.2): the layout slot references the FormHost element; the FormHost
 references the CE-FM form it places on the screen.
 
+**A colour value is a desugaring, not a twelfth kind.** A specification may name
+a **colour value** as a field's kind, and that is a useful thing to say — but it
+does not add an entry to this catalogue. It **lowers onto two existing kinds**,
+chosen by whether the acceptable colours are a closed set:
+
+- **Free colour entry** lowers onto **TextInput**, whose value is the colour's
+  textual form, plus a **CE-VA** `pattern` rule admitting that form (with or
+  without an alpha component). The swatch that previews the entered value is a
+  field decoration, not a kind: it rides the element's prefix resource.
+- **Palette / design-token colour** lowers onto **Choice**, whose `source` is
+  the token catalogue. This is the better realisation of a named-token
+  constraint than any free chooser would be: a brand palette is a closed set,
+  and Choice is the kind that cannot be left.
+
+The lowering follows the catalogue's own three-part test for a distinct kind —
+distinct value type, distinct control, distinct extras — which a colour fails on
+all three. Its value type is the textual form (there is no colour value type in
+the observable family, and every colour the specification model itself authors
+is already a text field with a colour-notation hint); no colour control ships in
+the widget substrate; and its candidate extras — palette-versus-free,
+alpha-permitted, design-token-constrained — are all constraints on *which values
+are acceptable*, which is the definition of a **CE-VA** rule. This is the §5.18
+desugaring boundary that also governs `minSelections`/`maxSelections`, and it is
+stated for the same reason: the surface form is kept because it lets the
+generator emit the pattern rule and the swatch without the author restating
+them, while the realisation stays inside the eleven kinds.
+
+The **requirement-side** field vocabulary (D04 RSP, `ScreenFieldKind`) names no
+colour, and deliberately so. That vocabulary names the *kind of value a user
+supplies*; a colour arrives there as text or as a choice from a palette, which
+it already offers. A colour constant on that side would be authoring a
+**control** in a requirements document — the one split the two vocabularies
+exist to keep.
+
 **`tristate` widens the Toggle's value type.** A two-state `Toggle` is a
 `TomFormBoolField` over `bool`; a tristate one is a `TomFormNullableBoolField`
 over `bool?`, where `null` is the indeterminate state
@@ -4324,8 +4358,8 @@ traceability and gap analysis become set operations in both directions.
 ## 10. Open work
 
 Everything still outstanding against this document is tracked as a **quest todo**
-in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csrc` for the
-CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass and
+in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb`, `csrc` and `csrd`
+for the CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass and
 `qrc` for the work one of those findings opened. Each todo is self-contained — it
 carries the full context needed to execute it — so this list is an index, not a
 specification.
@@ -4349,8 +4383,8 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `qrc4` | Clear the **CE-EL/CE-FM text-controller write-path gap** (§4.1.1, §4.4.4 slice 5) once `tcca15` lands. `set()` and `reset()` bypass the guard the field's own `_setControllerText` applies, and both are the ordinary path a CE-ST binding and a CE-FM load take. Mode **R**. |
 | `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) once `tcca9` lands. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) once `tcca11` lands, and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
+| `csrd4` | Check **`DataAttributeEntry`'s four uncovered `@OneOf` constants** (`boolean`, `enumeration`, `json`, `uuid`) against §5.13's CE-DB attribute surface. `enumeration` is the suspect — an enumeration-typed attribute has to name its allowed values, and no subsection authors them. The last of the four `@OneOf` coverage lists that has not been checked; the other three are closed. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tcca10` lands. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
-| `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. It surfaces the way a catalogue-vs-substrate gap always does: an `@OneOf` constant covered by no `@Case`. |
 
 Open todos in these series whose subject is **not** a mapping question are
 deliberately absent from this table — a SOM validator capability belongs to

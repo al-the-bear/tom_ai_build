@@ -67,6 +67,16 @@ enum ScreenElementFieldKind {
   url,
   password,
   richText,
+
+  /// A colour value.
+  ///
+  /// **Realised by desugaring, not by a colour control** (`codespecs_mapping.md`
+  /// §5.18): free colour entry lowers onto a text field whose value is the
+  /// colour's textual form plus a pattern validation rule, and a
+  /// palette/design-token colour lowers onto a single-choice field whose option
+  /// source is the token catalogue. Naming this kind is what lets the generator
+  /// supply the pattern rule and the swatch preview without the specification
+  /// restating them — it does not promise a picker.
   color,
   file,
 }
@@ -2198,8 +2208,12 @@ class ScreenElementAction extends DocSpecsSection {
   discriminator: 'dataType',
   note:
       'CE-EL field kind closed choice: the data type selects its promoted '
-      'options subsection (number / date / select / text / file); boolean and '
-      'color kinds carry only the common formatting + validation subsections.',
+      'options subsection (number / date / select / text / file). Two kinds '
+      'carry only the common formatting + validation subsections, for '
+      'different reasons: boolean has no kind-specific attributes at all, '
+      'while color desugars onto the text or single-choice arm '
+      '(codespecs_mapping.md §5.18) and so is configured by whichever arm it '
+      'lowers to.',
 )
 @CodeSpecKind([
   CodeSpecPart.form,
