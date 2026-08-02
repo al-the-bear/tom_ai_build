@@ -4908,6 +4908,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.screens, (v) => n.screens = v as ScreenDescriptions, label: 'screens'),
         SpecSlot.node(() => n.screenFlow, (v) => n.screenFlow = v as ScreenFlowStructure, label: 'screenFlow'),
         SpecSlot.node(() => n.printLayout, (v) => n.printLayout = v as PrintAndExportLayout, label: 'printLayout'),
+        SpecSlot.node(() => n.reportDefinitions, (v) => n.reportDefinitions = v as ReportDefinitions, label: 'reportDefinitions'),
         SpecSlot.node(() => n.errorHandling, (v) => n.errorHandling = v as ErrorHandling, label: 'errorHandling'),
         SpecSlot.node(() => n.userAssistance, (v) => n.userAssistance = v as UserAssistance, label: 'userAssistance'),
         SpecSlot.node(() => n.accessibility, (v) => n.accessibility = v as Accessibility, label: 'accessibility'),
@@ -4927,6 +4928,7 @@ void registerSpecOps() {
         ..screens = n.screens
         ..screenFlow = n.screenFlow
         ..printLayout = n.printLayout
+        ..reportDefinitions = n.reportDefinitions
         ..errorHandling = n.errorHandling
         ..userAssistance = n.userAssistance
         ..accessibility = n.accessibility
@@ -5077,6 +5079,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.technicalFramework, (v) => n.technicalFramework = v as TechnicalFrameworkConcept, label: 'technicalFramework'),
         SpecSlot.node(() => n.accessControl, (v) => n.accessControl = v as AccessControlModel, label: 'accessControl'),
         SpecSlot.node(() => n.auditAndLogging, (v) => n.auditAndLogging = v as AuditAndLogging, label: 'auditAndLogging'),
+        SpecSlot.node(() => n.reportDefinitions, (v) => n.reportDefinitions = v as ReportDefinitions, label: 'reportDefinitions'),
         SpecSlot.node(() => n.processStepsAndActorInteractions, (v) => n.processStepsAndActorInteractions = v as ProcessStepsAndActorInteractions, label: 'processStepsAndActorInteractions'),
         SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
       ];
@@ -5095,6 +5098,7 @@ void registerSpecOps() {
         ..technicalFramework = n.technicalFramework
         ..accessControl = n.accessControl
         ..auditAndLogging = n.auditAndLogging
+        ..reportDefinitions = n.reportDefinitions
         ..processStepsAndActorInteractions = n.processStepsAndActorInteractions
         ..experienceCodeSpecs = n.experienceCodeSpecs;
     },
@@ -8101,6 +8105,7 @@ void registerSpecOps() {
       final n = o as ExperienceAndInterfaceDesign;
       return [
         SpecSlot.node(() => n.experienceCodeSpecs, (v) => n.experienceCodeSpecs = v as ExperienceCodeSpecs, label: 'experienceCodeSpecs'),
+        SpecSlot.node(() => n.reportDefinitions, (v) => n.reportDefinitions = v as ReportDefinitions, label: 'reportDefinitions'),
         SpecSlot.node(() => n.designFollowUp, (v) => n.designFollowUp = v as ExperienceDesignFollowUp, label: 'designFollowUp'),
         SpecSlot.node(() => n.localizationFollowUp, (v) => n.localizationFollowUp = v as ExperienceLocalizationFollowUp, label: 'localizationFollowUp'),
         SpecSlot.node(() => n.authorizationComplianceFollowUp, (v) => n.authorizationComplianceFollowUp = v as AuthorizationComplianceFollowUp, label: 'authorizationComplianceFollowUp'),
@@ -8111,6 +8116,7 @@ void registerSpecOps() {
       return ExperienceAndInterfaceDesign()
         ..content = n.content
         ..experienceCodeSpecs = n.experienceCodeSpecs
+        ..reportDefinitions = n.reportDefinitions
         ..designFollowUp = n.designFollowUp
         ..localizationFollowUp = n.localizationFollowUp
         ..authorizationComplianceFollowUp = n.authorizationComplianceFollowUp;
@@ -13800,7 +13806,6 @@ void registerSpecOps() {
         SpecSlot.node(() => n.watermark, (v) => n.watermark = v as DocSpecsSection?, label: 'watermark'),
         SpecSlot.node(() => n.headerFooter, (v) => n.headerFooter = v as DocSpecsSection?, label: 'headerFooter'),
         SpecSlot.node(() => n.archive, (v) => n.archive = v as DocSpecsSection?, label: 'archive'),
-        SpecSlot.list(() => n.reports, (v) => n.reports = v.cast<ReportEntry>(), label: 'reports'),
         SpecSlot.list(() => n.exportFormats, (v) => n.exportFormats = v.cast<ExportFormatEntry>(), label: 'exportFormats'),
         SpecSlot.list(() => n.exportTemplates, (v) => n.exportTemplates = v.cast<ExportTemplateEntry>(), label: 'exportTemplates'),
       ];
@@ -13814,7 +13819,6 @@ void registerSpecOps() {
         ..watermark = n.watermark
         ..headerFooter = n.headerFooter
         ..archive = n.archive
-        ..reports = n.reports
         ..exportFormats = n.exportFormats
         ..exportTemplates = n.exportTemplates;
     },
@@ -15524,6 +15528,21 @@ void registerSpecOps() {
         ..layout = n.layout;
     },
     yamlScalar: (o) => (o as ReportColumnEntry).content,
+  ));
+  SpecRegistry.register(ReportDefinitions, SpecClassOps(
+    slots: (o) {
+      final n = o as ReportDefinitions;
+      return [
+        SpecSlot.list(() => n.reports, (v) => n.reports = v.cast<ReportEntry>(), label: 'reports'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as ReportDefinitions;
+      return ReportDefinitions()
+        ..content = n.content
+        ..reports = n.reports;
+    },
+    yamlScalar: (o) => (o as ReportDefinitions).content,
   ));
   SpecRegistry.register(ReportDistributionEntry, SpecClassOps(
     slots: (o) {

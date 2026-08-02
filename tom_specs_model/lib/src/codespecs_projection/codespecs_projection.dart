@@ -33,16 +33,6 @@
 /// acceptance source), not emitted as generated code, so it is not part of the
 /// generation projection (`codespecs_mapping.md` §8.3).
 ///
-/// **CE-RP is promoted but not yet projected.** Its SOM
-/// home `PrintAndExportLayout` (XDS) mixes CE-CF renderer and export settings —
-/// the section's own print/paper/branding fields plus the export format, size
-/// and template entries — with the CE-RP report band (`ReportEntry` and its
-/// subtree). The report list cannot simply be lifted into a projection field of
-/// its own, because its `@SectionId`/`@SectionIdPattern` are declared on
-/// `PrintAndExportLayout`; the split has to move it. Meanwhile CE-RP is an
-/// active part whose declarations reach generation through the endpoints and
-/// repositories they annotate rather than through a projection field of their
-/// own.
 library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
@@ -156,12 +146,25 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(10)
   AuditAndLogging auditAndLogging = AuditAndLogging();
 
+  /// Report definitions — CE-RP grouped projections over the domain model.
+  ///
+  /// The definition is where the report runs, so the subtree's locus is the
+  /// server. Its shared half — the result envelope and the parameter shapes the
+  /// client reads — is **derived from this same subtree** rather than authored
+  /// in a second SOM section, so it needs no separate shared-locus entry; the
+  /// generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+  /// environment-wide print and export *settings* are CE-CF and live in
+  /// `PrintAndExportLayout`, deliberately unreachable from here.
+  @Comment('locus: server — CE-RP')
+  @SerializationOrder(11)
+  ReportDefinitions reportDefinitions = ReportDefinitions();
+
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
 
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -169,6 +172,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

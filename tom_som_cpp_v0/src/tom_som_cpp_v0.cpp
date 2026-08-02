@@ -4384,6 +4384,9 @@ ScreenFlowStructure D09ExperienceDesignSpecification::screenFlow() const {
 PrintAndExportLayout D09ExperienceDesignSpecification::printLayout() const {
   return PrintAndExportLayout(doc(), som::joinPath(path(), "printLayout"));
 }
+ReportDefinitions D09ExperienceDesignSpecification::reportDefinitions() const {
+  return ReportDefinitions(doc(), som::joinPath(path(), "reportDefinitions"));
+}
 ErrorHandling D09ExperienceDesignSpecification::errorHandling() const {
   return ErrorHandling(doc(), som::joinPath(path(), "errorHandling"));
 }
@@ -4714,6 +4717,9 @@ AccessControlModel D13CodeSpecsProjection::accessControl() const {
 }
 AuditAndLogging D13CodeSpecsProjection::auditAndLogging() const {
   return AuditAndLogging(doc(), som::joinPath(path(), "auditAndLogging"));
+}
+ReportDefinitions D13CodeSpecsProjection::reportDefinitions() const {
+  return ReportDefinitions(doc(), som::joinPath(path(), "reportDefinitions"));
 }
 ProcessStepsAndActorInteractions D13CodeSpecsProjection::processStepsAndActorInteractions() const {
   return ProcessStepsAndActorInteractions(doc(), som::joinPath(path(), "processStepsAndActorInteractions"));
@@ -7288,6 +7294,9 @@ void ExperienceAndInterfaceDesign::setContent(const std::string& value) {
 }
 ExperienceCodeSpecs ExperienceAndInterfaceDesign::experienceCodeSpecs() const {
   return ExperienceCodeSpecs(doc(), som::joinPath(path(), "experienceCodeSpecs"));
+}
+ReportDefinitions ExperienceAndInterfaceDesign::reportDefinitions() const {
+  return ReportDefinitions(doc(), som::joinPath(path(), "reportDefinitions"));
 }
 ExperienceDesignFollowUp ExperienceAndInterfaceDesign::designFollowUp() const {
   return ExperienceDesignFollowUp(doc(), som::joinPath(path(), "designFollowUp"));
@@ -11945,9 +11954,6 @@ PrintAndExportLayoutHeaderFooterForm PrintAndExportLayout::headerFooter() const 
 PrintAndExportLayoutArchiveForm PrintAndExportLayout::archive() const {
   return PrintAndExportLayoutArchiveForm(doc(), som::joinPath(path(), "PRLAAR"));
 }
-som::SomList PrintAndExportLayout::reports() const {
-  return som::SomList(doc(), som::joinPath(path(), "REEN-REPO-LST"), "REEN-REPO-xxx");
-}
 som::SomList PrintAndExportLayout::exportFormats() const {
   return som::SomList(doc(), som::joinPath(path(), "EXFOEN-EXPO-LST"), "EXFOEN-EXPO-xxx");
 }
@@ -13261,6 +13267,18 @@ ReportColumnEntryInteractionForm ReportColumnEntry::interaction() const {
 }
 ReportColumnEntryLayoutForm ReportColumnEntry::layout() const {
   return ReportColumnEntryLayoutForm(doc(), som::joinPath(path(), "RECOLA"));
+}
+
+ReportDefinitions::ReportDefinitions(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ReportDefinitions::content() const {
+  return doc().content(som::joinPath(path(), "content"));
+}
+void ReportDefinitions::setContent(const std::string& value) {
+  doc().setContent(som::joinPath(path(), "content"), value);
+}
+som::SomList ReportDefinitions::reports() const {
+  return som::SomList(doc(), som::joinPath(path(), "REEN-REPO-LST"), "REEN-REPO-xxx");
 }
 
 ReportDistributionEntry::ReportDistributionEntry(som::SpecDocument& doc, std::string path)

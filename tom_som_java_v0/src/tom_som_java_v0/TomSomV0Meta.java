@@ -6157,7 +6157,7 @@ public final class TomSomV0Meta {
         n.memberName = "authorizationCompliance";
         n.serializationOrder = 1;
         n.contentType = new SomContentTypeMeta("text", "");
-        n.docComment = "10.4.1. Authorization Compliance.";
+        n.docComment = "10.5.1. Authorization Compliance.";
         out.add(n);
       }
       return out;
@@ -22312,11 +22312,22 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReportDefinitions", s, ReportDefinitionsNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.COMPLEX, "ReportDefinitions");
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.serializationOrder = 6;
+        n.docComment = "Report definitions — the CE-RP report projections over the domain model.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       out.add(metaCx("ErrorHandling", s, ErrorHandlingNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ErrorHandling", SomMetaKind.COMPLEX, "ErrorHandling");
         n.memberName = "errorHandling";
         n.classSectionId = "ERHACO";
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "Error handling concept.";
         n.classDocComment = "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22329,7 +22340,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UserAssistance", SomMetaKind.COMPLEX, "UserAssistance");
         n.memberName = "userAssistance";
         n.classSectionId = "USAS";
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "Help concept.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22342,7 +22353,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Accessibility", SomMetaKind.COMPLEX, "Accessibility");
         n.memberName = "accessibility";
         n.classSectionId = "ACCESS";
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.docComment = "Accessibility.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22355,7 +22366,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ResponsiveDesign", SomMetaKind.COMPLEX, "ResponsiveDesign");
         n.memberName = "responsiveDesign";
         n.classSectionId = "REDE";
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.docComment = "Responsive design.";
         n.classDocComment = "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22368,7 +22379,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("UiComponents", SomMetaKind.COMPLEX, "UiComponents");
         n.memberName = "uiComponents";
         n.classSectionId = "UICO";
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.docComment = "UI components.";
         n.classDocComment = "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22381,7 +22392,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("LanguageCountrySelection", SomMetaKind.COMPLEX, "LanguageCountrySelection");
         n.memberName = "languageCountrySelection";
         n.classSectionId = "LACOSE";
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.docComment = "Language and country selection.";
         n.classDocComment = "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22394,7 +22405,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("Prototype", SomMetaKind.COMPLEX, "Prototype");
         n.memberName = "prototype";
         n.classSectionId = "PROTOT";
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.docComment = "Prototype.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22407,7 +22418,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("WireframesAndMockups", SomMetaKind.COMPLEX, "WireframesAndMockups");
         n.memberName = "wireframesAndMockups";
         n.classSectionId = "WIANMO";
-        n.serializationOrder = 13;
+        n.serializationOrder = 14;
         n.docComment = "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -22441,6 +22452,10 @@ public final class TomSomV0Meta {
 
     public PrintAndExportLayoutNav printLayout() {
       return new PrintAndExportLayoutNav(tree, path + "/printLayout");
+    }
+
+    public ReportDefinitionsNav reportDefinitions() {
+      return new ReportDefinitionsNav(tree, path + "/reportDefinitions");
     }
 
     public ErrorHandlingNav errorHandling() {
@@ -23402,11 +23417,23 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReportDefinitions", s, ReportDefinitionsNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.COMPLEX, "ReportDefinitions");
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.serializationOrder = 11;
+        n.comment = "locus: server — CE-RP";
+        n.docComment = "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       out.add(metaCx("ProcessStepsAndActorInteractions", s, ProcessStepsAndActorInteractionsNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ProcessStepsAndActorInteractions", SomMetaKind.COMPLEX, "ProcessStepsAndActorInteractions");
         n.memberName = "processStepsAndActorInteractions";
         n.classSectionId = "PSAAI";
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
         n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
@@ -23419,7 +23446,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExperienceCodeSpecs", SomMetaKind.COMPLEX, "ExperienceCodeSpecs");
         n.memberName = "experienceCodeSpecs";
         n.classSectionId = "XCS";
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
@@ -23472,6 +23499,10 @@ public final class TomSomV0Meta {
 
     public AuditAndLoggingNav auditAndLogging() {
       return new AuditAndLoggingNav(tree, path + "/auditAndLogging");
+    }
+
+    public ReportDefinitionsNav reportDefinitions() {
+      return new ReportDefinitionsNav(tree, path + "/reportDefinitions");
     }
 
     public ProcessStepsAndActorInteractionsNav processStepsAndActorInteractions() {
@@ -37600,12 +37631,23 @@ public final class TomSomV0Meta {
         n.children = c;
         return n;
       }));
+      out.add(metaCx("ReportDefinitions", s, ReportDefinitionsNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.COMPLEX, "ReportDefinitions");
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.serializationOrder = 2;
+        n.docComment = "10.2. Report Definitions — the CE-RP CodeSpecs subtree.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       out.add(metaCx("ExperienceDesignFollowUp", s, ExperienceDesignFollowUpNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("ExperienceDesignFollowUp", SomMetaKind.COMPLEX, "ExperienceDesignFollowUp");
         n.memberName = "designFollowUp";
         n.classSectionId = "XDFU";
-        n.serializationOrder = 2;
-        n.docComment = "10.2. Experience Design — DOC follow-up subtree.";
+        n.serializationOrder = 3;
+        n.docComment = "10.3. Experience Design — DOC follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.";
         n.recursive = r;
         n.children = c;
@@ -37615,8 +37657,8 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ExperienceLocalizationFollowUp", SomMetaKind.COMPLEX, "ExperienceLocalizationFollowUp");
         n.memberName = "localizationFollowUp";
         n.classSectionId = "XLFU";
-        n.serializationOrder = 3;
-        n.docComment = "10.3. Experience Localization — L10N follow-up subtree.";
+        n.serializationOrder = 4;
+        n.docComment = "10.4. Experience Localization — L10N follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
@@ -37626,8 +37668,8 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("AuthorizationComplianceFollowUp", SomMetaKind.COMPLEX, "AuthorizationComplianceFollowUp");
         n.memberName = "authorizationComplianceFollowUp";
         n.classSectionId = "XCFU";
-        n.serializationOrder = 4;
-        n.docComment = "10.4. Authorization Compliance — CMP follow-up subtree.";
+        n.serializationOrder = 5;
+        n.docComment = "10.5. Authorization Compliance — CMP follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
         n.recursive = r;
         n.children = c;
@@ -37642,6 +37684,10 @@ public final class TomSomV0Meta {
 
     public ExperienceCodeSpecsNav experienceCodeSpecs() {
       return new ExperienceCodeSpecsNav(tree, path + "/experienceCodeSpecs");
+    }
+
+    public ReportDefinitionsNav reportDefinitions() {
+      return new ReportDefinitionsNav(tree, path + "/reportDefinitions");
     }
 
     public ExperienceDesignFollowUpNav designFollowUp() {
@@ -37807,7 +37853,7 @@ public final class TomSomV0Meta {
         n.memberName = "designVision";
         n.classSectionId = "DEVIZ";
         n.serializationOrder = 1;
-        n.docComment = "10.2.1. Design Vision. Seeds → XDS.";
+        n.docComment = "10.3.1. Design Vision. Seeds → XDS.";
         n.classDocComment = "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37820,7 +37866,7 @@ public final class TomSomV0Meta {
         n.memberName = "printLayout";
         n.classSectionId = "PRLA";
         n.serializationOrder = 2;
-        n.docComment = "10.2.2. Print Layout. Seeds → XDS.";
+        n.docComment = "10.3.2. Print & Export Layout. Seeds → XDS.";
         n.classDocComment = "10.4. Print Layout.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37833,7 +37879,7 @@ public final class TomSomV0Meta {
         n.memberName = "userAssistance";
         n.classSectionId = "USAS";
         n.serializationOrder = 3;
-        n.docComment = "10.2.3. User Assistance. Seeds → XDS.";
+        n.docComment = "10.3.3. User Assistance. Seeds → XDS.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37846,7 +37892,7 @@ public final class TomSomV0Meta {
         n.memberName = "accessibility";
         n.classSectionId = "ACCESS";
         n.serializationOrder = 4;
-        n.docComment = "10.2.4. Accessibility. Seeds → XDS.";
+        n.docComment = "10.3.4. Accessibility. Seeds → XDS.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37859,7 +37905,7 @@ public final class TomSomV0Meta {
         n.memberName = "prototype";
         n.classSectionId = "PROTOT";
         n.serializationOrder = 5;
-        n.docComment = "10.2.5. Prototype. Seeds → XDS.";
+        n.docComment = "10.3.5. Prototype. Seeds → XDS.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37872,7 +37918,7 @@ public final class TomSomV0Meta {
         n.memberName = "wireframesAndMockups";
         n.classSectionId = "WIANMO";
         n.serializationOrder = 6;
-        n.docComment = "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
+        n.docComment = "10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -37937,7 +37983,7 @@ public final class TomSomV0Meta {
         n.memberName = "multiLanguageSupport";
         n.classSectionId = "MLAR";
         n.serializationOrder = 1;
-        n.docComment = "10.3.1. Multi-language Support.";
+        n.docComment = "10.4.1. Multi-language Support.";
         n.classDocComment = "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.";
         n.recursive = r;
         n.children = c;
@@ -63699,33 +63745,13 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
-        SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.LIST, "ReportEntry");
-        n.memberName = "reports";
-        n.sectionId = "REEN-REPO-LST";
-        n.sectionIdPattern = "REEN-REPO-xxx";
-        n.serializationOrder = 6;
-        n.contentHelp = "Add one entry per report.";
-        n.docComment = "10.4.1. Reports — contains 0+× Report.";
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"), "connotation", "The collection of report entries available for printing.")));
-        n.elementNode = metaCx("ReportEntry", s, ReportEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("ReportEntry", SomMetaKind.COMPLEX, "ReportEntry");
-          e.classSectionId = "REPENT";
-          e.docComment = "A report entry (form).";
-          e.classDocComment = "A report entry (form).";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      {
         SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.LIST, "ExportFormatEntry");
         n.memberName = "exportFormats";
         n.sectionId = "EXFOEN-EXPO-LST";
         n.sectionIdPattern = "EXFOEN-EXPO-xxx";
-        n.serializationOrder = 7;
+        n.serializationOrder = 6;
         n.contentHelp = "Add one entry per export format.";
-        n.docComment = "10.4.2. Export Formats — contains 0+× Export Format.";
+        n.docComment = "10.4.1. Export Formats — contains 0+× Export Format.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"), "connotation", "The collection of export formats in which printed reports can be produced.")));
         n.elementNode = metaCx("ExportFormatEntry", s, ExportFormatEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ExportFormatEntry", SomMetaKind.COMPLEX, "ExportFormatEntry");
@@ -63743,9 +63769,9 @@ public final class TomSomV0Meta {
         n.memberName = "exportTemplates";
         n.sectionId = "EXTEEN-EXPO-LST";
         n.sectionIdPattern = "EXTEEN-EXPO-xxx";
-        n.serializationOrder = 8;
+        n.serializationOrder = 7;
         n.contentHelp = "Add one entry per export template.";
-        n.docComment = "10.4.3. Export Templates — contains 0+× Export\nTemplate.";
+        n.docComment = "10.4.2. Export Templates — contains 0+× Export\nTemplate.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"), "connotation", "The collection of reusable export templates available for producing formatted output.")));
         n.elementNode = metaCx("ExportTemplateEntry", s, ExportTemplateEntryNav::metaChildren, (r, c) -> {
           SomMetaNode e = new SomMetaNode("ExportTemplateEntry", SomMetaKind.COMPLEX, "ExportTemplateEntry");
@@ -63783,10 +63809,6 @@ public final class TomSomV0Meta {
 
     public SomMetaRef archive() {
       return new SomMetaRef(tree, path + "/PRLAAR");
-    }
-
-    public SomListMetaRef<ReportEntryNav> reports() {
-      return new SomListMetaRef<>(tree, path + "/REEN-REPO-LST", (t, p) -> new ReportEntryNav(t, p));
     }
 
     public SomListMetaRef<ExportFormatEntryNav> exportFormats() {
@@ -71422,6 +71444,58 @@ public final class TomSomV0Meta {
 
     public SomMetaRef layout() {
       return new SomMetaRef(tree, path + "/RECOLA");
+    }
+  }
+
+  // ReportDefinitionsNav holds the dot-notation accessors of `ReportDefinitions` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class ReportDefinitionsNav extends SomMetaRef {
+    public ReportDefinitionsNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `ReportDefinitions` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.CONTENT, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentType = new SomContentTypeMeta("description", "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.");
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.LIST, "ReportEntry");
+        n.memberName = "reports";
+        n.sectionId = "REEN-REPO-LST";
+        n.sectionIdPattern = "REEN-REPO-xxx";
+        n.serializationOrder = 1;
+        n.contentHelp = "Add one entry per report.";
+        n.docComment = "10.2.1. Reports — contains 0+× Report.";
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"), "connotation", "The collection of report entries available for printing.")));
+        n.elementNode = metaCx("ReportEntry", s, ReportEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("ReportEntry", SomMetaKind.COMPLEX, "ReportEntry");
+          e.classSectionId = "REPENT";
+          e.docComment = "A report entry (form).";
+          e.classDocComment = "A report entry (form).";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<ReportEntryNav> reports() {
+      return new SomListMetaRef<>(tree, path + "/REEN-REPO-LST", (t, p) -> new ReportEntryNav(t, p));
     }
   }
 
@@ -110919,6 +110993,10 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", (t, p) -> new ComponentFamilyEntryId(t, p));
     }
 
+    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
+    }
+
     public SomListMetaRef<DesignGoalEntryId> DGOEN_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", (t, p) -> new DesignGoalEntryId(t, p));
     }
@@ -110949,10 +111027,6 @@ public final class TomSomV0Meta {
 
     public SomMetaRef PRLAAR() {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR");
-    }
-
-    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomListMetaRef<ExportFormatEntryId> EXFOEN_EXPO_LST() {
@@ -115457,16 +115531,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/printLayout/PRLAAR");
     }
 
-    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/printLayout/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
-    }
-
     public SomListMetaRef<ExportFormatEntryId> EXFOEN_EXPO_LST() {
       return new SomListMetaRef<>(tree, path + "/printLayout/EXFOEN-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
     }
 
     public SomListMetaRef<ExportTemplateEntryId> EXTEEN_EXPO_LST() {
       return new SomListMetaRef<>(tree, path + "/printLayout/EXTEEN-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
+    }
+
+    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomMetaRef ERHACO_ERRO() {
@@ -119351,6 +119425,10 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<SecurityEventEntryId> SEVT_CUST_LST() {
       return new SomListMetaRef<>(tree, path + "/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) -> new SecurityEventEntryId(t, p));
+    }
+
+    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomMetaRef ACOVNA() {

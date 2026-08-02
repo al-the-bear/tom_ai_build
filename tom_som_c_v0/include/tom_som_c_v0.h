@@ -878,6 +878,7 @@ typedef struct { SomNode node; } ReplacementSystemDependencyEntry;
 typedef struct { SomNode node; } ReportChartAxes;
 typedef struct { SomNode node; } ReportChartEntry;
 typedef struct { SomNode node; } ReportColumnEntry;
+typedef struct { SomNode node; } ReportDefinitions;
 typedef struct { SomNode node; } ReportDistributionEntry;
 typedef struct { SomNode node; } ReportEntry;
 typedef struct { SomNode node; } ReportFilterEntry;
@@ -5290,7 +5291,7 @@ void authorization_compliance_follow_up_free(AuthorizationComplianceFollowUp *se
 int authorization_compliance_follow_up_can_have_content(const AuthorizationComplianceFollowUp *self);
 char *authorization_compliance_follow_up_content(const AuthorizationComplianceFollowUp *self);
 void authorization_compliance_follow_up_set_content(AuthorizationComplianceFollowUp *self, const char *value);
-// 10.4.1. Authorization Compliance.
+// 10.5.1. Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
 
 // Authorization event policy (form).
@@ -8593,6 +8594,8 @@ ScreenDescriptions d09_experience_design_specification_screens(const D09Experien
 ScreenFlowStructure d09_experience_design_specification_screen_flow(const D09ExperienceDesignSpecification *self);
 // Print layout.
 PrintAndExportLayout d09_experience_design_specification_print_layout(const D09ExperienceDesignSpecification *self);
+// Report definitions — the CE-RP report projections over the domain model.
+ReportDefinitions d09_experience_design_specification_report_definitions(const D09ExperienceDesignSpecification *self);
 // Error handling concept.
 ErrorHandling d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self);
 // Help concept.
@@ -8892,6 +8895,16 @@ AccessControlModel d13_code_specs_projection_access_control(const D13CodeSpecsPr
 // run against the log — is a follow-up subtree under
 // `SecurityOperationsFollowUp` and is deliberately unreachable from here.
 AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsProjection *self);
+// Report definitions — CE-RP grouped projections over the domain model.
+//
+// The definition is where the report runs, so the subtree's locus is the
+// server. Its shared half — the result envelope and the parameter shapes the
+// client reads — is **derived from this same subtree** rather than authored
+// in a second SOM section, so it needs no separate shared-locus entry; the
+// generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+// environment-wide print and export *settings* are CE-CF and live in
+// `PrintAndExportLayout`, deliberately unreachable from here.
+ReportDefinitions d13_code_specs_projection_report_definitions(const D13CodeSpecsProjection *self);
 // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
 // interaction; a single subtree whose parts split across both loci.
 ProcessStepsAndActorInteractions d13_code_specs_projection_process_steps_and_actor_interactions(const D13CodeSpecsProjection *self);
@@ -11682,11 +11695,13 @@ char *experience_and_interface_design_content(const ExperienceAndInterfaceDesign
 void experience_and_interface_design_set_content(ExperienceAndInterfaceDesign *self, const char *value);
 // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
 ExperienceCodeSpecs experience_and_interface_design_experience_code_specs(const ExperienceAndInterfaceDesign *self);
-// 10.2. Experience Design — DOC follow-up subtree.
+// 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+ReportDefinitions experience_and_interface_design_report_definitions(const ExperienceAndInterfaceDesign *self);
+// 10.3. Experience Design — DOC follow-up subtree.
 ExperienceDesignFollowUp experience_and_interface_design_design_follow_up(const ExperienceAndInterfaceDesign *self);
-// 10.3. Experience Localization — L10N follow-up subtree.
+// 10.4. Experience Localization — L10N follow-up subtree.
 ExperienceLocalizationFollowUp experience_and_interface_design_localization_follow_up(const ExperienceAndInterfaceDesign *self);
-// 10.4. Authorization Compliance — CMP follow-up subtree.
+// 10.5. Authorization Compliance — CMP follow-up subtree.
 AuthorizationComplianceFollowUp experience_and_interface_design_authorization_compliance_follow_up(const ExperienceAndInterfaceDesign *self);
 
 // SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
@@ -11734,17 +11749,17 @@ void experience_design_follow_up_free(ExperienceDesignFollowUp *self);
 int experience_design_follow_up_can_have_content(const ExperienceDesignFollowUp *self);
 char *experience_design_follow_up_content(const ExperienceDesignFollowUp *self);
 void experience_design_follow_up_set_content(ExperienceDesignFollowUp *self, const char *value);
-// 10.2.1. Design Vision. Seeds → XDS.
+// 10.3.1. Design Vision. Seeds → XDS.
 DesignVision experience_design_follow_up_design_vision(const ExperienceDesignFollowUp *self);
-// 10.2.2. Print Layout. Seeds → XDS.
+// 10.3.2. Print & Export Layout. Seeds → XDS.
 PrintAndExportLayout experience_design_follow_up_print_layout(const ExperienceDesignFollowUp *self);
-// 10.2.3. User Assistance. Seeds → XDS.
+// 10.3.3. User Assistance. Seeds → XDS.
 UserAssistance experience_design_follow_up_user_assistance(const ExperienceDesignFollowUp *self);
-// 10.2.4. Accessibility. Seeds → XDS.
+// 10.3.4. Accessibility. Seeds → XDS.
 Accessibility experience_design_follow_up_accessibility(const ExperienceDesignFollowUp *self);
-// 10.2.5. Prototype. Seeds → XDS.
+// 10.3.5. Prototype. Seeds → XDS.
 Prototype experience_design_follow_up_prototype(const ExperienceDesignFollowUp *self);
-// 10.2.6. Wireframes and Mockups.
+// 10.3.6. Wireframes and Mockups.
 //
 // One whole-catalog content section; collapsed from
 // `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -11762,7 +11777,7 @@ void experience_localization_follow_up_free(ExperienceLocalizationFollowUp *self
 int experience_localization_follow_up_can_have_content(const ExperienceLocalizationFollowUp *self);
 char *experience_localization_follow_up_content(const ExperienceLocalizationFollowUp *self);
 void experience_localization_follow_up_set_content(ExperienceLocalizationFollowUp *self, const char *value);
-// 10.3.1. Multi-language Support.
+// 10.4.1. Multi-language Support.
 MultiLanguageSupport experience_localization_follow_up_multi_language_support(const ExperienceLocalizationFollowUp *self);
 
 // A field mapping within an export (form).
@@ -16922,13 +16937,10 @@ PrintAndExportLayoutWatermarkForm print_and_export_layout_watermark(const PrintA
 PrintAndExportLayoutHeaderFooterForm print_and_export_layout_header_footer(const PrintAndExportLayout *self);
 // Archive and batch settings.
 PrintAndExportLayoutArchiveForm print_and_export_layout_archive(const PrintAndExportLayout *self);
-// 10.4.1. Reports — contains 0+× Report.
-// Returns the list view; element type: ReportEntry (construct from item paths).
-SomList print_and_export_layout_reports(const PrintAndExportLayout *self);
-// 10.4.2. Export Formats — contains 0+× Export Format.
+// 10.4.1. Export Formats — contains 0+× Export Format.
 // Returns the list view; element type: ExportFormatEntry (construct from item paths).
 SomList print_and_export_layout_export_formats(const PrintAndExportLayout *self);
-// 10.4.3. Export Templates — contains 0+× Export
+// 10.4.2. Export Templates — contains 0+× Export
 // Template.
 // Returns the list view; element type: ExportTemplateEntry (construct from item paths).
 SomList print_and_export_layout_export_templates(const PrintAndExportLayout *self);
@@ -18413,6 +18425,26 @@ ReportColumnEntryAggregationForm report_column_entry_aggregation(const ReportCol
 ReportColumnEntryInteractionForm report_column_entry_interaction(const ReportColumnEntry *self);
 // Visibility and layout.
 ReportColumnEntryLayoutForm report_column_entry_layout(const ReportColumnEntry *self);
+
+// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+//
+// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+// the domain model — its sections, output columns, charts, filters, schedule
+// and distribution. The container itself carries no `@CodeSpecKind` — the
+// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+// separate from the environment-wide print and export *settings* that remain
+// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+// Binds a ReportDefinitions facade to a document and a path (path copied).
+void report_definitions_init(ReportDefinitions *self, SpecDocument *doc, const char *path);
+void report_definitions_free(ReportDefinitions *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int report_definitions_can_have_content(const ReportDefinitions *self);
+char *report_definitions_content(const ReportDefinitions *self);
+void report_definitions_set_content(ReportDefinitions *self, const char *value);
+// 10.2.1. Reports — contains 0+× Report.
+// Returns the list view; element type: ReportEntry (construct from item paths).
+SomList report_definitions_reports(const ReportDefinitions *self);
 
 // Distribution channel configuration (form).
 // Binds a ReportDistributionEntry facade to a document and a path (path copied).

@@ -898,6 +898,7 @@ static SomMetaNode **meta_children_replacement_system_dependency_entry(SomStrLis
 static SomMetaNode **meta_children_report_chart_axes(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_chart_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_column_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_report_definitions(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_distribution_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_report_filter_entry(SomStrList *stack, size_t *len);
@@ -2500,6 +2501,7 @@ static void meta_build_d09_experience_design_specification_design_vision(SomMeta
 static void meta_build_d09_experience_design_specification_screens(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_screen_flow(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_print_layout(SomMetaNode *n);
+static void meta_build_d09_experience_design_specification_report_definitions(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_error_handling(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_user_assistance(SomMetaNode *n);
 static void meta_build_d09_experience_design_specification_accessibility(SomMetaNode *n);
@@ -2566,6 +2568,7 @@ static void meta_build_d13_code_specs_projection_data_model(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_technical_framework(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_access_control(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *n);
+static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n);
 static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNode *n);
 static void meta_build_dashboard_entry_content(SomMetaNode *n);
@@ -3297,6 +3300,7 @@ static void meta_build_existing_systems_landscape_dependencies_and_integrations(
 static void meta_build_expected_improvements_content(SomMetaNode *n);
 static void meta_build_experience_and_interface_design_content(SomMetaNode *n);
 static void meta_build_experience_and_interface_design_experience_code_specs(SomMetaNode *n);
+static void meta_build_experience_and_interface_design_report_definitions(SomMetaNode *n);
 static void meta_build_experience_and_interface_design_design_follow_up(SomMetaNode *n);
 static void meta_build_experience_and_interface_design_localization_follow_up(SomMetaNode *n);
 static void meta_build_experience_and_interface_design_authorization_compliance_follow_up(SomMetaNode *n);
@@ -4654,8 +4658,6 @@ static void meta_build_print_and_export_layout_branding(SomMetaNode *n);
 static void meta_build_print_and_export_layout_watermark(SomMetaNode *n);
 static void meta_build_print_and_export_layout_header_footer(SomMetaNode *n);
 static void meta_build_print_and_export_layout_archive(SomMetaNode *n);
-static void meta_build_print_and_export_layout_reports(SomMetaNode *n);
-static void meta_build_print_and_export_layout_reports_elem(SomMetaNode *n);
 static void meta_build_print_and_export_layout_export_formats(SomMetaNode *n);
 static void meta_build_print_and_export_layout_export_formats_elem(SomMetaNode *n);
 static void meta_build_print_and_export_layout_export_templates(SomMetaNode *n);
@@ -5038,6 +5040,9 @@ static void meta_build_report_column_entry_text_format(SomMetaNode *n);
 static void meta_build_report_column_entry_aggregation(SomMetaNode *n);
 static void meta_build_report_column_entry_interaction(SomMetaNode *n);
 static void meta_build_report_column_entry_layout(SomMetaNode *n);
+static void meta_build_report_definitions_content(SomMetaNode *n);
+static void meta_build_report_definitions_reports(SomMetaNode *n);
+static void meta_build_report_definitions_reports_elem(SomMetaNode *n);
 static void meta_build_report_distribution_entry_content(SomMetaNode *n);
 static void meta_build_report_distribution_entry_recipients(SomMetaNode *n);
 static void meta_build_report_distribution_entry_content_settings(SomMetaNode *n);
@@ -19334,7 +19339,7 @@ static void meta_build_authorization_compliance_follow_up_authorization_complian
   n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
-  meta_set(&n->doc_comment, "10.4.1. Authorization Compliance.");
+  meta_set(&n->doc_comment, "10.5.1. Authorization Compliance.");
 }
 static void meta_build_authorization_event_policy_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationEventPolicy");
@@ -40185,6 +40190,17 @@ static void meta_build_d09_experience_design_specification_print_layout(SomMetaN
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
 }
+static void meta_build_d09_experience_design_specification_report_definitions(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportDefinitions");
+  meta_set(&n->member_name, "reportDefinitions");
+  meta_set(&n->class_section_id, "REDF");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReportDefinitions");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Report definitions — the CE-RP report projections over the domain model.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+}
 static void meta_build_d09_experience_design_specification_error_handling(SomMetaNode *n) {
   meta_set(&n->class_name, "ErrorHandling");
   meta_set(&n->member_name, "errorHandling");
@@ -40192,7 +40208,7 @@ static void meta_build_d09_experience_design_specification_error_handling(SomMet
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ErrorHandling");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "Error handling concept.");
   meta_set(&n->class_doc_comment, "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40205,7 +40221,7 @@ static void meta_build_d09_experience_design_specification_user_assistance(SomMe
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserAssistance");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "Help concept.");
   meta_set(&n->class_doc_comment, "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40218,7 +40234,7 @@ static void meta_build_d09_experience_design_specification_accessibility(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Accessibility");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->doc_comment, "Accessibility.");
   meta_set(&n->class_doc_comment, "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40231,7 +40247,7 @@ static void meta_build_d09_experience_design_specification_responsive_design(Som
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResponsiveDesign");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->doc_comment, "Responsive design.");
   meta_set(&n->class_doc_comment, "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40244,7 +40260,7 @@ static void meta_build_d09_experience_design_specification_ui_components(SomMeta
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UiComponents");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   meta_set(&n->doc_comment, "UI components.");
   meta_set(&n->class_doc_comment, "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40257,7 +40273,7 @@ static void meta_build_d09_experience_design_specification_language_country_sele
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "LanguageCountrySelection");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Language and country selection.");
   meta_set(&n->class_doc_comment, "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40270,7 +40286,7 @@ static void meta_build_d09_experience_design_specification_prototype(SomMetaNode
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "Prototype");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->doc_comment, "Prototype.");
   meta_set(&n->class_doc_comment, "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40283,7 +40299,7 @@ static void meta_build_d09_experience_design_specification_wireframes_and_mockup
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WireframesAndMockups");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   meta_set(&n->doc_comment, "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).");
   meta_set(&n->class_doc_comment, "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
@@ -40985,6 +41001,18 @@ static void meta_build_d13_code_specs_projection_audit_and_logging(SomMetaNode *
   meta_set(&n->class_doc_comment, "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.");
   meta_set(&n->detailed_in, "D08SecurityAccessSpecification");
 }
+static void meta_build_d13_code_specs_projection_report_definitions(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportDefinitions");
+  meta_set(&n->member_name, "reportDefinitions");
+  meta_set(&n->class_section_id, "REDF");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReportDefinitions");
+  n->has_serialization_order = 1;
+  n->serialization_order = 11;
+  meta_set(&n->comment, "locus: server — CE-RP");
+  meta_set(&n->doc_comment, "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+}
 static void meta_build_d13_code_specs_projection_process_steps_and_actor_interactions(SomMetaNode *n) {
   meta_set(&n->class_name, "ProcessStepsAndActorInteractions");
   meta_set(&n->member_name, "processStepsAndActorInteractions");
@@ -40992,7 +41020,7 @@ static void meta_build_d13_code_specs_projection_process_steps_and_actor_interac
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ProcessStepsAndActorInteractions");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->comment, "locus: server(CE-SU)+client(CE-SC)");
   meta_set(&n->doc_comment, "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.");
   meta_set(&n->class_doc_comment, "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.");
@@ -41005,7 +41033,7 @@ static void meta_build_d13_code_specs_projection_experience_code_specs(SomMetaNo
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceCodeSpecs");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->comment, "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER");
   meta_set(&n->doc_comment, "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
@@ -60770,6 +60798,17 @@ static void meta_build_experience_and_interface_design_experience_code_specs(Som
   meta_set(&n->doc_comment, "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.");
 }
+static void meta_build_experience_and_interface_design_report_definitions(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportDefinitions");
+  meta_set(&n->member_name, "reportDefinitions");
+  meta_set(&n->class_section_id, "REDF");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReportDefinitions");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "10.2. Report Definitions — the CE-RP CodeSpecs subtree.");
+  meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).");
+}
 static void meta_build_experience_and_interface_design_design_follow_up(SomMetaNode *n) {
   meta_set(&n->class_name, "ExperienceDesignFollowUp");
   meta_set(&n->member_name, "designFollowUp");
@@ -60777,8 +60816,8 @@ static void meta_build_experience_and_interface_design_design_follow_up(SomMetaN
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceDesignFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
-  meta_set(&n->doc_comment, "10.2. Experience Design — DOC follow-up subtree.");
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "10.3. Experience Design — DOC follow-up subtree.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.");
 }
 static void meta_build_experience_and_interface_design_localization_follow_up(SomMetaNode *n) {
@@ -60788,8 +60827,8 @@ static void meta_build_experience_and_interface_design_localization_follow_up(So
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExperienceLocalizationFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
-  meta_set(&n->doc_comment, "10.3. Experience Localization — L10N follow-up subtree.");
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "10.4. Experience Localization — L10N follow-up subtree.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.");
 }
 static void meta_build_experience_and_interface_design_authorization_compliance_follow_up(SomMetaNode *n) {
@@ -60799,8 +60838,8 @@ static void meta_build_experience_and_interface_design_authorization_compliance_
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AuthorizationComplianceFollowUp");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
-  meta_set(&n->doc_comment, "10.4. Authorization Compliance — CMP follow-up subtree.");
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "10.5. Authorization Compliance — CMP follow-up subtree.");
   meta_set(&n->class_doc_comment, "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.");
 }
 static void meta_build_experience_code_specs_content(SomMetaNode *n) {
@@ -60910,7 +60949,7 @@ static void meta_build_experience_design_follow_up_design_vision(SomMetaNode *n)
   meta_set(&n->type_name, "DesignVision");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "10.2.1. Design Vision. Seeds → XDS.");
+  meta_set(&n->doc_comment, "10.3.1. Design Vision. Seeds → XDS.");
   meta_set(&n->class_doc_comment, "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60923,7 +60962,7 @@ static void meta_build_experience_design_follow_up_print_layout(SomMetaNode *n) 
   meta_set(&n->type_name, "PrintAndExportLayout");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "10.2.2. Print Layout. Seeds → XDS.");
+  meta_set(&n->doc_comment, "10.3.2. Print & Export Layout. Seeds → XDS.");
   meta_set(&n->class_doc_comment, "10.4. Print Layout.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60936,7 +60975,7 @@ static void meta_build_experience_design_follow_up_user_assistance(SomMetaNode *
   meta_set(&n->type_name, "UserAssistance");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "10.2.3. User Assistance. Seeds → XDS.");
+  meta_set(&n->doc_comment, "10.3.3. User Assistance. Seeds → XDS.");
   meta_set(&n->class_doc_comment, "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60949,7 +60988,7 @@ static void meta_build_experience_design_follow_up_accessibility(SomMetaNode *n)
   meta_set(&n->type_name, "Accessibility");
   n->has_serialization_order = 1;
   n->serialization_order = 4;
-  meta_set(&n->doc_comment, "10.2.4. Accessibility. Seeds → XDS.");
+  meta_set(&n->doc_comment, "10.3.4. Accessibility. Seeds → XDS.");
   meta_set(&n->class_doc_comment, "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60962,7 +61001,7 @@ static void meta_build_experience_design_follow_up_prototype(SomMetaNode *n) {
   meta_set(&n->type_name, "Prototype");
   n->has_serialization_order = 1;
   n->serialization_order = 5;
-  meta_set(&n->doc_comment, "10.2.5. Prototype. Seeds → XDS.");
+  meta_set(&n->doc_comment, "10.3.5. Prototype. Seeds → XDS.");
   meta_set(&n->class_doc_comment, "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60975,7 +61014,7 @@ static void meta_build_experience_design_follow_up_wireframes_and_mockups(SomMet
   meta_set(&n->type_name, "WireframesAndMockups");
   n->has_serialization_order = 1;
   n->serialization_order = 6;
-  meta_set(&n->doc_comment, "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).");
+  meta_set(&n->doc_comment, "10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).");
   meta_set(&n->class_doc_comment, "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.");
   meta_set(&n->maps_to, "D09ExperienceDesignSpecification");
   meta_set(&n->detailed_in, "D09ExperienceDesignSpecification");
@@ -60999,7 +61038,7 @@ static void meta_build_experience_localization_follow_up_multi_language_support(
   meta_set(&n->type_name, "MultiLanguageSupport");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "10.3.1. Multi-language Support.");
+  meta_set(&n->doc_comment, "10.4.1. Multi-language Support.");
   meta_set(&n->class_doc_comment, "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.");
 }
 static void meta_build_export_field_mapping_entry_content(SomMetaNode *n) {
@@ -96910,30 +96949,6 @@ static void meta_build_print_and_export_layout_archive(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle\",\"ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives\"],\"connotation\":\"The archival and batch-generation settings governing how printed reports are retained and produced in bulk.\"}", NULL);
 }
-static void meta_build_print_and_export_layout_reports(SomMetaNode *n) {
-  meta_set(&n->class_name, "PrintAndExportLayout");
-  meta_set(&n->member_name, "reports");
-  meta_set(&n->section_id, "REEN-REPO-LST");
-  meta_set(&n->section_id_pattern, "REEN-REPO-xxx");
-  n->kind = SOM_META_KIND_LIST;
-  meta_set(&n->type_name, "ReportEntry");
-  n->has_serialization_order = 1;
-  n->serialization_order = 6;
-  meta_set(&n->content_help, "Add one entry per report.");
-  meta_set(&n->doc_comment, "10.4.1. Reports — contains 0+× Report.");
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use\",\"ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content\"],\"connotation\":\"The collection of report entries available for printing.\"}", NULL);
-}
-static void meta_build_print_and_export_layout_reports_elem(SomMetaNode *n) {
-  meta_set(&n->class_name, "ReportEntry");
-  meta_set(&n->class_section_id, "REPENT");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "ReportEntry");
-  meta_set(&n->doc_comment, "A report entry (form).");
-  meta_set(&n->class_doc_comment, "A report entry (form).");
-}
 static void meta_build_print_and_export_layout_export_formats(SomMetaNode *n) {
   meta_set(&n->class_name, "PrintAndExportLayout");
   meta_set(&n->member_name, "exportFormats");
@@ -96942,9 +96957,9 @@ static void meta_build_print_and_export_layout_export_formats(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExportFormatEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 6;
   meta_set(&n->content_help, "Add one entry per export format.");
-  meta_set(&n->doc_comment, "10.4.2. Export Formats — contains 0+× Export Format.");
+  meta_set(&n->doc_comment, "10.4.1. Export Formats — contains 0+× Export Format.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -96966,9 +96981,9 @@ static void meta_build_print_and_export_layout_export_templates(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExportTemplateEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 7;
   meta_set(&n->content_help, "Add one entry per export template.");
-  meta_set(&n->doc_comment, "10.4.3. Export Templates — contains 0+× Export\nTemplate.");
+  meta_set(&n->doc_comment, "10.4.2. Export Templates — contains 0+× Export\nTemplate.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -107513,6 +107528,41 @@ static void meta_build_report_column_entry_layout(SomMetaNode *n) {
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs column visibility and layout\"],\"connotation\":\"Visibility and layout settings for a report column such as word wrap and truncation.\"}", NULL);
+}
+static void meta_build_report_definitions_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportDefinitions");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_CONTENT;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  n->content_type = (SomContentTypeMeta *)calloc(1, sizeof(SomContentTypeMeta));
+  n->content_type->type = som_strdup("description");
+  n->content_type->description = som_strdup("Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.");
+}
+static void meta_build_report_definitions_reports(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportDefinitions");
+  meta_set(&n->member_name, "reports");
+  meta_set(&n->section_id, "REEN-REPO-LST");
+  meta_set(&n->section_id_pattern, "REEN-REPO-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "ReportEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->content_help, "Add one entry per report.");
+  meta_set(&n->doc_comment, "10.2.1. Reports — contains 0+× Report.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use\",\"ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content\"],\"connotation\":\"The collection of report entries available for printing.\"}", NULL);
+}
+static void meta_build_report_definitions_reports_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "ReportEntry");
+  meta_set(&n->class_section_id, "REPENT");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "ReportEntry");
+  meta_set(&n->doc_comment, "A report entry (form).");
+  meta_set(&n->class_doc_comment, "A report entry (form).");
 }
 static void meta_build_report_distribution_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportDistributionEntry");
@@ -160136,6 +160186,7 @@ static SomMetaNode **meta_children_d09_experience_design_specification(SomStrLis
   meta_push(&arr, len, &cap, meta_cx("ScreenDescriptions", stack, meta_children_screen_descriptions, meta_build_d09_experience_design_specification_screens));
   meta_push(&arr, len, &cap, meta_cx("ScreenFlowStructure", stack, meta_children_screen_flow_structure, meta_build_d09_experience_design_specification_screen_flow));
   meta_push(&arr, len, &cap, meta_cx("PrintAndExportLayout", stack, meta_children_print_and_export_layout, meta_build_d09_experience_design_specification_print_layout));
+  meta_push(&arr, len, &cap, meta_cx("ReportDefinitions", stack, meta_children_report_definitions, meta_build_d09_experience_design_specification_report_definitions));
   meta_push(&arr, len, &cap, meta_cx("ErrorHandling", stack, meta_children_error_handling, meta_build_d09_experience_design_specification_error_handling));
   meta_push(&arr, len, &cap, meta_cx("UserAssistance", stack, meta_children_user_assistance, meta_build_d09_experience_design_specification_user_assistance));
   meta_push(&arr, len, &cap, meta_cx("Accessibility", stack, meta_children_accessibility, meta_build_d09_experience_design_specification_accessibility));
@@ -160250,6 +160301,7 @@ static SomMetaNode **meta_children_d13_code_specs_projection(SomStrList *stack, 
   meta_push(&arr, len, &cap, meta_cx("TechnicalFrameworkConcept", stack, meta_children_technical_framework_concept, meta_build_d13_code_specs_projection_technical_framework));
   meta_push(&arr, len, &cap, meta_cx("AccessControlModel", stack, meta_children_access_control_model, meta_build_d13_code_specs_projection_access_control));
   meta_push(&arr, len, &cap, meta_cx("AuditAndLogging", stack, meta_children_audit_and_logging, meta_build_d13_code_specs_projection_audit_and_logging));
+  meta_push(&arr, len, &cap, meta_cx("ReportDefinitions", stack, meta_children_report_definitions, meta_build_d13_code_specs_projection_report_definitions));
   meta_push(&arr, len, &cap, meta_cx("ProcessStepsAndActorInteractions", stack, meta_children_process_steps_and_actor_interactions, meta_build_d13_code_specs_projection_process_steps_and_actor_interactions));
   meta_push(&arr, len, &cap, meta_cx("ExperienceCodeSpecs", stack, meta_children_experience_code_specs, meta_build_d13_code_specs_projection_experience_code_specs));
   return arr;
@@ -164526,6 +164578,7 @@ static SomMetaNode **meta_children_experience_and_interface_design(SomStrList *s
     meta_push(&arr, len, &cap, n);
   }
   meta_push(&arr, len, &cap, meta_cx("ExperienceCodeSpecs", stack, meta_children_experience_code_specs, meta_build_experience_and_interface_design_experience_code_specs));
+  meta_push(&arr, len, &cap, meta_cx("ReportDefinitions", stack, meta_children_report_definitions, meta_build_experience_and_interface_design_report_definitions));
   meta_push(&arr, len, &cap, meta_cx("ExperienceDesignFollowUp", stack, meta_children_experience_design_follow_up, meta_build_experience_and_interface_design_design_follow_up));
   meta_push(&arr, len, &cap, meta_cx("ExperienceLocalizationFollowUp", stack, meta_children_experience_localization_follow_up, meta_build_experience_and_interface_design_localization_follow_up));
   meta_push(&arr, len, &cap, meta_cx("AuthorizationComplianceFollowUp", stack, meta_children_authorization_compliance_follow_up, meta_build_experience_and_interface_design_authorization_compliance_follow_up));
@@ -172456,12 +172509,6 @@ static SomMetaNode **meta_children_print_and_export_layout(SomStrList *stack, si
   }
   {
     SomMetaNode *ln = som_meta_node_new();
-    meta_build_print_and_export_layout_reports(ln);
-    ln->element_node = meta_cx("ReportEntry", stack, meta_children_report_entry, meta_build_print_and_export_layout_reports_elem);
-    meta_push(&arr, len, &cap, ln);
-  }
-  {
-    SomMetaNode *ln = som_meta_node_new();
     meta_build_print_and_export_layout_export_formats(ln);
     ln->element_node = meta_cx("ExportFormatEntry", stack, meta_children_export_format_entry, meta_build_print_and_export_layout_export_formats_elem);
     meta_push(&arr, len, &cap, ln);
@@ -174790,6 +174837,24 @@ static SomMetaNode **meta_children_report_column_entry(SomStrList *stack, size_t
     SomMetaNode *n = som_meta_node_new();
     meta_build_report_column_entry_layout(n);
     meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_report_definitions(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_report_definitions_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_report_definitions_reports(ln);
+    ln->element_node = meta_cx("ReportEntry", stack, meta_children_report_entry, meta_build_report_definitions_reports_elem);
+    meta_push(&arr, len, &cap, ln);
   }
   return arr;
 }
@@ -193119,6 +193184,13 @@ som_nav_print_and_export_layout d09_experience_design_specification_nav_print_la
   free(path);
   return out;
 }
+som_nav_report_definitions d09_experience_design_specification_nav_report_definitions(som_nav_d09_experience_design_specification x) {
+  som_nav_report_definitions out;
+  char *path = spec_path_join(x.ref.path, "reportDefinitions");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_error_handling d09_experience_design_specification_nav_error_handling(som_nav_d09_experience_design_specification x) {
   som_nav_error_handling out;
   char *path = spec_path_join(x.ref.path, "errorHandling");
@@ -193570,6 +193642,13 @@ som_nav_access_control_model d13_code_specs_projection_nav_access_control(som_na
 som_nav_audit_and_logging d13_code_specs_projection_nav_audit_and_logging(som_nav_d13_code_specs_projection x) {
   som_nav_audit_and_logging out;
   char *path = spec_path_join(x.ref.path, "auditAndLogging");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_report_definitions d13_code_specs_projection_nav_report_definitions(som_nav_d13_code_specs_projection x) {
+  som_nav_report_definitions out;
+  char *path = spec_path_join(x.ref.path, "reportDefinitions");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -198183,6 +198262,13 @@ SomMetaRef experience_and_interface_design_nav_content(som_nav_experience_and_in
 som_nav_experience_code_specs experience_and_interface_design_nav_experience_code_specs(som_nav_experience_and_interface_design x) {
   som_nav_experience_code_specs out;
   char *path = spec_path_join(x.ref.path, "experienceCodeSpecs");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_report_definitions experience_and_interface_design_nav_report_definitions(som_nav_experience_and_interface_design x) {
+  som_nav_report_definitions out;
+  char *path = spec_path_join(x.ref.path, "reportDefinitions");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -206846,13 +206932,6 @@ SomMetaRef print_and_export_layout_nav_archive(som_nav_print_and_export_layout x
   free(path);
   return out;
 }
-SomListMetaRef print_and_export_layout_nav_reports(som_nav_print_and_export_layout x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REEN-REPO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_report_entry);
-  free(path);
-  return out;
-}
 SomListMetaRef print_and_export_layout_nav_export_formats(som_nav_print_and_export_layout x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "EXFOEN-EXPO-LST");
@@ -209195,6 +209274,20 @@ SomMetaRef report_column_entry_nav_layout(som_nav_report_column_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RECOLA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_definitions_nav_content(som_nav_report_definitions x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef report_definitions_nav_reports(som_nav_report_definitions x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "REEN-REPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_report_entry);
   free(path);
   return out;
 }
@@ -229268,6 +229361,13 @@ SomListMetaRef d00_solution_blueprint_id_cmfa_comp_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_reen_repo_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_dgoen_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST");
@@ -229321,13 +229421,6 @@ SomMetaRef d00_solution_blueprint_id_prlaar(som_id_d00_solution_blueprint x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR");
   som_meta_ref_init(&out, x.ref.tree, path);
-  free(path);
-  return out;
-}
-SomListMetaRef d00_solution_blueprint_id_reen_repo_lst(som_id_d00_solution_blueprint x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
   free(path);
   return out;
 }
@@ -237052,13 +237145,6 @@ SomMetaRef d09_experience_design_specification_id_prlaar(som_id_d09_experience_d
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_reen_repo_lst(som_id_d09_experience_design_specification x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "printLayout/REEN-REPO-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
-  free(path);
-  return out;
-}
 SomListMetaRef d09_experience_design_specification_id_exfoen_expo_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "printLayout/EXFOEN-EXPO-LST");
@@ -237070,6 +237156,13 @@ SomListMetaRef d09_experience_design_specification_id_exteen_expo_lst(som_id_d09
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "printLayout/EXTEEN-EXPO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_export_template_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d09_experience_design_specification_id_reen_repo_lst(som_id_d09_experience_design_specification x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reportDefinitions/REEN-REPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
   free(path);
   return out;
 }
@@ -243797,6 +243890,13 @@ SomListMetaRef d13_code_specs_projection_id_sevt_cust_lst(som_id_d13_code_specs_
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_event_entry);
+  free(path);
+  return out;
+}
+SomListMetaRef d13_code_specs_projection_id_reen_repo_lst(som_id_d13_code_specs_projection x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "reportDefinitions/REEN-REPO-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_entry);
   free(path);
   return out;
 }

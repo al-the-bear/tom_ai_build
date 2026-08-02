@@ -57,39 +57,43 @@ class D09ExperienceDesignSpecification extends DocSpecsSection {
   @SerializationOrder(5)
   PrintAndExportLayout printLayout = PrintAndExportLayout();
 
-  /// Error handling concept.
+  /// Report definitions — the CE-RP report projections over the domain model.
   @SerializationOrder(6)
+  ReportDefinitions reportDefinitions = ReportDefinitions();
+
+  /// Error handling concept.
+  @SerializationOrder(7)
   ErrorHandling errorHandling = ErrorHandling();
 
   /// Help concept.
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   UserAssistance userAssistance = UserAssistance();
 
   /// Accessibility.
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   Accessibility accessibility = Accessibility();
 
   /// Responsive design.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   ResponsiveDesign responsiveDesign = ResponsiveDesign();
 
   /// UI components.
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   UiComponents uiComponents = UiComponents();
 
   /// Language and country selection.
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   LanguageCountrySelection languageCountrySelection =
       LanguageCountrySelection();
 
   /// Prototype.
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   Prototype prototype = Prototype();
 
   /// Wireframes and mockups (new in Phase A).
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<WireframesAndMockups>` (L34C-12 SR-52).
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   WireframesAndMockups wireframesAndMockups = WireframesAndMockups();
 }

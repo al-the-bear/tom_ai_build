@@ -3271,7 +3271,7 @@ def _mc_AuthorizationComplianceFollowUp(s):
             type_name="String",
             serialization_order=1,
             content_type=SomContentTypeMeta(type="text", description=""),
-            doc_comment="10.4.1. Authorization Compliance."),
+            doc_comment="10.5.1. Authorization Compliance."),
     ]
 
 
@@ -12146,6 +12146,18 @@ def _mc_D09ExperienceDesignSpecification(s):
                 detailed_in="D09ExperienceDesignSpecification",
                 recursive=r,
                 children=c)),
+         _cx("ReportDefinitions", s, _mc_ReportDefinitions,
+            lambda r, c: SomMetaNode(
+                class_name="ReportDefinitions",
+                member_name="reportDefinitions",
+                class_section_id="REDF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReportDefinitions",
+                serialization_order=6,
+                doc_comment="Report definitions — the CE-RP report projections over the domain model.",
+                class_doc_comment="SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+                recursive=r,
+                children=c)),
          _cx("ErrorHandling", s, _mc_ErrorHandling,
             lambda r, c: SomMetaNode(
                 class_name="ErrorHandling",
@@ -12153,7 +12165,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="ERHACO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ErrorHandling",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="Error handling concept.",
                 class_doc_comment="10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12167,7 +12179,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="USAS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserAssistance",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="Help concept.",
                 class_doc_comment="10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12181,7 +12193,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="ACCESS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Accessibility",
-                serialization_order=8,
+                serialization_order=9,
                 doc_comment="Accessibility.",
                 class_doc_comment="10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12195,7 +12207,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="REDE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ResponsiveDesign",
-                serialization_order=9,
+                serialization_order=10,
                 doc_comment="Responsive design.",
                 class_doc_comment="10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12209,7 +12221,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="UICO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="UiComponents",
-                serialization_order=10,
+                serialization_order=11,
                 doc_comment="UI components.",
                 class_doc_comment="10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12223,7 +12235,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="LACOSE",
                 kind=SomMetaKind.COMPLEX,
                 type_name="LanguageCountrySelection",
-                serialization_order=11,
+                serialization_order=12,
                 doc_comment="Language and country selection.",
                 class_doc_comment="10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12237,7 +12249,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="PROTOT",
                 kind=SomMetaKind.COMPLEX,
                 type_name="Prototype",
-                serialization_order=12,
+                serialization_order=13,
                 doc_comment="Prototype.",
                 class_doc_comment="10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -12251,7 +12263,7 @@ def _mc_D09ExperienceDesignSpecification(s):
                 class_section_id="WIANMO",
                 kind=SomMetaKind.COMPLEX,
                 type_name="WireframesAndMockups",
-                serialization_order=13,
+                serialization_order=14,
                 doc_comment="Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
                 class_doc_comment="10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
                 maps_to="D09ExperienceDesignSpecification",
@@ -13000,6 +13012,19 @@ def _mc_D13CodeSpecsProjection(s):
                 detailed_in="D08SecurityAccessSpecification",
                 recursive=r,
                 children=c)),
+         _cx("ReportDefinitions", s, _mc_ReportDefinitions,
+            lambda r, c: SomMetaNode(
+                class_name="ReportDefinitions",
+                member_name="reportDefinitions",
+                class_section_id="REDF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReportDefinitions",
+                serialization_order=11,
+                comment="locus: server — CE-RP",
+                doc_comment="Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.",
+                class_doc_comment="SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+                recursive=r,
+                children=c)),
          _cx("ProcessStepsAndActorInteractions", s, _mc_ProcessStepsAndActorInteractions,
             lambda r, c: SomMetaNode(
                 class_name="ProcessStepsAndActorInteractions",
@@ -13007,7 +13032,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="PSAAI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ProcessStepsAndActorInteractions",
-                serialization_order=11,
+                serialization_order=12,
                 comment="locus: server(CE-SU)+client(CE-SC)",
                 doc_comment="Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
                 class_doc_comment="6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.",
@@ -13021,7 +13046,7 @@ def _mc_D13CodeSpecsProjection(s):
                 class_section_id="XCS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExperienceCodeSpecs",
-                serialization_order=12,
+                serialization_order=13,
                 comment="locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER",
                 doc_comment="Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
                 class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.",
@@ -20372,6 +20397,18 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_doc_comment="SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.",
                 recursive=r,
                 children=c)),
+         _cx("ReportDefinitions", s, _mc_ReportDefinitions,
+            lambda r, c: SomMetaNode(
+                class_name="ReportDefinitions",
+                member_name="reportDefinitions",
+                class_section_id="REDF",
+                kind=SomMetaKind.COMPLEX,
+                type_name="ReportDefinitions",
+                serialization_order=2,
+                doc_comment="10.2. Report Definitions — the CE-RP CodeSpecs subtree.",
+                class_doc_comment="SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+                recursive=r,
+                children=c)),
          _cx("ExperienceDesignFollowUp", s, _mc_ExperienceDesignFollowUp,
             lambda r, c: SomMetaNode(
                 class_name="ExperienceDesignFollowUp",
@@ -20379,8 +20416,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="XDFU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExperienceDesignFollowUp",
-                serialization_order=2,
-                doc_comment="10.2. Experience Design — DOC follow-up subtree.",
+                serialization_order=3,
+                doc_comment="10.3. Experience Design — DOC follow-up subtree.",
                 class_doc_comment="SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.",
                 recursive=r,
                 children=c)),
@@ -20391,8 +20428,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="XLFU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ExperienceLocalizationFollowUp",
-                serialization_order=3,
-                doc_comment="10.3. Experience Localization — L10N follow-up subtree.",
+                serialization_order=4,
+                doc_comment="10.4. Experience Localization — L10N follow-up subtree.",
                 class_doc_comment="SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.",
                 recursive=r,
                 children=c)),
@@ -20403,8 +20440,8 @@ def _mc_ExperienceAndInterfaceDesign(s):
                 class_section_id="XCFU",
                 kind=SomMetaKind.COMPLEX,
                 type_name="AuthorizationComplianceFollowUp",
-                serialization_order=4,
-                doc_comment="10.4. Authorization Compliance — CMP follow-up subtree.",
+                serialization_order=5,
+                doc_comment="10.5. Authorization Compliance — CMP follow-up subtree.",
                 class_doc_comment="SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.",
                 recursive=r,
                 children=c)),
@@ -20518,7 +20555,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="DesignVision",
                 serialization_order=1,
-                doc_comment="10.2.1. Design Vision. Seeds → XDS.",
+                doc_comment="10.3.1. Design Vision. Seeds → XDS.",
                 class_doc_comment="10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20532,7 +20569,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="PrintAndExportLayout",
                 serialization_order=2,
-                doc_comment="10.2.2. Print Layout. Seeds → XDS.",
+                doc_comment="10.3.2. Print & Export Layout. Seeds → XDS.",
                 class_doc_comment="10.4. Print Layout.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20546,7 +20583,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="UserAssistance",
                 serialization_order=3,
-                doc_comment="10.2.3. User Assistance. Seeds → XDS.",
+                doc_comment="10.3.3. User Assistance. Seeds → XDS.",
                 class_doc_comment="10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20560,7 +20597,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="Accessibility",
                 serialization_order=4,
-                doc_comment="10.2.4. Accessibility. Seeds → XDS.",
+                doc_comment="10.3.4. Accessibility. Seeds → XDS.",
                 class_doc_comment="10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20574,7 +20611,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="Prototype",
                 serialization_order=5,
-                doc_comment="10.2.5. Prototype. Seeds → XDS.",
+                doc_comment="10.3.5. Prototype. Seeds → XDS.",
                 class_doc_comment="10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20588,7 +20625,7 @@ def _mc_ExperienceDesignFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="WireframesAndMockups",
                 serialization_order=6,
-                doc_comment="10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+                doc_comment="10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
                 class_doc_comment="10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.",
                 maps_to="D09ExperienceDesignSpecification",
                 detailed_in="D09ExperienceDesignSpecification",
@@ -20614,7 +20651,7 @@ def _mc_ExperienceLocalizationFollowUp(s):
                 kind=SomMetaKind.COMPLEX,
                 type_name="MultiLanguageSupport",
                 serialization_order=1,
-                doc_comment="10.3.1. Multi-language Support.",
+                doc_comment="10.4.1. Multi-language Support.",
                 class_doc_comment="10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.",
                 recursive=r,
                 children=c)),
@@ -34001,26 +34038,14 @@ def _mc_PrintAndExportLayout(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle", "ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives"], "connotation": "The archival and batch-generation settings governing how printed reports are retained and produced in bulk."})]),
          SomMetaNode(
             class_name="PrintAndExportLayout",
-            member_name="reports",
-            section_id="REEN-REPO-LST",
-            section_id_pattern="REEN-REPO-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="ReportEntry",
-            serialization_order=6,
-            content_help="Add one entry per report.",
-            doc_comment="10.4.1. Reports — contains 0+× Report.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"], "connotation": "The collection of report entries available for printing."})],
-            element_node=_cx("ReportEntry", s, _mc_ReportEntry, lambda r, c: SomMetaNode(class_name="ReportEntry", class_section_id="REPENT", kind=SomMetaKind.COMPLEX, type_name="ReportEntry", doc_comment="A report entry (form).", class_doc_comment="A report entry (form).", recursive=r, children=c))),
-         SomMetaNode(
-            class_name="PrintAndExportLayout",
             member_name="exportFormats",
             section_id="EXFOEN-EXPO-LST",
             section_id_pattern="EXFOEN-EXPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportFormatEntry",
-            serialization_order=7,
+            serialization_order=6,
             content_help="Add one entry per export format.",
-            doc_comment="10.4.2. Export Formats — contains 0+× Export Format.",
+            doc_comment="10.4.1. Export Formats — contains 0+× Export Format.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"], "connotation": "The collection of export formats in which printed reports can be produced."})],
             element_node=_cx("ExportFormatEntry", s, _mc_ExportFormatEntry, lambda r, c: SomMetaNode(class_name="ExportFormatEntry", class_section_id="EFE", kind=SomMetaKind.COMPLEX, type_name="ExportFormatEntry", doc_comment="An export format entry (form).", class_doc_comment="An export format entry (form).", recursive=r, children=c))),
          SomMetaNode(
@@ -34030,9 +34055,9 @@ def _mc_PrintAndExportLayout(s):
             section_id_pattern="EXTEEN-EXPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportTemplateEntry",
-            serialization_order=8,
+            serialization_order=7,
             content_help="Add one entry per export template.",
-            doc_comment="10.4.3. Export Templates — contains 0+× Export\nTemplate.",
+            doc_comment="10.4.2. Export Templates — contains 0+× Export\nTemplate.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"], "connotation": "The collection of reusable export templates available for producing formatted output."})],
             element_node=_cx("ExportTemplateEntry", s, _mc_ExportTemplateEntry, lambda r, c: SomMetaNode(class_name="ExportTemplateEntry", class_section_id="ETE", kind=SomMetaKind.COMPLEX, type_name="ExportTemplateEntry", doc_comment="A reusable export template (form).", class_doc_comment="A reusable export template (form).", recursive=r, children=c))),
     ]
@@ -37818,6 +37843,30 @@ def _mc_ReportColumnEntry(s):
             doc_comment="Visibility and layout.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="visible", type_name="String", description="Visible", hint="Yes / No / Conditional", order=0), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When this column is shown", order=1), SomFormFieldMeta(name="wordWrap", type_name="String", description="Word Wrap", hint="Yes / No — wrap long text", order=2), SomFormFieldMeta(name="truncateAt", type_name="int", description="Truncate At", hint="Character limit before truncation", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation of information governs column visibility and layout"], "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."})]),
+    ]
+
+
+def _mc_ReportDefinitions(s):
+    return [
+         SomMetaNode(
+            class_name="ReportDefinitions",
+            member_name="content",
+            kind=SomMetaKind.CONTENT,
+            type_name="String",
+            serialization_order=0,
+            content_type=SomContentTypeMeta(type="description", description="Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.")),
+         SomMetaNode(
+            class_name="ReportDefinitions",
+            member_name="reports",
+            section_id="REEN-REPO-LST",
+            section_id_pattern="REEN-REPO-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="ReportEntry",
+            serialization_order=1,
+            content_help="Add one entry per report.",
+            doc_comment="10.2.1. Reports — contains 0+× Report.",
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"], "connotation": "The collection of report entries available for printing."})],
+            element_node=_cx("ReportEntry", s, _mc_ReportEntry, lambda r, c: SomMetaNode(class_name="ReportEntry", class_section_id="REPENT", kind=SomMetaKind.COMPLEX, type_name="ReportEntry", doc_comment="A report entry (form).", class_doc_comment="A report entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -61258,6 +61307,10 @@ class D09ExperienceDesignSpecificationNav(SomMetaRef):
         return PrintAndExportLayoutNav(self.tree, f"{self.path}/printLayout")
 
     @property
+    def reportDefinitions(self):
+        return ReportDefinitionsNav(self.tree, f"{self.path}/reportDefinitions")
+
+    @property
     def errorHandling(self):
         return ErrorHandlingNav(self.tree, f"{self.path}/errorHandling")
 
@@ -61544,6 +61597,10 @@ class D13CodeSpecsProjectionNav(SomMetaRef):
     @property
     def auditAndLogging(self):
         return AuditAndLoggingNav(self.tree, f"{self.path}/auditAndLogging")
+
+    @property
+    def reportDefinitions(self):
+        return ReportDefinitionsNav(self.tree, f"{self.path}/reportDefinitions")
 
     @property
     def processStepsAndActorInteractions(self):
@@ -65398,6 +65455,10 @@ class ExperienceAndInterfaceDesignNav(SomMetaRef):
     @property
     def experienceCodeSpecs(self):
         return ExperienceCodeSpecsNav(self.tree, f"{self.path}/experienceCodeSpecs")
+
+    @property
+    def reportDefinitions(self):
+        return ReportDefinitionsNav(self.tree, f"{self.path}/reportDefinitions")
 
     @property
     def designFollowUp(self):
@@ -72581,10 +72642,6 @@ class PrintAndExportLayoutNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/PRLAAR")
 
     @property
-    def reports(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REEN-REPO-LST", ReportEntryNav)
-
-    @property
     def exportFormats(self):
         return SomListMetaRef(self.tree, f"{self.path}/EXFOEN-EXPO-LST", ExportFormatEntryNav)
 
@@ -74674,6 +74731,21 @@ class ReportColumnEntryNav(SomMetaRef):
     @property
     def layout(self):
         return SomMetaRef(self.tree, f"{self.path}/RECOLA")
+
+
+class ReportDefinitionsNav(SomMetaRef):
+    """Dot-notation accessors of ``ReportDefinitions`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def reports(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REEN-REPO-LST", ReportEntryNav)
 
 
 class ReportDistributionEntryNav(SomMetaRef):
@@ -89622,6 +89694,10 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", ComponentFamilyEntryId)
 
     @property
+    def REEN_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", ReportEntryId)
+
+    @property
     def DGOEN_ITEM_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", DesignGoalEntryId)
 
@@ -89652,10 +89728,6 @@ class D00SolutionBlueprintId(SomMetaRef):
     @property
     def PRLAAR(self):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR")
-
-    @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", ReportEntryId)
 
     @property
     def EXFOEN_EXPO_LST(self):
@@ -94133,16 +94205,16 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/printLayout/PRLAAR")
 
     @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/printLayout/REEN-REPO-LST", ReportEntryId)
-
-    @property
     def EXFOEN_EXPO_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/printLayout/EXFOEN-EXPO-LST", ExportFormatEntryId)
 
     @property
     def EXTEEN_EXPO_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/printLayout/EXTEEN-EXPO-LST", ExportTemplateEntryId)
+
+    @property
+    def REEN_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REEN-REPO-LST", ReportEntryId)
 
     @property
     def ERHACO_ERRO(self):
@@ -98015,6 +98087,10 @@ class D13CodeSpecsProjectionId(SomMetaRef):
     @property
     def SEVT_CUST_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
+
+    @property
+    def REEN_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REEN-REPO-LST", ReportEntryId)
 
     @property
     def ACOVNA(self):

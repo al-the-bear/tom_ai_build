@@ -832,7 +832,7 @@ Cites slices 3 and 4.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ReportEntry` (`REPENT`) under `PRLA` — COVERED but **narrow** (`csrb6`). Consumed: §5.28's 22-row attribute surface — the grouped projection, dimension by dimension and measure by measure. |
+| **1 Input** | `ReportEntry` (`REPENT`) under the `ReportDefinitions` (`REDF`) projection root. Consumed: §5.28's 22-row attribute surface — the grouped projection, dimension by dimension and measure by measure. |
 | **2 Output** | A `TomReportDefinition` with `TomReportDimension` / `TomReportMeasure` members (`tom_core_codespecs` **gap classes**), form 1. Query execution (`TomGroupedSelect`, `TomAggregate`) and rendering (`TomTabularResult` + its CSV / XLSX / PDF renderers) are pure `tom_core_server` reuse. CE-RP is a part and **not** a composition of CE-API + CE-DB + CE-FM: none of those can hold a dimension or a measure. |
 | **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. §5.28's three generation-time consistency checks are validator checks, not arguments. |
 | **4 Naming** | PascalCase of `REPENT`'s report-name field + `Report`. |

@@ -876,6 +876,7 @@ void buildReplacementSystemDependencyEntryChildren(som::SomMetaNode& parent, std
 void buildReportChartAxesChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportChartEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildReportDefinitionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportDistributionEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -6360,7 +6361,7 @@ void buildAuthorizationComplianceFollowUpChildren(som::SomMetaNode& parent, std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
-    (*n).docComment = "10.4.1. Authorization Compliance.";
+    (*n).docComment = "10.5.1. Authorization Compliance.";
     parent.addChild(std::move(n));
   }
 }
@@ -20590,6 +20591,22 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReportDefinitions", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReportDefinitions";
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReportDefinitions";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 6;
+        n.docComment = "Report definitions — the CE-RP report projections over the domain model.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+      },
+      buildReportDefinitionsChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("ErrorHandling", stack,
       [](som::SomMetaNode& n) {
         n.className = "ErrorHandling";
@@ -20598,7 +20615,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ErrorHandling";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "Error handling concept.";
         n.classDocComment = "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20616,7 +20633,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserAssistance";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "Help concept.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20634,7 +20651,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "Accessibility";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.docComment = "Accessibility.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20652,7 +20669,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResponsiveDesign";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.docComment = "Responsive design.";
         n.classDocComment = "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20670,7 +20687,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UiComponents";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.docComment = "UI components.";
         n.classDocComment = "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20688,7 +20705,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "LanguageCountrySelection";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.docComment = "Language and country selection.";
         n.classDocComment = "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20706,7 +20723,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "Prototype";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.docComment = "Prototype.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -20724,7 +20741,7 @@ void buildD09ExperienceDesignSpecificationChildren(som::SomMetaNode& parent, std
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WireframesAndMockups";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 13;
+        n.serializationOrder = 14;
         n.docComment = "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
@@ -21706,6 +21723,23 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReportDefinitions", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReportDefinitions";
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReportDefinitions";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 11;
+        n.comment = "locus: server — CE-RP";
+        n.docComment = "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+      },
+      buildReportDefinitionsChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("ProcessStepsAndActorInteractions", stack,
       [](som::SomMetaNode& n) {
         n.className = "ProcessStepsAndActorInteractions";
@@ -21714,7 +21748,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ProcessStepsAndActorInteractions";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.comment = "locus: server(CE-SU)+client(CE-SC)";
         n.docComment = "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.";
         n.classDocComment = "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.";
@@ -21732,7 +21766,7 @@ void buildD13CodeSpecsProjectionChildren(som::SomMetaNode& parent, std::vector<s
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExperienceCodeSpecs";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.comment = "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER";
         n.docComment = "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.";
         n.classDocComment = "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.";
@@ -33609,6 +33643,22 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("ReportDefinitions", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReportDefinitions";
+        n.memberName = "reportDefinitions";
+        n.classSectionId = "REDF";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReportDefinitions";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "10.2. Report Definitions — the CE-RP CodeSpecs subtree.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).";
+      },
+      buildReportDefinitionsChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("ExperienceDesignFollowUp", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExperienceDesignFollowUp";
@@ -33617,8 +33667,8 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExperienceDesignFollowUp";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 2;
-        n.docComment = "10.2. Experience Design — DOC follow-up subtree.";
+        n.serializationOrder = 3;
+        n.docComment = "10.3. Experience Design — DOC follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.";
       },
       buildExperienceDesignFollowUpChildren);
@@ -33633,8 +33683,8 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExperienceLocalizationFollowUp";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 3;
-        n.docComment = "10.3. Experience Localization — L10N follow-up subtree.";
+        n.serializationOrder = 4;
+        n.docComment = "10.4. Experience Localization — L10N follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
       },
       buildExperienceLocalizationFollowUpChildren);
@@ -33649,8 +33699,8 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AuthorizationComplianceFollowUp";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 4;
-        n.docComment = "10.4. Authorization Compliance — CMP follow-up subtree.";
+        n.serializationOrder = 5;
+        n.docComment = "10.5. Authorization Compliance — CMP follow-up subtree.";
         n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
       },
       buildAuthorizationComplianceFollowUpChildren);
@@ -33796,7 +33846,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "DesignVision";
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
-        n.docComment = "10.2.1. Design Vision. Seeds → XDS.";
+        n.docComment = "10.3.1. Design Vision. Seeds → XDS.";
         n.classDocComment = "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33814,7 +33864,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "PrintAndExportLayout";
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
-        n.docComment = "10.2.2. Print Layout. Seeds → XDS.";
+        n.docComment = "10.3.2. Print & Export Layout. Seeds → XDS.";
         n.classDocComment = "10.4. Print Layout.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33832,7 +33882,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "UserAssistance";
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
-        n.docComment = "10.2.3. User Assistance. Seeds → XDS.";
+        n.docComment = "10.3.3. User Assistance. Seeds → XDS.";
         n.classDocComment = "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33850,7 +33900,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "Accessibility";
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
-        n.docComment = "10.2.4. Accessibility. Seeds → XDS.";
+        n.docComment = "10.3.4. Accessibility. Seeds → XDS.";
         n.classDocComment = "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33868,7 +33918,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "Prototype";
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
-        n.docComment = "10.2.5. Prototype. Seeds → XDS.";
+        n.docComment = "10.3.5. Prototype. Seeds → XDS.";
         n.classDocComment = "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33886,7 +33936,7 @@ void buildExperienceDesignFollowUpChildren(som::SomMetaNode& parent, std::vector
         n.typeName = "WireframesAndMockups";
         n.hasSerializationOrder = true;
         n.serializationOrder = 6;
-        n.docComment = "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
+        n.docComment = "10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).";
         n.classDocComment = "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.";
         n.mapsTo = "D09ExperienceDesignSpecification";
         n.detailedIn = "D09ExperienceDesignSpecification";
@@ -33918,7 +33968,7 @@ void buildExperienceLocalizationFollowUpChildren(som::SomMetaNode& parent, std::
         n.typeName = "MultiLanguageSupport";
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
-        n.docComment = "10.3.1. Multi-language Support.";
+        n.docComment = "10.4.1. Multi-language Support.";
         n.classDocComment = "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.";
       },
       buildMultiLanguageSupportChildren);
@@ -55795,40 +55845,15 @@ void buildPrintAndExportLayoutChildren(som::SomMetaNode& parent, std::vector<std
   {
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "PrintAndExportLayout";
-    (*ln).memberName = "reports";
-    (*ln).sectionId = "REEN-REPO-LST";
-    (*ln).sectionIdPattern = "REEN-REPO-xxx";
-    (*ln).kind = som::kSomMetaKindList;
-    (*ln).typeName = "ReportEntry";
-    (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 6;
-    (*ln).contentHelp = "Add one entry per report.";
-    (*ln).docComment = "10.4.1. Reports — contains 0+× Report.";
-    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use\",\"ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content\"],\"connotation\":\"The collection of report entries available for printing.\"}", nullptr)});
-    ln->elementNode = metaCx("ReportEntry", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "ReportEntry";
-        n.classSectionId = "REPENT";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "ReportEntry";
-        n.docComment = "A report entry (form).";
-        n.classDocComment = "A report entry (form).";
-      },
-      buildReportEntryChildren);
-    parent.addChild(std::move(ln));
-  }
-  {
-    auto ln = std::make_unique<som::SomMetaNode>();
-    (*ln).className = "PrintAndExportLayout";
     (*ln).memberName = "exportFormats";
     (*ln).sectionId = "EXFOEN-EXPO-LST";
     (*ln).sectionIdPattern = "EXFOEN-EXPO-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExportFormatEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
+    (*ln).serializationOrder = 6;
     (*ln).contentHelp = "Add one entry per export format.";
-    (*ln).docComment = "10.4.2. Export Formats — contains 0+× Export Format.";
+    (*ln).docComment = "10.4.1. Export Formats — contains 0+× Export Format.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option\",\"ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks\"],\"connotation\":\"The collection of export formats in which printed reports can be produced.\"}", nullptr)});
     ln->elementNode = metaCx("ExportFormatEntry", stack,
       [](som::SomMetaNode& n) {
@@ -55851,9 +55876,9 @@ void buildPrintAndExportLayoutChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExportTemplateEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
+    (*ln).serializationOrder = 7;
     (*ln).contentHelp = "Add one entry per export template.";
-    (*ln).docComment = "10.4.3. Export Templates — contains 0+× Export\nTemplate.";
+    (*ln).docComment = "10.4.2. Export Templates — contains 0+× Export\nTemplate.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use\",\"ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output\"],\"connotation\":\"The collection of reusable export templates available for producing formatted output.\"}", nullptr)});
     ln->elementNode = metaCx("ExportTemplateEntry", stack,
       [](som::SomMetaNode& n) {
@@ -62102,6 +62127,45 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Design notes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-125:2017 — visual presentation of information governs column visibility and layout\"],\"connotation\":\"Visibility and layout settings for a report column such as word wrap and truncation.\"}", nullptr)});
     parent.addChild(std::move(n));
+  }
+}
+
+void buildReportDefinitionsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "ReportDefinitions";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindContent;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentType = som::SomContentTypeMeta{"description", "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered."};
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "ReportDefinitions";
+    (*ln).memberName = "reports";
+    (*ln).sectionId = "REEN-REPO-LST";
+    (*ln).sectionIdPattern = "REEN-REPO-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "ReportEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).contentHelp = "Add one entry per report.";
+    (*ln).docComment = "10.2.1. Reports — contains 0+× Report.";
+    (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use\",\"ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content\"],\"connotation\":\"The collection of report entries available for printing.\"}", nullptr)});
+    ln->elementNode = metaCx("ReportEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "ReportEntry";
+        n.classSectionId = "REPENT";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "ReportEntry";
+        n.docComment = "A report entry (form).";
+        n.classDocComment = "A report entry (form).";
+      },
+      buildReportEntryChildren);
+    parent.addChild(std::move(ln));
   }
 }
 
@@ -97070,6 +97134,9 @@ NavScreenFlowStructure navD09ExperienceDesignSpecification_screenFlow(NavD09Expe
 NavPrintAndExportLayout navD09ExperienceDesignSpecification_printLayout(NavD09ExperienceDesignSpecification x) {
   return NavPrintAndExportLayout{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout"))};
 }
+NavReportDefinitions navD09ExperienceDesignSpecification_reportDefinitions(NavD09ExperienceDesignSpecification x) {
+  return NavReportDefinitions{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reportDefinitions"))};
+}
 NavErrorHandling navD09ExperienceDesignSpecification_errorHandling(NavD09ExperienceDesignSpecification x) {
   return NavErrorHandling{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling"))};
 }
@@ -97264,6 +97331,9 @@ NavAccessControlModel navD13CodeSpecsProjection_accessControl(NavD13CodeSpecsPro
 }
 NavAuditAndLogging navD13CodeSpecsProjection_auditAndLogging(NavD13CodeSpecsProjection x) {
   return NavAuditAndLogging{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging"))};
+}
+NavReportDefinitions navD13CodeSpecsProjection_reportDefinitions(NavD13CodeSpecsProjection x) {
+  return NavReportDefinitions{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reportDefinitions"))};
 }
 NavProcessStepsAndActorInteractions navD13CodeSpecsProjection_processStepsAndActorInteractions(NavD13CodeSpecsProjection x) {
   return NavProcessStepsAndActorInteractions{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsAndActorInteractions"))};
@@ -99241,6 +99311,9 @@ som::SomMetaRef navExperienceAndInterfaceDesign_content(NavExperienceAndInterfac
 }
 NavExperienceCodeSpecs navExperienceAndInterfaceDesign_experienceCodeSpecs(NavExperienceAndInterfaceDesign x) {
   return NavExperienceCodeSpecs{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs"))};
+}
+NavReportDefinitions navExperienceAndInterfaceDesign_reportDefinitions(NavExperienceAndInterfaceDesign x) {
+  return NavReportDefinitions{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reportDefinitions"))};
 }
 NavExperienceDesignFollowUp navExperienceAndInterfaceDesign_designFollowUp(NavExperienceAndInterfaceDesign x) {
   return NavExperienceDesignFollowUp{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "designFollowUp"))};
@@ -102953,9 +103026,6 @@ som::SomMetaRef navPrintAndExportLayout_headerFooter(NavPrintAndExportLayout x) 
 som::SomMetaRef navPrintAndExportLayout_archive(NavPrintAndExportLayout x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PRLAAR"));
 }
-som::SomListMetaRef navPrintAndExportLayout_reports(NavPrintAndExportLayout x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REEN-REPO-LST"), metaNavFactoryReportEntry);
-}
 som::SomListMetaRef navPrintAndExportLayout_exportFormats(NavPrintAndExportLayout x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXFOEN-EXPO-LST"), metaNavFactoryExportFormatEntry);
 }
@@ -103960,6 +104030,12 @@ som::SomMetaRef navReportColumnEntry_interaction(NavReportColumnEntry x) {
 }
 som::SomMetaRef navReportColumnEntry_layout(NavReportColumnEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RECOLA"));
+}
+som::SomMetaRef navReportDefinitions_content(NavReportDefinitions x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navReportDefinitions_reports(NavReportDefinitions x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REEN-REPO-LST"), metaNavFactoryReportEntry);
 }
 som::SomMetaRef navReportDistributionEntry_content(NavReportDistributionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -112563,6 +112639,9 @@ som::SomListMetaRef idD00SolutionBlueprint_UICOEN_COMP_LST(IdD00SolutionBlueprin
 som::SomListMetaRef idD00SolutionBlueprint_CMFA_COMP_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), metaIdFactoryComponentFamilyEntry);
 }
+som::SomListMetaRef idD00SolutionBlueprint_REEN_REPO_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST"), metaIdFactoryReportEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_DGOEN_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST"), metaIdFactoryDesignGoalEntry);
 }
@@ -112586,9 +112665,6 @@ som::SomMetaRef idD00SolutionBlueprint_PLHF(IdD00SolutionBlueprint x) {
 }
 som::SomMetaRef idD00SolutionBlueprint_PRLAAR(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"));
-}
-som::SomListMetaRef idD00SolutionBlueprint_REEN_REPO_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST"), metaIdFactoryReportEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_EXFOEN_EXPO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST"), metaIdFactoryExportFormatEntry);
@@ -115899,14 +115975,14 @@ som::SomMetaRef idD09ExperienceDesignSpecification_PLHF(IdD09ExperienceDesignSpe
 som::SomMetaRef idD09ExperienceDesignSpecification_PRLAAR(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout/PRLAAR"));
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_REEN_REPO_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout/REEN-REPO-LST"), metaIdFactoryReportEntry);
-}
 som::SomListMetaRef idD09ExperienceDesignSpecification_EXFOEN_EXPO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout/EXFOEN-EXPO-LST"), metaIdFactoryExportFormatEntry);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_EXTEEN_EXPO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "printLayout/EXTEEN-EXPO-LST"), metaIdFactoryExportTemplateEntry);
+}
+som::SomListMetaRef idD09ExperienceDesignSpecification_REEN_REPO_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reportDefinitions/REEN-REPO-LST"), metaIdFactoryReportEntry);
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_ERHACO_ERRO(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/ERHACO-ERRO"));
@@ -118790,6 +118866,9 @@ som::SomListMetaRef idD13CodeSpecsProjection_TNCS_TENA_LST(IdD13CodeSpecsProject
 }
 som::SomListMetaRef idD13CodeSpecsProjection_SEVT_CUST_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), metaIdFactorySecurityEventEntry);
+}
+som::SomListMetaRef idD13CodeSpecsProjection_REEN_REPO_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "reportDefinitions/REEN-REPO-LST"), metaIdFactoryReportEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_ACOVNA(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "processStepsAndActorInteractions/actorOverview/ACOVNA"));

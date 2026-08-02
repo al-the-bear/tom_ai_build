@@ -1000,7 +1000,7 @@ func metaChildrenAuthenticationMethods(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenAuthorizationComplianceFollowUp(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "AuthorizationComplianceFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the authorization-compliance follow-up: UI adaptation to roles and permissions."}},
-		{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationCompliance", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "10.4.1. Authorization Compliance."},
+		{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationCompliance", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "10.5.1. Authorization Compliance."},
 	}
 }
 
@@ -3616,29 +3616,32 @@ func metaChildrenD09ExperienceDesignSpecification(s map[string]bool) []*som.SomM
 		metaCx("PrintAndExportLayout", s, metaChildrenPrintAndExportLayout, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(5), DocComment: "Print layout.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
+		metaCx("ReportDefinitions", s, metaChildrenReportDefinitions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(6), DocComment: "Report definitions — the CE-RP report projections over the domain model.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
+		}),
 		metaCx("ErrorHandling", s, metaChildrenErrorHandling, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(6), DocComment: "Error handling concept.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ErrorHandling", MemberName: "errorHandling", ClassSectionID: "ERHACO", Kind: som.SomMetaKindComplex, TypeName: "ErrorHandling", SerializationOrder: metaIntPtr(7), DocComment: "Error handling concept.", ClassDocComment: "10.7. Error Handling.\n\nComprehensive error handling user experience framework covering validation\nfeedback, system error presentation, and error recovery flows. Follows\nUX best practices for error prevention, detection, and graceful recovery.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UserAssistance", s, metaChildrenUserAssistance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(7), DocComment: "Help concept.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(8), DocComment: "Help concept.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Accessibility", s, metaChildrenAccessibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(8), DocComment: "Accessibility.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(9), DocComment: "Accessibility.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("ResponsiveDesign", s, metaChildrenResponsiveDesign, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(9), DocComment: "Responsive design.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ResponsiveDesign", MemberName: "responsiveDesign", ClassSectionID: "REDE", Kind: som.SomMetaKindComplex, TypeName: "ResponsiveDesign", SerializationOrder: metaIntPtr(10), DocComment: "Responsive design.", ClassDocComment: "10.10. Responsive Design.\n\nComprehensive responsive design specification covering breakpoints,\nadaptive layouts, and device-specific behavior for Flutter applications.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UiComponents", s, metaChildrenUiComponents, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(10), DocComment: "UI components.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UiComponents", MemberName: "uiComponents", ClassSectionID: "UICO", Kind: som.SomMetaKindComplex, TypeName: "UiComponents", SerializationOrder: metaIntPtr(11), DocComment: "UI components.", ClassDocComment: "10.11. UI Components.\n\nComprehensive UI component library specification covering design system,\ncomponent catalog, and detailed per-component specifications. Supports\nFlutter-based implementation with Tom framework integration.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("LanguageCountrySelection", s, metaChildrenLanguageCountrySelection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(11), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(12), DocComment: "Language and country selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Prototype", s, metaChildrenPrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(12), DocComment: "Prototype.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(13), DocComment: "Prototype.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("WireframesAndMockups", s, metaChildrenWireframesAndMockups, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(13), DocComment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(14), DocComment: "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -3827,11 +3830,14 @@ func metaChildrenD13CodeSpecsProjection(s map[string]bool) []*som.SomMetaNode {
 		metaCx("AuditAndLogging", s, metaChildrenAuditAndLogging, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AuditAndLogging", MemberName: "auditAndLogging", ClassSectionID: "AUANLO", Kind: som.SomMetaKindComplex, TypeName: "AuditAndLogging", SerializationOrder: metaIntPtr(10), Comment: "locus: server — CE-LG/CE-CF", DocComment: "Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.\n\nBoth bands are server-side and both are authored input: CE-LG declares\n*what* is auditable (`SecurityEventsDefinition`, realised as `@CsAudited`\nbeside the framework's `@TomAudited`), CE-CF configures the sink that\nreceives it (`AuditLogFormat`, realised as `@CsServerConfig`). The\noperational half — the review, reporting and anomaly-detection routines\nrun against the log — is a follow-up subtree under\n`SecurityOperationsFollowUp` and is deliberately unreachable from here.", ClassDocComment: "9.6. Audit and Logging.\n\nSecurity audit and event logging **declarations**: which security events are\ncaptured (CE-LG) and how the log sink is configured (CE-CF). Aligns with\nOWASP Logging Cheat Sheet and NIST SP 800-92 (Guide to Computer Security Log\nManagement).\n\nA purely-CodeSpecs subtree (`codespecs_mapping.md` §8.3) and a\n`D13CodeSpecsProjection` root at the server locus. The operational half —\nthe review, reporting and anomaly-detection routines run against the log —\nis the sibling `ComplianceReporting` follow-up under\n`SecurityOperationsFollowUp`, deliberately outside this subtree so the\ngeneration projection cannot reach it.", DetailedIn: "D08SecurityAccessSpecification", Recursive: r, Children: c}
 		}),
+		metaCx("ReportDefinitions", s, metaChildrenReportDefinitions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(11), Comment: "locus: server — CE-RP", DocComment: "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
+		}),
 		metaCx("ProcessStepsAndActorInteractions", s, metaChildrenProcessStepsAndActorInteractions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(11), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ProcessStepsAndActorInteractions", MemberName: "processStepsAndActorInteractions", ClassSectionID: "PSAAI", Kind: som.SomMetaKindComplex, TypeName: "ProcessStepsAndActorInteractions", SerializationOrder: metaIntPtr(12), Comment: "locus: server(CE-SU)+client(CE-SC)", DocComment: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.", ClassDocComment: "6.2. Process Steps and Actor Interactions. Seeds → ISC.\n\nKey process steps with their actor interactions. Each interaction will be\nexpanded into a full use case with alternate paths, preconditions, and\npostconditions in the ISC document. Follows Cockburn-style use case modeling.", MapsTo: "D05InteractionScenarios", Recursive: r, Children: c}
 		}),
 		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(12), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(13), Comment: "locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER", DocComment: "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -5964,14 +5970,17 @@ func metaChildrenExperienceAndInterfaceDesign(s map[string]bool) []*som.SomMetaN
 		metaCx("ExperienceCodeSpecs", s, metaChildrenExperienceCodeSpecs, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ExperienceCodeSpecs", MemberName: "experienceCodeSpecs", ClassSectionID: "XCS", Kind: som.SomMetaKindComplex, TypeName: "ExperienceCodeSpecs", SerializationOrder: metaIntPtr(1), DocComment: "10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.\n\nGroups the UI concerns CodeSpecs generates (`codespecs_mapping.md` §8.3):\nscreen descriptions (CE-EL/CE-FM/CE-LO/CE-VA/ CE-AC), screen-flow navigation\n(CE-NV), data-structure alignment (CE-DB cross-ref), error handling\n(CE-ER/CE-VA), responsive design (CE-LO), and the reusable UI component\nlibrary (CE-EL/CE-LO). The container itself carries no `@CodeSpecKind` — the\nmapped parts live on the child sections — but the whole subtree is the\nCodeSpecs-relevant portion, kept separate from the DOC/L10N/CMP follow-up\nsubtrees.", Recursive: r, Children: c}
 		}),
+		metaCx("ReportDefinitions", s, metaChildrenReportDefinitions, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+			return &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reportDefinitions", ClassSectionID: "REDF", Kind: som.SomMetaKindComplex, TypeName: "ReportDefinitions", SerializationOrder: metaIntPtr(2), DocComment: "10.2. Report Definitions — the CE-RP CodeSpecs subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).", Recursive: r, Children: c}
+		}),
 		metaCx("ExperienceDesignFollowUp", s, metaChildrenExperienceDesignFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExperienceDesignFollowUp", MemberName: "designFollowUp", ClassSectionID: "XDFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceDesignFollowUp", SerializationOrder: metaIntPtr(2), DocComment: "10.2. Experience Design — DOC follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExperienceDesignFollowUp", MemberName: "designFollowUp", ClassSectionID: "XDFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceDesignFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "10.3. Experience Design — DOC follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.", Recursive: r, Children: c}
 		}),
 		metaCx("ExperienceLocalizationFollowUp", s, metaChildrenExperienceLocalizationFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "ExperienceLocalizationFollowUp", MemberName: "localizationFollowUp", ClassSectionID: "XLFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceLocalizationFollowUp", SerializationOrder: metaIntPtr(3), DocComment: "10.3. Experience Localization — L10N follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "ExperienceLocalizationFollowUp", MemberName: "localizationFollowUp", ClassSectionID: "XLFU", Kind: som.SomMetaKindComplex, TypeName: "ExperienceLocalizationFollowUp", SerializationOrder: metaIntPtr(4), DocComment: "10.4. Experience Localization — L10N follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
 		}),
 		metaCx("AuthorizationComplianceFollowUp", s, metaChildrenAuthorizationComplianceFollowUp, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationComplianceFollowUp", ClassSectionID: "XCFU", Kind: som.SomMetaKindComplex, TypeName: "AuthorizationComplianceFollowUp", SerializationOrder: metaIntPtr(4), DocComment: "10.4. Authorization Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "AuthorizationComplianceFollowUp", MemberName: "authorizationComplianceFollowUp", ClassSectionID: "XCFU", Kind: som.SomMetaKindComplex, TypeName: "AuthorizationComplianceFollowUp", SerializationOrder: metaIntPtr(5), DocComment: "10.5. Authorization Compliance — CMP follow-up subtree.", ClassDocComment: "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -6002,22 +6011,22 @@ func metaChildrenExperienceDesignFollowUp(s map[string]bool) []*som.SomMetaNode 
 	return []*som.SomMetaNode{
 		{ClassName: "ExperienceDesignFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the design follow-up: vision, print layout, user assistance, accessibility, prototype, and wireframes."}},
 		metaCx("DesignVision", s, metaChildrenDesignVision, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(1), DocComment: "10.2.1. Design Vision. Seeds → XDS.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "DesignVision", MemberName: "designVision", ClassSectionID: "DEVIZ", Kind: som.SomMetaKindComplex, TypeName: "DesignVision", SerializationOrder: metaIntPtr(1), DocComment: "10.3.1. Design Vision. Seeds → XDS.", ClassDocComment: "10.1. Design Vision.\n\nOverall design vision for the user interface, encompassing goals,\nprinciples, and user personas that guide all UI decisions.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("PrintAndExportLayout", s, metaChildrenPrintAndExportLayout, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(2), DocComment: "10.2.2. Print Layout. Seeds → XDS.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "printLayout", ClassSectionID: "PRLA", Kind: som.SomMetaKindComplex, TypeName: "PrintAndExportLayout", SerializationOrder: metaIntPtr(2), DocComment: "10.3.2. Print & Export Layout. Seeds → XDS.", ClassDocComment: "10.4. Print Layout.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("UserAssistance", s, metaChildrenUserAssistance, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(3), DocComment: "10.2.3. User Assistance. Seeds → XDS.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "UserAssistance", MemberName: "userAssistance", ClassSectionID: "USAS", Kind: som.SomMetaKindComplex, TypeName: "UserAssistance", SerializationOrder: metaIntPtr(3), DocComment: "10.3.3. User Assistance. Seeds → XDS.", ClassDocComment: "10.8. User Assistance.\n\nComprehensive in-app help system including contextual help, onboarding,\nand support access mechanisms.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Accessibility", s, metaChildrenAccessibility, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(4), DocComment: "10.2.4. Accessibility. Seeds → XDS.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Accessibility", MemberName: "accessibility", ClassSectionID: "ACCESS", Kind: som.SomMetaKindComplex, TypeName: "Accessibility", SerializationOrder: metaIntPtr(4), DocComment: "10.3.4. Accessibility. Seeds → XDS.", ClassDocComment: "10.9. Accessibility.\n\nComprehensive accessibility requirements for the user interface following\nWCAG guidelines and inclusive design principles.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("Prototype", s, metaChildrenPrototype, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(5), DocComment: "10.2.5. Prototype. Seeds → XDS.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "Prototype", MemberName: "prototype", ClassSectionID: "PROTOT", Kind: som.SomMetaKindComplex, TypeName: "Prototype", SerializationOrder: metaIntPtr(5), DocComment: "10.3.5. Prototype. Seeds → XDS.", ClassDocComment: "10.13. Prototype.\n\nComprehensive prototype planning covering goals, feature selection,\nprototype type, evaluation criteria, and stakeholder alignment.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		metaCx("WireframesAndMockups", s, metaChildrenWireframesAndMockups, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(6), DocComment: "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "WireframesAndMockups", MemberName: "wireframesAndMockups", ClassSectionID: "WIANMO", Kind: som.SomMetaKindComplex, TypeName: "WireframesAndMockups", SerializationOrder: metaIntPtr(6), DocComment: "10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).", ClassDocComment: "10.14. Wireframes and Mockups.\n\nWireframe and mockup inventory beyond individual screen descriptions.\n.", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -6026,7 +6035,7 @@ func metaChildrenExperienceLocalizationFollowUp(s map[string]bool) []*som.SomMet
 	return []*som.SomMetaNode{
 		{ClassName: "ExperienceLocalizationFollowUp", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the localization follow-up: the multi-language / internationalization approach."}},
 		metaCx("MultiLanguageSupport", s, metaChildrenMultiLanguageSupport, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-			return &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageSupport", ClassSectionID: "MLAR", Kind: som.SomMetaKindComplex, TypeName: "MultiLanguageSupport", SerializationOrder: metaIntPtr(1), DocComment: "10.3.1. Multi-language Support.", ClassDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.", Recursive: r, Children: c}
+			return &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "multiLanguageSupport", ClassSectionID: "MLAR", Kind: som.SomMetaKindComplex, TypeName: "MultiLanguageSupport", SerializationOrder: metaIntPtr(1), DocComment: "10.4.1. Multi-language Support.", ClassDocComment: "10.12. Multi-language Support.\n\nLocale-picker / UX-side multi-language concerns that stay on the\nExperience & Interface Design side. IP-6 re-homed the requirement-side\nconcerns (i18n requirements, documentation, training) to SBP.9 and the\nexecution-side concerns (localization/translation processes, rollout\nsequencing) to SBP.15; only the stay-put UX members remain here.", Recursive: r, Children: c}
 		}),
 	}
 }
@@ -9919,21 +9928,14 @@ func metaChildrenPrintAndExportLayout(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "PrintAndExportLayout", MemberName: "headerFooter", SectionID: "PLHF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Header and footer settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "defaultHeaderContent", TypeName: "String", Description: "Default Header Content", Hint: "Header template, e.g. {logo} {reportTitle} {date}", Order: 0}, {Name: "defaultFooterContent", TypeName: "String", Description: "Default Footer Content", Hint: "Footer template, e.g. {companyName} — Page {page}/{pages}", Order: 1}, {Name: "defaultDateFormat", TypeName: "String", Description: "Default Date Format", Hint: "Date format, e.g. dd.MM.yyyy", Order: 2}, {Name: "defaultNumberFormat", TypeName: "String", Description: "Default Number Format", Hint: "Number format, e.g. #,##0.00", Order: 3}, {Name: "defaultCurrencyFormat", TypeName: "String", Description: "Default Currency Format", Hint: "Currency format, e.g. €#,##0.00", Order: 4}, {Name: "defaultTimezone", TypeName: "String", Description: "Default Timezone", Hint: "Timezone, e.g. Europe/Berlin", Order: 5}, {Name: "defaultLocale", TypeName: "String", Description: "Default Locale", Hint: "Locale, e.g. de-DE", Order: 6}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages", "ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations"}, "connotation": "The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output."}}}},
 		{ClassName: "PrintAndExportLayout", MemberName: "archive", SectionID: "PRLAAR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Archive and batch settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "archivePolicy", TypeName: "String", Description: "Archive Policy", Hint: "None / 30-days / 1-year / Permanent", Order: 0}, {Name: "reportNamingConvention", TypeName: "String", Description: "Report Naming Convention", Hint: "File naming pattern, e.g. {reportId}_{date}_{version}", Order: 1}, {Name: "batchGenerationSupport", TypeName: "String", Description: "Batch Generation Support", Hint: "Yes / No — support batch report generation", Order: 2}, {Name: "maxConcurrentReports", TypeName: "int", Description: "Max Concurrent Reports", Hint: "Maximum concurrent reports", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle", "ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives"}, "connotation": "The archival and batch-generation settings governing how printed reports are retained and produced in bulk."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "reports", SectionID: "REEN-REPO-LST", SectionIDPattern: "REEN-REPO-xxx", Kind: som.SomMetaKindList, TypeName: "ReportEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per report.", DocComment: "10.4.1. Reports — contains 0+× Report.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"}, "connotation": "The collection of report entries available for printing."}}}}
-			n.ElementNode = metaCx("ReportEntry", s, metaChildrenReportEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "ReportEntry", ClassSectionID: "REPENT", Kind: som.SomMetaKindComplex, TypeName: "ReportEntry", DocComment: "A report entry (form).", ClassDocComment: "A report entry (form).", Recursive: r, Children: c}
-			})
-			return n
-		}(),
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportFormats", SectionID: "EXFOEN-EXPO-LST", SectionIDPattern: "EXFOEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFormatEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per export format.", DocComment: "10.4.2. Export Formats — contains 0+× Export Format.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"}, "connotation": "The collection of export formats in which printed reports can be produced."}}}}
+			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportFormats", SectionID: "EXFOEN-EXPO-LST", SectionIDPattern: "EXFOEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFormatEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per export format.", DocComment: "10.4.1. Export Formats — contains 0+× Export Format.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"}, "connotation": "The collection of export formats in which printed reports can be produced."}}}}
 			n.ElementNode = metaCx("ExportFormatEntry", s, metaChildrenExportFormatEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExportFormatEntry", ClassSectionID: "EFE", Kind: som.SomMetaKindComplex, TypeName: "ExportFormatEntry", DocComment: "An export format entry (form).", ClassDocComment: "An export format entry (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportTemplates", SectionID: "EXTEEN-EXPO-LST", SectionIDPattern: "EXTEEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportTemplateEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per export template.", DocComment: "10.4.3. Export Templates — contains 0+× Export\nTemplate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"}, "connotation": "The collection of reusable export templates available for producing formatted output."}}}}
+			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportTemplates", SectionID: "EXTEEN-EXPO-LST", SectionIDPattern: "EXTEEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportTemplateEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per export template.", DocComment: "10.4.2. Export Templates — contains 0+× Export\nTemplate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"}, "connotation": "The collection of reusable export templates available for producing formatted output."}}}}
 			n.ElementNode = metaCx("ExportTemplateEntry", s, metaChildrenExportTemplateEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExportTemplateEntry", ClassSectionID: "ETE", Kind: som.SomMetaKindComplex, TypeName: "ExportTemplateEntry", DocComment: "A reusable export template (form).", ClassDocComment: "A reusable export template (form).", Recursive: r, Children: c}
 			})
@@ -11149,6 +11151,19 @@ func metaChildrenReportColumnEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ReportColumnEntry", MemberName: "aggregation", SectionID: "RECOAG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(8), DocComment: "Aggregation settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "aggregation", TypeName: "String", Description: "Aggregation", Hint: "None / Sum / Average / Count / Min / Max", Order: 0}, {Name: "aggregationLabel", TypeName: "String", Description: "Aggregation Label", Hint: "Custom label for the aggregation row", Order: 1}, {Name: "conditionalFormattingRules", TypeName: "String", Description: "Conditional Formatting Rules", Hint: "Rules for value-based formatting", Order: 2}, {Name: "hyperlinkTarget", TypeName: "String", Description: "Hyperlink Target", Hint: "Make column values clickable", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 80000-1:2022 — general principles for quantities units and their symbols", "ISO/IEC 25010:2023 — functional suitability supports summing and averaging of column values"}, "connotation": "Aggregation settings for a report column such as sum, average and conditional formatting."}}}},
 		{ClassName: "ReportColumnEntry", MemberName: "interaction", SectionID: "RECOIN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(9), DocComment: "Interaction options.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sortable", TypeName: "String", Description: "Sortable", Hint: "Yes / No — can user sort by this column", Order: 0}, {Name: "filterable", TypeName: "String", Description: "Filterable", Hint: "Yes / No — can user filter by this column", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — functional suitability supports sorting and filtering by a column"}, "connotation": "Interaction options for a report column such as sortable and filterable behaviour."}}}},
 		{ClassName: "ReportColumnEntry", MemberName: "layout", SectionID: "RECOLA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(10), DocComment: "Visibility and layout.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "visible", TypeName: "String", Description: "Visible", Hint: "Yes / No / Conditional", Order: 0}, {Name: "visibilityCondition", TypeName: "String", Description: "Visibility Condition", Hint: "When this column is shown", Order: 1}, {Name: "wordWrap", TypeName: "String", Description: "Word Wrap", Hint: "Yes / No — wrap long text", Order: 2}, {Name: "truncateAt", TypeName: "int", Description: "Truncate At", Hint: "Character limit before truncation", Order: 3}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Design notes", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — visual presentation of information governs column visibility and layout"}, "connotation": "Visibility and layout settings for a report column such as word wrap and truncation."}}}},
+	}
+}
+
+func metaChildrenReportDefinitions(s map[string]bool) []*som.SomMetaNode {
+	return []*som.SomMetaNode{
+		{ClassName: "ReportDefinitions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered."}},
+		func() *som.SomMetaNode {
+			n := &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reports", SectionID: "REEN-REPO-LST", SectionIDPattern: "REEN-REPO-xxx", Kind: som.SomMetaKindList, TypeName: "ReportEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per report.", DocComment: "10.2.1. Reports — contains 0+× Report.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"}, "connotation": "The collection of report entries available for printing."}}}}
+			n.ElementNode = metaCx("ReportEntry", s, metaChildrenReportEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
+				return &som.SomMetaNode{ClassName: "ReportEntry", ClassSectionID: "REPENT", Kind: som.SomMetaKindComplex, TypeName: "ReportEntry", DocComment: "A report entry (form).", ClassDocComment: "A report entry (form).", Recursive: r, Children: c}
+			})
+			return n
+		}(),
 	}
 }
 
@@ -24369,6 +24384,10 @@ func (x *D09ExperienceDesignSpecificationNav) PrintLayout() *PrintAndExportLayou
 	return newPrintAndExportLayoutNav(x.Tree, x.Path+"/printLayout")
 }
 
+func (x *D09ExperienceDesignSpecificationNav) ReportDefinitions() *ReportDefinitionsNav {
+	return newReportDefinitionsNav(x.Tree, x.Path+"/reportDefinitions")
+}
+
 func (x *D09ExperienceDesignSpecificationNav) ErrorHandling() *ErrorHandlingNav {
 	return newErrorHandlingNav(x.Tree, x.Path+"/errorHandling")
 }
@@ -24685,6 +24704,10 @@ func (x *D13CodeSpecsProjectionNav) AccessControl() *AccessControlModelNav {
 
 func (x *D13CodeSpecsProjectionNav) AuditAndLogging() *AuditAndLoggingNav {
 	return newAuditAndLoggingNav(x.Tree, x.Path+"/auditAndLogging")
+}
+
+func (x *D13CodeSpecsProjectionNav) ReportDefinitions() *ReportDefinitionsNav {
+	return newReportDefinitionsNav(x.Tree, x.Path+"/reportDefinitions")
 }
 
 func (x *D13CodeSpecsProjectionNav) ProcessStepsAndActorInteractions() *ProcessStepsAndActorInteractionsNav {
@@ -29847,6 +29870,10 @@ func (x *ExperienceAndInterfaceDesignNav) Content() *som.SomMetaRef {
 
 func (x *ExperienceAndInterfaceDesignNav) ExperienceCodeSpecs() *ExperienceCodeSpecsNav {
 	return newExperienceCodeSpecsNav(x.Tree, x.Path+"/experienceCodeSpecs")
+}
+
+func (x *ExperienceAndInterfaceDesignNav) ReportDefinitions() *ReportDefinitionsNav {
+	return newReportDefinitionsNav(x.Tree, x.Path+"/reportDefinitions")
 }
 
 func (x *ExperienceAndInterfaceDesignNav) DesignFollowUp() *ExperienceDesignFollowUpNav {
@@ -39535,12 +39562,6 @@ func (x *PrintAndExportLayoutNav) Archive() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/PRLAAR"}
 }
 
-func (x *PrintAndExportLayoutNav) Reports() *som.SomListMetaRef[*ReportEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryNav {
-		return newReportEntryNav(t, p)
-	})
-}
-
 func (x *PrintAndExportLayoutNav) ExportFormats() *som.SomListMetaRef[*ExportFormatEntryNav] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryNav {
 		return newExportFormatEntryNav(t, p)
@@ -42463,6 +42484,30 @@ func (x *ReportColumnEntryNav) Interaction() *som.SomMetaRef {
 
 func (x *ReportColumnEntryNav) Layout() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RECOLA"}
+}
+
+// ReportDefinitionsNav holds the dot-notation accessors of `ReportDefinitions` (SOM §8).
+// Every method is one navigable position: `.Path` is the absolute document
+// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
+// remain valid document positions while `.Meta()` returns an error (the
+// metadata tree ends there).
+type ReportDefinitionsNav struct {
+	som.SomMetaRef
+}
+
+// newReportDefinitionsNav binds a ReportDefinitionsNav accessor to a tree and a path.
+func newReportDefinitionsNav(tree *som.SomMetaTree, path string) *ReportDefinitionsNav {
+	return &ReportDefinitionsNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
+}
+
+func (x *ReportDefinitionsNav) Content() *som.SomMetaRef {
+	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
+}
+
+func (x *ReportDefinitionsNav) Reports() *som.SomListMetaRef[*ReportEntryNav] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryNav {
+		return newReportEntryNav(t, p)
+	})
 }
 
 // ReportDistributionEntryNav holds the dot-notation accessors of `ReportDistributionEntry` (SOM §8).
@@ -61867,6 +61912,12 @@ func (x *D00SolutionBlueprintID) CMFA_COMP_LST() *som.SomListMetaRef[*ComponentF
 	})
 }
 
+func (x *D00SolutionBlueprintID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+		return newReportEntryID(t, p)
+	})
+}
+
 func (x *D00SolutionBlueprintID) DGOEN_ITEM_LST() *som.SomListMetaRef[*DesignGoalEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DesignGoalEntryID {
 		return newDesignGoalEntryID(t, p)
@@ -61903,12 +61954,6 @@ func (x *D00SolutionBlueprintID) PLHF() *som.SomMetaRef {
 
 func (x *D00SolutionBlueprintID) PRLAAR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"}
-}
-
-func (x *D00SolutionBlueprintID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
-		return newReportEntryID(t, p)
-	})
 }
 
 func (x *D00SolutionBlueprintID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
@@ -66896,12 +66941,6 @@ func (x *D09ExperienceDesignSpecificationID) PRLAAR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/printLayout/PRLAAR"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
-		return newReportEntryID(t, p)
-	})
-}
-
 func (x *D09ExperienceDesignSpecificationID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
 		return newExportFormatEntryID(t, p)
@@ -66911,6 +66950,12 @@ func (x *D09ExperienceDesignSpecificationID) EXFOEN_EXPO_LST() *som.SomListMetaR
 func (x *D09ExperienceDesignSpecificationID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
 		return newExportTemplateEntryID(t, p)
+	})
+}
+
+func (x *D09ExperienceDesignSpecificationID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+		return newReportEntryID(t, p)
 	})
 }
 
@@ -71095,6 +71140,12 @@ func (x *D13CodeSpecsProjectionID) TNCS_TENA_LST() *som.SomListMetaRef[*TenantCu
 func (x *D13CodeSpecsProjectionID) SEVT_CUST_LST() *som.SomListMetaRef[*SecurityEventEntryID] {
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/auditAndLogging/securityEvents/SEVT-CUST-LST", func(t *som.SomMetaTree, p string) *SecurityEventEntryID {
 		return newSecurityEventEntryID(t, p)
+	})
+}
+
+func (x *D13CodeSpecsProjectionID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+		return newReportEntryID(t, p)
 	})
 }
 

@@ -355,6 +355,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per common recovery scenario.
+  rechax-axes-lst:
+    prefix: RECHAX_AXES_LST
+    subsection-types:
+      rechax-axes:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart axis configuration.
+  rechen-char-lst:
+    prefix: RECHEN_CHAR_LST
+    subsection-types:
+      rechen-char:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart shown in the section.
+  recoe1-colu-lst:
+    prefix: RECOE1_COLU_LST
+    subsection-types:
+      recoe1-colu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per column in the section table.
   recoen-regu-lst:
     prefix: RECOEN_REGU_LST
     subsection-types:
@@ -363,6 +387,46 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per regulation.
+  redien-dist-lst:
+    prefix: REDIEN_DIST_LST
+    subsection-types:
+      redien-dist:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report distribution channel.
+  refien-filt-lst:
+    prefix: REFIEN_FILT_LST
+    subsection-types:
+      refien-filt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report data filter.
+  rereen-reci-lst:
+    prefix: REREEN_RECI_LST
+    subsection-types:
+      rereen-reci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report recipient.
+  rescen-sche-lst:
+    prefix: RESCEN_SCHE_LST
+    subsection-types:
+      rescen-sche:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report generation schedule.
+  resee1-sect-lst:
+    prefix: RESEE1_SECT_LST
+    subsection-types:
+      resee1-sect:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report section.
   reskey-reso-lst:
     prefix: RESKEY_RESO_LST
     subsection-types:
@@ -1284,6 +1348,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per protocol.
+  reen-repo-lst:
+    prefix: REEN_REPO_LST
+    subsection-types:
+      reen-repo:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report.
   reskref-reso:
     prefix: RESKREF_RESO_
     pattern-check-id:
@@ -1310,6 +1382,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per system error code.
+  sevt-cust-lst:
+    prefix: SEVT_CUST_LST
+    subsection-types:
+      sevt-cust:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per custom security event.
   slen-slos-lst:
     prefix: SLEN_SLOS_LST
     subsection-types:
@@ -1923,6 +2003,56 @@ section-types:
       pattern: ^RCVSCN-RECO-.+$
       error-message: IDs of this section must match RCVSCN-RECO-xxx
     description: Add one entry per common recovery scenario.
+  rechax-axes:
+    prefix: RECHAX_AXES_
+    pattern-check-id:
+      pattern: ^RECHAX-AXES-.+$
+      error-message: IDs of this section must match RECHAX-AXES-xxx
+    description: Add one entry per chart axis configuration.
+  rechen-char:
+    prefix: RECHEN_CHAR_
+    subsection-types:
+      rechax-axes-lst:
+        max-count: 1
+      rechse:
+        max-count: 1
+      rechdi:
+        max-count: 1
+      rechin:
+        max-count: 1
+      rechla:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RECHEN-CHAR-.+$
+      error-message: IDs of this section must match RECHEN-CHAR-xxx
+    description: Add one entry per chart shown in the section.
+  recoe1-colu:
+    prefix: RECOE1_COLU_
+    subsection-types:
+      rcds:
+        max-count: 1
+      recofo:
+        max-count: 1
+      recofn:
+        max-count: 1
+      recofc:
+        max-count: 1
+      recofd:
+        max-count: 1
+      recofb:
+        max-count: 1
+      recoft:
+        max-count: 1
+      recoag:
+        max-count: 1
+      recoin:
+        max-count: 1
+      recola:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RECOE1-COLU-.+$
+      error-message: IDs of this section must match RECOE1-COLU-xxx
+    description: Add one entry per column in the section table.
   recoen-regu:
     prefix: RECOEN_REGU_
     subsection-types:
@@ -1938,6 +2068,91 @@ section-types:
       pattern: ^RECOEN-REGU-.+$
       error-message: IDs of this section must match RECOEN-REGU-xxx
     description: Add one entry per regulation.
+  redien-dist:
+    prefix: REDIEN_DIST_
+    subsection-types:
+      redienre:
+        max-count: 1
+      redienco:
+        max-count: 1
+      rded:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REDIEN-DIST-.+$
+      error-message: IDs of this section must match REDIEN-DIST-xxx
+    description: Add one entry per report distribution channel.
+  refien-filt:
+    prefix: REFIEN_FILT_
+    subsection-types:
+      rfei:
+        max-count: 1
+      rfeit:
+        max-count: 1
+      rfein:
+        max-count: 1
+      rfeid:
+        max-count: 1
+      rfeib:
+        max-count: 1
+      rfeis:
+        max-count: 1
+      rfeie:
+        max-count: 1
+      rfeb:
+        max-count: 1
+      rfep:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REFIEN-FILT-.+$
+      error-message: IDs of this section must match REFIEN-FILT-xxx
+    description: Add one entry per report data filter.
+  rereen-reci:
+    prefix: REREEN_RECI_
+    subsection-types:
+      rereenco:
+        max-count: 1
+      rred:
+        max-count: 1
+      rrel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REREEN-RECI-.+$
+      error-message: IDs of this section must match REREEN-RECI-xxx
+    description: Add one entry per report recipient.
+  rescen-sche:
+    prefix: RESCEN_SCHE_
+    subsection-types:
+      rset:
+        max-count: 1
+      rser:
+        max-count: 1
+      rsen:
+        max-count: 1
+      rseo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RESCEN-SCHE-.+$
+      error-message: IDs of this section must match RESCEN-SCHE-xxx
+    description: Add one entry per report generation schedule.
+  resee1-sect:
+    prefix: RESEE1_SECT_
+    subsection-types:
+      reseda:
+        max-count: 1
+      resela:
+        max-count: 1
+      reseso:
+        max-count: 1
+      reseag:
+        max-count: 1
+      recoe1-colu-lst:
+        max-count: 1
+      rechen-char-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RESEE1-SECT-.+$
+      error-message: IDs of this section must match RESEE1-SECT-xxx
+    description: Add one entry per report section.
   reskey-reso:
     prefix: RESKEY_RESO_
     pattern-check-id:
@@ -3336,6 +3551,45 @@ section-types:
       pattern: ^PREN-PROT-.+$
       error-message: IDs of this section must match PREN-PROT-xxx
     description: Add one entry per protocol.
+  reen-repo:
+    prefix: REEN_REPO_
+    subsection-types:
+      reid:
+        max-count: 1
+      redaso:
+        max-count: 1
+      refo:
+        max-count: 1
+      rela:
+        max-count: 1
+      rehefo:
+        max-count: 1
+      regr:
+        max-count: 1
+      rf:
+        max-count: 1
+      rein:
+        max-count: 1
+      repa:
+        max-count: 1
+      rese:
+        max-count: 1
+      reli:
+        max-count: 1
+      resee1-sect-lst:
+        max-count: 1
+      refien-filt-lst:
+        max-count: 1
+      rescen-sche-lst:
+        max-count: 1
+      redien-dist-lst:
+        max-count: 1
+      rereen-reci-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REEN-REPO-.+$
+      error-message: IDs of this section must match REEN-REPO-xxx
+    description: Add one entry per report.
   reuicoende:
     prefix: REUICOENDE
     format: reuicoende-form
@@ -3363,6 +3617,12 @@ section-types:
     prefix: SESTCOENST
     format: sestcoenst-form
     description: Overall status.
+  sevt-cust:
+    prefix: SEVT_CUST_
+    pattern-check-id:
+      pattern: ^SEVT-CUST-.+$
+      error-message: IDs of this section must match SEVT-CUST-xxx
+    description: Add one entry per custom security event.
   slen-slos:
     prefix: SLEN_SLOS_
     subsection-types:
@@ -3715,6 +3975,18 @@ section-types:
     prefix: RECOENRE
     format: recoenre-form
     description: Compliance requirements.
+  redienco:
+    prefix: REDIENCO
+    format: redienco-form
+    description: Message and attachment content.
+  redienre:
+    prefix: REDIENRE
+    format: redienre-form
+    description: Recipient and format settings.
+  rereenco:
+    prefix: REREENCO
+    format: rereenco-form
+    description: Recipient business context.
   scelenla:
     prefix: SCELENLA
     format: scelenla-form
@@ -3824,6 +4096,9 @@ section-types:
     prefix: ADENMA
     format: adenma-form
     description: Environment management.
+  adevpo:
+    prefix: ADEVPO
+    description: Administrative Events.
   adinre:
     prefix: ADINRE
     subsection-types:
@@ -3948,6 +4223,32 @@ section-types:
     prefix: AROVEV
     format: arovev-form
     description: Evolution planning.
+  auanlo:
+    prefix: AUANLO
+    subsection-types:
+      seevde:
+        max-count: 1
+      aulofo:
+        max-count: 1
+    description: Audit and logging — CE-LG audit declarations + CE-CF log-sink settings.
+  auevp1:
+    prefix: AUEVP1
+    description: Authorization Events.
+  auevpo:
+    prefix: AUEVPO
+    description: Authentication Events.
+  aulofo:
+    prefix: AULOFO
+    subsection-types:
+      evatpo:
+        max-count: 1
+      lostpo:
+        max-count: 1
+      loprpo:
+        max-count: 1
+      lorepo:
+        max-count: 1
+    description: 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   authen:
     prefix: AUTHEN
     subsection-types:
@@ -4921,6 +5222,9 @@ section-types:
       erhastre:
         max-count: 1
     description: Error handling and exception patterns.
+  evatpo:
+    prefix: EVATPO
+    description: Event Attribute Policy.
   exnere:
     prefix: EXNERE
     subsection-types:
@@ -5173,6 +5477,9 @@ section-types:
       lomareco:
         max-count: 1
     description: Log management requirements.
+  loprpo:
+    prefix: LOPRPO
+    description: Log Protection Policy.
   loprre:
     prefix: LOPRRE
     subsection-types:
@@ -5183,6 +5490,12 @@ section-types:
       lprpt:
         max-count: 1
     description: Load profile and capacity planning.
+  lorepo:
+    prefix: LOREPO
+    description: Log Retention Policy.
+  lostpo:
+    prefix: LOSTPO
+    description: Log Storage Policy.
   machma:
     prefix: MACHMA
     subsection-types:
@@ -5533,6 +5846,66 @@ section-types:
       rcbc:
         max-count: 1
     description: Resource capacity baselines.
+  rechdi:
+    prefix: RECHDI
+    format: rechdi-form
+    description: Display options.
+  rechin:
+    prefix: RECHIN
+    format: rechin-form
+    description: Interaction.
+  rechla:
+    prefix: RECHLA
+    format: rechla-form
+    description: Layout.
+  rechse:
+    prefix: RECHSE
+    format: rechse-form
+    description: Series and colors.
+  recoag:
+    prefix: RECOAG
+    format: recoag-form
+    description: Aggregation settings.
+  recofb:
+    prefix: RECOFB
+    format: recofb-form
+    description: "Boolean-kind column format — a promoted `@OneOf` case (csra4)."
+  recofc:
+    prefix: RECOFC
+    format: recofc-form
+    description: "Currency-kind column format — a promoted `@OneOf` case (csra4)."
+  recofd:
+    prefix: RECOFD
+    format: recofd-form
+    description: "Date-kind column format — a promoted `@OneOf` case (csra4)."
+  recofn:
+    prefix: RECOFN
+    format: recofn-form
+    description: "Numeric-kind column format — a promoted `@OneOf` case (csra4)."
+  recofo:
+    prefix: RECOFO
+    format: recofo-form
+    description: Display formatting.
+  recoft:
+    prefix: RECOFT
+    format: recoft-form
+    description: "Text-kind column format — a promoted `@OneOf` case (csra4)."
+  recoin:
+    prefix: RECOIN
+    format: recoin-form
+    description: Interaction options.
+  recola:
+    prefix: RECOLA
+    format: recola-form
+    description: Visibility and layout.
+  redaso:
+    prefix: REDASO
+    format: redaso-form
+    description: Data source configuration.
+  rehefo:
+    prefix: REHEFO
+    format: rehefo-form
+    description: Header and footer templates.
   reprab:
     prefix: REPRAB
     format: reprab-form
@@ -5565,6 +5938,22 @@ section-types:
     prefix: REPRVE
     format: reprve-form
     description: Versioning policy.
+  reseag:
+    prefix: RESEAG
+    format: reseag-form
+    description: Aggregation and limits.
+  reseda:
+    prefix: RESEDA
+    format: reseda-form
+    description: Data source configuration.
+  resela:
+    prefix: RESELA
+    format: resela-form
+    description: Layout and page settings.
+  reseso:
+    prefix: RESESO
+    format: reseso-form
+    description: Sorting and grouping.
   respro:
     prefix: RESPRO
     subsection-types:
@@ -5756,6 +6145,22 @@ section-types:
       sdlr:
         max-count: 1
     description: Security development lifecycle.
+  seevde:
+    prefix: SEEVDE
+    subsection-types:
+      selp:
+        max-count: 1
+      auevpo:
+        max-count: 1
+      auevp1:
+        max-count: 1
+      daep:
+        max-count: 1
+      adevpo:
+        max-count: 1
+      sevt-cust-lst:
+        max-count: 1
+    description: 9.6.1. Security Events — the CE-LG declared half.
   selein:
     prefix: SELEIN
     subsection-types:
@@ -6704,6 +7109,30 @@ section-types:
       uscatr:
         max-count: 1
     description: "Process steps & actor interactions — CE-SU server-use + CE-SC client-side"
+  rfeib:
+    prefix: RFEIB
+    format: rfeib-form
+    description: "Boolean-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeid:
+    prefix: RFEID
+    format: rfeid-form
+    description: "Temporal-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeie:
+    prefix: RFEIE
+    format: rfeie-form
+    description: "Entity-reference filter options — a promoted `@OneOf` case (csra4)."
+  rfein:
+    prefix: RFEIN
+    format: rfein-form
+    description: "Numeric-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeis:
+    prefix: RFEIS
+    format: rfeis-form
+    description: "Selection-kind filter options — a promoted `@OneOf` case (csra4)."
+  rfeit:
+    prefix: RFEIT
+    format: rfeit-form
+    description: "Text-kind filter options — a promoted `@OneOf` case (csra4)."
   rrrbt:
     prefix: RRRBT
     format: rrrbt-form
@@ -8034,6 +8463,9 @@ section-types:
   dadi:
     prefix: DADI
     description: 7.1.4. Data Dictionary..
+  daep:
+    prefix: DAEP
+    description: Data Access Events.
   dare:
     prefix: DARE
     subsection-types:
@@ -9763,6 +10195,10 @@ section-types:
     prefix: RCBS
     format: rcbs-form
     description: Storage baselines.
+  rcds:
+    prefix: RCDS
+    format: rcds-form
+    description: Data source and type.
   rceo:
     prefix: RCEO
     format: rceo-form
@@ -9771,6 +10207,10 @@ section-types:
     prefix: RCEP
     format: rcep-form
     description: Penalties and reporting.
+  rded:
+    prefix: RDED
+    format: rded-form
+    description: Delivery conditions and lifecycle settings.
   rebe:
     prefix: REBE
     subsection-types:
@@ -9797,6 +10237,40 @@ section-types:
       rebe:
         max-count: 1
     description: 10.1.5. Responsive Design. Seeds → XDS.
+  redf:
+    prefix: REDF
+    subsection-types:
+      reen-repo-lst:
+        max-count: 1
+    description: Report definitions — CE-RP grouped projections over the domain model.
+  refo:
+    prefix: REFO
+    format: refo-form
+    description: Output format options.
+  regr:
+    prefix: REGR
+    format: regr-form
+    description: Sorting and grouping.
+  reid:
+    prefix: REID
+    format: reid-form
+    description: Identity and context.
+  rein:
+    prefix: REIN
+    format: rein-form
+    description: Interactivity and parameters.
+  rela:
+    prefix: RELA
+    format: rela-form
+    description: Page layout settings.
+  reli:
+    prefix: RELI
+    format: reli-form
+    description: Lifecycle and archiving.
+  repa:
+    prefix: REPA
+    format: repa-form
+    description: Pagination settings.
   repr:
     prefix: REPR
     subsection-types:
@@ -9809,6 +10283,10 @@ section-types:
       reprow:
         max-count: 1
     description: Reusability principles and guidelines.
+  rese:
+    prefix: RESE
+    format: rese-form
+    description: Security and access.
   rest:
     prefix: REST
     subsection-types:
@@ -9821,6 +10299,18 @@ section-types:
       restma:
         max-count: 1
     description: Release strategy.
+  rfeb:
+    prefix: RFEB
+    format: rfeb-form
+    description: Scope and validation behavior.
+  rfei:
+    prefix: RFEI
+    format: rfei-form
+    description: Input and value configuration.
+  rfep:
+    prefix: RFEP
+    format: rfep-form
+    description: Presentation options.
   rlpb:
     prefix: RLPB
     format: rlpb-form
@@ -9868,6 +10358,14 @@ section-types:
       rostop:
         max-count: 1
     description: Rollback strategy.
+  rred:
+    prefix: RRED
+    format: rred-form
+    description: Delivery preferences.
+  rrel:
+    prefix: RREL
+    format: rrel-form
+    description: Lifecycle settings.
   rrrd:
     prefix: RRRD
     format: rrrd-form
@@ -9880,6 +10378,22 @@ section-types:
     prefix: RSBG
     format: rsbg-form
     description: Blue-green deployment configuration.
+  rsen:
+    prefix: RSEN
+    format: rsen-form
+    description: Notification settings.
+  rseo:
+    prefix: RSEO
+    format: rseo-form
+    description: Output configuration.
+  rser:
+    prefix: RSER
+    format: rser-form
+    description: Retry configuration.
+  rset:
+    prefix: RSET
+    format: rset-form
+    description: Timing configuration.
   rsff:
     prefix: RSFF
     format: rsff-form
@@ -10181,6 +10695,9 @@ section-types:
       sefss:
         max-count: 1
     description: 10.2.1.n.m.k.2. Element Field Spec.
+  selp:
+    prefix: SELP
+    description: Security Event Logging Policy.
   sema:
     prefix: SEMA
     subsection-types:
@@ -11456,6 +11973,10 @@ section-types:
       unp-pref-lst:
         max-count: 1
     description: "Define notification strategy: channels, triggers, preferences, and delivery mechanisms."
+  rf:
+    prefix: RF
+    format: rf-form
+    description: Conditional formatting.
   rp:
     prefix: RP
     subsection-types:
@@ -20868,6 +21389,480 @@ form-types:
         description: "None | PerTenant | SharedWithValidation | InvalidateOnSwitch — how authorization decisions are cached with respect to tenant context to prevent cross-tenant cache leakage"
       - fieldname: notes
         description: Additional tenant boundary enforcement notes
+  reid-form:
+    fields:
+      - fieldname: description
+        description: Business purpose and summary of the report
+      - fieldname: reportCategory
+        description: Operational / Analytical / Compliance / Financial / Audit
+      - fieldname: relatedUseCases
+        description: ISC references this report serves
+      - fieldname: relatedBusinessProcesses
+        description: TOM references where this report is used
+      - fieldname: relatedDataEntities
+        description: IFM entity references used as data sources
+  redaso-form:
+    fields:
+      - fieldname: dataSource
+        description: Primary data source or query reference
+      - fieldname: dataScope
+        description: "What data is included, e.g. All orders for current fiscal year"
+      - fieldname: dataCurrency
+        description: Real-time / Near-real-time / Daily-snapshot / As-of-date
+      - fieldname: generationTrigger
+        description: On-demand / Scheduled / Event-triggered / Batch
+  refo-form:
+    fields:
+      - fieldname: format
+        description: PDF / Excel / CSV / HTML / Word / Print / Multi-format
+      - fieldname: interactivity
+        description: Static / Interactive / Drill-down / Parameterized
+      - fieldname: pageSize
+        description: "Override: A4 / Letter / Legal / A3 / Custom"
+      - fieldname: orientation
+        description: "Override: Portrait / Landscape / Auto"
+  rela-form:
+    fields:
+      - fieldname: marginTop
+        description: Override top margin
+      - fieldname: marginBottom
+        description: Override bottom margin
+      - fieldname: marginLeft
+        description: Override left margin
+      - fieldname: marginRight
+        description: Override right margin
+  rehefo-form:
+    fields:
+      - fieldname: headerTemplate
+        description: "Page header override, e.g. {logo} {reportTitle}"
+      - fieldname: footerTemplate
+        description: Page footer override
+      - fieldname: coverPage
+        description: Yes / No — include a cover page
+      - fieldname: coverPageTemplate
+        description: Cover page content template
+      - fieldname: tableOfContents
+        description: Yes / No — include TOC for multi-section reports
+  regr-form:
+    fields:
+      - fieldname: defaultSortField
+        description: Default sort column or field
+      - fieldname: defaultSortDirection
+        description: Ascending / Descending
+      - fieldname: defaultGroupBy
+        description: Default grouping field
+      - fieldname: groupSummary
+        description: Yes / No — show subtotals per group
+      - fieldname: grandTotal
+        description: Yes / No — show grand total row
+  rf-form:
+    fields:
+      - fieldname: conditionalFormatting
+        description: Description of conditional formatting rules
+      - fieldname: highlightRules
+        description: "Row/cell highlight rules, e.g. overdue items in red"
+  rein-form:
+    fields:
+      - fieldname: drillDownTarget
+        description: Report or screen navigated to on row click
+      - fieldname: drillThroughReports
+        description: Comma-separated report IDs reachable from this report
+      - fieldname: parameterForm
+        description: Description of user input form shown before generation
+      - fieldname: emptyDataMessage
+        description: Message to display when report has no data
+  repa-form:
+    fields:
+      - fieldname: maxRows
+        description: Row limit for performance; 0 = unlimited
+      - fieldname: paginationStyle
+        description: Page-break / Continuous / Scrollable
+      - fieldname: rowsPerPage
+        description: For paginated tabular reports
+  rese-form:
+    fields:
+      - fieldname: localization
+        description: "Locales supported, e.g. de-DE, en-US, fr-FR"
+      - fieldname: brandingOverride
+        description: Override branding for this report
+      - fieldname: accessLevel
+        description: Public / Authenticated / Role-specific / Confidential
+      - fieldname: requiredRoles
+        description: Roles permitted to generate this report
+      - fieldname: dataLevelSecurity
+        description: Row/column level security rules
+  reli-form:
+    fields:
+      - fieldname: archiveRetention
+        description: "Retention policy for generated instances, e.g. 90 days"
+      - fieldname: signatureRequired
+        description: Yes / No — does the report require a digital signature
+      - fieldname: approvalWorkflow
+        description: "Approval steps before distribution, if any"
+      - fieldname: notes
+        description: Additional design notes or open questions
+  reseda-form:
+    fields:
+      - fieldname: purpose
+        description: What this section communicates
+      - fieldname: dataSource
+        description: Data source or query for this section
+      - fieldname: dataScope
+        description: Scope filter applied to the section data
+      - fieldname: textContent
+        description: Static text or template for text-type sections
+      - fieldname: notes
+        description: Design notes
+  resela-form:
+    fields:
+      - fieldname: displayOrder
+        description: Position within the report
+      - fieldname: pageBreakBefore
+        description: Yes / No — force page break before this section
+      - fieldname: pageBreakAfter
+        description: Yes / No — force page break after this section
+      - fieldname: repeatOnNewPage
+        description: Yes / No — repeat section header on each new page
+      - fieldname: orientation
+        description: "Override: Portrait / Landscape"
+      - fieldname: conditionalVisibility
+        description: Condition when section is shown
+      - fieldname: backgroundColor
+        description: Background color or shading
+      - fieldname: borderStyle
+        description: None / Thin / Medium / Thick / Custom
+  reseso-form:
+    fields:
+      - fieldname: sortField
+        description: Default sort for this section data
+      - fieldname: sortDirection
+        description: Ascending / Descending
+      - fieldname: groupByField
+        description: Field used for grouping rows
+      - fieldname: showGroupSubtotals
+        description: Yes / No
+  reseag-form:
+    fields:
+      - fieldname: showSectionTotal
+        description: Yes / No — show totals row at section end
+      - fieldname: aggregationFields
+        description: Comma-separated fields with aggregation
+      - fieldname: maxRows
+        description: Row limit for this section; 0 = unlimited
+      - fieldname: overflowBehavior
+        description: Truncate / Continue-next-page / Scroll
+  rcds-form:
+    fields:
+      - fieldname: dataSourceField
+        description: "Path to the data field, e.g. order.customer.name"
+      - fieldname: dataType
+        description: The column value type — selects the promoted format subsection.
+  recofo-form:
+    fields:
+      - fieldname: displayOrder
+        description: Column position left to right
+      - fieldname: width
+        description: "Auto / Fixed(120px) / Proportion(25%)"
+      - fieldname: alignment
+        description: Left / Center / Right
+      - fieldname: verticalAlignment
+        description: Top / Middle / Bottom
+      - fieldname: nullDisplay
+        description: What to show for null/empty values
+  recofn-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Numeric display format, e.g. #,##0.00"
+      - fieldname: negativeDisplay
+        description: Minus-Sign / Parentheses / Red
+  recofc-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Monetary display format, e.g. #,##0.00"
+      - fieldname: currencyCode
+        description: "ISO 4217 code, e.g. EUR / USD"
+      - fieldname: symbolPosition
+        description: Prefix / Suffix / None
+  recofd-form:
+    fields:
+      - fieldname: formatPattern
+        description: "Date display format, e.g. yyyy-MM-dd"
+      - fieldname: timezoneDisplay
+        description: UTC / Local / With-Offset
+  recofb-form:
+    fields:
+      - fieldname: booleanTrueDisplay
+        description: "Display for true, e.g. Yes / ✓"
+      - fieldname: booleanFalseDisplay
+        description: "Display for false, e.g. No / —"
+  recoft-form:
+    fields:
+      - fieldname: overflowBehavior
+        description: Truncate / Ellipsis / Wrap / Clip
+      - fieldname: maxDisplayLength
+        description: Character limit before overflow handling applies
+  recoag-form:
+    fields:
+      - fieldname: aggregation
+        description: None / Sum / Average / Count / Min / Max
+      - fieldname: aggregationLabel
+        description: Custom label for the aggregation row
+      - fieldname: conditionalFormattingRules
+        description: Rules for value-based formatting
+      - fieldname: hyperlinkTarget
+        description: Make column values clickable
+  recoin-form:
+    fields:
+      - fieldname: sortable
+        description: Yes / No — can user sort by this column
+      - fieldname: filterable
+        description: Yes / No — can user filter by this column
+  recola-form:
+    fields:
+      - fieldname: visible
+        description: Yes / No / Conditional
+      - fieldname: visibilityCondition
+        description: When this column is shown
+      - fieldname: wordWrap
+        description: Yes / No — wrap long text
+      - fieldname: truncateAt
+        description: Character limit before truncation
+      - fieldname: notes
+        description: Design notes
+  rechse-form:
+    fields:
+      - fieldname: seriesField
+        description: Field used to split data into series
+      - fieldname: seriesColors
+        description: Comma-separated color assignments
+      - fieldname: colorScheme
+        description: "Named palette, e.g. Corporate / Pastel / Sequential-Blue"
+      - fieldname: legendPosition
+        description: Top / Bottom / Left / Right / None
+  rechdi-form:
+    fields:
+      - fieldname: showDataLabels
+        description: Yes / No / On-Hover
+      - fieldname: dataLabelFormat
+        description: Format for data labels
+      - fieldname: thresholdLines
+        description: "Reference lines, e.g. Target:500000:green"
+      - fieldname: trendLine
+        description: None / Linear / Moving-Average / Polynomial
+      - fieldname: goalValue
+        description: Target/goal value for gauge/KPI charts
+      - fieldname: emptyDataMessage
+        description: Message when chart has no data
+  rechin-form:
+    fields:
+      - fieldname: interactive
+        description: "Yes / No — tooltips, zoom, click events"
+      - fieldname: drillDownTarget
+        description: Report or screen navigated to on chart element click
+      - fieldname: notes
+        description: Design notes
+  rechla-form:
+    fields:
+      - fieldname: width
+        description: "Chart width: Full / Half / Third / Custom(400px)"
+      - fieldname: height
+        description: "Chart height, e.g. 300px / Auto"
+  rfei-form:
+    fields:
+      - fieldname: dataType
+        description: The filter value type — selects the promoted input-control and value-bound subsection.
+      - fieldname: defaultValue
+        description: "Default filter value, e.g. current_month, today, *"
+  rfeit-form:
+    fields:
+      - fieldname: inputType
+        description: Text-Field / Autocomplete
+      - fieldname: matchMode
+        description: Contains / Starts-With / Exact / Regex
+      - fieldname: maxLength
+        description: Character limit on the input
+  rfein-form:
+    fields:
+      - fieldname: inputType
+        description: Number-Field / Slider / Range-Slider
+      - fieldname: minValue
+        description: Lowest accepted value
+      - fieldname: maxValue
+        description: Highest accepted value
+  rfeid-form:
+    fields:
+      - fieldname: inputType
+        description: Date-Picker / Date-Range-Picker / Relative-Period
+      - fieldname: earliestDate
+        description: Earliest selectable date/time
+      - fieldname: latestDate
+        description: Latest selectable date/time
+  rfeib-form:
+    fields:
+      - fieldname: inputType
+        description: Checkbox / Toggle / Radio-Pair
+      - fieldname: includeIndeterminate
+        description: Yes / No — offer an "any" third state
+  rfeis-form:
+    fields:
+      - fieldname: inputType
+        description: Select / Multi-Select / Radio-Group / Cascading-Select
+      - fieldname: availableValuesSource
+        description: "Source for dropdown/select values: static list, entity query, API endpoint"
+      - fieldname: staticValues
+        description: "Comma-separated values if source is static, e.g. Active,Inactive,All"
+      - fieldname: cascadeParent
+        description: Filter ID of parent filter for cascading dropdowns
+      - fieldname: multiSelect
+        description: Yes / No — allow selecting multiple values
+  rfeie-form:
+    fields:
+      - fieldname: inputType
+        description: Autocomplete / Dialog-Picker / Tree-Picker
+      - fieldname: entityType
+        description: "Referenced entity, e.g. Customer"
+      - fieldname: queryFilter
+        description: Restriction applied to the lookup query
+      - fieldname: displayAttribute
+        description: "Entity attribute shown to the user, e.g. name"
+  rfeb-form:
+    fields:
+      - fieldname: required
+        description: Yes / No — must user provide a value
+      - fieldname: appliedScope
+        description: "Whole-Report / Section:{sectionId} — where the filter applies"
+      - fieldname: displayOrder
+        description: Position in parameter form
+      - fieldname: groupName
+        description: "Group related filters visually, e.g. Date Filters, Entity Filters"
+      - fieldname: validationRule
+        description: "Validation expression, e.g. startDate <= endDate"
+      - fieldname: dependsOn
+        description: Other filter IDs this filter depends on
+  rfep-form:
+    fields:
+      - fieldname: hiddenFilter
+        description: "Yes / No — filter applied programmatically, not shown to user"
+      - fieldname: quickFilterBar
+        description: Yes / No — show in report quick filter bar
+      - fieldname: rememberLastValue
+        description: Yes / No — persist user last selection
+      - fieldname: notes
+        description: Design notes
+  rset-form:
+    fields:
+      - fieldname: scheduleExpression
+        description: "Cron-like expression or recurrence rule, e.g. 0 6 1 * * (1st of month at 06:00)"
+      - fieldname: timezone
+        description: "Timezone for schedule, e.g. Europe/Berlin"
+      - fieldname: startDate
+        description: Schedule effective start date
+      - fieldname: endDate
+        description: Schedule expiry date; empty = no expiry
+      - fieldname: generationWindow
+        description: "Time window for generation, e.g. 02:00–06:00 (off-peak)"
+      - fieldname: generationTimeout
+        description: "Max duration before timeout, e.g. 30min"
+  rser-form:
+    fields:
+      - fieldname: retryOnFailure
+        description: Yes / No
+      - fieldname: maxRetries
+        description: Number of retry attempts
+      - fieldname: retryDelay
+        description: "Delay between retries, e.g. 5min / 15min / Exponential"
+  rsen-form:
+    fields:
+      - fieldname: notifyOnCompletion
+        description: Yes / No — send notification when report is ready
+      - fieldname: completionRecipients
+        description: Recipients for completion notification (if different from report recipients)
+      - fieldname: notifyOnFailure
+        description: Yes / No — send alert on generation failure
+      - fieldname: failureRecipients
+        description: Recipients for failure alerts
+  rseo-form:
+    fields:
+      - fieldname: filterOverrides
+        description: "Parameter values for scheduled run, e.g. dateRange=last_month"
+      - fieldname: outputFormat
+        description: "Override format for this schedule, e.g. PDF"
+      - fieldname: outputDestination
+        description: "Where to store generated output: Archive / File-Share / Dashboard / S3-Bucket"
+      - fieldname: priority
+        description: Low / Normal / High / Critical — queue priority
+      - fieldname: enabled
+        description: Yes / No — is this schedule active
+      - fieldname: notes
+        description: Design notes
+  redienre-form:
+    fields:
+      - fieldname: formatPerChannel
+        description: "Output format for this channel, e.g. PDF for email, Excel for file-share"
+      - fieldname: recipientSource
+        description: Static-List / Role-Based / Query / Report-Filter
+      - fieldname: recipientList
+        description: Comma-separated recipient IDs or addresses
+      - fieldname: recipientRoles
+        description: Roles whose members receive the report
+  redienco-form:
+    fields:
+      - fieldname: subjectTemplate
+        description: "Email/notification subject, e.g. {reportName} — {dateRange}"
+      - fieldname: bodyTemplate
+        description: Email/notification body template
+      - fieldname: attachmentOption
+        description: Inline / Attachment / Link-Only / Embedded-Preview
+      - fieldname: attachmentFileNamePattern
+        description: "Pattern for attachment filename, e.g. {reportName}_{date}.pdf"
+  rded-form:
+    fields:
+      - fieldname: compressionEnabled
+        description: Yes / No — compress attachment (ZIP)
+      - fieldname: passwordProtect
+        description: Yes / No — encrypt attachment with password
+      - fieldname: conditionalDistribution
+        description: "Condition for sending, e.g. data.rows > 0 or totalAmount > threshold"
+      - fieldname: suppressIfEmpty
+        description: Yes / No — skip distribution if report has no data
+      - fieldname: fileSharePath
+        description: Network/cloud path for file-share distribution
+      - fieldname: retainCopy
+        description: Yes / No — keep a copy in the archive
+      - fieldname: sendTime
+        description: "When to distribute after generation: Immediately / Delay(1h) / Scheduled-Window"
+      - fieldname: enabled
+        description: Yes / No — is this channel active
+      - fieldname: notes
+        description: Design notes
+  rereenco-form:
+    fields:
+      - fieldname: role
+        description: "Business role of this recipient, e.g. Department Head, Controller"
+      - fieldname: dataScopeRestriction
+        description: "Data visibility restriction, e.g. own-department-only"
+  rred-form:
+    fields:
+      - fieldname: deliveryPreference
+        description: Email / Dashboard / Print / File-Share / API — preferred channel
+      - fieldname: formatPreference
+        description: PDF / Excel / HTML — preferred output format
+      - fieldname: localePreference
+        description: "Preferred locale for this recipient, e.g. en-US"
+      - fieldname: scheduleOverride
+        description: "Override schedule for this recipient, e.g. Weekly instead of Monthly"
+      - fieldname: notifyOnReady
+        description: Yes / No — send notification when report is available
+  rrel-form:
+    fields:
+      - fieldname: active
+        description: Yes / No — is this recipient currently receiving reports
+      - fieldname: effectiveFrom
+        description: Date this recipient is added
+      - fieldname: effectiveTo
+        description: Date this recipient is removed; empty = indefinite
+      - fieldname: notes
+        description: Design notes
   acovna-form:
     fields:
       - fieldname: totalActorCount
@@ -22332,6 +23327,12 @@ document:
       optional: true
     accm:
       section-type: accm
+      optional: true
+    auanlo:
+      section-type: auanlo
+      optional: true
+    redf:
+      section-type: redf
       optional: true
     psaai:
       section-type: psaai

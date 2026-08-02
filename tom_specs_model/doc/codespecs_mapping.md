@@ -830,6 +830,39 @@ belonged — everything in it is a routine run against an existing log rather th
 a declaration a generator can read. D08 reaches it directly, since SAS still
 owns the content.
 
+**CE-RP's home needed the same treatment**, on a different boundary. Its home
+`PrintAndExportLayout` (`PRLA`, XDS) grouped two bands — **defined vs deployed**:
+
+| Band | Content | Destination |
+|------|---------|-------------|
+| Defined | `ReportEntry` REPENT + its section / column / chart / filter / schedule / distribution / recipient entries | **CE-RP** — `@CsReport` |
+| Deployed | The print settings + `ExportFormatEntry` / `ExportSizeSettings` / `ExportFieldMappingEntry` / `ExportTemplateEntry` | **CE-CF** — `@CsServerConfig` |
+
+Here, unlike CE-LG's, the two bands do **not** stay together: a report definition
+is generation input for a different part than the renderer that prints it, and
+the renderer settings are environment-wide rather than per-report. So the
+*defined* band left, into a new sibling `ReportDefinitions` (`REDF`) directly
+under `ExperienceAndInterfaceDesign` — a `D13CodeSpecsProjection` root at the
+server locus. `PRLA` keeps its name, because after the move it describes exactly
+what it holds: the print and export *layout* settings. D09 reaches both, since
+XDS still owns the content.
+
+Two boundary findings came out of drawing the line:
+
+- **`ExportFieldMappingEntry` (`EXFIMAEN`) was on the wrong side.** It carried
+  `reporting` while its container `ExportFormatEntry` carried
+  `serverConfiguration` — a CE-RP leaf inside a CE-CF container, which could be
+  neither projected nor hoisted (a field mapping is meaningless apart from the
+  format it maps). It is CE-CF: the column layout of one catalogue entry, not a
+  projection a specification authors. The authored projection is
+  `ReportColumnEntry`.
+- **A `@CodeSpecKind` section inside a `@FollowUpKind` subtree is not itself a
+  defect.** `PRLA` still sits under `ExperienceDesignFollowUp`
+  (`@FollowUpKind([doc])`), as `UserAssistance` and `MultiLanguageSupport` do
+  under theirs. Only a section that must become a **projection root** has to be
+  hoisted out, because only then does the follow-up content become reachable
+  from the generation input.
+
 ### 4.4 Generation slices — the per-slice `tom_core` capability contract
 
 A **generation slice** is a set of parts emitted together into the §4.2 projects.
@@ -3124,8 +3157,8 @@ it.
 
 Marked by `@CsReport` (with `@CsReportColumn`, `@CsReportChart` and
 `@CsReportParameter` on its members), built on `TomReportDefinition` /
-`TomReportResult` (`tom_core_codespecs`). SOM home: **D09 XDS**, the
-report/print/export family under `PrintAndExportLayout`, with **D03 IMO** as the
+`TomReportResult` (`tom_core_codespecs`). SOM home: **D09 XDS**, the report
+definition family under `ReportDefinitions` (`REDF`), with **D03 IMO** as the
 source-data reference.
 
 #### CE-RP is a part, not a composition
@@ -3313,20 +3346,25 @@ scheduler. SMTP credentials are secret-marked CE-CF fields per §5.16.
 
 #### Projection membership
 
-CE-RP's SOM home `PrintAndExportLayout` (XDS) is a **mixed subtree** in the §8.3
-sense: the section's own form fields and its export format / size / template
-entries are CE-CF renderer settings, while its child lists — `ReportEntry` and
-the section, column, chart, filter, schedule, distribution and recipient entries
-below it — are CE-RP. The section therefore carries **both** kinds, and it is
-**not** a `D13CodeSpecsProjection` field: projecting it wholesale would pull
-CE-CF settings into the CE-RP generation input.
+CE-RP's SOM home is **`ReportDefinitions`** (`REDF`, XDS) — a direct child of
+`ExperienceAndInterfaceDesign` holding `List<ReportEntry> reports` and, below it,
+the section, column, chart, filter, schedule, distribution and recipient entries.
+It is a purely-CodeSpecs subtree and a `D13CodeSpecsProjection` root at the
+**server** locus (`locus: server — CE-RP`); the container carries no
+`@CodeSpecKind` of its own, since the part lives on `ReportEntry`.
 
-The report list cannot be lifted out on its own either, because its
-`@SectionId('REEN-REPO-LST')` / `@SectionIdPattern('REEN-REPO-xxx')` are declared
-on `PrintAndExportLayout` — a projection route needs the list *moved*, which is a
-Band-F-style split. Until that lands, CE-RP is an active part whose declarations
-reach generation through the endpoints and repositories they annotate, exactly as
-CE-LG's do (§4.3.2).
+The subtree needs no second entry at the shared locus. Its shared half — the
+result envelope and the parameter shapes the client reads — is *derived from the
+same report definitions* rather than authored in a second SOM section, and the
+CE-ER contract it rides on is already projected as `ResultEnvelope`.
+
+What stays outside it is `PrintAndExportLayout` (`PRLA`), now single-kind
+**CE-CF**: the environment-wide print settings plus the export format, size and
+template catalogue. `ExportFieldMappingEntry` (`EXFIMAEN`) belongs to that band
+too — it is the column layout of one format-catalogue entry, reachable only
+through `ExportFormatEntry`, not a projection a specification authors on its own.
+The projection-side counterpart is `ReportColumnEntry`, under `ReportEntry`. The
+split that produced this shape is recorded in §4.3.2.
 
 ### 5.29 CE-JB background-job definitions over the operational model
 
@@ -3462,7 +3500,7 @@ Design constraints to encode in the CE-API / CE-ER derivation:
 | CE-DB, CE-ST | **D03 IMO** rich classes | Tables, columns, view-models, DAOs; domain enums are generated as member declarations of their owning part from DOMEN/DMENE + OBST (§4.1 member-kind rule). |
 | CE-CF | **D06 ATS**; **D08 SAS** | **Server/system** configuration only. |
 | CE-CC, CE-DS, CE-UP, CE-CL | **D06 ATS** (deployment/clients); **D09 XDS** (preferences surfaced in UI); **D02 TOM** (roles → whose settings) | Client apps + per-machine client config + device settings + user settings. |
-| CE-RP | **D09 XDS** (report/print/export definition family, under `PrintAndExportLayout`); **D03 IMO** (source data) | Report definitions — the grouped projection, its output columns and charts, its parameters and its delivery channels (§5.28). The enclosing print/export *settings* are CE-CF, not CE-RP. |
+| CE-RP | **D09 XDS** (report definition family, under `ReportDefinitions`); **D03 IMO** (source data) | Report definitions — the grouped projection, its output columns and charts, its parameters and its delivery channels (§5.28). The sibling print/export *settings* under `PrintAndExportLayout` are CE-CF, not CE-RP. |
 | CE-JB | **D06 ATS** (`BatchJobManagement` BAJOMA) | Background/scheduled jobs from the architecture's operational model; targets cite IMO entities and CE-RP reports (§5.29). |
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
@@ -3676,14 +3714,14 @@ are grouped into one subtree and the rest hoisted into tagged follow-up subtrees
 concrete input the Phase-4 generator consumes end-to-end is
 **`D13CodeSpecsProjection`** (`@SectionId('CGP')`, in
 `tom_specs_model/lib/src/codespecs_projection/codespecs_projection.dart`) — a
-flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **eleven
+flat `@Document(basedOn: [D00SolutionBlueprint])` referencing the **twelve
 isolated subtree roots directly**, with no container classes, grouped into
 shared → server → client locus bands by `@Comment('locus: …')`:
 
 | Locus | Roots |
 |-------|-------|
 | shared | `DomainEnumRegistry`, `ErrorCodeRegistry`, `ResultEnvelope`, `MessageKeyRegistry`, `NotificationModel` |
-| server | `DataModel`, `TechnicalFrameworkConcept`, `AccessControlModel`, `AuditAndLogging` |
+| server | `DataModel`, `TechnicalFrameworkConcept`, `AccessControlModel`, `AuditAndLogging`, `ReportDefinitions` |
 | server + client | `ProcessStepsAndActorInteractions` |
 | client | `ExperienceCodeSpecs` |
 
@@ -3761,7 +3799,7 @@ A part is **COVERED** only when both hold.
 | CE-JB | `backgroundJob` | `BatchJobManagement` BAJOMA — system-wide scheduling *policy* with **no per-job declaration list** | **GAP** — `csrb12` |
 | CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
-| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under `PrintAndExportLayout` PRLA — authorable, but 0 of 11 sections projected | Known — §5.28 / `csrb6` (**not** a new gap) |
+| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under the `ReportDefinitions` REDF projection root | COVERED |
 | — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | COVERED |
 | CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | N/A (deferred, §4.3) |
 
@@ -3867,7 +3905,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb6` | Split the mixed `PrintAndExportLayout` (XDS) SOM subtree — the CE-CF renderer/export settings band and the CE-RP report band — so the promoted CE-RP part gets a `D13CodeSpecsProjection` field at the server locus (§5.28). The last promoted part still without a projection route; §4.3.2 records the equivalent split for `AuditAndLogging`. |
 | `csrb7` | Resolve the domain-enum contradiction: §4.1 records a domain enum as "realised as a plain Dart `enum` — no `tom_core_codespecs` class", yet `TomDomainEnum` / `TomDomainEnumValue` ship as live gap classes. Exactly one arm must stand; either way it is API-breaking. |
 | `csrb8` | Add a **file / upload semantic kind** to the CE-EL closed catalogue (§5.18). The catalogue's ten kinds have no file arm, while the SOM already offers `ScreenElementFieldKind.file` and `ScreenFieldKind.file` — so a file input can be specified but not realised. Pairs with §5.13.1: CE-DB now stores the reference, CE-EL still cannot present it. |
 | `csrb9` | Author the **setting-declaration surface for all four config scopes** — CE-CF / CE-CC / CE-DS / CE-UP (§8.5 gap, §5.16 surface). Today CE-CF has only operational policy, CE-CC a fixed five-field form, CE-DS a single non-repeating form and CE-UP a picker UX section. |

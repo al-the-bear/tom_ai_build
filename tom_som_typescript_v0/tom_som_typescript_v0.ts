@@ -2371,7 +2371,7 @@ export class AuthorizationComplianceFollowUp extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.4.1. Authorization Compliance.
+  // 10.5.1. Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
 }
 
@@ -8400,6 +8400,11 @@ export class D09ExperienceDesignSpecification extends SomNode {
     return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
   }
 
+  // Report definitions — the CE-RP report projections over the domain model.
+  get reportDefinitions(): ReportDefinitions {
+    return new ReportDefinitions(this.doc, this.path + "/reportDefinitions");
+  }
+
   // Error handling concept.
   get errorHandling(): ErrorHandling {
     return new ErrorHandling(this.doc, this.path + "/errorHandling");
@@ -8967,6 +8972,19 @@ export class D13CodeSpecsProjection extends SomNode {
   // `SecurityOperationsFollowUp` and is deliberately unreachable from here.
   get auditAndLogging(): AuditAndLogging {
     return new AuditAndLogging(this.doc, this.path + "/auditAndLogging");
+  }
+
+  // Report definitions — CE-RP grouped projections over the domain model.
+  //
+  // The definition is where the report runs, so the subtree's locus is the
+  // server. Its shared half — the result envelope and the parameter shapes the
+  // client reads — is **derived from this same subtree** rather than authored
+  // in a second SOM section, so it needs no separate shared-locus entry; the
+  // generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+  // environment-wide print and export *settings* are CE-CF and live in
+  // `PrintAndExportLayout`, deliberately unreachable from here.
+  get reportDefinitions(): ReportDefinitions {
+    return new ReportDefinitions(this.doc, this.path + "/reportDefinitions");
   }
 
   // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -14001,17 +14019,22 @@ export class ExperienceAndInterfaceDesign extends SomNode {
     return new ExperienceCodeSpecs(this.doc, this.path + "/experienceCodeSpecs");
   }
 
-  // 10.2. Experience Design — DOC follow-up subtree.
+  // 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+  get reportDefinitions(): ReportDefinitions {
+    return new ReportDefinitions(this.doc, this.path + "/reportDefinitions");
+  }
+
+  // 10.3. Experience Design — DOC follow-up subtree.
   get designFollowUp(): ExperienceDesignFollowUp {
     return new ExperienceDesignFollowUp(this.doc, this.path + "/designFollowUp");
   }
 
-  // 10.3. Experience Localization — L10N follow-up subtree.
+  // 10.4. Experience Localization — L10N follow-up subtree.
   get localizationFollowUp(): ExperienceLocalizationFollowUp {
     return new ExperienceLocalizationFollowUp(this.doc, this.path + "/localizationFollowUp");
   }
 
-  // 10.4. Authorization Compliance — CMP follow-up subtree.
+  // 10.5. Authorization Compliance — CMP follow-up subtree.
   get authorizationComplianceFollowUp(): AuthorizationComplianceFollowUp {
     return new AuthorizationComplianceFollowUp(this.doc, this.path + "/authorizationComplianceFollowUp");
   }
@@ -14098,32 +14121,32 @@ export class ExperienceDesignFollowUp extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.2.1. Design Vision. Seeds → XDS.
+  // 10.3.1. Design Vision. Seeds → XDS.
   get designVision(): DesignVision {
     return new DesignVision(this.doc, this.path + "/designVision");
   }
 
-  // 10.2.2. Print Layout. Seeds → XDS.
+  // 10.3.2. Print & Export Layout. Seeds → XDS.
   get printLayout(): PrintAndExportLayout {
     return new PrintAndExportLayout(this.doc, this.path + "/printLayout");
   }
 
-  // 10.2.3. User Assistance. Seeds → XDS.
+  // 10.3.3. User Assistance. Seeds → XDS.
   get userAssistance(): UserAssistance {
     return new UserAssistance(this.doc, this.path + "/userAssistance");
   }
 
-  // 10.2.4. Accessibility. Seeds → XDS.
+  // 10.3.4. Accessibility. Seeds → XDS.
   get accessibility(): Accessibility {
     return new Accessibility(this.doc, this.path + "/accessibility");
   }
 
-  // 10.2.5. Prototype. Seeds → XDS.
+  // 10.3.5. Prototype. Seeds → XDS.
   get prototype_(): Prototype {
     return new Prototype(this.doc, this.path + "/prototype");
   }
 
-  // 10.2.6. Wireframes and Mockups.
+  // 10.3.6. Wireframes and Mockups.
   //
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -14154,7 +14177,7 @@ export class ExperienceLocalizationFollowUp extends SomNode {
     this.doc.setContent(this.path + "/content", value);
   }
 
-  // 10.3.1. Multi-language Support.
+  // 10.4.1. Multi-language Support.
   get multiLanguageSupport(): MultiLanguageSupport {
     return new MultiLanguageSupport(this.doc, this.path + "/multiLanguageSupport");
   }
@@ -23254,17 +23277,12 @@ export class PrintAndExportLayout extends SomNode {
     return new PrintAndExportLayoutArchiveForm(this.doc, this.path + "/PRLAAR");
   }
 
-  // 10.4.1. Reports — contains 0+× Report.
-  get reports(): SomList<ReportEntry> {
-    return new SomList(this.doc, this.path + "/REEN-REPO-LST", (d: SpecDocument, p: string) => new ReportEntry(d, p), "REEN-REPO-xxx");
-  }
-
-  // 10.4.2. Export Formats — contains 0+× Export Format.
+  // 10.4.1. Export Formats — contains 0+× Export Format.
   get exportFormats(): SomList<ExportFormatEntry> {
     return new SomList(this.doc, this.path + "/EXFOEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportFormatEntry(d, p), "EXFOEN-EXPO-xxx");
   }
 
-  // 10.4.3. Export Templates — contains 0+× Export
+  // 10.4.2. Export Templates — contains 0+× Export
   // Template.
   get exportTemplates(): SomList<ExportTemplateEntry> {
     return new SomList(this.doc, this.path + "/EXTEEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportTemplateEntry(d, p), "EXTEEN-EXPO-xxx");
@@ -25819,6 +25837,38 @@ export class ReportColumnEntry extends SomNode {
   // Visibility and layout.
   get layout(): ReportColumnEntryLayoutForm {
     return new ReportColumnEntryLayoutForm(this.doc, this.path + "/RECOLA");
+  }
+}
+
+// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+//
+// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+// the domain model — its sections, output columns, charts, filters, schedule
+// and distribution. The container itself carries no `@CodeSpecKind` — the
+// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+// separate from the environment-wide print and export *settings* that remain
+// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+export class ReportDefinitions extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path + "/content") || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path + "/content", value);
+  }
+
+  // 10.2.1. Reports — contains 0+× Report.
+  get reports(): SomList<ReportEntry> {
+    return new SomList(this.doc, this.path + "/REEN-REPO-LST", (d: SpecDocument, p: string) => new ReportEntry(d, p), "REEN-REPO-xxx");
   }
 }
 

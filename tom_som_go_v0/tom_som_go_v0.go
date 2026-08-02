@@ -2736,7 +2736,7 @@ func (x *AuthorizationComplianceFollowUp) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 10.4.1. Authorization Compliance.
+// 10.5.1. Authorization Compliance.
 // (skipped: authorizationCompliance has no target type)
 
 // Authorization event policy (form).
@@ -9729,6 +9729,11 @@ func (x *D09ExperienceDesignSpecification) PrintLayout() *PrintAndExportLayout {
 	return NewPrintAndExportLayout(x.Doc(), x.Path()+"/printLayout")
 }
 
+// Report definitions — the CE-RP report projections over the domain model.
+func (x *D09ExperienceDesignSpecification) ReportDefinitions() *ReportDefinitions {
+	return NewReportDefinitions(x.Doc(), x.Path()+"/reportDefinitions")
+}
+
 // Error handling concept.
 func (x *D09ExperienceDesignSpecification) ErrorHandling() *ErrorHandling {
 	return NewErrorHandling(x.Doc(), x.Path()+"/errorHandling")
@@ -10378,6 +10383,19 @@ func (x *D13CodeSpecsProjection) AccessControl() *AccessControlModel {
 // `SecurityOperationsFollowUp` and is deliberately unreachable from here.
 func (x *D13CodeSpecsProjection) AuditAndLogging() *AuditAndLogging {
 	return NewAuditAndLogging(x.Doc(), x.Path()+"/auditAndLogging")
+}
+
+// Report definitions — CE-RP grouped projections over the domain model.
+//
+// The definition is where the report runs, so the subtree's locus is the
+// server. Its shared half — the result envelope and the parameter shapes the
+// client reads — is **derived from this same subtree** rather than authored
+// in a second SOM section, so it needs no separate shared-locus entry; the
+// generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+// environment-wide print and export *settings* are CE-CF and live in
+// `PrintAndExportLayout`, deliberately unreachable from here.
+func (x *D13CodeSpecsProjection) ReportDefinitions() *ReportDefinitions {
+	return NewReportDefinitions(x.Doc(), x.Path()+"/reportDefinitions")
 }
 
 // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -16155,17 +16173,22 @@ func (x *ExperienceAndInterfaceDesign) ExperienceCodeSpecs() *ExperienceCodeSpec
 	return NewExperienceCodeSpecs(x.Doc(), x.Path()+"/experienceCodeSpecs")
 }
 
-// 10.2. Experience Design — DOC follow-up subtree.
+// 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+func (x *ExperienceAndInterfaceDesign) ReportDefinitions() *ReportDefinitions {
+	return NewReportDefinitions(x.Doc(), x.Path()+"/reportDefinitions")
+}
+
+// 10.3. Experience Design — DOC follow-up subtree.
 func (x *ExperienceAndInterfaceDesign) DesignFollowUp() *ExperienceDesignFollowUp {
 	return NewExperienceDesignFollowUp(x.Doc(), x.Path()+"/designFollowUp")
 }
 
-// 10.3. Experience Localization — L10N follow-up subtree.
+// 10.4. Experience Localization — L10N follow-up subtree.
 func (x *ExperienceAndInterfaceDesign) LocalizationFollowUp() *ExperienceLocalizationFollowUp {
 	return NewExperienceLocalizationFollowUp(x.Doc(), x.Path()+"/localizationFollowUp")
 }
 
-// 10.4. Authorization Compliance — CMP follow-up subtree.
+// 10.5. Authorization Compliance — CMP follow-up subtree.
 func (x *ExperienceAndInterfaceDesign) AuthorizationComplianceFollowUp() *AuthorizationComplianceFollowUp {
 	return NewAuthorizationComplianceFollowUp(x.Doc(), x.Path()+"/authorizationComplianceFollowUp")
 }
@@ -16262,32 +16285,32 @@ func (x *ExperienceDesignFollowUp) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 10.2.1. Design Vision. Seeds → XDS.
+// 10.3.1. Design Vision. Seeds → XDS.
 func (x *ExperienceDesignFollowUp) DesignVision() *DesignVision {
 	return NewDesignVision(x.Doc(), x.Path()+"/designVision")
 }
 
-// 10.2.2. Print Layout. Seeds → XDS.
+// 10.3.2. Print & Export Layout. Seeds → XDS.
 func (x *ExperienceDesignFollowUp) PrintLayout() *PrintAndExportLayout {
 	return NewPrintAndExportLayout(x.Doc(), x.Path()+"/printLayout")
 }
 
-// 10.2.3. User Assistance. Seeds → XDS.
+// 10.3.3. User Assistance. Seeds → XDS.
 func (x *ExperienceDesignFollowUp) UserAssistance() *UserAssistance {
 	return NewUserAssistance(x.Doc(), x.Path()+"/userAssistance")
 }
 
-// 10.2.4. Accessibility. Seeds → XDS.
+// 10.3.4. Accessibility. Seeds → XDS.
 func (x *ExperienceDesignFollowUp) Accessibility() *Accessibility {
 	return NewAccessibility(x.Doc(), x.Path()+"/accessibility")
 }
 
-// 10.2.5. Prototype. Seeds → XDS.
+// 10.3.5. Prototype. Seeds → XDS.
 func (x *ExperienceDesignFollowUp) Prototype() *Prototype {
 	return NewPrototype(x.Doc(), x.Path()+"/prototype")
 }
 
-// 10.2.6. Wireframes and Mockups.
+// 10.3.6. Wireframes and Mockups.
 //
 // One whole-catalog content section; collapsed from
 // `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -16323,7 +16346,7 @@ func (x *ExperienceLocalizationFollowUp) SetContent(value string) {
 	x.Doc().SetContent(x.Path()+"/content", value)
 }
 
-// 10.3.1. Multi-language Support.
+// 10.4.1. Multi-language Support.
 func (x *ExperienceLocalizationFollowUp) MultiLanguageSupport() *MultiLanguageSupport {
 	return NewMultiLanguageSupport(x.Doc(), x.Path()+"/multiLanguageSupport")
 }
@@ -26811,21 +26834,14 @@ func (x *PrintAndExportLayout) Archive() *PrintAndExportLayoutArchiveForm {
 	return NewPrintAndExportLayoutArchiveForm(x.Doc(), x.Path()+"/PRLAAR")
 }
 
-// 10.4.1. Reports — contains 0+× Report.
-func (x *PrintAndExportLayout) Reports() *som.SomList[*ReportEntry] {
-	return som.NewSomList(x.Doc(), x.Path()+"/REEN-REPO-LST", func(d *som.SpecDocument, p string) *ReportEntry {
-		return NewReportEntry(d, p)
-	}, "REEN-REPO-xxx")
-}
-
-// 10.4.2. Export Formats — contains 0+× Export Format.
+// 10.4.1. Export Formats — contains 0+× Export Format.
 func (x *PrintAndExportLayout) ExportFormats() *som.SomList[*ExportFormatEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/EXFOEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportFormatEntry {
 		return NewExportFormatEntry(d, p)
 	}, "EXFOEN-EXPO-xxx")
 }
 
-// 10.4.3. Export Templates — contains 0+× Export
+// 10.4.2. Export Templates — contains 0+× Export
 // Template.
 func (x *PrintAndExportLayout) ExportTemplates() *som.SomList[*ExportTemplateEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/EXTEEN-EXPO-LST", func(d *som.SpecDocument, p string) *ExportTemplateEntry {
@@ -29823,6 +29839,45 @@ func (x *ReportColumnEntry) Interaction() *ReportColumnEntryInteractionForm {
 // Visibility and layout.
 func (x *ReportColumnEntry) Layout() *ReportColumnEntryLayoutForm {
 	return NewReportColumnEntryLayoutForm(x.Doc(), x.Path()+"/RECOLA")
+}
+
+// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+//
+// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+// the domain model — its sections, output columns, charts, filters, schedule
+// and distribution. The container itself carries no `@CodeSpecKind` — the
+// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+// separate from the environment-wide print and export *settings* that remain
+// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+type ReportDefinitions struct {
+	som.SomNode
+}
+
+// NewReportDefinitions binds a ReportDefinitions facade to a document and a path.
+func NewReportDefinitions(doc *som.SpecDocument, path string) *ReportDefinitions {
+	return &ReportDefinitions{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this section type declares the standard `content`
+// text leaf (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ReportDefinitions) CanHaveContent() bool {
+	return true
+}
+
+func (x *ReportDefinitions) Content() string {
+	return x.Doc().ContentOr(x.Path() + "/content")
+}
+
+func (x *ReportDefinitions) SetContent(value string) {
+	x.Doc().SetContent(x.Path()+"/content", value)
+}
+
+// 10.2.1. Reports — contains 0+× Report.
+func (x *ReportDefinitions) Reports() *som.SomList[*ReportEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/REEN-REPO-LST", func(d *som.SpecDocument, p string) *ReportEntry {
+		return NewReportEntry(d, p)
+	}, "REEN-REPO-xxx")
 }
 
 // Distribution channel configuration (form).

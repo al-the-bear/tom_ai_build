@@ -10729,6 +10729,13 @@ PrintAndExportLayout d09_experience_design_specification_print_layout(const D09E
   free(path);
   return out;
 }
+ReportDefinitions d09_experience_design_specification_report_definitions(const D09ExperienceDesignSpecification *self) {
+  char *path = spec_path_join(self->node.path, "reportDefinitions");
+  ReportDefinitions out;
+  report_definitions_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ErrorHandling d09_experience_design_specification_error_handling(const D09ExperienceDesignSpecification *self) {
   char *path = spec_path_join(self->node.path, "errorHandling");
   ErrorHandling out;
@@ -11393,6 +11400,13 @@ AuditAndLogging d13_code_specs_projection_audit_and_logging(const D13CodeSpecsPr
   char *path = spec_path_join(self->node.path, "auditAndLogging");
   AuditAndLogging out;
   audit_and_logging_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportDefinitions d13_code_specs_projection_report_definitions(const D13CodeSpecsProjection *self) {
+  char *path = spec_path_join(self->node.path, "reportDefinitions");
+  ReportDefinitions out;
+  report_definitions_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -17927,6 +17941,13 @@ ExperienceCodeSpecs experience_and_interface_design_experience_code_specs(const 
   char *path = spec_path_join(self->node.path, "experienceCodeSpecs");
   ExperienceCodeSpecs out;
   experience_code_specs_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+ReportDefinitions experience_and_interface_design_report_definitions(const ExperienceAndInterfaceDesign *self) {
+  char *path = spec_path_join(self->node.path, "reportDefinitions");
+  ReportDefinitions out;
+  report_definitions_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -29874,13 +29895,6 @@ PrintAndExportLayoutArchiveForm print_and_export_layout_archive(const PrintAndEx
   free(path);
   return out;
 }
-SomList print_and_export_layout_reports(const PrintAndExportLayout *self) {
-  char *path = spec_path_join(self->node.path, "REEN-REPO-LST");
-  SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REEN-REPO-xxx");
-  free(path);
-  return out;
-}
 SomList print_and_export_layout_export_formats(const PrintAndExportLayout *self) {
   char *path = spec_path_join(self->node.path, "EXFOEN-EXPO-LST");
   SomList out;
@@ -33296,6 +33310,36 @@ ReportColumnEntryLayoutForm report_column_entry_layout(const ReportColumnEntry *
   char *path = spec_path_join(self->node.path, "RECOLA");
   ReportColumnEntryLayoutForm out;
   report_column_entry_layout_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void report_definitions_init(ReportDefinitions *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void report_definitions_free(ReportDefinitions *self) {
+  som_node_free(&self->node);
+}
+int report_definitions_can_have_content(const ReportDefinitions *self) {
+  (void)self;
+  return 1;
+}
+char *report_definitions_content(const ReportDefinitions *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  const char *v = spec_document_content(self->node.doc, path);
+  char *out = som_strdup(v != NULL ? v : "");
+  free(path);
+  return out;
+}
+void report_definitions_set_content(ReportDefinitions *self, const char *value) {
+  char *path = spec_path_join(self->node.path, "content");
+  spec_document_set_content(self->node.doc, path, value);
+  free(path);
+}
+SomList report_definitions_reports(const ReportDefinitions *self) {
+  char *path = spec_path_join(self->node.path, "REEN-REPO-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "REEN-REPO-xxx");
   free(path);
   return out;
 }

@@ -2495,6 +2495,29 @@
             familyNarrative @text
           - components: `FamilyComponentRef`
             - content @Form(componentId, componentName, familyRole, relationToOthers)
+    - `ReportDefinitions`
+      - content @description
+      - reports: `ReportEntry`
+        - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
+          grouping, formatting, interactivity, pagination, security, lifecycle
+        - sections: `ReportSectionEntry`
+          - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
+          - columns: `ReportColumnEntry`
+            - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat, currencyFormat,
+              dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
+          - charts: `ReportChartEntry`
+            - content @Form(chartId, title, chartType), series, display, interaction, layout
+            - axes: `ReportChartAxes`
+              - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
+        - filters: `ReportFilterEntry`
+          - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
+            dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
+        - schedules: `ReportScheduleEntry`
+          - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
+        - distributions: `ReportDistributionEntry`
+          - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
+        - recipients: `ReportRecipientEntry`
+          - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
     - designFollowUp: `ExperienceDesignFollowUp`
       - content @description
       - `DesignVision`
@@ -2526,27 +2549,6 @@
       - printLayout: `PrintAndExportLayout`
         - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark,
           headerFooter, archive
-        - reports: `ReportEntry`
-          - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
-            grouping, formatting, interactivity, pagination, security, lifecycle
-          - sections: `ReportSectionEntry`
-            - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
-            - columns: `ReportColumnEntry`
-              - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat,
-                currencyFormat, dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
-            - charts: `ReportChartEntry`
-              - content @Form(chartId, title, chartType), series, display, interaction, layout
-              - axes: `ReportChartAxes`
-                - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
-          - filters: `ReportFilterEntry`
-            - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
-              dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
-          - schedules: `ReportScheduleEntry`
-            - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
-          - distributions: `ReportDistributionEntry`
-            - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
-          - recipients: `ReportRecipientEntry`
-            - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
         - exportFormats: `ExportFormatEntry`
           - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security,
             output, access

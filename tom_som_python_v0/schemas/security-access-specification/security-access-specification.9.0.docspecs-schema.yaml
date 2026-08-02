@@ -593,9 +593,7 @@ section-types:
         max-count: 1
       aulofo:
         max-count: 1
-      comrep:
-        max-count: 1
-    description: Audit and logging.
+    description: Audit and logging — the CE-LG / CE-CF declarations.
   auevp1:
     prefix: AUEVP1
     description: Authorization Events.
@@ -613,7 +611,7 @@ section-types:
         max-count: 1
       lorepo:
         max-count: 1
-    description: 9.6.2. Audit Log Format.
+    description: 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   authen:
     prefix: AUTHEN
     subsection-types:
@@ -645,7 +643,7 @@ section-types:
         max-count: 1
       reausu:
         max-count: 1
-    description: 9.6.3. Compliance Reporting.
+    description: Compliance reporting — the review / reporting routines run against the
   coscpo:
     prefix: COSCPO
     format: coscpo-form
@@ -813,7 +811,7 @@ section-types:
         max-count: 1
       sevt-cust-lst:
         max-count: 1
-    description: 9.6.1. Security Events.
+    description: 9.6.1. Security Events — the CE-LG declared half.
   serepo:
     prefix: SEREPO
     subsection-types:
@@ -3755,4 +3753,7 @@ document:
       optional: true
     cf:
       section-type: cf
+      optional: true
+    comrep:
+      section-type: comrep
       optional: true

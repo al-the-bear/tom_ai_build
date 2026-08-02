@@ -950,6 +950,29 @@
       - logRetention: `LogRetentionPolicy`
         - content @Form(minimumRetention, maximumRetention, retentionByCategory, archivalPolicy, disposalMethod, legalHold),
           notes @text
+  - `ReportDefinitions` ← (locus: server — CE-RP)
+    - content @description
+    - reports: `ReportEntry`
+      - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter, grouping,
+        formatting, interactivity, pagination, security, lifecycle
+      - sections: `ReportSectionEntry`
+        - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
+        - columns: `ReportColumnEntry`
+          - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat, currencyFormat,
+            dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
+        - charts: `ReportChartEntry`
+          - content @Form(chartId, title, chartType), series, display, interaction, layout
+          - axes: `ReportChartAxes`
+            - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
+      - filters: `ReportFilterEntry`
+        - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
+          dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
+      - schedules: `ReportScheduleEntry`
+        - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
+      - distributions: `ReportDistributionEntry`
+        - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
+      - recipients: `ReportRecipientEntry`
+        - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
   - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
     - content
     - overview: `ProcessStepsOverview`

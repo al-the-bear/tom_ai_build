@@ -2312,7 +2312,7 @@ class AuthorizationComplianceFollowUp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.4.1. Authorization Compliance.
+    # 10.5.1. Authorization Compliance.
     @property
     def authorizationCompliance(self):
         return None  # (skipped: no target type)
@@ -8153,6 +8153,11 @@ class D09ExperienceDesignSpecification(SomNode):
     def printLayout(self):
         return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
 
+    # Report definitions — the CE-RP report projections over the domain model.
+    @property
+    def reportDefinitions(self):
+        return ReportDefinitions(self.doc, f"{self.path}/reportDefinitions")
+
     # Error handling concept.
     @property
     def errorHandling(self):
@@ -8709,6 +8714,19 @@ class D13CodeSpecsProjection(SomNode):
     @property
     def auditAndLogging(self):
         return AuditAndLogging(self.doc, f"{self.path}/auditAndLogging")
+
+    # Report definitions — CE-RP grouped projections over the domain model.
+    #
+    # The definition is where the report runs, so the subtree's locus is the
+    # server. Its shared half — the result envelope and the parameter shapes the
+    # client reads — is **derived from this same subtree** rather than authored
+    # in a second SOM section, so it needs no separate shared-locus entry; the
+    # generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+    # environment-wide print and export *settings* are CE-CF and live in
+    # `PrintAndExportLayout`, deliberately unreachable from here.
+    @property
+    def reportDefinitions(self):
+        return ReportDefinitions(self.doc, f"{self.path}/reportDefinitions")
 
     # Process steps & actor interactions — CE-SU server-use + CE-SC client-side
     # interaction; a single subtree whose parts split across both loci.
@@ -13556,17 +13574,22 @@ class ExperienceAndInterfaceDesign(SomNode):
     def experienceCodeSpecs(self):
         return ExperienceCodeSpecs(self.doc, f"{self.path}/experienceCodeSpecs")
 
-    # 10.2. Experience Design — DOC follow-up subtree.
+    # 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+    @property
+    def reportDefinitions(self):
+        return ReportDefinitions(self.doc, f"{self.path}/reportDefinitions")
+
+    # 10.3. Experience Design — DOC follow-up subtree.
     @property
     def designFollowUp(self):
         return ExperienceDesignFollowUp(self.doc, f"{self.path}/designFollowUp")
 
-    # 10.3. Experience Localization — L10N follow-up subtree.
+    # 10.4. Experience Localization — L10N follow-up subtree.
     @property
     def localizationFollowUp(self):
         return ExperienceLocalizationFollowUp(self.doc, f"{self.path}/localizationFollowUp")
 
-    # 10.4. Authorization Compliance — CMP follow-up subtree.
+    # 10.5. Authorization Compliance — CMP follow-up subtree.
     @property
     def authorizationComplianceFollowUp(self):
         return AuthorizationComplianceFollowUp(self.doc, f"{self.path}/authorizationComplianceFollowUp")
@@ -13653,32 +13676,32 @@ class ExperienceDesignFollowUp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.2.1. Design Vision. Seeds → XDS.
+    # 10.3.1. Design Vision. Seeds → XDS.
     @property
     def designVision(self):
         return DesignVision(self.doc, f"{self.path}/designVision")
 
-    # 10.2.2. Print Layout. Seeds → XDS.
+    # 10.3.2. Print & Export Layout. Seeds → XDS.
     @property
     def printLayout(self):
         return PrintAndExportLayout(self.doc, f"{self.path}/printLayout")
 
-    # 10.2.3. User Assistance. Seeds → XDS.
+    # 10.3.3. User Assistance. Seeds → XDS.
     @property
     def userAssistance(self):
         return UserAssistance(self.doc, f"{self.path}/userAssistance")
 
-    # 10.2.4. Accessibility. Seeds → XDS.
+    # 10.3.4. Accessibility. Seeds → XDS.
     @property
     def accessibility(self):
         return Accessibility(self.doc, f"{self.path}/accessibility")
 
-    # 10.2.5. Prototype. Seeds → XDS.
+    # 10.3.5. Prototype. Seeds → XDS.
     @property
     def prototype(self):
         return Prototype(self.doc, f"{self.path}/prototype")
 
-    # 10.2.6. Wireframes and Mockups.
+    # 10.3.6. Wireframes and Mockups.
     #
     # One whole-catalog content section; collapsed from
     # `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -13708,7 +13731,7 @@ class ExperienceLocalizationFollowUp(SomNode):
     def content(self, value):
         self.doc.set_content(f"{self.path}/content", value)
 
-    # 10.3.1. Multi-language Support.
+    # 10.4.1. Multi-language Support.
     @property
     def multiLanguageSupport(self):
         return MultiLanguageSupport(self.doc, f"{self.path}/multiLanguageSupport")
@@ -22535,17 +22558,12 @@ class PrintAndExportLayout(SomNode):
     def archive(self):
         return PrintAndExportLayoutArchiveForm(self.doc, f"{self.path}/PRLAAR")
 
-    # 10.4.1. Reports — contains 0+× Report.
-    @property
-    def reports(self):
-        return SomList(self.doc, f"{self.path}/REEN-REPO-LST", lambda d, p: ReportEntry(d, p), pattern="REEN-REPO-xxx")
-
-    # 10.4.2. Export Formats — contains 0+× Export Format.
+    # 10.4.1. Export Formats — contains 0+× Export Format.
     @property
     def exportFormats(self):
         return SomList(self.doc, f"{self.path}/EXFOEN-EXPO-LST", lambda d, p: ExportFormatEntry(d, p), pattern="EXFOEN-EXPO-xxx")
 
-    # 10.4.3. Export Templates — contains 0+× Export
+    # 10.4.2. Export Templates — contains 0+× Export
     # Template.
     @property
     def exportTemplates(self):
@@ -24987,6 +25005,37 @@ class ReportColumnEntry(SomNode):
     @property
     def layout(self):
         return ReportColumnEntryLayoutForm(self.doc, f"{self.path}/RECOLA")
+
+class ReportDefinitions(SomNode):
+    """SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+    
+    Groups the report definitions CodeSpecs consumes as the CE-RP generation
+    input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+    the domain model — its sections, output columns, charts, filters, schedule
+    and distribution. The container itself carries no `@CodeSpecKind` — the
+    mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+    separate from the environment-wide print and export *settings* that remain
+    in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self):
+        return self.doc.content(f"{self.path}/content") or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(f"{self.path}/content", value)
+
+    # 10.2.1. Reports — contains 0+× Report.
+    @property
+    def reports(self):
+        return SomList(self.doc, f"{self.path}/REEN-REPO-LST", lambda d, p: ReportEntry(d, p), pattern="REEN-REPO-xxx")
 
 class ReportDistributionEntry(SomNode):
     """Distribution channel configuration (form)."""

@@ -11769,7 +11769,7 @@ section-types:
         max-count: 1
       acchls:
         max-count: 1
-    description: 10.2.4. Accessibility. Seeds → XDS.
+    description: 10.3.4. Accessibility. Seeds → XDS.
   acchls:
     prefix: ACCHLS
     subsection-types:
@@ -12007,9 +12007,7 @@ section-types:
         max-count: 1
       aulofo:
         max-count: 1
-      comrep:
-        max-count: 1
-    description: 9.2.2. Audit and Logging.
+    description: 9.2. Audit and Logging — the CE-LG / CE-CF CodeSpecs subtree.
   auevp1:
     prefix: AUEVP1
     description: Authorization Events.
@@ -12033,7 +12031,7 @@ section-types:
         max-count: 1
       lorepo:
         max-count: 1
-    description: 9.6.2. Audit Log Format.
+    description: 9.6.2. Audit Log Format — the CE-CF log-sink settings.
   authen:
     prefix: AUTHEN
     subsection-types:
@@ -12591,7 +12589,7 @@ section-types:
         max-count: 1
       reausu:
         max-count: 1
-    description: 9.6.3. Compliance Reporting.
+    description: 9.3.2. Compliance Reporting.
   comreq:
     prefix: COMREQ
     subsection-types:
@@ -14831,7 +14829,7 @@ section-types:
         max-count: 1
       prtyse:
         max-count: 1
-    description: 10.2.5. Prototype. Seeds → XDS.
+    description: 10.3.5. Prototype. Seeds → XDS.
   provdi:
     prefix: PROVDI
     subsection-types:
@@ -15433,7 +15431,7 @@ section-types:
         max-count: 1
       kema:
         max-count: 1
-    description: 9.2.1. Sensitive Data Encryption.
+    description: 9.3.1. Sensitive Data Encryption.
   sedeli:
     prefix: SEDELI
     subsection-types:
@@ -15459,7 +15457,7 @@ section-types:
         max-count: 1
       sevt-cust-lst:
         max-count: 1
-    description: 9.6.1. Security Events.
+    description: 9.6.1. Security Events — the CE-LG declared half.
   selein:
     prefix: SELEIN
     subsection-types:
@@ -16497,7 +16495,7 @@ section-types:
     description: 11.6.1. Weighted Quality Matrix.
   wianmo:
     prefix: WIANMO
-    description: 10.2.6. Wireframes and Mockups.
+    description: 10.3.6. Wireframes and Mockups.
   wosore:
     prefix: WOSORE
     subsection-types:
@@ -16894,7 +16892,7 @@ section-types:
         max-count: 1
       usper:
         max-count: 1
-    description: 10.2.1. Design Vision. Seeds → XDS.
+    description: 10.3.1. Design Vision. Seeds → XDS.
   dfcdt:
     prefix: DFCDT
     format: dfcdt-form
@@ -22378,7 +22376,7 @@ section-types:
         max-count: 1
       suloen-supp-lst:
         max-count: 1
-    description: 10.3.1. Multi-language Support.
+    description: 10.4.1. Multi-language Support.
   mntc:
     prefix: MNTC
     subsection-types:
@@ -23131,13 +23129,11 @@ section-types:
         max-count: 1
       prlaar:
         max-count: 1
-      reen-repo-lst:
-        max-count: 1
       exfoen-expo-lst:
         max-count: 1
       exteen-expo-lst:
         max-count: 1
-    description: 10.2.2. Print Layout. Seeds → XDS.
+    description: "10.3.2. Print & Export Layout. Seeds → XDS."
   prna:
     prefix: PRNA
     subsection-types:
@@ -23366,6 +23362,12 @@ section-types:
       rebe:
         max-count: 1
     description: 10.1.5. Responsive Design. Seeds → XDS.
+  redf:
+    prefix: REDF
+    subsection-types:
+      reen-repo-lst:
+        max-count: 1
+    description: 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
   refo:
     prefix: REFO
     format: refo-form
@@ -23676,6 +23678,8 @@ section-types:
     subsection-types:
       accm:
         max-count: 1
+      auanlo:
+        max-count: 1
       scof:
         max-count: 1
       sccf:
@@ -23849,7 +23853,7 @@ section-types:
     subsection-types:
       cf:
         max-count: 1
-    description: 9.3. Compliance — CMP follow-up subtree.
+    description: 9.4. Compliance — CMP follow-up subtree.
   scco:
     prefix: SCCO
     format: scco-form
@@ -23887,9 +23891,9 @@ section-types:
     subsection-types:
       sedaen:
         max-count: 1
-      auanlo:
+      comrep:
         max-count: 1
-    description: 9.2. Security Operations — OPS follow-up subtree.
+    description: 9.3. Security Operations — OPS follow-up subtree.
   scov:
     prefix: SCOV
     format: scov-form
@@ -25159,7 +25163,7 @@ section-types:
         max-count: 1
       suac:
         max-count: 1
-    description: 10.2.3. User Assistance. Seeds → XDS.
+    description: 10.3.3. User Assistance. Seeds → XDS.
   usau:
     prefix: USAU
     subsection-types:
@@ -25354,7 +25358,7 @@ section-types:
     description: Security and collaboration software stack.
   xcfu:
     prefix: XCFU
-    description: 10.4. Authorization Compliance — CMP follow-up subtree.
+    description: 10.5. Authorization Compliance — CMP follow-up subtree.
   xdfu:
     prefix: XDFU
     subsection-types:
@@ -25370,13 +25374,13 @@ section-types:
         max-count: 1
       wianmo:
         max-count: 1
-    description: 10.2. Experience Design — DOC follow-up subtree.
+    description: 10.3. Experience Design — DOC follow-up subtree.
   xlfu:
     prefix: XLFU
     subsection-types:
       mlar:
         max-count: 1
-    description: 10.3. Experience Localization — L10N follow-up subtree.
+    description: 10.4. Experience Localization — L10N follow-up subtree.
   aap:
     prefix: AAP
     format: aap-form
@@ -26245,6 +26249,8 @@ section-types:
     prefix: XID
     subsection-types:
       xcs:
+        max-count: 1
+      redf:
         max-count: 1
       xdfu:
         max-count: 1
@@ -43947,94 +43953,6 @@ form-types:
         description: What happens when the action fails
       - fieldname: successFeedback
         description: Confirmation shown on success
-  peprf-form:
-    fields:
-      - fieldname: bio
-        description: Brief biographical context
-      - fieldname: technicalProficiency
-        description: Beginner/Intermediate/Advanced — with context
-      - fieldname: accessibilityNeeds
-        description: Visual/Motor/Cognitive/None
-  pectx-form:
-    fields:
-      - fieldname: typicalUsage
-        description: "Frequency, duration, and primary activities"
-      - fieldname: primaryDevice
-        description: Desktop/Laptop/Tablet/Mobile
-      - fieldname: additionalDevices
-        description: Secondary devices used
-      - fieldname: workEnvironment
-        description: Office/Remote/Field/Hybrid
-  pends-form:
-    fields:
-      - fieldname: motivations
-        description: What drives their behavior
-      - fieldname: frustrationsWithCurrent
-        description: Issues with existing solutions
-      - fieldname: successCriteria
-        description: How they measure success
-      - fieldname: quote
-        description: A quote that captures their perspective
-  plps-form:
-    fields:
-      - fieldname: defaultMarginTop
-        description: "Top margin, e.g. 20mm"
-      - fieldname: defaultMarginBottom
-        description: "Bottom margin, e.g. 20mm"
-      - fieldname: defaultMarginLeft
-        description: "Left margin, e.g. 15mm"
-      - fieldname: defaultMarginRight
-        description: "Right margin, e.g. 15mm"
-  prlabr-form:
-    fields:
-      - fieldname: brandingLogoResource
-        description: Resource key or path for company logo
-      - fieldname: brandingColorPrimary
-        description: "Primary brand color, e.g. #003366"
-      - fieldname: brandingColorSecondary
-        description: Secondary brand color for subheadings
-      - fieldname: brandingFontFamily
-        description: "Font family, e.g. Helvetica, Arial"
-      - fieldname: brandingFontSizeBase
-        description: "Base font size, e.g. 10pt"
-  prlawa-form:
-    fields:
-      - fieldname: watermarkText
-        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
-      - fieldname: watermarkImageResource
-        description: Resource key for image watermark
-      - fieldname: watermarkOpacity
-        description: "Watermark opacity, e.g. 0.1"
-      - fieldname: confidentialityMarking
-        description: Internal / Confidential / Public
-      - fieldname: confidentialityPosition
-        description: Header / Footer / Both / Watermark
-  plhf-form:
-    fields:
-      - fieldname: defaultHeaderContent
-        description: "Header template, e.g. {logo} {reportTitle} {date}"
-      - fieldname: defaultFooterContent
-        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
-      - fieldname: defaultDateFormat
-        description: "Date format, e.g. dd.MM.yyyy"
-      - fieldname: defaultNumberFormat
-        description: "Number format, e.g. #,##0.00"
-      - fieldname: defaultCurrencyFormat
-        description: "Currency format, e.g. €#,##0.00"
-      - fieldname: defaultTimezone
-        description: "Timezone, e.g. Europe/Berlin"
-      - fieldname: defaultLocale
-        description: "Locale, e.g. de-DE"
-  prlaar-form:
-    fields:
-      - fieldname: archivePolicy
-        description: None / 30-days / 1-year / Permanent
-      - fieldname: reportNamingConvention
-        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
-      - fieldname: batchGenerationSupport
-        description: Yes / No — support batch report generation
-      - fieldname: maxConcurrentReports
-        description: Maximum concurrent reports
   reid-form:
     fields:
       - fieldname: description
@@ -44509,6 +44427,94 @@ form-types:
         description: Date this recipient is removed; empty = indefinite
       - fieldname: notes
         description: Design notes
+  peprf-form:
+    fields:
+      - fieldname: bio
+        description: Brief biographical context
+      - fieldname: technicalProficiency
+        description: Beginner/Intermediate/Advanced — with context
+      - fieldname: accessibilityNeeds
+        description: Visual/Motor/Cognitive/None
+  pectx-form:
+    fields:
+      - fieldname: typicalUsage
+        description: "Frequency, duration, and primary activities"
+      - fieldname: primaryDevice
+        description: Desktop/Laptop/Tablet/Mobile
+      - fieldname: additionalDevices
+        description: Secondary devices used
+      - fieldname: workEnvironment
+        description: Office/Remote/Field/Hybrid
+  pends-form:
+    fields:
+      - fieldname: motivations
+        description: What drives their behavior
+      - fieldname: frustrationsWithCurrent
+        description: Issues with existing solutions
+      - fieldname: successCriteria
+        description: How they measure success
+      - fieldname: quote
+        description: A quote that captures their perspective
+  plps-form:
+    fields:
+      - fieldname: defaultMarginTop
+        description: "Top margin, e.g. 20mm"
+      - fieldname: defaultMarginBottom
+        description: "Bottom margin, e.g. 20mm"
+      - fieldname: defaultMarginLeft
+        description: "Left margin, e.g. 15mm"
+      - fieldname: defaultMarginRight
+        description: "Right margin, e.g. 15mm"
+  prlabr-form:
+    fields:
+      - fieldname: brandingLogoResource
+        description: Resource key or path for company logo
+      - fieldname: brandingColorPrimary
+        description: "Primary brand color, e.g. #003366"
+      - fieldname: brandingColorSecondary
+        description: Secondary brand color for subheadings
+      - fieldname: brandingFontFamily
+        description: "Font family, e.g. Helvetica, Arial"
+      - fieldname: brandingFontSizeBase
+        description: "Base font size, e.g. 10pt"
+  prlawa-form:
+    fields:
+      - fieldname: watermarkText
+        description: "Text watermark, e.g. DRAFT, CONFIDENTIAL"
+      - fieldname: watermarkImageResource
+        description: Resource key for image watermark
+      - fieldname: watermarkOpacity
+        description: "Watermark opacity, e.g. 0.1"
+      - fieldname: confidentialityMarking
+        description: Internal / Confidential / Public
+      - fieldname: confidentialityPosition
+        description: Header / Footer / Both / Watermark
+  plhf-form:
+    fields:
+      - fieldname: defaultHeaderContent
+        description: "Header template, e.g. {logo} {reportTitle} {date}"
+      - fieldname: defaultFooterContent
+        description: "Footer template, e.g. {companyName} — Page {page}/{pages}"
+      - fieldname: defaultDateFormat
+        description: "Date format, e.g. dd.MM.yyyy"
+      - fieldname: defaultNumberFormat
+        description: "Number format, e.g. #,##0.00"
+      - fieldname: defaultCurrencyFormat
+        description: "Currency format, e.g. €#,##0.00"
+      - fieldname: defaultTimezone
+        description: "Timezone, e.g. Europe/Berlin"
+      - fieldname: defaultLocale
+        description: "Locale, e.g. de-DE"
+  prlaar-form:
+    fields:
+      - fieldname: archivePolicy
+        description: None / 30-days / 1-year / Permanent
+      - fieldname: reportNamingConvention
+        description: "File naming pattern, e.g. {reportId}_{date}_{version}"
+      - fieldname: batchGenerationSupport
+        description: Yes / No — support batch report generation
+      - fieldname: maxConcurrentReports
+        description: Maximum concurrent reports
   exid-form:
     fields:
       - fieldname: description

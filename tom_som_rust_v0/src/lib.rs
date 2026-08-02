@@ -3397,7 +3397,7 @@ impl AuthorizationComplianceFollowUp {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    // 10.4.1. Authorization Compliance.
+    // 10.5.1. Authorization Compliance.
     // (skipped: authorizationCompliance has no target type)
 }
 
@@ -11856,6 +11856,11 @@ impl D09ExperienceDesignSpecification {
         PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
     }
 
+    /// Report definitions — the CE-RP report projections over the domain model.
+    pub fn report_definitions(&self) -> ReportDefinitions {
+        ReportDefinitions::new(self.node.doc(), format!("{}/{}", self.node.path(), "reportDefinitions"))
+    }
+
     /// Error handling concept.
     pub fn error_handling(&self) -> ErrorHandling {
         ErrorHandling::new(self.node.doc(), format!("{}/{}", self.node.path(), "errorHandling"))
@@ -12488,6 +12493,19 @@ impl D13CodeSpecsProjection {
     /// `SecurityOperationsFollowUp` and is deliberately unreachable from here.
     pub fn audit_and_logging(&self) -> AuditAndLogging {
         AuditAndLogging::new(self.node.doc(), format!("{}/{}", self.node.path(), "auditAndLogging"))
+    }
+
+    /// Report definitions — CE-RP grouped projections over the domain model.
+    ///
+    /// The definition is where the report runs, so the subtree's locus is the
+    /// server. Its shared half — the result envelope and the parameter shapes the
+    /// client reads — is **derived from this same subtree** rather than authored
+    /// in a second SOM section, so it needs no separate shared-locus entry; the
+    /// generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+    /// environment-wide print and export *settings* are CE-CF and live in
+    /// `PrintAndExportLayout`, deliberately unreachable from here.
+    pub fn report_definitions(&self) -> ReportDefinitions {
+        ReportDefinitions::new(self.node.doc(), format!("{}/{}", self.node.path(), "reportDefinitions"))
     }
 
     /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
@@ -19729,17 +19747,22 @@ impl ExperienceAndInterfaceDesign {
         ExperienceCodeSpecs::new(self.node.doc(), format!("{}/{}", self.node.path(), "experienceCodeSpecs"))
     }
 
-    /// 10.2. Experience Design — DOC follow-up subtree.
+    /// 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+    pub fn report_definitions(&self) -> ReportDefinitions {
+        ReportDefinitions::new(self.node.doc(), format!("{}/{}", self.node.path(), "reportDefinitions"))
+    }
+
+    /// 10.3. Experience Design — DOC follow-up subtree.
     pub fn design_follow_up(&self) -> ExperienceDesignFollowUp {
         ExperienceDesignFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "designFollowUp"))
     }
 
-    /// 10.3. Experience Localization — L10N follow-up subtree.
+    /// 10.4. Experience Localization — L10N follow-up subtree.
     pub fn localization_follow_up(&self) -> ExperienceLocalizationFollowUp {
         ExperienceLocalizationFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "localizationFollowUp"))
     }
 
-    /// 10.4. Authorization Compliance — CMP follow-up subtree.
+    /// 10.5. Authorization Compliance — CMP follow-up subtree.
     pub fn authorization_compliance_follow_up(&self) -> AuthorizationComplianceFollowUp {
         AuthorizationComplianceFollowUp::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorizationComplianceFollowUp"))
     }
@@ -19844,32 +19867,32 @@ impl ExperienceDesignFollowUp {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.2.1. Design Vision. Seeds → XDS.
+    /// 10.3.1. Design Vision. Seeds → XDS.
     pub fn design_vision(&self) -> DesignVision {
         DesignVision::new(self.node.doc(), format!("{}/{}", self.node.path(), "designVision"))
     }
 
-    /// 10.2.2. Print Layout. Seeds → XDS.
+    /// 10.3.2. Print & Export Layout. Seeds → XDS.
     pub fn print_layout(&self) -> PrintAndExportLayout {
         PrintAndExportLayout::new(self.node.doc(), format!("{}/{}", self.node.path(), "printLayout"))
     }
 
-    /// 10.2.3. User Assistance. Seeds → XDS.
+    /// 10.3.3. User Assistance. Seeds → XDS.
     pub fn user_assistance(&self) -> UserAssistance {
         UserAssistance::new(self.node.doc(), format!("{}/{}", self.node.path(), "userAssistance"))
     }
 
-    /// 10.2.4. Accessibility. Seeds → XDS.
+    /// 10.3.4. Accessibility. Seeds → XDS.
     pub fn accessibility(&self) -> Accessibility {
         Accessibility::new(self.node.doc(), format!("{}/{}", self.node.path(), "accessibility"))
     }
 
-    /// 10.2.5. Prototype. Seeds → XDS.
+    /// 10.3.5. Prototype. Seeds → XDS.
     pub fn prototype(&self) -> Prototype {
         Prototype::new(self.node.doc(), format!("{}/{}", self.node.path(), "prototype"))
     }
 
-    /// 10.2.6. Wireframes and Mockups.
+    /// 10.3.6. Wireframes and Mockups.
     ///
     /// One whole-catalog content section; collapsed from
     /// `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -19909,7 +19932,7 @@ impl ExperienceLocalizationFollowUp {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    /// 10.3.1. Multi-language Support.
+    /// 10.4.1. Multi-language Support.
     pub fn multi_language_support(&self) -> MultiLanguageSupport {
         MultiLanguageSupport::new(self.node.doc(), format!("{}/{}", self.node.path(), "multiLanguageSupport"))
     }
@@ -33240,17 +33263,7 @@ impl PrintAndExportLayout {
         PrintAndExportLayoutArchiveForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "PRLAAR"))
     }
 
-    /// 10.4.1. Reports — contains 0+× Report.
-    pub fn reports(&self) -> som::SomList<ReportEntry> {
-        som::SomList::new(
-            self.node.doc(),
-            format!("{}/{}", self.node.path(), "REEN-REPO-LST"),
-            Box::new(ReportEntry::new),
-            "REEN-REPO-xxx".to_string(),
-        )
-    }
-
-    /// 10.4.2. Export Formats — contains 0+× Export Format.
+    /// 10.4.1. Export Formats — contains 0+× Export Format.
     pub fn export_formats(&self) -> som::SomList<ExportFormatEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -33260,7 +33273,7 @@ impl PrintAndExportLayout {
         )
     }
 
-    /// 10.4.3. Export Templates — contains 0+× Export
+    /// 10.4.2. Export Templates — contains 0+× Export
     /// Template.
     pub fn export_templates(&self) -> som::SomList<ExportTemplateEntry> {
         som::SomList::new(
@@ -37205,6 +37218,52 @@ impl ReportColumnEntry {
     /// Visibility and layout.
     pub fn layout(&self) -> ReportColumnEntryLayoutForm {
         ReportColumnEntryLayoutForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RECOLA"))
+    }
+}
+
+/// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+///
+/// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+/// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+/// the domain model — its sections, output columns, charts, filters, schedule
+/// and distribution. The container itself carries no `@CodeSpecKind` — the
+/// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+/// separate from the environment-wide print and export *settings* that remain
+/// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+pub struct ReportDefinitions {
+    pub node: som::SomNode,
+}
+
+impl ReportDefinitions {
+    /// Binds a ReportDefinitions facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ReportDefinitions {
+        ReportDefinitions { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "content"))
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = format!("{}/{}", self.node.path(), "content");
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    /// 10.2.1. Reports — contains 0+× Report.
+    pub fn reports(&self) -> som::SomList<ReportEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "REEN-REPO-LST"),
+            Box::new(ReportEntry::new),
+            "REEN-REPO-xxx".to_string(),
+        )
     }
 }
 

@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-07-28T05:35:46.193448Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 1,
+  "modelVersion": 9,
   "modelVersionLabel": "1.0.0+3.50e0102",
-  "classCount": 1247,
+  "classCount": 1248,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -15891,7 +15891,7 @@
         {
           "name": "authorizationCompliance",
           "kind": "section",
-          "doc": "10.4.1. Authorization Compliance.",
+          "doc": "10.5.1. Authorization Compliance.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -57441,9 +57441,9 @@
           "type": "PrintAndExportLayout"
         },
         {
-          "name": "errorHandling",
+          "name": "reportDefinitions",
           "kind": "complex",
-          "doc": "Error handling concept.",
+          "doc": "Report definitions — the CE-RP report projections over the domain model.",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -57453,12 +57453,12 @@
               }
             }
           ],
-          "type": "ErrorHandling"
+          "type": "ReportDefinitions"
         },
         {
-          "name": "userAssistance",
+          "name": "errorHandling",
           "kind": "complex",
-          "doc": "Help concept.",
+          "doc": "Error handling concept.",
           "serializationOrder": 7,
           "annotations": [
             {
@@ -57468,12 +57468,12 @@
               }
             }
           ],
-          "type": "UserAssistance"
+          "type": "ErrorHandling"
         },
         {
-          "name": "accessibility",
+          "name": "userAssistance",
           "kind": "complex",
-          "doc": "Accessibility.",
+          "doc": "Help concept.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -57483,12 +57483,12 @@
               }
             }
           ],
-          "type": "Accessibility"
+          "type": "UserAssistance"
         },
         {
-          "name": "responsiveDesign",
+          "name": "accessibility",
           "kind": "complex",
-          "doc": "Responsive design.",
+          "doc": "Accessibility.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -57498,12 +57498,12 @@
               }
             }
           ],
-          "type": "ResponsiveDesign"
+          "type": "Accessibility"
         },
         {
-          "name": "uiComponents",
+          "name": "responsiveDesign",
           "kind": "complex",
-          "doc": "UI components.",
+          "doc": "Responsive design.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -57513,12 +57513,12 @@
               }
             }
           ],
-          "type": "UiComponents"
+          "type": "ResponsiveDesign"
         },
         {
-          "name": "languageCountrySelection",
+          "name": "uiComponents",
           "kind": "complex",
-          "doc": "Language and country selection.",
+          "doc": "UI components.",
           "serializationOrder": 11,
           "annotations": [
             {
@@ -57528,12 +57528,12 @@
               }
             }
           ],
-          "type": "LanguageCountrySelection"
+          "type": "UiComponents"
         },
         {
-          "name": "prototype",
+          "name": "languageCountrySelection",
           "kind": "complex",
-          "doc": "Prototype.",
+          "doc": "Language and country selection.",
           "serializationOrder": 12,
           "annotations": [
             {
@@ -57543,18 +57543,33 @@
               }
             }
           ],
-          "type": "Prototype"
+          "type": "LanguageCountrySelection"
         },
         {
-          "name": "wireframesAndMockups",
+          "name": "prototype",
           "kind": "complex",
-          "doc": "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "doc": "Prototype.",
           "serializationOrder": 13,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 13
+              }
+            }
+          ],
+          "type": "Prototype"
+        },
+        {
+          "name": "wireframesAndMockups",
+          "kind": "complex",
+          "doc": "Wireframes and mockups (new in Phase A).\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "serializationOrder": 14,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 14
               }
             }
           ],
@@ -58687,10 +58702,31 @@
           "type": "AuditAndLogging"
         },
         {
+          "name": "reportDefinitions",
+          "kind": "complex",
+          "doc": "Report definitions — CE-RP grouped projections over the domain model.\n\nThe definition is where the report runs, so the subtree's locus is the\nserver. Its shared half — the result envelope and the parameter shapes the\nclient reads — is **derived from this same subtree** rather than authored\nin a second SOM section, so it needs no separate shared-locus entry; the\ngeneric `ResultEnvelope` above covers the CE-ER contract it rides on. The\nenvironment-wide print and export *settings* are CE-CF and live in\n`PrintAndExportLayout`, deliberately unreachable from here.",
+          "serializationOrder": 11,
+          "annotations": [
+            {
+              "name": "Comment",
+              "arguments": {
+                "text": "locus: server — CE-RP"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 11
+              }
+            }
+          ],
+          "type": "ReportDefinitions"
+        },
+        {
           "name": "processStepsAndActorInteractions",
           "kind": "complex",
           "doc": "Process steps & actor interactions — CE-SU server-use + CE-SC client-side\ninteraction; a single subtree whose parts split across both loci.",
-          "serializationOrder": 11,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "Comment",
@@ -58701,7 +58737,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],
@@ -58711,7 +58747,7 @@
           "name": "experienceCodeSpecs",
           "kind": "complex",
           "doc": "Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.",
-          "serializationOrder": 12,
+          "serializationOrder": 13,
           "annotations": [
             {
               "name": "Comment",
@@ -58722,7 +58758,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 13
               }
             }
           ],
@@ -98565,9 +98601,9 @@
           "type": "ExperienceCodeSpecs"
         },
         {
-          "name": "designFollowUp",
+          "name": "reportDefinitions",
           "kind": "complex",
-          "doc": "10.2. Experience Design — DOC follow-up subtree.",
+          "doc": "10.2. Report Definitions — the CE-RP CodeSpecs subtree.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -98577,12 +98613,12 @@
               }
             }
           ],
-          "type": "ExperienceDesignFollowUp"
+          "type": "ReportDefinitions"
         },
         {
-          "name": "localizationFollowUp",
+          "name": "designFollowUp",
           "kind": "complex",
-          "doc": "10.3. Experience Localization — L10N follow-up subtree.",
+          "doc": "10.3. Experience Design — DOC follow-up subtree.",
           "serializationOrder": 3,
           "annotations": [
             {
@@ -98592,18 +98628,33 @@
               }
             }
           ],
-          "type": "ExperienceLocalizationFollowUp"
+          "type": "ExperienceDesignFollowUp"
         },
         {
-          "name": "authorizationComplianceFollowUp",
+          "name": "localizationFollowUp",
           "kind": "complex",
-          "doc": "10.4. Authorization Compliance — CMP follow-up subtree.",
+          "doc": "10.4. Experience Localization — L10N follow-up subtree.",
           "serializationOrder": 4,
           "annotations": [
             {
               "name": "SerializationOrder",
               "arguments": {
                 "order": 4
+              }
+            }
+          ],
+          "type": "ExperienceLocalizationFollowUp"
+        },
+        {
+          "name": "authorizationComplianceFollowUp",
+          "kind": "complex",
+          "doc": "10.5. Authorization Compliance — CMP follow-up subtree.",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
               }
             }
           ],
@@ -98819,7 +98870,7 @@
         {
           "name": "designVision",
           "kind": "complex",
-          "doc": "10.2.1. Design Vision. Seeds → XDS.",
+          "doc": "10.3.1. Design Vision. Seeds → XDS.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -98834,7 +98885,7 @@
         {
           "name": "printLayout",
           "kind": "complex",
-          "doc": "10.2.2. Print Layout. Seeds → XDS.",
+          "doc": "10.3.2. Print & Export Layout. Seeds → XDS.",
           "serializationOrder": 2,
           "annotations": [
             {
@@ -98849,7 +98900,7 @@
         {
           "name": "userAssistance",
           "kind": "complex",
-          "doc": "10.2.3. User Assistance. Seeds → XDS.",
+          "doc": "10.3.3. User Assistance. Seeds → XDS.",
           "serializationOrder": 3,
           "annotations": [
             {
@@ -98864,7 +98915,7 @@
         {
           "name": "accessibility",
           "kind": "complex",
-          "doc": "10.2.4. Accessibility. Seeds → XDS.",
+          "doc": "10.3.4. Accessibility. Seeds → XDS.",
           "serializationOrder": 4,
           "annotations": [
             {
@@ -98879,7 +98930,7 @@
         {
           "name": "prototype",
           "kind": "complex",
-          "doc": "10.2.5. Prototype. Seeds → XDS.",
+          "doc": "10.3.5. Prototype. Seeds → XDS.",
           "serializationOrder": 5,
           "annotations": [
             {
@@ -98894,7 +98945,7 @@
         {
           "name": "wireframesAndMockups",
           "kind": "complex",
-          "doc": "10.2.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
+          "doc": "10.3.6. Wireframes and Mockups.\n\nOne whole-catalog content section; collapsed from\n`List<WireframesAndMockups>` (L34C-12 SR-52).",
           "serializationOrder": 6,
           "annotations": [
             {
@@ -98970,7 +99021,7 @@
         {
           "name": "multiLanguageSupport",
           "kind": "complex",
-          "doc": "10.3.1. Multi-language Support.",
+          "doc": "10.4.1. Multi-language Support.",
           "serializationOrder": 1,
           "annotations": [
             {
@@ -99023,9 +99074,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.reporting"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): @CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; server (definition + execution) + shared (result envelope, parameter shapes). All three delivery channels (apiResponse | email | fileExport) are reused tom_core_server transports; a named schedule is realised as a CE-JB job and email delivery resolves through CE-NT (codespecs_mapping.md §5.28)."
+            "note": "CE-CF — the column layout of one export-format catalogue entry, not a standalone projection. It is reachable only through ExportFormatEntry, whose format catalogue codespecs_mapping.md §5.28 places in CE-CF; a CE-RP leaf inside a CE-CF container could be neither projected (its container is not CE-RP) nor hoisted (a mapping is meaningless apart from the format it maps). The projection a specification authors is ReportColumnEntry, under ReportEntry."
           }
         }
       ],
@@ -170559,7 +170610,7 @@
           "W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output",
           "ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output"
         ],
-        "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output."
+        "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and export output."
       },
       "annotations": [
         {
@@ -170570,7 +170621,7 @@
               "W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output",
               "ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output"
             ],
-            "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output."
+            "connotation": "The print-layout configuration governing page setup, branding, watermarks, headers, footers and export output."
           }
         },
         {
@@ -170595,10 +170646,9 @@
           "name": "CodeSpecKind",
           "arguments": {
             "kinds": [
-              "CodeSpecPart.serverConfiguration",
-              "CodeSpecPart.reporting"
+              "CodeSpecPart.serverConfiguration"
             ],
-            "note": "A mixed subtree, hence two kinds. This section own fields — print strategy, paper size, orientation, page setup, branding, watermark, header/footer, archive — are CE-CF renderer settings; its child lists are CE-RP report definitions. codespecs_mapping.md §8.3 requires an isolated subtree before a D13CodeSpecsProjection field can reach the CE-RP band, so the reporting half is annotated but not yet projected (codespecs_mapping.md §5.28)."
+            "note": "CE-CF — the environment-wide print and export settings the renderer uses: print strategy, paper size, orientation, page setup, branding, watermark, header/footer, archive policy, plus the export format, size and template catalogue. Deployment settings on the renderer, the same boundary CE-LG draws between an audit declaration and its sink (codespecs_mapping.md §5.28). The report definitions themselves are CE-RP and live in the sibling ReportDefinitions subtree."
           }
         }
       ],
@@ -171051,63 +171101,9 @@
           ]
         },
         {
-          "name": "reports",
-          "kind": "list",
-          "doc": "10.4.1. Reports — contains 0+× Report.",
-          "help": "Add one entry per report.",
-          "sectionId": "REEN-REPO-LST",
-          "sectionIdPattern": "REEN-REPO-xxx",
-          "standardReferences": {
-            "standards": [
-              "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
-              "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
-            ],
-            "connotation": "The collection of report entries available for printing."
-          },
-          "serializationOrder": 6,
-          "annotations": [
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
-                  "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
-                ],
-                "connotation": "The collection of report entries available for printing."
-              }
-            },
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "REEN-REPO-LST"
-              }
-            },
-            {
-              "name": "SectionIdPattern",
-              "arguments": {
-                "pattern": "REEN-REPO-xxx"
-              }
-            },
-            {
-              "name": "ContentHelp",
-              "arguments": {
-                "guidance": "Add one entry per report."
-              }
-            },
-            {
-              "name": "SerializationOrder",
-              "arguments": {
-                "order": 6
-              }
-            }
-          ],
-          "elementType": "ReportEntry",
-          "elementIsComplex": true
-        },
-        {
           "name": "exportFormats",
           "kind": "list",
-          "doc": "10.4.2. Export Formats — contains 0+× Export Format.",
+          "doc": "10.4.1. Export Formats — contains 0+× Export Format.",
           "help": "Add one entry per export format.",
           "sectionId": "EXFOEN-EXPO-LST",
           "sectionIdPattern": "EXFOEN-EXPO-xxx",
@@ -171118,7 +171114,7 @@
             ],
             "connotation": "The collection of export formats in which printed reports can be produced."
           },
-          "serializationOrder": 7,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -171151,7 +171147,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 6
               }
             }
           ],
@@ -171161,7 +171157,7 @@
         {
           "name": "exportTemplates",
           "kind": "list",
-          "doc": "10.4.3. Export Templates — contains 0+× Export\nTemplate.",
+          "doc": "10.4.2. Export Templates — contains 0+× Export\nTemplate.",
           "help": "Add one entry per export template.",
           "sectionId": "EXTEEN-EXPO-LST",
           "sectionIdPattern": "EXTEEN-EXPO-xxx",
@@ -171172,7 +171168,7 @@
             ],
             "connotation": "The collection of reusable export templates available for producing formatted output."
           },
-          "serializationOrder": 8,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -171205,7 +171201,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 7
               }
             }
           ],
@@ -192740,6 +192736,113 @@
               "required": false
             }
           ]
+        }
+      ]
+    },
+    "ReportDefinitions": {
+      "name": "ReportDefinitions",
+      "sectionId": "REDF",
+      "doc": "SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).\n\nGroups the report definitions CodeSpecs consumes as the CE-RP generation\ninput (`codespecs_mapping.md` §8.3): each report's grouped projection over\nthe domain model — its sections, output columns, charts, filters, schedule\nand distribution. The container itself carries no `@CodeSpecKind` — the\nmapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept\nseparate from the environment-wide print and export *settings* that remain\nin `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+          "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+        ],
+        "connotation": "The CE-RP reporting seed: the report definitions projected over the domain model, with their sections, columns, charts, filters and distribution."
+      },
+      "annotations": [
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+            ],
+            "connotation": "The CE-RP reporting seed: the report definitions projected over the domain model, with their sections, columns, charts, filters and distribution."
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REDF"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "content",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentType",
+              "arguments": {
+                "type": "description",
+                "description": "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "contentType": "description"
+        },
+        {
+          "name": "reports",
+          "kind": "list",
+          "doc": "10.2.1. Reports — contains 0+× Report.",
+          "help": "Add one entry per report.",
+          "sectionId": "REEN-REPO-LST",
+          "sectionIdPattern": "REEN-REPO-xxx",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+              "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+            ],
+            "connotation": "The collection of report entries available for printing."
+          },
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC/IEEE 26514:2022 — designs and develops report information for use",
+                  "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"
+                ],
+                "connotation": "The collection of report entries available for printing."
+              }
+            },
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "REEN-REPO-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "REEN-REPO-xxx"
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per report."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "ReportEntry",
+          "elementIsComplex": true
         }
       ]
     },

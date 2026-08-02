@@ -852,6 +852,7 @@ class ReplacementSystemDependencyEntry;
 class ReportChartAxes;
 class ReportChartEntry;
 class ReportColumnEntry;
+class ReportDefinitions;
 class ReportDistributionEntry;
 class ReportEntry;
 class ReportFilterEntry;
@@ -5312,7 +5313,7 @@ class AuthorizationComplianceFollowUp : public som::SomNode {
   AuthorizationComplianceFollowUp(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.4.1. Authorization Compliance.
+  // 10.5.1. Authorization Compliance.
   // (skipped: authorizationCompliance has no target type)
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
@@ -8663,6 +8664,8 @@ class D09ExperienceDesignSpecification : public som::SomNode {
   ScreenFlowStructure screenFlow() const;
   // Print layout.
   PrintAndExportLayout printLayout() const;
+  // Report definitions — the CE-RP report projections over the domain model.
+  ReportDefinitions reportDefinitions() const;
   // Error handling concept.
   ErrorHandling errorHandling() const;
   // Help concept.
@@ -8974,6 +8977,16 @@ class D13CodeSpecsProjection : public som::SomNode {
   // run against the log — is a follow-up subtree under
   // `SecurityOperationsFollowUp` and is deliberately unreachable from here.
   AuditAndLogging auditAndLogging() const;
+  // Report definitions — CE-RP grouped projections over the domain model.
+  //
+  // The definition is where the report runs, so the subtree's locus is the
+  // server. Its shared half — the result envelope and the parameter shapes the
+  // client reads — is **derived from this same subtree** rather than authored
+  // in a second SOM section, so it needs no separate shared-locus entry; the
+  // generic `ResultEnvelope` above covers the CE-ER contract it rides on. The
+  // environment-wide print and export *settings* are CE-CF and live in
+  // `PrintAndExportLayout`, deliberately unreachable from here.
+  ReportDefinitions reportDefinitions() const;
   // Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   // interaction; a single subtree whose parts split across both loci.
   ProcessStepsAndActorInteractions processStepsAndActorInteractions() const;
@@ -11803,11 +11816,13 @@ class ExperienceAndInterfaceDesign : public som::SomNode {
   void setContent(const std::string& value);
   // 10.1. Experience CodeSpecs — the CodeSpecs (UI-generation) subtree.
   ExperienceCodeSpecs experienceCodeSpecs() const;
-  // 10.2. Experience Design — DOC follow-up subtree.
+  // 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
+  ReportDefinitions reportDefinitions() const;
+  // 10.3. Experience Design — DOC follow-up subtree.
   ExperienceDesignFollowUp designFollowUp() const;
-  // 10.3. Experience Localization — L10N follow-up subtree.
+  // 10.4. Experience Localization — L10N follow-up subtree.
   ExperienceLocalizationFollowUp localizationFollowUp() const;
-  // 10.4. Authorization Compliance — CMP follow-up subtree.
+  // 10.5. Authorization Compliance — CMP follow-up subtree.
   AuthorizationComplianceFollowUp authorizationComplianceFollowUp() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
@@ -11861,17 +11876,17 @@ class ExperienceDesignFollowUp : public som::SomNode {
   ExperienceDesignFollowUp(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.2.1. Design Vision. Seeds → XDS.
+  // 10.3.1. Design Vision. Seeds → XDS.
   DesignVision designVision() const;
-  // 10.2.2. Print Layout. Seeds → XDS.
+  // 10.3.2. Print & Export Layout. Seeds → XDS.
   PrintAndExportLayout printLayout() const;
-  // 10.2.3. User Assistance. Seeds → XDS.
+  // 10.3.3. User Assistance. Seeds → XDS.
   UserAssistance userAssistance() const;
-  // 10.2.4. Accessibility. Seeds → XDS.
+  // 10.3.4. Accessibility. Seeds → XDS.
   Accessibility accessibility() const;
-  // 10.2.5. Prototype. Seeds → XDS.
+  // 10.3.5. Prototype. Seeds → XDS.
   Prototype prototype() const;
-  // 10.2.6. Wireframes and Mockups.
+  // 10.3.6. Wireframes and Mockups.
   //
   // One whole-catalog content section; collapsed from
   // `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -11892,7 +11907,7 @@ class ExperienceLocalizationFollowUp : public som::SomNode {
   ExperienceLocalizationFollowUp(som::SpecDocument& doc, std::string path);
   std::string content() const;
   void setContent(const std::string& value);
-  // 10.3.1. Multi-language Support.
+  // 10.4.1. Multi-language Support.
   MultiLanguageSupport multiLanguageSupport() const;
   // This section type declares the standard `content` text leaf (SOM §21):
   // a structural, document-independent override of the `som::SomNode`
@@ -17076,13 +17091,10 @@ class PrintAndExportLayout : public som::SomNode {
   PrintAndExportLayoutHeaderFooterForm headerFooter() const;
   // Archive and batch settings.
   PrintAndExportLayoutArchiveForm archive() const;
-  // 10.4.1. Reports — contains 0+× Report.
-  // Returns the list view; element type: ReportEntry (construct from item paths).
-  som::SomList reports() const;
-  // 10.4.2. Export Formats — contains 0+× Export Format.
+  // 10.4.1. Export Formats — contains 0+× Export Format.
   // Returns the list view; element type: ExportFormatEntry (construct from item paths).
   som::SomList exportFormats() const;
-  // 10.4.3. Export Templates — contains 0+× Export
+  // 10.4.2. Export Templates — contains 0+× Export
   // Template.
   // Returns the list view; element type: ExportTemplateEntry (construct from item paths).
   som::SomList exportTemplates() const;
@@ -18554,6 +18566,29 @@ class ReportColumnEntry : public som::SomNode {
   ReportColumnEntryInteractionForm interaction() const;
   // Visibility and layout.
   ReportColumnEntryLayoutForm layout() const;
+};
+
+// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+//
+// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+// the domain model — its sections, output columns, charts, filters, schedule
+// and distribution. The container itself carries no `@CodeSpecKind` — the
+// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+// separate from the environment-wide print and export *settings* that remain
+// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+class ReportDefinitions : public som::SomNode {
+ public:
+  ReportDefinitions(som::SpecDocument& doc, std::string path);
+  std::string content() const;
+  void setContent(const std::string& value);
+  // 10.2.1. Reports — contains 0+× Report.
+  // Returns the list view; element type: ReportEntry (construct from item paths).
+  som::SomList reports() const;
+  // This section type declares the standard `content` text leaf (SOM §21):
+  // a structural, document-independent override of the `som::SomNode`
+  // `canHaveContent` default (`false`).
+  bool canHaveContent() const override { return true; }
 };
 
 // Distribution channel configuration (form).

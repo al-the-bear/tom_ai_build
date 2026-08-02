@@ -118,6 +118,18 @@
   - printLayout: `PrintAndExportLayout`
     - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark, headerFooter,
       archive
+    - exportFormats: `ExportFormatEntry`
+      - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security, output,
+        access
+      - sizeSettings: `ExportSizeSettings`
+        - content @Form(maxRows, splitLargeFiles, splitThreshold)
+      - fieldMappings: `ExportFieldMappingEntry`
+        - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
+          booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
+    - exportTemplates: `ExportTemplateEntry`
+      - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
+  - `ReportDefinitions`
+    - content @description
     - reports: `ReportEntry`
       - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter, grouping,
         formatting, interactivity, pagination, security, lifecycle
@@ -139,16 +151,6 @@
         - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
       - recipients: `ReportRecipientEntry`
         - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
-    - exportFormats: `ExportFormatEntry`
-      - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security, output,
-        access
-      - sizeSettings: `ExportSizeSettings`
-        - content @Form(maxRows, splitLargeFiles, splitThreshold)
-      - fieldMappings: `ExportFieldMappingEntry`
-        - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
-          booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
-    - exportTemplates: `ExportTemplateEntry`
-      - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
   - `ErrorHandling`
     - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
       errorMessageCatalog @text, errorVisualDesign @text

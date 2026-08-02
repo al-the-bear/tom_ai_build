@@ -221,19 +221,61 @@ to pixel-perfect designs with exact typography and spacing.
   @SerializationOrder(1)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 
-  /// 10.2. Experience Design — DOC follow-up subtree.
+  /// 10.2. Report Definitions — the CE-RP CodeSpecs subtree.
   @SerializationOrder(2)
+  ReportDefinitions reportDefinitions = ReportDefinitions();
+
+  /// 10.3. Experience Design — DOC follow-up subtree.
+  @SerializationOrder(3)
   ExperienceDesignFollowUp designFollowUp = ExperienceDesignFollowUp();
 
-  /// 10.3. Experience Localization — L10N follow-up subtree.
-  @SerializationOrder(3)
+  /// 10.4. Experience Localization — L10N follow-up subtree.
+  @SerializationOrder(4)
   ExperienceLocalizationFollowUp localizationFollowUp =
       ExperienceLocalizationFollowUp();
 
-  /// 10.4. Authorization Compliance — CMP follow-up subtree.
-  @SerializationOrder(4)
+  /// 10.5. Authorization Compliance — CMP follow-up subtree.
+  @SerializationOrder(5)
   AuthorizationComplianceFollowUp authorizationComplianceFollowUp =
       AuthorizationComplianceFollowUp();
+}
+
+/// SBP.13 Experience & Interface Design — Report Definitions (CE-RP subtree).
+///
+/// Groups the report definitions CodeSpecs consumes as the CE-RP generation
+/// input (`codespecs_mapping.md` §8.3): each report's grouped projection over
+/// the domain model — its sections, output columns, charts, filters, schedule
+/// and distribution. The container itself carries no `@CodeSpecKind` — the
+/// mapped part lives on `ReportEntry` — but the whole subtree is CE-RP, kept
+/// separate from the environment-wide print and export *settings* that remain
+/// in `PrintAndExportLayout` and are CE-CF (`codespecs_mapping.md` §5.28).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 26514:2022 — designs and develops report information for use',
+    'ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content',
+  ],
+  'The CE-RP reporting seed: the report definitions projected over the domain '
+  'model, with their sections, columns, charts, filters and distribution.',
+)
+@SectionId('REDF')
+class ReportDefinitions extends DocSpecsSection {
+  @ContentType('description', 'Summarize the report definitions: which reports '
+      'exist, what each projects over the domain model, and how they are '
+      'delivered.')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 10.2.1. Reports — contains 0+× Report.
+  @StandardReferences([
+    'ISO/IEC/IEEE 26514:2022 — designs and develops report information for use',
+    'ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content',
+  ], 'The collection of report entries available for printing.')
+  @SectionId('REEN-REPO-LST')
+  @SectionIdPattern('REEN-REPO-xxx')
+  @ContentHelp('Add one entry per report.')
+  @SerializationOrder(1)
+  List<ReportEntry> reports = [];
 }
 
 /// SBP.13 Experience & Interface Design — Experience CodeSpecs subtree.
@@ -313,27 +355,27 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
-  /// 10.2.1. Design Vision. Seeds → XDS.
+  /// 10.3.1. Design Vision. Seeds → XDS.
   @SerializationOrder(1)
   DesignVision designVision = DesignVision();
 
-  /// 10.2.2. Print Layout. Seeds → XDS.
+  /// 10.3.2. Print & Export Layout. Seeds → XDS.
   @SerializationOrder(2)
   PrintAndExportLayout printLayout = PrintAndExportLayout();
 
-  /// 10.2.3. User Assistance. Seeds → XDS.
+  /// 10.3.3. User Assistance. Seeds → XDS.
   @SerializationOrder(3)
   UserAssistance userAssistance = UserAssistance();
 
-  /// 10.2.4. Accessibility. Seeds → XDS.
+  /// 10.3.4. Accessibility. Seeds → XDS.
   @SerializationOrder(4)
   Accessibility accessibility = Accessibility();
 
-  /// 10.2.5. Prototype. Seeds → XDS.
+  /// 10.3.5. Prototype. Seeds → XDS.
   @SerializationOrder(5)
   Prototype prototype = Prototype();
 
-  /// 10.2.6. Wireframes and Mockups.
+  /// 10.3.6. Wireframes and Mockups.
   ///
   /// One whole-catalog content section; collapsed from
   /// `List<WireframesAndMockups>` (L34C-12 SR-52).
@@ -363,7 +405,7 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
-  /// 10.3.1. Multi-language Support.
+  /// 10.4.1. Multi-language Support.
   @SerializationOrder(1)
   MultiLanguageSupport multiLanguageSupport = MultiLanguageSupport();
 }
@@ -392,7 +434,7 @@ class AuthorizationComplianceFollowUp extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
-  /// 10.4.1. Authorization Compliance.
+  /// 10.5.1. Authorization Compliance.
   @SerializationOrder(1)
   TextSection authorizationCompliance = TextSection();
 }
@@ -5127,20 +5169,21 @@ class NavigationGuardEntry extends DocSpecsSection {
     'W3C CSS Paged Media Level 3 — describes pagination and page boxes for printed output',
     'ISO 32000-2:2020 — specifies the PDF format used as the target for server-side print output',
   ],
-  'The print-layout configuration governing page setup, branding, watermarks, headers, footers and printed report output.',
+  'The print-layout configuration governing page setup, branding, watermarks, headers, footers and export output.',
 )
 @SectionId('PRLA')
 @MapsTo(D09ExperienceDesignSpecification)
 @DetailedIn(D09ExperienceDesignSpecification)
 @CodeSpecKind(
-  [CodeSpecPart.serverConfiguration, CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration],
   note:
-      'A mixed subtree, hence two kinds. This section own fields — print '
-      'strategy, paper size, orientation, page setup, branding, watermark, '
-      'header/footer, archive — are CE-CF renderer settings; its child lists '
-      'are CE-RP report definitions. codespecs_mapping.md §8.3 requires an isolated subtree before '
-      'a D13CodeSpecsProjection field can reach the CE-RP band, so the '
-      'reporting half is annotated but not yet projected (codespecs_mapping.md §5.28).',
+      'CE-CF — the environment-wide print and export settings the renderer '
+      'uses: print strategy, paper size, orientation, page setup, branding, '
+      'watermark, header/footer, archive policy, plus the export format, size '
+      'and template catalogue. Deployment settings on the renderer, the same '
+      'boundary CE-LG draws between an audit declaration and its sink '
+      '(codespecs_mapping.md §5.28). The report definitions themselves are '
+      'CE-RP and live in the sibling ReportDefinitions subtree.',
 )
 class PrintAndExportLayout extends DocSpecsSection {
   @Form([
@@ -5387,18 +5430,7 @@ class PrintAndExportLayout extends DocSpecsSection {
   @SerializationOrder(5)
   DocSpecsSection? archive;
 
-  /// 10.4.1. Reports — contains 0+× Report.
-  @StandardReferences([
-    'ISO/IEC/IEEE 26514:2022 — designs and develops report information for use',
-    'ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content',
-  ], 'The collection of report entries available for printing.')
-  @SectionId('REEN-REPO-LST')
-  @SectionIdPattern('REEN-REPO-xxx')
-  @ContentHelp('Add one entry per report.')
-  @SerializationOrder(6)
-  List<ReportEntry> reports = [];
-
-  /// 10.4.2. Export Formats — contains 0+× Export Format.
+  /// 10.4.1. Export Formats — contains 0+× Export Format.
   @StandardReferences(
     [
       'ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option',
@@ -5409,10 +5441,10 @@ class PrintAndExportLayout extends DocSpecsSection {
   @SectionId('EXFOEN-EXPO-LST')
   @SectionIdPattern('EXFOEN-EXPO-xxx')
   @ContentHelp('Add one entry per export format.')
-  @SerializationOrder(7)
+  @SerializationOrder(6)
   List<ExportFormatEntry> exportFormats = [];
 
-  /// 10.4.3. Export Templates — contains 0+× Export
+  /// 10.4.2. Export Templates — contains 0+× Export
   /// Template.
   @StandardReferences(
     [
@@ -5424,12 +5456,12 @@ class PrintAndExportLayout extends DocSpecsSection {
   @SectionId('EXTEEN-EXPO-LST')
   @SectionIdPattern('EXTEEN-EXPO-xxx')
   @ContentHelp('Add one entry per export template.')
-  @SerializationOrder(8)
+  @SerializationOrder(7)
   List<ExportTemplateEntry> exportTemplates = [];
 }
 
 // ---------------------------------------------------------------------------
-// 10.4.1 Reports
+// 10.2.1 Reports
 // ---------------------------------------------------------------------------
 
 /// A report entry (form).
@@ -8113,15 +8145,15 @@ class ExportSizeSettings extends DocSpecsSection {
       'both "dd.MM.yyyy" and "#,##0.00" depending on a free-text type.',
 )
 @CodeSpecKind(
-  [CodeSpecPart.reporting],
+  [CodeSpecPart.serverConfiguration],
   note:
-      'CE-RP — a grouped projection over the domain model. Active (codespecs_mapping.md §4.1): '
-      '@CsReport with @CsReportColumn / @CsReportChart / @CsReportParameter; '
-      'server (definition + execution) + shared (result envelope, parameter '
-      'shapes). All three delivery channels (apiResponse | email | '
-      'fileExport) are reused tom_core_server transports; a named schedule is '
-      'realised as a CE-JB job and email delivery resolves through CE-NT '
-      '(codespecs_mapping.md §5.28).',
+      'CE-CF — the column layout of one export-format catalogue entry, not a '
+      'standalone projection. It is reachable only through ExportFormatEntry, '
+      'whose format catalogue codespecs_mapping.md §5.28 places in CE-CF; a '
+      'CE-RP leaf inside a CE-CF container could be neither projected (its '
+      'container is not CE-RP) nor hoisted (a mapping is meaningless apart '
+      'from the format it maps). The projection a specification authors is '
+      'ReportColumnEntry, under ReportEntry.',
 )
 class ExportFieldMappingEntry extends DocSpecsSection {
   @Form([
