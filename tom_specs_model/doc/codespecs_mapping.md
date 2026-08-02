@@ -1059,7 +1059,7 @@ therefore classified:
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
 landed, so **every slice is emission-, runtime- and verification-clear on the
 code side**. What remains is SOM-side: the sections that do not yet carry the
-surface a marker's arguments consume (`csrb11`–`csrb13`), plus `csrc1` at slice 7.
+surface a marker's arguments consume (`csrb12`–`csrb13`), plus `csrc1` at slice 7.
 **No `tom_core`-side blocker remains anywhere** — `csexb2` closed the last one by
 reconciling the CE-LO container-kind set with the ACL substrate at slice 6. The
 implied sequence: the SOM gaps next, then the standing ownership question
@@ -1361,8 +1361,9 @@ shape and the client-side bindings around it.
 **SOM feed.** CE-ST is derived from **D03 IMO** (the information model —
 which entity fields a screen exposes) crossed with **D06 XDS / screen definitions**
 (which fields a screen holds as editable/derived view state), per §8. The SOM
-carries a `CodeSpecPart.viewState` marker at one site
-(`information_and_data_model.dart:3696`) but **no** dedicated view-model section with
+carries `CodeSpecPart.viewState` markers on the business-object family
+(`BusinessObjectModel`, `BusinessObjectEntry`, `BusinessObjectAttributeEntry`) and
+on `DisplayPropertyEntry` but **no** dedicated view-model section with
 a typed-field tree yet — a planned D03/D06 SOM extension adds the view-model section
 (typed field tree + binding references), applying
 `@CodeSpecKind([CodeSpecPart.viewState])` on that section (the enum value exists).
@@ -3236,21 +3237,30 @@ MariaDB implementation). Kind value: `schemaMigration`; SOM home:
 `SchemaVersioningAndMigration` (`SCHMG`) under SBP.8 `InformationAndDataModel`;
 locus **database** (artifacts ship with the server project).
 
-That home is **reachable only from `D00SolutionBlueprint`** — neither the D03 IFM
-projection nor `D13CodeSpecsProjection` reaches it, so CE-MG currently has no
-Phase-3 target document and no generation input (§8.5, `csrb11`).
+`SCHMG` is projected into **D03 IFM** — it sits beside the entity model because
+the artifact chain must converge on it (see *CE-DB convergence* below) — and
+into **`D13CodeSpecsProjection`** at the **server** locus.
 
 **Scope — three artifact kinds.** A CodeSpec authors:
 
 1. **Initial DDL** — the baseline schema (tables, indexes, constraints) as the
-   first migration(s) of each schema.
+   first migration(s) of each schema. SOM: `SCMST.artifactKind = initialDdl`,
+   detailed by the `SCMST-BASE` baseline-schema subsection.
 2. **Base/seed data** — the initial *reference* data of the **new** system
    (lookup tables, defaults, built-in roles). Explicitly **not**
    business-data migration from legacy systems — old→new data mapping and
    cutover stay in the SOM `MIGME` migration sections and are outside
-   CodeSpecs.
+   CodeSpecs. SOM: `SCMST.artifactKind = referenceData`, detailed by the
+   `SCMST-REFD` subsection.
 3. **Iteration scripts** — the append-only schema evolution steps as the data
-   model changes.
+   model changes. SOM: `SCMST.artifactKind = schemaChange`, detailed by the
+   `SCMST-CHNG` subsection.
+
+The three are a `@OneOf` group on `SCMST` discriminated by `artifactKind`
+(§8.2), because each kind authors a genuinely different thing: a baseline has no
+prior state to diff, backfill or roll back to; reference data inserts rows, not
+schema; only an evolution step has affected entities, a backfill and
+reversibility. All three constants bind a case.
 
 **Filename grammar + environment tagging.** Every artifact basename must match
 `[<numeric version>]-<description>[@<env>[,<env>…]].<ext>` in full
@@ -3263,17 +3273,33 @@ default** when none is initialized — only untagged artifacts apply, so a
 `@dev`/`@test` seed artifact can never leak into production. Skipping is pure
 omission: applied-version bookkeeping is untouched, re-runs stay idempotent.
 
+The version and the environment tag are authored per artifact:
+`SCMST.version` orders the artifact and `SCMST.environments` names the
+environments it is restricted to — left empty, the artifact applies everywhere.
+The environment names are matched **verbatim** (§5.23 exemption 2), so the SOM
+field is a plain string rather than a reference into a registry.
+
 **Directory tree — multi-DB by construction.** Artifacts live under
 `<databaseMigrationsDirectory>/<datasourceName>/<schemaName>/` — the datasource
 level matches a registered `TomDataSourceInfo` name, the schema level one
 schema within it. Several databases (and database *types*, via
 `@TomDbMigrationAdaptor`) coexist without any extra spec surface.
 
+The pair is authored once per target in the `SCHMG` migration-target list
+(`MigrationTargetEntry`, `MIGTG`): a `targetName` identifier plus the
+`dataSourceName` and `schemaName` that form the directory path. Each artifact
+then names its target through `SCMST.migrationTarget`
+(`refersTo: MIGTG.targetName`) instead of repeating the pair, which is what
+keeps the two path segments un-defaultable per artifact (§3.3.5 of
+`codespecs_derivation_contract.md`) without duplicating them across an entire
+chain.
+
 **Immutability — applied migrations are append-only.** The migrator records
 each applied version and, on re-encounter, **verifies** (description/checksum)
 and skips it; an applied artifact is never edited — schema change is always a
 *new* numbered artifact. The migration chain is the schema's history; only the
-chain's tip moves.
+chain's tip moves. This is engine-enforced, not an authoring decision, so it is
+stated in the `SCMST` authoring help rather than carried by a member.
 
 **CE-DB convergence — a named validator check.** The cumulative DDL of a
 schema's chain must produce exactly the shape the `@CsTable`/`@CsColumn`
@@ -3282,11 +3308,30 @@ entity model declares (§5.13). This is a **named CodeSpecs validator check**
 filenames). The schema-diff engine that mechanically proves it ships in
 `tom_core_server`'s `db_migration` module — `schema_model.dart` (the compared
 shape), `schema_ddl_reader.dart` (the shape the chain's cumulative DDL yields)
-and `schema_convergence.dart` (the comparison).
+and `schema_convergence.dart` (the comparison). Being a mechanical check, it is
+likewise stated in the `SCHMG` authoring help rather than carried by a member —
+a divergence is a defect in one of the two models, never a decision the author
+records.
 
 **Wiring (CE-CF).** The tree root is the `databaseMigrationsDirectory` server
 configuration value (§5.5, §5.16); `TomDbMigrations.migrateDatabases` runs from
 it at server start. No further CE-MG-specific configuration exists.
+
+**No tooling choice.** The engine is fixed by the pure-reuse decision above, so
+`SCHMG` records no migration-tooling selection: there is nothing to select. The
+section authors *what* to apply and *where*, never *with what*.
+
+#### CE-MG attribute surface
+
+| Attribute | Authored where | Consumed as |
+| --- | --- | --- |
+| Versioning strategy, forward-only, baseline version, zero-downtime approach | `SCHMG` form | Policy narrative; not a `@CsMigration` argument |
+| Data source name | `MIGTG.dataSourceName` | `@CsMigration.datasource` + first path segment |
+| Schema name | `MIGTG.schemaName` | `@CsMigration.schema` + second path segment |
+| Artifact kind | `SCMST.artifactKind` | `@CsMigration.kind` (`CsMigrationKind`) |
+| Artifact version | `SCMST.version` | The `[<numeric version>]` filename segment (authored, §5.23 exemption 3) |
+| Environment restriction | `SCMST.environments` | The `@<env>[,<env>…]` filename tag (authored, §5.23 exemptions 2+3) |
+| Artifact body (statements / value set / backfill) | `SCMST-BASE` / `SCMST-REFD` / `SCMST-CHNG` | The artifact's SQL content |
 
 ### 5.28 CE-RP report definitions over the domain model
 
@@ -3935,7 +3980,7 @@ A part is **COVERED** only when both hold.
 | CE-CL | `client` | `ClientRequirementsSection` CLRESE — minimum browser/OS/device requirements, not an enumeration of client applications with platform targets and entry route | **GAP** — `csrb13` |
 | CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · the 42-section policy set | COVERED |
 | CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
-| CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG + `SchemaMigrationStepEntry` SCMST — reachable **only from D00**, and missing the §5.27 environment tag, datasource/schema placement and seed-data artifact kind | **GAP** — `csrb11` |
+| CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG (projected into D03 IFM and into `D13CodeSpecsProjection` at the server locus) + `MigrationTargetEntry` MIGTG (datasource/schema placement) + `SchemaMigrationStepEntry` SCMST, a `@OneOf` over the three §5.27 artifact kinds, carrying the environment tag | COVERED |
 | CE-JB | `backgroundJob` | `BatchJobManagement` BAJOMA — system-wide scheduling *policy* with **no per-job declaration list** | **GAP** — `csrb12` |
 | CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
@@ -4049,7 +4094,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb11` | Route **CE-MG** into a Phase-3 document and the generation projection, and complete its §5.27 surface (environment tag, datasource/schema placement, seed-data artifact kind). `SCHMG` is currently reachable only from `D00SolutionBlueprint`. |
 | `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
 | `csrb13` | Give **CE-CL** an enumeration of the system's **client applications** (§4.1.1: platform targets, entry route, included flows/forms). `ClientRequirementsSection` states minimum platform requirements, which is a different thing. |
 | `csrb14` | Place **CE-LG, CE-NT and CE-RP in the §4.4.3 slice table.** §4.2 puts all three in the server project, but no generation slice claims them, so the seven-slice execution order does not cover them. Raised by `csra12`. |

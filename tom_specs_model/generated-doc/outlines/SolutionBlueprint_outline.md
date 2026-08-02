@@ -1291,9 +1291,12 @@
         - examples: `RuleExampleEntry`
           - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
     - `SchemaVersioningAndMigration`
-      - content @Form(migrationTooling, versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+      - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+      - migrationTargets: `MigrationTargetEntry`
+        - content @Form(targetName, dataSourceName, schemaName, purpose)
       - migrationSteps: `SchemaMigrationStepEntry`
-        - content @Form(version, description, ddlOperations, affectedEntities, dataBackfill, reversible)
+        - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
+          referenceData, schemaChange
     - `DomainEnumRegistry`
       - content
       - enums: `DomainEnumEntry`

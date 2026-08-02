@@ -170,6 +170,24 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(11)
   ReportDefinitions reportDefinitions = ReportDefinitions();
 
+  /// Schema versioning and migration — CE-MG migration artifacts.
+  ///
+  /// The artifacts ship with the server project because that is where the
+  /// migration engine runs them (`codespecs_mapping.md` §4.2). The subtree
+  /// supplies all three inputs the `@CsMigration` declaration needs: `MIGTG`
+  /// gives the data source / schema directory placement, `SCMST.artifactKind`
+  /// the artifact kind, and `SCMST.environments` the filename environment tag.
+  /// The artifact *filenames* are authored, not derived — a §5.23 string
+  /// exemption — so they are not part of the generated surface.
+  ///
+  /// The subtree sits beside `dataModel` above for a reason: the cumulative
+  /// effect of a schema's artifacts must converge on the CE-DB model that entry
+  /// generates, and that convergence is a validator check over both.
+  @Comment('locus: server — CE-MG')
+  @SerializationOrder(12)
+  SchemaVersioningAndMigration schemaVersioningAndMigration =
+      SchemaVersioningAndMigration();
+
   // ─── Locus: SHARED + SERVER span ─────────────────────────────────────────
 
   /// Server operation registry — the application's **own** CE-API surface.
@@ -187,7 +205,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// reachable from this projection: it describes third-party interfaces the
   /// system talks to, not the surface the system generates.
   @Comment('locus: shared(CE-API contract)+server(CE-API operations)')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   ServerOperationRegistry serverOperationRegistry = ServerOperationRegistry();
 
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
@@ -195,7 +213,7 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -203,6 +221,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

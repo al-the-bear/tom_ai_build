@@ -1299,9 +1299,12 @@
           - examples: `RuleExampleEntry`
             - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
       - `SchemaVersioningAndMigration`
-        - content @Form(migrationTooling, versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+        - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+        - migrationTargets: `MigrationTargetEntry`
+          - content @Form(targetName, dataSourceName, schemaName, purpose)
         - migrationSteps: `SchemaMigrationStepEntry`
-          - content @Form(version, description, ddlOperations, affectedEntities, dataBackfill, reversible)
+          - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
+            referenceData, schemaChange
       - `DomainEnumRegistry`
         - content
         - enums: `DomainEnumEntry`
@@ -3409,6 +3412,21 @@
         - content @Form(key, defaultCopy, placeholders, description)
         - localeVariants: `MessageLocaleVariantEntry`
           - content @Form(locale, copy)
+    - `ServerOperationRegistry`
+      - content
+      - operations: `ServerOperationEntry`
+        - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+        - requestMembers: `ServerOperationMemberEntry`
+          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+        - responseMembers: `ServerOperationMemberEntry`
+          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+    - `SchemaVersioningAndMigration`
+      - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+      - migrationTargets: `MigrationTargetEntry`
+        - content @Form(targetName, dataSourceName, schemaName, purpose)
+      - migrationSteps: `SchemaMigrationStepEntry`
+        - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
+          referenceData, schemaChange
   - targetOperatingModel: `D02TargetOperatingModel`
     - content
     - header: `DocumentHeader`
@@ -6248,6 +6266,13 @@
           - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
         - recipients: `ReportRecipientEntry`
           - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+    - `SchemaVersioningAndMigration` ← (locus: server — CE-MG)
+      - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+      - migrationTargets: `MigrationTargetEntry`
+        - content @Form(targetName, dataSourceName, schemaName, purpose)
+      - migrationSteps: `SchemaMigrationStepEntry`
+        - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
+          referenceData, schemaChange
     - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
       - content
       - operations: `ServerOperationEntry`

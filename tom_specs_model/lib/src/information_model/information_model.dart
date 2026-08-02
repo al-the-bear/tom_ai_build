@@ -141,4 +141,22 @@ class D03InformationModel extends DocSpecsSection {
   /// (csmb7).
   @SerializationOrder(17)
   MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
+
+  /// Server operation registry — the system's own operation surface (CE-API):
+  /// one entry per operation the server answers.
+  ///
+  /// Projected here rather than into a separate document because an operation is
+  /// defined by the entity it reads and writes, which this document owns.
+  @SerializationOrder(18)
+  ServerOperationRegistry serverOperationRegistry = ServerOperationRegistry();
+
+  /// Schema versioning and migration — the CE-MG home: the versioning policy,
+  /// the data source / schema targets, and the ordered artifact set that
+  /// establishes and evolves the schema.
+  ///
+  /// Projected here because the artifact chain must converge on the entity and
+  /// attribute model this document owns.
+  @SerializationOrder(19)
+  SchemaVersioningAndMigration schemaVersioningAndMigration =
+      SchemaVersioningAndMigration();
 }

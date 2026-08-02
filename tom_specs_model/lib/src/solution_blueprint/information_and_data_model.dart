@@ -58,6 +58,32 @@ enum DataAttributeKind {
   enumeration,
 }
 
+/// The closed set of schema-migration artifact kinds (`SchemaMigrationStepEntry`).
+///
+/// The discriminator enum for the `SchemaMigrationStepEntry` `@OneOf` group.
+/// The three kinds are not variants of one shape — each authors a different
+/// thing, so each binds its own case subsection:
+///
+/// - [initialDdl] establishes the baseline schema. There is no prior state, so
+///   it has nothing to backfill and nothing to roll back to.
+/// - [referenceData] inserts *rows*, not schema. It cannot be authored in a
+///   form whose fields are named for schema statements.
+/// - [schemaChange] evolves an existing schema, and is the only kind for which
+///   affected entities, backfill and reversibility are meaningful.
+enum MigrationArtifactKind {
+  /// The baseline schema definition — the tables, indexes and constraints the
+  /// system starts from.
+  initialDdl,
+
+  /// The new system's own initial reference data — lookup values, defaults and
+  /// built-in roles. Not business-data migration from a legacy system, which
+  /// stays in the migration-mapping sections (`MIGME`).
+  referenceData,
+
+  /// An append-only schema-evolution step applied on top of the baseline.
+  schemaChange,
+}
+
 /// 7. Business Object and Data Model. Seeds → IFM.
 @StandardReferences(
   [
@@ -4339,16 +4365,17 @@ class RelationshipAttributeEntry extends DocSpecsSection {
 /// 7.4. Schema Versioning and Migration.
 ///
 /// Records how the database schema is *versioned and migrated* as the data
-/// model evolves — the ordered DDL / migration steps and the tooling and
-/// policy that govern them. This is distinct from business-data migration
-/// between systems (see `MigrationMappingEntry` for old→new field mapping):
-/// here the subject is the schema's own evolution over releases.
+/// model evolves — the versioning policy, the data source / schema targets, and
+/// the ordered artifact set that establishes and evolves the schema. This is
+/// distinct from business-data migration between systems (see
+/// `MigrationMappingEntry` for old→new field mapping): here the subject is the
+/// schema's own evolution over releases.
 @StandardReferences(
   [
     'DAMA-DMBOK2 — data management body of knowledge',
     'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
   ],
-  'Captures the schema versioning strategy and the ordered migration steps derived from the data model’s evolution — the DDL history, not business-data migration between systems.',
+  'Captures the schema versioning strategy, the data source / schema targets, and the ordered migration artifacts derived from the data model’s evolution — the schema’s own history, not business-data migration between systems.',
 )
 @SectionId('SCHMG')
 @CodeSpecKind([CodeSpecPart.schemaMigration],
@@ -4356,36 +4383,49 @@ class RelationshipAttributeEntry extends DocSpecsSection {
         'evolution: @CsMigration-marked SQL files (initial DDL, base/seed '
         'data, iteration scripts), server locus, built on the '
         'tom_core_server migration engine (TomDbMigrations, mapping doc '
-        'codespecs_mapping.md §5.27).')
+        'codespecs_mapping.md §5.27). MIGTG supplies the datasource/schema '
+        'directory placement; SCMST.artifactKind supplies CsMigrationKind and '
+        'SCMST.environments the filename environment tag.')
 class SchemaVersioningAndMigration extends DocSpecsSection {
   @ContentHelp('''
-Describe how the database schema is versioned and how migrations are authored,
-ordered, and applied as the data model evolves across releases.
+Describe how the database schema is versioned and how schema changes are
+authored, ordered, and applied as the data model evolves across releases.
 
 **Covers:**
-- The migration tooling and where migration scripts live
 - The versioning strategy (sequential, timestamped, semantic)
-- Whether down/rollback migrations are supported (forward-only vs reversible)
+- Whether down/rollback steps are supported (forward-only vs reversible)
 - The baseline schema version and any zero-downtime approach (expand/contract)
+- The data sources and schemas the artifacts target (7.4.1)
+- The ordered artifact set itself (7.4.2)
 
 The migration artifact set spans three kinds:
 - **Initial DDL** — the baseline schema (tables, indexes, constraints)
-- **Base/seed data** — the initial reference data of the NEW system (lookup
+- **Reference data** — the initial reference data of the NEW system (lookup
   tables, defaults, built-in roles)
-- **Iteration scripts** — the append-only schema evolution steps per release
+- **Schema change** — the append-only evolution steps applied per release
+
+**The migration engine is fixed, so there is no tooling decision to record
+here.** Artifacts are applied by the framework's own migration engine; this
+section says *what* to apply and *where*, never *with what*.
+
+**Applied artifacts are immutable.** The engine records each applied artifact
+and, on re-encountering it, verifies rather than re-applies it. An artifact
+that has been applied anywhere is never edited — a further schema change is
+always a *new* artifact with the next version. Author revisions of an already
+released artifact as an additional entry, not as a change to the existing one.
+
+**The artifact chain must converge on the data model.** The cumulative effect
+of a schema's artifacts must produce exactly the shape the entities and
+attributes of the Data Model (7.1) declare. That convergence is a mechanical
+check, so a divergence is a defect in one of the two — not a matter of
+authoring judgement.
 
 This section is derived from the evolution of the entities in the Data Model
-(7.1). It is NOT business-data migration between systems: base/seed data is
-the new system's own initial reference data, while old→new data mapping and
-cutover from legacy systems stay in the migration-mapping sections (MIGME).
+(7.1). It is NOT business-data migration between systems: reference data is
+the new system's own initial data, while old→new data mapping and cutover from
+legacy systems stay in the migration-mapping sections (MIGME).
 ''')
   @Form([
-    Field(
-      'migrationTooling',
-      String,
-      'Migration Tooling',
-      hint: 'Flyway, Liquibase, Prisma Migrate, Alembic, custom DDL scripts',
-    ),
     Field(
       'versioningStrategy',
       String,
@@ -4396,13 +4436,13 @@ cutover from legacy systems stay in the migration-mapping sections (MIGME).
       'forwardOnly',
       bool,
       'Forward-Only',
-      hint: 'Whether migrations are forward-only (no down migrations)',
+      hint: 'Whether schema changes are forward-only (no down steps)',
     ),
     Field(
       'baselineVersion',
       String,
       'Baseline Version',
-      hint: 'The initial/baseline schema version migrations build on',
+      hint: 'The initial/baseline schema version later artifacts build on',
     ),
     Field(
       'zeroDowntimeApproach',
@@ -4415,72 +4455,286 @@ cutover from legacy systems stay in the migration-mapping sections (MIGME).
   @SerializationOrder(0)
   String? content;
 
-  /// 7.4.1. Schema Migration Steps — one entry per versioned migration.
+  /// 7.4.1. Migration Targets — the data source / schema pairs artifacts apply to.
+  @StandardReferences([
+    'ISO/IEC 9075 (SQL) — schema as the named container of database objects',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ], 'The data sources and schemas the migration artifacts target, each named so that individual artifacts can reference one.')
+  @SectionId('MIGTG-TARG-LST')
+  @SectionIdPattern('MIGTG-TARG-xxx')
+  @ContentHelp('Add one entry per data source / schema pair that migration '
+      'artifacts apply to. Every artifact in 7.4.2 names one of these targets.')
+  @SerializationOrder(1)
+  List<MigrationTargetEntry> migrationTargets = [];
+
+  /// 7.4.2. Schema Migration Steps — one entry per versioned artifact.
   @StandardReferences([
     'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
-  ], 'The ordered schema migration steps that evolve the database over releases.')
+  ], 'The ordered schema migration artifacts that establish and evolve the database over releases.')
   @SectionId('SCMST-STEP-LST')
   @SectionIdPattern('SCMST-STEP-xxx')
-  @ContentHelp('Add one entry per versioned schema migration step.')
-  @SerializationOrder(1)
+  @ContentHelp('Add one entry per versioned migration artifact.')
+  @SerializationOrder(2)
   List<SchemaMigrationStepEntry> migrationSteps = [];
 }
 
-/// A single schema migration step (form).
+/// A single migration target — one data source / schema pair (form).
 ///
-/// One versioned change to the database schema — the DDL operations it applies,
-/// the entities it touches, whether it is reversible, and any data backfill it
-/// performs as part of the schema change.
+/// Migration artifacts are filed per data source and per schema within it, so a
+/// system with several databases — or several database *types* — needs no extra
+/// specification surface beyond naming each target once here. Every artifact in
+/// 7.4.2 then names the target it applies to rather than repeating the pair.
 @StandardReferences(
   [
-    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+    'ISO/IEC 9075 (SQL) — schema as the named container of database objects',
     'DAMA-DMBOK2 — data management body of knowledge',
   ],
-  'A single versioned schema migration step: its DDL operations, affected entities, reversibility, and any accompanying data backfill.',
+  'A named data source / schema pair that migration artifacts are filed under and applied to.',
 )
-@SectionId('SCMST')
-class SchemaMigrationStepEntry extends DocSpecsSection {
+@SectionId('MIGTG')
+class MigrationTargetEntry extends DocSpecsSection {
   @Form([
     Field(
-      'version',
+      'targetName',
       String,
-      'Version',
-      hint: 'The schema version this step produces (e.g. V7, 2026-07-19-01)',
+      'Target Name',
+      required: true,
+      hint: 'The identifier migration artifacts use to name this target',
     ),
     Field(
-      'description',
+      'dataSourceName',
       String,
-      'Description',
-      hint: 'What this migration changes and why',
+      'Data Source Name',
+      required: true,
+      hint: 'The registered data source the artifacts are applied against',
     ),
     Field(
-      'ddlOperations',
+      'schemaName',
       String,
-      'DDL Operations',
-      hint: 'CREATE/ALTER/DROP performed (tables, columns, indexes, constraints)',
+      'Schema Name',
+      required: true,
+      hint: 'The schema within that data source the artifacts act on',
     ),
     Field(
-      'affectedEntities',
+      'purpose',
       String,
-      'Affected Entities',
-      hint: 'The Data Model entities this step touches',
-    ),
-    Field(
-      'dataBackfill',
-      String,
-      'Data Backfill',
-      hint: 'Any data population/transformation done as part of the step, or None',
-    ),
-    Field(
-      'reversible',
-      bool,
-      'Reversible',
-      hint: 'Whether a down/rollback migration is provided',
+      'Purpose',
+      hint: 'What this data source / schema holds and why it is separate',
     ),
   ])
   @override
   @SerializationOrder(0)
   String? content;
+}
+
+/// A single migration artifact (form).
+///
+/// One versioned artifact in the migration set: what it is (baseline schema,
+/// reference data, or a schema change), which target it applies to, and which
+/// deployment environments it is restricted to. The kind-specific detail lives
+/// in the promoted case subsection its `artifactKind` selects.
+@StandardReferences(
+  [
+    'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+    'DAMA-DMBOK2 — data management body of knowledge',
+  ],
+  'A single versioned migration artifact: its kind, target, environment restriction, and the kind-specific definition it carries.',
+)
+@SectionId('SCMST')
+@OneOf(
+  discriminator: 'artifactKind',
+  note:
+      'Migration artifact-kind closed choice: the kind selects its promoted '
+      'definition subsection — a baseline schema definition, a reference-data '
+      'definition, or a schema change. Each kind authors a different thing, so '
+      'every kind binds a case.',
+)
+class SchemaMigrationStepEntry extends DocSpecsSection {
+  @ContentHelp('''
+One artifact in the migration set.
+
+**Ordering.** Artifacts are applied in ascending version order across the whole
+set for a target, so the version is what places this artifact in the sequence.
+
+**Environments.** Leave *Environments* empty to apply the artifact everywhere.
+Naming one or more deployment environments restricts it to those — the way to
+seed development or test data that must never reach production. Use the
+environment names exactly as they are configured; they are matched verbatim.
+
+**Immutability.** Once this artifact has been applied anywhere, do not edit it.
+Author the further change as a new entry with the next version.
+''')
+  @Form([
+    Field(
+      'version',
+      String,
+      'Version',
+      required: true,
+      hint: 'The version that orders this artifact in the set (e.g. 7, 42)',
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      required: true,
+      hint: 'What this artifact does and why',
+    ),
+    Field(
+      'artifactKind',
+      MigrationArtifactKind,
+      'Artifact Kind',
+      required: true,
+      hint: 'What this artifact is — selects the definition subsection below',
+    ),
+    Field(
+      'migrationTarget',
+      String,
+      'Migration Target',
+      required: true,
+      refersTo: ['MIGTG.targetName'],
+      hint: 'The data source / schema target from 7.4.1 this applies to',
+    ),
+    Field(
+      'environments',
+      String,
+      'Environments',
+      hint: 'Comma-separated deployment environments this is restricted to, '
+          'or empty to apply everywhere',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// Baseline schema definition — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `initialDdl` kind. It establishes the schema, so there
+  /// is no prior state: no affected-entity delta, no backfill, and nothing to
+  /// roll back to.
+  @SectionId('SCMST-BASE')
+  @StandardReferences(
+    [
+      'ISO/IEC 9075 (SQL) — schema definition statements',
+      'DAMA-DMBOK2 — data management body of knowledge',
+    ],
+    'The baseline schema this artifact establishes: the entities it creates and the keys, indexes and constraints it defines.',
+  )
+  @Case(MigrationArtifactKind.initialDdl)
+  @Form([
+    Field(
+      'createdEntities',
+      String,
+      'Created Entities',
+      required: true,
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entities this baseline creates',
+    ),
+    Field(
+      'schemaStatements',
+      String,
+      'Schema Statements',
+      hint: 'The schema definition statements that create the tables',
+    ),
+    Field(
+      'indexesAndConstraints',
+      String,
+      'Indexes and Constraints',
+      hint: 'Keys, indexes and constraints established with the baseline',
+    ),
+  ])
+  @SerializationOrder(1)
+  DocSpecsSection? baselineSchema;
+
+  /// Reference-data definition — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `referenceData` kind. This artifact inserts rows, not
+  /// schema, so it authors the value set rather than schema statements. It is
+  /// the new system's own initial data — legacy business-data migration stays in
+  /// the migration-mapping sections (`MIGME`).
+  @SectionId('SCMST-REFD')
+  @StandardReferences(
+    [
+      'DAMA-DMBOK2 — reference and master data management',
+      'ISO/IEC 11179 — permissible values of a data element',
+    ],
+    'The reference data this artifact loads: the entities it populates, the value set, and how re-application is made harmless.',
+  )
+  @Case(MigrationArtifactKind.referenceData)
+  @Form([
+    Field(
+      'targetEntities',
+      String,
+      'Target Entities',
+      required: true,
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entities this artifact populates',
+    ),
+    Field(
+      'valueSet',
+      String,
+      'Value Set',
+      required: true,
+      hint: 'The reference values loaded — lookup values, defaults, built-in '
+          'roles — or where the authoritative list is kept',
+    ),
+    Field(
+      'identityKey',
+      String,
+      'Identity Key',
+      hint: 'The key that identifies an existing row, so that re-applying the '
+          'artifact updates rather than duplicates',
+    ),
+  ])
+  @SerializationOrder(2)
+  DocSpecsSection? referenceData;
+
+  /// Schema change — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `schemaChange` kind: an evolution step on top of an
+  /// existing schema. This is the only kind for which a delta of affected
+  /// entities, a data backfill and reversibility are meaningful.
+  @StandardReferences(
+    [
+      'Evolutionary Database Design (Ambler & Sadalage) — database refactoring',
+      'ISO/IEC 9075 (SQL) — schema definition statements',
+    ],
+    'The schema change this artifact applies: its statements, the entities it touches, any accompanying data backfill, and whether it is reversible.',
+  )
+  @SectionId('SCMST-CHNG')
+  @Case(MigrationArtifactKind.schemaChange)
+  @Form([
+    Field(
+      'schemaStatements',
+      String,
+      'Schema Statements',
+      required: true,
+      hint: 'The schema changes performed on tables, columns, indexes and '
+          'constraints',
+    ),
+    Field(
+      'affectedEntities',
+      String,
+      'Affected Entities',
+      required: true,
+      refersTo: ['DAENT.entityName'],
+      hint: 'The Data Model entities this change touches',
+    ),
+    Field(
+      'dataBackfill',
+      String,
+      'Data Backfill',
+      hint: 'Any data population or transformation performed as part of the '
+          'change, or None',
+    ),
+    Field(
+      'reversible',
+      bool,
+      'Reversible',
+      hint: 'Whether a rollback step is provided for this change',
+    ),
+  ])
+  @SerializationOrder(3)
+  DocSpecsSection? schemaChange;
 }
 
 // ---------------------------------------------------------------------------

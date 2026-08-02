@@ -177,18 +177,29 @@ class DocSpecsSchemaGenerator {
     return header + json2yaml(_escapeForJson2Yaml(schema.toYaml()));
   }
 
-  /// Pre-escapes string scalars that `json2yaml` (3.0.1) will render as a
-  /// double-quoted YAML scalar.
+  /// Makes every string scalar survive `json2yaml` (3.0.1) → YAML → reload.
   ///
-  /// json2yaml double-quotes a single-line scalar when it looks numeric or
-  /// boolean, or contains a YAML special character (`,`, `:`​ , `[`, …), but it
-  /// never escapes an embedded `"` or `\` inside that quoted scalar — so a
-  /// free-text description such as `... (e.g., "orders", "payments").` is
-  /// emitted as invalid YAML and fails to reload. We cannot patch the package,
-  /// so we mirror its quoting predicate here and escape `\` then `"` for
-  /// exactly the strings it will quote; json2yaml then wraps the already-escaped
-  /// text, yielding a valid double-quoted scalar. Multi-line strings take
-  /// json2yaml's block-scalar path and need no escaping, so they are left alone.
+  /// json2yaml decides on its own whether to double-quote a single-line scalar,
+  /// and gets it wrong in both directions. We cannot patch the package, so we
+  /// mirror its predicate here and repair each direction before handing the
+  /// value over:
+  ///
+  /// - **It quotes but does not escape.** A scalar containing a YAML special
+  ///   character (`,`, `: `, `[`, …) is wrapped in `"` with any embedded `"` or
+  ///   `\` left as-is, so `... (e.g., "orders", "payments").` becomes invalid
+  ///   YAML. We escape `\` then `"` first; json2yaml wraps the already-escaped
+  ///   text and the result is a valid double-quoted scalar.
+  /// - **It leaves plain what YAML rejects.** Its predicate keys off `': '`
+  ///   (colon-*space*), so a description ending in a colon — or starting with
+  ///   `#` or `- `, or carrying edge whitespace — is emitted bare and reloads as
+  ///   a parse error or a silently different string. Escaping cannot help,
+  ///   because json2yaml will not quote it either way, so we **pre-quote it
+  ///   ourselves**. Wrapping in `"` adds no character its predicate reacts to
+  ///   (that is exactly why it declined to quote), so json2yaml passes our
+  ///   quoted form through verbatim.
+  ///
+  /// Multi-line strings take json2yaml's block-scalar path, which is safe for
+  /// any content, so they are left alone.
   static dynamic _escapeForJson2Yaml(dynamic value) {
     if (value is Map) {
       return value.map<String, dynamic>(
@@ -199,9 +210,10 @@ class DocSpecsSchemaGenerator {
     }
     if (value is String) {
       final isMultiline = value.trim().contains('\n');
-      if (!isMultiline && _json2yamlWillQuote(value)) {
-        return value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
-      }
+      if (isMultiline) return value;
+      final escaped = value.replaceAll('\\', '\\\\').replaceAll('"', '\\"');
+      if (_json2yamlWillQuote(value)) return escaped;
+      if (_unsafeAsPlainScalar(value)) return '"$escaped"';
     }
     return value;
   }
@@ -217,6 +229,27 @@ class DocSpecsSchemaGenerator {
       ',', '?',
     ];
     return specials.any(s.contains);
+  }
+
+  /// Whether [s] cannot be emitted as a bare YAML scalar — the cases
+  /// [_json2yamlWillQuote] misses.
+  ///
+  /// Only the hazards json2yaml's own special set does not already cover are
+  /// listed; anything it does cover is quoted (and escaped) on the other branch.
+  static bool _unsafeAsPlainScalar(String s) {
+    if (s.isEmpty) return false;
+    // A trailing colon reads as a mapping key: `description: text ending in:`.
+    if (s.endsWith(':')) return true;
+    // Leading indicators: comment, block-sequence entry, quote styles. (`#`
+    // mid-string is covered by json2yaml's ' #'; a *leading* one is not.)
+    if (s.startsWith('#') || s.startsWith('- ') || s == '-') return true;
+    if (s.startsWith('"') || s.startsWith("'")) return true;
+    // Edge whitespace is stripped by the plain-scalar reader, so the reloaded
+    // string would differ from the emitted one without a parse error to say so.
+    if (s.trimLeft().length != s.length || s.trimRight().length != s.length) {
+      return true;
+    }
+    return false;
   }
 
   /// The on-disk filename for a schema (e.g. `project-definition.1.0`).

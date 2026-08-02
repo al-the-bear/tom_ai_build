@@ -266,6 +266,45 @@ void main() {
       expect(reloaded.sectionTypes['q00-diag']!.description, guidance);
     });
 
+    test('toYamlString quotes scalars json2yaml leaves plain but YAML rejects, '
+        'so a description ending in a colon round-trips', () {
+      // Regression: json2yaml's quoting predicate keys off `': '` (colon-space)
+      // and so leaves a *trailing* colon unquoted — `key: text ending in:` is
+      // read back as a nested mapping key and fails to parse. The same holds
+      // for a leading `#`, a leading `- `, and leading/trailing whitespace.
+      const cases = <String, String>{
+        'trailing colon': 'The operation surface the server answers (CE-API):',
+        'leading hash': '#1 priority for the release.',
+        'leading dash': '- the first bullet of a copied list',
+        'trailing space': 'A description with a trailing space ',
+      };
+      for (final entry in cases.entries) {
+        final model = <String, ModelClass>{
+          'PlainDoc': ModelClass(
+            name: 'PlainDoc',
+            annotations: [
+              _a('Document', {'name': 'Plain Doc'}),
+              _a('SectionId', {'id': 'P00'}),
+            ],
+            fields: [
+              ModelField(
+                name: 'body',
+                typeName: 'String',
+                annotations: [
+                  _a('SectionId', {'id': 'P00-BODY'}),
+                  _a('ContentHelp', {'guidance': entry.value}),
+                ],
+              ),
+            ],
+          ),
+        };
+        final schema = DocSpecsSchemaGenerator(model).generateFor('PlainDoc');
+        final reloaded = _writeAndReload(dir, schema);
+        expect(reloaded.sectionTypes['p00-body']!.description, entry.value,
+            reason: 'case: ${entry.key}');
+      }
+    });
+
     test('SOM §13: @Form sections get format <type>-form; fields keep model '
         'field names with required/description/pattern-check', () {
       final schema = gen.generateFor('DemoDoc');

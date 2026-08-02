@@ -983,6 +983,13 @@
         - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
       - recipients: `ReportRecipientEntry`
         - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+  - `SchemaVersioningAndMigration` ← (locus: server — CE-MG)
+    - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
+    - migrationTargets: `MigrationTargetEntry`
+      - content @Form(targetName, dataSourceName, schemaName, purpose)
+    - migrationSteps: `SchemaMigrationStepEntry`
+      - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
+        referenceData, schemaChange
   - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
     - content
     - operations: `ServerOperationEntry`
