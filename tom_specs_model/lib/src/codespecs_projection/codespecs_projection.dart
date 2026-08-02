@@ -170,12 +170,32 @@ class D13CodeSpecsProjection extends DocSpecsSection {
   @SerializationOrder(11)
   ReportDefinitions reportDefinitions = ReportDefinitions();
 
+  // ─── Locus: SHARED + SERVER span ─────────────────────────────────────────
+
+  /// Server operation registry — the application's **own** CE-API surface.
+  ///
+  /// The one subtree that declares what the system answers. It spans two loci
+  /// because a CE-API operation generates two halves (`codespecs_mapping.md`
+  /// §4.2): the **operation catalogue and the request/response types** are
+  /// shared — the client cites an operation and depends on its shapes — while
+  /// the **operation itself** lands on the owning service unit in the server
+  /// project. Which service unit that is follows from each operation's primary
+  /// written data entity (§5.17), so ownership is derived here rather than
+  /// declared.
+  ///
+  /// The external-interface inventory (EXIN, D07 IIS) is deliberately **not**
+  /// reachable from this projection: it describes third-party interfaces the
+  /// system talks to, not the surface the system generates.
+  @Comment('locus: shared(CE-API contract)+server(CE-API operations)')
+  @SerializationOrder(12)
+  ServerOperationRegistry serverOperationRegistry = ServerOperationRegistry();
+
   // ─── Locus: SERVER + CLIENT span ─────────────────────────────────────────
 
   /// Process steps & actor interactions — CE-SU server-use + CE-SC client-side
   /// interaction; a single subtree whose parts split across both loci.
   @Comment('locus: server(CE-SU)+client(CE-SC)')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   ProcessStepsAndActorInteractions processStepsAndActorInteractions =
       ProcessStepsAndActorInteractions();
 
@@ -183,6 +203,6 @@ class D13CodeSpecsProjection extends DocSpecsSection {
 
   /// Experience CodeSpecs — the client UI seed: CE-EL/FM/LO/TX/AC/NV/ST/ER.
   @Comment('locus: client — CE-EL/FM/LO/TX/AC/NV/ST/ER')
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   ExperienceCodeSpecs experienceCodeSpecs = ExperienceCodeSpecs();
 }

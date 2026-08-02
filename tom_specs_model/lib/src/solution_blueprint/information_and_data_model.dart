@@ -124,14 +124,22 @@ IFM (Information Model) document.
   @SerializationOrder(8)
   MessageKeyRegistry messageKeyRegistry = MessageKeyRegistry();
 
-  /// 7.9. Data Model Follow-up Facets.
+  /// 7.9. Server Operation Registry.
+  ///
+  /// The system's **own** operation surface (CE-API): one entry per operation
+  /// the server answers, with its request/response members, the data entity it
+  /// primarily writes, and its authorization requirement.
+  @SerializationOrder(9)
+  ServerOperationRegistry serverOperationRegistry = ServerOperationRegistry();
+
+  /// 7.10. Data Model Follow-up Facets.
   ///
   /// Per-entity operational/governance facets (volume, compliance, technical
   /// characteristics, migration mappings) and the model-wide ER diagram —
   /// separated from `dataModel` so the entity/attribute subtree stays purely
   /// CE-DB / CE-VA generation-owned while these follow-up facets are authored
   /// alongside, keyed back to their source entity.
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DataModelFollowUp dataModelFollowUp = DataModelFollowUp();
 }
 
@@ -216,10 +224,10 @@ are authored in the Data Model Follow-up Facets section (7.9).
 }
 
 // ---------------------------------------------------------------------------
-// 7.9 Data Model Follow-up Facets
+// 7.10 Data Model Follow-up Facets
 // ---------------------------------------------------------------------------
 
-/// 7.9. Data Model Follow-up Facets.
+/// 7.10. Data Model Follow-up Facets.
 ///
 /// Operational and governance facets that accompany the data model but are not
 /// part of the generation-owned entity/attribute schema: the model-wide ER
@@ -256,11 +264,11 @@ core entity/attribute schema.
   @SerializationOrder(0)
   String? content;
 
-  /// 7.9.1. Entity-Relationship Diagram (mermaid).
+  /// 7.10.1. Entity-Relationship Diagram (mermaid).
   @SerializationOrder(1)
   ErDiagramSection erDiagram = ErDiagramSection();
 
-  /// 7.9.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
+  /// 7.10.2. Per-Entity Follow-up Facets — contains 0+× Entity Follow-up.
   @StandardReferences([
     'DAMA-DMBOK2 — data management body of knowledge',
     'ISO/IEC 25012 — data quality',
@@ -3930,14 +3938,23 @@ class BehaviorRuleEntry extends DocSpecsSection {
 }
 
 /// A single integration point entry.
+///
+/// How a domain object connects to the outside world. It describes *outward
+/// connections* — which interfaces surface the object, which events it takes
+/// part in, how it maps onto external systems — and deliberately declares no
+/// operation of the application's own: those live in the server operation
+/// registry (SVOPR), which is the one place an operation is named and given its
+/// request/response shapes.
 @StandardReferences(
   ['UML 2.5.1 (ISO/IEC 19505) — class/object modeling'],
   'How a domain object connects to the outside world: the APIs that expose it, events it publishes or subscribes to, and external-system mappings.',
 )
 @SectionId('INTEG')
-@CodeSpecKind([CodeSpecPart.serverApi, CodeSpecPart.serverCall],
-    note: 'Integration point: an exposed API → CE-API; a consumed integration '
-        '→ CE-SC.')
+@CodeSpecKind([CodeSpecPart.serverCall],
+    note: 'CE-SC — the consumed side of an integration point: the external '
+        "systems this object is exchanged with. The application's own "
+        'operations are declared in the server operation registry (SVOPR), '
+        'not here.')
 class IntegrationPointEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -5056,6 +5073,290 @@ class MessageLocaleVariantEntry extends DocSpecsSection {
       'Copy',
       required: true,
       hint: 'The user-facing text for this locale',
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+}
+
+// ---------------------------------------------------------------------------
+// 7.9 Server Operation Registry
+// ---------------------------------------------------------------------------
+
+/// 7.9. Server Operation Registry.
+///
+/// The authoring home for the **application's own** operation surface — the
+/// CE-API (`serverApi`) part. Every operation the system answers is declared
+/// once here; the client side (CE-SC) only *cites* an operation, and the
+/// service unit that owns it (CE-SU) is *derived* from the entity each
+/// operation primarily writes (`codespecs_mapping.md` §5.17). Neither can
+/// declare an operation, so without this registry the system's server API would
+/// be code with no specification source.
+///
+/// This is distinct from the **external** interface inventory under
+/// `ExternalInterfaces` (D07 IIS), which describes third-party interfaces the
+/// system talks to. Those carry a transport verb and a path because a
+/// third-party API really has them; the application's own contract does not —
+/// `codespecs_mapping.md` §7 fixes every operation as a single transport shape
+/// whose **operation name** carries the intent, and §5.14 drops transport
+/// plumbing from the spec surface.
+///
+/// **What is deliberately not authored here** (all fixed by §7 / §5.14):
+///
+/// - no transport method and no path — the operation name is the identifier;
+/// - no response status codes — every application outcome, success *or* error,
+///   rides in the [ResultEnvelope]; only infrastructure failures are transport
+///   errors;
+/// - no encoding, header, redirect, CORS or credential plumbing — framework
+///   transport members, never spec input.
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  "The registry of the application's own server operations (CE-API): each with its operation name, request and response members, primary written data entity, and authorization requirement.",
+)
+@SectionId('SVOPR')
+class ServerOperationRegistry extends DocSpecsSection {
+  @ContentHelp('''
+Catalogue the operations the system itself answers. Add one entry per
+operation; each one declares:
+- the **operation name** — the single identifier callers use,
+- the **request members** and **response members** that make up its shapes,
+- the **primary data entity** it writes (this determines which service unit
+  owns it — never list ownership by hand),
+- its **authorization requirement**,
+- the **error codes** it may return, from the error-code registry (ERCRG).
+
+Do **not** author a transport method, a path or response status codes: the
+operation name carries the intent, and every outcome — success or structured
+error — is returned in the Result envelope (RSLTE).
+
+This registry is for the system's **own** operations. Interfaces to third-party
+systems are inventoried under External Interfaces (EXIN) instead.
+''')
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.9.1. Operations — one entry per operation the system answers.
+  @StandardReferences([
+    'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
+  ], "The catalogued operations the application's own server surface answers.")
+  @SectionId('SVOPE-OPER-LST')
+  @SectionIdPattern('SVOPE-OPER-xxx')
+  @ContentHelp('Add one entry per operation the system answers.')
+  @SerializationOrder(1)
+  List<ServerOperationEntry> operations = [];
+}
+
+/// A single server operation (form + request/response members).
+///
+/// One entry in the [ServerOperationRegistry]: the operation name that
+/// identifies it, its purpose, the data entity it primarily writes, its
+/// authorization requirement, the error codes it may return, and the members
+/// that make up its request and response shapes.
+///
+/// The operation name is the join token the rest of the model references: the
+/// ISC step entries cite it as the target of a client call (CE-SC), and the
+/// service unit that owns the operation follows from
+/// [ServerOperationEntry.primaryDataEntity] rather than from a hand-written
+/// list (`codespecs_mapping.md` §5.17).
+@StandardReferences(
+  [
+    'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ],
+  'A single server operation: its name, purpose, primary written data entity, authorization requirement, error codes, and its request and response members.',
+)
+@SectionId('SVOPE')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note:
+      "CE-API — the application's own operation surface. Under the "
+      'codespecs_mapping.md §7 contract the operation name is the sole '
+      'identifier (no method, no path) and the response is always the CE-ER '
+      'Result envelope, so only the name, the two typed shapes, the primary '
+      'written entity, the CE-AZ requirement and the returnable error codes '
+      'are authored. The request/response member shapes generate into the '
+      'shared project; the operation itself into the server project (§4.2).',
+)
+class ServerOperationEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'operationName',
+      String,
+      'Operation Name',
+      required: true,
+      hint: 'Dotted, namespaced operation name (e.g. customer.save, '
+          'order.submit) — the one operation identifier. Callers cite this '
+          'name; no transport method or path is authored.',
+    ),
+    Field(
+      'purpose',
+      String,
+      'Purpose',
+      hint: 'What the operation does, from the caller\'s point of view',
+    ),
+    Field(
+      'primaryDataEntity',
+      String,
+      'Primary Data Entity',
+      hint: 'DataEntityEntry.entityName of the entity this operation primarily '
+          'writes — the service unit that owns that entity owns this '
+          'operation (ownership is derived, never listed by hand)',
+      refersTo: ['DAENT.entityName'],
+    ),
+    Field(
+      'authorizationRequirement',
+      String,
+      'Authorization Requirement',
+      required: true,
+      hint: 'What a caller must satisfy: Denied | Public | Authenticated | '
+          'Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. '
+          'There is no default — state it explicitly.',
+    ),
+    Field(
+      'requiredRoles',
+      String,
+      'Required Roles',
+      hint: 'Comma-separated RoleEntry.roleName values from the role catalogue '
+          '(AZRO), for a Role requirement',
+      refersTo: ['AZRO.roleName'],
+    ),
+    Field(
+      'requiredResourceKey',
+      String,
+      'Required Resource Key',
+      hint: 'ResourceKeyEntry.resourceKey from the resource-key catalogue '
+          '(RESKEY), for a ResourceKey or Graded requirement',
+      refersTo: ['RESKEY.resourceKey'],
+    ),
+    Field(
+      'descriptionKey',
+      String,
+      'Description Copy Key',
+      hint: 'MessageKeyEntry.key into the message key registry (MSGKR) for the '
+          "operation's user-facing description (author copy once, reference "
+          'here)',
+      refersTo: ['MSGKE.key'],
+    ),
+    Field(
+      'errorCodes',
+      String,
+      'Error Codes',
+      hint: 'Comma-separated ErrorCodeEntry.code values from the error-code '
+          'registry (ERCRG) that this operation may return in the error arm '
+          'of the Result envelope',
+      refersTo: ['ERCEN.code'],
+    ),
+  ])
+  @override
+  @SerializationOrder(0)
+  String? content;
+
+  /// 7.9.x. Request Members — the members that make up the request shape.
+  @StandardReferences([
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ], 'The members that make up this operation\'s request shape.')
+  @SectionId('SVOPM-REQM-LST')
+  @SectionIdPattern('SVOPM-REQM-xxx')
+  @ContentHelp('Add one entry per member of the request shape.')
+  @SerializationOrder(1)
+  List<ServerOperationMemberEntry> requestMembers = [];
+
+  /// 7.9.x. Response Members — the members the success payload carries.
+  ///
+  /// These members *are* the success payload the Result envelope wraps; the
+  /// envelope itself is fixed by `codespecs_mapping.md` §7 and is never
+  /// authored per operation.
+  @StandardReferences([
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+  ], 'The members that make up the success payload this operation returns.')
+  @SectionId('SVOPM-RESM-LST')
+  @SectionIdPattern('SVOPM-RESM-xxx')
+  @ContentHelp('Add one entry per member of the success payload. Leave empty '
+      'for an operation that returns nothing but success or error.')
+  @SerializationOrder(2)
+  List<ServerOperationMemberEntry> responseMembers = [];
+}
+
+/// A single member of an operation's request or response shape (form).
+///
+/// One named, typed member: its name, its type, whether it must be present, and
+/// — when the type is a domain concept rather than a primitive — the data
+/// entity or domain enum it draws from. The same shape serves both the request
+/// and the response side of a [ServerOperationEntry], so a member reads the
+/// same way whichever direction it travels.
+@StandardReferences(
+  [
+    'ISO/IEC 11179 — metadata registries / data element definitions',
+    'ISO/IEC/IEEE 42010 — architecture description (interface contracts)',
+  ],
+  "A single member of an operation's request or response shape: its name, type, presence requirement, and the data entity or domain enum it draws from.",
+)
+@SectionId('SVOPM')
+@CodeSpecKind(
+  [CodeSpecPart.serverApi],
+  note: 'CE-API — one member of an operation request or response shape. The '
+      'members of a shape become the shared request/response type both sides '
+      'depend on (§4.2 shared locus); a member typed by a data entity or a '
+      'domain enum reuses that declaration rather than restating it.',
+)
+class ServerOperationMemberEntry extends DocSpecsSection {
+  @Form([
+    Field(
+      'memberName',
+      String,
+      'Member Name',
+      required: true,
+      hint: 'Name of the member within the shape (e.g. customerId, '
+          'includeArchived)',
+    ),
+    Field(
+      'memberType',
+      String,
+      'Member Type',
+      required: true,
+      hint: 'Text | Number | Integer | Decimal | Boolean | Date | Timestamp | '
+          'Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, '
+          'name the source in the field below.',
+    ),
+    Field(
+      'multiValued',
+      bool,
+      'Multi-Valued',
+      hint: 'Whether the member carries a collection of the type rather than a '
+          'single value',
+    ),
+    Field(
+      'required',
+      bool,
+      'Required',
+      hint: 'Whether the member must be present',
+    ),
+    Field(
+      'dataEntity',
+      String,
+      'Data Entity',
+      hint: 'DataEntityEntry.entityName the member is typed by, when its type '
+          'is DataEntity',
+      refersTo: ['DAENT.entityName'],
+    ),
+    Field(
+      'domainEnum',
+      String,
+      'Domain Enum',
+      hint: 'DomainEnumEntry.enumName the member is typed by, when its type is '
+          'DomainEnum',
+      refersTo: ['DMENE.enumName'],
+    ),
+    Field(
+      'description',
+      String,
+      'Description',
+      hint: 'What the member means and any authoring guidance',
     ),
   ])
   @override

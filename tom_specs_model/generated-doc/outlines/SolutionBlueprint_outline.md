@@ -1314,6 +1314,14 @@
         - content @Form(key, defaultCopy, placeholders, description)
         - localeVariants: `MessageLocaleVariantEntry`
           - content @Form(locale, copy)
+    - `ServerOperationRegistry`
+      - content
+      - operations: `ServerOperationEntry`
+        - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+        - requestMembers: `ServerOperationMemberEntry`
+          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+        - responseMembers: `ServerOperationMemberEntry`
+          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
     - `DataModelFollowUp`
       - content, erDiagram @mermaid-er
       - entityFollowUps: `EntityFollowUpEntry`

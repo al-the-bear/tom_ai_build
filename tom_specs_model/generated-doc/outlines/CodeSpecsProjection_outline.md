@@ -983,6 +983,14 @@
         - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
       - recipients: `ReportRecipientEntry`
         - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+  - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
+    - content
+    - operations: `ServerOperationEntry`
+      - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+      - requestMembers: `ServerOperationMemberEntry`
+        - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+      - responseMembers: `ServerOperationMemberEntry`
+        - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
   - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
     - content
     - overview: `ProcessStepsOverview`

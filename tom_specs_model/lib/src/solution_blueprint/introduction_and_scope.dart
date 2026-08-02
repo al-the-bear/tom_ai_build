@@ -15210,21 +15210,30 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
   DocSpecsSection? webhookSpec;
 }
 
-/// API operation entry.
+/// An operation of an **external** interface.
+///
+/// One operation of a third-party system the application talks to, described in
+/// that system's own terms — including its transport method and path, which a
+/// foreign contract genuinely has.
+///
+/// This is **not** where the application's own operations are declared: those
+/// live in the server operation registry (SVOPR), under the
+/// `codespecs_mapping.md` §7 contract that fixes the transport shape and makes
+/// the operation name the sole identifier.
 @StandardReferences(
   ['OpenAPI / AsyncAPI — API specification'],
-  'Documents a single API operation including method, path, idempotency, and request/response formats.',
+  'Documents a single operation of an external interface including method, path, idempotency, and request/response formats.',
 )
 @SectionId('IOE')
 @CodeSpecKind(
-  [CodeSpecPart.serverApi, CodeSpecPart.serverCall],
+  [CodeSpecPart.serverCall],
   note:
-      'A single boundary operation with its request/response pair. Under '
-      'the codespecs_mapping.md §7 contract (POST-only, operation-named, '
-      'typed T/R, CE-ER '
-      'envelope) it is realised as a serverApi (CsEndpoint) when inbound '
-      '(we expose) and a serverCall (CsServerCall) when outbound (we call '
-      'the external system); direction-dependent, hence list-valued.',
+      'CE-SC — one operation of an **external** interface: a call the '
+      'application makes on a third-party system, realised as a serverCall '
+      "(CsServerCall). Deliberately not a serverApi — the application's own "
+      'operations are declared in the server operation registry (SVOPR), '
+      'where the codespecs_mapping.md §7 contract applies. Here the foreign '
+      "system's method and path are part of the contract being described.",
 )
 class InterfaceOperationEntry extends DocSpecsSection {
   @Form([

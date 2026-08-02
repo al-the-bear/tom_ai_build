@@ -373,13 +373,13 @@ Cites slice 1 only.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `InterfaceOperationEntry` (`IOE`) and `IntegrationPointEntry` (`INTEG`). §8.5 records CE-API as a **GAP** (`csrb10`): the SOM home does not yet carry the full §5.14 surface. This entry specifies the contract; `csrb10` supplies the missing SOM fields. Consumed: operation name, request shape, response shape. |
+| **1 Input** | `ServerOperationEntry` (`SVOPE`) under the `ServerOperationRegistry` (`SVOPR`) — the application's own operation surface. Consumed: `operationName`, and the `ServerOperationMemberEntry` (`SVOPM`) lists that make up the request and response shapes. `InterfaceOperationEntry` (`IOE`) is **not** an input here: it describes a foreign contract and carries `serverCall` only (`codespecs_mapping.md` §8.5). |
 | **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** `TomResult<T>` (§7); a generator that emits a bare `T` has violated the server contract. |
-| **3 Arguments** | `operation` — **first positional, required** ← `IOE`'s operation name, **verbatim** (N5). §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, so neither is an argument. Description → CE-TX (not an argument); authorization → the `@CsAuthorize` modifier. |
+| **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `authorizationRequirement` + its role/resource-key refs → the `@CsAuthorize` modifier. |
 | **4 Naming** | Catalogue = `<Document>Operations`; member = N5 over the operation name. DTOs = PascalCase of the operation name + `Request` / `Response`. |
 | **5 Locus** | `shared` (§4.2: request/response types **and** the operation-ref catalogue). The handler half is §3.4.2, server. |
-| **6 Cross-refs** | Emits `CsOperationRef` consts (the edge everything else cites). References domain enums by plain type. |
-| **7 Back-link** | `@DocSpec([DocRef('IOE', 'supplies the operation name and its request/response shapes')])`, plus `DocRef('INTEG', …)` for an operation that realises an integration point. |
+| **6 Cross-refs** | Emits `CsOperationRef` consts (the edge everything else cites). A member typed by a domain enum (`SVOPM.domainEnum`) or a data entity (`SVOPM.dataEntity`) references that declaration by plain type rather than restating it. |
+| **7 Back-link** | `@DocSpec([DocRef('SVOPE', 'supplies the operation name')])`, plus one `DocRef('SVOPM', …)` per member of the shape the DTO realises. |
 
 #### 3.2.2 `@CsValidation` — CE-VA, the declaration string
 
@@ -497,13 +497,13 @@ Cites slice 1 (domain enums, `CsResourceKeyRef`). Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DataEntityEntry` (`DAENT`) for the entity and key type; the named queries come from the operations that read the entity (`IOE`). Consumed (§5.13 repository level): entity + key type, named queries, predicates, sort, row cap, distinct, transaction scope. |
+| **1 Input** | `DataEntityEntry` (`DAENT`) for the entity and key type; the named queries come from the operations that read the entity (`SVOPE`, matched by `primaryDataEntity` and by the members typed by the entity). Consumed (§5.13 repository level): entity + key type, named queries, predicates, sort, row cap, distinct, transaction scope. |
 | **2 Output** | A repository over the `tom_core_server` CRUD / MariaDB repositories, form 1, with one **form-3 method per named query** — a real signature and `throw UnsupportedError('<query description>')`. Query composition uses `TomQueryBuilder`; the §5.13 predicate vocabulary (`eq`, `like`, `between`, `isIn`, `and`, `or`), sort, row cap and distinct are that builder's own surface (test **b**), not annotation arguments. |
 | **3 Arguments** | None; `@CsRepository({String? note})` unchanged. Entity and key type are the class's generics (test **a**); transaction scope is the framework's transaction annotation beside the marker (test **b**). |
 | **4 Naming** | PascalCase of the entity name + `Repository`. |
 | **5 Locus** | `server`. |
 | **6 Cross-refs** | `Type` literals for the entity; `CsOperationRef` where a named query realises a declared operation. |
-| **7 Back-link** | `@DocSpec([DocRef('DAENT', 'supplies the entity and key this repository reads')])`, plus one `DocRef('IOE', …)` per named query. |
+| **7 Back-link** | `@DocSpec([DocRef('DAENT', 'supplies the entity and key this repository reads')])`, plus one `DocRef('SVOPE', …)` per named query. |
 
 #### 3.3.5 `@CsMigration` — CE-MG schema-migration artifacts
 
@@ -549,13 +549,13 @@ Cites slices 1, 2 and 3.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | The same `InterfaceOperationEntry` (`IOE`) as §3.2.1 — one section, two loci. Consumed here: the operation's behaviour description, which becomes the stub explication. |
+| **1 Input** | The same `ServerOperationEntry` (`SVOPE`) as §3.2.1 — one section, two loci. Consumed here: `purpose` (the operation's behaviour, which becomes the stub explication), `primaryDataEntity` (which service unit the handler lands on, §5.17) and `errorCodes` (the `CsErrorCode` cross-refs below). |
 | **2 Output** | A **handler method on the §3.4.1 service unit**, form 3: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (§7); a generator emitting a non-POST verb or a 4xx contract has violated it. |
 | **3 Arguments** | `operation` — first positional, required, **the identical verbatim string** as the shared half's `CsOperationRef` (§3.2.1). A validator asserts the two match; they are one operation named once. |
 | **4 Naming** | Method = camelCase of the operation name's last dotted segment (`customer.save` → `save`) — the unit already supplies the `customer` half, and repeating it would give `CustomerService.customerSave`. |
 | **5 Locus** | `server` (§4.2: handlers). |
-| **6 Cross-refs** | `CsOperationRef` (the shared const it realises); `Type` literals for the shared DTOs; `CsErrorCode` for each error it returns. |
-| **7 Back-link** | `@DocSpec([DocRef('IOE', 'supplies the operation behaviour this handler implements')])`. |
+| **6 Cross-refs** | `CsOperationRef` (the shared const it realises); `Type` literals for the shared DTOs; one `CsErrorCode` per code in `SVOPE.errorCodes`. |
+| **7 Back-link** | `@DocSpec([DocRef('SVOPE', 'supplies the operation behaviour this handler implements')])`. |
 
 #### 3.4.3 `@CsAuthorize` — CE-AZ authorization requirement (modifier)
 

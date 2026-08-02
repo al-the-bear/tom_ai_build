@@ -1059,7 +1059,7 @@ therefore classified:
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
 landed, so **every slice is emission-, runtime- and verification-clear on the
 code side**. What remains is SOM-side: the sections that do not yet carry the
-surface a marker's arguments consume (`csrb10`–`csrb13`), plus `csrc1` at slice 7.
+surface a marker's arguments consume (`csrb11`–`csrb13`), plus `csrc1` at slice 7.
 **No `tom_core`-side blocker remains anywhere** — `csexb2` closed the last one by
 reconciling the CE-LO container-kind set with the ACL substrate at slice 6. The
 implied sequence: the SOM gaps next, then the standing ownership question
@@ -1269,8 +1269,8 @@ CE-AC @CsAction ──triggers──▶ CE-SC @CsServerCall ──operation─�
   compiler-checked contract (§4.2, shared project) guarantees the referenced operation
   exists and fixes `T`/`R`; a rename of the operation surfaces as a compile error at
   the CE-SC reference, not a silent runtime 404.
-- **Outbound case.** An **outbound integration call** (the SOM IOE/INTEG direction
-  mapping: outbound/consumed → `serverCall`) targets an **external** operation whose
+- **Outbound case.** An **outbound integration call** (the SOM `IOE`/`INTEG`
+  sections, which carry `serverCall` only) targets an **external** operation whose
   contract is externally defined — there is no own CE-API for it; the external
   operation's DTOs are **mirrored in the shared project** and the CE-SC call site is
   authored exactly like the internal case.
@@ -2120,9 +2120,17 @@ CE-API operation:
   `TomServerChannel` / `TomServerCallSpecs` transport plumbing stays
   framework-internal.
 
-**SOM feed.** CE-API/CE-SC derive from **D07 IFS** + **D06 ATS** + **D05 ISC** (§8) —
-operations + request/response from the interface spec; the client call + action edge
-from the scenarios.
+**SOM feed.** The application's **own** operations are authored in the
+`ServerOperationRegistry` (`SVOPR`) — one `ServerOperationEntry` (`SVOPE`) per
+operation, carrying the name, the primary written entity (§5.17), the CE-AZ
+requirement, the returnable error codes and the request/response members
+(`SVOPM`). The registry sits under `InformationAndDataModel` (→ **D03 IFM**),
+beside the error-code, message-key and domain-enum registries the operation
+surface references, and is projected by `D13CodeSpecsProjection`. The CE-SC
+client call + action edge come from **D05 ISC** (the step entries). **D07 IFS**
+feeds the *external* interface inventory — foreign contracts the application
+calls (CE-SC outbound), never its own operations; **D06 ATS** contributes the
+technology selection.
 
 ### 5.15 CE-AZ authorization-requirement attribute surface
 
@@ -3913,7 +3921,7 @@ A part is **COVERED** only when both hold.
 | CE-VA | `validation` | `ElementValidationRuleEntry` ELVARUEN · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
 | CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST (under `ProcessStepsAndActorInteractions`) | COVERED |
-| CE-API | `serverApi` | `InterfaceOperationEntry` IOE · `IntegrationPointEntry` INTEG — both under **external** interfaces (D07 IIS) | **GAP** — `csrb10` |
+| CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorizationRequirement` + role/resource-key refs · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
 | CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
 | CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTAENT | COVERED |
@@ -3944,16 +3952,20 @@ selection. Four leaks were found and corrected in place: `flutterVariant` →
 uses the glossary's own term for a closed value set, and the transport-status
 fields on `ErrorCodeEntry` / `SystemErrorCodeEntry` name the one place §7 admits
 a transport status (5xx transport errors). `InterfaceOperationEntry.httpMethod`
-is legitimate for the **external** interface it describes and only leaks because
-that section also claims `serverApi` — folded into `csrb10`.
+and `.path` are likewise not leaks: they describe a **foreign** contract, which
+genuinely has a verb and a route, and the section carries `serverCall` only. The
+application's own operations are declared in `ServerOperationEntry`, which
+authors neither — §7 fixes the transport shape and the operation name is the
+sole identifier.
 
 **Persistence discriminators (§11).** No settings section may carry a
 local/roaming-style flag; scope is expressed by *which* of CE-CF / CE-CC / CE-DS
 / CE-UP is used. `LanguageCountrySelection.persistence` carried two
 (`persistenceMethod`, `crossDeviceSync`) and was rewritten to retention
-behaviour (`guestRetention`, `signInCarryOver`, `reselectionPrompt`).
-`DeviceSettings.deviceOverridable` is **not** a discriminator — it is the
-§5.16 opt-in cross-scope shadowing declaration.
+behaviour (`guestRetention`, `signInCarryOver`, `reselectionPrompt`). The
+`overridableBy` member on `SCSET` / `CCSET` / `USSET` is **not** a discriminator
+either — it is the §5.16 opt-in cross-scope shadowing declaration, authored on
+the *wider* scope only, which is why `DSSET` (the narrowest scope) has none.
 
 ## 9. Bidirectional DocSpecs ↔ CodeSpecs linking
 
@@ -4037,7 +4049,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrb10` | Give **CE-API** the application's own operation surface (§8.5 gap). Its only homes describe *external* interfaces, are unreachable from `D13CodeSpecsProjection`, and carry an `httpMethod` field that contradicts §5.14/§7's fixed POST. |
 | `csrb11` | Route **CE-MG** into a Phase-3 document and the generation projection, and complete its §5.27 surface (environment tag, datasource/schema placement, seed-data artifact kind). `SCHMG` is currently reachable only from `D00SolutionBlueprint`. |
 | `csrb12` | Give **CE-JB** a per-job declaration list (§5.29 surface: trigger, work definition, target references, retry/timeout/alerting, enabled/environments/service unit). `BatchJobManagement` is system-wide policy only. |
 | `csrb13` | Give **CE-CL** an enumeration of the system's **client applications** (§4.1.1: platform targets, entry route, included flows/forms). `ClientRequirementsSection` states minimum platform requirements, which is a different thing. |
@@ -4046,6 +4057,7 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `csrc1` | Type **`TomJobDeclaration.targetRefs`** (§5.29 scope part 3). The member is `List<String>`, while §5.29 and §4.4.1 require `Type` literals for CE-DB targets and `CsReportRef` for CE-RP targets. The only untyped holder left in the CE-JB scope. |
 | `csrc5` | Implement the **sixteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob` and §5.3's mirrored-enum completeness against `tom_core`. All sixteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
 | `csrc8` | Collapse or justify **CE-CF's two authoring shapes**. §5.16's `SCSET` list is the general keyed key/type/default declaration; the audit-sink band under `AuditLogFormat` (`AULOFO`) is fixed-name form fields. Both realise `@CsServerConfig`, so one part has two derivation paths, and the fixed-name one cannot declare `secret` or `overridableBy` — a log sink's credentials being the textbook case for the first. |
+| `csrc9` | Model the **CE-AZ requirement as the §5.15 closed choice**. `SVOPE` authors it as a kind string plus role / resource-key refs, which covers six of the ten arms; Group, Entitlement, Custom and Graded have no payload, and Graded's three-slot recursion needs an explicit depth bound. |
 | `csrc7` | Settle **`ScreenElementFieldKind.color`** against the §5.18 catalogue — the SOM can author a colour field and the eleven kinds have no arm for it. Either a twelfth kind (distinct value type, control and extras, the Choice/MultiChoice argument) or a stated desugaring onto TextInput plus a CE-VA pattern rule. Found the same way the file gap was: an `@OneOf` constant covered by no `@Case`. |
 
 Open todos in these series whose subject is **not** a mapping question are
