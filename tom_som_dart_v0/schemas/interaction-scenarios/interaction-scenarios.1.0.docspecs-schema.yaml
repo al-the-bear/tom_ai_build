@@ -677,7 +677,7 @@ form-types:
       - fieldname: relatedProcess
         description: TOM-xxx process this interaction realizes
       - fieldname: relatedRequirements
-        description: REQ-xxx requirements satisfied here
+        description: "Requirement ids satisfied here, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
       - fieldname: relatedUseCase
         description: ISC-xxx use case in the ISC document
       - fieldname: relatedDataEntities

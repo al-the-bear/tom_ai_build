@@ -2556,5 +2556,130 @@ void main() {
       expect(errs, hasLength(1));
       expect(errs.single, contains('Inline.target'));
     });
+
+    // --- The reserved `@sectionId` slot (csrd1) ----------------------------
+    //
+    // A registry whose id lives in the item's section id rather than in a form
+    // field — the functional requirements — is targeted as `<ENTRY>.@sectionId`.
+
+    test('an @sectionId target on a patterned list element resolves', () {
+      // `RouteEntry` is the element type of a @SectionIdPattern list, so each
+      // item carries an id of its own.
+      final classes = model(refersTo: ['RTEN.$_sectionIdSlot']);
+      expect(refErrors(classes), isEmpty);
+      expect(refWarnings(classes), isEmpty);
+    });
+
+    test('an @sectionId target needs no form field on the entry', () {
+      // The whole point: FRE-shaped entries declare no id form field at all.
+      final classes = model(refersTo: ['RTEN.$_sectionIdSlot'], extra: {
+        'RouteEntry': ModelClass(
+          name: 'RouteEntry',
+          annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+        ),
+      });
+      expect(refErrors(classes), isEmpty);
+    });
+
+    test('an @sectionId target on a list without @SectionIdPattern is rejected',
+        () {
+      final errs = refErrors(model(
+        refersTo: ['PLN.$_sectionIdSlot'],
+        rootExtraFields: [
+          _listField('plains', 'PlainEntry', [
+            AnnotationData('SectionId', {'id': 'PL-LST'}),
+          ]),
+        ],
+        extra: {
+          'PlainEntry': ModelClass(
+            name: 'PlainEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'PLN'})],
+          ),
+        },
+      ));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('never the element type of a '
+          '@SectionIdPattern list'));
+    });
+
+    test('an @sectionId target on a singleton subsection is rejected', () {
+      // `RouteIdentification` is enumerated (once per entry) and so is a valid
+      // *form field* target — but it carries one fixed @SectionId, not an id
+      // per instance, so it declares no set of ids.
+      final errs = refErrors(model(
+        refersTo: ['RTID.$_sectionIdSlot'],
+        extra: {
+          'RouteEntry': ModelClass(
+            name: 'RouteEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            fields: [_field('identification', 'RouteIdentification')],
+          ),
+          'RouteIdentification': ModelClass(
+            name: 'RouteIdentification',
+            annotations: [AnnotationData('SectionId', {'id': 'RTID'})],
+          ),
+        },
+      ));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('never the element type of a '
+          '@SectionIdPattern list'));
+    });
+
+    test('an @sectionId target section id that no class carries is rejected',
+        () {
+      final errs = refErrors(model(refersTo: ['GHOST.$_sectionIdSlot']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains("no class carries @SectionId('GHOST')"));
+    });
+
+    test('an unknown @-prefixed slot is rejected — "@" is reserved', () {
+      final errs = refErrors(model(refersTo: ['RTEN.@storedId']));
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('"@" is reserved'));
+      expect(errs.single, contains(_sectionIdSlot));
+    });
+
+    test('a non-String field with an @sectionId target still warns', () {
+      final classes = model(
+        refersTo: ['RTEN.$_sectionIdSlot'],
+        referenceTypeName: 'int',
+      );
+      expect(refErrors(classes), isEmpty);
+      expect(refWarnings(classes).single, contains('String-valued'));
+    });
+
+    test('@sectionId and form-field targets mix in one disjunction', () {
+      // The shape the requirement references use: a functional requirement by
+      // section id, the other three families by their `requirementId` field.
+      final classes = model(
+        refersTo: ['RTEN.$_sectionIdSlot', 'OKEN.requiredId'],
+        rootExtraFields: [
+          _listField('optionals', 'OptionalKeyEntry', [
+            AnnotationData('SectionId', {'id': 'OK-LST'}),
+            AnnotationData('SectionIdPattern', {'pattern': 'OK-xxx'}),
+          ]),
+        ],
+        extra: {
+          'OptionalKeyEntry': ModelClass(
+            name: 'OptionalKeyEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'OKEN'})],
+            formFields: [
+              FormFieldInfo(
+                name: 'requiredId',
+                typeName: 'String',
+                required: true,
+              ),
+            ],
+          ),
+        },
+      );
+      expect(refErrors(classes), isEmpty);
+      expect(refWarnings(classes), isEmpty);
+    });
   });
 }
+
+/// The reserved slot naming a registry entry's own section id. Mirrors the
+/// private constant in `validator.dart`; a divergence would make these tests
+/// pass against a validator that no longer accepts the grammar the model uses.
+const String _sectionIdSlot = '@sectionId';

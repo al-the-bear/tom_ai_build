@@ -779,7 +779,15 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       'requirementRef',
       String,
       'Requirement Reference',
-      hint: 'Linked requirement ID(s) — e.g. REQ-042',
+      hint: 'Requirement ids, comma-separated — a functional requirement '
+          'section id (FRE-REQU-…), or a technical/security/organizational '
+          'requirement id (REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'deliverableRef',
@@ -1977,7 +1985,15 @@ class TestScenarioEntry extends DocSpecsSection {
       'requirementRef',
       String,
       'Requirement Reference',
-      hint: 'Requirement ID(s) — e.g. REQ-042',
+      hint: 'Requirement ids, comma-separated — a functional requirement '
+          'section id (FRE-REQU-…), or a technical/security/organizational '
+          'requirement id (REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'useCaseRef',

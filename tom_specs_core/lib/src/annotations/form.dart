@@ -32,7 +32,7 @@ class Field {
   final String? hint;
 
   /// The registry key(s) this field's value is an **id drawn from**, each
-  /// written `<SECTIONID>.<formFieldName>` — e.g. `'SCRTEN.routeId'`.
+  /// written `<SECTIONID>.<slot>` — e.g. `'SCRTEN.routeId'`.
   ///
   /// A reference field holds a *free-text id that must already be declared
   /// somewhere else in the specification*. Before this existed, that contract
@@ -47,11 +47,24 @@ class Field {
   /// * **instance** (`spec_validator.dart`) — the id a concrete document writes
   ///   here is actually declared by some entry of the target registry.
   ///
-  /// **Why the target names a form field and not just a section.** A section id
+  /// **Why the target names a slot and not just a section.** A section id
   /// alone (`'SCRTEN'`) says where to look but not what to compare against, so
   /// the instance tier could not run and the contract would stay unenforced for
   /// exactly the fields it was introduced to protect. The qualified form is
   /// resolvable end to end, so it is required rather than optional.
+  ///
+  /// **The two slot forms.** A slot is either a **form field name**, or the
+  /// reserved key **`@sectionId`** meaning *the registry entry's own section
+  /// id*. The second form exists because some registries store their id in no
+  /// form field at all: a functional requirement's id is its stored section id,
+  /// supplied by the owning list's `@SectionIdPattern`, and is deliberately not
+  /// restated as a form field (`tom_specs_model_rules.md` §8 — exactly one
+  /// storage slot per value). Without `@sectionId` those registries would be
+  /// unreachable, and every reference to a requirement id would stay
+  /// unenforceable. The target still names the **entry class** (`'FRE'`), never
+  /// the `-LST` container or the pattern itself, so §6.2 rule 2 is unchanged.
+  /// `@` is a reserved namespace: any other `@`-prefixed slot is a hard error
+  /// rather than a silently unresolvable target.
   ///
   /// **Why a list.** Some fields legitimately accept an id from more than one
   /// registry — `SCTREN.outcomeReference` holds a system error code *or* a

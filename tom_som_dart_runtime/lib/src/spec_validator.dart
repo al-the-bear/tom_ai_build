@@ -11,6 +11,7 @@ library;
 import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_reflection.dart';
+import 'spec_section_id.dart';
 
 /// Why a single value in a document is invalid against the model.
 enum SpecValidationCode {
@@ -270,7 +271,12 @@ List<SpecValidationError> _validateOneOfInstances(
 ///
 ///  1. **Declare.** Every form instance whose class carries `@SectionId(X)` and
 ///     declares form field `f` contributes its value of `f` to the registry key
-///     `X.f`. Registries are keyed by `<SECTIONID>.<formFieldName>` exactly as
+///     `X.f`. Every item of a list whose element class carries `@SectionId(X)`
+///     additionally contributes its *effective* section id — stored, else
+///     positional, see [effectiveListItemSectionId] — to the reserved key
+///     `X.@sectionId`. That second half is what makes a registry keeping its id
+///     nowhere but the section id (a functional requirement) referenceable at
+///     all. Registries are keyed by `<SECTIONID>.<slot>` exactly as
 ///     `Field.refersTo` writes them, so the lookup is a map hit.
 ///  2. **Resolve.** Every form instance holding a `refersTo` field checks its
 ///     value against those sets. A value naming several ids writes them
@@ -320,6 +326,30 @@ List<SpecValidationError> _validateReferenceInstances(
       declared
           .putIfAbsent('$sectionId.${ff.name}', () => <String>{})
           .add(value.trim());
+    }
+  }
+
+  // 1b. Declare the per-item section ids under the reserved `@sectionId` slot.
+  // The key is the *element class's* section id, not the `-LST` container's:
+  // a target names the entry, so `FRE.@sectionId` reads as "an id of some
+  // functional-requirement entry".
+  for (final listPath in doc.listPaths.toList()..sort()) {
+    final listRes = refl.resolve(listPath);
+    final pattern = listRes?.field?.sectionIdPattern;
+    final stem = listRes?.field?.name ?? listPath.split('/').last;
+    final items = doc.listItems(listPath);
+    for (var i = 0; i < items.length; i++) {
+      final elementClass = refl.resolve(items[i])?.targetClass;
+      final sectionId = elementClass?.sectionId;
+      if (sectionId == null || sectionId.isEmpty) continue;
+      declared.putIfAbsent('$sectionId.$kSectionIdSlot', () => <String>{}).add(
+            effectiveListItemSectionId(
+              storedId: doc.itemSectionId(items[i]),
+              pattern: pattern,
+              position: i + 1,
+              fallbackStem: stem,
+            ),
+          );
     }
   }
 

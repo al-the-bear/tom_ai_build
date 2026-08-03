@@ -45,6 +45,7 @@ import 'spec_document.dart';
 import 'spec_meta.dart';
 import 'spec_meta_bridge.dart';
 import 'spec_model.dart';
+import 'spec_section_id.dart';
 
 /// Why an imported Markdown block was rejected (SOM §11.7 rejection protocol).
 enum SpecMarkdownRejectReason {
@@ -404,9 +405,12 @@ class SpecDocumentMarkdown {
       // pattern-less list. On parse, numbered-pattern ids recover membership
       // and order from position; other pattern-shaped ids parse back as stored
       // ids. Items sit one level below the container.
-      final id = document.itemSectionId(itemPath) ??
-          pattern?.replaceAll('xxx', '$pos') ??
-          '${node.memberName ?? node.segment}-$pos';
+      final id = effectiveListItemSectionId(
+        storedId: document.itemSectionId(itemPath),
+        pattern: pattern,
+        position: pos,
+        fallbackStem: node.memberName ?? node.segment,
+      );
       _writeHeading(b, depth + 1, id,
           document.headline(itemPath) ?? '$stem $pos',
           codeSpec: document.codeSpec(itemPath));

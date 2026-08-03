@@ -3182,7 +3182,16 @@ class MoscowEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement IDs this feature traces to — comma-separated',
+      hint: 'Requirement ids this feature traces to, comma-separated — a '
+          'functional requirement section id (FRE-REQU-…), or a '
+          'technical/security/organizational requirement id '
+          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'linkedUseCases',
@@ -3897,7 +3906,15 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement IDs',
+      hint: 'Requirement ids, comma-separated — a functional requirement '
+          'section id (FRE-REQU-…), or a technical/security/organizational '
+          'requirement id (REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'linkedUseCases',

@@ -45,6 +45,40 @@ String encodeTwoLetterDate(DateTime date) {
 String sectionIdPatternPrefix(String pattern) =>
     pattern.replaceFirst(RegExp(r'x+$'), '');
 
+/// The reserved `refersTo` slot naming a registry entry's own section id rather
+/// than one of its form fields (`tom_specs_model_rules.md` §6.2).
+///
+/// A registry key is written `<SECTIONID>.<slot>`; this is the one slot that is
+/// not a form field name. Named because the instance-tier reference check keys
+/// its registries by it, and it must be the same literal the static tier in
+/// `tom_specs_clitool` accepts.
+const String kSectionIdSlot = '@sectionId';
+
+/// The id a list item is *identified by* — its [storedId] when it has one, and
+/// otherwise the positional id derived from the list's [pattern] (YRD3).
+///
+/// An item acquires a stored id when it is created through the editor (an AA1
+/// generated id) or when a document overrides one (criterion 5). Items authored
+/// without one are **anonymous** and are identified by their 1-based
+/// [position] — the pattern with its `xxx` placeholder replaced
+/// (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), falling back to
+/// `<fallbackStem>-<position>` for a pattern-less list.
+///
+/// Named once because two consumers must agree on it exactly: the markdown
+/// writer, which emits it as the heading id, and the instance-tier reference
+/// check, which resolves `@sectionId` references against it. A divergence there
+/// would not be a cosmetic difference — it would red-flag a document whose
+/// references are correct.
+String effectiveListItemSectionId({
+  required String? storedId,
+  required String? pattern,
+  required int position,
+  required String fallbackStem,
+}) =>
+    storedId ??
+    pattern?.replaceAll('xxx', '$position') ??
+    '$fallbackStem-$position';
+
 /// Raised when a section id would collide with another id in the same list
 /// (criterion 5: overriding an id must keep every id in the list unique).
 class SpecSectionIdCollision implements Exception {

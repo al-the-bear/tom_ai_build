@@ -1448,7 +1448,16 @@ class ScreenEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'RSP references this screen satisfies',
+      hint: 'Requirement ids this screen satisfies, comma-separated — a '
+          'functional requirement section id (FRE-REQU-…), or a '
+          'technical/security/organizational requirement id '
+          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'relatedBusinessProcesses',

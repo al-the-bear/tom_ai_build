@@ -368,4 +368,146 @@ void main() {
       expect(refs(doc), hasLength(1));
     });
   });
+
+  group('refersTo @sectionId slot (csrd1)', () {
+    // The functional-requirement shape: `requirements` is a @SectionIdPattern
+    // list of REQN entries that declare NO id form field at all — the id is the
+    // item's section id. `links` references them as `REQN.@sectionId`.
+    SpecModel slotModel() => SpecModel.fromJson({
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Catalog', 'title': 'Catalog', 'sectionId': 'CT00'},
+          ],
+          'classes': {
+            'Catalog': {
+              'name': 'Catalog',
+              'sectionId': 'CT00',
+              'annotations': [
+                {'name': 'Document', 'arguments': {'title': 'Catalog'}},
+                {'name': 'SectionId', 'arguments': {'id': 'CT00'}},
+              ],
+              'fields': [
+                {
+                  'name': 'requirements',
+                  'kind': 'list',
+                  'sectionId': 'RQ-LST',
+                  'sectionIdPattern': 'RQ-REQU-xxx',
+                  'elementType': 'RequirementEntry',
+                  'elementIsComplex': true,
+                },
+                {
+                  'name': 'links',
+                  'kind': 'list',
+                  'sectionId': 'LK-LST',
+                  'elementType': 'LinkEntry',
+                  'elementIsComplex': true,
+                },
+              ],
+            },
+            'RequirementEntry': {
+              'name': 'RequirementEntry',
+              'sectionId': 'REQN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {'name': 'title', 'label': 'Title', 'type': 'String'},
+                  ],
+                },
+              ],
+            },
+            'LinkEntry': {
+              'name': 'LinkEntry',
+              'sectionId': 'LKEN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {
+                      'name': 'relatedRequirements',
+                      'label': 'Related requirements',
+                      'type': 'String',
+                      'refersTo': ['REQN.@sectionId'],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        });
+
+    final m = slotModel();
+
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
+        .where((e) => e.code == SpecValidationCode.danglingReference)
+        .toList();
+
+    String addLink(SpecDocument doc) =>
+        '${doc.addListItem('CT00/LK-LST')}/content';
+
+    test('a stored item section id is declared under the @sectionId slot', () {
+      final doc = SpecDocument();
+      doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      final link = addLink(doc);
+      doc.setFormField(link, 'relatedRequirements', 'RQ-REQU-HA1');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('an anonymous item is declared under its positional pattern id', () {
+      // Authors who never touched the editor's id generation still have
+      // referenceable requirements — the item's effective id is the pattern
+      // resolved with its 1-based position.
+      final doc = SpecDocument();
+      doc.addListItem('CT00/RQ-LST');
+      doc.addListItem('CT00/RQ-LST');
+      final link = addLink(doc);
+      doc.setFormField(link, 'relatedRequirements', 'RQ-REQU-2');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('an undeclared requirement id is reported', () {
+      final doc = SpecDocument();
+      doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      final link = addLink(doc);
+      doc.setFormField(link, 'relatedRequirements', 'RQ-REQU-HA9');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.message, contains('RQ-REQU-HA9'));
+      expect(errors.single.message, contains('REQN.@sectionId'));
+    });
+
+    test('a stored id does not also resolve as its positional id', () {
+      // The item carries a stored id, so `RQ-REQU-1` names nothing — treating
+      // both as valid would let a document reference an item by an id that
+      // silently changes when a sibling is inserted.
+      final doc = SpecDocument();
+      doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      final link = addLink(doc);
+      doc.setFormField(link, 'relatedRequirements', 'RQ-REQU-1');
+      expect(refs(doc), hasLength(1));
+    });
+
+    test('a comma-separated value resolves each requirement independently', () {
+      final doc = SpecDocument();
+      doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      doc.addListItem('CT00/RQ-LST', sectionId: 'RQ-REQU-HA2');
+      final link = addLink(doc);
+      doc.setFormField(
+          link, 'relatedRequirements', 'RQ-REQU-HA1, RQ-REQU-HA2, RQ-REQU-HA3');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.message, contains('RQ-REQU-HA3'));
+    });
+
+    test('an empty requirement list leaves every reference dangling', () {
+      final doc = SpecDocument();
+      final link = addLink(doc);
+      doc.setFormField(link, 'relatedRequirements', 'RQ-REQU-HA1');
+      expect(refs(doc), hasLength(1));
+    });
+  });
 }

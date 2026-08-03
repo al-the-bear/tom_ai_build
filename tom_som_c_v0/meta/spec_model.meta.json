@@ -75687,9 +75687,15 @@
             {
               "name": "requirementRef",
               "label": "Requirement Reference",
-              "hint": "Linked requirement ID(s) — e.g. REQ-042",
+              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "deliverableRef",
@@ -106909,9 +106915,15 @@
             {
               "name": "linkedRequirements",
               "label": "Linked Requirements",
-              "hint": "Requirement IDs",
+              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "linkedUseCases",
@@ -125754,10 +125766,16 @@
             },
             {
               "name": "relatedRequirements",
-              "label": "Related Requirements — REQ-xxx",
-              "hint": "REQ-xxx requirements satisfied here",
+              "label": "Related Requirements",
+              "hint": "Requirement ids satisfied here, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "relatedUseCase",
@@ -151179,9 +151197,15 @@
             {
               "name": "linkedRequirements",
               "label": "Linked Requirements",
-              "hint": "Requirement IDs this feature traces to — comma-separated",
+              "hint": "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "linkedUseCases",
@@ -214815,9 +214839,15 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements (requirement IDs if applicable)",
-              "hint": "Requirement IDs related to this item, if applicable",
+              "hint": "Requirement ids related to this item, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             }
           ]
         }
@@ -217533,9 +217563,15 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "RSP references this screen satisfies",
+              "hint": "Requirement ids this screen satisfies, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "relatedBusinessProcesses",
@@ -244142,9 +244178,15 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "Requirement IDs that contribute to this criterion",
+              "hint": "Requirement ids that contribute to this criterion, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "dependencies",
@@ -261007,9 +261049,15 @@
             {
               "name": "requirementRef",
               "label": "Requirement Reference",
-              "hint": "Requirement ID(s) — e.g. REQ-042",
+              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
               "type": "String",
-              "required": false
+              "required": false,
+              "refersTo": [
+                "FRE.@sectionId",
+                "TERQ.requirementId",
+                "SECRQ.requirementId",
+                "ORRQ.requirementId"
+              ]
             },
             {
               "name": "useCaseRef",

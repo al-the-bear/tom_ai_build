@@ -616,13 +616,15 @@ that contract with `refersTo:` on `Field`:
 Field('sourceRouteId', String, required: true, refersTo: ['SCRTEN.routeId']),
 Field('outcomeReference', String,
     refersTo: ['SYERCOEN.errorCode', 'VMT.messageId']),
+Field('relatedRequirements', String, refersTo: ['FRE.@sectionId']),
 ```
 
 Rules:
 
-1. **A target is written `<SECTIONID>.<formFieldName>`.** The section id alone
-   says where to look but not what to compare against, so the qualified form is
-   required, not optional.
+1. **A target is written `<SECTIONID>.<slot>`.** The section id alone says where
+   to look but not what to compare against, so the qualified form is required,
+   not optional. A slot is either a **form field name** (rules 4 and 5) or the
+   reserved key **`@sectionId`** (rule 6).
 2. **The section id names the registry *entry* class, never its `-LST`
    container.** The entries declare the ids; the container merely holds them —
    so the target is `MSGKE.key`, not `MSGKR.key`.
@@ -641,11 +643,28 @@ Rules:
    rule 4's existence half: the outer class declares no such form field. A form
    section that exists once per document is not a registry; nothing there ever
    declares a *set* of ids to resolve against.
+6. **`@sectionId` targets the entry's own stored section id.** Some registries
+   keep their id in no form field at all: a functional requirement's id *is* its
+   section id, supplied by the owning list's `@SectionIdPattern` and deliberately
+   not restated as a form field (§8 — exactly one storage slot per value).
+   Without this slot those registries would be unreachable and every reference to
+   them permanently unenforceable. The target still names the **entry class**
+   (`FRE.@sectionId`), never the `-LST` container nor the pattern itself, so rule
+   2 is unchanged; rules 3 (disjunction) and 4/5's intent carry over. Rules 4 and
+   5 are replaced by a **stricter** requirement: the target class must be the
+   direct element type of at least one `@SectionIdPattern`-bearing `List<T>`. A
+   singleton subsection carries one *fixed* `@SectionId` — it names a single id
+   rather than a set — so it cannot back a registry even though rule 5 would
+   otherwise admit it. The value resolved against is the item's **effective id**
+   (§7.6): its stored id when it has one, otherwise its positional pattern id.
+   `@` is a reserved namespace — any other `@`-prefixed slot is a hard error, so
+   a future slot can never be misread as a form field that merely does not exist.
 
 Both validation tiers read this one declaration. The **static** tier
 (`tom_specs_clitool/lib/src/validator.dart`) checks the class graph: the target
-section id exists, it is reachable, it really does declare that form field as
-required, and it is enumerated. The **instance** tier (`tom_som_dart_runtime`'s
+section id exists, it is reachable, and — for a form-field slot — it really does
+declare that field as required and is enumerated; for `@sectionId`, that it is a
+patterned list's element type. The **instance** tier (`tom_som_dart_runtime`'s
 document validator) checks a concrete document: every id a reference field holds
 is actually declared by some entry of one of the named registries, and reports a
 dangling id otherwise. `refersTo` is carried through the meta into all nine
@@ -666,13 +685,11 @@ classes of field stay bare, and staying bare is the right answer for them:
 - **The registry is not modelled.** Some id families are referenced but never
   declared anywhere as a set of entries: there is no register to point at, so
   there is nothing to check against. These become model gaps, not annotations.
-- **The id is a section id, not a form field.** `refersTo` resolves against form
-  fields only. Where an entry stores its id solely in its own section id — the
-  functional requirements, whose ids come from the owning list's
-  `@SectionIdPattern` and are deliberately *not* restated as a form field (§8) —
-  no target exists, and the nearest same-named form fields belong to different
-  requirement families. A disjunction over those families would accept ids the
-  reference never meant and still reject valid ones.
+- **Nothing enumerates the ids.** An entry that stores its id solely in its own
+  section id is reachable through `@sectionId` (rule 6) — but only when that
+  entry is a patterned list's element type. A section that occurs once, with one
+  fixed `@SectionId`, names a single id rather than a set; there is no registry
+  to resolve against, so a reference to it stays bare.
 
 A bare id field therefore reads as "no registry contract claimed", which is
 accurate, rather than as "contract forgotten".
@@ -956,7 +973,10 @@ Headline storage and rendering are governed by five rules:
    inside a `@Form` field, a scalar, or `content`: there is exactly one storage
    slot per value (the heading text; the id comment) and exactly one way to read
    it, so no role marker is needed. A list entry's short human code belongs in
-   its heading (e.g. `FR-01 — Capture orders`), not in a form field.
+   its heading (e.g. `FR-01 — Capture orders`), not in a form field. Such an id
+   is still **referenceable**: `refersTo: ['FRE.@sectionId']` resolves against
+   the stored item id directly (§6.2 rule 6), so the single-slot rule costs no
+   enforceability.
 5. **Editor strict mode** — headlines and ids are editable only for list-entry
    sections; fixed sections show their stored/default headline read-only.
 

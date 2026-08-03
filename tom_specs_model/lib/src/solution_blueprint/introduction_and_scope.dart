@@ -1144,7 +1144,16 @@ class ScopeItemEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements (requirement IDs if applicable)',
-      hint: 'Requirement IDs related to this item, if applicable',
+      hint: 'Requirement ids related to this item, comma-separated — a '
+          'functional requirement section id (FRE-REQU-…), or a '
+          'technical/security/organizational requirement id '
+          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
   ])
   @override
@@ -8158,7 +8167,16 @@ class SuccessCriterionRelationships extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements',
-      hint: 'Requirement IDs that contribute to this criterion',
+      hint: 'Requirement ids that contribute to this criterion, '
+          'comma-separated — a functional requirement section id '
+          '(FRE-REQU-…), or a technical/security/organizational requirement id '
+          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      refersTo: [
+        'FRE.@sectionId',
+        'TERQ.requirementId',
+        'SECRQ.requirementId',
+        'ORRQ.requirementId',
+      ],
     ),
     Field(
       'dependencies',
@@ -14489,6 +14507,10 @@ class MigrationRiskEntry extends DocSpecsSection {
       'Related Issues',
       hint: 'Issue IDs linked to this risk',
     ),
+    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Unlike the
+    // traceability fields, "requirements impacted" invites prose — an author
+    // naming an area rather than ids is answering the question correctly, and
+    // annotating would red-flag them.
     Field(
       'relatedRequirements',
       String,
@@ -18906,6 +18928,8 @@ class RiskRelationships extends DocSpecsSection {
       'Related Issues — issues arising from this risk',
       hint: 'Issues arising from this risk',
     ),
+    // Why: deliberately no `refersTo` — same reason as the risk register's
+    // "requirements impacted" field (§6.2 "when not to annotate").
     Field(
       'relatedRequirements',
       String,

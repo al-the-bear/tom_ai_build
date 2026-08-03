@@ -17,6 +17,13 @@ const String _shapes = 'tom_specs_model_rules.md §5.1';
 /// The document section the keep-a-class / keep-a-level tags cite.
 const String _keepRules = 'tom_specs_model_rules.md §5.8';
 
+/// The reserved `refersTo` slot naming a registry entry's own stored section id
+/// rather than one of its form fields (`tom_specs_model_rules.md` §6.2).
+///
+/// Spelled out once so the static tier, its error text and the instance tier
+/// cannot drift apart on the literal.
+const String _sectionIdSlot = '@sectionId';
+
 /// Validates model classes against the `tom_specs_model_rules.md` §5 design
 /// rules.
 ///
@@ -1079,11 +1086,11 @@ void _validateOneOfGroups(
 /// Static enforcement of the cross-registry id reference declaration
 /// (`Field.refersTo`, csrb3).
 ///
-/// A `refersTo` entry is a *registry key* written `<SECTIONID>.<formFieldName>`
-/// — e.g. `'SCRTEN.routeId'`. The check confirms the declaration is resolvable
-/// end to end, so the instance tier can actually run it:
+/// A `refersTo` entry is a *registry key* written `<SECTIONID>.<slot>` — e.g.
+/// `'SCRTEN.routeId'`. The check confirms the declaration is resolvable end to
+/// end, so the instance tier can actually run it:
 ///
-///   (i)   the entry parses as `<SECTIONID>.<formFieldName>`;
+///   (i)   the entry parses as `<SECTIONID>.<slot>`;
 ///   (ii)  the section id resolves to exactly one class in the graph;
 ///   (iii) that class declares a `@Form` field of that name;
 ///   (iv)  that form field is `required`, because an entry allowed to omit its
@@ -1104,6 +1111,18 @@ void _validateOneOfGroups(
 /// fields enumerate 1:1 with the entries — it is the precise target, and
 /// naming the outer entry instead would fail (iii), since the outer class
 /// declares no such form field.
+///
+/// **The `@sectionId` slot (csrd1).** A slot may instead be the reserved key
+/// `@sectionId`, meaning *the entry's own stored section id*. Some registries
+/// keep their id nowhere else: a functional requirement's id is its section id,
+/// supplied by the owning list's `@SectionIdPattern`, and §8 forbids restating
+/// it as a form field. For that slot, (iii)/(iv)/(v) are replaced by a single
+/// stricter check — the target class must be the direct element type of at
+/// least one `@SectionIdPattern`-bearing `List<T>`. A singleton subsection
+/// carries a *fixed* `@SectionId`, so it names one id rather than a set and
+/// cannot back a registry; only a patterned list enumerates per-item ids.
+/// `@` is a reserved namespace: any other `@`-prefixed slot is an error, so a
+/// future key cannot be mistaken for a form field that simply does not exist.
 void _validateReferenceTargets(
   Map<String, ModelClass> classes,
   Set<String> reachable,
@@ -1148,6 +1167,21 @@ void _validateReferenceTargets(
     }
   }
 
+  // Classes whose *per-item section ids* form a registry — the direct element
+  // types of `@SectionIdPattern`-bearing lists. Strictly narrower than
+  // [enumeratedTypes]: the singleton-subsection closure is deliberately absent,
+  // because such a section carries one fixed `@SectionId` rather than an id per
+  // instance, so it enumerates no ids to resolve against.
+  final patternedElementTypes = <String>{};
+  for (final cls in classes.values) {
+    for (final field in cls.fields) {
+      if (!field.isList || !field.listElementIsComplex) continue;
+      if (field.getAnnotation('SectionIdPattern') == null) continue;
+      final inner = field.listElementTypeName;
+      if (inner != null) patternedElementTypes.add(inner);
+    }
+  }
+
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
@@ -1165,12 +1199,23 @@ void _validateReferenceTargets(
             target.indexOf('.', dot + 1) != -1) {
           errors.add(
             '$_invariants refersTo: $where declares target "$target" — a target '
-            'must be written <SECTIONID>.<formFieldName>',
+            'must be written <SECTIONID>.<formFieldName> or '
+            '<SECTIONID>.$_sectionIdSlot',
           );
           continue;
         }
         final sectionId = target.substring(0, dot);
         final fieldName = target.substring(dot + 1);
+
+        // `@` is reserved. Rejecting an unknown `@key` outright keeps a future
+        // slot from being read as a form field that merely does not exist.
+        if (fieldName.startsWith('@') && fieldName != _sectionIdSlot) {
+          errors.add(
+            '$_invariants refersTo: $where declares target "$target" — "@" is '
+            'reserved and the only reserved slot is $_sectionIdSlot',
+          );
+          continue;
+        }
 
         // (ii) The section id resolves.
         final owners = bySectionId[sectionId];
@@ -1190,6 +1235,29 @@ void _validateReferenceTargets(
           continue;
         }
         final targetClass = classes[owners.single]!;
+
+        // The `@sectionId` slot resolves against per-item section ids instead
+        // of a form field, so it takes its own — stricter — structural check
+        // in place of (iii)/(iv)/(v).
+        if (fieldName == _sectionIdSlot) {
+          if (!patternedElementTypes.contains(targetClass.name)) {
+            errors.add(
+              '$_invariants refersTo: $where targets "$target" but '
+              '${targetClass.name} is never the element type of a '
+              '@SectionIdPattern list — only patterned list elements carry an '
+              'id per item to resolve against',
+            );
+            continue;
+          }
+          if (formField.typeName != 'String') {
+            warnings.add(
+              '$_invariants refersTo: $where declares a reference but its form '
+              'field type is ${formField.typeName} — id references are '
+              'String-valued',
+            );
+          }
+          continue;
+        }
 
         // (iii) The target declares that form field.
         final targetFields = _allFormFields(targetClass);

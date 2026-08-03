@@ -1,6 +1,6 @@
 // D4rt Bridge - Generated file, do not edit
 // Sources: 19 files
-// Generated: 2026-08-03T11:32:04.073229
+// Generated: 2026-08-03T14:00:23.442439
 
 // ignore_for_file: unused_import, deprecated_member_use, prefer_function_declarations_over_variables, implementation_imports, sort_child_properties_last, non_constant_identifier_names, avoid_function_literals_in_foreach_calls, invalid_use_of_protected_member, unnecessary_non_null_assertion, invalid_use_of_visible_for_testing_member, unnecessary_cast, unused_local_variable, no_leading_underscores_for_local_identifiers, prefer_is_empty, unnecessary_question_mark, unreachable_switch_case, unintended_html_in_doc_comment, empty_constructor_bodies, prefer_const_constructors_in_immutables, prefer_final_fields, unused_field, must_call_super, no_logic_in_create_state, use_key_in_widget_constructors, annotate_overrides, non_const_argument_for_const_parameter, unnecessary_import
 
@@ -583,6 +583,11 @@ class SomRuntimeBridge {
     } catch (e) {
       errors.add('Failed to register variable "kSpecPathSeparator": $e');
     }
+    try {
+      interpreter.registerGlobalVariable('kSectionIdSlot', $tom_som_dart_runtime_16.kSectionIdSlot, importPath, sourceUri: 'package:tom_som_dart_runtime/src/spec_section_id.dart');
+    } catch (e) {
+      errors.add('Failed to register variable "kSectionIdSlot": $e');
+    }
 
     if (errors.isNotEmpty) {
       throw StateError('Bridge registration errors (som_runtime):\n${errors.join("\n")}');
@@ -718,6 +723,13 @@ class SomRuntimeBridge {
         final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'sectionIdPatternPrefix');
         return $tom_som_dart_runtime_16.sectionIdPatternPrefix(pattern);
       },
+      'effectiveListItemSectionId': (visitor, positional, named, typeArgs) {
+        final storedId = D4.getRequiredNamedArg<String?>(named, 'storedId', 'effectiveListItemSectionId');
+        final pattern = D4.getRequiredNamedArg<String?>(named, 'pattern', 'effectiveListItemSectionId');
+        final position = D4.getRequiredNamedArg<int>(named, 'position', 'effectiveListItemSectionId');
+        final fallbackStem = D4.getRequiredNamedArg<String>(named, 'fallbackStem', 'effectiveListItemSectionId');
+        return $tom_som_dart_runtime_16.effectiveListItemSectionId(storedId: storedId, pattern: pattern, position: position, fallbackStem: fallbackStem);
+      },
       'generateListItemSectionId': (visitor, positional, named, typeArgs) {
         D4.requireMinArgs(positional, 3, 'generateListItemSectionId');
         final pattern = D4.getRequiredArg<String>(positional, 0, 'pattern', 'generateListItemSectionId');
@@ -814,6 +826,7 @@ class SomRuntimeBridge {
       'splitListItemSegment': 'package:tom_som_dart_runtime/src/spec_paths.dart',
       'encodeTwoLetterDate': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'sectionIdPatternPrefix': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
+      'effectiveListItemSectionId': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'generateListItemSectionId': 'package:tom_som_dart_runtime/src/spec_section_id.dart',
       'somParseInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
       'somFormatInt': 'package:tom_som_dart_runtime/src/spec_typed_values.dart',
@@ -854,6 +867,7 @@ class SomRuntimeBridge {
       'splitListItemSegment': '({String base, int seq})? splitListItemSegment(String segment)',
       'encodeTwoLetterDate': 'String encodeTwoLetterDate(DateTime date)',
       'sectionIdPatternPrefix': 'String sectionIdPatternPrefix(String pattern)',
+      'effectiveListItemSectionId': 'String effectiveListItemSectionId({required String? storedId, required String? pattern, required int position, required String fallbackStem})',
       'generateListItemSectionId': 'String generateListItemSectionId(String pattern, DateTime date, Iterable<String> existingIds)',
       'somParseInt': 'int? somParseInt(String? raw)',
       'somFormatInt': 'String somFormatInt(int? value)',

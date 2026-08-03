@@ -3017,7 +3017,7 @@ form-types:
       - fieldname: relatedUseCases
         description: ISC references this screen serves
       - fieldname: relatedRequirements
-        description: RSP references this screen satisfies
+        description: "Requirement ids this screen satisfies, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
       - fieldname: relatedBusinessProcesses
         description: TOM references where this screen appears
       - fieldname: dataEntities
