@@ -1115,6 +1115,14 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
+**Where they run.** All eighteen are implemented in
+`tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
+the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
+`codespecs_validator` drives them) and are invoked by
+`dart run bin/validate_codespecs.dart --shared … --client … --server …`, which
+exits non-zero on any violation. A check numbered below and not implemented
+there is a defect in one of the two.
+
 **Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15 and
 16 are per-instance constraints on a single annotation's arguments, so the obvious
 home looks like an `assert` in the marker's const constructor. It does not work:

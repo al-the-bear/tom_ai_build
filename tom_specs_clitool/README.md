@@ -138,6 +138,7 @@ Related entrypoints in `bin/`:
 | `model_json.dart` | Export the resolved meta-data class graph (`spec_model.meta.json`) alone. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
+| `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
 | `spec_ops.dart` / `summaries.dart` / `build.dart` | Model tooling (spec operations, API summaries, build orchestration). |
 
