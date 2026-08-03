@@ -801,8 +801,9 @@ void _validateStructuralInvariants(
   // canonical `tom_specs_model_rules.md` §5.1 shape (4)/(5) sections and are
   // NOT
   // flagged. Reported as a WARNING (a design smell, not a correctness error):
-  // generation still proceeds. This mirrors `tsma4_census.dart`; after TSMA4
-  // the real model yields zero of these.
+  // generation still proceeds. The real model yields zero of these, and a test
+  // holds it there — this check is what keeps the wrapper-collapse invariant
+  // enforced rather than periodically re-surveyed.
   final containerRootName = findContainerRoot(classes);
 
   // Referrer counts across the whole model (matches keep-a-class / TSMA3

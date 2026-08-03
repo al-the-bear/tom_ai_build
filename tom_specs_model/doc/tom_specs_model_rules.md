@@ -511,8 +511,8 @@ single-subsection wrapper level can be *collapsed* — but only when safe:
   than one parent field across the model — e.g. `DocumentHeader`) or is a
   **form-bearing list element** (a `List<L>` element whose `L` carries
   `@Form`; a scalar list has no place for per-element form fields).
-  The validator never flags kept classes; collapse candidacy is a codemod
-  concern (`collapse_leaves.dart`, `collapse_list_leaves.dart`).
+  The validator never flags kept classes — a kept class is the correct shape,
+  not a deferred collapse.
 - **A wrapper stays a level** when its own content has meaning by itself:
   it (or a field) carries `@Form`; a leaf carries substantive `@ContentHelp` /
   `@StandardReferences` / non-Form `@ContentType`; it is shared; or it declares
@@ -524,10 +524,12 @@ single-subsection wrapper level can be *collapsed* — but only when safe:
 A **pure single-list wrapper** (`{content?}` plus exactly one list) is doubly
 redundant under the §4 list-as-outer-section rule, because the list already
 provides its own section level; it is kept only when a keep-a-level exemption
-above applies to it. The model is at the steady state — the validator emits no
-collapsible-wrapper warnings. Census tools:
-`tom_specs_clitool/tool/keep_class_census.dart`, `tool/tsma4_census.dart`,
-`tool/yrd10_list_wrapper_census.dart`.
+above applies to it.
+
+The model is at the steady state, and the steady state is **held by a gate**:
+`validator.dart` emits the collapsible-wrapper warning, and a test asserts the
+model emits none. So a wrapper level added tomorrow without an exemption fails
+the suite rather than waiting for someone to run a survey.
 
 ### 5.9 List ownership — a subset is never a second list
 

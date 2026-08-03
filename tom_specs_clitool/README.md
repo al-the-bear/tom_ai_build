@@ -153,6 +153,19 @@ Related entrypoints in `bin/`:
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
 | `spec_ops.dart` / `summaries.dart` / `build.dart` | Model tooling (spec operations, API summaries, build orchestration). |
 
+And in `tool/` — four entries: two scripts, both still run, and two data files a
+gate reads. A script here is a maintained entry point, not a scratch file:
+one-shot census and codemod tooling is deleted once its campaign closes, because
+a script that reads a shape the model no longer has is worse than absent — it
+still looks runnable.
+
+| Entry | Purpose | Re-run when |
+| --- | --- | --- |
+| `regenerate_outlines.sh` | The drift-proof batch entry point: renders all 16 committed outlines (`DocSpecsProject` + D00–D13, plus the compact `SolutionBlueprint`) into `tom_specs_model/generated-doc/outlines/`, then runs `check_todo_citations.dart` as a blocking gate under `set -e`. | Any model-shape change, and any documentation pass. Commit the diff. |
+| `split_sdk_summary.dart` | Turns `assets/sdk_summary.sum` into the committed `lib/src/sdk_summary/` chunk set that `analyzer_bootstrap.dart` loads — the only producer of it. Pairs with `bin/summaries.dart --sdk-only`, which builds the `.sum`. | The Dart SDK version moves (`tom_specs_model/doc/som_toolchains.md`, "Regenerating after an SDK change"). |
+| `model_surface.stamp.json` | Data, not a script: the model fingerprint a canonical `generate_som.dart` run writes, against which `test/model_freshness_test.dart` checks in the default suite. | Written by the generator; commit it with the regenerated packages. |
+| `todo_citation_vocabulary.txt` | Data, not a script: the token allowlist that keeps ordinary technical terms from colliding with the discovered todo-id shapes. A **token** list, never a path list. | A false positive appears — add the one token. |
+
 **Member serialization order.** `stamp_serialization_order.dart --package
 ../tom_specs_model` rewrites the model source to pin each member's on-disk
 emission order (0-based, per class, source-declaration order). The ordinal flows

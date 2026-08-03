@@ -1937,9 +1937,10 @@ void main() {
       final collapsible = result.warnings
           .where((w) => w.contains('§5.8 collapsible-wrapper'))
           .toList();
-      // TSMA4 collapsed every meaning-free wrapper; the census (tsma4_census.dart)
-      // now reports 0 COLLAPSIBLE. TSMA5's kept wrappers (form-bearing /
-      // meaningful-content / shared) are exempt, so the validator flags none.
+      // TSMA4 collapsed every meaning-free wrapper. TSMA5's kept wrappers
+      // (form-bearing / meaningful-content / shared) are exempt, so the
+      // validator flags none. This test *is* the steady state: it is what
+      // catches a redundant wrapper level added after the campaign closed.
       expect(collapsible, isEmpty, reason: collapsible.join('\n'));
     });
   });

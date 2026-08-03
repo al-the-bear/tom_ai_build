@@ -131,7 +131,7 @@ the outliner / validator / model-JSON exporter, and all nine
 | Embedded SDK summary | `tom_specs_clitool/lib/src/sdk_summary/` — 69 `chunk_NNN.dart` files plus a `sdk_summary_chunks.dart` barrel | The Dart SDK element model (`dart:core`, `dart:async`, …), base64-encoded and split at 60 000 chars per chunk so it compiles into the binary as ordinary `const` strings. ~3.10 MB raw → ~4.14 MB of base64 |
 | Driver bootstrap | `tom_specs_clitool/lib/src/analyzer_bootstrap.dart` | Reassembles the chunks, builds a `SummaryBasedDartSdk` from the bundle, and wires a `SourceFactory` of `DartUriResolver` + `PackageMapUriResolver` + `ResourceUriResolver` |
 | Summary generator | `tom_specs_clitool/bin/summaries.dart` | Produces `sdk_summary.sum` and the grouped `packages.sum`. `--sdk-only` skips the heavy package bundle |
-| Chunk splitter | `tom_specs_clitool/tool/split_sdk_summary.dart` | Turns a `.sum` file into the chunk set. `tool/build_sdk_summary.dart` is the standalone SDK-summary builder |
+| Chunk splitter | `tom_specs_clitool/tool/split_sdk_summary.dart` | Turns a `.sum` file into the chunk set — the only producer of the embedded summary above |
 | Shared infrastructure | `tom_analyzer_shared` (`tom_ai/basics/`), constraint `>=0.7.2` | The base-first home of the grouped `packages.sum` builder (`GroupedPackageBundleBuilder`) and the package-config helpers (`readPackageRoots`, `mergePackageRootsForDirs`, `SummaryConfigException`), re-exported from the clitool barrel |
 
 **Only the SDK summary is needed here.** The model's own sources are analyzed
@@ -155,17 +155,20 @@ whenever the Dart SDK version moves:
 
 ```bash
 cd tom_ai/ai_build/tom_specs_clitool
-dart run tool/build_sdk_summary.dart assets/sdk_summary.sum
+dart run bin/summaries.dart --sdk-only --out-dir assets
 dart run tool/split_sdk_summary.dart assets/sdk_summary.sum lib/src/sdk_summary/
 ```
 
-`bin/summaries.dart` is the fuller front-end — it locates the SDK itself
-(`getSdkPath()`) and can emit both bundles at once:
+`--sdk-only` skips the heavy `packages.sum`, which this package never loads. The
+same front-end emits both bundles for the other consumer:
 
 ```bash
-dart run bin/summaries.dart --package . --out-dir assets/summaries   # both bundles
-dart run bin/summaries.dart --sdk-only                               # sdk_summary.sum only
+dart run bin/summaries.dart --package . --out-dir assets/summaries
 ```
+
+`bin/summaries.dart` locates the SDK itself (`getSdkPath()`) and is covered by
+`test/summaries_generator_test.dart`; the intermediate `assets/sdk_summary.sum`
+is gitignored, since only the chunk set is committed.
 
 ### The `packages.sum` route
 
