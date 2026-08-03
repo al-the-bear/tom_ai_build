@@ -22,9 +22,10 @@ enum ObjectLifecycleKind { initial, intermediate, terminal, error }
 /// which type-specific options subsection applies — a text attribute carries
 /// `textTypeOptions`, a numeric one `numericTypeOptions`, a temporal one
 /// `temporalTypeOptions`, a binary one `binaryTypeOptions`, a file reference
-/// `fileReferenceOptions`. `boolean`, `uuid`, `json` and `enumeration` carry no
-/// per-kind attributes and so bind no case. Replaces the former free-text
-/// `dataType`.
+/// `fileReferenceOptions`, an enumerated one `enumerationTypeOptions`.
+/// [boolean], [uuid] and [json] carry no per-kind attributes and so bind no
+/// case; each says below why, so the validator's coverage warning reads as a
+/// decision rather than an omission. Replaces the former free-text `dataType`.
 enum DataAttributeKind {
   // Text facet.
   string,
@@ -48,14 +49,45 @@ enum DataAttributeKind {
   /// which is why this is a kind of its own rather than a mode of [binary].
   fileReference,
 
-  // No per-kind attributes.
+  /// A two-valued attribute. It binds no case because a truth value has nothing
+  /// to constrain: no length, no precision, no range, no value set. The whole of
+  /// its CE-DB surface is its value type (`codespecs_mapping.md` §5.13), which
+  /// the discriminator itself already states.
   boolean,
+
+  /// An attribute holding a generated unique identifier. It binds no case
+  /// because a specification chooses nothing about one: the value is machine-
+  /// generated rather than authored, in the same way a file reference's stored
+  /// address is derived and never authored (§5.13.1). Whether the identifier is
+  /// the entity's key is the entity's identity attribute, not this attribute's
+  /// type option.
   uuid,
+
+  /// An attribute whose stored value is a structured document rather than a
+  /// scalar. It binds no case because §5.13's attribute surface carries the kind
+  /// as a single flag — the substrate's `TomDbColumn.isJson` — with no payload
+  /// beside it, and the flag follows from this constant. It deliberately carries
+  /// **no schema reference**: a JSON payload whose shape is known is modelled as
+  /// nested data entities, and one whose shape is only *checked* is checked by a
+  /// constraint (`DataAttributeConstraintEntry`, CE-VA), so a schema attribute
+  /// here would be a second home for one of those two answers.
   json,
 
-  /// An attribute drawn from a declared value set. It binds no case because the
-  /// value set is modelled by the attribute's `constraints` list, not by a
-  /// type-specific options form.
+  /// An attribute drawn from a declared value set — a domain enum.
+  ///
+  /// It binds [DataAttributeEntry.enumerationTypeOptions], which names **which**
+  /// domain enum the attribute is typed by. That is not optional detail: the
+  /// emitted column's value type *is* the generated enum type
+  /// (`TomDbColumn<DART_TYPE, …>`), so without the name the column cannot be
+  /// emitted at all. Naming the registry entry rather than restating its values
+  /// keeps the single source `DomainEnumRegistry` declares, and matches how
+  /// every other enumerated value in the model is typed — an operation member
+  /// (`SVOPM.domainEnum`) and a report parameter (§5.13's sibling surface) both
+  /// name the enum rather than listing it.
+  ///
+  /// Narrowing — this attribute permitting only *some* of the enum's values — is
+  /// a constraint, so it stays in the `constraints` list (`DATAA.allowedValues`)
+  /// where every other per-attribute restriction lives.
   enumeration,
 }
 
@@ -669,8 +701,9 @@ class DataEntityEntry extends DocSpecsSection {
   note:
       'Attribute data-type closed choice (csra4): the logical type selects its '
       'promoted options subsection (text / numeric / temporal / binary / file '
-      'reference); boolean, uuid and json carry only the common type and '
-      'constraint subsections.',
+      'reference / enumeration); boolean, uuid and json carry only the common '
+      'type and constraint subsections, each for the reason stated at its '
+      'constant.',
 )
 @CodeSpecKind([CodeSpecPart.dataAccess],
     note: 'A persisted attribute becomes a table column; a file-reference '
@@ -926,6 +959,49 @@ class DataAttributeEntry extends DocSpecsSection {
   @SerializationOrder(6)
   DocSpecsSection? fileReferenceOptions;
 
+  /// Enumeration-kind type options — a promoted `@OneOf` case.
+  ///
+  /// Present only for the `enumeration` logical type, and carrying exactly one
+  /// thing: **which** domain enum the attribute is typed by. The emitted
+  /// column's value type *is* the generated enum type, so an enumerated
+  /// attribute that names no enum cannot be emitted — which is why this is a
+  /// required field rather than a hint.
+  ///
+  /// The enum is **named, never restated**. `DomainEnumRegistry` is the single
+  /// source for closed value sets, and its entries are what the `domainEnum`
+  /// member kind is generated from; listing the values again here would be a
+  /// second source that could disagree with the first. The same choice is made
+  /// wherever else the model types a value by an enum — an operation request or
+  /// response member (`SVOPM.domainEnum`) names its entry the same way.
+  ///
+  /// How the value is **stored** is not authored here either: the backing type
+  /// belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+  /// stores it the same way. And *narrowing* — this attribute permitting only
+  /// some of the enum's values — is a constraint, authored in the `constraints`
+  /// list where every other per-attribute restriction lives.
+  @SectionId('DAATT-DTEN')
+  @StandardReferences(
+    [
+      'ISO/IEC 11179 — permissible value and representation of a data element',
+    ],
+    'The declared value set a domain-enum attribute draws from.',
+  )
+  @Case(DataAttributeKind.enumeration)
+  @Form([
+    Field(
+      'domainEnum',
+      String,
+      'Domain Enum',
+      required: true,
+      hint: 'DomainEnumEntry.enumName this attribute is typed by (e.g. '
+          'OrderStatus) — declared once in the domain enum register, not '
+          'restated here',
+      refersTo: ['DMENE.enumName'],
+    ),
+  ])
+  @SerializationOrder(7)
+  DocSpecsSection? enumerationTypeOptions;
+
   // ---------------------------------------------------------------------------
   // Constraints and Validation (8 fields)
   // ---------------------------------------------------------------------------
@@ -936,7 +1012,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DATAA-CONS-LST')
   @SectionIdPattern('DATAA-CONS-xxx')
   @ContentHelp('Add one entry per attribute constraint.')
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   List<DataAttributeConstraintEntry> constraints = [];
 
   // ---------------------------------------------------------------------------
@@ -969,7 +1045,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'How derived value is calculated',
     ),
   ])
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   DocSpecsSection? derivation;
 
   // ---------------------------------------------------------------------------
@@ -1008,7 +1084,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Change tracking: None | ValueChanges | FullHistory',
     ),
   ])
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   DocSpecsSection? securityClassification;
 
   // ---------------------------------------------------------------------------
@@ -1047,7 +1123,7 @@ class DataAttributeEntry extends DocSpecsSection {
       hint: 'Data quality checks (e.g., completeness, accuracy)',
     ),
   ])
-  @SerializationOrder(10)
+  @SerializationOrder(11)
   DocSpecsSection? migrationLineage;
 
   // ---------------------------------------------------------------------------
@@ -1060,7 +1136,7 @@ class DataAttributeEntry extends DocSpecsSection {
   @SectionId('DISPL-DISP-LST')
   @SectionIdPattern('DISPL-DISP-xxx')
   @ContentHelp('Add one entry per display property.')
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   List<DisplayPropertyEntry> displayProperties = [];
 }
 
@@ -4066,11 +4142,18 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
       'Constraint Expression',
       hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))',
     ),
+    // Why: this narrows a value set, it never declares one. An attribute typed
+    // by a domain enum names its enum in `DAATT-DTEN`, and the enum's values are
+    // declared once in the domain enum register (`DMEVA`); listing them again
+    // here would be a second source. What belongs here is the *subset* this
+    // attribute permits, which is a constraint like any other.
     Field(
       'allowedValues',
       String,
       'Allowed Values',
-      hint: 'Enumerated values if applicable',
+      hint: 'The subset of values this attribute permits — value ids from the '
+          'domain enum it is typed by, or the permitted literals for a '
+          'non-enumerated attribute; empty means unrestricted',
     ),
     Field(
       'patternRegex',

@@ -11840,6 +11840,13 @@ DataAttributeEntryFileReferenceOptionsForm data_attribute_entry_file_reference_o
   free(path);
   return out;
 }
+DataAttributeEntryEnumerationTypeOptionsForm data_attribute_entry_enumeration_type_options(const DataAttributeEntry *self) {
+  char *path = spec_path_join(self->node.path, "DAATT-DTEN");
+  DataAttributeEntryEnumerationTypeOptionsForm out;
+  data_attribute_entry_enumeration_type_options_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 SomList data_attribute_entry_constraints(const DataAttributeEntry *self) {
   char *path = spec_path_join(self->node.path, "DATAA-CONS-LST");
   SomList out;
@@ -72236,6 +72243,27 @@ char *data_attribute_entry_derivation_form_derivation_logic(const DataAttributeE
 }
 void data_attribute_entry_derivation_form_set_derivation_logic(DataAttributeEntryDerivationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "derivationLogic", value);
+}
+
+void data_attribute_entry_enumeration_type_options_form_init(DataAttributeEntryEnumerationTypeOptionsForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void data_attribute_entry_enumeration_type_options_form_free(DataAttributeEntryEnumerationTypeOptionsForm *self) {
+  som_node_free(&self->node);
+}
+char *data_attribute_entry_enumeration_type_options_form_content(const DataAttributeEntryEnumerationTypeOptionsForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_enumeration_type_options_form_set_content(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *data_attribute_entry_enumeration_type_options_form_domain_enum(const DataAttributeEntryEnumerationTypeOptionsForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "domainEnum");
+  return som_strdup(v != NULL ? v : "");
+}
+void data_attribute_entry_enumeration_type_options_form_set_domain_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "domainEnum", value);
 }
 
 void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path) {

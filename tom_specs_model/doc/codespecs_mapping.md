@@ -2072,6 +2072,10 @@ attribute set for CE-DB:
   value type, column (storage) type, read-only, not-loaded, json-encoded,
   **column-access key** (field-level authorization, → CE-AZ), value converters,
   and — for a file reference only — the **file-reference facet** below.
+  Two of these are not free-standing settings but consequences of the attribute's
+  logical kind, and §5.13.2 records where each is authored: **json-encoded** is
+  the `json` kind itself, and an enumerated attribute's **value type** is the
+  generated domain enum, which must therefore be *named*.
 - **Access-object (repository)** — entity type + key type, named query, query
   predicate (`eq`/`like`/`between`/`isIn`/`and`/`or`/…), sort, row cap, distinct,
   transaction scope (unit of work).
@@ -2185,6 +2189,46 @@ same schema from two sides: `@CsTable`/`@CsColumn` declare the *target* shape,
 the CE-MG migration chain (§5.27) produces it *cumulatively*. Their convergence
 — cumulative DDL ≡ declared entity model — is the named CE-MG schema-convergence
 validator check (§5.27); neither side is generated from the other.
+
+#### 5.13.2 Enumerated columns, and the three kinds that really are attribute-free
+
+**Decision.** An attribute typed by a **domain enum names the enum**; `boolean`,
+`uuid` and `json` author nothing beyond their logical kind.
+
+An enumerated column is not attribute-free, which is what its `@OneOf` constant
+had assumed. The emitted column's **value type is the generated enum type** —
+`TomDbColumn<DART_TYPE, COL_TYPE>` takes the Dart-side type as a parameter — so a
+column whose attribute names no enum cannot be emitted at all. The SOM feed is
+therefore the promoted case `enumerationTypeOptions` (`DAATT-DTEN`), one required
+field naming a `DomainEnumEntry`.
+
+The enum is **named, never restated**. `DomainEnumRegistry` (DOMEN) is the single
+source for closed value sets and is what the `domainEnum` member kind (§4.1) is
+generated from; a second list of the values on the attribute could disagree with
+it. This is the same shape the model already uses everywhere else it types a
+value by an enum — a CE-API request/response member (`SVOPM.domainEnum`) and a
+CE-RP report parameter (`TomReportParameter.enumId`, required exactly when the
+parameter's type is enumerated, §5.28) both name the entry.
+
+Two neighbouring answers stay where they are, so that naming the enum adds no
+second home for either:
+
+- **How the value is stored** belongs to the enum (`DMENE.backingType`), not to
+  each attribute typed by it — otherwise two columns of the same enum could store
+  it differently.
+- **Which of the enum's values this attribute permits** is a *narrowing*, so it
+  is a constraint (`DATAA.allowedValues`, CE-VA) like every other per-attribute
+  restriction. Declaring a set and narrowing a set are different acts; only the
+  second is per-attribute.
+
+The other three kinds were checked against the attribute surface above and author
+nothing:
+
+| Kind | Why it binds no case |
+|------|----------------------|
+| `boolean` | A truth value has no length, precision, range or value set. Its whole surface is its value type, which the discriminator already states. |
+| `uuid` | Nothing about a generated identifier is *chosen* — the value is machine-generated, as a file reference's stored address is (§5.13.1). Whether it is the entity's key is the **entity**-level identity attribute, not a type option. |
+| `json` | The surface carries the kind as a single flag (`TomDbColumn.isJson`) with no payload beside it, and the flag follows from the kind. Deliberately **no schema reference**: a JSON payload whose shape is *known* is modelled as nested data entities, and one whose shape is only *checked* is checked by a CE-VA constraint — a schema attribute here would be a second home for one of those two answers. |
 
 ### 5.14 CE-API + CE-SC operation/request/response attribute surface under §7
 
@@ -4171,7 +4215,7 @@ with only the type-independent attributes in the common subsection:
 
 | # | Section (member) | Doc | Discriminator enum | Case subsections |
 |---|------------------|-----|--------------------|------------------|
-| 3 | `DataAttributeEntry.dataTypeSpec` | D03 IMO | `DataAttributeKind` | `textTypeOptions` / `numericTypeOptions` / `temporalTypeOptions` / `binaryTypeOptions` |
+| 3 | `DataAttributeEntry.dataTypeSpec` | D03 IMO | `DataAttributeKind` | `textTypeOptions` / `numericTypeOptions` / `temporalTypeOptions` / `binaryTypeOptions` / `fileReferenceOptions` / `enumerationTypeOptions` |
 | 4 | `ReportColumnEntry.formatting` | D09 XDS | `ReportColumnKind` | `numericFormat` / `currencyFormat` / `dateFormat` / `booleanFormat` / `textFormat` |
 | 5 | `ExportFieldMappingEntry.formatting` | D09 XDS | `ExportFieldKind` | `numericOutput` / `temporalOutput` / `booleanOutput` / `enumerationOutput` / `textOutput` |
 | 6 | `ReportFilterEntry.input` | D09 XDS | `ReportFilterValueKind` | `textFilterOptions` / `numericFilterOptions` / `dateFilterOptions` / `booleanFilterOptions` / `selectFilterOptions` / `entityFilterOptions` — each carrying its own kind-appropriate `inputType` |
@@ -4184,9 +4228,14 @@ and the instance-tier check resolve a discriminator in either position.
 
 A kind that carries no extra attributes binds no case; the static validator
 reports the uncovered constants as a **warning**, which is the expected steady
-state for e.g. `DataAttributeKind.boolean`/`uuid`/`json`/`enumeration` (an
-enumerated attribute's value set is modelled by its `constraints` list, not by a
-type-specific options form) and `ScreenFieldKind.boolean`/`file`.
+state for e.g. `DataAttributeKind.boolean`/`uuid`/`json` and
+`ScreenFieldKind.boolean`/`file`. An uncovered constant is only a steady state
+once its reason is *written at the constant* — the warning list is an inventory
+of unexamined kinds, and two catalogue gaps (the file kind, §5.13.1, and the
+CE-EL colour, §5.18) were found by working through it. The enumerated attribute
+kind was the third: its *value set* is declared in the domain enum register, but
+nothing named **which** enum the attribute draws from, so it now binds
+`enumerationTypeOptions` (`DAATT-DTEN`, §5.13).
 
 **Ruled out after inspection:** `ObjectStateEntry.stateType` (`ObjectLifecycleKind`,
 D03 IMO) — its discriminator gates **common** attributes (entry/exit conditions,
@@ -4459,7 +4508,7 @@ traceability and gap analysis become set operations in both directions.
 ## 10. Open work
 
 Everything still outstanding against this document is tracked as a **quest todo**
-in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb`, `csrc` and `csrd`
+in `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csre`
 for the CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass and
 `qrc` for the work one of those findings opened. Each todo is self-contained — it
 carries the full context needed to execute it — so this list is an index, not a
@@ -4481,7 +4530,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 | `qrc4` | Clear the **CE-EL/CE-FM text-controller write-path gap** (§4.1.1, §4.4.4 slice 5) once `tcca15` lands. `set()` and `reset()` bypass the guard the field's own `_setControllerText` applies, and both are the ordinary path a CE-ST binding and a CE-FM load take. Mode **R**. |
 | `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) once `tcca9` lands. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) once `tcca11` lands, and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
-| `csrd4` | Check **`DataAttributeEntry`'s four uncovered `@OneOf` constants** (`boolean`, `enumeration`, `json`, `uuid`) against §5.13's CE-DB attribute surface. `enumeration` is the suspect — an enumeration-typed attribute has to name its allowed values, and no subsection authors them. The last of the four `@OneOf` coverage lists that has not been checked; the other three are closed. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tcca10` lands. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
 
 Open todos in these series whose subject is **not** a mapping question are

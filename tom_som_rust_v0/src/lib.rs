@@ -13110,6 +13110,30 @@ impl DataAttributeEntry {
         DataAttributeEntryFileReferenceOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTFR"))
     }
 
+    /// Enumeration-kind type options — a promoted `@OneOf` case.
+    ///
+    /// Present only for the `enumeration` logical type, and carrying exactly one
+    /// thing: **which** domain enum the attribute is typed by. The emitted
+    /// column's value type *is* the generated enum type, so an enumerated
+    /// attribute that names no enum cannot be emitted — which is why this is a
+    /// required field rather than a hint.
+    ///
+    /// The enum is **named, never restated**. `DomainEnumRegistry` is the single
+    /// source for closed value sets, and its entries are what the `domainEnum`
+    /// member kind is generated from; listing the values again here would be a
+    /// second source that could disagree with the first. The same choice is made
+    /// wherever else the model types a value by an enum — an operation request or
+    /// response member (`SVOPM.domainEnum`) names its entry the same way.
+    ///
+    /// How the value is **stored** is not authored here either: the backing type
+    /// belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+    /// stores it the same way. And *narrowing* — this attribute permitting only
+    /// some of the enum's values — is a constraint, authored in the `constraints`
+    /// list where every other per-attribute restriction lives.
+    pub fn enumeration_type_options(&self) -> DataAttributeEntryEnumerationTypeOptionsForm {
+        DataAttributeEntryEnumerationTypeOptionsForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "DAATT-DTEN"))
+    }
+
     pub fn constraints(&self) -> som::SomList<DataAttributeConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
@@ -92052,6 +92076,45 @@ impl DataAttributeEntryDerivationForm {
     pub fn set_derivation_logic(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "derivationLogic", value);
+    }
+}
+
+/// DataAttributeEntryEnumerationTypeOptionsForm is the generated section facade for the `enumerationTypeOptions` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct DataAttributeEntryEnumerationTypeOptionsForm {
+    pub node: som::SomNode,
+}
+
+impl DataAttributeEntryEnumerationTypeOptionsForm {
+    /// Binds a DataAttributeEntryEnumerationTypeOptionsForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> DataAttributeEntryEnumerationTypeOptionsForm {
+        DataAttributeEntryEnumerationTypeOptionsForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn domain_enum(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "domainEnum")
+    }
+
+    pub fn set_domain_enum(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "domainEnum", value);
     }
 }
 

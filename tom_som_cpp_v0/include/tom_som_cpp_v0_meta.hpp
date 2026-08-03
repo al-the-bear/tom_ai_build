@@ -2987,6 +2987,7 @@ som::SomMetaRef navDataAttributeEntry_numericTypeOptions(NavDataAttributeEntry x
 som::SomMetaRef navDataAttributeEntry_temporalTypeOptions(NavDataAttributeEntry x);
 som::SomMetaRef navDataAttributeEntry_binaryTypeOptions(NavDataAttributeEntry x);
 som::SomMetaRef navDataAttributeEntry_fileReferenceOptions(NavDataAttributeEntry x);
+som::SomMetaRef navDataAttributeEntry_enumerationTypeOptions(NavDataAttributeEntry x);
 som::SomListMetaRef navDataAttributeEntry_constraints(NavDataAttributeEntry x);
 som::SomMetaRef navDataAttributeEntry_derivation(NavDataAttributeEntry x);
 som::SomMetaRef navDataAttributeEntry_securityClassification(NavDataAttributeEntry x);
@@ -10289,6 +10290,7 @@ som::SomMetaRef idDataAttributeEntry_DAATT_DTNU(IdDataAttributeEntry x);
 som::SomMetaRef idDataAttributeEntry_DAATT_DTTM(IdDataAttributeEntry x);
 som::SomMetaRef idDataAttributeEntry_DAATT_DTBI(IdDataAttributeEntry x);
 som::SomMetaRef idDataAttributeEntry_DAATT_DTFR(IdDataAttributeEntry x);
+som::SomMetaRef idDataAttributeEntry_DAATT_DTEN(IdDataAttributeEntry x);
 som::SomListMetaRef idDataAttributeEntry_DATAA_CONS_LST(IdDataAttributeEntry x);
 som::SomMetaRef idDataAttributeEntry_DAATT_DERI(IdDataAttributeEntry x);
 som::SomMetaRef idDataAttributeEntry_DAATT_SECU(IdDataAttributeEntry x);

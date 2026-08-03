@@ -2464,6 +2464,8 @@ section-types:
         max-count: 1
       daatt-dtfr:
         max-count: 1
+      daatt-dten:
+        max-count: 1
       dataa-cons-lst:
         max-count: 1
       daatt-deri:
@@ -3334,6 +3336,10 @@ section-types:
     prefix: DAATT_DTBI
     format: daatt-dtbi-form
     description: "Binary-kind type options — a promoted `@OneOf` case (csra4)."
+  daatt-dten:
+    prefix: DAATT_DTEN
+    format: daatt-dten-form
+    description: "Enumeration-kind type options — a promoted `@OneOf` case."
   daatt-dtfr:
     prefix: DAATT_DTFR
     format: daatt-dtfr-form
@@ -12511,6 +12517,11 @@ form-types:
         description: Content kind recorded when an upload declares none
       - fieldname: maxFileSizeBytes
         description: Maximum accepted file size in bytes
+  daatt-dten-form:
+    fields:
+      - fieldname: domainEnum
+        required: true
+        description: "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here"
   daatt-deri-form:
     fields:
       - fieldname: isComputed

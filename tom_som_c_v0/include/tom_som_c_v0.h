@@ -1841,6 +1841,7 @@ typedef struct { SomNode node; } DataAttributeConstraintEntryContentForm;
 typedef struct { SomNode node; } DataAttributeEntryBinaryTypeOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryDataTypeSpecForm;
 typedef struct { SomNode node; } DataAttributeEntryDerivationForm;
+typedef struct { SomNode node; } DataAttributeEntryEnumerationTypeOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryFileReferenceOptionsForm;
 typedef struct { SomNode node; } DataAttributeEntryIdentityForm;
 typedef struct { SomNode node; } DataAttributeEntryMigrationLineageForm;
@@ -9272,6 +9273,27 @@ DataAttributeEntryBinaryTypeOptionsForm data_attribute_entry_binary_type_options
 // a link, a download) is a screen-element concern, authored where the
 // element is.
 DataAttributeEntryFileReferenceOptionsForm data_attribute_entry_file_reference_options(const DataAttributeEntry *self);
+// Enumeration-kind type options — a promoted `@OneOf` case.
+//
+// Present only for the `enumeration` logical type, and carrying exactly one
+// thing: **which** domain enum the attribute is typed by. The emitted
+// column's value type *is* the generated enum type, so an enumerated
+// attribute that names no enum cannot be emitted — which is why this is a
+// required field rather than a hint.
+//
+// The enum is **named, never restated**. `DomainEnumRegistry` is the single
+// source for closed value sets, and its entries are what the `domainEnum`
+// member kind is generated from; listing the values again here would be a
+// second source that could disagree with the first. The same choice is made
+// wherever else the model types a value by an enum — an operation request or
+// response member (`SVOPM.domainEnum`) names its entry the same way.
+//
+// How the value is **stored** is not authored here either: the backing type
+// belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+// stores it the same way. And *narrowing* — this attribute permitting only
+// some of the enum's values — is a constraint, authored in the `constraints`
+// list where every other per-attribute restriction lives.
+DataAttributeEntryEnumerationTypeOptionsForm data_attribute_entry_enumeration_type_options(const DataAttributeEntry *self);
 // Returns the list view; element type: DataAttributeConstraintEntry (construct from item paths).
 SomList data_attribute_entry_constraints(const DataAttributeEntry *self);
 DataAttributeEntryDerivationForm data_attribute_entry_derivation(const DataAttributeEntry *self);
@@ -33981,6 +34003,15 @@ char *data_attribute_entry_derivation_form_is_derived(const DataAttributeEntryDe
 void data_attribute_entry_derivation_form_set_is_derived(DataAttributeEntryDerivationForm *self, const char *value);
 char *data_attribute_entry_derivation_form_derivation_logic(const DataAttributeEntryDerivationForm *self);
 void data_attribute_entry_derivation_form_set_derivation_logic(DataAttributeEntryDerivationForm *self, const char *value);
+
+// DataAttributeEntryEnumerationTypeOptionsForm is the generated section facade for the `enumerationTypeOptions` @Form section: its own `content` text followed by one typed member per form field.
+void data_attribute_entry_enumeration_type_options_form_init(DataAttributeEntryEnumerationTypeOptionsForm *self, SpecDocument *doc, const char *path);
+void data_attribute_entry_enumeration_type_options_form_free(DataAttributeEntryEnumerationTypeOptionsForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *data_attribute_entry_enumeration_type_options_form_content(const DataAttributeEntryEnumerationTypeOptionsForm *self);
+void data_attribute_entry_enumeration_type_options_form_set_content(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value);
+char *data_attribute_entry_enumeration_type_options_form_domain_enum(const DataAttributeEntryEnumerationTypeOptionsForm *self);
+void data_attribute_entry_enumeration_type_options_form_set_domain_enum(DataAttributeEntryEnumerationTypeOptionsForm *self, const char *value);
 
 // DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own `content` text followed by one typed member per form field.
 void data_attribute_entry_file_reference_options_form_init(DataAttributeEntryFileReferenceOptionsForm *self, SpecDocument *doc, const char *path);

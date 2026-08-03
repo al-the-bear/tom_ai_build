@@ -10907,6 +10907,30 @@ func (x *DataAttributeEntry) FileReferenceOptions() *DataAttributeEntryFileRefer
 	return NewDataAttributeEntryFileReferenceOptionsForm(x.Doc(), x.Path()+"/DAATT-DTFR")
 }
 
+// Enumeration-kind type options — a promoted `@OneOf` case.
+//
+// Present only for the `enumeration` logical type, and carrying exactly one
+// thing: **which** domain enum the attribute is typed by. The emitted
+// column's value type *is* the generated enum type, so an enumerated
+// attribute that names no enum cannot be emitted — which is why this is a
+// required field rather than a hint.
+//
+// The enum is **named, never restated**. `DomainEnumRegistry` is the single
+// source for closed value sets, and its entries are what the `domainEnum`
+// member kind is generated from; listing the values again here would be a
+// second source that could disagree with the first. The same choice is made
+// wherever else the model types a value by an enum — an operation request or
+// response member (`SVOPM.domainEnum`) names its entry the same way.
+//
+// How the value is **stored** is not authored here either: the backing type
+// belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+// stores it the same way. And *narrowing* — this attribute permitting only
+// some of the enum's values — is a constraint, authored in the `constraints`
+// list where every other per-attribute restriction lives.
+func (x *DataAttributeEntry) EnumerationTypeOptions() *DataAttributeEntryEnumerationTypeOptionsForm {
+	return NewDataAttributeEntryEnumerationTypeOptionsForm(x.Doc(), x.Path()+"/DAATT-DTEN")
+}
+
 func (x *DataAttributeEntry) Constraints() *som.SomList[*DataAttributeConstraintEntry] {
 	return som.NewSomList(x.Doc(), x.Path()+"/DATAA-CONS-LST", func(d *som.SpecDocument, p string) *DataAttributeConstraintEntry {
 		return NewDataAttributeConstraintEntry(d, p)
@@ -78695,6 +78719,40 @@ func (x *DataAttributeEntryDerivationForm) DerivationLogic() string {
 
 func (x *DataAttributeEntryDerivationForm) SetDerivationLogic(value string) {
 	x.Doc().SetFormField(x.Path(), "derivationLogic", value)
+}
+
+// DataAttributeEntryEnumerationTypeOptionsForm is the generated section facade for the `enumerationTypeOptions` @Form section: its own
+// content text followed by one typed member per form field.
+type DataAttributeEntryEnumerationTypeOptionsForm struct {
+	som.SomNode
+}
+
+// NewDataAttributeEntryEnumerationTypeOptionsForm binds a DataAttributeEntryEnumerationTypeOptionsForm facade to a document and a path.
+func NewDataAttributeEntryEnumerationTypeOptionsForm(doc *som.SpecDocument, path string) *DataAttributeEntryEnumerationTypeOptionsForm {
+	return &DataAttributeEntryEnumerationTypeOptionsForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) DomainEnum() string {
+	return x.Doc().FormFieldOr(x.Path(), "domainEnum")
+}
+
+func (x *DataAttributeEntryEnumerationTypeOptionsForm) SetDomainEnum(value string) {
+	x.Doc().SetFormField(x.Path(), "domainEnum", value)
 }
 
 // DataAttributeEntryFileReferenceOptionsForm is the generated section facade for the `fileReferenceOptions` @Form section: its own

@@ -60821,7 +60821,7 @@
             {
               "name": "allowedValues",
               "label": "Allowed Values",
-              "hint": "Enumerated values if applicable",
+              "hint": "The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted",
               "type": "String",
               "required": false
             },
@@ -60870,7 +60870,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
-            "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary / file reference); boolean, uuid and json carry only the common type and constraint subsections."
+            "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary / file reference / enumeration); boolean, uuid and json carry only the common type and constraint subsections, each for the reason stated at its constant."
           }
         },
         {
@@ -61364,6 +61364,66 @@
           ]
         },
         {
+          "name": "enumerationTypeOptions",
+          "kind": "form",
+          "doc": "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.",
+          "sectionId": "DAATT-DTEN",
+          "standardReferences": {
+            "standards": [
+              "ISO/IEC 11179 — permissible value and representation of a data element"
+            ],
+            "connotation": "The declared value set a domain-enum attribute draws from."
+          },
+          "serializationOrder": 7,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "DAATT-DTEN"
+              }
+            },
+            {
+              "name": "StandardReferences",
+              "arguments": {
+                "standards": [
+                  "ISO/IEC 11179 — permissible value and representation of a data element"
+                ],
+                "connotation": "The declared value set a domain-enum attribute draws from."
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "DataAttributeKind.enumeration"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 7
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "domainEnum",
+              "label": "Domain Enum",
+              "hint": "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "DMENE.enumName"
+              ]
+            }
+          ]
+        },
+        {
           "name": "constraints",
           "kind": "list",
           "help": "Add one entry per attribute constraint.",
@@ -61376,7 +61436,7 @@
             ],
             "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."
           },
-          "serializationOrder": 7,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -61409,7 +61469,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 8
               }
             }
           ],
@@ -61420,7 +61480,7 @@
           "name": "derivation",
           "kind": "form",
           "sectionId": "DAATT-DERI",
-          "serializationOrder": 8,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "SectionId",
@@ -61437,7 +61497,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 9
               }
             }
           ],
@@ -61476,7 +61536,7 @@
           "name": "securityClassification",
           "kind": "form",
           "sectionId": "DAATT-SECU",
-          "serializationOrder": 9,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "SectionId",
@@ -61493,7 +61553,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 10
               }
             }
           ],
@@ -61539,7 +61599,7 @@
           "name": "migrationLineage",
           "kind": "form",
           "sectionId": "DAATT-MIGR",
-          "serializationOrder": 10,
+          "serializationOrder": 11,
           "annotations": [
             {
               "name": "SectionId",
@@ -61556,7 +61616,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 10
+                "order": 11
               }
             }
           ],
@@ -61610,7 +61670,7 @@
             ],
             "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."
           },
-          "serializationOrder": 11,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -61642,7 +61702,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],

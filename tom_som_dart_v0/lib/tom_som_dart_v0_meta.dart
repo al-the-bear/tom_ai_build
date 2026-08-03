@@ -12582,7 +12582,7 @@ List<SomMetaNode> _mc$DataAttributeConstraintEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'mandatory', typeName: 'String', description: 'Mandatory', hint: 'Whether attribute is required: Required | Optional | ConditionallyRequired', order: 0), SomFormFieldMeta(name: 'nullable', typeName: 'String', description: 'Nullable', hint: 'Whether database allows NULL: Yes | No', order: 1), SomFormFieldMeta(name: 'unique', typeName: 'String', description: 'Unique', hint: 'Uniqueness constraint: Unique | UniqueWithinParent | NotUnique', order: 2), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'Default value or expression (e.g., NOW(), 0, "Draft")', order: 3), SomFormFieldMeta(name: 'validationRules', typeName: 'String', description: 'Validation Rules', hint: 'Business validation rules (e.g., must be positive, max 100)', order: 4), SomFormFieldMeta(name: 'constraintExpression', typeName: 'String', description: 'Constraint Expression', hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))', order: 5), SomFormFieldMeta(name: 'allowedValues', typeName: 'String', description: 'Allowed Values', hint: 'Enumerated values if applicable', order: 6), SomFormFieldMeta(name: 'patternRegex', typeName: 'String', description: 'Pattern/Regex', hint: 'Regex for validation (e.g., ^[A-Z]{2}-\\d{6}\$ for order IDs)', order: 7)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'mandatory', typeName: 'String', description: 'Mandatory', hint: 'Whether attribute is required: Required | Optional | ConditionallyRequired', order: 0), SomFormFieldMeta(name: 'nullable', typeName: 'String', description: 'Nullable', hint: 'Whether database allows NULL: Yes | No', order: 1), SomFormFieldMeta(name: 'unique', typeName: 'String', description: 'Unique', hint: 'Uniqueness constraint: Unique | UniqueWithinParent | NotUnique', order: 2), SomFormFieldMeta(name: 'defaultValue', typeName: 'String', description: 'Default Value', hint: 'Default value or expression (e.g., NOW(), 0, "Draft")', order: 3), SomFormFieldMeta(name: 'validationRules', typeName: 'String', description: 'Validation Rules', hint: 'Business validation rules (e.g., must be positive, max 100)', order: 4), SomFormFieldMeta(name: 'constraintExpression', typeName: 'String', description: 'Constraint Expression', hint: 'CHECK constraint (e.g., amount > 0, status IN ("Draft","Active"))', order: 5), SomFormFieldMeta(name: 'allowedValues', typeName: 'String', description: 'Allowed Values', hint: 'The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted', order: 6), SomFormFieldMeta(name: 'patternRegex', typeName: 'String', description: 'Pattern/Regex', hint: 'Regex for validation (e.g., ^[A-Z]{2}-\\d{6}\$ for order IDs)', order: 7)])),
     ];
 
 List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
@@ -12654,12 +12654,22 @@ List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 11179 — permissible value and representation of a data element', 'RFC 6838 — media type specifications and registration procedures'], 'connotation': 'Where a referenced file is stored, how long it lives and what may be uploaded into it.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'DataAttributeKind.fileReference'})]),
        SomMetaNode(
           className: 'DataAttributeEntry',
+          memberName: 'enumerationTypeOptions',
+          sectionId: 'DAATT-DTEN',
+          kind: SomMetaKind.form,
+          typeName: 'String',
+          serializationOrder: 7,
+          docComment: 'Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn\'s value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum\'s values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.',
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'domainEnum', typeName: 'String', description: 'Domain Enum', required: true, hint: 'DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here', order: 0, refersTo: ['DMENE.enumName'])]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 11179 — permissible value and representation of a data element'], 'connotation': 'The declared value set a domain-enum attribute draws from.'}), SomMetaExtra(annotation: 'Case', args: {'value': 'DataAttributeKind.enumeration'})]),
+       SomMetaNode(
+          className: 'DataAttributeEntry',
           memberName: 'constraints',
           sectionId: 'DATAA-CONS-LST',
           sectionIdPattern: 'DATAA-CONS-xxx',
           kind: SomMetaKind.list,
           typeName: 'DataAttributeConstraintEntry',
-          serializationOrder: 7,
+          serializationOrder: 8,
           contentHelp: 'Add one entry per attribute constraint.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['SBVR — business rule statements', 'ISO/IEC 25012 — data quality'], 'connotation': 'Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.'})],
           elementNode: _cx('DataAttributeConstraintEntry', s, _mc$DataAttributeConstraintEntry, (r, c) => SomMetaNode(className: 'DataAttributeConstraintEntry', classSectionId: 'DATAA', kind: SomMetaKind.complex, typeName: 'DataAttributeConstraintEntry', docComment: 'A single constraint entry.', classDocComment: 'A single constraint entry.', recursive: r, children: c))),
@@ -12669,7 +12679,7 @@ List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
           sectionId: 'DAATT-DERI',
           kind: SomMetaKind.form,
           typeName: 'String',
-          serializationOrder: 8,
+          serializationOrder: 9,
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'isComputed', typeName: 'String', description: 'Is Computed', hint: 'Whether value is computed: Yes | No', order: 0), SomFormFieldMeta(name: 'computeFormula', typeName: 'String', description: 'Compute Formula', hint: 'Formula or expression for computed fields', order: 1), SomFormFieldMeta(name: 'isDerived', typeName: 'String', description: 'Is Derived', hint: 'Whether derived from other attributes: Yes | No', order: 2), SomFormFieldMeta(name: 'derivationLogic', typeName: 'String', description: 'Derivation Logic', hint: 'How derived value is calculated', order: 3)])),
        SomMetaNode(
           className: 'DataAttributeEntry',
@@ -12677,7 +12687,7 @@ List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
           sectionId: 'DAATT-SECU',
           kind: SomMetaKind.form,
           typeName: 'String',
-          serializationOrder: 9,
+          serializationOrder: 10,
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sensitivityLevel', typeName: 'String', description: 'Sensitivity Level', hint: 'Public | Internal | Confidential | Restricted | PII | PHI', order: 0), SomFormFieldMeta(name: 'isPii', typeName: 'String', description: 'Is PII', hint: 'Personally identifiable information: Yes | No', order: 1), SomFormFieldMeta(name: 'maskingRule', typeName: 'String', description: 'Masking Rule', hint: 'How to mask in logs/displays: None | Partial | Full | Hash', order: 2), SomFormFieldMeta(name: 'encryptionLevel', typeName: 'String', description: 'Encryption Level', hint: 'Field-level encryption: None | Encrypted | Tokenized', order: 3), SomFormFieldMeta(name: 'auditLevel', typeName: 'String', description: 'Audit Level', hint: 'Change tracking: None | ValueChanges | FullHistory', order: 4)])),
        SomMetaNode(
           className: 'DataAttributeEntry',
@@ -12685,7 +12695,7 @@ List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
           sectionId: 'DAATT-MIGR',
           kind: SomMetaKind.form,
           typeName: 'String',
-          serializationOrder: 10,
+          serializationOrder: 11,
           form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceSystem', typeName: 'String', description: 'Source System', hint: 'Originating system for data lineage', order: 0), SomFormFieldMeta(name: 'sourceAttribute', typeName: 'String', description: 'Source Attribute', hint: 'Source field name for migration mapping', order: 1), SomFormFieldMeta(name: 'transformationRule', typeName: 'String', description: 'Transformation Rule', hint: 'Transformation applied during migration/ETL', order: 2), SomFormFieldMeta(name: 'dataLineage', typeName: 'String', description: 'Data Lineage', hint: 'Upstream sources that feed this attribute', order: 3), SomFormFieldMeta(name: 'qualityRules', typeName: 'String', description: 'Quality Rules', hint: 'Data quality checks (e.g., completeness, accuracy)', order: 4)])),
        SomMetaNode(
           className: 'DataAttributeEntry',
@@ -12694,7 +12704,7 @@ List<SomMetaNode> _mc$DataAttributeEntry(Set<String> s) => [
           sectionIdPattern: 'DISPL-DISP-xxx',
           kind: SomMetaKind.list,
           typeName: 'DisplayPropertyEntry',
-          serializationOrder: 11,
+          serializationOrder: 12,
           contentHelp: 'Add one entry per display property.',
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC 11179 — metadata registries / data element definitions'], 'connotation': 'UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.'})],
           elementNode: _cx('DisplayPropertyEntry', s, _mc$DisplayPropertyEntry, (r, c) => SomMetaNode(className: 'DisplayPropertyEntry', classSectionId: 'DISPL', kind: SomMetaKind.complex, typeName: 'DisplayPropertyEntry', docComment: 'A single display property entry.', classDocComment: 'A single display property entry.', recursive: r, children: c))),
@@ -56172,6 +56182,7 @@ class DataAttributeEntry$Nav extends SomMetaRef {
   SomMetaRef get temporalTypeOptions => SomMetaRef(tree, '$path/DAATT-DTTM');
   SomMetaRef get binaryTypeOptions => SomMetaRef(tree, '$path/DAATT-DTBI');
   SomMetaRef get fileReferenceOptions => SomMetaRef(tree, '$path/DAATT-DTFR');
+  SomMetaRef get enumerationTypeOptions => SomMetaRef(tree, '$path/DAATT-DTEN');
   SomListMetaRef<DataAttributeConstraintEntry$Nav> get constraints => SomListMetaRef(tree, '$path/DATAA-CONS-LST', DataAttributeConstraintEntry$Nav.new);
   SomMetaRef get derivation => SomMetaRef(tree, '$path/DAATT-DERI');
   SomMetaRef get securityClassification => SomMetaRef(tree, '$path/DAATT-SECU');
@@ -72231,6 +72242,7 @@ class DataAttributeEntry$Id extends SomMetaRef {
   SomMetaRef get DAATT_DTTM => SomMetaRef(tree, '$path/DAATT-DTTM');
   SomMetaRef get DAATT_DTBI => SomMetaRef(tree, '$path/DAATT-DTBI');
   SomMetaRef get DAATT_DTFR => SomMetaRef(tree, '$path/DAATT-DTFR');
+  SomMetaRef get DAATT_DTEN => SomMetaRef(tree, '$path/DAATT-DTEN');
   SomListMetaRef<DataAttributeConstraintEntry$Id> get DATAA_CONS_LST => SomListMetaRef(tree, '$path/DATAA-CONS-LST', DataAttributeConstraintEntry$Id.new);
   SomMetaRef get DAATT_DERI => SomMetaRef(tree, '$path/DAATT-DERI');
   SomMetaRef get DAATT_SECU => SomMetaRef(tree, '$path/DAATT-SECU');

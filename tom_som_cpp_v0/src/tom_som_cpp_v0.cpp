@@ -4889,6 +4889,9 @@ DataAttributeEntryBinaryTypeOptionsForm DataAttributeEntry::binaryTypeOptions() 
 DataAttributeEntryFileReferenceOptionsForm DataAttributeEntry::fileReferenceOptions() const {
   return DataAttributeEntryFileReferenceOptionsForm(doc(), som::joinPath(path(), "DAATT-DTFR"));
 }
+DataAttributeEntryEnumerationTypeOptionsForm DataAttributeEntry::enumerationTypeOptions() const {
+  return DataAttributeEntryEnumerationTypeOptionsForm(doc(), som::joinPath(path(), "DAATT-DTEN"));
+}
 som::SomList DataAttributeEntry::constraints() const {
   return som::SomList(doc(), som::joinPath(path(), "DATAA-CONS-LST"), "DATAA-CONS-xxx");
 }
@@ -37905,6 +37908,21 @@ std::string DataAttributeEntryDerivationForm::derivationLogic() const {
 }
 void DataAttributeEntryDerivationForm::setDerivationLogic(const std::string& value) {
   doc().setFormField(path(), "derivationLogic", value);
+}
+
+DataAttributeEntryEnumerationTypeOptionsForm::DataAttributeEntryEnumerationTypeOptionsForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string DataAttributeEntryEnumerationTypeOptionsForm::content() const {
+  return doc().content(path());
+}
+void DataAttributeEntryEnumerationTypeOptionsForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string DataAttributeEntryEnumerationTypeOptionsForm::domainEnum() const {
+  return doc().formField(path(), "domainEnum");
+}
+void DataAttributeEntryEnumerationTypeOptionsForm::setDomainEnum(const std::string& value) {
+  doc().setFormField(path(), "domainEnum", value);
 }
 
 DataAttributeEntryFileReferenceOptionsForm::DataAttributeEntryFileReferenceOptionsForm(som::SpecDocument& doc, std::string path)

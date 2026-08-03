@@ -1202,7 +1202,7 @@
           - identity, classification, lifecyclePolicy, relationshipSummary
           - attributes: `DataAttributeEntry`
             - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-              fileReferenceOptions, derivation, securityClassification, migrationLineage
+              fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
             - constraints: `DataAttributeConstraintEntry`
               - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
             - displayProperties: `DisplayPropertyEntry`
@@ -3401,7 +3401,7 @@
       - identity, classification, lifecyclePolicy, relationshipSummary
       - attributes: `DataAttributeEntry`
         - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-          fileReferenceOptions, derivation, securityClassification, migrationLineage
+          fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
         - constraints: `DataAttributeConstraintEntry`
           - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
         - displayProperties: `DisplayPropertyEntry`
@@ -5462,7 +5462,7 @@
         - identity, classification, lifecyclePolicy, relationshipSummary
         - attributes: `DataAttributeEntry`
           - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
-            fileReferenceOptions, derivation, securityClassification, migrationLineage
+            fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
           - constraints: `DataAttributeConstraintEntry`
             - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
           - displayProperties: `DisplayPropertyEntry`

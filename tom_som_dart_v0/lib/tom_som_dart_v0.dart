@@ -6599,6 +6599,28 @@ class DataAttributeEntry extends SomNode {
   /// element is.
   DataAttributeEntryFileReferenceOptionsForm get fileReferenceOptions => DataAttributeEntryFileReferenceOptionsForm(doc, '$path/DAATT-DTFR');
 
+  /// Enumeration-kind type options — a promoted `@OneOf` case.
+  /// 
+  /// Present only for the `enumeration` logical type, and carrying exactly one
+  /// thing: **which** domain enum the attribute is typed by. The emitted
+  /// column's value type *is* the generated enum type, so an enumerated
+  /// attribute that names no enum cannot be emitted — which is why this is a
+  /// required field rather than a hint.
+  /// 
+  /// The enum is **named, never restated**. `DomainEnumRegistry` is the single
+  /// source for closed value sets, and its entries are what the `domainEnum`
+  /// member kind is generated from; listing the values again here would be a
+  /// second source that could disagree with the first. The same choice is made
+  /// wherever else the model types a value by an enum — an operation request or
+  /// response member (`SVOPM.domainEnum`) names its entry the same way.
+  /// 
+  /// How the value is **stored** is not authored here either: the backing type
+  /// belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+  /// stores it the same way. And *narrowing* — this attribute permitting only
+  /// some of the enum's values — is a constraint, authored in the `constraints`
+  /// list where every other per-attribute restriction lives.
+  DataAttributeEntryEnumerationTypeOptionsForm get enumerationTypeOptions => DataAttributeEntryEnumerationTypeOptionsForm(doc, '$path/DAATT-DTEN');
+
   SomList<DataAttributeConstraintEntry> get constraints => SomList<DataAttributeConstraintEntry>(doc, '$path/DATAA-CONS-LST', (d, p) => DataAttributeConstraintEntry(d, p), pattern: 'DATAA-CONS-xxx');
 
   DataAttributeEntryDerivationForm get derivation => DataAttributeEntryDerivationForm(doc, '$path/DAATT-DERI');
@@ -39036,6 +39058,22 @@ class DataAttributeEntryDerivationForm extends SomNode {
 
   String get derivationLogic => doc.formField(path, 'derivationLogic') ?? '';
   set derivationLogic(String value) => doc.setFormField(path, 'derivationLogic', value);
+}
+
+/// Generated section facade for the `enumerationTypeOptions` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class DataAttributeEntryEnumerationTypeOptionsForm extends SomNode {
+  DataAttributeEntryEnumerationTypeOptionsForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get domainEnum => doc.formField(path, 'domainEnum') ?? '';
+  set domainEnum(String value) => doc.setFormField(path, 'domainEnum', value);
 }
 
 /// Generated section facade for the `fileReferenceOptions` `@Form` section:

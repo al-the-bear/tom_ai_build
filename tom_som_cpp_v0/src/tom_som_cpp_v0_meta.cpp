@@ -22387,7 +22387,7 @@ void buildDataAttributeConstraintEntryChildren(som::SomMetaNode& parent, std::ve
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "Default value or expression (e.g., NOW(), 0, \"Draft\")", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules", false, "Business validation rules (e.g., must be positive, max 100)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintExpression", "String", "Constraint Expression", false, "CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedValues", "String", "Allowed Values", false, "Enumerated values if applicable", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedValues", "String", "Allowed Values", false, "The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"patternRegex", "String", "Pattern/Regex", false, "Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -22516,6 +22516,22 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     parent.addChild(std::move(n));
   }
   {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "DataAttributeEntry";
+    (*n).memberName = "enumerationTypeOptions";
+    (*n).sectionId = "DAATT-DTEN";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 7;
+    (*n).docComment = "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"domainEnum", "String", "Domain Enum", true, "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here", 0, std::vector<std::string>{}, std::vector<std::string>{"DMENE.enumName"}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The declared value set a domain-enum attribute draws from.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"DataAttributeKind.enumeration\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "DataAttributeEntry";
     (*ln).memberName = "constraints";
@@ -22524,7 +22540,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DataAttributeConstraintEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 7;
+    (*ln).serializationOrder = 8;
     (*ln).contentHelp = "Add one entry per attribute constraint.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SBVR — business rule statements\",\"ISO/IEC 25012 — data quality\"],\"connotation\":\"Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.\"}", nullptr)});
     ln->elementNode = metaCx("DataAttributeConstraintEntry", stack,
@@ -22547,7 +22563,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 8;
+    (*n).serializationOrder = 9;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22563,7 +22579,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 9;
+    (*n).serializationOrder = 10;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22580,7 +22596,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 10;
+    (*n).serializationOrder = 11;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -22598,7 +22614,7 @@ void buildDataAttributeEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DisplayPropertyEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 11;
+    (*ln).serializationOrder = 12;
     (*ln).contentHelp = "Add one entry per display property.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.\"}", nullptr)});
     ln->elementNode = metaCx("DisplayPropertyEntry", stack,
@@ -98596,6 +98612,9 @@ som::SomMetaRef navDataAttributeEntry_binaryTypeOptions(NavDataAttributeEntry x)
 som::SomMetaRef navDataAttributeEntry_fileReferenceOptions(NavDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTFR"));
 }
+som::SomMetaRef navDataAttributeEntry_enumerationTypeOptions(NavDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTEN"));
+}
 som::SomListMetaRef navDataAttributeEntry_constraints(NavDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaNavFactoryDataAttributeConstraintEntry);
 }
@@ -120496,6 +120515,9 @@ som::SomMetaRef idDataAttributeEntry_DAATT_DTBI(IdDataAttributeEntry x) {
 }
 som::SomMetaRef idDataAttributeEntry_DAATT_DTFR(IdDataAttributeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTFR"));
+}
+som::SomMetaRef idDataAttributeEntry_DAATT_DTEN(IdDataAttributeEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAATT-DTEN"));
 }
 som::SomListMetaRef idDataAttributeEntry_DATAA_CONS_LST(IdDataAttributeEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATAA-CONS-LST"), metaIdFactoryDataAttributeConstraintEntry);

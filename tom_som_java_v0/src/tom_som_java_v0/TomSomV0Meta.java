@@ -24231,7 +24231,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Default value or expression (e.g., NOW(), 0, \"Draft\")", 3),
             new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, "Business validation rules (e.g., must be positive, max 100)", 4),
             new SomFormFieldMeta("constraintExpression", "String", "Constraint Expression", false, "CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", 5),
-            new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "Enumerated values if applicable", 6),
+            new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted", 6),
             new SomFormFieldMeta("patternRegex", "String", "Pattern/Regex", false, "Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", 7)));
         out.add(n);
       }
@@ -24343,11 +24343,22 @@ public final class TomSomV0Meta {
         out.add(n);
       }
       {
+        SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
+        n.memberName = "enumerationTypeOptions";
+        n.sectionId = "DAATT-DTEN";
+        n.serializationOrder = 7;
+        n.docComment = "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("domainEnum", "String", "Domain Enum", true, "DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here", 0, java.util.List.of(), java.util.List.of("DMENE.enumName"))));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — permissible value and representation of a data element"), "connotation", "The declared value set a domain-enum attribute draws from.")), new SomMetaExtra("Case", metaArgs("value", "DataAttributeKind.enumeration")));
+        out.add(n);
+      }
+      {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.LIST, "DataAttributeConstraintEntry");
         n.memberName = "constraints";
         n.sectionId = "DATAA-CONS-LST";
         n.sectionIdPattern = "DATAA-CONS-xxx";
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.contentHelp = "Add one entry per attribute constraint.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("SBVR — business rule statements", "ISO/IEC 25012 — data quality"), "connotation", "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values.")));
         n.elementNode = metaCx("DataAttributeConstraintEntry", s, DataAttributeConstraintEntryNav::metaChildren, (r, c) -> {
@@ -24365,7 +24376,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "derivation";
         n.sectionId = "DAATT-DERI";
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("isComputed", "String", "Is Computed", false, "Whether value is computed: Yes | No", 0),
             new SomFormFieldMeta("computeFormula", "String", "Compute Formula", false, "Formula or expression for computed fields", 1),
@@ -24377,7 +24388,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "securityClassification";
         n.sectionId = "DAATT-SECU";
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sensitivityLevel", "String", "Sensitivity Level", false, "Public | Internal | Confidential | Restricted | PII | PHI", 0),
             new SomFormFieldMeta("isPii", "String", "Is PII", false, "Personally identifiable information: Yes | No", 1),
@@ -24390,7 +24401,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("DataAttributeEntry", SomMetaKind.FORM, "String");
         n.memberName = "migrationLineage";
         n.sectionId = "DAATT-MIGR";
-        n.serializationOrder = 10;
+        n.serializationOrder = 11;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sourceSystem", "String", "Source System", false, "Originating system for data lineage", 0),
             new SomFormFieldMeta("sourceAttribute", "String", "Source Attribute", false, "Source field name for migration mapping", 1),
@@ -24404,7 +24415,7 @@ public final class TomSomV0Meta {
         n.memberName = "displayProperties";
         n.sectionId = "DISPL-DISP-LST";
         n.sectionIdPattern = "DISPL-DISP-xxx";
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.contentHelp = "Add one entry per display property.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / data element definitions"), "connotation", "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility.")));
         n.elementNode = metaCx("DisplayPropertyEntry", s, DisplayPropertyEntryNav::metaChildren, (r, c) -> {
@@ -24447,6 +24458,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef fileReferenceOptions() {
       return new SomMetaRef(tree, path + "/DAATT-DTFR");
+    }
+
+    public SomMetaRef enumerationTypeOptions() {
+      return new SomMetaRef(tree, path + "/DAATT-DTEN");
     }
 
     public SomListMetaRef<DataAttributeConstraintEntryNav> constraints() {
@@ -121127,6 +121142,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef DAATT_DTFR() {
       return new SomMetaRef(tree, path + "/DAATT-DTFR");
+    }
+
+    public SomMetaRef DAATT_DTEN() {
+      return new SomMetaRef(tree, path + "/DAATT-DTEN");
     }
 
     public SomListMetaRef<DataAttributeConstraintEntryId> DATAA_CONS_LST() {

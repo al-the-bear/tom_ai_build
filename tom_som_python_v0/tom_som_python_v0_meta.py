@@ -13440,7 +13440,7 @@ def _mc_DataAttributeConstraintEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="mandatory", type_name="String", description="Mandatory", hint="Whether attribute is required: Required | Optional | ConditionallyRequired", order=0), SomFormFieldMeta(name="nullable", type_name="String", description="Nullable", hint="Whether database allows NULL: Yes | No", order=1), SomFormFieldMeta(name="unique", type_name="String", description="Unique", hint="Uniqueness constraint: Unique | UniqueWithinParent | NotUnique", order=2), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Default value or expression (e.g., NOW(), 0, \"Draft\")", order=3), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", hint="Business validation rules (e.g., must be positive, max 100)", order=4), SomFormFieldMeta(name="constraintExpression", type_name="String", description="Constraint Expression", hint="CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", order=5), SomFormFieldMeta(name="allowedValues", type_name="String", description="Allowed Values", hint="Enumerated values if applicable", order=6), SomFormFieldMeta(name="patternRegex", type_name="String", description="Pattern/Regex", hint="Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="mandatory", type_name="String", description="Mandatory", hint="Whether attribute is required: Required | Optional | ConditionallyRequired", order=0), SomFormFieldMeta(name="nullable", type_name="String", description="Nullable", hint="Whether database allows NULL: Yes | No", order=1), SomFormFieldMeta(name="unique", type_name="String", description="Unique", hint="Uniqueness constraint: Unique | UniqueWithinParent | NotUnique", order=2), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Default value or expression (e.g., NOW(), 0, \"Draft\")", order=3), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", hint="Business validation rules (e.g., must be positive, max 100)", order=4), SomFormFieldMeta(name="constraintExpression", type_name="String", description="Constraint Expression", hint="CHECK constraint (e.g., amount > 0, status IN (\"Draft\",\"Active\"))", order=5), SomFormFieldMeta(name="allowedValues", type_name="String", description="Allowed Values", hint="The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted", order=6), SomFormFieldMeta(name="patternRegex", type_name="String", description="Pattern/Regex", hint="Regex for validation (e.g., ^[A-Z]{2}-\\d{6}$ for order IDs)", order=7)])),
     ]
 
 
@@ -13514,12 +13514,22 @@ def _mc_DataAttributeEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element", "RFC 6838 — media type specifications and registration procedures"], "connotation": "Where a referenced file is stored, how long it lives and what may be uploaded into it."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.fileReference"})]),
          SomMetaNode(
             class_name="DataAttributeEntry",
+            member_name="enumerationTypeOptions",
+            section_id="DAATT-DTEN",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=7,
+            doc_comment="Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="domainEnum", type_name="String", description="Domain Enum", required=True, hint="DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here", order=0, refers_to=["DMENE.enumName"])]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — permissible value and representation of a data element"], "connotation": "The declared value set a domain-enum attribute draws from."}), SomMetaExtra(annotation="Case", args={"value": "DataAttributeKind.enumeration"})]),
+         SomMetaNode(
+            class_name="DataAttributeEntry",
             member_name="constraints",
             section_id="DATAA-CONS-LST",
             section_id_pattern="DATAA-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataAttributeConstraintEntry",
-            serialization_order=7,
+            serialization_order=8,
             content_help="Add one entry per attribute constraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SBVR — business rule statements", "ISO/IEC 25012 — data quality"], "connotation": "Validation constraints on this attribute, such as nullability, ranges, patterns, and default values."})],
             element_node=_cx("DataAttributeConstraintEntry", s, _mc_DataAttributeConstraintEntry, lambda r, c: SomMetaNode(class_name="DataAttributeConstraintEntry", class_section_id="DATAA", kind=SomMetaKind.COMPLEX, type_name="DataAttributeConstraintEntry", doc_comment="A single constraint entry.", class_doc_comment="A single constraint entry.", recursive=r, children=c))),
@@ -13529,7 +13539,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-DERI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=8,
+            serialization_order=9,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="isComputed", type_name="String", description="Is Computed", hint="Whether value is computed: Yes | No", order=0), SomFormFieldMeta(name="computeFormula", type_name="String", description="Compute Formula", hint="Formula or expression for computed fields", order=1), SomFormFieldMeta(name="isDerived", type_name="String", description="Is Derived", hint="Whether derived from other attributes: Yes | No", order=2), SomFormFieldMeta(name="derivationLogic", type_name="String", description="Derivation Logic", hint="How derived value is calculated", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13537,7 +13547,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-SECU",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=9,
+            serialization_order=10,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sensitivityLevel", type_name="String", description="Sensitivity Level", hint="Public | Internal | Confidential | Restricted | PII | PHI", order=0), SomFormFieldMeta(name="isPii", type_name="String", description="Is PII", hint="Personally identifiable information: Yes | No", order=1), SomFormFieldMeta(name="maskingRule", type_name="String", description="Masking Rule", hint="How to mask in logs/displays: None | Partial | Full | Hash", order=2), SomFormFieldMeta(name="encryptionLevel", type_name="String", description="Encryption Level", hint="Field-level encryption: None | Encrypted | Tokenized", order=3), SomFormFieldMeta(name="auditLevel", type_name="String", description="Audit Level", hint="Change tracking: None | ValueChanges | FullHistory", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13545,7 +13555,7 @@ def _mc_DataAttributeEntry(s):
             section_id="DAATT-MIGR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=10,
+            serialization_order=11,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceSystem", type_name="String", description="Source System", hint="Originating system for data lineage", order=0), SomFormFieldMeta(name="sourceAttribute", type_name="String", description="Source Attribute", hint="Source field name for migration mapping", order=1), SomFormFieldMeta(name="transformationRule", type_name="String", description="Transformation Rule", hint="Transformation applied during migration/ETL", order=2), SomFormFieldMeta(name="dataLineage", type_name="String", description="Data Lineage", hint="Upstream sources that feed this attribute", order=3), SomFormFieldMeta(name="qualityRules", type_name="String", description="Quality Rules", hint="Data quality checks (e.g., completeness, accuracy)", order=4)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
@@ -13554,7 +13564,7 @@ def _mc_DataAttributeEntry(s):
             section_id_pattern="DISPL-DISP-xxx",
             kind=SomMetaKind.LIST,
             type_name="DisplayPropertyEntry",
-            serialization_order=11,
+            serialization_order=12,
             content_help="Add one entry per display property.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "UI and display properties for this attribute, such as labels, formatting, ordering, and visibility."})],
             element_node=_cx("DisplayPropertyEntry", s, _mc_DisplayPropertyEntry, lambda r, c: SomMetaNode(class_name="DisplayPropertyEntry", class_section_id="DISPL", kind=SomMetaKind.COMPLEX, type_name="DisplayPropertyEntry", doc_comment="A single display property entry.", class_doc_comment="A single display property entry.", recursive=r, children=c))),
@@ -62558,6 +62568,10 @@ class DataAttributeEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DTFR")
 
     @property
+    def enumerationTypeOptions(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTEN")
+
+    @property
     def constraints(self):
         return SomListMetaRef(self.tree, f"{self.path}/DATAA-CONS-LST", DataAttributeConstraintEntryNav)
 
@@ -99597,6 +99611,10 @@ class DataAttributeEntryId(SomMetaRef):
     @property
     def DAATT_DTFR(self):
         return SomMetaRef(self.tree, f"{self.path}/DAATT-DTFR")
+
+    @property
+    def DAATT_DTEN(self):
+        return SomMetaRef(self.tree, f"{self.path}/DAATT-DTEN")
 
     @property
     def DATAA_CONS_LST(self):

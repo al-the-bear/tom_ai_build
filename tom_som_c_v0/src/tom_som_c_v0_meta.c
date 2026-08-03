@@ -2628,6 +2628,7 @@ static void meta_build_data_attribute_entry_numeric_type_options(SomMetaNode *n)
 static void meta_build_data_attribute_entry_temporal_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_binary_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *n);
+static void meta_build_data_attribute_entry_enumeration_type_options(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n);
 static void meta_build_data_attribute_entry_constraints_elem(SomMetaNode *n);
 static void meta_build_data_attribute_entry_derivation(SomMetaNode *n);
@@ -42240,7 +42241,7 @@ static void meta_build_data_attribute_constraint_entry_content(SomMetaNode *n) {
   n->form->fields[6].type_name = som_strdup("String");
   n->form->fields[6].description = som_strdup("Allowed Values");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Enumerated values if applicable");
+  n->form->fields[6].hint = som_strdup("The subset of values this attribute permits — value ids from the domain enum it is typed by, or the permitted literals for a non-enumerated attribute; empty means unrestricted");
   n->form->fields[6].order = 6;
   n->form->fields[7].name = som_strdup("patternRegex");
   n->form->fields[7].type_name = som_strdup("String");
@@ -42505,6 +42506,34 @@ static void meta_build_data_attribute_entry_file_reference_options(SomMetaNode *
   n->extra[1].annotation = som_strdup("Case");
   n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.fileReference\"}", NULL);
 }
+static void meta_build_data_attribute_entry_enumeration_type_options(SomMetaNode *n) {
+  meta_set(&n->class_name, "DataAttributeEntry");
+  meta_set(&n->member_name, "enumerationTypeOptions");
+  meta_set(&n->section_id, "DAATT-DTEN");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 7;
+  meta_set(&n->doc_comment, "Enumeration-kind type options — a promoted `@OneOf` case.\n\nPresent only for the `enumeration` logical type, and carrying exactly one\nthing: **which** domain enum the attribute is typed by. The emitted\ncolumn's value type *is* the generated enum type, so an enumerated\nattribute that names no enum cannot be emitted — which is why this is a\nrequired field rather than a hint.\n\nThe enum is **named, never restated**. `DomainEnumRegistry` is the single\nsource for closed value sets, and its entries are what the `domainEnum`\nmember kind is generated from; listing the values again here would be a\nsecond source that could disagree with the first. The same choice is made\nwherever else the model types a value by an enum — an operation request or\nresponse member (`SVOPM.domainEnum`) names its entry the same way.\n\nHow the value is **stored** is not authored here either: the backing type\nbelongs to the enum (`DMENE.backingType`), so every attribute typed by it\nstores it the same way. And *narrowing* — this attribute permitting only\nsome of the enum's values — is a constraint, authored in the `constraints`\nlist where every other per-attribute restriction lives.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("domainEnum");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Domain Enum");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("DomainEnumEntry.enumName this attribute is typed by (e.g. OrderStatus) — declared once in the domain enum register, not restated here");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("DMENE.enumName");
+  n->extra_len = 2;
+  n->extra = (SomMetaExtra *)calloc(2, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("StandardReferences");
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 11179 — permissible value and representation of a data element\"],\"connotation\":\"The declared value set a domain-enum attribute draws from.\"}", NULL);
+  n->extra[1].annotation = som_strdup("Case");
+  n->extra[1].args = som_json_parse("{\"value\":\"DataAttributeKind.enumeration\"}", NULL);
+}
 static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "DataAttributeEntry");
   meta_set(&n->member_name, "constraints");
@@ -42513,7 +42542,7 @@ static void meta_build_data_attribute_entry_constraints(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataAttributeConstraintEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->content_help, "Add one entry per attribute constraint.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -42535,7 +42564,7 @@ static void meta_build_data_attribute_entry_derivation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
   n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
@@ -42571,7 +42600,7 @@ static void meta_build_data_attribute_entry_security_classification(SomMetaNode 
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42613,7 +42642,7 @@ static void meta_build_data_attribute_entry_migration_lineage(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 10;
+  n->serialization_order = 11;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
   n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
@@ -42656,7 +42685,7 @@ static void meta_build_data_attribute_entry_display_properties(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DisplayPropertyEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->content_help, "Add one entry per display property.");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
@@ -162298,6 +162327,11 @@ static SomMetaNode **meta_children_data_attribute_entry(SomStrList *stack, size_
     meta_push(&arr, len, &cap, n);
   }
   {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_data_attribute_entry_enumeration_type_options(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_data_attribute_entry_constraints(ln);
     ln->element_node = meta_cx("DataAttributeConstraintEntry", stack, meta_children_data_attribute_constraint_entry, meta_build_data_attribute_entry_constraints_elem);
@@ -196010,6 +196044,13 @@ SomMetaRef data_attribute_entry_nav_binary_type_options(som_nav_data_attribute_e
 SomMetaRef data_attribute_entry_nav_file_reference_options(som_nav_data_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DAATT-DTFR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_nav_enumeration_type_options(som_nav_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -247111,6 +247152,13 @@ SomMetaRef data_attribute_entry_id_daatt_dtbi(som_id_data_attribute_entry x) {
 SomMetaRef data_attribute_entry_id_daatt_dtfr(som_id_data_attribute_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DAATT-DTFR");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef data_attribute_entry_id_daatt_dten(som_id_data_attribute_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "DAATT-DTEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;

@@ -9737,6 +9737,30 @@ public final class TomSomV0 {
       return new DataAttributeEntryFileReferenceOptionsForm(doc, path + "/DAATT-DTFR");
     }
 
+    // Enumeration-kind type options — a promoted `@OneOf` case.
+    //
+    // Present only for the `enumeration` logical type, and carrying exactly one
+    // thing: **which** domain enum the attribute is typed by. The emitted
+    // column's value type *is* the generated enum type, so an enumerated
+    // attribute that names no enum cannot be emitted — which is why this is a
+    // required field rather than a hint.
+    //
+    // The enum is **named, never restated**. `DomainEnumRegistry` is the single
+    // source for closed value sets, and its entries are what the `domainEnum`
+    // member kind is generated from; listing the values again here would be a
+    // second source that could disagree with the first. The same choice is made
+    // wherever else the model types a value by an enum — an operation request or
+    // response member (`SVOPM.domainEnum`) names its entry the same way.
+    //
+    // How the value is **stored** is not authored here either: the backing type
+    // belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+    // stores it the same way. And *narrowing* — this attribute permitting only
+    // some of the enum's values — is a constraint, authored in the `constraints`
+    // list where every other per-attribute restriction lives.
+    public DataAttributeEntryEnumerationTypeOptionsForm enumerationTypeOptions() {
+      return new DataAttributeEntryEnumerationTypeOptionsForm(doc, path + "/DAATT-DTEN");
+    }
+
     public SomList<DataAttributeConstraintEntry> constraints() {
       return new SomList<>(doc, path + "/DATAA-CONS-LST", (d, p) -> new DataAttributeConstraintEntry(d, p), "DATAA-CONS-xxx");
     }
@@ -71370,6 +71394,37 @@ public final class TomSomV0 {
 
     public void derivationLogic(String value) {
       doc.setFormField(path, "derivationLogic", value);
+    }
+  }
+
+  // Generated section facade for the `enumerationTypeOptions` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class DataAttributeEntryEnumerationTypeOptionsForm extends SomNode {
+    public DataAttributeEntryEnumerationTypeOptionsForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String domainEnum() {
+      String v = doc.formField(path, "domainEnum");
+      return v == null ? "" : v;
+    }
+
+    public void domainEnum(String value) {
+      doc.setFormField(path, "domainEnum", value);
     }
   }
 

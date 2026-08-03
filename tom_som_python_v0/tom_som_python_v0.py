@@ -9187,6 +9187,30 @@ class DataAttributeEntry(SomNode):
     def fileReferenceOptions(self):
         return DataAttributeEntryFileReferenceOptionsForm(self.doc, f"{self.path}/DAATT-DTFR")
 
+    # Enumeration-kind type options — a promoted `@OneOf` case.
+    #
+    # Present only for the `enumeration` logical type, and carrying exactly one
+    # thing: **which** domain enum the attribute is typed by. The emitted
+    # column's value type *is* the generated enum type, so an enumerated
+    # attribute that names no enum cannot be emitted — which is why this is a
+    # required field rather than a hint.
+    #
+    # The enum is **named, never restated**. `DomainEnumRegistry` is the single
+    # source for closed value sets, and its entries are what the `domainEnum`
+    # member kind is generated from; listing the values again here would be a
+    # second source that could disagree with the first. The same choice is made
+    # wherever else the model types a value by an enum — an operation request or
+    # response member (`SVOPM.domainEnum`) names its entry the same way.
+    #
+    # How the value is **stored** is not authored here either: the backing type
+    # belongs to the enum (`DMENE.backingType`), so every attribute typed by it
+    # stores it the same way. And *narrowing* — this attribute permitting only
+    # some of the enum's values — is a constraint, authored in the `constraints`
+    # list where every other per-attribute restriction lives.
+    @property
+    def enumerationTypeOptions(self):
+        return DataAttributeEntryEnumerationTypeOptionsForm(self.doc, f"{self.path}/DAATT-DTEN")
+
     @property
     def constraints(self):
         return SomList(self.doc, f"{self.path}/DATAA-CONS-LST", lambda d, p: DataAttributeConstraintEntry(d, p), pattern="DATAA-CONS-xxx")
@@ -64458,6 +64482,31 @@ class DataAttributeEntryDerivationForm(SomNode):
     @derivationLogic.setter
     def derivationLogic(self, value):
         self.doc.set_form_field(self.path, "derivationLogic", value)
+
+class DataAttributeEntryEnumerationTypeOptionsForm(SomNode):
+    """Generated section facade for the `enumerationTypeOptions` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def domainEnum(self) -> str:
+        return self.doc.form_field(self.path, "domainEnum") or ""
+
+    @domainEnum.setter
+    def domainEnum(self, value):
+        self.doc.set_form_field(self.path, "domainEnum", value)
 
 class DataAttributeEntryFileReferenceOptionsForm(SomNode):
     """Generated section facade for the `fileReferenceOptions` @Form section: its own content text followed by one typed member per form field."""
