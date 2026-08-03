@@ -152,7 +152,7 @@ class returnForm {}
       red: _input(
         client: {
           'lib/a.dart': '''
-@CsTrigger(kind: TriggerKind.userGesture, action: CsActionRef('placeOrder'))
+@CsTrigger(kind: CsTriggerKind.userGesture, action: CsActionRef('placeOrder'))
 class submitButton {}
 ''',
         },
@@ -162,7 +162,7 @@ class submitButton {}
           'lib/a.dart': '''
 const placeOrder = CsActionRef('placeOrder');
 
-@CsTrigger(kind: TriggerKind.userGesture, action: CsActionRef('placeOrder'))
+@CsTrigger(kind: CsTriggerKind.userGesture, action: CsActionRef('placeOrder'))
 class submitButton {}
 ''',
         },
@@ -175,7 +175,7 @@ class submitButton {}
       final input = _input(
         client: {
           'lib/a.dart': '''
-@CsTrigger(kind: TriggerKind.userGesture, action: CsActionRef('placeOrder'))
+@CsTrigger(kind: CsTriggerKind.userGesture, action: CsActionRef('placeOrder'))
 class submitButton {}
 ''',
         },
@@ -400,7 +400,7 @@ class orderForm {}
 const enter = CsActionRef('enter');
 
 @CsTrigger(
-  kind: TriggerKind.lifecycle,
+  kind: CsTriggerKind.lifecycle,
   action: CsActionRef('enter'),
   scope: CsLifecycleScope.screen,
   phase: CsLifecyclePhase.enter,
@@ -416,7 +416,7 @@ class orderScreen {}
 const enter = CsActionRef('enter');
 
 @CsTrigger(
-  kind: TriggerKind.lifecycle,
+  kind: CsTriggerKind.lifecycle,
   action: CsActionRef('enter'),
   scope: CsLifecycleScope.screen,
   phase: CsLifecyclePhase.enter,
@@ -1362,7 +1362,7 @@ class orderForm {
 }
 
 @CsTrigger(
-  kind: TriggerKind.userGesture,
+  kind: CsTriggerKind.userGesture,
   action: CsActionRef('submitOrder'),
   element: CsElementRef('submitButton'),
   gesture: CsGesture.tap,

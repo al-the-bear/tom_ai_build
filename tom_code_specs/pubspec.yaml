@@ -1,6 +1,6 @@
 name: tom_code_specs
 description: CodeSpecs framework — the Cs* annotation family (no base classes) and the code-side DocSpecs↔CodeSpecs link annotations for TomSpecs Phase 4.
-version: 0.11.0
+version: 0.12.0
 publish_to: none
 
 environment:

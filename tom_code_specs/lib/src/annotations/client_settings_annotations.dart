@@ -197,7 +197,7 @@ class CsIdentity {
 /// SOM `UserAttributeEntry` section carries is an argument here.
 class CsIdentityAttribute {
   /// Which token payload this attribute rides in.
-  final IdentityAttributePlacement placement;
+  final CsIdentityAttributePlacement placement;
 
   /// The resource key gating field-level access to this attribute.
   ///

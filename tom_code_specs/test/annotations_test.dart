@@ -192,34 +192,34 @@ class CustomerEditLayout {}
 /// the annotation-level rendering of §8.2's `@OneOf`/`@Case` closed choice.
 @CsAction(note: 'validates, then calls the server')
 @CsTrigger(
-  kind: TriggerKind.userGesture,
+  kind: CsTriggerKind.userGesture,
   action: Actions.saveCustomer,
   element: CsElementRef('save', form: 'customerEditForm'),
   gesture: CsGesture.tap,
 )
 @CsTrigger(
-  kind: TriggerKind.inFormEvent,
+  kind: CsTriggerKind.inFormEvent,
   action: Actions.saveCustomer,
   form: CsFormRef('customerEditForm'),
   formEvent: CsFormEvent.fieldChange,
   formField: CsElementRef('total', form: 'customerEditForm'),
 )
 @CsTrigger(
-  kind: TriggerKind.lifecycle,
+  kind: CsTriggerKind.lifecycle,
   action: Actions.saveCustomer,
   scope: CsLifecycleScope.screen,
   phase: CsLifecyclePhase.leave,
   note: 'autosave on leave',
 )
 @CsTrigger(
-  kind: TriggerKind.serverEvent,
+  kind: CsTriggerKind.serverEvent,
   action: Actions.saveCustomer,
   channel: 'customer-events',
   eventType: 'customer.invalidated',
 )
 // `condition` carries no slot: its predicate over CE-ST state is real Dart — a
 // closure the `TomActionTrigger` constructor takes.
-@CsTrigger(kind: TriggerKind.condition, action: Actions.saveCustomer)
+@CsTrigger(kind: CsTriggerKind.condition, action: Actions.saveCustomer)
 @CodeSpec('AC-SAVE-CUSTOMER', source: ['ISC-SAVECUST'])
 class SaveCustomerAction {}
 
@@ -532,11 +532,11 @@ class SalesByRegionReport {
 @CsIdentity(note: 'employee profile extension')
 @CodeSpec('ID-EMPLOYEE', source: ['SAS-USATE'])
 class EmployeeProfile {
-  @CsIdentityAttribute(placement: IdentityAttributePlacement.public)
+  @CsIdentityAttribute(placement: CsIdentityAttributePlacement.public)
   String? department;
 
   @CsIdentityAttribute(
-    placement: IdentityAttributePlacement.encrypted,
+    placement: CsIdentityAttributePlacement.encrypted,
     accessKey: ResourceKeys.costCentre,
     systemOfRecord: 'hr',
     required: true,
@@ -713,13 +713,13 @@ void main() {
   });
 
   group('csrb4: CE-AC trigger per-kind slots', () {
-    test('TriggerKind is the closed codespecs_mapping.md §5.20 five', () {
-      expect(TriggerKind.values, [
-        TriggerKind.userGesture,
-        TriggerKind.inFormEvent,
-        TriggerKind.lifecycle,
-        TriggerKind.serverEvent,
-        TriggerKind.condition,
+    test('CsTriggerKind is the closed codespecs_mapping.md §5.20 five', () {
+      expect(CsTriggerKind.values, [
+        CsTriggerKind.userGesture,
+        CsTriggerKind.inFormEvent,
+        CsTriggerKind.lifecycle,
+        CsTriggerKind.serverEvent,
+        CsTriggerKind.condition,
       ]);
     });
 
@@ -728,10 +728,10 @@ void main() {
     // not a trigger.
     test('the common head is kind + action', () {
       const trigger = CsTrigger(
-        kind: TriggerKind.condition,
+        kind: CsTriggerKind.condition,
         action: Actions.saveCustomer,
       );
-      expect(trigger.kind, TriggerKind.condition);
+      expect(trigger.kind, CsTriggerKind.condition);
       expect(trigger.action, Actions.saveCustomer);
       // `condition` fills no slot: its predicate over CE-ST state is real Dart.
       expect(trigger.element, isNull);
@@ -742,7 +742,7 @@ void main() {
 
     test('userGesture fills element + gesture', () {
       const trigger = CsTrigger(
-        kind: TriggerKind.userGesture,
+        kind: CsTriggerKind.userGesture,
         action: Actions.saveCustomer,
         element: CsElementRef('save', form: 'customerEditForm'),
         gesture: CsGesture.longPress,
@@ -753,7 +753,7 @@ void main() {
 
     test('inFormEvent fills form + formEvent + formField', () {
       const trigger = CsTrigger(
-        kind: TriggerKind.inFormEvent,
+        kind: CsTriggerKind.inFormEvent,
         action: Actions.saveCustomer,
         form: CsFormRef('customerEditForm'),
         formEvent: CsFormEvent.fieldChange,
@@ -766,7 +766,7 @@ void main() {
 
     test('lifecycle fills scope + phase', () {
       const trigger = CsTrigger(
-        kind: TriggerKind.lifecycle,
+        kind: CsTriggerKind.lifecycle,
         action: Actions.saveCustomer,
         scope: CsLifecycleScope.route,
         phase: CsLifecyclePhase.dispose,
@@ -779,7 +779,7 @@ void main() {
     // Dart declaration to resolve a ref against.
     test('serverEvent fills channel + eventType, both strings', () {
       const trigger = CsTrigger(
-        kind: TriggerKind.serverEvent,
+        kind: CsTriggerKind.serverEvent,
         action: Actions.saveCustomer,
         channel: 'customer-events',
         eventType: 'customer.invalidated',
@@ -1195,27 +1195,27 @@ void main() {
     test('CsIdentityAttribute requires an explicit placement', () {
       expect(
         const CsIdentityAttribute(
-          placement: IdentityAttributePlacement.public,
+          placement: CsIdentityAttributePlacement.public,
         ).placement,
-        IdentityAttributePlacement.public,
+        CsIdentityAttributePlacement.public,
       );
       expect(
         const CsIdentityAttribute(
-          placement: IdentityAttributePlacement.encrypted,
+          placement: CsIdentityAttributePlacement.encrypted,
         ).placement,
-        IdentityAttributePlacement.encrypted,
+        CsIdentityAttributePlacement.encrypted,
       );
     });
 
     test('CsIdentityAttribute carries the full §5.24 surface', () {
       const attribute = CsIdentityAttribute(
-        placement: IdentityAttributePlacement.encrypted,
+        placement: CsIdentityAttributePlacement.encrypted,
         accessKey: ResourceKeys.costCentre,
         systemOfRecord: 'hr',
         required: true,
         note: 'sourced nightly',
       );
-      expect(attribute.placement, IdentityAttributePlacement.encrypted);
+      expect(attribute.placement, CsIdentityAttributePlacement.encrypted);
       expect(attribute.accessKey, ResourceKeys.costCentre);
       expect(attribute.systemOfRecord, 'hr');
       expect(attribute.required, isTrue);
@@ -1225,17 +1225,17 @@ void main() {
     // deliberate act; `null` systemOfRecord means this application owns it.
     test('an identity attribute is optional and app-owned by default', () {
       const attribute = CsIdentityAttribute(
-        placement: IdentityAttributePlacement.public,
+        placement: CsIdentityAttributePlacement.public,
       );
       expect(attribute.required, isFalse);
       expect(attribute.systemOfRecord, isNull);
       expect(attribute.accessKey, isNull);
     });
 
-    test('IdentityAttributePlacement is the closed public|encrypted pair', () {
-      expect(IdentityAttributePlacement.values, [
-        IdentityAttributePlacement.public,
-        IdentityAttributePlacement.encrypted,
+    test('CsIdentityAttributePlacement is the closed public|encrypted pair', () {
+      expect(CsIdentityAttributePlacement.values, [
+        CsIdentityAttributePlacement.public,
+        CsIdentityAttributePlacement.encrypted,
       ]);
     });
   });

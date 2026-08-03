@@ -101,14 +101,14 @@ edit, not by a specification inventing a value in passing.
 |------|-------------|
 | `CsElementKind` | `@CsElement(kind:)` |
 | `CsTextRole`, `CsTextCategory` | `@CsText(role:, category:)` |
-| `TriggerKind`, `CsGesture`, `CsFormEvent`, `CsLifecycleScope`, `CsLifecyclePhase` | `@CsTrigger`'s kind and its per-kind slots |
+| `CsTriggerKind`, `CsGesture`, `CsFormEvent`, `CsLifecycleScope`, `CsLifecyclePhase` | `@CsTrigger`'s kind and its per-kind slots |
 | `CsLifecycleScope` | also `@CsViewModel(scope:)` |
 | `CsErrorSeverity` | `@CsError(severity:)` |
 | `CsAuthRequirement` | `@CsAuthorize(requirement:)` |
 | `CsMigrationKind` | `@CsMigration(kind:)` |
 | `CsJobTrigger` | `@CsJob(trigger:)` |
 | `CsClientKind` | `@CsClient(kind:)` |
-| `IdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
+| `CsIdentityAttributePlacement` | `@CsIdentityAttribute(placement:)` |
 | `CsOverridableBy` | `@CsServerConfig` / `@CsClientConfig` / `@CsUserSetting` `(overridableBy:)` |
 
 Each is **declared here, not imported**: `tom_code_specs` deliberately does not

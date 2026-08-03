@@ -230,7 +230,7 @@ counterpart one-for-one where one exists (`CsErrorSeverity` ↔
 not a silent divergence.
 
 **Per-kind argument slots.** Three markers select a kind and then carry that
-kind's own attributes: `CsTrigger` (its five `TriggerKind` arms), `CsAuthorize`
+kind's own attributes: `CsTrigger` (its five `CsTriggerKind` arms), `CsAuthorize`
 (its ten `CsAuthRequirement` arms) and `CsJob` (its three `CsJobTrigger` arms —
 `cron` / `calendar` / `event`). Dart annotations have no sum types,
 so each kind's attributes are **separate optional arguments**, and a validator
@@ -487,7 +487,7 @@ Cites slice 1 only.
 |-------|----------|
 | **1 Input** | `UserAttributeEntry` (`USATE`). Consumed: name, type, placement, access guard, system of record, required. |
 | **2 Output** | One **member** of the §3.2.5 holder, typed by the SOM attribute's type. Same member-marker pattern as `@CsColumn`. Carried at runtime by `TomUser.attributes` (public) or `TomPrincipal.currentContext` (encrypted) — the two carriers `tom_core`'s principal already has, so this is a placement decision, not a new mechanism. |
-| **3 Arguments** | `placement` (**required**, unchanged) ← `USATE`'s placement, enum-mapped onto `IdentityAttributePlacement {public, encrypted}`; required because §5.16's fail-safe rule forbids broadening a value's blast radius by omission. **Added by this contract:** `accessKey` ← the access guard, as a `CsResourceKeyRef`; `systemOfRecord` ← the source field, verbatim; `required` ← the required flag, default `false`. The attribute's **type** stays on the member declaration (test **a**). |
+| **3 Arguments** | `placement` (**required**, unchanged) ← `USATE`'s placement, enum-mapped onto `CsIdentityAttributePlacement {public, encrypted}`; required because §5.16's fail-safe rule forbids broadening a value's blast radius by omission. **Added by this contract:** `accessKey` ← the access guard, as a `CsResourceKeyRef`; `systemOfRecord` ← the source field, verbatim; `required` ← the required flag, default `false`. The attribute's **type** stays on the member declaration (test **a**). |
 | **4 Naming** | camelCase of `USATE`'s name field. |
 | **5 Locus** | `shared` with its holder. |
 | **6 Cross-refs** | `CsResourceKeyRef` (its access guard). |
@@ -852,7 +852,7 @@ unit, which is why they share a slice rather than an order.
 |-------|----------|
 | **1 Input** | `ScreenElementAction` (`SCELAC`) and the ISC step entries. The trigger is the **single authoring home of the element→action edge** (§5.10): it names both endpoints, and the element's action edge is derived from it. |
 | **2 Output** | A `TomActionTrigger` (`tom_flutter_ui`) instantiation, form 1. One action may carry several triggers of different kinds. |
-| **3 Arguments** | `kind` (**required**, unchanged) ← `TriggerKind {userGesture, inFormEvent, lifecycle, serverEvent, condition}`; it selects which per-kind attribute set applies, so it cannot be inferred and no arm is a default. **Added by this contract:** `action: CsActionRef` (**required**) — the common head's target endpoint; then one optional slot per kind (§2.3), validated so only the declared kind's are non-null: `element: CsElementRef` + `gesture: CsGesture {tap, press, longPress}` for `userGesture`; `form: CsFormRef` + `formEvent: CsFormEvent {fieldChange, submit, validationPass, validationFail}` + `formField: CsElementRef` for `inFormEvent`; `scope: CsLifecycleScope` + `phase: CsLifecyclePhase {enter, leave, init, dispose}` for `lifecycle`; `channel` + `eventType: String` for `serverEvent`. The `condition` kind carries **no** slot: its predicate over CE-ST state is real Dart, so it is a closure the `TomActionTrigger` constructor takes (test **b**) — as is the optional guard on every kind. |
+| **3 Arguments** | `kind` (**required**, unchanged) ← `CsTriggerKind {userGesture, inFormEvent, lifecycle, serverEvent, condition}`; it selects which per-kind attribute set applies, so it cannot be inferred and no arm is a default. **Added by this contract:** `action: CsActionRef` (**required**) — the common head's target endpoint; then one optional slot per kind (§2.3), validated so only the declared kind's are non-null: `element: CsElementRef` + `gesture: CsGesture {tap, press, longPress}` for `userGesture`; `form: CsFormRef` + `formEvent: CsFormEvent {fieldChange, submit, validationPass, validationFail}` + `formField: CsElementRef` for `inFormEvent`; `scope: CsLifecycleScope` + `phase: CsLifecyclePhase {enter, leave, init, dispose}` for `lifecycle`; `channel` + `eventType: String` for `serverEvent`. The `condition` kind carries **no** slot: its predicate over CE-ST state is real Dart, so it is a closure the `TomActionTrigger` constructor takes (test **b**) — as is the optional guard on every kind. |
 | **4 Naming** | camelCase of the action name + the kind (`saveOnTap`, `saveOnSubmit`), so several triggers on one action cannot collide under N4. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsActionRef`, `CsElementRef`, `CsFormRef`. Endpoints are typed references to the generated declarations, never id strings (§5.10) — which is why the §5.23 family carries `CsElementRef` / `CsFormRef` at all. |
@@ -1135,7 +1135,7 @@ it is omitted below.
 | `@CsFieldRule` | `{required CsMessageKey errorKey}` |
 | `@CsFormRule` | `{required CsMessageKey errorKey}` |
 | `@CsElement` | `{required CsElementKind kind}` |
-| `@CsTrigger` | `{required TriggerKind kind, required CsActionRef action, CsElementRef? element, CsGesture? gesture, CsFormRef? form, CsFormEvent? formEvent, CsElementRef? formField, CsLifecycleScope? scope, CsLifecyclePhase? phase, String? channel, String? eventType}` |
+| `@CsTrigger` | `{required CsTriggerKind kind, required CsActionRef action, CsElementRef? element, CsGesture? gesture, CsFormRef? form, CsFormEvent? formEvent, CsElementRef? formField, CsLifecycleScope? scope, CsLifecyclePhase? phase, String? channel, String? eventType}` |
 | `@CsServerCall` | `(CsOperationRef operation)` |
 | `@CsViewModel` | `{CsLifecycleScope scope = CsLifecycleScope.screen}` |
 | `@CsLayout` | `(String nodeId)` |
@@ -1149,7 +1149,7 @@ it is omitted below.
 | `@CsDeviceSetting` | `(String key)` — the narrowest scope, so no `overridableBy` |
 | `@CsUserSetting` | `(String key, {required CsOverridableBy overridableBy})` |
 | `@CsClient` | `(String clientId, {required CsClientKind kind})` |
-| `@CsIdentityAttribute` | `{required IdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — `required` is the attribute's own field name here, not the Dart modifier |
+| `@CsIdentityAttribute` | `{required CsIdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — `required` is the attribute's own field name here, not the Dart modifier |
 | `@CsMigration` | `{required String datasource, required String schema, required CsMigrationKind kind}` |
 | `@CsJob` | `{required CsJobTrigger trigger, String? cron, String? calendar, String? event, int maxRetries = 0, Duration? backoff, Duration? timeout, CsMessageKey? failureAlert, List<CsReportRef> targetReports = const []}` |
 | `@CsNotification` | `{required CsMessageKey body}` |
@@ -1195,15 +1195,17 @@ arguments — a marker selects from nothing that is not in this table.
 | `CsClientKind` | `flutterApp, cli, server` | §4.1 |
 | `CsMigrationKind` | `initialDdl, baseData, iteration` | §5.27's three artifact kinds; SOM `MigrationArtifactKind` `{initialDdl, referenceData, schemaChange}` maps one-to-one (§3.3.5) |
 | `CsJobTrigger` | `cron, calendar, event` | §5.29 |
-| `TriggerKind` | `userGesture, inFormEvent, lifecycle, serverEvent, condition` | §5.20's closed 5-kind trigger taxonomy — **no `tom_core` counterpart**: `TomAction` has no trigger concept, so this is a documented framing over the reused action classes (§5.10) |
-| `IdentityAttributePlacement` | `public, encrypted` | §5.24's two token carriers — `TomUser.attributes` and `TomPrincipal.currentContext`, so the arms are a placement choice over carriers that already exist |
+| `CsTriggerKind` | `userGesture, inFormEvent, lifecycle, serverEvent, condition` | §5.20's closed 5-kind trigger taxonomy — **no `tom_core` counterpart**: `TomAction` has no trigger concept, so this is a documented framing over the reused action classes (§5.10) |
+| `CsIdentityAttributePlacement` | `public, encrypted` | §5.24's two token carriers — `TomUser.attributes` and `TomPrincipal.currentContext`, so the arms are a placement choice over carriers that already exist |
 | `CsOverridableBy` | `none, client, user, device` | §5.16's opt-in cross-scope lattice `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF` |
 | `CsFileReference` | value class `{keyPrefix, store, cascadeDelete, defaultMediaType, acceptedMediaTypes}` | `TomFileReference`, except `acceptedMediaTypes`, which has no counterpart by design — the substrate stores what it is handed and the restriction is enforced at the CE-API upload endpoint (§3.3.3) |
 
-**Two of the fifteen carry no `Cs` prefix.** `TriggerKind` and
-`IdentityAttributePlacement` are the exception to the family's naming, not a
-different kind of type; both are closed catalogues a marker's required argument
-selects from exactly as the other thirteen are.
+**All fifteen carry the `Cs` prefix**, without exception. The prefix is what
+makes the catalogues legible as one family at a consumer's import site, where
+they sit unprefixed alongside `tom_core` — a generic name like `TriggerKind`
+denotes something else entirely elsewhere in the workspace (a SOM
+`ScheduledJobEntryContentForm` accessor), which is exactly the collision the
+convention exists to prevent.
 
 A named validator check (§6 check 9) asserts each mirror is complete: a
 `tom_core` catalogue that grows without its mirror growing is a build failure,

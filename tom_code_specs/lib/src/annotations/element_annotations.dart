@@ -251,7 +251,7 @@ class CsTrigger {
   ///
   /// **Required**: it selects which per-kind slot set applies, so it cannot be
   /// inferred from the annotated declaration and no arm is a sensible default.
-  final TriggerKind kind;
+  final CsTriggerKind kind;
 
   /// The action this trigger fires.
   ///

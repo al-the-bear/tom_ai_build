@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.12.0
+
+- **BREAKING — the last two catalogues without the family prefix are renamed:**
+  `TriggerKind` → `CsTriggerKind` (the required argument of `@CsTrigger`) and
+  `IdentityAttributePlacement` → `CsIdentityAttributePlacement` (the required
+  argument of `@CsIdentityAttribute`). All fifteen closed catalogues now carry
+  the prefix without exception. Values, ordering and semantics are unchanged;
+  this is a rename only.
+- The exception was already load-bearing rather than cosmetic. This package's
+  public surface *is* a naming convention — a reader learns "`Cs` means
+  CodeSpecs annotation vocabulary" from the first symbols and then applies it,
+  so a member that opts out costs every reader the rule. Two concrete costs had
+  already been paid: `tom_core_codespecs` carried a dartdoc note whose only job
+  was to explain where the unprefixed trigger vocabulary lives, and
+  `codespecs_derivation_contract.md` §5.3's catalogue table shipped **missing
+  exactly these two rows** — the table was assembled by reading down a list of
+  `Cs*` names, and the two that did not match the pattern fell out of it.
+- `TriggerKind` is also demonstrably generic enough to denote something else in
+  this workspace already: the SOM packages generate a `TriggerKind` accessor on
+  `ScheduledJobEntryContentForm` for an unrelated model field. Nothing collided,
+  because nothing imported both — but consumers import this package unprefixed
+  alongside `tom_core`, so the collision was a matter of time.
+- Renamed now rather than later because the cost only rises: the package is
+  consumed today by `tom_specs_clitool`'s validator (source fixtures) and will
+  be consumed by every generated CodeSpecs project. No pubspec in the workspace
+  depends on this package yet, so the break costs no downstream constraint
+  update.
+
 ## 0.11.0
 
 - `@CsJob` gains `targetReports` (`List<CsReportRef>`, default `const []`) —

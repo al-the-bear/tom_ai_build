@@ -21,11 +21,12 @@
 /// the same role `DocRef` plays for `@DocSpec` and the `Cs*Ref` family plays for
 /// cross-part edges.
 ///
-/// Two catalogues here predate the rest — [TriggerKind] and
-/// [IdentityAttributePlacement] shipped with their markers. They keep their
-/// established names (`codespecs_derivation_contract.md` §5.1 retains them
-/// verbatim) and are gathered here so that *all* closed catalogues sit in one
-/// file rather than beside whichever marker happened to introduce them.
+/// Every catalogue carries the `Cs` prefix, without exception: the package's
+/// public surface *is* a naming convention, so a member that opts out of it
+/// costs a reader the rule. Two of them — [CsTriggerKind] and
+/// [CsIdentityAttributePlacement] — shipped beside their markers before the
+/// catalogues were gathered here, and were renamed into the convention rather
+/// than left as a documented exception.
 library;
 
 /// How severe a CE-ER error code is (`codespecs_derivation_contract.md` §3.1.2).
@@ -297,7 +298,7 @@ enum CsJobTrigger {
 /// lives with the annotations rather than in a new class:
 /// `codespecs_mapping.md` §5.10/§5.20 record CE-AC as "no gap — full action
 /// implementation reused".
-enum TriggerKind {
+enum CsTriggerKind {
   /// Fired by a user acting on a CE-EL element (tap / press / long-press).
   userGesture,
 
@@ -320,7 +321,7 @@ enum TriggerKind {
 ///
 /// The two arms are the two carriers the `tom_core` principal already has, so
 /// the choice is a placement decision, not a new mechanism.
-enum IdentityAttributePlacement {
+enum CsIdentityAttributePlacement {
   /// Rides the **public** token payload, in `TomUser.attributes`. Readable by
   /// anything holding the token, so a public attribute is guarded field-level by
   /// a resource key rather than by the transport.
