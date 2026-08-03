@@ -197,13 +197,23 @@ data.
 restrictions, placement, schedules, grades, physical table and column names,
 setting keys, operation names, closed-catalogue selections.
 
-Two shaping rules on top:
+Three shaping rules on top:
 
 - **Required vs. defaulted.** An argument is `required` iff omitting it cannot be
   given a **fail-safe** default (§5.16's rule: broadening a value's blast radius
-  must be a deliberate authored act). The two shipped precedents —
-  `CsTrigger.kind` and `CsIdentityAttribute.placement` — are required for exactly
-  this reason. Everything else defaults to its safest arm.
+  must be a deliberate authored act). Nineteen arguments across fifteen markers
+  are required on that ground, in three groups: the **kind selectors**, where
+  every arm is a different part and none is safer than the others
+  (`CsElement.kind`, `CsTrigger.kind`, `CsClient.kind`, `CsMigration.kind`,
+  `CsJob.trigger`, `CsAuthorize.requirement`, `CsIdentityAttribute.placement`);
+  the three **scope openings** `overridableBy` (`CsServerConfig`,
+  `CsClientConfig`, `CsUserSetting`), where the fail-safe value `none` is
+  deliberately *not* a default so that widening a setting's scope is authored;
+  and the **unshadowable payloads and keys**, which no substrate holds
+  (`CsText.baseCopy`, `CsFieldRule.errorKey`, `CsFormRule.errorKey`,
+  `CsTrigger.action`, `CsServiceUnit.rootAggregate` + `boundedContext`,
+  `CsMigration.datasource` + `schema`, `CsNotification.body`). Everything else
+  defaults to its safest arm.
 - **`String? note` is last, always.** Every marker keeps the optional
   part-specific note it has today, as its final parameter.
 - **First positional = the authored identifier.** Where a part has an authored
@@ -219,8 +229,10 @@ counterpart one-for-one where one exists (`CsErrorSeverity` ↔
 `tom_core` catalogue that grows without its mirror growing is a build failure,
 not a silent divergence.
 
-**Per-kind argument slots.** Two markers select a kind and then carry that kind's
-own attributes (`CsTrigger`, `CsAuthorize`). Dart annotations have no sum types,
+**Per-kind argument slots.** Three markers select a kind and then carry that
+kind's own attributes: `CsTrigger` (its five `TriggerKind` arms), `CsAuthorize`
+(its ten `CsAuthRequirement` arms) and `CsJob` (its three `CsJobTrigger` arms —
+`cron` / `calendar` / `event`). Dart annotations have no sum types,
 so each kind's attributes are **separate optional arguments**, and a validator
 asserts that only the slots belonging to the declared kind are non-null. This is
 the annotation-level rendering of §8.2's `@OneOf`/`@Case` closed-choice design.
@@ -349,8 +361,11 @@ Every emitted file has the same five-part shape, in this order:
 
 ## 3. The contract entries
 
-Thirty-nine part markers plus one facet class, grouped by generation slice
-(§4.4.3). Slice 1–2 emit into `<app>_codespec_shared`, 3–4 and 7 into
+Thirty-nine part markers plus one of the two facet value classes, grouped by
+generation slice (§4.4.3). `CsFileReference` has an entry of its own (§3.3.3)
+because it is filled from a SOM subsection the annotated column does not name;
+`CsGradedAccess` has none because it is filled entirely inside `@CsAuthorize`'s
+graded arm, and is contracted there (§3.4.3). Slice 1–2 emit into `<app>_codespec_shared`, 3–4 and 7 into
 `<app>_codespec_server`, 5–6 into `<app>_codespec_client`.
 
 **Where an entry sits.** At the slice of the declaration its marker is attached
@@ -1108,7 +1123,7 @@ it is omitted below.
 | `@CsDeviceSetting` | `(String key)` — the narrowest scope, so no `overridableBy` |
 | `@CsUserSetting` | `(String key, {required CsOverridableBy overridableBy})` |
 | `@CsClient` | `(String clientId, {required CsClientKind kind})` |
-| `@CsIdentityAttribute` | `{required IdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — extends the shipped shape |
+| `@CsIdentityAttribute` | `{required IdentityAttributePlacement placement, CsResourceKeyRef? accessKey, String? systemOfRecord, bool required = false}` — `required` is the attribute's own field name here, not the Dart modifier |
 | `@CsMigration` | `{required String datasource, required String schema, required CsMigrationKind kind}` |
 | `@CsJob` | `{required CsJobTrigger trigger, String? cron, String? calendar, String? event, int maxRetries = 0, Duration? backoff, Duration? timeout, CsMessageKey? failureAlert, List<CsReportRef> targetReports = const []}` |
 | `@CsNotification` | `{required CsMessageKey body}` |
@@ -1135,7 +1150,9 @@ note-only *and* generates a plain `enum` for the same reason.
 
 `tom_code_specs` is annotations-only and must not depend on `tom_core` (§9.5), so
 every closed catalogue a marker selects from is declared locally, mirroring its
-`tom_core` counterpart where one exists.
+`tom_core` counterpart where one exists. **Fifteen catalogues and two facet value
+classes**, which is the whole of `vocabulary.dart` plus the two structured
+arguments — a marker selects from nothing that is not in this table.
 
 | Type | Values | Mirrors |
 |------|--------|---------|
@@ -1152,11 +1169,23 @@ every closed catalogue a marker selects from is declared locally, mirroring its
 | `CsClientKind` | `flutterApp, cli, server` | §4.1 |
 | `CsMigrationKind` | `initialDdl, baseData, iteration` | §5.27's three artifact kinds; SOM `MigrationArtifactKind` `{initialDdl, referenceData, schemaChange}` maps one-to-one (§3.3.5) |
 | `CsJobTrigger` | `cron, calendar, event` | §5.29 |
+| `TriggerKind` | `userGesture, inFormEvent, lifecycle, serverEvent, condition` | §5.20's closed 5-kind trigger taxonomy — **no `tom_core` counterpart**: `TomAction` has no trigger concept, so this is a documented framing over the reused action classes (§5.10) |
+| `IdentityAttributePlacement` | `public, encrypted` | §5.24's two token carriers — `TomUser.attributes` and `TomPrincipal.currentContext`, so the arms are a placement choice over carriers that already exist |
 | `CsOverridableBy` | `none, client, user, device` | §5.16's opt-in cross-scope lattice `CE-DS ▸ CE-UP ▸ CE-CC ▸ CE-CF` |
+| `CsFileReference` | value class `{keyPrefix, store, cascadeDelete, defaultMediaType, acceptedMediaTypes}` | `TomFileReference`, except `acceptedMediaTypes`, which has no counterpart by design — the substrate stores what it is handed and the restriction is enforced at the CE-API upload endpoint (§3.3.3) |
 
-A named validator check asserts each mirror is complete: a `tom_core` catalogue
-that grows without its mirror growing is a build failure, not a silent
-divergence.
+**Two of the fifteen carry no `Cs` prefix.** `TriggerKind` and
+`IdentityAttributePlacement` are the exception to the family's naming, not a
+different kind of type; both are closed catalogues a marker's required argument
+selects from exactly as the other thirteen are.
+
+A named validator check (§6 check 9) asserts each mirror is complete: a
+`tom_core` catalogue that grows without its mirror growing is a build failure,
+not a silent divergence. The check ranges over the rows whose Mirrors cell names
+a `tom_core` type. A row whose Mirrors cell names a `codespecs_mapping.md`
+section instead has nothing to mirror — its completeness is held by the SOM
+section it lowers from, and the generator fails on an unmapped SOM constant
+rather than on a missing enum value.
 
 ### 5.4 Reference types this contract consumes
 
