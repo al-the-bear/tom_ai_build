@@ -9,19 +9,30 @@ import 'package:path/path.dart' as p;
 import 'package:tom_analyzer_shared/tom_analyzer_shared.dart'
     show GroupedPackageBundleBuilder, SummaryConfigException;
 
-/// TomSpecs analyzer-summary generator (OE-1 / B1).
+/// Analyzer-summary generator for a **single** consumer (OE-1 / B1).
 ///
-/// Produces the two pre-generated `.sum` bundles `tom_dart_editor` loads at
-/// runtime for SDK-free Dart analysis inside the editor's code-typed fields:
+/// Builds the `.sum` bundles `tom_dart_editor` loads at runtime for SDK-free
+/// Dart analysis inside code-typed fields:
 ///
 ///   * `sdk_summary.sum`  — the Dart SDK core libraries (`buildSdkSummary`).
 ///   * `packages.sum`     — every package reachable from the target package's
 ///                          resolved `.dart_tool/package_config.json`.
 ///
-/// This is the **one-time / per-developer** generation step of the B1 pipeline:
-/// the resulting assets are committed (their canonical home is the tom_binaries
-/// L2 layer — see the OE-1 questions note) and the per-OS build merely *copies*
-/// them (`build.dart --summaries`). The analyzer is therefore never run per-OS.
+/// **This is not the producer of `tom_specs_editor`'s summary asset set.** That
+/// set is scoped — one shared `sdk_summary.sum` plus a per-scope
+/// `<scope>/packages.sum` — and has exactly one generator,
+/// `tom_forge/tom_dart_editor_bundler`, driven from the app's own
+/// `buildkit.yaml` (`dart-editor-bundler:` block) by
+/// `build.dart --generate-summaries`. The bundler also emits the
+/// `summary_scopes.g.dart` helper naming the asset keys, so the assets and the
+/// paths the app asks for cannot disagree. This CLI's live role is `--sdk-only`,
+/// which feeds `split_sdk_summary.dart`.
+///
+/// Generation is a **one-time / per-developer** step: the analyzer is never run
+/// per-OS. The generated bundles are not committed — `assets/summaries/**/*.sum`
+/// is gitignored (~3 MB + ~30 MB each), so a fresh checkout has to run
+/// `build.dart --generate-summaries` once before the editor's code fields
+/// analyze.
 ///
 /// The grouped `packages.sum` build lives in `tom_analyzer_shared`'s
 /// [GroupedPackageBundleBuilder] (the base-first home), so the load-bearing
