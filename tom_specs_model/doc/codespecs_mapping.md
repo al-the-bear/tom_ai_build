@@ -433,7 +433,7 @@ The gap columns cite the owning open-work todos on both sides of each gap. A
 `tom_core` capability is owned by a `tcca*` todo in
 `_ai/quests/tom_core/todos.tom_core.todo.yaml`; the CodeSpecs-side consequence
 of that capability landing is owned by a `csra*` / `csrc*` / `qrc*` todo in
-`todos.tom_specs.todo.yaml` (§10). A cell naming a pair (`tcca14` → `qrc2`) <!-- todo-cite: provenance -->
+`todos.tom_specs.todo.yaml` (§10). A cell naming a pair (`tcca3` → `qrc3`) <!-- todo-cite: provenance -->
 reads in that order: the core-side prerequisite first, the mapping-side todo
 that states the resulting position second.
 
@@ -448,7 +448,7 @@ that states the resulting position second.
 | **CE-SC** ServerCall | The client-side declaration of a call to a server operation. | **Built on:** `TomServerEndpoint<T, R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, `tombase/http_connection/server_connection.dart`); declared as typed endpoint fields in a client calls class (§7: all POST, the operation name carries the intent).<br>**Annotations:** `@CsServerCall(operation)`.<br>**Example:** `@CsServerCall(CsOperationRef('customer.save')) final saveCustomerCall = TomServerEndpoint<CustomerSaveRequest, CustomerDto>(…);` | None. | Takes a `CsOperationRef` (§5.23) so the call ties to its `@CsEndpoint` by **typed reference**, not by string. It is the one edge the code cannot carry itself — the call site is client, the operation shared, and nothing in the Dart declaration names the link. Call options ride `TomServerCallSpecs`. |
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** carry their field-level constraints as `@CsValidation` declaration strings — maximum length, format restriction, required-ness — plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
 | **CE-SU** ServiceUnit | A functional-group *closure* of the server API (§5.1 boundary: owned-aggregate primary, process cohesion, bounded context); id `<RootAggregate>Service`; membership **derived, not listed**. | **Built on:** ordinary **(abstract) classes** carrying the `tom_core_server` mapping annotations (`@tomService` / `TomApiImplementation`, discovered via `scanClasses` / `TomComponentReference`); methods are the operations, CodeSpecs-phase bodies **pseudo-code** / `UnsupportedError`.<br>**Annotations:** `@CsServiceUnit(rootAggregate: …, boundedContext: …)`.<br>**Example:** `@CsServiceUnit(rootAggregate: Customer, boundedContext: 'sales') abstract class CustomerService { Future<CustomerDto> save(CustomerSaveRequest r); }` | None. | `@CsServiceUnit` carries the **boundary criterion** as its two required arguments — the owned root aggregate (a bare `Type`, since entities are already Dart types) and the bounded context it sits in. Cross-unit references use `CsServiceUnitRef` (§5.23). |
-| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). **A repository's declared transaction scope has no per-call substrate**: `TomTransactionManager` holds the current transaction in a **process-wide static** (`tom_core_server` `transactions/transaction_manager.dart:146`) rather than a zone, and says so in its own contract — one isolate holds one transaction at a time, so two concurrently served requests cannot each run in their own. `@CsRepository` defers transaction scope to the framework's transaction annotation beside the marker, so a spec declares a scope the runtime cannot honour — mode **R** (`tcca14` landed — position restated by `qrc2`) <!-- todo-cite: provenance -->. An **optional** attribute emits a **plain nullable Dart field** (`String?`), keyed on `DATAA.nullable` — never a `TomN*` observable, which the shipped repository can read but not write (§5.13). | `@CsColumn` expresses what Dart types cannot: the physical **column name and type**, the **max length**, and the column-level access guard (`accessKey`, §5.13) — plus the `CsFileReference` facet whose presence *is* the column kind. `@CsRepository` stays note-only: entity and key type are the class's generics, and the named-query intent is one form-3 method each. |
+| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). **A repository's declared transaction scope has a per-flow substrate**: `TomTransactionManager` holds the current transaction in a **`Zone` value** (`tom_core_server` `transactions/transaction_manager.dart:219`), and `TomServer` forks a scope per request (`tomserver/server/server.dart:150`), so two concurrently served requests each run in their own unit of work. The scope is **ambient**, not threaded through a call, which is why `@CsRepository` carries nothing for it. Work that runs outside a request opens its own scope: CE-JB's emitted job body is wrapped in `runInTransactionScope` (§5.13, §5.29). An **optional** attribute emits a **plain nullable Dart field** (`String?`), keyed on `DATAA.nullable` — never a `TomN*` observable, which the shipped repository can read but not write (§5.13). | `@CsColumn` expresses what Dart types cannot: the physical **column name and type**, the **max length**, and the column-level access guard (`accessKey`, §5.13) — plus the `CsFileReference` facet whose presence *is* the column kind. `@CsRepository` stays note-only: entity and key type are the class's generics, and the named-query intent is one form-3 method each. |
 | **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel(scope: CsLifecycleScope.route) class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | No class gap — the observable family is shipped, **including a nullable arm** (`TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`, `tom_core_kernel` `tombase/observable/tom_observable_objects.dart:432`–`:477`). An **optional** field emits that nullable arm, initialised to `null`, keyed on the attribute's `mandatory` level. The rule stops at CE-ST: CE-DB's `@CsColumn` emits a **plain nullable field** instead, because the persistence write path cannot bind an observable (§5.13). | `@CsViewModel` carries the state's **lifecycle scope**, defaulting to the narrowest arm (`screen`) so widening a view model's lifetime is a deliberate authored act. The fields, their types and their binding are the declaration itself, and binding to a widget is `TomObservingWidget`'s own surface (§2.3 tests **a**/**b**). |
 | **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute()` per route; `@CsScreenFlow()` on flow declarations.<br>**Example:** `@CsRoute() static const customerEditRoute = TomRouteDefinition(routeId: 'customer/edit', …);` | **Gap filled in `tom_core_codespecs`** — `tom_core` has no route-id registry or screen-flow model, so `route_flow.dart` carries `TomRouteRegistry` / `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` over `TomScreenPresentation` + `TomFlowOutcome` (§5.11); the SOM authoring home is the **screen route map** (`SCRTMP`) under D09 XDS `ScreenFlowStructure`. | Both markers stay note-only: the **transition kind** (*replace* vs *popup overlay*), the outcome and the `CsRouteRef` / `CsActionRef` edges all ride `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge`'s own constructors, so repeating them as marker arguments would create the second, disagreeing source §2.3 exists to prevent. |
 | **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` takes `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23) rather than raw strings, and the graded arm's three-slot tree as a `CsGradedAccess` whose slots are themselves `@CsAuthorize` values — the recursion §5.15 defines. `requirement` has **no default**: defaulting it is the exact failure §5.16's fail-safe rule prevents. |
@@ -474,14 +474,14 @@ that states the resulting position second.
   shipped), **CE-LG** (the `audit` module records at two chokepoints; the spec
   authors only `@TomAudited`'s declared half), **CE-ST** (the observable family
   ships including its `TomN*` nullable arm, and what an optional field emits is
-  settled — §5.4).
+  settled — §5.4), **CE-DB** (the aggregation grammar ships, and a declared
+  transaction scope resolves per flow through the zone-held current transaction —
+  §5.13).
 - **READY TO EMIT, BLOCKED AT RUNTIME — the class to build on exists, a
   capability under it does not.** Each entry names the core-side prerequisite,
   which has landed, and the mapping-side todo that restates the position here:
   - CE-EL and CE-FM — unguarded text-controller write
     (`tcca15` → `qrc4`). <!-- todo-cite: provenance -->
-  - CE-DB — per-isolate static transaction scope
-    (`tcca14` → `qrc2`). <!-- todo-cite: provenance -->
   - CE-AU — challenge and verification only, no enrolment and no method choice
     on the wire (`tcca3`/`tcca4` → `qrc3`). <!-- todo-cite: provenance -->
   - CE-DS — no (user, device)-scoped store
@@ -1129,7 +1129,7 @@ therefore classified:
 |---|-------|-----------------|------|--------------|
 | **1** | Shared const catalogues | — (CE-ER, CE-TX and the CE-AZ catalogues are READY: the markers take their `CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` parameters) | — | — |
 | **2** | Shared contract | — (CE-API, CE-VA and CE-ID are READY; the CE-NT declarations and the CE-RP result envelope emit against their shipped `tom_core_codespecs` gap classes). No untyped cross-part edge remains here: CE-RP's targets are settled (§5.28 — a `Type` literal, a recurrence expression, a `@CsAuthorize` beside the marker, and one locus-barred route id validator-checked by design). A CE-NT channel's fallback also emits as a string, but is **intra-part** and so was never in §5.23's scope — likewise settled and validator-checked | — | — |
-| **3** | Server persistence & configuration | CE-DB and CE-MG emit fully (the aggregation grammar and the schema-diff engine both ship). A repository whose transaction scope is declared runs on a **process-wide static** current transaction (`TomTransactionManager._currentTransaction`, `tom_core_server` `transactions/transaction_manager.dart:146`), so one isolate holds one transaction at a time. **CE-RP's definition and CE-LG both emit fully** — the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28): a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization | **R** | `tcca14` (`tom_core`, landed) → `qrc2` <!-- todo-cite: provenance --> |
+| **3** | — (CE-DB, CE-MG, CE-RP's definition and CE-LG are all READY: the aggregation grammar and the schema-diff engine ship, a declared transaction scope resolves per flow through the zone-held current transaction (`tom_core_server` `transactions/transaction_manager.dart:219`), the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28) — a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization) | — | — |
 | **4** | Server behaviour | CE-SU is READY. **CE-AU emits its challenge/verify half only**: `Tom2FAService` (`two_factor.dart:271`) asks `issueChallenge` and `verifySubmission` and nothing else, no `otpauth://` builder or secret generator exists anywhere in `tom_ai`, and `TomAuthenticationResult` (`tom_core_kernel` `security/authentication_authorization.dart:153`) carries one `bool requires2FA` and one `String twoFactorType` — so a CodeSpec cannot declare enrolment or a choice of methods. **CE-NT delivery and CE-LG's handler chokepoint are both pure reuse** — the `messaging` router, SMTP transport and durable outbox ship, and the audit trail records with no handler able to opt out | **R** | `tcca3`, `tcca4` (`tom_core`, landed) → `qrc3` <!-- todo-cite: provenance --> |
 | **5** | Client interaction core | CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. Two runtime gaps sit under the emitted widgets: `TomTextFormFieldBase.set()` / `reset()` write the controller without the re-entrancy guard the field's other write path uses (`tom_flutter_ui` `forms/tom_form.dart:1229`/`:1241` vs the guarded `:1150`), and a `choice` / `multiChoice` field's **per-value** copy is a literal on its `TomSelectableSource` item, not the `CsMessageKey` §3.1.1 and §3.5.2 promise | **R**, **E(lossy)** | `tcca15`, `tcca9` (`tom_core`, landed) → `qrc4`, `qrc5` <!-- todo-cite: provenance --> |
 | **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS has no substrate for its scope**: `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves from config once at construction and is never written, and `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) states in its own contract that there is no user parameter in the interface, by design. **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca11` + `tspcmp1` settled → `qrc6`; `tcca10` landed, `tspcmp2` open → `qrc7` <!-- todo-cite: provenance --> |
@@ -1142,10 +1142,9 @@ skeleton, and the one emission exception is lossy rather than blocking — a
 `choice` / `multiChoice` element's per-value copy has nowhere to carry its
 `CsMessageKey`, so that attribute is dropped at slice 5.
 
-**Four `tom_core`-side blockers stand, all of mode R.** Slices 3 through 6 each
+**Three `tom_core`-side blockers stand, all of mode R.** Slices 4 through 6 each
 emit and compile; what they produce does not yet run against a complete
-substrate. A repository's declared transaction scope resolves to a per-isolate
-static (slice 3). CE-AU can express a challenge and a verification and nothing
+substrate. CE-AU can express a challenge and a verification and nothing
 else — no enrolment, no choice of method (slice 4). A generated text field's
 `set()` and `reset()` write their controller unguarded, so a CE-ST binding or a
 CE-FM load re-enters the input listener (slice 5). CE-DS has no store scoped to
@@ -2115,6 +2114,9 @@ attribute set for CE-DB:
   logical kind, and §5.13.2 records where each is authored: **json-encoded** is
   the `json` kind itself, and an enumerated attribute's **value type** is the
   generated domain enum, which must therefore be *named*.
+- **Access-object (repository)** — entity type + key type, named query, query
+  predicate (`eq`/`like`/`between`/`isIn`/`and`/`or`/…), sort, row cap, distinct,
+  transaction scope (unit of work).
 
 **Optional columns — a plain nullable field, never an observable.** A column
 whose storage nullability is `Yes` (`DATAA.nullable`) emits a plain nullable
@@ -2138,23 +2140,42 @@ save at all. `tom_core_server/test/optional_column_emission_db_test.dart` holds
 both arms against a live MariaDB rather than asserting the asymmetry. The
 shipped framework entities agree: `TomUserPreference` declares its own optional
 column as a bare `DateTime? updatedAt`.
-- **Access-object (repository)** — entity type + key type, named query, query
-  predicate (`eq`/`like`/`between`/`isIn`/`and`/`or`/…), sort, row cap, distinct,
-  transaction scope (unit of work).
 
 Framework-internal plumbing (SQL dialect, prepared-statement placeholders,
 `TomTransactionParticipant` lifecycle, `TomColumnInformation`, …) is **not** spec
 input, per that inventory.
 
-**Substrate status — transaction scope is declarable but not per-call.**
-`TomTransactionManager` keeps the current transaction in a **process-wide
-static** (`tom_core_server` `transactions/transaction_manager.dart:146`) rather
-than a zone, and states so in its own contract: one isolate holds one
-transaction at a time. A declared unit of work therefore emits and compiles, and
-two concurrently served requests cannot each run in their own — a runtime gap
-(`tcca14` → `qrc2`), not a missing marker. <!-- todo-cite: provenance -->
-Until it closes, the *unit of work* an access-object declares is honoured only
-under a single in-flight request.
+**Substrate status — transaction scope is per flow, and the flow opens it.**
+`TomTransactionManager` holds the current transaction in a **`Zone` value**
+(`tom_core_server` `transactions/transaction_manager.dart:219`), so *current*
+means current to this **flow of work**, not to this isolate:
+`runInTransactionScope` forks a zone carrying its own scope cell, and `TomServer`
+opens one per request (`tomserver/server/server.dart:150`). Two concurrently
+served requests each run in their own unit of work, so a declared transaction
+scope is honoured as declared.
+
+`@CsRepository` carries nothing for it, and the ambient shape is the reason: the
+scope is a property of the flow the call runs in, not a context threaded through
+the call. A declared unit of work therefore adds no parameter to the access
+object and no entry to the attribute surface above — the marker stays note-only.
+
+**Outside a request, the flow must open its own scope.** Code running under no
+scope shares one **process-wide fallback** scope — correct for a program with a
+single flow of work, wrong for concurrent ones. A CE-JB job is exactly that case:
+the scheduler starts each due run without awaiting it (`tom_core_kernel`
+`tombase/scheduling/scheduler.dart`, `_dispatchDue`) and opens no scope, nor can
+it — `tom_core_kernel` cannot reach `tom_core_server`. Under the production
+`TomWorkerPoolJobDispatcher` the fallback is nonetheless safe by construction:
+`TomWorkerPool.execute` holds a worker busy for the whole command, so one command
+runs per isolate and a static is per-isolate. Under `TomInlineJobDispatcher`,
+which runs the body in the calling isolate, two concurrent job bodies share it.
+
+**CE-JB emission therefore opens the scope itself** — the generated work body is
+wrapped in `TomTransactionManager.runInTransactionScope`
+(`codespecs_derivation_contract.md` §3.7.1). It is wrapped **unconditionally**,
+not only where a unit of work is declared: a job body reaches persistence through
+a later-injected abstract service (§5.29), so the spec cannot see which runs will
+open a transaction, and a scope that is opened and unused costs one zone fork.
 
 #### 5.13.1 File-reference columns
 
@@ -4020,7 +4041,7 @@ exactly one class, and all but the envelope are **reused**, not built:
 | Scope part | Owning class | Package | How a spec author states it |
 |------------|--------------|---------|------------------------------|
 | 1 Trigger | `TomSchedule` — `TomCronSchedule`, `TomCalendarSchedule`, `TomIntervalSchedule`, `TomOnceSchedule`, `TomEventSchedule` | `tom_core_kernel` `tombase/scheduling/schedule.dart` | `@CsJob(trigger:, cron:/calendar:/event:)`, lowered to the matching `TomSchedule` on `TomJobDefinition.schedule`. A `TomSchedule` is not a const, which is why the annotation carries per-kind string slots rather than an instance — the same reason `@TomScheduledJob` does. |
-| 2 Work definition | `TomJobDefinition.body` (a `TomCommand Function(TomJobRun)` factory) over `TomJobBase`; dispatched by `TomJobDispatcher` / `TomWorkerPoolJobDispatcher` | `tom_core_kernel` `job_definition.dart`, `scheduled_job.dart` | The `@CsJob` class extends `TomJobBase` and writes its pseudo-code body in `execute()`, resolving the later-injected abstract service from the bean locator. `TomJobBase.run` gives the body its window, attempt number and event payload. |
+| 2 Work definition | `TomJobDefinition.body` (a `TomCommand Function(TomJobRun)` factory) over `TomJobBase`; dispatched by `TomJobDispatcher` / `TomWorkerPoolJobDispatcher` | `tom_core_kernel` `job_definition.dart`, `scheduled_job.dart` | The `@CsJob` class extends `TomJobBase` and writes its pseudo-code body in `execute()`, resolving the later-injected abstract service from the bean locator. `TomJobBase.run` gives the body its window, attempt number and event payload. The body is wrapped in `TomTransactionManager.runInTransactionScope` so the run is its own flow of work — nothing above a job opens a transaction scope for it (§5.13). |
 | 3 Target references — CE-DB entities | `TomJobDeclaration.readEntities` / `.writtenEntities` (`List<Type>`), with `targetEntities` the deduplicated union | `tom_core_codespecs` | On the declaration's constructor, as **`Type` literals** — §5.23 gives entities no ref const by design, since they are already Dart types and citing the class makes a rename a compile error. Read and written stay **separate** because `SCJOB-WORK` authors them as two fields and a schema change breaks a writer differently from a reader. A `Type` needs only `dart:core`, so the package stays dependency-free. |
 | 3 Target references — CE-RP reports | `@CsJob(targetReports:)` (`List<CsReportRef>`) | `tom_code_specs` | As **`CsReportRef` consts on the annotation**, because §5.23 makes the `Cs*Ref` family the annotation *parameter* vocabulary — the same place this annotation's `failureAlert` `CsMessageKey` already sits. A ref const on a `tom_core`-family class would be the outlier: those hold plain ids (`TomReportDefinition.reportId` is the string a `CsReportRef` wraps). Empty by default — most jobs produce no report. |
 | 4 Retry / backoff / timeout / alerting | `TomRetryPolicy` (attempts, initial backoff, multiplier, ceiling, jitter); `TomJobDefinition.timeout`; `TomMissedWindowPolicy` + `catchUpLimit`; `TomPermanentFailure`; `TomJobAlert` / `TomJobAlertKind` / `TomJobAlertSink` | `tom_core_kernel` `job_definition.dart` | `@CsJob(maxRetries:, backoff:, timeout:, failureAlert:)`, the last a `CsMessageKey`. The alert *sink* is a deployment wiring on `TomScheduler.onAlert`, not a per-job spec field — a job names the message, the deployment names the destination. |
@@ -4582,7 +4603,7 @@ specification.
 A todo below is paired with its prerequisite in the `tom_core` quest
 (`_ai/quests/tom_core/todos.tom_core.todo.yaml`): the core-side capability has
 to exist before the mapping-side position can be stated. Every `tcca*`
-prerequisite has landed, so for `qrc2`–`qrc6` what is left is the work against
+prerequisite has landed, so for `qrc3`–`qrc6` what is left is the work against
 *this* document alone — restating the position the shipped capability now
 supports. `qrc6`'s scope question is settled too
 (`tcca11` landed → `tspcmp1` settled → `qrc6`): <!-- todo-cite: provenance -->
@@ -4600,7 +4621,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `qrc2` | Record the **CE-DB transaction-scope contract** (§4.1.1, §4.4.4 slice 3, §5.13) now that `tcca14` has landed <!-- todo-cite: provenance -->. A declared unit of work currently resolves to a process-wide static, so one isolate holds one transaction. Mode **R**. |
 | `qrc3` | Extend the **CE-AU spec-authorable surface** (§4.1.1, §4.4.4 slice 4, §5.25) now that `tcca3`/`tcca4` have landed <!-- todo-cite: provenance -->. A `@CsAuth` CodeSpec can declare a challenge and a verification and nothing else: there is no enrolment path and the wire result carries one bool and one string. Includes reconsidering whether `@CsAuth` stays note-only. Mode **R**. |
 | `qrc4` | Clear the **CE-EL/CE-FM text-controller write-path gap** (§4.1.1, §4.4.4 slice 5) now that `tcca15` has landed <!-- todo-cite: provenance -->. `set()` and `reset()` bypass the guard the field's own `_setControllerText` applies, and both are the ordinary path a CE-ST binding and a CE-FM load take. Mode **R**. |
 | `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) now that `tcca9` has landed <!-- todo-cite: provenance -->. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
