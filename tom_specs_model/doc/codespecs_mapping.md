@@ -448,8 +448,8 @@ that states the resulting position second.
 | **CE-SC** ServerCall | The client-side declaration of a call to a server operation. | **Built on:** `TomServerEndpoint<T, R>` + `TomServerCall` / `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`, `tombase/http_connection/server_connection.dart`); declared as typed endpoint fields in a client calls class (§7: all POST, the operation name carries the intent).<br>**Annotations:** `@CsServerCall(operation)`.<br>**Example:** `@CsServerCall(CsOperationRef('customer.save')) final saveCustomerCall = TomServerEndpoint<CustomerSaveRequest, CustomerDto>(…);` | None. | Takes a `CsOperationRef` (§5.23) so the call ties to its `@CsEndpoint` by **typed reference**, not by string. It is the one edge the code cannot carry itself — the call site is client, the operation shared, and nothing in the Dart declaration names the link. Call options ride `TomServerCallSpecs`. |
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** carry their field-level constraints as `@CsValidation` declaration strings — maximum length, format restriction, required-ness — plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
 | **CE-SU** ServiceUnit | A functional-group *closure* of the server API (§5.1 boundary: owned-aggregate primary, process cohesion, bounded context); id `<RootAggregate>Service`; membership **derived, not listed**. | **Built on:** ordinary **(abstract) classes** carrying the `tom_core_server` mapping annotations (`@tomService` / `TomApiImplementation`, discovered via `scanClasses` / `TomComponentReference`); methods are the operations, CodeSpecs-phase bodies **pseudo-code** / `UnsupportedError`.<br>**Annotations:** `@CsServiceUnit(rootAggregate: …, boundedContext: …)`.<br>**Example:** `@CsServiceUnit(rootAggregate: Customer, boundedContext: 'sales') abstract class CustomerService { Future<CustomerDto> save(CustomerSaveRequest r); }` | None. | `@CsServiceUnit` carries the **boundary criterion** as its two required arguments — the owned root aggregate (a bare `Type`, since entities are already Dart types) and the bounded context it sits in. Cross-unit references use `CsServiceUnitRef` (§5.23). |
-| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). **A repository's declared transaction scope has no per-call substrate**: `TomTransactionManager` holds the current transaction in a **process-wide static** (`tom_core_server` `transactions/transaction_manager.dart:146`) rather than a zone, and says so in its own contract — one isolate holds one transaction at a time, so two concurrently served requests cannot each run in their own. `@CsRepository` defers transaction scope to the framework's transaction annotation beside the marker, so a spec declares a scope the runtime cannot honour — mode **R** (`tcca14` landed — position restated by `qrc2`) <!-- todo-cite: provenance -->. The emitted **column type** for an optional SOM attribute is unstated; see CE-ST (`qrc1`). | `@CsColumn` expresses what Dart types cannot: the physical **column name and type**, the **max length**, and the column-level access guard (`accessKey`, §5.13) — plus the `CsFileReference` facet whose presence *is* the column kind. `@CsRepository` stays note-only: entity and key type are the class's generics, and the named-query intent is one form-3 method each. |
-| **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel(scope: CsLifecycleScope.route) class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | No class gap — the observable family is shipped, **including a nullable arm** (`TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`, `tom_core_kernel` `tombase/observable/tom_observable_objects.dart:432`–`:477`). **What an *optional* SOM attribute emits is unstated**: neither this document nor `codespecs_derivation_contract.md` §3.5.1 / §3.3.2 names the `TomN*` family, so the contract neither says "emit `TomNString`" nor "emit `TomString` and lose the null". The decision is a documentation act with no `tom_core` dependency (`qrc1`); it binds CE-DB's `@CsColumn` on the same terms. | `@CsViewModel` carries the state's **lifecycle scope**, defaulting to the narrowest arm (`screen`) so widening a view model's lifetime is a deliberate authored act. The fields, their types and their binding are the declaration itself, and binding to a widget is `TomObservingWidget`'s own surface (§2.3 tests **a**/**b**). |
+| **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). **A repository's declared transaction scope has no per-call substrate**: `TomTransactionManager` holds the current transaction in a **process-wide static** (`tom_core_server` `transactions/transaction_manager.dart:146`) rather than a zone, and says so in its own contract — one isolate holds one transaction at a time, so two concurrently served requests cannot each run in their own. `@CsRepository` defers transaction scope to the framework's transaction annotation beside the marker, so a spec declares a scope the runtime cannot honour — mode **R** (`tcca14` landed — position restated by `qrc2`) <!-- todo-cite: provenance -->. An **optional** attribute emits a **plain nullable Dart field** (`String?`), keyed on `DATAA.nullable` — never a `TomN*` observable, which the shipped repository can read but not write (§5.13). | `@CsColumn` expresses what Dart types cannot: the physical **column name and type**, the **max length**, and the column-level access guard (`accessKey`, §5.13) — plus the `CsFileReference` facet whose presence *is* the column kind. `@CsRepository` stays note-only: entity and key type are the class's generics, and the named-query intent is one form-3 method each. |
+| **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel(scope: CsLifecycleScope.route) class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | No class gap — the observable family is shipped, **including a nullable arm** (`TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`, `tom_core_kernel` `tombase/observable/tom_observable_objects.dart:432`–`:477`). An **optional** field emits that nullable arm, initialised to `null`, keyed on the attribute's `mandatory` level. The rule stops at CE-ST: CE-DB's `@CsColumn` emits a **plain nullable field** instead, because the persistence write path cannot bind an observable (§5.13). | `@CsViewModel` carries the state's **lifecycle scope**, defaulting to the narrowest arm (`screen`) so widening a view model's lifetime is a deliberate authored act. The fields, their types and their binding are the declaration itself, and binding to a widget is `TomObservingWidget`'s own surface (§2.3 tests **a**/**b**). |
 | **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute()` per route; `@CsScreenFlow()` on flow declarations.<br>**Example:** `@CsRoute() static const customerEditRoute = TomRouteDefinition(routeId: 'customer/edit', …);` | **Gap filled in `tom_core_codespecs`** — `tom_core` has no route-id registry or screen-flow model, so `route_flow.dart` carries `TomRouteRegistry` / `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` over `TomScreenPresentation` + `TomFlowOutcome` (§5.11); the SOM authoring home is the **screen route map** (`SCRTMP`) under D09 XDS `ScreenFlowStructure`. | Both markers stay note-only: the **transition kind** (*replace* vs *popup overlay*), the outcome and the `CsRouteRef` / `CsActionRef` edges all ride `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge`'s own constructors, so repeating them as marker arguments would create the second, disagreeing source §2.3 exists to prevent. |
 | **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` takes `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23) rather than raw strings, and the graded arm's three-slot tree as a `CsGradedAccess` whose slots are themselves `@CsAuthorize` values — the recursion §5.15 defines. `requirement` has **no default**: defaulting it is the exact failure §5.16's fail-safe rule prevents. |
 | **CE-ER** ErrorResult | The shared error/result envelope + the error-code catalogue. | **Built on:** `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity` (`tom_core_kernel`, `tombase/result/result.dart`). The error catalogue is a **plain annotated constants class** in the shared project; texts keyed via CE-TX.<br>**Annotations:** `@CsError` per code.<br>**Example:** `@CsError(severity: CsErrorSeverity.error) static const custNotFound = CsErrorCode('CUST-404');` | None. | `@CsError` carries the **severity**, mirrored onto `TomErrorSeverity`. It carries no message key: §5.21 keys error copy *by the error code*, so the key is derived, not authored. The codes themselves are §5.23 `CsErrorCode` consts. |
@@ -472,7 +472,9 @@ that states the resulting position second.
 - **READY — pure reuse, no core gap:** CE-VA, CE-AC, CE-SC, CE-API, CE-SU,
   CE-ER, CE-CF, CE-CC, CE-ID, CE-AZ, **CE-MG** (schema-diff convergence
   shipped), **CE-LG** (the `audit` module records at two chokepoints; the spec
-  authors only `@TomAudited`'s declared half).
+  authors only `@TomAudited`'s declared half), **CE-ST** (the observable family
+  ships including its `TomN*` nullable arm, and what an optional field emits is
+  settled — §5.4).
 - **READY TO EMIT, BLOCKED AT RUNTIME — the class to build on exists, a
   capability under it does not.** Each entry names the core-side prerequisite,
   which has landed, and the mapping-side todo that restates the position here:
@@ -493,11 +495,6 @@ that states the resulting position second.
   These six are the NEEDS-EXTENSION class: what they wait on is behaviour in a
   shipped class, not a class that does not exist, so none of them changes the
   §4.1.2 built-on resolution or moves a part into `tom_core_codespecs`.
-- **READY BUT UNDECIDED:** CE-ST — the observable family including its `TomN*`
-  nullable arm is shipped, but what an *optional* SOM attribute emits is not
-  stated by this document or by the derivation contract (`qrc1`). The decision
-  binds CE-DB's `@CsColumn` on the same terms and depends on no `tom_core`
-  change.
 - **READY VIA `tom_core_codespecs` — the part reuses `tom_core` plus one
   concrete gap class:** CE-LO (`layout_node.dart`), CE-TX (`message_key.dart`),
   CE-NV (`route_flow.dart`), CE-UP (`user_settings.dart`), CE-CL
@@ -1171,11 +1168,11 @@ Each is validator-checked by design
 checks 17 and 18) rather than by default. CE-RP's other three targets are not
 references at all once shaped correctly (§5.28).
 
-One emission question is open on the code side and depends on no `tom_core`
-change — an optional SOM field has no stated emission, because neither this
-document nor the derivation contract names the `TomN*` nullable observable family
-that `tom_core_kernel` ships (`qrc1`). The implied sequence: the four `tom_core`
-todos and the nullable-emission decision run in parallel; §10 indexes them all.
+**No emission question is open besides.** What an *optional* SOM attribute emits
+is settled per part: CE-ST takes the `TomN*` nullable observable arm keyed on the
+attribute's requirement level (§5.4), CE-DB a plain nullable Dart field keyed on
+its storage nullability (§5.13). The four `tom_core` todos §10 indexes are
+therefore the whole of the remaining sequence.
 
 #### 4.4.5 Four placements a topic-first reading gets wrong
 
@@ -1427,6 +1424,7 @@ wraps the surveyed classes; every one is a `tom_core`-family class per §1.1:
 | `TomObservable` | `tom_core_kernel` (`tom_observable.dart`) | The observer-pattern base: `addObserver`/`removeObserver` (weak-ref), `notifyObservers`, `mute`/`unmute` batch. Every view-model *is-a* `TomObservable`. |
 | `TomObject<T>` | `tom_core_kernel` (`tom_observable_objects.dart`) | A single typed observable cell (`get`/`set(T)`, `~obj`/`obj \| v` operators) that notifies on change. The leaf field of a view-model. |
 | `TomString`/`TomInt`/`TomDouble`/`TomBool` | `tom_core_kernel` | Scalar-typed `TomObject<T>` subclasses — the primitive view-model fields. |
+| `TomNString`/`TomNInt`/`TomNDouble`/`TomNBool`/`TomNDateTime` | `tom_core_kernel` (`tom_observable_objects.dart:432`–`:477`) | The **nullable arm** of the same family — `TomObject<T?>` subclasses. The cell an *optional* view-model field occupies (attr 1 below). |
 | `TomClass` (`TomObject<Map<String,TomObject>>`) | `tom_core_kernel` | The **composite** view-model: a named bag of observable fields; the natural `@CsViewModel` root for a screen. |
 | `TomList<E>` / `TomMap<K,V>` | `tom_core_kernel` | Observable collection fields (repeated / keyed sub-state) inside a view-model. |
 | `TomObservingWidget<T>` | `tom_core_flutter` | The UI binding: a `StatefulWidget` that observes `subState` and rebuilds its `child` on every notification (lifecycle-correct: register/migrate/deregister). |
@@ -1443,6 +1441,17 @@ shape and the client-side bindings around it.
    `(name, T, kind)` where `kind` is scalar (`TomString`/`TomInt`/…), composite
    (`TomClass`), or collection (`TomList`/`TomMap`). Declared as a field tree, not
    imperative code. Initial values are authorable per field.
+   **Optionality is the nullable arm of the same family.** A field whose
+   requirement level is `Optional` or `ConditionallyRequired` emits
+   `TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`,
+   initialised to `null`; `Required` emits the non-nullable type. There is no
+   third spelling — "absent" and "the type's zero value" are different states,
+   and a `TomString('')` cannot tell a screen which of the two it is holding.
+   The signal is the attribute's own **`mandatory`** level (`BOAED.mandatory` on
+   the business-object attribute the field mirrors), *not* CE-DB's
+   `DATAA.nullable`: what a screen may leave blank is a requirement level, and
+   a view-model field for an attribute the database happens to store as `NULL`
+   may still be mandatory to fill in.
 2. **derivation** — read-only fields computed from other fields (declared as a
    dependency + expression), realising the `notifyObservers` fan-out without
    hand-wiring observers.
@@ -1463,6 +1472,16 @@ shape and the client-side bindings around it.
   DB→view-model; save copies view-model→DB (CE-SC request assembly, §5.3 attr 2).
   The two never collapse into one type — the gap-row wording ("typed view-model state
   distinct from the DB model") is exactly this separation.
+  **Optionality is spelled differently on each side, and deliberately so.** A
+  view-model field uses the `TomN*` observable arm (attr 1); a CE-DB column uses
+  a plain nullable Dart field (§5.13). Not a naming inconsistency but the same
+  separation applied to one attribute: the entity is a plain annotated model
+  class whose members the persistence layer reads by reflection, and
+  `TomSqlDatasourceRepository.save` binds each column from
+  `TomColumnInformation.getVariableValue` — the *field*, which on an observable
+  member is the `TomNInt` object rather than the `int?` inside it. Observables
+  read back from a query but have no write path, so the arm that is right for a
+  screen is unavailable to a table.
 - **CE-ST ↔ CE-EL / CE-FM (binding).** View-model fields are the *source* that CE-EL
   elements and CE-FM form fields bind to; the binding edge is owned here (attr 3) as a
   reference to the element/field, keeping CE-EL/CE-FM free of view-model wiring.
@@ -2088,13 +2107,37 @@ attribute set for CE-DB:
 - **Entity level** — entity name, storage table, datasource, schema, identity
   attribute + identity column, row-scope rule.
 - **Attribute level** (per persistent field) — attribute name, storage column,
-  value type, column (storage) type, read-only, not-loaded, json-encoded,
-  **column-access key** (field-level authorization, → CE-AZ), value converters,
-  and — for a file reference only — the **file-reference facet** below.
+  value type, **storage nullability**, column (storage) type, read-only,
+  not-loaded, json-encoded, **column-access key** (field-level authorization,
+  → CE-AZ), value converters, and — for a file reference only — the
+  **file-reference facet** below.
   Two of these are not free-standing settings but consequences of the attribute's
   logical kind, and §5.13.2 records where each is authored: **json-encoded** is
   the `json` kind itself, and an enumerated attribute's **value type** is the
   generated domain enum, which must therefore be *named*.
+
+**Optional columns — a plain nullable field, never an observable.** A column
+whose storage nullability is `Yes` (`DATAA.nullable`) emits a plain nullable
+Dart member (`String?`, `int?`, `DateTime?`, …); `No` emits the non-nullable
+type. Storage nullability is read here rather than the requirement level:
+`DATAA.mandatory` is CE-VA's (`DataAttributeConstraintEntry` carries
+`@CodeSpecKind([CodeSpecPart.validation])`) and answers a different question —
+an `Optional` attribute with a default is never `NULL` in the table, and a
+`Required` one can still be `nullable: Yes` in a schema inherited from a
+predecessor system.
+
+The `TomN*` observable arm CE-ST uses (§5.4) is **not** available here, and the
+reason is the write path, not a style preference. `TomSqlDatasourceRepository`
+binds each column through `TomColumnInformation.getVariableValue`, which reads
+the *field*; on an observable member that yields the `TomNInt` object rather
+than the `int?` it holds. Reading is symmetric — `MariadbDatasource` normalises
+a declared nullable element type onto its non-nullable form before dispatching
+(`mariadb_datasource.dart`, `_setObservableMember`), which is exactly why the
+choice looks free — but writing is not, so an observable-membered entity has no
+save at all. `tom_core_server/test/optional_column_emission_db_test.dart` holds
+both arms against a live MariaDB rather than asserting the asymmetry. The
+shipped framework entities agree: `TomUserPreference` declares its own optional
+column as a bare `DateTime? updatedAt`.
 - **Access-object (repository)** — entity type + key type, named query, query
   predicate (`eq`/`like`/`between`/`isIn`/`and`/`or`/…), sort, row cap, distinct,
   transaction scope (unit of work).
@@ -4557,7 +4600,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `qrc1` | State what an **optional SOM attribute emits** (§4.1.1 CE-ST, §5.4, §5.13). `tom_core_kernel` ships `TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`; neither this document nor `codespecs_derivation_contract.md` §3.3.2 / §3.5.1 names them, so the contract neither says "emit the nullable type" nor "emit the non-nullable one and lose the null". The only `qrc` item with no `tom_core` dependency. |
 | `qrc2` | Record the **CE-DB transaction-scope contract** (§4.1.1, §4.4.4 slice 3, §5.13) now that `tcca14` has landed <!-- todo-cite: provenance -->. A declared unit of work currently resolves to a process-wide static, so one isolate holds one transaction. Mode **R**. |
 | `qrc3` | Extend the **CE-AU spec-authorable surface** (§4.1.1, §4.4.4 slice 4, §5.25) now that `tcca3`/`tcca4` have landed <!-- todo-cite: provenance -->. A `@CsAuth` CodeSpec can declare a challenge and a verification and nothing else: there is no enrolment path and the wire result carries one bool and one string. Includes reconsidering whether `@CsAuth` stays note-only. Mode **R**. |
 | `qrc4` | Clear the **CE-EL/CE-FM text-controller write-path gap** (§4.1.1, §4.4.4 slice 5) now that `tcca15` has landed <!-- todo-cite: provenance -->. `set()` and `reset()` bypass the guard the field's own `_setControllerText` applies, and both are the ordinary path a CE-ST binding and a CE-FM load take. Mode **R**. |

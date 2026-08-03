@@ -142,6 +142,7 @@ CsFile _readFile(CsLocus locus, String path, String source) {
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
+              declaredType: member.variables.type?.toSource(),
             ),
           );
           final construction = _constructionOf(
@@ -207,6 +208,7 @@ List<CsDeclaration> _classMembers(
               metadata: member.metadata,
               offset: variable.name.offset,
               hasInitialiser: variable.initializer != null,
+              declaredType: member.fields.type?.toSource(),
             ),
           );
         }
@@ -239,6 +241,7 @@ CsDeclaration _declaration({
   required int offset,
   String? owner,
   bool hasInitialiser = false,
+  String? declaredType,
   List<CsMethodBody> bodies = const [],
 }) {
   final markers = <CsMarker>[];
@@ -267,6 +270,7 @@ CsDeclaration _declaration({
     codeSpec: codeSpec,
     docSpec: docSpec,
     hasInitialiser: hasInitialiser,
+    declaredType: declaredType,
     bodies: bodies,
     location: _at(path, lines, offset),
   );

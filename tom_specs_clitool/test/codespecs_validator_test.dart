@@ -1,4 +1,4 @@
-/// Fixtures for the twenty-one `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the twenty-two `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -80,10 +80,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the twenty-one checks in table order', () {
+    test('names the twenty-two checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 21; i++) i],
+        [for (var i = 1; i <= 22; i++) i],
       );
     });
 
@@ -1230,6 +1230,104 @@ class customerSave {}
     });
   });
 
+  group('22 — a persisted column is never an observable (§3.3.2)', () {
+    _redGreen(
+      22,
+      '§3.3.2',
+      says: contains('plain Dart field'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name', columnType: 'VARCHAR', length: 80)
+  TomNString name = TomNString(null);
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name', columnType: 'VARCHAR', length: 80)
+  String? name;
+}
+''',
+        },
+      ),
+    );
+
+    test('catches the inferred spelling, which names no type at all', () {
+      // `final name = TomNString(null);` is the commoner way to write an
+      // observable member, and it is exactly the one a declared-type rule
+      // would miss — so the check reads the initialiser too.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name')
+  final name = TomNString(null);
+}
+''',
+        },
+      );
+      expect(_forCheck(22, input).single.message, contains('TomNString'));
+    });
+
+    test('a non-nullable observable is caught by the same rule', () {
+      // The defect is the observable, not the nullability: a `TomString`
+      // column cannot be written either.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('customer', datasource: 'core')
+class Customer {
+  @CsColumn(column: 'cust_name')
+  TomString name = TomString('');
+}
+''',
+        },
+      );
+      expect(_forCheck(22, input), hasLength(1));
+    });
+
+    test('TomZonedDate is a value type and stays a legal column', () {
+      // Why the family is a closed list rather than a `Tom` prefix rule: the
+      // zoned *value* types are not observables and are persisted directly.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsTable('event', datasource: 'core')
+class Event {
+  @CsColumn(column: 'tag_day')
+  TomZonedDate? tagDay;
+}
+''',
+        },
+      );
+      expect(_forCheck(22, input), isEmpty);
+    });
+
+    test('an observable outside a @CsColumn is not this check', () {
+      // CE-ST is where the family belongs; the check must have no opinion
+      // about a view-state member.
+      final input = _input(
+        client: {
+          'lib/a.dart': '''
+@CsViewModel()
+class CustomerState {
+  final name = TomNString(null);
+}
+''',
+        },
+      );
+      expect(_forCheck(22, input), isEmpty);
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
           shared: {
@@ -1300,7 +1398,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 21 checks passed');
+      expect(report.summary, 'codespecs: 22 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -1332,7 +1430,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 21 checks'));
+      expect(report.summary, contains('across 2 of 22 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(report.lines.join('\n'), contains('codespecs check 6 [§2.4]'));
     });

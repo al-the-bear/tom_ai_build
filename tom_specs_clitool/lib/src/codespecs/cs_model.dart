@@ -335,6 +335,14 @@ class CsDeclaration {
   /// Whether a variable declaration carries an initialiser.
   final bool hasInitialiser;
 
+  /// The declared type of a variable, as written; `null` when there is none —
+  /// either because it is inferred (`final x = …`) or because the declaration
+  /// is not a variable at all.
+  ///
+  /// Source text rather than a resolved type, because the reader is a syntax
+  /// pass over a tree whose packages need not be resolvable.
+  final String? declaredType;
+
   /// The method bodies this declaration declares.
   final List<CsMethodBody> bodies;
 
@@ -351,6 +359,7 @@ class CsDeclaration {
     this.codeSpec,
     this.docSpec,
     this.hasInitialiser = false,
+    this.declaredType,
     this.bodies = const [],
   });
 

@@ -1,4 +1,4 @@
-/// The twenty validator checks `codespecs_derivation_contract.md` §6 names.
+/// The twenty-two validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -1604,10 +1604,136 @@ class CsGradedDepthCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 22 — a persisted column is never an observable
+// ---------------------------------------------------------------------------
+
+/// `tom_core_kernel`'s observable family, by name
+/// (`tom_core_kernel/lib/src/tombase/observable/tom_observable_objects.dart`).
+///
+/// A **closed list**, not a `Tom` prefix rule: `TomZonedDate`, `TomZonedTime`
+/// and `TomZonedDateTime` are plain value types and legitimate column types, so
+/// a prefix rule would reject code the contract permits. Every name here is a
+/// `TomObservable` subtype and therefore something
+/// [TomColumnInformation.getVariableValue] would hand the driver *as an object*.
+const csObservableTypes = <String>{
+  'TomObservable',
+  'TomObject',
+  'TomString',
+  'TomInt',
+  'TomDouble',
+  'TomBool',
+  'TomDateTime',
+  'TomOTimezoned',
+  'TomOZonedTime',
+  'TomOZonedDate',
+  'TomOZonedDateTime',
+  'TomNString',
+  'TomNInt',
+  'TomNDouble',
+  'TomNBool',
+  'TomNDateTime',
+  'TomNOTimezoned',
+  'TomNOZonedTime',
+  'TomNOZonedDate',
+  'TomNOZonedDateTime',
+  'TomClass',
+  'TomList',
+  'TomMap',
+  'TomDateRange',
+  'TomTimeRange',
+  'TomDateTimeRange',
+};
+
+/// §6 check 22.
+///
+/// The one asymmetry a reviewer cannot see by reading the entity: an observable
+/// member **reads** back correctly — `MariadbDatasource` normalises a `String?`
+/// onto `String` before dispatching to the observable's setter — but has no
+/// write path at all. `TomSqlDatasourceRepository.save` binds each column from
+/// `TomColumnInformation.getVariableValue`, which is `invokeGetter(declaredName)`
+/// and so yields the `TomNString` *object* rather than the `String?` it holds.
+///
+/// So the wrong shape compiles, analyses clean, and passes any test that only
+/// selects — right up to the first save, where it throws a `TypeError` deep in
+/// the repository. That is exactly the class of defect a generation-time check
+/// exists for, and it is why `codespecs_derivation_contract.md` §3.3.2 emits an
+/// optional CE-DB attribute as a plain nullable field `T?`. The observable
+/// family belongs to CE-ST (§3.5.1), where there is no persistence step to break.
+class CsColumnNotObservableCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsColumnNotObservableCheck();
+
+  @override
+  int get number => 22;
+
+  @override
+  String get definedIn => '§3.3.2';
+
+  @override
+  String get title =>
+      'A @CsColumn member is a plain Dart field, never a TomN*/observable — an '
+      'observable column reads but cannot be written';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final project in input.projects) {
+      // Resolved per project: a holder path is only unique within one project,
+      // and an entity never spans two.
+      final observableHolders = <String, String>{};
+      for (final construction in project.constructions) {
+        if (!csObservableTypes.contains(construction.type)) continue;
+        final holder = construction.holder;
+        if (holder == null) continue;
+        observableHolders[holder] = construction.type;
+      }
+
+      for (final declaration in project.declarations) {
+        if (!declaration.has('CsColumn')) continue;
+        // Two spellings, and both have to be caught: `TomNString name;` names
+        // the type, while the far commoner `final name = TomNString(null);`
+        // never does — it is only visible through what the initialiser builds.
+        final named = _observableIn(declaration.declaredType);
+        final built = observableHolders[declaration.path];
+        final offender = named ?? built;
+        if (offender == null) continue;
+        out.add(
+          fail(
+            '${declaration.path} is a @CsColumn declared as $offender; a '
+            'persisted attribute is a plain Dart field (`T?` when optional), '
+            'because the repository binds a column from invokeGetter and would '
+            'hand the driver the $offender object rather than its value — the '
+            'observable family is CE-ST (§3.5.1), not CE-DB',
+            declaration.location,
+          ),
+        );
+      }
+    }
+    return out;
+  }
+
+  /// The observable [source] declares, or `null` when it declares none.
+  ///
+  /// Strips the nullability suffix and any type arguments, so `TomList<TomInt>?`
+  /// is recognised by its head — the family membership is the head's, and a
+  /// generic argument may itself be a legitimate value type.
+  String? _observableIn(String? source) {
+    if (source == null) return null;
+    var head = source.trim();
+    final angle = head.indexOf('<');
+    if (angle >= 0) head = head.substring(0, angle);
+    head = head.replaceAll('?', '').trim();
+    final dot = head.lastIndexOf('.');
+    if (dot >= 0) head = head.substring(dot + 1);
+    return csObservableTypes.contains(head) ? head : null;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The twenty-one checks, in §6 table order.
+/// The twenty-two checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -1630,4 +1756,5 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsSecretIsDeclaredCheck(),
   CsSettingKeyCollisionCheck(),
   CsGradedDepthCheck(),
+  CsColumnNotObservableCheck(),
 ];

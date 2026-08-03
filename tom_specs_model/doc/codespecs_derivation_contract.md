@@ -563,13 +563,39 @@ Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DataAttributeEntry` (`DAATT`), with `DataAttributeConstraintEntry` (`DATAA`) supplying length and format constraints. Consumed (§5.13 attribute level): name, column, value type, column type, read-only, not-loaded, json-encoded, column-access key, converters, and the `DataAttributeKind.fileReference` facet. |
-| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
+| **1 Input** | `DataAttributeEntry` (`DAATT`), with `DataAttributeConstraintEntry` (`DATAA`) supplying length, format and **storage nullability**. Consumed (§5.13 attribute level): name, column, value type, column type, read-only, not-loaded, json-encoded, column-access key, converters, `DATAA.nullable`, and the `DataAttributeKind.fileReference` facet. **`DATAA.mandatory` is not read here** — it is already claimed by CE-VA (`DataAttributeConstraintEntry` carries `@CodeSpecKind([CodeSpecPart.validation])`), and it answers a different question. |
+| **2 Output** | One **member** of the §3.3.1 entity, typed by the SOM value type. **Optionality is the member's own nullability, keyed on `DATAA.nullable`:** `Yes` emits a plain nullable field `T?`; `No` emits `late final T` per §2.4. It is **never** a `TomN*` observable — `tom_core_kernel`'s nullable observable family belongs to CE-ST (§3.5.1), and an entity is a plain annotated model class. `read-only`, `not-loaded`, `json-encoded` and converters are emitted as the framework's own persistence annotations beside the marker (test **b**), not as marker arguments. |
 | **3 Arguments** | `column` ← `DAATT`'s column field, verbatim; `null` means "same as the member name". `columnType` ← the SOM column type, verbatim. `length` ← the maximum length from `DATAA` — §4.1.1 names maximum lengths as exactly the kind of thing simple code cannot express. `accessKey` ← the column-access key as a `CsResourceKeyRef`. `fileReference` ← a `CsFileReference` value **iff** `DAATT`'s kind is `fileReference` (§3.3.3); its **presence is the column kind**. The Dart **value type** is never an argument (test **a**). |
 | **4 Naming** | camelCase of `DAATT`'s attribute-name field. |
 | **5 Locus** | `server`, with its entity. |
 | **6 Cross-refs** | `CsResourceKeyRef`; `Type` literals for relationship targets. |
-| **7 Back-link** | `@DocSpec([DocRef('DAATT', 'supplies the stored attribute, its column and its storage type')])`, plus `DocRef('DATAA', …)` where a constraint supplied the length or format. |
+| **7 Back-link** | `@DocSpec([DocRef('DAATT', 'supplies the stored attribute, its column and its storage type')])`, plus `DocRef('DATAA', …)` where a constraint supplied the length, format or nullability. |
+
+**Why `nullable` and not `mandatory`.** `DATAA` carries both, and they are not two
+spellings of one fact. `mandatory` (`Required | Optional | ConditionallyRequired`)
+is a *business* requirement level and is already mapped — its section is
+`@CodeSpecKind([CodeSpecPart.validation])`, so it becomes a CE-VA field rule.
+`nullable` (`Yes | No`) is a *storage* fact. They come apart in both directions:
+an `Optional` attribute with a `defaultValue` is never `NULL` in the table, and a
+`Required` attribute can still be `nullable: Yes` in a schema inherited from a
+predecessor system. Deriving the Dart type from `mandatory` would give one SOM
+field two unrelated emissions and would get both of those cases wrong.
+
+**Why not the `TomN*` family.** `tom_core_kernel` ships nullable observables
+(`TomNString`, `TomNInt`, `TomNDouble`, `TomNBool`, `TomNDateTime`, plus a zoned
+arm), and they *read* from a query — `MariadbDatasource` normalises a declared
+`String?` onto `String` before dispatching, so an observable-membered result
+holder maps correctly. That symmetry on the read side is exactly what makes the
+choice look free. It is not: `TomSqlDatasourceRepository.save` binds each column
+from `TomColumnInformation.getVariableValue`, which is `invokeGetter(declaredName)`
+— the field itself, which on an observable member is the `TomNInt` object rather
+than the `int?` it holds. The observable arm therefore has no write path at all.
+`tom_core_server/test/optional_column_emission_db_test.dart` pins both halves
+against a live MariaDB: the plain-field arm round-trips all five value types with
+values, with `NULL`, and across an update that clears a populated column; the
+observable arm fails its first `save` with `type 'TomNInt' is not a subtype of
+type 'int?'`. The shipped framework entity agrees — `TomUserPreference` declares
+its own optional column as a bare `DateTime? updatedAt`.
 
 #### 3.3.3 `CsFileReference` — CE-DB file-reference facet (value class)
 
@@ -764,13 +790,13 @@ unit, which is why they share a slice rather than an order.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ScreenStateEntry` (`SCRST`), `ScreenElementDataDisplay` (`SEDD`), `ComponentStateEntry` (`COMSTA`). Consumed (§5.4): the fields as `(name, T, kind)`, their derivation, their binding, the lifecycle scope. |
-| **2 Output** | A view-model class holding `TomObservable` / `TomObject<T>` members — `TomString`, `TomInt`, `TomDouble`, `TomBool`, `TomClass`, `TomList`, `TomMap` (`tom_core_kernel`) — bound in the UI by `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). Form 1. **Observable fields are initialised declarations** (`final TomString name = TomString('');`) — §2.4's sole exception, because an uninitialised observable would not compile at its use sites. Derived fields are form-3 getters that throw. |
+| **1 Input** | `ScreenStateEntry` (`SCRST`), `ScreenElementDataDisplay` (`SEDD`), `ComponentStateEntry` (`COMSTA`), plus `BusinessObjectAttributeEntry` (`BIOBAT`, itself `@CodeSpecKind([viewState])`) with its detail `BOAED` for the attribute a field mirrors. Consumed (§5.4): the fields as `(name, T, kind)`, their derivation, their binding, the lifecycle scope, and `BOAED.mandatory` for the field's requirement level. |
+| **2 Output** | A view-model class holding `TomObservable` / `TomObject<T>` members — `TomString`, `TomInt`, `TomDouble`, `TomBool`, `TomClass`, `TomList`, `TomMap` (`tom_core_kernel`) — bound in the UI by `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). Form 1. **An optional field emits the nullable arm of the same family** — `TomNString`, `TomNInt`, `TomNDouble`, `TomNBool`, `TomNDateTime`, initialised to `null` — keyed on `BOAED.mandatory` (`Optional` / `ConditionallyRequired` → nullable, `Required` → the non-nullable type). **Not** on CE-DB's `DATAA.nullable`: what a screen may leave blank is a requirement level, and a field over an attribute the table happens to store as `NULL` may still be mandatory to fill in. **Observable fields are initialised declarations** (`final TomString name = TomString('');`, `final TomNString note = TomNString(null);`) — §2.4's sole exception, because an uninitialised observable would not compile at its use sites. Derived fields are form-3 getters that throw. |
 | **3 Arguments** | `scope` ← the lifecycle scope, enum-mapped onto `CsLifecycleScope {screen, route, app}`, default `screen` — the narrowest arm, so widening a view model's lifetime is a deliberate act. Fields, their types and their binding are the declaration (test **a**); binding to a widget is `TomObservingWidget`'s own surface (test **b**). |
 | **4 Naming** | PascalCase of `SCRST`'s name field + `ViewModel`; members camelCase of their own name field. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | Referenced **by** `CsTrigger`'s condition kind (its predicate reads these fields). Emits none. |
-| **7 Back-link** | `@DocSpec([DocRef('SCRST', 'supplies the view state this model holds')])`, plus `SEDD` / `COMSTA` per contributing field. |
+| **7 Back-link** | `@DocSpec([DocRef('SCRST', 'supplies the view state this model holds')])`, plus `SEDD` / `COMSTA` per contributing field, and `DocRef('BOAED', …)` on a field whose requirement level chose its nullable arm. |
 
 #### 3.5.2 `@CsElement` — CE-EL semantic element
 
@@ -1201,7 +1227,7 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Where they run.** All twenty-one are implemented in
+**Where they run.** All twenty-two are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 `codespecs_validator` drives them) and are invoked by
@@ -1218,7 +1244,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** twenty-one.
+validation pass over the resolved annotation for **all** twenty-two.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1243,6 +1269,7 @@ validation pass over the resolved annotation for **all** twenty-one.
 | 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 |
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 |
 | 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 |
+| 22 | A `@CsColumn` member is a plain Dart field — `T?` when optional, `late final T` when not — and **never** a `TomN*` or any other observable, which the shipped repository can read but cannot write | §3.3.2 |
 
 **Check 21 is where the SOM's structural bound is re-imposed on the code.** On the
 SOM side a graded level takes a `GradedAccessLevelEntry`, whose kind enum has no
@@ -1254,6 +1281,25 @@ sides would diverge exactly where the SOM was deliberately made strict, and the
 divergence would surface as a runtime access decision rather than a generation error.
 The bound is not arbitrary: a graded requirement resolves to one of four **terminal**
 access states, so a grading nested inside a level has nothing left to resolve to.
+
+**Check 22 catches the one defect that reads clean and fails only on save.**
+An observable column *round-trips inward*: `MariadbDatasource` normalises a
+`String?` onto `String` before dispatching to the observable's setter, so a
+`TomNString` member selects correctly and any read-only test passes. There is no
+write path at all. `TomSqlDatasourceRepository.save` binds each column from
+`TomColumnInformation.getVariableValue`, which is `invokeGetter(declaredName)` —
+on an observable member that yields the `TomNString` **object**, not the `String?`
+it holds, and the save comes apart in a `TypeError` deep inside the repository.
+Both arms are pinned by `tom_core_server/test/optional_column_emission_db_test.dart`
+against a live database, so if the repository ever learns to unwrap an observable
+the rule is revisited deliberately rather than becoming quietly wrong.
+
+The check reads a **closed list** of the observable family rather than a `Tom`
+prefix: `TomZonedDate`, `TomZonedTime` and `TomZonedDateTime` are plain value
+types and perfectly legal column types, and a prefix rule would reject them.
+It also reads both spellings of an observable member — the declared type
+(`TomNString name;`) and the commoner inferred one
+(`final name = TomNString(null);`), which names no type for a type rule to see.
 
 **Checks 17 and 18 each carry a whole edge on its own.** Checks 2 and 13 back up
 a compile-time or structural guarantee; these two replace one. The fallback is a
