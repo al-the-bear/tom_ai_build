@@ -147,6 +147,7 @@ Related entrypoints in `bin/`:
 | `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). |
 | `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
+| `check_todo_citations.dart` | Check that every quest-todo id cited inline in `tom_specs_model/doc` still resolves to an **open** todo. Exits `1` on a citation of closed or non-existent work. Run by `tool/regenerate_outlines.sh` and by `test/todo_citations_test.dart` (see below). |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
@@ -159,6 +160,38 @@ through `ModelReader` → `ModelJsonExporter` into the meta-data, so every langu
 serialises members in the authored order. Re-run it after any model edit that
 adds, removes, or reorders fields; it is idempotent (old annotations are stripped
 and renumbered).
+
+**Doc-folder todo citations.** The TomSpecs documents cite quest-todo ids inline
+(`` `qrc2` ``) to say who owns an open question. Such a citation decays silently:
+the todo completes, is archived, and the document goes on pointing a reader at
+finished work. `check_todo_citations.dart` closes that by resolving every
+backticked id-shaped token in `tom_specs_model/doc` against the active, archived
+and deleted todo files of the quests those documents cite
+(`defaultCitedQuests` — `tom_specs` and `tom_core`).
+
+Three things about it are deliberate:
+
+- **Id shapes are discovered, not enumerated.** The stems come from the todo
+  files themselves, so a citation of *another* quest's corpus resolves rather
+  than going invisible — and a series nobody remembered to add to a list is
+  still checked. The price of a shape rule is that ordinary technical terms
+  collide with it; `tool/todo_citation_vocabulary.txt` is that price, paid one
+  token at a time. It is a **token** list, never a path list.
+- **Two exemptions, both inline**, so an exemption travels with the line rather
+  than blanket-exempting a file. `<!-- todo-cite: provenance -->` allows a
+  closed citation *only when the same line also cites an open todo* — the
+  legitimate case is a provenance note ("`tcca14` landed — restated by
+  `qrc2`"), where the raiser is history and what it raised is open. A
+  `<!-- todo-cite: history -->` standing alone on its own line exempts the whole
+  document, for a changelog.
+- **It checks citations, not claims.** That a cited id still *exists and is
+  open* is mechanical; that what the document says *about* it is still true is a
+  semantic judgement and stays with a human reading pass.
+
+The check runs from two places, because a citation goes stale from two sides: a
+documentation pass trips it through `tool/regenerate_outlines.sh`, and a todo
+archive trips it through `test/todo_citations_test.dart`, which runs in the
+default `dart test`.
 
 ---
 

@@ -47,4 +47,12 @@ dart run bin/outliner.dart --package "$PKG" --root-type D00SolutionBlueprint \
   --stop-at-detailed-in \
   -o "$OUT/SolutionBlueprint_compact_outline.md"
 
+# The doc folder's inline quest-todo citations. Runs here rather than in a
+# script of its own because this is the one entrypoint a documentation pass
+# already invokes, and a citation goes stale from either side: a doc edit that
+# names the wrong id, or a todo archive that closes an id a doc still cites.
+# Non-zero exits abort under `set -e`, which is the point — the check is a gate.
+echo "→ todo citations in the doc folder"
+dart run bin/check_todo_citations.dart
+
 echo "Done. Review the diff under $OUT/ and commit."

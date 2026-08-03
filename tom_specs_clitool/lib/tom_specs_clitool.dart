@@ -37,6 +37,22 @@ export 'src/model_freshness.dart'
         writeModelSurfaceStamp,
         configuredPackageNames,
         somPackageCoverageMismatch;
+// The doc-folder gate over inline quest-todo citations: a cited id that has
+// been completed, archived, or never existed fails the check, so a document
+// cannot go on pointing a reader at closed work.
+export 'src/todo_citations.dart'
+    show
+        defaultCitedQuests,
+        todoIdShape,
+        TodoRecord,
+        TodoCorpus,
+        TodoCitation,
+        TodoCitationReport,
+        TodoCitationVocabulary,
+        CitationVerdict,
+        CitationExemption,
+        classifyMarkdown,
+        checkDocFolder;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,
