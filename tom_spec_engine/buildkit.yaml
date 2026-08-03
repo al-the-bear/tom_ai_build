@@ -6,8 +6,10 @@
 # their minimal footprint (the runtime stays `yaml`-only) while the scripting
 # plane, which already depends on `tom_d4rt`, owns the D4rt binding surface.
 #
-# Regenerate with (from the tom_d4rt_generator package):
-#   dart run bin/d4rtgen.dart --project=<path-to>/tom_spec_engine
+# Regenerate with (from the tom_d4rt_generator package). Select the project
+# with --scan, not --project: --project takes project names/ids, so a path
+# matches nothing and the generator exits 0 having generated nothing.
+#   dart run bin/d4rtgen.dart --scan=<path-to>/tom_spec_engine --not-recursive
 d4rtgen:
   name: tom_spec_engine
   helpersImport: package:tom_d4rt/tom_d4rt.dart

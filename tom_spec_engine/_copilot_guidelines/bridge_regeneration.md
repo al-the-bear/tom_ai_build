@@ -117,8 +117,13 @@ against, and a regen committed without it leaves the check failing.
 The equivalent CLI form (from the generator package) is:
 
 ```bash
-dart run bin/d4rtgen.dart --project=<path-to>/tom_spec_engine
+dart run bin/d4rtgen.dart --scan=<path-to>/tom_spec_engine --not-recursive
 ```
+
+Note the `--scan`. `--project` takes project **names/ids**, not paths, and a
+selector that matches nothing is not an error — the generator exits 0 having
+generated nothing. Passing a path to `--project` therefore looks like a
+successful regeneration while leaving the bridges untouched.
 
 After regenerating, run the quality gates:
 
