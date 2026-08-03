@@ -350,9 +350,10 @@ surface — pillar (a)/(b)):
   holder would have carried already belongs to something else, and belongs
   there exclusively: the **value token** is the enum constant's own identifier
   (there is no second `valueId` string that could drift from the name); the
-  **value label** is CE-TX copy, resolved through the message-key registry like
-  every other label — §1.2 consequence 1 names domain-enum value labels
-  explicitly, and §5.21 fixes the catalogued shape; the **description** is the
+  **value label** is CE-TX copy, resolved through `TomTextResourceProvider`
+  like every other label — §1.2 consequence 1 names domain-enum value labels
+  explicitly, and §5.21 fixes the shape, which is the **derived** one keyed off
+  the value rather than a catalogue entry (§5.18); the **description** is the
   doc comment the generator writes above the enum and above each constant
   (`codespecs_derivation_contract.md` §3.1.1); and a **default value** belongs
   to the enum-typed member that has one — a CE-DB column, a CE-CF/CE-CC/CE-DS/
@@ -439,7 +440,7 @@ resulting position second.
 
 | Part ID | Part Description | Mapping to CodeSpecs | Gap analysis `tom_core` | Gap analysis `tom_code_specs` |
 |---------|------------------|----------------------|-------------------------|-------------------------------|
-| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`/`TomFormFileThumbnail`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: the `TomFormNullableBoolField` family carries `tristate`, the `minItems`/`maxItems` field rules carry the MultiChoice selection bounds, and FileInput reuses the shipped `TomFormFileField` family, all three `presentation` values included (§4.1.2). **One shipped-behaviour gap sits under the emitted widgets** rather than above them, so it wants no new class: a *Choice* / *MultiChoice* element's **per-value** copy has no carrier — `TomFormEnumField<T>` resolves its own label through `TomCtr.textOrNull`, but its dropdown renders `Text(it.label)` from the caller-supplied `TomSelectableSource` item literal (`forms/fields/tom_form_enum_object_fields.dart`), so §3.1.1's and §5.21's promise that a value label is a `CsMessageKey` is dropped at emission — mode **E(lossy)** (`tcca9` landed — position restated by `qrc5`) <!-- todo-cite: provenance -->. **The text-controller write path is guarded throughout**: `_setControllerText` is the class's only write to the controller and it suppresses the input listener around it (`forms/tom_form.dart:1161`), `set()` routes through it (`:1245`), and `reset()` carries no override at all — `TomField.reset` resets through the virtual `set` (`:775`). A programmatic write is therefore never judged by the input validators, which exist to judge keystrokes. | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (§2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
+| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`/`TomFormFileThumbnail`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: the `TomFormNullableBoolField` family carries `tristate`, the `minItems`/`maxItems` field rules carry the MultiChoice selection bounds, and FileInput reuses the shipped `TomFormFileField` family, all three `presentation` values included (§4.1.2). **A per-value option label is bundle-resolved like every other label**: the widgets render `SelectableItem.label` verbatim (`forms/fields/tom_form_enum_object_fields.dart`), so the label's provenance is the source class's concern, and the shipped `TomEnumSelectableSource<E>` / `TomEnumNameSelectableSource<E>` pair (`forms/selection/tom_enum_selectable_source.dart`) resolves each option through `TomObservableEnum.resolveText` under `<scope path>.<enumType>.<value>` and re-emits on a bundle change. A *Choice* / *MultiChoice* therefore emits one of those rather than a literal `TomSelectableSource` (§5.18), and §5.21's promise holds at emission too. **The text-controller write path is guarded throughout**: `_setControllerText` is the class's only write to the controller and it suppresses the input listener around it (`forms/tom_form.dart:1161`), `set()` routes through it (`:1245`), and `reset()` carries no override at all — `TomField.reset` resets through the virtual `set` (`:775`). A programmatic write is therefore never judged by the input validators, which exist to judge keystrokes. | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (§2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
 | **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm()` on the class, with `@CodeSpec` carrying its id; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm() @CodeSpec('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | None — full reuse, and nothing is inherited from CE-EL either. The form's load path writes each field through `TomField.set()`, which on a text field is the guarded controller write named there, so loading a form is not processed as a burst of keystrokes. | `@CsForm` stays note-only. Each of the three things it might have carried already has a carrier: the bound view-model link is the `TomForm<T>` **generic** (§2.3 test **a**), the submit target is **derived from the `@CsTrigger`** that fires the submitting action rather than authored a second time, and form-level grade defaults ride the field declarations. The form's id is `@CodeSpec`'s. |
 | **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap filled in `tom_core_codespecs`** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class, so `layout_node.dart` carries `TomLayoutModel` over the sealed `TomLayoutNode` (`TomLayoutContainerNode` / `TomLayoutSlotNode`) plus `TomLayoutOverrideDelta` over `TomLayoutContainerKind` + `TomLayoutDeltaOp` (§5.2, §5.12). The runtime `Acl*` classes themselves are ready. | `@CsLayout` carries the node **id** as its required first positional argument — the one thing the `Acl*` substrate genuinely lacks, and what the whole §5.22 delta grammar addresses nodes by. **Slot hints** are `AclComponent` properties and **container kind** is which `Acl*` class is instantiated, so neither is an argument (§2.3 test **b**). A delta targets a node *within the same layout declaration*, so addressing it by id string is a local coordinate, not a §5.23 cross-part reference. |
 | **CE-TX** Text | User-visible text: message/i18n **keys** (shared), per-client **copy**. | **Built on:** `TomTextResourceProvider` (`tom_core_kernel`, `tombase/resources/tom_resource_provider.dart`) resolves keys; copy is basePath-derived client-side.<br>**Annotations:** `@CsText` on each **member** of a message-key catalogue class in the shared project; keys as §5.23 `CsMessageKey` consts.<br>**Example:** `class Messages { @CsText(baseCopy: 'Customer name') static const custNameLabel = CsMessageKey('customer.name.label'); }` | **Gap filled in `tom_core_codespecs`** — the typed **message-key registry** model (the catalogue of keys, SOM home MSGKR) has no core class, so `message_key.dart` carries `TomMessageKeyRegistry` over `TomMessageKey` + `TomMessageRole` / `TomMessageCategory` (§5.8, §5.21). | `@CsText` carries the **base-language copy** (required — a key with no copy is a key with no message), the **role** the copy plays and which catalogue **half** it belongs to. The **key** is not an argument: it is the `CsMessageKey` const the member already holds. Nor are the message **parameters**: §5.21 derives them from the copy's placeholders, so a second parameter list would be a source that could disagree with the copy it describes. A validator asserts `role == error ⇒ category == errorCopy`. |
@@ -479,25 +480,23 @@ resulting position second.
   §5.13), **CE-AU** (the second factor decides, enrols, offers a choice and
   challenges across all three loci — §5.25), **CE-FM** (the form's load path
   writes each field through the guarded controller write, so a load is not a
-  burst of keystrokes — §4.1.1).
+  burst of keystrokes — §4.1.1), **CE-EL** (the eleven-kind catalogue maps 1:1
+  onto shipped widgets, and an option label resolves through the text-resource
+  provider like every other label because the element emits a bundle-labelled
+  source class rather than a literal one — §5.18).
 - **NEEDS EXTENSION — the class to build on exists, a capability under it does
   not.** Each entry names the core-side prerequisite, which has landed, and the
   mapping-side todo that restates the position here:
-  - CE-EL — a *Choice* value's per-value copy has no `CsMessageKey` carrier, so
-    the attribute is dropped at emission; mode **E(lossy)**
-    (`tcca9` → `qrc5`). <!-- todo-cite: provenance -->
   - CE-DS — no (user, device)-scoped store; mode **R**
     (`tcca11` landed → `tspcmp1` settled → `qrc6`). <!-- todo-cite: provenance -->
   - CE-UP — server side of the round trip unwired; mode **R**
     (`tcca10` landed → `tspcmp2` → `qrc7`). <!-- todo-cite: provenance -->
 
-  The two **R** entries emit and compile, and each yields an application that
-  does not yet run. CE-EL's **E(lossy)** entry does run — it renders a value
-  label that never passed through the text-resource provider, which is a
-  silently narrower promise rather than a stoppage, and it is CE-EL's only
-  remaining gap. These three are the NEEDS-EXTENSION class: what they wait on is
-  behaviour in a shipped class, not a class that does not exist, so none of them
-  changes the §4.1.2 built-on resolution or moves a part into
+  **Every remaining gap is of mode R**: both entries emit and compile, and each
+  yields an application that does not yet run. Nothing in the matrix is
+  emission-blocking, and nothing is lossy. Both are the NEEDS-EXTENSION class:
+  what they wait on is behaviour in a shipped class, not a class that does not
+  exist, so neither changes the §4.1.2 built-on resolution nor moves a part into
   `tom_core_codespecs`.
 - **READY VIA `tom_core_codespecs` — the part reuses `tom_core` plus one
   concrete gap class:** CE-LO (`layout_node.dart`), CE-TX (`message_key.dart`),
@@ -1115,7 +1114,7 @@ above verifies.
 in the §4.1.1 matrix. A slice containing a NEEDS-EXTENSION or MISSING part is
 blocked and names the todo that unblocks it.
 
-**Refinement — three blocking modes.** Applied literally the gate is too coarse
+**Refinement — four blocking modes.** Applied literally the gate is too coarse
 to act on, because the §4.1.1 gaps do not all block the same thing. Each gap is
 therefore classified:
 
@@ -1133,18 +1132,19 @@ therefore classified:
 |---|-------|-----------------|------|--------------|
 | **1** | Shared const catalogues | — (CE-ER, CE-TX and the CE-AZ catalogues are READY: the markers take their `CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` parameters) | — | — |
 | **2** | Shared contract | — (CE-API, CE-VA and CE-ID are READY; the CE-NT declarations and the CE-RP result envelope emit against their shipped `tom_core_codespecs` gap classes). No untyped cross-part edge remains here: CE-RP's targets are settled (§5.28 — a `Type` literal, a recurrence expression, a `@CsAuthorize` beside the marker, and one locus-barred route id validator-checked by design). A CE-NT channel's fallback also emits as a string, but is **intra-part** and so was never in §5.23's scope — likewise settled and validator-checked | — | — |
-| **3** | — (CE-DB, CE-MG, CE-RP's definition and CE-LG are all READY: the aggregation grammar and the schema-diff engine ship, a declared transaction scope resolves per flow through the zone-held current transaction (`tom_core_server` `transactions/transaction_manager.dart:219`), the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28) — a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization) | — | — |
-| **4** | — (CE-SU, CE-AU, CE-NT delivery and CE-LG are all READY: **CE-AU's second factor is complete across the trio** — `Tom2FAPolicy` decides requirement level, mechanism preference order and grace, `Tom2FAEnrolmentSupport` enrols with `TomTotp2FAService` generating the secret and the `otpauth://` URI, `TomAuthenticationResult` carries the enrolment state and the method list, and `Tom2FAFlowPanel` runs the client half (§5.25); the `messaging` router, SMTP transport and durable outbox ship; and the audit trail records at a chokepoint no handler can opt out of) | — | — |
-| **5** | Client interaction core | CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. One gap sits under the emitted widgets: a `choice` / `multiChoice` field's **per-value** copy is a literal on its `TomSelectableSource` item, not the `CsMessageKey` §3.1.1 and §3.5.2 promise. The text-controller write path is guarded throughout — `_setControllerText` is the only write, `set()` routes through it and `reset()` has no override (`tom_flutter_ui` `forms/tom_form.dart:1161`, `:1245`) | **E(lossy)** | `tcca9` (`tom_core`, landed) → `qrc5` <!-- todo-cite: provenance --> |
+| **3** | Server persistence & configuration | — (CE-DB, CE-MG, CE-RP's definition and CE-LG are all READY: the aggregation grammar and the schema-diff engine ship, a declared transaction scope resolves per flow through the zone-held current transaction (`tom_core_server` `transactions/transaction_manager.dart:219`), the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28) — a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization) | — | — |
+| **4** | Server behaviour | — (CE-SU, CE-AU, CE-NT delivery and CE-LG are all READY: **CE-AU's second factor is complete across the trio** — `Tom2FAPolicy` decides requirement level, mechanism preference order and grace, `Tom2FAEnrolmentSupport` enrols with `TomTotp2FAService` generating the secret and the `otpauth://` URI, `TomAuthenticationResult` carries the enrolment state and the method list, and `Tom2FAFlowPanel` runs the client half (§5.25); the `messaging` router, SMTP transport and durable outbox ship; and the audit trail records at a chokepoint no handler can opt out of) | — | — |
+| **5** | Client interaction core | — (CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. A `choice` / `multiChoice` field's **per-value** copy resolves through the text-resource provider, because the slice emits a `TomEnumSelectableSource` / `TomEnumNameSelectableSource` rather than a literal option list (§5.18, `codespecs_derivation_contract.md` §3.5.2). The text-controller write path is guarded throughout — `_setControllerText` is the only write, `set()` routes through it and `reset()` has no override (`tom_flutter_ui` `forms/tom_form.dart:1161`, `:1245`)) | — | — |
 | **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS has no substrate for its scope**: `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves from config once at construction and is never written, and `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) states in its own contract that there is no user parameter in the interface, by design. **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca11` + `tspcmp1` settled → `qrc6`; `tcca10` landed, `tspcmp2` open → `qrc7` <!-- todo-cite: provenance --> |
 | **7** | Server operational | CE-JB is **READY** on both sides — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, §5.29 names the owning class for each of the four scope parts, both target kinds are compiler-checked (`Type` literals for CE-DB, `CsReportRef` consts for CE-RP), and the SOM per-job declaration list `SCJOB` supplies the authored surface | — | — |
 
 **Critical-path consequence.** The `Cs*` annotation family with its constructors,
 the §5.23 `Cs*Ref` types and the `tom_core_codespecs` gap classes have all
-landed, so **every slice is emission-clear**: a generator can write each
-skeleton, and the one emission exception is lossy rather than blocking — a
-`choice` / `multiChoice` element's per-value copy has nowhere to carry its
-`CsMessageKey`, so that attribute is dropped at slice 5.
+landed, so **every slice is emission-clear, with no exception**: a generator can
+write each skeleton, and no declared attribute is dropped on the way. The last
+lossy one — a `choice` / `multiChoice` element's per-value copy — resolves
+through the text-resource provider now that slice 5 emits a bundle-labelled
+source class instead of a literal option list (§5.18).
 
 **Both remaining `tom_core`-side blockers are of mode R, and both sit in slice
 6.** It emits and compiles; what it produces does not yet run against a complete
@@ -2798,8 +2798,8 @@ column is the extra spec-authorable attributes that kind adds to the base:
 | **Number** | form-member | `int`/`double` | numeric `TomTextField` | `minValue`, `maxValue`, `decimals` (double only) | Field kind (numeric) + Validation rule |
 | **Toggle** | form-member | `bool` (`bool?` when `tristate`) | switch/checkbox | `tristate` | Field kind (boolean) |
 | **DateInput** | form-member | `DateTime` | date picker | `firstDate`, `lastDate` (bounds) | Field kind (date) + Validation rule |
-| **Choice** | form-member | `enum`/object | dropdown/select | `source` (option provider, required) | Field kind (single choice source) |
-| **MultiChoice** | form-member | `List<…>` | multi-select | `source` (required), `minSelections`/`maxSelections` (→ CE-VA `minItems`/`maxItems`) | Field kind (multi choice source) |
+| **Choice** | form-member | `enum`/object | dropdown/select | `source` (option provider, required — **derived, not authored**, for an enum-valued choice: see below) | Field kind (single choice source) |
+| **MultiChoice** | form-member | `List<…>` | multi-select | `source` (required, same derivation), `minSelections`/`maxSelections` (→ CE-VA `minItems`/`maxItems`) | Field kind (multi choice source) |
 | **FileInput** | form-member | `FileRef?` | `TomFormFileUpload` (`FormFieldFamily.fileUpload`; Cupertino `TomCupertinoFormFileUpload`) | `contentKinds` (accepted — `pickKind` family + `allowedExtensions`), `maxSizeBytes`, `presentation` (selects the concrete), `uploadOnPick` | Field kind (file reference) |
 | **Label** | standalone | — (read-only) | `TomText` | `text` (→ CE-TX) | Copy display |
 | **Button** | standalone (also in-form, e.g. submit) | — (interactive) | a `TomButtonBase` variant (`TomElevatedButton` / `TomFilledButton` / `TomTextButton` / `TomOutlinedButton` / `TomIconButton`) | `variant` (primary/secondary/… — selects the concrete class; tokens in `TomButtonVariants`), `icon` | Action element |
@@ -2858,6 +2858,31 @@ over `bool?`, where `null` is the indeterminate state
 `FormFieldFamily.nullableBoolToggle`). The attribute therefore selects the
 field class rather than merely configuring one — the only per-kind attribute
 in this catalogue that does.
+
+**A Choice's per-value copy rides its source class, never a literal.** The
+option list a *Choice* or *MultiChoice* offers carries one label per value, and
+that label is user-visible copy — so it resolves through
+`TomTextResourceProvider` like every other label. The widgets themselves render
+`SelectableItem.label` verbatim (`forms/fields/tom_form_enum_object_fields.dart`),
+so where the label comes from is entirely the **source class's** concern, and the
+substrate ships the two that resolve it:
+**`TomEnumSelectableSource<E>`** when the bound member is enum-typed, and
+**`TomEnumNameSelectableSource<E>`** when it stores `Enum.name` in a `TomString`
+— the shape a reflected, JSON-carried domain class takes
+(`forms/selection/tom_enum_selectable_source.dart`). The two differ only in what
+a selected option is *worth*; both label identically. A CodeSpec therefore never
+authors an option list: naming the enum is the authoring act, and the source is
+derived from the bound member's type (`codespecs_derivation_contract.md` §3.5.2).
+
+**The resolution rule** is a key derived from the *value*, not a catalogued one:
+`<scope path>.<enumType>.<value>`, tried **longest scope prefix first** and
+falling back to the global scope
+(`TomObservableEnum.resourceKeysFor`, `tom_core_kernel`
+`tombase/observable/tom_observable_enum.dart:126`). A value with no key in the
+bundle renders its raw enum name and logs the keys that were tried — the option
+stays selectable, never blank. The source re-emits its items on
+`TomTextResourceProvider.appResourcesRevision`, so a locale switch relabels a
+bound picker with nothing on the widget side to change and no field rebuilt.
 
 **FileInput is the element that produces and presents a file reference.** Its
 value is a `FileRef` — name, size, content kind, and the server-generated
@@ -2931,7 +2956,9 @@ action→operation (§5.2/§5.3).
   `maxItems`) are convenience field attributes that *desugar* to CE-VA field
   rules — one authoring surface, no duplication.
 - **CE-EL ↔ CE-TX** (§5.8): label/hint/description/`Label.text` are copy references,
-  authored once in CE-TX.
+  authored once in CE-TX. A Choice's **per-value** labels are copy too, but of the
+  **derived** shape (§5.21): keyed off the value rather than off the element's
+  `basePath`, so they carry no catalogue entry and no `CsMessageKey` citation.
 - **CE-EL ↔ CE-AZ** (§5.15): `authorizer` is a field-level graded-access modifier, not
   an element attribute of its own.
 - **CE-EL ↔ CE-AC** (§5.10, §5.20): the element→action edge is authored **once on
@@ -3132,6 +3159,18 @@ shape — the **all-*other*-texts** namespace (server / error copy, notification
 email bodies, report copy). Derived element texts carry **no** CE-TX catalogue
 entry: their `basePath` + suffix *is* the key, and the SOM content is the copy.
 
+**The derived source has two key shapes.** Element-slot copy is keyed off the
+**element** (`basePath` + role suffix, above). A *Choice* / *MultiChoice*
+**option label** is keyed off the **value**: `<scope path>.<enumType>.<value>`,
+longest scope prefix first with a global-scope fallback, resolved by
+`TomObservableEnum.resolveText` through the same provider and carried by the
+element's `TomEnumSelectableSource<E>` / `TomEnumNameSelectableSource<E>`
+(§5.18). Both shapes are derived for the same reason: the key is computable from
+what the element or the value already *is*, so a catalogue entry would be a
+second name for one thing — and a second name is a thing that can disagree.
+Neither shape carries a message-key entry, and neither is cited as a
+`CsMessageKey`.
+
 **Message-key attribute surface (final).** Over `TomTextResourceProvider` +
 `TomText`/`TomLabelBase` (§5.8):
 
@@ -3182,6 +3221,8 @@ role suffix resolves directly against `TomTextResourceProvider`.)
 - **CE-TX ↔ CE-EL** (§5.18): a screen element's labels/hints/descriptions/error copy
   are **`basePath`-derived, not catalogued** (decision (e)) — CE-TX owns no key for
   them; the element's `basePath` + role suffix *is* the key (also the CE-AZ key, §5.15).
+  A Choice's **option labels** are derived too, off the value instead of the
+  element, and resolved by the element's bundle-labelled source class (above).
 - **CE-TX ↔ CE-AC** (§5.20): action copy that is not element-owned is a catalogued
   message-key *reference*; CE-TX owns the key + copy.
 - **CE-TX ↔ CE-VA** (§5.19): validation error keys route through the CE-ER-keyed MSGKR.
@@ -4642,7 +4683,7 @@ specification.
 A todo below is paired with its prerequisite in the `tom_core` quest
 (`_ai/quests/tom_core/todos.tom_core.todo.yaml`): the core-side capability has
 to exist before the mapping-side position can be stated. Every `tcca*`
-prerequisite has landed, so for `qrc5`–`qrc6` what is left is the work against
+prerequisite has landed, so for `qrc6` what is left is the work against
 *this* document alone — restating the position the shipped capability now
 supports. `qrc6`'s scope question is settled too
 (`tcca11` landed → `tspcmp1` settled → `qrc6`): <!-- todo-cite: provenance -->
@@ -4660,7 +4701,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) now that `tcca9` has landed <!-- todo-cite: provenance -->. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) now that `tspcmp1` has settled the scope question `tcca11` left open <!-- todo-cite: provenance --> — the store is scoped by its `location`, so the account is one segment of the address rather than a parameter in the API — and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tspcmp2` settles which seam survives `tcca10` <!-- todo-cite: provenance -->. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
 
