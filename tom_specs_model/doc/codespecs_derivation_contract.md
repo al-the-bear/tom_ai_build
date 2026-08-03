@@ -422,37 +422,37 @@ Cites slice 1 only.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ElementValidationRuleEntry` (`ELVARUEN`), `DataAttributeConstraintEntry` (`DATAA`), `IntegrityConstraints` (`INCO`). Consumed: which of the ten standard rules apply, and each rule's arguments. |
+| **1 Input** | `ElementValidationRuleEntry` (`ELVARU`), `DataAttributeConstraintEntry` (`DATAA`), `IntegrityConstraints` (`INCO`). Consumed: which of the ten standard rules apply, and each rule's arguments. |
 | **2 Output** | **No declaration of its own** for the standard rules — the marker rides the field it constrains, carrying the §5.19 declaration string. Built on `Validators` (`tom_flutter_ui`), whose named rules the string selects. A shared rule *library* class also carries a plain `@CsValidation()`. |
 | **3 Arguments** | `rules` — **first positional, optional** (`''`), the §5.19 comma-separated grammar: `<name>` / `<name>:<arg>` / `<name>:<arg1>:<arg2>`, e.g. `'required, minLength:8, pattern:^[A-Z]'`. Rule names are the nine declarable tokens; `compose` is **not** declarable (§5.19) and a generator that emits it has produced an invalid string. Argument values are verbatim from the SOM constraint. Empty on a library holder. |
 | **4 Naming** | No identifier — the marker sits on an existing field. A shared rule library is named `<Document>Rules`. |
 | **5 Locus** | `shared` where the same rule constrains a shared DTO; otherwise `client` with the field it rides (§4.2 lists "shared CE-VA rules"). |
 | **6 Cross-refs** | None from the string itself; the error key of a standard rule is derived per §5.21. |
-| **7 Back-link** | `@DocSpec([DocRef('ELVARUEN', 'supplies the rule set and its arguments')])` — `DATAA` / `INCO` substituted when the constraint came from the data model. |
+| **7 Back-link** | `@DocSpec([DocRef('ELVARU', 'supplies the rule set and its arguments')])` — `DATAA` / `INCO` substituted when the constraint came from the data model. |
 
 #### 3.2.3 `@CsFieldRule` — CE-VA, project-specific single-field rule
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ElementValidationRuleEntry` (`ELVARUEN`) whose rule is **not** one of the ten standard rules. Consumed: the rule's description (which becomes the stub explication) and its error key. |
+| **1 Input** | `ElementValidationRuleEntry` (`ELVARU`) whose rule is **not** one of the ten standard rules. Consumed: the rule's description (which becomes the stub explication) and its error key. |
 | **2 Output** | A standalone `Validator<T>` — `FutureOr<ValidationResult> Function(T)` (`tom_flutter_ui`) — as a **form-3** compilable pseudo-code function whose entire body is `throw UnsupportedError('<description>')` (§2.4), or a registered entry in `TomValidatorRegistry`. The typed value in / `ValidationResult` out signature is what makes it composable into a declaration string. |
 | **3 Arguments** | `errorKey` (**required**) ← the SOM rule's error key, resolved to a `CsMessageKey` const by N9. Rule kind and rule arguments are **not** arguments — the function signature and body are the rule (test **a**). "Async/slow" is marked N in §5.19 and is read off the declared `Future` return type. |
-| **4 Naming** | camelCase of `ELVARUEN`'s name field, suffixed `Rule` where N6 would otherwise collide with the field it validates. |
+| **4 Naming** | camelCase of `ELVARU`'s name field, suffixed `Rule` where N6 would otherwise collide with the field it validates. |
 | **5 Locus** | Follows §3.2.2 — `shared` when it constrains a shared DTO, else `client`. |
 | **6 Cross-refs** | `CsMessageKey` (its error key). |
-| **7 Back-link** | `@DocSpec([DocRef('ELVARUEN', 'supplies the rule semantics and its error key')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('ELVARU', 'supplies the rule semantics and its error key')])`. |
 
 #### 3.2.4 `@CsFormRule` — CE-VA, cross-field rule
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ElementValidationRuleEntry` (`ELVARUEN`) naming **two or more** fields — the discriminator against §3.2.3. Consumed: the involved fields, the rule description, the cross-field error key. |
+| **1 Input** | `ElementValidationRuleEntry` (`ELVARU`) naming **two or more** fields — the discriminator against §3.2.3. Consumed: the involved fields, the rule description, the cross-field error key. |
 | **2 Output** | A **method on the `TomForm` subclass** (`tom_flutter_ui`) returning `FormValidationError?`, form 3: body `throw UnsupportedError('<description>')`. It is deliberately not expressible in the per-field declaration string — the grammar cannot name a second field — which is why the rule is authored on the form. |
 | **3 Arguments** | `errorKey` (**required**) ← the cross-field error key as a `CsMessageKey`. Involved fields are **not** an argument: the method reads them, so the declaration carries them (test **a**). Per-field error keys are marked N in §5.19 — they are derived from `FormValidationError.fieldErrorKeys` at implementation time. |
-| **4 Naming** | camelCase of `ELVARUEN`'s name field, prefixed `validate` when the name is not already a verb phrase — determined by N2 producing a leading token that is not in the closed verb set `{validate, check, ensure, require}`. |
+| **4 Naming** | camelCase of `ELVARU`'s name field, prefixed `validate` when the name is not already a verb phrase — determined by N2 producing a leading token that is not in the closed verb set `{validate, check, ensure, require}`. |
 | **5 Locus** | `client` — a form rule lives on the form. |
 | **6 Cross-refs** | `CsMessageKey`. |
-| **7 Back-link** | `@DocSpec([DocRef('ELVARUEN', 'supplies the cross-field invariant and its error key')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('ELVARU', 'supplies the cross-field invariant and its error key')])`. |
 
 #### 3.2.5 `@CsIdentity` — CE-ID, the extension declaration holder
 
@@ -663,25 +663,25 @@ CE-DS or CE-UP, authored in that scope's own list.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ReportColumnEntry` (`REPCOLENT`). Consumed: which declared dimension or measure the column displays, its aggregate and its format. |
+| **1 Input** | `ReportColumnEntry` (`REPCOL`). Consumed: which declared dimension or measure the column displays, its aggregate and its format. |
 | **2 Output** | A `TomReportColumn` member of the §3.3.8 definition, form 1. A column **displays** a declared dimension or measure and never introduces data of its own — which is why it names a source key rather than an entity column, and why it is not `@CsColumn` (a stored attribute, a different level entirely). |
 | **3 Arguments** | None; unchanged. Source key, aggregate and format are `TomReportColumn`'s parameters (test **b**). |
-| **4 Naming** | camelCase of `REPCOLENT`'s column-name field. |
+| **4 Naming** | camelCase of `REPCOL`'s column-name field. |
 | **5 Locus** | `server` with its definition. The `TomReportColumn` *class* is also reachable from the shared `TomReportResult` envelope, but that is a gap-package type in `tom_core_codespecs` — which is not one of the three generated projects — so it fixes no locus for the authored declaration. |
 | **6 Cross-refs** | `CsMessageKey` (its label). Its **drill-through** target is an open route id string on `TomReportColumn.drillThroughRouteId` — the one CE-RP edge a typed ref can never carry, because `codespecs_mapping.md` §5.23's locus rule bars a server-owned definition from citing a client-owned route. Unlike the four §5.23 string exemptions, whose referents are not Dart declarations, a route **is** one, so the compile-time guarantee is lost to locus rather than absent by nature and is **replaced** by check 18 (§6) — the same substitution check 17 makes for a CE-NT fallback. |
-| **7 Back-link** | `@DocSpec([DocRef('REPCOLENT', 'supplies the projected column and its aggregate')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('REPCOL', 'supplies the projected column and its aggregate')])`. |
 
 #### 3.3.10 `@CsReportChart` — CE-RP chart
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ReportChartEntry` (`REPCHAENT`). Consumed: chart type, series, axes — the SOM carries all three as structured fields. |
+| **1 Input** | `ReportChartEntry` (`REPCHA`). Consumed: chart type, series, axes — the SOM carries all three as structured fields. |
 | **2 Output** | A `TomReportChart` member, form 1. **Declared here, rendered by whoever can:** the declaration is authored input, while rendering is implementation-owned — a client draws charts natively, and an export format that cannot express one **omits it rather than failing**. A chart plots columns the report already projects, so it never adds a second query. |
 | **3 Arguments** | None; unchanged. Type, series and axes are `TomReportChart`'s parameters (test **b**). |
-| **4 Naming** | camelCase of `REPCHAENT`'s chart-name field + `Chart`. |
+| **4 Naming** | camelCase of `REPCHA`'s chart-name field + `Chart`. |
 | **5 Locus** | `server` with its definition. |
 | **6 Cross-refs** | References the report's own columns by member, not by ref const — they are siblings in one declaration. |
-| **7 Back-link** | `@DocSpec([DocRef('REPCHAENT', 'supplies the chart type, series and axes')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('REPCHA', 'supplies the chart type, series and axes')])`. |
 
 ### 3.4 Slice 4 — server behaviour
 
@@ -718,13 +718,13 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `AuthorizationRequirementSpec` (`AZREQ`) — the one reusable closed choice, read from wherever the gated thing embeds it: `ServerOperationEntry.authorization` (`SVOPE`) for the operation-level case, the `access` member on the XDS screen / screen-element / navigation / tab / utility / deep-link / report / export sections for the field- and element-level cases. Consumed: `requirementKind` (which of the ten arms) plus that arm's payload subsection, and for the graded arm `GradedAuthorizationRequirement` (`AZGRD`) → its `GradedAccessLevelEntry` (`AZLVL`) level list. `RoleMatrix` (`ROMA`), `RolePermissionEntry` (`ROLPERM`) and `EntitlementEntry` (`ENT`) are the **catalogues** the payload cites, not the requirement itself — they define what a role or entitlement *means*; `AZREQ` only names one. |
+| **1 Input** | `AuthorizationRequirementSpec` (`AZREQ`) — the one reusable closed choice, read from wherever the gated thing embeds it: `ServerOperationEntry.authorization` (`SVOPE`) for the operation-level case, the `access` member on the XDS screen / screen-element / navigation / tab / utility / deep-link / report / export sections for the field- and element-level cases. Consumed: `requirementKind` (which of the ten arms) plus that arm's payload subsection, and for the graded arm `GradedAuthorizationRequirement` (`AZGRD`) → its `GradedAccessLevelEntry` (`AZLVL`) level list. `RoleMatrix` (`ROMA`), `RolePermissionEntry` (`ROLPER`) and `EntitlementEntry` (`ENT`) are the **catalogues** the payload cites, not the requirement itself — they define what a role or entitlement *means*; `AZREQ` only names one. |
 | **2 Output** | **No declaration of its own** — coding form 4, a modifier on the `@CsEndpoint` it gates (§5.6.3), or on a field for the field-level `authorizer` (slice 5). It feeds `TomEndpointHandler.checkAccess`, over the `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`) and `TomResourceGrant` (`tom_core_server`). Slice 1 separately emits the **role and resource-key catalogues** into shared, since both sides cite them. |
 | **3 Arguments** | `requirement` (**required**) ← `AZREQ.requirementKind`, constant-for-constant onto `CsAuthRequirement {role, group, entitlement, resourceKey, custom, graded, none, public, authenticated, guest}` — §5.15's six requirement kinds plus its four attribute-less presets (`TomNoAccess`, `TomPublicAccess`, `TomAuthenticatedAccess`, `TomGuestAccess`) folded into one closed enum. **One constant is renamed across the boundary: SOM `denied` → `CsAuthRequirement.none`.** The SOM spells the deny preset `denied` because in an authored document "None" reads as *no authorization needed*, the exact fail-open misreading §5.16's fail-safe rule exists to prevent; the code side keeps `none` to match `TomNoAccess`. Required, and no arm is a default, on either side. Per-kind slots, only the declared kind's being non-null (§2.3), each read from that kind's `@Case` subsection: `roles: List<CsRoleRef>` ← `AZREQ-ROLE.roles` (→ `TomRoleAccess.roles`), `groups: List<String>` ← `AZREQ-GRUP.groups`, `entitlements: List<String>` ← `AZREQ-ENTL.patterns`, `resourceKey: CsResourceKeyRef` ← `AZREQ-RKEY.resourceKey`, `handler` + `resourceId: String` ← `AZREQ-CUST`, and `graded: CsGradedAccess` ← `AZGRD`. The graded slot is a nested facet value class holding the three slots `full` / `read` / `disabled`, filled by matching each `AZLVL` entry's `accessLevel` to its slot and lowering that entry's own kind + payload into a nested `@CsAuthorize` by the same rules. Because `AZLVL` ranges over the nine-constant `BasicAuthorizationRequirementKind`, **a nested slot's `requirement` is never `graded`** — the SOM bounds the depth structurally (`codespecs_mapping.md` §5.15) and §6 check 21 holds the code side to the same bound. An omitted level is not an omitted requirement: the four states `none < disabled < read < full` and the monotonic defaults `read ⇐ full`, `disabled ⇐ read` are **derived**, not authored, so authoring only `full` is the common and correct case. |
 | **4 Naming** | None — the modifier has no identifier. Catalogue consts are named by N9 over the role / resource-key name. |
 | **5 Locus** | `server` for operation-level; `client` for the field-level `authorizer` (slice 5); the **catalogues** are `shared` (§4.2). |
 | **6 Cross-refs** | `CsRoleRef`, `CsResourceKeyRef`. Groups and entitlement patterns stay strings — they name external directory objects, not generated declarations. |
-| **7 Back-link** | `@DocSpec([DocRef('AZREQ', 'supplies the requirement this operation is gated by')])` — the section that *authored* the requirement, always `AZREQ` regardless of arm, since that is the one editable place a reader must reach to change the gate. The graded arm adds `DocRef('AZGRD', 'supplies the per-level requirements')`. The catalogues (`ROMA` / `ROLPERM` / `ENT`) are not back-linked from here: they are reached through the `CsRoleRef` / `CsResourceKeyRef` consts, which carry their own back-links. |
+| **7 Back-link** | `@DocSpec([DocRef('AZREQ', 'supplies the requirement this operation is gated by')])` — the section that *authored* the requirement, always `AZREQ` regardless of arm, since that is the one editable place a reader must reach to change the gate. The graded arm adds `DocRef('AZGRD', 'supplies the per-level requirements')`. The catalogues (`ROMA` / `ROLPER` / `ENT`) are not back-linked from here: they are reached through the `CsRoleRef` / `CsResourceKeyRef` consts, which carry their own back-links. |
 
 #### 3.4.4 `@CsAuth` — CE-AU server flow + CE-ID population
 
@@ -749,19 +749,19 @@ unit, which is why they share a slice rather than an order.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ScreenStateEntry` (`SCRST`), `ScreenElementDataDisplay` (`SEDD`), `ComponentStateEntry` (`COMSTAENT`). Consumed (§5.4): the fields as `(name, T, kind)`, their derivation, their binding, the lifecycle scope. |
+| **1 Input** | `ScreenStateEntry` (`SCRST`), `ScreenElementDataDisplay` (`SEDD`), `ComponentStateEntry` (`COMSTA`). Consumed (§5.4): the fields as `(name, T, kind)`, their derivation, their binding, the lifecycle scope. |
 | **2 Output** | A view-model class holding `TomObservable` / `TomObject<T>` members — `TomString`, `TomInt`, `TomDouble`, `TomBool`, `TomClass`, `TomList`, `TomMap` (`tom_core_kernel`) — bound in the UI by `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). Form 1. **Observable fields are initialised declarations** (`final TomString name = TomString('');`) — §2.4's sole exception, because an uninitialised observable would not compile at its use sites. Derived fields are form-3 getters that throw. |
 | **3 Arguments** | `scope` ← the lifecycle scope, enum-mapped onto `CsLifecycleScope {screen, route, app}`, default `screen` — the narrowest arm, so widening a view model's lifetime is a deliberate act. Fields, their types and their binding are the declaration (test **a**); binding to a widget is `TomObservingWidget`'s own surface (test **b**). |
 | **4 Naming** | PascalCase of `SCRST`'s name field + `ViewModel`; members camelCase of their own name field. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | Referenced **by** `CsTrigger`'s condition kind (its predicate reads these fields). Emits none. |
-| **7 Back-link** | `@DocSpec([DocRef('SCRST', 'supplies the view state this model holds')])`, plus `SEDD` / `COMSTAENT` per contributing field. |
+| **7 Back-link** | `@DocSpec([DocRef('SCRST', 'supplies the view state this model holds')])`, plus `SEDD` / `COMSTA` per contributing field. |
 
 #### 3.5.2 `@CsElement` — CE-EL semantic element
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ScreenElementEntry` (`SCREL`), `UiComponentEntry` (`UICOMENT`), `ComponentVariantEntry` (`CVE`). Consumed (§5.18 field base): element id, semantic kind, value type; the N-marked rows (initial value, label/hint, validators, authorization, auto-validate) come from other parts and are **not** consumed here. |
+| **1 Input** | `ScreenElementEntry` (`SCREL`), `UiComponentEntry` (`UICOM`), `ComponentVariantEntry` (`CVE`). Consumed (§5.18 field base): element id, semantic kind, value type; the N-marked rows (initial value, label/hint, validators, authorization, auto-validate) come from other parts and are **not** consumed here. |
 | **2 Output** | A **standalone element declaration** built on the `Tom*` element family through `TomScreenElementsProvider` (`tom_flutter_ui`), form 1. The element id rides `TomField.tomId` (test **b**). Elements that are *members of a form* are emitted by CE-FM instead (§5.7.2): `@CsElement` proper covers standalone elements. |
 | **3 Arguments** | `kind` (**required**) ← the semantic kind, enum-mapped onto `CsElementKind {textInput, number, toggle, dateInput, choice, multiChoice, fileInput, label, button, menuEntry, formHost}` — §5.18's closed eleven-kind catalogue. Required because it selects the per-kind attribute set and the default widget; no kind is a sensible default. The value type `T` is the declaration's generic (test **a**); every per-kind extra (`maxLength`, `keyboardType`, `maxLines`, `obscureText`, `variant`, `icon`, `allowedExtensions`, `maxSizeBytes`, `pickKind`, `autoUpload`, …) maps onto a named `tom_flutter_ui` widget property and is therefore carried by the `@CsWidget` instantiation (test **b**), never duplicated here — `fileInput`'s `presentation` included, since like `button`'s `variant` it selects the concrete (`TomFormFileUpload` / `TomFormFileDropzone` / `TomFormFileThumbnail`) rather than configuring one. A SOM field kind with no arm in the catalogue is **not** an error — a **colour value** is resolved *before* this mapping runs (§5.18): free entry becomes `textInput` plus a CE-VA pattern rule, a closed palette becomes `choice` whose source is the token catalogue, so `kind` never sees a colour. |
 | **4 Naming** | camelCase of `SCREL`'s element-id field. |
@@ -773,7 +773,7 @@ unit, which is why they share a slice rather than an order.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | The same `SCREL` / `UICOMENT` / `CVE` sections as §3.5.2, plus `ComponentVariantEntry` (`CVE`) for a non-default widget choice. |
+| **1 Input** | The same `SCREL` / `UICOM` / `CVE` sections as §3.5.2, plus `ComponentVariantEntry` (`CVE`) for a non-default widget choice. |
 | **2 Output** | The **concrete `tom_flutter_ui` widget instantiation** realising the semantic kind — `TomTextField` for `textInput`, a `TomButtonBase` variant for `button`, and so on down §5.18's per-kind table. Form 1. This is step two of §5.7.1's two-step semantic → widget derivation: the kind is the spec, the widget is the realisation. |
 | **3 Arguments** | None; `@CsWidget({String? note})` unchanged. Every per-kind attribute is a named parameter of the widget constructor (test **b**) — which is the whole reason the two-step split exists: it lets the spec stay at the semantic level while the code stays typed. |
 | **4 Naming** | None of its own — the marker sits on the element's widget member. |
@@ -847,7 +847,7 @@ unit, which is why they share a slice rather than an order.
 |-------|----------|
 | **1 Input** | `FormScreenAssignmentEntry` (`FMSCAS`) and `ScreenTransitionEntry` (`SCTREN`), both under `SCRTMP` — §5.11's second and third 1:1 mappings. Consumed: which form a screen presents and whether it replaces or overlays; which action fires an edge and which outcome selects its target. |
 | **2 Output** | `TomFormScreenAssignment` and `TomScreenFlowEdge` instantiations (`tom_core_codespecs` **gap classes**, §4.1), form 1. Where `@CsRoute` names *a* screen, this records the edges that combine the D05 ISC scenarios into interactions with screens. |
-| **3 Arguments** | None; `@CsScreenFlow({String? note})` unchanged. Both gap classes carry the full surface on their constructors (test **b**): `ScreenPresentationMode {replace, popupOverlay}`, `ScreenFlowOutcome {success, error, validationError}`, and the `outcomeReference` that joins to `SYERCOEN` (CE-ER) or `VMT` (CE-VA). Adding the same values as marker arguments would create the second, disagreeing source §2.3 exists to prevent. |
+| **3 Arguments** | None; `@CsScreenFlow({String? note})` unchanged. Both gap classes carry the full surface on their constructors (test **b**): `ScreenPresentationMode {replace, popupOverlay}`, `ScreenFlowOutcome {success, error, validationError}`, and the `outcomeReference` that joins to `SYERCO` (CE-ER) or `VMT` (CE-VA). Adding the same values as marker arguments would create the second, disagreeing source §2.3 exists to prevent. |
 | **4 Naming** | Assignment = camelCase of the route name + `FormAssignment`; edge = camelCase of the action name + the outcome (`saveOnSuccess`). |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsRouteRef` (both endpoints), `CsFormRef` (the presented form), `CsActionRef` (the firing action), and `CsErrorCode` / `CsMessageKey` for the `outcomeReference`. |
@@ -873,13 +873,13 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ScreenSectionEntry` (`SCRSC`), `ScreenResponsiveRuleEntry` (`SCRERUEN`), `ComponentSlotEntry` (`CMSL`). Consumed (§5.2, §5.22): the container tree, its kinds, the slot hints, and the override deltas. |
+| **1 Input** | `ScreenSectionEntry` (`SCRSC`), `ScreenResponsiveRuleEntry` (`SCRERU`), `ComponentSlotEntry` (`CMSL`). Consumed (§5.2, §5.22): the container tree, its kinds, the slot hints, and the override deltas. |
 | **2 Output** | Two layers, both id-addressed. The **base** is an `AclContainer` / `AclRow` / `AclFlowContainer` / `AclComponent` tree (`tom_flutter_ui`) rendered through `TomObservingWidget`; when the SOM authors no explicit layout, the default base is **a single `column` of the form's fields in SOM order** — never an empty tree. The **override layer** is a delta list over §5.22's closed five-op grammar: `reparent`, `set-container-prop`, `set-slot-hint`, `insert-container`, `remove-container`. Generated rows are addressable as `<containerId>.r<n>`. |
 | **3 Arguments** | `nodeId` — **first positional, required** ← the section's node id, verbatim. It is the one thing the substrate genuinely lacks: §4.1 records the layout **node model** as a gap, the ACL classes carry no id, and the whole override-delta grammar addresses nodes by id. Container kind is **not** an argument — it is which Acl class is instantiated (test **b**); slot hints are `AclComponent` properties (test **b**). |
 | **4 Naming** | Node ids are authored (N5). The generated Dart holder is PascalCase of `SCRSC`'s name field + `Layout`. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsElementRef` / `CsFormRef` for the elements a slot hosts. Deltas address nodes by **id string**, which is not a §5.23 violation: a delta targets a node *within the same layout declaration*, so the id is a local coordinate, not a cross-part reference. |
-| **7 Back-link** | `@DocSpec([DocRef('SCRSC', 'supplies the container tree this layout arranges')])`, plus `SCRERUEN` per responsive delta and `CMSL` per slot. |
+| **7 Back-link** | `@DocSpec([DocRef('SCRSC', 'supplies the container tree this layout arranges')])`, plus `SCRERU` per responsive delta and `CMSL` per slot. |
 
 #### 3.6.2 `@CsClient` — CE-CL client application
 
@@ -890,7 +890,7 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 | **3 Arguments** | `clientId` ← CLIAPP `clientId`, **first positional, required**, verbatim (N5). `kind` (**required**) ← CLIAPP `clientKind`, mapped arm-for-arm onto `CsClientKind`: `graphicalApplication → flutterApp`, `commandLine → cli`, `server → server`. The names differ **by design** — the SOM keeps §1.2's neutral vocabulary and names no framework, and the technology choice is exactly the deeper CodeSpecs level the mapping adds. Required because the kind decides which other parts the client can carry (a CLI has no CE-EL) and defaulting it would silently admit impossible combinations. Platforms, entry route and screens are members of the descriptor (test **a**). |
 | **4 Naming** | PascalCase of the client id + `Client`. |
 | **5 Locus** | `client`. A multi-client system generates one client project per `@CsClient`; the descriptor names which. |
-| **6 Cross-refs** | `CsRouteRef` for its entry route, from CLIAPP `entryRoute` (a `SCRTEN.routeId`). `includedScreens` lowers onto `screenIds` as plain screen ids — §5.23 has no screen ref type, and the ids are already resolved against `SCREN.screenId` at authoring time. `platformTargets` lowers onto `platforms` verbatim; the ids resolve against the three requirement registries (`BROREQENT.browserName`, `DEOSREEN.osName`, `MODEREEN.platform`) in the same section, so the minimum a platform must meet is stated once and referenced, never restated. Referenced **by** CE-CC (a `CCSET` setting names its owning client) and CE-AU (per-client login flow). |
+| **6 Cross-refs** | `CsRouteRef` for its entry route, from CLIAPP `entryRoute` (a `SCRTEN.routeId`). `includedScreens` lowers onto `screenIds` as plain screen ids — §5.23 has no screen ref type, and the ids are already resolved against `SCREN.screenId` at authoring time. `platformTargets` lowers onto `platforms` verbatim; the ids resolve against the three requirement registries (`BROREQ.browserName`, `DEOSRE.osName`, `MODERE.platform`) in the same section, so the minimum a platform must meet is stated once and referenced, never restated. Referenced **by** CE-CC (a `CCSET` setting names its owning client) and CE-AU (per-client login flow). |
 | **7 Back-link** | `@DocSpec([DocRef('CLIAPP', 'supplies the client application, its kind, platform targets, entry route and screens')])`. |
 
 #### 3.6.3 `@CsClientConfig` — CE-CC client configuration

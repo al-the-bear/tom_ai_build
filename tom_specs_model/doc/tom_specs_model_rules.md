@@ -615,7 +615,7 @@ that contract with `refersTo:` on `Field`:
 ```dart
 Field('sourceRouteId', String, required: true, refersTo: ['SCRTEN.routeId']),
 Field('outcomeReference', String,
-    refersTo: ['SYERCOEN.errorCode', 'VMT.messageId']),
+    refersTo: ['SYERCO.errorCode', 'VMT.messageId']),
 Field('relatedRequirements', String, refersTo: ['FRE.@sectionId']),
 ```
 
@@ -737,6 +737,44 @@ its position), written in uppercase alphanumerics and `-` (`[A-Z0-9-]+`).
   the class name (`EXTSY` for `ExistingSystemEntry`).
 - **Class-level ids are globally unique** across the whole model. When two class
   names would collide, the class closer to the root takes the shorter/cleaner id.
+
+**The 6-letter cap is an error, not a style note** — the validator rejects a
+longer class-level id (§10.2). The cap is what keeps a section id readable at a
+glance in a docspecs comment, and since §7.2 derives every list container's
+prefix from the element class's id, an over-long class id is not paid for once:
+it propagates into every container id that points at the class and into all nine
+generated SOM languages.
+
+**The recommended mnemonic algorithm.** Left to judgement, three different
+algorithms grow side by side — initials (`BackupPolicyEntry` → `BPE`), two
+letters per word (`BAPOEN`), and three letters per word, which would spell
+`BrowserRequirementEntry` as the nine-letter `BRO`+`REQ`+`ENT`. The third
+overflows the cap on any name of three words, the second on four. Derive the
+mnemonic like this instead:
+
+1. Split the class name into its CamelCase words.
+2. **Drop filler words** — `Of`, `And`, `For`, `To`, `The`, `A`, `In`, `On`.
+   They carry no mnemonic weight and would spend a third of the budget.
+3. **Drop a trailing generic suffix word** — `Entry`, `Summary`, `List`, `Spec`,
+   `Specification` — when at least two significant words remain. It says what
+   the class *is* in the model, not what it is *about*, and the container id
+   (`…-LST`, §7.2) already says that.
+4. Spend the six letters on the remaining words, front-loaded:
+   **1 word → its first 6 letters; 2 words → 3 + 3; 3 or more → 2 + 2 + 2 over
+   the first three**, later words not represented.
+5. Uppercase.
+
+So `AlertDefinitionEntry` → `ALEDEF`, `ExternalSystemContextEntry` → `EXSYCO`,
+`OutOfScopeEntry` → `OUTSCO`, `UiComponentEntry` → `UICOM` (a short word spends
+less than its share).
+
+The algorithm is a **default, not a law**: it is what a new class should take
+unless there is a reason to differ, and the validator enforces only the cap and
+the uniqueness (it cannot know which mnemonic reads best). Where the derived id
+is already taken, the existing collision rule above decides — the class closer
+to the root keeps it and the other takes a hand-picked ≤6-letter variant. That
+is how `PhaseGateReviewEntry` is `PHGREV`: its own derivation is `PHGARE`, which
+its parent `PhaseGateReviews` already holds.
 
 ### 7.2 List container `@SectionId` — the field-suffixed rule
 
@@ -1128,7 +1166,9 @@ The validator enforces the following structural invariants (implementation:
 `tom_specs_clitool/lib/src/validator.dart`, exported as
 `validateStructuralInvariants()`):
 
-1. `@SectionId` **global uniqueness** (class-level namespace).
+1. `@SectionId` **global uniqueness** (class-level namespace) and **length** —
+   a class-level id is capped at 6 letters (§7.1). Container ids are exempt:
+   they are three-token compounds and carry a `-`.
 2. `@SectionIdPattern` uniqueness, container-id **type-consistency**,
    **per-class uniqueness**, and container/pattern **pairing** (per §7.4).
 3. **`@SectionIdPattern` list-coverage** — every list field of section elements
@@ -1155,11 +1195,13 @@ The validator enforces the following structural invariants (implementation:
 9. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
    detection**.
 
-**What the validator does *not* check:** the derivation of the two mnemonic
-tokens in a container id (§7.2). It verifies the pair's shape and its uniqueness
-properties, but does not recompute the `<elementId>` prefix from the element
-class or the `<FIELDSUFFIX>` from the field name — those remain authoring
-judgement.
+**What the validator does *not* check:** the two mnemonics themselves. It
+recomputes a container id's `<elementId>` prefix from the element class (check
+2b(iv)) and caps the class-level id's length, but it does not derive either
+mnemonic's *letters* — neither the §7.1 class mnemonic nor the container id's
+`<FIELDSUFFIX>`. Which letters read best is authoring judgement; §7.1 states the
+recommended algorithm so the judgement starts from a default rather than from
+nothing.
 
 The outliner runs the full invariant set before writing; it exits non-zero on any
 error, so a clean outline is proof of a valid model.

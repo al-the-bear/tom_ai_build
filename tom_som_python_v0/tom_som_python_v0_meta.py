@@ -1597,15 +1597,15 @@ def _mc_AlertingConfiguration(s):
          SomMetaNode(
             class_name="AlertingConfiguration",
             member_name="alertRules",
-            section_id="ALERULENT-ALER-LST",
-            section_id_pattern="ALERULENT-ALER-xxx",
+            section_id="ALERUL-ALER-LST",
+            section_id_pattern="ALERUL-ALER-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertRuleEntry",
             serialization_order=3,
             content_help="Add one entry per alert rule.",
             doc_comment="Alert rules catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus — Alertmanager (routing, grouping, silencing)"], "connotation": "The catalog of alert rules the system evaluates."})],
-            element_node=_cx("AlertRuleEntry", s, _mc_AlertRuleEntry, lambda r, c: SomMetaNode(class_name="AlertRuleEntry", class_section_id="ALERULENT", kind=SomMetaKind.COMPLEX, type_name="AlertRuleEntry", doc_comment="An alert rule entry.", class_doc_comment="An alert rule entry.", recursive=r, children=c))),
+            element_node=_cx("AlertRuleEntry", s, _mc_AlertRuleEntry, lambda r, c: SomMetaNode(class_name="AlertRuleEntry", class_section_id="ALERUL", kind=SomMetaKind.COMPLEX, type_name="AlertRuleEntry", doc_comment="An alert rule entry.", class_doc_comment="An alert rule entry.", recursive=r, children=c))),
          _cx("AlertEscalationPolicies", s, _mc_AlertEscalationPolicies,
             lambda r, c: SomMetaNode(
                 class_name="AlertEscalationPolicies",
@@ -3552,27 +3552,27 @@ def _mc_AuthorizationRoleEntry(s):
          SomMetaNode(
             class_name="AuthorizationRoleEntry",
             member_name="directPermissions",
-            section_id="ROLPERM-DIRE-LST",
-            section_id_pattern="ROLPERM-DIRE-xxx",
+            section_id="ROLPER-DIRE-LST",
+            section_id_pattern="ROLPER-DIRE-xxx",
             kind=SomMetaKind.LIST,
             type_name="RolePermissionEntry",
             serialization_order=7,
             content_help="Add one entry per direct permission.",
             doc_comment="Contains 0+× RolePermission.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["NIST RBAC INCITS 359-2012 — permission-to-role assignment"], "connotation": "The catalog of permissions assigned directly to this role."})],
-            element_node=_cx("RolePermissionEntry", s, _mc_RolePermissionEntry, lambda r, c: SomMetaNode(class_name="RolePermissionEntry", class_section_id="ROLPERM", kind=SomMetaKind.COMPLEX, type_name="RolePermissionEntry", doc_comment="A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.", class_doc_comment="A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.", recursive=r, children=c))),
+            element_node=_cx("RolePermissionEntry", s, _mc_RolePermissionEntry, lambda r, c: SomMetaNode(class_name="RolePermissionEntry", class_section_id="ROLPER", kind=SomMetaKind.COMPLEX, type_name="RolePermissionEntry", doc_comment="A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.", class_doc_comment="A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.", recursive=r, children=c))),
          SomMetaNode(
             class_name="AuthorizationRoleEntry",
             member_name="dataScopes",
-            section_id="ROLDSCP-DATA-LST",
-            section_id_pattern="ROLDSCP-DATA-xxx",
+            section_id="RODASC-DATA-LST",
+            section_id_pattern="RODASC-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="RoleDataScopeEntry",
             serialization_order=8,
             content_help="Add one entry per data scope.",
             doc_comment="Contains 0+× RoleDataScope.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["NIST SP 800-162 — attribute-based access control constraints", "ISO/IEC 27001:2022 — control A.8.3 information access restriction"], "connotation": "The catalog of data scopes that constrain this role access."})],
-            element_node=_cx("RoleDataScopeEntry", s, _mc_RoleDataScopeEntry, lambda r, c: SomMetaNode(class_name="RoleDataScopeEntry", class_section_id="ROLDSCP", kind=SomMetaKind.COMPLEX, type_name="RoleDataScopeEntry", doc_comment="A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.", class_doc_comment="A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.", recursive=r, children=c))),
+            element_node=_cx("RoleDataScopeEntry", s, _mc_RoleDataScopeEntry, lambda r, c: SomMetaNode(class_name="RoleDataScopeEntry", class_section_id="RODASC", kind=SomMetaKind.COMPLEX, type_name="RoleDataScopeEntry", doc_comment="A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.", class_doc_comment="A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.", recursive=r, children=c))),
          SomMetaNode(
             class_name="AuthorizationRoleEntry",
             member_name="mutualExclusions",
@@ -6869,7 +6869,7 @@ def _mc_ClientApplicationEntry(s):
             type_name="String",
             serialization_order=0,
             content_help="One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="clientId", type_name="String", description="Client Id", required=True, hint="The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", order=0), SomFormFieldMeta(name="clientName", type_name="String", description="Client Name", required=True, hint="The name users and operators call this client by", order=1), SomFormFieldMeta(name="clientKind", type_name="ClientApplicationKind", description="Client Kind", required=True, hint="What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", order=2, enum_values=["graphicalApplication", "commandLine", "server"]), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Who uses this client and what for — the reason it exists separately from the system's other clients", order=3), SomFormFieldMeta(name="platformTargets", type_name="String", description="Platform Targets", hint="The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", order=4, refers_to=["BROREQENT.browserName", "DEOSREEN.osName", "MODEREEN.platform"]), SomFormFieldMeta(name="entryRoute", type_name="String", description="Entry Route", hint="The route this client opens on, by id from the screen route map. Empty for a client with no routes", order=5, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="includedScreens", type_name="String", description="Included Screens", hint="The screens this client comprises, by id. Empty for a client with no screens", order=6, refers_to=["SCREN.screenId"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="clientId", type_name="String", description="Client Id", required=True, hint="The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", order=0), SomFormFieldMeta(name="clientName", type_name="String", description="Client Name", required=True, hint="The name users and operators call this client by", order=1), SomFormFieldMeta(name="clientKind", type_name="ClientApplicationKind", description="Client Kind", required=True, hint="What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", order=2, enum_values=["graphicalApplication", "commandLine", "server"]), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Who uses this client and what for — the reason it exists separately from the system's other clients", order=3), SomFormFieldMeta(name="platformTargets", type_name="String", description="Platform Targets", hint="The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", order=4, refers_to=["BROREQ.browserName", "DEOSRE.osName", "MODERE.platform"]), SomFormFieldMeta(name="entryRoute", type_name="String", description="Entry Route", hint="The route this client opens on, by id from the screen route map. Empty for a client with no routes", order=5, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="includedScreens", type_name="String", description="Included Screens", hint="The screens this client comprises, by id. Empty for a client with no screens", order=6, refers_to=["SCREN.screenId"])])),
     ]
 
 
@@ -7047,39 +7047,39 @@ def _mc_ClientRequirementsSection(s):
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="browserRequirements",
-            section_id="BROREQENT-BROW-LST",
-            section_id_pattern="BROREQENT-BROW-xxx",
+            section_id="BROREQ-BROW-LST",
+            section_id_pattern="BROREQ-BROW-xxx",
             kind=SomMetaKind.LIST,
             type_name="BrowserRequirementEntry",
             serialization_order=3,
             content_help="Add one entry per supported web browser.",
             doc_comment="Web browser requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["WHATWG / W3C — web platform / browser standards"], "connotation": "The web browsers the client must support."})],
-            element_node=_cx("BrowserRequirementEntry", s, _mc_BrowserRequirementEntry, lambda r, c: SomMetaNode(class_name="BrowserRequirementEntry", class_section_id="BROREQENT", kind=SomMetaKind.COMPLEX, type_name="BrowserRequirementEntry", doc_comment="Browser requirement entry.", class_doc_comment="Browser requirement entry.", recursive=r, children=c))),
+            element_node=_cx("BrowserRequirementEntry", s, _mc_BrowserRequirementEntry, lambda r, c: SomMetaNode(class_name="BrowserRequirementEntry", class_section_id="BROREQ", kind=SomMetaKind.COMPLEX, type_name="BrowserRequirementEntry", doc_comment="Browser requirement entry.", class_doc_comment="Browser requirement entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="desktopOsRequirements",
-            section_id="DEOSREEN-DESK-LST",
-            section_id_pattern="DEOSREEN-DESK-xxx",
+            section_id="DEOSRE-DESK-LST",
+            section_id_pattern="DEOSRE-DESK-xxx",
             kind=SomMetaKind.LIST,
             type_name="DesktopOsRequirementEntry",
             serialization_order=4,
             content_help="Add one entry per supported desktop operating system.",
             doc_comment="Desktop operating system requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — performance efficiency / resource utilization"], "connotation": "The desktop operating systems the client must support."})],
-            element_node=_cx("DesktopOsRequirementEntry", s, _mc_DesktopOsRequirementEntry, lambda r, c: SomMetaNode(class_name="DesktopOsRequirementEntry", class_section_id="DEOSREEN", kind=SomMetaKind.COMPLEX, type_name="DesktopOsRequirementEntry", doc_comment="Desktop operating system requirement entry.", class_doc_comment="Desktop operating system requirement entry.", recursive=r, children=c))),
+            element_node=_cx("DesktopOsRequirementEntry", s, _mc_DesktopOsRequirementEntry, lambda r, c: SomMetaNode(class_name="DesktopOsRequirementEntry", class_section_id="DEOSRE", kind=SomMetaKind.COMPLEX, type_name="DesktopOsRequirementEntry", doc_comment="Desktop operating system requirement entry.", class_doc_comment="Desktop operating system requirement entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="mobileRequirements",
-            section_id="MODEREEN-MOBI-LST",
-            section_id_pattern="MODEREEN-MOBI-xxx",
+            section_id="MODERE-MOBI-LST",
+            section_id_pattern="MODERE-MOBI-xxx",
             kind=SomMetaKind.LIST,
             type_name="MobileDeviceRequirementEntry",
             serialization_order=5,
             content_help="Add one entry per supported mobile platform.",
             doc_comment="Mobile device requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Android CDD / Apple HIG — mobile device platform requirements"], "connotation": "The mobile platforms and devices the client must support."})],
-            element_node=_cx("MobileDeviceRequirementEntry", s, _mc_MobileDeviceRequirementEntry, lambda r, c: SomMetaNode(class_name="MobileDeviceRequirementEntry", class_section_id="MODEREEN", kind=SomMetaKind.COMPLEX, type_name="MobileDeviceRequirementEntry", doc_comment="Mobile device requirement entry.", class_doc_comment="Mobile device requirement entry.", recursive=r, children=c))),
+            element_node=_cx("MobileDeviceRequirementEntry", s, _mc_MobileDeviceRequirementEntry, lambda r, c: SomMetaNode(class_name="MobileDeviceRequirementEntry", class_section_id="MODERE", kind=SomMetaKind.COMPLEX, type_name="MobileDeviceRequirementEntry", doc_comment="Mobile device requirement entry.", class_doc_comment="Mobile device requirement entry.", recursive=r, children=c))),
          _cx("DisplayRequirements", s, _mc_DisplayRequirements,
             lambda r, c: SomMetaNode(
                 class_name="DisplayRequirements",
@@ -7912,39 +7912,39 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="browserCompatibility",
-            section_id="BROCOMENT-BROW-LST",
-            section_id_pattern="BROCOMENT-BROW-xxx",
+            section_id="BROCOM-BROW-LST",
+            section_id_pattern="BROCOM-BROW-xxx",
             kind=SomMetaKind.LIST,
             type_name="BrowserCompatibilityEntry",
             serialization_order=3,
             content_help="Add one entry per supported browser.",
             doc_comment="Browser compatibility requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["WHATWG / W3C — web platform / browser standards", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"], "connotation": "The browsers the system must support."})],
-            element_node=_cx("BrowserCompatibilityEntry", s, _mc_BrowserCompatibilityEntry, lambda r, c: SomMetaNode(class_name="BrowserCompatibilityEntry", class_section_id="BROCOMENT", kind=SomMetaKind.COMPLEX, type_name="BrowserCompatibilityEntry", doc_comment="Browser compatibility entry.", class_doc_comment="Browser compatibility entry.", recursive=r, children=c))),
+            element_node=_cx("BrowserCompatibilityEntry", s, _mc_BrowserCompatibilityEntry, lambda r, c: SomMetaNode(class_name="BrowserCompatibilityEntry", class_section_id="BROCOM", kind=SomMetaKind.COMPLEX, type_name="BrowserCompatibilityEntry", doc_comment="Browser compatibility entry.", class_doc_comment="Browser compatibility entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="databaseCompatibility",
-            section_id="DATCOMENT-DATA-LST",
-            section_id_pattern="DATCOMENT-DATA-xxx",
+            section_id="DATCOM-DATA-LST",
+            section_id_pattern="DATCOM-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="DatabaseCompatibilityEntry",
             serialization_order=4,
             content_help="Add one entry per supported database.",
             doc_comment="Database compatibility requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 9075 (SQL) — relational database standard", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"], "connotation": "The databases the system must remain compatible with."})],
-            element_node=_cx("DatabaseCompatibilityEntry", s, _mc_DatabaseCompatibilityEntry, lambda r, c: SomMetaNode(class_name="DatabaseCompatibilityEntry", class_section_id="DATCOMENT", kind=SomMetaKind.COMPLEX, type_name="DatabaseCompatibilityEntry", doc_comment="Database compatibility entry.", class_doc_comment="Database compatibility entry.", recursive=r, children=c))),
+            element_node=_cx("DatabaseCompatibilityEntry", s, _mc_DatabaseCompatibilityEntry, lambda r, c: SomMetaNode(class_name="DatabaseCompatibilityEntry", class_section_id="DATCOM", kind=SomMetaKind.COMPLEX, type_name="DatabaseCompatibilityEntry", doc_comment="Database compatibility entry.", class_doc_comment="Database compatibility entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="enterpriseSystemCompatibility",
-            section_id="ENSYCOEN-ENTE-LST",
-            section_id_pattern="ENSYCOEN-ENTE-xxx",
+            section_id="ENSYCO-ENTE-LST",
+            section_id_pattern="ENSYCO-ENTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="EnterpriseSystemCompatibilityEntry",
             serialization_order=5,
             content_help="Add one entry per enterprise system.",
             doc_comment="Enterprise system compatibility requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"], "connotation": "The enterprise systems the system must integrate with."})],
-            element_node=_cx("EnterpriseSystemCompatibilityEntry", s, _mc_EnterpriseSystemCompatibilityEntry, lambda r, c: SomMetaNode(class_name="EnterpriseSystemCompatibilityEntry", class_section_id="ENSYCOEN", kind=SomMetaKind.COMPLEX, type_name="EnterpriseSystemCompatibilityEntry", doc_comment="Enterprise system compatibility entry.", class_doc_comment="Enterprise system compatibility entry.", recursive=r, children=c))),
+            element_node=_cx("EnterpriseSystemCompatibilityEntry", s, _mc_EnterpriseSystemCompatibilityEntry, lambda r, c: SomMetaNode(class_name="EnterpriseSystemCompatibilityEntry", class_section_id="ENSYCO", kind=SomMetaKind.COMPLEX, type_name="EnterpriseSystemCompatibilityEntry", doc_comment="Enterprise system compatibility entry.", class_doc_comment="Enterprise system compatibility entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="apiCompatibility",
@@ -7972,27 +7972,27 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="mobileCompatibility",
-            section_id="MOBCOMENT-MOBI-LST",
-            section_id_pattern="MOBCOMENT-MOBI-xxx",
+            section_id="MOBCOM-MOBI-LST",
+            section_id_pattern="MOBCOM-MOBI-xxx",
             kind=SomMetaKind.LIST,
             type_name="MobileCompatibilityEntry",
             serialization_order=8,
             content_help="Add one entry per supported mobile platform.",
             doc_comment="Mobile device compatibility requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"], "connotation": "The mobile platforms the system must support."})],
-            element_node=_cx("MobileCompatibilityEntry", s, _mc_MobileCompatibilityEntry, lambda r, c: SomMetaNode(class_name="MobileCompatibilityEntry", class_section_id="MOBCOMENT", kind=SomMetaKind.COMPLEX, type_name="MobileCompatibilityEntry", doc_comment="Mobile device compatibility entry.", class_doc_comment="Mobile device compatibility entry.", recursive=r, children=c))),
+            element_node=_cx("MobileCompatibilityEntry", s, _mc_MobileCompatibilityEntry, lambda r, c: SomMetaNode(class_name="MobileCompatibilityEntry", class_section_id="MOBCOM", kind=SomMetaKind.COMPLEX, type_name="MobileCompatibilityEntry", doc_comment="Mobile device compatibility entry.", class_doc_comment="Mobile device compatibility entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="thirdPartyCompatibility",
-            section_id="THPACOEN-THIR-LST",
-            section_id_pattern="THPACOEN-THIR-xxx",
+            section_id="THPACO-THIR-LST",
+            section_id_pattern="THPACO-THIR-xxx",
             kind=SomMetaKind.LIST,
             type_name="ThirdPartyCompatibilityEntry",
             serialization_order=9,
             content_help="Add one entry per third-party software product.",
             doc_comment="Third-party software compatibility requirements.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"], "connotation": "The third-party software the system must co-exist with."})],
-            element_node=_cx("ThirdPartyCompatibilityEntry", s, _mc_ThirdPartyCompatibilityEntry, lambda r, c: SomMetaNode(class_name="ThirdPartyCompatibilityEntry", class_section_id="THPACOEN", kind=SomMetaKind.COMPLEX, type_name="ThirdPartyCompatibilityEntry", doc_comment="Third-party software compatibility entry.", class_doc_comment="Third-party software compatibility entry.", recursive=r, children=c))),
+            element_node=_cx("ThirdPartyCompatibilityEntry", s, _mc_ThirdPartyCompatibilityEntry, lambda r, c: SomMetaNode(class_name="ThirdPartyCompatibilityEntry", class_section_id="THPACO", kind=SomMetaKind.COMPLEX, type_name="ThirdPartyCompatibilityEntry", doc_comment="Third-party software compatibility entry.", class_doc_comment="Third-party software compatibility entry.", recursive=r, children=c))),
          _cx("DataFormatCompatibility", s, _mc_DataFormatCompatibility,
             lambda r, c: SomMetaNode(
                 class_name="DataFormatCompatibility",
@@ -10611,7 +10611,7 @@ def _mc_CurrentLandscape(s):
             lambda r, c: SomMetaNode(
                 class_name="CurrentStateRiskAssessment",
                 member_name="currentStateRisks",
-                class_section_id="CUSTRIAS",
+                class_section_id="CUSTRI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentStateRiskAssessment",
                 serialization_order=6,
@@ -11110,7 +11110,7 @@ def _mc_D01CurrentLandscapeAssessment(s):
             lambda r, c: SomMetaNode(
                 class_name="CurrentStateRiskAssessment",
                 member_name="currentStateRisks",
-                class_section_id="CUSTRIAS",
+                class_section_id="CUSTRI",
                 kind=SomMetaKind.COMPLEX,
                 type_name="CurrentStateRiskAssessment",
                 serialization_order=7,
@@ -19421,15 +19421,15 @@ def _mc_EntitlementEntry(s):
          SomMetaNode(
             class_name="EntitlementEntry",
             member_name="resourceKeyReferences",
-            section_id="RESKREF-RESO-LST",
-            section_id_pattern="RESKREF-RESO-xxx",
+            section_id="REKERE-RESO-LST",
+            section_id_pattern="REKERE-RESO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResourceKeyReferenceEntry",
             serialization_order=1,
             content_help="Add one entry per resource reference.",
             doc_comment="Contains 0+× ResourceKeyReference.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001:2022 — control A.8.3 information access restriction", "NIST RBAC INCITS 359-2012 — role-based access control"], "connotation": "The catalog of resource key references for this entitlement."})],
-            element_node=_cx("ResourceKeyReferenceEntry", s, _mc_ResourceKeyReferenceEntry, lambda r, c: SomMetaNode(class_name="ResourceKeyReferenceEntry", class_section_id="RESKREF", kind=SomMetaKind.COMPLEX, type_name="ResourceKeyReferenceEntry", doc_comment="A resource key reference entry (form).", class_doc_comment="A resource key reference entry (form).", recursive=r, children=c))),
+            element_node=_cx("ResourceKeyReferenceEntry", s, _mc_ResourceKeyReferenceEntry, lambda r, c: SomMetaNode(class_name="ResourceKeyReferenceEntry", class_section_id="REKERE", kind=SomMetaKind.COMPLEX, type_name="ResourceKeyReferenceEntry", doc_comment="A resource key reference entry (form).", class_doc_comment="A resource key reference entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -21092,15 +21092,15 @@ def _mc_ExportFormatEntry(s):
          SomMetaNode(
             class_name="ExportFormatEntry",
             member_name="fieldMappings",
-            section_id="EXFIMAEN-FIEL-LST",
-            section_id_pattern="EXFIMAEN-FIEL-xxx",
+            section_id="EXFIMA-FIEL-LST",
+            section_id_pattern="EXFIMA-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportFieldMappingEntry",
             serialization_order=10,
             content_help="Add one entry per export field mapping.",
             doc_comment="Contains 0+× Export Field Mapping.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line", "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"], "connotation": "The collection of export field-mapping entries that bind source fields to output columns."})],
-            element_node=_cx("ExportFieldMappingEntry", s, _mc_ExportFieldMappingEntry, lambda r, c: SomMetaNode(class_name="ExportFieldMappingEntry", class_section_id="EXFIMAEN", kind=SomMetaKind.COMPLEX, type_name="ExportFieldMappingEntry", doc_comment="A field mapping within an export (form).", class_doc_comment="A field mapping within an export (form).", recursive=r, children=c))),
+            element_node=_cx("ExportFieldMappingEntry", s, _mc_ExportFieldMappingEntry, lambda r, c: SomMetaNode(class_name="ExportFieldMappingEntry", class_section_id="EXFIMA", kind=SomMetaKind.COMPLEX, type_name="ExportFieldMappingEntry", doc_comment="A field mapping within an export (form).", class_doc_comment="A field mapping within an export (form).", recursive=r, children=c))),
     ]
 
 
@@ -21305,15 +21305,15 @@ def _mc_ExternalConnectivitySection(s):
          SomMetaNode(
             class_name="ExternalConnectivitySection",
             member_name="partnerConnections",
-            section_id="EXPACOEN-PART-LST",
-            section_id_pattern="EXPACOEN-PART-xxx",
+            section_id="EXPACO-PART-LST",
+            section_id_pattern="EXPACO-PART-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExternalPartnerConnectionEntry",
             serialization_order=2,
             content_help="Add one entry per external partner connection.",
             doc_comment="External partner connections — contains 0+× ExternalPartnerConnection.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Enterprise Integration Patterns — messaging & integration"], "connotation": "The external partner connections the system integrates with."})],
-            element_node=_cx("ExternalPartnerConnectionEntry", s, _mc_ExternalPartnerConnectionEntry, lambda r, c: SomMetaNode(class_name="ExternalPartnerConnectionEntry", class_section_id="EXPACOEN", kind=SomMetaKind.COMPLEX, type_name="ExternalPartnerConnectionEntry", doc_comment="An external partner connection entry (form).", class_doc_comment="An external partner connection entry (form).", recursive=r, children=c))),
+            element_node=_cx("ExternalPartnerConnectionEntry", s, _mc_ExternalPartnerConnectionEntry, lambda r, c: SomMetaNode(class_name="ExternalPartnerConnectionEntry", class_section_id="EXPACO", kind=SomMetaKind.COMPLEX, type_name="ExternalPartnerConnectionEntry", doc_comment="An external partner connection entry (form).", class_doc_comment="An external partner connection entry (form).", recursive=r, children=c))),
          _cx("CloudServiceIntegrations", s, _mc_CloudServiceIntegrations,
             lambda r, c: SomMetaNode(
                 class_name="CloudServiceIntegrations",
@@ -21791,7 +21791,7 @@ def _mc_ExternalSystemContextEntry(s):
          SomMetaNode(
             class_name="ExternalSystemContextEntry",
             member_name="dataMapping",
-            section_id="EXSYCOEN-DATA",
+            section_id="EXSYCO-DATA",
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=4,
@@ -21812,15 +21812,15 @@ def _mc_ExternalSystemsContext(s):
          SomMetaNode(
             class_name="ExternalSystemsContext",
             member_name="systems",
-            section_id="EXSYCOEN-SYST-LST",
-            section_id_pattern="EXSYCOEN-SYST-xxx",
+            section_id="EXSYCO-SYST-LST",
+            section_id_pattern="EXSYCO-SYST-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExternalSystemContextEntry",
             serialization_order=1,
             content_help="Add one entry per external system that this system integrates with.",
             doc_comment="External system entries — contains 0+× ExternalSystemContextEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — external system interfaces"], "connotation": "The set of individual external-system integration entries."})],
-            element_node=_cx("ExternalSystemContextEntry", s, _mc_ExternalSystemContextEntry, lambda r, c: SomMetaNode(class_name="ExternalSystemContextEntry", class_section_id="EXSYCOEN", kind=SomMetaKind.COMPLEX, type_name="ExternalSystemContextEntry", doc_comment="An external system context entry (form).", class_doc_comment="An external system context entry (form).", recursive=r, children=c))),
+            element_node=_cx("ExternalSystemContextEntry", s, _mc_ExternalSystemContextEntry, lambda r, c: SomMetaNode(class_name="ExternalSystemContextEntry", class_section_id="EXSYCO", kind=SomMetaKind.COMPLEX, type_name="ExternalSystemContextEntry", doc_comment="An external system context entry (form).", class_doc_comment="An external system context entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -25780,15 +25780,15 @@ def _mc_InterfaceBusinessContext(s):
          SomMetaNode(
             class_name="InterfaceBusinessContext",
             member_name="dependentProcesses",
-            section_id="INBUPREN-DEPE-LST",
-            section_id_pattern="INBUPREN-DEPE-xxx",
+            section_id="INBUPR-DEPE-LST",
+            section_id_pattern="INBUPR-DEPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceBusinessProcessEntry",
             serialization_order=1,
             content_help="List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.",
             doc_comment="Business processes that depend on this interface.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — system context & boundary definition"], "connotation": "Lists the business processes that rely on this interface so dependency and fallback impact can be assessed."})],
-            element_node=_cx("InterfaceBusinessProcessEntry", s, _mc_InterfaceBusinessProcessEntry, lambda r, c: SomMetaNode(class_name="InterfaceBusinessProcessEntry", class_section_id="INBUPREN", kind=SomMetaKind.COMPLEX, type_name="InterfaceBusinessProcessEntry", doc_comment="Business process dependency entry.", class_doc_comment="Business process dependency entry.", recursive=r, children=c))),
+            element_node=_cx("InterfaceBusinessProcessEntry", s, _mc_InterfaceBusinessProcessEntry, lambda r, c: SomMetaNode(class_name="InterfaceBusinessProcessEntry", class_section_id="INBUPR", kind=SomMetaKind.COMPLEX, type_name="InterfaceBusinessProcessEntry", doc_comment="Business process dependency entry.", class_doc_comment="Business process dependency entry.", recursive=r, children=c))),
     ]
 
 
@@ -25828,15 +25828,15 @@ def _mc_InterfaceDataSpec(s):
          SomMetaNode(
             class_name="InterfaceDataSpec",
             member_name="dataEntities",
-            section_id="INDAENEN-DATA-LST",
-            section_id_pattern="INDAENEN-DATA-xxx",
+            section_id="INDAEN-DATA-LST",
+            section_id_pattern="INDAEN-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceDataEntityEntry",
             serialization_order=1,
             content_help="List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.",
             doc_comment="Data entities exchanged.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["OpenAPI / AsyncAPI — API specification"], "connotation": "Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping."})],
-            element_node=_cx("InterfaceDataEntityEntry", s, _mc_InterfaceDataEntityEntry, lambda r, c: SomMetaNode(class_name="InterfaceDataEntityEntry", class_section_id="INDAENEN", kind=SomMetaKind.COMPLEX, type_name="InterfaceDataEntityEntry", doc_comment="Data entity exchanged.", class_doc_comment="Data entity exchanged.", recursive=r, children=c))),
+            element_node=_cx("InterfaceDataEntityEntry", s, _mc_InterfaceDataEntityEntry, lambda r, c: SomMetaNode(class_name="InterfaceDataEntityEntry", class_section_id="INDAEN", kind=SomMetaKind.COMPLEX, type_name="InterfaceDataEntityEntry", doc_comment="Data entity exchanged.", class_doc_comment="Data entity exchanged.", recursive=r, children=c))),
          SomMetaNode(
             class_name="InterfaceDataSpec",
             member_name="mappingRules",
@@ -26220,15 +26220,15 @@ def _mc_InterfaceTesting(s):
          SomMetaNode(
             class_name="InterfaceTesting",
             member_name="testScenarios",
-            section_id="INTESCEN-TEST-LST",
-            section_id_pattern="INTESCEN-TEST-xxx",
+            section_id="INTESC-TEST-LST",
+            section_id_pattern="INTESC-TEST-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceTestScenarioEntry",
             serialization_order=3,
             content_help="List test scenarios for the interface, each with type, preconditions, steps, and expected result.",
             doc_comment="Test scenarios.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29119 — software testing"], "connotation": "Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases."})],
-            element_node=_cx("InterfaceTestScenarioEntry", s, _mc_InterfaceTestScenarioEntry, lambda r, c: SomMetaNode(class_name="InterfaceTestScenarioEntry", class_section_id="INTESCEN", kind=SomMetaKind.COMPLEX, type_name="InterfaceTestScenarioEntry", doc_comment="Test scenario entry.", class_doc_comment="Test scenario entry.", recursive=r, children=c))),
+            element_node=_cx("InterfaceTestScenarioEntry", s, _mc_InterfaceTestScenarioEntry, lambda r, c: SomMetaNode(class_name="InterfaceTestScenarioEntry", class_section_id="INTESC", kind=SomMetaKind.COMPLEX, type_name="InterfaceTestScenarioEntry", doc_comment="Test scenario entry.", class_doc_comment="Test scenario entry.", recursive=r, children=c))),
     ]
 
 
@@ -28833,15 +28833,15 @@ def _mc_MetricsAndObservability(s):
          SomMetaNode(
             class_name="MetricsAndObservability",
             member_name="customMetrics",
-            section_id="CUSMETENT-CUST-LST",
-            section_id_pattern="CUSMETENT-CUST-xxx",
+            section_id="CUSMET-CUST-LST",
+            section_id_pattern="CUSMET-CUST-xxx",
             kind=SomMetaKind.LIST,
             type_name="CustomMetricEntry",
             serialization_order=6,
             content_help="Add one entry per custom metric.",
             doc_comment="Custom metrics catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus — metric types and exposition format"], "connotation": "The catalog of custom application metrics the system emits."})],
-            element_node=_cx("CustomMetricEntry", s, _mc_CustomMetricEntry, lambda r, c: SomMetaNode(class_name="CustomMetricEntry", class_section_id="CUSMETENT", kind=SomMetaKind.COMPLEX, type_name="CustomMetricEntry", doc_comment="A custom metric entry.", class_doc_comment="A custom metric entry.", recursive=r, children=c))),
+            element_node=_cx("CustomMetricEntry", s, _mc_CustomMetricEntry, lambda r, c: SomMetaNode(class_name="CustomMetricEntry", class_section_id="CUSMET", kind=SomMetaKind.COMPLEX, type_name="CustomMetricEntry", doc_comment="A custom metric entry.", class_doc_comment="A custom metric entry.", recursive=r, children=c))),
     ]
 
 
@@ -30138,15 +30138,15 @@ def _mc_MonitoringAndAlertingSection(s):
          SomMetaNode(
             class_name="MonitoringAndAlertingSection",
             member_name="alertDefinitions",
-            section_id="ALEDEFENT-ALER-LST",
-            section_id_pattern="ALEDEFENT-ALER-xxx",
+            section_id="ALEDEF-ALER-LST",
+            section_id_pattern="ALEDEF-ALER-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertDefinitionEntry",
             serialization_order=7,
             content_help="Add one entry per alert definition.",
             doc_comment="Alert definitions.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Prometheus / Grafana — metrics & alerting"], "connotation": "The alert definitions the system applies."})],
-            element_node=_cx("AlertDefinitionEntry", s, _mc_AlertDefinitionEntry, lambda r, c: SomMetaNode(class_name="AlertDefinitionEntry", class_section_id="ALEDEFENT", kind=SomMetaKind.COMPLEX, type_name="AlertDefinitionEntry", doc_comment="Alert definition entry.", class_doc_comment="Alert definition entry.", recursive=r, children=c))),
+            element_node=_cx("AlertDefinitionEntry", s, _mc_AlertDefinitionEntry, lambda r, c: SomMetaNode(class_name="AlertDefinitionEntry", class_section_id="ALEDEF", kind=SomMetaKind.COMPLEX, type_name="AlertDefinitionEntry", doc_comment="Alert definition entry.", class_doc_comment="Alert definition entry.", recursive=r, children=c))),
          _cx("DashboardRequirements", s, _mc_DashboardRequirements,
             lambda r, c: SomMetaNode(
                 class_name="DashboardRequirements",
@@ -30428,15 +30428,15 @@ def _mc_MultiLanguageSupport(s):
          SomMetaNode(
             class_name="MultiLanguageSupport",
             member_name="supportedLocales",
-            section_id="SUPLOCENT-SUPP-LST",
-            section_id_pattern="SUPLOCENT-SUPP-xxx",
+            section_id="SUPLOC-SUPP-LST",
+            section_id_pattern="SUPLOC-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="SupportedLocaleEntry",
             serialization_order=3,
             content_help="Add one entry per supported locale.",
             doc_comment="Supported locale entries.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 639 — language codes identify each supported locale", "ISO 3166 — country and region codes complete each locale identifier", "W3C Internationalization / BCP 47 — language tags name the supported locales"], "connotation": "The collection of locales the system supports."})],
-            element_node=_cx("SupportedLocaleEntry", s, _mc_SupportedLocaleEntry, lambda r, c: SomMetaNode(class_name="SupportedLocaleEntry", class_section_id="SUPLOCENT", kind=SomMetaKind.COMPLEX, type_name="SupportedLocaleEntry", doc_comment="A supported locale entry.", class_doc_comment="A supported locale entry.", recursive=r, children=c))),
+            element_node=_cx("SupportedLocaleEntry", s, _mc_SupportedLocaleEntry, lambda r, c: SomMetaNode(class_name="SupportedLocaleEntry", class_section_id="SUPLOC", kind=SomMetaKind.COMPLEX, type_name="SupportedLocaleEntry", doc_comment="A supported locale entry.", class_doc_comment="A supported locale entry.", recursive=r, children=c))),
     ]
 
 
@@ -32888,15 +32888,15 @@ def _mc_OutOfScope(s):
          SomMetaNode(
             class_name="OutOfScope",
             member_name="items",
-            section_id="OUOFSCEN-ITEM-LST",
-            section_id_pattern="OUOFSCEN-ITEM-xxx",
+            section_id="OUTSCO-ITEM-LST",
+            section_id_pattern="OUTSCO-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="OutOfScopeEntry",
             serialization_order=1,
             content_help="Each entry records one excluded feature, system, or integration along with its exclusion rationale.",
             doc_comment="Contains 0+× OutOfScopeEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "PMBOK — scope management & assumption log"], "connotation": "Lists each individually excluded item so every out-of-scope decision is recorded and traceable."})],
-            element_node=_cx("OutOfScopeEntry", s, _mc_OutOfScopeEntry, lambda r, c: SomMetaNode(class_name="OutOfScopeEntry", class_section_id="OUOFSCEN", kind=SomMetaKind.COMPLEX, type_name="OutOfScopeEntry", doc_comment="An out-of-scope entry (form).", class_doc_comment="An out-of-scope entry (form).", recursive=r, children=c))),
+            element_node=_cx("OutOfScopeEntry", s, _mc_OutOfScopeEntry, lambda r, c: SomMetaNode(class_name="OutOfScopeEntry", class_section_id="OUTSCO", kind=SomMetaKind.COMPLEX, type_name="OutOfScopeEntry", doc_comment="An out-of-scope entry (form).", class_doc_comment="An out-of-scope entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -33896,7 +33896,7 @@ def _mc_PhaseGateReviewEntry(s):
             type_name="String",
             serialization_order=6,
             doc_comment="Exit conditions and outcome.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="exitCriteria", type_name="String", description="Exit Criteria", required=True, hint="What must be true for the gate to pass", order=0), SomFormFieldMeta(name="minimumPassThreshold", type_name="String", description="Minimum Pass Threshold", hint="Quantified threshold — e.g. ≥80% criteria met", order=1), SomFormFieldMeta(name="gateOutcome", type_name="String", description="Gate Outcome", hint="Proceed / ConditionalProceed / Rework / Hold / Cancel", order=2), SomFormFieldMeta(name="outcomeRationale", type_name="String", description="Outcome Rationale", hint="Why this decision was made", order=3), SomFormFieldMeta(name="conditionalItems", type_name="String", description="Conditional Items", hint="Open items for conditional advancement", order=4), SomFormFieldMeta(name="followUpActions", type_name="String", description="Follow-Up Actions", hint="Actions assigned during review", order=5), SomFormFieldMeta(name="nextGateReference", type_name="String", description="Next Gate Reference", hint="Gate ID of the next gate in sequence", order=6, refers_to=["PHGAREEN.gateId"])]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="exitCriteria", type_name="String", description="Exit Criteria", required=True, hint="What must be true for the gate to pass", order=0), SomFormFieldMeta(name="minimumPassThreshold", type_name="String", description="Minimum Pass Threshold", hint="Quantified threshold — e.g. ≥80% criteria met", order=1), SomFormFieldMeta(name="gateOutcome", type_name="String", description="Gate Outcome", hint="Proceed / ConditionalProceed / Rework / Hold / Cancel", order=2), SomFormFieldMeta(name="outcomeRationale", type_name="String", description="Outcome Rationale", hint="Why this decision was made", order=3), SomFormFieldMeta(name="conditionalItems", type_name="String", description="Conditional Items", hint="Open items for conditional advancement", order=4), SomFormFieldMeta(name="followUpActions", type_name="String", description="Follow-Up Actions", hint="Actions assigned during review", order=5), SomFormFieldMeta(name="nextGateReference", type_name="String", description="Next Gate Reference", hint="Gate ID of the next gate in sequence", order=6, refers_to=["PHGREV.gateId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"], "connotation": "Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions."})]),
          SomMetaNode(
             class_name="PhaseGateReviewEntry",
@@ -33963,15 +33963,15 @@ def _mc_PhaseGateReviews(s):
          SomMetaNode(
             class_name="PhaseGateReviews",
             member_name="items",
-            section_id="PHGAREEN-ITEM-LST",
-            section_id_pattern="PHGAREEN-ITEM-xxx",
+            section_id="PHGREV-ITEM-LST",
+            section_id_pattern="PHGREV-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="PhaseGateReviewEntry",
             serialization_order=4,
             content_help="Add one entry per phase gate review.",
             doc_comment="Contains 0+× PhaseGateReviewEntry.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"], "connotation": "Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome."})],
-            element_node=_cx("PhaseGateReviewEntry", s, _mc_PhaseGateReviewEntry, lambda r, c: SomMetaNode(class_name="PhaseGateReviewEntry", class_section_id="PHGAREEN", kind=SomMetaKind.COMPLEX, type_name="PhaseGateReviewEntry", doc_comment="A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", class_doc_comment="A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", recursive=r, children=c))),
+            element_node=_cx("PhaseGateReviewEntry", s, _mc_PhaseGateReviewEntry, lambda r, c: SomMetaNode(class_name="PhaseGateReviewEntry", class_section_id="PHGREV", kind=SomMetaKind.COMPLEX, type_name="PhaseGateReviewEntry", doc_comment="A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", class_doc_comment="A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", recursive=r, children=c))),
     ]
 
 
@@ -34191,15 +34191,15 @@ def _mc_PlatformAndLanguage(s):
          SomMetaNode(
             class_name="PlatformAndLanguage",
             member_name="deploymentTargets",
-            section_id="DEPTARENT-DEPL-LST",
-            section_id_pattern="DEPTARENT-DEPL-xxx",
+            section_id="DEPTAR-DEPL-LST",
+            section_id_pattern="DEPTAR-DEPL-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeploymentTargetEntry",
             serialization_order=6,
             content_help="Add one entry per deployment target.",
             doc_comment="Deployment target specifications.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Twelve-Factor App — cloud-native methodology", "ISO/IEC 12207 — software lifecycle processes"], "connotation": "The deployment targets — production, staging and distribution environments — the system is released to."})],
-            element_node=_cx("DeploymentTargetEntry", s, _mc_DeploymentTargetEntry, lambda r, c: SomMetaNode(class_name="DeploymentTargetEntry", class_section_id="DEPTARENT", kind=SomMetaKind.COMPLEX, type_name="DeploymentTargetEntry", doc_comment="Deployment target specification entry.", class_doc_comment="Deployment target specification entry.", recursive=r, children=c))),
+            element_node=_cx("DeploymentTargetEntry", s, _mc_DeploymentTargetEntry, lambda r, c: SomMetaNode(class_name="DeploymentTargetEntry", class_section_id="DEPTAR", kind=SomMetaKind.COMPLEX, type_name="DeploymentTargetEntry", doc_comment="Deployment target specification entry.", class_doc_comment="Deployment target specification entry.", recursive=r, children=c))),
          _cx("DependencyManagement", s, _mc_DependencyManagement,
             lambda r, c: SomMetaNode(
                 class_name="DependencyManagement",
@@ -38446,15 +38446,15 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="schedules",
-            section_id="REPSCHENT-SCHE-LST",
-            section_id_pattern="REPSCHENT-SCHE-xxx",
+            section_id="REPSCH-SCHE-LST",
+            section_id_pattern="REPSCH-SCHE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportScheduleEntry",
             serialization_order=15,
             content_help="Add one entry per report generation schedule.",
             doc_comment="Contains 0+× Report Schedule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — expresses the dates and times at which the report is generated", "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"], "connotation": "The collection of schedules controlling automated generation of the report."})],
-            element_node=_cx("ReportScheduleEntry", s, _mc_ReportScheduleEntry, lambda r, c: SomMetaNode(class_name="ReportScheduleEntry", class_section_id="REPSCHENT", kind=SomMetaKind.COMPLEX, type_name="ReportScheduleEntry", doc_comment="Scheduling rules for report generation\n(form).", class_doc_comment="Scheduling rules for report generation\n(form).", recursive=r, children=c))),
+            element_node=_cx("ReportScheduleEntry", s, _mc_ReportScheduleEntry, lambda r, c: SomMetaNode(class_name="ReportScheduleEntry", class_section_id="REPSCH", kind=SomMetaKind.COMPLEX, type_name="ReportScheduleEntry", doc_comment="Scheduling rules for report generation\n(form).", class_doc_comment="Scheduling rules for report generation\n(form).", recursive=r, children=c))),
          SomMetaNode(
             class_name="ReportEntry",
             member_name="distributions",
@@ -38730,27 +38730,27 @@ def _mc_ReportSectionEntry(s):
          SomMetaNode(
             class_name="ReportSectionEntry",
             member_name="columns",
-            section_id="REPCOLENT-COLU-LST",
-            section_id_pattern="REPCOLENT-COLU-xxx",
+            section_id="REPCOL-COLU-LST",
+            section_id_pattern="REPCOL-COLU-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportColumnEntry",
             serialization_order=5,
             content_help="Add one entry per column in the section table.",
             doc_comment="Contains 0+× Report Column.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-112:2017 — presentation of information organises tabular data into columns"], "connotation": "The collection of column entries defining the tabular layout of this report section."})],
-            element_node=_cx("ReportColumnEntry", s, _mc_ReportColumnEntry, lambda r, c: SomMetaNode(class_name="ReportColumnEntry", class_section_id="REPCOLENT", kind=SomMetaKind.COMPLEX, type_name="ReportColumnEntry", doc_comment="A column in a tabular report section\n(form).", class_doc_comment="A column in a tabular report section\n(form).", recursive=r, children=c))),
+            element_node=_cx("ReportColumnEntry", s, _mc_ReportColumnEntry, lambda r, c: SomMetaNode(class_name="ReportColumnEntry", class_section_id="REPCOL", kind=SomMetaKind.COMPLEX, type_name="ReportColumnEntry", doc_comment="A column in a tabular report section\n(form).", class_doc_comment="A column in a tabular report section\n(form).", recursive=r, children=c))),
          SomMetaNode(
             class_name="ReportSectionEntry",
             member_name="charts",
-            section_id="REPCHAENT-CHAR-LST",
-            section_id_pattern="REPCHAENT-CHAR-xxx",
+            section_id="REPCHA-CHAR-LST",
+            section_id_pattern="REPCHA-CHAR-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportChartEntry",
             serialization_order=6,
             content_help="Add one entry per chart shown in the section.",
             doc_comment="Contains 0+× Report Chart.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form"], "connotation": "The collection of chart entries rendered within this report section."})],
-            element_node=_cx("ReportChartEntry", s, _mc_ReportChartEntry, lambda r, c: SomMetaNode(class_name="ReportChartEntry", class_section_id="REPCHAENT", kind=SomMetaKind.COMPLEX, type_name="ReportChartEntry", doc_comment="A chart/visualization in a report\n(form).", class_doc_comment="A chart/visualization in a report\n(form).", recursive=r, children=c))),
+            element_node=_cx("ReportChartEntry", s, _mc_ReportChartEntry, lambda r, c: SomMetaNode(class_name="ReportChartEntry", class_section_id="REPCHA", kind=SomMetaKind.COMPLEX, type_name="ReportChartEntry", doc_comment="A chart/visualization in a report\n(form).", class_doc_comment="A chart/visualization in a report\n(form).", recursive=r, children=c))),
     ]
 
 
@@ -39915,27 +39915,27 @@ def _mc_ReusableComponentsSection(s):
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="businessComponents",
-            section_id="BUSCOMENT-BUSI-LST",
-            section_id_pattern="BUSCOMENT-BUSI-xxx",
+            section_id="BUSCOM-BUSI-LST",
+            section_id_pattern="BUSCOM-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessComponentEntry",
             serialization_order=5,
             content_help="Add one entry per business component.",
             doc_comment="Business logic components.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — reusability quality attributes"], "connotation": "The reusable business logic components shared across the system."})],
-            element_node=_cx("BusinessComponentEntry", s, _mc_BusinessComponentEntry, lambda r, c: SomMetaNode(class_name="BusinessComponentEntry", class_section_id="BUSCOMENT", kind=SomMetaKind.COMPLEX, type_name="BusinessComponentEntry", doc_comment="Business logic component entry.", class_doc_comment="Business logic component entry.", recursive=r, children=c))),
+            element_node=_cx("BusinessComponentEntry", s, _mc_BusinessComponentEntry, lambda r, c: SomMetaNode(class_name="BusinessComponentEntry", class_section_id="BUSCOM", kind=SomMetaKind.COMPLEX, type_name="BusinessComponentEntry", doc_comment="Business logic component entry.", class_doc_comment="Business logic component entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="infrastructureComponents",
-            section_id="INFCOMENT-INFR-LST",
-            section_id_pattern="INFCOMENT-INFR-xxx",
+            section_id="INFCOM-INFR-LST",
+            section_id_pattern="INFCOM-INFR-xxx",
             kind=SomMetaKind.LIST,
             type_name="InfrastructureComponentEntry",
             serialization_order=6,
             content_help="Add one entry per infrastructure component.",
             doc_comment="Infrastructure components.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DRY — reusable component design", "ISO/IEC 25010 — maintainability quality attributes"], "connotation": "The reusable infrastructure components shared across the system."})],
-            element_node=_cx("InfrastructureComponentEntry", s, _mc_InfrastructureComponentEntry, lambda r, c: SomMetaNode(class_name="InfrastructureComponentEntry", class_section_id="INFCOMENT", kind=SomMetaKind.COMPLEX, type_name="InfrastructureComponentEntry", doc_comment="Infrastructure component entry.", class_doc_comment="Infrastructure component entry.", recursive=r, children=c))),
+            element_node=_cx("InfrastructureComponentEntry", s, _mc_InfrastructureComponentEntry, lambda r, c: SomMetaNode(class_name="InfrastructureComponentEntry", class_section_id="INFCOM", kind=SomMetaKind.COMPLEX, type_name="InfrastructureComponentEntry", doc_comment="Infrastructure component entry.", class_doc_comment="Infrastructure component entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="thirdPartyLibraries",
@@ -41957,15 +41957,15 @@ def _mc_ScreenElementEntry(s):
          SomMetaNode(
             class_name="ScreenElementEntry",
             member_name="validationRules",
-            section_id="ELVARUEN-VALI-LST",
-            section_id_pattern="ELVARUEN-VALI-xxx",
+            section_id="ELVARU-VALI-LST",
+            section_id_pattern="ELVARU-VALI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ElementValidationRuleEntry",
             serialization_order=9,
             content_help="Add one entry per validation rule.",
             doc_comment="Contains 0+× ElementValidationRule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — validation of user input in form-based interaction", "ISO 9241-110:2020 — use error tolerance through input validation"], "connotation": "The collection of validation rules that constrain and check the input for a screen element."})],
-            element_node=_cx("ElementValidationRuleEntry", s, _mc_ElementValidationRuleEntry, lambda r, c: SomMetaNode(class_name="ElementValidationRuleEntry", class_section_id="ELVARUEN", kind=SomMetaKind.COMPLEX, type_name="ElementValidationRuleEntry", doc_comment="A validation rule entry (form).", class_doc_comment="A validation rule entry (form).", recursive=r, children=c))),
+            element_node=_cx("ElementValidationRuleEntry", s, _mc_ElementValidationRuleEntry, lambda r, c: SomMetaNode(class_name="ElementValidationRuleEntry", class_section_id="ELVARU", kind=SomMetaKind.COMPLEX, type_name="ElementValidationRuleEntry", doc_comment="A validation rule entry (form).", class_doc_comment="A validation rule entry (form).", recursive=r, children=c))),
     ]
 
 
@@ -42173,15 +42173,15 @@ def _mc_ScreenEntry(s):
          SomMetaNode(
             class_name="ScreenEntry",
             member_name="responsiveRules",
-            section_id="SCRERUEN-RESP-LST",
-            section_id_pattern="SCRERUEN-RESP-xxx",
+            section_id="SCRERU-RESP-LST",
+            section_id_pattern="SCRERU-RESP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScreenResponsiveRuleEntry",
             serialization_order=11,
             content_help="Add one entry per responsive rule.",
             doc_comment="Contains 0+× ScreenResponsiveRule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — adaptation of visual presentation to different display conditions", "ISO 9241-112:2017 — presentation of information across varying contexts of use"], "connotation": "The collection of responsive rules that adapt a screen layout to different device sizes."})],
-            element_node=_cx("ScreenResponsiveRuleEntry", s, _mc_ScreenResponsiveRuleEntry, lambda r, c: SomMetaNode(class_name="ScreenResponsiveRuleEntry", class_section_id="SCRERUEN", kind=SomMetaKind.COMPLEX, type_name="ScreenResponsiveRuleEntry", doc_comment="A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", class_doc_comment="A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", recursive=r, children=c))),
+            element_node=_cx("ScreenResponsiveRuleEntry", s, _mc_ScreenResponsiveRuleEntry, lambda r, c: SomMetaNode(class_name="ScreenResponsiveRuleEntry", class_section_id="SCRERU", kind=SomMetaKind.COMPLEX, type_name="ScreenResponsiveRuleEntry", doc_comment="A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", class_doc_comment="A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", recursive=r, children=c))),
     ]
 
 
@@ -42573,7 +42573,7 @@ def _mc_ScreenTransitionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceRouteId", type_name="String", description="Source Route ID", required=True, hint="Route ID (SCRTEN registry) the user is on when the action runs", order=0, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="ID of the triggering action (SCRAC registry) or of the screen element that raises it", order=1, refers_to=["SCRAC.actionId"]), SomFormFieldMeta(name="outcome", type_name="ScreenFlowOutcome", description="Outcome", required=True, hint="success — the action completed; error — processing failed; validationError — the input was rejected", order=2, enum_values=["success", "error", "validationError"]), SomFormFieldMeta(name="targetRouteId", type_name="String", description="Target Route ID", required=True, hint="Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", order=3, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="presentationMode", type_name="ScreenPresentationMode", description="Presentation Mode", required=True, hint="replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", order=4, enum_values=["replace", "popupOverlay"]), SomFormFieldMeta(name="outcomeReference", type_name="String", description="Outcome Reference", hint="For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", order=5, refers_to=["SYERCOEN.errorCode", "VMT.messageId"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceRouteId", type_name="String", description="Source Route ID", required=True, hint="Route ID (SCRTEN registry) the user is on when the action runs", order=0, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="ID of the triggering action (SCRAC registry) or of the screen element that raises it", order=1, refers_to=["SCRAC.actionId"]), SomFormFieldMeta(name="outcome", type_name="ScreenFlowOutcome", description="Outcome", required=True, hint="success — the action completed; error — processing failed; validationError — the input was rejected", order=2, enum_values=["success", "error", "validationError"]), SomFormFieldMeta(name="targetRouteId", type_name="String", description="Target Route ID", required=True, hint="Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", order=3, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="presentationMode", type_name="ScreenPresentationMode", description="Presentation Mode", required=True, hint="replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", order=4, enum_values=["replace", "popupOverlay"]), SomFormFieldMeta(name="outcomeReference", type_name="String", description="Outcome Reference", hint="For error, the system error code (SYERCO registry); for validationError, the validation message template (VMT registry) — empty for success", order=5, refers_to=["SYERCO.errorCode", "VMT.messageId"])])),
     ]
 
 
@@ -42610,15 +42610,15 @@ def _mc_SecondaryNavigation(s):
          SomMetaNode(
             class_name="SecondaryNavigation",
             member_name="tabBars",
-            section_id="TABADEEN-TABB-LST",
-            section_id_pattern="TABADEEN-TABB-xxx",
+            section_id="TABADE-TABB-LST",
+            section_id_pattern="TABADE-TABB-xxx",
             kind=SomMetaKind.LIST,
             type_name="TabBarDefinitionEntry",
             serialization_order=2,
             content_help="Add one entry per tab bar or segmented control.",
             doc_comment="Contains 0+× TabBarDefinition.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"], "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."})],
-            element_node=_cx("TabBarDefinitionEntry", s, _mc_TabBarDefinitionEntry, lambda r, c: SomMetaNode(class_name="TabBarDefinitionEntry", class_section_id="TABADEEN", kind=SomMetaKind.COMPLEX, type_name="TabBarDefinitionEntry", doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", class_doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", recursive=r, children=c))),
+            element_node=_cx("TabBarDefinitionEntry", s, _mc_TabBarDefinitionEntry, lambda r, c: SomMetaNode(class_name="TabBarDefinitionEntry", class_section_id="TABADE", kind=SomMetaKind.COMPLEX, type_name="TabBarDefinitionEntry", doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", class_doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", recursive=r, children=c))),
     ]
 
 
@@ -46656,39 +46656,39 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="itStandards",
-            section_id="ITSTCOEN-ITST-LST",
-            section_id_pattern="ITSTCOEN-ITST-xxx",
+            section_id="ITSTCO-ITST-LST",
+            section_id_pattern="ITSTCO-ITST-xxx",
             kind=SomMetaKind.LIST,
             type_name="ItStandardComplianceEntry",
             serialization_order=2,
             content_help="Add one entry per IT standard.",
             doc_comment="IT standards compliance (ISO, IEEE, NIST).",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"], "connotation": "The IT standards the system must comply with."})],
-            element_node=_cx("ItStandardComplianceEntry", s, _mc_ItStandardComplianceEntry, lambda r, c: SomMetaNode(class_name="ItStandardComplianceEntry", class_section_id="ITSTCOEN", kind=SomMetaKind.COMPLEX, type_name="ItStandardComplianceEntry", doc_comment="IT standard compliance entry (ISO, IEEE, NIST, OASIS).", class_doc_comment="IT standard compliance entry (ISO, IEEE, NIST, OASIS).", recursive=r, children=c))),
+            element_node=_cx("ItStandardComplianceEntry", s, _mc_ItStandardComplianceEntry, lambda r, c: SomMetaNode(class_name="ItStandardComplianceEntry", class_section_id="ITSTCO", kind=SomMetaKind.COMPLEX, type_name="ItStandardComplianceEntry", doc_comment="IT standard compliance entry (ISO, IEEE, NIST, OASIS).", class_doc_comment="IT standard compliance entry (ISO, IEEE, NIST, OASIS).", recursive=r, children=c))),
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="industryProtocols",
-            section_id="INPRCOEN-INDU-LST",
-            section_id_pattern="INPRCOEN-INDU-xxx",
+            section_id="INPRCO-INDU-LST",
+            section_id_pattern="INPRCO-INDU-xxx",
             kind=SomMetaKind.LIST,
             type_name="IndustryProtocolComplianceEntry",
             serialization_order=3,
             content_help="Add one entry per industry protocol.",
             doc_comment="Industry protocols compliance.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["HL7 / FHIR / ISO 20022 — industry data-exchange standards", "ISO 9001 — quality management systems"], "connotation": "The industry protocols the system must comply with."})],
-            element_node=_cx("IndustryProtocolComplianceEntry", s, _mc_IndustryProtocolComplianceEntry, lambda r, c: SomMetaNode(class_name="IndustryProtocolComplianceEntry", class_section_id="INPRCOEN", kind=SomMetaKind.COMPLEX, type_name="IndustryProtocolComplianceEntry", doc_comment="Industry protocol compliance entry.", class_doc_comment="Industry protocol compliance entry.", recursive=r, children=c))),
+            element_node=_cx("IndustryProtocolComplianceEntry", s, _mc_IndustryProtocolComplianceEntry, lambda r, c: SomMetaNode(class_name="IndustryProtocolComplianceEntry", class_section_id="INPRCO", kind=SomMetaKind.COMPLEX, type_name="IndustryProtocolComplianceEntry", doc_comment="Industry protocol compliance entry.", class_doc_comment="Industry protocol compliance entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="interfaceSpecifications",
-            section_id="INTSPEENT-INTE-LST",
-            section_id_pattern="INTSPEENT-INTE-xxx",
+            section_id="INTSPE-INTE-LST",
+            section_id_pattern="INTSPE-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceSpecificationEntry",
             serialization_order=4,
             content_help="Add one entry per interface specification.",
             doc_comment="Interface specification standards.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"], "connotation": "The interface specification standards the system must follow."})],
-            element_node=_cx("InterfaceSpecificationEntry", s, _mc_InterfaceSpecificationEntry, lambda r, c: SomMetaNode(class_name="InterfaceSpecificationEntry", class_section_id="INTSPEENT", kind=SomMetaKind.COMPLEX, type_name="InterfaceSpecificationEntry", doc_comment="Interface specification entry (REST, GraphQL, gRPC, SOAP).", class_doc_comment="Interface specification entry (REST, GraphQL, gRPC, SOAP).", recursive=r, children=c))),
+            element_node=_cx("InterfaceSpecificationEntry", s, _mc_InterfaceSpecificationEntry, lambda r, c: SomMetaNode(class_name="InterfaceSpecificationEntry", class_section_id="INTSPE", kind=SomMetaKind.COMPLEX, type_name="InterfaceSpecificationEntry", doc_comment="Interface specification entry (REST, GraphQL, gRPC, SOAP).", class_doc_comment="Interface specification entry (REST, GraphQL, gRPC, SOAP).", recursive=r, children=c))),
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="regulatoryCompliance",
@@ -46704,15 +46704,15 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="securityStandards",
-            section_id="SESTCOEN-SECU-LST",
-            section_id_pattern="SESTCOEN-SECU-xxx",
+            section_id="SESTCO-SECU-LST",
+            section_id_pattern="SESTCO-SECU-xxx",
             kind=SomMetaKind.LIST,
             type_name="SecurityStandardComplianceEntry",
             serialization_order=6,
             content_help="Add one entry per security standard.",
             doc_comment="Security standards compliance.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001 — information security management", "ISO/IEC 27002 — information security controls"], "connotation": "The security standards the system must comply with."})],
-            element_node=_cx("SecurityStandardComplianceEntry", s, _mc_SecurityStandardComplianceEntry, lambda r, c: SomMetaNode(class_name="SecurityStandardComplianceEntry", class_section_id="SESTCOEN", kind=SomMetaKind.COMPLEX, type_name="SecurityStandardComplianceEntry", doc_comment="Security standard compliance entry (SOC2, ISO 27001, CIS).", class_doc_comment="Security standard compliance entry (SOC2, ISO 27001, CIS).", recursive=r, children=c))),
+            element_node=_cx("SecurityStandardComplianceEntry", s, _mc_SecurityStandardComplianceEntry, lambda r, c: SomMetaNode(class_name="SecurityStandardComplianceEntry", class_section_id="SESTCO", kind=SomMetaKind.COMPLEX, type_name="SecurityStandardComplianceEntry", doc_comment="Security standard compliance entry (SOC2, ISO 27001, CIS).", class_doc_comment="Security standard compliance entry (SOC2, ISO 27001, CIS).", recursive=r, children=c))),
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="accessibilityStandards",
@@ -47510,27 +47510,27 @@ def _mc_SystemBusinessCriticality(s):
          SomMetaNode(
             class_name="SystemBusinessCriticality",
             member_name="businessUnits",
-            section_id="SYBUUNEN-BUSI-LST",
-            section_id_pattern="SYBUUNEN-BUSI-xxx",
+            section_id="SYBUUN-BUSI-LST",
+            section_id_pattern="SYBUUN-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemBusinessUnitEntry",
             serialization_order=3,
             content_help="Add one entry per business unit using the system; note user count and dependency level.",
             doc_comment="Business units and departments using this system.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (business usage)"], "connotation": "Lists the business units and departments that depend on the system, quantifying organizational reach for impact planning."})],
-            element_node=_cx("SystemBusinessUnitEntry", s, _mc_SystemBusinessUnitEntry, lambda r, c: SomMetaNode(class_name="SystemBusinessUnitEntry", class_section_id="SYBUUNEN", kind=SomMetaKind.COMPLEX, type_name="SystemBusinessUnitEntry", doc_comment="Business unit using the system.", class_doc_comment="Business unit using the system.", recursive=r, children=c))),
+            element_node=_cx("SystemBusinessUnitEntry", s, _mc_SystemBusinessUnitEntry, lambda r, c: SomMetaNode(class_name="SystemBusinessUnitEntry", class_section_id="SYBUUN", kind=SomMetaKind.COMPLEX, type_name="SystemBusinessUnitEntry", doc_comment="Business unit using the system.", class_doc_comment="Business unit using the system.", recursive=r, children=c))),
          SomMetaNode(
             class_name="SystemBusinessCriticality",
             member_name="supportedProcesses",
-            section_id="SYBUPREN-SUPP-LST",
-            section_id_pattern="SYBUPREN-SUPP-xxx",
+            section_id="SYBUPR-SUPP-LST",
+            section_id_pattern="SYBUPR-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemBusinessProcessEntry",
             serialization_order=4,
             content_help="Add one entry per business process the system supports; note its role and execution frequency.",
             doc_comment="Business processes supported by this system.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (business processes)"], "connotation": "Lists the business processes the system supports, establishing the functional footprint that the replacement must preserve."})],
-            element_node=_cx("SystemBusinessProcessEntry", s, _mc_SystemBusinessProcessEntry, lambda r, c: SomMetaNode(class_name="SystemBusinessProcessEntry", class_section_id="SYBUPREN", kind=SomMetaKind.COMPLEX, type_name="SystemBusinessProcessEntry", doc_comment="Business process supported.", class_doc_comment="Business process supported.", recursive=r, children=c))),
+            element_node=_cx("SystemBusinessProcessEntry", s, _mc_SystemBusinessProcessEntry, lambda r, c: SomMetaNode(class_name="SystemBusinessProcessEntry", class_section_id="SYBUPR", kind=SomMetaKind.COMPLEX, type_name="SystemBusinessProcessEntry", doc_comment="Business process supported.", class_doc_comment="Business process supported.", recursive=r, children=c))),
     ]
 
 
@@ -47814,15 +47814,15 @@ def _mc_SystemDataScope(s):
          SomMetaNode(
             class_name="SystemDataScope",
             member_name="entities",
-            section_id="DAENMIEN-ENTI-LST",
-            section_id_pattern="DAENMIEN-ENTI-xxx",
+            section_id="DAENMI-ENTI-LST",
+            section_id_pattern="DAENMI-ENTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataEntityMigrationEntry",
             serialization_order=3,
             content_help="Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.",
             doc_comment="Data entities to migrate.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["DAMA-DMBOK2 — data migration (entity mapping)"], "connotation": "Lists the data entities to migrate, with target mappings and transformation notes that drive the data-migration work."})],
-            element_node=_cx("DataEntityMigrationEntry", s, _mc_DataEntityMigrationEntry, lambda r, c: SomMetaNode(class_name="DataEntityMigrationEntry", class_section_id="DAENMIEN", kind=SomMetaKind.COMPLEX, type_name="DataEntityMigrationEntry", doc_comment="A data entity migration entry.", class_doc_comment="A data entity migration entry.", recursive=r, children=c))),
+            element_node=_cx("DataEntityMigrationEntry", s, _mc_DataEntityMigrationEntry, lambda r, c: SomMetaNode(class_name="DataEntityMigrationEntry", class_section_id="DAENMI", kind=SomMetaKind.COMPLEX, type_name="DataEntityMigrationEntry", doc_comment="A data entity migration entry.", class_doc_comment="A data entity migration entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="SystemDataScope",
             member_name="knownQualityIssues",
@@ -48148,15 +48148,15 @@ def _mc_SystemErrorDisplay(s):
          SomMetaNode(
             class_name="SystemErrorDisplay",
             member_name="errorCodes",
-            section_id="SYERCOEN-ERRO-LST",
-            section_id_pattern="SYERCOEN-ERRO-xxx",
+            section_id="SYERCO-ERRO-LST",
+            section_id_pattern="SYERCO-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemErrorCodeEntry",
             serialization_order=7,
             content_help="Add one entry per system error code.",
             doc_comment="Error codes catalog.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated", "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"], "connotation": "The collection of catalogued system error code entries."})],
-            element_node=_cx("SystemErrorCodeEntry", s, _mc_SystemErrorCodeEntry, lambda r, c: SomMetaNode(class_name="SystemErrorCodeEntry", class_section_id="SYERCOEN", kind=SomMetaKind.COMPLEX, type_name="SystemErrorCodeEntry", doc_comment="A system error code entry.", class_doc_comment="A system error code entry.", recursive=r, children=c))),
+            element_node=_cx("SystemErrorCodeEntry", s, _mc_SystemErrorCodeEntry, lambda r, c: SomMetaNode(class_name="SystemErrorCodeEntry", class_section_id="SYERCO", kind=SomMetaKind.COMPLEX, type_name="SystemErrorCodeEntry", doc_comment="A system error code entry.", class_doc_comment="A system error code entry.", recursive=r, children=c))),
     ]
 
 
@@ -48362,15 +48362,15 @@ def _mc_SystemMigrationPlan(s):
          SomMetaNode(
             class_name="SystemMigrationPlan",
             member_name="risks",
-            section_id="SYMIRIEN-RISK-LST",
-            section_id_pattern="SYMIRIEN-RISK-xxx",
+            section_id="SYMIRI-RISK-LST",
+            section_id_pattern="SYMIRI-RISK-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemMigrationRiskEntry",
             serialization_order=3,
             content_help="Add one entry per migration risk; capture probability, impact, mitigation, and contingency.",
             doc_comment="Contains 0+× MigrationRiskEntry — per-system migration risks.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — risk management"], "connotation": "Lists the migration risks specific to this system, with probability, impact, mitigation, and contingency for each."})],
-            element_node=_cx("SystemMigrationRiskEntry", s, _mc_SystemMigrationRiskEntry, lambda r, c: SomMetaNode(class_name="SystemMigrationRiskEntry", class_section_id="SYMIRIEN", kind=SomMetaKind.COMPLEX, type_name="SystemMigrationRiskEntry", doc_comment="A system migration risk entry.", class_doc_comment="A system migration risk entry.", recursive=r, children=c))),
+            element_node=_cx("SystemMigrationRiskEntry", s, _mc_SystemMigrationRiskEntry, lambda r, c: SomMetaNode(class_name="SystemMigrationRiskEntry", class_section_id="SYMIRI", kind=SomMetaKind.COMPLEX, type_name="SystemMigrationRiskEntry", doc_comment="A system migration risk entry.", class_doc_comment="A system migration risk entry.", recursive=r, children=c))),
          SomMetaNode(
             class_name="SystemMigrationPlan",
             member_name="rollbackStrategy",
@@ -49440,15 +49440,15 @@ def _mc_SystemToReplaceEntry(s):
          SomMetaNode(
             class_name="SystemToReplaceEntry",
             member_name="dependencies",
-            section_id="REPSDEP-DEPE-LST",
-            section_id_pattern="REPSDEP-DEPE-xxx",
+            section_id="RESYDE-DEPE-LST",
+            section_id_pattern="RESYDE-DEPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReplacementSystemDependencyEntry",
             serialization_order=7,
             content_help="Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated.",
             doc_comment="Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — application portfolio management (integration dependencies)"], "connotation": "Lists integrations and dependencies between this system and others, so replacement sequencing accounts for connected systems."})],
-            element_node=_cx("ReplacementSystemDependencyEntry", s, _mc_ReplacementSystemDependencyEntry, lambda r, c: SomMetaNode(class_name="ReplacementSystemDependencyEntry", class_section_id="REPSDEP", kind=SomMetaKind.COMPLEX, type_name="ReplacementSystemDependencyEntry", doc_comment="A system dependency entry.\n\nDocuments integrations and dependencies with other systems.", class_doc_comment="A system dependency entry.\n\nDocuments integrations and dependencies with other systems.", recursive=r, children=c))),
+            element_node=_cx("ReplacementSystemDependencyEntry", s, _mc_ReplacementSystemDependencyEntry, lambda r, c: SomMetaNode(class_name="ReplacementSystemDependencyEntry", class_section_id="RESYDE", kind=SomMetaKind.COMPLEX, type_name="ReplacementSystemDependencyEntry", doc_comment="A system dependency entry.\n\nDocuments integrations and dependencies with other systems.", class_doc_comment="A system dependency entry.\n\nDocuments integrations and dependencies with other systems.", recursive=r, children=c))),
          _cx("SystemUserImpact", s, _mc_SystemUserImpact,
             lambda r, c: SomMetaNode(
                 class_name="SystemUserImpact",
@@ -49581,15 +49581,15 @@ def _mc_SystemUserImpact(s):
          SomMetaNode(
             class_name="SystemUserImpact",
             member_name="userGroups",
-            section_id="USGRIMEN-USER-LST",
-            section_id_pattern="USGRIMEN-USER-xxx",
+            section_id="USGRIM-USER-LST",
+            section_id_pattern="USGRIM-USER-xxx",
             kind=SomMetaKind.LIST,
             type_name="UserGroupImpactEntry",
             serialization_order=4,
             content_help="Add one entry per user group needing special handling; note impact level and special considerations.",
             doc_comment="User groups requiring specific handling.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — stakeholder management (user groups)"], "connotation": "Lists user groups that require specific handling during replacement, capturing impact level and tailored change considerations."})],
-            element_node=_cx("UserGroupImpactEntry", s, _mc_UserGroupImpactEntry, lambda r, c: SomMetaNode(class_name="UserGroupImpactEntry", class_section_id="USGRIMEN", kind=SomMetaKind.COMPLEX, type_name="UserGroupImpactEntry", doc_comment="User group impact entry.", class_doc_comment="User group impact entry.", recursive=r, children=c))),
+            element_node=_cx("UserGroupImpactEntry", s, _mc_UserGroupImpactEntry, lambda r, c: SomMetaNode(class_name="UserGroupImpactEntry", class_section_id="USGRIM", kind=SomMetaKind.COMPLEX, type_name="UserGroupImpactEntry", doc_comment="User group impact entry.", class_doc_comment="User group impact entry.", recursive=r, children=c))),
     ]
 
 
@@ -50087,15 +50087,15 @@ def _mc_TechnicalEnvironment(s):
          SomMetaNode(
             class_name="TechnicalEnvironment",
             member_name="integrationConstraints",
-            section_id="INTCONENT-INTE-LST",
-            section_id_pattern="INTCONENT-INTE-xxx",
+            section_id="INTCON-INTE-LST",
+            section_id_pattern="INTCON-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="IntegrationConstraintEntry",
             serialization_order=11,
             content_help="List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.",
             doc_comment="Integration constraints — contains 0+× IntegrationConstraint.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["TOGAF — technology architecture & environment", "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"], "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."})],
-            element_node=_cx("IntegrationConstraintEntry", s, _mc_IntegrationConstraintEntry, lambda r, c: SomMetaNode(class_name="IntegrationConstraintEntry", class_section_id="INTCONENT", kind=SomMetaKind.COMPLEX, type_name="IntegrationConstraintEntry", doc_comment="An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", class_doc_comment="An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", recursive=r, children=c))),
+            element_node=_cx("IntegrationConstraintEntry", s, _mc_IntegrationConstraintEntry, lambda r, c: SomMetaNode(class_name="IntegrationConstraintEntry", class_section_id="INTCON", kind=SomMetaKind.COMPLEX, type_name="IntegrationConstraintEntry", doc_comment="An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", class_doc_comment="An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", recursive=r, children=c))),
     ]
 
 
@@ -52864,7 +52864,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="identity",
-            section_id="UICOMENT-IDEN",
+            section_id="UICOM-IDEN",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
@@ -52892,7 +52892,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="visualDesign",
-            section_id="UICOMENT-VISU",
+            section_id="UICOM-VISU",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=3,
@@ -52939,7 +52939,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="interactiveBehavior",
-            section_id="UICOMENT-INTE",
+            section_id="UICOM-INTE",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=8,
@@ -52977,7 +52977,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="responsiveness",
-            section_id="UICOMENT-RESP",
+            section_id="UICOM-RESP",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=12,
@@ -52985,7 +52985,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="accessibility",
-            section_id="UICOMENT-ACCE",
+            section_id="UICOM-ACCE",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=13,
@@ -52993,7 +52993,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="authorization",
-            section_id="UICOMENT-AUTH",
+            section_id="UICOM-AUTH",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=14,
@@ -53001,7 +53001,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="resourceIntegration",
-            section_id="UICOMENT-RESO",
+            section_id="UICOM-RESO",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=15,
@@ -53009,7 +53009,7 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="dataBinding",
-            section_id="UICOMENT-DATA",
+            section_id="UICOM-DATA",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=16,
@@ -53026,15 +53026,15 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="states",
-            section_id="COMSTAENT-STAT-LST",
-            section_id_pattern="COMSTAENT-STAT-xxx",
+            section_id="COMSTA-STAT-LST",
+            section_id_pattern="COMSTA-STAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentStateEntry",
             serialization_order=18,
             content_help="Add one entry per component state.",
             doc_comment="Contains 0+× ComponentState.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology", "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"], "connotation": "The collection of component-state entries defining the visual and functional states of the component."})],
-            element_node=_cx("ComponentStateEntry", s, _mc_ComponentStateEntry, lambda r, c: SomMetaNode(class_name="ComponentStateEntry", class_section_id="COMSTAENT", kind=SomMetaKind.COMPLEX, type_name="ComponentStateEntry", doc_comment="A component state entry.\n\nDefines a visual/functional state of the component.", class_doc_comment="A component state entry.\n\nDefines a visual/functional state of the component.", recursive=r, children=c))),
+            element_node=_cx("ComponentStateEntry", s, _mc_ComponentStateEntry, lambda r, c: SomMetaNode(class_name="ComponentStateEntry", class_section_id="COMSTA", kind=SomMetaKind.COMPLEX, type_name="ComponentStateEntry", doc_comment="A component state entry.\n\nDefines a visual/functional state of the component.", class_doc_comment="A component state entry.\n\nDefines a visual/functional state of the component.", recursive=r, children=c))),
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="variants",
@@ -53141,15 +53141,15 @@ def _mc_UiComponents(s):
          SomMetaNode(
             class_name="UiComponents",
             member_name="componentSpecs",
-            section_id="UICOMENT-COMP-LST",
-            section_id_pattern="UICOMENT-COMP-xxx",
+            section_id="UICOM-COMP-LST",
+            section_id_pattern="UICOM-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="UiComponentEntry",
             serialization_order=5,
             content_help="Add one entry per catalog component.",
             doc_comment="10.11.2. Component Specifications — contains 0+×.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Atomic Design (Brad Frost) — each catalog component is specified as a composable building block", "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"], "connotation": "The collection of catalog component-specification entries."})],
-            element_node=_cx("UiComponentEntry", s, _mc_UiComponentEntry, lambda r, c: SomMetaNode(class_name="UiComponentEntry", class_section_id="UICOMENT", kind=SomMetaKind.COMPLEX, type_name="UiComponentEntry", doc_comment="A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", class_doc_comment="A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", recursive=r, children=c))),
+            element_node=_cx("UiComponentEntry", s, _mc_UiComponentEntry, lambda r, c: SomMetaNode(class_name="UiComponentEntry", class_section_id="UICOM", kind=SomMetaKind.COMPLEX, type_name="UiComponentEntry", doc_comment="A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", class_doc_comment="A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", recursive=r, children=c))),
          SomMetaNode(
             class_name="UiComponents",
             member_name="componentFamilies",
@@ -54775,15 +54775,15 @@ def _mc_UtilityNavigation(s):
          SomMetaNode(
             class_name="UtilityNavigation",
             member_name="items",
-            section_id="UTNAITEN-ITEM-LST",
-            section_id_pattern="UTNAITEN-ITEM-xxx",
+            section_id="UTNAIT-ITEM-LST",
+            section_id_pattern="UTNAIT-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="UtilityNavigationItemEntry",
             serialization_order=1,
             content_help="Add one entry per utility navigation item.",
             doc_comment="Contains 0+× UtilityNavigationItem.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points", "ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions"], "connotation": "The collection of utility navigation items shown persistently in the app bar or drawer."})],
-            element_node=_cx("UtilityNavigationItemEntry", s, _mc_UtilityNavigationItemEntry, lambda r, c: SomMetaNode(class_name="UtilityNavigationItemEntry", class_section_id="UTNAITEN", kind=SomMetaKind.COMPLEX, type_name="UtilityNavigationItemEntry", doc_comment="A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", class_doc_comment="A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", recursive=r, children=c))),
+            element_node=_cx("UtilityNavigationItemEntry", s, _mc_UtilityNavigationItemEntry, lambda r, c: SomMetaNode(class_name="UtilityNavigationItemEntry", class_section_id="UTNAIT", kind=SomMetaKind.COMPLEX, type_name="UtilityNavigationItemEntry", doc_comment="A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", class_doc_comment="A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", recursive=r, children=c))),
     ]
 
 
@@ -54831,15 +54831,15 @@ def _mc_UtilityNavigationItemEntry(s):
          SomMetaNode(
             class_name="UtilityNavigationItemEntry",
             member_name="menuItems",
-            section_id="UTMEITEN-MENU-LST",
-            section_id_pattern="UTMEITEN-MENU-xxx",
+            section_id="UTMEIT-MENU-LST",
+            section_id_pattern="UTMEIT-MENU-xxx",
             kind=SomMetaKind.LIST,
             type_name="UtilityMenuItemEntry",
             serialization_order=4,
             content_help="Add one entry per utility menu item.",
             doc_comment="Contains 0+× UtilityMenuItem.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"], "connotation": "The collection of nested menu item entries belonging to a utility navigation item."})],
-            element_node=_cx("UtilityMenuItemEntry", s, _mc_UtilityMenuItemEntry, lambda r, c: SomMetaNode(class_name="UtilityMenuItemEntry", class_section_id="UTMEITEN", kind=SomMetaKind.COMPLEX, type_name="UtilityMenuItemEntry", doc_comment="A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", class_doc_comment="A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", recursive=r, children=c))),
+            element_node=_cx("UtilityMenuItemEntry", s, _mc_UtilityMenuItemEntry, lambda r, c: SomMetaNode(class_name="UtilityMenuItemEntry", class_section_id="UTMEIT", kind=SomMetaKind.COMPLEX, type_name="UtilityMenuItemEntry", doc_comment="A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", class_doc_comment="A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", recursive=r, children=c))),
     ]
 
 
@@ -55373,15 +55373,15 @@ def _mc_WcagCompliance(s):
          SomMetaNode(
             class_name="WcagCompliance",
             member_name="successCriteria",
-            section_id="WCSUCREN-SUCC-LST",
-            section_id_pattern="WCSUCREN-SUCC-xxx",
+            section_id="WCSUCR-SUCC-LST",
+            section_id_pattern="WCSUCR-SUCC-xxx",
             kind=SomMetaKind.LIST,
             type_name="WcagSuccessCriterionEntry",
             serialization_order=5,
             content_help="Add one entry per WCAG success criterion.",
             doc_comment="WCAG success criteria mapping.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["W3C WCAG 2.2 — each success criterion states a testable accessibility requirement", "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"], "connotation": "The collection of WCAG success-criterion entries."})],
-            element_node=_cx("WcagSuccessCriterionEntry", s, _mc_WcagSuccessCriterionEntry, lambda r, c: SomMetaNode(class_name="WcagSuccessCriterionEntry", class_section_id="WCSUCREN", kind=SomMetaKind.COMPLEX, type_name="WcagSuccessCriterionEntry", doc_comment="A WCAG success criterion entry.", class_doc_comment="A WCAG success criterion entry.", recursive=r, children=c))),
+            element_node=_cx("WcagSuccessCriterionEntry", s, _mc_WcagSuccessCriterionEntry, lambda r, c: SomMetaNode(class_name="WcagSuccessCriterionEntry", class_section_id="WCSUCR", kind=SomMetaKind.COMPLEX, type_name="WcagSuccessCriterionEntry", doc_comment="A WCAG success criterion entry.", class_doc_comment="A WCAG success criterion entry.", recursive=r, children=c))),
     ]
 
 
@@ -56785,7 +56785,7 @@ class AlertingConfigurationNav(SomMetaRef):
 
     @property
     def alertRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ALERULENT-ALER-LST", AlertRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ALERUL-ALER-LST", AlertRuleEntryNav)
 
     @property
     def escalationPolicies(self):
@@ -57815,11 +57815,11 @@ class AuthorizationRoleEntryNav(SomMetaRef):
 
     @property
     def directPermissions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ROLPERM-DIRE-LST", RolePermissionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ROLPER-DIRE-LST", RolePermissionEntryNav)
 
     @property
     def dataScopes(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ROLDSCP-DATA-LST", RoleDataScopeEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RODASC-DATA-LST", RoleDataScopeEntryNav)
 
     @property
     def mutualExclusions(self):
@@ -59576,15 +59576,15 @@ class ClientRequirementsSectionNav(SomMetaRef):
 
     @property
     def browserRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BROREQENT-BROW-LST", BrowserRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BROREQ-BROW-LST", BrowserRequirementEntryNav)
 
     @property
     def desktopOsRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEOSREEN-DESK-LST", DesktopOsRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEOSRE-DESK-LST", DesktopOsRequirementEntryNav)
 
     @property
     def mobileRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MODERE-MOBI-LST", MobileDeviceRequirementEntryNav)
 
     @property
     def displayRequirements(self):
@@ -60039,15 +60039,15 @@ class CompatibilityRequirementsSectionNav(SomMetaRef):
 
     @property
     def browserCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BROCOMENT-BROW-LST", BrowserCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BROCOM-BROW-LST", BrowserCompatibilityEntryNav)
 
     @property
     def databaseCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DATCOM-DATA-LST", DatabaseCompatibilityEntryNav)
 
     @property
     def enterpriseSystemCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ENSYCO-ENTE-LST", EnterpriseSystemCompatibilityEntryNav)
 
     @property
     def apiCompatibility(self):
@@ -60059,11 +60059,11 @@ class CompatibilityRequirementsSectionNav(SomMetaRef):
 
     @property
     def mobileCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MOBCOM-MOBI-LST", MobileCompatibilityEntryNav)
 
     @property
     def thirdPartyCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/THPACO-THIR-LST", ThirdPartyCompatibilityEntryNav)
 
     @property
     def dataFormatCompatibility(self):
@@ -65648,7 +65648,7 @@ class EntitlementEntryNav(SomMetaRef):
 
     @property
     def resourceKeyReferences(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESKREF-RESO-LST", ResourceKeyReferenceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REKERE-RESO-LST", ResourceKeyReferenceEntryNav)
 
 
 class EntitlementReferenceEntryNav(SomMetaRef):
@@ -66469,7 +66469,7 @@ class ExportFormatEntryNav(SomMetaRef):
 
     @property
     def fieldMappings(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXFIMAEN-FIEL-LST", ExportFieldMappingEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EXFIMA-FIEL-LST", ExportFieldMappingEntryNav)
 
 
 class ExportSizeSettingsNav(SomMetaRef):
@@ -66594,7 +66594,7 @@ class ExternalConnectivitySectionNav(SomMetaRef):
 
     @property
     def partnerConnections(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EXPACO-PART-LST", ExternalPartnerConnectionEntryNav)
 
     @property
     def cloudServices(self):
@@ -66822,7 +66822,7 @@ class ExternalSystemContextEntryNav(SomMetaRef):
 
     @property
     def dataMapping(self):
-        return SomMetaRef(self.tree, f"{self.path}/EXSYCOEN-DATA")
+        return SomMetaRef(self.tree, f"{self.path}/EXSYCO-DATA")
 
 
 class ExternalSystemsContextNav(SomMetaRef):
@@ -66837,7 +66837,7 @@ class ExternalSystemsContextNav(SomMetaRef):
 
     @property
     def systems(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXSYCOEN-SYST-LST", ExternalSystemContextEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EXSYCO-SYST-LST", ExternalSystemContextEntryNav)
 
 
 class FamilyComponentRefNav(SomMetaRef):
@@ -68956,7 +68956,7 @@ class InterfaceBusinessContextNav(SomMetaRef):
 
     @property
     def dependentProcesses(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INBUPREN-DEPE-LST", InterfaceBusinessProcessEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INBUPR-DEPE-LST", InterfaceBusinessProcessEntryNav)
 
 
 class InterfaceBusinessProcessEntryNav(SomMetaRef):
@@ -68993,7 +68993,7 @@ class InterfaceDataSpecNav(SomMetaRef):
 
     @property
     def dataEntities(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INDAENEN-DATA-LST", InterfaceDataEntityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INDAEN-DATA-LST", InterfaceDataEntityEntryNav)
 
     @property
     def mappingRules(self):
@@ -69204,7 +69204,7 @@ class InterfaceTestingNav(SomMetaRef):
 
     @property
     def testScenarios(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INTESCEN-TEST-LST", InterfaceTestScenarioEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTESC-TEST-LST", InterfaceTestScenarioEntryNav)
 
 
 class InternalDependenciesNav(SomMetaRef):
@@ -70593,7 +70593,7 @@ class MetricsAndObservabilityNav(SomMetaRef):
 
     @property
     def customMetrics(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CUSMETENT-CUST-LST", CustomMetricEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CUSMET-CUST-LST", CustomMetricEntryNav)
 
 
 class MetricsBaselineEntryNav(SomMetaRef):
@@ -71291,7 +71291,7 @@ class MonitoringAndAlertingSectionNav(SomMetaRef):
 
     @property
     def alertDefinitions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ALEDEFENT-ALER-LST", AlertDefinitionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ALEDEF-ALER-LST", AlertDefinitionEntryNav)
 
     @property
     def dashboards(self):
@@ -71437,7 +71437,7 @@ class MultiLanguageSupportNav(SomMetaRef):
 
     @property
     def supportedLocales(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SUPLOCENT-SUPP-LST", SupportedLocaleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SUPLOC-SUPP-LST", SupportedLocaleEntryNav)
 
 
 class MustPassCriteriaNav(SomMetaRef):
@@ -72685,7 +72685,7 @@ class OutOfScopeNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/OUOFSCEN-ITEM-LST", OutOfScopeEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/OUTSCO-ITEM-LST", OutOfScopeEntryNav)
 
 
 class OutOfScopeEntryNav(SomMetaRef):
@@ -73287,7 +73287,7 @@ class PhaseGateReviewsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PHGAREEN-ITEM-LST", PhaseGateReviewEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PHGREV-ITEM-LST", PhaseGateReviewEntryNav)
 
 
 class PhysicalWorkplaceRequirementsNav(SomMetaRef):
@@ -73406,7 +73406,7 @@ class PlatformAndLanguageNav(SomMetaRef):
 
     @property
     def deploymentTargets(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEPTARENT-DEPL-LST", DeploymentTargetEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEPTAR-DEPL-LST", DeploymentTargetEntryNav)
 
     @property
     def dependencyManagement(self):
@@ -75728,7 +75728,7 @@ class ReportEntryNav(SomMetaRef):
 
     @property
     def schedules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPSCHENT-SCHE-LST", ReportScheduleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPSCH-SCHE-LST", ReportScheduleEntryNav)
 
     @property
     def distributions(self):
@@ -75864,11 +75864,11 @@ class ReportSectionEntryNav(SomMetaRef):
 
     @property
     def columns(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPCOLENT-COLU-LST", ReportColumnEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPCOL-COLU-LST", ReportColumnEntryNav)
 
     @property
     def charts(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPCHAENT-CHAR-LST", ReportChartEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPCHA-CHAR-LST", ReportChartEntryNav)
 
 
 class RequirementNav(SomMetaRef):
@@ -76546,11 +76546,11 @@ class ReusableComponentsSectionNav(SomMetaRef):
 
     @property
     def businessComponents(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BUSCOMENT-BUSI-LST", BusinessComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BUSCOM-BUSI-LST", BusinessComponentEntryNav)
 
     @property
     def infrastructureComponents(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INFCOMENT-INFR-LST", InfrastructureComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INFCOM-INFR-LST", InfrastructureComponentEntryNav)
 
     @property
     def thirdPartyLibraries(self):
@@ -77671,7 +77671,7 @@ class ScreenElementEntryNav(SomMetaRef):
 
     @property
     def validationRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ELVARUEN-VALI-LST", ElementValidationRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ELVARU-VALI-LST", ElementValidationRuleEntryNav)
 
 
 class ScreenElementFieldSpecNav(SomMetaRef):
@@ -77765,7 +77765,7 @@ class ScreenEntryNav(SomMetaRef):
 
     @property
     def responsiveRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCRERUEN-RESP-LST", ScreenResponsiveRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SCRERU-RESP-LST", ScreenResponsiveRuleEntryNav)
 
 
 class ScreenFieldEntryNav(SomMetaRef):
@@ -78012,7 +78012,7 @@ class SecondaryNavigationNav(SomMetaRef):
 
     @property
     def tabBars(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TABADEEN-TABB-LST", TabBarDefinitionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TABADE-TABB-LST", TabBarDefinitionEntryNav)
 
 
 class SectionMetaNav(SomMetaRef):
@@ -80131,15 +80131,15 @@ class StandardsComplianceSectionNav(SomMetaRef):
 
     @property
     def itStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ITSTCOEN-ITST-LST", ItStandardComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ITSTCO-ITST-LST", ItStandardComplianceEntryNav)
 
     @property
     def industryProtocols(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INPRCO-INDU-LST", IndustryProtocolComplianceEntryNav)
 
     @property
     def interfaceSpecifications(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INTSPEENT-INTE-LST", InterfaceSpecificationEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTSPE-INTE-LST", InterfaceSpecificationEntryNav)
 
     @property
     def regulatoryCompliance(self):
@@ -80147,7 +80147,7 @@ class StandardsComplianceSectionNav(SomMetaRef):
 
     @property
     def securityStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SESTCO-SECU-LST", SecurityStandardComplianceEntryNav)
 
     @property
     def accessibilityStandards(self):
@@ -80554,11 +80554,11 @@ class SystemBusinessCriticalityNav(SomMetaRef):
 
     @property
     def businessUnits(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYBUUNEN-BUSI-LST", SystemBusinessUnitEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYBUUN-BUSI-LST", SystemBusinessUnitEntryNav)
 
     @property
     def supportedProcesses(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYBUPREN-SUPP-LST", SystemBusinessProcessEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYBUPR-SUPP-LST", SystemBusinessProcessEntryNav)
 
 
 class SystemBusinessProcessEntryNav(SomMetaRef):
@@ -80704,7 +80704,7 @@ class SystemDataScopeNav(SomMetaRef):
 
     @property
     def entities(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DAENMIEN-ENTI-LST", DataEntityMigrationEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DAENMI-ENTI-LST", DataEntityMigrationEntryNav)
 
     @property
     def knownQualityIssues(self):
@@ -80859,7 +80859,7 @@ class SystemErrorDisplayNav(SomMetaRef):
 
     @property
     def errorCodes(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYERCOEN-ERRO-LST", SystemErrorCodeEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYERCO-ERRO-LST", SystemErrorCodeEntryNav)
 
 
 class SystemIntegrationEntryNav(SomMetaRef):
@@ -80970,7 +80970,7 @@ class SystemMigrationPlanNav(SomMetaRef):
 
     @property
     def risks(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYMIRIEN-RISK-LST", SystemMigrationRiskEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYMIRI-RISK-LST", SystemMigrationRiskEntryNav)
 
     @property
     def rollbackStrategy(self):
@@ -81430,7 +81430,7 @@ class SystemToReplaceEntryNav(SomMetaRef):
 
     @property
     def dependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPSDEP-DEPE-LST", ReplacementSystemDependencyEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RESYDE-DEPE-LST", ReplacementSystemDependencyEntryNav)
 
     @property
     def userImpact(self):
@@ -81496,7 +81496,7 @@ class SystemUserImpactNav(SomMetaRef):
 
     @property
     def userGroups(self):
-        return SomListMetaRef(self.tree, f"{self.path}/USGRIMEN-USER-LST", UserGroupImpactEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/USGRIM-USER-LST", UserGroupImpactEntryNav)
 
 
 class SystemsToReplaceNav(SomMetaRef):
@@ -81774,7 +81774,7 @@ class TechnicalEnvironmentNav(SomMetaRef):
 
     @property
     def integrationConstraints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INTCONENT-INTE-LST", IntegrationConstraintEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTCON-INTE-LST", IntegrationConstraintEntryNav)
 
 
 class TechnicalEnvironmentNetworkNav(SomMetaRef):
@@ -83293,7 +83293,7 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def identity(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-IDEN")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-IDEN")
 
     @property
     def purposeProfile(self):
@@ -83305,7 +83305,7 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def visualDesign(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-VISU")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-VISU")
 
     @property
     def dimensions(self):
@@ -83325,7 +83325,7 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def interactiveBehavior(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-INTE")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-INTE")
 
     @property
     def inputBehavior(self):
@@ -83341,23 +83341,23 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def responsiveness(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-RESP")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-RESP")
 
     @property
     def accessibility(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-ACCE")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-ACCE")
 
     @property
     def authorization(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-AUTH")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-AUTH")
 
     @property
     def resourceIntegration(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-RESO")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-RESO")
 
     @property
     def dataBinding(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-DATA")
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-DATA")
 
     @property
     def behaviorNarrative(self):
@@ -83365,7 +83365,7 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def states(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMSTAENT-STAT-LST", ComponentStateEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/COMSTA-STAT-LST", ComponentStateEntryNav)
 
     @property
     def variants(self):
@@ -83412,7 +83412,7 @@ class UiComponentsNav(SomMetaRef):
 
     @property
     def componentSpecs(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UICOMENT-COMP-LST", UiComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UICOM-COMP-LST", UiComponentEntryNav)
 
     @property
     def componentFamilies(self):
@@ -84252,7 +84252,7 @@ class UtilityNavigationNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UTNAIT-ITEM-LST", UtilityNavigationItemEntryNav)
 
 
 class UtilityNavigationItemEntryNav(SomMetaRef):
@@ -84279,7 +84279,7 @@ class UtilityNavigationItemEntryNav(SomMetaRef):
 
     @property
     def menuItems(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UTMEITEN-MENU-LST", UtilityMenuItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UTMEIT-MENU-LST", UtilityMenuItemEntryNav)
 
 
 class ValidationConstraintsNav(SomMetaRef):
@@ -84574,7 +84574,7 @@ class WcagComplianceNav(SomMetaRef):
 
     @property
     def successCriteria(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/WCSUCR-SUCC-LST", WcagSuccessCriterionEntryNav)
 
 
 class WcagSuccessCriterionEntryNav(SomMetaRef):
@@ -85340,12 +85340,12 @@ class AuthorizationRoleEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/ENREFE-ENTI-LST", EntitlementReferenceEntryId)
 
     @property
-    def ROLPERM_DIRE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ROLPERM-DIRE-LST", RolePermissionEntryId)
+    def ROLPER_DIRE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/ROLPER-DIRE-LST", RolePermissionEntryId)
 
     @property
-    def ROLDSCP_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ROLDSCP-DATA-LST", RoleDataScopeEntryId)
+    def RODASC_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RODASC-DATA-LST", RoleDataScopeEntryId)
 
     @property
     def ROLEXC_MUTU_LST(self):
@@ -86658,8 +86658,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST", ExternalActorEntryId)
 
     @property
-    def EXSYCOEN_SYST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCOEN-SYST-LST", ExternalSystemContextEntryId)
+    def EXSYCO_SYST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCO-SYST-LST", ExternalSystemContextEntryId)
 
     @property
     def TRBN_BOUN_LST(self):
@@ -86934,8 +86934,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST", ExternalInterfaceEntryId)
 
     @property
-    def OUOFSCEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST", OutOfScopeEntryId)
+    def OUTSCO_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/outOfScope/OUTSCO-ITEM-LST", OutOfScopeEntryId)
 
     @property
     def BAE_ITEM_LST(self):
@@ -87022,8 +87022,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST", TechnologyStandardEntryId)
 
     @property
-    def INTCONENT_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST", IntegrationConstraintEntryId)
+    def INTCON_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCON-INTE-LST", IntegrationConstraintEntryId)
 
     @property
     def COANDE(self):
@@ -87858,8 +87858,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DEPTARENT_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTAR_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -88430,12 +88430,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUSCOMENT_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOM_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INFCOMENT_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOM_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -88478,16 +88478,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BROCOMENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOM_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DATCOMENT_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOM_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ENSYCOEN_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCO_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
@@ -88498,12 +88498,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOBCOMENT_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOM_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def THPACOEN_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACO_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -88554,24 +88554,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ITSTCOEN_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCO_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def INPRCOEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCO_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INTSPEENT_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
     def RCE_REGU_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SESTCOEN_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCO_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -88786,16 +88786,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BROREQENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
+    def BROREQ_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DEOSREEN_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSRE_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MODEREEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODERE_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -89390,8 +89390,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALEDEFENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEF_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -89614,8 +89614,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EXPACOEN_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACO_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACO-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -89854,8 +89854,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALERULENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
+    def ALERUL_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -89938,8 +89938,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUSMETENT_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
+    def CUSMET_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
@@ -90558,12 +90558,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TABADEEN_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
+    def TABADE_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UTNAITEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAIT_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -90658,8 +90658,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SYERCOEN_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCO_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -90778,8 +90778,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOMENT_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
+    def UICOM_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOM-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
@@ -90950,8 +90950,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO")
 
     @property
-    def WCSUCREN_SUCC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryId)
+    def WCSUCR_SUCC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST", WcagSuccessCriterionEntryId)
 
     @property
     def ACCHLS_CHEC(self):
@@ -91082,8 +91082,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU")
 
     @property
-    def SUPLOCENT_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST", SupportedLocaleEntryId)
+    def SUPLOC_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOC-SUPP-LST", SupportedLocaleEntryId)
 
     @property
     def SYQG_GOVE(self):
@@ -91846,8 +91846,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO")
 
     @property
-    def PHGAREEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST", PhaseGateReviewEntryId)
+    def PHGREV_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGREV-ITEM-LST", PhaseGateReviewEntryId)
 
     @property
     def DPE_ITEM_LST(self):
@@ -92468,8 +92468,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DEPTARENT_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTAR_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/DEPTAR-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -93040,12 +93040,12 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUSCOMENT_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOM_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/BUSCOM-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INFCOMENT_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOM_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/INFCOM-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -93088,16 +93088,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BROCOMENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOM_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/BROCOM-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DATCOMENT_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOM_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/DATCOM-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ENSYCOEN_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCO_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/ENSYCO-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
@@ -93108,12 +93108,12 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOBCOMENT_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOM_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/MOBCOM-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def THPACOEN_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACO_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/THPACO-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -93164,24 +93164,24 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ITSTCOEN_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCO_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/ITSTCO-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def INPRCOEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCO_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INPRCO-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INTSPEENT_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INTSPE-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
     def RCE_REGU_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SESTCOEN_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCO_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/SESTCO-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -93396,16 +93396,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BROREQENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
+    def BROREQ_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/BROREQ-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DEOSREEN_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSRE_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/DEOSRE-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MODEREEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODERE_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/MODERE-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -94000,8 +94000,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALEDEFENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEF_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/ALEDEF-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -94224,8 +94224,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/communicationRequirements/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EXPACOEN_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACO_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/externalConnectivity/EXPACO-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -94464,8 +94464,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALERULENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
+    def ALERUL_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERUL-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -94548,8 +94548,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUSMETENT_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
+    def CUSMET_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMET-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
@@ -95028,8 +95028,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/TSE-TECH-LST", TechnologyStandardEntryId)
 
     @property
-    def INTCONENT_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/INTCONENT-INTE-LST", IntegrationConstraintEntryId)
+    def INTCON_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/INTCON-INTE-LST", IntegrationConstraintEntryId)
 
     @property
     def TRAREQ_TRAN(self):
@@ -95063,8 +95063,8 @@ class D07IntegrationInterfaceSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/externalInterfaces/EIE-INTE-LST", ExternalInterfaceEntryId)
 
     @property
-    def OUOFSCEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/outOfScope/OUOFSCEN-ITEM-LST", OutOfScopeEntryId)
+    def OUTSCO_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/outOfScope/OUTSCO-ITEM-LST", OutOfScopeEntryId)
 
     @property
     def BAE_ITEM_LST(self):
@@ -95281,12 +95281,12 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TABADEEN_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
+    def TABADE_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UTNAITEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAIT_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -95413,8 +95413,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SYERCOEN_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCO_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -95569,8 +95569,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WCCORO")
 
     @property
-    def WCSUCREN_SUCC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryId)
+    def WCSUCR_SUCC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST", WcagSuccessCriterionEntryId)
 
     @property
     def ACCHLS_CHEC(self):
@@ -95665,8 +95665,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOMENT_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
+    def UICOM_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/uiComponents/UICOM-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
@@ -96479,8 +96479,8 @@ class D11DeliveryRoadmapId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/gateCriteria/PGRO")
 
     @property
-    def PHGAREEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/gateCriteria/PHGAREEN-ITEM-LST", PhaseGateReviewEntryId)
+    def PHGREV_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/gateCriteria/PHGREV-ITEM-LST", PhaseGateReviewEntryId)
 
     @property
     def DPE_ITEM_LST(self):
@@ -96621,8 +96621,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DEPTARENT_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTAR_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -97193,12 +97193,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUSCOMENT_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOM_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INFCOMENT_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOM_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -97241,16 +97241,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BROCOMENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOM_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DATCOMENT_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOM_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ENSYCOEN_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCO_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
@@ -97261,12 +97261,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOBCOMENT_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOM_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def THPACOEN_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACO_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -97317,24 +97317,24 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ITSTCOEN_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCO_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def INPRCOEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCO_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INTSPEENT_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
     def RCE_REGU_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SESTCOEN_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCO_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -97549,16 +97549,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BROREQENT_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
+    def BROREQ_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DEOSREEN_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSRE_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MODEREEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODERE_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -98153,8 +98153,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALEDEFENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEF_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -98377,8 +98377,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EXPACOEN_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACO_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/EXPACO-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -98617,8 +98617,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALERULENT_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
+    def ALERUL_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -98701,8 +98701,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUSMETENT_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
+    def CUSMET_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
@@ -99321,12 +99321,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TABADEEN_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
+    def TABADE_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UTNAITEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAIT_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -99421,8 +99421,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SYERCOEN_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCO_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -99541,8 +99541,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOMENT_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
+    def UICOM_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOM-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
@@ -100441,8 +100441,8 @@ class EntitlementEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def RESKREF_RESO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESKREF-RESO-LST", ResourceKeyReferenceEntryId)
+    def REKERE_RESO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REKERE-RESO-LST", ResourceKeyReferenceEntryId)
 
 
 class EntitlementReferenceEntryId(SomMetaRef):
@@ -100772,8 +100772,8 @@ class ExportFormatEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
-    def EXFIMAEN_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXFIMAEN-FIEL-LST", ExportFieldMappingEntryId)
+    def EXFIMA_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/EXFIMA-FIEL-LST", ExportFieldMappingEntryId)
 
 
 class ExportSizeSettingsId(SomMetaRef):
@@ -100878,8 +100878,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/EIE-IDEN")
 
     @property
-    def INBUPREN_DEPE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessContext/INBUPREN-DEPE-LST", InterfaceBusinessProcessEntryId)
+    def INBUPR_DEPE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessContext/INBUPR-DEPE-LST", InterfaceBusinessProcessEntryId)
 
     @property
     def ITSC(self):
@@ -100898,8 +100898,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalSpec/INWESP")
 
     @property
-    def INDAENEN_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/INDAENEN-DATA-LST", InterfaceDataEntityEntryId)
+    def INDAEN_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/INDAEN-DATA-LST", InterfaceDataEntityEntryId)
 
     @property
     def INDASP_MAPP_LST(self):
@@ -100970,8 +100970,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/testing/INTEST")
 
     @property
-    def INTESCEN_TEST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/testing/INTESCEN-TEST-LST", InterfaceTestScenarioEntryId)
+    def INTESC_TEST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/testing/INTESC-TEST-LST", InterfaceTestScenarioEntryId)
 
 
 class ExternalPartnerConnectionEntryId(SomMetaRef):
@@ -101054,8 +101054,8 @@ class ExternalSystemContextEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/ESCEG")
 
     @property
-    def EXSYCOEN_DATA(self):
-        return SomMetaRef(self.tree, f"{self.path}/EXSYCOEN-DATA")
+    def EXSYCO_DATA(self):
+        return SomMetaRef(self.tree, f"{self.path}/EXSYCO-DATA")
 
 
 class FamilyComponentRefId(SomMetaRef):
@@ -103719,8 +103719,8 @@ class ReportEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/RFE-FILT-LST", ReportFilterEntryId)
 
     @property
-    def REPSCHENT_SCHE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPSCHENT-SCHE-LST", ReportScheduleEntryId)
+    def REPSCH_SCHE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPSCH-SCHE-LST", ReportScheduleEntryId)
 
     @property
     def RDE_DIST_LST(self):
@@ -103839,12 +103839,12 @@ class ReportSectionEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RESEAG")
 
     @property
-    def REPCOLENT_COLU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPCOLENT-COLU-LST", ReportColumnEntryId)
+    def REPCOL_COLU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPCOL-COLU-LST", ReportColumnEntryId)
 
     @property
-    def REPCHAENT_CHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPCHAENT-CHAR-LST", ReportChartEntryId)
+    def REPCHA_CHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPCHA-CHAR-LST", ReportChartEntryId)
 
 
 class RequirementBusinessRuleEntryId(SomMetaRef):
@@ -104495,8 +104495,8 @@ class ScreenElementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/dataDisplay/SEDDO")
 
     @property
-    def ELVARUEN_VALI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ELVARUEN-VALI-LST", ElementValidationRuleEntryId)
+    def ELVARU_VALI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/ELVARU-VALI-LST", ElementValidationRuleEntryId)
 
 
 class ScreenEntryId(SomMetaRef):
@@ -104562,8 +104562,8 @@ class ScreenEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/EPNT-ENTR-LST", EntryPointEntryId)
 
     @property
-    def SCRERUEN_RESP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCRERUEN-RESP-LST", ScreenResponsiveRuleEntryId)
+    def SCRERU_RESP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/SCRERU-RESP-LST", ScreenResponsiveRuleEntryId)
 
 
 class ScreenFieldEntryId(SomMetaRef):
@@ -105543,12 +105543,12 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/businessCriticality/SBCG")
 
     @property
-    def SYBUUNEN_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUUNEN-BUSI-LST", SystemBusinessUnitEntryId)
+    def SYBUUN_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUUN-BUSI-LST", SystemBusinessUnitEntryId)
 
     @property
-    def SYBUPREN_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUPREN-SUPP-LST", SystemBusinessProcessEntryId)
+    def SYBUPR_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUPR-SUPP-LST", SystemBusinessProcessEntryId)
 
     @property
     def SRST(self):
@@ -105575,16 +105575,16 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/dataScope/SYDASCMI")
 
     @property
-    def DAENMIEN_ENTI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataScope/DAENMIEN-ENTI-LST", DataEntityMigrationEntryId)
+    def DAENMI_ENTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataScope/DAENMI-ENTI-LST", DataEntityMigrationEntryId)
 
     @property
     def SYDASC_KNOW_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/dataScope/SYDASC-KNOW-LST", SomMetaRef)
 
     @property
-    def REPSDEP_DEPE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPSDEP-DEPE-LST", ReplacementSystemDependencyEntryId)
+    def RESYDE_DEPE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RESYDE-DEPE-LST", ReplacementSystemDependencyEntryId)
 
     @property
     def SUICP(self):
@@ -105599,8 +105599,8 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/userImpact/SUIA")
 
     @property
-    def USGRIMEN_USER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/userImpact/USGRIMEN-USER-LST", UserGroupImpactEntryId)
+    def USGRIM_USER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/userImpact/USGRIM-USER-LST", UserGroupImpactEntryId)
 
     @property
     def SCACC(self):
@@ -105627,8 +105627,8 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/migrationPlan/SMPC")
 
     @property
-    def SYMIRIEN_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationPlan/SYMIRIEN-RISK-LST", SystemMigrationRiskEntryId)
+    def SYMIRI_RISK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationPlan/SYMIRI-RISK-LST", SystemMigrationRiskEntryId)
 
     @property
     def SYKNTR_CRIT_LST(self):
@@ -106287,8 +106287,8 @@ class UiComponentEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def UICOMENT_IDEN(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-IDEN")
+    def UICOM_IDEN(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-IDEN")
 
     @property
     def UCEP(self):
@@ -106299,8 +106299,8 @@ class UiComponentEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UCEC")
 
     @property
-    def UICOMENT_VISU(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-VISU")
+    def UICOM_VISU(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-VISU")
 
     @property
     def UCED(self):
@@ -106315,8 +106315,8 @@ class UiComponentEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UICOENSU")
 
     @property
-    def UICOMENT_INTE(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-INTE")
+    def UICOM_INTE(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-INTE")
 
     @property
     def UCEIB(self):
@@ -106331,28 +106331,28 @@ class UiComponentEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UICOENSC")
 
     @property
-    def UICOMENT_RESP(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-RESP")
+    def UICOM_RESP(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-RESP")
 
     @property
-    def UICOMENT_ACCE(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-ACCE")
+    def UICOM_ACCE(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-ACCE")
 
     @property
-    def UICOMENT_AUTH(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-AUTH")
+    def UICOM_AUTH(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-AUTH")
 
     @property
-    def UICOMENT_RESO(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-RESO")
+    def UICOM_RESO(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-RESO")
 
     @property
-    def UICOMENT_DATA(self):
-        return SomMetaRef(self.tree, f"{self.path}/UICOMENT-DATA")
+    def UICOM_DATA(self):
+        return SomMetaRef(self.tree, f"{self.path}/UICOM-DATA")
 
     @property
-    def COMSTAENT_STAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMSTAENT-STAT-LST", ComponentStateEntryId)
+    def COMSTA_STAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/COMSTA-STAT-LST", ComponentStateEntryId)
 
     @property
     def CVE_VARI_LST(self):
@@ -106598,8 +106598,8 @@ class UtilityNavigationItemEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UNIEB")
 
     @property
-    def UTMEITEN_MENU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UTMEITEN-MENU-LST", UtilityMenuItemEntryId)
+    def UTMEIT_MENU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/UTMEIT-MENU-LST", UtilityMenuItemEntryId)
 
 
 class ValidationMessageTemplateId(SomMetaRef):

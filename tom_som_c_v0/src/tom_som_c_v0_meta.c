@@ -15888,8 +15888,8 @@ static void meta_build_alerting_configuration_notification_channels(SomMetaNode 
 static void meta_build_alerting_configuration_alert_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertingConfiguration");
   meta_set(&n->member_name, "alertRules");
-  meta_set(&n->section_id, "ALERULENT-ALER-LST");
-  meta_set(&n->section_id_pattern, "ALERULENT-ALER-xxx");
+  meta_set(&n->section_id, "ALERUL-ALER-LST");
+  meta_set(&n->section_id_pattern, "ALERUL-ALER-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlertRuleEntry");
   n->has_serialization_order = 1;
@@ -15903,7 +15903,7 @@ static void meta_build_alerting_configuration_alert_rules(SomMetaNode *n) {
 }
 static void meta_build_alerting_configuration_alert_rules_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertRuleEntry");
-  meta_set(&n->class_section_id, "ALERULENT");
+  meta_set(&n->class_section_id, "ALERUL");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AlertRuleEntry");
   meta_set(&n->doc_comment, "An alert rule entry.");
@@ -20138,8 +20138,8 @@ static void meta_build_authorization_role_entry_entitlement_references_elem(SomM
 static void meta_build_authorization_role_entry_direct_permissions(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRoleEntry");
   meta_set(&n->member_name, "directPermissions");
-  meta_set(&n->section_id, "ROLPERM-DIRE-LST");
-  meta_set(&n->section_id_pattern, "ROLPERM-DIRE-xxx");
+  meta_set(&n->section_id, "ROLPER-DIRE-LST");
+  meta_set(&n->section_id_pattern, "ROLPER-DIRE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RolePermissionEntry");
   n->has_serialization_order = 1;
@@ -20153,7 +20153,7 @@ static void meta_build_authorization_role_entry_direct_permissions(SomMetaNode *
 }
 static void meta_build_authorization_role_entry_direct_permissions_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "RolePermissionEntry");
-  meta_set(&n->class_section_id, "ROLPERM");
+  meta_set(&n->class_section_id, "ROLPER");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RolePermissionEntry");
   meta_set(&n->doc_comment, "A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.");
@@ -20162,8 +20162,8 @@ static void meta_build_authorization_role_entry_direct_permissions_elem(SomMetaN
 static void meta_build_authorization_role_entry_data_scopes(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRoleEntry");
   meta_set(&n->member_name, "dataScopes");
-  meta_set(&n->section_id, "ROLDSCP-DATA-LST");
-  meta_set(&n->section_id_pattern, "ROLDSCP-DATA-xxx");
+  meta_set(&n->section_id, "RODASC-DATA-LST");
+  meta_set(&n->section_id_pattern, "RODASC-DATA-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "RoleDataScopeEntry");
   n->has_serialization_order = 1;
@@ -20177,7 +20177,7 @@ static void meta_build_authorization_role_entry_data_scopes(SomMetaNode *n) {
 }
 static void meta_build_authorization_role_entry_data_scopes_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "RoleDataScopeEntry");
-  meta_set(&n->class_section_id, "ROLDSCP");
+  meta_set(&n->class_section_id, "RODASC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "RoleDataScopeEntry");
   meta_set(&n->doc_comment, "A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.");
@@ -28802,9 +28802,9 @@ static void meta_build_client_application_entry_content(SomMetaNode *n) {
   n->form->fields[4].order = 4;
   n->form->fields[4].refers_to_len = 3;
   n->form->fields[4].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[4].refers_to[0] = som_strdup("BROREQENT.browserName");
-  n->form->fields[4].refers_to[1] = som_strdup("DEOSREEN.osName");
-  n->form->fields[4].refers_to[2] = som_strdup("MODEREEN.platform");
+  n->form->fields[4].refers_to[0] = som_strdup("BROREQ.browserName");
+  n->form->fields[4].refers_to[1] = som_strdup("DEOSRE.osName");
+  n->form->fields[4].refers_to[2] = som_strdup("MODERE.platform");
   n->form->fields[5].name = som_strdup("entryRoute");
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Entry Route");
@@ -29311,8 +29311,8 @@ static void meta_build_client_requirements_section_client_applications_elem(SomM
 static void meta_build_client_requirements_section_browser_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientRequirementsSection");
   meta_set(&n->member_name, "browserRequirements");
-  meta_set(&n->section_id, "BROREQENT-BROW-LST");
-  meta_set(&n->section_id_pattern, "BROREQENT-BROW-xxx");
+  meta_set(&n->section_id, "BROREQ-BROW-LST");
+  meta_set(&n->section_id_pattern, "BROREQ-BROW-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BrowserRequirementEntry");
   n->has_serialization_order = 1;
@@ -29326,7 +29326,7 @@ static void meta_build_client_requirements_section_browser_requirements(SomMetaN
 }
 static void meta_build_client_requirements_section_browser_requirements_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "BrowserRequirementEntry");
-  meta_set(&n->class_section_id, "BROREQENT");
+  meta_set(&n->class_section_id, "BROREQ");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BrowserRequirementEntry");
   meta_set(&n->doc_comment, "Browser requirement entry.");
@@ -29335,8 +29335,8 @@ static void meta_build_client_requirements_section_browser_requirements_elem(Som
 static void meta_build_client_requirements_section_desktop_os_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientRequirementsSection");
   meta_set(&n->member_name, "desktopOsRequirements");
-  meta_set(&n->section_id, "DEOSREEN-DESK-LST");
-  meta_set(&n->section_id_pattern, "DEOSREEN-DESK-xxx");
+  meta_set(&n->section_id, "DEOSRE-DESK-LST");
+  meta_set(&n->section_id_pattern, "DEOSRE-DESK-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DesktopOsRequirementEntry");
   n->has_serialization_order = 1;
@@ -29350,7 +29350,7 @@ static void meta_build_client_requirements_section_desktop_os_requirements(SomMe
 }
 static void meta_build_client_requirements_section_desktop_os_requirements_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DesktopOsRequirementEntry");
-  meta_set(&n->class_section_id, "DEOSREEN");
+  meta_set(&n->class_section_id, "DEOSRE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DesktopOsRequirementEntry");
   meta_set(&n->doc_comment, "Desktop operating system requirement entry.");
@@ -29359,8 +29359,8 @@ static void meta_build_client_requirements_section_desktop_os_requirements_elem(
 static void meta_build_client_requirements_section_mobile_requirements(SomMetaNode *n) {
   meta_set(&n->class_name, "ClientRequirementsSection");
   meta_set(&n->member_name, "mobileRequirements");
-  meta_set(&n->section_id, "MODEREEN-MOBI-LST");
-  meta_set(&n->section_id_pattern, "MODEREEN-MOBI-xxx");
+  meta_set(&n->section_id, "MODERE-MOBI-LST");
+  meta_set(&n->section_id_pattern, "MODERE-MOBI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MobileDeviceRequirementEntry");
   n->has_serialization_order = 1;
@@ -29374,7 +29374,7 @@ static void meta_build_client_requirements_section_mobile_requirements(SomMetaNo
 }
 static void meta_build_client_requirements_section_mobile_requirements_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "MobileDeviceRequirementEntry");
-  meta_set(&n->class_section_id, "MODEREEN");
+  meta_set(&n->class_section_id, "MODERE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MobileDeviceRequirementEntry");
   meta_set(&n->doc_comment, "Mobile device requirement entry.");
@@ -31773,8 +31773,8 @@ static void meta_build_compatibility_requirements_section_os_compatibility_elem(
 static void meta_build_compatibility_requirements_section_browser_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
   meta_set(&n->member_name, "browserCompatibility");
-  meta_set(&n->section_id, "BROCOMENT-BROW-LST");
-  meta_set(&n->section_id_pattern, "BROCOMENT-BROW-xxx");
+  meta_set(&n->section_id, "BROCOM-BROW-LST");
+  meta_set(&n->section_id_pattern, "BROCOM-BROW-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BrowserCompatibilityEntry");
   n->has_serialization_order = 1;
@@ -31788,7 +31788,7 @@ static void meta_build_compatibility_requirements_section_browser_compatibility(
 }
 static void meta_build_compatibility_requirements_section_browser_compatibility_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "BrowserCompatibilityEntry");
-  meta_set(&n->class_section_id, "BROCOMENT");
+  meta_set(&n->class_section_id, "BROCOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BrowserCompatibilityEntry");
   meta_set(&n->doc_comment, "Browser compatibility entry.");
@@ -31797,8 +31797,8 @@ static void meta_build_compatibility_requirements_section_browser_compatibility_
 static void meta_build_compatibility_requirements_section_database_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
   meta_set(&n->member_name, "databaseCompatibility");
-  meta_set(&n->section_id, "DATCOMENT-DATA-LST");
-  meta_set(&n->section_id_pattern, "DATCOMENT-DATA-xxx");
+  meta_set(&n->section_id, "DATCOM-DATA-LST");
+  meta_set(&n->section_id_pattern, "DATCOM-DATA-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DatabaseCompatibilityEntry");
   n->has_serialization_order = 1;
@@ -31812,7 +31812,7 @@ static void meta_build_compatibility_requirements_section_database_compatibility
 }
 static void meta_build_compatibility_requirements_section_database_compatibility_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DatabaseCompatibilityEntry");
-  meta_set(&n->class_section_id, "DATCOMENT");
+  meta_set(&n->class_section_id, "DATCOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DatabaseCompatibilityEntry");
   meta_set(&n->doc_comment, "Database compatibility entry.");
@@ -31821,8 +31821,8 @@ static void meta_build_compatibility_requirements_section_database_compatibility
 static void meta_build_compatibility_requirements_section_enterprise_system_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
   meta_set(&n->member_name, "enterpriseSystemCompatibility");
-  meta_set(&n->section_id, "ENSYCOEN-ENTE-LST");
-  meta_set(&n->section_id_pattern, "ENSYCOEN-ENTE-xxx");
+  meta_set(&n->section_id, "ENSYCO-ENTE-LST");
+  meta_set(&n->section_id_pattern, "ENSYCO-ENTE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "EnterpriseSystemCompatibilityEntry");
   n->has_serialization_order = 1;
@@ -31836,7 +31836,7 @@ static void meta_build_compatibility_requirements_section_enterprise_system_comp
 }
 static void meta_build_compatibility_requirements_section_enterprise_system_compatibility_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "EnterpriseSystemCompatibilityEntry");
-  meta_set(&n->class_section_id, "ENSYCOEN");
+  meta_set(&n->class_section_id, "ENSYCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "EnterpriseSystemCompatibilityEntry");
   meta_set(&n->doc_comment, "Enterprise system compatibility entry.");
@@ -31893,8 +31893,8 @@ static void meta_build_compatibility_requirements_section_legacy_compatibility_e
 static void meta_build_compatibility_requirements_section_mobile_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
   meta_set(&n->member_name, "mobileCompatibility");
-  meta_set(&n->section_id, "MOBCOMENT-MOBI-LST");
-  meta_set(&n->section_id_pattern, "MOBCOMENT-MOBI-xxx");
+  meta_set(&n->section_id, "MOBCOM-MOBI-LST");
+  meta_set(&n->section_id_pattern, "MOBCOM-MOBI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "MobileCompatibilityEntry");
   n->has_serialization_order = 1;
@@ -31908,7 +31908,7 @@ static void meta_build_compatibility_requirements_section_mobile_compatibility(S
 }
 static void meta_build_compatibility_requirements_section_mobile_compatibility_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "MobileCompatibilityEntry");
-  meta_set(&n->class_section_id, "MOBCOMENT");
+  meta_set(&n->class_section_id, "MOBCOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MobileCompatibilityEntry");
   meta_set(&n->doc_comment, "Mobile device compatibility entry.");
@@ -31917,8 +31917,8 @@ static void meta_build_compatibility_requirements_section_mobile_compatibility_e
 static void meta_build_compatibility_requirements_section_third_party_compatibility(SomMetaNode *n) {
   meta_set(&n->class_name, "CompatibilityRequirementsSection");
   meta_set(&n->member_name, "thirdPartyCompatibility");
-  meta_set(&n->section_id, "THPACOEN-THIR-LST");
-  meta_set(&n->section_id_pattern, "THPACOEN-THIR-xxx");
+  meta_set(&n->section_id, "THPACO-THIR-LST");
+  meta_set(&n->section_id_pattern, "THPACO-THIR-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ThirdPartyCompatibilityEntry");
   n->has_serialization_order = 1;
@@ -31932,7 +31932,7 @@ static void meta_build_compatibility_requirements_section_third_party_compatibil
 }
 static void meta_build_compatibility_requirements_section_third_party_compatibility_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ThirdPartyCompatibilityEntry");
-  meta_set(&n->class_section_id, "THPACOEN");
+  meta_set(&n->class_section_id, "THPACO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ThirdPartyCompatibilityEntry");
   meta_set(&n->doc_comment, "Third-party software compatibility entry.");
@@ -38666,7 +38666,7 @@ static void meta_build_current_landscape_operational_metrics_elem(SomMetaNode *n
 static void meta_build_current_landscape_current_state_risks(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentStateRiskAssessment");
   meta_set(&n->member_name, "currentStateRisks");
-  meta_set(&n->class_section_id, "CUSTRIAS");
+  meta_set(&n->class_section_id, "CUSTRI");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentStateRiskAssessment");
   n->has_serialization_order = 1;
@@ -39437,7 +39437,7 @@ static void meta_build_d01_current_landscape_assessment_operational_metrics_elem
 static void meta_build_d01_current_landscape_assessment_current_state_risks(SomMetaNode *n) {
   meta_set(&n->class_name, "CurrentStateRiskAssessment");
   meta_set(&n->member_name, "currentStateRisks");
-  meta_set(&n->class_section_id, "CUSTRIAS");
+  meta_set(&n->class_section_id, "CUSTRI");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CurrentStateRiskAssessment");
   n->has_serialization_order = 1;
@@ -57673,8 +57673,8 @@ static void meta_build_entitlement_entry_content(SomMetaNode *n) {
 static void meta_build_entitlement_entry_resource_key_references(SomMetaNode *n) {
   meta_set(&n->class_name, "EntitlementEntry");
   meta_set(&n->member_name, "resourceKeyReferences");
-  meta_set(&n->section_id, "RESKREF-RESO-LST");
-  meta_set(&n->section_id_pattern, "RESKREF-RESO-xxx");
+  meta_set(&n->section_id, "REKERE-RESO-LST");
+  meta_set(&n->section_id_pattern, "REKERE-RESO-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ResourceKeyReferenceEntry");
   n->has_serialization_order = 1;
@@ -57688,7 +57688,7 @@ static void meta_build_entitlement_entry_resource_key_references(SomMetaNode *n)
 }
 static void meta_build_entitlement_entry_resource_key_references_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ResourceKeyReferenceEntry");
-  meta_set(&n->class_section_id, "RESKREF");
+  meta_set(&n->class_section_id, "REKERE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ResourceKeyReferenceEntry");
   meta_set(&n->doc_comment, "A resource key reference entry (form).");
@@ -62329,8 +62329,8 @@ static void meta_build_export_format_entry_access(SomMetaNode *n) {
 static void meta_build_export_format_entry_field_mappings(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportFormatEntry");
   meta_set(&n->member_name, "fieldMappings");
-  meta_set(&n->section_id, "EXFIMAEN-FIEL-LST");
-  meta_set(&n->section_id_pattern, "EXFIMAEN-FIEL-xxx");
+  meta_set(&n->section_id, "EXFIMA-FIEL-LST");
+  meta_set(&n->section_id_pattern, "EXFIMA-FIEL-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExportFieldMappingEntry");
   n->has_serialization_order = 1;
@@ -62344,7 +62344,7 @@ static void meta_build_export_format_entry_field_mappings(SomMetaNode *n) {
 }
 static void meta_build_export_format_entry_field_mappings_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportFieldMappingEntry");
-  meta_set(&n->class_section_id, "EXFIMAEN");
+  meta_set(&n->class_section_id, "EXFIMA");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExportFieldMappingEntry");
   meta_set(&n->doc_comment, "A field mapping within an export (form).");
@@ -62898,8 +62898,8 @@ static void meta_build_external_connectivity_section_overview(SomMetaNode *n) {
 static void meta_build_external_connectivity_section_partner_connections(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalConnectivitySection");
   meta_set(&n->member_name, "partnerConnections");
-  meta_set(&n->section_id, "EXPACOEN-PART-LST");
-  meta_set(&n->section_id_pattern, "EXPACOEN-PART-xxx");
+  meta_set(&n->section_id, "EXPACO-PART-LST");
+  meta_set(&n->section_id_pattern, "EXPACO-PART-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExternalPartnerConnectionEntry");
   n->has_serialization_order = 1;
@@ -62913,7 +62913,7 @@ static void meta_build_external_connectivity_section_partner_connections(SomMeta
 }
 static void meta_build_external_connectivity_section_partner_connections_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalPartnerConnectionEntry");
-  meta_set(&n->class_section_id, "EXPACOEN");
+  meta_set(&n->class_section_id, "EXPACO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExternalPartnerConnectionEntry");
   meta_set(&n->doc_comment, "An external partner connection entry (form).");
@@ -64018,7 +64018,7 @@ static void meta_build_external_system_context_entry_governance(SomMetaNode *n) 
 static void meta_build_external_system_context_entry_data_mapping(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalSystemContextEntry");
   meta_set(&n->member_name, "dataMapping");
-  meta_set(&n->section_id, "EXSYCOEN-DATA");
+  meta_set(&n->section_id, "EXSYCO-DATA");
   n->kind = SOM_META_KIND_CONTENT;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -64042,8 +64042,8 @@ static void meta_build_external_systems_context_content(SomMetaNode *n) {
 static void meta_build_external_systems_context_systems(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalSystemsContext");
   meta_set(&n->member_name, "systems");
-  meta_set(&n->section_id, "EXSYCOEN-SYST-LST");
-  meta_set(&n->section_id_pattern, "EXSYCOEN-SYST-xxx");
+  meta_set(&n->section_id, "EXSYCO-SYST-LST");
+  meta_set(&n->section_id_pattern, "EXSYCO-SYST-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExternalSystemContextEntry");
   n->has_serialization_order = 1;
@@ -64057,7 +64057,7 @@ static void meta_build_external_systems_context_systems(SomMetaNode *n) {
 }
 static void meta_build_external_systems_context_systems_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ExternalSystemContextEntry");
-  meta_set(&n->class_section_id, "EXSYCOEN");
+  meta_set(&n->class_section_id, "EXSYCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ExternalSystemContextEntry");
   meta_set(&n->doc_comment, "An external system context entry (form).");
@@ -74750,8 +74750,8 @@ static void meta_build_interface_business_context_content(SomMetaNode *n) {
 static void meta_build_interface_business_context_dependent_processes(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceBusinessContext");
   meta_set(&n->member_name, "dependentProcesses");
-  meta_set(&n->section_id, "INBUPREN-DEPE-LST");
-  meta_set(&n->section_id_pattern, "INBUPREN-DEPE-xxx");
+  meta_set(&n->section_id, "INBUPR-DEPE-LST");
+  meta_set(&n->section_id_pattern, "INBUPR-DEPE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InterfaceBusinessProcessEntry");
   n->has_serialization_order = 1;
@@ -74765,7 +74765,7 @@ static void meta_build_interface_business_context_dependent_processes(SomMetaNod
 }
 static void meta_build_interface_business_context_dependent_processes_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceBusinessProcessEntry");
-  meta_set(&n->class_section_id, "INBUPREN");
+  meta_set(&n->class_section_id, "INBUPR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceBusinessProcessEntry");
   meta_set(&n->doc_comment, "Business process dependency entry.");
@@ -74936,8 +74936,8 @@ static void meta_build_interface_data_spec_content(SomMetaNode *n) {
 static void meta_build_interface_data_spec_data_entities(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceDataSpec");
   meta_set(&n->member_name, "dataEntities");
-  meta_set(&n->section_id, "INDAENEN-DATA-LST");
-  meta_set(&n->section_id_pattern, "INDAENEN-DATA-xxx");
+  meta_set(&n->section_id, "INDAEN-DATA-LST");
+  meta_set(&n->section_id_pattern, "INDAEN-DATA-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InterfaceDataEntityEntry");
   n->has_serialization_order = 1;
@@ -74951,7 +74951,7 @@ static void meta_build_interface_data_spec_data_entities(SomMetaNode *n) {
 }
 static void meta_build_interface_data_spec_data_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceDataEntityEntry");
-  meta_set(&n->class_section_id, "INDAENEN");
+  meta_set(&n->class_section_id, "INDAEN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceDataEntityEntry");
   meta_set(&n->doc_comment, "Data entity exchanged.");
@@ -76228,8 +76228,8 @@ static void meta_build_interface_testing_strategy(SomMetaNode *n) {
 static void meta_build_interface_testing_test_scenarios(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceTesting");
   meta_set(&n->member_name, "testScenarios");
-  meta_set(&n->section_id, "INTESCEN-TEST-LST");
-  meta_set(&n->section_id_pattern, "INTESCEN-TEST-xxx");
+  meta_set(&n->section_id, "INTESC-TEST-LST");
+  meta_set(&n->section_id_pattern, "INTESC-TEST-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InterfaceTestScenarioEntry");
   n->has_serialization_order = 1;
@@ -76243,7 +76243,7 @@ static void meta_build_interface_testing_test_scenarios(SomMetaNode *n) {
 }
 static void meta_build_interface_testing_test_scenarios_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceTestScenarioEntry");
-  meta_set(&n->class_section_id, "INTESCEN");
+  meta_set(&n->class_section_id, "INTESC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceTestScenarioEntry");
   meta_set(&n->doc_comment, "Test scenario entry.");
@@ -82721,8 +82721,8 @@ static void meta_build_metrics_and_observability_distributed_tracing(SomMetaNode
 static void meta_build_metrics_and_observability_custom_metrics(SomMetaNode *n) {
   meta_set(&n->class_name, "MetricsAndObservability");
   meta_set(&n->member_name, "customMetrics");
-  meta_set(&n->section_id, "CUSMETENT-CUST-LST");
-  meta_set(&n->section_id_pattern, "CUSMETENT-CUST-xxx");
+  meta_set(&n->section_id, "CUSMET-CUST-LST");
+  meta_set(&n->section_id_pattern, "CUSMET-CUST-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "CustomMetricEntry");
   n->has_serialization_order = 1;
@@ -82736,7 +82736,7 @@ static void meta_build_metrics_and_observability_custom_metrics(SomMetaNode *n) 
 }
 static void meta_build_metrics_and_observability_custom_metrics_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "CustomMetricEntry");
-  meta_set(&n->class_section_id, "CUSMETENT");
+  meta_set(&n->class_section_id, "CUSMET");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "CustomMetricEntry");
   meta_set(&n->doc_comment, "A custom metric entry.");
@@ -86598,8 +86598,8 @@ static void meta_build_monitoring_and_alerting_section_alerting(SomMetaNode *n) 
 static void meta_build_monitoring_and_alerting_section_alert_definitions(SomMetaNode *n) {
   meta_set(&n->class_name, "MonitoringAndAlertingSection");
   meta_set(&n->member_name, "alertDefinitions");
-  meta_set(&n->section_id, "ALEDEFENT-ALER-LST");
-  meta_set(&n->section_id_pattern, "ALEDEFENT-ALER-xxx");
+  meta_set(&n->section_id, "ALEDEF-ALER-LST");
+  meta_set(&n->section_id_pattern, "ALEDEF-ALER-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "AlertDefinitionEntry");
   n->has_serialization_order = 1;
@@ -86613,7 +86613,7 @@ static void meta_build_monitoring_and_alerting_section_alert_definitions(SomMeta
 }
 static void meta_build_monitoring_and_alerting_section_alert_definitions_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "AlertDefinitionEntry");
-  meta_set(&n->class_section_id, "ALEDEFENT");
+  meta_set(&n->class_section_id, "ALEDEF");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "AlertDefinitionEntry");
   meta_set(&n->doc_comment, "Alert definition entry.");
@@ -87365,8 +87365,8 @@ static void meta_build_multi_language_support_language_country_selection(SomMeta
 static void meta_build_multi_language_support_supported_locales(SomMetaNode *n) {
   meta_set(&n->class_name, "MultiLanguageSupport");
   meta_set(&n->member_name, "supportedLocales");
-  meta_set(&n->section_id, "SUPLOCENT-SUPP-LST");
-  meta_set(&n->section_id_pattern, "SUPLOCENT-SUPP-xxx");
+  meta_set(&n->section_id, "SUPLOC-SUPP-LST");
+  meta_set(&n->section_id_pattern, "SUPLOC-SUPP-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SupportedLocaleEntry");
   n->has_serialization_order = 1;
@@ -87380,7 +87380,7 @@ static void meta_build_multi_language_support_supported_locales(SomMetaNode *n) 
 }
 static void meta_build_multi_language_support_supported_locales_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SupportedLocaleEntry");
-  meta_set(&n->class_section_id, "SUPLOCENT");
+  meta_set(&n->class_section_id, "SUPLOC");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SupportedLocaleEntry");
   meta_set(&n->doc_comment, "A supported locale entry.");
@@ -93793,8 +93793,8 @@ static void meta_build_out_of_scope_scope_philosophy(SomMetaNode *n) {
 static void meta_build_out_of_scope_items(SomMetaNode *n) {
   meta_set(&n->class_name, "OutOfScope");
   meta_set(&n->member_name, "items");
-  meta_set(&n->section_id, "OUOFSCEN-ITEM-LST");
-  meta_set(&n->section_id_pattern, "OUOFSCEN-ITEM-xxx");
+  meta_set(&n->section_id, "OUTSCO-ITEM-LST");
+  meta_set(&n->section_id_pattern, "OUTSCO-ITEM-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "OutOfScopeEntry");
   n->has_serialization_order = 1;
@@ -93808,7 +93808,7 @@ static void meta_build_out_of_scope_items(SomMetaNode *n) {
 }
 static void meta_build_out_of_scope_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "OutOfScopeEntry");
-  meta_set(&n->class_section_id, "OUOFSCEN");
+  meta_set(&n->class_section_id, "OUTSCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "OutOfScopeEntry");
   meta_set(&n->doc_comment, "An out-of-scope entry (form).");
@@ -96279,7 +96279,7 @@ static void meta_build_phase_gate_review_entry_exit(SomMetaNode *n) {
   n->form->fields[6].order = 6;
   n->form->fields[6].refers_to_len = 1;
   n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[6].refers_to[0] = som_strdup("PHGAREEN.gateId");
+  n->form->fields[6].refers_to[0] = som_strdup("PHGREV.gateId");
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
@@ -96455,8 +96455,8 @@ static void meta_build_phase_gate_reviews_gate_review_narrative(SomMetaNode *n) 
 static void meta_build_phase_gate_reviews_items(SomMetaNode *n) {
   meta_set(&n->class_name, "PhaseGateReviews");
   meta_set(&n->member_name, "items");
-  meta_set(&n->section_id, "PHGAREEN-ITEM-LST");
-  meta_set(&n->section_id_pattern, "PHGAREEN-ITEM-xxx");
+  meta_set(&n->section_id, "PHGREV-ITEM-LST");
+  meta_set(&n->section_id_pattern, "PHGREV-ITEM-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "PhaseGateReviewEntry");
   n->has_serialization_order = 1;
@@ -96470,7 +96470,7 @@ static void meta_build_phase_gate_reviews_items(SomMetaNode *n) {
 }
 static void meta_build_phase_gate_reviews_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "PhaseGateReviewEntry");
-  meta_set(&n->class_section_id, "PHGAREEN");
+  meta_set(&n->class_section_id, "PHGREV");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "PhaseGateReviewEntry");
   meta_set(&n->doc_comment, "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.");
@@ -97058,8 +97058,8 @@ static void meta_build_platform_and_language_build_toolchain_elem(SomMetaNode *n
 static void meta_build_platform_and_language_deployment_targets(SomMetaNode *n) {
   meta_set(&n->class_name, "PlatformAndLanguage");
   meta_set(&n->member_name, "deploymentTargets");
-  meta_set(&n->section_id, "DEPTARENT-DEPL-LST");
-  meta_set(&n->section_id_pattern, "DEPTARENT-DEPL-xxx");
+  meta_set(&n->section_id, "DEPTAR-DEPL-LST");
+  meta_set(&n->section_id_pattern, "DEPTAR-DEPL-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DeploymentTargetEntry");
   n->has_serialization_order = 1;
@@ -97073,7 +97073,7 @@ static void meta_build_platform_and_language_deployment_targets(SomMetaNode *n) 
 }
 static void meta_build_platform_and_language_deployment_targets_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DeploymentTargetEntry");
-  meta_set(&n->class_section_id, "DEPTARENT");
+  meta_set(&n->class_section_id, "DEPTAR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DeploymentTargetEntry");
   meta_set(&n->doc_comment, "Deployment target specification entry.");
@@ -109165,8 +109165,8 @@ static void meta_build_report_entry_filters_elem(SomMetaNode *n) {
 static void meta_build_report_entry_schedules(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportEntry");
   meta_set(&n->member_name, "schedules");
-  meta_set(&n->section_id, "REPSCHENT-SCHE-LST");
-  meta_set(&n->section_id_pattern, "REPSCHENT-SCHE-xxx");
+  meta_set(&n->section_id, "REPSCH-SCHE-LST");
+  meta_set(&n->section_id_pattern, "REPSCH-SCHE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportScheduleEntry");
   n->has_serialization_order = 1;
@@ -109180,7 +109180,7 @@ static void meta_build_report_entry_schedules(SomMetaNode *n) {
 }
 static void meta_build_report_entry_schedules_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportScheduleEntry");
-  meta_set(&n->class_section_id, "REPSCHENT");
+  meta_set(&n->class_section_id, "REPSCH");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportScheduleEntry");
   meta_set(&n->doc_comment, "Scheduling rules for report generation\n(form).");
@@ -110229,8 +110229,8 @@ static void meta_build_report_section_entry_aggregation(SomMetaNode *n) {
 static void meta_build_report_section_entry_columns(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportSectionEntry");
   meta_set(&n->member_name, "columns");
-  meta_set(&n->section_id, "REPCOLENT-COLU-LST");
-  meta_set(&n->section_id_pattern, "REPCOLENT-COLU-xxx");
+  meta_set(&n->section_id, "REPCOL-COLU-LST");
+  meta_set(&n->section_id_pattern, "REPCOL-COLU-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportColumnEntry");
   n->has_serialization_order = 1;
@@ -110244,7 +110244,7 @@ static void meta_build_report_section_entry_columns(SomMetaNode *n) {
 }
 static void meta_build_report_section_entry_columns_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportColumnEntry");
-  meta_set(&n->class_section_id, "REPCOLENT");
+  meta_set(&n->class_section_id, "REPCOL");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportColumnEntry");
   meta_set(&n->doc_comment, "A column in a tabular report section\n(form).");
@@ -110253,8 +110253,8 @@ static void meta_build_report_section_entry_columns_elem(SomMetaNode *n) {
 static void meta_build_report_section_entry_charts(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportSectionEntry");
   meta_set(&n->member_name, "charts");
-  meta_set(&n->section_id, "REPCHAENT-CHAR-LST");
-  meta_set(&n->section_id_pattern, "REPCHAENT-CHAR-xxx");
+  meta_set(&n->section_id, "REPCHA-CHAR-LST");
+  meta_set(&n->section_id_pattern, "REPCHA-CHAR-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportChartEntry");
   n->has_serialization_order = 1;
@@ -110268,7 +110268,7 @@ static void meta_build_report_section_entry_charts(SomMetaNode *n) {
 }
 static void meta_build_report_section_entry_charts_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportChartEntry");
-  meta_set(&n->class_section_id, "REPCHAENT");
+  meta_set(&n->class_section_id, "REPCHA");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReportChartEntry");
   meta_set(&n->doc_comment, "A chart/visualization in a report\n(form).");
@@ -113082,8 +113082,8 @@ static void meta_build_reusable_components_section_ui_components_elem(SomMetaNod
 static void meta_build_reusable_components_section_business_components(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusableComponentsSection");
   meta_set(&n->member_name, "businessComponents");
-  meta_set(&n->section_id, "BUSCOMENT-BUSI-LST");
-  meta_set(&n->section_id_pattern, "BUSCOMENT-BUSI-xxx");
+  meta_set(&n->section_id, "BUSCOM-BUSI-LST");
+  meta_set(&n->section_id_pattern, "BUSCOM-BUSI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "BusinessComponentEntry");
   n->has_serialization_order = 1;
@@ -113097,7 +113097,7 @@ static void meta_build_reusable_components_section_business_components(SomMetaNo
 }
 static void meta_build_reusable_components_section_business_components_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "BusinessComponentEntry");
-  meta_set(&n->class_section_id, "BUSCOMENT");
+  meta_set(&n->class_section_id, "BUSCOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "BusinessComponentEntry");
   meta_set(&n->doc_comment, "Business logic component entry.");
@@ -113106,8 +113106,8 @@ static void meta_build_reusable_components_section_business_components_elem(SomM
 static void meta_build_reusable_components_section_infrastructure_components(SomMetaNode *n) {
   meta_set(&n->class_name, "ReusableComponentsSection");
   meta_set(&n->member_name, "infrastructureComponents");
-  meta_set(&n->section_id, "INFCOMENT-INFR-LST");
-  meta_set(&n->section_id_pattern, "INFCOMENT-INFR-xxx");
+  meta_set(&n->section_id, "INFCOM-INFR-LST");
+  meta_set(&n->section_id_pattern, "INFCOM-INFR-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InfrastructureComponentEntry");
   n->has_serialization_order = 1;
@@ -113121,7 +113121,7 @@ static void meta_build_reusable_components_section_infrastructure_components(Som
 }
 static void meta_build_reusable_components_section_infrastructure_components_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "InfrastructureComponentEntry");
-  meta_set(&n->class_section_id, "INFCOMENT");
+  meta_set(&n->class_section_id, "INFCOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InfrastructureComponentEntry");
   meta_set(&n->doc_comment, "Infrastructure component entry.");
@@ -119185,8 +119185,8 @@ static void meta_build_screen_element_entry_data_display(SomMetaNode *n) {
 static void meta_build_screen_element_entry_validation_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementEntry");
   meta_set(&n->member_name, "validationRules");
-  meta_set(&n->section_id, "ELVARUEN-VALI-LST");
-  meta_set(&n->section_id_pattern, "ELVARUEN-VALI-xxx");
+  meta_set(&n->section_id, "ELVARU-VALI-LST");
+  meta_set(&n->section_id_pattern, "ELVARU-VALI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ElementValidationRuleEntry");
   n->has_serialization_order = 1;
@@ -119200,7 +119200,7 @@ static void meta_build_screen_element_entry_validation_rules(SomMetaNode *n) {
 }
 static void meta_build_screen_element_entry_validation_rules_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ElementValidationRuleEntry");
-  meta_set(&n->class_section_id, "ELVARUEN");
+  meta_set(&n->class_section_id, "ELVARU");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ElementValidationRuleEntry");
   meta_set(&n->doc_comment, "A validation rule entry (form).");
@@ -119827,8 +119827,8 @@ static void meta_build_screen_entry_entry_points_elem(SomMetaNode *n) {
 static void meta_build_screen_entry_responsive_rules(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenEntry");
   meta_set(&n->member_name, "responsiveRules");
-  meta_set(&n->section_id, "SCRERUEN-RESP-LST");
-  meta_set(&n->section_id_pattern, "SCRERUEN-RESP-xxx");
+  meta_set(&n->section_id, "SCRERU-RESP-LST");
+  meta_set(&n->section_id_pattern, "SCRERU-RESP-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ScreenResponsiveRuleEntry");
   n->has_serialization_order = 1;
@@ -119842,7 +119842,7 @@ static void meta_build_screen_entry_responsive_rules(SomMetaNode *n) {
 }
 static void meta_build_screen_entry_responsive_rules_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenResponsiveRuleEntry");
-  meta_set(&n->class_section_id, "SCRERUEN");
+  meta_set(&n->class_section_id, "SCRERU");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenResponsiveRuleEntry");
   meta_set(&n->doc_comment, "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.");
@@ -120878,11 +120878,11 @@ static void meta_build_screen_transition_entry_content(SomMetaNode *n) {
   n->form->fields[5].type_name = som_strdup("String");
   n->form->fields[5].description = som_strdup("Outcome Reference");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success");
+  n->form->fields[5].hint = som_strdup("For error, the system error code (SYERCO registry); for validationError, the validation message template (VMT registry) — empty for success");
   n->form->fields[5].order = 5;
   n->form->fields[5].refers_to_len = 2;
   n->form->fields[5].refers_to = (char **)calloc(2, sizeof(char *));
-  n->form->fields[5].refers_to[0] = som_strdup("SYERCOEN.errorCode");
+  n->form->fields[5].refers_to[0] = som_strdup("SYERCO.errorCode");
   n->form->fields[5].refers_to[1] = som_strdup("VMT.messageId");
 }
 static void meta_build_screen_user_category_entry_content(SomMetaNode *n) {
@@ -120941,8 +120941,8 @@ static void meta_build_secondary_navigation_overview(SomMetaNode *n) {
 static void meta_build_secondary_navigation_tab_bars(SomMetaNode *n) {
   meta_set(&n->class_name, "SecondaryNavigation");
   meta_set(&n->member_name, "tabBars");
-  meta_set(&n->section_id, "TABADEEN-TABB-LST");
-  meta_set(&n->section_id_pattern, "TABADEEN-TABB-xxx");
+  meta_set(&n->section_id, "TABADE-TABB-LST");
+  meta_set(&n->section_id_pattern, "TABADE-TABB-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "TabBarDefinitionEntry");
   n->has_serialization_order = 1;
@@ -120956,7 +120956,7 @@ static void meta_build_secondary_navigation_tab_bars(SomMetaNode *n) {
 }
 static void meta_build_secondary_navigation_tab_bars_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "TabBarDefinitionEntry");
-  meta_set(&n->class_section_id, "TABADEEN");
+  meta_set(&n->class_section_id, "TABADE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "TabBarDefinitionEntry");
   meta_set(&n->doc_comment, "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.");
@@ -131708,8 +131708,8 @@ static void meta_build_standards_compliance_section_overview(SomMetaNode *n) {
 static void meta_build_standards_compliance_section_it_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
   meta_set(&n->member_name, "itStandards");
-  meta_set(&n->section_id, "ITSTCOEN-ITST-LST");
-  meta_set(&n->section_id_pattern, "ITSTCOEN-ITST-xxx");
+  meta_set(&n->section_id, "ITSTCO-ITST-LST");
+  meta_set(&n->section_id_pattern, "ITSTCO-ITST-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ItStandardComplianceEntry");
   n->has_serialization_order = 1;
@@ -131723,7 +131723,7 @@ static void meta_build_standards_compliance_section_it_standards(SomMetaNode *n)
 }
 static void meta_build_standards_compliance_section_it_standards_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ItStandardComplianceEntry");
-  meta_set(&n->class_section_id, "ITSTCOEN");
+  meta_set(&n->class_section_id, "ITSTCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ItStandardComplianceEntry");
   meta_set(&n->doc_comment, "IT standard compliance entry (ISO, IEEE, NIST, OASIS).");
@@ -131732,8 +131732,8 @@ static void meta_build_standards_compliance_section_it_standards_elem(SomMetaNod
 static void meta_build_standards_compliance_section_industry_protocols(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
   meta_set(&n->member_name, "industryProtocols");
-  meta_set(&n->section_id, "INPRCOEN-INDU-LST");
-  meta_set(&n->section_id_pattern, "INPRCOEN-INDU-xxx");
+  meta_set(&n->section_id, "INPRCO-INDU-LST");
+  meta_set(&n->section_id_pattern, "INPRCO-INDU-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "IndustryProtocolComplianceEntry");
   n->has_serialization_order = 1;
@@ -131747,7 +131747,7 @@ static void meta_build_standards_compliance_section_industry_protocols(SomMetaNo
 }
 static void meta_build_standards_compliance_section_industry_protocols_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "IndustryProtocolComplianceEntry");
-  meta_set(&n->class_section_id, "INPRCOEN");
+  meta_set(&n->class_section_id, "INPRCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IndustryProtocolComplianceEntry");
   meta_set(&n->doc_comment, "Industry protocol compliance entry.");
@@ -131756,8 +131756,8 @@ static void meta_build_standards_compliance_section_industry_protocols_elem(SomM
 static void meta_build_standards_compliance_section_interface_specifications(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
   meta_set(&n->member_name, "interfaceSpecifications");
-  meta_set(&n->section_id, "INTSPEENT-INTE-LST");
-  meta_set(&n->section_id_pattern, "INTSPEENT-INTE-xxx");
+  meta_set(&n->section_id, "INTSPE-INTE-LST");
+  meta_set(&n->section_id_pattern, "INTSPE-INTE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "InterfaceSpecificationEntry");
   n->has_serialization_order = 1;
@@ -131771,7 +131771,7 @@ static void meta_build_standards_compliance_section_interface_specifications(Som
 }
 static void meta_build_standards_compliance_section_interface_specifications_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "InterfaceSpecificationEntry");
-  meta_set(&n->class_section_id, "INTSPEENT");
+  meta_set(&n->class_section_id, "INTSPE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "InterfaceSpecificationEntry");
   meta_set(&n->doc_comment, "Interface specification entry (REST, GraphQL, gRPC, SOAP).");
@@ -131804,8 +131804,8 @@ static void meta_build_standards_compliance_section_regulatory_compliance_elem(S
 static void meta_build_standards_compliance_section_security_standards(SomMetaNode *n) {
   meta_set(&n->class_name, "StandardsComplianceSection");
   meta_set(&n->member_name, "securityStandards");
-  meta_set(&n->section_id, "SESTCOEN-SECU-LST");
-  meta_set(&n->section_id_pattern, "SESTCOEN-SECU-xxx");
+  meta_set(&n->section_id, "SESTCO-SECU-LST");
+  meta_set(&n->section_id_pattern, "SESTCO-SECU-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SecurityStandardComplianceEntry");
   n->has_serialization_order = 1;
@@ -131819,7 +131819,7 @@ static void meta_build_standards_compliance_section_security_standards(SomMetaNo
 }
 static void meta_build_standards_compliance_section_security_standards_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SecurityStandardComplianceEntry");
-  meta_set(&n->class_section_id, "SESTCOEN");
+  meta_set(&n->class_section_id, "SESTCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SecurityStandardComplianceEntry");
   meta_set(&n->doc_comment, "Security standard compliance entry (SOC2, ISO 27001, CIS).");
@@ -133701,8 +133701,8 @@ static void meta_build_system_business_criticality_governance(SomMetaNode *n) {
 static void meta_build_system_business_criticality_business_units(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBusinessCriticality");
   meta_set(&n->member_name, "businessUnits");
-  meta_set(&n->section_id, "SYBUUNEN-BUSI-LST");
-  meta_set(&n->section_id_pattern, "SYBUUNEN-BUSI-xxx");
+  meta_set(&n->section_id, "SYBUUN-BUSI-LST");
+  meta_set(&n->section_id_pattern, "SYBUUN-BUSI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemBusinessUnitEntry");
   n->has_serialization_order = 1;
@@ -133716,7 +133716,7 @@ static void meta_build_system_business_criticality_business_units(SomMetaNode *n
 }
 static void meta_build_system_business_criticality_business_units_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBusinessUnitEntry");
-  meta_set(&n->class_section_id, "SYBUUNEN");
+  meta_set(&n->class_section_id, "SYBUUN");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemBusinessUnitEntry");
   meta_set(&n->doc_comment, "Business unit using the system.");
@@ -133725,8 +133725,8 @@ static void meta_build_system_business_criticality_business_units_elem(SomMetaNo
 static void meta_build_system_business_criticality_supported_processes(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBusinessCriticality");
   meta_set(&n->member_name, "supportedProcesses");
-  meta_set(&n->section_id, "SYBUPREN-SUPP-LST");
-  meta_set(&n->section_id_pattern, "SYBUPREN-SUPP-xxx");
+  meta_set(&n->section_id, "SYBUPR-SUPP-LST");
+  meta_set(&n->section_id_pattern, "SYBUPR-SUPP-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemBusinessProcessEntry");
   n->has_serialization_order = 1;
@@ -133740,7 +133740,7 @@ static void meta_build_system_business_criticality_supported_processes(SomMetaNo
 }
 static void meta_build_system_business_criticality_supported_processes_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemBusinessProcessEntry");
-  meta_set(&n->class_section_id, "SYBUPREN");
+  meta_set(&n->class_section_id, "SYBUPR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemBusinessProcessEntry");
   meta_set(&n->doc_comment, "Business process supported.");
@@ -134392,8 +134392,8 @@ static void meta_build_system_data_scope_migration(SomMetaNode *n) {
 static void meta_build_system_data_scope_entities(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemDataScope");
   meta_set(&n->member_name, "entities");
-  meta_set(&n->section_id, "DAENMIEN-ENTI-LST");
-  meta_set(&n->section_id_pattern, "DAENMIEN-ENTI-xxx");
+  meta_set(&n->section_id, "DAENMI-ENTI-LST");
+  meta_set(&n->section_id_pattern, "DAENMI-ENTI-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "DataEntityMigrationEntry");
   n->has_serialization_order = 1;
@@ -134407,7 +134407,7 @@ static void meta_build_system_data_scope_entities(SomMetaNode *n) {
 }
 static void meta_build_system_data_scope_entities_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "DataEntityMigrationEntry");
-  meta_set(&n->class_section_id, "DAENMIEN");
+  meta_set(&n->class_section_id, "DAENMI");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "DataEntityMigrationEntry");
   meta_set(&n->doc_comment, "A data entity migration entry.");
@@ -135344,8 +135344,8 @@ static void meta_build_system_error_display_error_page_designs(SomMetaNode *n) {
 static void meta_build_system_error_display_error_codes(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorDisplay");
   meta_set(&n->member_name, "errorCodes");
-  meta_set(&n->section_id, "SYERCOEN-ERRO-LST");
-  meta_set(&n->section_id_pattern, "SYERCOEN-ERRO-xxx");
+  meta_set(&n->section_id, "SYERCO-ERRO-LST");
+  meta_set(&n->section_id_pattern, "SYERCO-ERRO-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemErrorCodeEntry");
   n->has_serialization_order = 1;
@@ -135359,7 +135359,7 @@ static void meta_build_system_error_display_error_codes(SomMetaNode *n) {
 }
 static void meta_build_system_error_display_error_codes_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemErrorCodeEntry");
-  meta_set(&n->class_section_id, "SYERCOEN");
+  meta_set(&n->class_section_id, "SYERCO");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemErrorCodeEntry");
   meta_set(&n->doc_comment, "A system error code entry.");
@@ -135929,8 +135929,8 @@ static void meta_build_system_migration_plan_cutover(SomMetaNode *n) {
 static void meta_build_system_migration_plan_risks(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemMigrationPlan");
   meta_set(&n->member_name, "risks");
-  meta_set(&n->section_id, "SYMIRIEN-RISK-LST");
-  meta_set(&n->section_id_pattern, "SYMIRIEN-RISK-xxx");
+  meta_set(&n->section_id, "SYMIRI-RISK-LST");
+  meta_set(&n->section_id_pattern, "SYMIRI-RISK-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "SystemMigrationRiskEntry");
   n->has_serialization_order = 1;
@@ -135944,7 +135944,7 @@ static void meta_build_system_migration_plan_risks(SomMetaNode *n) {
 }
 static void meta_build_system_migration_plan_risks_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemMigrationRiskEntry");
-  meta_set(&n->class_section_id, "SYMIRIEN");
+  meta_set(&n->class_section_id, "SYMIRI");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "SystemMigrationRiskEntry");
   meta_set(&n->doc_comment, "A system migration risk entry.");
@@ -137859,8 +137859,8 @@ static void meta_build_system_to_replace_entry_data_scope(SomMetaNode *n) {
 static void meta_build_system_to_replace_entry_dependencies(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemToReplaceEntry");
   meta_set(&n->member_name, "dependencies");
-  meta_set(&n->section_id, "REPSDEP-DEPE-LST");
-  meta_set(&n->section_id_pattern, "REPSDEP-DEPE-xxx");
+  meta_set(&n->section_id, "RESYDE-DEPE-LST");
+  meta_set(&n->section_id_pattern, "RESYDE-DEPE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReplacementSystemDependencyEntry");
   n->has_serialization_order = 1;
@@ -137874,7 +137874,7 @@ static void meta_build_system_to_replace_entry_dependencies(SomMetaNode *n) {
 }
 static void meta_build_system_to_replace_entry_dependencies_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ReplacementSystemDependencyEntry");
-  meta_set(&n->class_section_id, "REPSDEP");
+  meta_set(&n->class_section_id, "RESYDE");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ReplacementSystemDependencyEntry");
   meta_set(&n->doc_comment, "A system dependency entry.\n\nDocuments integrations and dependencies with other systems.");
@@ -138207,8 +138207,8 @@ static void meta_build_system_user_impact_adoption(SomMetaNode *n) {
 static void meta_build_system_user_impact_user_groups(SomMetaNode *n) {
   meta_set(&n->class_name, "SystemUserImpact");
   meta_set(&n->member_name, "userGroups");
-  meta_set(&n->section_id, "USGRIMEN-USER-LST");
-  meta_set(&n->section_id_pattern, "USGRIMEN-USER-xxx");
+  meta_set(&n->section_id, "USGRIM-USER-LST");
+  meta_set(&n->section_id_pattern, "USGRIM-USER-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UserGroupImpactEntry");
   n->has_serialization_order = 1;
@@ -138222,7 +138222,7 @@ static void meta_build_system_user_impact_user_groups(SomMetaNode *n) {
 }
 static void meta_build_system_user_impact_user_groups_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "UserGroupImpactEntry");
-  meta_set(&n->class_section_id, "USGRIMEN");
+  meta_set(&n->class_section_id, "USGRIM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UserGroupImpactEntry");
   meta_set(&n->doc_comment, "User group impact entry.");
@@ -139538,8 +139538,8 @@ static void meta_build_technical_environment_integration_overview(SomMetaNode *n
 static void meta_build_technical_environment_integration_constraints(SomMetaNode *n) {
   meta_set(&n->class_name, "TechnicalEnvironment");
   meta_set(&n->member_name, "integrationConstraints");
-  meta_set(&n->section_id, "INTCONENT-INTE-LST");
-  meta_set(&n->section_id_pattern, "INTCONENT-INTE-xxx");
+  meta_set(&n->section_id, "INTCON-INTE-LST");
+  meta_set(&n->section_id_pattern, "INTCON-INTE-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "IntegrationConstraintEntry");
   n->has_serialization_order = 1;
@@ -139553,7 +139553,7 @@ static void meta_build_technical_environment_integration_constraints(SomMetaNode
 }
 static void meta_build_technical_environment_integration_constraints_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "IntegrationConstraintEntry");
-  meta_set(&n->class_section_id, "INTCONENT");
+  meta_set(&n->class_section_id, "INTCON");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "IntegrationConstraintEntry");
   meta_set(&n->doc_comment, "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.");
@@ -147724,7 +147724,7 @@ static void meta_build_uat_test_step_entry_content(SomMetaNode *n) {
 static void meta_build_ui_component_entry_identity(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "identity");
-  meta_set(&n->section_id, "UICOMENT-IDEN");
+  meta_set(&n->section_id, "UICOM-IDEN");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -147836,7 +147836,7 @@ static void meta_build_ui_component_entry_classification(SomMetaNode *n) {
 static void meta_build_ui_component_entry_visual_design(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "visualDesign");
-  meta_set(&n->section_id, "UICOMENT-VISU");
+  meta_set(&n->section_id, "UICOM-VISU");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148002,7 +148002,7 @@ static void meta_build_ui_component_entry_visual_diagram(SomMetaNode *n) {
 static void meta_build_ui_component_entry_interactive_behavior(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "interactiveBehavior");
-  meta_set(&n->section_id, "UICOMENT-INTE");
+  meta_set(&n->section_id, "UICOM-INTE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148155,7 +148155,7 @@ static void meta_build_ui_component_entry_scroll(SomMetaNode *n) {
 static void meta_build_ui_component_entry_responsiveness(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "responsiveness");
-  meta_set(&n->section_id, "UICOMENT-RESP");
+  meta_set(&n->section_id, "UICOM-RESP");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148209,7 +148209,7 @@ static void meta_build_ui_component_entry_responsiveness(SomMetaNode *n) {
 static void meta_build_ui_component_entry_accessibility(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "accessibility");
-  meta_set(&n->section_id, "UICOMENT-ACCE");
+  meta_set(&n->section_id, "UICOM-ACCE");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148269,7 +148269,7 @@ static void meta_build_ui_component_entry_accessibility(SomMetaNode *n) {
 static void meta_build_ui_component_entry_authorization(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "authorization");
-  meta_set(&n->section_id, "UICOMENT-AUTH");
+  meta_set(&n->section_id, "UICOM-AUTH");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148323,7 +148323,7 @@ static void meta_build_ui_component_entry_authorization(SomMetaNode *n) {
 static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "resourceIntegration");
-  meta_set(&n->section_id, "UICOMENT-RESO");
+  meta_set(&n->section_id, "UICOM-RESO");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148407,7 +148407,7 @@ static void meta_build_ui_component_entry_resource_integration(SomMetaNode *n) {
 static void meta_build_ui_component_entry_data_binding(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "dataBinding");
-  meta_set(&n->section_id, "UICOMENT-DATA");
+  meta_set(&n->section_id, "UICOM-DATA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
@@ -148474,8 +148474,8 @@ static void meta_build_ui_component_entry_behavior_narrative(SomMetaNode *n) {
 static void meta_build_ui_component_entry_states(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
   meta_set(&n->member_name, "states");
-  meta_set(&n->section_id, "COMSTAENT-STAT-LST");
-  meta_set(&n->section_id_pattern, "COMSTAENT-STAT-xxx");
+  meta_set(&n->section_id, "COMSTA-STAT-LST");
+  meta_set(&n->section_id_pattern, "COMSTA-STAT-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ComponentStateEntry");
   n->has_serialization_order = 1;
@@ -148489,7 +148489,7 @@ static void meta_build_ui_component_entry_states(SomMetaNode *n) {
 }
 static void meta_build_ui_component_entry_states_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "ComponentStateEntry");
-  meta_set(&n->class_section_id, "COMSTAENT");
+  meta_set(&n->class_section_id, "COMSTA");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ComponentStateEntry");
   meta_set(&n->doc_comment, "A component state entry.\n\nDefines a visual/functional state of the component.");
@@ -148746,8 +148746,8 @@ static void meta_build_ui_components_component_library(SomMetaNode *n) {
 static void meta_build_ui_components_component_specs(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponents");
   meta_set(&n->member_name, "componentSpecs");
-  meta_set(&n->section_id, "UICOMENT-COMP-LST");
-  meta_set(&n->section_id_pattern, "UICOMENT-COMP-xxx");
+  meta_set(&n->section_id, "UICOM-COMP-LST");
+  meta_set(&n->section_id_pattern, "UICOM-COMP-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UiComponentEntry");
   n->has_serialization_order = 1;
@@ -148761,7 +148761,7 @@ static void meta_build_ui_components_component_specs(SomMetaNode *n) {
 }
 static void meta_build_ui_components_component_specs_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "UiComponentEntry");
-  meta_set(&n->class_section_id, "UICOMENT");
+  meta_set(&n->class_section_id, "UICOM");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UiComponentEntry");
   meta_set(&n->doc_comment, "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.");
@@ -152246,8 +152246,8 @@ static void meta_build_utility_navigation_content(SomMetaNode *n) {
 static void meta_build_utility_navigation_items(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigation");
   meta_set(&n->member_name, "items");
-  meta_set(&n->section_id, "UTNAITEN-ITEM-LST");
-  meta_set(&n->section_id_pattern, "UTNAITEN-ITEM-xxx");
+  meta_set(&n->section_id, "UTNAIT-ITEM-LST");
+  meta_set(&n->section_id_pattern, "UTNAIT-ITEM-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UtilityNavigationItemEntry");
   n->has_serialization_order = 1;
@@ -152261,7 +152261,7 @@ static void meta_build_utility_navigation_items(SomMetaNode *n) {
 }
 static void meta_build_utility_navigation_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigationItemEntry");
-  meta_set(&n->class_section_id, "UTNAITEN");
+  meta_set(&n->class_section_id, "UTNAIT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UtilityNavigationItemEntry");
   meta_set(&n->doc_comment, "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.");
@@ -152395,8 +152395,8 @@ static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n) {
 static void meta_build_utility_navigation_item_entry_menu_items(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigationItemEntry");
   meta_set(&n->member_name, "menuItems");
-  meta_set(&n->section_id, "UTMEITEN-MENU-LST");
-  meta_set(&n->section_id_pattern, "UTMEITEN-MENU-xxx");
+  meta_set(&n->section_id, "UTMEIT-MENU-LST");
+  meta_set(&n->section_id_pattern, "UTMEIT-MENU-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UtilityMenuItemEntry");
   n->has_serialization_order = 1;
@@ -152410,7 +152410,7 @@ static void meta_build_utility_navigation_item_entry_menu_items(SomMetaNode *n) 
 }
 static void meta_build_utility_navigation_item_entry_menu_items_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityMenuItemEntry");
-  meta_set(&n->class_section_id, "UTMEITEN");
+  meta_set(&n->class_section_id, "UTMEIT");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "UtilityMenuItemEntry");
   meta_set(&n->doc_comment, "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).");
@@ -154092,8 +154092,8 @@ static void meta_build_wcag_compliance_wcag_narrative(SomMetaNode *n) {
 static void meta_build_wcag_compliance_success_criteria(SomMetaNode *n) {
   meta_set(&n->class_name, "WcagCompliance");
   meta_set(&n->member_name, "successCriteria");
-  meta_set(&n->section_id, "WCSUCREN-SUCC-LST");
-  meta_set(&n->section_id_pattern, "WCSUCREN-SUCC-xxx");
+  meta_set(&n->section_id, "WCSUCR-SUCC-LST");
+  meta_set(&n->section_id_pattern, "WCSUCR-SUCC-xxx");
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "WcagSuccessCriterionEntry");
   n->has_serialization_order = 1;
@@ -154107,7 +154107,7 @@ static void meta_build_wcag_compliance_success_criteria(SomMetaNode *n) {
 }
 static void meta_build_wcag_compliance_success_criteria_elem(SomMetaNode *n) {
   meta_set(&n->class_name, "WcagSuccessCriterionEntry");
-  meta_set(&n->class_section_id, "WCSUCREN");
+  meta_set(&n->class_section_id, "WCSUCR");
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "WcagSuccessCriterionEntry");
   meta_set(&n->doc_comment, "A WCAG success criterion entry.");
@@ -188672,7 +188672,7 @@ som_nav_alert_notification_channels alerting_configuration_nav_notification_chan
 }
 SomListMetaRef alerting_configuration_nav_alert_rules(som_nav_alerting_configuration x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ALERULENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "ALERUL-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_alert_rule_entry);
   free(path);
   return out;
@@ -189911,14 +189911,14 @@ SomListMetaRef authorization_role_entry_nav_entitlement_references(som_nav_autho
 }
 SomListMetaRef authorization_role_entry_nav_direct_permissions(som_nav_authorization_role_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ROLPERM-DIRE-LST");
+  char *path = spec_path_join(x.ref.path, "ROLPER-DIRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_role_permission_entry);
   free(path);
   return out;
 }
 SomListMetaRef authorization_role_entry_nav_data_scopes(som_nav_authorization_role_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ROLDSCP-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "RODASC-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_role_data_scope_entry);
   free(path);
   return out;
@@ -192123,21 +192123,21 @@ SomListMetaRef client_requirements_section_nav_client_applications(som_nav_clien
 }
 SomListMetaRef client_requirements_section_nav_browser_requirements(som_nav_client_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "BROREQENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "BROREQ-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_browser_requirement_entry);
   free(path);
   return out;
 }
 SomListMetaRef client_requirements_section_nav_desktop_os_requirements(som_nav_client_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "DEOSREEN-DESK-LST");
+  char *path = spec_path_join(x.ref.path, "DEOSRE-DESK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_desktop_os_requirement_entry);
   free(path);
   return out;
 }
 SomListMetaRef client_requirements_section_nav_mobile_requirements(som_nav_client_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "MODEREEN-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "MODERE-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_mobile_device_requirement_entry);
   free(path);
   return out;
@@ -192676,21 +192676,21 @@ SomListMetaRef compatibility_requirements_section_nav_os_compatibility(som_nav_c
 }
 SomListMetaRef compatibility_requirements_section_nav_browser_compatibility(som_nav_compatibility_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "BROCOMENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "BROCOM-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_browser_compatibility_entry);
   free(path);
   return out;
 }
 SomListMetaRef compatibility_requirements_section_nav_database_compatibility(som_nav_compatibility_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "DATCOMENT-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "DATCOM-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_database_compatibility_entry);
   free(path);
   return out;
 }
 SomListMetaRef compatibility_requirements_section_nav_enterprise_system_compatibility(som_nav_compatibility_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ENSYCOEN-ENTE-LST");
+  char *path = spec_path_join(x.ref.path, "ENSYCO-ENTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_enterprise_system_compatibility_entry);
   free(path);
   return out;
@@ -192711,14 +192711,14 @@ SomListMetaRef compatibility_requirements_section_nav_legacy_compatibility(som_n
 }
 SomListMetaRef compatibility_requirements_section_nav_mobile_compatibility(som_nav_compatibility_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "MOBCOMENT-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "MOBCOM-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_mobile_compatibility_entry);
   free(path);
   return out;
 }
 SomListMetaRef compatibility_requirements_section_nav_third_party_compatibility(som_nav_compatibility_requirements_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "THPACOEN-THIR-LST");
+  char *path = spec_path_join(x.ref.path, "THPACO-THIR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_third_party_compatibility_entry);
   free(path);
   return out;
@@ -199711,7 +199711,7 @@ SomMetaRef entitlement_entry_nav_content(som_nav_entitlement_entry x) {
 }
 SomListMetaRef entitlement_entry_nav_resource_key_references(som_nav_entitlement_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "RESKREF-RESO-LST");
+  char *path = spec_path_join(x.ref.path, "REKERE-RESO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_resource_key_reference_entry);
   free(path);
   return out;
@@ -200768,7 +200768,7 @@ som_nav_authorization_requirement_spec export_format_entry_nav_access(som_nav_ex
 }
 SomListMetaRef export_format_entry_nav_field_mappings(som_nav_export_format_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXFIMAEN-FIEL-LST");
+  char *path = spec_path_join(x.ref.path, "EXFIMA-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_export_field_mapping_entry);
   free(path);
   return out;
@@ -200901,7 +200901,7 @@ SomMetaRef external_connectivity_section_nav_overview(som_nav_external_connectiv
 }
 SomListMetaRef external_connectivity_section_nav_partner_connections(som_nav_external_connectivity_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXPACOEN-PART-LST");
+  char *path = spec_path_join(x.ref.path, "EXPACO-PART-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_external_partner_connection_entry);
   free(path);
   return out;
@@ -201202,7 +201202,7 @@ SomMetaRef external_system_context_entry_nav_governance(som_nav_external_system_
 }
 SomMetaRef external_system_context_entry_nav_data_mapping(som_nav_external_system_context_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXSYCOEN-DATA");
+  char *path = spec_path_join(x.ref.path, "EXSYCO-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -201216,7 +201216,7 @@ SomMetaRef external_systems_context_nav_content(som_nav_external_systems_context
 }
 SomListMetaRef external_systems_context_nav_systems(som_nav_external_systems_context x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXSYCOEN-SYST-LST");
+  char *path = spec_path_join(x.ref.path, "EXSYCO-SYST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_external_system_context_entry);
   free(path);
   return out;
@@ -203736,7 +203736,7 @@ SomMetaRef interface_business_context_nav_content(som_nav_interface_business_con
 }
 SomListMetaRef interface_business_context_nav_dependent_processes(som_nav_interface_business_context x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INBUPREN-DEPE-LST");
+  char *path = spec_path_join(x.ref.path, "INBUPR-DEPE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_interface_business_process_entry);
   free(path);
   return out;
@@ -203764,7 +203764,7 @@ SomMetaRef interface_data_spec_nav_content(som_nav_interface_data_spec x) {
 }
 SomListMetaRef interface_data_spec_nav_data_entities(som_nav_interface_data_spec x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INDAENEN-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "INDAEN-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_interface_data_entity_entry);
   free(path);
   return out;
@@ -204023,7 +204023,7 @@ SomMetaRef interface_testing_nav_strategy(som_nav_interface_testing x) {
 }
 SomListMetaRef interface_testing_nav_test_scenarios(som_nav_interface_testing x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INTESCEN-TEST-LST");
+  char *path = spec_path_join(x.ref.path, "INTESC-TEST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_interface_test_scenario_entry);
   free(path);
   return out;
@@ -205682,7 +205682,7 @@ som_nav_distributed_tracing_spec metrics_and_observability_nav_distributed_traci
 }
 SomListMetaRef metrics_and_observability_nav_custom_metrics(som_nav_metrics_and_observability x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "CUSMETENT-CUST-LST");
+  char *path = spec_path_join(x.ref.path, "CUSMET-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_custom_metric_entry);
   free(path);
   return out;
@@ -206536,7 +206536,7 @@ som_nav_alerting_requirements monitoring_and_alerting_section_nav_alerting(som_n
 }
 SomListMetaRef monitoring_and_alerting_section_nav_alert_definitions(som_nav_monitoring_and_alerting_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ALEDEFENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "ALEDEF-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_alert_definition_entry);
   free(path);
   return out;
@@ -206718,7 +206718,7 @@ som_nav_language_country_selection multi_language_support_nav_language_country_s
 }
 SomListMetaRef multi_language_support_nav_supported_locales(som_nav_multi_language_support x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SUPLOCENT-SUPP-LST");
+  char *path = spec_path_join(x.ref.path, "SUPLOC-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_supported_locale_entry);
   free(path);
   return out;
@@ -208265,7 +208265,7 @@ SomMetaRef out_of_scope_nav_scope_philosophy(som_nav_out_of_scope x) {
 }
 SomListMetaRef out_of_scope_nav_items(som_nav_out_of_scope x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "OUOFSCEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "OUTSCO-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_out_of_scope_entry);
   free(path);
   return out;
@@ -208951,7 +208951,7 @@ SomMetaRef phase_gate_reviews_nav_gate_review_narrative(som_nav_phase_gate_revie
 }
 SomListMetaRef phase_gate_reviews_nav_items(som_nav_phase_gate_reviews x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "PHGAREEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "PHGREV-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_phase_gate_review_entry);
   free(path);
   return out;
@@ -209098,7 +209098,7 @@ SomListMetaRef platform_and_language_nav_build_toolchain(som_nav_platform_and_la
 }
 SomListMetaRef platform_and_language_nav_deployment_targets(som_nav_platform_and_language x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "DEPTARENT-DEPL-LST");
+  char *path = spec_path_join(x.ref.path, "DEPTAR-DEPL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_deployment_target_entry);
   free(path);
   return out;
@@ -211737,7 +211737,7 @@ SomListMetaRef report_entry_nav_filters(som_nav_report_entry x) {
 }
 SomListMetaRef report_entry_nav_schedules(som_nav_report_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPSCHENT-SCHE-LST");
+  char *path = spec_path_join(x.ref.path, "REPSCH-SCHE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_report_schedule_entry);
   free(path);
   return out;
@@ -211926,14 +211926,14 @@ SomMetaRef report_section_entry_nav_aggregation(som_nav_report_section_entry x) 
 }
 SomListMetaRef report_section_entry_nav_columns(som_nav_report_section_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPCOLENT-COLU-LST");
+  char *path = spec_path_join(x.ref.path, "REPCOL-COLU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_report_column_entry);
   free(path);
   return out;
 }
 SomListMetaRef report_section_entry_nav_charts(som_nav_report_section_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPCHAENT-CHAR-LST");
+  char *path = spec_path_join(x.ref.path, "REPCHA-CHAR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_report_chart_entry);
   free(path);
   return out;
@@ -212647,14 +212647,14 @@ SomListMetaRef reusable_components_section_nav_ui_components(som_nav_reusable_co
 }
 SomListMetaRef reusable_components_section_nav_business_components(som_nav_reusable_components_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "BUSCOMENT-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "BUSCOM-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_business_component_entry);
   free(path);
   return out;
 }
 SomListMetaRef reusable_components_section_nav_infrastructure_components(som_nav_reusable_components_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INFCOMENT-INFR-LST");
+  char *path = spec_path_join(x.ref.path, "INFCOM-INFR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_infrastructure_component_entry);
   free(path);
   return out;
@@ -213928,7 +213928,7 @@ som_nav_screen_element_data_display screen_element_entry_nav_data_display(som_na
 }
 SomListMetaRef screen_element_entry_nav_validation_rules(som_nav_screen_element_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ELVARUEN-VALI-LST");
+  char *path = spec_path_join(x.ref.path, "ELVARU-VALI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_element_validation_rule_entry);
   free(path);
   return out;
@@ -214068,7 +214068,7 @@ SomListMetaRef screen_entry_nav_entry_points(som_nav_screen_entry x) {
 }
 SomListMetaRef screen_entry_nav_responsive_rules(som_nav_screen_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SCRERUEN-RESP-LST");
+  char *path = spec_path_join(x.ref.path, "SCRERU-RESP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_screen_responsive_rule_entry);
   free(path);
   return out;
@@ -214341,7 +214341,7 @@ SomMetaRef secondary_navigation_nav_overview(som_nav_secondary_navigation x) {
 }
 SomListMetaRef secondary_navigation_nav_tab_bars(som_nav_secondary_navigation x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "TABADEEN-TABB-LST");
+  char *path = spec_path_join(x.ref.path, "TABADE-TABB-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_tab_bar_definition_entry);
   free(path);
   return out;
@@ -216945,21 +216945,21 @@ SomMetaRef standards_compliance_section_nav_overview(som_nav_standards_complianc
 }
 SomListMetaRef standards_compliance_section_nav_it_standards(som_nav_standards_compliance_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ITSTCOEN-ITST-LST");
+  char *path = spec_path_join(x.ref.path, "ITSTCO-ITST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_it_standard_compliance_entry);
   free(path);
   return out;
 }
 SomListMetaRef standards_compliance_section_nav_industry_protocols(som_nav_standards_compliance_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INPRCOEN-INDU-LST");
+  char *path = spec_path_join(x.ref.path, "INPRCO-INDU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_industry_protocol_compliance_entry);
   free(path);
   return out;
 }
 SomListMetaRef standards_compliance_section_nav_interface_specifications(som_nav_standards_compliance_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INTSPEENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "INTSPE-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_interface_specification_entry);
   free(path);
   return out;
@@ -216973,7 +216973,7 @@ SomListMetaRef standards_compliance_section_nav_regulatory_compliance(som_nav_st
 }
 SomListMetaRef standards_compliance_section_nav_security_standards(som_nav_standards_compliance_section x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SESTCOEN-SECU-LST");
+  char *path = spec_path_join(x.ref.path, "SESTCO-SECU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_security_standard_compliance_entry);
   free(path);
   return out;
@@ -217477,14 +217477,14 @@ SomMetaRef system_business_criticality_nav_governance(som_nav_system_business_cr
 }
 SomListMetaRef system_business_criticality_nav_business_units(som_nav_system_business_criticality x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SYBUUNEN-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "SYBUUN-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_system_business_unit_entry);
   free(path);
   return out;
 }
 SomListMetaRef system_business_criticality_nav_supported_processes(som_nav_system_business_criticality x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SYBUPREN-SUPP-LST");
+  char *path = spec_path_join(x.ref.path, "SYBUPR-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_system_business_process_entry);
   free(path);
   return out;
@@ -217666,7 +217666,7 @@ SomMetaRef system_data_scope_nav_migration(som_nav_system_data_scope x) {
 }
 SomListMetaRef system_data_scope_nav_entities(som_nav_system_data_scope x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "DAENMIEN-ENTI-LST");
+  char *path = spec_path_join(x.ref.path, "DAENMI-ENTI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_data_entity_migration_entry);
   free(path);
   return out;
@@ -217876,7 +217876,7 @@ SomListMetaRef system_error_display_nav_error_page_designs(som_nav_system_error_
 }
 SomListMetaRef system_error_display_nav_error_codes(som_nav_system_error_display x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SYERCOEN-ERRO-LST");
+  char *path = spec_path_join(x.ref.path, "SYERCO-ERRO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_system_error_code_entry);
   free(path);
   return out;
@@ -218009,7 +218009,7 @@ SomMetaRef system_migration_plan_nav_cutover(som_nav_system_migration_plan x) {
 }
 SomListMetaRef system_migration_plan_nav_risks(som_nav_system_migration_plan x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SYMIRIEN-RISK-LST");
+  char *path = spec_path_join(x.ref.path, "SYMIRI-RISK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_system_migration_risk_entry);
   free(path);
   return out;
@@ -218667,7 +218667,7 @@ som_nav_system_data_scope system_to_replace_entry_nav_data_scope(som_nav_system_
 }
 SomListMetaRef system_to_replace_entry_nav_dependencies(som_nav_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPSDEP-DEPE-LST");
+  char *path = spec_path_join(x.ref.path, "RESYDE-DEPE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_replacement_system_dependency_entry);
   free(path);
   return out;
@@ -218758,7 +218758,7 @@ SomMetaRef system_user_impact_nav_adoption(som_nav_system_user_impact x) {
 }
 SomListMetaRef system_user_impact_nav_user_groups(som_nav_system_user_impact x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "USGRIMEN-USER-LST");
+  char *path = spec_path_join(x.ref.path, "USGRIM-USER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_user_group_impact_entry);
   free(path);
   return out;
@@ -219073,7 +219073,7 @@ SomMetaRef technical_environment_nav_integration_overview(som_nav_technical_envi
 }
 SomListMetaRef technical_environment_nav_integration_constraints(som_nav_technical_environment x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "INTCONENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "INTCON-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_integration_constraint_entry);
   free(path);
   return out;
@@ -220837,7 +220837,7 @@ SomMetaRef uat_test_step_entry_nav_content(som_nav_uat_test_step_entry x) {
 }
 SomMetaRef ui_component_entry_nav_identity(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-IDEN");
+  char *path = spec_path_join(x.ref.path, "UICOM-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -220858,7 +220858,7 @@ SomMetaRef ui_component_entry_nav_classification(som_nav_ui_component_entry x) {
 }
 SomMetaRef ui_component_entry_nav_visual_design(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-VISU");
+  char *path = spec_path_join(x.ref.path, "UICOM-VISU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -220893,7 +220893,7 @@ SomMetaRef ui_component_entry_nav_visual_diagram(som_nav_ui_component_entry x) {
 }
 SomMetaRef ui_component_entry_nav_interactive_behavior(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-INTE");
+  char *path = spec_path_join(x.ref.path, "UICOM-INTE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -220921,35 +220921,35 @@ SomMetaRef ui_component_entry_nav_scroll(som_nav_ui_component_entry x) {
 }
 SomMetaRef ui_component_entry_nav_responsiveness(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-RESP");
+  char *path = spec_path_join(x.ref.path, "UICOM-RESP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_accessibility(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-ACCE");
+  char *path = spec_path_join(x.ref.path, "UICOM-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_authorization(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-AUTH");
+  char *path = spec_path_join(x.ref.path, "UICOM-AUTH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_resource_integration(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-RESO");
+  char *path = spec_path_join(x.ref.path, "UICOM-RESO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
 SomMetaRef ui_component_entry_nav_data_binding(som_nav_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-DATA");
+  char *path = spec_path_join(x.ref.path, "UICOM-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -220963,7 +220963,7 @@ SomMetaRef ui_component_entry_nav_behavior_narrative(som_nav_ui_component_entry 
 }
 SomListMetaRef ui_component_entry_nav_states(som_nav_ui_component_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "COMSTAENT-STAT-LST");
+  char *path = spec_path_join(x.ref.path, "COMSTA-STAT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_component_state_entry);
   free(path);
   return out;
@@ -221033,7 +221033,7 @@ som_nav_component_library ui_components_nav_component_library(som_nav_ui_compone
 }
 SomListMetaRef ui_components_nav_component_specs(som_nav_ui_components x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-COMP-LST");
+  char *path = spec_path_join(x.ref.path, "UICOM-COMP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_ui_component_entry);
   free(path);
   return out;
@@ -222041,7 +222041,7 @@ SomMetaRef utility_navigation_nav_content(som_nav_utility_navigation x) {
 }
 SomListMetaRef utility_navigation_nav_items(som_nav_utility_navigation x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UTNAITEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "UTNAIT-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_utility_navigation_item_entry);
   free(path);
   return out;
@@ -222076,7 +222076,7 @@ SomMetaRef utility_navigation_item_entry_nav_behavior(som_nav_utility_navigation
 }
 SomListMetaRef utility_navigation_item_entry_nav_menu_items(som_nav_utility_navigation_item_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UTMEITEN-MENU-LST");
+  char *path = spec_path_join(x.ref.path, "UTMEIT-MENU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_utility_menu_item_entry);
   free(path);
   return out;
@@ -222433,7 +222433,7 @@ SomMetaRef wcag_compliance_nav_wcag_narrative(som_nav_wcag_compliance x) {
 }
 SomListMetaRef wcag_compliance_nav_success_criteria(som_nav_wcag_compliance x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "WCSUCREN-SUCC-LST");
+  char *path = spec_path_join(x.ref.path, "WCSUCR-SUCC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_wcag_success_criterion_entry);
   free(path);
   return out;
@@ -223146,16 +223146,16 @@ SomListMetaRef authorization_role_entry_id_enrefe_enti_lst(som_id_authorization_
   free(path);
   return out;
 }
-SomListMetaRef authorization_role_entry_id_rolperm_dire_lst(som_id_authorization_role_entry x) {
+SomListMetaRef authorization_role_entry_id_rolper_dire_lst(som_id_authorization_role_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ROLPERM-DIRE-LST");
+  char *path = spec_path_join(x.ref.path, "ROLPER-DIRE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_role_permission_entry);
   free(path);
   return out;
 }
-SomListMetaRef authorization_role_entry_id_roldscp_data_lst(som_id_authorization_role_entry x) {
+SomListMetaRef authorization_role_entry_id_rodasc_data_lst(som_id_authorization_role_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ROLDSCP-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "RODASC-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_role_data_scope_entry);
   free(path);
   return out;
@@ -224693,9 +224693,9 @@ SomListMetaRef d00_solution_blueprint_id_eae_acto_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_exsycoen_syst_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_exsyco_syst_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCOEN-SYST-LST");
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCO-SYST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_external_system_context_entry);
   free(path);
   return out;
@@ -225176,9 +225176,9 @@ SomListMetaRef d00_solution_blueprint_id_eie_inte_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_ouofscen_item_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_outsco_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/systemBoundaries/outOfScope/OUTSCO-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_out_of_scope_entry);
   free(path);
   return out;
@@ -225330,9 +225330,9 @@ SomListMetaRef d00_solution_blueprint_id_tse_tech_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_intconent_inte_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_intcon_inte_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INTCON-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_integration_constraint_entry);
   free(path);
   return out;
@@ -226793,9 +226793,9 @@ SomListMetaRef d00_solution_blueprint_id_btcen_buil_lst(som_id_d00_solution_blue
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_deptarent_depl_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_deptar_depl_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_deployment_target_entry);
   free(path);
   return out;
@@ -227794,16 +227794,16 @@ SomListMetaRef d00_solution_blueprint_id_ruce_uico_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_buscoment_busi_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_buscom_busi_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_component_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_infcoment_infr_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_infcom_infr_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_infrastructure_component_entry);
   free(path);
   return out;
@@ -227878,23 +227878,23 @@ SomListMetaRef d00_solution_blueprint_id_oce_osco_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_brocoment_brow_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_brocom_brow_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_datcoment_data_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_datcom_data_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_database_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_ensycoen_ente_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_ensyco_ente_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_enterprise_system_compatibility_entry);
   free(path);
   return out;
@@ -227913,16 +227913,16 @@ SomListMetaRef d00_solution_blueprint_id_lce_lega_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_mobcoment_mobi_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_mobcom_mobi_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_thpacoen_thir_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_thpaco_thir_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_third_party_compatibility_entry);
   free(path);
   return out;
@@ -228011,23 +228011,23 @@ SomMetaRef d00_solution_blueprint_id_inrego(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_itstcoen_itst_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_itstco_itst_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_it_standard_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_inprcoen_indu_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_inprco_indu_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_industry_protocol_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_intspeent_inte_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_intspe_inte_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_specification_entry);
   free(path);
   return out;
@@ -228039,9 +228039,9 @@ SomListMetaRef d00_solution_blueprint_id_rce_regu_lst(som_id_d00_solution_bluepr
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_sestcoen_secu_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_sestco_secu_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_standard_compliance_entry);
   free(path);
   return out;
@@ -228417,23 +228417,23 @@ SomListMetaRef d00_solution_blueprint_id_cliapp_clie_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_broreqent_brow_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_broreq_brow_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_deosreen_desk_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_deosre_desk_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_desktop_os_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_modereen_mobi_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_modere_mobi_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_device_requirement_entry);
   free(path);
   return out;
@@ -229474,9 +229474,9 @@ SomMetaRef d00_solution_blueprint_id_alrere(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_aledefent_aler_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_aledef_aler_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_definition_entry);
   free(path);
   return out;
@@ -229866,9 +229866,9 @@ SomMetaRef d00_solution_blueprint_id_pcre(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_expacoen_part_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_expaco_part_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACO-PART-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_external_partner_connection_entry);
   free(path);
   return out;
@@ -230286,9 +230286,9 @@ SomMetaRef d00_solution_blueprint_id_ancf(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_alerulent_aler_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_alerul_aler_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_rule_entry);
   free(path);
   return out;
@@ -230433,9 +230433,9 @@ SomMetaRef d00_solution_blueprint_id_dtso(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_cusmetent_cust_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_cusmet_cust_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST");
+  char *path = spec_path_join(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_custom_metric_entry);
   free(path);
   return out;
@@ -231518,16 +231518,16 @@ SomMetaRef d00_solution_blueprint_id_prnasi(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_tabadeen_tabb_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_tabade_tabb_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_tab_bar_definition_entry);
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_utnaiten_item_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_utnait_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_utility_navigation_item_entry);
   free(path);
   return out;
@@ -231693,9 +231693,9 @@ SomListMetaRef d00_solution_blueprint_id_syerdi_erro_lst(som_id_d00_solution_blu
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_syercoen_erro_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_syerco_erro_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_error_code_entry);
   free(path);
   return out;
@@ -231903,9 +231903,9 @@ SomListMetaRef d00_solution_blueprint_id_tyst_typo_lst(som_id_d00_solution_bluep
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_uicoment_comp_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_uicom_comp_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOM-COMP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_ui_component_entry);
   free(path);
   return out;
@@ -232204,9 +232204,9 @@ SomMetaRef d00_solution_blueprint_id_wccoro(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_wcsucren_succ_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_wcsucr_succ_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_wcag_success_criterion_entry);
   free(path);
   return out;
@@ -232435,9 +232435,9 @@ SomMetaRef d00_solution_blueprint_id_lcsu(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_suplocent_supp_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_suploc_supp_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST");
+  char *path = spec_path_join(x.ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOC-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_supported_locale_entry);
   free(path);
   return out;
@@ -233772,9 +233772,9 @@ SomMetaRef d00_solution_blueprint_id_pgro(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
-SomListMetaRef d00_solution_blueprint_id_phgareen_item_lst(som_id_d00_solution_blueprint x) {
+SomListMetaRef d00_solution_blueprint_id_phgrev_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGREV-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_phase_gate_review_entry);
   free(path);
   return out;
@@ -234787,9 +234787,9 @@ SomListMetaRef d06_architecture_technology_specification_id_btcen_buil_lst(som_i
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_deptarent_depl_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_deptar_depl_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST");
+  char *path = spec_path_join(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/DEPTAR-DEPL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_deployment_target_entry);
   free(path);
   return out;
@@ -235788,16 +235788,16 @@ SomListMetaRef d06_architecture_technology_specification_id_ruce_uico_lst(som_id
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_buscoment_busi_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_buscom_busi_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "softwareDesignRequirements/reusableComponents/BUSCOM-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_component_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_infcoment_infr_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_infcom_infr_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST");
+  char *path = spec_path_join(x.ref.path, "softwareDesignRequirements/reusableComponents/INFCOM-INFR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_infrastructure_component_entry);
   free(path);
   return out;
@@ -235872,23 +235872,23 @@ SomListMetaRef d06_architecture_technology_specification_id_oce_osco_lst(som_id_
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_brocoment_brow_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_brocom_brow_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/BROCOM-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_datcoment_data_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_datcom_data_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/DATCOM-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_database_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_ensycoen_ente_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_ensyco_ente_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/ENSYCO-ENTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_enterprise_system_compatibility_entry);
   free(path);
   return out;
@@ -235907,16 +235907,16 @@ SomListMetaRef d06_architecture_technology_specification_id_lce_lega_lst(som_id_
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_mobcoment_mobi_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_mobcom_mobi_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOBCOM-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_thpacoen_thir_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_thpaco_thir_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/THPACO-THIR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_third_party_compatibility_entry);
   free(path);
   return out;
@@ -236005,23 +236005,23 @@ SomMetaRef d06_architecture_technology_specification_id_inrego(som_id_d06_archit
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_itstcoen_itst_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_itstco_itst_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/ITSTCO-ITST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_it_standard_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_inprcoen_indu_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_inprco_indu_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INPRCO-INDU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_industry_protocol_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_intspeent_inte_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_intspe_inte_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INTSPE-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_specification_entry);
   free(path);
   return out;
@@ -236033,9 +236033,9 @@ SomListMetaRef d06_architecture_technology_specification_id_rce_regu_lst(som_id_
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_sestcoen_secu_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_sestco_secu_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST");
+  char *path = spec_path_join(x.ref.path, "standardSoftwareRequirements/standardsCompliance/SESTCO-SECU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_standard_compliance_entry);
   free(path);
   return out;
@@ -236411,23 +236411,23 @@ SomListMetaRef d06_architecture_technology_specification_id_cliapp_clie_lst(som_
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_broreqent_brow_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_broreq_brow_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/BROREQENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/BROREQ-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_deosreen_desk_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_deosre_desk_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST");
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/DEOSRE-DESK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_desktop_os_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_modereen_mobi_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_modere_mobi_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "hardwareRequirements/clientRequirements/MODERE-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_device_requirement_entry);
   free(path);
   return out;
@@ -237468,9 +237468,9 @@ SomMetaRef d06_architecture_technology_specification_id_alrere(som_id_d06_archit
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_aledefent_aler_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_aledef_aler_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "operationsRequirements/monitoringAndAlerting/ALEDEF-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_definition_entry);
   free(path);
   return out;
@@ -237860,9 +237860,9 @@ SomMetaRef d06_architecture_technology_specification_id_pcre(som_id_d06_architec
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_expacoen_part_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_expaco_part_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "communicationRequirements/externalConnectivity/EXPACOEN-PART-LST");
+  char *path = spec_path_join(x.ref.path, "communicationRequirements/externalConnectivity/EXPACO-PART-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_external_partner_connection_entry);
   free(path);
   return out;
@@ -238280,9 +238280,9 @@ SomMetaRef d06_architecture_technology_specification_id_ancf(som_id_d06_architec
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_alerulent_aler_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_alerul_aler_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERUL-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_rule_entry);
   free(path);
   return out;
@@ -238427,9 +238427,9 @@ SomMetaRef d06_architecture_technology_specification_id_dtso(som_id_d06_architec
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_cusmetent_cust_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_cusmet_cust_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST");
+  char *path = spec_path_join(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMET-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_custom_metric_entry);
   free(path);
   return out;
@@ -239267,9 +239267,9 @@ SomListMetaRef d06_architecture_technology_specification_id_tse_tech_lst(som_id_
   free(path);
   return out;
 }
-SomListMetaRef d06_architecture_technology_specification_id_intconent_inte_lst(som_id_d06_architecture_technology_specification x) {
+SomListMetaRef d06_architecture_technology_specification_id_intcon_inte_lst(som_id_d06_architecture_technology_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalEnvironment/INTCONENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "technicalEnvironment/INTCON-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_integration_constraint_entry);
   free(path);
   return out;
@@ -239316,9 +239316,9 @@ SomListMetaRef d07_integration_interface_specification_id_eie_inte_lst(som_id_d0
   free(path);
   return out;
 }
-SomListMetaRef d07_integration_interface_specification_id_ouofscen_item_lst(som_id_d07_integration_interface_specification x) {
+SomListMetaRef d07_integration_interface_specification_id_outsco_item_lst(som_id_d07_integration_interface_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "outOfScope/OUOFSCEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "outOfScope/OUTSCO-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_out_of_scope_entry);
   free(path);
   return out;
@@ -239673,16 +239673,16 @@ SomMetaRef d09_experience_design_specification_id_prnasi(som_id_d09_experience_d
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_tabadeen_tabb_lst(som_id_d09_experience_design_specification x) {
+SomListMetaRef d09_experience_design_specification_id_tabade_tabb_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST");
+  char *path = spec_path_join(x.ref.path, "screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_tab_bar_definition_entry);
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_utnaiten_item_lst(som_id_d09_experience_design_specification x) {
+SomListMetaRef d09_experience_design_specification_id_utnait_item_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_utility_navigation_item_entry);
   free(path);
   return out;
@@ -239904,9 +239904,9 @@ SomListMetaRef d09_experience_design_specification_id_syerdi_erro_lst(som_id_d09
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_syercoen_erro_lst(som_id_d09_experience_design_specification x) {
+SomListMetaRef d09_experience_design_specification_id_syerco_erro_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST");
+  char *path = spec_path_join(x.ref.path, "errorHandling/systemErrorDisplay/SYERCO-ERRO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_error_code_entry);
   free(path);
   return out;
@@ -240177,9 +240177,9 @@ SomMetaRef d09_experience_design_specification_id_wccoro(som_id_d09_experience_d
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_wcsucren_succ_lst(som_id_d09_experience_design_specification x) {
+SomListMetaRef d09_experience_design_specification_id_wcsucr_succ_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST");
+  char *path = spec_path_join(x.ref.path, "accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_wcag_success_criterion_entry);
   free(path);
   return out;
@@ -240345,9 +240345,9 @@ SomListMetaRef d09_experience_design_specification_id_tyst_typo_lst(som_id_d09_e
   free(path);
   return out;
 }
-SomListMetaRef d09_experience_design_specification_id_uicoment_comp_lst(som_id_d09_experience_design_specification x) {
+SomListMetaRef d09_experience_design_specification_id_uicom_comp_lst(som_id_d09_experience_design_specification x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "uiComponents/UICOMENT-COMP-LST");
+  char *path = spec_path_join(x.ref.path, "uiComponents/UICOM-COMP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_ui_component_entry);
   free(path);
   return out;
@@ -241745,9 +241745,9 @@ SomMetaRef d11_delivery_roadmap_id_pgro(som_id_d11_delivery_roadmap x) {
   free(path);
   return out;
 }
-SomListMetaRef d11_delivery_roadmap_id_phgareen_item_lst(som_id_d11_delivery_roadmap x) {
+SomListMetaRef d11_delivery_roadmap_id_phgrev_item_lst(som_id_d11_delivery_roadmap x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "gateCriteria/PHGAREEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "gateCriteria/PHGREV-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_phase_gate_review_entry);
   free(path);
   return out;
@@ -241969,9 +241969,9 @@ SomListMetaRef d13_code_specs_projection_id_btcen_buil_lst(som_id_d13_code_specs
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_deptarent_depl_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_deptar_depl_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_deployment_target_entry);
   free(path);
   return out;
@@ -242970,16 +242970,16 @@ SomListMetaRef d13_code_specs_projection_id_ruce_uico_lst(som_id_d13_code_specs_
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_buscoment_busi_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_buscom_busi_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_business_component_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_infcoment_infr_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_infcom_infr_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_infrastructure_component_entry);
   free(path);
   return out;
@@ -243054,23 +243054,23 @@ SomListMetaRef d13_code_specs_projection_id_oce_osco_lst(som_id_d13_code_specs_p
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_brocoment_brow_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_brocom_brow_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_datcoment_data_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_datcom_data_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_database_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_ensycoen_ente_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_ensyco_ente_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_enterprise_system_compatibility_entry);
   free(path);
   return out;
@@ -243089,16 +243089,16 @@ SomListMetaRef d13_code_specs_projection_id_lce_lega_lst(som_id_d13_code_specs_p
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_mobcoment_mobi_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_mobcom_mobi_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_compatibility_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_thpacoen_thir_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_thpaco_thir_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_third_party_compatibility_entry);
   free(path);
   return out;
@@ -243187,23 +243187,23 @@ SomMetaRef d13_code_specs_projection_id_inrego(som_id_d13_code_specs_projection 
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_itstcoen_itst_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_itstco_itst_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_it_standard_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_inprcoen_indu_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_inprco_indu_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_industry_protocol_compliance_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_intspeent_inte_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_intspe_inte_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_specification_entry);
   free(path);
   return out;
@@ -243215,9 +243215,9 @@ SomListMetaRef d13_code_specs_projection_id_rce_regu_lst(som_id_d13_code_specs_p
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_sestcoen_secu_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_sestco_secu_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_security_standard_compliance_entry);
   free(path);
   return out;
@@ -243593,23 +243593,23 @@ SomListMetaRef d13_code_specs_projection_id_cliapp_clie_lst(som_id_d13_code_spec
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_broreqent_brow_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_broreq_brow_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_browser_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_deosreen_desk_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_deosre_desk_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_desktop_os_requirement_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_modereen_mobi_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_modere_mobi_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_mobile_device_requirement_entry);
   free(path);
   return out;
@@ -244650,9 +244650,9 @@ SomMetaRef d13_code_specs_projection_id_alrere(som_id_d13_code_specs_projection 
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_aledefent_aler_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_aledef_aler_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_definition_entry);
   free(path);
   return out;
@@ -245042,9 +245042,9 @@ SomMetaRef d13_code_specs_projection_id_pcre(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_expacoen_part_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_expaco_part_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/communication/externalConnectivity/EXPACO-PART-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_external_partner_connection_entry);
   free(path);
   return out;
@@ -245462,9 +245462,9 @@ SomMetaRef d13_code_specs_projection_id_ancf(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_alerulent_aler_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_alerul_aler_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_alert_rule_entry);
   free(path);
   return out;
@@ -245609,9 +245609,9 @@ SomMetaRef d13_code_specs_projection_id_dtso(som_id_d13_code_specs_projection x)
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_cusmetent_cust_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_cusmet_cust_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST");
+  char *path = spec_path_join(x.ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_custom_metric_entry);
   free(path);
   return out;
@@ -246694,16 +246694,16 @@ SomMetaRef d13_code_specs_projection_id_prnasi(som_id_d13_code_specs_projection 
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_tabadeen_tabb_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_tabade_tabb_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST");
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_tab_bar_definition_entry);
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_utnaiten_item_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_utnait_item_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST");
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_utility_navigation_item_entry);
   free(path);
   return out;
@@ -246869,9 +246869,9 @@ SomListMetaRef d13_code_specs_projection_id_syerdi_erro_lst(som_id_d13_code_spec
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_syercoen_erro_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_syerco_erro_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST");
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_error_code_entry);
   free(path);
   return out;
@@ -247079,9 +247079,9 @@ SomListMetaRef d13_code_specs_projection_id_tyst_typo_lst(som_id_d13_code_specs_
   free(path);
   return out;
 }
-SomListMetaRef d13_code_specs_projection_id_uicoment_comp_lst(som_id_d13_code_specs_projection x) {
+SomListMetaRef d13_code_specs_projection_id_uicom_comp_lst(som_id_d13_code_specs_projection x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST");
+  char *path = spec_path_join(x.ref.path, "experienceCodeSpecs/uiComponents/UICOM-COMP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_ui_component_entry);
   free(path);
   return out;
@@ -247968,9 +247968,9 @@ SomMetaRef enterprise_system_compatibility_entry_id_escet(som_id_enterprise_syst
   free(path);
   return out;
 }
-SomListMetaRef entitlement_entry_id_reskref_reso_lst(som_id_entitlement_entry x) {
+SomListMetaRef entitlement_entry_id_rekere_reso_lst(som_id_entitlement_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "RESKREF-RESO-LST");
+  char *path = spec_path_join(x.ref.path, "REKERE-RESO-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_resource_key_reference_entry);
   free(path);
   return out;
@@ -248388,9 +248388,9 @@ SomListMetaRef export_format_entry_id_azlvl_leve_lst(som_id_export_format_entry 
   free(path);
   return out;
 }
-SomListMetaRef export_format_entry_id_exfimaen_fiel_lst(som_id_export_format_entry x) {
+SomListMetaRef export_format_entry_id_exfima_fiel_lst(som_id_export_format_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXFIMAEN-FIEL-LST");
+  char *path = spec_path_join(x.ref.path, "EXFIMA-FIEL-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_export_field_mapping_entry);
   free(path);
   return out;
@@ -248500,9 +248500,9 @@ SomMetaRef external_interface_entry_id_eie_iden(som_id_external_interface_entry 
   free(path);
   return out;
 }
-SomListMetaRef external_interface_entry_id_inbupren_depe_lst(som_id_external_interface_entry x) {
+SomListMetaRef external_interface_entry_id_inbupr_depe_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "businessContext/INBUPREN-DEPE-LST");
+  char *path = spec_path_join(x.ref.path, "businessContext/INBUPR-DEPE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_business_process_entry);
   free(path);
   return out;
@@ -248535,9 +248535,9 @@ SomMetaRef external_interface_entry_id_inwesp(som_id_external_interface_entry x)
   free(path);
   return out;
 }
-SomListMetaRef external_interface_entry_id_indaenen_data_lst(som_id_external_interface_entry x) {
+SomListMetaRef external_interface_entry_id_indaen_data_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataSpec/INDAENEN-DATA-LST");
+  char *path = spec_path_join(x.ref.path, "dataSpec/INDAEN-DATA-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_data_entity_entry);
   free(path);
   return out;
@@ -248661,9 +248661,9 @@ SomMetaRef external_interface_entry_id_intest(som_id_external_interface_entry x)
   free(path);
   return out;
 }
-SomListMetaRef external_interface_entry_id_intescen_test_lst(som_id_external_interface_entry x) {
+SomListMetaRef external_interface_entry_id_intesc_test_lst(som_id_external_interface_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "testing/INTESCEN-TEST-LST");
+  char *path = spec_path_join(x.ref.path, "testing/INTESC-TEST-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_interface_test_scenario_entry);
   free(path);
   return out;
@@ -248759,9 +248759,9 @@ SomMetaRef external_system_context_entry_id_esceg(som_id_external_system_context
   free(path);
   return out;
 }
-SomMetaRef external_system_context_entry_id_exsycoen_data(som_id_external_system_context_entry x) {
+SomMetaRef external_system_context_entry_id_exsyco_data(som_id_external_system_context_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "EXSYCOEN-DATA");
+  char *path = spec_path_join(x.ref.path, "EXSYCO-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -251426,9 +251426,9 @@ SomListMetaRef report_entry_id_rfe_filt_lst(som_id_report_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef report_entry_id_repschent_sche_lst(som_id_report_entry x) {
+SomListMetaRef report_entry_id_repsch_sche_lst(som_id_report_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPSCHENT-SCHE-LST");
+  char *path = spec_path_join(x.ref.path, "REPSCH-SCHE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_schedule_entry);
   free(path);
   return out;
@@ -251587,16 +251587,16 @@ SomMetaRef report_section_entry_id_reseag(som_id_report_section_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef report_section_entry_id_repcolent_colu_lst(som_id_report_section_entry x) {
+SomListMetaRef report_section_entry_id_repcol_colu_lst(som_id_report_section_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPCOLENT-COLU-LST");
+  char *path = spec_path_join(x.ref.path, "REPCOL-COLU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_column_entry);
   free(path);
   return out;
 }
-SomListMetaRef report_section_entry_id_repchaent_char_lst(som_id_report_section_entry x) {
+SomListMetaRef report_section_entry_id_repcha_char_lst(som_id_report_section_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPCHAENT-CHAR-LST");
+  char *path = spec_path_join(x.ref.path, "REPCHA-CHAR-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_report_chart_entry);
   free(path);
   return out;
@@ -252196,9 +252196,9 @@ SomMetaRef screen_element_entry_id_seddo(som_id_screen_element_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef screen_element_entry_id_elvaruen_vali_lst(som_id_screen_element_entry x) {
+SomListMetaRef screen_element_entry_id_elvaru_vali_lst(som_id_screen_element_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "ELVARUEN-VALI-LST");
+  char *path = spec_path_join(x.ref.path, "ELVARU-VALI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_element_validation_rule_entry);
   free(path);
   return out;
@@ -252301,9 +252301,9 @@ SomListMetaRef screen_entry_id_epnt_entr_lst(som_id_screen_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef screen_entry_id_screruen_resp_lst(som_id_screen_entry x) {
+SomListMetaRef screen_entry_id_screru_resp_lst(som_id_screen_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SCRERUEN-RESP-LST");
+  char *path = spec_path_join(x.ref.path, "SCRERU-RESP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_screen_responsive_rule_entry);
   free(path);
   return out;
@@ -253344,16 +253344,16 @@ SomMetaRef system_to_replace_entry_id_sbcg(som_id_system_to_replace_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_sybuunen_busi_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_sybuun_busi_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "businessCriticality/SYBUUNEN-BUSI-LST");
+  char *path = spec_path_join(x.ref.path, "businessCriticality/SYBUUN-BUSI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_business_unit_entry);
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_sybupren_supp_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_sybupr_supp_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "businessCriticality/SYBUPREN-SUPP-LST");
+  char *path = spec_path_join(x.ref.path, "businessCriticality/SYBUPR-SUPP-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_business_process_entry);
   free(path);
   return out;
@@ -253400,9 +253400,9 @@ SomMetaRef system_to_replace_entry_id_sydascmi(som_id_system_to_replace_entry x)
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_daenmien_enti_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_daenmi_enti_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "dataScope/DAENMIEN-ENTI-LST");
+  char *path = spec_path_join(x.ref.path, "dataScope/DAENMI-ENTI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_data_entity_migration_entry);
   free(path);
   return out;
@@ -253414,9 +253414,9 @@ SomListMetaRef system_to_replace_entry_id_sydasc_know_lst(som_id_system_to_repla
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_repsdep_depe_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_resyde_depe_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "REPSDEP-DEPE-LST");
+  char *path = spec_path_join(x.ref.path, "RESYDE-DEPE-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_replacement_system_dependency_entry);
   free(path);
   return out;
@@ -253442,9 +253442,9 @@ SomMetaRef system_to_replace_entry_id_suia(som_id_system_to_replace_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_usgrimen_user_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_usgrim_user_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "userImpact/USGRIMEN-USER-LST");
+  char *path = spec_path_join(x.ref.path, "userImpact/USGRIM-USER-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_user_group_impact_entry);
   free(path);
   return out;
@@ -253491,9 +253491,9 @@ SomMetaRef system_to_replace_entry_id_smpc(som_id_system_to_replace_entry x) {
   free(path);
   return out;
 }
-SomListMetaRef system_to_replace_entry_id_symirien_risk_lst(som_id_system_to_replace_entry x) {
+SomListMetaRef system_to_replace_entry_id_symiri_risk_lst(som_id_system_to_replace_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "migrationPlan/SYMIRIEN-RISK-LST");
+  char *path = spec_path_join(x.ref.path, "migrationPlan/SYMIRI-RISK-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_system_migration_risk_entry);
   free(path);
   return out;
@@ -254156,9 +254156,9 @@ SomMetaRef uat_test_cycle_entry_id_utcee(som_id_uat_test_cycle_entry x) {
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_iden(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_iden(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-IDEN");
+  char *path = spec_path_join(x.ref.path, "UICOM-IDEN");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254177,9 +254177,9 @@ SomMetaRef ui_component_entry_id_ucec(som_id_ui_component_entry x) {
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_visu(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_visu(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-VISU");
+  char *path = spec_path_join(x.ref.path, "UICOM-VISU");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254205,9 +254205,9 @@ SomMetaRef ui_component_entry_id_uicoensu(som_id_ui_component_entry x) {
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_inte(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_inte(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-INTE");
+  char *path = spec_path_join(x.ref.path, "UICOM-INTE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -254233,44 +254233,44 @@ SomMetaRef ui_component_entry_id_uicoensc(som_id_ui_component_entry x) {
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_resp(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_resp(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-RESP");
+  char *path = spec_path_join(x.ref.path, "UICOM-RESP");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_acce(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_acce(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-ACCE");
+  char *path = spec_path_join(x.ref.path, "UICOM-ACCE");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_auth(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_auth(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-AUTH");
+  char *path = spec_path_join(x.ref.path, "UICOM-AUTH");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_reso(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_reso(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-RESO");
+  char *path = spec_path_join(x.ref.path, "UICOM-RESO");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-SomMetaRef ui_component_entry_id_uicoment_data(som_id_ui_component_entry x) {
+SomMetaRef ui_component_entry_id_uicom_data(som_id_ui_component_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UICOMENT-DATA");
+  char *path = spec_path_join(x.ref.path, "UICOM-DATA");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
 }
-SomListMetaRef ui_component_entry_id_comstaent_stat_lst(som_id_ui_component_entry x) {
+SomListMetaRef ui_component_entry_id_comsta_stat_lst(som_id_ui_component_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "COMSTAENT-STAT-LST");
+  char *path = spec_path_join(x.ref.path, "COMSTA-STAT-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_component_state_entry);
   free(path);
   return out;
@@ -254590,9 +254590,9 @@ SomMetaRef utility_navigation_item_entry_id_unieb(som_id_utility_navigation_item
   free(path);
   return out;
 }
-SomListMetaRef utility_navigation_item_entry_id_utmeiten_menu_lst(som_id_utility_navigation_item_entry x) {
+SomListMetaRef utility_navigation_item_entry_id_utmeit_menu_lst(som_id_utility_navigation_item_entry x) {
   SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "UTMEITEN-MENU-LST");
+  char *path = spec_path_join(x.ref.path, "UTMEIT-MENU-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_utility_menu_item_entry);
   free(path);
   return out;

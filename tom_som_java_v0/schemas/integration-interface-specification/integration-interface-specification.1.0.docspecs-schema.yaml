@@ -3,38 +3,6 @@
 
 title-format: "# <!--[IIS]--> Integration & Interface Specification"
 section-types:
-  inbupren-depe-lst:
-    prefix: INBUPREN_DEPE_LST
-    subsection-types:
-      inbupren-depe:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
-  indaenen-data-lst:
-    prefix: INDAENEN_DATA_LST
-    subsection-types:
-      indaenen-data:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
-  intescen-test-lst:
-    prefix: INTESCEN_TEST_LST
-    subsection-types:
-      intescen-test:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
-  ouofscen-item-lst:
-    prefix: OUOFSCEN_ITEM_LST
-    subsection-types:
-      ouofscen-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   boinpa-inte-lst:
     prefix: BOINPA_INTE_LST
     subsection-types:
@@ -43,6 +11,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Boundary interaction patterns.
+  inbupr-depe-lst:
+    prefix: INBUPR_DEPE_LST
+    subsection-types:
+      inbupr-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  indaen-data-lst:
+    prefix: INDAEN_DATA_LST
+    subsection-types:
+      indaen-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
   indasp-mapp-lst:
     prefix: INDASP_MAPP_LST
     subsection-types:
@@ -67,34 +51,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
-  inbupren-depe:
-    prefix: INBUPREN_DEPE_
-    pattern-check-id:
-      pattern: ^INBUPREN-DEPE-.+$
-      error-message: IDs of this section must match INBUPREN-DEPE-xxx
-    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
-  indaenen-data:
-    prefix: INDAENEN_DATA_
-    pattern-check-id:
-      pattern: ^INDAENEN-DATA-.+$
-      error-message: IDs of this section must match INDAENEN-DATA-xxx
-    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
-  intescen-test:
-    prefix: INTESCEN_TEST_
-    pattern-check-id:
-      pattern: ^INTESCEN-TEST-.+$
-      error-message: IDs of this section must match INTESCEN-TEST-xxx
-    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
-  ouofscen-item:
-    prefix: OUOFSCEN_ITEM_
+  intesc-test-lst:
+    prefix: INTESC_TEST_LST
     subsection-types:
-      oosed:
-        max-count: 1
-      oosem:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^OUOFSCEN-ITEM-.+$
-      error-message: IDs of this section must match OUOFSCEN-ITEM-xxx
+      intesc-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
+  outsco-item-lst:
+    prefix: OUTSCO_ITEM_LST
+    subsection-types:
+      outsco-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   cboc-oper-lst:
     prefix: CBOC_OPER_LST
@@ -142,6 +113,18 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
+  inbupr-depe:
+    prefix: INBUPR_DEPE_
+    pattern-check-id:
+      pattern: ^INBUPR-DEPE-.+$
+      error-message: IDs of this section must match INBUPR-DEPE-xxx
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  indaen-data:
+    prefix: INDAEN_DATA_
+    pattern-check-id:
+      pattern: ^INDAEN-DATA-.+$
+      error-message: IDs of this section must match INDAEN-DATA-xxx
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
   indasp-mapp:
     prefix: INDASP_MAPP_
     pattern-check-id:
@@ -160,6 +143,12 @@ section-types:
       pattern: ^INERHA-ERRO-.+$
       error-message: IDs of this section must match INERHA-ERRO-xxx
     description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
+  intesc-test:
+    prefix: INTESC_TEST_
+    pattern-check-id:
+      pattern: ^INTESC-TEST-.+$
+      error-message: IDs of this section must match INTESC-TEST-xxx
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
   ioe-oper-lst:
     prefix: IOE_OPER_LST
     subsection-types:
@@ -168,6 +157,17 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
+  outsco-item:
+    prefix: OUTSCO_ITEM_
+    subsection-types:
+      oosed:
+        max-count: 1
+      oosem:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^OUTSCO-ITEM-.+$
+      error-message: IDs of this section must match OUTSCO-ITEM-xxx
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   cboc-oper:
     prefix: CBOC_OPER_
     pattern-check-id:
@@ -234,13 +234,13 @@ section-types:
   inbuco:
     prefix: INBUCO
     subsection-types:
-      inbupren-depe-lst:
+      inbupr-depe-lst:
         max-count: 1
     description: Business purpose and value of this interface.
   indasp:
     prefix: INDASP
     subsection-types:
-      indaenen-data-lst:
+      indaen-data-lst:
         max-count: 1
       indasp-mapp-lst:
         max-count: 1
@@ -320,7 +320,7 @@ section-types:
   ouofsc:
     prefix: OUOFSC
     subsection-types:
-      ouofscen-item-lst:
+      outsco-item-lst:
         max-count: 1
     description: Out of scope.
   sylain:
@@ -399,7 +399,7 @@ section-types:
         max-count: 1
       intest:
         max-count: 1
-      intescen-test-lst:
+      intesc-test-lst:
         max-count: 1
     description: Testing and environment information.
   iorl:

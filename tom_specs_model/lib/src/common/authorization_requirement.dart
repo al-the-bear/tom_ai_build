@@ -9,7 +9,7 @@
 /// pair, and no two agreed on the vocabulary.
 ///
 /// **This is not a second authoring home for roles or entitlements.** The role
-/// catalogue (`AZRO`), the role/permission matrix (`ROLPERM`) and the
+/// catalogue (`AZRO`), the role/permission matrix (`ROLPER`) and the
 /// entitlement catalogue (`ENT`) define what a role or entitlement *means*; the
 /// sections here only *name* one as a requirement, by reference. Adding a role
 /// is still an edit to the catalogue.

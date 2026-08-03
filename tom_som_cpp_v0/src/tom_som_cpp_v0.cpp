@@ -562,7 +562,7 @@ AlertNotificationChannels AlertingConfiguration::notificationChannels() const {
   return AlertNotificationChannels(doc(), som::joinPath(path(), "notificationChannels"));
 }
 som::SomList AlertingConfiguration::alertRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "ALERULENT-ALER-LST"), "ALERULENT-ALER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ALERUL-ALER-LST"), "ALERUL-ALER-xxx");
 }
 AlertEscalationPolicies AlertingConfiguration::escalationPolicies() const {
   return AlertEscalationPolicies(doc(), som::joinPath(path(), "escalationPolicies"));
@@ -1237,10 +1237,10 @@ som::SomList AuthorizationRoleEntry::entitlementReferences() const {
   return som::SomList(doc(), som::joinPath(path(), "ENREFE-ENTI-LST"), "ENREFE-ENTI-xxx");
 }
 som::SomList AuthorizationRoleEntry::directPermissions() const {
-  return som::SomList(doc(), som::joinPath(path(), "ROLPERM-DIRE-LST"), "ROLPERM-DIRE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ROLPER-DIRE-LST"), "ROLPER-DIRE-xxx");
 }
 som::SomList AuthorizationRoleEntry::dataScopes() const {
-  return som::SomList(doc(), som::joinPath(path(), "ROLDSCP-DATA-LST"), "ROLDSCP-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RODASC-DATA-LST"), "RODASC-DATA-xxx");
 }
 som::SomList AuthorizationRoleEntry::mutualExclusions() const {
   return som::SomList(doc(), som::joinPath(path(), "ROLEXC-MUTU-LST"), "ROLEXC-MUTU-xxx");
@@ -2413,13 +2413,13 @@ som::SomList ClientRequirementsSection::clientApplications() const {
   return som::SomList(doc(), som::joinPath(path(), "CLIAPP-CLIE-LST"), "CLIAPP-CLIE-xxx");
 }
 som::SomList ClientRequirementsSection::browserRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "BROREQENT-BROW-LST"), "BROREQENT-BROW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BROREQ-BROW-LST"), "BROREQ-BROW-xxx");
 }
 som::SomList ClientRequirementsSection::desktopOsRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEOSREEN-DESK-LST"), "DEOSREEN-DESK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEOSRE-DESK-LST"), "DEOSRE-DESK-xxx");
 }
 som::SomList ClientRequirementsSection::mobileRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "MODEREEN-MOBI-LST"), "MODEREEN-MOBI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MODERE-MOBI-LST"), "MODERE-MOBI-xxx");
 }
 DisplayRequirements ClientRequirementsSection::displayRequirements() const {
   return DisplayRequirements(doc(), som::joinPath(path(), "displayRequirements"));
@@ -2716,13 +2716,13 @@ som::SomList CompatibilityRequirementsSection::osCompatibility() const {
   return som::SomList(doc(), som::joinPath(path(), "OCE-OSCO-LST"), "OCE-OSCO-xxx");
 }
 som::SomList CompatibilityRequirementsSection::browserCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "BROCOMENT-BROW-LST"), "BROCOMENT-BROW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BROCOM-BROW-LST"), "BROCOM-BROW-xxx");
 }
 som::SomList CompatibilityRequirementsSection::databaseCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "DATCOMENT-DATA-LST"), "DATCOMENT-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DATCOM-DATA-LST"), "DATCOM-DATA-xxx");
 }
 som::SomList CompatibilityRequirementsSection::enterpriseSystemCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "ENSYCOEN-ENTE-LST"), "ENSYCOEN-ENTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ENSYCO-ENTE-LST"), "ENSYCO-ENTE-xxx");
 }
 som::SomList CompatibilityRequirementsSection::apiCompatibility() const {
   return som::SomList(doc(), som::joinPath(path(), "APCP-APIC-LST"), "APCP-APIC-xxx");
@@ -2731,10 +2731,10 @@ som::SomList CompatibilityRequirementsSection::legacyCompatibility() const {
   return som::SomList(doc(), som::joinPath(path(), "LCE-LEGA-LST"), "LCE-LEGA-xxx");
 }
 som::SomList CompatibilityRequirementsSection::mobileCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "MOBCOMENT-MOBI-LST"), "MOBCOMENT-MOBI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MOBCOM-MOBI-LST"), "MOBCOM-MOBI-xxx");
 }
 som::SomList CompatibilityRequirementsSection::thirdPartyCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "THPACOEN-THIR-LST"), "THPACOEN-THIR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "THPACO-THIR-LST"), "THPACO-THIR-xxx");
 }
 DataFormatCompatibility CompatibilityRequirementsSection::dataFormatCompatibility() const {
   return DataFormatCompatibility(doc(), som::joinPath(path(), "dataFormatCompatibility"));
@@ -6954,7 +6954,7 @@ EntitlementEntryContentForm EntitlementEntry::content() const {
   return EntitlementEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList EntitlementEntry::resourceKeyReferences() const {
-  return som::SomList(doc(), som::joinPath(path(), "RESKREF-RESO-LST"), "RESKREF-RESO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REKERE-RESO-LST"), "REKERE-RESO-xxx");
 }
 
 EntitlementReferenceEntry::EntitlementReferenceEntry(som::SpecDocument& doc, std::string path)
@@ -7515,7 +7515,7 @@ AuthorizationRequirementSpec ExportFormatEntry::access() const {
   return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 som::SomList ExportFormatEntry::fieldMappings() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXFIMAEN-FIEL-LST"), "EXFIMAEN-FIEL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EXFIMA-FIEL-LST"), "EXFIMA-FIEL-xxx");
 }
 
 ExportSizeSettings::ExportSizeSettings(som::SpecDocument& doc, std::string path)
@@ -7596,7 +7596,7 @@ void ExternalConnectivitySection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ExternalConnectivitySection::partnerConnections() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXPACOEN-PART-LST"), "EXPACOEN-PART-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EXPACO-PART-LST"), "EXPACO-PART-xxx");
 }
 CloudServiceIntegrations ExternalConnectivitySection::cloudServices() const {
   return CloudServiceIntegrations(doc(), som::joinPath(path(), "cloudServices"));
@@ -7743,10 +7743,10 @@ ExternalSystemContextEntryGovernanceForm ExternalSystemContextEntry::governance(
   return ExternalSystemContextEntryGovernanceForm(doc(), som::joinPath(path(), "ESCEG"));
 }
 std::string ExternalSystemContextEntry::dataMapping() const {
-  return doc().content(som::joinPath(path(), "EXSYCOEN-DATA"));
+  return doc().content(som::joinPath(path(), "EXSYCO-DATA"));
 }
 void ExternalSystemContextEntry::setDataMapping(const std::string& value) {
-  doc().setContent(som::joinPath(path(), "EXSYCOEN-DATA"), value);
+  doc().setContent(som::joinPath(path(), "EXSYCO-DATA"), value);
 }
 
 ExternalSystemsContext::ExternalSystemsContext(som::SpecDocument& doc, std::string path)
@@ -7758,7 +7758,7 @@ void ExternalSystemsContext::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ExternalSystemsContext::systems() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXSYCOEN-SYST-LST"), "EXSYCOEN-SYST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EXSYCO-SYST-LST"), "EXSYCO-SYST-xxx");
 }
 
 FamilyComponentRef::FamilyComponentRef(som::SpecDocument& doc, std::string path)
@@ -9159,7 +9159,7 @@ InterfaceBusinessContextContentForm InterfaceBusinessContext::content() const {
   return InterfaceBusinessContextContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList InterfaceBusinessContext::dependentProcesses() const {
-  return som::SomList(doc(), som::joinPath(path(), "INBUPREN-DEPE-LST"), "INBUPREN-DEPE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INBUPR-DEPE-LST"), "INBUPR-DEPE-xxx");
 }
 
 InterfaceBusinessProcessEntry::InterfaceBusinessProcessEntry(som::SpecDocument& doc, std::string path)
@@ -9180,7 +9180,7 @@ InterfaceDataSpecContentForm InterfaceDataSpec::content() const {
   return InterfaceDataSpecContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList InterfaceDataSpec::dataEntities() const {
-  return som::SomList(doc(), som::joinPath(path(), "INDAENEN-DATA-LST"), "INDAENEN-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INDAEN-DATA-LST"), "INDAEN-DATA-xxx");
 }
 som::SomList InterfaceDataSpec::mappingRules() const {
   return som::SomList(doc(), som::joinPath(path(), "INDASP-MAPP-LST"), "INDASP-MAPP-xxx");
@@ -9312,7 +9312,7 @@ InterfaceTestingStrategyForm InterfaceTesting::strategy() const {
   return InterfaceTestingStrategyForm(doc(), som::joinPath(path(), "INTEST"));
 }
 som::SomList InterfaceTesting::testScenarios() const {
-  return som::SomList(doc(), som::joinPath(path(), "INTESCEN-TEST-LST"), "INTESCEN-TEST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTESC-TEST-LST"), "INTESC-TEST-xxx");
 }
 
 InternalDependencies::InternalDependencies(som::SpecDocument& doc, std::string path)
@@ -10206,7 +10206,7 @@ DistributedTracingSpec MetricsAndObservability::distributedTracing() const {
   return DistributedTracingSpec(doc(), som::joinPath(path(), "distributedTracing"));
 }
 som::SomList MetricsAndObservability::customMetrics() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUSMETENT-CUST-LST"), "CUSMETENT-CUST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CUSMET-CUST-LST"), "CUSMET-CUST-xxx");
 }
 
 MetricsBaselineEntry::MetricsBaselineEntry(som::SpecDocument& doc, std::string path)
@@ -10623,7 +10623,7 @@ AlertingRequirements MonitoringAndAlertingSection::alerting() const {
   return AlertingRequirements(doc(), som::joinPath(path(), "alerting"));
 }
 som::SomList MonitoringAndAlertingSection::alertDefinitions() const {
-  return som::SomList(doc(), som::joinPath(path(), "ALEDEFENT-ALER-LST"), "ALEDEFENT-ALER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ALEDEF-ALER-LST"), "ALEDEF-ALER-xxx");
 }
 DashboardRequirements MonitoringAndAlertingSection::dashboards() const {
   return DashboardRequirements(doc(), som::joinPath(path(), "dashboards"));
@@ -10713,7 +10713,7 @@ LanguageCountrySelection MultiLanguageSupport::languageCountrySelection() const 
   return LanguageCountrySelection(doc(), som::joinPath(path(), "languageCountrySelection"));
 }
 som::SomList MultiLanguageSupport::supportedLocales() const {
-  return som::SomList(doc(), som::joinPath(path(), "SUPLOCENT-SUPP-LST"), "SUPLOCENT-SUPP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SUPLOC-SUPP-LST"), "SUPLOC-SUPP-xxx");
 }
 
 MustPassCriteria::MustPassCriteria(som::SpecDocument& doc, std::string path)
@@ -11529,7 +11529,7 @@ OtherAgreementEntryContentForm OtherAgreementEntry::content() const {
 OutOfScope::OutOfScope(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 som::SomList OutOfScope::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "OUOFSCEN-ITEM-LST"), "OUOFSCEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OUTSCO-ITEM-LST"), "OUTSCO-ITEM-xxx");
 }
 
 OutOfScopeEntry::OutOfScopeEntry(som::SpecDocument& doc, std::string path)
@@ -11925,7 +11925,7 @@ PhaseGateReviewsOutcomesForm PhaseGateReviews::outcomes() const {
   return PhaseGateReviewsOutcomesForm(doc(), som::joinPath(path(), "PGRO"));
 }
 som::SomList PhaseGateReviews::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "PHGAREEN-ITEM-LST"), "PHGAREEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PHGREV-ITEM-LST"), "PHGREV-ITEM-xxx");
 }
 
 PhysicalWorkplaceRequirements::PhysicalWorkplaceRequirements(som::SpecDocument& doc, std::string path)
@@ -12006,7 +12006,7 @@ som::SomList PlatformAndLanguage::buildToolchain() const {
   return som::SomList(doc(), som::joinPath(path(), "BTCEN-BUIL-LST"), "BTCEN-BUIL-xxx");
 }
 som::SomList PlatformAndLanguage::deploymentTargets() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEPTARENT-DEPL-LST"), "DEPTARENT-DEPL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEPTAR-DEPL-LST"), "DEPTAR-DEPL-xxx");
 }
 DependencyManagement PlatformAndLanguage::dependencyManagement() const {
   return DependencyManagement(doc(), som::joinPath(path(), "dependencyManagement"));
@@ -13470,7 +13470,7 @@ som::SomList ReportEntry::filters() const {
   return som::SomList(doc(), som::joinPath(path(), "RFE-FILT-LST"), "RFE-FILT-xxx");
 }
 som::SomList ReportEntry::schedules() const {
-  return som::SomList(doc(), som::joinPath(path(), "REPSCHENT-SCHE-LST"), "REPSCHENT-SCHE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPSCH-SCHE-LST"), "REPSCH-SCHE-xxx");
 }
 som::SomList ReportEntry::distributions() const {
   return som::SomList(doc(), som::joinPath(path(), "RDE-DIST-LST"), "RDE-DIST-xxx");
@@ -13563,10 +13563,10 @@ ReportSectionEntryAggregationForm ReportSectionEntry::aggregation() const {
   return ReportSectionEntryAggregationForm(doc(), som::joinPath(path(), "RESEAG"));
 }
 som::SomList ReportSectionEntry::columns() const {
-  return som::SomList(doc(), som::joinPath(path(), "REPCOLENT-COLU-LST"), "REPCOLENT-COLU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPCOL-COLU-LST"), "REPCOL-COLU-xxx");
 }
 som::SomList ReportSectionEntry::charts() const {
-  return som::SomList(doc(), som::joinPath(path(), "REPCHAENT-CHAR-LST"), "REPCHAENT-CHAR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPCHA-CHAR-LST"), "REPCHA-CHAR-xxx");
 }
 
 RequirementAcceptanceCriteria::RequirementAcceptanceCriteria(som::SpecDocument& doc, std::string path)
@@ -14031,10 +14031,10 @@ som::SomList ReusableComponentsSection::uiComponents() const {
   return som::SomList(doc(), som::joinPath(path(), "RUCE-UICO-LST"), "RUCE-UICO-xxx");
 }
 som::SomList ReusableComponentsSection::businessComponents() const {
-  return som::SomList(doc(), som::joinPath(path(), "BUSCOMENT-BUSI-LST"), "BUSCOMENT-BUSI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BUSCOM-BUSI-LST"), "BUSCOM-BUSI-xxx");
 }
 som::SomList ReusableComponentsSection::infrastructureComponents() const {
-  return som::SomList(doc(), som::joinPath(path(), "INFCOMENT-INFR-LST"), "INFCOMENT-INFR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INFCOM-INFR-LST"), "INFCOM-INFR-xxx");
 }
 som::SomList ReusableComponentsSection::thirdPartyLibraries() const {
   return som::SomList(doc(), som::joinPath(path(), "THPALI-THIR-LST"), "THPALI-THIR-xxx");
@@ -14763,7 +14763,7 @@ ScreenElementDataDisplay ScreenElementEntry::dataDisplay() const {
   return ScreenElementDataDisplay(doc(), som::joinPath(path(), "dataDisplay"));
 }
 som::SomList ScreenElementEntry::validationRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "ELVARUEN-VALI-LST"), "ELVARUEN-VALI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ELVARU-VALI-LST"), "ELVARU-VALI-xxx");
 }
 
 ScreenElementFieldSpec::ScreenElementFieldSpec(som::SpecDocument& doc, std::string path)
@@ -14826,7 +14826,7 @@ som::SomList ScreenEntry::entryPoints() const {
   return som::SomList(doc(), som::joinPath(path(), "EPNT-ENTR-LST"), "EPNT-ENTR-xxx");
 }
 som::SomList ScreenEntry::responsiveRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCRERUEN-RESP-LST"), "SCRERUEN-RESP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SCRERU-RESP-LST"), "SCRERU-RESP-xxx");
 }
 
 ScreenFieldEntry::ScreenFieldEntry(som::SpecDocument& doc, std::string path)
@@ -14988,7 +14988,7 @@ void SecondaryNavigation::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SecondaryNavigation::tabBars() const {
-  return som::SomList(doc(), som::joinPath(path(), "TABADEEN-TABB-LST"), "TABADEEN-TABB-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TABADE-TABB-LST"), "TABADE-TABB-xxx");
 }
 
 Security::Security(som::SpecDocument& doc, std::string path)
@@ -16356,19 +16356,19 @@ void StandardsComplianceSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList StandardsComplianceSection::itStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "ITSTCOEN-ITST-LST"), "ITSTCOEN-ITST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ITSTCO-ITST-LST"), "ITSTCO-ITST-xxx");
 }
 som::SomList StandardsComplianceSection::industryProtocols() const {
-  return som::SomList(doc(), som::joinPath(path(), "INPRCOEN-INDU-LST"), "INPRCOEN-INDU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INPRCO-INDU-LST"), "INPRCO-INDU-xxx");
 }
 som::SomList StandardsComplianceSection::interfaceSpecifications() const {
-  return som::SomList(doc(), som::joinPath(path(), "INTSPEENT-INTE-LST"), "INTSPEENT-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTSPE-INTE-LST"), "INTSPE-INTE-xxx");
 }
 som::SomList StandardsComplianceSection::regulatoryCompliance() const {
   return som::SomList(doc(), som::joinPath(path(), "RCE-REGU-LST"), "RCE-REGU-xxx");
 }
 som::SomList StandardsComplianceSection::securityStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "SESTCOEN-SECU-LST"), "SESTCOEN-SECU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SESTCO-SECU-LST"), "SESTCO-SECU-xxx");
 }
 som::SomList StandardsComplianceSection::accessibilityStandards() const {
   return som::SomList(doc(), som::joinPath(path(), "ACCSTD-ACCE-LST"), "ACCSTD-ACCE-xxx");
@@ -16665,10 +16665,10 @@ SystemBusinessCriticalityGovernanceForm SystemBusinessCriticality::governance() 
   return SystemBusinessCriticalityGovernanceForm(doc(), som::joinPath(path(), "SBCG"));
 }
 som::SomList SystemBusinessCriticality::businessUnits() const {
-  return som::SomList(doc(), som::joinPath(path(), "SYBUUNEN-BUSI-LST"), "SYBUUNEN-BUSI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYBUUN-BUSI-LST"), "SYBUUN-BUSI-xxx");
 }
 som::SomList SystemBusinessCriticality::supportedProcesses() const {
-  return som::SomList(doc(), som::joinPath(path(), "SYBUPREN-SUPP-LST"), "SYBUPREN-SUPP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYBUPR-SUPP-LST"), "SYBUPR-SUPP-xxx");
 }
 
 SystemBusinessProcessEntry::SystemBusinessProcessEntry(som::SpecDocument& doc, std::string path)
@@ -16764,7 +16764,7 @@ SystemDataScopeMigrationForm SystemDataScope::migration() const {
   return SystemDataScopeMigrationForm(doc(), som::joinPath(path(), "SYDASCMI"));
 }
 som::SomList SystemDataScope::entities() const {
-  return som::SomList(doc(), som::joinPath(path(), "DAENMIEN-ENTI-LST"), "DAENMIEN-ENTI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DAENMI-ENTI-LST"), "DAENMI-ENTI-xxx");
 }
 som::SomList SystemDataScope::knownQualityIssues() const {
   return som::SomList(doc(), som::joinPath(path(), "SYDASC-KNOW-LST"), "SYDASC-KNOW-xxx");
@@ -16869,7 +16869,7 @@ som::SomList SystemErrorDisplay::errorPageDesigns() const {
   return som::SomList(doc(), som::joinPath(path(), "SYERDI-ERRO-LST"), "SYERDI-ERRO-xxx");
 }
 som::SomList SystemErrorDisplay::errorCodes() const {
-  return som::SomList(doc(), som::joinPath(path(), "SYERCOEN-ERRO-LST"), "SYERCOEN-ERRO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYERCO-ERRO-LST"), "SYERCO-ERRO-xxx");
 }
 
 SystemIntegrationEntry::SystemIntegrationEntry(som::SpecDocument& doc, std::string path)
@@ -16944,7 +16944,7 @@ SystemMigrationPlanCutoverForm SystemMigrationPlan::cutover() const {
   return SystemMigrationPlanCutoverForm(doc(), som::joinPath(path(), "SMPC"));
 }
 som::SomList SystemMigrationPlan::risks() const {
-  return som::SomList(doc(), som::joinPath(path(), "SYMIRIEN-RISK-LST"), "SYMIRIEN-RISK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYMIRI-RISK-LST"), "SYMIRI-RISK-xxx");
 }
 
 SystemMigrationRiskEntry::SystemMigrationRiskEntry(som::SpecDocument& doc, std::string path)
@@ -17259,7 +17259,7 @@ SystemDataScope SystemToReplaceEntry::dataScope() const {
   return SystemDataScope(doc(), som::joinPath(path(), "dataScope"));
 }
 som::SomList SystemToReplaceEntry::dependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "REPSDEP-DEPE-LST"), "REPSDEP-DEPE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RESYDE-DEPE-LST"), "RESYDE-DEPE-xxx");
 }
 SystemUserImpact SystemToReplaceEntry::userImpact() const {
   return SystemUserImpact(doc(), som::joinPath(path(), "userImpact"));
@@ -17304,7 +17304,7 @@ SystemUserImpactAdoptionForm SystemUserImpact::adoption() const {
   return SystemUserImpactAdoptionForm(doc(), som::joinPath(path(), "SUIA"));
 }
 som::SomList SystemUserImpact::userGroups() const {
-  return som::SomList(doc(), som::joinPath(path(), "USGRIMEN-USER-LST"), "USGRIMEN-USER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "USGRIM-USER-LST"), "USGRIM-USER-xxx");
 }
 
 SystemsToReplace::SystemsToReplace(som::SpecDocument& doc, std::string path)
@@ -17466,7 +17466,7 @@ som::SomList TechnicalEnvironment::technologyStandards() const {
   return som::SomList(doc(), som::joinPath(path(), "TSE-TECH-LST"), "TSE-TECH-xxx");
 }
 som::SomList TechnicalEnvironment::integrationConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "INTCONENT-INTE-LST"), "INTCONENT-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTCON-INTE-LST"), "INTCON-INTE-xxx");
 }
 
 TechnicalEnvironmentNetwork::TechnicalEnvironmentNetwork(som::SpecDocument& doc, std::string path)
@@ -18444,7 +18444,7 @@ UatTestStepEntryContentForm UatTestStepEntry::content() const {
 UiComponentEntry::UiComponentEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 UiComponentEntryIdentityForm UiComponentEntry::identity() const {
-  return UiComponentEntryIdentityForm(doc(), som::joinPath(path(), "UICOMENT-IDEN"));
+  return UiComponentEntryIdentityForm(doc(), som::joinPath(path(), "UICOM-IDEN"));
 }
 UiComponentEntryPurposeProfileForm UiComponentEntry::purposeProfile() const {
   return UiComponentEntryPurposeProfileForm(doc(), som::joinPath(path(), "UCEP"));
@@ -18453,7 +18453,7 @@ UiComponentEntryClassificationForm UiComponentEntry::classification() const {
   return UiComponentEntryClassificationForm(doc(), som::joinPath(path(), "UCEC"));
 }
 UiComponentEntryVisualDesignForm UiComponentEntry::visualDesign() const {
-  return UiComponentEntryVisualDesignForm(doc(), som::joinPath(path(), "UICOMENT-VISU"));
+  return UiComponentEntryVisualDesignForm(doc(), som::joinPath(path(), "UICOM-VISU"));
 }
 UiComponentEntryDimensionsForm UiComponentEntry::dimensions() const {
   return UiComponentEntryDimensionsForm(doc(), som::joinPath(path(), "UCED"));
@@ -18465,7 +18465,7 @@ UiComponentEntrySurfaceForm UiComponentEntry::surface() const {
   return UiComponentEntrySurfaceForm(doc(), som::joinPath(path(), "UICOENSU"));
 }
 UiComponentEntryInteractiveBehaviorForm UiComponentEntry::interactiveBehavior() const {
-  return UiComponentEntryInteractiveBehaviorForm(doc(), som::joinPath(path(), "UICOMENT-INTE"));
+  return UiComponentEntryInteractiveBehaviorForm(doc(), som::joinPath(path(), "UICOM-INTE"));
 }
 UiComponentEntryInputBehaviorForm UiComponentEntry::inputBehavior() const {
   return UiComponentEntryInputBehaviorForm(doc(), som::joinPath(path(), "UCEIB"));
@@ -18477,22 +18477,22 @@ UiComponentEntryScrollForm UiComponentEntry::scroll() const {
   return UiComponentEntryScrollForm(doc(), som::joinPath(path(), "UICOENSC"));
 }
 UiComponentEntryResponsivenessForm UiComponentEntry::responsiveness() const {
-  return UiComponentEntryResponsivenessForm(doc(), som::joinPath(path(), "UICOMENT-RESP"));
+  return UiComponentEntryResponsivenessForm(doc(), som::joinPath(path(), "UICOM-RESP"));
 }
 UiComponentEntryAccessibilityForm UiComponentEntry::accessibility() const {
-  return UiComponentEntryAccessibilityForm(doc(), som::joinPath(path(), "UICOMENT-ACCE"));
+  return UiComponentEntryAccessibilityForm(doc(), som::joinPath(path(), "UICOM-ACCE"));
 }
 UiComponentEntryAuthorizationForm UiComponentEntry::authorization() const {
-  return UiComponentEntryAuthorizationForm(doc(), som::joinPath(path(), "UICOMENT-AUTH"));
+  return UiComponentEntryAuthorizationForm(doc(), som::joinPath(path(), "UICOM-AUTH"));
 }
 UiComponentEntryResourceIntegrationForm UiComponentEntry::resourceIntegration() const {
-  return UiComponentEntryResourceIntegrationForm(doc(), som::joinPath(path(), "UICOMENT-RESO"));
+  return UiComponentEntryResourceIntegrationForm(doc(), som::joinPath(path(), "UICOM-RESO"));
 }
 UiComponentEntryDataBindingForm UiComponentEntry::dataBinding() const {
-  return UiComponentEntryDataBindingForm(doc(), som::joinPath(path(), "UICOMENT-DATA"));
+  return UiComponentEntryDataBindingForm(doc(), som::joinPath(path(), "UICOM-DATA"));
 }
 som::SomList UiComponentEntry::states() const {
-  return som::SomList(doc(), som::joinPath(path(), "COMSTAENT-STAT-LST"), "COMSTAENT-STAT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "COMSTA-STAT-LST"), "COMSTA-STAT-xxx");
 }
 som::SomList UiComponentEntry::variants() const {
   return som::SomList(doc(), som::joinPath(path(), "CVE-VARI-LST"), "CVE-VARI-xxx");
@@ -18525,7 +18525,7 @@ ComponentLibrary UiComponents::componentLibrary() const {
   return ComponentLibrary(doc(), som::joinPath(path(), "componentLibrary"));
 }
 som::SomList UiComponents::componentSpecs() const {
-  return som::SomList(doc(), som::joinPath(path(), "UICOMENT-COMP-LST"), "UICOMENT-COMP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UICOM-COMP-LST"), "UICOM-COMP-xxx");
 }
 som::SomList UiComponents::componentFamilies() const {
   return som::SomList(doc(), som::joinPath(path(), "CMFA-COMP-LST"), "CMFA-COMP-xxx");
@@ -19098,7 +19098,7 @@ void UtilityNavigation::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList UtilityNavigation::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "UTNAITEN-ITEM-LST"), "UTNAITEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UTNAIT-ITEM-LST"), "UTNAIT-ITEM-xxx");
 }
 
 UtilityNavigationItemEntry::UtilityNavigationItemEntry(som::SpecDocument& doc, std::string path)
@@ -19116,7 +19116,7 @@ UtilityNavigationItemEntryBehaviorForm UtilityNavigationItemEntry::behavior() co
   return UtilityNavigationItemEntryBehaviorForm(doc(), som::joinPath(path(), "UNIEB"));
 }
 som::SomList UtilityNavigationItemEntry::menuItems() const {
-  return som::SomList(doc(), som::joinPath(path(), "UTMEITEN-MENU-LST"), "UTMEITEN-MENU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UTMEIT-MENU-LST"), "UTMEIT-MENU-xxx");
 }
 
 ValidationConstraints::ValidationConstraints(som::SpecDocument& doc, std::string path)
@@ -19308,7 +19308,7 @@ WcagComplianceRobustForm WcagCompliance::robust() const {
   return WcagComplianceRobustForm(doc(), som::joinPath(path(), "WCCORO"));
 }
 som::SomList WcagCompliance::successCriteria() const {
-  return som::SomList(doc(), som::joinPath(path(), "WCSUCREN-SUCC-LST"), "WCSUCREN-SUCC-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "WCSUCR-SUCC-LST"), "WCSUCR-SUCC-xxx");
 }
 
 WcagSuccessCriterionEntry::WcagSuccessCriterionEntry(som::SpecDocument& doc, std::string path)

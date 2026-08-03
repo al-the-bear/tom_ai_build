@@ -113,7 +113,7 @@ registry** rather than free text. It is a list of registry keys, each written
 (never its list container) plus the form field on that entry which declares the
 id. The list form is a disjunction: a value is valid when it resolves in **any**
 one of the listed registries, which is how a field such as
-`SCTREN.outcomeReference` names both `SYERCOEN.errorCode` and `VMT.messageId`. A
+`SCTREN.outcomeReference` names both `SYERCO.errorCode` and `VMT.messageId`. A
 single field value may itself name several ids, written comma-separated; each
 part is resolved independently. Consumers use it for the instance-tier
 dangling-reference check — a reference whose target id is not declared anywhere

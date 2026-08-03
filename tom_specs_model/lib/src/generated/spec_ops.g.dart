@@ -5283,6 +5283,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.temporalTypeOptions, (v) => n.temporalTypeOptions = v as DocSpecsSection?, label: 'temporalTypeOptions'),
         SpecSlot.node(() => n.binaryTypeOptions, (v) => n.binaryTypeOptions = v as DocSpecsSection?, label: 'binaryTypeOptions'),
         SpecSlot.node(() => n.fileReferenceOptions, (v) => n.fileReferenceOptions = v as DocSpecsSection?, label: 'fileReferenceOptions'),
+        SpecSlot.node(() => n.enumerationTypeOptions, (v) => n.enumerationTypeOptions = v as DocSpecsSection?, label: 'enumerationTypeOptions'),
         SpecSlot.list(() => n.constraints, (v) => n.constraints = v.cast<DataAttributeConstraintEntry>(), label: 'constraints'),
         SpecSlot.node(() => n.derivation, (v) => n.derivation = v as DocSpecsSection?, label: 'derivation'),
         SpecSlot.node(() => n.securityClassification, (v) => n.securityClassification = v as DocSpecsSection?, label: 'securityClassification'),
@@ -5300,6 +5301,7 @@ void registerSpecOps() {
         ..temporalTypeOptions = n.temporalTypeOptions
         ..binaryTypeOptions = n.binaryTypeOptions
         ..fileReferenceOptions = n.fileReferenceOptions
+        ..enumerationTypeOptions = n.enumerationTypeOptions
         ..constraints = n.constraints
         ..derivation = n.derivation
         ..securityClassification = n.securityClassification
@@ -8693,9 +8695,9 @@ void registerSpecOps() {
         SpecSlot.node(() => n.backlog, (v) => n.backlog = v as DocSpecsSection?, label: 'backlog'),
         SpecSlot.node(() => n.traceability, (v) => n.traceability = v as DocSpecsSection?, label: 'traceability'),
         SpecSlot.node(() => n.prioritizationRationale, (v) => n.prioritizationRationale = v as TextSection, label: 'prioritizationRationale'),
+        SpecSlot.node(() => n.featurePriorityRegister, (v) => n.featurePriorityRegister = v as FeaturePriorityRegister, label: 'featurePriorityRegister'),
         SpecSlot.node(() => n.moscowAnalysis, (v) => n.moscowAnalysis = v as MoscowAnalysis, label: 'moscowAnalysis'),
         SpecSlot.node(() => n.featureStageMatrix, (v) => n.featureStageMatrix = v as FeatureStageMatrix, label: 'featureStageMatrix'),
-        SpecSlot.node(() => n.featurePriorityRegister, (v) => n.featurePriorityRegister = v as FeaturePriorityRegister, label: 'featurePriorityRegister'),
         SpecSlot.node(() => n.featureDependencies, (v) => n.featureDependencies = v as FeatureDependencies, label: 'featureDependencies'),
       ];
     },
@@ -8710,9 +8712,9 @@ void registerSpecOps() {
         ..backlog = n.backlog
         ..traceability = n.traceability
         ..prioritizationRationale = n.prioritizationRationale
+        ..featurePriorityRegister = n.featurePriorityRegister
         ..moscowAnalysis = n.moscowAnalysis
         ..featureStageMatrix = n.featureStageMatrix
-        ..featurePriorityRegister = n.featurePriorityRegister
         ..featureDependencies = n.featureDependencies;
     },
     yamlScalar: (o) => (o as FeaturePrioritization).content,

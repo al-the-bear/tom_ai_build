@@ -326,8 +326,8 @@ Provide a strategic overview of platform and technology selections.
     ],
     'The deployment targets — production, staging and distribution environments — the system is released to.',
   )
-  @SectionId('DEPTARENT-DEPL-LST')
-  @SectionIdPattern('DEPTARENT-DEPL-xxx')
+  @SectionId('DEPTAR-DEPL-LST')
+  @SectionIdPattern('DEPTAR-DEPL-xxx')
   @ContentHelp('Add one entry per deployment target.')
   @SerializationOrder(6)
   List<DeploymentTargetEntry> deploymentTargets = [];
@@ -1116,7 +1116,7 @@ class BuildToolchainEntry extends DocSpecsSection {
   ],
   'A single deployment target with its platform, build output, requirements, process and compliance details.',
 )
-@SectionId('DEPTARENT')
+@SectionId('DEPTAR')
 class DeploymentTargetEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9225,8 +9225,8 @@ Provide an overview of the reusability strategy and component library.
     'Domain-Driven Design — bounded contexts / modules',
     'ISO/IEC 25010 — reusability quality attributes',
   ], 'The reusable business logic components shared across the system.')
-  @SectionId('BUSCOMENT-BUSI-LST')
-  @SectionIdPattern('BUSCOMENT-BUSI-xxx')
+  @SectionId('BUSCOM-BUSI-LST')
+  @SectionIdPattern('BUSCOM-BUSI-xxx')
   @ContentHelp('Add one entry per business component.')
   @SerializationOrder(5)
   List<BusinessComponentEntry> businessComponents = [];
@@ -9236,8 +9236,8 @@ Provide an overview of the reusability strategy and component library.
     'DRY — reusable component design',
     'ISO/IEC 25010 — maintainability quality attributes',
   ], 'The reusable infrastructure components shared across the system.')
-  @SectionId('INFCOMENT-INFR-LST')
-  @SectionIdPattern('INFCOMENT-INFR-xxx')
+  @SectionId('INFCOM-INFR-LST')
+  @SectionIdPattern('INFCOM-INFR-xxx')
   @ContentHelp('Add one entry per infrastructure component.')
   @SerializationOrder(6)
   List<InfrastructureComponentEntry> infrastructureComponents = [];
@@ -9780,7 +9780,7 @@ class ReusableUiComponentEntry extends DocSpecsSection {
   ],
   'Captures a reusable business logic component such as a service, repository, use case, or validator.',
 )
-@SectionId('BUSCOMENT')
+@SectionId('BUSCOM')
 class BusinessComponentEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -9957,7 +9957,7 @@ class BusinessComponentEntry extends DocSpecsSection {
   ],
   'Captures a reusable infrastructure component such as logging, caching, messaging, or storage.',
 )
-@SectionId('INFCOMENT')
+@SectionId('INFCOM')
 class InfrastructureComponentEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -10804,8 +10804,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'WHATWG / W3C — web platform / browser standards',
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
   ], 'The browsers the system must support.')
-  @SectionId('BROCOMENT-BROW-LST')
-  @SectionIdPattern('BROCOMENT-BROW-xxx')
+  @SectionId('BROCOM-BROW-LST')
+  @SectionIdPattern('BROCOM-BROW-xxx')
   @ContentHelp('Add one entry per supported browser.')
   @SerializationOrder(3)
   List<BrowserCompatibilityEntry> browserCompatibility = [];
@@ -10815,8 +10815,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 9075 (SQL) — relational database standard',
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
   ], 'The databases the system must remain compatible with.')
-  @SectionId('DATCOMENT-DATA-LST')
-  @SectionIdPattern('DATCOMENT-DATA-xxx')
+  @SectionId('DATCOM-DATA-LST')
+  @SectionIdPattern('DATCOM-DATA-xxx')
   @ContentHelp('Add one entry per supported database.')
   @SerializationOrder(4)
   List<DatabaseCompatibilityEntry> databaseCompatibility = [];
@@ -10826,8 +10826,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The enterprise systems the system must integrate with.')
-  @SectionId('ENSYCOEN-ENTE-LST')
-  @SectionIdPattern('ENSYCOEN-ENTE-xxx')
+  @SectionId('ENSYCO-ENTE-LST')
+  @SectionIdPattern('ENSYCO-ENTE-xxx')
   @ContentHelp('Add one entry per enterprise system.')
   @SerializationOrder(5)
   List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
@@ -10859,8 +10859,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The mobile platforms the system must support.')
-  @SectionId('MOBCOMENT-MOBI-LST')
-  @SectionIdPattern('MOBCOMENT-MOBI-xxx')
+  @SectionId('MOBCOM-MOBI-LST')
+  @SectionIdPattern('MOBCOM-MOBI-xxx')
   @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(8)
   List<MobileCompatibilityEntry> mobileCompatibility = [];
@@ -10870,8 +10870,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The third-party software the system must co-exist with.')
-  @SectionId('THPACOEN-THIR-LST')
-  @SectionIdPattern('THPACOEN-THIR-xxx')
+  @SectionId('THPACO-THIR-LST')
+  @SectionIdPattern('THPACO-THIR-xxx')
   @ContentHelp('Add one entry per third-party software product.')
   @SerializationOrder(9)
   List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
@@ -11051,7 +11051,7 @@ class OsCompatibilityEntry extends DocSpecsSection {
   ],
   'Describes a browser and version range the system must remain compatible with.',
 )
-@SectionId('BROCOMENT')
+@SectionId('BROCOM')
 class BrowserCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11218,7 +11218,7 @@ class BrowserCompatibilityEntry extends DocSpecsSection {
   ],
   'Describes a database engine and version range the system must remain compatible with.',
 )
-@SectionId('DATCOMENT')
+@SectionId('DATCOM')
 class DatabaseCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11381,7 +11381,7 @@ class DatabaseCompatibilityEntry extends DocSpecsSection {
   ],
   'Describes an enterprise system (ERP, CRM, etc.) the solution must integrate and remain compatible with.',
 )
-@SectionId('ENSYCOEN')
+@SectionId('ENSYCO')
 class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11832,7 +11832,7 @@ class LegacyCompatibilityEntry extends DocSpecsSection {
   ],
   'Describes a mobile platform and OS-version range the system must remain compatible with.',
 )
-@SectionId('MOBCOMENT')
+@SectionId('MOBCOM')
 class MobileCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -11993,7 +11993,7 @@ class MobileCompatibilityEntry extends DocSpecsSection {
   ],
   'Describes a third-party product the system must co-exist with, such as antivirus, firewall, or MDM software.',
 )
-@SectionId('THPACOEN')
+@SectionId('THPACO')
 class ThirdPartyCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12692,8 +12692,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 25010 — product quality model',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The IT standards the system must comply with.')
-  @SectionId('ITSTCOEN-ITST-LST')
-  @SectionIdPattern('ITSTCOEN-ITST-xxx')
+  @SectionId('ITSTCO-ITST-LST')
+  @SectionIdPattern('ITSTCO-ITST-xxx')
   @ContentHelp('Add one entry per IT standard.')
   @SerializationOrder(2)
   List<ItStandardComplianceEntry> itStandards = [];
@@ -12703,8 +12703,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
     'ISO 9001 — quality management systems',
   ], 'The industry protocols the system must comply with.')
-  @SectionId('INPRCOEN-INDU-LST')
-  @SectionIdPattern('INPRCOEN-INDU-xxx')
+  @SectionId('INPRCO-INDU-LST')
+  @SectionIdPattern('INPRCO-INDU-xxx')
   @ContentHelp('Add one entry per industry protocol.')
   @SerializationOrder(3)
   List<IndustryProtocolComplianceEntry> industryProtocols = [];
@@ -12714,8 +12714,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 25010 — product quality model',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The interface specification standards the system must follow.')
-  @SectionId('INTSPEENT-INTE-LST')
-  @SectionIdPattern('INTSPEENT-INTE-xxx')
+  @SectionId('INTSPE-INTE-LST')
+  @SectionIdPattern('INTSPE-INTE-xxx')
   @ContentHelp('Add one entry per interface specification.')
   @SerializationOrder(4)
   List<InterfaceSpecificationEntry> interfaceSpecifications = [];
@@ -12736,8 +12736,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 27001 — information security management',
     'ISO/IEC 27002 — information security controls',
   ], 'The security standards the system must comply with.')
-  @SectionId('SESTCOEN-SECU-LST')
-  @SectionIdPattern('SESTCOEN-SECU-xxx')
+  @SectionId('SESTCO-SECU-LST')
+  @SectionIdPattern('SESTCO-SECU-xxx')
   @ContentHelp('Add one entry per security standard.')
   @SerializationOrder(6)
   List<SecurityStandardComplianceEntry> securityStandards = [];
@@ -12788,7 +12788,7 @@ Provide an overview of standards compliance strategy and roadmap.
   'ISO/IEC 25010 — product quality model',
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'Describes a single IT standard the system must comply with.')
-@SectionId('ITSTCOEN')
+@SectionId('ITSTCO')
 class ItStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12941,7 +12941,7 @@ class ItStandardComplianceEntry extends DocSpecsSection {
   'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
   'ISO 9001 — quality management systems',
 ], 'Describes a single industry protocol the system complies with.')
-@SectionId('INPRCOEN')
+@SectionId('INPRCO')
 class IndustryProtocolComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -13106,7 +13106,7 @@ class IndustryProtocolComplianceEntry extends DocSpecsSection {
   'ISO/IEC 25010 — product quality model',
   'ISO/IEC/IEEE 42010 — architecture description',
 ], 'Describes a single interface specification the system implements.')
-@SectionId('INTSPEENT')
+@SectionId('INTSPE')
 class InterfaceSpecificationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -13406,7 +13406,7 @@ class RegulatoryComplianceEntry extends DocSpecsSection {
   'ISO/IEC 27001 — information security management',
   'ISO/IEC 27002 — information security controls',
 ], 'Describes a single security standard the system must comply with.')
-@SectionId('SESTCOEN')
+@SectionId('SESTCO')
 class SecurityStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16164,8 +16164,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'WHATWG / W3C — web platform / browser standards',
   ], 'The web browsers the client must support.')
-  @SectionId('BROREQENT-BROW-LST')
-  @SectionIdPattern('BROREQENT-BROW-xxx')
+  @SectionId('BROREQ-BROW-LST')
+  @SectionIdPattern('BROREQ-BROW-xxx')
   @ContentHelp('Add one entry per supported web browser.')
   @SerializationOrder(3)
   List<BrowserRequirementEntry> browserRequirements = [];
@@ -16174,8 +16174,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'ISO/IEC 25010 — performance efficiency / resource utilization',
   ], 'The desktop operating systems the client must support.')
-  @SectionId('DEOSREEN-DESK-LST')
-  @SectionIdPattern('DEOSREEN-DESK-xxx')
+  @SectionId('DEOSRE-DESK-LST')
+  @SectionIdPattern('DEOSRE-DESK-xxx')
   @ContentHelp('Add one entry per supported desktop operating system.')
   @SerializationOrder(4)
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
@@ -16184,8 +16184,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'Android CDD / Apple HIG — mobile device platform requirements',
   ], 'The mobile platforms and devices the client must support.')
-  @SectionId('MODEREEN-MOBI-LST')
-  @SectionIdPattern('MODEREEN-MOBI-xxx')
+  @SectionId('MODERE-MOBI-LST')
+  @SectionIdPattern('MODERE-MOBI-xxx')
   @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(5)
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
@@ -16345,9 +16345,9 @@ declared makes the reference dangle.
       String,
       'Platform Targets',
       refersTo: [
-        'BROREQENT.browserName',
-        'DEOSREEN.osName',
-        'MODEREEN.platform',
+        'BROREQ.browserName',
+        'DEOSRE.osName',
+        'MODERE.platform',
       ],
       hint: 'The platforms this client runs on, by id from the browser, '
           'desktop-OS and mobile-platform requirement lists below',
@@ -16707,7 +16707,7 @@ class UserSettingEntry extends DocSpecsSection {
   ],
   'Describes a single browser requirement entry across support, features, testing, and known issues.',
 )
-@SectionId('BROREQENT')
+@SectionId('BROREQ')
 class BrowserRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16865,7 +16865,7 @@ class BrowserRequirementEntry extends DocSpecsSection {
   ],
   'Describes a single desktop operating-system requirement entry across support, hardware, software, and testing.',
 )
-@SectionId('DEOSREEN')
+@SectionId('DEOSRE')
 class DesktopOsRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -17000,7 +17000,7 @@ class DesktopOsRequirementEntry extends DocSpecsSection {
   ],
   'Describes a single mobile-platform requirement entry across support, device coverage, hardware, and capabilities.',
 )
-@SectionId('MODEREEN')
+@SectionId('MODERE')
 class MobileDeviceRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -22740,8 +22740,8 @@ Provide an overview of monitoring and observability strategy.
   @StandardReferences([
     'Prometheus / Grafana — metrics & alerting',
   ], 'The alert definitions the system applies.')
-  @SectionId('ALEDEFENT-ALER-LST')
-  @SectionIdPattern('ALEDEFENT-ALER-xxx')
+  @SectionId('ALEDEF-ALER-LST')
+  @SectionIdPattern('ALEDEF-ALER-xxx')
   @ContentHelp('Add one entry per alert definition.')
   @SerializationOrder(7)
   List<AlertDefinitionEntry> alertDefinitions = [];
@@ -23530,7 +23530,7 @@ class AlertingRequirements extends DocSpecsSection {
   ],
   'Describes a single alert definition including its name, severity, and priority.',
 )
-@SectionId('ALEDEFENT')
+@SectionId('ALEDEF')
 class AlertDefinitionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -26415,8 +26415,8 @@ Provide an overview of external connectivity landscape.
   @StandardReferences([
     'Enterprise Integration Patterns — messaging & integration',
   ], 'The external partner connections the system integrates with.')
-  @SectionId('EXPACOEN-PART-LST')
-  @SectionIdPattern('EXPACOEN-PART-xxx')
+  @SectionId('EXPACO-PART-LST')
+  @SectionIdPattern('EXPACO-PART-xxx')
   @ContentHelp('Add one entry per external partner connection.')
   @SerializationOrder(2)
   List<ExternalPartnerConnectionEntry> partnerConnections = [];
@@ -26448,7 +26448,7 @@ Provide an overview of external connectivity landscape.
   'OAuth 2.0 / IETF RFC 6749 — authorization framework',
   'OpenAPI Specification — REST API description',
 ], 'Describes a single external partner integration the system connects to.')
-@SectionId('EXPACOEN')
+@SectionId('EXPACO')
 class ExternalPartnerConnectionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -29224,8 +29224,8 @@ class AlertingConfiguration extends DocSpecsSection {
   @StandardReferences([
     'Prometheus — Alertmanager (routing, grouping, silencing)',
   ], 'The catalog of alert rules the system evaluates.')
-  @SectionId('ALERULENT-ALER-LST')
-  @SectionIdPattern('ALERULENT-ALER-xxx')
+  @SectionId('ALERUL-ALER-LST')
+  @SectionIdPattern('ALERUL-ALER-xxx')
   @ContentHelp('Add one entry per alert rule.')
   @SerializationOrder(3)
   List<AlertRuleEntry> alertRules = [];
@@ -29381,7 +29381,7 @@ class AlertNotificationChannels extends DocSpecsSection {
   'Google SRE — monitoring and alerting (the four golden signals)',
   'Prometheus — Alertmanager (routing, grouping, silencing)',
 ], 'A single alert rule defining when and how the system pages responders.')
-@SectionId('ALERULENT')
+@SectionId('ALERUL')
 class AlertRuleEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -29932,8 +29932,8 @@ class MetricsAndObservability extends DocSpecsSection {
   @StandardReferences([
     'Prometheus — metric types and exposition format',
   ], 'The catalog of custom application metrics the system emits.')
-  @SectionId('CUSMETENT-CUST-LST')
-  @SectionIdPattern('CUSMETENT-CUST-xxx')
+  @SectionId('CUSMET-CUST-LST')
+  @SectionIdPattern('CUSMET-CUST-xxx')
   @ContentHelp('Add one entry per custom metric.')
   @SerializationOrder(6)
   List<CustomMetricEntry> customMetrics = [];
@@ -30475,7 +30475,7 @@ class DistributedTracingSpec extends DocSpecsSection {
   'Prometheus — metric types and exposition format',
   'OpenTelemetry — metrics, traces, and logs',
 ], 'A single custom application metric with its type, unit, and labels.')
-@SectionId('CUSMETENT')
+@SectionId('CUSMET')
 class CustomMetricEntry extends DocSpecsSection {
   @Form([
     Field(

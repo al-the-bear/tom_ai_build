@@ -436,6 +436,66 @@ void main() {
     });
   });
 
+  group('unit: @SectionId length cap (§7.1)', () {
+    test('rejects a class-level id longer than six letters', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('alpha', 'Alpha')],
+        ),
+        // Seven letters — the shortest over-length id, so the test pins the
+        // boundary rather than an obviously-wrong extreme.
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALPHAXX'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      expect(
+        result.errors.any(
+          (e) =>
+              e.contains('tom_specs_model_rules.md §10.2 @SectionId length') &&
+              e.contains('Alpha'),
+        ),
+        isTrue,
+        reason: 'Expected a length error for the 7-letter id "ALPHAXX"',
+      );
+    });
+
+    test('accepts an id of exactly six letters', () {
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('alpha', 'Alpha')],
+        ),
+        'Alpha': _cls('Alpha', [AnnotationData('SectionId', {'id': 'ALEDEF'})]),
+      };
+      final result = validateStructuralInvariants(classes);
+      final lengthErrors =
+          result.errors.where((e) => e.contains('@SectionId length')).toList();
+      expect(lengthErrors, isEmpty, reason: lengthErrors.join('\n'));
+    });
+
+    test('exempts container ids, which are longer by construction', () {
+      // A `-LST` container id is a three-token compound (§7.2) and routinely
+      // exceeds six characters; the cap is about the flat class mnemonic only.
+      final classes = {
+        'D00SolutionBlueprint': _cls(
+          'D00SolutionBlueprint',
+          [AnnotationData('SectionId', {'id': 'TST'})],
+          [_field('alpha', 'Alpha')],
+        ),
+        'Alpha': _cls(
+          'Alpha',
+          [AnnotationData('SectionId', {'id': 'ALEDEF-ITEM-LST'})],
+        ),
+      };
+      final result = validateStructuralInvariants(classes);
+      final lengthErrors =
+          result.errors.where((e) => e.contains('@SectionId length')).toList();
+      expect(lengthErrors, isEmpty, reason: lengthErrors.join('\n'));
+    });
+  });
+
   group('unit: @SectionId coverage check', () {
     test('warns when a reachable class has no @SectionId and no @SectionIdPattern coverage', () {
       final classes = {

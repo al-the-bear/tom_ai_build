@@ -3778,8 +3778,8 @@ void buildAlertingConfigurationChildren(som::SomMetaNode& parent, std::vector<st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "AlertingConfiguration";
     (*ln).memberName = "alertRules";
-    (*ln).sectionId = "ALERULENT-ALER-LST";
-    (*ln).sectionIdPattern = "ALERULENT-ALER-xxx";
+    (*ln).sectionId = "ALERUL-ALER-LST";
+    (*ln).sectionIdPattern = "ALERUL-ALER-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "AlertRuleEntry";
     (*ln).hasSerializationOrder = true;
@@ -3790,7 +3790,7 @@ void buildAlertingConfigurationChildren(som::SomMetaNode& parent, std::vector<st
     ln->elementNode = metaCx("AlertRuleEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "AlertRuleEntry";
-        n.classSectionId = "ALERULENT";
+        n.classSectionId = "ALERUL";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AlertRuleEntry";
         n.docComment = "An alert rule entry.";
@@ -6813,8 +6813,8 @@ void buildAuthorizationRoleEntryChildren(som::SomMetaNode& parent, std::vector<s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "AuthorizationRoleEntry";
     (*ln).memberName = "directPermissions";
-    (*ln).sectionId = "ROLPERM-DIRE-LST";
-    (*ln).sectionIdPattern = "ROLPERM-DIRE-xxx";
+    (*ln).sectionId = "ROLPER-DIRE-LST";
+    (*ln).sectionIdPattern = "ROLPER-DIRE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "RolePermissionEntry";
     (*ln).hasSerializationOrder = true;
@@ -6825,7 +6825,7 @@ void buildAuthorizationRoleEntryChildren(som::SomMetaNode& parent, std::vector<s
     ln->elementNode = metaCx("RolePermissionEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "RolePermissionEntry";
-        n.classSectionId = "ROLPERM";
+        n.classSectionId = "ROLPER";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RolePermissionEntry";
         n.docComment = "A direct permission entry for a role (form).\n\nCaptures direct permission assignments that complement or override\nentitlement-based access — useful when fine-grained per-role permissions\nare needed beyond what entitlements provide.";
@@ -6838,8 +6838,8 @@ void buildAuthorizationRoleEntryChildren(som::SomMetaNode& parent, std::vector<s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "AuthorizationRoleEntry";
     (*ln).memberName = "dataScopes";
-    (*ln).sectionId = "ROLDSCP-DATA-LST";
-    (*ln).sectionIdPattern = "ROLDSCP-DATA-xxx";
+    (*ln).sectionId = "RODASC-DATA-LST";
+    (*ln).sectionIdPattern = "RODASC-DATA-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "RoleDataScopeEntry";
     (*ln).hasSerializationOrder = true;
@@ -6850,7 +6850,7 @@ void buildAuthorizationRoleEntryChildren(som::SomMetaNode& parent, std::vector<s
     ln->elementNode = metaCx("RoleDataScopeEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "RoleDataScopeEntry";
-        n.classSectionId = "ROLDSCP";
+        n.classSectionId = "RODASC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "RoleDataScopeEntry";
         n.docComment = "A data scope entry for a role (form).\n\nSpecifies what data categories the role can access and at what level —\nsupports horizontal access control and data-level security.";
@@ -12290,7 +12290,7 @@ void buildClientApplicationEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"clientName", "String", "Client Name", true, "The name users and operators call this client by", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"clientKind", "ClientApplicationKind", "Client Kind", true, "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", 2, std::vector<std::string>{"graphicalApplication", "commandLine", "server"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", true, "Who uses this client and what for — the reason it exists separately from the system's other clients", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"platformTargets", "String", "Platform Targets", false, "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", 4, std::vector<std::string>{}, std::vector<std::string>{"BROREQENT.browserName", "DEOSREEN.osName", "MODEREEN.platform"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"platformTargets", "String", "Platform Targets", false, "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", 4, std::vector<std::string>{}, std::vector<std::string>{"BROREQ.browserName", "DEOSRE.osName", "MODERE.platform"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"entryRoute", "String", "Entry Route", false, "The route this client opens on, by id from the screen route map. Empty for a client with no routes", 5, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"includedScreens", "String", "Included Screens", false, "The screens this client comprises, by id. Empty for a client with no screens", 6, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
     parent.addChild(std::move(n));
@@ -12586,8 +12586,8 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ClientRequirementsSection";
     (*ln).memberName = "browserRequirements";
-    (*ln).sectionId = "BROREQENT-BROW-LST";
-    (*ln).sectionIdPattern = "BROREQENT-BROW-xxx";
+    (*ln).sectionId = "BROREQ-BROW-LST";
+    (*ln).sectionIdPattern = "BROREQ-BROW-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BrowserRequirementEntry";
     (*ln).hasSerializationOrder = true;
@@ -12598,7 +12598,7 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("BrowserRequirementEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "BrowserRequirementEntry";
-        n.classSectionId = "BROREQENT";
+        n.classSectionId = "BROREQ";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BrowserRequirementEntry";
         n.docComment = "Browser requirement entry.";
@@ -12611,8 +12611,8 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ClientRequirementsSection";
     (*ln).memberName = "desktopOsRequirements";
-    (*ln).sectionId = "DEOSREEN-DESK-LST";
-    (*ln).sectionIdPattern = "DEOSREEN-DESK-xxx";
+    (*ln).sectionId = "DEOSRE-DESK-LST";
+    (*ln).sectionIdPattern = "DEOSRE-DESK-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DesktopOsRequirementEntry";
     (*ln).hasSerializationOrder = true;
@@ -12623,7 +12623,7 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("DesktopOsRequirementEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DesktopOsRequirementEntry";
-        n.classSectionId = "DEOSREEN";
+        n.classSectionId = "DEOSRE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DesktopOsRequirementEntry";
         n.docComment = "Desktop operating system requirement entry.";
@@ -12636,8 +12636,8 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ClientRequirementsSection";
     (*ln).memberName = "mobileRequirements";
-    (*ln).sectionId = "MODEREEN-MOBI-LST";
-    (*ln).sectionIdPattern = "MODEREEN-MOBI-xxx";
+    (*ln).sectionId = "MODERE-MOBI-LST";
+    (*ln).sectionIdPattern = "MODERE-MOBI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "MobileDeviceRequirementEntry";
     (*ln).hasSerializationOrder = true;
@@ -12648,7 +12648,7 @@ void buildClientRequirementsSectionChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("MobileDeviceRequirementEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "MobileDeviceRequirementEntry";
-        n.classSectionId = "MODEREEN";
+        n.classSectionId = "MODERE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MobileDeviceRequirementEntry";
         n.docComment = "Mobile device requirement entry.";
@@ -14011,8 +14011,8 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "CompatibilityRequirementsSection";
     (*ln).memberName = "browserCompatibility";
-    (*ln).sectionId = "BROCOMENT-BROW-LST";
-    (*ln).sectionIdPattern = "BROCOMENT-BROW-xxx";
+    (*ln).sectionId = "BROCOM-BROW-LST";
+    (*ln).sectionIdPattern = "BROCOM-BROW-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BrowserCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
@@ -14023,7 +14023,7 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     ln->elementNode = metaCx("BrowserCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "BrowserCompatibilityEntry";
-        n.classSectionId = "BROCOMENT";
+        n.classSectionId = "BROCOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BrowserCompatibilityEntry";
         n.docComment = "Browser compatibility entry.";
@@ -14036,8 +14036,8 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "CompatibilityRequirementsSection";
     (*ln).memberName = "databaseCompatibility";
-    (*ln).sectionId = "DATCOMENT-DATA-LST";
-    (*ln).sectionIdPattern = "DATCOMENT-DATA-xxx";
+    (*ln).sectionId = "DATCOM-DATA-LST";
+    (*ln).sectionIdPattern = "DATCOM-DATA-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DatabaseCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
@@ -14048,7 +14048,7 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     ln->elementNode = metaCx("DatabaseCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DatabaseCompatibilityEntry";
-        n.classSectionId = "DATCOMENT";
+        n.classSectionId = "DATCOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DatabaseCompatibilityEntry";
         n.docComment = "Database compatibility entry.";
@@ -14061,8 +14061,8 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "CompatibilityRequirementsSection";
     (*ln).memberName = "enterpriseSystemCompatibility";
-    (*ln).sectionId = "ENSYCOEN-ENTE-LST";
-    (*ln).sectionIdPattern = "ENSYCOEN-ENTE-xxx";
+    (*ln).sectionId = "ENSYCO-ENTE-LST";
+    (*ln).sectionIdPattern = "ENSYCO-ENTE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "EnterpriseSystemCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
@@ -14073,7 +14073,7 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     ln->elementNode = metaCx("EnterpriseSystemCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "EnterpriseSystemCompatibilityEntry";
-        n.classSectionId = "ENSYCOEN";
+        n.classSectionId = "ENSYCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "EnterpriseSystemCompatibilityEntry";
         n.docComment = "Enterprise system compatibility entry.";
@@ -14136,8 +14136,8 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "CompatibilityRequirementsSection";
     (*ln).memberName = "mobileCompatibility";
-    (*ln).sectionId = "MOBCOMENT-MOBI-LST";
-    (*ln).sectionIdPattern = "MOBCOMENT-MOBI-xxx";
+    (*ln).sectionId = "MOBCOM-MOBI-LST";
+    (*ln).sectionIdPattern = "MOBCOM-MOBI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "MobileCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
@@ -14148,7 +14148,7 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     ln->elementNode = metaCx("MobileCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "MobileCompatibilityEntry";
-        n.classSectionId = "MOBCOMENT";
+        n.classSectionId = "MOBCOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MobileCompatibilityEntry";
         n.docComment = "Mobile device compatibility entry.";
@@ -14161,8 +14161,8 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "CompatibilityRequirementsSection";
     (*ln).memberName = "thirdPartyCompatibility";
-    (*ln).sectionId = "THPACOEN-THIR-LST";
-    (*ln).sectionIdPattern = "THPACOEN-THIR-xxx";
+    (*ln).sectionId = "THPACO-THIR-LST";
+    (*ln).sectionIdPattern = "THPACO-THIR-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ThirdPartyCompatibilityEntry";
     (*ln).hasSerializationOrder = true;
@@ -14173,7 +14173,7 @@ void buildCompatibilityRequirementsSectionChildren(som::SomMetaNode& parent, std
     ln->elementNode = metaCx("ThirdPartyCompatibilityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ThirdPartyCompatibilityEntry";
-        n.classSectionId = "THPACOEN";
+        n.classSectionId = "THPACO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ThirdPartyCompatibilityEntry";
         n.docComment = "Third-party software compatibility entry.";
@@ -18391,7 +18391,7 @@ void buildCurrentLandscapeChildren(som::SomMetaNode& parent, std::vector<std::st
       [](som::SomMetaNode& n) {
         n.className = "CurrentStateRiskAssessment";
         n.memberName = "currentStateRisks";
-        n.classSectionId = "CUSTRIAS";
+        n.classSectionId = "CUSTRI";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentStateRiskAssessment";
         n.hasSerializationOrder = true;
@@ -19147,7 +19147,7 @@ void buildD01CurrentLandscapeAssessmentChildren(som::SomMetaNode& parent, std::v
       [](som::SomMetaNode& n) {
         n.className = "CurrentStateRiskAssessment";
         n.memberName = "currentStateRisks";
-        n.classSectionId = "CUSTRIAS";
+        n.classSectionId = "CUSTRI";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CurrentStateRiskAssessment";
         n.hasSerializationOrder = true;
@@ -31865,8 +31865,8 @@ void buildEntitlementEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "EntitlementEntry";
     (*ln).memberName = "resourceKeyReferences";
-    (*ln).sectionId = "RESKREF-RESO-LST";
-    (*ln).sectionIdPattern = "RESKREF-RESO-xxx";
+    (*ln).sectionId = "REKERE-RESO-LST";
+    (*ln).sectionIdPattern = "REKERE-RESO-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ResourceKeyReferenceEntry";
     (*ln).hasSerializationOrder = true;
@@ -31877,7 +31877,7 @@ void buildEntitlementEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     ln->elementNode = metaCx("ResourceKeyReferenceEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ResourceKeyReferenceEntry";
-        n.classSectionId = "RESKREF";
+        n.classSectionId = "REKERE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ResourceKeyReferenceEntry";
         n.docComment = "A resource key reference entry (form).";
@@ -34669,8 +34669,8 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ExportFormatEntry";
     (*ln).memberName = "fieldMappings";
-    (*ln).sectionId = "EXFIMAEN-FIEL-LST";
-    (*ln).sectionIdPattern = "EXFIMAEN-FIEL-xxx";
+    (*ln).sectionId = "EXFIMA-FIEL-LST";
+    (*ln).sectionIdPattern = "EXFIMA-FIEL-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExportFieldMappingEntry";
     (*ln).hasSerializationOrder = true;
@@ -34681,7 +34681,7 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     ln->elementNode = metaCx("ExportFieldMappingEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExportFieldMappingEntry";
-        n.classSectionId = "EXFIMAEN";
+        n.classSectionId = "EXFIMA";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExportFieldMappingEntry";
         n.docComment = "A field mapping within an export (form).";
@@ -35021,8 +35021,8 @@ void buildExternalConnectivitySectionChildren(som::SomMetaNode& parent, std::vec
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ExternalConnectivitySection";
     (*ln).memberName = "partnerConnections";
-    (*ln).sectionId = "EXPACOEN-PART-LST";
-    (*ln).sectionIdPattern = "EXPACOEN-PART-xxx";
+    (*ln).sectionId = "EXPACO-PART-LST";
+    (*ln).sectionIdPattern = "EXPACO-PART-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExternalPartnerConnectionEntry";
     (*ln).hasSerializationOrder = true;
@@ -35033,7 +35033,7 @@ void buildExternalConnectivitySectionChildren(som::SomMetaNode& parent, std::vec
     ln->elementNode = metaCx("ExternalPartnerConnectionEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExternalPartnerConnectionEntry";
-        n.classSectionId = "EXPACOEN";
+        n.classSectionId = "EXPACO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExternalPartnerConnectionEntry";
         n.docComment = "An external partner connection entry (form).";
@@ -35784,7 +35784,7 @@ void buildExternalSystemContextEntryChildren(som::SomMetaNode& parent, std::vect
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExternalSystemContextEntry";
     (*n).memberName = "dataMapping";
-    (*n).sectionId = "EXSYCOEN-DATA";
+    (*n).sectionId = "EXSYCO-DATA";
     (*n).kind = som::kSomMetaKindContent;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -35811,8 +35811,8 @@ void buildExternalSystemsContextChildren(som::SomMetaNode& parent, std::vector<s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ExternalSystemsContext";
     (*ln).memberName = "systems";
-    (*ln).sectionId = "EXSYCOEN-SYST-LST";
-    (*ln).sectionIdPattern = "EXSYCOEN-SYST-xxx";
+    (*ln).sectionId = "EXSYCO-SYST-LST";
+    (*ln).sectionIdPattern = "EXSYCO-SYST-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExternalSystemContextEntry";
     (*ln).hasSerializationOrder = true;
@@ -35823,7 +35823,7 @@ void buildExternalSystemsContextChildren(som::SomMetaNode& parent, std::vector<s
     ln->elementNode = metaCx("ExternalSystemContextEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ExternalSystemContextEntry";
-        n.classSectionId = "EXSYCOEN";
+        n.classSectionId = "EXSYCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ExternalSystemContextEntry";
         n.docComment = "An external system context entry (form).";
@@ -42303,8 +42303,8 @@ void buildInterfaceBusinessContextChildren(som::SomMetaNode& parent, std::vector
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "InterfaceBusinessContext";
     (*ln).memberName = "dependentProcesses";
-    (*ln).sectionId = "INBUPREN-DEPE-LST";
-    (*ln).sectionIdPattern = "INBUPREN-DEPE-xxx";
+    (*ln).sectionId = "INBUPR-DEPE-LST";
+    (*ln).sectionIdPattern = "INBUPR-DEPE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "InterfaceBusinessProcessEntry";
     (*ln).hasSerializationOrder = true;
@@ -42315,7 +42315,7 @@ void buildInterfaceBusinessContextChildren(som::SomMetaNode& parent, std::vector
     ln->elementNode = metaCx("InterfaceBusinessProcessEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "InterfaceBusinessProcessEntry";
-        n.classSectionId = "INBUPREN";
+        n.classSectionId = "INBUPR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InterfaceBusinessProcessEntry";
         n.docComment = "Business process dependency entry.";
@@ -42393,8 +42393,8 @@ void buildInterfaceDataSpecChildren(som::SomMetaNode& parent, std::vector<std::s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "InterfaceDataSpec";
     (*ln).memberName = "dataEntities";
-    (*ln).sectionId = "INDAENEN-DATA-LST";
-    (*ln).sectionIdPattern = "INDAENEN-DATA-xxx";
+    (*ln).sectionId = "INDAEN-DATA-LST";
+    (*ln).sectionIdPattern = "INDAEN-DATA-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "InterfaceDataEntityEntry";
     (*ln).hasSerializationOrder = true;
@@ -42405,7 +42405,7 @@ void buildInterfaceDataSpecChildren(som::SomMetaNode& parent, std::vector<std::s
     ln->elementNode = metaCx("InterfaceDataEntityEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "InterfaceDataEntityEntry";
-        n.classSectionId = "INDAENEN";
+        n.classSectionId = "INDAEN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InterfaceDataEntityEntry";
         n.docComment = "Data entity exchanged.";
@@ -43059,8 +43059,8 @@ void buildInterfaceTestingChildren(som::SomMetaNode& parent, std::vector<std::st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "InterfaceTesting";
     (*ln).memberName = "testScenarios";
-    (*ln).sectionId = "INTESCEN-TEST-LST";
-    (*ln).sectionIdPattern = "INTESCEN-TEST-xxx";
+    (*ln).sectionId = "INTESC-TEST-LST";
+    (*ln).sectionIdPattern = "INTESC-TEST-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "InterfaceTestScenarioEntry";
     (*ln).hasSerializationOrder = true;
@@ -43071,7 +43071,7 @@ void buildInterfaceTestingChildren(som::SomMetaNode& parent, std::vector<std::st
     ln->elementNode = metaCx("InterfaceTestScenarioEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "InterfaceTestScenarioEntry";
-        n.classSectionId = "INTESCEN";
+        n.classSectionId = "INTESC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InterfaceTestScenarioEntry";
         n.docComment = "Test scenario entry.";
@@ -47236,8 +47236,8 @@ void buildMetricsAndObservabilityChildren(som::SomMetaNode& parent, std::vector<
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "MetricsAndObservability";
     (*ln).memberName = "customMetrics";
-    (*ln).sectionId = "CUSMETENT-CUST-LST";
-    (*ln).sectionIdPattern = "CUSMETENT-CUST-xxx";
+    (*ln).sectionId = "CUSMET-CUST-LST";
+    (*ln).sectionIdPattern = "CUSMET-CUST-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "CustomMetricEntry";
     (*ln).hasSerializationOrder = true;
@@ -47248,7 +47248,7 @@ void buildMetricsAndObservabilityChildren(som::SomMetaNode& parent, std::vector<
     ln->elementNode = metaCx("CustomMetricEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "CustomMetricEntry";
-        n.classSectionId = "CUSMETENT";
+        n.classSectionId = "CUSMET";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "CustomMetricEntry";
         n.docComment = "A custom metric entry.";
@@ -49411,8 +49411,8 @@ void buildMonitoringAndAlertingSectionChildren(som::SomMetaNode& parent, std::ve
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "MonitoringAndAlertingSection";
     (*ln).memberName = "alertDefinitions";
-    (*ln).sectionId = "ALEDEFENT-ALER-LST";
-    (*ln).sectionIdPattern = "ALEDEFENT-ALER-xxx";
+    (*ln).sectionId = "ALEDEF-ALER-LST";
+    (*ln).sectionIdPattern = "ALEDEF-ALER-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "AlertDefinitionEntry";
     (*ln).hasSerializationOrder = true;
@@ -49423,7 +49423,7 @@ void buildMonitoringAndAlertingSectionChildren(som::SomMetaNode& parent, std::ve
     ln->elementNode = metaCx("AlertDefinitionEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "AlertDefinitionEntry";
-        n.classSectionId = "ALEDEFENT";
+        n.classSectionId = "ALEDEF";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "AlertDefinitionEntry";
         n.docComment = "Alert definition entry.";
@@ -49892,8 +49892,8 @@ void buildMultiLanguageSupportChildren(som::SomMetaNode& parent, std::vector<std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "MultiLanguageSupport";
     (*ln).memberName = "supportedLocales";
-    (*ln).sectionId = "SUPLOCENT-SUPP-LST";
-    (*ln).sectionIdPattern = "SUPLOCENT-SUPP-xxx";
+    (*ln).sectionId = "SUPLOC-SUPP-LST";
+    (*ln).sectionIdPattern = "SUPLOC-SUPP-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SupportedLocaleEntry";
     (*ln).hasSerializationOrder = true;
@@ -49904,7 +49904,7 @@ void buildMultiLanguageSupportChildren(som::SomMetaNode& parent, std::vector<std
     ln->elementNode = metaCx("SupportedLocaleEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SupportedLocaleEntry";
-        n.classSectionId = "SUPLOCENT";
+        n.classSectionId = "SUPLOC";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SupportedLocaleEntry";
         n.docComment = "A supported locale entry.";
@@ -53889,8 +53889,8 @@ void buildOutOfScopeChildren(som::SomMetaNode& parent, std::vector<std::string>&
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "OutOfScope";
     (*ln).memberName = "items";
-    (*ln).sectionId = "OUOFSCEN-ITEM-LST";
-    (*ln).sectionIdPattern = "OUOFSCEN-ITEM-xxx";
+    (*ln).sectionId = "OUTSCO-ITEM-LST";
+    (*ln).sectionIdPattern = "OUTSCO-ITEM-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "OutOfScopeEntry";
     (*ln).hasSerializationOrder = true;
@@ -53901,7 +53901,7 @@ void buildOutOfScopeChildren(som::SomMetaNode& parent, std::vector<std::string>&
     ln->elementNode = metaCx("OutOfScopeEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "OutOfScopeEntry";
-        n.classSectionId = "OUOFSCEN";
+        n.classSectionId = "OUTSCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "OutOfScopeEntry";
         n.docComment = "An out-of-scope entry (form).";
@@ -55492,7 +55492,7 @@ void buildPhaseGateReviewEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeRationale", "String", "Outcome Rationale", false, "Why this decision was made", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"conditionalItems", "String", "Conditional Items", false, "Open items for conditional advancement", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"followUpActions", "String", "Follow-Up Actions", false, "Actions assigned during review", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextGateReference", "String", "Next Gate Reference", false, "Gate ID of the next gate in sequence", 6, std::vector<std::string>{}, std::vector<std::string>{"PHGAREEN.gateId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextGateReference", "String", "Next Gate Reference", false, "Gate ID of the next gate in sequence", 6, std::vector<std::string>{}, std::vector<std::string>{"PHGREV.gateId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls\",\"PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews\"],\"connotation\":\"Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -55605,8 +55605,8 @@ void buildPhaseGateReviewsChildren(som::SomMetaNode& parent, std::vector<std::st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "PhaseGateReviews";
     (*ln).memberName = "items";
-    (*ln).sectionId = "PHGAREEN-ITEM-LST";
-    (*ln).sectionIdPattern = "PHGAREEN-ITEM-xxx";
+    (*ln).sectionId = "PHGREV-ITEM-LST";
+    (*ln).sectionIdPattern = "PHGREV-ITEM-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "PhaseGateReviewEntry";
     (*ln).hasSerializationOrder = true;
@@ -55617,7 +55617,7 @@ void buildPhaseGateReviewsChildren(som::SomMetaNode& parent, std::vector<std::st
     ln->elementNode = metaCx("PhaseGateReviewEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "PhaseGateReviewEntry";
-        n.classSectionId = "PHGAREEN";
+        n.classSectionId = "PHGREV";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "PhaseGateReviewEntry";
         n.docComment = "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.";
@@ -55998,8 +55998,8 @@ void buildPlatformAndLanguageChildren(som::SomMetaNode& parent, std::vector<std:
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "PlatformAndLanguage";
     (*ln).memberName = "deploymentTargets";
-    (*ln).sectionId = "DEPTARENT-DEPL-LST";
-    (*ln).sectionIdPattern = "DEPTARENT-DEPL-xxx";
+    (*ln).sectionId = "DEPTAR-DEPL-LST";
+    (*ln).sectionIdPattern = "DEPTAR-DEPL-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DeploymentTargetEntry";
     (*ln).hasSerializationOrder = true;
@@ -56010,7 +56010,7 @@ void buildPlatformAndLanguageChildren(som::SomMetaNode& parent, std::vector<std:
     ln->elementNode = metaCx("DeploymentTargetEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DeploymentTargetEntry";
-        n.classSectionId = "DEPTARENT";
+        n.classSectionId = "DEPTAR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DeploymentTargetEntry";
         n.docComment = "Deployment target specification entry.";
@@ -63068,8 +63068,8 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ReportEntry";
     (*ln).memberName = "schedules";
-    (*ln).sectionId = "REPSCHENT-SCHE-LST";
-    (*ln).sectionIdPattern = "REPSCHENT-SCHE-xxx";
+    (*ln).sectionId = "REPSCH-SCHE-LST";
+    (*ln).sectionIdPattern = "REPSCH-SCHE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportScheduleEntry";
     (*ln).hasSerializationOrder = true;
@@ -63080,7 +63080,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     ln->elementNode = metaCx("ReportScheduleEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ReportScheduleEntry";
-        n.classSectionId = "REPSCHENT";
+        n.classSectionId = "REPSCH";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReportScheduleEntry";
         n.docComment = "Scheduling rules for report generation\n(form).";
@@ -63586,8 +63586,8 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ReportSectionEntry";
     (*ln).memberName = "columns";
-    (*ln).sectionId = "REPCOLENT-COLU-LST";
-    (*ln).sectionIdPattern = "REPCOLENT-COLU-xxx";
+    (*ln).sectionId = "REPCOL-COLU-LST";
+    (*ln).sectionIdPattern = "REPCOL-COLU-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportColumnEntry";
     (*ln).hasSerializationOrder = true;
@@ -63598,7 +63598,7 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     ln->elementNode = metaCx("ReportColumnEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ReportColumnEntry";
-        n.classSectionId = "REPCOLENT";
+        n.classSectionId = "REPCOL";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReportColumnEntry";
         n.docComment = "A column in a tabular report section\n(form).";
@@ -63611,8 +63611,8 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ReportSectionEntry";
     (*ln).memberName = "charts";
-    (*ln).sectionId = "REPCHAENT-CHAR-LST";
-    (*ln).sectionIdPattern = "REPCHAENT-CHAR-xxx";
+    (*ln).sectionId = "REPCHA-CHAR-LST";
+    (*ln).sectionIdPattern = "REPCHA-CHAR-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportChartEntry";
     (*ln).hasSerializationOrder = true;
@@ -63623,7 +63623,7 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     ln->elementNode = metaCx("ReportChartEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ReportChartEntry";
-        n.classSectionId = "REPCHAENT";
+        n.classSectionId = "REPCHA";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReportChartEntry";
         n.docComment = "A chart/visualization in a report\n(form).";
@@ -65504,8 +65504,8 @@ void buildReusableComponentsSectionChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ReusableComponentsSection";
     (*ln).memberName = "businessComponents";
-    (*ln).sectionId = "BUSCOMENT-BUSI-LST";
-    (*ln).sectionIdPattern = "BUSCOMENT-BUSI-xxx";
+    (*ln).sectionId = "BUSCOM-BUSI-LST";
+    (*ln).sectionIdPattern = "BUSCOM-BUSI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "BusinessComponentEntry";
     (*ln).hasSerializationOrder = true;
@@ -65516,7 +65516,7 @@ void buildReusableComponentsSectionChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("BusinessComponentEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "BusinessComponentEntry";
-        n.classSectionId = "BUSCOMENT";
+        n.classSectionId = "BUSCOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "BusinessComponentEntry";
         n.docComment = "Business logic component entry.";
@@ -65529,8 +65529,8 @@ void buildReusableComponentsSectionChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ReusableComponentsSection";
     (*ln).memberName = "infrastructureComponents";
-    (*ln).sectionId = "INFCOMENT-INFR-LST";
-    (*ln).sectionIdPattern = "INFCOMENT-INFR-xxx";
+    (*ln).sectionId = "INFCOM-INFR-LST";
+    (*ln).sectionIdPattern = "INFCOM-INFR-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "InfrastructureComponentEntry";
     (*ln).hasSerializationOrder = true;
@@ -65541,7 +65541,7 @@ void buildReusableComponentsSectionChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("InfrastructureComponentEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "InfrastructureComponentEntry";
-        n.classSectionId = "INFCOMENT";
+        n.classSectionId = "INFCOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InfrastructureComponentEntry";
         n.docComment = "Infrastructure component entry.";
@@ -68890,8 +68890,8 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ScreenElementEntry";
     (*ln).memberName = "validationRules";
-    (*ln).sectionId = "ELVARUEN-VALI-LST";
-    (*ln).sectionIdPattern = "ELVARUEN-VALI-xxx";
+    (*ln).sectionId = "ELVARU-VALI-LST";
+    (*ln).sectionIdPattern = "ELVARU-VALI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ElementValidationRuleEntry";
     (*ln).hasSerializationOrder = true;
@@ -68902,7 +68902,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     ln->elementNode = metaCx("ElementValidationRuleEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ElementValidationRuleEntry";
-        n.classSectionId = "ELVARUEN";
+        n.classSectionId = "ELVARU";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ElementValidationRuleEntry";
         n.docComment = "A validation rule entry (form).";
@@ -69267,8 +69267,8 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "ScreenEntry";
     (*ln).memberName = "responsiveRules";
-    (*ln).sectionId = "SCRERUEN-RESP-LST";
-    (*ln).sectionIdPattern = "SCRERUEN-RESP-xxx";
+    (*ln).sectionId = "SCRERU-RESP-LST";
+    (*ln).sectionIdPattern = "SCRERU-RESP-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ScreenResponsiveRuleEntry";
     (*ln).hasSerializationOrder = true;
@@ -69279,7 +69279,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     ln->elementNode = metaCx("ScreenResponsiveRuleEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ScreenResponsiveRuleEntry";
-        n.classSectionId = "SCRERUEN";
+        n.classSectionId = "SCRERU";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenResponsiveRuleEntry";
         n.docComment = "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.";
@@ -69951,7 +69951,7 @@ void buildScreenTransitionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "ScreenFlowOutcome", "Outcome", true, "success — the action completed; error — processing failed; validationError — the input was rejected", 2, std::vector<std::string>{"success", "error", "validationError"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", 4, std::vector<std::string>{"replace", "popupOverlay"}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCOEN registry); for validationError, the validation message template (VMT registry) — empty for success", 5, std::vector<std::string>{}, std::vector<std::string>{"SYERCOEN.errorCode", "VMT.messageId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCO registry); for validationError, the validation message template (VMT registry) — empty for success", 5, std::vector<std::string>{}, std::vector<std::string>{"SYERCO.errorCode", "VMT.messageId"}});
     parent.addChild(std::move(n));
   }
 }
@@ -70003,8 +70003,8 @@ void buildSecondaryNavigationChildren(som::SomMetaNode& parent, std::vector<std:
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SecondaryNavigation";
     (*ln).memberName = "tabBars";
-    (*ln).sectionId = "TABADEEN-TABB-LST";
-    (*ln).sectionIdPattern = "TABADEEN-TABB-xxx";
+    (*ln).sectionId = "TABADE-TABB-LST";
+    (*ln).sectionIdPattern = "TABADE-TABB-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "TabBarDefinitionEntry";
     (*ln).hasSerializationOrder = true;
@@ -70015,7 +70015,7 @@ void buildSecondaryNavigationChildren(som::SomMetaNode& parent, std::vector<std:
     ln->elementNode = metaCx("TabBarDefinitionEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "TabBarDefinitionEntry";
-        n.classSectionId = "TABADEEN";
+        n.classSectionId = "TABADE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "TabBarDefinitionEntry";
         n.docComment = "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.";
@@ -76548,8 +76548,8 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "StandardsComplianceSection";
     (*ln).memberName = "itStandards";
-    (*ln).sectionId = "ITSTCOEN-ITST-LST";
-    (*ln).sectionIdPattern = "ITSTCOEN-ITST-xxx";
+    (*ln).sectionId = "ITSTCO-ITST-LST";
+    (*ln).sectionIdPattern = "ITSTCO-ITST-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ItStandardComplianceEntry";
     (*ln).hasSerializationOrder = true;
@@ -76560,7 +76560,7 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     ln->elementNode = metaCx("ItStandardComplianceEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ItStandardComplianceEntry";
-        n.classSectionId = "ITSTCOEN";
+        n.classSectionId = "ITSTCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ItStandardComplianceEntry";
         n.docComment = "IT standard compliance entry (ISO, IEEE, NIST, OASIS).";
@@ -76573,8 +76573,8 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "StandardsComplianceSection";
     (*ln).memberName = "industryProtocols";
-    (*ln).sectionId = "INPRCOEN-INDU-LST";
-    (*ln).sectionIdPattern = "INPRCOEN-INDU-xxx";
+    (*ln).sectionId = "INPRCO-INDU-LST";
+    (*ln).sectionIdPattern = "INPRCO-INDU-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "IndustryProtocolComplianceEntry";
     (*ln).hasSerializationOrder = true;
@@ -76585,7 +76585,7 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     ln->elementNode = metaCx("IndustryProtocolComplianceEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "IndustryProtocolComplianceEntry";
-        n.classSectionId = "INPRCOEN";
+        n.classSectionId = "INPRCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "IndustryProtocolComplianceEntry";
         n.docComment = "Industry protocol compliance entry.";
@@ -76598,8 +76598,8 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "StandardsComplianceSection";
     (*ln).memberName = "interfaceSpecifications";
-    (*ln).sectionId = "INTSPEENT-INTE-LST";
-    (*ln).sectionIdPattern = "INTSPEENT-INTE-xxx";
+    (*ln).sectionId = "INTSPE-INTE-LST";
+    (*ln).sectionIdPattern = "INTSPE-INTE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "InterfaceSpecificationEntry";
     (*ln).hasSerializationOrder = true;
@@ -76610,7 +76610,7 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     ln->elementNode = metaCx("InterfaceSpecificationEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "InterfaceSpecificationEntry";
-        n.classSectionId = "INTSPEENT";
+        n.classSectionId = "INTSPE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "InterfaceSpecificationEntry";
         n.docComment = "Interface specification entry (REST, GraphQL, gRPC, SOAP).";
@@ -76648,8 +76648,8 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "StandardsComplianceSection";
     (*ln).memberName = "securityStandards";
-    (*ln).sectionId = "SESTCOEN-SECU-LST";
-    (*ln).sectionIdPattern = "SESTCOEN-SECU-xxx";
+    (*ln).sectionId = "SESTCO-SECU-LST";
+    (*ln).sectionIdPattern = "SESTCO-SECU-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SecurityStandardComplianceEntry";
     (*ln).hasSerializationOrder = true;
@@ -76660,7 +76660,7 @@ void buildStandardsComplianceSectionChildren(som::SomMetaNode& parent, std::vect
     ln->elementNode = metaCx("SecurityStandardComplianceEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SecurityStandardComplianceEntry";
-        n.classSectionId = "SESTCOEN";
+        n.classSectionId = "SESTCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SecurityStandardComplianceEntry";
         n.docComment = "Security standard compliance entry (SOC2, ISO 27001, CIS).";
@@ -77949,8 +77949,8 @@ void buildSystemBusinessCriticalityChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemBusinessCriticality";
     (*ln).memberName = "businessUnits";
-    (*ln).sectionId = "SYBUUNEN-BUSI-LST";
-    (*ln).sectionIdPattern = "SYBUUNEN-BUSI-xxx";
+    (*ln).sectionId = "SYBUUN-BUSI-LST";
+    (*ln).sectionIdPattern = "SYBUUN-BUSI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SystemBusinessUnitEntry";
     (*ln).hasSerializationOrder = true;
@@ -77961,7 +77961,7 @@ void buildSystemBusinessCriticalityChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("SystemBusinessUnitEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SystemBusinessUnitEntry";
-        n.classSectionId = "SYBUUNEN";
+        n.classSectionId = "SYBUUN";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemBusinessUnitEntry";
         n.docComment = "Business unit using the system.";
@@ -77974,8 +77974,8 @@ void buildSystemBusinessCriticalityChildren(som::SomMetaNode& parent, std::vecto
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemBusinessCriticality";
     (*ln).memberName = "supportedProcesses";
-    (*ln).sectionId = "SYBUPREN-SUPP-LST";
-    (*ln).sectionIdPattern = "SYBUPREN-SUPP-xxx";
+    (*ln).sectionId = "SYBUPR-SUPP-LST";
+    (*ln).sectionIdPattern = "SYBUPR-SUPP-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SystemBusinessProcessEntry";
     (*ln).hasSerializationOrder = true;
@@ -77986,7 +77986,7 @@ void buildSystemBusinessCriticalityChildren(som::SomMetaNode& parent, std::vecto
     ln->elementNode = metaCx("SystemBusinessProcessEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SystemBusinessProcessEntry";
-        n.classSectionId = "SYBUPREN";
+        n.classSectionId = "SYBUPR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemBusinessProcessEntry";
         n.docComment = "Business process supported.";
@@ -78429,8 +78429,8 @@ void buildSystemDataScopeChildren(som::SomMetaNode& parent, std::vector<std::str
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemDataScope";
     (*ln).memberName = "entities";
-    (*ln).sectionId = "DAENMIEN-ENTI-LST";
-    (*ln).sectionIdPattern = "DAENMIEN-ENTI-xxx";
+    (*ln).sectionId = "DAENMI-ENTI-LST";
+    (*ln).sectionIdPattern = "DAENMI-ENTI-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "DataEntityMigrationEntry";
     (*ln).hasSerializationOrder = true;
@@ -78441,7 +78441,7 @@ void buildSystemDataScopeChildren(som::SomMetaNode& parent, std::vector<std::str
     ln->elementNode = metaCx("DataEntityMigrationEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "DataEntityMigrationEntry";
-        n.classSectionId = "DAENMIEN";
+        n.classSectionId = "DAENMI";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "DataEntityMigrationEntry";
         n.docComment = "A data entity migration entry.";
@@ -78975,8 +78975,8 @@ void buildSystemErrorDisplayChildren(som::SomMetaNode& parent, std::vector<std::
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemErrorDisplay";
     (*ln).memberName = "errorCodes";
-    (*ln).sectionId = "SYERCOEN-ERRO-LST";
-    (*ln).sectionIdPattern = "SYERCOEN-ERRO-xxx";
+    (*ln).sectionId = "SYERCO-ERRO-LST";
+    (*ln).sectionIdPattern = "SYERCO-ERRO-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SystemErrorCodeEntry";
     (*ln).hasSerializationOrder = true;
@@ -78987,7 +78987,7 @@ void buildSystemErrorDisplayChildren(som::SomMetaNode& parent, std::vector<std::
     ln->elementNode = metaCx("SystemErrorCodeEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SystemErrorCodeEntry";
-        n.classSectionId = "SYERCOEN";
+        n.classSectionId = "SYERCO";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemErrorCodeEntry";
         n.docComment = "A system error code entry.";
@@ -79323,8 +79323,8 @@ void buildSystemMigrationPlanChildren(som::SomMetaNode& parent, std::vector<std:
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemMigrationPlan";
     (*ln).memberName = "risks";
-    (*ln).sectionId = "SYMIRIEN-RISK-LST";
-    (*ln).sectionIdPattern = "SYMIRIEN-RISK-xxx";
+    (*ln).sectionId = "SYMIRI-RISK-LST";
+    (*ln).sectionIdPattern = "SYMIRI-RISK-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "SystemMigrationRiskEntry";
     (*ln).hasSerializationOrder = true;
@@ -79335,7 +79335,7 @@ void buildSystemMigrationPlanChildren(som::SomMetaNode& parent, std::vector<std:
     ln->elementNode = metaCx("SystemMigrationRiskEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "SystemMigrationRiskEntry";
-        n.classSectionId = "SYMIRIEN";
+        n.classSectionId = "SYMIRI";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "SystemMigrationRiskEntry";
         n.docComment = "A system migration risk entry.";
@@ -80897,8 +80897,8 @@ void buildSystemToReplaceEntryChildren(som::SomMetaNode& parent, std::vector<std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemToReplaceEntry";
     (*ln).memberName = "dependencies";
-    (*ln).sectionId = "REPSDEP-DEPE-LST";
-    (*ln).sectionIdPattern = "REPSDEP-DEPE-xxx";
+    (*ln).sectionId = "RESYDE-DEPE-LST";
+    (*ln).sectionIdPattern = "RESYDE-DEPE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReplacementSystemDependencyEntry";
     (*ln).hasSerializationOrder = true;
@@ -80909,7 +80909,7 @@ void buildSystemToReplaceEntryChildren(som::SomMetaNode& parent, std::vector<std
     ln->elementNode = metaCx("ReplacementSystemDependencyEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ReplacementSystemDependencyEntry";
-        n.classSectionId = "REPSDEP";
+        n.classSectionId = "RESYDE";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ReplacementSystemDependencyEntry";
         n.docComment = "A system dependency entry.\n\nDocuments integrations and dependencies with other systems.";
@@ -81124,8 +81124,8 @@ void buildSystemUserImpactChildren(som::SomMetaNode& parent, std::vector<std::st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "SystemUserImpact";
     (*ln).memberName = "userGroups";
-    (*ln).sectionId = "USGRIMEN-USER-LST";
-    (*ln).sectionIdPattern = "USGRIMEN-USER-xxx";
+    (*ln).sectionId = "USGRIM-USER-LST";
+    (*ln).sectionIdPattern = "USGRIM-USER-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "UserGroupImpactEntry";
     (*ln).hasSerializationOrder = true;
@@ -81136,7 +81136,7 @@ void buildSystemUserImpactChildren(som::SomMetaNode& parent, std::vector<std::st
     ln->elementNode = metaCx("UserGroupImpactEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "UserGroupImpactEntry";
-        n.classSectionId = "USGRIMEN";
+        n.classSectionId = "USGRIM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UserGroupImpactEntry";
         n.docComment = "User group impact entry.";
@@ -81945,8 +81945,8 @@ void buildTechnicalEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "TechnicalEnvironment";
     (*ln).memberName = "integrationConstraints";
-    (*ln).sectionId = "INTCONENT-INTE-LST";
-    (*ln).sectionIdPattern = "INTCONENT-INTE-xxx";
+    (*ln).sectionId = "INTCON-INTE-LST";
+    (*ln).sectionIdPattern = "INTCON-INTE-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "IntegrationConstraintEntry";
     (*ln).hasSerializationOrder = true;
@@ -81957,7 +81957,7 @@ void buildTechnicalEnvironmentChildren(som::SomMetaNode& parent, std::vector<std
     ln->elementNode = metaCx("IntegrationConstraintEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "IntegrationConstraintEntry";
-        n.classSectionId = "INTCONENT";
+        n.classSectionId = "INTCON";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "IntegrationConstraintEntry";
         n.docComment = "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.";
@@ -86616,7 +86616,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "identity";
-    (*n).sectionId = "UICOMENT-IDEN";
+    (*n).sectionId = "UICOM-IDEN";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86667,7 +86667,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "visualDesign";
-    (*n).sectionId = "UICOMENT-VISU";
+    (*n).sectionId = "UICOM-VISU";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86749,7 +86749,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "interactiveBehavior";
-    (*n).sectionId = "UICOMENT-INTE";
+    (*n).sectionId = "UICOM-INTE";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86818,7 +86818,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "responsiveness";
-    (*n).sectionId = "UICOMENT-RESP";
+    (*n).sectionId = "UICOM-RESP";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86837,7 +86837,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "accessibility";
-    (*n).sectionId = "UICOMENT-ACCE";
+    (*n).sectionId = "UICOM-ACCE";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86857,7 +86857,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "authorization";
-    (*n).sectionId = "UICOMENT-AUTH";
+    (*n).sectionId = "UICOM-AUTH";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86876,7 +86876,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "resourceIntegration";
-    (*n).sectionId = "UICOMENT-RESO";
+    (*n).sectionId = "UICOM-RESO";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86897,7 +86897,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UiComponentEntry";
     (*n).memberName = "dataBinding";
-    (*n).sectionId = "UICOMENT-DATA";
+    (*n).sectionId = "UICOM-DATA";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
@@ -86929,8 +86929,8 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "UiComponentEntry";
     (*ln).memberName = "states";
-    (*ln).sectionId = "COMSTAENT-STAT-LST";
-    (*ln).sectionIdPattern = "COMSTAENT-STAT-xxx";
+    (*ln).sectionId = "COMSTA-STAT-LST";
+    (*ln).sectionIdPattern = "COMSTA-STAT-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ComponentStateEntry";
     (*ln).hasSerializationOrder = true;
@@ -86941,7 +86941,7 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     ln->elementNode = metaCx("ComponentStateEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "ComponentStateEntry";
-        n.classSectionId = "COMSTAENT";
+        n.classSectionId = "COMSTA";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ComponentStateEntry";
         n.docComment = "A component state entry.\n\nDefines a visual/functional state of the component.";
@@ -87140,8 +87140,8 @@ void buildUiComponentsChildren(som::SomMetaNode& parent, std::vector<std::string
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "UiComponents";
     (*ln).memberName = "componentSpecs";
-    (*ln).sectionId = "UICOMENT-COMP-LST";
-    (*ln).sectionIdPattern = "UICOMENT-COMP-xxx";
+    (*ln).sectionId = "UICOM-COMP-LST";
+    (*ln).sectionIdPattern = "UICOM-COMP-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "UiComponentEntry";
     (*ln).hasSerializationOrder = true;
@@ -87152,7 +87152,7 @@ void buildUiComponentsChildren(som::SomMetaNode& parent, std::vector<std::string
     ln->elementNode = metaCx("UiComponentEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "UiComponentEntry";
-        n.classSectionId = "UICOMENT";
+        n.classSectionId = "UICOM";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UiComponentEntry";
         n.docComment = "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.";
@@ -89659,8 +89659,8 @@ void buildUtilityNavigationChildren(som::SomMetaNode& parent, std::vector<std::s
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "UtilityNavigation";
     (*ln).memberName = "items";
-    (*ln).sectionId = "UTNAITEN-ITEM-LST";
-    (*ln).sectionIdPattern = "UTNAITEN-ITEM-xxx";
+    (*ln).sectionId = "UTNAIT-ITEM-LST";
+    (*ln).sectionIdPattern = "UTNAIT-ITEM-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "UtilityNavigationItemEntry";
     (*ln).hasSerializationOrder = true;
@@ -89671,7 +89671,7 @@ void buildUtilityNavigationChildren(som::SomMetaNode& parent, std::vector<std::s
     ln->elementNode = metaCx("UtilityNavigationItemEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "UtilityNavigationItemEntry";
-        n.classSectionId = "UTNAITEN";
+        n.classSectionId = "UTNAIT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UtilityNavigationItemEntry";
         n.docComment = "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.";
@@ -89753,8 +89753,8 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "UtilityNavigationItemEntry";
     (*ln).memberName = "menuItems";
-    (*ln).sectionId = "UTMEITEN-MENU-LST";
-    (*ln).sectionIdPattern = "UTMEITEN-MENU-xxx";
+    (*ln).sectionId = "UTMEIT-MENU-LST";
+    (*ln).sectionIdPattern = "UTMEIT-MENU-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "UtilityMenuItemEntry";
     (*ln).hasSerializationOrder = true;
@@ -89765,7 +89765,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     ln->elementNode = metaCx("UtilityMenuItemEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "UtilityMenuItemEntry";
-        n.classSectionId = "UTMEITEN";
+        n.classSectionId = "UTMEIT";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "UtilityMenuItemEntry";
         n.docComment = "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).";
@@ -90660,8 +90660,8 @@ void buildWcagComplianceChildren(som::SomMetaNode& parent, std::vector<std::stri
     auto ln = std::make_unique<som::SomMetaNode>();
     (*ln).className = "WcagCompliance";
     (*ln).memberName = "successCriteria";
-    (*ln).sectionId = "WCSUCREN-SUCC-LST";
-    (*ln).sectionIdPattern = "WCSUCREN-SUCC-xxx";
+    (*ln).sectionId = "WCSUCR-SUCC-LST";
+    (*ln).sectionIdPattern = "WCSUCR-SUCC-xxx";
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "WcagSuccessCriterionEntry";
     (*ln).hasSerializationOrder = true;
@@ -90672,7 +90672,7 @@ void buildWcagComplianceChildren(som::SomMetaNode& parent, std::vector<std::stri
     ln->elementNode = metaCx("WcagSuccessCriterionEntry", stack,
       [](som::SomMetaNode& n) {
         n.className = "WcagSuccessCriterionEntry";
-        n.classSectionId = "WCSUCREN";
+        n.classSectionId = "WCSUCR";
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "WcagSuccessCriterionEntry";
         n.docComment = "A WCAG success criterion entry.";
@@ -95451,7 +95451,7 @@ NavAlertNotificationChannels navAlertingConfiguration_notificationChannels(NavAl
   return NavAlertNotificationChannels{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "notificationChannels"))};
 }
 som::SomListMetaRef navAlertingConfiguration_alertRules(NavAlertingConfiguration x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALERULENT-ALER-LST"), metaNavFactoryAlertRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALERUL-ALER-LST"), metaNavFactoryAlertRuleEntry);
 }
 NavAlertEscalationPolicies navAlertingConfiguration_escalationPolicies(NavAlertingConfiguration x) {
   return NavAlertEscalationPolicies{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "escalationPolicies"))};
@@ -95982,10 +95982,10 @@ som::SomListMetaRef navAuthorizationRoleEntry_entitlementReferences(NavAuthoriza
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENREFE-ENTI-LST"), metaNavFactoryEntitlementReferenceEntry);
 }
 som::SomListMetaRef navAuthorizationRoleEntry_directPermissions(NavAuthorizationRoleEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLPERM-DIRE-LST"), metaNavFactoryRolePermissionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLPER-DIRE-LST"), metaNavFactoryRolePermissionEntry);
 }
 som::SomListMetaRef navAuthorizationRoleEntry_dataScopes(NavAuthorizationRoleEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLDSCP-DATA-LST"), metaNavFactoryRoleDataScopeEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RODASC-DATA-LST"), metaNavFactoryRoleDataScopeEntry);
 }
 som::SomListMetaRef navAuthorizationRoleEntry_mutualExclusions(NavAuthorizationRoleEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLEXC-MUTU-LST"), metaNavFactoryRoleExclusionEntry);
@@ -96930,13 +96930,13 @@ som::SomListMetaRef navClientRequirementsSection_clientApplications(NavClientReq
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CLIAPP-CLIE-LST"), metaNavFactoryClientApplicationEntry);
 }
 som::SomListMetaRef navClientRequirementsSection_browserRequirements(NavClientRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BROREQENT-BROW-LST"), metaNavFactoryBrowserRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BROREQ-BROW-LST"), metaNavFactoryBrowserRequirementEntry);
 }
 som::SomListMetaRef navClientRequirementsSection_desktopOsRequirements(NavClientRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEOSREEN-DESK-LST"), metaNavFactoryDesktopOsRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEOSRE-DESK-LST"), metaNavFactoryDesktopOsRequirementEntry);
 }
 som::SomListMetaRef navClientRequirementsSection_mobileRequirements(NavClientRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MODEREEN-MOBI-LST"), metaNavFactoryMobileDeviceRequirementEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MODERE-MOBI-LST"), metaNavFactoryMobileDeviceRequirementEntry);
 }
 NavDisplayRequirements navClientRequirementsSection_displayRequirements(NavClientRequirementsSection x) {
   return NavDisplayRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "displayRequirements"))};
@@ -97167,13 +97167,13 @@ som::SomListMetaRef navCompatibilityRequirementsSection_osCompatibility(NavCompa
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OCE-OSCO-LST"), metaNavFactoryOsCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_browserCompatibility(NavCompatibilityRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BROCOMENT-BROW-LST"), metaNavFactoryBrowserCompatibilityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BROCOM-BROW-LST"), metaNavFactoryBrowserCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_databaseCompatibility(NavCompatibilityRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATCOMENT-DATA-LST"), metaNavFactoryDatabaseCompatibilityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DATCOM-DATA-LST"), metaNavFactoryDatabaseCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_enterpriseSystemCompatibility(NavCompatibilityRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENSYCOEN-ENTE-LST"), metaNavFactoryEnterpriseSystemCompatibilityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENSYCO-ENTE-LST"), metaNavFactoryEnterpriseSystemCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_apiCompatibility(NavCompatibilityRequirementsSection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "APCP-APIC-LST"), metaNavFactoryApiCompatibilityEntry);
@@ -97182,10 +97182,10 @@ som::SomListMetaRef navCompatibilityRequirementsSection_legacyCompatibility(NavC
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "LCE-LEGA-LST"), metaNavFactoryLegacyCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_mobileCompatibility(NavCompatibilityRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MOBCOMENT-MOBI-LST"), metaNavFactoryMobileCompatibilityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MOBCOM-MOBI-LST"), metaNavFactoryMobileCompatibilityEntry);
 }
 som::SomListMetaRef navCompatibilityRequirementsSection_thirdPartyCompatibility(NavCompatibilityRequirementsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "THPACOEN-THIR-LST"), metaNavFactoryThirdPartyCompatibilityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "THPACO-THIR-LST"), metaNavFactoryThirdPartyCompatibilityEntry);
 }
 NavDataFormatCompatibility navCompatibilityRequirementsSection_dataFormatCompatibility(NavCompatibilityRequirementsSection x) {
   return NavDataFormatCompatibility{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataFormatCompatibility"))};
@@ -100182,7 +100182,7 @@ som::SomMetaRef navEntitlementEntry_content(NavEntitlementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navEntitlementEntry_resourceKeyReferences(NavEntitlementEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESKREF-RESO-LST"), metaNavFactoryResourceKeyReferenceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REKERE-RESO-LST"), metaNavFactoryResourceKeyReferenceEntry);
 }
 som::SomMetaRef navEntitlementReferenceEntry_content(NavEntitlementReferenceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100635,7 +100635,7 @@ NavAuthorizationRequirementSpec navExportFormatEntry_access(NavExportFormatEntry
   return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomListMetaRef navExportFormatEntry_fieldMappings(NavExportFormatEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXFIMAEN-FIEL-LST"), metaNavFactoryExportFieldMappingEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXFIMA-FIEL-LST"), metaNavFactoryExportFieldMappingEntry);
 }
 som::SomMetaRef navExportSizeSettings_content(NavExportSizeSettings x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100692,7 +100692,7 @@ som::SomMetaRef navExternalConnectivitySection_overview(NavExternalConnectivityS
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
 }
 som::SomListMetaRef navExternalConnectivitySection_partnerConnections(NavExternalConnectivitySection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXPACOEN-PART-LST"), metaNavFactoryExternalPartnerConnectionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXPACO-PART-LST"), metaNavFactoryExternalPartnerConnectionEntry);
 }
 NavCloudServiceIntegrations navExternalConnectivitySection_cloudServices(NavExternalConnectivitySection x) {
   return NavCloudServiceIntegrations{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "cloudServices"))};
@@ -100821,13 +100821,13 @@ som::SomMetaRef navExternalSystemContextEntry_governance(NavExternalSystemContex
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ESCEG"));
 }
 som::SomMetaRef navExternalSystemContextEntry_dataMapping(NavExternalSystemContextEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCOEN-DATA"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCO-DATA"));
 }
 som::SomMetaRef navExternalSystemsContext_content(NavExternalSystemsContext x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navExternalSystemsContext_systems(NavExternalSystemsContext x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCOEN-SYST-LST"), metaNavFactoryExternalSystemContextEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCO-SYST-LST"), metaNavFactoryExternalSystemContextEntry);
 }
 som::SomMetaRef navFamilyComponentRef_content(NavFamilyComponentRef x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -101907,7 +101907,7 @@ som::SomMetaRef navInterfaceBusinessContext_content(NavInterfaceBusinessContext 
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navInterfaceBusinessContext_dependentProcesses(NavInterfaceBusinessContext x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INBUPREN-DEPE-LST"), metaNavFactoryInterfaceBusinessProcessEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INBUPR-DEPE-LST"), metaNavFactoryInterfaceBusinessProcessEntry);
 }
 som::SomMetaRef navInterfaceBusinessProcessEntry_content(NavInterfaceBusinessProcessEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -101919,7 +101919,7 @@ som::SomMetaRef navInterfaceDataSpec_content(NavInterfaceDataSpec x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navInterfaceDataSpec_dataEntities(NavInterfaceDataSpec x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INDAENEN-DATA-LST"), metaNavFactoryInterfaceDataEntityEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INDAEN-DATA-LST"), metaNavFactoryInterfaceDataEntityEntry);
 }
 som::SomListMetaRef navInterfaceDataSpec_mappingRules(NavInterfaceDataSpec x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INDASP-MAPP-LST"), metaLeafFactory);
@@ -102030,7 +102030,7 @@ som::SomMetaRef navInterfaceTesting_strategy(NavInterfaceTesting x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTEST"));
 }
 som::SomListMetaRef navInterfaceTesting_testScenarios(NavInterfaceTesting x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTESCEN-TEST-LST"), metaNavFactoryInterfaceTestScenarioEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTESC-TEST-LST"), metaNavFactoryInterfaceTestScenarioEntry);
 }
 som::SomMetaRef navInternalDependencies_content(NavInternalDependencies x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -102741,7 +102741,7 @@ NavDistributedTracingSpec navMetricsAndObservability_distributedTracing(NavMetri
   return NavDistributedTracingSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "distributedTracing"))};
 }
 som::SomListMetaRef navMetricsAndObservability_customMetrics(NavMetricsAndObservability x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUSMETENT-CUST-LST"), metaNavFactoryCustomMetricEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CUSMET-CUST-LST"), metaNavFactoryCustomMetricEntry);
 }
 som::SomMetaRef navMetricsBaselineEntry_content(NavMetricsBaselineEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -103107,7 +103107,7 @@ NavAlertingRequirements navMonitoringAndAlertingSection_alerting(NavMonitoringAn
   return NavAlertingRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "alerting"))};
 }
 som::SomListMetaRef navMonitoringAndAlertingSection_alertDefinitions(NavMonitoringAndAlertingSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALEDEFENT-ALER-LST"), metaNavFactoryAlertDefinitionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ALEDEF-ALER-LST"), metaNavFactoryAlertDefinitionEntry);
 }
 NavDashboardRequirements navMonitoringAndAlertingSection_dashboards(NavMonitoringAndAlertingSection x) {
   return NavDashboardRequirements{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dashboards"))};
@@ -103185,7 +103185,7 @@ NavLanguageCountrySelection navMultiLanguageSupport_languageCountrySelection(Nav
   return NavLanguageCountrySelection{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "languageCountrySelection"))};
 }
 som::SomListMetaRef navMultiLanguageSupport_supportedLocales(NavMultiLanguageSupport x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SUPLOCENT-SUPP-LST"), metaNavFactorySupportedLocaleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SUPLOC-SUPP-LST"), metaNavFactorySupportedLocaleEntry);
 }
 som::SomMetaRef navMustPassCriteria_mustPassOverviewContent(NavMustPassCriteria x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "MUPACR-MUST"));
@@ -103848,7 +103848,7 @@ som::SomMetaRef navOutOfScope_scopePhilosophy(NavOutOfScope x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "scopePhilosophy"));
 }
 som::SomListMetaRef navOutOfScope_items(NavOutOfScope x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OUOFSCEN-ITEM-LST"), metaNavFactoryOutOfScopeEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "OUTSCO-ITEM-LST"), metaNavFactoryOutOfScopeEntry);
 }
 som::SomMetaRef navOutOfScopeEntry_content(NavOutOfScopeEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -104142,7 +104142,7 @@ som::SomMetaRef navPhaseGateReviews_gateReviewNarrative(NavPhaseGateReviews x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gateReviewNarrative"));
 }
 som::SomListMetaRef navPhaseGateReviews_items(NavPhaseGateReviews x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PHGAREEN-ITEM-LST"), metaNavFactoryPhaseGateReviewEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "PHGREV-ITEM-LST"), metaNavFactoryPhaseGateReviewEntry);
 }
 som::SomMetaRef navPhysicalWorkplaceRequirements_content(NavPhysicalWorkplaceRequirements x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -104205,7 +104205,7 @@ som::SomListMetaRef navPlatformAndLanguage_buildToolchain(NavPlatformAndLanguage
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BTCEN-BUIL-LST"), metaNavFactoryBuildToolchainEntry);
 }
 som::SomListMetaRef navPlatformAndLanguage_deploymentTargets(NavPlatformAndLanguage x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEPTARENT-DEPL-LST"), metaNavFactoryDeploymentTargetEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DEPTAR-DEPL-LST"), metaNavFactoryDeploymentTargetEntry);
 }
 NavDependencyManagement navPlatformAndLanguage_dependencyManagement(NavPlatformAndLanguage x) {
   return NavDependencyManagement{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dependencyManagement"))};
@@ -105336,7 +105336,7 @@ som::SomListMetaRef navReportEntry_filters(NavReportEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFE-FILT-LST"), metaNavFactoryReportFilterEntry);
 }
 som::SomListMetaRef navReportEntry_schedules(NavReportEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSCHENT-SCHE-LST"), metaNavFactoryReportScheduleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSCH-SCHE-LST"), metaNavFactoryReportScheduleEntry);
 }
 som::SomListMetaRef navReportEntry_distributions(NavReportEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RDE-DIST-LST"), metaNavFactoryReportDistributionEntry);
@@ -105417,10 +105417,10 @@ som::SomMetaRef navReportSectionEntry_aggregation(NavReportSectionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESEAG"));
 }
 som::SomListMetaRef navReportSectionEntry_columns(NavReportSectionEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCOLENT-COLU-LST"), metaNavFactoryReportColumnEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCOL-COLU-LST"), metaNavFactoryReportColumnEntry);
 }
 som::SomListMetaRef navReportSectionEntry_charts(NavReportSectionEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCHAENT-CHAR-LST"), metaNavFactoryReportChartEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCHA-CHAR-LST"), metaNavFactoryReportChartEntry);
 }
 som::SomMetaRef navRequirementAcceptanceCriteria_content(NavRequirementAcceptanceCriteria x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -105726,10 +105726,10 @@ som::SomListMetaRef navReusableComponentsSection_uiComponents(NavReusableCompone
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RUCE-UICO-LST"), metaNavFactoryReusableUiComponentEntry);
 }
 som::SomListMetaRef navReusableComponentsSection_businessComponents(NavReusableComponentsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BUSCOMENT-BUSI-LST"), metaNavFactoryBusinessComponentEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "BUSCOM-BUSI-LST"), metaNavFactoryBusinessComponentEntry);
 }
 som::SomListMetaRef navReusableComponentsSection_infrastructureComponents(NavReusableComponentsSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INFCOMENT-INFR-LST"), metaNavFactoryInfrastructureComponentEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INFCOM-INFR-LST"), metaNavFactoryInfrastructureComponentEntry);
 }
 som::SomListMetaRef navReusableComponentsSection_thirdPartyLibraries(NavReusableComponentsSection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "THPALI-THIR-LST"), metaNavFactoryThirdPartyLibraryEntry);
@@ -106275,7 +106275,7 @@ NavScreenElementDataDisplay navScreenElementEntry_dataDisplay(NavScreenElementEn
   return NavScreenElementDataDisplay{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataDisplay"))};
 }
 som::SomListMetaRef navScreenElementEntry_validationRules(NavScreenElementEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ELVARUEN-VALI-LST"), metaNavFactoryElementValidationRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ELVARU-VALI-LST"), metaNavFactoryElementValidationRuleEntry);
 }
 som::SomMetaRef navScreenElementFieldSpec_content(NavScreenElementFieldSpec x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -106335,7 +106335,7 @@ som::SomListMetaRef navScreenEntry_entryPoints(NavScreenEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EPNT-ENTR-LST"), metaNavFactoryEntryPointEntry);
 }
 som::SomListMetaRef navScreenEntry_responsiveRules(NavScreenEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRERUEN-RESP-LST"), metaNavFactoryScreenResponsiveRuleEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRERU-RESP-LST"), metaNavFactoryScreenResponsiveRuleEntry);
 }
 som::SomMetaRef navScreenFieldEntry_content(NavScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -106452,7 +106452,7 @@ som::SomMetaRef navSecondaryNavigation_overview(NavSecondaryNavigation x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
 }
 som::SomListMetaRef navSecondaryNavigation_tabBars(NavSecondaryNavigation x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "TABADEEN-TABB-LST"), metaNavFactoryTabBarDefinitionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "TABADE-TABB-LST"), metaNavFactoryTabBarDefinitionEntry);
 }
 som::SomMetaRef navSecurity_content(NavSecurity x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107568,19 +107568,19 @@ som::SomMetaRef navStandardsComplianceSection_overview(NavStandardsComplianceSec
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
 }
 som::SomListMetaRef navStandardsComplianceSection_itStandards(NavStandardsComplianceSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ITSTCOEN-ITST-LST"), metaNavFactoryItStandardComplianceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ITSTCO-ITST-LST"), metaNavFactoryItStandardComplianceEntry);
 }
 som::SomListMetaRef navStandardsComplianceSection_industryProtocols(NavStandardsComplianceSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INPRCOEN-INDU-LST"), metaNavFactoryIndustryProtocolComplianceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INPRCO-INDU-LST"), metaNavFactoryIndustryProtocolComplianceEntry);
 }
 som::SomListMetaRef navStandardsComplianceSection_interfaceSpecifications(NavStandardsComplianceSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTSPEENT-INTE-LST"), metaNavFactoryInterfaceSpecificationEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTSPE-INTE-LST"), metaNavFactoryInterfaceSpecificationEntry);
 }
 som::SomListMetaRef navStandardsComplianceSection_regulatoryCompliance(NavStandardsComplianceSection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RCE-REGU-LST"), metaNavFactoryRegulatoryComplianceEntry);
 }
 som::SomListMetaRef navStandardsComplianceSection_securityStandards(NavStandardsComplianceSection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SESTCOEN-SECU-LST"), metaNavFactorySecurityStandardComplianceEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SESTCO-SECU-LST"), metaNavFactorySecurityStandardComplianceEntry);
 }
 som::SomListMetaRef navStandardsComplianceSection_accessibilityStandards(NavStandardsComplianceSection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ACCSTD-ACCE-LST"), metaNavFactoryAccessibilityStandardEntry);
@@ -107796,10 +107796,10 @@ som::SomMetaRef navSystemBusinessCriticality_governance(NavSystemBusinessCritica
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SBCG"));
 }
 som::SomListMetaRef navSystemBusinessCriticality_businessUnits(NavSystemBusinessCriticality x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYBUUNEN-BUSI-LST"), metaNavFactorySystemBusinessUnitEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYBUUN-BUSI-LST"), metaNavFactorySystemBusinessUnitEntry);
 }
 som::SomListMetaRef navSystemBusinessCriticality_supportedProcesses(NavSystemBusinessCriticality x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYBUPREN-SUPP-LST"), metaNavFactorySystemBusinessProcessEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYBUPR-SUPP-LST"), metaNavFactorySystemBusinessProcessEntry);
 }
 som::SomMetaRef navSystemBusinessProcessEntry_content(NavSystemBusinessProcessEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -107877,7 +107877,7 @@ som::SomMetaRef navSystemDataScope_migration(NavSystemDataScope x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDASCMI"));
 }
 som::SomListMetaRef navSystemDataScope_entities(NavSystemDataScope x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENMIEN-ENTI-LST"), metaNavFactoryDataEntityMigrationEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DAENMI-ENTI-LST"), metaNavFactoryDataEntityMigrationEntry);
 }
 som::SomListMetaRef navSystemDataScope_knownQualityIssues(NavSystemDataScope x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYDASC-KNOW-LST"), metaLeafFactory);
@@ -107967,7 +107967,7 @@ som::SomListMetaRef navSystemErrorDisplay_errorPageDesigns(NavSystemErrorDisplay
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYERDI-ERRO-LST"), metaLeafFactory);
 }
 som::SomListMetaRef navSystemErrorDisplay_errorCodes(NavSystemErrorDisplay x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYERCOEN-ERRO-LST"), metaNavFactorySystemErrorCodeEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYERCO-ERRO-LST"), metaNavFactorySystemErrorCodeEntry);
 }
 som::SomMetaRef navSystemIntegrationEntry_content(NavSystemIntegrationEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -108024,7 +108024,7 @@ som::SomMetaRef navSystemMigrationPlan_cutover(NavSystemMigrationPlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SMPC"));
 }
 som::SomListMetaRef navSystemMigrationPlan_risks(NavSystemMigrationPlan x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYMIRIEN-RISK-LST"), metaNavFactorySystemMigrationRiskEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SYMIRI-RISK-LST"), metaNavFactorySystemMigrationRiskEntry);
 }
 som::SomMetaRef navSystemMigrationPlan_rollbackStrategy(NavSystemMigrationPlan x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "rollbackStrategy"));
@@ -108306,7 +108306,7 @@ NavSystemDataScope navSystemToReplaceEntry_dataScope(NavSystemToReplaceEntry x) 
   return NavSystemDataScope{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope"))};
 }
 som::SomListMetaRef navSystemToReplaceEntry_dependencies(NavSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSDEP-DEPE-LST"), metaNavFactoryReplacementSystemDependencyEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESYDE-DEPE-LST"), metaNavFactoryReplacementSystemDependencyEntry);
 }
 NavSystemUserImpact navSystemToReplaceEntry_userImpact(NavSystemToReplaceEntry x) {
   return NavSystemUserImpact{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userImpact"))};
@@ -108345,7 +108345,7 @@ som::SomMetaRef navSystemUserImpact_adoption(NavSystemUserImpact x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SUIA"));
 }
 som::SomListMetaRef navSystemUserImpact_userGroups(NavSystemUserImpact x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "USGRIMEN-USER-LST"), metaNavFactoryUserGroupImpactEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "USGRIM-USER-LST"), metaNavFactoryUserGroupImpactEntry);
 }
 som::SomMetaRef navSystemsToReplace_overview(NavSystemsToReplace x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "overview"));
@@ -108480,7 +108480,7 @@ som::SomMetaRef navTechnicalEnvironment_integrationOverview(NavTechnicalEnvironm
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "integrationOverview"));
 }
 som::SomListMetaRef navTechnicalEnvironment_integrationConstraints(NavTechnicalEnvironment x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTCONENT-INTE-LST"), metaNavFactoryIntegrationConstraintEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "INTCON-INTE-LST"), metaNavFactoryIntegrationConstraintEntry);
 }
 som::SomMetaRef navTechnicalEnvironmentNetwork_content(NavTechnicalEnvironmentNetwork x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -109236,7 +109236,7 @@ som::SomMetaRef navUatTestStepEntry_content(NavUatTestStepEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomMetaRef navUiComponentEntry_identity(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-IDEN"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-IDEN"));
 }
 som::SomMetaRef navUiComponentEntry_purposeProfile(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEP"));
@@ -109245,7 +109245,7 @@ som::SomMetaRef navUiComponentEntry_classification(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEC"));
 }
 som::SomMetaRef navUiComponentEntry_visualDesign(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-VISU"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-VISU"));
 }
 som::SomMetaRef navUiComponentEntry_dimensions(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCED"));
@@ -109260,7 +109260,7 @@ som::SomMetaRef navUiComponentEntry_visualDiagram(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "visualDiagram"));
 }
 som::SomMetaRef navUiComponentEntry_interactiveBehavior(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-INTE"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-INTE"));
 }
 som::SomMetaRef navUiComponentEntry_inputBehavior(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEIB"));
@@ -109272,25 +109272,25 @@ som::SomMetaRef navUiComponentEntry_scroll(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOENSC"));
 }
 som::SomMetaRef navUiComponentEntry_responsiveness(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-RESP"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-RESP"));
 }
 som::SomMetaRef navUiComponentEntry_accessibility(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-ACCE"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-ACCE"));
 }
 som::SomMetaRef navUiComponentEntry_authorization(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-AUTH"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-AUTH"));
 }
 som::SomMetaRef navUiComponentEntry_resourceIntegration(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-RESO"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-RESO"));
 }
 som::SomMetaRef navUiComponentEntry_dataBinding(NavUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-DATA"));
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-DATA"));
 }
 som::SomMetaRef navUiComponentEntry_behaviorNarrative(NavUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "behaviorNarrative"));
 }
 som::SomListMetaRef navUiComponentEntry_states(NavUiComponentEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMSTAENT-STAT-LST"), metaNavFactoryComponentStateEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMSTA-STAT-LST"), metaNavFactoryComponentStateEntry);
 }
 som::SomListMetaRef navUiComponentEntry_variants(NavUiComponentEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CVE-VARI-LST"), metaNavFactoryComponentVariantEntry);
@@ -109320,7 +109320,7 @@ NavComponentLibrary navUiComponents_componentLibrary(NavUiComponents x) {
   return NavComponentLibrary{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "componentLibrary"))};
 }
 som::SomListMetaRef navUiComponents_componentSpecs(NavUiComponents x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-COMP-LST"), metaNavFactoryUiComponentEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-COMP-LST"), metaNavFactoryUiComponentEntry);
 }
 som::SomListMetaRef navUiComponents_componentFamilies(NavUiComponents x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CMFA-COMP-LST"), metaNavFactoryComponentFamilyEntry);
@@ -109752,7 +109752,7 @@ som::SomMetaRef navUtilityNavigation_content(NavUtilityNavigation x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
 som::SomListMetaRef navUtilityNavigation_items(NavUtilityNavigation x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTNAITEN-ITEM-LST"), metaNavFactoryUtilityNavigationItemEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTNAIT-ITEM-LST"), metaNavFactoryUtilityNavigationItemEntry);
 }
 som::SomMetaRef navUtilityNavigationItemEntry_content(NavUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -109767,7 +109767,7 @@ som::SomMetaRef navUtilityNavigationItemEntry_behavior(NavUtilityNavigationItemE
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIEB"));
 }
 som::SomListMetaRef navUtilityNavigationItemEntry_menuItems(NavUtilityNavigationItemEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTMEITEN-MENU-LST"), metaNavFactoryUtilityMenuItemEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTMEIT-MENU-LST"), metaNavFactoryUtilityMenuItemEntry);
 }
 som::SomMetaRef navValidationConstraints_content(NavValidationConstraints x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -109920,7 +109920,7 @@ som::SomMetaRef navWcagCompliance_wcagNarrative(NavWcagCompliance x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "wcagNarrative"));
 }
 som::SomListMetaRef navWcagCompliance_successCriteria(NavWcagCompliance x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WCSUCREN-SUCC-LST"), metaNavFactoryWcagSuccessCriterionEntry);
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "WCSUCR-SUCC-LST"), metaNavFactoryWcagSuccessCriterionEntry);
 }
 som::SomMetaRef navWcagSuccessCriterionEntry_content(NavWcagSuccessCriterionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -110226,11 +110226,11 @@ som::SomListMetaRef idAuthorizationRoleEntry_RSPREF_RESP_LST(IdAuthorizationRole
 som::SomListMetaRef idAuthorizationRoleEntry_ENREFE_ENTI_LST(IdAuthorizationRoleEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ENREFE-ENTI-LST"), metaIdFactoryEntitlementReferenceEntry);
 }
-som::SomListMetaRef idAuthorizationRoleEntry_ROLPERM_DIRE_LST(IdAuthorizationRoleEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLPERM-DIRE-LST"), metaIdFactoryRolePermissionEntry);
+som::SomListMetaRef idAuthorizationRoleEntry_ROLPER_DIRE_LST(IdAuthorizationRoleEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLPER-DIRE-LST"), metaIdFactoryRolePermissionEntry);
 }
-som::SomListMetaRef idAuthorizationRoleEntry_ROLDSCP_DATA_LST(IdAuthorizationRoleEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLDSCP-DATA-LST"), metaIdFactoryRoleDataScopeEntry);
+som::SomListMetaRef idAuthorizationRoleEntry_RODASC_DATA_LST(IdAuthorizationRoleEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RODASC-DATA-LST"), metaIdFactoryRoleDataScopeEntry);
 }
 som::SomListMetaRef idAuthorizationRoleEntry_ROLEXC_MUTU_LST(IdAuthorizationRoleEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ROLEXC-MUTU-LST"), metaIdFactoryRoleExclusionEntry);
@@ -110889,8 +110889,8 @@ som::SomMetaRef idD00SolutionBlueprint_CD_LEGE(IdD00SolutionBlueprint x) {
 som::SomListMetaRef idD00SolutionBlueprint_EAE_ACTO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST"), metaIdFactoryExternalActorEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_EXSYCOEN_SYST_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCOEN-SYST-LST"), metaIdFactoryExternalSystemContextEntry);
+som::SomListMetaRef idD00SolutionBlueprint_EXSYCO_SYST_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemContext/externalSystems/EXSYCO-SYST-LST"), metaIdFactoryExternalSystemContextEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_TRBN_BOUN_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemDescription/systemContext/trustBoundaries/TRBN-BOUN-LST"), metaIdFactoryTrustBoundaryEntry);
@@ -111096,8 +111096,8 @@ som::SomListMetaRef idD00SolutionBlueprint_MIGCON_ESCA_LST(IdD00SolutionBlueprin
 som::SomListMetaRef idD00SolutionBlueprint_EIE_INTE_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST"), metaIdFactoryExternalInterfaceEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_OUOFSCEN_ITEM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST"), metaIdFactoryOutOfScopeEntry);
+som::SomListMetaRef idD00SolutionBlueprint_OUTSCO_ITEM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemBoundaries/outOfScope/OUTSCO-ITEM-LST"), metaIdFactoryOutOfScopeEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_BAE_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST"), metaIdFactoryBoundaryAssumptionEntry);
@@ -111162,8 +111162,8 @@ som::SomListMetaRef idD00SolutionBlueprint_TEEN_DATA_LST(IdD00SolutionBlueprint 
 som::SomListMetaRef idD00SolutionBlueprint_TSE_TECH_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST"), metaIdFactoryTechnologyStandardEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_INTCONENT_INTE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST"), metaIdFactoryIntegrationConstraintEntry);
+som::SomListMetaRef idD00SolutionBlueprint_INTCON_INTE_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INTCON-INTE-LST"), metaIdFactoryIntegrationConstraintEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_COANDE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "introductionAndScope/operatingEnvironment/COANDE"));
@@ -111789,8 +111789,8 @@ som::SomListMetaRef idD00SolutionBlueprint_FRREEN_FRAM_LST(IdD00SolutionBlueprin
 som::SomListMetaRef idD00SolutionBlueprint_BTCEN_BUIL_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST"), metaIdFactoryBuildToolchainEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_DEPTARENT_DEPL_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
+som::SomListMetaRef idD00SolutionBlueprint_DEPTAR_DEPL_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_DEMAVE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE"));
@@ -112218,11 +112218,11 @@ som::SomListMetaRef idD00SolutionBlueprint_SHLCP_SHAR_LST(IdD00SolutionBlueprint
 som::SomListMetaRef idD00SolutionBlueprint_RUCE_UICO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST"), metaIdFactoryReusableUiComponentEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_BUSCOMENT_BUSI_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
+som::SomListMetaRef idD00SolutionBlueprint_BUSCOM_BUSI_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_INFCOMENT_INFR_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
+som::SomListMetaRef idD00SolutionBlueprint_INFCOM_INFR_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_THPALI_THIR_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST"), metaIdFactoryThirdPartyLibraryEntry);
@@ -112254,14 +112254,14 @@ som::SomMetaRef idD00SolutionBlueprint_COREUP(IdD00SolutionBlueprint x) {
 som::SomListMetaRef idD00SolutionBlueprint_OCE_OSCO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST"), metaIdFactoryOsCompatibilityEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_BROCOMENT_BROW_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
+som::SomListMetaRef idD00SolutionBlueprint_BROCOM_BROW_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_DATCOMENT_DATA_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
+som::SomListMetaRef idD00SolutionBlueprint_DATCOM_DATA_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_ENSYCOEN_ENTE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
+som::SomListMetaRef idD00SolutionBlueprint_ENSYCO_ENTE_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_APCP_APIC_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST"), metaIdFactoryApiCompatibilityEntry);
@@ -112269,11 +112269,11 @@ som::SomListMetaRef idD00SolutionBlueprint_APCP_APIC_LST(IdD00SolutionBlueprint 
 som::SomListMetaRef idD00SolutionBlueprint_LCE_LEGA_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST"), metaIdFactoryLegacyCompatibilityEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_MOBCOMENT_MOBI_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
+som::SomListMetaRef idD00SolutionBlueprint_MOBCOM_MOBI_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_THPACOEN_THIR_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
+som::SomListMetaRef idD00SolutionBlueprint_THPACO_THIR_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_DFCF(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF"));
@@ -112311,20 +112311,20 @@ som::SomMetaRef idD00SolutionBlueprint_INRETE(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_INREGO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_ITSTCOEN_ITST_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
+som::SomListMetaRef idD00SolutionBlueprint_ITSTCO_ITST_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_INPRCOEN_INDU_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
+som::SomListMetaRef idD00SolutionBlueprint_INPRCO_INDU_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_INTSPEENT_INTE_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
+som::SomListMetaRef idD00SolutionBlueprint_INTSPE_INTE_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_RCE_REGU_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST"), metaIdFactoryRegulatoryComplianceEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_SESTCOEN_SECU_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
+som::SomListMetaRef idD00SolutionBlueprint_SESTCO_SECU_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_ACCSTD_ACCE_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST"), metaIdFactoryAccessibilityStandardEntry);
@@ -112485,14 +112485,14 @@ som::SomMetaRef idD00SolutionBlueprint_SORL(IdD00SolutionBlueprint x) {
 som::SomListMetaRef idD00SolutionBlueprint_CLIAPP_CLIE_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), metaIdFactoryClientApplicationEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_BROREQENT_BROW_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
+som::SomListMetaRef idD00SolutionBlueprint_BROREQ_BROW_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_DEOSREEN_DESK_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
+som::SomListMetaRef idD00SolutionBlueprint_DEOSRE_DESK_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_MODEREEN_MOBI_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
+som::SomListMetaRef idD00SolutionBlueprint_MODERE_MOBI_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_DIRELA(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA"));
@@ -112938,8 +112938,8 @@ som::SomMetaRef idD00SolutionBlueprint_ALRESU(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_ALRERE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_ALEDEFENT_ALER_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
+som::SomListMetaRef idD00SolutionBlueprint_ALEDEF_ALER_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_DAREST(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST"));
@@ -113106,8 +113106,8 @@ som::SomMetaRef idD00SolutionBlueprint_PCRO(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_PCRE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_EXPACOEN_PART_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
+som::SomListMetaRef idD00SolutionBlueprint_EXPACO_PART_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACO-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_CSIS(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/cloudServices/CSIS"));
@@ -113286,8 +113286,8 @@ som::SomMetaRef idD00SolutionBlueprint_ANCR(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_ANCF(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_ALERULENT_ALER_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), metaIdFactoryAlertRuleEntry);
+som::SomListMetaRef idD00SolutionBlueprint_ALERUL_ALER_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST"), metaIdFactoryAlertRuleEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_AEPT(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT"));
@@ -113349,8 +113349,8 @@ som::SomMetaRef idD00SolutionBlueprint_DITRSPSP(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_DTSO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_CUSMETENT_CUST_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), metaIdFactoryCustomMetricEntry);
+som::SomListMetaRef idD00SolutionBlueprint_CUSMET_CUST_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST"), metaIdFactoryCustomMetricEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_MODA_DASH(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"));
@@ -113814,11 +113814,11 @@ som::SomMetaRef idD00SolutionBlueprint_PNBN(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_PRNASI(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_TABADEEN_TABB_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
+som::SomListMetaRef idD00SolutionBlueprint_TABADE_TABB_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_UTNAITEN_ITEM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
+som::SomListMetaRef idD00SolutionBlueprint_UTNAIT_ITEM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_BRCO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"));
@@ -113889,8 +113889,8 @@ som::SomMetaRef idD00SolutionBlueprint_SEDF(IdD00SolutionBlueprint x) {
 som::SomListMetaRef idD00SolutionBlueprint_SYERDI_ERRO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), metaLeafFactory);
 }
-som::SomListMetaRef idD00SolutionBlueprint_SYERCOEN_ERRO_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
+som::SomListMetaRef idD00SolutionBlueprint_SYERCO_ERRO_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_ERRE_RECO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"));
@@ -113979,8 +113979,8 @@ som::SomListMetaRef idD00SolutionBlueprint_COPA_COLO_LST(IdD00SolutionBlueprint 
 som::SomListMetaRef idD00SolutionBlueprint_TYST_TYPO_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), metaIdFactoryTypographyStyleEntry);
 }
-som::SomListMetaRef idD00SolutionBlueprint_UICOMENT_COMP_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST"), metaIdFactoryUiComponentEntry);
+som::SomListMetaRef idD00SolutionBlueprint_UICOM_COMP_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOM-COMP-LST"), metaIdFactoryUiComponentEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_CMFA_COMP_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), metaIdFactoryComponentFamilyEntry);
@@ -114108,8 +114108,8 @@ som::SomMetaRef idD00SolutionBlueprint_WCCOUN(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_WCCORO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_WCSUCREN_SUCC_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST"), metaIdFactoryWcagSuccessCriterionEntry);
+som::SomListMetaRef idD00SolutionBlueprint_WCSUCR_SUCC_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST"), metaIdFactoryWcagSuccessCriterionEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_ACCHLS_CHEC(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC"));
@@ -114207,8 +114207,8 @@ som::SomMetaRef idD00SolutionBlueprint_LCSF(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_LCSU(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_SUPLOCENT_SUPP_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST"), metaIdFactorySupportedLocaleEntry);
+som::SomListMetaRef idD00SolutionBlueprint_SUPLOC_SUPP_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOC-SUPP-LST"), metaIdFactorySupportedLocaleEntry);
 }
 som::SomMetaRef idD00SolutionBlueprint_SYQG_GOVE(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "qualityAndAcceptanceModel/systemQualityGoals/SYQG-GOVE"));
@@ -114780,8 +114780,8 @@ som::SomMetaRef idD00SolutionBlueprint_PGRP(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_PGRO(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO"));
 }
-som::SomListMetaRef idD00SolutionBlueprint_PHGAREEN_ITEM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST"), metaIdFactoryPhaseGateReviewEntry);
+som::SomListMetaRef idD00SolutionBlueprint_PHGREV_ITEM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGREV-ITEM-LST"), metaIdFactoryPhaseGateReviewEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_DPE_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST"), metaIdFactoryDecisionPointEntry);
@@ -115215,8 +115215,8 @@ som::SomListMetaRef idD06ArchitectureTechnologySpecification_FRREEN_FRAM_LST(IdD
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_BTCEN_BUIL_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST"), metaIdFactoryBuildToolchainEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_DEPTARENT_DEPL_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_DEPTAR_DEPL_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/DEPTAR-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_DEMAVE(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "basicTechnicalRequirements/platformAndLanguage/dependencyManagement/DEMAVE"));
@@ -115644,11 +115644,11 @@ som::SomListMetaRef idD06ArchitectureTechnologySpecification_SHLCP_SHAR_LST(IdD0
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_RUCE_UICO_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/RUCE-UICO-LST"), metaIdFactoryReusableUiComponentEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_BUSCOMENT_BUSI_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_BUSCOM_BUSI_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/BUSCOM-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_INFCOMENT_INFR_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_INFCOM_INFR_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/INFCOM-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_THPALI_THIR_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "softwareDesignRequirements/reusableComponents/THPALI-THIR-LST"), metaIdFactoryThirdPartyLibraryEntry);
@@ -115680,14 +115680,14 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_COREUP(IdD06Architectur
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_OCE_OSCO_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST"), metaIdFactoryOsCompatibilityEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_BROCOMENT_BROW_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_BROCOM_BROW_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/BROCOM-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_DATCOMENT_DATA_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_DATCOM_DATA_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/DATCOM-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_ENSYCOEN_ENTE_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_ENSYCO_ENTE_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/ENSYCO-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_APCP_APIC_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/APCP-APIC-LST"), metaIdFactoryApiCompatibilityEntry);
@@ -115695,11 +115695,11 @@ som::SomListMetaRef idD06ArchitectureTechnologySpecification_APCP_APIC_LST(IdD06
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_LCE_LEGA_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST"), metaIdFactoryLegacyCompatibilityEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_MOBCOMENT_MOBI_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_MOBCOM_MOBI_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOBCOM-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_THPACOEN_THIR_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_THPACO_THIR_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/THPACO-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_DFCF(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/dataFormatCompatibility/DFCF"));
@@ -115737,20 +115737,20 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_INRETE(IdD06Architectur
 som::SomMetaRef idD06ArchitectureTechnologySpecification_INREGO(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO"));
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_ITSTCOEN_ITST_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_ITSTCO_ITST_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/ITSTCO-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_INPRCOEN_INDU_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_INPRCO_INDU_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INPRCO-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_INTSPEENT_INTE_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_INTSPE_INTE_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/INTSPE-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_RCE_REGU_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST"), metaIdFactoryRegulatoryComplianceEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_SESTCOEN_SECU_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_SESTCO_SECU_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/SESTCO-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
 }
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_ACCSTD_ACCE_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "standardSoftwareRequirements/standardsCompliance/ACCSTD-ACCE-LST"), metaIdFactoryAccessibilityStandardEntry);
@@ -115911,14 +115911,14 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_SORL(IdD06ArchitectureT
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_CLIAPP_CLIE_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST"), metaIdFactoryClientApplicationEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_BROREQENT_BROW_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/BROREQENT-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_BROREQ_BROW_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/BROREQ-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_DEOSREEN_DESK_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_DEOSRE_DESK_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/DEOSRE-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_MODEREEN_MOBI_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_MODERE_MOBI_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/MODERE-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_DIRELA(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "hardwareRequirements/clientRequirements/displayRequirements/DIRELA"));
@@ -116364,8 +116364,8 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_ALRESU(IdD06Architectur
 som::SomMetaRef idD06ArchitectureTechnologySpecification_ALRERE(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operationsRequirements/monitoringAndAlerting/alerting/ALRERE"));
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_ALEDEFENT_ALER_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_ALEDEF_ALER_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operationsRequirements/monitoringAndAlerting/ALEDEF-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_DAREST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "operationsRequirements/monitoringAndAlerting/dashboards/DAREST"));
@@ -116532,8 +116532,8 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_PCRO(IdD06ArchitectureT
 som::SomMetaRef idD06ArchitectureTechnologySpecification_PCRE(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationRequirements/protocolsAndStandards/compliance/PCRE"));
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_EXPACOEN_PART_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationRequirements/externalConnectivity/EXPACOEN-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_EXPACO_PART_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationRequirements/externalConnectivity/EXPACO-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_CSIS(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "communicationRequirements/externalConnectivity/cloudServices/CSIS"));
@@ -116712,8 +116712,8 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_ANCR(IdD06ArchitectureT
 som::SomMetaRef idD06ArchitectureTechnologySpecification_ANCF(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF"));
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_ALERULENT_ALER_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), metaIdFactoryAlertRuleEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_ALERUL_ALER_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERUL-ALER-LST"), metaIdFactoryAlertRuleEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_AEPT(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/escalationPolicies/AEPT"));
@@ -116775,8 +116775,8 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_DITRSPSP(IdD06Architect
 som::SomMetaRef idD06ArchitectureTechnologySpecification_DTSO(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO"));
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_CUSMETENT_CUST_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), metaIdFactoryCustomMetricEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_CUSMET_CUST_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMET-CUST-LST"), metaIdFactoryCustomMetricEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_MODA_DASH(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH"));
@@ -117135,8 +117135,8 @@ som::SomListMetaRef idD06ArchitectureTechnologySpecification_TEEN_DATA_LST(IdD06
 som::SomListMetaRef idD06ArchitectureTechnologySpecification_TSE_TECH_LST(IdD06ArchitectureTechnologySpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/TSE-TECH-LST"), metaIdFactoryTechnologyStandardEntry);
 }
-som::SomListMetaRef idD06ArchitectureTechnologySpecification_INTCONENT_INTE_LST(IdD06ArchitectureTechnologySpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/INTCONENT-INTE-LST"), metaIdFactoryIntegrationConstraintEntry);
+som::SomListMetaRef idD06ArchitectureTechnologySpecification_INTCON_INTE_LST(IdD06ArchitectureTechnologySpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalEnvironment/INTCON-INTE-LST"), metaIdFactoryIntegrationConstraintEntry);
 }
 som::SomMetaRef idD06ArchitectureTechnologySpecification_TRAREQ_TRAN(IdD06ArchitectureTechnologySpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "translationRequirements/TRAREQ-TRAN"));
@@ -117156,8 +117156,8 @@ som::SomMetaRef idD06ArchitectureTechnologySpecification_TRRETE(IdD06Architectur
 som::SomListMetaRef idD07IntegrationInterfaceSpecification_EIE_INTE_LST(IdD07IntegrationInterfaceSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "externalInterfaces/EIE-INTE-LST"), metaIdFactoryExternalInterfaceEntry);
 }
-som::SomListMetaRef idD07IntegrationInterfaceSpecification_OUOFSCEN_ITEM_LST(IdD07IntegrationInterfaceSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "outOfScope/OUOFSCEN-ITEM-LST"), metaIdFactoryOutOfScopeEntry);
+som::SomListMetaRef idD07IntegrationInterfaceSpecification_OUTSCO_ITEM_LST(IdD07IntegrationInterfaceSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "outOfScope/OUTSCO-ITEM-LST"), metaIdFactoryOutOfScopeEntry);
 }
 som::SomListMetaRef idD07IntegrationInterfaceSpecification_BAE_ITEM_LST(IdD07IntegrationInterfaceSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "boundaryAssumptions/BAE-ITEM-LST"), metaIdFactoryBoundaryAssumptionEntry);
@@ -117309,11 +117309,11 @@ som::SomMetaRef idD09ExperienceDesignSpecification_PNBN(IdD09ExperienceDesignSpe
 som::SomMetaRef idD09ExperienceDesignSpecification_PRNASI(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/primaryNavigation/PRNASI"));
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_TABADEEN_TABB_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
+som::SomListMetaRef idD09ExperienceDesignSpecification_TABADE_TABB_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_UTNAITEN_ITEM_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
+som::SomListMetaRef idD09ExperienceDesignSpecification_UTNAIT_ITEM_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_BRCO(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "screenFlow/navigationModel/contextualNavigation/BRCO"));
@@ -117408,8 +117408,8 @@ som::SomMetaRef idD09ExperienceDesignSpecification_SEDF(IdD09ExperienceDesignSpe
 som::SomListMetaRef idD09ExperienceDesignSpecification_SYERDI_ERRO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), metaLeafFactory);
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_SYERCOEN_ERRO_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
+som::SomListMetaRef idD09ExperienceDesignSpecification_SYERCO_ERRO_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_ERRE_RECO(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "errorHandling/errorRecovery/ERRE-RECO"));
@@ -117525,8 +117525,8 @@ som::SomMetaRef idD09ExperienceDesignSpecification_WCCOUN(IdD09ExperienceDesignS
 som::SomMetaRef idD09ExperienceDesignSpecification_WCCORO(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessibility/wcagComplianceLevel/WCCORO"));
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_WCSUCREN_SUCC_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST"), metaIdFactoryWcagSuccessCriterionEntry);
+som::SomListMetaRef idD09ExperienceDesignSpecification_WCSUCR_SUCC_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessibility/wcagComplianceLevel/WCSUCR-SUCC-LST"), metaIdFactoryWcagSuccessCriterionEntry);
 }
 som::SomMetaRef idD09ExperienceDesignSpecification_ACCHLS_CHEC(IdD09ExperienceDesignSpecification x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "accessibility/accessibilityChecklist/ACCHLS-CHEC"));
@@ -117597,8 +117597,8 @@ som::SomListMetaRef idD09ExperienceDesignSpecification_COPA_COLO_LST(IdD09Experi
 som::SomListMetaRef idD09ExperienceDesignSpecification_TYST_TYPO_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "uiComponents/componentLibrary/TYST-TYPO-LST"), metaIdFactoryTypographyStyleEntry);
 }
-som::SomListMetaRef idD09ExperienceDesignSpecification_UICOMENT_COMP_LST(IdD09ExperienceDesignSpecification x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "uiComponents/UICOMENT-COMP-LST"), metaIdFactoryUiComponentEntry);
+som::SomListMetaRef idD09ExperienceDesignSpecification_UICOM_COMP_LST(IdD09ExperienceDesignSpecification x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "uiComponents/UICOM-COMP-LST"), metaIdFactoryUiComponentEntry);
 }
 som::SomListMetaRef idD09ExperienceDesignSpecification_CMFA_COMP_LST(IdD09ExperienceDesignSpecification x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "uiComponents/CMFA-COMP-LST"), metaIdFactoryComponentFamilyEntry);
@@ -118197,8 +118197,8 @@ som::SomMetaRef idD11DeliveryRoadmap_PGRP(IdD11DeliveryRoadmap x) {
 som::SomMetaRef idD11DeliveryRoadmap_PGRO(IdD11DeliveryRoadmap x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gateCriteria/PGRO"));
 }
-som::SomListMetaRef idD11DeliveryRoadmap_PHGAREEN_ITEM_LST(IdD11DeliveryRoadmap x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gateCriteria/PHGAREEN-ITEM-LST"), metaIdFactoryPhaseGateReviewEntry);
+som::SomListMetaRef idD11DeliveryRoadmap_PHGREV_ITEM_LST(IdD11DeliveryRoadmap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gateCriteria/PHGREV-ITEM-LST"), metaIdFactoryPhaseGateReviewEntry);
 }
 som::SomListMetaRef idD11DeliveryRoadmap_DPE_ITEM_LST(IdD11DeliveryRoadmap x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "decisionProcesses/DPE-ITEM-LST"), metaIdFactoryDecisionPointEntry);
@@ -118293,8 +118293,8 @@ som::SomListMetaRef idD13CodeSpecsProjection_FRREEN_FRAM_LST(IdD13CodeSpecsProje
 som::SomListMetaRef idD13CodeSpecsProjection_BTCEN_BUIL_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST"), metaIdFactoryBuildToolchainEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_DEPTARENT_DEPL_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_DEPTAR_DEPL_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DEPTAR-DEPL-LST"), metaIdFactoryDeploymentTargetEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_DEMAVE(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE"));
@@ -118722,11 +118722,11 @@ som::SomListMetaRef idD13CodeSpecsProjection_SHLCP_SHAR_LST(IdD13CodeSpecsProjec
 som::SomListMetaRef idD13CodeSpecsProjection_RUCE_UICO_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST"), metaIdFactoryReusableUiComponentEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_BUSCOMENT_BUSI_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_BUSCOM_BUSI_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/BUSCOM-BUSI-LST"), metaIdFactoryBusinessComponentEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_INFCOMENT_INFR_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_INFCOM_INFR_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/INFCOM-INFR-LST"), metaIdFactoryInfrastructureComponentEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_THPALI_THIR_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST"), metaIdFactoryThirdPartyLibraryEntry);
@@ -118758,14 +118758,14 @@ som::SomMetaRef idD13CodeSpecsProjection_COREUP(IdD13CodeSpecsProjection x) {
 som::SomListMetaRef idD13CodeSpecsProjection_OCE_OSCO_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST"), metaIdFactoryOsCompatibilityEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_BROCOMENT_BROW_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_BROCOM_BROW_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BROCOM-BROW-LST"), metaIdFactoryBrowserCompatibilityEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_DATCOMENT_DATA_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_DATCOM_DATA_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DATCOM-DATA-LST"), metaIdFactoryDatabaseCompatibilityEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_ENSYCOEN_ENTE_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_ENSYCO_ENTE_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ENSYCO-ENTE-LST"), metaIdFactoryEnterpriseSystemCompatibilityEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_APCP_APIC_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST"), metaIdFactoryApiCompatibilityEntry);
@@ -118773,11 +118773,11 @@ som::SomListMetaRef idD13CodeSpecsProjection_APCP_APIC_LST(IdD13CodeSpecsProject
 som::SomListMetaRef idD13CodeSpecsProjection_LCE_LEGA_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST"), metaIdFactoryLegacyCompatibilityEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_MOBCOMENT_MOBI_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_MOBCOM_MOBI_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOBCOM-MOBI-LST"), metaIdFactoryMobileCompatibilityEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_THPACOEN_THIR_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_THPACO_THIR_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/THPACO-THIR-LST"), metaIdFactoryThirdPartyCompatibilityEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_DFCF(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF"));
@@ -118815,20 +118815,20 @@ som::SomMetaRef idD13CodeSpecsProjection_INRETE(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_INREGO(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_ITSTCOEN_ITST_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_ITSTCO_ITST_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/ITSTCO-ITST-LST"), metaIdFactoryItStandardComplianceEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_INPRCOEN_INDU_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_INPRCO_INDU_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INPRCO-INDU-LST"), metaIdFactoryIndustryProtocolComplianceEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_INTSPEENT_INTE_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_INTSPE_INTE_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/INTSPE-INTE-LST"), metaIdFactoryInterfaceSpecificationEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_RCE_REGU_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST"), metaIdFactoryRegulatoryComplianceEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_SESTCOEN_SECU_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_SESTCO_SECU_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/SESTCO-SECU-LST"), metaIdFactorySecurityStandardComplianceEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_ACCSTD_ACCE_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST"), metaIdFactoryAccessibilityStandardEntry);
@@ -118989,14 +118989,14 @@ som::SomMetaRef idD13CodeSpecsProjection_SORL(IdD13CodeSpecsProjection x) {
 som::SomListMetaRef idD13CodeSpecsProjection_CLIAPP_CLIE_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), metaIdFactoryClientApplicationEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_BROREQENT_BROW_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_BROREQ_BROW_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/BROREQ-BROW-LST"), metaIdFactoryBrowserRequirementEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_DEOSREEN_DESK_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_DEOSRE_DESK_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/DEOSRE-DESK-LST"), metaIdFactoryDesktopOsRequirementEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_MODEREEN_MOBI_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_MODERE_MOBI_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/MODERE-MOBI-LST"), metaIdFactoryMobileDeviceRequirementEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_DIRELA(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA"));
@@ -119442,8 +119442,8 @@ som::SomMetaRef idD13CodeSpecsProjection_ALRESU(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_ALRERE(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_ALEDEFENT_ALER_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_ALEDEF_ALER_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/ALEDEF-ALER-LST"), metaIdFactoryAlertDefinitionEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_DAREST(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST"));
@@ -119610,8 +119610,8 @@ som::SomMetaRef idD13CodeSpecsProjection_PCRO(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_PCRE(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/communication/protocolsAndStandards/compliance/PCRE"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_EXPACOEN_PART_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_EXPACO_PART_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/communication/externalConnectivity/EXPACO-PART-LST"), metaIdFactoryExternalPartnerConnectionEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_CSIS(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/communication/externalConnectivity/cloudServices/CSIS"));
@@ -119790,8 +119790,8 @@ som::SomMetaRef idD13CodeSpecsProjection_ANCR(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_ANCF(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_ALERULENT_ALER_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), metaIdFactoryAlertRuleEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_ALERUL_ALER_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERUL-ALER-LST"), metaIdFactoryAlertRuleEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_AEPT(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT"));
@@ -119853,8 +119853,8 @@ som::SomMetaRef idD13CodeSpecsProjection_DITRSPSP(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_DTSO(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_CUSMETENT_CUST_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), metaIdFactoryCustomMetricEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_CUSMET_CUST_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMET-CUST-LST"), metaIdFactoryCustomMetricEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_MODA_DASH(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"));
@@ -120318,11 +120318,11 @@ som::SomMetaRef idD13CodeSpecsProjection_PNBN(IdD13CodeSpecsProjection x) {
 som::SomMetaRef idD13CodeSpecsProjection_PRNASI(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"));
 }
-som::SomListMetaRef idD13CodeSpecsProjection_TABADEEN_TABB_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_TABADE_TABB_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADE-TABB-LST"), metaIdFactoryTabBarDefinitionEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_UTNAITEN_ITEM_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_UTNAIT_ITEM_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAIT-ITEM-LST"), metaIdFactoryUtilityNavigationItemEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_BRCO(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO"));
@@ -120393,8 +120393,8 @@ som::SomMetaRef idD13CodeSpecsProjection_SEDF(IdD13CodeSpecsProjection x) {
 som::SomListMetaRef idD13CodeSpecsProjection_SYERDI_ERRO_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), metaLeafFactory);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_SYERCOEN_ERRO_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_SYERCO_ERRO_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCO-ERRO-LST"), metaIdFactorySystemErrorCodeEntry);
 }
 som::SomMetaRef idD13CodeSpecsProjection_ERRE_RECO(IdD13CodeSpecsProjection x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO"));
@@ -120483,8 +120483,8 @@ som::SomListMetaRef idD13CodeSpecsProjection_COPA_COLO_LST(IdD13CodeSpecsProject
 som::SomListMetaRef idD13CodeSpecsProjection_TYST_TYPO_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), metaIdFactoryTypographyStyleEntry);
 }
-som::SomListMetaRef idD13CodeSpecsProjection_UICOMENT_COMP_LST(IdD13CodeSpecsProjection x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST"), metaIdFactoryUiComponentEntry);
+som::SomListMetaRef idD13CodeSpecsProjection_UICOM_COMP_LST(IdD13CodeSpecsProjection x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/uiComponents/UICOM-COMP-LST"), metaIdFactoryUiComponentEntry);
 }
 som::SomListMetaRef idD13CodeSpecsProjection_CMFA_COMP_LST(IdD13CodeSpecsProjection x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), metaIdFactoryComponentFamilyEntry);
@@ -120864,8 +120864,8 @@ som::SomMetaRef idEnterpriseSystemCompatibilityEntry_ESCER(IdEnterpriseSystemCom
 som::SomMetaRef idEnterpriseSystemCompatibilityEntry_ESCET(IdEnterpriseSystemCompatibilityEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ESCET"));
 }
-som::SomListMetaRef idEntitlementEntry_RESKREF_RESO_LST(IdEntitlementEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESKREF-RESO-LST"), metaIdFactoryResourceKeyReferenceEntry);
+som::SomListMetaRef idEntitlementEntry_REKERE_RESO_LST(IdEntitlementEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REKERE-RESO-LST"), metaIdFactoryResourceKeyReferenceEntry);
 }
 som::SomMetaRef idEntityFollowUpEntry_DMFUE_ENTI(IdEntityFollowUpEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DMFUE-ENTI"));
@@ -121044,8 +121044,8 @@ som::SomMetaRef idExportFormatEntry_AZREQ_CUST(IdExportFormatEntry x) {
 som::SomListMetaRef idExportFormatEntry_AZLVL_LEVE_LST(IdExportFormatEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
-som::SomListMetaRef idExportFormatEntry_EXFIMAEN_FIEL_LST(IdExportFormatEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXFIMAEN-FIEL-LST"), metaIdFactoryExportFieldMappingEntry);
+som::SomListMetaRef idExportFormatEntry_EXFIMA_FIEL_LST(IdExportFormatEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXFIMA-FIEL-LST"), metaIdFactoryExportFieldMappingEntry);
 }
 som::SomMetaRef idExportTemplateEntry_ETEF(IdExportTemplateEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ETEF"));
@@ -121092,8 +121092,8 @@ som::SomListMetaRef idExternalActorEntry_EAE_INTE_LST(IdExternalActorEntry x) {
 som::SomMetaRef idExternalInterfaceEntry_EIE_IDEN(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EIE-IDEN"));
 }
-som::SomListMetaRef idExternalInterfaceEntry_INBUPREN_DEPE_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessContext/INBUPREN-DEPE-LST"), metaIdFactoryInterfaceBusinessProcessEntry);
+som::SomListMetaRef idExternalInterfaceEntry_INBUPR_DEPE_LST(IdExternalInterfaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessContext/INBUPR-DEPE-LST"), metaIdFactoryInterfaceBusinessProcessEntry);
 }
 som::SomMetaRef idExternalInterfaceEntry_ITSC(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalSpec/ITSC"));
@@ -121107,8 +121107,8 @@ som::SomListMetaRef idExternalInterfaceEntry_IOE_OPER_LST(IdExternalInterfaceEnt
 som::SomMetaRef idExternalInterfaceEntry_INWESP(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "technicalSpec/INWESP"));
 }
-som::SomListMetaRef idExternalInterfaceEntry_INDAENEN_DATA_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/INDAENEN-DATA-LST"), metaIdFactoryInterfaceDataEntityEntry);
+som::SomListMetaRef idExternalInterfaceEntry_INDAEN_DATA_LST(IdExternalInterfaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/INDAEN-DATA-LST"), metaIdFactoryInterfaceDataEntityEntry);
 }
 som::SomListMetaRef idExternalInterfaceEntry_INDASP_MAPP_LST(IdExternalInterfaceEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataSpec/INDASP-MAPP-LST"), metaLeafFactory);
@@ -121161,8 +121161,8 @@ som::SomMetaRef idExternalInterfaceEntry_INTEDA(IdExternalInterfaceEntry x) {
 som::SomMetaRef idExternalInterfaceEntry_INTEST(IdExternalInterfaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "testing/INTEST"));
 }
-som::SomListMetaRef idExternalInterfaceEntry_INTESCEN_TEST_LST(IdExternalInterfaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "testing/INTESCEN-TEST-LST"), metaIdFactoryInterfaceTestScenarioEntry);
+som::SomListMetaRef idExternalInterfaceEntry_INTESC_TEST_LST(IdExternalInterfaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "testing/INTESC-TEST-LST"), metaIdFactoryInterfaceTestScenarioEntry);
 }
 som::SomMetaRef idExternalPartnerConnectionEntry_EXPAPR(IdExternalPartnerConnectionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXPAPR"));
@@ -121203,8 +121203,8 @@ som::SomMetaRef idExternalSystemContextEntry_ESCEO(IdExternalSystemContextEntry 
 som::SomMetaRef idExternalSystemContextEntry_ESCEG(IdExternalSystemContextEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ESCEG"));
 }
-som::SomMetaRef idExternalSystemContextEntry_EXSYCOEN_DATA(IdExternalSystemContextEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCOEN-DATA"));
+som::SomMetaRef idExternalSystemContextEntry_EXSYCO_DATA(IdExternalSystemContextEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXSYCO-DATA"));
 }
 som::SomMetaRef idFeatureModuleEntry_FMED(IdFeatureModuleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "FMED"));
@@ -122346,8 +122346,8 @@ som::SomListMetaRef idReportEntry_RSE_SECT_LST(IdReportEntry x) {
 som::SomListMetaRef idReportEntry_RFE_FILT_LST(IdReportEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RFE-FILT-LST"), metaIdFactoryReportFilterEntry);
 }
-som::SomListMetaRef idReportEntry_REPSCHENT_SCHE_LST(IdReportEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSCHENT-SCHE-LST"), metaIdFactoryReportScheduleEntry);
+som::SomListMetaRef idReportEntry_REPSCH_SCHE_LST(IdReportEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSCH-SCHE-LST"), metaIdFactoryReportScheduleEntry);
 }
 som::SomListMetaRef idReportEntry_RDE_DIST_LST(IdReportEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RDE-DIST-LST"), metaIdFactoryReportDistributionEntry);
@@ -122415,11 +122415,11 @@ som::SomMetaRef idReportSectionEntry_RESESO(IdReportSectionEntry x) {
 som::SomMetaRef idReportSectionEntry_RESEAG(IdReportSectionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESEAG"));
 }
-som::SomListMetaRef idReportSectionEntry_REPCOLENT_COLU_LST(IdReportSectionEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCOLENT-COLU-LST"), metaIdFactoryReportColumnEntry);
+som::SomListMetaRef idReportSectionEntry_REPCOL_COLU_LST(IdReportSectionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCOL-COLU-LST"), metaIdFactoryReportColumnEntry);
 }
-som::SomListMetaRef idReportSectionEntry_REPCHAENT_CHAR_LST(IdReportSectionEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCHAENT-CHAR-LST"), metaIdFactoryReportChartEntry);
+som::SomListMetaRef idReportSectionEntry_REPCHA_CHAR_LST(IdReportSectionEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPCHA-CHAR-LST"), metaIdFactoryReportChartEntry);
 }
 som::SomMetaRef idRequirementDependencyEntry_RQDEP_RELA_REF(IdRequirementDependencyEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RQDEP-RELA-REF"));
@@ -122676,8 +122676,8 @@ som::SomMetaRef idScreenElementEntry_SEDDB(IdScreenElementEntry x) {
 som::SomMetaRef idScreenElementEntry_SEDDO(IdScreenElementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataDisplay/SEDDO"));
 }
-som::SomListMetaRef idScreenElementEntry_ELVARUEN_VALI_LST(IdScreenElementEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ELVARUEN-VALI-LST"), metaIdFactoryElementValidationRuleEntry);
+som::SomListMetaRef idScreenElementEntry_ELVARU_VALI_LST(IdScreenElementEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ELVARU-VALI-LST"), metaIdFactoryElementValidationRuleEntry);
 }
 som::SomMetaRef idScreenEntry_SCECL(IdScreenEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCECL"));
@@ -122721,8 +122721,8 @@ som::SomListMetaRef idScreenEntry_SUCE_USER_LST(IdScreenEntry x) {
 som::SomListMetaRef idScreenEntry_EPNT_ENTR_LST(IdScreenEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EPNT-ENTR-LST"), metaIdFactoryEntryPointEntry);
 }
-som::SomListMetaRef idScreenEntry_SCRERUEN_RESP_LST(IdScreenEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRERUEN-RESP-LST"), metaIdFactoryScreenResponsiveRuleEntry);
+som::SomListMetaRef idScreenEntry_SCRERU_RESP_LST(IdScreenEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCRERU-RESP-LST"), metaIdFactoryScreenResponsiveRuleEntry);
 }
 som::SomMetaRef idScreenFieldEntry_SFDB(IdScreenFieldEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SFDB"));
@@ -123168,11 +123168,11 @@ som::SomMetaRef idSystemToReplaceEntry_SBCO(IdSystemToReplaceEntry x) {
 som::SomMetaRef idSystemToReplaceEntry_SBCG(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SBCG"));
 }
-som::SomListMetaRef idSystemToReplaceEntry_SYBUUNEN_BUSI_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SYBUUNEN-BUSI-LST"), metaIdFactorySystemBusinessUnitEntry);
+som::SomListMetaRef idSystemToReplaceEntry_SYBUUN_BUSI_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SYBUUN-BUSI-LST"), metaIdFactorySystemBusinessUnitEntry);
 }
-som::SomListMetaRef idSystemToReplaceEntry_SYBUPREN_SUPP_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SYBUPREN-SUPP-LST"), metaIdFactorySystemBusinessProcessEntry);
+som::SomListMetaRef idSystemToReplaceEntry_SYBUPR_SUPP_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "businessCriticality/SYBUPR-SUPP-LST"), metaIdFactorySystemBusinessProcessEntry);
 }
 som::SomMetaRef idSystemToReplaceEntry_SRST(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "replacementStrategy/SRST"));
@@ -123192,14 +123192,14 @@ som::SomMetaRef idSystemToReplaceEntry_SDSG(IdSystemToReplaceEntry x) {
 som::SomMetaRef idSystemToReplaceEntry_SYDASCMI(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/SYDASCMI"));
 }
-som::SomListMetaRef idSystemToReplaceEntry_DAENMIEN_ENTI_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/DAENMIEN-ENTI-LST"), metaIdFactoryDataEntityMigrationEntry);
+som::SomListMetaRef idSystemToReplaceEntry_DAENMI_ENTI_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/DAENMI-ENTI-LST"), metaIdFactoryDataEntityMigrationEntry);
 }
 som::SomListMetaRef idSystemToReplaceEntry_SYDASC_KNOW_LST(IdSystemToReplaceEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "dataScope/SYDASC-KNOW-LST"), metaLeafFactory);
 }
-som::SomListMetaRef idSystemToReplaceEntry_REPSDEP_DEPE_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "REPSDEP-DEPE-LST"), metaIdFactoryReplacementSystemDependencyEntry);
+som::SomListMetaRef idSystemToReplaceEntry_RESYDE_DEPE_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESYDE-DEPE-LST"), metaIdFactoryReplacementSystemDependencyEntry);
 }
 som::SomMetaRef idSystemToReplaceEntry_SUICP(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userImpact/SUICP"));
@@ -123210,8 +123210,8 @@ som::SomMetaRef idSystemToReplaceEntry_SUIE(IdSystemToReplaceEntry x) {
 som::SomMetaRef idSystemToReplaceEntry_SUIA(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userImpact/SUIA"));
 }
-som::SomListMetaRef idSystemToReplaceEntry_USGRIMEN_USER_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userImpact/USGRIMEN-USER-LST"), metaIdFactoryUserGroupImpactEntry);
+som::SomListMetaRef idSystemToReplaceEntry_USGRIM_USER_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "userImpact/USGRIM-USER-LST"), metaIdFactoryUserGroupImpactEntry);
 }
 som::SomMetaRef idSystemToReplaceEntry_SCACC(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "costAnalysis/SCACC"));
@@ -123231,8 +123231,8 @@ som::SomMetaRef idSystemToReplaceEntry_SMPE(IdSystemToReplaceEntry x) {
 som::SomMetaRef idSystemToReplaceEntry_SMPC(IdSystemToReplaceEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationPlan/SMPC"));
 }
-som::SomListMetaRef idSystemToReplaceEntry_SYMIRIEN_RISK_LST(IdSystemToReplaceEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationPlan/SYMIRIEN-RISK-LST"), metaIdFactorySystemMigrationRiskEntry);
+som::SomListMetaRef idSystemToReplaceEntry_SYMIRI_RISK_LST(IdSystemToReplaceEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "migrationPlan/SYMIRI-RISK-LST"), metaIdFactorySystemMigrationRiskEntry);
 }
 som::SomListMetaRef idSystemToReplaceEntry_SYKNTR_CRIT_LST(IdSystemToReplaceEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "knowledgeTransfer/SYKNTR-CRIT-LST"), metaLeafFactory);
@@ -123516,8 +123516,8 @@ som::SomMetaRef idUatTestCycleEntry_UTCES(IdUatTestCycleEntry x) {
 som::SomMetaRef idUatTestCycleEntry_UTCEE(IdUatTestCycleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTCEE"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_IDEN(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-IDEN"));
+som::SomMetaRef idUiComponentEntry_UICOM_IDEN(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-IDEN"));
 }
 som::SomMetaRef idUiComponentEntry_UCEP(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEP"));
@@ -123525,8 +123525,8 @@ som::SomMetaRef idUiComponentEntry_UCEP(IdUiComponentEntry x) {
 som::SomMetaRef idUiComponentEntry_UCEC(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEC"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_VISU(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-VISU"));
+som::SomMetaRef idUiComponentEntry_UICOM_VISU(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-VISU"));
 }
 som::SomMetaRef idUiComponentEntry_UCED(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCED"));
@@ -123537,8 +123537,8 @@ som::SomMetaRef idUiComponentEntry_UCES(IdUiComponentEntry x) {
 som::SomMetaRef idUiComponentEntry_UICOENSU(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOENSU"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_INTE(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-INTE"));
+som::SomMetaRef idUiComponentEntry_UICOM_INTE(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-INTE"));
 }
 som::SomMetaRef idUiComponentEntry_UCEIB(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UCEIB"));
@@ -123549,23 +123549,23 @@ som::SomMetaRef idUiComponentEntry_UCEA(IdUiComponentEntry x) {
 som::SomMetaRef idUiComponentEntry_UICOENSC(IdUiComponentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOENSC"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_RESP(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-RESP"));
+som::SomMetaRef idUiComponentEntry_UICOM_RESP(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-RESP"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_ACCE(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-ACCE"));
+som::SomMetaRef idUiComponentEntry_UICOM_ACCE(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-ACCE"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_AUTH(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-AUTH"));
+som::SomMetaRef idUiComponentEntry_UICOM_AUTH(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-AUTH"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_RESO(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-RESO"));
+som::SomMetaRef idUiComponentEntry_UICOM_RESO(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-RESO"));
 }
-som::SomMetaRef idUiComponentEntry_UICOMENT_DATA(IdUiComponentEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOMENT-DATA"));
+som::SomMetaRef idUiComponentEntry_UICOM_DATA(IdUiComponentEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UICOM-DATA"));
 }
-som::SomListMetaRef idUiComponentEntry_COMSTAENT_STAT_LST(IdUiComponentEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMSTAENT-STAT-LST"), metaIdFactoryComponentStateEntry);
+som::SomListMetaRef idUiComponentEntry_COMSTA_STAT_LST(IdUiComponentEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "COMSTA-STAT-LST"), metaIdFactoryComponentStateEntry);
 }
 som::SomListMetaRef idUiComponentEntry_CVE_VARI_LST(IdUiComponentEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "CVE-VARI-LST"), metaIdFactoryComponentVariantEntry);
@@ -123702,8 +123702,8 @@ som::SomListMetaRef idUtilityNavigationItemEntry_AZLVL_LEVE_LST(IdUtilityNavigat
 som::SomMetaRef idUtilityNavigationItemEntry_UNIEB(IdUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIEB"));
 }
-som::SomListMetaRef idUtilityNavigationItemEntry_UTMEITEN_MENU_LST(IdUtilityNavigationItemEntry x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTMEITEN-MENU-LST"), metaIdFactoryUtilityMenuItemEntry);
+som::SomListMetaRef idUtilityNavigationItemEntry_UTMEIT_MENU_LST(IdUtilityNavigationItemEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UTMEIT-MENU-LST"), metaIdFactoryUtilityMenuItemEntry);
 }
 som::SomMetaRef idVpnRequirementEntry_VREE(IdVpnRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "VREE"));

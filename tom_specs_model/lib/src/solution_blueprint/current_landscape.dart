@@ -7347,7 +7347,7 @@ replacement underperforms the baseline).
   'The assessment of risks arising from the current systems landscape and from '
   'the act of replacing it — distinct from the target-state replacement risks.',
 )
-@SectionId('CUSTRIAS')
+@SectionId('CUSTRI')
 @DetailedIn(D01CurrentLandscapeAssessment)
 class CurrentStateRiskAssessment extends DocSpecsSection {
   @ContentHelp('''

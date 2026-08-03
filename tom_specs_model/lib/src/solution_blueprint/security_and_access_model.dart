@@ -11382,8 +11382,8 @@ class AuthorizationRoleEntry extends DocSpecsSection {
   @StandardReferences([
     'NIST RBAC INCITS 359-2012 — permission-to-role assignment',
   ], 'The catalog of permissions assigned directly to this role.')
-  @SectionId('ROLPERM-DIRE-LST')
-  @SectionIdPattern('ROLPERM-DIRE-xxx')
+  @SectionId('ROLPER-DIRE-LST')
+  @SectionIdPattern('ROLPER-DIRE-xxx')
   @ContentHelp('Add one entry per direct permission.')
   @SerializationOrder(7)
   List<RolePermissionEntry> directPermissions = [];
@@ -11393,8 +11393,8 @@ class AuthorizationRoleEntry extends DocSpecsSection {
     'NIST SP 800-162 — attribute-based access control constraints',
     'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
   ], 'The catalog of data scopes that constrain this role access.')
-  @SectionId('ROLDSCP-DATA-LST')
-  @SectionIdPattern('ROLDSCP-DATA-xxx')
+  @SectionId('RODASC-DATA-LST')
+  @SectionIdPattern('RODASC-DATA-xxx')
   @ContentHelp('Add one entry per data scope.')
   @SerializationOrder(8)
   List<RoleDataScopeEntry> dataScopes = [];
@@ -11521,7 +11521,7 @@ class EntitlementReferenceEntry extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — role-based access control',
   'ISO/IEC 27001:2022 — control A.5.15 access control',
 ], 'Defines a permission assigned directly to a role.')
-@SectionId('ROLPERM')
+@SectionId('ROLPER')
 @CodeSpecKind([CodeSpecPart.authorization])
 class RolePermissionEntry extends DocSpecsSection {
   @Form([
@@ -11572,7 +11572,7 @@ class RolePermissionEntry extends DocSpecsSection {
   'NIST RBAC INCITS 359-2012 — role-based access control',
   'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
 ], 'Specifies which data categories a role may access and at what level.')
-@SectionId('ROLDSCP')
+@SectionId('RODASC')
 @CodeSpecKind([CodeSpecPart.authorization])
 class RoleDataScopeEntry extends DocSpecsSection {
   @Form([
@@ -11749,8 +11749,8 @@ class EntitlementEntry extends DocSpecsSection {
     'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
     'NIST RBAC INCITS 359-2012 — role-based access control',
   ], 'The catalog of resource key references for this entitlement.')
-  @SectionId('RESKREF-RESO-LST')
-  @SectionIdPattern('RESKREF-RESO-xxx')
+  @SectionId('REKERE-RESO-LST')
+  @SectionIdPattern('REKERE-RESO-xxx')
   @ContentHelp('Add one entry per resource reference.')
   @SerializationOrder(1)
   List<ResourceKeyReferenceEntry> resourceKeyReferences = [];
@@ -11761,7 +11761,7 @@ class EntitlementEntry extends DocSpecsSection {
   'ISO/IEC 27001:2022 — control A.8.3 information access restriction',
   'NIST RBAC INCITS 359-2012 — role-based access control',
 ], 'References a protected resource by its unique resource key.')
-@SectionId('RESKREF')
+@SectionId('REKERE')
 @CodeSpecKind([CodeSpecPart.authorization])
 class ResourceKeyReferenceEntry extends DocSpecsSection {
   @Form([

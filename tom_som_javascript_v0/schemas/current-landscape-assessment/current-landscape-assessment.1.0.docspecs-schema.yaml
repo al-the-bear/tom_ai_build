@@ -3,54 +3,6 @@
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
-  daenmien-enti-lst:
-    prefix: DAENMIEN_ENTI_LST
-    subsection-types:
-      daenmien-enti:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
-  sybupren-supp-lst:
-    prefix: SYBUPREN_SUPP_LST
-    subsection-types:
-      sybupren-supp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per business process the system supports; note its role and execution frequency.
-  sybuunen-busi-lst:
-    prefix: SYBUUNEN_BUSI_LST
-    subsection-types:
-      sybuunen-busi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per business unit using the system; note user count and dependency level.
-  symirien-risk-lst:
-    prefix: SYMIRIEN_RISK_LST
-    subsection-types:
-      symirien-risk:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
-  usgrimen-user-lst:
-    prefix: USGRIMEN_USER_LST
-    subsection-types:
-      usgrimen-user:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per user group needing special handling; note impact level and special considerations.
-  repsdep-depe-lst:
-    prefix: REPSDEP_DEPE_LST
-    subsection-types:
-      repsdep-depe:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
   cubipr-proc-lst:
     prefix: CUBIPR_PROC_LST
     subsection-types:
@@ -68,6 +20,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Current operational metrics.
+  daenmi-enti-lst:
+    prefix: DAENMI_ENTI_LST
+    subsection-types:
+      daenmi-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   daowen-owne-lst:
     prefix: DAOWEN_OWNE_LST
     subsection-types:
@@ -207,6 +167,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  resyde-depe-lst:
+    prefix: RESYDE_DEPE_LST
+    subsection-types:
+      resyde-depe:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  sybupr-supp-lst:
+    prefix: SYBUPR_SUPP_LST
+    subsection-types:
+      sybupr-supp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sybuun-busi-lst:
+    prefix: SYBUUN_BUSI_LST
+    subsection-types:
+      sybuun-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business unit using the system; note user count and dependency level.
   sycoan-nonf-lst:
     prefix: SYCOAN_NONF_LST
     subsection-types:
@@ -231,6 +215,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  symiri-risk-lst:
+    prefix: SYMIRI_RISK_LST
+    subsection-types:
+      symiri-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   syrest-pred-lst:
     prefix: SYREST_PRED_LST
     subsection-types:
@@ -263,6 +255,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
+  usgrim-user-lst:
+    prefix: USGRIM_USER_LST
+    subsection-types:
+      usgrim-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
   woburu-busi-lst:
     prefix: WOBURU_BUSI_LST
     subsection-types:
@@ -351,12 +351,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
-  daenmien-enti:
-    prefix: DAENMIEN_ENTI_
-    pattern-check-id:
-      pattern: ^DAENMIEN-ENTI-.+$
-      error-message: IDs of this section must match DAENMIEN-ENTI-xxx
-    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   esent-syst-lst:
     prefix: ESENT_SYST_LST
     subsection-types:
@@ -453,30 +447,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
-  sybupren-supp:
-    prefix: SYBUPREN_SUPP_
-    pattern-check-id:
-      pattern: ^SYBUPREN-SUPP-.+$
-      error-message: IDs of this section must match SYBUPREN-SUPP-xxx
-    description: Add one entry per business process the system supports; note its role and execution frequency.
-  sybuunen-busi:
-    prefix: SYBUUNEN_BUSI_
-    pattern-check-id:
-      pattern: ^SYBUUNEN-BUSI-.+$
-      error-message: IDs of this section must match SYBUUNEN-BUSI-xxx
-    description: Add one entry per business unit using the system; note user count and dependency level.
-  symirien-risk:
-    prefix: SYMIRIEN_RISK_
-    pattern-check-id:
-      pattern: ^SYMIRIEN-RISK-.+$
-      error-message: IDs of this section must match SYMIRIEN-RISK-xxx
-    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
-  usgrimen-user:
-    prefix: USGRIMEN_USER_
-    pattern-check-id:
-      pattern: ^USGRIMEN-USER-.+$
-      error-message: IDs of this section must match USGRIMEN-USER-xxx
-    description: Add one entry per user group needing special handling; note impact level and special considerations.
   cpie-impr-lst:
     prefix: CPIE_IMPR_LST
     subsection-types:
@@ -610,12 +580,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
-  repsdep-depe:
-    prefix: REPSDEP_DEPE_
-    pattern-check-id:
-      pattern: ^REPSDEP-DEPE-.+$
-      error-message: IDs of this section must match REPSDEP-DEPE-xxx
-    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
   syde-item-lst:
     prefix: SYDE_ITEM_LST
     subsection-types:
@@ -737,6 +701,12 @@ section-types:
       pattern: ^CUOPME-OPER-.+$
       error-message: IDs of this section must match CUOPME-OPER-xxx
     description: 1.5. Operational Metrics.
+  daenmi-enti:
+    prefix: DAENMI_ENTI_
+    pattern-check-id:
+      pattern: ^DAENMI-ENTI-.+$
+      error-message: IDs of this section must match DAENMI-ENTI-xxx
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   daowen-owne:
     prefix: DAOWEN_OWNE_
     subsection-types:
@@ -902,6 +872,24 @@ section-types:
       pattern: ^REPPHS-PHAS-.+$
       error-message: IDs of this section must match REPPHS-PHAS-xxx
     description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  resyde-depe:
+    prefix: RESYDE_DEPE_
+    pattern-check-id:
+      pattern: ^RESYDE-DEPE-.+$
+      error-message: IDs of this section must match RESYDE-DEPE-xxx
+    description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
+  sybupr-supp:
+    prefix: SYBUPR_SUPP_
+    pattern-check-id:
+      pattern: ^SYBUPR-SUPP-.+$
+      error-message: IDs of this section must match SYBUPR-SUPP-xxx
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sybuun-busi:
+    prefix: SYBUUN_BUSI_
+    pattern-check-id:
+      pattern: ^SYBUUN-BUSI-.+$
+      error-message: IDs of this section must match SYBUUN-BUSI-xxx
+    description: Add one entry per business unit using the system; note user count and dependency level.
   sycoan-nonf:
     prefix: SYCOAN_NONF_
     pattern-check-id:
@@ -920,6 +908,12 @@ section-types:
       pattern: ^SYKNTR-CRIT-.+$
       error-message: IDs of this section must match SYKNTR-CRIT-xxx
     description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  symiri-risk:
+    prefix: SYMIRI_RISK_
+    pattern-check-id:
+      pattern: ^SYMIRI-RISK-.+$
+      error-message: IDs of this section must match SYMIRI-RISK-xxx
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   syrest-pred:
     prefix: SYREST_PRED_
     pattern-check-id:
@@ -955,7 +949,7 @@ section-types:
         max-count: 1
       sydasc:
         max-count: 1
-      repsdep-depe-lst:
+      resyde-depe-lst:
         max-count: 1
       syusim:
         max-count: 1
@@ -969,6 +963,12 @@ section-types:
       pattern: ^SYTORE-SYST-.+$
       error-message: IDs of this section must match SYTORE-SYST-xxx
     description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
+  usgrim-user:
+    prefix: USGRIM_USER_
+    pattern-check-id:
+      pattern: ^USGRIM-USER-.+$
+      error-message: IDs of this section must match USGRIM-USER-xxx
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
   wae-acto-lst:
     prefix: WAE_ACTO_LST
     subsection-types:
@@ -1554,9 +1554,6 @@ section-types:
       pattern: ^WSE-STEP-.+$
       error-message: IDs of this section must match WSE-STEP-xxx
     description: "Document each step with enough detail for process analysis and system design. Include responsible actors, inputs, outputs, and timing."
-  custrias:
-    prefix: CUSTRIAS
-    description: Current-state risk assessment.
   daduensy:
     prefix: DADUENSY
     format: daduensy-form
@@ -1633,6 +1630,9 @@ section-types:
       madama:
         max-count: 1
     description: Current data landscape.
+  custri:
+    prefix: CUSTRI
+    description: Current-state risk assessment.
   daclsu:
     prefix: DACLSU
     format: daclsu-form
@@ -1929,9 +1929,9 @@ section-types:
         max-count: 1
       sbcg:
         max-count: 1
-      sybuunen-busi-lst:
+      sybuun-busi-lst:
         max-count: 1
-      sybupren-supp-lst:
+      sybupr-supp-lst:
         max-count: 1
     description: Business value and criticality assessment.
   sycoan:
@@ -1953,7 +1953,7 @@ section-types:
         max-count: 1
       sydascmi:
         max-count: 1
-      daenmien-enti-lst:
+      daenmi-enti-lst:
         max-count: 1
       sydasc-know-lst:
         max-count: 1
@@ -1987,7 +1987,7 @@ section-types:
         max-count: 1
       smpc:
         max-count: 1
-      symirien-risk-lst:
+      symiri-risk-lst:
         max-count: 1
     description: Per-system migration considerations.
   syrest:
@@ -2025,7 +2025,7 @@ section-types:
         max-count: 1
       suia:
         max-count: 1
-      usgrimen-user-lst:
+      usgrim-user-lst:
         max-count: 1
     description: User impact and change management needs.
   tepapo:
@@ -3907,8 +3907,8 @@ document:
     cuopme-oper-lst:
       section-type: cuopme-oper-lst
       optional: true
-    custrias:
-      section-type: custrias
+    custri:
+      section-type: custri
       optional: true
     ri:
       section-type: ri

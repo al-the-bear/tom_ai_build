@@ -902,7 +902,7 @@ XDS still owns the content.
 
 Two boundaries are easy to draw in the wrong place:
 
-- **`ExportFieldMappingEntry` (`EXFIMAEN`) is CE-CF, not CE-RP.** It looks like a
+- **`ExportFieldMappingEntry` (`EXFIMA`) is CE-CF, not CE-RP.** It looks like a
   report column, but it is the column layout of one catalogue entry — and its
   container `ExportFormatEntry` is `serverConfiguration`. A CE-RP leaf inside a
   CE-CF container could be neither projected nor hoisted, because a field mapping
@@ -1974,7 +1974,7 @@ Two closed vocabularies back them: `ScreenPresentationMode` (`replace` /
 `popupOverlay` — the spec-side name for `TomScreenPresentation.popup`) and
 `ScreenFlowOutcome` (`success` / `error` / `validationError`). The transition's
 `outcomeReference` joins the outcome to the existing catalogues — the CE-ER
-system error code (`SYERCOEN`) for `error`, the CE-VA validation message
+system error code (`SYERCO`) for `error`, the CE-VA validation message
 template (`VMT`) for `validationError` — so no error vocabulary is duplicated.
 
 Routes are referenced **by id, never by path**: the path is presentation and
@@ -2335,7 +2335,7 @@ site embeds that one section rather than restating a requirement of its own:
 
 `AZREQ` **names** a role or resource key by reference; it does not define what one
 means. The authoring homes for those stay where §8.5 records them — `RoleMatrix` /
-`ROLPERM` / `ENT` in D08 SAS. Deny is spelled **`denied`**, not `none`: in an authored
+`ROLPER` / `ENT` in D08 SAS. Deny is spelled **`denied`**, not `none`: in an authored
 document "None" reads as *no authorization needed*, the exact fail-open misreading the
 §5.16 precedence rules guard against. One derivation row therefore carries the rename,
 `denied → CsAuthRequirement.none`.
@@ -2413,7 +2413,7 @@ case, and the `access` member on the D00 SBP XDS screen / screen-element / navig
 group / navigation item / tab / utility-navigation / utility-menu / deep-link / report /
 export-format / export-template sections for the element- and field-level cases. The
 catalogues those requirements *cite* — roles, entitlements, resource keys — remain
-**D08 SAS** (`RoleMatrix` / `ROLPERM` / `ENT` / `RESKEY`), per §8. A site that carries
+**D08 SAS** (`RoleMatrix` / `ROLPER` / `ENT` / `RESKEY`), per §8. A site that carries
 no `AZREQ` is a specification defect, not an implicit allow: the choice has no default
 arm.
 
@@ -2546,7 +2546,7 @@ its common one. **41 of the 42 CE-CF-mapped SOM sections** author settings as
 `FSEP`, `BAENPO`, `ENINTR`, `TLPRPO`, `MUTLPO`, `COCHEN`), key management
 (`KEGEPO`, `KESTPO`, `KEROPO`, `KEABP`, `KCRP`), API and file/storage security
 (`APSE`, `APCOSE`, `APABPR`, `FASS`, `FUVP`, `STENPO`, `COSCPO`, `FDSP`), and
-D09's print-and-export band (`PRLA`, `EFE`, `ETE`, `EXSISE`, `EXFIMAEN`).
+D09's print-and-export band (`PRLA`, `EFE`, `ETE`, `EXSISE`, `EXFIMA`).
 `SCSET` is the **single** keyed list. The two shapes are kept apart, not merged,
 because they answer different questions:
 
@@ -3914,7 +3914,7 @@ CE-ER contract it rides on is already projected as `ResultEnvelope`.
 
 What stays outside it is `PrintAndExportLayout` (`PRLA`), now single-kind
 **CE-CF**: the environment-wide print settings plus the export format, size and
-template catalogue. `ExportFieldMappingEntry` (`EXFIMAEN`) belongs to that band
+template catalogue. `ExportFieldMappingEntry` (`EXFIMA`) belongs to that band
 too — it is the column layout of one format-catalogue entry, reachable only
 through `ExportFormatEntry`, not a projection a specification authors on its own.
 The projection-side counterpart is `ReportColumnEntry`, under `ReportEntry`. The
@@ -4378,19 +4378,19 @@ A part is **COVERED** only when both hold.
 
 | CE | Kind | Authoring home (SOM class · section id) | Verdict |
 |----|------|------------------------------------------|---------|
-| CE-EL | `screenElement` | `ScreenElementEntry` SCREL · `UiComponentEntry` UICOMENT · `ComponentVariantEntry` CVE | COVERED |
+| CE-EL | `screenElement` | `ScreenElementEntry` SCREL · `UiComponentEntry` UICOM · `ComponentVariantEntry` CVE | COVERED |
 | CE-FM | `form` | `ScreenElementFieldSpec` SEFS (per-field surface) inside `ScreenElementEntry`; the form container is the screen section | COVERED |
-| CE-LO | `layout` | `ScreenSectionEntry` SCRSC · `ScreenResponsiveRuleEntry` SCRERUEN · `ComponentSlotEntry` CMSL | COVERED |
+| CE-LO | `layout` | `ScreenSectionEntry` SCRSC · `ScreenResponsiveRuleEntry` SCRERU · `ComponentSlotEntry` CMSL | COVERED |
 | CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | COVERED |
-| CE-VA | `validation` | `ElementValidationRuleEntry` ELVARUEN · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
+| CE-VA | `validation` | `ElementValidationRuleEntry` ELVARU · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
 | CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST (under `ProcessStepsAndActorInteractions`) | COVERED |
 | CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
 | CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
-| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTAENT | COVERED |
+| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA | COVERED |
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
-| CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
+| CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPER · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
 | CE-CF | `serverConfiguration` | `ServerConfigurationSettingEntry` SCSET — the declaration list under `SystemConfigurationManagement` SYCOMA (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`). The surrounding SYCOMA / `ConfigurationManagement` CM forms and the audit-sink band under `AuditLogFormat` AULOFO stay what they are — **operational policy** and fixed-name sink settings | COVERED |
 | CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | COVERED |
@@ -4403,7 +4403,7 @@ A part is **COVERED** only when both hold.
 | CE-JB | `backgroundJob` | `ScheduledJobEntry` SCJOB — the per-job declaration list under `BatchJobManagement` BAJOMA, which keeps the system-wide policy defaults | COVERED |
 | CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
 | CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
-| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOLENT · `ReportChartEntry` REPCHAENT, under the `ReportDefinitions` REDF projection root | COVERED |
+| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOL · `ReportChartEntry` REPCHA, under the `ReportDefinitions` REDF projection root | COVERED |
 | — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | COVERED |
 | CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | N/A (deferred, §4.3) |
 

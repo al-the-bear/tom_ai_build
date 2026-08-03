@@ -6538,8 +6538,8 @@ class PhaseGateReviews extends DocSpecsSection {
     ],
     'Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome.',
   )
-  @SectionId('PHGAREEN-ITEM-LST')
-  @SectionIdPattern('PHGAREEN-ITEM-xxx')
+  @SectionId('PHGREV-ITEM-LST')
+  @SectionIdPattern('PHGREV-ITEM-xxx')
   @ContentHelp('Add one entry per phase gate review.')
   @SerializationOrder(4)
   List<PhaseGateReviewEntry> items = [];
@@ -6556,7 +6556,7 @@ class PhaseGateReviews extends DocSpecsSection {
   ],
   'Defines a single phase gate with its identity, authority, schedule, entry and exit conditions, evidence, and review criteria.',
 )
-@SectionId('PHGAREEN')
+@SectionId('PHGREV')
 class PhaseGateReviewEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -6795,7 +6795,7 @@ class PhaseGateReviewEntry extends DocSpecsSection {
       String,
       'Next Gate Reference',
       hint: 'Gate ID of the next gate in sequence',
-      refersTo: ['PHGAREEN.gateId'],
+      refersTo: ['PHGREV.gateId'],
     ),
   ])
   @SerializationOrder(6)

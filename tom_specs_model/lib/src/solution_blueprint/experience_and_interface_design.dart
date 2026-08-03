@@ -1582,8 +1582,8 @@ class ScreenEntry extends DocSpecsSection {
     ],
     'The collection of responsive rules that adapt a screen layout to different device sizes.',
   )
-  @SectionId('SCRERUEN-RESP-LST')
-  @SectionIdPattern('SCRERUEN-RESP-xxx')
+  @SectionId('SCRERU-RESP-LST')
+  @SectionIdPattern('SCRERU-RESP-xxx')
   @ContentHelp('Add one entry per responsive rule.')
   @SerializationOrder(11)
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
@@ -2037,8 +2037,8 @@ class ScreenElementEntry extends DocSpecsSection {
     ],
     'The collection of validation rules that constrain and check the input for a screen element.',
   )
-  @SectionId('ELVARUEN-VALI-LST')
-  @SectionIdPattern('ELVARUEN-VALI-xxx')
+  @SectionId('ELVARU-VALI-LST')
+  @SectionIdPattern('ELVARU-VALI-xxx')
   @ContentHelp('Add one entry per validation rule.')
   @SerializationOrder(9)
   List<ElementValidationRuleEntry> validationRules = [];
@@ -2596,7 +2596,7 @@ class ScreenElementDataDisplay extends DocSpecsSection {
   ],
   'A single validation rule describing how one input constraint is checked and reported.',
 )
-@SectionId('ELVARUEN')
+@SectionId('ELVARU')
 @CodeSpecKind([
   CodeSpecPart.validation,
 ], note: 'CE-VA — per-field / per-element validation rule.')
@@ -3067,7 +3067,7 @@ class EntryPointEntry extends DocSpecsSection {
   ],
   'A single responsive-adaptation rule describing how the screen changes at a given breakpoint.',
 )
-@SectionId('SCRERUEN')
+@SectionId('SCRERU')
 @CodeSpecKind(
   [CodeSpecPart.layout],
   note:
@@ -3489,10 +3489,10 @@ class ScreenTransitionEntry extends DocSpecsSection {
       'outcomeReference',
       String,
       'Outcome Reference',
-      hint: 'For error, the system error code (SYERCOEN registry); for '
+      hint: 'For error, the system error code (SYERCO registry); for '
           'validationError, the validation message template (VMT registry) — '
           'empty for success',
-      refersTo: ['SYERCOEN.errorCode', 'VMT.messageId'],
+      refersTo: ['SYERCO.errorCode', 'VMT.messageId'],
     ),
   ])
   @override
@@ -4276,8 +4276,8 @@ Tab bars map to `TomTabBar` with:
     ],
     'The collection of tab-bar definitions used for in-page secondary navigation.',
   )
-  @SectionId('TABADEEN-TABB-LST')
-  @SectionIdPattern('TABADEEN-TABB-xxx')
+  @SectionId('TABADE-TABB-LST')
+  @SectionIdPattern('TABADE-TABB-xxx')
   @ContentHelp('Add one entry per tab bar or segmented control.')
   @SerializationOrder(2)
   List<TabBarDefinitionEntry> tabBars = [];
@@ -4290,7 +4290,7 @@ Tab bars map to `TomTabBar` with:
   'ISO 9241-143:2012 — a grouped set of selectable controls forming a tab bar',
   'ISO 9241-151:2008 — in-page navigation structures link the user to related content',
 ], 'A tab bar or segmented control definition bound to a specific host screen.')
-@SectionId('TABADEEN')
+@SectionId('TABADE')
 @CodeSpecKind([
   CodeSpecPart.navigation,
 ], note: 'CE-NV — navigation / routing structure.')
@@ -4512,8 +4512,8 @@ Dropdown/popup menus have nested items with:
     ],
     'The collection of utility navigation items shown persistently in the app bar or drawer.',
   )
-  @SectionId('UTNAITEN-ITEM-LST')
-  @SectionIdPattern('UTNAITEN-ITEM-xxx')
+  @SectionId('UTNAIT-ITEM-LST')
+  @SectionIdPattern('UTNAIT-ITEM-xxx')
   @ContentHelp('Add one entry per utility navigation item.')
   @SerializationOrder(1)
   List<UtilityNavigationItemEntry> items = [];
@@ -4530,7 +4530,7 @@ Dropdown/popup menus have nested items with:
   ],
   'A single persistent utility element in the app bar, such as the user avatar or notifications bell.',
 )
-@SectionId('UTNAITEN')
+@SectionId('UTNAIT')
 @CodeSpecKind([
   CodeSpecPart.navigation,
 ], note: 'CE-NV — navigation / routing structure.')
@@ -4641,8 +4641,8 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
     ],
     'The collection of nested menu item entries belonging to a utility navigation item.',
   )
-  @SectionId('UTMEITEN-MENU-LST')
-  @SectionIdPattern('UTMEITEN-MENU-xxx')
+  @SectionId('UTMEIT-MENU-LST')
+  @SectionIdPattern('UTMEIT-MENU-xxx')
   @ContentHelp('Add one entry per utility menu item.')
   @SerializationOrder(4)
   List<UtilityMenuItemEntry> menuItems = [];
@@ -4658,7 +4658,7 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
   ],
   'A single entry within a utility popup or dropdown menu, such as a user-menu option.',
 )
-@SectionId('UTMEITEN')
+@SectionId('UTMEIT')
 @CodeSpecKind([
   CodeSpecPart.navigation,
 ], note: 'CE-NV — navigation / routing structure.')
@@ -5976,8 +5976,8 @@ class ReportEntry extends DocSpecsSection {
     ],
     'The collection of schedules controlling automated generation of the report.',
   )
-  @SectionId('REPSCHENT-SCHE-LST')
-  @SectionIdPattern('REPSCHENT-SCHE-xxx')
+  @SectionId('REPSCH-SCHE-LST')
+  @SectionIdPattern('REPSCH-SCHE-xxx')
   @ContentHelp('Add one entry per report generation schedule.')
   @SerializationOrder(15)
   List<ReportScheduleEntry> schedules = [];
@@ -6228,8 +6228,8 @@ class ReportSectionEntry extends DocSpecsSection {
     ],
     'The collection of column entries defining the tabular layout of this report section.',
   )
-  @SectionId('REPCOLENT-COLU-LST')
-  @SectionIdPattern('REPCOLENT-COLU-xxx')
+  @SectionId('REPCOL-COLU-LST')
+  @SectionIdPattern('REPCOL-COLU-xxx')
   @ContentHelp('Add one entry per column in the section table.')
   @SerializationOrder(5)
   List<ReportColumnEntry> columns = [];
@@ -6238,8 +6238,8 @@ class ReportSectionEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form',
   ], 'The collection of chart entries rendered within this report section.')
-  @SectionId('REPCHAENT-CHAR-LST')
-  @SectionIdPattern('REPCHAENT-CHAR-xxx')
+  @SectionId('REPCHA-CHAR-LST')
+  @SectionIdPattern('REPCHA-CHAR-xxx')
   @ContentHelp('Add one entry per chart shown in the section.')
   @SerializationOrder(6)
   List<ReportChartEntry> charts = [];
@@ -6251,7 +6251,7 @@ class ReportSectionEntry extends DocSpecsSection {
   'ISO 9241-112:2017 — presentation of information organises data into tabular columns',
   'ISO 9241-13:1998 — user guidance covers column header labels',
 ], 'A single column definition within a tabular report section.')
-@SectionId('REPCOLENT')
+@SectionId('REPCOL')
 @OneOf(
   discriminator: 'dataType',
   note:
@@ -6598,7 +6598,7 @@ class ReportColumnEntry extends DocSpecsSection {
   'ISO 9241-125:2017 — visual presentation of information guides layout of a chart',
   'ISO/IEC 25010:2023 — appropriateness recognisability supports comprehension of charts',
 ], 'A single chart definition describing how report data is visualised.')
-@SectionId('REPCHAENT')
+@SectionId('REPCHA')
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
@@ -7239,7 +7239,7 @@ class ReportFilterEntry extends DocSpecsSection {
   ],
   'A single report-schedule entry defining when and how often a report is generated.',
 )
-@SectionId('REPSCHENT')
+@SectionId('REPSCH')
 @CodeSpecKind(
   [CodeSpecPart.reporting],
   note:
@@ -8107,8 +8107,8 @@ class ExportFormatEntry extends DocSpecsSection {
     ],
     'The collection of export field-mapping entries that bind source fields to output columns.',
   )
-  @SectionId('EXFIMAEN-FIEL-LST')
-  @SectionIdPattern('EXFIMAEN-FIEL-xxx')
+  @SectionId('EXFIMA-FIEL-LST')
+  @SectionIdPattern('EXFIMA-FIEL-xxx')
   @ContentHelp('Add one entry per export field mapping.')
   @SerializationOrder(10)
   List<ExportFieldMappingEntry> fieldMappings = [];
@@ -8161,7 +8161,7 @@ class ExportSizeSettings extends DocSpecsSection {
   ],
   'A single mapping that binds one source data field to one target field in the export output.',
 )
-@SectionId('EXFIMAEN')
+@SectionId('EXFIMA')
 @OneOf(
   discriminator: 'dataType',
   note:
@@ -9413,8 +9413,8 @@ class SystemErrorDisplay extends DocSpecsSection {
     'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
     'ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message',
   ], 'The collection of catalogued system error code entries.')
-  @SectionId('SYERCOEN-ERRO-LST')
-  @SectionIdPattern('SYERCOEN-ERRO-xxx')
+  @SectionId('SYERCO-ERRO-LST')
+  @SectionIdPattern('SYERCO-ERRO-xxx')
   @ContentHelp('Add one entry per system error code.')
   @SerializationOrder(7)
   List<SystemErrorCodeEntry> errorCodes = [];
@@ -9425,7 +9425,7 @@ class SystemErrorDisplay extends DocSpecsSection {
   'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
   'ISO 9241-13:1998 — user guidance maps each error to a clear and specific user message',
 ], 'A single catalogued system error code with its user message and handling.')
-@SectionId('SYERCOEN')
+@SectionId('SYERCO')
 @CodeSpecKind(
   [CodeSpecPart.errorResult],
   note:
@@ -11177,8 +11177,8 @@ class WcagCompliance extends DocSpecsSection {
     'W3C WCAG 2.2 — each success criterion states a testable accessibility requirement',
     'ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard',
   ], 'The collection of WCAG success-criterion entries.')
-  @SectionId('WCSUCREN-SUCC-LST')
-  @SectionIdPattern('WCSUCREN-SUCC-xxx')
+  @SectionId('WCSUCR-SUCC-LST')
+  @SectionIdPattern('WCSUCR-SUCC-xxx')
   @ContentHelp('Add one entry per WCAG success criterion.')
   @SerializationOrder(5)
   List<WcagSuccessCriterionEntry> successCriteria = [];
@@ -11192,7 +11192,7 @@ class WcagCompliance extends DocSpecsSection {
   ],
   'A single WCAG success criterion with its level, applicability, and conformance status.',
 )
-@SectionId('WCSUCREN')
+@SectionId('WCSUCR')
 class WcagSuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12184,8 +12184,8 @@ class UiComponents extends DocSpecsSection {
     'Atomic Design (Brad Frost) — each catalog component is specified as a composable building block',
     'ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity',
   ], 'The collection of catalog component-specification entries.')
-  @SectionId('UICOMENT-COMP-LST')
-  @SectionIdPattern('UICOMENT-COMP-xxx')
+  @SectionId('UICOM-COMP-LST')
+  @SectionIdPattern('UICOM-COMP-xxx')
   @ContentHelp('Add one entry per catalog component.')
   @SerializationOrder(5)
   List<UiComponentEntry> componentSpecs = [];
@@ -12716,7 +12716,7 @@ class FamilyComponentRef extends DocSpecsSection {
   ],
   'The complete specification of a single user-interface component covering identity, visual design, behaviour, accessibility, authorization, and data binding.',
 )
-@SectionId('UICOMENT')
+@SectionId('UICOM')
 @CodeSpecKind(
   [CodeSpecPart.screenElement],
   note:
@@ -12726,7 +12726,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Component Identity
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-IDEN')
+  @SectionId('UICOM-IDEN')
   @Form([
     // Identity
     Field(
@@ -12833,7 +12833,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Visual Design
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-VISU')
+  @SectionId('UICOM-VISU')
   @Form([
     Field(
       'defaultAppearance',
@@ -12972,7 +12972,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Interactive Behavior
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-INTE')
+  @SectionId('UICOM-INTE')
   @Form([
     Field(
       'tapBehavior',
@@ -13110,7 +13110,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Responsiveness
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-RESP')
+  @SectionId('UICOM-RESP')
   @Form([
     Field(
       'mobileLayout',
@@ -13161,7 +13161,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Accessibility
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-ACCE')
+  @SectionId('UICOM-ACCE')
   @Form([
     Field(
       'semanticRole',
@@ -13213,7 +13213,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Authorization Integration
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-AUTH')
+  @SectionId('UICOM-AUTH')
   @Form([
     Field(
       'authBasePath',
@@ -13264,7 +13264,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Resource Integration
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-RESO')
+  @SectionId('UICOM-RESO')
   @Form([
     Field(
       'resourceBasePath',
@@ -13333,7 +13333,7 @@ class UiComponentEntry extends DocSpecsSection {
   // ─────────────────────────────────────────────────────────────────────────
   // Data Binding
   // ─────────────────────────────────────────────────────────────────────────
-  @SectionId('UICOMENT-DATA')
+  @SectionId('UICOM-DATA')
   @Form([
     Field(
       'dataType',
@@ -13397,8 +13397,8 @@ class UiComponentEntry extends DocSpecsSection {
     ],
     'The collection of component-state entries defining the visual and functional states of the component.',
   )
-  @SectionId('COMSTAENT-STAT-LST')
-  @SectionIdPattern('COMSTAENT-STAT-xxx')
+  @SectionId('COMSTA-STAT-LST')
+  @SectionIdPattern('COMSTA-STAT-xxx')
   @ContentHelp('Add one entry per component state.')
   @SerializationOrder(18)
   List<ComponentStateEntry> states = [];
@@ -13471,7 +13471,7 @@ class UiComponentEntry extends DocSpecsSection {
   ],
   'The component state definition describing a distinct visual and functional state of a UI component.',
 )
-@SectionId('COMSTAENT')
+@SectionId('COMSTA')
 @CodeSpecKind(
   [CodeSpecPart.viewState],
   note:
@@ -14095,8 +14095,8 @@ class MultiLanguageSupport extends DocSpecsSection {
     'ISO 3166 — country and region codes complete each locale identifier',
     'W3C Internationalization / BCP 47 — language tags name the supported locales',
   ], 'The collection of locales the system supports.')
-  @SectionId('SUPLOCENT-SUPP-LST')
-  @SectionIdPattern('SUPLOCENT-SUPP-xxx')
+  @SectionId('SUPLOC-SUPP-LST')
+  @SectionIdPattern('SUPLOC-SUPP-xxx')
   @ContentHelp('Add one entry per supported locale.')
   @SerializationOrder(3)
   List<SupportedLocaleEntry> supportedLocales = [];
@@ -15255,7 +15255,7 @@ class TranslationRequirements extends DocSpecsSection {
   ],
   'A single locale the product supports, named by its language tag, language name, and region.',
 )
-@SectionId('SUPLOCENT')
+@SectionId('SUPLOC')
 @CodeSpecKind(
   [CodeSpecPart.text],
   note:

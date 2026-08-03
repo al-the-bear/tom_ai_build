@@ -1624,8 +1624,8 @@ class ExternalSystemsContext extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148 §6 — external system interfaces',
   ], 'The set of individual external-system integration entries.')
-  @SectionId('EXSYCOEN-SYST-LST')
-  @SectionIdPattern('EXSYCOEN-SYST-xxx')
+  @SectionId('EXSYCO-SYST-LST')
+  @SectionIdPattern('EXSYCO-SYST-xxx')
   @ContentHelp(
     'Add one entry per external system that this system '
     'integrates with.',
@@ -1643,7 +1643,7 @@ class ExternalSystemsContext extends DocSpecsSection {
   'Captures a single external system the platform integrates with: its '
   'name, owner, and type.',
 )
-@SectionId('EXSYCOEN')
+@SectionId('EXSYCO')
 class ExternalSystemContextEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -1780,7 +1780,7 @@ class ExternalSystemContextEntry extends DocSpecsSection {
   DocSpecsSection? governance;
 
   /// Data mapping details.
-  @SectionId('EXSYCOEN-DATA')
+  @SectionId('EXSYCO-DATA')
   @ContentType(
     'description',
     'Details of data transformation and '
@@ -11836,8 +11836,8 @@ class SystemToReplaceEntry extends DocSpecsSection {
     'Lists integrations and dependencies between this system and others, so '
     'replacement sequencing accounts for connected systems.',
   )
-  @SectionId('REPSDEP-DEPE-LST')
-  @SectionIdPattern('REPSDEP-DEPE-xxx')
+  @SectionId('RESYDE-DEPE-LST')
+  @SectionIdPattern('RESYDE-DEPE-xxx')
   @ContentHelp(
     'Add one entry per integration or dependency; capture direction, '
     'criticality, and how the link will be rebuilt or eliminated.',
@@ -12174,8 +12174,8 @@ class SystemBusinessCriticality extends DocSpecsSection {
     'Lists the business units and departments that depend on the system, '
     'quantifying organizational reach for impact planning.',
   )
-  @SectionId('SYBUUNEN-BUSI-LST')
-  @SectionIdPattern('SYBUUNEN-BUSI-xxx')
+  @SectionId('SYBUUN-BUSI-LST')
+  @SectionIdPattern('SYBUUN-BUSI-xxx')
   @ContentHelp(
     'Add one entry per business unit using the system; note user '
     'count and dependency level.',
@@ -12189,8 +12189,8 @@ class SystemBusinessCriticality extends DocSpecsSection {
     'Lists the business processes the system supports, establishing the '
     'functional footprint that the replacement must preserve.',
   )
-  @SectionId('SYBUPREN-SUPP-LST')
-  @SectionIdPattern('SYBUPREN-SUPP-xxx')
+  @SectionId('SYBUPR-SUPP-LST')
+  @SectionIdPattern('SYBUPR-SUPP-xxx')
   @ContentHelp(
     'Add one entry per business process the system supports; note '
     'its role and execution frequency.',
@@ -12205,7 +12205,7 @@ class SystemBusinessCriticality extends DocSpecsSection {
   'Captures a single business unit that uses the system, with its usage '
   'pattern, dependency level, and impact if the system is removed.',
 )
-@SectionId('SYBUUNEN')
+@SectionId('SYBUUN')
 class SystemBusinessUnitEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12246,7 +12246,7 @@ class SystemBusinessUnitEntry extends DocSpecsSection {
   'Captures a single business process the system supports, with its role and '
   'execution frequency, defining functionality the replacement must cover.',
 )
-@SectionId('SYBUPREN')
+@SectionId('SYBUPR')
 class SystemBusinessProcessEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12593,8 +12593,8 @@ class SystemDataScope extends DocSpecsSection {
     'Lists the data entities to migrate, with target mappings and '
     'transformation notes that drive the data-migration work.',
   )
-  @SectionId('DAENMIEN-ENTI-LST')
-  @SectionIdPattern('DAENMIEN-ENTI-xxx')
+  @SectionId('DAENMI-ENTI-LST')
+  @SectionIdPattern('DAENMI-ENTI-xxx')
   @ContentHelp(
     'Add one entry per data entity to migrate; capture record count, '
     'target mapping, and transformation rules.',
@@ -12624,7 +12624,7 @@ class SystemDataScope extends DocSpecsSection {
   'Captures a single data entity to migrate, with its target mapping, '
   'transformation notes, and validation rules.',
 )
-@SectionId('DAENMIEN')
+@SectionId('DAENMI')
 class DataEntityMigrationEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12678,7 +12678,7 @@ class DataEntityMigrationEntry extends DocSpecsSection {
   'Captures a single integration or dependency with another system, with '
   'direction, criticality, and how it will be migrated or eliminated.',
 )
-@SectionId('REPSDEP')
+@SectionId('RESYDE')
 class ReplacementSystemDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -12899,8 +12899,8 @@ class SystemUserImpact extends DocSpecsSection {
     'Lists user groups that require specific handling during replacement, '
     'capturing impact level and tailored change considerations.',
   )
-  @SectionId('USGRIMEN-USER-LST')
-  @SectionIdPattern('USGRIMEN-USER-xxx')
+  @SectionId('USGRIM-USER-LST')
+  @SectionIdPattern('USGRIM-USER-xxx')
   @ContentHelp(
     'Add one entry per user group needing special handling; note '
     'impact level and special considerations.',
@@ -12915,7 +12915,7 @@ class SystemUserImpact extends DocSpecsSection {
   'Captures a single user group, its impact level, and the special handling or '
   'training it requires during the replacement.',
 )
-@SectionId('USGRIMEN')
+@SectionId('USGRIM')
 class UserGroupImpactEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -13224,8 +13224,8 @@ class SystemMigrationPlan extends DocSpecsSection {
     'Lists the migration risks specific to this system, with probability, '
     'impact, mitigation, and contingency for each.',
   )
-  @SectionId('SYMIRIEN-RISK-LST')
-  @SectionIdPattern('SYMIRIEN-RISK-xxx')
+  @SectionId('SYMIRI-RISK-LST')
+  @SectionIdPattern('SYMIRI-RISK-xxx')
   @ContentHelp(
     'Add one entry per migration risk; capture probability, impact, '
     'mitigation, and contingency.',
@@ -13256,7 +13256,7 @@ class SystemMigrationPlan extends DocSpecsSection {
   'Captures a single migration risk with its probability, impact, score, '
   'mitigation, contingency, and owner.',
 )
-@SectionId('SYMIRIEN')
+@SectionId('SYMIRI')
 class SystemMigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field('riskId', String, 'Risk ID', hint: 'Identifier for the risk'),
@@ -15027,8 +15027,8 @@ class InterfaceBusinessContext extends DocSpecsSection {
     ['TOGAF — system context & boundary definition'],
     'Lists the business processes that rely on this interface so dependency and fallback impact can be assessed.',
   )
-  @SectionId('INBUPREN-DEPE-LST')
-  @SectionIdPattern('INBUPREN-DEPE-xxx')
+  @SectionId('INBUPR-DEPE-LST')
+  @SectionIdPattern('INBUPR-DEPE-xxx')
   @ContentHelp(
     'List business processes that depend on this interface, '
     'noting dependency type and fallback if the interface is unavailable.',
@@ -15042,7 +15042,7 @@ class InterfaceBusinessContext extends DocSpecsSection {
   ['TOGAF — system context & boundary definition'],
   'Documents a single business process dependency on the interface and how it copes when the interface is unavailable.',
 )
-@SectionId('INBUPREN')
+@SectionId('INBUPR')
 class InterfaceBusinessProcessEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -15426,8 +15426,8 @@ class InterfaceDataSpec extends DocSpecsSection {
     ['OpenAPI / AsyncAPI — API specification'],
     'Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping.',
   )
-  @SectionId('INDAENEN-DATA-LST')
-  @SectionIdPattern('INDAENEN-DATA-xxx')
+  @SectionId('INDAEN-DATA-LST')
+  @SectionIdPattern('INDAEN-DATA-xxx')
   @ContentHelp(
     'List each data entity exchanged, noting direction, field '
     'count, sensitive fields, and the internal entity it maps to.',
@@ -15469,7 +15469,7 @@ class InterfaceDataSpec extends DocSpecsSection {
   ['OpenAPI / AsyncAPI — API specification'],
   'Documents a single data entity exchanged over the interface and how it maps to the internal model.',
 )
-@SectionId('INDAENEN')
+@SectionId('INDAEN')
 class InterfaceDataEntityEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16197,8 +16197,8 @@ class InterfaceTesting extends DocSpecsSection {
     ['ISO/IEC/IEEE 29119 — software testing'],
     'Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases.',
   )
-  @SectionId('INTESCEN-TEST-LST')
-  @SectionIdPattern('INTESCEN-TEST-xxx')
+  @SectionId('INTESC-TEST-LST')
+  @SectionIdPattern('INTESC-TEST-xxx')
   @ContentHelp(
     'List test scenarios for the interface, each with type, '
     'preconditions, steps, and expected result.',
@@ -16212,7 +16212,7 @@ class InterfaceTesting extends DocSpecsSection {
   ['ISO/IEC/IEEE 29119 — software testing'],
   'Documents a single interface test scenario with its preconditions, steps, and expected result.',
 )
-@SectionId('INTESCEN')
+@SectionId('INTESC')
 class InterfaceTestScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -16301,8 +16301,8 @@ class OutOfScope extends DocSpecsSection {
     ],
     'Lists each individually excluded item so every out-of-scope decision is recorded and traceable.',
   )
-  @SectionId('OUOFSCEN-ITEM-LST')
-  @SectionIdPattern('OUOFSCEN-ITEM-xxx')
+  @SectionId('OUTSCO-ITEM-LST')
+  @SectionIdPattern('OUTSCO-ITEM-xxx')
   @ContentHelp(
     'Each entry records one excluded feature, system, or '
     'integration along with its exclusion rationale.',
@@ -16319,7 +16319,7 @@ class OutOfScope extends DocSpecsSection {
   ],
   'Captures a single excluded item with its type and rationale to keep scope boundaries explicit.',
 )
-@SectionId('OUOFSCEN')
+@SectionId('OUTSCO')
 class OutOfScopeEntry extends DocSpecsSection {
   @Form([
     Field(
@@ -17727,8 +17727,8 @@ class TechnicalEnvironment extends DocSpecsSection {
     ],
     'Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect.',
   )
-  @SectionId('INTCONENT-INTE-LST')
-  @SectionIdPattern('INTCONENT-INTE-xxx')
+  @SectionId('INTCON-INTE-LST')
+  @SectionIdPattern('INTCON-INTE-xxx')
   @ContentHelp(
     'List integration constraints: protocol and format '
     'requirements, platform mandates, and the interfaces they affect.',
@@ -18027,7 +18027,7 @@ class TechnologyStandardEntry extends DocSpecsSection {
   ],
   'Documents a single technical constraint on system integration that the solution must respect.',
 )
-@SectionId('INTCONENT')
+@SectionId('INTCON')
 class IntegrationConstraintEntry extends DocSpecsSection {
   @Form([
     Field(

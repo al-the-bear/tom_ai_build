@@ -3,30 +3,6 @@
 
 title-format: "# <!--[SAS]--> Security & Access Specification"
 section-types:
-  reskref-reso-lst:
-    prefix: RESKREF_RESO_LST
-    subsection-types:
-      reskref-reso:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per resource reference.
-  roldscp-data-lst:
-    prefix: ROLDSCP_DATA_LST
-    subsection-types:
-      roldscp-data:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per data scope.
-  rolperm-dire-lst:
-    prefix: ROLPERM_DIRE_LST
-    subsection-types:
-      rolperm-dire:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per direct permission.
   cochen-comm-lst:
     prefix: COCHEN_COMM_LST
     subsection-types:
@@ -75,6 +51,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per MFA credential requirement.
+  rekere-reso-lst:
+    prefix: REKERE_RESO_LST
+    subsection-types:
+      rekere-reso:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per resource reference.
   reskey-reso-lst:
     prefix: RESKEY_RESO_LST
     subsection-types:
@@ -83,6 +67,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per protected resource.
+  rodasc-data-lst:
+    prefix: RODASC_DATA_LST
+    subsection-types:
+      rodasc-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data scope.
   rolexc-mutu-lst:
     prefix: ROLEXC_MUTU_LST
     subsection-types:
@@ -99,6 +91,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per typical role holder.
+  rolper-dire-lst:
+    prefix: ROLPER_DIRE_LST
+    subsection-types:
+      rolper-dire:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per direct permission.
   rolref-cont-lst:
     prefix: ROLREF_CONT_LST
     subsection-types:
@@ -228,24 +228,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per authorization role.
-  reskref-reso:
-    prefix: RESKREF_RESO_
-    pattern-check-id:
-      pattern: ^RESKREF-RESO-.+$
-      error-message: IDs of this section must match RESKREF-RESO-xxx
-    description: Add one entry per resource reference.
-  roldscp-data:
-    prefix: ROLDSCP_DATA_
-    pattern-check-id:
-      pattern: ^ROLDSCP-DATA-.+$
-      error-message: IDs of this section must match ROLDSCP-DATA-xxx
-    description: Add one entry per data scope.
-  rolperm-dire:
-    prefix: ROLPERM_DIRE_
-    pattern-check-id:
-      pattern: ^ROLPERM-DIRE-.+$
-      error-message: IDs of this section must match ROLPERM-DIRE-xxx
-    description: Add one entry per direct permission.
   sevt-cust-lst:
     prefix: SEVT_CUST_LST
     subsection-types:
@@ -322,12 +304,24 @@ section-types:
       pattern: ^MFACRQ-MFAC-.+$
       error-message: IDs of this section must match MFACRQ-MFAC-xxx
     description: Add one entry per MFA credential requirement.
+  rekere-reso:
+    prefix: REKERE_RESO_
+    pattern-check-id:
+      pattern: ^REKERE-RESO-.+$
+      error-message: IDs of this section must match REKERE-RESO-xxx
+    description: Add one entry per resource reference.
   reskey-reso:
     prefix: RESKEY_RESO_
     pattern-check-id:
       pattern: ^RESKEY-RESO-.+$
       error-message: IDs of this section must match RESKEY-RESO-xxx
     description: Add one entry per protected resource.
+  rodasc-data:
+    prefix: RODASC_DATA_
+    pattern-check-id:
+      pattern: ^RODASC-DATA-.+$
+      error-message: IDs of this section must match RODASC-DATA-xxx
+    description: Add one entry per data scope.
   rolexc-mutu:
     prefix: ROLEXC_MUTU_
     pattern-check-id:
@@ -340,6 +334,12 @@ section-types:
       pattern: ^ROLHLD-TYPI-.+$
       error-message: IDs of this section must match ROLHLD-TYPI-xxx
     description: Add one entry per typical role holder.
+  rolper-dire:
+    prefix: ROLPER_DIRE_
+    pattern-check-id:
+      pattern: ^ROLPER-DIRE-.+$
+      error-message: IDs of this section must match ROLPER-DIRE-xxx
+    description: Add one entry per direct permission.
   rolref-cont:
     prefix: ROLREF_CONT_
     pattern-check-id:
@@ -507,9 +507,9 @@ section-types:
         max-count: 1
       enrefe-enti-lst:
         max-count: 1
-      rolperm-dire-lst:
+      rolper-dire-lst:
         max-count: 1
-      roldscp-data-lst:
+      rodasc-data-lst:
         max-count: 1
       rolexc-mutu-lst:
         max-count: 1
@@ -540,7 +540,7 @@ section-types:
   ent-enti:
     prefix: ENT_ENTI_
     subsection-types:
-      reskref-reso-lst:
+      rekere-reso-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^ENT-ENTI-.+$

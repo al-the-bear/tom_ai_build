@@ -1686,9 +1686,9 @@ impl AlertingConfiguration {
     pub fn alert_rules(&self) -> som::SomList<AlertRuleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ALERULENT-ALER-LST"),
+            format!("{}/{}", self.node.path(), "ALERUL-ALER-LST"),
             Box::new(AlertRuleEntry::new),
-            "ALERULENT-ALER-xxx".to_string(),
+            "ALERUL-ALER-xxx".to_string(),
         )
     }
 
@@ -3651,9 +3651,9 @@ impl AuthorizationRoleEntry {
     pub fn direct_permissions(&self) -> som::SomList<RolePermissionEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ROLPERM-DIRE-LST"),
+            format!("{}/{}", self.node.path(), "ROLPER-DIRE-LST"),
             Box::new(RolePermissionEntry::new),
-            "ROLPERM-DIRE-xxx".to_string(),
+            "ROLPER-DIRE-xxx".to_string(),
         )
     }
 
@@ -3661,9 +3661,9 @@ impl AuthorizationRoleEntry {
     pub fn data_scopes(&self) -> som::SomList<RoleDataScopeEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ROLDSCP-DATA-LST"),
+            format!("{}/{}", self.node.path(), "RODASC-DATA-LST"),
             Box::new(RoleDataScopeEntry::new),
-            "ROLDSCP-DATA-xxx".to_string(),
+            "RODASC-DATA-xxx".to_string(),
         )
     }
 
@@ -6966,9 +6966,9 @@ impl ClientRequirementsSection {
     pub fn browser_requirements(&self) -> som::SomList<BrowserRequirementEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "BROREQENT-BROW-LST"),
+            format!("{}/{}", self.node.path(), "BROREQ-BROW-LST"),
             Box::new(BrowserRequirementEntry::new),
-            "BROREQENT-BROW-xxx".to_string(),
+            "BROREQ-BROW-xxx".to_string(),
         )
     }
 
@@ -6976,9 +6976,9 @@ impl ClientRequirementsSection {
     pub fn desktop_os_requirements(&self) -> som::SomList<DesktopOsRequirementEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DEOSREEN-DESK-LST"),
+            format!("{}/{}", self.node.path(), "DEOSRE-DESK-LST"),
             Box::new(DesktopOsRequirementEntry::new),
-            "DEOSREEN-DESK-xxx".to_string(),
+            "DEOSRE-DESK-xxx".to_string(),
         )
     }
 
@@ -6986,9 +6986,9 @@ impl ClientRequirementsSection {
     pub fn mobile_requirements(&self) -> som::SomList<MobileDeviceRequirementEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "MODEREEN-MOBI-LST"),
+            format!("{}/{}", self.node.path(), "MODERE-MOBI-LST"),
             Box::new(MobileDeviceRequirementEntry::new),
-            "MODEREEN-MOBI-xxx".to_string(),
+            "MODERE-MOBI-xxx".to_string(),
         )
     }
 
@@ -7802,9 +7802,9 @@ impl CompatibilityRequirementsSection {
     pub fn browser_compatibility(&self) -> som::SomList<BrowserCompatibilityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "BROCOMENT-BROW-LST"),
+            format!("{}/{}", self.node.path(), "BROCOM-BROW-LST"),
             Box::new(BrowserCompatibilityEntry::new),
-            "BROCOMENT-BROW-xxx".to_string(),
+            "BROCOM-BROW-xxx".to_string(),
         )
     }
 
@@ -7812,9 +7812,9 @@ impl CompatibilityRequirementsSection {
     pub fn database_compatibility(&self) -> som::SomList<DatabaseCompatibilityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DATCOMENT-DATA-LST"),
+            format!("{}/{}", self.node.path(), "DATCOM-DATA-LST"),
             Box::new(DatabaseCompatibilityEntry::new),
-            "DATCOMENT-DATA-xxx".to_string(),
+            "DATCOM-DATA-xxx".to_string(),
         )
     }
 
@@ -7822,9 +7822,9 @@ impl CompatibilityRequirementsSection {
     pub fn enterprise_system_compatibility(&self) -> som::SomList<EnterpriseSystemCompatibilityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ENSYCOEN-ENTE-LST"),
+            format!("{}/{}", self.node.path(), "ENSYCO-ENTE-LST"),
             Box::new(EnterpriseSystemCompatibilityEntry::new),
-            "ENSYCOEN-ENTE-xxx".to_string(),
+            "ENSYCO-ENTE-xxx".to_string(),
         )
     }
 
@@ -7852,9 +7852,9 @@ impl CompatibilityRequirementsSection {
     pub fn mobile_compatibility(&self) -> som::SomList<MobileCompatibilityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "MOBCOMENT-MOBI-LST"),
+            format!("{}/{}", self.node.path(), "MOBCOM-MOBI-LST"),
             Box::new(MobileCompatibilityEntry::new),
-            "MOBCOMENT-MOBI-xxx".to_string(),
+            "MOBCOM-MOBI-xxx".to_string(),
         )
     }
 
@@ -7862,9 +7862,9 @@ impl CompatibilityRequirementsSection {
     pub fn third_party_compatibility(&self) -> som::SomList<ThirdPartyCompatibilityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "THPACOEN-THIR-LST"),
+            format!("{}/{}", self.node.path(), "THPACO-THIR-LST"),
             Box::new(ThirdPartyCompatibilityEntry::new),
-            "THPACOEN-THIR-xxx".to_string(),
+            "THPACO-THIR-xxx".to_string(),
         )
     }
 
@@ -18885,9 +18885,9 @@ impl EntitlementEntry {
     pub fn resource_key_references(&self) -> som::SomList<ResourceKeyReferenceEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "RESKREF-RESO-LST"),
+            format!("{}/{}", self.node.path(), "REKERE-RESO-LST"),
             Box::new(ResourceKeyReferenceEntry::new),
-            "RESKREF-RESO-xxx".to_string(),
+            "REKERE-RESO-xxx".to_string(),
         )
     }
 }
@@ -20451,9 +20451,9 @@ impl ExportFormatEntry {
     pub fn field_mappings(&self) -> som::SomList<ExportFieldMappingEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "EXFIMAEN-FIEL-LST"),
+            format!("{}/{}", self.node.path(), "EXFIMA-FIEL-LST"),
             Box::new(ExportFieldMappingEntry::new),
-            "EXFIMAEN-FIEL-xxx".to_string(),
+            "EXFIMA-FIEL-xxx".to_string(),
         )
     }
 }
@@ -20705,9 +20705,9 @@ impl ExternalConnectivitySection {
     pub fn partner_connections(&self) -> som::SomList<ExternalPartnerConnectionEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "EXPACOEN-PART-LST"),
+            format!("{}/{}", self.node.path(), "EXPACO-PART-LST"),
             Box::new(ExternalPartnerConnectionEntry::new),
-            "EXPACOEN-PART-xxx".to_string(),
+            "EXPACO-PART-xxx".to_string(),
         )
     }
 
@@ -21099,11 +21099,11 @@ impl ExternalSystemContextEntry {
 
     /// Data mapping details.
     pub fn data_mapping(&self) -> String {
-        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "EXSYCOEN-DATA"))
+        self.node.doc().borrow().content_or(&format!("{}/{}", self.node.path(), "EXSYCO-DATA"))
     }
 
     pub fn set_data_mapping(&self, value: &str) {
-        let path = format!("{}/{}", self.node.path(), "EXSYCOEN-DATA");
+        let path = format!("{}/{}", self.node.path(), "EXSYCO-DATA");
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 }
@@ -21141,9 +21141,9 @@ impl ExternalSystemsContext {
     pub fn systems(&self) -> som::SomList<ExternalSystemContextEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "EXSYCOEN-SYST-LST"),
+            format!("{}/{}", self.node.path(), "EXSYCO-SYST-LST"),
             Box::new(ExternalSystemContextEntry::new),
-            "EXSYCOEN-SYST-xxx".to_string(),
+            "EXSYCO-SYST-xxx".to_string(),
         )
     }
 }
@@ -25222,9 +25222,9 @@ impl InterfaceBusinessContext {
     pub fn dependent_processes(&self) -> som::SomList<InterfaceBusinessProcessEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INBUPREN-DEPE-LST"),
+            format!("{}/{}", self.node.path(), "INBUPR-DEPE-LST"),
             Box::new(InterfaceBusinessProcessEntry::new),
-            "INBUPREN-DEPE-xxx".to_string(),
+            "INBUPR-DEPE-xxx".to_string(),
         )
     }
 }
@@ -25301,9 +25301,9 @@ impl InterfaceDataSpec {
     pub fn data_entities(&self) -> som::SomList<InterfaceDataEntityEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INDAENEN-DATA-LST"),
+            format!("{}/{}", self.node.path(), "INDAEN-DATA-LST"),
             Box::new(InterfaceDataEntityEntry::new),
-            "INDAENEN-DATA-xxx".to_string(),
+            "INDAEN-DATA-xxx".to_string(),
         )
     }
 
@@ -25683,9 +25683,9 @@ impl InterfaceTesting {
     pub fn test_scenarios(&self) -> som::SomList<InterfaceTestScenarioEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INTESCEN-TEST-LST"),
+            format!("{}/{}", self.node.path(), "INTESC-TEST-LST"),
             Box::new(InterfaceTestScenarioEntry::new),
-            "INTESCEN-TEST-xxx".to_string(),
+            "INTESC-TEST-xxx".to_string(),
         )
     }
 }
@@ -28318,9 +28318,9 @@ impl MetricsAndObservability {
     pub fn custom_metrics(&self) -> som::SomList<CustomMetricEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "CUSMETENT-CUST-LST"),
+            format!("{}/{}", self.node.path(), "CUSMET-CUST-LST"),
             Box::new(CustomMetricEntry::new),
-            "CUSMETENT-CUST-xxx".to_string(),
+            "CUSMET-CUST-xxx".to_string(),
         )
     }
 }
@@ -29583,9 +29583,9 @@ impl MonitoringAndAlertingSection {
     pub fn alert_definitions(&self) -> som::SomList<AlertDefinitionEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ALEDEFENT-ALER-LST"),
+            format!("{}/{}", self.node.path(), "ALEDEF-ALER-LST"),
             Box::new(AlertDefinitionEntry::new),
-            "ALEDEFENT-ALER-xxx".to_string(),
+            "ALEDEF-ALER-xxx".to_string(),
         )
     }
 
@@ -29859,9 +29859,9 @@ impl MultiLanguageSupport {
     pub fn supported_locales(&self) -> som::SomList<SupportedLocaleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SUPLOCENT-SUPP-LST"),
+            format!("{}/{}", self.node.path(), "SUPLOC-SUPP-LST"),
             Box::new(SupportedLocaleEntry::new),
-            "SUPLOCENT-SUPP-xxx".to_string(),
+            "SUPLOC-SUPP-xxx".to_string(),
         )
     }
 }
@@ -32196,9 +32196,9 @@ impl OutOfScope {
     pub fn items(&self) -> som::SomList<OutOfScopeEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "OUOFSCEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "OUTSCO-ITEM-LST"),
             Box::new(OutOfScopeEntry::new),
-            "OUOFSCEN-ITEM-xxx".to_string(),
+            "OUTSCO-ITEM-xxx".to_string(),
         )
     }
 }
@@ -33375,9 +33375,9 @@ impl PhaseGateReviews {
     pub fn items(&self) -> som::SomList<PhaseGateReviewEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "PHGAREEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "PHGREV-ITEM-LST"),
             Box::new(PhaseGateReviewEntry::new),
-            "PHGAREEN-ITEM-xxx".to_string(),
+            "PHGREV-ITEM-xxx".to_string(),
         )
     }
 }
@@ -33608,9 +33608,9 @@ impl PlatformAndLanguage {
     pub fn deployment_targets(&self) -> som::SomList<DeploymentTargetEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DEPTARENT-DEPL-LST"),
+            format!("{}/{}", self.node.path(), "DEPTAR-DEPL-LST"),
             Box::new(DeploymentTargetEntry::new),
-            "DEPTARENT-DEPL-xxx".to_string(),
+            "DEPTAR-DEPL-xxx".to_string(),
         )
     }
 
@@ -37970,9 +37970,9 @@ impl ReportEntry {
     pub fn schedules(&self) -> som::SomList<ReportScheduleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "REPSCHENT-SCHE-LST"),
+            format!("{}/{}", self.node.path(), "REPSCH-SCHE-LST"),
             Box::new(ReportScheduleEntry::new),
-            "REPSCHENT-SCHE-xxx".to_string(),
+            "REPSCH-SCHE-xxx".to_string(),
         )
     }
 
@@ -38213,9 +38213,9 @@ impl ReportSectionEntry {
     pub fn columns(&self) -> som::SomList<ReportColumnEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "REPCOLENT-COLU-LST"),
+            format!("{}/{}", self.node.path(), "REPCOL-COLU-LST"),
             Box::new(ReportColumnEntry::new),
-            "REPCOLENT-COLU-xxx".to_string(),
+            "REPCOL-COLU-xxx".to_string(),
         )
     }
 
@@ -38223,9 +38223,9 @@ impl ReportSectionEntry {
     pub fn charts(&self) -> som::SomList<ReportChartEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "REPCHAENT-CHAR-LST"),
+            format!("{}/{}", self.node.path(), "REPCHA-CHAR-LST"),
             Box::new(ReportChartEntry::new),
-            "REPCHAENT-CHAR-xxx".to_string(),
+            "REPCHA-CHAR-xxx".to_string(),
         )
     }
 }
@@ -39658,9 +39658,9 @@ impl ReusableComponentsSection {
     pub fn business_components(&self) -> som::SomList<BusinessComponentEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "BUSCOMENT-BUSI-LST"),
+            format!("{}/{}", self.node.path(), "BUSCOM-BUSI-LST"),
             Box::new(BusinessComponentEntry::new),
-            "BUSCOMENT-BUSI-xxx".to_string(),
+            "BUSCOM-BUSI-xxx".to_string(),
         )
     }
 
@@ -39668,9 +39668,9 @@ impl ReusableComponentsSection {
     pub fn infrastructure_components(&self) -> som::SomList<InfrastructureComponentEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INFCOMENT-INFR-LST"),
+            format!("{}/{}", self.node.path(), "INFCOM-INFR-LST"),
             Box::new(InfrastructureComponentEntry::new),
-            "INFCOMENT-INFR-xxx".to_string(),
+            "INFCOM-INFR-xxx".to_string(),
         )
     }
 
@@ -41867,9 +41867,9 @@ impl ScreenElementEntry {
     pub fn validation_rules(&self) -> som::SomList<ElementValidationRuleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ELVARUEN-VALI-LST"),
+            format!("{}/{}", self.node.path(), "ELVARU-VALI-LST"),
             Box::new(ElementValidationRuleEntry::new),
-            "ELVARUEN-VALI-xxx".to_string(),
+            "ELVARU-VALI-xxx".to_string(),
         )
     }
 }
@@ -42044,9 +42044,9 @@ impl ScreenEntry {
     pub fn responsive_rules(&self) -> som::SomList<ScreenResponsiveRuleEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SCRERUEN-RESP-LST"),
+            format!("{}/{}", self.node.path(), "SCRERU-RESP-LST"),
             Box::new(ScreenResponsiveRuleEntry::new),
-            "SCRERUEN-RESP-xxx".to_string(),
+            "SCRERU-RESP-xxx".to_string(),
         )
     }
 }
@@ -42577,9 +42577,9 @@ impl SecondaryNavigation {
     pub fn tab_bars(&self) -> som::SomList<TabBarDefinitionEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "TABADEEN-TABB-LST"),
+            format!("{}/{}", self.node.path(), "TABADE-TABB-LST"),
             Box::new(TabBarDefinitionEntry::new),
-            "TABADEEN-TABB-xxx".to_string(),
+            "TABADE-TABB-xxx".to_string(),
         )
     }
 }
@@ -46497,9 +46497,9 @@ impl StandardsComplianceSection {
     pub fn it_standards(&self) -> som::SomList<ItStandardComplianceEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "ITSTCOEN-ITST-LST"),
+            format!("{}/{}", self.node.path(), "ITSTCO-ITST-LST"),
             Box::new(ItStandardComplianceEntry::new),
-            "ITSTCOEN-ITST-xxx".to_string(),
+            "ITSTCO-ITST-xxx".to_string(),
         )
     }
 
@@ -46507,9 +46507,9 @@ impl StandardsComplianceSection {
     pub fn industry_protocols(&self) -> som::SomList<IndustryProtocolComplianceEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INPRCOEN-INDU-LST"),
+            format!("{}/{}", self.node.path(), "INPRCO-INDU-LST"),
             Box::new(IndustryProtocolComplianceEntry::new),
-            "INPRCOEN-INDU-xxx".to_string(),
+            "INPRCO-INDU-xxx".to_string(),
         )
     }
 
@@ -46517,9 +46517,9 @@ impl StandardsComplianceSection {
     pub fn interface_specifications(&self) -> som::SomList<InterfaceSpecificationEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INTSPEENT-INTE-LST"),
+            format!("{}/{}", self.node.path(), "INTSPE-INTE-LST"),
             Box::new(InterfaceSpecificationEntry::new),
-            "INTSPEENT-INTE-xxx".to_string(),
+            "INTSPE-INTE-xxx".to_string(),
         )
     }
 
@@ -46537,9 +46537,9 @@ impl StandardsComplianceSection {
     pub fn security_standards(&self) -> som::SomList<SecurityStandardComplianceEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SESTCOEN-SECU-LST"),
+            format!("{}/{}", self.node.path(), "SESTCO-SECU-LST"),
             Box::new(SecurityStandardComplianceEntry::new),
-            "SESTCOEN-SECU-xxx".to_string(),
+            "SESTCO-SECU-xxx".to_string(),
         )
     }
 
@@ -47363,9 +47363,9 @@ impl SystemBusinessCriticality {
     pub fn business_units(&self) -> som::SomList<SystemBusinessUnitEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SYBUUNEN-BUSI-LST"),
+            format!("{}/{}", self.node.path(), "SYBUUN-BUSI-LST"),
             Box::new(SystemBusinessUnitEntry::new),
-            "SYBUUNEN-BUSI-xxx".to_string(),
+            "SYBUUN-BUSI-xxx".to_string(),
         )
     }
 
@@ -47373,9 +47373,9 @@ impl SystemBusinessCriticality {
     pub fn supported_processes(&self) -> som::SomList<SystemBusinessProcessEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SYBUPREN-SUPP-LST"),
+            format!("{}/{}", self.node.path(), "SYBUPR-SUPP-LST"),
             Box::new(SystemBusinessProcessEntry::new),
-            "SYBUPREN-SUPP-xxx".to_string(),
+            "SYBUPR-SUPP-xxx".to_string(),
         )
     }
 }
@@ -47633,9 +47633,9 @@ impl SystemDataScope {
     pub fn entities(&self) -> som::SomList<DataEntityMigrationEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "DAENMIEN-ENTI-LST"),
+            format!("{}/{}", self.node.path(), "DAENMI-ENTI-LST"),
             Box::new(DataEntityMigrationEntry::new),
-            "DAENMIEN-ENTI-xxx".to_string(),
+            "DAENMI-ENTI-xxx".to_string(),
         )
     }
 
@@ -47905,9 +47905,9 @@ impl SystemErrorDisplay {
     pub fn error_codes(&self) -> som::SomList<SystemErrorCodeEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SYERCOEN-ERRO-LST"),
+            format!("{}/{}", self.node.path(), "SYERCO-ERRO-LST"),
             Box::new(SystemErrorCodeEntry::new),
-            "SYERCOEN-ERRO-xxx".to_string(),
+            "SYERCO-ERRO-xxx".to_string(),
         )
     }
 }
@@ -48120,9 +48120,9 @@ impl SystemMigrationPlan {
     pub fn risks(&self) -> som::SomList<SystemMigrationRiskEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "SYMIRIEN-RISK-LST"),
+            format!("{}/{}", self.node.path(), "SYMIRI-RISK-LST"),
             Box::new(SystemMigrationRiskEntry::new),
-            "SYMIRIEN-RISK-xxx".to_string(),
+            "SYMIRI-RISK-xxx".to_string(),
         )
     }
 
@@ -48908,9 +48908,9 @@ impl SystemToReplaceEntry {
     pub fn dependencies(&self) -> som::SomList<ReplacementSystemDependencyEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "REPSDEP-DEPE-LST"),
+            format!("{}/{}", self.node.path(), "RESYDE-DEPE-LST"),
             Box::new(ReplacementSystemDependencyEntry::new),
-            "REPSDEP-DEPE-xxx".to_string(),
+            "RESYDE-DEPE-xxx".to_string(),
         )
     }
 
@@ -49014,9 +49014,9 @@ impl SystemUserImpact {
     pub fn user_groups(&self) -> som::SomList<UserGroupImpactEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "USGRIMEN-USER-LST"),
+            format!("{}/{}", self.node.path(), "USGRIM-USER-LST"),
             Box::new(UserGroupImpactEntry::new),
-            "USGRIMEN-USER-xxx".to_string(),
+            "USGRIM-USER-xxx".to_string(),
         )
     }
 }
@@ -49538,9 +49538,9 @@ impl TechnicalEnvironment {
     pub fn integration_constraints(&self) -> som::SomList<IntegrationConstraintEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "INTCONENT-INTE-LST"),
+            format!("{}/{}", self.node.path(), "INTCON-INTE-LST"),
             Box::new(IntegrationConstraintEntry::new),
-            "INTCONENT-INTE-xxx".to_string(),
+            "INTCON-INTE-xxx".to_string(),
         )
     }
 }
@@ -52460,7 +52460,7 @@ impl UiComponentEntry {
     }
 
     pub fn identity(&self) -> UiComponentEntryIdentityForm {
-        UiComponentEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-IDEN"))
+        UiComponentEntryIdentityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-IDEN"))
     }
 
     /// Wrapper mapping and business purpose.
@@ -52474,7 +52474,7 @@ impl UiComponentEntry {
     }
 
     pub fn visual_design(&self) -> UiComponentEntryVisualDesignForm {
-        UiComponentEntryVisualDesignForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-VISU"))
+        UiComponentEntryVisualDesignForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-VISU"))
     }
 
     /// Visual dimensions.
@@ -52496,7 +52496,7 @@ impl UiComponentEntry {
     // (skipped: visualDiagram has no target type)
 
     pub fn interactive_behavior(&self) -> UiComponentEntryInteractiveBehaviorForm {
-        UiComponentEntryInteractiveBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-INTE"))
+        UiComponentEntryInteractiveBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-INTE"))
     }
 
     /// Focus and keyboard behavior.
@@ -52515,23 +52515,23 @@ impl UiComponentEntry {
     }
 
     pub fn responsiveness(&self) -> UiComponentEntryResponsivenessForm {
-        UiComponentEntryResponsivenessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-RESP"))
+        UiComponentEntryResponsivenessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-RESP"))
     }
 
     pub fn accessibility(&self) -> UiComponentEntryAccessibilityForm {
-        UiComponentEntryAccessibilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-ACCE"))
+        UiComponentEntryAccessibilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-ACCE"))
     }
 
     pub fn authorization(&self) -> UiComponentEntryAuthorizationForm {
-        UiComponentEntryAuthorizationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-AUTH"))
+        UiComponentEntryAuthorizationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-AUTH"))
     }
 
     pub fn resource_integration(&self) -> UiComponentEntryResourceIntegrationForm {
-        UiComponentEntryResourceIntegrationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-RESO"))
+        UiComponentEntryResourceIntegrationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-RESO"))
     }
 
     pub fn data_binding(&self) -> UiComponentEntryDataBindingForm {
-        UiComponentEntryDataBindingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOMENT-DATA"))
+        UiComponentEntryDataBindingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UICOM-DATA"))
     }
 
     // Component behavior narrative.
@@ -52541,9 +52541,9 @@ impl UiComponentEntry {
     pub fn states(&self) -> som::SomList<ComponentStateEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "COMSTAENT-STAT-LST"),
+            format!("{}/{}", self.node.path(), "COMSTA-STAT-LST"),
             Box::new(ComponentStateEntry::new),
-            "COMSTAENT-STAT-xxx".to_string(),
+            "COMSTA-STAT-xxx".to_string(),
         )
     }
 
@@ -52638,9 +52638,9 @@ impl UiComponents {
     pub fn component_specs(&self) -> som::SomList<UiComponentEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "UICOMENT-COMP-LST"),
+            format!("{}/{}", self.node.path(), "UICOM-COMP-LST"),
             Box::new(UiComponentEntry::new),
-            "UICOMENT-COMP-xxx".to_string(),
+            "UICOM-COMP-xxx".to_string(),
         )
     }
 
@@ -54280,9 +54280,9 @@ impl UtilityNavigation {
     pub fn items(&self) -> som::SomList<UtilityNavigationItemEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "UTNAITEN-ITEM-LST"),
+            format!("{}/{}", self.node.path(), "UTNAIT-ITEM-LST"),
             Box::new(UtilityNavigationItemEntry::new),
-            "UTNAITEN-ITEM-xxx".to_string(),
+            "UTNAIT-ITEM-xxx".to_string(),
         )
     }
 }
@@ -54333,9 +54333,9 @@ impl UtilityNavigationItemEntry {
     pub fn menu_items(&self) -> som::SomList<UtilityMenuItemEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "UTMEITEN-MENU-LST"),
+            format!("{}/{}", self.node.path(), "UTMEIT-MENU-LST"),
             Box::new(UtilityMenuItemEntry::new),
-            "UTMEITEN-MENU-xxx".to_string(),
+            "UTMEIT-MENU-xxx".to_string(),
         )
     }
 }
@@ -54871,9 +54871,9 @@ impl WcagCompliance {
     pub fn success_criteria(&self) -> som::SomList<WcagSuccessCriterionEntry> {
         som::SomList::new(
             self.node.doc(),
-            format!("{}/{}", self.node.path(), "WCSUCREN-SUCC-LST"),
+            format!("{}/{}", self.node.path(), "WCSUCR-SUCC-LST"),
             Box::new(WcagSuccessCriterionEntry::new),
-            "WCSUCREN-SUCC-xxx".to_string(),
+            "WCSUCR-SUCC-xxx".to_string(),
         )
     }
 }

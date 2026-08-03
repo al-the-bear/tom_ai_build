@@ -17,6 +17,16 @@ const String _shapes = 'tom_specs_model_rules.md §5.1';
 /// The document section the keep-a-class / keep-a-level tags cite.
 const String _keepRules = 'tom_specs_model_rules.md §5.8';
 
+/// The `tom_specs_model_rules.md` §7.1 cap on a class-level `@SectionId`.
+///
+/// Six letters is what keeps a section id readable at a glance inside a
+/// docspecs comment. It is enforced here rather than left to authoring
+/// judgement because §7.2 *derives* every list container's prefix from the
+/// element class's id — an over-long class id therefore costs six characters in
+/// one place and the excess again in every container id that names the class,
+/// across all nine generated SOM languages.
+const int _maxClassSectionIdLength = 6;
+
 /// The reserved `refersTo` slot naming a registry entry's own stored section id
 /// rather than one of its form fields (`tom_specs_model_rules.md` §6.2).
 ///
@@ -228,6 +238,9 @@ const String _sectionIdSlot = '@sectionId';
 ///   Field-level `@SectionId` values (the `-LST` container IDs on list fields)
 ///   occupy a *separate* namespace and are checked independently (see the
 ///   `-LST` checks below).
+/// - **`@SectionId` length** — a class-level `@SectionId` is capped at
+///   [_maxClassSectionIdLength] letters (§7.1). Container ids are exempt: they
+///   are three-token compounds and carry a `-`.
 /// - **`@SectionId` single-occurrence (per class)** — a class may declare at
 ///   most one class-level `@SectionId`. A duplicate annotation on the same
 ///   class would pass the global-uniqueness check silently (the repeated id
@@ -469,6 +482,17 @@ void _validateStructuralInvariants(
     final sectionIdAnno = cls.getAnnotation('SectionId');
     if (sectionIdAnno != null) {
       final id = sectionIdAnno.arguments['id'] as String? ?? '';
+      // §7.1 length cap. A class-level id is a flat mnemonic (no `-`), and a
+      // long one is not paid for once: §7.2 derives every list container's
+      // prefix from it, so the excess propagates into every container id that
+      // points at the class and into all nine generated SOM languages.
+      if (id.length > _maxClassSectionIdLength && !id.contains('-')) {
+        errors.add(
+          '$_invariants @SectionId length: $className carries id "$id" '
+          '(${id.length} letters) — a class-level @SectionId is capped at '
+          '$_maxClassSectionIdLength letters (§7.1)',
+        );
+      }
       if (id.isNotEmpty) {
         if (sectionIdSeen.containsKey(id)) {
           errors.add(

@@ -1137,7 +1137,7 @@ class AlertingConfiguration(SomNode):
     # Alert rules catalog.
     @property
     def alertRules(self):
-        return SomList(self.doc, f"{self.path}/ALERULENT-ALER-LST", lambda d, p: AlertRuleEntry(d, p), pattern="ALERULENT-ALER-xxx")
+        return SomList(self.doc, f"{self.path}/ALERUL-ALER-LST", lambda d, p: AlertRuleEntry(d, p), pattern="ALERUL-ALER-xxx")
 
     # Escalation policies.
     @property
@@ -2493,12 +2493,12 @@ class AuthorizationRoleEntry(SomNode):
     # Contains 0+× RolePermission.
     @property
     def directPermissions(self):
-        return SomList(self.doc, f"{self.path}/ROLPERM-DIRE-LST", lambda d, p: RolePermissionEntry(d, p), pattern="ROLPERM-DIRE-xxx")
+        return SomList(self.doc, f"{self.path}/ROLPER-DIRE-LST", lambda d, p: RolePermissionEntry(d, p), pattern="ROLPER-DIRE-xxx")
 
     # Contains 0+× RoleDataScope.
     @property
     def dataScopes(self):
-        return SomList(self.doc, f"{self.path}/ROLDSCP-DATA-LST", lambda d, p: RoleDataScopeEntry(d, p), pattern="ROLDSCP-DATA-xxx")
+        return SomList(self.doc, f"{self.path}/RODASC-DATA-LST", lambda d, p: RoleDataScopeEntry(d, p), pattern="RODASC-DATA-xxx")
 
     # Contains 0+× RoleExclusion.
     @property
@@ -4708,17 +4708,17 @@ class ClientRequirementsSection(SomNode):
     # Web browser requirements.
     @property
     def browserRequirements(self):
-        return SomList(self.doc, f"{self.path}/BROREQENT-BROW-LST", lambda d, p: BrowserRequirementEntry(d, p), pattern="BROREQENT-BROW-xxx")
+        return SomList(self.doc, f"{self.path}/BROREQ-BROW-LST", lambda d, p: BrowserRequirementEntry(d, p), pattern="BROREQ-BROW-xxx")
 
     # Desktop operating system requirements.
     @property
     def desktopOsRequirements(self):
-        return SomList(self.doc, f"{self.path}/DEOSREEN-DESK-LST", lambda d, p: DesktopOsRequirementEntry(d, p), pattern="DEOSREEN-DESK-xxx")
+        return SomList(self.doc, f"{self.path}/DEOSRE-DESK-LST", lambda d, p: DesktopOsRequirementEntry(d, p), pattern="DEOSRE-DESK-xxx")
 
     # Mobile device requirements.
     @property
     def mobileRequirements(self):
-        return SomList(self.doc, f"{self.path}/MODEREEN-MOBI-LST", lambda d, p: MobileDeviceRequirementEntry(d, p), pattern="MODEREEN-MOBI-xxx")
+        return SomList(self.doc, f"{self.path}/MODERE-MOBI-LST", lambda d, p: MobileDeviceRequirementEntry(d, p), pattern="MODERE-MOBI-xxx")
 
     # Display and screen requirements.
     @property
@@ -5239,17 +5239,17 @@ class CompatibilityRequirementsSection(SomNode):
     # Browser compatibility requirements.
     @property
     def browserCompatibility(self):
-        return SomList(self.doc, f"{self.path}/BROCOMENT-BROW-LST", lambda d, p: BrowserCompatibilityEntry(d, p), pattern="BROCOMENT-BROW-xxx")
+        return SomList(self.doc, f"{self.path}/BROCOM-BROW-LST", lambda d, p: BrowserCompatibilityEntry(d, p), pattern="BROCOM-BROW-xxx")
 
     # Database compatibility requirements.
     @property
     def databaseCompatibility(self):
-        return SomList(self.doc, f"{self.path}/DATCOMENT-DATA-LST", lambda d, p: DatabaseCompatibilityEntry(d, p), pattern="DATCOMENT-DATA-xxx")
+        return SomList(self.doc, f"{self.path}/DATCOM-DATA-LST", lambda d, p: DatabaseCompatibilityEntry(d, p), pattern="DATCOM-DATA-xxx")
 
     # Enterprise system compatibility requirements.
     @property
     def enterpriseSystemCompatibility(self):
-        return SomList(self.doc, f"{self.path}/ENSYCOEN-ENTE-LST", lambda d, p: EnterpriseSystemCompatibilityEntry(d, p), pattern="ENSYCOEN-ENTE-xxx")
+        return SomList(self.doc, f"{self.path}/ENSYCO-ENTE-LST", lambda d, p: EnterpriseSystemCompatibilityEntry(d, p), pattern="ENSYCO-ENTE-xxx")
 
     # API and protocol compatibility requirements.
     @property
@@ -5264,12 +5264,12 @@ class CompatibilityRequirementsSection(SomNode):
     # Mobile device compatibility requirements.
     @property
     def mobileCompatibility(self):
-        return SomList(self.doc, f"{self.path}/MOBCOMENT-MOBI-LST", lambda d, p: MobileCompatibilityEntry(d, p), pattern="MOBCOMENT-MOBI-xxx")
+        return SomList(self.doc, f"{self.path}/MOBCOM-MOBI-LST", lambda d, p: MobileCompatibilityEntry(d, p), pattern="MOBCOM-MOBI-xxx")
 
     # Third-party software compatibility requirements.
     @property
     def thirdPartyCompatibility(self):
-        return SomList(self.doc, f"{self.path}/THPACOEN-THIR-LST", lambda d, p: ThirdPartyCompatibilityEntry(d, p), pattern="THPACOEN-THIR-xxx")
+        return SomList(self.doc, f"{self.path}/THPACO-THIR-LST", lambda d, p: ThirdPartyCompatibilityEntry(d, p), pattern="THPACO-THIR-xxx")
 
     # Data format and encoding compatibility.
     @property
@@ -13081,7 +13081,7 @@ class EntitlementEntry(SomNode):
     # Contains 0+× ResourceKeyReference.
     @property
     def resourceKeyReferences(self):
-        return SomList(self.doc, f"{self.path}/RESKREF-RESO-LST", lambda d, p: ResourceKeyReferenceEntry(d, p), pattern="RESKREF-RESO-xxx")
+        return SomList(self.doc, f"{self.path}/REKERE-RESO-LST", lambda d, p: ResourceKeyReferenceEntry(d, p), pattern="REKERE-RESO-xxx")
 
 class EntitlementReferenceEntry(SomNode):
     """An entitlement reference entry (form)."""
@@ -14160,7 +14160,7 @@ class ExportFormatEntry(SomNode):
     # Contains 0+× Export Field Mapping.
     @property
     def fieldMappings(self):
-        return SomList(self.doc, f"{self.path}/EXFIMAEN-FIEL-LST", lambda d, p: ExportFieldMappingEntry(d, p), pattern="EXFIMAEN-FIEL-xxx")
+        return SomList(self.doc, f"{self.path}/EXFIMA-FIEL-LST", lambda d, p: ExportFieldMappingEntry(d, p), pattern="EXFIMA-FIEL-xxx")
 
 class ExportSizeSettings(SomNode):
     """Export size settings."""
@@ -14305,7 +14305,7 @@ class ExternalConnectivitySection(SomNode):
     # External partner connections — contains 0+× ExternalPartnerConnection.
     @property
     def partnerConnections(self):
-        return SomList(self.doc, f"{self.path}/EXPACOEN-PART-LST", lambda d, p: ExternalPartnerConnectionEntry(d, p), pattern="EXPACOEN-PART-xxx")
+        return SomList(self.doc, f"{self.path}/EXPACO-PART-LST", lambda d, p: ExternalPartnerConnectionEntry(d, p), pattern="EXPACO-PART-xxx")
 
     # Cloud service integrations.
     @property
@@ -14582,11 +14582,11 @@ class ExternalSystemContextEntry(SomNode):
     # Data mapping details.
     @property
     def dataMapping(self):
-        return self.doc.content(f"{self.path}/EXSYCOEN-DATA") or ""
+        return self.doc.content(f"{self.path}/EXSYCO-DATA") or ""
 
     @dataMapping.setter
     def dataMapping(self, value):
-        self.doc.set_content(f"{self.path}/EXSYCOEN-DATA", value)
+        self.doc.set_content(f"{self.path}/EXSYCO-DATA", value)
 
 class ExternalSystemsContext(SomNode):
     """4.1.2.4. External Systems.
@@ -14611,7 +14611,7 @@ class ExternalSystemsContext(SomNode):
     # External system entries — contains 0+× ExternalSystemContextEntry.
     @property
     def systems(self):
-        return SomList(self.doc, f"{self.path}/EXSYCOEN-SYST-LST", lambda d, p: ExternalSystemContextEntry(d, p), pattern="EXSYCOEN-SYST-xxx")
+        return SomList(self.doc, f"{self.path}/EXSYCO-SYST-LST", lambda d, p: ExternalSystemContextEntry(d, p), pattern="EXSYCO-SYST-xxx")
 
 class FamilyComponentRef(SomNode):
     """A component reference within a family."""
@@ -17311,7 +17311,7 @@ class InterfaceBusinessContext(SomNode):
     # Business processes that depend on this interface.
     @property
     def dependentProcesses(self):
-        return SomList(self.doc, f"{self.path}/INBUPREN-DEPE-LST", lambda d, p: InterfaceBusinessProcessEntry(d, p), pattern="INBUPREN-DEPE-xxx")
+        return SomList(self.doc, f"{self.path}/INBUPR-DEPE-LST", lambda d, p: InterfaceBusinessProcessEntry(d, p), pattern="INBUPR-DEPE-xxx")
 
 class InterfaceBusinessProcessEntry(SomNode):
     """Business process dependency entry."""
@@ -17343,7 +17343,7 @@ class InterfaceDataSpec(SomNode):
     # Data entities exchanged.
     @property
     def dataEntities(self):
-        return SomList(self.doc, f"{self.path}/INDAENEN-DATA-LST", lambda d, p: InterfaceDataEntityEntry(d, p), pattern="INDAENEN-DATA-xxx")
+        return SomList(self.doc, f"{self.path}/INDAEN-DATA-LST", lambda d, p: InterfaceDataEntityEntry(d, p), pattern="INDAEN-DATA-xxx")
 
     # Data mapping and transformation rules.
     @property
@@ -17574,7 +17574,7 @@ class InterfaceTesting(SomNode):
     # Test scenarios.
     @property
     def testScenarios(self):
-        return SomList(self.doc, f"{self.path}/INTESCEN-TEST-LST", lambda d, p: InterfaceTestScenarioEntry(d, p), pattern="INTESCEN-TEST-xxx")
+        return SomList(self.doc, f"{self.path}/INTESC-TEST-LST", lambda d, p: InterfaceTestScenarioEntry(d, p), pattern="INTESC-TEST-xxx")
 
 class InternalDependencies(SomNode):
     """1.1.3.1. Internal Dependencies.
@@ -19355,7 +19355,7 @@ class MetricsAndObservability(SomNode):
     # Custom metrics catalog.
     @property
     def customMetrics(self):
-        return SomList(self.doc, f"{self.path}/CUSMETENT-CUST-LST", lambda d, p: CustomMetricEntry(d, p), pattern="CUSMETENT-CUST-xxx")
+        return SomList(self.doc, f"{self.path}/CUSMET-CUST-LST", lambda d, p: CustomMetricEntry(d, p), pattern="CUSMET-CUST-xxx")
 
 class MetricsBaselineEntry(SomNode):
     """A baseline entry for tracking metric changes."""
@@ -20194,7 +20194,7 @@ class MonitoringAndAlertingSection(SomNode):
     # Alert definitions.
     @property
     def alertDefinitions(self):
-        return SomList(self.doc, f"{self.path}/ALEDEFENT-ALER-LST", lambda d, p: AlertDefinitionEntry(d, p), pattern="ALEDEFENT-ALER-xxx")
+        return SomList(self.doc, f"{self.path}/ALEDEF-ALER-LST", lambda d, p: AlertDefinitionEntry(d, p), pattern="ALEDEF-ALER-xxx")
 
     # Dashboard requirements.
     @property
@@ -20380,7 +20380,7 @@ class MultiLanguageSupport(SomNode):
     # Supported locale entries.
     @property
     def supportedLocales(self):
-        return SomList(self.doc, f"{self.path}/SUPLOCENT-SUPP-LST", lambda d, p: SupportedLocaleEntry(d, p), pattern="SUPLOCENT-SUPP-xxx")
+        return SomList(self.doc, f"{self.path}/SUPLOC-SUPP-LST", lambda d, p: SupportedLocaleEntry(d, p), pattern="SUPLOC-SUPP-xxx")
 
 class MustPassCriteria(SomNode):
     """11.7.1. Must-Pass Criteria.
@@ -21956,7 +21956,7 @@ class OutOfScope(SomNode):
     # Contains 0+× OutOfScopeEntry.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/OUOFSCEN-ITEM-LST", lambda d, p: OutOfScopeEntry(d, p), pattern="OUOFSCEN-ITEM-xxx")
+        return SomList(self.doc, f"{self.path}/OUTSCO-ITEM-LST", lambda d, p: OutOfScopeEntry(d, p), pattern="OUTSCO-ITEM-xxx")
 
 class OutOfScopeEntry(SomNode):
     """An out-of-scope entry (form)."""
@@ -22740,7 +22740,7 @@ class PhaseGateReviews(SomNode):
     # Contains 0+× PhaseGateReviewEntry.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/PHGAREEN-ITEM-LST", lambda d, p: PhaseGateReviewEntry(d, p), pattern="PHGAREEN-ITEM-xxx")
+        return SomList(self.doc, f"{self.path}/PHGREV-ITEM-LST", lambda d, p: PhaseGateReviewEntry(d, p), pattern="PHGREV-ITEM-xxx")
 
 class PhysicalWorkplaceRequirements(SomNode):
     """Physical workplace layout and environment requirements."""
@@ -22888,7 +22888,7 @@ class PlatformAndLanguage(SomNode):
     # Deployment target specifications.
     @property
     def deploymentTargets(self):
-        return SomList(self.doc, f"{self.path}/DEPTARENT-DEPL-LST", lambda d, p: DeploymentTargetEntry(d, p), pattern="DEPTARENT-DEPL-xxx")
+        return SomList(self.doc, f"{self.path}/DEPTAR-DEPL-LST", lambda d, p: DeploymentTargetEntry(d, p), pattern="DEPTAR-DEPL-xxx")
 
     # Dependency management requirements.
     @property
@@ -25604,7 +25604,7 @@ class ReportEntry(SomNode):
     # Contains 0+× Report Schedule.
     @property
     def schedules(self):
-        return SomList(self.doc, f"{self.path}/REPSCHENT-SCHE-LST", lambda d, p: ReportScheduleEntry(d, p), pattern="REPSCHENT-SCHE-xxx")
+        return SomList(self.doc, f"{self.path}/REPSCH-SCHE-LST", lambda d, p: ReportScheduleEntry(d, p), pattern="REPSCH-SCHE-xxx")
 
     # Contains 0+× Report Distribution.
     @property
@@ -25777,12 +25777,12 @@ class ReportSectionEntry(SomNode):
     # Contains 0+× Report Column.
     @property
     def columns(self):
-        return SomList(self.doc, f"{self.path}/REPCOLENT-COLU-LST", lambda d, p: ReportColumnEntry(d, p), pattern="REPCOLENT-COLU-xxx")
+        return SomList(self.doc, f"{self.path}/REPCOL-COLU-LST", lambda d, p: ReportColumnEntry(d, p), pattern="REPCOL-COLU-xxx")
 
     # Contains 0+× Report Chart.
     @property
     def charts(self):
-        return SomList(self.doc, f"{self.path}/REPCHAENT-CHAR-LST", lambda d, p: ReportChartEntry(d, p), pattern="REPCHAENT-CHAR-xxx")
+        return SomList(self.doc, f"{self.path}/REPCHA-CHAR-LST", lambda d, p: ReportChartEntry(d, p), pattern="REPCHA-CHAR-xxx")
 
 class RequirementAcceptanceCriteria(SomNode):
     """4.3.1.n.1. Acceptance Criteria.
@@ -26671,12 +26671,12 @@ class ReusableComponentsSection(SomNode):
     # Business logic components.
     @property
     def businessComponents(self):
-        return SomList(self.doc, f"{self.path}/BUSCOMENT-BUSI-LST", lambda d, p: BusinessComponentEntry(d, p), pattern="BUSCOMENT-BUSI-xxx")
+        return SomList(self.doc, f"{self.path}/BUSCOM-BUSI-LST", lambda d, p: BusinessComponentEntry(d, p), pattern="BUSCOM-BUSI-xxx")
 
     # Infrastructure components.
     @property
     def infrastructureComponents(self):
-        return SomList(self.doc, f"{self.path}/INFCOMENT-INFR-LST", lambda d, p: InfrastructureComponentEntry(d, p), pattern="INFCOMENT-INFR-xxx")
+        return SomList(self.doc, f"{self.path}/INFCOM-INFR-LST", lambda d, p: InfrastructureComponentEntry(d, p), pattern="INFCOM-INFR-xxx")
 
     # Third-party frameworks and libraries.
     @property
@@ -28120,7 +28120,7 @@ class ScreenElementEntry(SomNode):
     # Contains 0+× ElementValidationRule.
     @property
     def validationRules(self):
-        return SomList(self.doc, f"{self.path}/ELVARUEN-VALI-LST", lambda d, p: ElementValidationRuleEntry(d, p), pattern="ELVARUEN-VALI-xxx")
+        return SomList(self.doc, f"{self.path}/ELVARU-VALI-LST", lambda d, p: ElementValidationRuleEntry(d, p), pattern="ELVARU-VALI-xxx")
 
 class ScreenElementFieldSpec(SomNode):
     """Field specification for an input-type element (form).
@@ -28258,7 +28258,7 @@ class ScreenEntry(SomNode):
     # Contains 0+× ScreenResponsiveRule.
     @property
     def responsiveRules(self):
-        return SomList(self.doc, f"{self.path}/SCRERUEN-RESP-LST", lambda d, p: ScreenResponsiveRuleEntry(d, p), pattern="SCRERUEN-RESP-xxx")
+        return SomList(self.doc, f"{self.path}/SCRERU-RESP-LST", lambda d, p: ScreenResponsiveRuleEntry(d, p), pattern="SCRERU-RESP-xxx")
 
 class ScreenFieldEntry(SomNode):
     """A screen field entry (form).
@@ -28599,7 +28599,7 @@ class SecondaryNavigation(SomNode):
     # Contains 0+× TabBarDefinition.
     @property
     def tabBars(self):
-        return SomList(self.doc, f"{self.path}/TABADEEN-TABB-LST", lambda d, p: TabBarDefinitionEntry(d, p), pattern="TABADEEN-TABB-xxx")
+        return SomList(self.doc, f"{self.path}/TABADE-TABB-LST", lambda d, p: TabBarDefinitionEntry(d, p), pattern="TABADE-TABB-xxx")
 
 class Security(SomNode):
     """11.3.4. Security quality."""
@@ -31350,17 +31350,17 @@ class StandardsComplianceSection(SomNode):
     # IT standards compliance (ISO, IEEE, NIST).
     @property
     def itStandards(self):
-        return SomList(self.doc, f"{self.path}/ITSTCOEN-ITST-LST", lambda d, p: ItStandardComplianceEntry(d, p), pattern="ITSTCOEN-ITST-xxx")
+        return SomList(self.doc, f"{self.path}/ITSTCO-ITST-LST", lambda d, p: ItStandardComplianceEntry(d, p), pattern="ITSTCO-ITST-xxx")
 
     # Industry protocols compliance.
     @property
     def industryProtocols(self):
-        return SomList(self.doc, f"{self.path}/INPRCOEN-INDU-LST", lambda d, p: IndustryProtocolComplianceEntry(d, p), pattern="INPRCOEN-INDU-xxx")
+        return SomList(self.doc, f"{self.path}/INPRCO-INDU-LST", lambda d, p: IndustryProtocolComplianceEntry(d, p), pattern="INPRCO-INDU-xxx")
 
     # Interface specification standards.
     @property
     def interfaceSpecifications(self):
-        return SomList(self.doc, f"{self.path}/INTSPEENT-INTE-LST", lambda d, p: InterfaceSpecificationEntry(d, p), pattern="INTSPEENT-INTE-xxx")
+        return SomList(self.doc, f"{self.path}/INTSPE-INTE-LST", lambda d, p: InterfaceSpecificationEntry(d, p), pattern="INTSPE-INTE-xxx")
 
     # Regulatory compliance requirements.
     @property
@@ -31370,7 +31370,7 @@ class StandardsComplianceSection(SomNode):
     # Security standards compliance.
     @property
     def securityStandards(self):
-        return SomList(self.doc, f"{self.path}/SESTCOEN-SECU-LST", lambda d, p: SecurityStandardComplianceEntry(d, p), pattern="SESTCOEN-SECU-xxx")
+        return SomList(self.doc, f"{self.path}/SESTCO-SECU-LST", lambda d, p: SecurityStandardComplianceEntry(d, p), pattern="SESTCO-SECU-xxx")
 
     # Accessibility standards compliance.
     @property
@@ -31940,12 +31940,12 @@ class SystemBusinessCriticality(SomNode):
     # Business units and departments using this system.
     @property
     def businessUnits(self):
-        return SomList(self.doc, f"{self.path}/SYBUUNEN-BUSI-LST", lambda d, p: SystemBusinessUnitEntry(d, p), pattern="SYBUUNEN-BUSI-xxx")
+        return SomList(self.doc, f"{self.path}/SYBUUN-BUSI-LST", lambda d, p: SystemBusinessUnitEntry(d, p), pattern="SYBUUN-BUSI-xxx")
 
     # Business processes supported by this system.
     @property
     def supportedProcesses(self):
-        return SomList(self.doc, f"{self.path}/SYBUPREN-SUPP-LST", lambda d, p: SystemBusinessProcessEntry(d, p), pattern="SYBUPREN-SUPP-xxx")
+        return SomList(self.doc, f"{self.path}/SYBUPR-SUPP-LST", lambda d, p: SystemBusinessProcessEntry(d, p), pattern="SYBUPR-SUPP-xxx")
 
 class SystemBusinessProcessEntry(SomNode):
     """Business process supported."""
@@ -32112,7 +32112,7 @@ class SystemDataScope(SomNode):
     # Data entities to migrate.
     @property
     def entities(self):
-        return SomList(self.doc, f"{self.path}/DAENMIEN-ENTI-LST", lambda d, p: DataEntityMigrationEntry(d, p), pattern="DAENMIEN-ENTI-xxx")
+        return SomList(self.doc, f"{self.path}/DAENMI-ENTI-LST", lambda d, p: DataEntityMigrationEntry(d, p), pattern="DAENMI-ENTI-xxx")
 
     # Data quality issues to address.
     @property
@@ -32302,7 +32302,7 @@ class SystemErrorDisplay(SomNode):
     # Error codes catalog.
     @property
     def errorCodes(self):
-        return SomList(self.doc, f"{self.path}/SYERCOEN-ERRO-LST", lambda d, p: SystemErrorCodeEntry(d, p), pattern="SYERCOEN-ERRO-xxx")
+        return SomList(self.doc, f"{self.path}/SYERCO-ERRO-LST", lambda d, p: SystemErrorCodeEntry(d, p), pattern="SYERCO-ERRO-xxx")
 
 class SystemIntegrationEntry(SomNode):
     """A system integration entry (form).
@@ -32443,7 +32443,7 @@ class SystemMigrationPlan(SomNode):
     # Contains 0+× MigrationRiskEntry — per-system migration risks.
     @property
     def risks(self):
-        return SomList(self.doc, f"{self.path}/SYMIRIEN-RISK-LST", lambda d, p: SystemMigrationRiskEntry(d, p), pattern="SYMIRIEN-RISK-xxx")
+        return SomList(self.doc, f"{self.path}/SYMIRI-RISK-LST", lambda d, p: SystemMigrationRiskEntry(d, p), pattern="SYMIRI-RISK-xxx")
 
     # Rollback strategy and procedures.
     @property
@@ -33042,7 +33042,7 @@ class SystemToReplaceEntry(SomNode):
     # Contains 0+× ReplacementSystemDependencyEntry — integrations with other systems.
     @property
     def dependencies(self):
-        return SomList(self.doc, f"{self.path}/REPSDEP-DEPE-LST", lambda d, p: ReplacementSystemDependencyEntry(d, p), pattern="REPSDEP-DEPE-xxx")
+        return SomList(self.doc, f"{self.path}/RESYDE-DEPE-LST", lambda d, p: ReplacementSystemDependencyEntry(d, p), pattern="RESYDE-DEPE-xxx")
 
     # User impact and change management needs.
     @property
@@ -33115,7 +33115,7 @@ class SystemUserImpact(SomNode):
     # User groups requiring specific handling.
     @property
     def userGroups(self):
-        return SomList(self.doc, f"{self.path}/USGRIMEN-USER-LST", lambda d, p: UserGroupImpactEntry(d, p), pattern="USGRIMEN-USER-xxx")
+        return SomList(self.doc, f"{self.path}/USGRIM-USER-LST", lambda d, p: UserGroupImpactEntry(d, p), pattern="USGRIM-USER-xxx")
 
 class SystemsToReplace(SomNode):
     """4.4. Systems to Replace. Seeds → CLA.
@@ -33433,7 +33433,7 @@ class TechnicalEnvironment(SomNode):
     # Integration constraints — contains 0+× IntegrationConstraint.
     @property
     def integrationConstraints(self):
-        return SomList(self.doc, f"{self.path}/INTCONENT-INTE-LST", lambda d, p: IntegrationConstraintEntry(d, p), pattern="INTCONENT-INTE-xxx")
+        return SomList(self.doc, f"{self.path}/INTCON-INTE-LST", lambda d, p: IntegrationConstraintEntry(d, p), pattern="INTCON-INTE-xxx")
 
 class TechnicalEnvironmentNetwork(SomNode):
     """Network and infrastructure standards."""
@@ -35318,7 +35318,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def identity(self):
-        return UiComponentEntryIdentityForm(self.doc, f"{self.path}/UICOMENT-IDEN")
+        return UiComponentEntryIdentityForm(self.doc, f"{self.path}/UICOM-IDEN")
 
     # Wrapper mapping and business purpose.
     @property
@@ -35332,7 +35332,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def visualDesign(self):
-        return UiComponentEntryVisualDesignForm(self.doc, f"{self.path}/UICOMENT-VISU")
+        return UiComponentEntryVisualDesignForm(self.doc, f"{self.path}/UICOM-VISU")
 
     # Visual dimensions.
     @property
@@ -35356,7 +35356,7 @@ class UiComponentEntry(SomNode):
 
     @property
     def interactiveBehavior(self):
-        return UiComponentEntryInteractiveBehaviorForm(self.doc, f"{self.path}/UICOMENT-INTE")
+        return UiComponentEntryInteractiveBehaviorForm(self.doc, f"{self.path}/UICOM-INTE")
 
     # Focus and keyboard behavior.
     @property
@@ -35375,23 +35375,23 @@ class UiComponentEntry(SomNode):
 
     @property
     def responsiveness(self):
-        return UiComponentEntryResponsivenessForm(self.doc, f"{self.path}/UICOMENT-RESP")
+        return UiComponentEntryResponsivenessForm(self.doc, f"{self.path}/UICOM-RESP")
 
     @property
     def accessibility(self):
-        return UiComponentEntryAccessibilityForm(self.doc, f"{self.path}/UICOMENT-ACCE")
+        return UiComponentEntryAccessibilityForm(self.doc, f"{self.path}/UICOM-ACCE")
 
     @property
     def authorization(self):
-        return UiComponentEntryAuthorizationForm(self.doc, f"{self.path}/UICOMENT-AUTH")
+        return UiComponentEntryAuthorizationForm(self.doc, f"{self.path}/UICOM-AUTH")
 
     @property
     def resourceIntegration(self):
-        return UiComponentEntryResourceIntegrationForm(self.doc, f"{self.path}/UICOMENT-RESO")
+        return UiComponentEntryResourceIntegrationForm(self.doc, f"{self.path}/UICOM-RESO")
 
     @property
     def dataBinding(self):
-        return UiComponentEntryDataBindingForm(self.doc, f"{self.path}/UICOMENT-DATA")
+        return UiComponentEntryDataBindingForm(self.doc, f"{self.path}/UICOM-DATA")
 
     # Component behavior narrative.
     @property
@@ -35401,7 +35401,7 @@ class UiComponentEntry(SomNode):
     # Contains 0+× ComponentState.
     @property
     def states(self):
-        return SomList(self.doc, f"{self.path}/COMSTAENT-STAT-LST", lambda d, p: ComponentStateEntry(d, p), pattern="COMSTAENT-STAT-xxx")
+        return SomList(self.doc, f"{self.path}/COMSTA-STAT-LST", lambda d, p: ComponentStateEntry(d, p), pattern="COMSTA-STAT-xxx")
 
     # Contains 0+× ComponentVariant.
     @property
@@ -35460,7 +35460,7 @@ class UiComponents(SomNode):
     # 10.11.2. Component Specifications — contains 0+×.
     @property
     def componentSpecs(self):
-        return SomList(self.doc, f"{self.path}/UICOMENT-COMP-LST", lambda d, p: UiComponentEntry(d, p), pattern="UICOMENT-COMP-xxx")
+        return SomList(self.doc, f"{self.path}/UICOM-COMP-LST", lambda d, p: UiComponentEntry(d, p), pattern="UICOM-COMP-xxx")
 
     # 10.11.3. Component Families — contains 0+×.
     @property
@@ -36615,7 +36615,7 @@ class UtilityNavigation(SomNode):
     # Contains 0+× UtilityNavigationItem.
     @property
     def items(self):
-        return SomList(self.doc, f"{self.path}/UTNAITEN-ITEM-LST", lambda d, p: UtilityNavigationItemEntry(d, p), pattern="UTNAITEN-ITEM-xxx")
+        return SomList(self.doc, f"{self.path}/UTNAIT-ITEM-LST", lambda d, p: UtilityNavigationItemEntry(d, p), pattern="UTNAIT-ITEM-xxx")
 
 class UtilityNavigationItemEntry(SomNode):
     """A utility navigation item entry (form).
@@ -36650,7 +36650,7 @@ class UtilityNavigationItemEntry(SomNode):
     # Contains 0+× UtilityMenuItem.
     @property
     def menuItems(self):
-        return SomList(self.doc, f"{self.path}/UTMEITEN-MENU-LST", lambda d, p: UtilityMenuItemEntry(d, p), pattern="UTMEITEN-MENU-xxx")
+        return SomList(self.doc, f"{self.path}/UTMEIT-MENU-LST", lambda d, p: UtilityMenuItemEntry(d, p), pattern="UTMEIT-MENU-xxx")
 
 class ValidationConstraints(SomNode):
     """7.1.6. Validation Constraints.
@@ -37001,7 +37001,7 @@ class WcagCompliance(SomNode):
     # WCAG success criteria mapping.
     @property
     def successCriteria(self):
-        return SomList(self.doc, f"{self.path}/WCSUCREN-SUCC-LST", lambda d, p: WcagSuccessCriterionEntry(d, p), pattern="WCSUCREN-SUCC-xxx")
+        return SomList(self.doc, f"{self.path}/WCSUCR-SUCC-LST", lambda d, p: WcagSuccessCriterionEntry(d, p), pattern="WCSUCR-SUCC-xxx")
 
 class WcagSuccessCriterionEntry(SomNode):
     """A WCAG success criterion entry."""

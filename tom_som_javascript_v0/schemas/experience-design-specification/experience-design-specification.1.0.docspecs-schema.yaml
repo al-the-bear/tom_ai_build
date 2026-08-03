@@ -3,122 +3,13 @@
 
 title-format: "# <!--[XDS]--> Experience Design Specification"
 section-types:
-  comstaent-stat-lst:
-    prefix: COMSTAENT_STAT_LST
+  comsta-stat-lst:
+    prefix: COMSTA_STAT_LST
     subsection-types:
-      comstaent-stat:
+      comsta-stat:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per component state.
-  repchaent-char-lst:
-    prefix: REPCHAENT_CHAR_LST
-    subsection-types:
-      repchaent-char:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per chart shown in the section.
-  repcolent-colu-lst:
-    prefix: REPCOLENT_COLU_LST
-    subsection-types:
-      repcolent-colu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per column in the section table.
-  repschent-sche-lst:
-    prefix: REPSCHENT_SCHE_LST
-    subsection-types:
-      repschent-sche:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report generation schedule.
-  elvaruen-vali-lst:
-    prefix: ELVARUEN_VALI_LST
-    subsection-types:
-      elvaruen-vali:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per validation rule.
-  exfimaen-fiel-lst:
-    prefix: EXFIMAEN_FIEL_LST
-    subsection-types:
-      exfimaen-fiel:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per export field mapping.
-  screruen-resp-lst:
-    prefix: SCRERUEN_RESP_LST
-    subsection-types:
-      screruen-resp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per responsive rule.
-  syercoen-erro-lst:
-    prefix: SYERCOEN_ERRO_LST
-    subsection-types:
-      syercoen-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per system error code.
-  tabadeen-tabb-lst:
-    prefix: TABADEEN_TABB_LST
-    subsection-types:
-      tabadeen-tabb:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per tab bar or segmented control.
-  uicoment-comp-lst:
-    prefix: UICOMENT_COMP_LST
-    subsection-types:
-      uicoment-comp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per catalog component.
-  utmeiten-menu-lst:
-    prefix: UTMEITEN_MENU_LST
-    subsection-types:
-      utmeiten-menu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per utility menu item.
-  utnaiten-item-lst:
-    prefix: UTNAITEN_ITEM_LST
-    subsection-types:
-      utnaiten-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per utility navigation item.
-  wcsucren-succ-lst:
-    prefix: WCSUCREN_SUCC_LST
-    subsection-types:
-      wcsucren-succ:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per WCAG success criterion.
-  comstaent-stat:
-    prefix: COMSTAENT_STAT_
-    subsection-types:
-      csev:
-        max-count: 1
-      cseb:
-        max-count: 1
-      cset:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^COMSTAENT-STAT-.+$
-      error-message: IDs of this section must match COMSTAENT-STAT-xxx
     description: Add one entry per component state.
   delnpt-patt-lst:
     prefix: DELNPT_PATT_LST
@@ -128,6 +19,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per deep-link URL pattern.
+  elvaru-vali-lst:
+    prefix: ELVARU_VALI_LST
+    subsection-types:
+      elvaru-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation rule.
+  exfima-fiel-lst:
+    prefix: EXFIMA_FIEL_LST
+    subsection-types:
+      exfima-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per export field mapping.
   exsise-size-lst:
     prefix: EXSISE_SIZE_LST
     subsection-types:
@@ -200,49 +107,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per chart axis configuration.
-  repchaent-char:
-    prefix: REPCHAENT_CHAR_
+  repcha-char-lst:
+    prefix: REPCHA_CHAR_LST
     subsection-types:
-      rechax-axes-lst:
-        max-count: 1
-      rechse:
-        max-count: 1
-      rechdi:
-        max-count: 1
-      rechin:
-        max-count: 1
-      rechla:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REPCHAENT-CHAR-.+$
-      error-message: IDs of this section must match REPCHAENT-CHAR-xxx
+      repcha-char:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per chart shown in the section.
-  repcolent-colu:
-    prefix: REPCOLENT_COLU_
+  repcol-colu-lst:
+    prefix: REPCOL_COLU_LST
     subsection-types:
-      rcds:
-        max-count: 1
-      recofo:
-        max-count: 1
-      recofn:
-        max-count: 1
-      recofc:
-        max-count: 1
-      recofd:
-        max-count: 1
-      recofb:
-        max-count: 1
-      recoft:
-        max-count: 1
-      recoag:
-        max-count: 1
-      recoin:
-        max-count: 1
-      recola:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REPCOLENT-COLU-.+$
-      error-message: IDs of this section must match REPCOLENT-COLU-xxx
+      repcol-colu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per column in the section table.
   repent-repo-lst:
     prefix: REPENT_REPO_LST
@@ -252,20 +131,13 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per report.
-  repschent-sche:
-    prefix: REPSCHENT_SCHE_
+  repsch-sche-lst:
+    prefix: REPSCH_SCHE_LST
     subsection-types:
-      rset:
-        max-count: 1
-      rser:
-        max-count: 1
-      rsen:
-        max-count: 1
-      rseo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REPSCHENT-SCHE-.+$
-      error-message: IDs of this section must match REPSCHENT-SCHE-xxx
+      repsch-sche:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per report generation schedule.
   respsr-scre-lst:
     prefix: RESPSR_SCRE_LST
@@ -275,6 +147,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen with distinct responsive rules.
+  screru-resp-lst:
+    prefix: SCRERU_RESP_LST
+    subsection-types:
+      screru-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per responsive rule.
   scrten-rout-lst:
     prefix: SCRTEN_ROUT_LST
     subsection-types:
@@ -291,6 +171,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
+  syerco-erro-lst:
+    prefix: SYERCO_ERRO_LST
+    subsection-types:
+      syerco-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system error code.
   syerdi-erro-lst:
     prefix: SYERDI_ERRO_LST
     subsection-types:
@@ -299,6 +187,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per error page design.
+  tabade-tabb-lst:
+    prefix: TABADE_TABB_LST
+    subsection-types:
+      tabade-tabb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab bar or segmented control.
+  utmeit-menu-lst:
+    prefix: UTMEIT_MENU_LST
+    subsection-types:
+      utmeit-menu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility menu item.
+  utnait-item-lst:
+    prefix: UTNAIT_ITEM_LST
+    subsection-types:
+      utnait-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility navigation item.
+  wcsucr-succ-lst:
+    prefix: WCSUCR_SUCC_LST
+    subsection-types:
+      wcsucr-succ:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per WCAG success criterion.
   azlvl-leve-lst:
     prefix: AZLVL_LEVE_LST
     subsection-types:
@@ -324,37 +244,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per design goal.
-  elvaruen-vali:
-    prefix: ELVARUEN_VALI_
-    pattern-check-id:
-      pattern: ^ELVARUEN-VALI-.+$
-      error-message: IDs of this section must match ELVARUEN-VALI-xxx
-    description: Add one entry per validation rule.
-  exfimaen-fiel:
-    prefix: EXFIMAEN_FIEL_
-    subsection-types:
-      efmef:
-        max-count: 1
-      efmefn:
-        max-count: 1
-      efmefd:
-        max-count: 1
-      efmefb:
-        max-count: 1
-      efmefe:
-        max-count: 1
-      efmeft:
-        max-count: 1
-      efmet:
-        max-count: 1
-      efmei:
-        max-count: 1
-      efmel:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^EXFIMAEN-FIEL-.+$
-      error-message: IDs of this section must match EXFIMAEN-FIEL-xxx
-    description: Add one entry per export field mapping.
   fldhp-fiel-lst:
     prefix: FLDHP_FIEL_LST
     subsection-types:
@@ -421,12 +310,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen.
-  screruen-resp:
-    prefix: SCRERUEN_RESP_
-    pattern-check-id:
-      pattern: ^SCRERUEN-RESP-.+$
-      error-message: IDs of this section must match SCRERUEN-RESP-xxx
-    description: Add one entry per responsive rule.
   scrsc-item-lst:
     prefix: SCRSC_ITEM_LST
     subsection-types:
@@ -443,31 +326,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen state.
-  syercoen-erro:
-    prefix: SYERCOEN_ERRO_
-    subsection-types:
-      seceh:
-        max-count: 1
-      seceo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SYERCOEN-ERRO-.+$
-      error-message: IDs of this section must match SYERCOEN-ERRO-xxx
-    description: Add one entry per system error code.
-  tabadeen-tabb:
-    prefix: TABADEEN_TABB_
-    subsection-types:
-      tbdeb:
-        max-count: 1
-      tbdel:
-        max-count: 1
-      tie-tabs-lst:
-        max-count: 1
-        min-count: 1
-    pattern-check-id:
-      pattern: ^TABADEEN-TABB-.+$
-      error-message: IDs of this section must match TABADEEN-TABB-xxx
-    description: Add one entry per tab bar or segmented control.
   turst-step-lst:
     prefix: TURST_STEP_LST
     subsection-types:
@@ -476,89 +334,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per guided-tour step.
-  uicoment-comp:
-    prefix: UICOMENT_COMP_
+  uicom-comp-lst:
+    prefix: UICOM_COMP_LST
     subsection-types:
-      uicoment-iden:
-        max-count: 1
-      ucep:
-        max-count: 1
-      ucec:
-        max-count: 1
-      uicoment-visu:
-        max-count: 1
-      uced:
-        max-count: 1
-      uces:
-        max-count: 1
-      uicoensu:
-        max-count: 1
-      uicoment-inte:
-        max-count: 1
-      uceib:
-        max-count: 1
-      ucea:
-        max-count: 1
-      uicoensc:
-        max-count: 1
-      uicoment-resp:
-        max-count: 1
-      uicoment-acce:
-        max-count: 1
-      uicoment-auth:
-        max-count: 1
-      uicoment-reso:
-        max-count: 1
-      uicoment-data:
-        max-count: 1
-      comstaent-stat-lst:
-        max-count: 1
-      cve-vari-lst:
-        max-count: 1
-      cmac-acti-lst:
-        max-count: 1
-      cmsl-slot-lst:
-        max-count: 1
-      cmpr-prop-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^UICOMENT-COMP-.+$
-      error-message: IDs of this section must match UICOMENT-COMP-xxx
+      uicom-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per catalog component.
-  utmeiten-menu:
-    prefix: UTMEITEN_MENU_
-    subsection-types:
-      umiea:
-        max-count: 1
-      umieb:
-        max-count: 1
-      azreq:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^UTMEITEN-MENU-.+$
-      error-message: IDs of this section must match UTMEITEN-MENU-xxx
-    description: Add one entry per utility menu item.
-  utnaiten-item:
-    prefix: UTNAITEN_ITEM_
-    subsection-types:
-      unied:
-        max-count: 1
-      azreq:
-        max-count: 1
-      unieb:
-        max-count: 1
-      utmeiten-menu-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^UTNAITEN-ITEM-.+$
-      error-message: IDs of this section must match UTNAITEN-ITEM-xxx
-    description: Add one entry per utility navigation item.
-  wcsucren-succ:
-    prefix: WCSUCREN_SUCC_
-    pattern-check-id:
-      pattern: ^WCSUCREN-SUCC-.+$
-      error-message: IDs of this section must match WCSUCREN-SUCC-xxx
-    description: Add one entry per WCAG success criterion.
   acch-item-lst:
     prefix: ACCH_ITEM_LST
     subsection-types:
@@ -647,30 +430,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per typography style.
-  uicoment-acce:
-    prefix: UICOMENT_ACCE
-    format: uicoment-acce-form
-  uicoment-auth:
-    prefix: UICOMENT_AUTH
-    format: uicoment-auth-form
-  uicoment-data:
-    prefix: UICOMENT_DATA
-    format: uicoment-data-form
-  uicoment-iden:
-    prefix: UICOMENT_IDEN
-    format: uicoment-iden-form
-  uicoment-inte:
-    prefix: UICOMENT_INTE
-    format: uicoment-inte-form
-  uicoment-reso:
-    prefix: UICOMENT_RESO
-    format: uicoment-reso-form
-  uicoment-resp:
-    prefix: UICOMENT_RESP
-    format: uicoment-resp-form
-  uicoment-visu:
-    prefix: UICOMENT_VISU
-    format: uicoment-visu-form
   vafe-fiel-lst:
     prefix: VAFE_FIEL_LST
     subsection-types:
@@ -679,6 +438,19 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per field validation rule.
+  comsta-stat:
+    prefix: COMSTA_STAT_
+    subsection-types:
+      csev:
+        max-count: 1
+      cseb:
+        max-count: 1
+      cset:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^COMSTA-STAT-.+$
+      error-message: IDs of this section must match COMSTA-STAT-xxx
+    description: Add one entry per component state.
   cve-vari-lst:
     prefix: CVE_VARI_LST
     subsection-types:
@@ -704,6 +476,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per export format.
+  elvaru-vali:
+    prefix: ELVARU_VALI_
+    pattern-check-id:
+      pattern: ^ELVARU-VALI-.+$
+      error-message: IDs of this section must match ELVARU-VALI-xxx
+    description: Add one entry per validation rule.
   ete-expo-lst:
     prefix: ETE_EXPO_LST
     subsection-types:
@@ -712,6 +490,31 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per export template.
+  exfima-fiel:
+    prefix: EXFIMA_FIEL_
+    subsection-types:
+      efmef:
+        max-count: 1
+      efmefn:
+        max-count: 1
+      efmefd:
+        max-count: 1
+      efmefb:
+        max-count: 1
+      efmefe:
+        max-count: 1
+      efmeft:
+        max-count: 1
+      efmet:
+        max-count: 1
+      efmei:
+        max-count: 1
+      efmel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXFIMA-FIEL-.+$
+      error-message: IDs of this section must match EXFIMA-FIEL-xxx
+    description: Add one entry per export field mapping.
   exsise-size:
     prefix: EXSISE_SIZE_
     pattern-check-id:
@@ -820,6 +623,50 @@ section-types:
       pattern: ^RECHAX-AXES-.+$
       error-message: IDs of this section must match RECHAX-AXES-xxx
     description: Add one entry per chart axis configuration.
+  repcha-char:
+    prefix: REPCHA_CHAR_
+    subsection-types:
+      rechax-axes-lst:
+        max-count: 1
+      rechse:
+        max-count: 1
+      rechdi:
+        max-count: 1
+      rechin:
+        max-count: 1
+      rechla:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPCHA-CHAR-.+$
+      error-message: IDs of this section must match REPCHA-CHAR-xxx
+    description: Add one entry per chart shown in the section.
+  repcol-colu:
+    prefix: REPCOL_COLU_
+    subsection-types:
+      rcds:
+        max-count: 1
+      recofo:
+        max-count: 1
+      recofn:
+        max-count: 1
+      recofc:
+        max-count: 1
+      recofd:
+        max-count: 1
+      recofb:
+        max-count: 1
+      recoft:
+        max-count: 1
+      recoag:
+        max-count: 1
+      recoin:
+        max-count: 1
+      recola:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPCOL-COLU-.+$
+      error-message: IDs of this section must match REPCOL-COLU-xxx
+    description: Add one entry per column in the section table.
   repent-repo:
     prefix: REPENT_REPO_
     subsection-types:
@@ -851,7 +698,7 @@ section-types:
         max-count: 1
       rfe-filt-lst:
         max-count: 1
-      repschent-sche-lst:
+      repsch-sche-lst:
         max-count: 1
       rde-dist-lst:
         max-count: 1
@@ -861,6 +708,21 @@ section-types:
       pattern: ^REPENT-REPO-.+$
       error-message: IDs of this section must match REPENT-REPO-xxx
     description: Add one entry per report.
+  repsch-sche:
+    prefix: REPSCH_SCHE_
+    subsection-types:
+      rset:
+        max-count: 1
+      rser:
+        max-count: 1
+      rsen:
+        max-count: 1
+      rseo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPSCH-SCHE-.+$
+      error-message: IDs of this section must match REPSCH-SCHE-xxx
+    description: Add one entry per report generation schedule.
   respsr-scre:
     prefix: RESPSR_SCRE_
     pattern-check-id:
@@ -891,6 +753,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per report section.
+  screru-resp:
+    prefix: SCRERU_RESP_
+    pattern-check-id:
+      pattern: ^SCRERU-RESP-.+$
+      error-message: IDs of this section must match SCRERU-RESP-xxx
+    description: Add one entry per responsive rule.
   scrten-rout:
     prefix: SCRTEN_ROUT_
     pattern-check-id:
@@ -903,12 +771,37 @@ section-types:
       pattern: ^SCTREN-TRAN-.+$
       error-message: IDs of this section must match SCTREN-TRAN-xxx
     description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
+  syerco-erro:
+    prefix: SYERCO_ERRO_
+    subsection-types:
+      seceh:
+        max-count: 1
+      seceo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SYERCO-ERRO-.+$
+      error-message: IDs of this section must match SYERCO-ERRO-xxx
+    description: Add one entry per system error code.
   syerdi-erro:
     prefix: SYERDI_ERRO_
     pattern-check-id:
       pattern: ^SYERDI-ERRO-.+$
       error-message: IDs of this section must match SYERDI-ERRO-xxx
     description: Add one entry per error page design.
+  tabade-tabb:
+    prefix: TABADE_TABB_
+    subsection-types:
+      tbdeb:
+        max-count: 1
+      tbdel:
+        max-count: 1
+      tie-tabs-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^TABADE-TABB-.+$
+      error-message: IDs of this section must match TABADE-TABB-xxx
+    description: Add one entry per tab bar or segmented control.
   tie-tabs-lst:
     prefix: TIE_TABS_LST
     subsection-types:
@@ -918,6 +811,34 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per tab item in the tab bar.
+  utmeit-menu:
+    prefix: UTMEIT_MENU_
+    subsection-types:
+      umiea:
+        max-count: 1
+      umieb:
+        max-count: 1
+      azreq:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UTMEIT-MENU-.+$
+      error-message: IDs of this section must match UTMEIT-MENU-xxx
+    description: Add one entry per utility menu item.
+  utnait-item:
+    prefix: UTNAIT_ITEM_
+    subsection-types:
+      unied:
+        max-count: 1
+      azreq:
+        max-count: 1
+      unieb:
+        max-count: 1
+      utmeit-menu-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UTNAIT-ITEM-.+$
+      error-message: IDs of this section must match UTNAIT-ITEM-xxx
+    description: Add one entry per utility navigation item.
   vmt-mess-lst:
     prefix: VMT_MESS_LST
     subsection-types:
@@ -926,6 +847,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per validation message template.
+  wcsucr-succ:
+    prefix: WCSUCR_SUCC_
+    pattern-check-id:
+      pattern: ^WCSUCR-SUCC-.+$
+      error-message: IDs of this section must match WCSUCR-SUCC-xxx
+    description: Add one entry per WCAG success criterion.
   access-acce:
     prefix: ACCESS_ACCE
     format: access-acce-form
@@ -1070,7 +997,7 @@ section-types:
         max-count: 1
       sedd:
         max-count: 1
-      elvaruen-vali-lst:
+      elvaru-vali-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^SCREL-ELEM-.+$
@@ -1097,7 +1024,7 @@ section-types:
         max-count: 1
       epnt-entr-lst:
         max-count: 1
-      screruen-resp-lst:
+      screru-resp-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^SCREN-ITEM-.+$
@@ -1131,6 +1058,55 @@ section-types:
       pattern: ^TURST-STEP-.+$
       error-message: IDs of this section must match TURST-STEP-xxx
     description: Add one entry per guided-tour step.
+  uicom-comp:
+    prefix: UICOM_COMP_
+    subsection-types:
+      uicom-iden:
+        max-count: 1
+      ucep:
+        max-count: 1
+      ucec:
+        max-count: 1
+      uicom-visu:
+        max-count: 1
+      uced:
+        max-count: 1
+      uces:
+        max-count: 1
+      uicoensu:
+        max-count: 1
+      uicom-inte:
+        max-count: 1
+      uceib:
+        max-count: 1
+      ucea:
+        max-count: 1
+      uicoensc:
+        max-count: 1
+      uicom-resp:
+        max-count: 1
+      uicom-acce:
+        max-count: 1
+      uicom-auth:
+        max-count: 1
+      uicom-reso:
+        max-count: 1
+      uicom-data:
+        max-count: 1
+      comsta-stat-lst:
+        max-count: 1
+      cve-vari-lst:
+        max-count: 1
+      cmac-acti-lst:
+        max-count: 1
+      cmsl-slot-lst:
+        max-count: 1
+      cmpr-prop-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UICOM-COMP-.+$
+      error-message: IDs of this section must match UICOM-COMP-xxx
+    description: Add one entry per catalog component.
   acch-item:
     prefix: ACCH_ITEM_
     subsection-types:
@@ -1246,6 +1222,30 @@ section-types:
       pattern: ^TYST-TYPO-.+$
       error-message: IDs of this section must match TYST-TYPO-xxx
     description: Add one entry per typography style.
+  uicom-acce:
+    prefix: UICOM_ACCE
+    format: uicom-acce-form
+  uicom-auth:
+    prefix: UICOM_AUTH
+    format: uicom-auth-form
+  uicom-data:
+    prefix: UICOM_DATA
+    format: uicom-data-form
+  uicom-iden:
+    prefix: UICOM_IDEN
+    format: uicom-iden-form
+  uicom-inte:
+    prefix: UICOM_INTE
+    format: uicom-inte-form
+  uicom-reso:
+    prefix: UICOM_RESO
+    format: uicom-reso-form
+  uicom-resp:
+    prefix: UICOM_RESP
+    format: uicom-resp-form
+  uicom-visu:
+    prefix: UICOM_VISU
+    format: uicom-visu-form
   vafe-fiel:
     prefix: VAFE_FIEL_
     pattern-check-id:
@@ -1287,7 +1287,7 @@ section-types:
         max-count: 1
       azreq:
         max-count: 1
-      exfimaen-fiel-lst:
+      exfima-fiel-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^EFE-EXPO-.+$
@@ -1400,9 +1400,9 @@ section-types:
         max-count: 1
       reseag:
         max-count: 1
-      repcolent-colu-lst:
+      repcol-colu-lst:
         max-count: 1
-      repchaent-char-lst:
+      repcha-char-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^RSE-SECT-.+$
@@ -1893,7 +1893,7 @@ section-types:
         max-count: 1
       syerdi-erro-lst:
         max-count: 1
-      syercoen-erro-lst:
+      syerco-erro-lst:
         max-count: 1
     description: 10.7.2. System Error Display.
   thprdi:
@@ -2736,7 +2736,7 @@ section-types:
   sena:
     prefix: SENA
     subsection-types:
-      tabadeen-tabb-lst:
+      tabade-tabb-lst:
         max-count: 1
     description: 10.3.1.4. Secondary Navigation.
   sseb:
@@ -2816,7 +2816,7 @@ section-types:
         max-count: 1
       coli:
         max-count: 1
-      uicoment-comp-lst:
+      uicom-comp-lst:
         max-count: 1
       cmfa-comp-lst:
         max-count: 1
@@ -2840,7 +2840,7 @@ section-types:
   utna:
     prefix: UTNA
     subsection-types:
-      utnaiten-item-lst:
+      utnait-item-lst:
         max-count: 1
     description: 10.3.1.5. Utility Navigation.
   vafe:
@@ -2872,7 +2872,7 @@ section-types:
         max-count: 1
       wccoro:
         max-count: 1
-      wcsucren-succ-lst:
+      wcsucr-succ-lst:
         max-count: 1
     description: 10.9.1. WCAG Compliance Level.
   bc:
@@ -4808,7 +4808,7 @@ form-types:
         description: "Fast, normal, slow durations"
       - fieldname: animationCurves
         description: "Easing curves: ease, easeInOut, custom"
-  uicoment-iden-form:
+  uicom-iden-form:
     fields:
       - fieldname: componentId
         required: true
@@ -4839,7 +4839,7 @@ form-types:
         description: "Simple, moderate, complex"
       - fieldname: reusability
         description: "Generic, semi-generic, specialized"
-  uicoment-visu-form:
+  uicom-visu-form:
     fields:
       - fieldname: defaultAppearance
         description: Visual description of default state
@@ -4877,7 +4877,7 @@ form-types:
         description: Depth or z-level of the surface
       - fieldname: shadowStyle
         description: Drop shadow appearance
-  uicoment-inte-form:
+  uicom-inte-form:
     fields:
       - fieldname: tapBehavior
         description: What happens on tap/click
@@ -4914,7 +4914,7 @@ form-types:
         description: If component is scrollable
       - fieldname: stickyBehavior
         description: "Headers, columns that stick"
-  uicoment-resp-form:
+  uicom-resp-form:
     fields:
       - fieldname: mobileLayout
         description: Layout on mobile (< 600dp)
@@ -4930,7 +4930,7 @@ form-types:
         description: Minimum touch target sizes
       - fieldname: orientationBehavior
         description: Portrait vs. landscape
-  uicoment-acce-form:
+  uicom-acce-form:
     fields:
       - fieldname: semanticRole
         description: ARIA role or semantic meaning
@@ -4948,7 +4948,7 @@ form-types:
         description: Reduced motion behavior
       - fieldname: textScalingBehavior
         description: How component responds to text scaling
-  uicoment-auth-form:
+  uicom-auth-form:
     fields:
       - fieldname: authBasePath
         description: Base path for authorization lookup
@@ -4964,7 +4964,7 @@ form-types:
         description: Behavior when auth unavailable
       - fieldname: fourStateMapping
         description: Mapping to TomAuthState four states
-  uicoment-reso-form:
+  uicom-reso-form:
     fields:
       - fieldname: resourceBasePath
         description: Base path for resource lookup
@@ -4984,7 +4984,7 @@ form-types:
         description: Resource key for icon selection
       - fieldname: resourceFallbacks
         description: Fallback behavior when resource missing
-  uicoment-data-form:
+  uicom-data-form:
     fields:
       - fieldname: dataType
         description: Type of data component displays/edits

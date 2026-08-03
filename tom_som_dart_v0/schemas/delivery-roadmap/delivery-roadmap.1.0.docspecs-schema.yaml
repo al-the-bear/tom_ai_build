@@ -3,14 +3,6 @@
 
 title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
-  phgareen-item-lst:
-    prefix: PHGAREEN_ITEM_LST
-    subsection-types:
-      phgareen-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per phase gate review.
   miphre-reso-lst:
     prefix: MIPHRE_RESO_LST
     subsection-types:
@@ -19,6 +11,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration-phase resource.
+  phgrev-item-lst:
+    prefix: PHGREV_ITEM_LST
+    subsection-types:
+      phgrev-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per phase gate review.
   stagdp-depe-lst:
     prefix: STAGDP_DEPE_LST
     subsection-types:
@@ -110,27 +110,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration phase.
-  phgareen-item:
-    prefix: PHGAREEN_ITEM_
-    subsection-types:
-      phgaid:
-        max-count: 1
-      phgaau:
-        max-count: 1
-      phgasc:
-        max-count: 1
-      phgaen:
-        max-count: 1
-      phgaev:
-        max-count: 1
-      phgaex:
-        max-count: 1
-      rvcri-revi-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^PHGAREEN-ITEM-.+$
-      error-message: IDs of this section must match PHGAREEN-ITEM-xxx
-    description: Add one entry per phase gate review.
   rvcri-revi-lst:
     prefix: RVCRI_REVI_LST
     subsection-types:
@@ -267,6 +246,27 @@ section-types:
       pattern: ^MIPHRE-RESO-.+$
       error-message: IDs of this section must match MIPHRE-RESO-xxx
     description: Add one entry per migration-phase resource.
+  phgrev-item:
+    prefix: PHGREV_ITEM_
+    subsection-types:
+      phgaid:
+        max-count: 1
+      phgaau:
+        max-count: 1
+      phgasc:
+        max-count: 1
+      phgaen:
+        max-count: 1
+      phgaev:
+        max-count: 1
+      phgaex:
+        max-count: 1
+      rvcri-revi-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PHGREV-ITEM-.+$
+      error-message: IDs of this section must match PHGREV-ITEM-xxx
+    description: Add one entry per phase gate review.
   stagdp-depe:
     prefix: STAGDP_DEPE_
     pattern-check-id:
@@ -782,7 +782,7 @@ section-types:
         max-count: 1
       pgro:
         max-count: 1
-      phgareen-item-lst:
+      phgrev-item-lst:
         max-count: 1
     description: Gate criteria (promoted from GOV).
   phgasc:
