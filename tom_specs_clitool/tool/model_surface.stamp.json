@@ -1,0 +1,16 @@
+{
+  "fingerprint": "d757fffa2a93a4783beb723129bfb2c6593071a4c2ffd49cbfda937af2dd0f04",
+  "fileCount": 48,
+  "declarationCount": 1286,
+  "packages": [
+    "tom_som_c_v0",
+    "tom_som_cpp_v0",
+    "tom_som_dart_v0",
+    "tom_som_go_v0",
+    "tom_som_java_v0",
+    "tom_som_javascript_v0",
+    "tom_som_python_v0",
+    "tom_som_rust_v0",
+    "tom_som_typescript_v0"
+  ]
+}

@@ -12,6 +12,20 @@ export 'src/model_reader.dart'
         FormFieldInfo,
         findContainerRoot;
 export 'src/model_json_exporter.dart' show ModelJsonExporter;
+// The freshness gate over the committed tom_som_*_v0 packages: fingerprints the
+// model the generator reads, so a model edit without a regeneration fails a test
+// rather than shipping. See _copilot_guidelines/som_regeneration.md.
+export 'src/model_freshness.dart'
+    show
+        ModelSurface,
+        LibrarySurface,
+        modelSurfaceStampPath,
+        fingerprintSources,
+        computeModelSurface,
+        readModelSurfaceStamp,
+        writeModelSurfaceStamp,
+        configuredPackageNames,
+        somPackageCoverageMismatch;
 export 'src/meta_tree.dart'
     show
         MetaTreeBuilder,

@@ -270,7 +270,10 @@ class ModelReader {
   /// exporter never treat the engine's own classes as document sections (OE-2).
   /// Real model leaves that adopt `SpecNode` (`DocumentHeader`/`SectionMeta`)
   /// live under `common/` and are still read.
-  static const _excludedSrcDirs = ['snapshot', 'serialization', 'generated'];
+  /// Public because the freshness gate (`model_freshness.dart`) must fingerprint
+  /// exactly the file set this reader consumes — a file the reader skips cannot
+  /// change the generated output, and fingerprinting it would raise false alarms.
+  static const excludedSrcDirs = ['snapshot', 'serialization', 'generated'];
 
   /// Analyzes all .dart files under [packageLibPath] and collects
   /// model classes and enums.
@@ -300,14 +303,14 @@ class ModelReader {
   }
 
   /// Whether [filePath] is engine/generated infrastructure rather than document
-  /// model: it lives in one of the [_excludedSrcDirs] directly under `lib/src`,
+  /// model: it lives in one of the [excludedSrcDirs] directly under `lib/src`,
   /// or is a `*.versioner.dart` build-version artifact (a static-only class with
   /// a private constructor — not a spec node, and not zero-arg constructible).
   static bool _isExcludedInfraFile(String srcDirPath, String filePath) {
     if (filePath.endsWith('.versioner.dart')) return true;
     final rel = p.relative(filePath, from: srcDirPath);
     final firstSegment = p.split(rel).first;
-    return _excludedSrcDirs.contains(firstSegment);
+    return excludedSrcDirs.contains(firstSegment);
   }
 
   void _processResolvedUnit(ResolvedUnitResult result) {

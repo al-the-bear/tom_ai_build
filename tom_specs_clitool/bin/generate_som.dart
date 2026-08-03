@@ -356,6 +356,42 @@ Future<void> main(List<String> arguments) async {
     }
   }
 
+  // Stamp the model fingerprint the committed packages were just generated
+  // from. `test/model_freshness_test.dart` recomputes it and fails when the
+  // model has moved since — which is what makes "regenerate after a model edit"
+  // an invariant rather than something an operator has to remember.
+  //
+  // Written here and nowhere else: a test that could re-stamp would only ever
+  // agree with itself. It is written **after** the emit loop deliberately, since
+  // the run's own first step restamps `@SerializationOrder` in the model source;
+  // fingerprinting before that would record a state the model no longer has.
+  //
+  // Only a canonical run may stamp. A run against a custom config, a different
+  // model, or an overridden version produces a tree that a default re-run would
+  // not reproduce, so certifying the committed packages from it would be a lie.
+  final isCanonicalRun = args.option('config') == null &&
+      args.option('model') == null &&
+      args.option('model-version') == null;
+  if (isCanonicalRun) {
+    final surface = computeModelSurface(
+      modelPackagePath: modelDir,
+      packages: configuredPackageNames(config),
+    );
+    writeModelSurfaceStamp(surface, clitoolRoot: clitoolRoot);
+    stdout.writeln('\ngenerate_som: stamped model surface → '
+        '$modelSurfaceStampPath');
+    stdout.writeln('  fingerprint: ${surface.fingerprint.substring(0, 16)}…  '
+        'files: ${surface.fileCount}  '
+        'declarations: ${surface.declarationCount}');
+    stdout.writeln('  COMMIT THE STAMP WITH THE REGENERATED PACKAGES — it is '
+        'what the freshness check compares against.');
+  } else {
+    stdout.writeln('\nNOTE: non-default --config/--model/--model-version, so '
+        '$modelSurfaceStampPath was NOT updated.');
+    stdout.writeln('      Re-run without overrides to certify the committed '
+        'packages.');
+  }
+
   // Regenerating the Dart target moves `tom_som_dart_v0`'s public surface, and
   // `tom_spec_engine` generates its D4rt bridges from exactly that surface.
   // Nothing else prompts that regen, so say it here — at the point of editing —

@@ -130,6 +130,16 @@ authoritative output — consumers never run the generator (SOM §4.3).
 > manifest; it **never deletes** files. Hand-authored `test/`, `example/`, and
 > `examples/` directories survive regeneration.
 
+**Freshness gate.** Regenerate after **every** change to `tom_specs_model` — the
+meta is lossless, so even a reworded doc comment or an added annotation argument
+changes all nine packages. This is enforced, not remembered: a canonical run
+writes `tool/model_surface.stamp.json` with a fingerprint of the model it read,
+and `test/model_freshness_test.dart` fails in the **default** suite when the
+model has moved since. See
+[`_copilot_guidelines/som_regeneration.md`](_copilot_guidelines/som_regeneration.md)
+for what the fingerprint covers and what it deliberately ignores. Commit the
+stamp together with the regenerated packages.
+
 Related entrypoints in `bin/`:
 
 | Entrypoint | Purpose |

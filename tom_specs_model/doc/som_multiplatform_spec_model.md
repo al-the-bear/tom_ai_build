@@ -222,6 +222,19 @@ members; an un-stamped member is a hard error that fails the run. That makes
 rather than a discipline the operator remembers — and it is what lets the
 cross-language golden comparison be byte-exact.
 
+Its **last** step closes the same kind of gap on the other side. Because the nine
+projects are generator output that is *committed*, a model change could merge
+with all nine still describing the previous model, and nothing would go red — the
+artefacts are data, so there is no compiler to notice. A canonical run therefore
+stamps a fingerprint of the model source it read into
+`tom_specs_clitool/tool/model_surface.stamp.json`, and a test in that package's
+**default** suite recomputes it and fails when the model has moved since. So
+"regenerate after a model edit" is likewise an invariant rather than recall —
+which matters more than it sounds, since the meta is lossless: a reworded doc
+comment or a changed annotation `note` is a real change to all nine packages. The
+rule, the fingerprint's deliberate blind spots, and the regeneration procedure are
+in `tom_specs_clitool/_copilot_guidelines/som_regeneration.md`.
+
 ### 5.3 Meta-data file
 
 `ModelJsonExporter` (`model_json_exporter.dart`) emits the resolved model graph

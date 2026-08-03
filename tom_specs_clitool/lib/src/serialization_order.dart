@@ -27,19 +27,17 @@ import 'package:path/path.dart' as p;
 import 'analyzer_bootstrap.dart';
 import 'model_reader.dart';
 
-/// `lib/src` subtrees that hold the snapshot/serialization engine and its
-/// generated registry — infrastructure, not the document model. Kept in sync
-/// with [ModelReader]'s own exclusions so the stamper and the reader agree on
-/// exactly which files make up the spec-model.
-const Set<String> _excludedSrcDirs = {'snapshot', 'serialization', 'generated'};
-
 /// Whether [filePath] is engine/generated infrastructure rather than document
-/// model: it lives in one of the [_excludedSrcDirs] directly under [srcDirPath],
-/// or is a `*.versioner.dart` build-version artifact.
+/// model: it lives in one of [ModelReader.excludedSrcDirs] directly under
+/// [srcDirPath], or is a `*.versioner.dart` build-version artifact.
+///
+/// The exclusion list is [ModelReader]'s, not a copy of it: the stamper, the
+/// reader and the freshness gate must agree on exactly which files make up the
+/// spec-model, and three independently-maintained lists would eventually not.
 bool _isExcluded(String srcDirPath, String filePath) {
   if (filePath.endsWith('.versioner.dart')) return true;
   final rel = p.relative(filePath, from: srcDirPath);
-  return _excludedSrcDirs.contains(p.split(rel).first);
+  return ModelReader.excludedSrcDirs.contains(p.split(rel).first);
 }
 
 /// The spec-model `.dart` source files under `[packagePath]/lib/src`, in a
