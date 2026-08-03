@@ -177,7 +177,7 @@ adds, removes, or reorders fields; it is idempotent (old annotations are strippe
 and renumbered).
 
 **Doc-folder todo citations.** The TomSpecs documents cite quest-todo ids inline
-(`` `qrc3` ``) to say who owns an open question. Such a citation decays silently:
+(`` `qrc4` ``) to say who owns an open question. Such a citation decays silently:
 the todo completes, is archived, and the document goes on pointing a reader at
 finished work. `check_todo_citations.dart` closes that by resolving every
 backticked id-shaped token in `tom_specs_model/doc` against the active, archived
@@ -195,8 +195,8 @@ Three things about it are deliberate:
 - **Two exemptions, both inline**, so an exemption travels with the line rather
   than blanket-exempting a file. `<!-- todo-cite: provenance -->` allows a
   closed citation *only when the same line also cites an open todo* — the
-  legitimate case is a provenance note ("`tcca3` landed — restated by
-  `qrc3`"), where the raiser is history and what it raised is open. A
+  legitimate case is a provenance note ("`tcca15` landed — restated by
+  `qrc4`"), where the raiser is history and what it raised is open. A
   `<!-- todo-cite: history -->` standing alone on its own line exempts the whole
   document, for a changelog.
 - **It checks citations, not claims.** That a cited id still *exists and is

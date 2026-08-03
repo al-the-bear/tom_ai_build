@@ -498,7 +498,7 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `AuthenticationMethodEntry` (`ATME`) — **one marked declaration per entry**, which is why the marker needs no method list. `LoginFlowStepEntry` (`LGFLS`) feeds the client and server flow halves (§3.5.10, §3.4.4). |
-| **2 Output** | The reused kernel wire types, declared as the app's binding: `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` plus `TomBearerAuthentication` / `TomClientJwtToken` (`tom_core_kernel`). Form 1. §5.25's six framework-fixed mechanics are **not** emitted — they are not spec input. |
+| **2 Output** | The reused kernel wire types, declared as the app's binding: `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` plus `TomBearerAuthentication` / `TomClientJwtToken` (`tom_core_kernel`). Form 1. §5.25's six framework-fixed mechanics are **not** emitted — they are not spec input. `TomAuthenticationResult`'s enrolment arm (`requires2FAEnrolment`, `availableTwoFactorMethods`, `twoFactorEnrolmentSkippable`) is part of the reused type, so it too is inherited rather than emitted. |
 | **3 Arguments** | None; `@CsAuth({String? note})` unchanged. One declaration per `ATME` means the enabled-method set is the set of declarations (test **a**), which avoids inventing a closed method catalogue the SOM does not carry. Session / token / credential policies are values on the CE-CF holder, not annotation arguments. |
 | **4 Naming** | PascalCase of `ATME`'s name field + `Authentication`. |
 | **5 Locus** | `shared` here; `client` for the login flow (§3.5.10); `server` for the flow and the CE-ID population (§3.4.4). |
@@ -771,13 +771,13 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `LoginFlowStepEntry` (`LGFLS`) for the flow; `UserAttributeEntry` (`USATE`) for which attributes are populated into which token half; `UserLifecycleTransitionEntry` (`ULTRE`) for the account state transitions. |
-| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), form 1 + form 3 — one method per `LGFLS` step, each `throw UnsupportedError('<step description>')`. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it. |
-| **3 Arguments** | None — `@CsAuth` stays note-only for the same reason as §3.2.7: one marked declaration per method/flow, so the set of declarations *is* the enabled set. |
-| **4 Naming** | PascalCase of `ATME`'s name field + `AuthenticationService`. |
+| **1 Input** | `LoginFlowStepEntry` (`LGFLS`) for the flow; `UserAttributeEntry` (`USATE`) for which attributes are populated into which token half; `UserLifecycleTransitionEntry` (`ULTRE`) for the account state transitions; `MfaConfiguration` (`MC`) for the second-factor policy. |
+| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), form 1 + form 3 — one method per `LGFLS` step, each `throw UnsupportedError('<step description>')`. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it.<br>**`MC` emits a second marked declaration**: the deployment's `Tom2FAPolicy` binding, as a `TomRole2FAPolicy` instantiation. `mfaRequired` + `mfaEnforcementScope` become `requirementByRole` / `defaultRequirement` over `Tom2FARequirement {disabled, optional, required}`; `defaultSecondFactor` + `allowedSecondFactors` become the ordered `mechanisms` list, the default first; `enrollmentGracePeriod` becomes `graceLogins`. Form 1 — the constructor call is the whole declaration, so there is no stub body. `mfaRequired: No` emits no policy declaration at all: the framework default is `TomPrincipalFlag2FAPolicy`. |
+| **3 Arguments** | None — `@CsAuth` stays note-only, on a different §2.3 ground per group. The **method/flow set** is test **a**: one marked declaration each, so the set of declarations *is* the enabled set. The **second-factor policy** is test **b**: requirement level, mechanism preference order and grace count are `TomRole2FAPolicy`'s own constructor parameters, which is why `MC` emits a further declaration rather than arguments on the first. Whether declining an enrolment offer is allowed is authorable **nowhere**: `TomAuthenticationServer` derives `twoFactorEnrolmentSkippable` as *optional-or-on-grace*, so a spec-authored flag would be recomputed and overwritten. |
+| **4 Naming** | PascalCase of `ATME`'s name field + `AuthenticationService`; the policy declaration is the app name + `TwoFactorPolicy`. |
 | **5 Locus** | `server`. |
-| **6 Cross-refs** | `CsOperationRef` (the login operation); `Type` literal for the identity declaration; `CsRoleRef` where a flow step grants a role. |
-| **7 Back-link** | `@DocSpec([DocRef('LGFLS', 'supplies the flow step this method performs'), DocRef('USATE', 'supplies the attribute projected into the token')])`. |
+| **6 Cross-refs** | `CsOperationRef` (the login operation); `Type` literal for the identity declaration; `CsRoleRef` where a flow step grants a role, and for each key of the policy's `requirementByRole`. |
+| **7 Back-link** | `@DocSpec([DocRef('LGFLS', 'supplies the flow step this method performs'), DocRef('USATE', 'supplies the attribute projected into the token')])`; the policy declaration carries `@DocSpec([DocRef('MC', 'supplies the second-factor requirement, the offered mechanisms in preference order and the enrolment grace')])`. |
 
 ### 3.5 Slice 5 — client interaction core
 
@@ -898,13 +898,13 @@ unit, which is why they share a slice rather than an order.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `LoginFlowStepEntry` (`LGFLS`), read **per client** — §5.25 makes the login flow a per-client decision, so one client's flow is not another's. |
-| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), form 3 — one method per step, each `throw UnsupportedError('<step description>')`. |
-| **3 Arguments** | None (as §3.2.7 and §3.4.4). |
-| **4 Naming** | PascalCase of the client name + `LoginFlow`. |
+| **1 Input** | `LoginFlowStepEntry` (`LGFLS`), read **per client** — §5.25 makes the login flow a per-client decision, so one client's flow is not another's. `MfaConfiguration` (`MC`) where the client must run a second factor. |
+| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), form 3 — one method per step, each `throw UnsupportedError('<step description>')`.<br>Where `MC` enables a second factor, a **`Tom2FAFlowController` implementation** (`tom_core_flutter`) is emitted beside it, form 3 — its five moves (choose, confirm, skip, answer, cancel) over the client's own auth calls. The panel itself is not emitted: `Tom2FAFlowPanel` owns the chooser, attempt counter, error line and skip affordance invariantly, and the skip affordance renders off `twoFactorEnrolmentSkippable` rather than off anything the spec declares. Per-mechanism UI is one `Tom2FAClientMechanism` registration each, emitted only for a mechanism `allowedSecondFactors` names that the framework does not already ship (`TomTotp2FAClientMechanism` is shipped). |
+| **3 Arguments** | None (as §3.2.7 and §3.4.4). The controller carries no marker arguments either: its five moves are its method signatures (test **a**), and which mechanisms it may offer arrives on the wire in `availableTwoFactorMethods` rather than being authored a second time here. |
+| **4 Naming** | PascalCase of the client name + `LoginFlow`; the controller is the client name + `TwoFactorFlowController`. |
 | **5 Locus** | `client`. |
 | **6 Cross-refs** | `CsOperationRef` (the login operation), `CsRouteRef` (where the flow lands), `CsErrorCode` (failure outcomes). |
-| **7 Back-link** | `@DocSpec([DocRef('LGFLS', 'supplies the login step this method performs')])`. |
+| **7 Back-link** | `@DocSpec([DocRef('LGFLS', 'supplies the login step this method performs')])`; the controller carries `@DocSpec([DocRef('MC', 'supplies the second-factor mechanisms this client offers')])`. |
 
 ### 3.6 Slice 6 — client presentation & shell
 

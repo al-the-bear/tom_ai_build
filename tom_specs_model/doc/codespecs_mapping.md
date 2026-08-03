@@ -433,7 +433,7 @@ The gap columns cite the owning open-work todos on both sides of each gap. A
 `tom_core` capability is owned by a `tcca*` todo in
 `_ai/quests/tom_core/todos.tom_core.todo.yaml`; the CodeSpecs-side consequence
 of that capability landing is owned by a `csra*` / `csrc*` / `qrc*` todo in
-`todos.tom_specs.todo.yaml` (§10). A cell naming a pair (`tcca3` → `qrc3`) <!-- todo-cite: provenance -->
+`todos.tom_specs.todo.yaml` (§10). A cell naming a pair (`tcca15` → `qrc4`) <!-- todo-cite: provenance -->
 reads in that order: the core-side prerequisite first, the mapping-side todo
 that states the resulting position second.
 
@@ -458,7 +458,7 @@ that states the resulting position second.
 | **CE-UP** UserSettings | User-scope, **server-persisted** settings — follows the user (§11). Single-moded: there is no persistence argument, because the scope key alone decides where a value lives. | **Built on:** the round-trip substrate `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`, `tombase/settings/settings_client_authorization.dart`), reused as-is for the server → client bootstrap, plus `TomUserSettings` + `TomUserSettingsStore` (`tom_core_codespecs`).<br>**Annotations:** `@CsUserSetting(key)` per field.<br>**Example:** `@CsUserSetting('user.preferredLanguage') String preferredLanguage = 'de';` — the default is the member initialiser. | Both halves of the **declaration** gap are closed: `TomUserSettings` is the typed holder (with `effectiveValue` applying the persisted-value → default order), and `TomUserSettingsStore` is the server-side per-user persistence seam — the kernel carrier is read-only, so the write-back path has no other home. **The round trip the "reused as-is" claim rests on is not wired.** `TomUserSettingsStore` has one in-memory implementation and no reference in any package outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` — so a generated `@CsUserSetting` holder persists nowhere and bootstraps from nothing. The seam is right; what is absent is a server-side implementation and an endpoint behind it — mode **R** (`tcca10` landed; the residual core-side question is `tspcmp2` — position restated by `qrc7`) <!-- todo-cite: provenance -->. | `@CsUserSetting` carries the setting **key** and its required `overridableBy` scope opt-in (§5.16) — type and default are the member. Single-moded for the §11 reason: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. Both halves of the declaration use the same key and the same member names, so the wire mapping is identity. |
 | **CE-DS** DeviceSettings | (user, device) scope, device-persisted (§11). | **Built on:** the `tom_core` property/settings classes (§5.16).<br>**Annotations:** `@CsDeviceSetting(key)` per field.<br>**Example:** `@CsDeviceSetting('device.lastOpenedTab') int lastOpenedTab = 0;` | **Nothing carries the (user, device) scope this part is defined by.** `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves its value from the config provider **once, at construction**, and states in its own contract that it is eager and immutable — it has no write path, so it cannot hold a value a user changed on this device. `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) does persist, but states equally plainly that **there is no user parameter anywhere in its interface, by design** — its scope is (client app, machine), which is CE-CC's. A `@CsDeviceSetting` therefore emits onto a holder that is either unwritable or unscoped to the user — mode **R** (`tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance -->. | `@CsDeviceSetting` carries the setting **key** and nothing else — CE-DS is the lattice's narrowest scope, so unlike CE-UP it carries no `overridableBy` counterpart (§5.16), and for the same §11 reason there is no persistence-mode argument on either. |
 | **CE-CL** Client | A client application of the system: which screens it comprises, its platform targets, its entry route. SOM home CLIAPP (the client-application list under `ClientRequirementsSection` CLRESE, D06 ATS). | **Built on:** `TomClientApplication` (`tom_core_codespecs`, `client_application.dart`) — `clientId` / `displayName` / `platforms` / `entryRoute` / `screenIds` / `serverBaseUrl`. The CodeSpec is a subclass carrying the marker.<br>**Annotations:** `@CsClient` on the descriptor.<br>**Example:** `@CsClient('backoffice', kind: CsClientKind.flutterApp) class BackofficeClient extends TomClientApplication { … }`, its members naming platform targets and its entry route (`CsRouteRef`). | **Gap filled in `tom_core_codespecs`** — the four original `tom_core` packages have no client-application *descriptor*: `TomAuthenticationData` carries a client id string and `TomClientRemoteContext` models a live connection, but neither names the client application as a first-class, spec-authorable unit. `client_application.dart` carries that unit. | `@CsClient` carries the client **id** and its **kind**, the latter required because the kind decides which other parts the client may carry — a CLI has no CE-EL — so defaulting it would silently admit impossible combinations. The kind is the one attribute with **no descriptor member**: platform targets, entry route and screen set are all `TomClientApplication`'s own. The client's **configuration** is not among them either — a CE-CC setting names its owning client (§11), so a client-side list would be the second source the two would disagree through. |
-| **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | The **verification** half is complete (`tom_core_server`, `authentication_server.dart`): pass 1 issues a `Tom2FAChallenge` interim token carrying the access-control payload it already resolved, `authenticatePass2` verifies it statelessly through the `Tom2FARegistry` adaptor for the challenge's mechanism, and the challenge's own `validity` plus its attempt allowance bound the chain. Whether 2FA is owed is a policy (`Tom2FAPolicy.decideFor`), and which methods a user has is a store (`Tom2FAEnrolmentStore`, `two_factor_enrolment.dart:163`) — both shipped. **What is missing is enrolment itself and the wire shape of a method choice.** `Tom2FAService` (`two_factor.dart:271`) asks exactly two questions, `issueChallenge` and `verifySubmission`; no `otpauth://` URI builder or TOTP secret generator exists anywhere in `tom_ai`, so a user cannot be enrolled through the framework at all. And `TomAuthenticationResult` (`tom_core_kernel` `security/authentication_authorization.dart:153`) carries one `bool requires2FA` and one `String twoFactorType`, so the wire admits neither "enrolment required" as a third state nor a list of methods to choose among. A CodeSpec can therefore declare a challenge and a verification and nothing else — mode **R** (`tcca3`, `tcca4` landed — position restated by `qrc3`) <!-- todo-cite: provenance -->. | `@CsAuth` stays note-only. There is **one marked declaration per enabled method/flow**, so the set of declarations *is* the enabled set (§2.3 test **a**) — carrying a flow-kind argument would invent a closed method catalogue the SOM does not have. Token lifetime, refresh policy and credential policy are values on the `@CsServerConfig` holder, not annotation arguments. |
+| **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | None — the second-factor round trip is complete in all three loci, so CE-AU stays pure reuse. **Server:** pass 1 issues a `Tom2FAChallenge` interim token carrying the access-control payload it already resolved, `authenticatePass2` verifies it statelessly through the `Tom2FARegistry` adaptor, and the challenge's `validity` plus its attempt allowance bound the chain; whether a factor is owed and which mechanisms may answer it is `Tom2FAPolicy.decideFor` → `Tom2FADecision` (requirement level, mechanisms in preference order, grace count), with `TomRole2FAPolicy` shipped and `TomPrincipalFlag2FAPolicy` the const fallback; enrolment is `Tom2FAEnrolmentSupport` (`beginEnrolment` / `confirmEnrolment`), implemented by `TomTotp2FAService` with secret generation and the `otpauth://` provisioning URI, persisted through `Tom2FAEnrolmentStore`. **Wire:** `TomAuthenticationResult` carries `requires2FAEnrolment`, `availableTwoFactorMethods` and `twoFactorEnrolmentSkippable` beside the unchanged `requires2FA` / `twoFactorType`. **Client:** `Tom2FAFlowPanel` over the app's `Tom2FAFlowController` owns the chooser, attempt counter and skip affordance, with `Tom2FAClientMechanism` per mechanism (`tom_core_flutter`). See §5.25. | `@CsAuth` stays note-only, on a different §2.3 ground per group. The **set of enabled methods and flows** is test **a**: there is one marked declaration per enabled method/flow, so the set of declarations *is* the enabled set, and a flow-kind argument would invent a closed method catalogue the SOM does not have. The **second-factor policy** — requirement level, mechanism preference order, grace count — is test **b**: those are `TomRole2FAPolicy`'s own constructor parameters (`requirementByRole`, `defaultRequirement`, `mechanisms`, `graceLogins`), so `MfaConfiguration` (`MC`) emits a *further marked declaration*, the deployment's `Tom2FAPolicy` binding, rather than arguments on the first. Whether declining an enrolment offer is allowed is **not authorable at all**: the server derives it as *optional-or-on-grace* (§5.25). Token lifetime, refresh policy and credential policy are values on the `@CsServerConfig` holder. |
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: IdentityAttributePlacement.public)` / `…encrypted` per field — `placement` is a **required** named argument of the closed `IdentityAttributePlacement` enum, never defaulted, because §5.16's fail-safe rule forbids choosing a token-payload arm by omission.<br>**Example:** `@CsIdentity() class EmployeeProfile { @CsIdentityAttribute(placement: IdentityAttributePlacement.encrypted, systemOfRecord: 'hr') String? costCenter; }` | None — reuse; both carriers exist. | `@CsIdentityAttribute` carries the **placement**, the field-level access guard (`CsResourceKeyRef`), the **system of record** and whether the attribute is **required** — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. The attribute's type stays on the member; `@CsIdentity` stays note-only. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class. Migration **filenames stay strings** (§5.23 exemption). | None — execution substrate is pure reuse, and the **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check) ships alongside it as `schema_model.dart` / `schema_ddl_reader.dart` / `schema_convergence.dart`. That check is the **only integrity guard** available over the string-exempt migration filenames, so it is the one every CE-MG spec relies on. | `@CsMigration` carries the **datasource**, the **schema** and the artifact **kind** — all three required: datasource + schema *are* the artifact directory path, and generating an initial DDL where an iteration was meant would rewrite a live schema. Artifact **filenames** stay strings (§5.23 exemption 3), which is exactly why the convergence obligation against the `@CsTable` / `@CsColumn` model is a named generation-time validator check rather than a compile-time edge. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob(trigger: CsJobTrigger.cron, cron: '0 3 * * *', maxRetries: 2) class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | None — the runtime is reused wholesale from `tom_core_kernel`'s `scheduling` module (scheduler, durable job store, multi-node lease), and the deployment/ownership envelope `tom_core` has no place for is carried by `tom_core_codespecs`'s `TomJobDeclaration` (`jobId` / `displayName` / `enabled` / `environments` / `serviceUnitId` / `readEntities` / `writtenEntities` as `Type` literals, with `targetEntities` and `runsIn(environment)`). Gating is **opt-out** and an empty `environments` list means *every* environment, so a spec states only the exceptions. | `@CsJob` carries the **trigger** plus that trigger's schedule slot (`cron` / `calendar` / `event`), the **retry / backoff / timeout / failure-alert** policy — each lowered onto the reused `TomSchedule` / `TomRetryPolicy` / `TomJobAlert` surface — and the job's **CE-RP targets** as `CsReportRef` consts. A `TomSchedule` is not a const, which is why the annotation carries per-kind strings rather than an instance. |
@@ -476,14 +476,13 @@ that states the resulting position second.
   ships including its `TomN*` nullable arm, and what an optional field emits is
   settled — §5.4), **CE-DB** (the aggregation grammar ships, and a declared
   transaction scope resolves per flow through the zone-held current transaction —
-  §5.13).
+  §5.13), **CE-AU** (the second factor decides, enrols, offers a choice and
+  challenges across all three loci — §5.25).
 - **READY TO EMIT, BLOCKED AT RUNTIME — the class to build on exists, a
   capability under it does not.** Each entry names the core-side prerequisite,
   which has landed, and the mapping-side todo that restates the position here:
   - CE-EL and CE-FM — unguarded text-controller write
     (`tcca15` → `qrc4`). <!-- todo-cite: provenance -->
-  - CE-AU — challenge and verification only, no enrolment and no method choice
-    on the wire (`tcca3`/`tcca4` → `qrc3`). <!-- todo-cite: provenance -->
   - CE-DS — no (user, device)-scoped store
     (`tcca11` landed → `tspcmp1` settled → `qrc6`). <!-- todo-cite: provenance -->
   - CE-UP — server side of the round trip unwired
@@ -492,7 +491,7 @@ that states the resulting position second.
   Each emits and compiles; each yields an application that does not yet run.
   CE-EL carries the one **E(lossy)** gap besides — a *Choice* value's per-value
   copy (`tcca9` → `qrc5`). <!-- todo-cite: provenance -->
-  These six are the NEEDS-EXTENSION class: what they wait on is behaviour in a
+  These four are the NEEDS-EXTENSION class: what they wait on is behaviour in a
   shipped class, not a class that does not exist, so none of them changes the
   §4.1.2 built-on resolution or moves a part into `tom_core_codespecs`.
 - **READY VIA `tom_core_codespecs` — the part reuses `tom_core` plus one
@@ -1130,7 +1129,7 @@ therefore classified:
 | **1** | Shared const catalogues | — (CE-ER, CE-TX and the CE-AZ catalogues are READY: the markers take their `CsErrorCode` / `CsMessageKey` / `CsRoleRef` / `CsResourceKeyRef` parameters) | — | — |
 | **2** | Shared contract | — (CE-API, CE-VA and CE-ID are READY; the CE-NT declarations and the CE-RP result envelope emit against their shipped `tom_core_codespecs` gap classes). No untyped cross-part edge remains here: CE-RP's targets are settled (§5.28 — a `Type` literal, a recurrence expression, a `@CsAuthorize` beside the marker, and one locus-barred route id validator-checked by design). A CE-NT channel's fallback also emits as a string, but is **intra-part** and so was never in §5.23's scope — likewise settled and validator-checked | — | — |
 | **3** | — (CE-DB, CE-MG, CE-RP's definition and CE-LG are all READY: the aggregation grammar and the schema-diff engine ship, a declared transaction scope resolves per flow through the zone-held current transaction (`tom_core_server` `transactions/transaction_manager.dart:219`), the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28) — a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization) | — | — |
-| **4** | Server behaviour | CE-SU is READY. **CE-AU emits its challenge/verify half only**: `Tom2FAService` (`two_factor.dart:271`) asks `issueChallenge` and `verifySubmission` and nothing else, no `otpauth://` builder or secret generator exists anywhere in `tom_ai`, and `TomAuthenticationResult` (`tom_core_kernel` `security/authentication_authorization.dart:153`) carries one `bool requires2FA` and one `String twoFactorType` — so a CodeSpec cannot declare enrolment or a choice of methods. **CE-NT delivery and CE-LG's handler chokepoint are both pure reuse** — the `messaging` router, SMTP transport and durable outbox ship, and the audit trail records with no handler able to opt out | **R** | `tcca3`, `tcca4` (`tom_core`, landed) → `qrc3` <!-- todo-cite: provenance --> |
+| **4** | — (CE-SU, CE-AU, CE-NT delivery and CE-LG are all READY: **CE-AU's second factor is complete across the trio** — `Tom2FAPolicy` decides requirement level, mechanism preference order and grace, `Tom2FAEnrolmentSupport` enrols with `TomTotp2FAService` generating the secret and the `otpauth://` URI, `TomAuthenticationResult` carries the enrolment state and the method list, and `Tom2FAFlowPanel` runs the client half (§5.25); the `messaging` router, SMTP transport and durable outbox ship; and the audit trail records at a chokepoint no handler can opt out of) | — | — |
 | **5** | Client interaction core | CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. Two runtime gaps sit under the emitted widgets: `TomTextFormFieldBase.set()` / `reset()` write the controller without the re-entrancy guard the field's other write path uses (`tom_flutter_ui` `forms/tom_form.dart:1229`/`:1241` vs the guarded `:1150`), and a `choice` / `multiChoice` field's **per-value** copy is a literal on its `TomSelectableSource` item, not the `CsMessageKey` §3.1.1 and §3.5.2 promise | **R**, **E(lossy)** | `tcca15`, `tcca9` (`tom_core`, landed) → `qrc4`, `qrc5` <!-- todo-cite: provenance --> |
 | **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS has no substrate for its scope**: `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves from config once at construction and is never written, and `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) states in its own contract that there is no user parameter in the interface, by design. **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca11` + `tspcmp1` settled → `qrc6`; `tcca10` landed, `tspcmp2` open → `qrc7` <!-- todo-cite: provenance --> |
 | **7** | Server operational | CE-JB is **READY** on both sides — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, §5.29 names the owning class for each of the four scope parts, both target kinds are compiler-checked (`Type` literals for CE-DB, `CsReportRef` consts for CE-RP), and the SOM per-job declaration list `SCJOB` supplies the authored surface | — | — |
@@ -1142,16 +1141,14 @@ skeleton, and the one emission exception is lossy rather than blocking — a
 `choice` / `multiChoice` element's per-value copy has nowhere to carry its
 `CsMessageKey`, so that attribute is dropped at slice 5.
 
-**Three `tom_core`-side blockers stand, all of mode R.** Slices 4 through 6 each
-emit and compile; what they produce does not yet run against a complete
-substrate. CE-AU can express a challenge and a verification and nothing
-else — no enrolment, no choice of method (slice 4). A generated text field's
-`set()` and `reset()` write their controller unguarded, so a CE-ST binding or a
-CE-FM load re-enters the input listener (slice 5). CE-DS has no store scoped to
-a (user, device) pair and CE-UP's read/write round trip has no server handler
-(slice 6). Each is a capability absent under the skeleton, not a skeleton that
-cannot be written; each names its `tom_core` todo and its CodeSpecs-side
-consequence in the table above.
+**Two `tom_core`-side blockers stand, both of mode R.** Slices 5 and 6 each emit
+and compile; what they produce does not yet run against a complete substrate. A
+generated text field's `set()` and `reset()` write their controller unguarded, so
+a CE-ST binding or a CE-FM load re-enters the input listener (slice 5). CE-DS has
+no store scoped to a (user, device) pair and CE-UP's read/write round trip has no
+server handler (slice 6). Each is a capability absent under the skeleton, not a
+skeleton that cannot be written; each names its `tom_core` todo and its
+CodeSpecs-side consequence in the table above.
 
 **No verification blocker stands besides.** Two edges emit as id strings rather
 than as typed consts, and both are settled end states rather than deficits:
@@ -1218,7 +1215,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-UP | `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip (`tom_core_kernel`) | Model **user settings** — user-scoped, server-persisted preferences that follow the user (§11); the typed holder and the server-side per-user persistence are a `tom_core_codespecs` gap to specify. |
 | CE-DS | `TomProperty<T>` family + settings holders (`tom_core`) | Model **device settings** — user-specific settings of a user-owned device, persisted on the device and keyed by the signed-in user (§11). The marker and the declaration shape are settled; the holder that persists a value against a (user, device) key is a runtime gap (§4.1.1; `tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance -->. |
 | CE-CL | `TomClientApplication` (`tom_core_codespecs`) | Enumerate the **client applications** (Flutter app, CLI, other server) with their platform targets, entry route and screen set — each owns its CE-CC and hosts CE-DS/CE-UP. |
-| CE-AU | `TomAuthenticationServer` + `TomAuthenticationService` contract (`tom_core_server`); `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage`/`TomAuthenticationResult` (`tom_core_kernel`) | **Pure reuse — no gap class.** The mechanics (two-token JWT model, login orchestration, stateless Bearer verification, wire attachment, token store) are framework-fixed; the spec-authorable surface is the service binding, enabled methods/flows, per-client login flow, and session/token/credential policies. The app's `TomAuthenticationService` implementation **is** the `@CsAuth` CodeSpec (§5.25). |
+| CE-AU | `TomAuthenticationServer` + `TomAuthenticationService` contract (`tom_core_server`); `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage`/`TomAuthenticationResult` (`tom_core_kernel`) | **Pure reuse — no gap class.** The mechanics (two-token JWT model, login orchestration, stateless Bearer verification, wire attachment, token store) are framework-fixed; the spec-authorable surface is the service binding, enabled methods/flows, the second-factor policy binding, per-client login flow, and session/token/credential policies. The app's `TomAuthenticationService` implementation **is** the `@CsAuth` CodeSpec, and its `Tom2FAPolicy` binding is a second `@CsAuth` declaration (§5.25). |
 | CE-ID | `TomUser` + `TomPrincipal` (`tom_core_kernel`); both token-payload extension carriers exist in the substrate (public `attributes`, encrypted context) | **Reuse — no new class.** **App-declared identity-attribute extensions** over the fixed principal core: `@CsIdentity` (declaration holder) + `@CsIdentityAttribute(placement: IdentityAttributePlacement.public)` / `…encrypted` per extension; the profile extension is modelled as an **ordinary class**, directly reusable and carried as **JSON via reflection** in the user profile; shared (declaration) + server (population in the CE-AU flow) (§5.24). |
 | CE-MG | `TomDbMigrations` orchestrator + `TomDbMigrator` contract + `TomMigrationFileName` grammar + `@TomDbMigrationAdaptor` discovery + `MariadbMigrationAdaptor` (`tom_core_server`) | **Pure reuse — no gap class.** The engine (directory walk, filename grammar, numeric ordering, env filtering, applied-version verification) is framework-fixed; the spec-authorable surface is the SQL artifact set — initial DDL, base/seed data, iteration scripts — in the `<databaseMigrationsDirectory>/<datasource>/<schema>/` tree, `@CsMigration`-marked; the schema-convergence check against the CE-DB entity model is a named validator check (§5.27). |
 | CE-RP | `TomGroupedSelect` / `TomAggregate` / `TomGroupedRow` (`object_persistence/grouped_query.dart`) over `TomQueryBuilder` + `TomQuerySentenceCompiler` + the crud repositories; `TomTabularResult` and the CSV/XLSX/PDF renderers (`export`); delivery via ordinary CE-API endpoints (`tom_core_server`) | **Two gap classes** in `tom_core_codespecs` (`report_model.dart`): `TomReportDefinition` — the **grouped projection** a specification authors (dimensions, measures, output columns, charts, parameters, delivery channels), which the substrate can execute but has nowhere to author because CE-DB's spec surface is row-shaped; and `TomReportResult` — the **shared** result envelope, authored here rather than extending the server-side `TomTabularResult` so the client can read it, and adapted one way onto the tabular shape when exporting (§5.28). |
@@ -3556,8 +3553,25 @@ not separate parts.
 1. **Service binding.** The app's `TomAuthenticationService` implementation
    **is** the `@CsAuth` CodeSpec — an ordinary class on the framework
    contract, marked with the annotation.
-2. **Enabled methods & flows.** Which authentication methods (guest,
-   password, …) and which flows the deployment enables.
+2. **Enabled methods & flows, and the second-factor policy.** Which
+   authentication methods (guest, password, …) and which flows the deployment
+   enables — one marked declaration each. Where a second factor is in play, the
+   deployment's **`Tom2FAPolicy` binding** is a further marked declaration, and
+   it carries the second factor's three authored decisions: whether a factor is
+   **required, optional or disabled** (`Tom2FARequirement`, per role where the
+   obligation varies by role); **which mechanisms are offered, in preference
+   order** — the first is what a login the user has expressed no choice about is
+   challenged with; and how many **grace logins** soften a `required` obligation
+   the user has not yet met. The SOM authors all three on `MfaConfiguration`
+   (`MC`) as `mfaRequired` + `mfaEnforcementScope`, `defaultSecondFactor` +
+   `allowedSecondFactors`, and `enrollmentGracePeriod`.
+
+   **Whether declining an enrolment offer is allowed is *not* a fourth
+   decision**, because the server derives it: an offer is skippable exactly when
+   the requirement is `optional`, or when a `required` obligation still has grace
+   left (`authentication_server.dart:786`). A spec that authored a skip flag
+   beside the policy would be authoring a value the server recomputes and
+   overwrites — the second, disagreeing source §2.3 exists to prevent.
 3. **Per-client login flow.** Each client's login sequence and its
    `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>`
    endpoint triple (guest / pass1 / pass2).
@@ -3571,9 +3585,9 @@ not separate parts.
 
 | Locus | Reused `tom_core` classes |
 |-------|---------------------------|
-| shared | `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage` / `TomAuthenticationResult`, the `TomPrincipal` projection (`tom_core_kernel`) |
-| server | `TomAuthenticationServer` + the app's `TomAuthenticationService` implementation, `TomServerJwtToken` (`tom_core_server`) |
-| client | Login `TomServerEndpoint` triple, `TomBearerAuthentication` token store, `TomServerCallSpecs.includeBearerAuthentication` |
+| shared | `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage` / `TomAuthenticationResult` (incl. its enrolment arm), `Tom2FAMethodDescriptor`, the `TomPrincipal` projection (`tom_core_kernel`) |
+| server | `TomAuthenticationServer` + the app's `TomAuthenticationService` implementation, `TomServerJwtToken`, and for a second factor `Tom2FAPolicy` / `TomRole2FAPolicy`, `Tom2FAService` + `Tom2FAEnrolmentSupport`, `Tom2FAEnrolmentStore`, `Tom2FARegistry` (`tom_core_server`) |
+| client | Login `TomServerEndpoint` triple, `TomBearerAuthentication` token store, `TomServerCallSpecs.includeBearerAuthentication`, and for a second factor `Tom2FAFlowPanel` + the app's `Tom2FAFlowController`, `Tom2FAClientMechanism` in `Tom2FAClientRegistry` (`tom_core_flutter`) |
 
 **Boundaries.**
 
@@ -3584,22 +3598,41 @@ not separate parts.
 - **CE-AU ↔ CE-ID.** CE-ID declares what the identity carries; CE-AU
   establishes it and performs the public/encrypted token projection (§5.24).
 
-**Substrate status — the two-pass flow verifies; it does not enrol.** Item 2 of
-the spec-authorable surface above ("enabled methods & flows") is authorable only
-as far as the runtime can act on it, and two limits bound that. **There is no
-enrolment path.** `Tom2FAService` (`tom_core_server` `authentication/two_factor.dart:271`)
-exposes exactly `issueChallenge` and `verifySubmission`; the enrolled-method
-store (`Tom2FAEnrolmentStore`) and the describable method catalogue
-(`Tom2FARegistry.availableMethods` → `Tom2FAMethodDescriptor`) both exist, but no
-`otpauth://` URI builder and no TOTP secret generator exists anywhere in
-`tom_ai`, so a user cannot be enrolled through the framework. **And the wire
-admits no method choice.** `TomAuthenticationResult` (`tom_core_kernel`
-`security/authentication_authorization.dart:153`) carries one `bool requires2FA`
-and one `String twoFactorType` — there is no third state for "enrolment
-required" and no plural for "choose among these". Both are runtime gaps
-(`tcca3`, `tcca4` → `qrc3`) <!-- todo-cite: provenance -->:
-a `@CsAuth` CodeSpec emits and compiles either way, and a deployment that
-declares enrolment or a choice of methods gets neither.
+**Substrate status — the second factor decides, enrols, offers a choice and
+challenges, end to end.** Item 2 is authorable in full, and it emits into all
+three projects of the §4.2 trio.
+
+- **Server — the decision.** `Tom2FAPolicy.decideFor` returns a `Tom2FADecision`
+  carrying the requirement level, the permitted mechanisms *in preference order*
+  and the grace count (`tom_core_server` `authentication/two_factor_policy.dart`).
+  `TomRole2FAPolicy` is the shipped role-driven implementation — its constructor
+  takes `requirementByRole`, `defaultRequirement`, the ordered `mechanisms` and
+  `graceLogins` — and `TomPrincipalFlag2FAPolicy` is the const fallback that
+  preserves the behaviour of a deployment that installs no policy bean.
+  `Tom2FADecision.offerableMechanisms` intersects the permitted set with what is
+  actually registered, once, so a policy naming an uninstalled mechanism surfaces
+  at the branch that decides the login rather than as a null adaptor later.
+- **Server — the enrolment.** `Tom2FAEnrolmentSupport` (`beginEnrolment` /
+  `confirmEnrolment`) is implemented by `TomTotp2FAService`, which generates the
+  secret and hands back the `otpauth://` provisioning URI, and by the
+  delivered-code mechanism. `Tom2FAEnrolmentStore` persists what a user has set
+  up; `Tom2FARegistry.enrollableMethods` is the describable subset of
+  `availableMethods` that can actually be set up here.
+- **Wire — the choice.** `TomAuthenticationResult` (`tom_core_kernel`
+  `security/authentication_authorization.dart`) carries `requires2FAEnrolment` as
+  a state distinct from `requires2FA`, `availableTwoFactorMethods` as a list of
+  `Tom2FAMethodDescriptor`, and `twoFactorEnrolmentSkippable`. The original
+  `requires2FA` / `twoFactorType` pair is unchanged beside them, so a client that
+  understands only those two cannot mistake an enrolment offer for a challenge.
+- **Client — the flow.** `Tom2FAFlowPanel` over the application-implemented
+  `Tom2FAFlowController` (`tom_core_flutter`
+  `tomclient/security/two_factor_flow.dart`) owns the invariant half: the
+  mechanism chooser, the frame around a mechanism's panel, the attempt counter,
+  the error line, and the skip affordance — which appears **only** when the
+  server said the offer was skippable. What a mechanism shows and what counts as
+  an answer sits behind `Tom2FAClientMechanism` in `Tom2FAClientRegistry`, one
+  registration per mechanism (`TomTotp2FAClientMechanism` shipped, with
+  `TomQrCodeView` rendering the provisioning URI).
 
 ### 5.26 Server authentication & feature grants
 
@@ -4483,7 +4516,7 @@ A part is **COVERED** only when both hold.
 | CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | COVERED |
 | CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | COVERED |
 | CE-CL | `client` | `ClientApplicationEntry` CLIAPP — the client-application list under `ClientRequirementsSection` CLRESE (`clientId` · `clientName` · `clientKind` · `purpose` · `platformTargets` · `entryRoute` · `includedScreens`), which keeps the minimum browser/OS/device requirements a client entry references | COVERED |
-| CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · the 42-section policy set | COVERED |
+| CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · `MfaConfiguration` MC (the second-factor policy) · the 42-section policy set | COVERED |
 | CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
 | CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG (projected into D03 IFM and into `D13CodeSpecsProjection` at the server locus) + `MigrationTargetEntry` MIGTG (datasource/schema placement) + `SchemaMigrationStepEntry` SCMST, a `@OneOf` over the three §5.27 artifact kinds, carrying the environment tag | COVERED |
 | CE-JB | `backgroundJob` | `ScheduledJobEntry` SCJOB — the per-job declaration list under `BatchJobManagement` BAJOMA, which keeps the system-wide policy defaults | COVERED |
@@ -4603,7 +4636,7 @@ specification.
 A todo below is paired with its prerequisite in the `tom_core` quest
 (`_ai/quests/tom_core/todos.tom_core.todo.yaml`): the core-side capability has
 to exist before the mapping-side position can be stated. Every `tcca*`
-prerequisite has landed, so for `qrc3`–`qrc6` what is left is the work against
+prerequisite has landed, so for `qrc4`–`qrc6` what is left is the work against
 *this* document alone — restating the position the shipped capability now
 supports. `qrc6`'s scope question is settled too
 (`tcca11` landed → `tspcmp1` settled → `qrc6`): <!-- todo-cite: provenance -->
@@ -4621,7 +4654,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `qrc3` | Extend the **CE-AU spec-authorable surface** (§4.1.1, §4.4.4 slice 4, §5.25) now that `tcca3`/`tcca4` have landed <!-- todo-cite: provenance -->. A `@CsAuth` CodeSpec can declare a challenge and a verification and nothing else: there is no enrolment path and the wire result carries one bool and one string. Includes reconsidering whether `@CsAuth` stays note-only. Mode **R**. |
 | `qrc4` | Clear the **CE-EL/CE-FM text-controller write-path gap** (§4.1.1, §4.4.4 slice 5) now that `tcca15` has landed <!-- todo-cite: provenance -->. `set()` and `reset()` bypass the guard the field's own `_setControllerText` applies, and both are the ordinary path a CE-ST binding and a CE-FM load take. Mode **R**. |
 | `qrc5` | Give a **Choice/MultiChoice per-value label a `CsMessageKey` carrier** (§4.1.1, §4.4.4 slice 5, §5.18, §5.21) now that `tcca9` has landed <!-- todo-cite: provenance -->. The value copy is a `TomSelectableSource` literal, so §3.1.1's and §5.21's promise is dropped at emission. The one **E(lossy)** gap in the matrix. |
 | `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) now that `tspcmp1` has settled the scope question `tcca11` left open <!-- todo-cite: provenance --> — the store is scoped by its `location`, so the account is one segment of the address rather than a parameter in the API — and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
