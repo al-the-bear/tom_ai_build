@@ -3053,7 +3053,7 @@ class MoscowEntry extends DocSpecsSection {
       'Feature ID',
       hint:
           'The feature this entry classifies — an id declared by the Feature '
-          'Priority Register (§13.4.3), e.g. FEA-001',
+          'Priority Register (§13.4.1), e.g. FEA-001',
       required: true,
       refersTo: ['FPE.featureId'],
     ),
@@ -3309,7 +3309,7 @@ class FeatureStageMapping extends DocSpecsSection {
       'Feature ID',
       hint:
           'The feature this entry stages — an id declared by the Feature '
-          'Priority Register (§13.4.3), e.g. FEA-001',
+          'Priority Register (§13.4.1), e.g. FEA-001',
       required: true,
       refersTo: ['FPE.featureId'],
     ),
@@ -3924,11 +3924,18 @@ class FeaturePriorityEntry extends DocSpecsSection {
       hint: 'Business process IDs',
       refersTo: ['PRIDN.processId'],
     ),
+    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Every
+    // other field in this form names a register the blueprint declares; user
+    // stories are the delivery backlog's decomposition of an already-registered
+    // feature (`FPE.featureId`, §13.4.1), not a blueprint artifact. The ids are
+    // owned by the delivery tooling, so there is nothing here to resolve
+    // against — the label and hint say so rather than leaving the field bare.
     Field(
       'linkedUserStories',
       String,
-      'Linked User Stories',
-      hint: 'User story IDs in the backlog',
+      'Linked User Stories (external)',
+      hint: 'Story ids from the delivery backlog — owned by the delivery '
+          'tooling, not declared in this blueprint',
     ),
     Field(
       'linkedArchitectureDecisions',

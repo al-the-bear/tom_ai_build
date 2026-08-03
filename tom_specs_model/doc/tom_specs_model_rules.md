@@ -682,9 +682,15 @@ classes of field stay bare, and staying bare is the right answer for them:
   **or** addresses", "template ID **or** description" — the field is free text
   by design. Annotating it would red-flag the alternative the field was written
   to allow.
-- **The registry is not modelled.** Some id families are referenced but never
-  declared anywhere as a set of entries: there is no register to point at, so
-  there is nothing to check against. These become model gaps, not annotations.
+- **The registry is owned outside the blueprint.** Some id families are
+  referenced but deliberately not declared here, because the set of entries
+  belongs to another system: issue ids to the project's issue tracker, help
+  topic ids to the documentation system, user story ids to the delivery
+  backlog. There is no register to point at, so there is nothing to check
+  against. Such a field must **say so**: its label carries an `(external)`
+  marker and its hint names the owning system. "Bare id field with an id-shaped
+  name and a hint that says nothing about ownership" is not an outcome — it
+  reads as a forgotten contract rather than a decided one.
 - **Nothing enumerates the ids.** An entry that stores its id solely in its own
   section id is reachable through `@sectionId` (rule 6) — but only when that
   entry is a patterned list's element type. A section that occurs once, with one

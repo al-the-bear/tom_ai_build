@@ -1888,7 +1888,7 @@ form-types:
       - fieldname: linkedBusinessProcesses
         description: Business process IDs
       - fieldname: linkedUserStories
-        description: User story IDs in the backlog
+        description: "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint"
       - fieldname: linkedArchitectureDecisions
         description: ADR IDs affected by or affecting this feature
   fs-form:

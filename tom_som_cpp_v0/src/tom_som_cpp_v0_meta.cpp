@@ -36400,7 +36400,7 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, std::vector<std::string>{}, std::vector<std::string>{"PRIDN.processId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUserStories", "String", "Linked User Stories", false, "User story IDs in the backlog", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUserStories", "String", "Linked User Stories (external)", false, "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "ADR IDs affected by or affecting this feature", 4, std::vector<std::string>{}, std::vector<std::string>{"ARDE.decisionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -36481,7 +36481,7 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -48380,7 +48380,7 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).docComment = "Related items.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risk IDs that are correlated", 0, std::vector<std::string>{}, std::vector<std::string>{"MGRSK.riskId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues", false, "Issue IDs linked to this risk", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues (external)", false, "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by risk", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyChain", "String", "Dependency Chain", false, "Other risks this depends on", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -49713,7 +49713,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -66242,7 +66242,7 @@ void buildRiskRelationshipsChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks — other risks that are related or dependent", false, "Other risks related to or dependent on this one", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedAssumptions", "String", "Related Assumptions — assumptions that could affect this risk", false, "Assumptions that could affect this risk", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues — issues arising from this risk", false, "Issues arising from this risk", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues (external tracker) — issues arising from this risk", false, "Issues arising from this risk, named or cited by their tracker id — the issue log is owned outside this blueprint", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements — requirements affected", false, "Requirements affected by this risk", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedComponents", "String", "Affected Components — system components or modules", false, "System components or modules affected", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedStakeholders", "String", "Affected Stakeholders — groups impacted if risk occurs", false, "Stakeholder groups impacted if the risk occurs", 5, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -69132,7 +69132,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 0, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"pageIconResource", "String", "Page Icon Resource", false, "Resource key for the screen icon", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"helpTopicId", "String", "Help Topic ID", false, "Link to help/documentation topic", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"helpTopicId", "String", "Help Topic ID (external)", false, "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information\",\"ISO 9241-125:2017 — visual presentation and layout of the screen\"],\"connotation\":\"The presentation metadata such as title, icon, and layout that defines how a screen appears.\"}", nullptr)});
     parent.addChild(std::move(n));

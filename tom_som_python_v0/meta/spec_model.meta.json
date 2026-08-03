@@ -106946,8 +106946,8 @@
             },
             {
               "name": "linkedUserStories",
-              "label": "Linked User Stories",
-              "hint": "User story IDs in the backlog",
+              "label": "Linked User Stories (external)",
+              "hint": "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint",
               "type": "String",
               "required": false
             },
@@ -107233,7 +107233,7 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001",
+              "hint": "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001",
               "type": "String",
               "required": true,
               "refersTo": [
@@ -146772,8 +146772,8 @@
             },
             {
               "name": "relatedIssues",
-              "label": "Related Issues",
-              "hint": "Issue IDs linked to this risk",
+              "label": "Related Issues (external)",
+              "hint": "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint",
               "type": "String",
               "required": false
             },
@@ -150922,7 +150922,7 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001",
+              "hint": "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001",
               "type": "String",
               "required": true,
               "refersTo": [
@@ -206614,8 +206614,8 @@
             },
             {
               "name": "relatedIssues",
-              "label": "Related Issues — issues arising from this risk",
-              "hint": "Issues arising from this risk",
+              "label": "Related Issues (external tracker) — issues arising from this risk",
+              "hint": "Issues arising from this risk, named or cited by their tracker id — the issue log is owned outside this blueprint",
               "type": "String",
               "required": false
             },
@@ -217632,8 +217632,8 @@
             },
             {
               "name": "helpTopicId",
-              "label": "Help Topic ID",
-              "hint": "Link to help/documentation topic",
+              "label": "Help Topic ID (external)",
+              "hint": "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint",
               "type": "String",
               "required": false
             },

@@ -28606,7 +28606,7 @@ form-types:
       - fieldname: relatedRisks
         description: Risk IDs that are correlated
       - fieldname: relatedIssues
-        description: Issue IDs linked to this risk
+        description: "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint"
       - fieldname: relatedRequirements
         description: Requirements impacted by risk
       - fieldname: relatedDecisions
@@ -43149,7 +43149,7 @@ form-types:
       - fieldname: pageIconResource
         description: Resource key for the screen icon
       - fieldname: helpTopicId
-        description: Link to help/documentation topic
+        description: "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint"
       - fieldname: layout
         description: "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile"
   ssel-form:
@@ -47528,7 +47528,7 @@ form-types:
       - fieldname: linkedBusinessProcesses
         description: Business process IDs
       - fieldname: linkedUserStories
-        description: User story IDs in the backlog
+        description: "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint"
       - fieldname: linkedArchitectureDecisions
         description: ADR IDs affected by or affecting this feature
   fs-form:

@@ -65196,9 +65196,9 @@ static void meta_build_feature_priority_entry_traceability(SomMetaNode *n) {
   n->form->fields[2].refers_to[0] = som_strdup("PRIDN.processId");
   n->form->fields[3].name = som_strdup("linkedUserStories");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Linked User Stories");
+  n->form->fields[3].description = som_strdup("Linked User Stories (external)");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("User story IDs in the backlog");
+  n->form->fields[3].hint = som_strdup("Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint");
   n->form->fields[3].order = 3;
   n->form->fields[4].name = som_strdup("linkedArchitectureDecisions");
   n->form->fields[4].type_name = som_strdup("String");
@@ -65330,7 +65330,7 @@ static void meta_build_feature_stage_mapping_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Feature ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001");
+  n->form->fields[0].hint = som_strdup("The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001");
   n->form->fields[0].order = 0;
   n->form->fields[0].refers_to_len = 1;
   n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
@@ -84916,9 +84916,9 @@ static void meta_build_migration_risk_entry_related(SomMetaNode *n) {
   n->form->fields[0].refers_to[0] = som_strdup("MGRSK.riskId");
   n->form->fields[1].name = som_strdup("relatedIssues");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Related Issues");
+  n->form->fields[1].description = som_strdup("Related Issues (external)");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Issue IDs linked to this risk");
+  n->form->fields[1].hint = som_strdup("Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint");
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("relatedRequirements");
   n->form->fields[2].type_name = som_strdup("String");
@@ -87034,7 +87034,7 @@ static void meta_build_moscow_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Feature ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001");
+  n->form->fields[0].hint = som_strdup("The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001");
   n->form->fields[0].order = 0;
   n->form->fields[0].refers_to_len = 1;
   n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
@@ -114396,9 +114396,9 @@ static void meta_build_risk_relationships_content(SomMetaNode *n) {
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("relatedIssues");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Related Issues — issues arising from this risk");
+  n->form->fields[2].description = som_strdup("Related Issues (external tracker) — issues arising from this risk");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Issues arising from this risk");
+  n->form->fields[2].hint = som_strdup("Issues arising from this risk, named or cited by their tracker id — the issue log is owned outside this blueprint");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("relatedRequirements");
   n->form->fields[3].type_name = som_strdup("String");
@@ -119687,9 +119687,9 @@ static void meta_build_screen_entry_presentation(SomMetaNode *n) {
   n->form->fields[1].order = 1;
   n->form->fields[2].name = som_strdup("helpTopicId");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Help Topic ID");
+  n->form->fields[2].description = som_strdup("Help Topic ID (external)");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Link to help/documentation topic");
+  n->form->fields[2].hint = som_strdup("Topic id in the documentation system — owned by the documentation process, not declared in this blueprint");
   n->form->fields[2].order = 2;
   n->form->fields[3].name = som_strdup("layout");
   n->form->fields[3].type_name = som_strdup("String");

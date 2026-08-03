@@ -14501,11 +14501,18 @@ class MigrationRiskEntry extends DocSpecsSection {
       hint: 'Risk IDs that are correlated',
       refersTo: ['MGRSK.riskId'],
     ),
+    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). An issue is
+    // a risk that has materialised, tracked in the project's issue log — live
+    // execution state, not a blueprint artifact, so the blueprint declares no
+    // issue register to resolve against. What it does declare is the risk
+    // register (`MGRSK.riskId`, annotated above); the issue ids belong to the
+    // external tracker, and the label and hint say so.
     Field(
       'relatedIssues',
       String,
-      'Related Issues',
-      hint: 'Issue IDs linked to this risk',
+      'Related Issues (external)',
+      hint: 'Issue ids from the project issue tracker — owned by the tracker, '
+          'not declared in this blueprint',
     ),
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Unlike the
     // traceability fields, "requirements impacted" invites prose — an author
@@ -18922,11 +18929,17 @@ class RiskRelationships extends DocSpecsSection {
       'Related Assumptions — assumptions that could affect this risk',
       hint: 'Assumptions that could affect this risk',
     ),
+    // Why: deliberately no `refersTo` (§6.2 "when not to annotate") — same
+    // reason as the migration risk register's "related issues" field: an issue
+    // is a materialised risk tracked in the project's issue log, so there is no
+    // issue register in the blueprint to resolve against. The field name is
+    // id-shaped, so the label names the external owner to keep that visible.
     Field(
       'relatedIssues',
       String,
-      'Related Issues — issues arising from this risk',
-      hint: 'Issues arising from this risk',
+      'Related Issues (external tracker) — issues arising from this risk',
+      hint: 'Issues arising from this risk, named or cited by their tracker id '
+          '— the issue log is owned outside this blueprint',
     ),
     // Why: deliberately no `refersTo` — same reason as the risk register's
     // "requirements impacted" field (§6.2 "when not to annotate").

@@ -40708,7 +40708,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
             new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
             new SomFormFieldMeta("linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, java.util.List.of(), java.util.List.of("PRIDN.processId")),
-            new SomFormFieldMeta("linkedUserStories", "String", "Linked User Stories", false, "User story IDs in the backlog", 3),
+            new SomFormFieldMeta("linkedUserStories", "String", "Linked User Stories (external)", false, "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint", 3),
             new SomFormFieldMeta("linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "ADR IDs affected by or affecting this feature", 4, java.util.List.of(), java.util.List.of("ARDE.decisionId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition", "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"), "connotation", "Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions.")));
         out.add(n);
@@ -40846,7 +40846,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
         out.add(n);
       }
       {
@@ -54969,7 +54969,7 @@ public final class TomSomV0Meta {
         n.docComment = "Related items.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedRisks", "String", "Related Risks", false, "Risk IDs that are correlated", 0, java.util.List.of(), java.util.List.of("MGRSK.riskId")),
-            new SomFormFieldMeta("relatedIssues", "String", "Related Issues", false, "Issue IDs linked to this risk", 1),
+            new SomFormFieldMeta("relatedIssues", "String", "Related Issues (external)", false, "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint", 1),
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by risk", 2),
             new SomFormFieldMeta("relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk", 3),
             new SomFormFieldMeta("dependencyChain", "String", "Dependency Chain", false, "Other risks this depends on", 4)));
@@ -56532,7 +56532,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
         out.add(n);
       }
       {
@@ -76357,7 +76357,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedRisks", "String", "Related Risks — other risks that are related or dependent", false, "Other risks related to or dependent on this one", 0),
             new SomFormFieldMeta("relatedAssumptions", "String", "Related Assumptions — assumptions that could affect this risk", false, "Assumptions that could affect this risk", 1),
-            new SomFormFieldMeta("relatedIssues", "String", "Related Issues — issues arising from this risk", false, "Issues arising from this risk", 2),
+            new SomFormFieldMeta("relatedIssues", "String", "Related Issues (external tracker) — issues arising from this risk", false, "Issues arising from this risk, named or cited by their tracker id — the issue log is owned outside this blueprint", 2),
             new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements — requirements affected", false, "Requirements affected by this risk", 3),
             new SomFormFieldMeta("affectedComponents", "String", "Affected Components — system components or modules", false, "System components or modules affected", 4),
             new SomFormFieldMeta("affectedStakeholders", "String", "Affected Stakeholders — groups impacted if risk occurs", false, "Stakeholder groups impacted if the risk occurs", 5),
@@ -79797,7 +79797,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("pageTitleResource", "String", "Page Title Resource", false, "Message key (MSGKR registry) for the screen title text", 0, java.util.List.of(), java.util.List.of("MSGKE.key")),
             new SomFormFieldMeta("pageIconResource", "String", "Page Icon Resource", false, "Resource key for the screen icon", 1),
-            new SomFormFieldMeta("helpTopicId", "String", "Help Topic ID", false, "Link to help/documentation topic", 2),
+            new SomFormFieldMeta("helpTopicId", "String", "Help Topic ID (external)", false, "Topic id in the documentation system — owned by the documentation process, not declared in this blueprint", 2),
             new SomFormFieldMeta("layout", "String", "Layout", false, "Layout description, e.g., Responsive grid — 3 col desktop, 1 col mobile", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-112:2017 — presentation of screen titles, icons, and identifying information", "ISO 9241-125:2017 — visual presentation and layout of the screen"), "connotation", "The presentation metadata such as title, icon, and layout that defines how a screen appears.")));
         out.add(n);

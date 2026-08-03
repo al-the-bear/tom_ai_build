@@ -3872,7 +3872,7 @@ form-types:
       - fieldname: relatedRisks
         description: Risk IDs that are correlated
       - fieldname: relatedIssues
-        description: Issue IDs linked to this risk
+        description: "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint"
       - fieldname: relatedRequirements
         description: Requirements impacted by risk
       - fieldname: relatedDecisions

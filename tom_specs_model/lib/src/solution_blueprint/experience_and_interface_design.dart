@@ -1504,11 +1504,20 @@ class ScreenEntry extends DocSpecsSection {
       'Page Icon Resource',
       hint: 'Resource key for the screen icon',
     ),
+    // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Help
+    // content is a DOC follow-up — `UserAssistance` sits under
+    // `ExperienceDesignFollowUp`, which is generation-owned-out — so the topic
+    // catalogue belongs to the documentation process, not to the blueprint.
+    // Modelling a topic register here would also cross the CodeSpecs/follow-up
+    // boundary: this screen is reachable from the CodeSpecs generation
+    // projection (D13) while the follow-up subtree deliberately is not, so
+    // every screen of such a document would dangle.
     Field(
       'helpTopicId',
       String,
-      'Help Topic ID',
-      hint: 'Link to help/documentation topic',
+      'Help Topic ID (external)',
+      hint: 'Topic id in the documentation system — owned by the documentation '
+          'process, not declared in this blueprint',
     ),
     Field(
       'layout',
