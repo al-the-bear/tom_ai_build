@@ -5,6 +5,7 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/authorization_requirement.dart';
 import '../document_stubs.dart';
 
 /// Lifecycle role of a business-object state (`ObjectStateEntry.stateType`).
@@ -5464,31 +5465,6 @@ class ServerOperationEntry extends DocSpecsSection {
       refersTo: ['DAENT.entityName'],
     ),
     Field(
-      'authorizationRequirement',
-      String,
-      'Authorization Requirement',
-      required: true,
-      hint: 'What a caller must satisfy: Denied | Public | Authenticated | '
-          'Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. '
-          'There is no default — state it explicitly.',
-    ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Comma-separated RoleEntry.roleName values from the role catalogue '
-          '(AZRO), for a Role requirement',
-      refersTo: ['AZRO.roleName'],
-    ),
-    Field(
-      'requiredResourceKey',
-      String,
-      'Required Resource Key',
-      hint: 'ResourceKeyEntry.resourceKey from the resource-key catalogue '
-          '(RESKEY), for a ResourceKey or Graded requirement',
-      refersTo: ['RESKEY.resourceKey'],
-    ),
-    Field(
       'descriptionKey',
       String,
       'Description Copy Key',
@@ -5511,6 +5487,15 @@ class ServerOperationEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
+  /// 7.9.x. Authorization — what a caller must satisfy to invoke this
+  /// operation.
+  ///
+  /// The shared CE-AZ requirement section, not a per-operation restatement.
+  /// There is no default: an operation with no requirement authored is a
+  /// specification defect.
+  @SerializationOrder(1)
+  AuthorizationRequirementSpec authorization = AuthorizationRequirementSpec();
+
   /// 7.9.x. Request Members — the members that make up the request shape.
   @StandardReferences([
     'ISO/IEC 11179 — metadata registries / data element definitions',
@@ -5518,7 +5503,7 @@ class ServerOperationEntry extends DocSpecsSection {
   @SectionId('SVOPM-REQM-LST')
   @SectionIdPattern('SVOPM-REQM-xxx')
   @ContentHelp('Add one entry per member of the request shape.')
-  @SerializationOrder(1)
+  @SerializationOrder(2)
   List<ServerOperationMemberEntry> requestMembers = [];
 
   /// 7.9.x. Response Members — the members the success payload carries.
@@ -5533,7 +5518,7 @@ class ServerOperationEntry extends DocSpecsSection {
   @SectionIdPattern('SVOPM-RESM-xxx')
   @ContentHelp('Add one entry per member of the success payload. Leave empty '
       'for an operation that returns nothing but success or error.')
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   List<ServerOperationMemberEntry> responseMembers = [];
 }
 

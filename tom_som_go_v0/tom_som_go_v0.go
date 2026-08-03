@@ -2836,6 +2836,55 @@ func (x *AuthorizationModel) PermissionEvaluation() *PermissionEvaluationBehavio
 // Authorization Model Notes (text).
 // (skipped: authorizationModelNotes has no target type)
 
+// What a caller must satisfy to reach the thing this section modifies
+// (`codespecs_mapping.md` §5.15).
+//
+// Embed this section wherever a guarded thing is authored — do not restate its
+// fields inline. The kind selects at most one payload subsection; the four
+// presets select none, which is why four of the ten arms bind no case.
+type AuthorizationRequirementSpec struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpec binds a AuthorizationRequirementSpec facade to a document and a path.
+func NewAuthorizationRequirementSpec(doc *som.SpecDocument, path string) *AuthorizationRequirementSpec {
+	return &AuthorizationRequirementSpec{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *AuthorizationRequirementSpec) Content() *AuthorizationRequirementSpecContentForm {
+	return NewAuthorizationRequirementSpecContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Role requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) RoleRequirement() *AuthorizationRequirementSpecRoleRequirementForm {
+	return NewAuthorizationRequirementSpecRoleRequirementForm(x.Doc(), x.Path()+"/AZREQ-ROLE")
+}
+
+// Group requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) GroupRequirement() *AuthorizationRequirementSpecGroupRequirementForm {
+	return NewAuthorizationRequirementSpecGroupRequirementForm(x.Doc(), x.Path()+"/AZREQ-GRUP")
+}
+
+// Entitlement requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) EntitlementRequirement() *AuthorizationRequirementSpecEntitlementRequirementForm {
+	return NewAuthorizationRequirementSpecEntitlementRequirementForm(x.Doc(), x.Path()+"/AZREQ-ENTL")
+}
+
+// Resource-key requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) ResourceKeyRequirement() *AuthorizationRequirementSpecResourceKeyRequirementForm {
+	return NewAuthorizationRequirementSpecResourceKeyRequirementForm(x.Doc(), x.Path()+"/AZREQ-RKEY")
+}
+
+// Custom requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) CustomRequirement() *AuthorizationRequirementSpecCustomRequirementForm {
+	return NewAuthorizationRequirementSpecCustomRequirementForm(x.Doc(), x.Path()+"/AZREQ-CUST")
+}
+
+// Graded requirement payload — a promoted `@OneOf` case.
+func (x *AuthorizationRequirementSpec) GradedRequirement() *GradedAuthorizationRequirement {
+	return NewGradedAuthorizationRequirement(x.Doc(), x.Path()+"/gradedRequirement")
+}
+
 // An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
@@ -12637,6 +12686,15 @@ func (x *DeepLinkPatternEntry) Content() *DeepLinkPatternEntryContentForm {
 	return NewDeepLinkPatternEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// Access control — what a caller must satisfy to follow this deep link.
+//
+// The shared CE-AZ requirement section (`AZREQ`). Authoring the
+// Authenticated kind is what makes an unauthenticated visitor redirect to
+// sign-in; there is no separate authentication-required flag.
+func (x *DeepLinkPatternEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
+}
+
 // 10.3.1.7. Deep Linking.
 //
 // External entry points, URL patterns, share links.
@@ -16714,8 +16772,15 @@ func (x *ExportFormatEntry) Output() *ExportFormatEntryOutputForm {
 }
 
 // Access and audit.
-func (x *ExportFormatEntry) Access() *ExportFormatEntryAccessForm {
-	return NewExportFormatEntryAccessForm(x.Doc(), x.Path()+"/EXAC")
+func (x *ExportFormatEntry) Audit() *ExportFormatEntryAuditForm {
+	return NewExportFormatEntryAuditForm(x.Doc(), x.Path()+"/EXAC")
+}
+
+// Access control — what a caller must satisfy to run this export.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+func (x *ExportFormatEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Contains 0+× Export Field Mapping.
@@ -16769,8 +16834,15 @@ func (x *ExportTemplateEntry) Layout() *ExportTemplateEntryLayoutForm {
 }
 
 // Access and metadata.
-func (x *ExportTemplateEntry) Access() *ExportTemplateEntryAccessForm {
-	return NewExportTemplateEntryAccessForm(x.Doc(), x.Path()+"/ETEA")
+func (x *ExportTemplateEntry) Metadata() *ExportTemplateEntryMetadataForm {
+	return NewExportTemplateEntryMetadataForm(x.Doc(), x.Path()+"/ETEA")
+}
+
+// Access control — what a caller must satisfy to use this template.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+func (x *ExportTemplateEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // An extension entry.
@@ -18761,6 +18833,88 @@ func (x *GovernanceModel) DecisionAuthorities() *som.SomList[*DecisionAuthorityE
 	return som.NewSomList(x.Doc(), x.Path()+"/DCAUT-DECI-LST", func(d *som.SpecDocument, p string) *DecisionAuthorityEntry {
 		return NewDecisionAuthorityEntry(d, p)
 	}, "DCAUT-DECI-xxx")
+}
+
+// One rung of a graded access ladder: an access state and the non-graded
+// requirement that earns it (`codespecs_mapping.md` §5.15).
+//
+// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+// See [GradedAuthorizationRequirement] for why that bound exists and why the
+// case forms are restated rather than shared.
+type GradedAccessLevelEntry struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntry binds a GradedAccessLevelEntry facade to a document and a path.
+func NewGradedAccessLevelEntry(doc *som.SpecDocument, path string) *GradedAccessLevelEntry {
+	return &GradedAccessLevelEntry{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *GradedAccessLevelEntry) Content() *GradedAccessLevelEntryContentForm {
+	return NewGradedAccessLevelEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// Role requirement payload — a promoted `@OneOf` case.
+func (x *GradedAccessLevelEntry) RoleRequirement() *GradedAccessLevelEntryRoleRequirementForm {
+	return NewGradedAccessLevelEntryRoleRequirementForm(x.Doc(), x.Path()+"/AZLVL-ROLE")
+}
+
+// Group requirement payload — a promoted `@OneOf` case.
+func (x *GradedAccessLevelEntry) GroupRequirement() *GradedAccessLevelEntryGroupRequirementForm {
+	return NewGradedAccessLevelEntryGroupRequirementForm(x.Doc(), x.Path()+"/AZLVL-GRUP")
+}
+
+// Entitlement requirement payload — a promoted `@OneOf` case.
+func (x *GradedAccessLevelEntry) EntitlementRequirement() *GradedAccessLevelEntryEntitlementRequirementForm {
+	return NewGradedAccessLevelEntryEntitlementRequirementForm(x.Doc(), x.Path()+"/AZLVL-ENTL")
+}
+
+// Resource-key requirement payload — a promoted `@OneOf` case.
+func (x *GradedAccessLevelEntry) ResourceKeyRequirement() *GradedAccessLevelEntryResourceKeyRequirementForm {
+	return NewGradedAccessLevelEntryResourceKeyRequirementForm(x.Doc(), x.Path()+"/AZLVL-RKEY")
+}
+
+// Custom requirement payload — a promoted `@OneOf` case.
+func (x *GradedAccessLevelEntry) CustomRequirement() *GradedAccessLevelEntryCustomRequirementForm {
+	return NewGradedAccessLevelEntryCustomRequirementForm(x.Doc(), x.Path()+"/AZLVL-CUST")
+}
+
+// A graded requirement: what a caller must satisfy for each access state
+// (`codespecs_mapping.md` §5.15).
+//
+// **Why a level takes a [GradedAccessLevelEntry] and not an
+// [AuthorizationRequirementSpec].** A graded level whose requirement could
+// itself be graded would make the model structurally cyclic, and
+// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+// outliner, the serializers and the nine generated language runtimes all walk
+// the class graph as a tree. Bounding the depth at one level is not a
+// workaround for that constraint: a graded thing resolves to one of four
+// *terminal* access states, so nesting a second grading inside a level has
+// nothing left to resolve to.
+//
+// The price is that [GradedAccessLevelEntry] restates five of
+// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+// reintroduces the cycle.
+type GradedAuthorizationRequirement struct {
+	som.SomNode
+}
+
+// NewGradedAuthorizationRequirement binds a GradedAuthorizationRequirement facade to a document and a path.
+func NewGradedAuthorizationRequirement(doc *som.SpecDocument, path string) *GradedAuthorizationRequirement {
+	return &GradedAuthorizationRequirement{SomNode: som.NewSomNode(doc, path)}
+}
+
+func (x *GradedAuthorizationRequirement) Content() *GradedAuthorizationRequirementContentForm {
+	return NewGradedAuthorizationRequirementContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// The authored rungs of the ladder — contains 1..3× Graded Access Level.
+func (x *GradedAuthorizationRequirement) AccessLevels() *som.SomList[*GradedAccessLevelEntry] {
+	return som.NewSomList(x.Doc(), x.Path()+"/AZLVL-LEVE-LST", func(d *som.SpecDocument, p string) *GradedAccessLevelEntry {
+		return NewGradedAccessLevelEntry(d, p)
+	}, "AZLVL-LEVE-xxx")
 }
 
 // A data handling requirement entry (form).
@@ -24157,9 +24311,14 @@ func (x *NavigationGroupEntry) Display() *NavigationGroupEntryDisplayForm {
 	return NewNavigationGroupEntryDisplayForm(x.Doc(), x.Path()+"/NGED")
 }
 
-// Access-control settings.
-func (x *NavigationGroupEntry) Access() *NavigationGroupEntryAccessForm {
-	return NewNavigationGroupEntryAccessForm(x.Doc(), x.Path()+"/NGEA")
+// Access control — what a caller must satisfy to see this navigation group.
+//
+// The shared CE-AZ requirement section (`AZREQ`). A group that should be
+// visible-but-locked rather than hidden authors the Graded kind; the
+// hide/disable rendering follows from the access state and is not authored
+// here.
+func (x *NavigationGroupEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Badge and hierarchy settings.
@@ -24296,9 +24455,21 @@ func (x *NavigationItemEntry) Routing() *NavigationItemEntryRoutingForm {
 	return NewNavigationItemEntryRoutingForm(x.Doc(), x.Path()+"/NIER")
 }
 
-// Access control settings.
-func (x *NavigationItemEntry) Access() *NavigationItemEntryAccessForm {
-	return NewNavigationItemEntryAccessForm(x.Doc(), x.Path()+"/NIEA")
+// Business conditions governing when the item is shown and interactive.
+//
+// These are *business* conditions, not authorization — who may reach the
+// item is authored in [access]. A condition here narrows an item the caller
+// is already authorized for.
+func (x *NavigationItemEntry) Visibility() *NavigationItemEntryVisibilityForm {
+	return NewNavigationItemEntryVisibilityForm(x.Doc(), x.Path()+"/NIEA")
+}
+
+// Access control — what a caller must satisfy to reach this item.
+//
+// The shared CE-AZ requirement section (`AZREQ`). An item that should be
+// shown locked rather than hidden authors the Graded kind.
+func (x *NavigationItemEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Badge configuration.
@@ -30260,6 +30431,13 @@ func (x *ReportEntry) Security() *ReportEntrySecurityForm {
 	return NewReportEntrySecurityForm(x.Doc(), x.Path()+"/RESE")
 }
 
+// Access control — what a caller must satisfy to generate this report.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+func (x *ReportEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
+}
+
 // Lifecycle and archiving.
 func (x *ReportEntry) Lifecycle() *ReportEntryLifecycleForm {
 	return NewReportEntryLifecycleForm(x.Doc(), x.Path()+"/RELI")
@@ -33287,9 +33465,22 @@ func (x *ScreenElementEntry) Layout() *ScreenElementEntryLayoutForm {
 	return NewScreenElementEntryLayoutForm(x.Doc(), x.Path()+"/SCELENLA")
 }
 
-// Visibility and permission rules.
+// Visibility and enablement rules.
+//
+// These are *business* conditions on an element the caller is already
+// authorized for. Who may see or use it at all is [access].
 func (x *ScreenElementEntry) Behavior() *ScreenElementEntryBehaviorForm {
 	return NewScreenElementEntryBehaviorForm(x.Doc(), x.Path()+"/SEEB")
+}
+
+// Access control — what a caller must satisfy to see or use this element.
+//
+// The shared CE-AZ requirement section (`AZREQ`). An element whose access
+// has degrees — hidden, locked, read-only, interactive — authors the Graded
+// kind, which is what the old free-text permission-effect field was trying
+// to say.
+func (x *ScreenElementEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Styling and data binding.
@@ -33416,9 +33607,14 @@ func (x *ScreenEntry) Classification() *ScreenEntryClassificationForm {
 	return NewScreenEntryClassificationForm(x.Doc(), x.Path()+"/SCECL")
 }
 
-// Access control settings.
-func (x *ScreenEntry) Access() *ScreenEntryAccessForm {
-	return NewScreenEntryAccessForm(x.Doc(), x.Path()+"/SCEAC")
+// Access control — what a caller must satisfy to reach this screen.
+//
+// The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+// restatement. A screen that is graded rather than simply reachable authors
+// the Graded kind; how each access state renders is fixed by the framework
+// and is not authored here.
+func (x *ScreenEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Traceability metadata.
@@ -34828,6 +35024,16 @@ func NewServerOperationEntry(doc *som.SpecDocument, path string) *ServerOperatio
 
 func (x *ServerOperationEntry) Content() *ServerOperationEntryContentForm {
 	return NewServerOperationEntryContentForm(x.Doc(), x.Path()+"/content")
+}
+
+// 7.9.x. Authorization — what a caller must satisfy to invoke this
+// operation.
+//
+// The shared CE-AZ requirement section, not a per-operation restatement.
+// There is no default: an operation with no requirement authored is a
+// specification defect.
+func (x *ServerOperationEntry) Authorization() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/authorization")
 }
 
 // 7.9.x. Request Members — the members that make up the request shape.
@@ -39202,6 +39408,14 @@ func (x *TabItemEntry) Content() *TabItemEntryContentForm {
 	return NewTabItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
+// Access control — what a caller must satisfy to reach this tab.
+//
+// The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+// disabled rather than hidden authors the Graded kind.
+func (x *TabItemEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
+}
+
 // SBP.7 Target Operating Model concept.
 //
 // Split into a follow-up subtree ([OrganizationAndProcessConcept], ORG/OPS)
@@ -43259,6 +43473,13 @@ func (x *UtilityMenuItemEntry) Behavior() *UtilityMenuItemEntryBehaviorForm {
 	return NewUtilityMenuItemEntryBehaviorForm(x.Doc(), x.Path()+"/UMIEB")
 }
 
+// Access control — what a caller must satisfy to use this menu item.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+func (x *UtilityMenuItemEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
+}
+
 // 10.3.1.5. Utility Navigation.
 //
 // Always-visible utility items: user menu, notifications, help, settings.
@@ -43309,9 +43530,16 @@ func (x *UtilityNavigationItemEntry) Content() *UtilityNavigationItemEntryConten
 	return NewUtilityNavigationItemEntryContentForm(x.Doc(), x.Path()+"/content")
 }
 
-// Ordering, rendering, and access rules.
+// Ordering and rendering.
 func (x *UtilityNavigationItemEntry) Display() *UtilityNavigationItemEntryDisplayForm {
 	return NewUtilityNavigationItemEntryDisplayForm(x.Doc(), x.Path()+"/UNIED")
+}
+
+// Access control — what a caller must satisfy to reach this utility item.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+func (x *UtilityNavigationItemEntry) Access() *AuthorizationRequirementSpec {
+	return NewAuthorizationRequirementSpec(x.Doc(), x.Path()+"/access")
 }
 
 // Badge and interaction behavior.
@@ -53283,6 +53511,234 @@ func (x *AuthorizationGroupEntryContentForm) MembershipCriteria() string {
 
 func (x *AuthorizationGroupEntryContentForm) SetMembershipCriteria(value string) {
 	x.Doc().SetFormField(x.Path(), "membershipCriteria", value)
+}
+
+// AuthorizationRequirementSpecContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecContentForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecContentForm binds a AuthorizationRequirementSpecContentForm facade to a document and a path.
+func NewAuthorizationRequirementSpecContentForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecContentForm {
+	return &AuthorizationRequirementSpecContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecContentForm) RequirementKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "requirementKind")
+}
+
+func (x *AuthorizationRequirementSpecContentForm) SetRequirementKind(value string) {
+	x.Doc().SetFormField(x.Path(), "requirementKind", value)
+}
+
+func (x *AuthorizationRequirementSpecContentForm) Rationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "rationale")
+}
+
+func (x *AuthorizationRequirementSpecContentForm) SetRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "rationale", value)
+}
+
+// AuthorizationRequirementSpecCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecCustomRequirementForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecCustomRequirementForm binds a AuthorizationRequirementSpecCustomRequirementForm facade to a document and a path.
+func NewAuthorizationRequirementSpecCustomRequirementForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecCustomRequirementForm {
+	return &AuthorizationRequirementSpecCustomRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecCustomRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecCustomRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) Handler() string {
+	return x.Doc().FormFieldOr(x.Path(), "handler")
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) SetHandler(value string) {
+	x.Doc().SetFormField(x.Path(), "handler", value)
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) ResourceId() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceId")
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) SetResourceId(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceId", value)
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) DecisionRule() string {
+	return x.Doc().FormFieldOr(x.Path(), "decisionRule")
+}
+
+func (x *AuthorizationRequirementSpecCustomRequirementForm) SetDecisionRule(value string) {
+	x.Doc().SetFormField(x.Path(), "decisionRule", value)
+}
+
+// AuthorizationRequirementSpecEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecEntitlementRequirementForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecEntitlementRequirementForm binds a AuthorizationRequirementSpecEntitlementRequirementForm facade to a document and a path.
+func NewAuthorizationRequirementSpecEntitlementRequirementForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecEntitlementRequirementForm {
+	return &AuthorizationRequirementSpecEntitlementRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecEntitlementRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecEntitlementRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecEntitlementRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecEntitlementRequirementForm) Patterns() string {
+	return x.Doc().FormFieldOr(x.Path(), "patterns")
+}
+
+func (x *AuthorizationRequirementSpecEntitlementRequirementForm) SetPatterns(value string) {
+	x.Doc().SetFormField(x.Path(), "patterns", value)
+}
+
+// AuthorizationRequirementSpecGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecGroupRequirementForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecGroupRequirementForm binds a AuthorizationRequirementSpecGroupRequirementForm facade to a document and a path.
+func NewAuthorizationRequirementSpecGroupRequirementForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecGroupRequirementForm {
+	return &AuthorizationRequirementSpecGroupRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecGroupRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecGroupRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecGroupRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecGroupRequirementForm) Groups() string {
+	return x.Doc().FormFieldOr(x.Path(), "groups")
+}
+
+func (x *AuthorizationRequirementSpecGroupRequirementForm) SetGroups(value string) {
+	x.Doc().SetFormField(x.Path(), "groups", value)
+}
+
+// AuthorizationRequirementSpecResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecResourceKeyRequirementForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecResourceKeyRequirementForm binds a AuthorizationRequirementSpecResourceKeyRequirementForm facade to a document and a path.
+func NewAuthorizationRequirementSpecResourceKeyRequirementForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecResourceKeyRequirementForm {
+	return &AuthorizationRequirementSpecResourceKeyRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecResourceKeyRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecResourceKeyRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecResourceKeyRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecResourceKeyRequirementForm) ResourceKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceKey")
+}
+
+func (x *AuthorizationRequirementSpecResourceKeyRequirementForm) SetResourceKey(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceKey", value)
+}
+
+// AuthorizationRequirementSpecRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type AuthorizationRequirementSpecRoleRequirementForm struct {
+	som.SomNode
+}
+
+// NewAuthorizationRequirementSpecRoleRequirementForm binds a AuthorizationRequirementSpecRoleRequirementForm facade to a document and a path.
+func NewAuthorizationRequirementSpecRoleRequirementForm(doc *som.SpecDocument, path string) *AuthorizationRequirementSpecRoleRequirementForm {
+	return &AuthorizationRequirementSpecRoleRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *AuthorizationRequirementSpecRoleRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *AuthorizationRequirementSpecRoleRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *AuthorizationRequirementSpecRoleRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *AuthorizationRequirementSpecRoleRequirementForm) Roles() string {
+	return x.Doc().FormFieldOr(x.Path(), "roles")
+}
+
+func (x *AuthorizationRequirementSpecRoleRequirementForm) SetRoles(value string) {
+	x.Doc().SetFormField(x.Path(), "roles", value)
 }
 
 // AuthorizationRoleEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -86148,22 +86604,6 @@ func (x *DeepLinkPatternEntryContentForm) SetDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "description", value)
 }
 
-func (x *DeepLinkPatternEntryContentForm) AuthenticationRequired() string {
-	return x.Doc().FormFieldOr(x.Path(), "authenticationRequired")
-}
-
-func (x *DeepLinkPatternEntryContentForm) SetAuthenticationRequired(value string) {
-	x.Doc().SetFormField(x.Path(), "authenticationRequired", value)
-}
-
-func (x *DeepLinkPatternEntryContentForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *DeepLinkPatternEntryContentForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
 func (x *DeepLinkPatternEntryContentForm) FallbackRoute() string {
 	return x.Doc().FormFieldOr(x.Path(), "fallbackRoute")
 }
@@ -102220,69 +102660,53 @@ func (x *ExportFieldMappingEntryTransformationForm) SetValueMapping(value string
 	x.Doc().SetFormField(x.Path(), "valueMapping", value)
 }
 
-// ExportFormatEntryAccessForm is the generated section facade for the `access` @Form section: its own
+// ExportFormatEntryAuditForm is the generated section facade for the `audit` @Form section: its own
 // content text followed by one typed member per form field.
-type ExportFormatEntryAccessForm struct {
+type ExportFormatEntryAuditForm struct {
 	som.SomNode
 }
 
-// NewExportFormatEntryAccessForm binds a ExportFormatEntryAccessForm facade to a document and a path.
-func NewExportFormatEntryAccessForm(doc *som.SpecDocument, path string) *ExportFormatEntryAccessForm {
-	return &ExportFormatEntryAccessForm{SomNode: som.NewSomNode(doc, path)}
+// NewExportFormatEntryAuditForm binds a ExportFormatEntryAuditForm facade to a document and a path.
+func NewExportFormatEntryAuditForm(doc *som.SpecDocument, path string) *ExportFormatEntryAuditForm {
+	return &ExportFormatEntryAuditForm{SomNode: som.NewSomNode(doc, path)}
 }
 
 // CanHaveContent reports that this @Form section holds body text before its
 // form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ExportFormatEntryAccessForm) CanHaveContent() bool {
+func (x *ExportFormatEntryAuditForm) CanHaveContent() bool {
 	return true
 }
 
 // Content is the section's own free-text content, before the form fields.
-func (x *ExportFormatEntryAccessForm) Content() string {
+func (x *ExportFormatEntryAuditForm) Content() string {
 	return x.Doc().ContentOr(x.Path())
 }
 
-func (x *ExportFormatEntryAccessForm) SetContent(value string) {
+func (x *ExportFormatEntryAuditForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExportFormatEntryAccessForm) AccessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
-}
-
-func (x *ExportFormatEntryAccessForm) SetAccessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessLevel", value)
-}
-
-func (x *ExportFormatEntryAccessForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *ExportFormatEntryAccessForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *ExportFormatEntryAccessForm) AuditLogging() string {
+func (x *ExportFormatEntryAuditForm) AuditLogging() string {
 	return x.Doc().FormFieldOr(x.Path(), "auditLogging")
 }
 
-func (x *ExportFormatEntryAccessForm) SetAuditLogging(value string) {
+func (x *ExportFormatEntryAuditForm) SetAuditLogging(value string) {
 	x.Doc().SetFormField(x.Path(), "auditLogging", value)
 }
 
-func (x *ExportFormatEntryAccessForm) PreviewAvailable() string {
+func (x *ExportFormatEntryAuditForm) PreviewAvailable() string {
 	return x.Doc().FormFieldOr(x.Path(), "previewAvailable")
 }
 
-func (x *ExportFormatEntryAccessForm) SetPreviewAvailable(value string) {
+func (x *ExportFormatEntryAuditForm) SetPreviewAvailable(value string) {
 	x.Doc().SetFormField(x.Path(), "previewAvailable", value)
 }
 
-func (x *ExportFormatEntryAccessForm) Notes() string {
+func (x *ExportFormatEntryAuditForm) Notes() string {
 	return x.Doc().FormFieldOr(x.Path(), "notes")
 }
 
-func (x *ExportFormatEntryAccessForm) SetNotes(value string) {
+func (x *ExportFormatEntryAuditForm) SetNotes(value string) {
 	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
@@ -102754,72 +103178,6 @@ func (x *ExportSizeSettingsContentForm) SetSplitThreshold(value string) {
 	x.Doc().SetFormField(x.Path(), "splitThreshold", value)
 }
 
-// ExportTemplateEntryAccessForm is the generated section facade for the `access` @Form section: its own
-// content text followed by one typed member per form field.
-type ExportTemplateEntryAccessForm struct {
-	som.SomNode
-}
-
-// NewExportTemplateEntryAccessForm binds a ExportTemplateEntryAccessForm facade to a document and a path.
-func NewExportTemplateEntryAccessForm(doc *som.SpecDocument, path string) *ExportTemplateEntryAccessForm {
-	return &ExportTemplateEntryAccessForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ExportTemplateEntryAccessForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *ExportTemplateEntryAccessForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *ExportTemplateEntryAccessForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ExportTemplateEntryAccessForm) AccessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
-}
-
-func (x *ExportTemplateEntryAccessForm) SetAccessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessLevel", value)
-}
-
-func (x *ExportTemplateEntryAccessForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *ExportTemplateEntryAccessForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *ExportTemplateEntryAccessForm) ReusableAcrossReports() string {
-	return x.Doc().FormFieldOr(x.Path(), "reusableAcrossReports")
-}
-
-func (x *ExportTemplateEntryAccessForm) SetReusableAcrossReports(value string) {
-	x.Doc().SetFormField(x.Path(), "reusableAcrossReports", value)
-}
-
-func (x *ExportTemplateEntryAccessForm) Version() string {
-	return x.Doc().FormFieldOr(x.Path(), "version")
-}
-
-func (x *ExportTemplateEntryAccessForm) SetVersion(value string) {
-	x.Doc().SetFormField(x.Path(), "version", value)
-}
-
-func (x *ExportTemplateEntryAccessForm) Notes() string {
-	return x.Doc().FormFieldOr(x.Path(), "notes")
-}
-
-func (x *ExportTemplateEntryAccessForm) SetNotes(value string) {
-	x.Doc().SetFormField(x.Path(), "notes", value)
-}
-
 // ExportTemplateEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ExportTemplateEntryContentForm struct {
@@ -103058,6 +103416,56 @@ func (x *ExportTemplateEntryLayoutForm) CompressionFormat() string {
 
 func (x *ExportTemplateEntryLayoutForm) SetCompressionFormat(value string) {
 	x.Doc().SetFormField(x.Path(), "compressionFormat", value)
+}
+
+// ExportTemplateEntryMetadataForm is the generated section facade for the `metadata` @Form section: its own
+// content text followed by one typed member per form field.
+type ExportTemplateEntryMetadataForm struct {
+	som.SomNode
+}
+
+// NewExportTemplateEntryMetadataForm binds a ExportTemplateEntryMetadataForm facade to a document and a path.
+func NewExportTemplateEntryMetadataForm(doc *som.SpecDocument, path string) *ExportTemplateEntryMetadataForm {
+	return &ExportTemplateEntryMetadataForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *ExportTemplateEntryMetadataForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *ExportTemplateEntryMetadataForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *ExportTemplateEntryMetadataForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *ExportTemplateEntryMetadataForm) ReusableAcrossReports() string {
+	return x.Doc().FormFieldOr(x.Path(), "reusableAcrossReports")
+}
+
+func (x *ExportTemplateEntryMetadataForm) SetReusableAcrossReports(value string) {
+	x.Doc().SetFormField(x.Path(), "reusableAcrossReports", value)
+}
+
+func (x *ExportTemplateEntryMetadataForm) Version() string {
+	return x.Doc().FormFieldOr(x.Path(), "version")
+}
+
+func (x *ExportTemplateEntryMetadataForm) SetVersion(value string) {
+	x.Doc().SetFormField(x.Path(), "version", value)
+}
+
+func (x *ExportTemplateEntryMetadataForm) Notes() string {
+	return x.Doc().FormFieldOr(x.Path(), "notes")
+}
+
+func (x *ExportTemplateEntryMetadataForm) SetNotes(value string) {
+	x.Doc().SetFormField(x.Path(), "notes", value)
 }
 
 // ExtensionEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -110137,6 +110545,268 @@ func (x *GovernanceModelContentForm) ReportingFrequency() string {
 
 func (x *GovernanceModelContentForm) SetReportingFrequency(value string) {
 	x.Doc().SetFormField(x.Path(), "reportingFrequency", value)
+}
+
+// GradedAccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryContentForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryContentForm binds a GradedAccessLevelEntryContentForm facade to a document and a path.
+func NewGradedAccessLevelEntryContentForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryContentForm {
+	return &GradedAccessLevelEntryContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryContentForm) AccessLevel() string {
+	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
+}
+
+func (x *GradedAccessLevelEntryContentForm) SetAccessLevel(value string) {
+	x.Doc().SetFormField(x.Path(), "accessLevel", value)
+}
+
+func (x *GradedAccessLevelEntryContentForm) RequirementKind() string {
+	return x.Doc().FormFieldOr(x.Path(), "requirementKind")
+}
+
+func (x *GradedAccessLevelEntryContentForm) SetRequirementKind(value string) {
+	x.Doc().SetFormField(x.Path(), "requirementKind", value)
+}
+
+// GradedAccessLevelEntryCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryCustomRequirementForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryCustomRequirementForm binds a GradedAccessLevelEntryCustomRequirementForm facade to a document and a path.
+func NewGradedAccessLevelEntryCustomRequirementForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryCustomRequirementForm {
+	return &GradedAccessLevelEntryCustomRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryCustomRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryCustomRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) Handler() string {
+	return x.Doc().FormFieldOr(x.Path(), "handler")
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) SetHandler(value string) {
+	x.Doc().SetFormField(x.Path(), "handler", value)
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) ResourceId() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceId")
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) SetResourceId(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceId", value)
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) DecisionRule() string {
+	return x.Doc().FormFieldOr(x.Path(), "decisionRule")
+}
+
+func (x *GradedAccessLevelEntryCustomRequirementForm) SetDecisionRule(value string) {
+	x.Doc().SetFormField(x.Path(), "decisionRule", value)
+}
+
+// GradedAccessLevelEntryEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryEntitlementRequirementForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryEntitlementRequirementForm binds a GradedAccessLevelEntryEntitlementRequirementForm facade to a document and a path.
+func NewGradedAccessLevelEntryEntitlementRequirementForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryEntitlementRequirementForm {
+	return &GradedAccessLevelEntryEntitlementRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryEntitlementRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryEntitlementRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryEntitlementRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryEntitlementRequirementForm) Patterns() string {
+	return x.Doc().FormFieldOr(x.Path(), "patterns")
+}
+
+func (x *GradedAccessLevelEntryEntitlementRequirementForm) SetPatterns(value string) {
+	x.Doc().SetFormField(x.Path(), "patterns", value)
+}
+
+// GradedAccessLevelEntryGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryGroupRequirementForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryGroupRequirementForm binds a GradedAccessLevelEntryGroupRequirementForm facade to a document and a path.
+func NewGradedAccessLevelEntryGroupRequirementForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryGroupRequirementForm {
+	return &GradedAccessLevelEntryGroupRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryGroupRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryGroupRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryGroupRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryGroupRequirementForm) Groups() string {
+	return x.Doc().FormFieldOr(x.Path(), "groups")
+}
+
+func (x *GradedAccessLevelEntryGroupRequirementForm) SetGroups(value string) {
+	x.Doc().SetFormField(x.Path(), "groups", value)
+}
+
+// GradedAccessLevelEntryResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryResourceKeyRequirementForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryResourceKeyRequirementForm binds a GradedAccessLevelEntryResourceKeyRequirementForm facade to a document and a path.
+func NewGradedAccessLevelEntryResourceKeyRequirementForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryResourceKeyRequirementForm {
+	return &GradedAccessLevelEntryResourceKeyRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryResourceKeyRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryResourceKeyRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryResourceKeyRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryResourceKeyRequirementForm) ResourceKey() string {
+	return x.Doc().FormFieldOr(x.Path(), "resourceKey")
+}
+
+func (x *GradedAccessLevelEntryResourceKeyRequirementForm) SetResourceKey(value string) {
+	x.Doc().SetFormField(x.Path(), "resourceKey", value)
+}
+
+// GradedAccessLevelEntryRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAccessLevelEntryRoleRequirementForm struct {
+	som.SomNode
+}
+
+// NewGradedAccessLevelEntryRoleRequirementForm binds a GradedAccessLevelEntryRoleRequirementForm facade to a document and a path.
+func NewGradedAccessLevelEntryRoleRequirementForm(doc *som.SpecDocument, path string) *GradedAccessLevelEntryRoleRequirementForm {
+	return &GradedAccessLevelEntryRoleRequirementForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAccessLevelEntryRoleRequirementForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAccessLevelEntryRoleRequirementForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAccessLevelEntryRoleRequirementForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAccessLevelEntryRoleRequirementForm) Roles() string {
+	return x.Doc().FormFieldOr(x.Path(), "roles")
+}
+
+func (x *GradedAccessLevelEntryRoleRequirementForm) SetRoles(value string) {
+	x.Doc().SetFormField(x.Path(), "roles", value)
+}
+
+// GradedAuthorizationRequirementContentForm is the generated section facade for the `content` @Form section: its own
+// content text followed by one typed member per form field.
+type GradedAuthorizationRequirementContentForm struct {
+	som.SomNode
+}
+
+// NewGradedAuthorizationRequirementContentForm binds a GradedAuthorizationRequirementContentForm facade to a document and a path.
+func NewGradedAuthorizationRequirementContentForm(doc *som.SpecDocument, path string) *GradedAuthorizationRequirementContentForm {
+	return &GradedAuthorizationRequirementContentForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *GradedAuthorizationRequirementContentForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *GradedAuthorizationRequirementContentForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *GradedAuthorizationRequirementContentForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *GradedAuthorizationRequirementContentForm) GradingRationale() string {
+	return x.Doc().FormFieldOr(x.Path(), "gradingRationale")
+}
+
+func (x *GradedAuthorizationRequirementContentForm) SetGradingRationale(value string) {
+	x.Doc().SetFormField(x.Path(), "gradingRationale", value)
 }
 
 // HandlingRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -134392,56 +135062,6 @@ func (x *NativeAppRequirementsVersionsForm) SetCompileSdkVersion(value string) {
 	x.Doc().SetFormField(x.Path(), "compileSdkVersion", value)
 }
 
-// NavigationGroupEntryAccessForm is the generated section facade for the `access` @Form section: its own
-// content text followed by one typed member per form field.
-type NavigationGroupEntryAccessForm struct {
-	som.SomNode
-}
-
-// NewNavigationGroupEntryAccessForm binds a NavigationGroupEntryAccessForm facade to a document and a path.
-func NewNavigationGroupEntryAccessForm(doc *som.SpecDocument, path string) *NavigationGroupEntryAccessForm {
-	return &NavigationGroupEntryAccessForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *NavigationGroupEntryAccessForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *NavigationGroupEntryAccessForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *NavigationGroupEntryAccessForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *NavigationGroupEntryAccessForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *NavigationGroupEntryAccessForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *NavigationGroupEntryAccessForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *NavigationGroupEntryAccessForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
-func (x *NavigationGroupEntryAccessForm) PermissionBehavior() string {
-	return x.Doc().FormFieldOr(x.Path(), "permissionBehavior")
-}
-
-func (x *NavigationGroupEntryAccessForm) SetPermissionBehavior(value string) {
-	x.Doc().SetFormField(x.Path(), "permissionBehavior", value)
-}
-
 // NavigationGroupEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type NavigationGroupEntryContentForm struct {
@@ -134814,72 +135434,6 @@ func (x *NavigationGuardEntryRoutingForm) SetPriority(value *int) {
 	x.Doc().SetFormField(x.Path(), "priority", strconv.Itoa(*value))
 }
 
-// NavigationItemEntryAccessForm is the generated section facade for the `access` @Form section: its own
-// content text followed by one typed member per form field.
-type NavigationItemEntryAccessForm struct {
-	som.SomNode
-}
-
-// NewNavigationItemEntryAccessForm binds a NavigationItemEntryAccessForm facade to a document and a path.
-func NewNavigationItemEntryAccessForm(doc *som.SpecDocument, path string) *NavigationItemEntryAccessForm {
-	return &NavigationItemEntryAccessForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *NavigationItemEntryAccessForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *NavigationItemEntryAccessForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *NavigationItemEntryAccessForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *NavigationItemEntryAccessForm) VisibilityCondition() string {
-	return x.Doc().FormFieldOr(x.Path(), "visibilityCondition")
-}
-
-func (x *NavigationItemEntryAccessForm) SetVisibilityCondition(value string) {
-	x.Doc().SetFormField(x.Path(), "visibilityCondition", value)
-}
-
-func (x *NavigationItemEntryAccessForm) EnabledCondition() string {
-	return x.Doc().FormFieldOr(x.Path(), "enabledCondition")
-}
-
-func (x *NavigationItemEntryAccessForm) SetEnabledCondition(value string) {
-	x.Doc().SetFormField(x.Path(), "enabledCondition", value)
-}
-
-func (x *NavigationItemEntryAccessForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *NavigationItemEntryAccessForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *NavigationItemEntryAccessForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *NavigationItemEntryAccessForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
-func (x *NavigationItemEntryAccessForm) PermissionBehavior() string {
-	return x.Doc().FormFieldOr(x.Path(), "permissionBehavior")
-}
-
-func (x *NavigationItemEntryAccessForm) SetPermissionBehavior(value string) {
-	x.Doc().SetFormField(x.Path(), "permissionBehavior", value)
-}
-
 // NavigationItemEntryBadgeForm is the generated section facade for the `badge` @Form section: its own
 // content text followed by one typed member per form field.
 type NavigationItemEntryBadgeForm struct {
@@ -135164,6 +135718,48 @@ func (x *NavigationItemEntryRoutingForm) IsDefault() string {
 
 func (x *NavigationItemEntryRoutingForm) SetIsDefault(value string) {
 	x.Doc().SetFormField(x.Path(), "isDefault", value)
+}
+
+// NavigationItemEntryVisibilityForm is the generated section facade for the `visibility` @Form section: its own
+// content text followed by one typed member per form field.
+type NavigationItemEntryVisibilityForm struct {
+	som.SomNode
+}
+
+// NewNavigationItemEntryVisibilityForm binds a NavigationItemEntryVisibilityForm facade to a document and a path.
+func NewNavigationItemEntryVisibilityForm(doc *som.SpecDocument, path string) *NavigationItemEntryVisibilityForm {
+	return &NavigationItemEntryVisibilityForm{SomNode: som.NewSomNode(doc, path)}
+}
+
+// CanHaveContent reports that this @Form section holds body text before its
+// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
+func (x *NavigationItemEntryVisibilityForm) CanHaveContent() bool {
+	return true
+}
+
+// Content is the section's own free-text content, before the form fields.
+func (x *NavigationItemEntryVisibilityForm) Content() string {
+	return x.Doc().ContentOr(x.Path())
+}
+
+func (x *NavigationItemEntryVisibilityForm) SetContent(value string) {
+	x.Doc().SetContent(x.Path(), value)
+}
+
+func (x *NavigationItemEntryVisibilityForm) VisibilityCondition() string {
+	return x.Doc().FormFieldOr(x.Path(), "visibilityCondition")
+}
+
+func (x *NavigationItemEntryVisibilityForm) SetVisibilityCondition(value string) {
+	x.Doc().SetFormField(x.Path(), "visibilityCondition", value)
+}
+
+func (x *NavigationItemEntryVisibilityForm) EnabledCondition() string {
+	return x.Doc().FormFieldOr(x.Path(), "enabledCondition")
+}
+
+func (x *NavigationItemEntryVisibilityForm) SetEnabledCondition(value string) {
+	x.Doc().SetFormField(x.Path(), "enabledCondition", value)
 }
 
 // NavigationOverviewContentForm is the generated section facade for the `content` @Form section: its own
@@ -160147,22 +160743,6 @@ func (x *ReportEntrySecurityForm) SetBrandingOverride(value string) {
 	x.Doc().SetFormField(x.Path(), "brandingOverride", value)
 }
 
-func (x *ReportEntrySecurityForm) AccessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
-}
-
-func (x *ReportEntrySecurityForm) SetAccessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessLevel", value)
-}
-
-func (x *ReportEntrySecurityForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *ReportEntrySecurityForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
 func (x *ReportEntrySecurityForm) DataLevelSecurity() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataLevelSecurity")
 }
@@ -172356,22 +172936,6 @@ func (x *ScreenElementEntryBehaviorForm) SetReadonlyCondition(value string) {
 	x.Doc().SetFormField(x.Path(), "readonlyCondition", value)
 }
 
-func (x *ScreenElementEntryBehaviorForm) RequiredPermission() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermission")
-}
-
-func (x *ScreenElementEntryBehaviorForm) SetRequiredPermission(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermission", value)
-}
-
-func (x *ScreenElementEntryBehaviorForm) PermissionEffect() string {
-	return x.Doc().FormFieldOr(x.Path(), "permissionEffect")
-}
-
-func (x *ScreenElementEntryBehaviorForm) SetPermissionEffect(value string) {
-	x.Doc().SetFormField(x.Path(), "permissionEffect", value)
-}
-
 // ScreenElementEntryContentForm is the generated section facade for the `content` @Form section: its own
 // content text followed by one typed member per form field.
 type ScreenElementEntryContentForm struct {
@@ -173082,64 +173646,6 @@ func (x *ScreenElementFieldSpecValidationForm) ClearButton() string {
 
 func (x *ScreenElementFieldSpecValidationForm) SetClearButton(value string) {
 	x.Doc().SetFormField(x.Path(), "clearButton", value)
-}
-
-// ScreenEntryAccessForm is the generated section facade for the `access` @Form section: its own
-// content text followed by one typed member per form field.
-type ScreenEntryAccessForm struct {
-	som.SomNode
-}
-
-// NewScreenEntryAccessForm binds a ScreenEntryAccessForm facade to a document and a path.
-func NewScreenEntryAccessForm(doc *som.SpecDocument, path string) *ScreenEntryAccessForm {
-	return &ScreenEntryAccessForm{SomNode: som.NewSomNode(doc, path)}
-}
-
-// CanHaveContent reports that this @Form section holds body text before its
-// form fields (SOM §21) — it shadows the embedded som.SomNode false default.
-func (x *ScreenEntryAccessForm) CanHaveContent() bool {
-	return true
-}
-
-// Content is the section's own free-text content, before the form fields.
-func (x *ScreenEntryAccessForm) Content() string {
-	return x.Doc().ContentOr(x.Path())
-}
-
-func (x *ScreenEntryAccessForm) SetContent(value string) {
-	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScreenEntryAccessForm) AccessLevel() string {
-	return x.Doc().FormFieldOr(x.Path(), "accessLevel")
-}
-
-func (x *ScreenEntryAccessForm) SetAccessLevel(value string) {
-	x.Doc().SetFormField(x.Path(), "accessLevel", value)
-}
-
-func (x *ScreenEntryAccessForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *ScreenEntryAccessForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *ScreenEntryAccessForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *ScreenEntryAccessForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
-func (x *ScreenEntryAccessForm) PermissionEffect() string {
-	return x.Doc().FormFieldOr(x.Path(), "permissionEffect")
-}
-
-func (x *ScreenEntryAccessForm) SetPermissionEffect(value string) {
-	x.Doc().SetFormField(x.Path(), "permissionEffect", value)
 }
 
 // ScreenEntryClassificationForm is the generated section facade for the `classification` @Form section: its own
@@ -177919,30 +178425,6 @@ func (x *ServerOperationEntryContentForm) PrimaryDataEntity() string {
 
 func (x *ServerOperationEntryContentForm) SetPrimaryDataEntity(value string) {
 	x.Doc().SetFormField(x.Path(), "primaryDataEntity", value)
-}
-
-func (x *ServerOperationEntryContentForm) AuthorizationRequirement() string {
-	return x.Doc().FormFieldOr(x.Path(), "authorizationRequirement")
-}
-
-func (x *ServerOperationEntryContentForm) SetAuthorizationRequirement(value string) {
-	x.Doc().SetFormField(x.Path(), "authorizationRequirement", value)
-}
-
-func (x *ServerOperationEntryContentForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *ServerOperationEntryContentForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
-}
-
-func (x *ServerOperationEntryContentForm) RequiredResourceKey() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredResourceKey")
-}
-
-func (x *ServerOperationEntryContentForm) SetRequiredResourceKey(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredResourceKey", value)
 }
 
 func (x *ServerOperationEntryContentForm) DescriptionKey() string {
@@ -195109,22 +195591,6 @@ func (x *TabItemEntryContentForm) SetVisibilityCondition(value string) {
 	x.Doc().SetFormField(x.Path(), "visibilityCondition", value)
 }
 
-func (x *TabItemEntryContentForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *TabItemEntryContentForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
-func (x *TabItemEntryContentForm) PermissionBehavior() string {
-	return x.Doc().FormFieldOr(x.Path(), "permissionBehavior")
-}
-
-func (x *TabItemEntryContentForm) SetPermissionBehavior(value string) {
-	x.Doc().SetFormField(x.Path(), "permissionBehavior", value)
-}
-
 func (x *TabItemEntryContentForm) BadgeType() string {
 	return x.Doc().FormFieldOr(x.Path(), "badgeType")
 }
@@ -211589,14 +212055,6 @@ func (x *UtilityMenuItemEntryBehaviorForm) SetVisibilityCondition(value string) 
 	x.Doc().SetFormField(x.Path(), "visibilityCondition", value)
 }
 
-func (x *UtilityMenuItemEntryBehaviorForm) RequiredPermissions() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredPermissions")
-}
-
-func (x *UtilityMenuItemEntryBehaviorForm) SetRequiredPermissions(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredPermissions", value)
-}
-
 func (x *UtilityMenuItemEntryBehaviorForm) IsDangerous() string {
 	return x.Doc().FormFieldOr(x.Path(), "isDangerous")
 }
@@ -211859,14 +212317,6 @@ func (x *UtilityNavigationItemEntryDisplayForm) VisibilityCondition() string {
 
 func (x *UtilityNavigationItemEntryDisplayForm) SetVisibilityCondition(value string) {
 	x.Doc().SetFormField(x.Path(), "visibilityCondition", value)
-}
-
-func (x *UtilityNavigationItemEntryDisplayForm) RequiredRoles() string {
-	return x.Doc().FormFieldOr(x.Path(), "requiredRoles")
-}
-
-func (x *UtilityNavigationItemEntryDisplayForm) SetRequiredRoles(value string) {
-	x.Doc().SetFormField(x.Path(), "requiredRoles", value)
 }
 
 // ValidationFeedbackBehaviorForm is the generated section facade for the `behavior` @Form section: its own

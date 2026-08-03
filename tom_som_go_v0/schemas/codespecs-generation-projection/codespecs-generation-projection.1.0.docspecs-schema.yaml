@@ -620,6 +620,15 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per access restriction.
+  azlvl-leve-lst:
+    prefix: AZLVL_LEVE_LST
+    subsection-types:
+      azlvl-leve:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.
   btcen-buil-lst:
     prefix: BTCEN_BUIL_LST
     subsection-types:
@@ -1782,6 +1791,9 @@ section-types:
     description: Add one entry per deployment environment.
   delnpt-patt:
     prefix: DELNPT_PATT_
+    subsection-types:
+      azreq:
+        max-count: 1
     pattern-check-id:
       pattern: ^DELNPT-PATT-.+$
       error-message: IDs of this section must match DELNPT-PATT-xxx
@@ -2007,7 +2019,7 @@ section-types:
     subsection-types:
       nged:
         max-count: 1
-      ngea:
+      azreq:
         max-count: 1
       nges:
         max-count: 1
@@ -2025,6 +2037,8 @@ section-types:
       nier:
         max-count: 1
       niea:
+        max-count: 1
+      azreq:
         max-count: 1
       nieb:
         max-count: 1
@@ -2397,6 +2411,9 @@ section-types:
     description: Add one entry per stakeholder interest.
   taiten-tabs:
     prefix: TAITEN_TABS_
+    subsection-types:
+      azreq:
+        max-count: 1
     pattern-check-id:
       pattern: ^TAITEN-TABS-.+$
       error-message: IDs of this section must match TAITEN-TABS-xxx
@@ -2508,6 +2525,23 @@ section-types:
       pattern: ^ACRSE-ACCE-.+$
       error-message: IDs of this section must match ACRSE-ACCE-xxx
     description: Add one entry per access restriction.
+  azlvl-leve:
+    prefix: AZLVL_LEVE_
+    subsection-types:
+      azlvl-role:
+        max-count: 1
+      azlvl-grup:
+        max-count: 1
+      azlvl-entl:
+        max-count: 1
+      azlvl-rkey:
+        max-count: 1
+      azlvl-cust:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^AZLVL-LEVE-.+$
+      error-message: IDs of this section must match AZLVL-LEVE-xxx
+    description: Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.
   btcen-buil:
     prefix: BTCEN_BUIL_
     subsection-types:
@@ -3061,6 +3095,8 @@ section-types:
         max-count: 1
       seeb:
         max-count: 1
+      azreq:
+        max-count: 1
       scelenpr:
         max-count: 1
       scelac:
@@ -3080,7 +3116,7 @@ section-types:
     subsection-types:
       scecl:
         max-count: 1
-      sceac:
+      azreq:
         max-count: 1
       scetr:
         max-count: 1
@@ -3164,6 +3200,8 @@ section-types:
   svope-oper:
     prefix: SVOPE_OPER_
     subsection-types:
+      azreq:
+        max-count: 1
       svopm-reqm-lst:
         max-count: 1
       svopm-resm-lst:
@@ -3361,6 +3399,46 @@ section-types:
       pattern: ^AZGR-GROU-.+$
       error-message: IDs of this section must match AZGR-GROU-xxx
     description: Add one entry per authorization group.
+  azlvl-cust:
+    prefix: AZLVL_CUST
+    format: azlvl-cust-form
+    description: "Custom requirement payload — a promoted `@OneOf` case."
+  azlvl-entl:
+    prefix: AZLVL_ENTL
+    format: azlvl-entl-form
+    description: "Entitlement requirement payload — a promoted `@OneOf` case."
+  azlvl-grup:
+    prefix: AZLVL_GRUP
+    format: azlvl-grup-form
+    description: "Group requirement payload — a promoted `@OneOf` case."
+  azlvl-rkey:
+    prefix: AZLVL_RKEY
+    format: azlvl-rkey-form
+    description: "Resource-key requirement payload — a promoted `@OneOf` case."
+  azlvl-role:
+    prefix: AZLVL_ROLE
+    format: azlvl-role-form
+    description: "Role requirement payload — a promoted `@OneOf` case."
+  azreq-cust:
+    prefix: AZREQ_CUST
+    format: azreq-cust-form
+    description: "Custom requirement payload — a promoted `@OneOf` case."
+  azreq-entl:
+    prefix: AZREQ_ENTL
+    format: azreq-entl-form
+    description: "Entitlement requirement payload — a promoted `@OneOf` case."
+  azreq-grup:
+    prefix: AZREQ_GRUP
+    format: azreq-grup-form
+    description: "Group requirement payload — a promoted `@OneOf` case."
+  azreq-rkey:
+    prefix: AZREQ_RKEY
+    format: azreq-rkey-form
+    description: "Resource-key requirement payload — a promoted `@OneOf` case."
+  azreq-role:
+    prefix: AZREQ_ROLE
+    format: azreq-role-form
+    description: "Role requirement payload — a promoted `@OneOf` case."
   azro-role:
     prefix: AZRO_ROLE_
     subsection-types:
@@ -3734,6 +3812,8 @@ section-types:
         max-count: 1
       rese:
         max-count: 1
+      azreq:
+        max-count: 1
       reli:
         max-count: 1
       resee1-sect-lst:
@@ -3912,6 +3992,8 @@ section-types:
         max-count: 1
       umieb:
         max-count: 1
+      azreq:
+        max-count: 1
     pattern-check-id:
       pattern: ^UMIE-MENU-.+$
       error-message: IDs of this section must match UMIE-MENU-xxx
@@ -3920,6 +4002,8 @@ section-types:
     prefix: UNIE_ITEM_
     subsection-types:
       unied:
+        max-count: 1
+      azreq:
         max-count: 1
       unieb:
         max-count: 1
@@ -6730,6 +6814,29 @@ section-types:
       uscdf-item-lst:
         max-count: 1
     description: 9.1.1. User Categories.
+  azgrd:
+    prefix: AZGRD
+    subsection-types:
+      azlvl-leve-lst:
+        max-count: 1
+        min-count: 1
+    description: "Graded requirement payload — a promoted `@OneOf` case."
+  azreq:
+    prefix: AZREQ
+    subsection-types:
+      azreq-role:
+        max-count: 1
+      azreq-grup:
+        max-count: 1
+      azreq-entl:
+        max-count: 1
+      azreq-rkey:
+        max-count: 1
+      azreq-cust:
+        max-count: 1
+      azgrd:
+        max-count: 1
+    description: Access control — what a caller must satisfy to follow this deep link.
   bjmjt:
     prefix: BJMJT
     description: "Describe the shape of the scheduled workload in a short paragraph: what the batch surface of this system is mostly made of, and why it exists. This is orientation, not the job inventory — every job is declared individually in Scheduled Jobs (SCJOB). Do not list jobs here; a list in two places is a list that can disagree with itself."
@@ -7387,10 +7494,6 @@ section-types:
     prefix: SAEFU
     format: saefu-form
     description: "Deliverables, ownership, and notes."
-  sceac:
-    prefix: SCEAC
-    format: sceac-form
-    description: Access control settings.
   scecl:
     prefix: SCECL
     format: scecl-form
@@ -7683,7 +7786,7 @@ section-types:
   unied:
     prefix: UNIED
     format: unied-form
-    description: "Ordering, rendering, and access rules."
+    description: Ordering and rendering.
   uptdi:
     prefix: UPTDI
     format: uptdi-form
@@ -10034,10 +10137,6 @@ section-types:
     prefix: NARV
     format: narv-form
     description: SDK and version requirements.
-  ngea:
-    prefix: NGEA
-    format: ngea-form
-    description: Access-control settings.
   nged:
     prefix: NGED
     format: nged-form
@@ -10053,7 +10152,7 @@ section-types:
   niea:
     prefix: NIEA
     format: niea-form
-    description: Access control settings.
+    description: Business conditions governing when the item is shown and interactive.
   nieb:
     prefix: NIEB
     format: nieb-form
@@ -10912,7 +11011,7 @@ section-types:
   seeb:
     prefix: SEEB
     format: seeb-form
-    description: Visibility and permission rules.
+    description: Visibility and enablement rules.
   seel:
     prefix: SEEL
     format: seel-form
@@ -21759,12 +21858,68 @@ form-types:
         description: "Locales supported, e.g. de-DE, en-US, fr-FR"
       - fieldname: brandingOverride
         description: Override branding for this report
-      - fieldname: accessLevel
-        description: Public / Authenticated / Role-specific / Confidential
-      - fieldname: requiredRoles
-        description: Roles permitted to generate this report
       - fieldname: dataLevelSecurity
-        description: Row/column level security rules
+        description: Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it
+  azreq-role-form:
+    fields:
+      - fieldname: roles
+        required: true
+        description: Comma-separated role names from the role catalogue; the caller must hold at least one
+  azreq-grup-form:
+    fields:
+      - fieldname: groups
+        required: true
+        description: "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue."
+  azreq-entl-form:
+    fields:
+      - fieldname: patterns
+        required: true
+        description: Comma-separated entitlement match patterns; the caller must match at least one
+  azreq-rkey-form:
+    fields:
+      - fieldname: resourceKey
+        required: true
+        description: The resource key from the resource-key catalogue the caller must hold a grant on
+  azreq-cust-form:
+    fields:
+      - fieldname: handler
+        required: true
+        description: The registered access handler that decides
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
+      - fieldname: decisionRule
+        required: true
+        description: "What the handler must decide, in business terms — this is the specification the handler is implemented against"
+  azlvl-role-form:
+    fields:
+      - fieldname: roles
+        required: true
+        description: Comma-separated role names from the role catalogue; the caller must hold at least one
+  azlvl-grup-form:
+    fields:
+      - fieldname: groups
+        required: true
+        description: Comma-separated group names the caller must belong to (at least one)
+  azlvl-entl-form:
+    fields:
+      - fieldname: patterns
+        required: true
+        description: Comma-separated entitlement match patterns; the caller must match at least one
+  azlvl-rkey-form:
+    fields:
+      - fieldname: resourceKey
+        required: true
+        description: The resource key from the resource-key catalogue the caller must hold a grant on
+  azlvl-cust-form:
+    fields:
+      - fieldname: handler
+        required: true
+        description: The registered access handler that decides
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
+      - fieldname: decisionRule
+        required: true
+        description: "What the handler must decide, in business terms"
   reli-form:
     fields:
       - fieldname: archiveRetention
@@ -22526,16 +22681,6 @@ form-types:
         description: Parent screen if this is a sub-screen or drill-down
       - fieldname: routePattern
         description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
-  sceac-form:
-    fields:
-      - fieldname: accessLevel
-        description: Public/Authenticated/Role-specific
-      - fieldname: requiredRoles
-        description: Authorization roles that may access this screen
-      - fieldname: requiredPermissions
-        description: Specific permissions needed
-      - fieldname: permissionEffect
-        description: Hide-Screen/Show-Readonly/Show-With-Restrictions
   scetr-form:
     fields:
       - fieldname: relatedUseCases
@@ -22604,10 +22749,6 @@ form-types:
         description: When this element is interactive
       - fieldname: readonlyCondition
         description: When this element is read-only
-      - fieldname: requiredPermission
-        description: Permission needed to see/interact
-      - fieldname: permissionEffect
-        description: Hide/Disable/Readonly
   scelenpr-form:
     fields:
       - fieldname: styleVariant
@@ -22762,14 +22903,6 @@ form-types:
         description: Yes/No — default expanded state
       - fieldname: visibilityCondition
         description: Business rule for visibility
-  ngea-form:
-    fields:
-      - fieldname: requiredRoles
-        description: Comma-separated role IDs
-      - fieldname: requiredPermissions
-        description: Specific permissions required
-      - fieldname: permissionBehavior
-        description: Hide/Disable/Collapse when unauthorized
   nges-form:
     fields:
       - fieldname: badgeType
@@ -22808,12 +22941,6 @@ form-types:
         description: Business condition for visibility
       - fieldname: enabledCondition
         description: When item is visible but non-interactive
-      - fieldname: requiredRoles
-        description: Comma-separated roles
-      - fieldname: requiredPermissions
-        description: Specific permissions
-      - fieldname: permissionBehavior
-        description: Hide/Disable/Show-Locked-Icon
   nieb-form:
     fields:
       - fieldname: badgeType
@@ -22885,9 +23012,7 @@ form-types:
       - fieldname: displayKind
         description: Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon
       - fieldname: visibilityCondition
-        description: When shown
-      - fieldname: requiredRoles
-        description: Access control
+        description: Business condition for when it is shown — who may see it is authored in the access section
   unieb-form:
     fields:
       - fieldname: badgeType
@@ -22909,9 +23034,7 @@ form-types:
   umieb-form:
     fields:
       - fieldname: visibilityCondition
-        description: When shown
-      - fieldname: requiredPermissions
-        description: Access control
+        description: Business condition for when it is shown — who may use it is authored in the access section
       - fieldname: isDangerous
         description: Yes/No — show in danger style
       - fieldname: confirmationRequired

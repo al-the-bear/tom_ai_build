@@ -3024,6 +3024,66 @@ PermissionEvaluationBehavior authorization_model_permission_evaluation(const Aut
   return out;
 }
 
+void authorization_requirement_spec_init(AuthorizationRequirementSpec *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_free(AuthorizationRequirementSpec *self) {
+  som_node_free(&self->node);
+}
+int authorization_requirement_spec_can_have_content(const AuthorizationRequirementSpec *self) {
+  (void)self;
+  return 0;
+}
+AuthorizationRequirementSpecContentForm authorization_requirement_spec_content(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  AuthorizationRequirementSpecContentForm out;
+  authorization_requirement_spec_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpecRoleRequirementForm authorization_requirement_spec_role_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "AZREQ-ROLE");
+  AuthorizationRequirementSpecRoleRequirementForm out;
+  authorization_requirement_spec_role_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpecGroupRequirementForm authorization_requirement_spec_group_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "AZREQ-GRUP");
+  AuthorizationRequirementSpecGroupRequirementForm out;
+  authorization_requirement_spec_group_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpecEntitlementRequirementForm authorization_requirement_spec_entitlement_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "AZREQ-ENTL");
+  AuthorizationRequirementSpecEntitlementRequirementForm out;
+  authorization_requirement_spec_entitlement_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpecResourceKeyRequirementForm authorization_requirement_spec_resource_key_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "AZREQ-RKEY");
+  AuthorizationRequirementSpecResourceKeyRequirementForm out;
+  authorization_requirement_spec_resource_key_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpecCustomRequirementForm authorization_requirement_spec_custom_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "AZREQ-CUST");
+  AuthorizationRequirementSpecCustomRequirementForm out;
+  authorization_requirement_spec_custom_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAuthorizationRequirement authorization_requirement_spec_graded_requirement(const AuthorizationRequirementSpec *self) {
+  char *path = spec_path_join(self->node.path, "gradedRequirement");
+  GradedAuthorizationRequirement out;
+  graded_authorization_requirement_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
 void authorization_role_entry_init(AuthorizationRoleEntry *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -13818,6 +13878,13 @@ DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPa
   free(path);
   return out;
 }
+AuthorizationRequirementSpec deep_link_pattern_entry_access(const DeepLinkPatternEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void deep_linking_init(DeepLinking *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -18391,10 +18458,17 @@ ExportFormatEntryOutputForm export_format_entry_output(const ExportFormatEntry *
   free(path);
   return out;
 }
-ExportFormatEntryAccessForm export_format_entry_access(const ExportFormatEntry *self) {
+ExportFormatEntryAuditForm export_format_entry_audit(const ExportFormatEntry *self) {
   char *path = spec_path_join(self->node.path, "EXAC");
-  ExportFormatEntryAccessForm out;
-  export_format_entry_access_form_init(&out, self->node.doc, path);
+  ExportFormatEntryAuditForm out;
+  export_format_entry_audit_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpec export_format_entry_access(const ExportFormatEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -18462,10 +18536,17 @@ ExportTemplateEntryLayoutForm export_template_entry_layout(const ExportTemplateE
   free(path);
   return out;
 }
-ExportTemplateEntryAccessForm export_template_entry_access(const ExportTemplateEntry *self) {
+ExportTemplateEntryMetadataForm export_template_entry_metadata(const ExportTemplateEntry *self) {
   char *path = spec_path_join(self->node.path, "ETEA");
-  ExportTemplateEntryAccessForm out;
-  export_template_entry_access_form_init(&out, self->node.doc, path);
+  ExportTemplateEntryMetadataForm out;
+  export_template_entry_metadata_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpec export_template_entry_access(const ExportTemplateEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -20670,6 +20751,84 @@ SomList governance_model_decision_authorities(const GovernanceModel *self) {
   char *path = spec_path_join(self->node.path, "DCAUT-DECI-LST");
   SomList out;
   som_list_init_pattern(&out, self->node.doc, path, "DCAUT-DECI-xxx");
+  free(path);
+  return out;
+}
+
+void graded_access_level_entry_init(GradedAccessLevelEntry *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_free(GradedAccessLevelEntry *self) {
+  som_node_free(&self->node);
+}
+int graded_access_level_entry_can_have_content(const GradedAccessLevelEntry *self) {
+  (void)self;
+  return 0;
+}
+GradedAccessLevelEntryContentForm graded_access_level_entry_content(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  GradedAccessLevelEntryContentForm out;
+  graded_access_level_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAccessLevelEntryRoleRequirementForm graded_access_level_entry_role_requirement(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-ROLE");
+  GradedAccessLevelEntryRoleRequirementForm out;
+  graded_access_level_entry_role_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAccessLevelEntryGroupRequirementForm graded_access_level_entry_group_requirement(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-GRUP");
+  GradedAccessLevelEntryGroupRequirementForm out;
+  graded_access_level_entry_group_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAccessLevelEntryEntitlementRequirementForm graded_access_level_entry_entitlement_requirement(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-ENTL");
+  GradedAccessLevelEntryEntitlementRequirementForm out;
+  graded_access_level_entry_entitlement_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAccessLevelEntryResourceKeyRequirementForm graded_access_level_entry_resource_key_requirement(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-RKEY");
+  GradedAccessLevelEntryResourceKeyRequirementForm out;
+  graded_access_level_entry_resource_key_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+GradedAccessLevelEntryCustomRequirementForm graded_access_level_entry_custom_requirement(const GradedAccessLevelEntry *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-CUST");
+  GradedAccessLevelEntryCustomRequirementForm out;
+  graded_access_level_entry_custom_requirement_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+
+void graded_authorization_requirement_init(GradedAuthorizationRequirement *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_authorization_requirement_free(GradedAuthorizationRequirement *self) {
+  som_node_free(&self->node);
+}
+int graded_authorization_requirement_can_have_content(const GradedAuthorizationRequirement *self) {
+  (void)self;
+  return 0;
+}
+GradedAuthorizationRequirementContentForm graded_authorization_requirement_content(const GradedAuthorizationRequirement *self) {
+  char *path = spec_path_join(self->node.path, "content");
+  GradedAuthorizationRequirementContentForm out;
+  graded_authorization_requirement_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+SomList graded_authorization_requirement_access_levels(const GradedAuthorizationRequirement *self) {
+  char *path = spec_path_join(self->node.path, "AZLVL-LEVE-LST");
+  SomList out;
+  som_list_init_pattern(&out, self->node.doc, path, "AZLVL-LEVE-xxx");
   free(path);
   return out;
 }
@@ -26719,10 +26878,10 @@ NavigationGroupEntryDisplayForm navigation_group_entry_display(const NavigationG
   free(path);
   return out;
 }
-NavigationGroupEntryAccessForm navigation_group_entry_access(const NavigationGroupEntry *self) {
-  char *path = spec_path_join(self->node.path, "NGEA");
-  NavigationGroupEntryAccessForm out;
-  navigation_group_entry_access_form_init(&out, self->node.doc, path);
+AuthorizationRequirementSpec navigation_group_entry_access(const NavigationGroupEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -26864,10 +27023,17 @@ NavigationItemEntryRoutingForm navigation_item_entry_routing(const NavigationIte
   free(path);
   return out;
 }
-NavigationItemEntryAccessForm navigation_item_entry_access(const NavigationItemEntry *self) {
+NavigationItemEntryVisibilityForm navigation_item_entry_visibility(const NavigationItemEntry *self) {
   char *path = spec_path_join(self->node.path, "NIEA");
-  NavigationItemEntryAccessForm out;
-  navigation_item_entry_access_form_init(&out, self->node.doc, path);
+  NavigationItemEntryVisibilityForm out;
+  navigation_item_entry_visibility_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpec navigation_item_entry_access(const NavigationItemEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -33613,6 +33779,13 @@ ReportEntrySecurityForm report_entry_security(const ReportEntry *self) {
   free(path);
   return out;
 }
+AuthorizationRequirementSpec report_entry_access(const ReportEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ReportEntryLifecycleForm report_entry_lifecycle(const ReportEntry *self) {
   char *path = spec_path_join(self->node.path, "RELI");
   ReportEntryLifecycleForm out;
@@ -36928,6 +37101,13 @@ ScreenElementEntryBehaviorForm screen_element_entry_behavior(const ScreenElement
   free(path);
   return out;
 }
+AuthorizationRequirementSpec screen_element_entry_access(const ScreenElementEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 ScreenElementEntryPresentationForm screen_element_entry_presentation(const ScreenElementEntry *self) {
   char *path = spec_path_join(self->node.path, "SCELENPR");
   ScreenElementEntryPresentationForm out;
@@ -37055,10 +37235,10 @@ ScreenEntryClassificationForm screen_entry_classification(const ScreenEntry *sel
   free(path);
   return out;
 }
-ScreenEntryAccessForm screen_entry_access(const ScreenEntry *self) {
-  char *path = spec_path_join(self->node.path, "SCEAC");
-  ScreenEntryAccessForm out;
-  screen_entry_access_form_init(&out, self->node.doc, path);
+AuthorizationRequirementSpec screen_entry_access(const ScreenEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -38578,6 +38758,13 @@ ServerOperationEntryContentForm server_operation_entry_content(const ServerOpera
   char *path = spec_path_join(self->node.path, "content");
   ServerOperationEntryContentForm out;
   server_operation_entry_content_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpec server_operation_entry_authorization(const ServerOperationEntry *self) {
+  char *path = spec_path_join(self->node.path, "authorization");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -43443,6 +43630,13 @@ TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self) {
   free(path);
   return out;
 }
+AuthorizationRequirementSpec tab_item_entry_access(const TabItemEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void target_operating_model_init(TargetOperatingModel *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -47905,6 +48099,13 @@ UtilityMenuItemEntryBehaviorForm utility_menu_item_entry_behavior(const UtilityM
   free(path);
   return out;
 }
+AuthorizationRequirementSpec utility_menu_item_entry_access(const UtilityMenuItemEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 
 void utility_navigation_init(UtilityNavigation *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -47957,6 +48158,13 @@ UtilityNavigationItemEntryDisplayForm utility_navigation_item_entry_display(cons
   char *path = spec_path_join(self->node.path, "UNIED");
   UtilityNavigationItemEntryDisplayForm out;
   utility_navigation_item_entry_display_form_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
+AuthorizationRequirementSpec utility_navigation_item_entry_access(const UtilityNavigationItemEntry *self) {
+  char *path = spec_path_join(self->node.path, "access");
+  AuthorizationRequirementSpec out;
+  authorization_requirement_spec_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -55089,6 +55297,153 @@ char *authorization_group_entry_content_form_membership_criteria(const Authoriza
 }
 void authorization_group_entry_content_form_set_membership_criteria(AuthorizationGroupEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "membershipCriteria", value);
+}
+
+void authorization_requirement_spec_content_form_init(AuthorizationRequirementSpecContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_content_form_free(AuthorizationRequirementSpecContentForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_content_form_content(const AuthorizationRequirementSpecContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_content_form_set_content(AuthorizationRequirementSpecContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_content_form_requirement_kind(const AuthorizationRequirementSpecContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requirementKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_content_form_set_requirement_kind(AuthorizationRequirementSpecContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "requirementKind", value);
+}
+char *authorization_requirement_spec_content_form_rationale(const AuthorizationRequirementSpecContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "rationale");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_content_form_set_rationale(AuthorizationRequirementSpecContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "rationale", value);
+}
+
+void authorization_requirement_spec_custom_requirement_form_init(AuthorizationRequirementSpecCustomRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_custom_requirement_form_free(AuthorizationRequirementSpecCustomRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_custom_requirement_form_content(const AuthorizationRequirementSpecCustomRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_custom_requirement_form_set_content(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_custom_requirement_form_handler(const AuthorizationRequirementSpecCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "handler");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_custom_requirement_form_set_handler(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "handler", value);
+}
+char *authorization_requirement_spec_custom_requirement_form_resource_id(const AuthorizationRequirementSpecCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceId");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_custom_requirement_form_set_resource_id(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resourceId", value);
+}
+char *authorization_requirement_spec_custom_requirement_form_decision_rule(const AuthorizationRequirementSpecCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionRule");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_custom_requirement_form_set_decision_rule(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "decisionRule", value);
+}
+
+void authorization_requirement_spec_entitlement_requirement_form_init(AuthorizationRequirementSpecEntitlementRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_entitlement_requirement_form_free(AuthorizationRequirementSpecEntitlementRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_entitlement_requirement_form_content(const AuthorizationRequirementSpecEntitlementRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_entitlement_requirement_form_set_content(AuthorizationRequirementSpecEntitlementRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_entitlement_requirement_form_patterns(const AuthorizationRequirementSpecEntitlementRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "patterns");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_entitlement_requirement_form_set_patterns(AuthorizationRequirementSpecEntitlementRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "patterns", value);
+}
+
+void authorization_requirement_spec_group_requirement_form_init(AuthorizationRequirementSpecGroupRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_group_requirement_form_free(AuthorizationRequirementSpecGroupRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_group_requirement_form_content(const AuthorizationRequirementSpecGroupRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_group_requirement_form_set_content(AuthorizationRequirementSpecGroupRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_group_requirement_form_groups(const AuthorizationRequirementSpecGroupRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "groups");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_group_requirement_form_set_groups(AuthorizationRequirementSpecGroupRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "groups", value);
+}
+
+void authorization_requirement_spec_resource_key_requirement_form_init(AuthorizationRequirementSpecResourceKeyRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_resource_key_requirement_form_free(AuthorizationRequirementSpecResourceKeyRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_resource_key_requirement_form_content(const AuthorizationRequirementSpecResourceKeyRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_resource_key_requirement_form_set_content(AuthorizationRequirementSpecResourceKeyRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_resource_key_requirement_form_resource_key(const AuthorizationRequirementSpecResourceKeyRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceKey");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_resource_key_requirement_form_set_resource_key(AuthorizationRequirementSpecResourceKeyRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resourceKey", value);
+}
+
+void authorization_requirement_spec_role_requirement_form_init(AuthorizationRequirementSpecRoleRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void authorization_requirement_spec_role_requirement_form_free(AuthorizationRequirementSpecRoleRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *authorization_requirement_spec_role_requirement_form_content(const AuthorizationRequirementSpecRoleRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_role_requirement_form_set_content(AuthorizationRequirementSpecRoleRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *authorization_requirement_spec_role_requirement_form_roles(const AuthorizationRequirementSpecRoleRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roles");
+  return som_strdup(v != NULL ? v : "");
+}
+void authorization_requirement_spec_role_requirement_form_set_roles(AuthorizationRequirementSpecRoleRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "roles", value);
 }
 
 void authorization_role_entry_content_form_init(AuthorizationRoleEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -77555,20 +77910,6 @@ char *deep_link_pattern_entry_content_form_description(const DeepLinkPatternEntr
 void deep_link_pattern_entry_content_form_set_description(DeepLinkPatternEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "description", value);
 }
-char *deep_link_pattern_entry_content_form_authentication_required(const DeepLinkPatternEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authenticationRequired");
-  return som_strdup(v != NULL ? v : "");
-}
-void deep_link_pattern_entry_content_form_set_authentication_required(DeepLinkPatternEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "authenticationRequired", value);
-}
-char *deep_link_pattern_entry_content_form_required_permissions(const DeepLinkPatternEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void deep_link_pattern_entry_content_form_set_required_permissions(DeepLinkPatternEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
 char *deep_link_pattern_entry_content_form_fallback_route(const DeepLinkPatternEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "fallbackRoute");
   return som_strdup(v != NULL ? v : "");
@@ -88468,52 +88809,38 @@ void export_field_mapping_entry_transformation_form_set_value_mapping(ExportFiel
   spec_document_set_form_field(self->node.doc, self->node.path, "valueMapping", value);
 }
 
-void export_format_entry_access_form_init(ExportFormatEntryAccessForm *self, SpecDocument *doc, const char *path) {
+void export_format_entry_audit_form_init(ExportFormatEntryAuditForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
-void export_format_entry_access_form_free(ExportFormatEntryAccessForm *self) {
+void export_format_entry_audit_form_free(ExportFormatEntryAuditForm *self) {
   som_node_free(&self->node);
 }
-char *export_format_entry_access_form_content(const ExportFormatEntryAccessForm *self) {
+char *export_format_entry_audit_form_content(const ExportFormatEntryAuditForm *self) {
   const char *v = spec_document_content(self->node.doc, self->node.path);
   return som_strdup(v != NULL ? v : "");
 }
-void export_format_entry_access_form_set_content(ExportFormatEntryAccessForm *self, const char *value) {
+void export_format_entry_audit_form_set_content(ExportFormatEntryAuditForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *export_format_entry_access_form_access_level(const ExportFormatEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_format_entry_access_form_set_access_level(ExportFormatEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "accessLevel", value);
-}
-char *export_format_entry_access_form_required_roles(const ExportFormatEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_format_entry_access_form_set_required_roles(ExportFormatEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *export_format_entry_access_form_audit_logging(const ExportFormatEntryAccessForm *self) {
+char *export_format_entry_audit_form_audit_logging(const ExportFormatEntryAuditForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditLogging");
   return som_strdup(v != NULL ? v : "");
 }
-void export_format_entry_access_form_set_audit_logging(ExportFormatEntryAccessForm *self, const char *value) {
+void export_format_entry_audit_form_set_audit_logging(ExportFormatEntryAuditForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "auditLogging", value);
 }
-char *export_format_entry_access_form_preview_available(const ExportFormatEntryAccessForm *self) {
+char *export_format_entry_audit_form_preview_available(const ExportFormatEntryAuditForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "previewAvailable");
   return som_strdup(v != NULL ? v : "");
 }
-void export_format_entry_access_form_set_preview_available(ExportFormatEntryAccessForm *self, const char *value) {
+void export_format_entry_audit_form_set_preview_available(ExportFormatEntryAuditForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "previewAvailable", value);
 }
-char *export_format_entry_access_form_notes(const ExportFormatEntryAccessForm *self) {
+char *export_format_entry_audit_form_notes(const ExportFormatEntryAuditForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "notes");
   return som_strdup(v != NULL ? v : "");
 }
-void export_format_entry_access_form_set_notes(ExportFormatEntryAccessForm *self, const char *value) {
+void export_format_entry_audit_form_set_notes(ExportFormatEntryAuditForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
 }
 
@@ -88848,55 +89175,6 @@ void export_size_settings_content_form_set_split_threshold(ExportSizeSettingsCon
   spec_document_set_form_field(self->node.doc, self->node.path, "splitThreshold", value);
 }
 
-void export_template_entry_access_form_init(ExportTemplateEntryAccessForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void export_template_entry_access_form_free(ExportTemplateEntryAccessForm *self) {
-  som_node_free(&self->node);
-}
-char *export_template_entry_access_form_content(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_content(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *export_template_entry_access_form_access_level(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_access_level(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "accessLevel", value);
-}
-char *export_template_entry_access_form_required_roles(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_required_roles(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *export_template_entry_access_form_reusable_across_reports(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reusableAcrossReports");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_reusable_across_reports(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "reusableAcrossReports", value);
-}
-char *export_template_entry_access_form_version(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_version(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "version", value);
-}
-char *export_template_entry_access_form_notes(const ExportTemplateEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "notes");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_access_form_set_notes(ExportTemplateEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
-}
-
 void export_template_entry_content_form_init(ExportTemplateEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -89070,6 +89348,41 @@ char *export_template_entry_layout_form_compression_format(const ExportTemplateE
 }
 void export_template_entry_layout_form_set_compression_format(ExportTemplateEntryLayoutForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "compressionFormat", value);
+}
+
+void export_template_entry_metadata_form_init(ExportTemplateEntryMetadataForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void export_template_entry_metadata_form_free(ExportTemplateEntryMetadataForm *self) {
+  som_node_free(&self->node);
+}
+char *export_template_entry_metadata_form_content(const ExportTemplateEntryMetadataForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void export_template_entry_metadata_form_set_content(ExportTemplateEntryMetadataForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *export_template_entry_metadata_form_reusable_across_reports(const ExportTemplateEntryMetadataForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reusableAcrossReports");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_template_entry_metadata_form_set_reusable_across_reports(ExportTemplateEntryMetadataForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "reusableAcrossReports", value);
+}
+char *export_template_entry_metadata_form_version(const ExportTemplateEntryMetadataForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_template_entry_metadata_form_set_version(ExportTemplateEntryMetadataForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "version", value);
+}
+char *export_template_entry_metadata_form_notes(const ExportTemplateEntryMetadataForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "notes");
+  return som_strdup(v != NULL ? v : "");
+}
+void export_template_entry_metadata_form_set_notes(ExportTemplateEntryMetadataForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "notes", value);
 }
 
 void extension_entry_content_form_init(ExtensionEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -94121,6 +94434,174 @@ char *governance_model_content_form_reporting_frequency(const GovernanceModelCon
 }
 void governance_model_content_form_set_reporting_frequency(GovernanceModelContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "reportingFrequency", value);
+}
+
+void graded_access_level_entry_content_form_init(GradedAccessLevelEntryContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_content_form_free(GradedAccessLevelEntryContentForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_content_form_content(const GradedAccessLevelEntryContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_content_form_set_content(GradedAccessLevelEntryContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_content_form_access_level(const GradedAccessLevelEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessLevel");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_content_form_set_access_level(GradedAccessLevelEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "accessLevel", value);
+}
+char *graded_access_level_entry_content_form_requirement_kind(const GradedAccessLevelEntryContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requirementKind");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_content_form_set_requirement_kind(GradedAccessLevelEntryContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "requirementKind", value);
+}
+
+void graded_access_level_entry_custom_requirement_form_init(GradedAccessLevelEntryCustomRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_custom_requirement_form_free(GradedAccessLevelEntryCustomRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_custom_requirement_form_content(const GradedAccessLevelEntryCustomRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_custom_requirement_form_set_content(GradedAccessLevelEntryCustomRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_custom_requirement_form_handler(const GradedAccessLevelEntryCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "handler");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_custom_requirement_form_set_handler(GradedAccessLevelEntryCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "handler", value);
+}
+char *graded_access_level_entry_custom_requirement_form_resource_id(const GradedAccessLevelEntryCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceId");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_custom_requirement_form_set_resource_id(GradedAccessLevelEntryCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resourceId", value);
+}
+char *graded_access_level_entry_custom_requirement_form_decision_rule(const GradedAccessLevelEntryCustomRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionRule");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_custom_requirement_form_set_decision_rule(GradedAccessLevelEntryCustomRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "decisionRule", value);
+}
+
+void graded_access_level_entry_entitlement_requirement_form_init(GradedAccessLevelEntryEntitlementRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_entitlement_requirement_form_free(GradedAccessLevelEntryEntitlementRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_entitlement_requirement_form_content(const GradedAccessLevelEntryEntitlementRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_entitlement_requirement_form_set_content(GradedAccessLevelEntryEntitlementRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_entitlement_requirement_form_patterns(const GradedAccessLevelEntryEntitlementRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "patterns");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_entitlement_requirement_form_set_patterns(GradedAccessLevelEntryEntitlementRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "patterns", value);
+}
+
+void graded_access_level_entry_group_requirement_form_init(GradedAccessLevelEntryGroupRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_group_requirement_form_free(GradedAccessLevelEntryGroupRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_group_requirement_form_content(const GradedAccessLevelEntryGroupRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_group_requirement_form_set_content(GradedAccessLevelEntryGroupRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_group_requirement_form_groups(const GradedAccessLevelEntryGroupRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "groups");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_group_requirement_form_set_groups(GradedAccessLevelEntryGroupRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "groups", value);
+}
+
+void graded_access_level_entry_resource_key_requirement_form_init(GradedAccessLevelEntryResourceKeyRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_resource_key_requirement_form_free(GradedAccessLevelEntryResourceKeyRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_resource_key_requirement_form_content(const GradedAccessLevelEntryResourceKeyRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_resource_key_requirement_form_set_content(GradedAccessLevelEntryResourceKeyRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_resource_key_requirement_form_resource_key(const GradedAccessLevelEntryResourceKeyRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceKey");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_resource_key_requirement_form_set_resource_key(GradedAccessLevelEntryResourceKeyRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "resourceKey", value);
+}
+
+void graded_access_level_entry_role_requirement_form_init(GradedAccessLevelEntryRoleRequirementForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_access_level_entry_role_requirement_form_free(GradedAccessLevelEntryRoleRequirementForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_access_level_entry_role_requirement_form_content(const GradedAccessLevelEntryRoleRequirementForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_role_requirement_form_set_content(GradedAccessLevelEntryRoleRequirementForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_access_level_entry_role_requirement_form_roles(const GradedAccessLevelEntryRoleRequirementForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roles");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_access_level_entry_role_requirement_form_set_roles(GradedAccessLevelEntryRoleRequirementForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "roles", value);
+}
+
+void graded_authorization_requirement_content_form_init(GradedAuthorizationRequirementContentForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void graded_authorization_requirement_content_form_free(GradedAuthorizationRequirementContentForm *self) {
+  som_node_free(&self->node);
+}
+char *graded_authorization_requirement_content_form_content(const GradedAuthorizationRequirementContentForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_authorization_requirement_content_form_set_content(GradedAuthorizationRequirementContentForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *graded_authorization_requirement_content_form_grading_rationale(const GradedAuthorizationRequirementContentForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "gradingRationale");
+  return som_strdup(v != NULL ? v : "");
+}
+void graded_authorization_requirement_content_form_set_grading_rationale(GradedAuthorizationRequirementContentForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "gradingRationale", value);
 }
 
 void handling_requirement_entry_content_form_init(HandlingRequirementEntryContentForm *self, SpecDocument *doc, const char *path) {
@@ -110497,41 +110978,6 @@ void native_app_requirements_versions_form_set_compile_sdk_version(NativeAppRequ
   spec_document_set_form_field(self->node.doc, self->node.path, "compileSdkVersion", value);
 }
 
-void navigation_group_entry_access_form_init(NavigationGroupEntryAccessForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void navigation_group_entry_access_form_free(NavigationGroupEntryAccessForm *self) {
-  som_node_free(&self->node);
-}
-char *navigation_group_entry_access_form_content(const NavigationGroupEntryAccessForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_group_entry_access_form_set_content(NavigationGroupEntryAccessForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *navigation_group_entry_access_form_required_roles(const NavigationGroupEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_group_entry_access_form_set_required_roles(NavigationGroupEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *navigation_group_entry_access_form_required_permissions(const NavigationGroupEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_group_entry_access_form_set_required_permissions(NavigationGroupEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
-char *navigation_group_entry_access_form_permission_behavior(const NavigationGroupEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "permissionBehavior");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_group_entry_access_form_set_permission_behavior(NavigationGroupEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "permissionBehavior", value);
-}
-
 void navigation_group_entry_content_form_init(NavigationGroupEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -110788,55 +111234,6 @@ void navigation_guard_entry_routing_form_set_priority(NavigationGuardEntryRoutin
   spec_document_set_form_field(self->node.doc, self->node.path, "priority", buf);
 }
 
-void navigation_item_entry_access_form_init(NavigationItemEntryAccessForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void navigation_item_entry_access_form_free(NavigationItemEntryAccessForm *self) {
-  som_node_free(&self->node);
-}
-char *navigation_item_entry_access_form_content(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_content(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *navigation_item_entry_access_form_visibility_condition(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "visibilityCondition");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_visibility_condition(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "visibilityCondition", value);
-}
-char *navigation_item_entry_access_form_enabled_condition(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "enabledCondition");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_enabled_condition(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "enabledCondition", value);
-}
-char *navigation_item_entry_access_form_required_roles(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_required_roles(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *navigation_item_entry_access_form_required_permissions(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_required_permissions(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
-char *navigation_item_entry_access_form_permission_behavior(const NavigationItemEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "permissionBehavior");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_item_entry_access_form_set_permission_behavior(NavigationItemEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "permissionBehavior", value);
-}
-
 void navigation_item_entry_badge_form_init(NavigationItemEntryBadgeForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
 }
@@ -111033,6 +111430,34 @@ char *navigation_item_entry_routing_form_is_default(const NavigationItemEntryRou
 }
 void navigation_item_entry_routing_form_set_is_default(NavigationItemEntryRoutingForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "isDefault", value);
+}
+
+void navigation_item_entry_visibility_form_init(NavigationItemEntryVisibilityForm *self, SpecDocument *doc, const char *path) {
+  som_node_init(&self->node, doc, path);
+}
+void navigation_item_entry_visibility_form_free(NavigationItemEntryVisibilityForm *self) {
+  som_node_free(&self->node);
+}
+char *navigation_item_entry_visibility_form_content(const NavigationItemEntryVisibilityForm *self) {
+  const char *v = spec_document_content(self->node.doc, self->node.path);
+  return som_strdup(v != NULL ? v : "");
+}
+void navigation_item_entry_visibility_form_set_content(NavigationItemEntryVisibilityForm *self, const char *value) {
+  spec_document_set_content(self->node.doc, self->node.path, value);
+}
+char *navigation_item_entry_visibility_form_visibility_condition(const NavigationItemEntryVisibilityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "visibilityCondition");
+  return som_strdup(v != NULL ? v : "");
+}
+void navigation_item_entry_visibility_form_set_visibility_condition(NavigationItemEntryVisibilityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "visibilityCondition", value);
+}
+char *navigation_item_entry_visibility_form_enabled_condition(const NavigationItemEntryVisibilityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "enabledCondition");
+  return som_strdup(v != NULL ? v : "");
+}
+void navigation_item_entry_visibility_form_set_enabled_condition(NavigationItemEntryVisibilityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "enabledCondition", value);
 }
 
 void navigation_overview_content_form_init(NavigationOverviewContentForm *self, SpecDocument *doc, const char *path) {
@@ -128550,20 +128975,6 @@ char *report_entry_security_form_branding_override(const ReportEntrySecurityForm
 void report_entry_security_form_set_branding_override(ReportEntrySecurityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "brandingOverride", value);
 }
-char *report_entry_security_form_access_level(const ReportEntrySecurityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_entry_security_form_set_access_level(ReportEntrySecurityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "accessLevel", value);
-}
-char *report_entry_security_form_required_roles(const ReportEntrySecurityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_entry_security_form_set_required_roles(ReportEntrySecurityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
 char *report_entry_security_form_data_level_security(const ReportEntrySecurityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataLevelSecurity");
   return som_strdup(v != NULL ? v : "");
@@ -137083,20 +137494,6 @@ char *screen_element_entry_behavior_form_readonly_condition(const ScreenElementE
 void screen_element_entry_behavior_form_set_readonly_condition(ScreenElementEntryBehaviorForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "readonlyCondition", value);
 }
-char *screen_element_entry_behavior_form_required_permission(const ScreenElementEntryBehaviorForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermission");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_entry_behavior_form_set_required_permission(ScreenElementEntryBehaviorForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermission", value);
-}
-char *screen_element_entry_behavior_form_permission_effect(const ScreenElementEntryBehaviorForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "permissionEffect");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_entry_behavior_form_set_permission_effect(ScreenElementEntryBehaviorForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "permissionEffect", value);
-}
 
 void screen_element_entry_content_form_init(ScreenElementEntryContentForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -137580,48 +137977,6 @@ char *screen_element_field_spec_validation_form_clear_button(const ScreenElement
 }
 void screen_element_field_spec_validation_form_set_clear_button(ScreenElementFieldSpecValidationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "clearButton", value);
-}
-
-void screen_entry_access_form_init(ScreenEntryAccessForm *self, SpecDocument *doc, const char *path) {
-  som_node_init(&self->node, doc, path);
-}
-void screen_entry_access_form_free(ScreenEntryAccessForm *self) {
-  som_node_free(&self->node);
-}
-char *screen_entry_access_form_content(const ScreenEntryAccessForm *self) {
-  const char *v = spec_document_content(self->node.doc, self->node.path);
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_access_form_set_content(ScreenEntryAccessForm *self, const char *value) {
-  spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *screen_entry_access_form_access_level(const ScreenEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "accessLevel");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_access_form_set_access_level(ScreenEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "accessLevel", value);
-}
-char *screen_entry_access_form_required_roles(const ScreenEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_access_form_set_required_roles(ScreenEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *screen_entry_access_form_required_permissions(const ScreenEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_access_form_set_required_permissions(ScreenEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
-char *screen_entry_access_form_permission_effect(const ScreenEntryAccessForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "permissionEffect");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_access_form_set_permission_effect(ScreenEntryAccessForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "permissionEffect", value);
 }
 
 void screen_entry_classification_form_init(ScreenEntryClassificationForm *self, SpecDocument *doc, const char *path) {
@@ -140972,27 +141327,6 @@ char *server_operation_entry_content_form_primary_data_entity(const ServerOperat
 }
 void server_operation_entry_content_form_set_primary_data_entity(ServerOperationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "primaryDataEntity", value);
-}
-char *server_operation_entry_content_form_authorization_requirement(const ServerOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "authorizationRequirement");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_operation_entry_content_form_set_authorization_requirement(ServerOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "authorizationRequirement", value);
-}
-char *server_operation_entry_content_form_required_roles(const ServerOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_operation_entry_content_form_set_required_roles(ServerOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
-}
-char *server_operation_entry_content_form_required_resource_key(const ServerOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredResourceKey");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_operation_entry_content_form_set_required_resource_key(ServerOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredResourceKey", value);
 }
 char *server_operation_entry_content_form_description_key(const ServerOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "descriptionKey");
@@ -152756,20 +153090,6 @@ char *tab_item_entry_content_form_visibility_condition(const TabItemEntryContent
 void tab_item_entry_content_form_set_visibility_condition(TabItemEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "visibilityCondition", value);
 }
-char *tab_item_entry_content_form_required_permissions(const TabItemEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void tab_item_entry_content_form_set_required_permissions(TabItemEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
-char *tab_item_entry_content_form_permission_behavior(const TabItemEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "permissionBehavior");
-  return som_strdup(v != NULL ? v : "");
-}
-void tab_item_entry_content_form_set_permission_behavior(TabItemEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "permissionBehavior", value);
-}
 char *tab_item_entry_content_form_badge_type(const TabItemEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "badgeType");
   return som_strdup(v != NULL ? v : "");
@@ -164301,13 +164621,6 @@ char *utility_menu_item_entry_behavior_form_visibility_condition(const UtilityMe
 void utility_menu_item_entry_behavior_form_set_visibility_condition(UtilityMenuItemEntryBehaviorForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "visibilityCondition", value);
 }
-char *utility_menu_item_entry_behavior_form_required_permissions(const UtilityMenuItemEntryBehaviorForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredPermissions");
-  return som_strdup(v != NULL ? v : "");
-}
-void utility_menu_item_entry_behavior_form_set_required_permissions(UtilityMenuItemEntryBehaviorForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredPermissions", value);
-}
 char *utility_menu_item_entry_behavior_form_is_dangerous(const UtilityMenuItemEntryBehaviorForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "isDangerous");
   return som_strdup(v != NULL ? v : "");
@@ -164486,13 +164799,6 @@ char *utility_navigation_item_entry_display_form_visibility_condition(const Util
 }
 void utility_navigation_item_entry_display_form_set_visibility_condition(UtilityNavigationItemEntryDisplayForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "visibilityCondition", value);
-}
-char *utility_navigation_item_entry_display_form_required_roles(const UtilityNavigationItemEntryDisplayForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requiredRoles");
-  return som_strdup(v != NULL ? v : "");
-}
-void utility_navigation_item_entry_display_form_set_required_roles(UtilityNavigationItemEntryDisplayForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requiredRoles", value);
 }
 
 void validation_feedback_behavior_form_init(ValidationFeedbackBehaviorForm *self, SpecDocument *doc, const char *path) {

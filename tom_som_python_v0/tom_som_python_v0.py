@@ -2401,6 +2401,51 @@ class AuthorizationModel(SomNode):
     def authorizationModelNotes(self):
         return None  # (skipped: no target type)
 
+class AuthorizationRequirementSpec(SomNode):
+    """What a caller must satisfy to reach the thing this section modifies
+    (`codespecs_mapping.md` §5.15).
+    
+    Embed this section wherever a guarded thing is authored — do not restate its
+    fields inline. The kind selects at most one payload subsection; the four
+    presets select none, which is why four of the ten arms bind no case.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return AuthorizationRequirementSpecContentForm(self.doc, f"{self.path}/content")
+
+    # Role requirement payload — a promoted `@OneOf` case.
+    @property
+    def roleRequirement(self):
+        return AuthorizationRequirementSpecRoleRequirementForm(self.doc, f"{self.path}/AZREQ-ROLE")
+
+    # Group requirement payload — a promoted `@OneOf` case.
+    @property
+    def groupRequirement(self):
+        return AuthorizationRequirementSpecGroupRequirementForm(self.doc, f"{self.path}/AZREQ-GRUP")
+
+    # Entitlement requirement payload — a promoted `@OneOf` case.
+    @property
+    def entitlementRequirement(self):
+        return AuthorizationRequirementSpecEntitlementRequirementForm(self.doc, f"{self.path}/AZREQ-ENTL")
+
+    # Resource-key requirement payload — a promoted `@OneOf` case.
+    @property
+    def resourceKeyRequirement(self):
+        return AuthorizationRequirementSpecResourceKeyRequirementForm(self.doc, f"{self.path}/AZREQ-RKEY")
+
+    # Custom requirement payload — a promoted `@OneOf` case.
+    @property
+    def customRequirement(self):
+        return AuthorizationRequirementSpecCustomRequirementForm(self.doc, f"{self.path}/AZREQ-CUST")
+
+    # Graded requirement payload — a promoted `@OneOf` case.
+    @property
+    def gradedRequirement(self):
+        return GradedAuthorizationRequirement(self.doc, f"{self.path}/gradedRequirement")
+
 class AuthorizationRoleEntry(SomNode):
     """An authorization role entry (form).
     
@@ -10632,6 +10677,15 @@ class DeepLinkPatternEntry(SomNode):
     def content(self):
         return DeepLinkPatternEntryContentForm(self.doc, f"{self.path}/content")
 
+    # Access control — what a caller must satisfy to follow this deep link.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`). Authoring the
+    # Authenticated kind is what makes an unauthenticated visitor redirect to
+    # sign-in; there is no separate authentication-required flag.
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
+
 class DeepLinking(SomNode):
     """10.3.1.7. Deep Linking.
     
@@ -14069,8 +14123,15 @@ class ExportFormatEntry(SomNode):
 
     # Access and audit.
     @property
+    def audit(self):
+        return ExportFormatEntryAuditForm(self.doc, f"{self.path}/EXAC")
+
+    # Access control — what a caller must satisfy to run this export.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`).
+    @property
     def access(self):
-        return ExportFormatEntryAccessForm(self.doc, f"{self.path}/EXAC")
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Contains 0+× Export Field Mapping.
     @property
@@ -14112,8 +14173,15 @@ class ExportTemplateEntry(SomNode):
 
     # Access and metadata.
     @property
+    def metadata(self):
+        return ExportTemplateEntryMetadataForm(self.doc, f"{self.path}/ETEA")
+
+    # Access control — what a caller must satisfy to use this template.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`).
+    @property
     def access(self):
-        return ExportTemplateEntryAccessForm(self.doc, f"{self.path}/ETEA")
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
 class ExtensionEntry(SomNode):
     """An extension entry."""
@@ -15778,6 +15846,78 @@ class GovernanceModel(SomNode):
     @property
     def decisionAuthorities(self):
         return SomList(self.doc, f"{self.path}/DCAUT-DECI-LST", lambda d, p: DecisionAuthorityEntry(d, p), pattern="DCAUT-DECI-xxx")
+
+class GradedAccessLevelEntry(SomNode):
+    """One rung of a graded access ladder: an access state and the non-graded
+    requirement that earns it (`codespecs_mapping.md` §5.15).
+    
+    The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+    See [GradedAuthorizationRequirement] for why that bound exists and why the
+    case forms are restated rather than shared.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return GradedAccessLevelEntryContentForm(self.doc, f"{self.path}/content")
+
+    # Role requirement payload — a promoted `@OneOf` case.
+    @property
+    def roleRequirement(self):
+        return GradedAccessLevelEntryRoleRequirementForm(self.doc, f"{self.path}/AZLVL-ROLE")
+
+    # Group requirement payload — a promoted `@OneOf` case.
+    @property
+    def groupRequirement(self):
+        return GradedAccessLevelEntryGroupRequirementForm(self.doc, f"{self.path}/AZLVL-GRUP")
+
+    # Entitlement requirement payload — a promoted `@OneOf` case.
+    @property
+    def entitlementRequirement(self):
+        return GradedAccessLevelEntryEntitlementRequirementForm(self.doc, f"{self.path}/AZLVL-ENTL")
+
+    # Resource-key requirement payload — a promoted `@OneOf` case.
+    @property
+    def resourceKeyRequirement(self):
+        return GradedAccessLevelEntryResourceKeyRequirementForm(self.doc, f"{self.path}/AZLVL-RKEY")
+
+    # Custom requirement payload — a promoted `@OneOf` case.
+    @property
+    def customRequirement(self):
+        return GradedAccessLevelEntryCustomRequirementForm(self.doc, f"{self.path}/AZLVL-CUST")
+
+class GradedAuthorizationRequirement(SomNode):
+    """A graded requirement: what a caller must satisfy for each access state
+    (`codespecs_mapping.md` §5.15).
+    
+    **Why a level takes a [GradedAccessLevelEntry] and not an
+    [AuthorizationRequirementSpec].** A graded level whose requirement could
+    itself be graded would make the model structurally cyclic, and
+    `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+    outliner, the serializers and the nine generated language runtimes all walk
+    the class graph as a tree. Bounding the depth at one level is not a
+    workaround for that constraint: a graded thing resolves to one of four
+    *terminal* access states, so nesting a second grading inside a level has
+    nothing left to resolve to.
+    
+    The price is that [GradedAccessLevelEntry] restates five of
+    [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+    the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+    and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+    reintroduces the cycle.
+    """
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    @property
+    def content(self):
+        return GradedAuthorizationRequirementContentForm(self.doc, f"{self.path}/content")
+
+    # The authored rungs of the ladder — contains 1..3× Graded Access Level.
+    @property
+    def accessLevels(self):
+        return SomList(self.doc, f"{self.path}/AZLVL-LEVE-LST", lambda d, p: GradedAccessLevelEntry(d, p), pattern="AZLVL-LEVE-xxx")
 
 class HandlingRequirementEntry(SomNode):
     """A data handling requirement entry (form).
@@ -20335,10 +20475,15 @@ class NavigationGroupEntry(SomNode):
     def display(self):
         return NavigationGroupEntryDisplayForm(self.doc, f"{self.path}/NGED")
 
-    # Access-control settings.
+    # Access control — what a caller must satisfy to see this navigation group.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`). A group that should be
+    # visible-but-locked rather than hidden authors the Graded kind; the
+    # hide/disable rendering follows from the access state and is not authored
+    # here.
     @property
     def access(self):
-        return NavigationGroupEntryAccessForm(self.doc, f"{self.path}/NGEA")
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Badge and hierarchy settings.
     @property
@@ -20451,10 +20596,22 @@ class NavigationItemEntry(SomNode):
     def routing(self):
         return NavigationItemEntryRoutingForm(self.doc, f"{self.path}/NIER")
 
-    # Access control settings.
+    # Business conditions governing when the item is shown and interactive.
+    #
+    # These are *business* conditions, not authorization — who may reach the
+    # item is authored in [access]. A condition here narrows an item the caller
+    # is already authorized for.
+    @property
+    def visibility(self):
+        return NavigationItemEntryVisibilityForm(self.doc, f"{self.path}/NIEA")
+
+    # Access control — what a caller must satisfy to reach this item.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`). An item that should be
+    # shown locked rather than hidden authors the Graded kind.
     @property
     def access(self):
-        return NavigationItemEntryAccessForm(self.doc, f"{self.path}/NIEA")
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Badge configuration.
     @property
@@ -25386,6 +25543,13 @@ class ReportEntry(SomNode):
     def security(self):
         return ReportEntrySecurityForm(self.doc, f"{self.path}/RESE")
 
+    # Access control — what a caller must satisfy to generate this report.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`).
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
+
     # Lifecycle and archiving.
     @property
     def lifecycle(self):
@@ -27873,10 +28037,23 @@ class ScreenElementEntry(SomNode):
     def layout(self):
         return ScreenElementEntryLayoutForm(self.doc, f"{self.path}/SCELENLA")
 
-    # Visibility and permission rules.
+    # Visibility and enablement rules.
+    #
+    # These are *business* conditions on an element the caller is already
+    # authorized for. Who may see or use it at all is [access].
     @property
     def behavior(self):
         return ScreenElementEntryBehaviorForm(self.doc, f"{self.path}/SEEB")
+
+    # Access control — what a caller must satisfy to see or use this element.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`). An element whose access
+    # has degrees — hidden, locked, read-only, interactive — authors the Graded
+    # kind, which is what the old free-text permission-effect field was trying
+    # to say.
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Styling and data binding.
     @property
@@ -27992,10 +28169,15 @@ class ScreenEntry(SomNode):
     def classification(self):
         return ScreenEntryClassificationForm(self.doc, f"{self.path}/SCECL")
 
-    # Access control settings.
+    # Access control — what a caller must satisfy to reach this screen.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+    # restatement. A screen that is graded rather than simply reachable authors
+    # the Graded kind; how each access state renders is fixed by the framework
+    # and is not authored here.
     @property
     def access(self):
-        return ScreenEntryAccessForm(self.doc, f"{self.path}/SCEAC")
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Traceability metadata.
     @property
@@ -29195,6 +29377,16 @@ class ServerOperationEntry(SomNode):
     @property
     def content(self):
         return ServerOperationEntryContentForm(self.doc, f"{self.path}/content")
+
+    # 7.9.x. Authorization — what a caller must satisfy to invoke this
+    # operation.
+    #
+    # The shared CE-AZ requirement section, not a per-operation restatement.
+    # There is no default: an operation with no requirement authored is a
+    # specification defect.
+    @property
+    def authorization(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/authorization")
 
     # 7.9.x. Request Members — the members that make up the request shape.
     @property
@@ -32951,6 +33143,14 @@ class TabItemEntry(SomNode):
     def content(self):
         return TabItemEntryContentForm(self.doc, f"{self.path}/content")
 
+    # Access control — what a caller must satisfy to reach this tab.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+    # disabled rather than hidden authors the Graded kind.
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
+
 class TargetOperatingModel(SomNode):
     """SBP.7 Target Operating Model concept.
     
@@ -36349,6 +36549,13 @@ class UtilityMenuItemEntry(SomNode):
     def behavior(self):
         return UtilityMenuItemEntryBehaviorForm(self.doc, f"{self.path}/UMIEB")
 
+    # Access control — what a caller must satisfy to use this menu item.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`).
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
+
 class UtilityNavigation(SomNode):
     """10.3.1.5. Utility Navigation.
     
@@ -36387,10 +36594,17 @@ class UtilityNavigationItemEntry(SomNode):
     def content(self):
         return UtilityNavigationItemEntryContentForm(self.doc, f"{self.path}/content")
 
-    # Ordering, rendering, and access rules.
+    # Ordering and rendering.
     @property
     def display(self):
         return UtilityNavigationItemEntryDisplayForm(self.doc, f"{self.path}/UNIED")
+
+    # Access control — what a caller must satisfy to reach this utility item.
+    #
+    # The shared CE-AZ requirement section (`AZREQ`).
+    @property
+    def access(self):
+        return AuthorizationRequirementSpec(self.doc, f"{self.path}/access")
 
     # Badge and interaction behavior.
     @property
@@ -44259,6 +44473,180 @@ class AuthorizationGroupEntryContentForm(SomNode):
     @membershipCriteria.setter
     def membershipCriteria(self, value):
         self.doc.set_form_field(self.path, "membershipCriteria", value)
+
+class AuthorizationRequirementSpecContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def requirementKind(self) -> str:
+        return self.doc.form_field(self.path, "requirementKind") or ""
+
+    @requirementKind.setter
+    def requirementKind(self, value):
+        self.doc.set_form_field(self.path, "requirementKind", value)
+
+    @property
+    def rationale(self) -> str:
+        return self.doc.form_field(self.path, "rationale") or ""
+
+    @rationale.setter
+    def rationale(self, value):
+        self.doc.set_form_field(self.path, "rationale", value)
+
+class AuthorizationRequirementSpecCustomRequirementForm(SomNode):
+    """Generated section facade for the `customRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def handler(self) -> str:
+        return self.doc.form_field(self.path, "handler") or ""
+
+    @handler.setter
+    def handler(self, value):
+        self.doc.set_form_field(self.path, "handler", value)
+
+    @property
+    def resourceId(self) -> str:
+        return self.doc.form_field(self.path, "resourceId") or ""
+
+    @resourceId.setter
+    def resourceId(self, value):
+        self.doc.set_form_field(self.path, "resourceId", value)
+
+    @property
+    def decisionRule(self) -> str:
+        return self.doc.form_field(self.path, "decisionRule") or ""
+
+    @decisionRule.setter
+    def decisionRule(self, value):
+        self.doc.set_form_field(self.path, "decisionRule", value)
+
+class AuthorizationRequirementSpecEntitlementRequirementForm(SomNode):
+    """Generated section facade for the `entitlementRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def patterns(self) -> str:
+        return self.doc.form_field(self.path, "patterns") or ""
+
+    @patterns.setter
+    def patterns(self, value):
+        self.doc.set_form_field(self.path, "patterns", value)
+
+class AuthorizationRequirementSpecGroupRequirementForm(SomNode):
+    """Generated section facade for the `groupRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def groups(self) -> str:
+        return self.doc.form_field(self.path, "groups") or ""
+
+    @groups.setter
+    def groups(self, value):
+        self.doc.set_form_field(self.path, "groups", value)
+
+class AuthorizationRequirementSpecResourceKeyRequirementForm(SomNode):
+    """Generated section facade for the `resourceKeyRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def resourceKey(self) -> str:
+        return self.doc.form_field(self.path, "resourceKey") or ""
+
+    @resourceKey.setter
+    def resourceKey(self, value):
+        self.doc.set_form_field(self.path, "resourceKey", value)
+
+class AuthorizationRequirementSpecRoleRequirementForm(SomNode):
+    """Generated section facade for the `roleRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def roles(self) -> str:
+        return self.doc.form_field(self.path, "roles") or ""
+
+    @roles.setter
+    def roles(self, value):
+        self.doc.set_form_field(self.path, "roles", value)
 
 class AuthorizationRoleEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -70719,22 +71107,6 @@ class DeepLinkPatternEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "description", value)
 
     @property
-    def authenticationRequired(self) -> str:
-        return self.doc.form_field(self.path, "authenticationRequired") or ""
-
-    @authenticationRequired.setter
-    def authenticationRequired(self, value):
-        self.doc.set_form_field(self.path, "authenticationRequired", value)
-
-    @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
     def fallbackRoute(self) -> str:
         return self.doc.form_field(self.path, "fallbackRoute") or ""
 
@@ -83577,8 +83949,8 @@ class ExportFieldMappingEntryTransformationForm(SomNode):
     def valueMapping(self, value):
         self.doc.set_form_field(self.path, "valueMapping", value)
 
-class ExportFormatEntryAccessForm(SomNode):
-    """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
+class ExportFormatEntryAuditForm(SomNode):
+    """Generated section facade for the `audit` @Form section: its own content text followed by one typed member per form field."""
 
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -83593,22 +83965,6 @@ class ExportFormatEntryAccessForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def accessLevel(self) -> str:
-        return self.doc.form_field(self.path, "accessLevel") or ""
-
-    @accessLevel.setter
-    def accessLevel(self, value):
-        self.doc.set_form_field(self.path, "accessLevel", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
 
     @property
     def auditLogging(self) -> str:
@@ -84024,63 +84380,6 @@ class ExportSizeSettingsContentForm(SomNode):
     def splitThreshold(self, value):
         self.doc.set_form_field(self.path, "splitThreshold", value)
 
-class ExportTemplateEntryAccessForm(SomNode):
-    """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def accessLevel(self) -> str:
-        return self.doc.form_field(self.path, "accessLevel") or ""
-
-    @accessLevel.setter
-    def accessLevel(self, value):
-        self.doc.set_form_field(self.path, "accessLevel", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
-    def reusableAcrossReports(self) -> str:
-        return self.doc.form_field(self.path, "reusableAcrossReports") or ""
-
-    @reusableAcrossReports.setter
-    def reusableAcrossReports(self, value):
-        self.doc.set_form_field(self.path, "reusableAcrossReports", value)
-
-    @property
-    def version(self) -> str:
-        return self.doc.form_field(self.path, "version") or ""
-
-    @version.setter
-    def version(self, value):
-        self.doc.set_form_field(self.path, "version", value)
-
-    @property
-    def notes(self) -> str:
-        return self.doc.form_field(self.path, "notes") or ""
-
-    @notes.setter
-    def notes(self, value):
-        self.doc.set_form_field(self.path, "notes", value)
-
 class ExportTemplateEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -84284,6 +84583,47 @@ class ExportTemplateEntryLayoutForm(SomNode):
     @compressionFormat.setter
     def compressionFormat(self, value):
         self.doc.set_form_field(self.path, "compressionFormat", value)
+
+class ExportTemplateEntryMetadataForm(SomNode):
+    """Generated section facade for the `metadata` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def reusableAcrossReports(self) -> str:
+        return self.doc.form_field(self.path, "reusableAcrossReports") or ""
+
+    @reusableAcrossReports.setter
+    def reusableAcrossReports(self, value):
+        self.doc.set_form_field(self.path, "reusableAcrossReports", value)
+
+    @property
+    def version(self) -> str:
+        return self.doc.form_field(self.path, "version") or ""
+
+    @version.setter
+    def version(self, value):
+        self.doc.set_form_field(self.path, "version", value)
+
+    @property
+    def notes(self) -> str:
+        return self.doc.form_field(self.path, "notes") or ""
+
+    @notes.setter
+    def notes(self, value):
+        self.doc.set_form_field(self.path, "notes", value)
 
 class ExtensionEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -90190,6 +90530,205 @@ class GovernanceModelContentForm(SomNode):
     @reportingFrequency.setter
     def reportingFrequency(self, value):
         self.doc.set_form_field(self.path, "reportingFrequency", value)
+
+class GradedAccessLevelEntryContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def accessLevel(self) -> str:
+        return self.doc.form_field(self.path, "accessLevel") or ""
+
+    @accessLevel.setter
+    def accessLevel(self, value):
+        self.doc.set_form_field(self.path, "accessLevel", value)
+
+    @property
+    def requirementKind(self) -> str:
+        return self.doc.form_field(self.path, "requirementKind") or ""
+
+    @requirementKind.setter
+    def requirementKind(self, value):
+        self.doc.set_form_field(self.path, "requirementKind", value)
+
+class GradedAccessLevelEntryCustomRequirementForm(SomNode):
+    """Generated section facade for the `customRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def handler(self) -> str:
+        return self.doc.form_field(self.path, "handler") or ""
+
+    @handler.setter
+    def handler(self, value):
+        self.doc.set_form_field(self.path, "handler", value)
+
+    @property
+    def resourceId(self) -> str:
+        return self.doc.form_field(self.path, "resourceId") or ""
+
+    @resourceId.setter
+    def resourceId(self, value):
+        self.doc.set_form_field(self.path, "resourceId", value)
+
+    @property
+    def decisionRule(self) -> str:
+        return self.doc.form_field(self.path, "decisionRule") or ""
+
+    @decisionRule.setter
+    def decisionRule(self, value):
+        self.doc.set_form_field(self.path, "decisionRule", value)
+
+class GradedAccessLevelEntryEntitlementRequirementForm(SomNode):
+    """Generated section facade for the `entitlementRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def patterns(self) -> str:
+        return self.doc.form_field(self.path, "patterns") or ""
+
+    @patterns.setter
+    def patterns(self, value):
+        self.doc.set_form_field(self.path, "patterns", value)
+
+class GradedAccessLevelEntryGroupRequirementForm(SomNode):
+    """Generated section facade for the `groupRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def groups(self) -> str:
+        return self.doc.form_field(self.path, "groups") or ""
+
+    @groups.setter
+    def groups(self, value):
+        self.doc.set_form_field(self.path, "groups", value)
+
+class GradedAccessLevelEntryResourceKeyRequirementForm(SomNode):
+    """Generated section facade for the `resourceKeyRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def resourceKey(self) -> str:
+        return self.doc.form_field(self.path, "resourceKey") or ""
+
+    @resourceKey.setter
+    def resourceKey(self, value):
+        self.doc.set_form_field(self.path, "resourceKey", value)
+
+class GradedAccessLevelEntryRoleRequirementForm(SomNode):
+    """Generated section facade for the `roleRequirement` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def roles(self) -> str:
+        return self.doc.form_field(self.path, "roles") or ""
+
+    @roles.setter
+    def roles(self, value):
+        self.doc.set_form_field(self.path, "roles", value)
+
+class GradedAuthorizationRequirementContentForm(SomNode):
+    """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def gradingRationale(self) -> str:
+        return self.doc.form_field(self.path, "gradingRationale") or ""
+
+    @gradingRationale.setter
+    def gradingRationale(self, value):
+        self.doc.set_form_field(self.path, "gradingRationale", value)
 
 class HandlingRequirementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -109512,47 +110051,6 @@ class NativeAppRequirementsVersionsForm(SomNode):
     def compileSdkVersion(self, value):
         self.doc.set_form_field(self.path, "compileSdkVersion", value)
 
-class NavigationGroupEntryAccessForm(SomNode):
-    """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
-    def permissionBehavior(self) -> str:
-        return self.doc.form_field(self.path, "permissionBehavior") or ""
-
-    @permissionBehavior.setter
-    def permissionBehavior(self, value):
-        self.doc.set_form_field(self.path, "permissionBehavior", value)
-
 class NavigationGroupEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -109859,63 +110357,6 @@ class NavigationGuardEntryRoutingForm(SomNode):
     def priority(self, value):
         self.doc.set_form_field(self.path, "priority", "" if value is None else str(value))
 
-class NavigationItemEntryAccessForm(SomNode):
-    """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def visibilityCondition(self) -> str:
-        return self.doc.form_field(self.path, "visibilityCondition") or ""
-
-    @visibilityCondition.setter
-    def visibilityCondition(self, value):
-        self.doc.set_form_field(self.path, "visibilityCondition", value)
-
-    @property
-    def enabledCondition(self) -> str:
-        return self.doc.form_field(self.path, "enabledCondition") or ""
-
-    @enabledCondition.setter
-    def enabledCondition(self, value):
-        self.doc.set_form_field(self.path, "enabledCondition", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
-    def permissionBehavior(self) -> str:
-        return self.doc.form_field(self.path, "permissionBehavior") or ""
-
-    @permissionBehavior.setter
-    def permissionBehavior(self, value):
-        self.doc.set_form_field(self.path, "permissionBehavior", value)
-
 class NavigationItemEntryBadgeForm(SomNode):
     """Generated section facade for the `badge` @Form section: its own content text followed by one typed member per form field."""
 
@@ -110150,6 +110591,39 @@ class NavigationItemEntryRoutingForm(SomNode):
     @isDefault.setter
     def isDefault(self, value):
         self.doc.set_form_field(self.path, "isDefault", value)
+
+class NavigationItemEntryVisibilityForm(SomNode):
+    """Generated section facade for the `visibility` @Form section: its own content text followed by one typed member per form field."""
+
+    def __init__(self, doc, path):
+        super().__init__(doc, path)
+
+    def can_have_content(self):
+        return True
+
+    @property
+    def content(self) -> str:
+        return self.doc.content(self.path) or ""
+
+    @content.setter
+    def content(self, value):
+        self.doc.set_content(self.path, value)
+
+    @property
+    def visibilityCondition(self) -> str:
+        return self.doc.form_field(self.path, "visibilityCondition") or ""
+
+    @visibilityCondition.setter
+    def visibilityCondition(self, value):
+        self.doc.set_form_field(self.path, "visibilityCondition", value)
+
+    @property
+    def enabledCondition(self) -> str:
+        return self.doc.form_field(self.path, "enabledCondition") or ""
+
+    @enabledCondition.setter
+    def enabledCondition(self, value):
+        self.doc.set_form_field(self.path, "enabledCondition", value)
 
 class NavigationOverviewContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
@@ -130789,22 +131263,6 @@ class ReportEntrySecurityForm(SomNode):
         self.doc.set_form_field(self.path, "brandingOverride", value)
 
     @property
-    def accessLevel(self) -> str:
-        return self.doc.form_field(self.path, "accessLevel") or ""
-
-    @accessLevel.setter
-    def accessLevel(self, value):
-        self.doc.set_form_field(self.path, "accessLevel", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
     def dataLevelSecurity(self) -> str:
         return self.doc.form_field(self.path, "dataLevelSecurity") or ""
 
@@ -140858,22 +141316,6 @@ class ScreenElementEntryBehaviorForm(SomNode):
     def readonlyCondition(self, value):
         self.doc.set_form_field(self.path, "readonlyCondition", value)
 
-    @property
-    def requiredPermission(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermission") or ""
-
-    @requiredPermission.setter
-    def requiredPermission(self, value):
-        self.doc.set_form_field(self.path, "requiredPermission", value)
-
-    @property
-    def permissionEffect(self) -> str:
-        return self.doc.form_field(self.path, "permissionEffect") or ""
-
-    @permissionEffect.setter
-    def permissionEffect(self, value):
-        self.doc.set_form_field(self.path, "permissionEffect", value)
-
 class ScreenElementEntryContentForm(SomNode):
     """Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field."""
 
@@ -141453,55 +141895,6 @@ class ScreenElementFieldSpecValidationForm(SomNode):
     @clearButton.setter
     def clearButton(self, value):
         self.doc.set_form_field(self.path, "clearButton", value)
-
-class ScreenEntryAccessForm(SomNode):
-    """Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field."""
-
-    def __init__(self, doc, path):
-        super().__init__(doc, path)
-
-    def can_have_content(self):
-        return True
-
-    @property
-    def content(self) -> str:
-        return self.doc.content(self.path) or ""
-
-    @content.setter
-    def content(self, value):
-        self.doc.set_content(self.path, value)
-
-    @property
-    def accessLevel(self) -> str:
-        return self.doc.form_field(self.path, "accessLevel") or ""
-
-    @accessLevel.setter
-    def accessLevel(self, value):
-        self.doc.set_form_field(self.path, "accessLevel", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
-    def permissionEffect(self) -> str:
-        return self.doc.form_field(self.path, "permissionEffect") or ""
-
-    @permissionEffect.setter
-    def permissionEffect(self, value):
-        self.doc.set_form_field(self.path, "permissionEffect", value)
 
 class ScreenEntryClassificationForm(SomNode):
     """Generated section facade for the `classification` @Form section: its own content text followed by one typed member per form field."""
@@ -145429,30 +145822,6 @@ class ServerOperationEntryContentForm(SomNode):
     @primaryDataEntity.setter
     def primaryDataEntity(self, value):
         self.doc.set_form_field(self.path, "primaryDataEntity", value)
-
-    @property
-    def authorizationRequirement(self) -> str:
-        return self.doc.form_field(self.path, "authorizationRequirement") or ""
-
-    @authorizationRequirement.setter
-    def authorizationRequirement(self, value):
-        self.doc.set_form_field(self.path, "authorizationRequirement", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
-
-    @property
-    def requiredResourceKey(self) -> str:
-        return self.doc.form_field(self.path, "requiredResourceKey") or ""
-
-    @requiredResourceKey.setter
-    def requiredResourceKey(self, value):
-        self.doc.set_form_field(self.path, "requiredResourceKey", value)
 
     @property
     def descriptionKey(self) -> str:
@@ -159373,22 +159742,6 @@ class TabItemEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "visibilityCondition", value)
 
     @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
-    def permissionBehavior(self) -> str:
-        return self.doc.form_field(self.path, "permissionBehavior") or ""
-
-    @permissionBehavior.setter
-    def permissionBehavior(self, value):
-        self.doc.set_form_field(self.path, "permissionBehavior", value)
-
-    @property
     def badgeType(self) -> str:
         return self.doc.form_field(self.path, "badgeType") or ""
 
@@ -172943,14 +173296,6 @@ class UtilityMenuItemEntryBehaviorForm(SomNode):
         self.doc.set_form_field(self.path, "visibilityCondition", value)
 
     @property
-    def requiredPermissions(self) -> str:
-        return self.doc.form_field(self.path, "requiredPermissions") or ""
-
-    @requiredPermissions.setter
-    def requiredPermissions(self, value):
-        self.doc.set_form_field(self.path, "requiredPermissions", value)
-
-    @property
     def isDangerous(self) -> str:
         return self.doc.form_field(self.path, "isDangerous") or ""
 
@@ -173165,14 +173510,6 @@ class UtilityNavigationItemEntryDisplayForm(SomNode):
     @visibilityCondition.setter
     def visibilityCondition(self, value):
         self.doc.set_form_field(self.path, "visibilityCondition", value)
-
-    @property
-    def requiredRoles(self) -> str:
-        return self.doc.form_field(self.path, "requiredRoles") or ""
-
-    @requiredRoles.setter
-    def requiredRoles(self, value):
-        self.doc.set_form_field(self.path, "requiredRoles", value)
 
 class ValidationFeedbackBehaviorForm(SomNode):
     """Generated section facade for the `behavior` @Form section: its own content text followed by one typed member per form field."""

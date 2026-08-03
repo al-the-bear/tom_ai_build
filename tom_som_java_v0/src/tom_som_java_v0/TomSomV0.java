@@ -2525,6 +2525,52 @@ public final class TomSomV0 {
     // (skipped: authorizationModelNotes has no target type)
   }
 
+  // What a caller must satisfy to reach the thing this section modifies
+  // (`codespecs_mapping.md` §5.15).
+  //
+  // Embed this section wherever a guarded thing is authored — do not restate its
+  // fields inline. The kind selects at most one payload subsection; the four
+  // presets select none, which is why four of the ten arms bind no case.
+  public static final class AuthorizationRequirementSpec extends SomNode {
+    public AuthorizationRequirementSpec(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public AuthorizationRequirementSpecContentForm content() {
+      return new AuthorizationRequirementSpecContentForm(doc, path + "/content");
+    }
+
+    // Role requirement payload — a promoted `@OneOf` case.
+    public AuthorizationRequirementSpecRoleRequirementForm roleRequirement() {
+      return new AuthorizationRequirementSpecRoleRequirementForm(doc, path + "/AZREQ-ROLE");
+    }
+
+    // Group requirement payload — a promoted `@OneOf` case.
+    public AuthorizationRequirementSpecGroupRequirementForm groupRequirement() {
+      return new AuthorizationRequirementSpecGroupRequirementForm(doc, path + "/AZREQ-GRUP");
+    }
+
+    // Entitlement requirement payload — a promoted `@OneOf` case.
+    public AuthorizationRequirementSpecEntitlementRequirementForm entitlementRequirement() {
+      return new AuthorizationRequirementSpecEntitlementRequirementForm(doc, path + "/AZREQ-ENTL");
+    }
+
+    // Resource-key requirement payload — a promoted `@OneOf` case.
+    public AuthorizationRequirementSpecResourceKeyRequirementForm resourceKeyRequirement() {
+      return new AuthorizationRequirementSpecResourceKeyRequirementForm(doc, path + "/AZREQ-RKEY");
+    }
+
+    // Custom requirement payload — a promoted `@OneOf` case.
+    public AuthorizationRequirementSpecCustomRequirementForm customRequirement() {
+      return new AuthorizationRequirementSpecCustomRequirementForm(doc, path + "/AZREQ-CUST");
+    }
+
+    // Graded requirement payload — a promoted `@OneOf` case.
+    public GradedAuthorizationRequirement gradedRequirement() {
+      return new GradedAuthorizationRequirement(doc, path + "/gradedRequirement");
+    }
+  }
+
   // An authorization role entry (form).
   //
   // Defines a single authorization role with its category, scope, permission
@@ -11276,6 +11322,15 @@ public final class TomSomV0 {
     public DeepLinkPatternEntryContentForm content() {
       return new DeepLinkPatternEntryContentForm(doc, path + "/content");
     }
+
+    // Access control — what a caller must satisfy to follow this deep link.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`). Authoring the
+    // Authenticated kind is what makes an unauthenticated visitor redirect to
+    // sign-in; there is no separate authentication-required flag.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
+    }
   }
 
   // 10.3.1.7. Deep Linking.
@@ -14923,8 +14978,15 @@ public final class TomSomV0 {
     }
 
     // Access and audit.
-    public ExportFormatEntryAccessForm access() {
-      return new ExportFormatEntryAccessForm(doc, path + "/EXAC");
+    public ExportFormatEntryAuditForm audit() {
+      return new ExportFormatEntryAuditForm(doc, path + "/EXAC");
+    }
+
+    // Access control — what a caller must satisfy to run this export.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`).
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Contains 0+× Export Field Mapping.
@@ -14970,8 +15032,15 @@ public final class TomSomV0 {
     }
 
     // Access and metadata.
-    public ExportTemplateEntryAccessForm access() {
-      return new ExportTemplateEntryAccessForm(doc, path + "/ETEA");
+    public ExportTemplateEntryMetadataForm metadata() {
+      return new ExportTemplateEntryMetadataForm(doc, path + "/ETEA");
+    }
+
+    // Access control — what a caller must satisfy to use this template.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`).
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
   }
 
@@ -16728,6 +16797,80 @@ public final class TomSomV0 {
     // Decision authority matrix.
     public SomList<DecisionAuthorityEntry> decisionAuthorities() {
       return new SomList<>(doc, path + "/DCAUT-DECI-LST", (d, p) -> new DecisionAuthorityEntry(d, p), "DCAUT-DECI-xxx");
+    }
+  }
+
+  // One rung of a graded access ladder: an access state and the non-graded
+  // requirement that earns it (`codespecs_mapping.md` §5.15).
+  //
+  // The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+  // See [GradedAuthorizationRequirement] for why that bound exists and why the
+  // case forms are restated rather than shared.
+  public static final class GradedAccessLevelEntry extends SomNode {
+    public GradedAccessLevelEntry(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public GradedAccessLevelEntryContentForm content() {
+      return new GradedAccessLevelEntryContentForm(doc, path + "/content");
+    }
+
+    // Role requirement payload — a promoted `@OneOf` case.
+    public GradedAccessLevelEntryRoleRequirementForm roleRequirement() {
+      return new GradedAccessLevelEntryRoleRequirementForm(doc, path + "/AZLVL-ROLE");
+    }
+
+    // Group requirement payload — a promoted `@OneOf` case.
+    public GradedAccessLevelEntryGroupRequirementForm groupRequirement() {
+      return new GradedAccessLevelEntryGroupRequirementForm(doc, path + "/AZLVL-GRUP");
+    }
+
+    // Entitlement requirement payload — a promoted `@OneOf` case.
+    public GradedAccessLevelEntryEntitlementRequirementForm entitlementRequirement() {
+      return new GradedAccessLevelEntryEntitlementRequirementForm(doc, path + "/AZLVL-ENTL");
+    }
+
+    // Resource-key requirement payload — a promoted `@OneOf` case.
+    public GradedAccessLevelEntryResourceKeyRequirementForm resourceKeyRequirement() {
+      return new GradedAccessLevelEntryResourceKeyRequirementForm(doc, path + "/AZLVL-RKEY");
+    }
+
+    // Custom requirement payload — a promoted `@OneOf` case.
+    public GradedAccessLevelEntryCustomRequirementForm customRequirement() {
+      return new GradedAccessLevelEntryCustomRequirementForm(doc, path + "/AZLVL-CUST");
+    }
+  }
+
+  // A graded requirement: what a caller must satisfy for each access state
+  // (`codespecs_mapping.md` §5.15).
+  //
+  // **Why a level takes a [GradedAccessLevelEntry] and not an
+  // [AuthorizationRequirementSpec].** A graded level whose requirement could
+  // itself be graded would make the model structurally cyclic, and
+  // `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+  // outliner, the serializers and the nine generated language runtimes all walk
+  // the class graph as a tree. Bounding the depth at one level is not a
+  // workaround for that constraint: a graded thing resolves to one of four
+  // *terminal* access states, so nesting a second grading inside a level has
+  // nothing left to resolve to.
+  //
+  // The price is that [GradedAccessLevelEntry] restates five of
+  // [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+  // the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+  // and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+  // reintroduces the cycle.
+  public static final class GradedAuthorizationRequirement extends SomNode {
+    public GradedAuthorizationRequirement(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    public GradedAuthorizationRequirementContentForm content() {
+      return new GradedAuthorizationRequirementContentForm(doc, path + "/content");
+    }
+
+    // The authored rungs of the ladder — contains 1..3× Graded Access Level.
+    public SomList<GradedAccessLevelEntry> accessLevels() {
+      return new SomList<>(doc, path + "/AZLVL-LEVE-LST", (d, p) -> new GradedAccessLevelEntry(d, p), "AZLVL-LEVE-xxx");
     }
   }
 
@@ -21501,9 +21644,14 @@ public final class TomSomV0 {
       return new NavigationGroupEntryDisplayForm(doc, path + "/NGED");
     }
 
-    // Access-control settings.
-    public NavigationGroupEntryAccessForm access() {
-      return new NavigationGroupEntryAccessForm(doc, path + "/NGEA");
+    // Access control — what a caller must satisfy to see this navigation group.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`). A group that should be
+    // visible-but-locked rather than hidden authors the Graded kind; the
+    // hide/disable rendering follows from the access state and is not authored
+    // here.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Badge and hierarchy settings.
@@ -21622,9 +21770,21 @@ public final class TomSomV0 {
       return new NavigationItemEntryRoutingForm(doc, path + "/NIER");
     }
 
-    // Access control settings.
-    public NavigationItemEntryAccessForm access() {
-      return new NavigationItemEntryAccessForm(doc, path + "/NIEA");
+    // Business conditions governing when the item is shown and interactive.
+    //
+    // These are *business* conditions, not authorization — who may reach the
+    // item is authored in [access]. A condition here narrows an item the caller
+    // is already authorized for.
+    public NavigationItemEntryVisibilityForm visibility() {
+      return new NavigationItemEntryVisibilityForm(doc, path + "/NIEA");
+    }
+
+    // Access control — what a caller must satisfy to reach this item.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`). An item that should be
+    // shown locked rather than hidden authors the Graded kind.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Badge configuration.
@@ -26857,6 +27017,13 @@ public final class TomSomV0 {
       return new ReportEntrySecurityForm(doc, path + "/RESE");
     }
 
+    // Access control — what a caller must satisfy to generate this report.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`).
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
+    }
+
     // Lifecycle and archiving.
     public ReportEntryLifecycleForm lifecycle() {
       return new ReportEntryLifecycleForm(doc, path + "/RELI");
@@ -29522,9 +29689,22 @@ public final class TomSomV0 {
       return new ScreenElementEntryLayoutForm(doc, path + "/SCELENLA");
     }
 
-    // Visibility and permission rules.
+    // Visibility and enablement rules.
+    //
+    // These are *business* conditions on an element the caller is already
+    // authorized for. Who may see or use it at all is [access].
     public ScreenElementEntryBehaviorForm behavior() {
       return new ScreenElementEntryBehaviorForm(doc, path + "/SEEB");
+    }
+
+    // Access control — what a caller must satisfy to see or use this element.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`). An element whose access
+    // has degrees — hidden, locked, read-only, interactive — authors the Graded
+    // kind, which is what the old free-text permission-effect field was trying
+    // to say.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Styling and data binding.
@@ -29643,9 +29823,14 @@ public final class TomSomV0 {
       return new ScreenEntryClassificationForm(doc, path + "/SCECL");
     }
 
-    // Access control settings.
-    public ScreenEntryAccessForm access() {
-      return new ScreenEntryAccessForm(doc, path + "/SCEAC");
+    // Access control — what a caller must satisfy to reach this screen.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+    // restatement. A screen that is graded rather than simply reachable authors
+    // the Graded kind; how each access state renders is fixed by the framework
+    // and is not authored here.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Traceability metadata.
@@ -30906,6 +31091,16 @@ public final class TomSomV0 {
 
     public ServerOperationEntryContentForm content() {
       return new ServerOperationEntryContentForm(doc, path + "/content");
+    }
+
+    // 7.9.x. Authorization — what a caller must satisfy to invoke this
+    // operation.
+    //
+    // The shared CE-AZ requirement section, not a per-operation restatement.
+    // There is no default: an operation with no requirement authored is a
+    // specification defect.
+    public AuthorizationRequirementSpec authorization() {
+      return new AuthorizationRequirementSpec(doc, path + "/authorization");
     }
 
     // 7.9.x. Request Members — the members that make up the request shape.
@@ -34825,6 +35020,14 @@ public final class TomSomV0 {
     public TabItemEntryContentForm content() {
       return new TabItemEntryContentForm(doc, path + "/content");
     }
+
+    // Access control — what a caller must satisfy to reach this tab.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+    // disabled rather than hidden authors the Graded kind.
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
+    }
   }
 
   // SBP.7 Target Operating Model concept.
@@ -38408,6 +38611,13 @@ public final class TomSomV0 {
     public UtilityMenuItemEntryBehaviorForm behavior() {
       return new UtilityMenuItemEntryBehaviorForm(doc, path + "/UMIEB");
     }
+
+    // Access control — what a caller must satisfy to use this menu item.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`).
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
+    }
   }
 
   // 10.3.1.5. Utility Navigation.
@@ -38451,9 +38661,16 @@ public final class TomSomV0 {
       return new UtilityNavigationItemEntryContentForm(doc, path + "/content");
     }
 
-    // Ordering, rendering, and access rules.
+    // Ordering and rendering.
     public UtilityNavigationItemEntryDisplayForm display() {
       return new UtilityNavigationItemEntryDisplayForm(doc, path + "/UNIED");
+    }
+
+    // Access control — what a caller must satisfy to reach this utility item.
+    //
+    // The shared CE-AZ requirement section (`AZREQ`).
+    public AuthorizationRequirementSpec access() {
+      return new AuthorizationRequirementSpec(doc, path + "/access");
     }
 
     // Badge and interaction behavior.
@@ -47630,6 +47847,219 @@ public final class TomSomV0 {
 
     public void membershipCriteria(String value) {
       doc.setFormField(path, "membershipCriteria", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecContentForm extends SomNode {
+    public AuthorizationRequirementSpecContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String requirementKind() {
+      String v = doc.formField(path, "requirementKind");
+      return v == null ? "" : v;
+    }
+
+    public void requirementKind(String value) {
+      doc.setFormField(path, "requirementKind", value);
+    }
+
+    public String rationale() {
+      String v = doc.formField(path, "rationale");
+      return v == null ? "" : v;
+    }
+
+    public void rationale(String value) {
+      doc.setFormField(path, "rationale", value);
+    }
+  }
+
+  // Generated section facade for the `customRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
+    public AuthorizationRequirementSpecCustomRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String handler() {
+      String v = doc.formField(path, "handler");
+      return v == null ? "" : v;
+    }
+
+    public void handler(String value) {
+      doc.setFormField(path, "handler", value);
+    }
+
+    public String resourceId() {
+      String v = doc.formField(path, "resourceId");
+      return v == null ? "" : v;
+    }
+
+    public void resourceId(String value) {
+      doc.setFormField(path, "resourceId", value);
+    }
+
+    public String decisionRule() {
+      String v = doc.formField(path, "decisionRule");
+      return v == null ? "" : v;
+    }
+
+    public void decisionRule(String value) {
+      doc.setFormField(path, "decisionRule", value);
+    }
+  }
+
+  // Generated section facade for the `entitlementRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecEntitlementRequirementForm extends SomNode {
+    public AuthorizationRequirementSpecEntitlementRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String patterns() {
+      String v = doc.formField(path, "patterns");
+      return v == null ? "" : v;
+    }
+
+    public void patterns(String value) {
+      doc.setFormField(path, "patterns", value);
+    }
+  }
+
+  // Generated section facade for the `groupRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecGroupRequirementForm extends SomNode {
+    public AuthorizationRequirementSpecGroupRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String groups() {
+      String v = doc.formField(path, "groups");
+      return v == null ? "" : v;
+    }
+
+    public void groups(String value) {
+      doc.setFormField(path, "groups", value);
+    }
+  }
+
+  // Generated section facade for the `resourceKeyRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecResourceKeyRequirementForm extends SomNode {
+    public AuthorizationRequirementSpecResourceKeyRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String resourceKey() {
+      String v = doc.formField(path, "resourceKey");
+      return v == null ? "" : v;
+    }
+
+    public void resourceKey(String value) {
+      doc.setFormField(path, "resourceKey", value);
+    }
+  }
+
+  // Generated section facade for the `roleRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class AuthorizationRequirementSpecRoleRequirementForm extends SomNode {
+    public AuthorizationRequirementSpecRoleRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String roles() {
+      String v = doc.formField(path, "roles");
+      return v == null ? "" : v;
+    }
+
+    public void roles(String value) {
+      doc.setFormField(path, "roles", value);
     }
   }
 
@@ -78720,24 +79150,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "description", value);
     }
 
-    public String authenticationRequired() {
-      String v = doc.formField(path, "authenticationRequired");
-      return v == null ? "" : v;
-    }
-
-    public void authenticationRequired(String value) {
-      doc.setFormField(path, "authenticationRequired", value);
-    }
-
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
     public String fallbackRoute() {
       String v = doc.formField(path, "fallbackRoute");
       return v == null ? "" : v;
@@ -93838,10 +94250,10 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `access` @Form section: its own content
+  // Generated section facade for the `audit` @Form section: its own content
   // text followed by one typed member per form field.
-  public static final class ExportFormatEntryAccessForm extends SomNode {
-    public ExportFormatEntryAccessForm(SpecDocument doc, String path) {
+  public static final class ExportFormatEntryAuditForm extends SomNode {
+    public ExportFormatEntryAuditForm(SpecDocument doc, String path) {
       super(doc, path);
     }
 
@@ -93857,24 +94269,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
-    }
-
-    public String accessLevel() {
-      String v = doc.formField(path, "accessLevel");
-      return v == null ? "" : v;
-    }
-
-    public void accessLevel(String value) {
-      doc.setFormField(path, "accessLevel", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
     }
 
     public String auditLogging() {
@@ -94361,73 +94755,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `access` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class ExportTemplateEntryAccessForm extends SomNode {
-    public ExportTemplateEntryAccessForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String accessLevel() {
-      String v = doc.formField(path, "accessLevel");
-      return v == null ? "" : v;
-    }
-
-    public void accessLevel(String value) {
-      doc.setFormField(path, "accessLevel", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
-    public String reusableAcrossReports() {
-      String v = doc.formField(path, "reusableAcrossReports");
-      return v == null ? "" : v;
-    }
-
-    public void reusableAcrossReports(String value) {
-      doc.setFormField(path, "reusableAcrossReports", value);
-    }
-
-    public String version() {
-      String v = doc.formField(path, "version");
-      return v == null ? "" : v;
-    }
-
-    public void version(String value) {
-      doc.setFormField(path, "version", value);
-    }
-
-    public String notes() {
-      String v = doc.formField(path, "notes");
-      return v == null ? "" : v;
-    }
-
-    public void notes(String value) {
-      doc.setFormField(path, "notes", value);
-    }
-  }
-
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class ExportTemplateEntryContentForm extends SomNode {
@@ -94666,6 +94993,55 @@ public final class TomSomV0 {
 
     public void compressionFormat(String value) {
       doc.setFormField(path, "compressionFormat", value);
+    }
+  }
+
+  // Generated section facade for the `metadata` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class ExportTemplateEntryMetadataForm extends SomNode {
+    public ExportTemplateEntryMetadataForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String reusableAcrossReports() {
+      String v = doc.formField(path, "reusableAcrossReports");
+      return v == null ? "" : v;
+    }
+
+    public void reusableAcrossReports(String value) {
+      doc.setFormField(path, "reusableAcrossReports", value);
+    }
+
+    public String version() {
+      String v = doc.formField(path, "version");
+      return v == null ? "" : v;
+    }
+
+    public void version(String value) {
+      doc.setFormField(path, "version", value);
+    }
+
+    public String notes() {
+      String v = doc.formField(path, "notes");
+      return v == null ? "" : v;
+    }
+
+    public void notes(String value) {
+      doc.setFormField(path, "notes", value);
     }
   }
 
@@ -101634,6 +102010,250 @@ public final class TomSomV0 {
 
     public void reportingFrequency(String value) {
       doc.setFormField(path, "reportingFrequency", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryContentForm extends SomNode {
+    public GradedAccessLevelEntryContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String accessLevel() {
+      String v = doc.formField(path, "accessLevel");
+      return v == null ? "" : v;
+    }
+
+    public void accessLevel(String value) {
+      doc.setFormField(path, "accessLevel", value);
+    }
+
+    public String requirementKind() {
+      String v = doc.formField(path, "requirementKind");
+      return v == null ? "" : v;
+    }
+
+    public void requirementKind(String value) {
+      doc.setFormField(path, "requirementKind", value);
+    }
+  }
+
+  // Generated section facade for the `customRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryCustomRequirementForm extends SomNode {
+    public GradedAccessLevelEntryCustomRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String handler() {
+      String v = doc.formField(path, "handler");
+      return v == null ? "" : v;
+    }
+
+    public void handler(String value) {
+      doc.setFormField(path, "handler", value);
+    }
+
+    public String resourceId() {
+      String v = doc.formField(path, "resourceId");
+      return v == null ? "" : v;
+    }
+
+    public void resourceId(String value) {
+      doc.setFormField(path, "resourceId", value);
+    }
+
+    public String decisionRule() {
+      String v = doc.formField(path, "decisionRule");
+      return v == null ? "" : v;
+    }
+
+    public void decisionRule(String value) {
+      doc.setFormField(path, "decisionRule", value);
+    }
+  }
+
+  // Generated section facade for the `entitlementRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryEntitlementRequirementForm extends SomNode {
+    public GradedAccessLevelEntryEntitlementRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String patterns() {
+      String v = doc.formField(path, "patterns");
+      return v == null ? "" : v;
+    }
+
+    public void patterns(String value) {
+      doc.setFormField(path, "patterns", value);
+    }
+  }
+
+  // Generated section facade for the `groupRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryGroupRequirementForm extends SomNode {
+    public GradedAccessLevelEntryGroupRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String groups() {
+      String v = doc.formField(path, "groups");
+      return v == null ? "" : v;
+    }
+
+    public void groups(String value) {
+      doc.setFormField(path, "groups", value);
+    }
+  }
+
+  // Generated section facade for the `resourceKeyRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryResourceKeyRequirementForm extends SomNode {
+    public GradedAccessLevelEntryResourceKeyRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String resourceKey() {
+      String v = doc.formField(path, "resourceKey");
+      return v == null ? "" : v;
+    }
+
+    public void resourceKey(String value) {
+      doc.setFormField(path, "resourceKey", value);
+    }
+  }
+
+  // Generated section facade for the `roleRequirement` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAccessLevelEntryRoleRequirementForm extends SomNode {
+    public GradedAccessLevelEntryRoleRequirementForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String roles() {
+      String v = doc.formField(path, "roles");
+      return v == null ? "" : v;
+    }
+
+    public void roles(String value) {
+      doc.setFormField(path, "roles", value);
+    }
+  }
+
+  // Generated section facade for the `content` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class GradedAuthorizationRequirementContentForm extends SomNode {
+    public GradedAuthorizationRequirementContentForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String gradingRationale() {
+      String v = doc.formField(path, "gradingRationale");
+      return v == null ? "" : v;
+    }
+
+    public void gradingRationale(String value) {
+      doc.setFormField(path, "gradingRationale", value);
     }
   }
 
@@ -124256,55 +124876,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `access` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class NavigationGroupEntryAccessForm extends SomNode {
-    public NavigationGroupEntryAccessForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
-    public String permissionBehavior() {
-      String v = doc.formField(path, "permissionBehavior");
-      return v == null ? "" : v;
-    }
-
-    public void permissionBehavior(String value) {
-      doc.setFormField(path, "permissionBehavior", value);
-    }
-  }
-
   // Generated section facade for the `content` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class NavigationGroupEntryContentForm extends SomNode {
@@ -124655,73 +125226,6 @@ public final class TomSomV0 {
     }
   }
 
-  // Generated section facade for the `access` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class NavigationItemEntryAccessForm extends SomNode {
-    public NavigationItemEntryAccessForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String visibilityCondition() {
-      String v = doc.formField(path, "visibilityCondition");
-      return v == null ? "" : v;
-    }
-
-    public void visibilityCondition(String value) {
-      doc.setFormField(path, "visibilityCondition", value);
-    }
-
-    public String enabledCondition() {
-      String v = doc.formField(path, "enabledCondition");
-      return v == null ? "" : v;
-    }
-
-    public void enabledCondition(String value) {
-      doc.setFormField(path, "enabledCondition", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
-    public String permissionBehavior() {
-      String v = doc.formField(path, "permissionBehavior");
-      return v == null ? "" : v;
-    }
-
-    public void permissionBehavior(String value) {
-      doc.setFormField(path, "permissionBehavior", value);
-    }
-  }
-
   // Generated section facade for the `badge` @Form section: its own content
   // text followed by one typed member per form field.
   public static final class NavigationItemEntryBadgeForm extends SomNode {
@@ -124992,6 +125496,46 @@ public final class TomSomV0 {
 
     public void isDefault(String value) {
       doc.setFormField(path, "isDefault", value);
+    }
+  }
+
+  // Generated section facade for the `visibility` @Form section: its own content
+  // text followed by one typed member per form field.
+  public static final class NavigationItemEntryVisibilityForm extends SomNode {
+    public NavigationItemEntryVisibilityForm(SpecDocument doc, String path) {
+      super(doc, path);
+    }
+
+    @Override
+    public boolean canHaveContent() {
+      return true;
+    }
+
+    public String content() {
+      String v = doc.content(path);
+      return v == null ? "" : v;
+    }
+
+    public void content(String value) {
+      doc.setContent(path, value);
+    }
+
+    public String visibilityCondition() {
+      String v = doc.formField(path, "visibilityCondition");
+      return v == null ? "" : v;
+    }
+
+    public void visibilityCondition(String value) {
+      doc.setFormField(path, "visibilityCondition", value);
+    }
+
+    public String enabledCondition() {
+      String v = doc.formField(path, "enabledCondition");
+      return v == null ? "" : v;
+    }
+
+    public void enabledCondition(String value) {
+      doc.setFormField(path, "enabledCondition", value);
     }
   }
 
@@ -149021,24 +149565,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "brandingOverride", value);
     }
 
-    public String accessLevel() {
-      String v = doc.formField(path, "accessLevel");
-      return v == null ? "" : v;
-    }
-
-    public void accessLevel(String value) {
-      doc.setFormField(path, "accessLevel", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
     public String dataLevelSecurity() {
       String v = doc.formField(path, "dataLevelSecurity");
       return v == null ? "" : v;
@@ -160758,24 +161284,6 @@ public final class TomSomV0 {
     public void readonlyCondition(String value) {
       doc.setFormField(path, "readonlyCondition", value);
     }
-
-    public String requiredPermission() {
-      String v = doc.formField(path, "requiredPermission");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermission(String value) {
-      doc.setFormField(path, "requiredPermission", value);
-    }
-
-    public String permissionEffect() {
-      String v = doc.formField(path, "permissionEffect");
-      return v == null ? "" : v;
-    }
-
-    public void permissionEffect(String value) {
-      doc.setFormField(path, "permissionEffect", value);
-    }
   }
 
   // Generated section facade for the `content` @Form section: its own content
@@ -161439,64 +161947,6 @@ public final class TomSomV0 {
 
     public void clearButton(String value) {
       doc.setFormField(path, "clearButton", value);
-    }
-  }
-
-  // Generated section facade for the `access` @Form section: its own content
-  // text followed by one typed member per form field.
-  public static final class ScreenEntryAccessForm extends SomNode {
-    public ScreenEntryAccessForm(SpecDocument doc, String path) {
-      super(doc, path);
-    }
-
-    @Override
-    public boolean canHaveContent() {
-      return true;
-    }
-
-    public String content() {
-      String v = doc.content(path);
-      return v == null ? "" : v;
-    }
-
-    public void content(String value) {
-      doc.setContent(path, value);
-    }
-
-    public String accessLevel() {
-      String v = doc.formField(path, "accessLevel");
-      return v == null ? "" : v;
-    }
-
-    public void accessLevel(String value) {
-      doc.setFormField(path, "accessLevel", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
-    public String permissionEffect() {
-      String v = doc.formField(path, "permissionEffect");
-      return v == null ? "" : v;
-    }
-
-    public void permissionEffect(String value) {
-      doc.setFormField(path, "permissionEffect", value);
     }
   }
 
@@ -166144,33 +166594,6 @@ public final class TomSomV0 {
 
     public void primaryDataEntity(String value) {
       doc.setFormField(path, "primaryDataEntity", value);
-    }
-
-    public String authorizationRequirement() {
-      String v = doc.formField(path, "authorizationRequirement");
-      return v == null ? "" : v;
-    }
-
-    public void authorizationRequirement(String value) {
-      doc.setFormField(path, "authorizationRequirement", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
-    }
-
-    public String requiredResourceKey() {
-      String v = doc.formField(path, "requiredResourceKey");
-      return v == null ? "" : v;
-    }
-
-    public void requiredResourceKey(String value) {
-      doc.setFormField(path, "requiredResourceKey", value);
     }
 
     public String descriptionKey() {
@@ -182348,24 +182771,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "visibilityCondition", value);
     }
 
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
-    public String permissionBehavior() {
-      String v = doc.formField(path, "permissionBehavior");
-      return v == null ? "" : v;
-    }
-
-    public void permissionBehavior(String value) {
-      doc.setFormField(path, "permissionBehavior", value);
-    }
-
     public String badgeType() {
       String v = doc.formField(path, "badgeType");
       return v == null ? "" : v;
@@ -198201,15 +198606,6 @@ public final class TomSomV0 {
       doc.setFormField(path, "visibilityCondition", value);
     }
 
-    public String requiredPermissions() {
-      String v = doc.formField(path, "requiredPermissions");
-      return v == null ? "" : v;
-    }
-
-    public void requiredPermissions(String value) {
-      doc.setFormField(path, "requiredPermissions", value);
-    }
-
     public String isDangerous() {
       String v = doc.formField(path, "isDangerous");
       return v == null ? "" : v;
@@ -198451,15 +198847,6 @@ public final class TomSomV0 {
 
     public void visibilityCondition(String value) {
       doc.setFormField(path, "visibilityCondition", value);
-    }
-
-    public String requiredRoles() {
-      String v = doc.formField(path, "requiredRoles");
-      return v == null ? "" : v;
-    }
-
-    public void requiredRoles(String value) {
-      doc.setFormField(path, "requiredRoles", value);
     }
   }
 

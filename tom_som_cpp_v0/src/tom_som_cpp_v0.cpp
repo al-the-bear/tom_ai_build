@@ -1189,6 +1189,30 @@ PermissionEvaluationBehavior AuthorizationModel::permissionEvaluation() const {
   return PermissionEvaluationBehavior(doc(), som::joinPath(path(), "permissionEvaluation"));
 }
 
+AuthorizationRequirementSpec::AuthorizationRequirementSpec(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+AuthorizationRequirementSpecContentForm AuthorizationRequirementSpec::content() const {
+  return AuthorizationRequirementSpecContentForm(doc(), som::joinPath(path(), "content"));
+}
+AuthorizationRequirementSpecRoleRequirementForm AuthorizationRequirementSpec::roleRequirement() const {
+  return AuthorizationRequirementSpecRoleRequirementForm(doc(), som::joinPath(path(), "AZREQ-ROLE"));
+}
+AuthorizationRequirementSpecGroupRequirementForm AuthorizationRequirementSpec::groupRequirement() const {
+  return AuthorizationRequirementSpecGroupRequirementForm(doc(), som::joinPath(path(), "AZREQ-GRUP"));
+}
+AuthorizationRequirementSpecEntitlementRequirementForm AuthorizationRequirementSpec::entitlementRequirement() const {
+  return AuthorizationRequirementSpecEntitlementRequirementForm(doc(), som::joinPath(path(), "AZREQ-ENTL"));
+}
+AuthorizationRequirementSpecResourceKeyRequirementForm AuthorizationRequirementSpec::resourceKeyRequirement() const {
+  return AuthorizationRequirementSpecResourceKeyRequirementForm(doc(), som::joinPath(path(), "AZREQ-RKEY"));
+}
+AuthorizationRequirementSpecCustomRequirementForm AuthorizationRequirementSpec::customRequirement() const {
+  return AuthorizationRequirementSpecCustomRequirementForm(doc(), som::joinPath(path(), "AZREQ-CUST"));
+}
+GradedAuthorizationRequirement AuthorizationRequirementSpec::gradedRequirement() const {
+  return GradedAuthorizationRequirement(doc(), som::joinPath(path(), "gradedRequirement"));
+}
+
 AuthorizationRoleEntry::AuthorizationRoleEntry(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 AuthorizationRoleEntryContentForm AuthorizationRoleEntry::content() const {
@@ -5675,6 +5699,9 @@ DeepLinkPatternEntry::DeepLinkPatternEntry(som::SpecDocument& doc, std::string p
 DeepLinkPatternEntryContentForm DeepLinkPatternEntry::content() const {
   return DeepLinkPatternEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
+AuthorizationRequirementSpec DeepLinkPatternEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
+}
 
 DeepLinking::DeepLinking(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -7478,8 +7505,11 @@ ExportFormatEntrySecurityForm ExportFormatEntry::security() const {
 ExportFormatEntryOutputForm ExportFormatEntry::output() const {
   return ExportFormatEntryOutputForm(doc(), som::joinPath(path(), "EXOU"));
 }
-ExportFormatEntryAccessForm ExportFormatEntry::access() const {
-  return ExportFormatEntryAccessForm(doc(), som::joinPath(path(), "EXAC"));
+ExportFormatEntryAuditForm ExportFormatEntry::audit() const {
+  return ExportFormatEntryAuditForm(doc(), som::joinPath(path(), "EXAC"));
+}
+AuthorizationRequirementSpec ExportFormatEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 som::SomList ExportFormatEntry::fieldMappings() const {
   return som::SomList(doc(), som::joinPath(path(), "EFME-FIEL-LST"), "EFME-FIEL-xxx");
@@ -7505,8 +7535,11 @@ ExportTemplateEntryFieldsForm ExportTemplateEntry::fields() const {
 ExportTemplateEntryLayoutForm ExportTemplateEntry::layout() const {
   return ExportTemplateEntryLayoutForm(doc(), som::joinPath(path(), "ETEL"));
 }
-ExportTemplateEntryAccessForm ExportTemplateEntry::access() const {
-  return ExportTemplateEntryAccessForm(doc(), som::joinPath(path(), "ETEA"));
+ExportTemplateEntryMetadataForm ExportTemplateEntry::metadata() const {
+  return ExportTemplateEntryMetadataForm(doc(), som::joinPath(path(), "ETEA"));
+}
+AuthorizationRequirementSpec ExportTemplateEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 
 ExtensionEntry::ExtensionEntry(som::SpecDocument& doc, std::string path)
@@ -8365,6 +8398,36 @@ GovernanceModelContentForm GovernanceModel::content() const {
 }
 som::SomList GovernanceModel::decisionAuthorities() const {
   return som::SomList(doc(), som::joinPath(path(), "DCAUT-DECI-LST"), "DCAUT-DECI-xxx");
+}
+
+GradedAccessLevelEntry::GradedAccessLevelEntry(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GradedAccessLevelEntryContentForm GradedAccessLevelEntry::content() const {
+  return GradedAccessLevelEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+GradedAccessLevelEntryRoleRequirementForm GradedAccessLevelEntry::roleRequirement() const {
+  return GradedAccessLevelEntryRoleRequirementForm(doc(), som::joinPath(path(), "AZLVL-ROLE"));
+}
+GradedAccessLevelEntryGroupRequirementForm GradedAccessLevelEntry::groupRequirement() const {
+  return GradedAccessLevelEntryGroupRequirementForm(doc(), som::joinPath(path(), "AZLVL-GRUP"));
+}
+GradedAccessLevelEntryEntitlementRequirementForm GradedAccessLevelEntry::entitlementRequirement() const {
+  return GradedAccessLevelEntryEntitlementRequirementForm(doc(), som::joinPath(path(), "AZLVL-ENTL"));
+}
+GradedAccessLevelEntryResourceKeyRequirementForm GradedAccessLevelEntry::resourceKeyRequirement() const {
+  return GradedAccessLevelEntryResourceKeyRequirementForm(doc(), som::joinPath(path(), "AZLVL-RKEY"));
+}
+GradedAccessLevelEntryCustomRequirementForm GradedAccessLevelEntry::customRequirement() const {
+  return GradedAccessLevelEntryCustomRequirementForm(doc(), som::joinPath(path(), "AZLVL-CUST"));
+}
+
+GradedAuthorizationRequirement::GradedAuthorizationRequirement(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+GradedAuthorizationRequirementContentForm GradedAuthorizationRequirement::content() const {
+  return GradedAuthorizationRequirementContentForm(doc(), som::joinPath(path(), "content"));
+}
+som::SomList GradedAuthorizationRequirement::accessLevels() const {
+  return som::SomList(doc(), som::joinPath(path(), "AZLVL-LEVE-LST"), "AZLVL-LEVE-xxx");
 }
 
 HandlingRequirementEntry::HandlingRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -10712,8 +10775,8 @@ NavigationGroupEntryContentForm NavigationGroupEntry::content() const {
 NavigationGroupEntryDisplayForm NavigationGroupEntry::display() const {
   return NavigationGroupEntryDisplayForm(doc(), som::joinPath(path(), "NGED"));
 }
-NavigationGroupEntryAccessForm NavigationGroupEntry::access() const {
-  return NavigationGroupEntryAccessForm(doc(), som::joinPath(path(), "NGEA"));
+AuthorizationRequirementSpec NavigationGroupEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 NavigationGroupEntryStructureForm NavigationGroupEntry::structure() const {
   return NavigationGroupEntryStructureForm(doc(), som::joinPath(path(), "NGES"));
@@ -10769,8 +10832,11 @@ NavigationItemEntryDisplayForm NavigationItemEntry::display() const {
 NavigationItemEntryRoutingForm NavigationItemEntry::routing() const {
   return NavigationItemEntryRoutingForm(doc(), som::joinPath(path(), "NIER"));
 }
-NavigationItemEntryAccessForm NavigationItemEntry::access() const {
-  return NavigationItemEntryAccessForm(doc(), som::joinPath(path(), "NIEA"));
+NavigationItemEntryVisibilityForm NavigationItemEntry::visibility() const {
+  return NavigationItemEntryVisibilityForm(doc(), som::joinPath(path(), "NIEA"));
+}
+AuthorizationRequirementSpec NavigationItemEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 NavigationItemEntryBadgeForm NavigationItemEntry::badge() const {
   return NavigationItemEntryBadgeForm(doc(), som::joinPath(path(), "NIEB"));
@@ -13388,6 +13454,9 @@ ReportEntryPaginationForm ReportEntry::pagination() const {
 ReportEntrySecurityForm ReportEntry::security() const {
   return ReportEntrySecurityForm(doc(), som::joinPath(path(), "RESE"));
 }
+AuthorizationRequirementSpec ReportEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
+}
 ReportEntryLifecycleForm ReportEntry::lifecycle() const {
   return ReportEntryLifecycleForm(doc(), som::joinPath(path(), "RELI"));
 }
@@ -14675,6 +14744,9 @@ ScreenElementEntryLayoutForm ScreenElementEntry::layout() const {
 ScreenElementEntryBehaviorForm ScreenElementEntry::behavior() const {
   return ScreenElementEntryBehaviorForm(doc(), som::joinPath(path(), "SEEB"));
 }
+AuthorizationRequirementSpec ScreenElementEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
+}
 ScreenElementEntryPresentationForm ScreenElementEntry::presentation() const {
   return ScreenElementEntryPresentationForm(doc(), som::joinPath(path(), "SCELENPR"));
 }
@@ -14726,8 +14798,8 @@ ScreenEntryContentForm ScreenEntry::content() const {
 ScreenEntryClassificationForm ScreenEntry::classification() const {
   return ScreenEntryClassificationForm(doc(), som::joinPath(path(), "SCECL"));
 }
-ScreenEntryAccessForm ScreenEntry::access() const {
-  return ScreenEntryAccessForm(doc(), som::joinPath(path(), "SCEAC"));
+AuthorizationRequirementSpec ScreenEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 ScreenEntryTraceabilityForm ScreenEntry::traceability() const {
   return ScreenEntryTraceabilityForm(doc(), som::joinPath(path(), "SCETR"));
@@ -15325,6 +15397,9 @@ ServerOperationEntry::ServerOperationEntry(som::SpecDocument& doc, std::string p
     : som::SomNode(doc, std::move(path)) {}
 ServerOperationEntryContentForm ServerOperationEntry::content() const {
   return ServerOperationEntryContentForm(doc(), som::joinPath(path(), "content"));
+}
+AuthorizationRequirementSpec ServerOperationEntry::authorization() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "authorization"));
 }
 som::SomList ServerOperationEntry::requestMembers() const {
   return som::SomList(doc(), som::joinPath(path(), "SVOPM-REQM-LST"), "SVOPM-REQM-xxx");
@@ -17258,6 +17333,9 @@ TabItemEntry::TabItemEntry(som::SpecDocument& doc, std::string path)
 TabItemEntryContentForm TabItemEntry::content() const {
   return TabItemEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
+AuthorizationRequirementSpec TabItemEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
+}
 
 TargetOperatingModel::TargetOperatingModel(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -19004,6 +19082,9 @@ UtilityMenuItemEntryActionForm UtilityMenuItemEntry::action() const {
 UtilityMenuItemEntryBehaviorForm UtilityMenuItemEntry::behavior() const {
   return UtilityMenuItemEntryBehaviorForm(doc(), som::joinPath(path(), "UMIEB"));
 }
+AuthorizationRequirementSpec UtilityMenuItemEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
+}
 
 UtilityNavigation::UtilityNavigation(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -19024,6 +19105,9 @@ UtilityNavigationItemEntryContentForm UtilityNavigationItemEntry::content() cons
 }
 UtilityNavigationItemEntryDisplayForm UtilityNavigationItemEntry::display() const {
   return UtilityNavigationItemEntryDisplayForm(doc(), som::joinPath(path(), "UNIED"));
+}
+AuthorizationRequirementSpec UtilityNavigationItemEntry::access() const {
+  return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 UtilityNavigationItemEntryBehaviorForm UtilityNavigationItemEntry::behavior() const {
   return UtilityNavigationItemEntryBehaviorForm(doc(), som::joinPath(path(), "UNIEB"));
@@ -24320,6 +24404,114 @@ std::string AuthorizationGroupEntryContentForm::membershipCriteria() const {
 }
 void AuthorizationGroupEntryContentForm::setMembershipCriteria(const std::string& value) {
   doc().setFormField(path(), "membershipCriteria", value);
+}
+
+AuthorizationRequirementSpecContentForm::AuthorizationRequirementSpecContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecContentForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecContentForm::requirementKind() const {
+  return doc().formField(path(), "requirementKind");
+}
+void AuthorizationRequirementSpecContentForm::setRequirementKind(const std::string& value) {
+  doc().setFormField(path(), "requirementKind", value);
+}
+std::string AuthorizationRequirementSpecContentForm::rationale() const {
+  return doc().formField(path(), "rationale");
+}
+void AuthorizationRequirementSpecContentForm::setRationale(const std::string& value) {
+  doc().setFormField(path(), "rationale", value);
+}
+
+AuthorizationRequirementSpecCustomRequirementForm::AuthorizationRequirementSpecCustomRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecCustomRequirementForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecCustomRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecCustomRequirementForm::handler() const {
+  return doc().formField(path(), "handler");
+}
+void AuthorizationRequirementSpecCustomRequirementForm::setHandler(const std::string& value) {
+  doc().setFormField(path(), "handler", value);
+}
+std::string AuthorizationRequirementSpecCustomRequirementForm::resourceId() const {
+  return doc().formField(path(), "resourceId");
+}
+void AuthorizationRequirementSpecCustomRequirementForm::setResourceId(const std::string& value) {
+  doc().setFormField(path(), "resourceId", value);
+}
+std::string AuthorizationRequirementSpecCustomRequirementForm::decisionRule() const {
+  return doc().formField(path(), "decisionRule");
+}
+void AuthorizationRequirementSpecCustomRequirementForm::setDecisionRule(const std::string& value) {
+  doc().setFormField(path(), "decisionRule", value);
+}
+
+AuthorizationRequirementSpecEntitlementRequirementForm::AuthorizationRequirementSpecEntitlementRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecEntitlementRequirementForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecEntitlementRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecEntitlementRequirementForm::patterns() const {
+  return doc().formField(path(), "patterns");
+}
+void AuthorizationRequirementSpecEntitlementRequirementForm::setPatterns(const std::string& value) {
+  doc().setFormField(path(), "patterns", value);
+}
+
+AuthorizationRequirementSpecGroupRequirementForm::AuthorizationRequirementSpecGroupRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecGroupRequirementForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecGroupRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecGroupRequirementForm::groups() const {
+  return doc().formField(path(), "groups");
+}
+void AuthorizationRequirementSpecGroupRequirementForm::setGroups(const std::string& value) {
+  doc().setFormField(path(), "groups", value);
+}
+
+AuthorizationRequirementSpecResourceKeyRequirementForm::AuthorizationRequirementSpecResourceKeyRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecResourceKeyRequirementForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecResourceKeyRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecResourceKeyRequirementForm::resourceKey() const {
+  return doc().formField(path(), "resourceKey");
+}
+void AuthorizationRequirementSpecResourceKeyRequirementForm::setResourceKey(const std::string& value) {
+  doc().setFormField(path(), "resourceKey", value);
+}
+
+AuthorizationRequirementSpecRoleRequirementForm::AuthorizationRequirementSpecRoleRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string AuthorizationRequirementSpecRoleRequirementForm::content() const {
+  return doc().content(path());
+}
+void AuthorizationRequirementSpecRoleRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string AuthorizationRequirementSpecRoleRequirementForm::roles() const {
+  return doc().formField(path(), "roles");
+}
+void AuthorizationRequirementSpecRoleRequirementForm::setRoles(const std::string& value) {
+  doc().setFormField(path(), "roles", value);
 }
 
 AuthorizationRoleEntryContentForm::AuthorizationRoleEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -42202,18 +42394,6 @@ std::string DeepLinkPatternEntryContentForm::description() const {
 void DeepLinkPatternEntryContentForm::setDescription(const std::string& value) {
   doc().setFormField(path(), "description", value);
 }
-std::string DeepLinkPatternEntryContentForm::authenticationRequired() const {
-  return doc().formField(path(), "authenticationRequired");
-}
-void DeepLinkPatternEntryContentForm::setAuthenticationRequired(const std::string& value) {
-  doc().setFormField(path(), "authenticationRequired", value);
-}
-std::string DeepLinkPatternEntryContentForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void DeepLinkPatternEntryContentForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
 std::string DeepLinkPatternEntryContentForm::fallbackRoute() const {
   return doc().formField(path(), "fallbackRoute");
 }
@@ -50896,42 +51076,30 @@ void ExportFieldMappingEntryTransformationForm::setValueMapping(const std::strin
   doc().setFormField(path(), "valueMapping", value);
 }
 
-ExportFormatEntryAccessForm::ExportFormatEntryAccessForm(som::SpecDocument& doc, std::string path)
+ExportFormatEntryAuditForm::ExportFormatEntryAuditForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
-std::string ExportFormatEntryAccessForm::content() const {
+std::string ExportFormatEntryAuditForm::content() const {
   return doc().content(path());
 }
-void ExportFormatEntryAccessForm::setContent(const std::string& value) {
+void ExportFormatEntryAuditForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string ExportFormatEntryAccessForm::accessLevel() const {
-  return doc().formField(path(), "accessLevel");
-}
-void ExportFormatEntryAccessForm::setAccessLevel(const std::string& value) {
-  doc().setFormField(path(), "accessLevel", value);
-}
-std::string ExportFormatEntryAccessForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void ExportFormatEntryAccessForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string ExportFormatEntryAccessForm::auditLogging() const {
+std::string ExportFormatEntryAuditForm::auditLogging() const {
   return doc().formField(path(), "auditLogging");
 }
-void ExportFormatEntryAccessForm::setAuditLogging(const std::string& value) {
+void ExportFormatEntryAuditForm::setAuditLogging(const std::string& value) {
   doc().setFormField(path(), "auditLogging", value);
 }
-std::string ExportFormatEntryAccessForm::previewAvailable() const {
+std::string ExportFormatEntryAuditForm::previewAvailable() const {
   return doc().formField(path(), "previewAvailable");
 }
-void ExportFormatEntryAccessForm::setPreviewAvailable(const std::string& value) {
+void ExportFormatEntryAuditForm::setPreviewAvailable(const std::string& value) {
   doc().setFormField(path(), "previewAvailable", value);
 }
-std::string ExportFormatEntryAccessForm::notes() const {
+std::string ExportFormatEntryAuditForm::notes() const {
   return doc().formField(path(), "notes");
 }
-void ExportFormatEntryAccessForm::setNotes(const std::string& value) {
+void ExportFormatEntryAuditForm::setNotes(const std::string& value) {
   doc().setFormField(path(), "notes", value);
 }
 
@@ -51195,45 +51363,6 @@ void ExportSizeSettingsContentForm::setSplitThreshold(const std::string& value) 
   doc().setFormField(path(), "splitThreshold", value);
 }
 
-ExportTemplateEntryAccessForm::ExportTemplateEntryAccessForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ExportTemplateEntryAccessForm::content() const {
-  return doc().content(path());
-}
-void ExportTemplateEntryAccessForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string ExportTemplateEntryAccessForm::accessLevel() const {
-  return doc().formField(path(), "accessLevel");
-}
-void ExportTemplateEntryAccessForm::setAccessLevel(const std::string& value) {
-  doc().setFormField(path(), "accessLevel", value);
-}
-std::string ExportTemplateEntryAccessForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void ExportTemplateEntryAccessForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string ExportTemplateEntryAccessForm::reusableAcrossReports() const {
-  return doc().formField(path(), "reusableAcrossReports");
-}
-void ExportTemplateEntryAccessForm::setReusableAcrossReports(const std::string& value) {
-  doc().setFormField(path(), "reusableAcrossReports", value);
-}
-std::string ExportTemplateEntryAccessForm::version() const {
-  return doc().formField(path(), "version");
-}
-void ExportTemplateEntryAccessForm::setVersion(const std::string& value) {
-  doc().setFormField(path(), "version", value);
-}
-std::string ExportTemplateEntryAccessForm::notes() const {
-  return doc().formField(path(), "notes");
-}
-void ExportTemplateEntryAccessForm::setNotes(const std::string& value) {
-  doc().setFormField(path(), "notes", value);
-}
-
 ExportTemplateEntryContentForm::ExportTemplateEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string ExportTemplateEntryContentForm::content() const {
@@ -51370,6 +51499,33 @@ std::string ExportTemplateEntryLayoutForm::compressionFormat() const {
 }
 void ExportTemplateEntryLayoutForm::setCompressionFormat(const std::string& value) {
   doc().setFormField(path(), "compressionFormat", value);
+}
+
+ExportTemplateEntryMetadataForm::ExportTemplateEntryMetadataForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string ExportTemplateEntryMetadataForm::content() const {
+  return doc().content(path());
+}
+void ExportTemplateEntryMetadataForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string ExportTemplateEntryMetadataForm::reusableAcrossReports() const {
+  return doc().formField(path(), "reusableAcrossReports");
+}
+void ExportTemplateEntryMetadataForm::setReusableAcrossReports(const std::string& value) {
+  doc().setFormField(path(), "reusableAcrossReports", value);
+}
+std::string ExportTemplateEntryMetadataForm::version() const {
+  return doc().formField(path(), "version");
+}
+void ExportTemplateEntryMetadataForm::setVersion(const std::string& value) {
+  doc().setFormField(path(), "version", value);
+}
+std::string ExportTemplateEntryMetadataForm::notes() const {
+  return doc().formField(path(), "notes");
+}
+void ExportTemplateEntryMetadataForm::setNotes(const std::string& value) {
+  doc().setFormField(path(), "notes", value);
 }
 
 ExtensionEntryContentForm::ExtensionEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -55367,6 +55523,129 @@ std::string GovernanceModelContentForm::reportingFrequency() const {
 }
 void GovernanceModelContentForm::setReportingFrequency(const std::string& value) {
   doc().setFormField(path(), "reportingFrequency", value);
+}
+
+GradedAccessLevelEntryContentForm::GradedAccessLevelEntryContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryContentForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryContentForm::accessLevel() const {
+  return doc().formField(path(), "accessLevel");
+}
+void GradedAccessLevelEntryContentForm::setAccessLevel(const std::string& value) {
+  doc().setFormField(path(), "accessLevel", value);
+}
+std::string GradedAccessLevelEntryContentForm::requirementKind() const {
+  return doc().formField(path(), "requirementKind");
+}
+void GradedAccessLevelEntryContentForm::setRequirementKind(const std::string& value) {
+  doc().setFormField(path(), "requirementKind", value);
+}
+
+GradedAccessLevelEntryCustomRequirementForm::GradedAccessLevelEntryCustomRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryCustomRequirementForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryCustomRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryCustomRequirementForm::handler() const {
+  return doc().formField(path(), "handler");
+}
+void GradedAccessLevelEntryCustomRequirementForm::setHandler(const std::string& value) {
+  doc().setFormField(path(), "handler", value);
+}
+std::string GradedAccessLevelEntryCustomRequirementForm::resourceId() const {
+  return doc().formField(path(), "resourceId");
+}
+void GradedAccessLevelEntryCustomRequirementForm::setResourceId(const std::string& value) {
+  doc().setFormField(path(), "resourceId", value);
+}
+std::string GradedAccessLevelEntryCustomRequirementForm::decisionRule() const {
+  return doc().formField(path(), "decisionRule");
+}
+void GradedAccessLevelEntryCustomRequirementForm::setDecisionRule(const std::string& value) {
+  doc().setFormField(path(), "decisionRule", value);
+}
+
+GradedAccessLevelEntryEntitlementRequirementForm::GradedAccessLevelEntryEntitlementRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryEntitlementRequirementForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryEntitlementRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryEntitlementRequirementForm::patterns() const {
+  return doc().formField(path(), "patterns");
+}
+void GradedAccessLevelEntryEntitlementRequirementForm::setPatterns(const std::string& value) {
+  doc().setFormField(path(), "patterns", value);
+}
+
+GradedAccessLevelEntryGroupRequirementForm::GradedAccessLevelEntryGroupRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryGroupRequirementForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryGroupRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryGroupRequirementForm::groups() const {
+  return doc().formField(path(), "groups");
+}
+void GradedAccessLevelEntryGroupRequirementForm::setGroups(const std::string& value) {
+  doc().setFormField(path(), "groups", value);
+}
+
+GradedAccessLevelEntryResourceKeyRequirementForm::GradedAccessLevelEntryResourceKeyRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryResourceKeyRequirementForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryResourceKeyRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryResourceKeyRequirementForm::resourceKey() const {
+  return doc().formField(path(), "resourceKey");
+}
+void GradedAccessLevelEntryResourceKeyRequirementForm::setResourceKey(const std::string& value) {
+  doc().setFormField(path(), "resourceKey", value);
+}
+
+GradedAccessLevelEntryRoleRequirementForm::GradedAccessLevelEntryRoleRequirementForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAccessLevelEntryRoleRequirementForm::content() const {
+  return doc().content(path());
+}
+void GradedAccessLevelEntryRoleRequirementForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAccessLevelEntryRoleRequirementForm::roles() const {
+  return doc().formField(path(), "roles");
+}
+void GradedAccessLevelEntryRoleRequirementForm::setRoles(const std::string& value) {
+  doc().setFormField(path(), "roles", value);
+}
+
+GradedAuthorizationRequirementContentForm::GradedAuthorizationRequirementContentForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string GradedAuthorizationRequirementContentForm::content() const {
+  return doc().content(path());
+}
+void GradedAuthorizationRequirementContentForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string GradedAuthorizationRequirementContentForm::gradingRationale() const {
+  return doc().formField(path(), "gradingRationale");
+}
+void GradedAuthorizationRequirementContentForm::setGradingRationale(const std::string& value) {
+  doc().setFormField(path(), "gradingRationale", value);
 }
 
 HandlingRequirementEntryContentForm::HandlingRequirementEntryContentForm(som::SpecDocument& doc, std::string path)
@@ -68511,33 +68790,6 @@ void NativeAppRequirementsVersionsForm::setCompileSdkVersion(const std::string& 
   doc().setFormField(path(), "compileSdkVersion", value);
 }
 
-NavigationGroupEntryAccessForm::NavigationGroupEntryAccessForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string NavigationGroupEntryAccessForm::content() const {
-  return doc().content(path());
-}
-void NavigationGroupEntryAccessForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string NavigationGroupEntryAccessForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void NavigationGroupEntryAccessForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string NavigationGroupEntryAccessForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void NavigationGroupEntryAccessForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
-std::string NavigationGroupEntryAccessForm::permissionBehavior() const {
-  return doc().formField(path(), "permissionBehavior");
-}
-void NavigationGroupEntryAccessForm::setPermissionBehavior(const std::string& value) {
-  doc().setFormField(path(), "permissionBehavior", value);
-}
-
 NavigationGroupEntryContentForm::NavigationGroupEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string NavigationGroupEntryContentForm::content() const {
@@ -68740,45 +68992,6 @@ void NavigationGuardEntryRoutingForm::setPriority(std::optional<long> value) {
   doc().setFormField(path(), "priority", value.has_value() ? std::to_string(*value) : "");
 }
 
-NavigationItemEntryAccessForm::NavigationItemEntryAccessForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string NavigationItemEntryAccessForm::content() const {
-  return doc().content(path());
-}
-void NavigationItemEntryAccessForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string NavigationItemEntryAccessForm::visibilityCondition() const {
-  return doc().formField(path(), "visibilityCondition");
-}
-void NavigationItemEntryAccessForm::setVisibilityCondition(const std::string& value) {
-  doc().setFormField(path(), "visibilityCondition", value);
-}
-std::string NavigationItemEntryAccessForm::enabledCondition() const {
-  return doc().formField(path(), "enabledCondition");
-}
-void NavigationItemEntryAccessForm::setEnabledCondition(const std::string& value) {
-  doc().setFormField(path(), "enabledCondition", value);
-}
-std::string NavigationItemEntryAccessForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void NavigationItemEntryAccessForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string NavigationItemEntryAccessForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void NavigationItemEntryAccessForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
-std::string NavigationItemEntryAccessForm::permissionBehavior() const {
-  return doc().formField(path(), "permissionBehavior");
-}
-void NavigationItemEntryAccessForm::setPermissionBehavior(const std::string& value) {
-  doc().setFormField(path(), "permissionBehavior", value);
-}
-
 NavigationItemEntryBadgeForm::NavigationItemEntryBadgeForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 std::string NavigationItemEntryBadgeForm::content() const {
@@ -68932,6 +69145,27 @@ std::string NavigationItemEntryRoutingForm::isDefault() const {
 }
 void NavigationItemEntryRoutingForm::setIsDefault(const std::string& value) {
   doc().setFormField(path(), "isDefault", value);
+}
+
+NavigationItemEntryVisibilityForm::NavigationItemEntryVisibilityForm(som::SpecDocument& doc, std::string path)
+    : som::SomNode(doc, std::move(path)) {}
+std::string NavigationItemEntryVisibilityForm::content() const {
+  return doc().content(path());
+}
+void NavigationItemEntryVisibilityForm::setContent(const std::string& value) {
+  doc().setContent(path(), value);
+}
+std::string NavigationItemEntryVisibilityForm::visibilityCondition() const {
+  return doc().formField(path(), "visibilityCondition");
+}
+void NavigationItemEntryVisibilityForm::setVisibilityCondition(const std::string& value) {
+  doc().setFormField(path(), "visibilityCondition", value);
+}
+std::string NavigationItemEntryVisibilityForm::enabledCondition() const {
+  return doc().formField(path(), "enabledCondition");
+}
+void NavigationItemEntryVisibilityForm::setEnabledCondition(const std::string& value) {
+  doc().setFormField(path(), "enabledCondition", value);
 }
 
 NavigationOverviewContentForm::NavigationOverviewContentForm(som::SpecDocument& doc, std::string path)
@@ -82907,18 +83141,6 @@ std::string ReportEntrySecurityForm::brandingOverride() const {
 void ReportEntrySecurityForm::setBrandingOverride(const std::string& value) {
   doc().setFormField(path(), "brandingOverride", value);
 }
-std::string ReportEntrySecurityForm::accessLevel() const {
-  return doc().formField(path(), "accessLevel");
-}
-void ReportEntrySecurityForm::setAccessLevel(const std::string& value) {
-  doc().setFormField(path(), "accessLevel", value);
-}
-std::string ReportEntrySecurityForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void ReportEntrySecurityForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
 std::string ReportEntrySecurityForm::dataLevelSecurity() const {
   return doc().formField(path(), "dataLevelSecurity");
 }
@@ -89662,18 +89884,6 @@ std::string ScreenElementEntryBehaviorForm::readonlyCondition() const {
 void ScreenElementEntryBehaviorForm::setReadonlyCondition(const std::string& value) {
   doc().setFormField(path(), "readonlyCondition", value);
 }
-std::string ScreenElementEntryBehaviorForm::requiredPermission() const {
-  return doc().formField(path(), "requiredPermission");
-}
-void ScreenElementEntryBehaviorForm::setRequiredPermission(const std::string& value) {
-  doc().setFormField(path(), "requiredPermission", value);
-}
-std::string ScreenElementEntryBehaviorForm::permissionEffect() const {
-  return doc().formField(path(), "permissionEffect");
-}
-void ScreenElementEntryBehaviorForm::setPermissionEffect(const std::string& value) {
-  doc().setFormField(path(), "permissionEffect", value);
-}
 
 ScreenElementEntryContentForm::ScreenElementEntryContentForm(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
@@ -90053,39 +90263,6 @@ std::string ScreenElementFieldSpecValidationForm::clearButton() const {
 }
 void ScreenElementFieldSpecValidationForm::setClearButton(const std::string& value) {
   doc().setFormField(path(), "clearButton", value);
-}
-
-ScreenEntryAccessForm::ScreenEntryAccessForm(som::SpecDocument& doc, std::string path)
-    : som::SomNode(doc, std::move(path)) {}
-std::string ScreenEntryAccessForm::content() const {
-  return doc().content(path());
-}
-void ScreenEntryAccessForm::setContent(const std::string& value) {
-  doc().setContent(path(), value);
-}
-std::string ScreenEntryAccessForm::accessLevel() const {
-  return doc().formField(path(), "accessLevel");
-}
-void ScreenEntryAccessForm::setAccessLevel(const std::string& value) {
-  doc().setFormField(path(), "accessLevel", value);
-}
-std::string ScreenEntryAccessForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void ScreenEntryAccessForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string ScreenEntryAccessForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void ScreenEntryAccessForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
-std::string ScreenEntryAccessForm::permissionEffect() const {
-  return doc().formField(path(), "permissionEffect");
-}
-void ScreenEntryAccessForm::setPermissionEffect(const std::string& value) {
-  doc().setFormField(path(), "permissionEffect", value);
 }
 
 ScreenEntryClassificationForm::ScreenEntryClassificationForm(som::SpecDocument& doc, std::string path)
@@ -92720,24 +92897,6 @@ std::string ServerOperationEntryContentForm::primaryDataEntity() const {
 }
 void ServerOperationEntryContentForm::setPrimaryDataEntity(const std::string& value) {
   doc().setFormField(path(), "primaryDataEntity", value);
-}
-std::string ServerOperationEntryContentForm::authorizationRequirement() const {
-  return doc().formField(path(), "authorizationRequirement");
-}
-void ServerOperationEntryContentForm::setAuthorizationRequirement(const std::string& value) {
-  doc().setFormField(path(), "authorizationRequirement", value);
-}
-std::string ServerOperationEntryContentForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void ServerOperationEntryContentForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
-}
-std::string ServerOperationEntryContentForm::requiredResourceKey() const {
-  return doc().formField(path(), "requiredResourceKey");
-}
-void ServerOperationEntryContentForm::setRequiredResourceKey(const std::string& value) {
-  doc().setFormField(path(), "requiredResourceKey", value);
 }
 std::string ServerOperationEntryContentForm::descriptionKey() const {
   return doc().formField(path(), "descriptionKey");
@@ -102125,18 +102284,6 @@ std::string TabItemEntryContentForm::visibilityCondition() const {
 void TabItemEntryContentForm::setVisibilityCondition(const std::string& value) {
   doc().setFormField(path(), "visibilityCondition", value);
 }
-std::string TabItemEntryContentForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void TabItemEntryContentForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
-std::string TabItemEntryContentForm::permissionBehavior() const {
-  return doc().formField(path(), "permissionBehavior");
-}
-void TabItemEntryContentForm::setPermissionBehavior(const std::string& value) {
-  doc().setFormField(path(), "permissionBehavior", value);
-}
 std::string TabItemEntryContentForm::badgeType() const {
   return doc().formField(path(), "badgeType");
 }
@@ -111365,12 +111512,6 @@ std::string UtilityMenuItemEntryBehaviorForm::visibilityCondition() const {
 void UtilityMenuItemEntryBehaviorForm::setVisibilityCondition(const std::string& value) {
   doc().setFormField(path(), "visibilityCondition", value);
 }
-std::string UtilityMenuItemEntryBehaviorForm::requiredPermissions() const {
-  return doc().formField(path(), "requiredPermissions");
-}
-void UtilityMenuItemEntryBehaviorForm::setRequiredPermissions(const std::string& value) {
-  doc().setFormField(path(), "requiredPermissions", value);
-}
 std::string UtilityMenuItemEntryBehaviorForm::isDangerous() const {
   return doc().formField(path(), "isDangerous");
 }
@@ -111512,12 +111653,6 @@ std::string UtilityNavigationItemEntryDisplayForm::visibilityCondition() const {
 }
 void UtilityNavigationItemEntryDisplayForm::setVisibilityCondition(const std::string& value) {
   doc().setFormField(path(), "visibilityCondition", value);
-}
-std::string UtilityNavigationItemEntryDisplayForm::requiredRoles() const {
-  return doc().formField(path(), "requiredRoles");
-}
-void UtilityNavigationItemEntryDisplayForm::setRequiredRoles(const std::string& value) {
-  doc().setFormField(path(), "requiredRoles", value);
 }
 
 ValidationFeedbackBehaviorForm::ValidationFeedbackBehaviorForm(som::SpecDocument& doc, std::string path)

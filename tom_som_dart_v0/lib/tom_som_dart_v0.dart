@@ -6,6 +6,51 @@ import 'package:tom_som_dart_runtime/tom_som_dart_runtime.dart';
 import 'tom_som_dart_v0_meta.dart';
 export 'tom_som_dart_v0_meta.dart';
 
+/// Generated enum for `AuthorizationRequirementKind` values.
+enum AuthorizationRequirementKind {
+  role,
+  group,
+  entitlement,
+  resourceKey,
+  custom,
+  graded,
+  denied,
+  public,
+  authenticated,
+  guest;
+}
+
+/// Parses a stored token into a [AuthorizationRequirementKind], or `null`.
+AuthorizationRequirementKind? _parseAuthorizationRequirementKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in AuthorizationRequirementKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `BasicAuthorizationRequirementKind` values.
+enum BasicAuthorizationRequirementKind {
+  role,
+  group,
+  entitlement,
+  resourceKey,
+  custom,
+  denied,
+  public,
+  authenticated,
+  guest;
+}
+
+/// Parses a stored token into a [BasicAuthorizationRequirementKind], or `null`.
+BasicAuthorizationRequirementKind? _parseBasicAuthorizationRequirementKind(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in BasicAuthorizationRequirementKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
 /// Generated enum for `ClientApplicationKind` values.
 enum ClientApplicationKind {
   graphicalApplication,
@@ -61,6 +106,22 @@ enum ExportFieldKind {
 ExportFieldKind? _parseExportFieldKind(String? token) {
   if (token == null || token.isEmpty) return null;
   for (final v in ExportFieldKind.values) {
+    if (v.name == token) return v;
+  }
+  return null;
+}
+
+/// Generated enum for `GradedAccessLevel` values.
+enum GradedAccessLevel {
+  full,
+  read,
+  disabled;
+}
+
+/// Parses a stored token into a [GradedAccessLevel], or `null`.
+GradedAccessLevel? _parseGradedAccessLevel(String? token) {
+  if (token == null || token.isEmpty) return null;
+  for (final v in GradedAccessLevel.values) {
     if (v.name == token) return v;
   }
   return null;
@@ -1888,6 +1949,36 @@ class AuthorizationModel extends SomNode {
 
   /// Authorization Model Notes (text).
   // (skipped: authorizationModelNotes has no target type)
+}
+
+/// What a caller must satisfy to reach the thing this section modifies
+/// (`codespecs_mapping.md` §5.15).
+/// 
+/// Embed this section wherever a guarded thing is authored — do not restate its
+/// fields inline. The kind selects at most one payload subsection; the four
+/// presets select none, which is why four of the ten arms bind no case.
+class AuthorizationRequirementSpec extends SomNode {
+  AuthorizationRequirementSpec(super.doc, super.path);
+
+  AuthorizationRequirementSpecContentForm get content => AuthorizationRequirementSpecContentForm(doc, '$path/content');
+
+  /// Role requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecRoleRequirementForm get roleRequirement => AuthorizationRequirementSpecRoleRequirementForm(doc, '$path/AZREQ-ROLE');
+
+  /// Group requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecGroupRequirementForm get groupRequirement => AuthorizationRequirementSpecGroupRequirementForm(doc, '$path/AZREQ-GRUP');
+
+  /// Entitlement requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecEntitlementRequirementForm get entitlementRequirement => AuthorizationRequirementSpecEntitlementRequirementForm(doc, '$path/AZREQ-ENTL');
+
+  /// Resource-key requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecResourceKeyRequirementForm get resourceKeyRequirement => AuthorizationRequirementSpecResourceKeyRequirementForm(doc, '$path/AZREQ-RKEY');
+
+  /// Custom requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecCustomRequirementForm get customRequirement => AuthorizationRequirementSpecCustomRequirementForm(doc, '$path/AZREQ-CUST');
+
+  /// Graded requirement payload — a promoted `@OneOf` case.
+  GradedAuthorizationRequirement get gradedRequirement => GradedAuthorizationRequirement(doc, '$path/gradedRequirement');
 }
 
 /// An authorization role entry (form).
@@ -7473,6 +7564,13 @@ class DeepLinkPatternEntry extends SomNode {
   DeepLinkPatternEntry(super.doc, super.path);
 
   DeepLinkPatternEntryContentForm get content => DeepLinkPatternEntryContentForm(doc, '$path/content');
+
+  /// Access control — what a caller must satisfy to follow this deep link.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`). Authoring the
+  /// Authenticated kind is what makes an unauthenticated visitor redirect to
+  /// sign-in; there is no separate authentication-required flag.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 }
 
 /// 10.3.1.7. Deep Linking.
@@ -9752,7 +9850,12 @@ class ExportFormatEntry extends SomNode {
   ExportFormatEntryOutputForm get output => ExportFormatEntryOutputForm(doc, '$path/EXOU');
 
   /// Access and audit.
-  ExportFormatEntryAccessForm get access => ExportFormatEntryAccessForm(doc, '$path/EXAC');
+  ExportFormatEntryAuditForm get audit => ExportFormatEntryAuditForm(doc, '$path/EXAC');
+
+  /// Access control — what a caller must satisfy to run this export.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Contains 0+× Export Field Mapping.
   SomList<ExportFieldMappingEntry> get fieldMappings => SomList<ExportFieldMappingEntry>(doc, '$path/EFME-FIEL-LST', (d, p) => ExportFieldMappingEntry(d, p), pattern: 'EFME-FIEL-xxx');
@@ -9781,7 +9884,12 @@ class ExportTemplateEntry extends SomNode {
   ExportTemplateEntryLayoutForm get layout => ExportTemplateEntryLayoutForm(doc, '$path/ETEL');
 
   /// Access and metadata.
-  ExportTemplateEntryAccessForm get access => ExportTemplateEntryAccessForm(doc, '$path/ETEA');
+  ExportTemplateEntryMetadataForm get metadata => ExportTemplateEntryMetadataForm(doc, '$path/ETEA');
+
+  /// Access control — what a caller must satisfy to use this template.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 }
 
 /// An extension entry.
@@ -10888,6 +10996,60 @@ class GovernanceModel extends SomNode {
 
   /// Decision authority matrix.
   SomList<DecisionAuthorityEntry> get decisionAuthorities => SomList<DecisionAuthorityEntry>(doc, '$path/DCAUT-DECI-LST', (d, p) => DecisionAuthorityEntry(d, p), pattern: 'DCAUT-DECI-xxx');
+}
+
+/// One rung of a graded access ladder: an access state and the non-graded
+/// requirement that earns it (`codespecs_mapping.md` §5.15).
+/// 
+/// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+/// See [GradedAuthorizationRequirement] for why that bound exists and why the
+/// case forms are restated rather than shared.
+class GradedAccessLevelEntry extends SomNode {
+  GradedAccessLevelEntry(super.doc, super.path);
+
+  GradedAccessLevelEntryContentForm get content => GradedAccessLevelEntryContentForm(doc, '$path/content');
+
+  /// Role requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryRoleRequirementForm get roleRequirement => GradedAccessLevelEntryRoleRequirementForm(doc, '$path/AZLVL-ROLE');
+
+  /// Group requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryGroupRequirementForm get groupRequirement => GradedAccessLevelEntryGroupRequirementForm(doc, '$path/AZLVL-GRUP');
+
+  /// Entitlement requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryEntitlementRequirementForm get entitlementRequirement => GradedAccessLevelEntryEntitlementRequirementForm(doc, '$path/AZLVL-ENTL');
+
+  /// Resource-key requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryResourceKeyRequirementForm get resourceKeyRequirement => GradedAccessLevelEntryResourceKeyRequirementForm(doc, '$path/AZLVL-RKEY');
+
+  /// Custom requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryCustomRequirementForm get customRequirement => GradedAccessLevelEntryCustomRequirementForm(doc, '$path/AZLVL-CUST');
+}
+
+/// A graded requirement: what a caller must satisfy for each access state
+/// (`codespecs_mapping.md` §5.15).
+/// 
+/// **Why a level takes a [GradedAccessLevelEntry] and not an
+/// [AuthorizationRequirementSpec].** A graded level whose requirement could
+/// itself be graded would make the model structurally cyclic, and
+/// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+/// outliner, the serializers and the nine generated language runtimes all walk
+/// the class graph as a tree. Bounding the depth at one level is not a
+/// workaround for that constraint: a graded thing resolves to one of four
+/// *terminal* access states, so nesting a second grading inside a level has
+/// nothing left to resolve to.
+/// 
+/// The price is that [GradedAccessLevelEntry] restates five of
+/// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+/// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+/// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+/// reintroduces the cycle.
+class GradedAuthorizationRequirement extends SomNode {
+  GradedAuthorizationRequirement(super.doc, super.path);
+
+  GradedAuthorizationRequirementContentForm get content => GradedAuthorizationRequirementContentForm(doc, '$path/content');
+
+  /// The authored rungs of the ladder — contains 1..3× Graded Access Level.
+  SomList<GradedAccessLevelEntry> get accessLevels => SomList<GradedAccessLevelEntry>(doc, '$path/AZLVL-LEVE-LST', (d, p) => GradedAccessLevelEntry(d, p), pattern: 'AZLVL-LEVE-xxx');
 }
 
 /// A data handling requirement entry (form).
@@ -13934,8 +14096,13 @@ class NavigationGroupEntry extends SomNode {
   /// Display and expansion behavior.
   NavigationGroupEntryDisplayForm get display => NavigationGroupEntryDisplayForm(doc, '$path/NGED');
 
-  /// Access-control settings.
-  NavigationGroupEntryAccessForm get access => NavigationGroupEntryAccessForm(doc, '$path/NGEA');
+  /// Access control — what a caller must satisfy to see this navigation group.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`). A group that should be
+  /// visible-but-locked rather than hidden authors the Graded kind; the
+  /// hide/disable rendering follows from the access state and is not authored
+  /// here.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Badge and hierarchy settings.
   NavigationGroupEntryStructureForm get structure => NavigationGroupEntryStructureForm(doc, '$path/NGES');
@@ -14009,8 +14176,18 @@ class NavigationItemEntry extends SomNode {
   /// Routing configuration.
   NavigationItemEntryRoutingForm get routing => NavigationItemEntryRoutingForm(doc, '$path/NIER');
 
-  /// Access control settings.
-  NavigationItemEntryAccessForm get access => NavigationItemEntryAccessForm(doc, '$path/NIEA');
+  /// Business conditions governing when the item is shown and interactive.
+  /// 
+  /// These are *business* conditions, not authorization — who may reach the
+  /// item is authored in [access]. A condition here narrows an item the caller
+  /// is already authorized for.
+  NavigationItemEntryVisibilityForm get visibility => NavigationItemEntryVisibilityForm(doc, '$path/NIEA');
+
+  /// Access control — what a caller must satisfy to reach this item.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`). An item that should be
+  /// shown locked rather than hidden authors the Graded kind.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Badge configuration.
   NavigationItemEntryBadgeForm get badge => NavigationItemEntryBadgeForm(doc, '$path/NIEB');
@@ -17288,6 +17465,11 @@ class ReportEntry extends SomNode {
   /// Security and access.
   ReportEntrySecurityForm get security => ReportEntrySecurityForm(doc, '$path/RESE');
 
+  /// Access control — what a caller must satisfy to generate this report.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
+
   /// Lifecycle and archiving.
   ReportEntryLifecycleForm get lifecycle => ReportEntryLifecycleForm(doc, '$path/RELI');
 
@@ -18981,8 +19163,19 @@ class ScreenElementEntry extends SomNode {
   /// Placement and layout settings.
   ScreenElementEntryLayoutForm get layout => ScreenElementEntryLayoutForm(doc, '$path/SCELENLA');
 
-  /// Visibility and permission rules.
+  /// Visibility and enablement rules.
+  /// 
+  /// These are *business* conditions on an element the caller is already
+  /// authorized for. Who may see or use it at all is [access].
   ScreenElementEntryBehaviorForm get behavior => ScreenElementEntryBehaviorForm(doc, '$path/SEEB');
+
+  /// Access control — what a caller must satisfy to see or use this element.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`). An element whose access
+  /// has degrees — hidden, locked, read-only, interactive — authors the Graded
+  /// kind, which is what the old free-text permission-effect field was trying
+  /// to say.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Styling and data binding.
   ScreenElementEntryPresentationForm get presentation => ScreenElementEntryPresentationForm(doc, '$path/SCELENPR');
@@ -19066,8 +19259,13 @@ class ScreenEntry extends SomNode {
   /// Classification and routing metadata.
   ScreenEntryClassificationForm get classification => ScreenEntryClassificationForm(doc, '$path/SCECL');
 
-  /// Access control settings.
-  ScreenEntryAccessForm get access => ScreenEntryAccessForm(doc, '$path/SCEAC');
+  /// Access control — what a caller must satisfy to reach this screen.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+  /// restatement. A screen that is graded rather than simply reachable authors
+  /// the Graded kind; how each access state renders is fixed by the framework
+  /// and is not authored here.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Traceability metadata.
   ScreenEntryTraceabilityForm get traceability => ScreenEntryTraceabilityForm(doc, '$path/SCETR');
@@ -19870,6 +20068,14 @@ class ServerOperationEntry extends SomNode {
   ServerOperationEntry(super.doc, super.path);
 
   ServerOperationEntryContentForm get content => ServerOperationEntryContentForm(doc, '$path/content');
+
+  /// 7.9.x. Authorization — what a caller must satisfy to invoke this
+  /// operation.
+  /// 
+  /// The shared CE-AZ requirement section, not a per-operation restatement.
+  /// There is no default: an operation with no requirement authored is a
+  /// specification defect.
+  AuthorizationRequirementSpec get authorization => AuthorizationRequirementSpec(doc, '$path/authorization');
 
   /// 7.9.x. Request Members — the members that make up the request shape.
   SomList<ServerOperationMemberEntry> get requestMembers => SomList<ServerOperationMemberEntry>(doc, '$path/SVOPM-REQM-LST', (d, p) => ServerOperationMemberEntry(d, p), pattern: 'SVOPM-REQM-xxx');
@@ -22336,6 +22542,12 @@ class TabItemEntry extends SomNode {
   TabItemEntry(super.doc, super.path);
 
   TabItemEntryContentForm get content => TabItemEntryContentForm(doc, '$path/content');
+
+  /// Access control — what a caller must satisfy to reach this tab.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+  /// disabled rather than hidden authors the Graded kind.
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 }
 
 /// SBP.7 Target Operating Model concept.
@@ -24585,6 +24797,11 @@ class UtilityMenuItemEntry extends SomNode {
 
   /// Visibility and confirmation behavior.
   UtilityMenuItemEntryBehaviorForm get behavior => UtilityMenuItemEntryBehaviorForm(doc, '$path/UMIEB');
+
+  /// Access control — what a caller must satisfy to use this menu item.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 }
 
 /// 10.3.1.5. Utility Navigation.
@@ -24612,8 +24829,13 @@ class UtilityNavigationItemEntry extends SomNode {
 
   UtilityNavigationItemEntryContentForm get content => UtilityNavigationItemEntryContentForm(doc, '$path/content');
 
-  /// Ordering, rendering, and access rules.
+  /// Ordering and rendering.
   UtilityNavigationItemEntryDisplayForm get display => UtilityNavigationItemEntryDisplayForm(doc, '$path/UNIED');
+
+  /// Access control — what a caller must satisfy to reach this utility item.
+  /// 
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec get access => AuthorizationRequirementSpec(doc, '$path/access');
 
   /// Badge and interaction behavior.
   UtilityNavigationItemEntryBehaviorForm get behavior => UtilityNavigationItemEntryBehaviorForm(doc, '$path/UNIEB');
@@ -28658,6 +28880,111 @@ class AuthorizationGroupEntryContentForm extends SomNode {
 
   String get membershipCriteria => doc.formField(path, 'membershipCriteria') ?? '';
   set membershipCriteria(String value) => doc.setFormField(path, 'membershipCriteria', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecContentForm extends SomNode {
+  AuthorizationRequirementSpecContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  AuthorizationRequirementKind? get requirementKind => _parseAuthorizationRequirementKind(doc.formField(path, 'requirementKind'));
+  set requirementKind(AuthorizationRequirementKind? value) => doc.setFormField(path, 'requirementKind', value?.name ?? '');
+
+  String get rationale => doc.formField(path, 'rationale') ?? '';
+  set rationale(String value) => doc.setFormField(path, 'rationale', value);
+}
+
+/// Generated section facade for the `customRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
+  AuthorizationRequirementSpecCustomRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get handler => doc.formField(path, 'handler') ?? '';
+  set handler(String value) => doc.setFormField(path, 'handler', value);
+
+  String get resourceId => doc.formField(path, 'resourceId') ?? '';
+  set resourceId(String value) => doc.setFormField(path, 'resourceId', value);
+
+  String get decisionRule => doc.formField(path, 'decisionRule') ?? '';
+  set decisionRule(String value) => doc.setFormField(path, 'decisionRule', value);
+}
+
+/// Generated section facade for the `entitlementRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecEntitlementRequirementForm extends SomNode {
+  AuthorizationRequirementSpecEntitlementRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get patterns => doc.formField(path, 'patterns') ?? '';
+  set patterns(String value) => doc.setFormField(path, 'patterns', value);
+}
+
+/// Generated section facade for the `groupRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecGroupRequirementForm extends SomNode {
+  AuthorizationRequirementSpecGroupRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get groups => doc.formField(path, 'groups') ?? '';
+  set groups(String value) => doc.setFormField(path, 'groups', value);
+}
+
+/// Generated section facade for the `resourceKeyRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecResourceKeyRequirementForm extends SomNode {
+  AuthorizationRequirementSpecResourceKeyRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get resourceKey => doc.formField(path, 'resourceKey') ?? '';
+  set resourceKey(String value) => doc.setFormField(path, 'resourceKey', value);
+}
+
+/// Generated section facade for the `roleRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecRoleRequirementForm extends SomNode {
+  AuthorizationRequirementSpecRoleRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get roles => doc.formField(path, 'roles') ?? '';
+  set roles(String value) => doc.setFormField(path, 'roles', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -42015,12 +42342,6 @@ class DeepLinkPatternEntryContentForm extends SomNode {
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
-  String get authenticationRequired => doc.formField(path, 'authenticationRequired') ?? '';
-  set authenticationRequired(String value) => doc.setFormField(path, 'authenticationRequired', value);
-
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
   String get fallbackRoute => doc.formField(path, 'fallbackRoute') ?? '';
   set fallbackRoute(String value) => doc.setFormField(path, 'fallbackRoute', value);
 
@@ -48519,10 +48840,10 @@ class ExportFieldMappingEntryTransformationForm extends SomNode {
   set valueMapping(String value) => doc.setFormField(path, 'valueMapping', value);
 }
 
-/// Generated section facade for the `access` `@Form` section:
+/// Generated section facade for the `audit` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
-class ExportFormatEntryAccessForm extends SomNode {
-  ExportFormatEntryAccessForm(super.doc, super.path);
+class ExportFormatEntryAuditForm extends SomNode {
+  ExportFormatEntryAuditForm(super.doc, super.path);
 
   @override
   bool get canHaveContent => true;
@@ -48530,12 +48851,6 @@ class ExportFormatEntryAccessForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get accessLevel => doc.formField(path, 'accessLevel') ?? '';
-  set accessLevel(String value) => doc.setFormField(path, 'accessLevel', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
 
   String get auditLogging => doc.formField(path, 'auditLogging') ?? '';
   set auditLogging(String value) => doc.setFormField(path, 'auditLogging', value);
@@ -48744,34 +49059,6 @@ class ExportSizeSettingsContentForm extends SomNode {
   set splitThreshold(String value) => doc.setFormField(path, 'splitThreshold', value);
 }
 
-/// Generated section facade for the `access` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class ExportTemplateEntryAccessForm extends SomNode {
-  ExportTemplateEntryAccessForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  String get accessLevel => doc.formField(path, 'accessLevel') ?? '';
-  set accessLevel(String value) => doc.setFormField(path, 'accessLevel', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
-  String get reusableAcrossReports => doc.formField(path, 'reusableAcrossReports') ?? '';
-  set reusableAcrossReports(String value) => doc.setFormField(path, 'reusableAcrossReports', value);
-
-  String get version => doc.formField(path, 'version') ?? '';
-  set version(String value) => doc.setFormField(path, 'version', value);
-
-  String get notes => doc.formField(path, 'notes') ?? '';
-  set notes(String value) => doc.setFormField(path, 'notes', value);
-}
-
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class ExportTemplateEntryContentForm extends SomNode {
@@ -48873,6 +49160,28 @@ class ExportTemplateEntryLayoutForm extends SomNode {
 
   String get compressionFormat => doc.formField(path, 'compressionFormat') ?? '';
   set compressionFormat(String value) => doc.setFormField(path, 'compressionFormat', value);
+}
+
+/// Generated section facade for the `metadata` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class ExportTemplateEntryMetadataForm extends SomNode {
+  ExportTemplateEntryMetadataForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get reusableAcrossReports => doc.formField(path, 'reusableAcrossReports') ?? '';
+  set reusableAcrossReports(String value) => doc.setFormField(path, 'reusableAcrossReports', value);
+
+  String get version => doc.formField(path, 'version') ?? '';
+  set version(String value) => doc.setFormField(path, 'version', value);
+
+  String get notes => doc.formField(path, 'notes') ?? '';
+  set notes(String value) => doc.setFormField(path, 'notes', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -51855,6 +52164,127 @@ class GovernanceModelContentForm extends SomNode {
 
   String get reportingFrequency => doc.formField(path, 'reportingFrequency') ?? '';
   set reportingFrequency(String value) => doc.setFormField(path, 'reportingFrequency', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryContentForm extends SomNode {
+  GradedAccessLevelEntryContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  GradedAccessLevel? get accessLevel => _parseGradedAccessLevel(doc.formField(path, 'accessLevel'));
+  set accessLevel(GradedAccessLevel? value) => doc.setFormField(path, 'accessLevel', value?.name ?? '');
+
+  BasicAuthorizationRequirementKind? get requirementKind => _parseBasicAuthorizationRequirementKind(doc.formField(path, 'requirementKind'));
+  set requirementKind(BasicAuthorizationRequirementKind? value) => doc.setFormField(path, 'requirementKind', value?.name ?? '');
+}
+
+/// Generated section facade for the `customRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryCustomRequirementForm extends SomNode {
+  GradedAccessLevelEntryCustomRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get handler => doc.formField(path, 'handler') ?? '';
+  set handler(String value) => doc.setFormField(path, 'handler', value);
+
+  String get resourceId => doc.formField(path, 'resourceId') ?? '';
+  set resourceId(String value) => doc.setFormField(path, 'resourceId', value);
+
+  String get decisionRule => doc.formField(path, 'decisionRule') ?? '';
+  set decisionRule(String value) => doc.setFormField(path, 'decisionRule', value);
+}
+
+/// Generated section facade for the `entitlementRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryEntitlementRequirementForm extends SomNode {
+  GradedAccessLevelEntryEntitlementRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get patterns => doc.formField(path, 'patterns') ?? '';
+  set patterns(String value) => doc.setFormField(path, 'patterns', value);
+}
+
+/// Generated section facade for the `groupRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryGroupRequirementForm extends SomNode {
+  GradedAccessLevelEntryGroupRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get groups => doc.formField(path, 'groups') ?? '';
+  set groups(String value) => doc.setFormField(path, 'groups', value);
+}
+
+/// Generated section facade for the `resourceKeyRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryResourceKeyRequirementForm extends SomNode {
+  GradedAccessLevelEntryResourceKeyRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get resourceKey => doc.formField(path, 'resourceKey') ?? '';
+  set resourceKey(String value) => doc.setFormField(path, 'resourceKey', value);
+}
+
+/// Generated section facade for the `roleRequirement` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryRoleRequirementForm extends SomNode {
+  GradedAccessLevelEntryRoleRequirementForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get roles => doc.formField(path, 'roles') ?? '';
+  set roles(String value) => doc.setFormField(path, 'roles', value);
+}
+
+/// Generated section facade for the `content` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class GradedAuthorizationRequirementContentForm extends SomNode {
+  GradedAuthorizationRequirementContentForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get gradingRationale => doc.formField(path, 'gradingRationale') ?? '';
+  set gradingRationale(String value) => doc.setFormField(path, 'gradingRationale', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -61479,28 +61909,6 @@ class NativeAppRequirementsVersionsForm extends SomNode {
   set compileSdkVersion(String value) => doc.setFormField(path, 'compileSdkVersion', value);
 }
 
-/// Generated section facade for the `access` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class NavigationGroupEntryAccessForm extends SomNode {
-  NavigationGroupEntryAccessForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
-  String get permissionBehavior => doc.formField(path, 'permissionBehavior') ?? '';
-  set permissionBehavior(String value) => doc.setFormField(path, 'permissionBehavior', value);
-}
-
 /// Generated section facade for the `content` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class NavigationGroupEntryContentForm extends SomNode {
@@ -61651,34 +62059,6 @@ class NavigationGuardEntryRoutingForm extends SomNode {
   set priority(int? value) => doc.setFormField(path, 'priority', somFormatInt(value));
 }
 
-/// Generated section facade for the `access` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class NavigationItemEntryAccessForm extends SomNode {
-  NavigationItemEntryAccessForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  String get visibilityCondition => doc.formField(path, 'visibilityCondition') ?? '';
-  set visibilityCondition(String value) => doc.setFormField(path, 'visibilityCondition', value);
-
-  String get enabledCondition => doc.formField(path, 'enabledCondition') ?? '';
-  set enabledCondition(String value) => doc.setFormField(path, 'enabledCondition', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
-  String get permissionBehavior => doc.formField(path, 'permissionBehavior') ?? '';
-  set permissionBehavior(String value) => doc.setFormField(path, 'permissionBehavior', value);
-}
-
 /// Generated section facade for the `badge` `@Form` section:
 /// its own `content` text followed by one typed member per form field.
 class NavigationItemEntryBadgeForm extends SomNode {
@@ -61796,6 +62176,25 @@ class NavigationItemEntryRoutingForm extends SomNode {
 
   String get isDefault => doc.formField(path, 'isDefault') ?? '';
   set isDefault(String value) => doc.setFormField(path, 'isDefault', value);
+}
+
+/// Generated section facade for the `visibility` `@Form` section:
+/// its own `content` text followed by one typed member per form field.
+class NavigationItemEntryVisibilityForm extends SomNode {
+  NavigationItemEntryVisibilityForm(super.doc, super.path);
+
+  @override
+  bool get canHaveContent => true;
+
+  /// The section's own free-text content, before the form fields.
+  String get content => doc.content(path) ?? '';
+  set content(String value) => doc.setContent(path, value);
+
+  String get visibilityCondition => doc.formField(path, 'visibilityCondition') ?? '';
+  set visibilityCondition(String value) => doc.setFormField(path, 'visibilityCondition', value);
+
+  String get enabledCondition => doc.formField(path, 'enabledCondition') ?? '';
+  set enabledCondition(String value) => doc.setFormField(path, 'enabledCondition', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -71949,12 +72348,6 @@ class ReportEntrySecurityForm extends SomNode {
   String get brandingOverride => doc.formField(path, 'brandingOverride') ?? '';
   set brandingOverride(String value) => doc.setFormField(path, 'brandingOverride', value);
 
-  String get accessLevel => doc.formField(path, 'accessLevel') ?? '';
-  set accessLevel(String value) => doc.setFormField(path, 'accessLevel', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
   String get dataLevelSecurity => doc.formField(path, 'dataLevelSecurity') ?? '';
   set dataLevelSecurity(String value) => doc.setFormField(path, 'dataLevelSecurity', value);
 }
@@ -76974,12 +77367,6 @@ class ScreenElementEntryBehaviorForm extends SomNode {
 
   String get readonlyCondition => doc.formField(path, 'readonlyCondition') ?? '';
   set readonlyCondition(String value) => doc.setFormField(path, 'readonlyCondition', value);
-
-  String get requiredPermission => doc.formField(path, 'requiredPermission') ?? '';
-  set requiredPermission(String value) => doc.setFormField(path, 'requiredPermission', value);
-
-  String get permissionEffect => doc.formField(path, 'permissionEffect') ?? '';
-  set permissionEffect(String value) => doc.setFormField(path, 'permissionEffect', value);
 }
 
 /// Generated section facade for the `content` `@Form` section:
@@ -77268,31 +77655,6 @@ class ScreenElementFieldSpecValidationForm extends SomNode {
 
   String get clearButton => doc.formField(path, 'clearButton') ?? '';
   set clearButton(String value) => doc.setFormField(path, 'clearButton', value);
-}
-
-/// Generated section facade for the `access` `@Form` section:
-/// its own `content` text followed by one typed member per form field.
-class ScreenEntryAccessForm extends SomNode {
-  ScreenEntryAccessForm(super.doc, super.path);
-
-  @override
-  bool get canHaveContent => true;
-
-  /// The section's own free-text content, before the form fields.
-  String get content => doc.content(path) ?? '';
-  set content(String value) => doc.setContent(path, value);
-
-  String get accessLevel => doc.formField(path, 'accessLevel') ?? '';
-  set accessLevel(String value) => doc.setFormField(path, 'accessLevel', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
-  String get permissionEffect => doc.formField(path, 'permissionEffect') ?? '';
-  set permissionEffect(String value) => doc.setFormField(path, 'permissionEffect', value);
 }
 
 /// Generated section facade for the `classification` `@Form` section:
@@ -79315,15 +79677,6 @@ class ServerOperationEntryContentForm extends SomNode {
 
   String get primaryDataEntity => doc.formField(path, 'primaryDataEntity') ?? '';
   set primaryDataEntity(String value) => doc.setFormField(path, 'primaryDataEntity', value);
-
-  String get authorizationRequirement => doc.formField(path, 'authorizationRequirement') ?? '';
-  set authorizationRequirement(String value) => doc.setFormField(path, 'authorizationRequirement', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
-
-  String get requiredResourceKey => doc.formField(path, 'requiredResourceKey') ?? '';
-  set requiredResourceKey(String value) => doc.setFormField(path, 'requiredResourceKey', value);
 
   String get descriptionKey => doc.formField(path, 'descriptionKey') ?? '';
   set descriptionKey(String value) => doc.setFormField(path, 'descriptionKey', value);
@@ -86205,12 +86558,6 @@ class TabItemEntryContentForm extends SomNode {
   String get visibilityCondition => doc.formField(path, 'visibilityCondition') ?? '';
   set visibilityCondition(String value) => doc.setFormField(path, 'visibilityCondition', value);
 
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
-  String get permissionBehavior => doc.formField(path, 'permissionBehavior') ?? '';
-  set permissionBehavior(String value) => doc.setFormField(path, 'permissionBehavior', value);
-
   String get badgeType => doc.formField(path, 'badgeType') ?? '';
   set badgeType(String value) => doc.setFormField(path, 'badgeType', value);
 
@@ -92884,9 +93231,6 @@ class UtilityMenuItemEntryBehaviorForm extends SomNode {
   String get visibilityCondition => doc.formField(path, 'visibilityCondition') ?? '';
   set visibilityCondition(String value) => doc.setFormField(path, 'visibilityCondition', value);
 
-  String get requiredPermissions => doc.formField(path, 'requiredPermissions') ?? '';
-  set requiredPermissions(String value) => doc.setFormField(path, 'requiredPermissions', value);
-
   String get isDangerous => doc.formField(path, 'isDangerous') ?? '';
   set isDangerous(String value) => doc.setFormField(path, 'isDangerous', value);
 
@@ -92989,9 +93333,6 @@ class UtilityNavigationItemEntryDisplayForm extends SomNode {
 
   String get visibilityCondition => doc.formField(path, 'visibilityCondition') ?? '';
   set visibilityCondition(String value) => doc.setFormField(path, 'visibilityCondition', value);
-
-  String get requiredRoles => doc.formField(path, 'requiredRoles') ?? '';
-  set requiredRoles(String value) => doc.setFormField(path, 'requiredRoles', value);
 }
 
 /// Generated section facade for the `behavior` `@Form` section:

@@ -1671,6 +1671,31 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as AuthorizationModel).content,
   ));
+  SpecRegistry.register(AuthorizationRequirementSpec, SpecClassOps(
+    slots: (o) {
+      final n = o as AuthorizationRequirementSpec;
+      return [
+        SpecSlot.node(() => n.roleRequirement, (v) => n.roleRequirement = v as DocSpecsSection?, label: 'roleRequirement'),
+        SpecSlot.node(() => n.groupRequirement, (v) => n.groupRequirement = v as DocSpecsSection?, label: 'groupRequirement'),
+        SpecSlot.node(() => n.entitlementRequirement, (v) => n.entitlementRequirement = v as DocSpecsSection?, label: 'entitlementRequirement'),
+        SpecSlot.node(() => n.resourceKeyRequirement, (v) => n.resourceKeyRequirement = v as DocSpecsSection?, label: 'resourceKeyRequirement'),
+        SpecSlot.node(() => n.customRequirement, (v) => n.customRequirement = v as DocSpecsSection?, label: 'customRequirement'),
+        SpecSlot.node(() => n.gradedRequirement, (v) => n.gradedRequirement = v as GradedAuthorizationRequirement?, label: 'gradedRequirement'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as AuthorizationRequirementSpec;
+      return AuthorizationRequirementSpec()
+        ..content = n.content
+        ..roleRequirement = n.roleRequirement
+        ..groupRequirement = n.groupRequirement
+        ..entitlementRequirement = n.entitlementRequirement
+        ..resourceKeyRequirement = n.resourceKeyRequirement
+        ..customRequirement = n.customRequirement
+        ..gradedRequirement = n.gradedRequirement;
+    },
+    yamlScalar: (o) => (o as AuthorizationRequirementSpec).content,
+  ));
   SpecRegistry.register(AuthorizationRoleEntry, SpecClassOps(
     slots: (o) {
       final n = o as AuthorizationRoleEntry;
@@ -6175,11 +6200,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as DecisionPoints).content,
   ));
   SpecRegistry.register(DeepLinkPatternEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as DeepLinkPatternEntry;
+      return [
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as DeepLinkPatternEntry;
       return DeepLinkPatternEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..access = n.access;
     },
     yamlScalar: (o) => (o as DeepLinkPatternEntry).content,
   ));
@@ -8279,7 +8310,8 @@ void registerSpecOps() {
         SpecSlot.list(() => n.sizeSettings, (v) => n.sizeSettings = v.cast<ExportSizeSettings>(), label: 'sizeSettings'),
         SpecSlot.node(() => n.security, (v) => n.security = v as DocSpecsSection?, label: 'security'),
         SpecSlot.node(() => n.output, (v) => n.output = v as DocSpecsSection?, label: 'output'),
-        SpecSlot.node(() => n.access, (v) => n.access = v as DocSpecsSection?, label: 'access'),
+        SpecSlot.node(() => n.audit, (v) => n.audit = v as DocSpecsSection?, label: 'audit'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.list(() => n.fieldMappings, (v) => n.fieldMappings = v.cast<ExportFieldMappingEntry>(), label: 'fieldMappings'),
       ];
     },
@@ -8294,6 +8326,7 @@ void registerSpecOps() {
         ..sizeSettings = n.sizeSettings
         ..security = n.security
         ..output = n.output
+        ..audit = n.audit
         ..access = n.access
         ..fieldMappings = n.fieldMappings;
     },
@@ -8315,7 +8348,8 @@ void registerSpecOps() {
         SpecSlot.node(() => n.format, (v) => n.format = v as DocSpecsSection?, label: 'format'),
         SpecSlot.node(() => n.fields, (v) => n.fields = v as DocSpecsSection?, label: 'fields'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
-        SpecSlot.node(() => n.access, (v) => n.access = v as DocSpecsSection?, label: 'access'),
+        SpecSlot.node(() => n.metadata, (v) => n.metadata = v as DocSpecsSection?, label: 'metadata'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
       ];
     },
     cloneShallow: (o) {
@@ -8325,6 +8359,7 @@ void registerSpecOps() {
         ..format = n.format
         ..fields = n.fields
         ..layout = n.layout
+        ..metadata = n.metadata
         ..access = n.access;
     },
     yamlScalar: (o) => (o as ExportTemplateEntry).content,
@@ -9393,6 +9428,44 @@ void registerSpecOps() {
         ..decisionAuthorities = n.decisionAuthorities;
     },
     yamlScalar: (o) => (o as GovernanceModel).content,
+  ));
+  SpecRegistry.register(GradedAccessLevelEntry, SpecClassOps(
+    slots: (o) {
+      final n = o as GradedAccessLevelEntry;
+      return [
+        SpecSlot.node(() => n.roleRequirement, (v) => n.roleRequirement = v as DocSpecsSection?, label: 'roleRequirement'),
+        SpecSlot.node(() => n.groupRequirement, (v) => n.groupRequirement = v as DocSpecsSection?, label: 'groupRequirement'),
+        SpecSlot.node(() => n.entitlementRequirement, (v) => n.entitlementRequirement = v as DocSpecsSection?, label: 'entitlementRequirement'),
+        SpecSlot.node(() => n.resourceKeyRequirement, (v) => n.resourceKeyRequirement = v as DocSpecsSection?, label: 'resourceKeyRequirement'),
+        SpecSlot.node(() => n.customRequirement, (v) => n.customRequirement = v as DocSpecsSection?, label: 'customRequirement'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as GradedAccessLevelEntry;
+      return GradedAccessLevelEntry()
+        ..content = n.content
+        ..roleRequirement = n.roleRequirement
+        ..groupRequirement = n.groupRequirement
+        ..entitlementRequirement = n.entitlementRequirement
+        ..resourceKeyRequirement = n.resourceKeyRequirement
+        ..customRequirement = n.customRequirement;
+    },
+    yamlScalar: (o) => (o as GradedAccessLevelEntry).content,
+  ));
+  SpecRegistry.register(GradedAuthorizationRequirement, SpecClassOps(
+    slots: (o) {
+      final n = o as GradedAuthorizationRequirement;
+      return [
+        SpecSlot.list(() => n.accessLevels, (v) => n.accessLevels = v.cast<GradedAccessLevelEntry>(), label: 'accessLevels'),
+      ];
+    },
+    cloneShallow: (o) {
+      final n = o as GradedAuthorizationRequirement;
+      return GradedAuthorizationRequirement()
+        ..content = n.content
+        ..accessLevels = n.accessLevels;
+    },
+    yamlScalar: (o) => (o as GradedAuthorizationRequirement).content,
   ));
   SpecRegistry.register(HandlingRequirementEntry, SpecClassOps(
     slots: (o) => const [],
@@ -12296,7 +12369,7 @@ void registerSpecOps() {
       final n = o as NavigationGroupEntry;
       return [
         SpecSlot.node(() => n.display, (v) => n.display = v as DocSpecsSection?, label: 'display'),
-        SpecSlot.node(() => n.access, (v) => n.access = v as DocSpecsSection?, label: 'access'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.structure, (v) => n.structure = v as DocSpecsSection?, label: 'structure'),
         SpecSlot.list(() => n.items, (v) => n.items = v.cast<NavigationItemEntry>(), label: 'items'),
       ];
@@ -12369,7 +12442,8 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.display, (v) => n.display = v as DocSpecsSection?, label: 'display'),
         SpecSlot.node(() => n.routing, (v) => n.routing = v as DocSpecsSection?, label: 'routing'),
-        SpecSlot.node(() => n.access, (v) => n.access = v as DocSpecsSection?, label: 'access'),
+        SpecSlot.node(() => n.visibility, (v) => n.visibility = v as DocSpecsSection?, label: 'visibility'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.badge, (v) => n.badge = v as DocSpecsSection?, label: 'badge'),
         SpecSlot.node(() => n.interaction, (v) => n.interaction = v as DocSpecsSection?, label: 'interaction'),
       ];
@@ -12380,6 +12454,7 @@ void registerSpecOps() {
         ..content = n.content
         ..display = n.display
         ..routing = n.routing
+        ..visibility = n.visibility
         ..access = n.access
         ..badge = n.badge
         ..interaction = n.interaction;
@@ -15637,6 +15712,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.interactivity, (v) => n.interactivity = v as DocSpecsSection?, label: 'interactivity'),
         SpecSlot.node(() => n.pagination, (v) => n.pagination = v as DocSpecsSection?, label: 'pagination'),
         SpecSlot.node(() => n.security, (v) => n.security = v as DocSpecsSection?, label: 'security'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.lifecycle, (v) => n.lifecycle = v as DocSpecsSection?, label: 'lifecycle'),
         SpecSlot.list(() => n.sections, (v) => n.sections = v.cast<ReportSectionEntry>(), label: 'sections'),
         SpecSlot.list(() => n.filters, (v) => n.filters = v.cast<ReportFilterEntry>(), label: 'filters'),
@@ -15659,6 +15735,7 @@ void registerSpecOps() {
         ..interactivity = n.interactivity
         ..pagination = n.pagination
         ..security = n.security
+        ..access = n.access
         ..lifecycle = n.lifecycle
         ..sections = n.sections
         ..filters = n.filters
@@ -17203,6 +17280,7 @@ void registerSpecOps() {
         SpecSlot.node(() => n.resources, (v) => n.resources = v as DocSpecsSection?, label: 'resources'),
         SpecSlot.node(() => n.layout, (v) => n.layout = v as DocSpecsSection?, label: 'layout'),
         SpecSlot.node(() => n.behavior, (v) => n.behavior = v as DocSpecsSection?, label: 'behavior'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.presentation, (v) => n.presentation = v as DocSpecsSection?, label: 'presentation'),
         SpecSlot.node(() => n.elementAction, (v) => n.elementAction = v as ScreenElementAction?, label: 'elementAction'),
         SpecSlot.node(() => n.fieldSpec, (v) => n.fieldSpec = v as ScreenElementFieldSpec?, label: 'fieldSpec'),
@@ -17217,6 +17295,7 @@ void registerSpecOps() {
         ..resources = n.resources
         ..layout = n.layout
         ..behavior = n.behavior
+        ..access = n.access
         ..presentation = n.presentation
         ..elementAction = n.elementAction
         ..fieldSpec = n.fieldSpec
@@ -17257,7 +17336,7 @@ void registerSpecOps() {
       final n = o as ScreenEntry;
       return [
         SpecSlot.node(() => n.classification, (v) => n.classification = v as DocSpecsSection?, label: 'classification'),
-        SpecSlot.node(() => n.access, (v) => n.access = v as DocSpecsSection?, label: 'access'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.traceability, (v) => n.traceability = v as DocSpecsSection?, label: 'traceability'),
         SpecSlot.node(() => n.presentation, (v) => n.presentation = v as DocSpecsSection?, label: 'presentation'),
         SpecSlot.node(() => n.designNotes, (v) => n.designNotes = v as TextSection, label: 'designNotes'),
@@ -17973,6 +18052,7 @@ void registerSpecOps() {
     slots: (o) {
       final n = o as ServerOperationEntry;
       return [
+        SpecSlot.node(() => n.authorization, (v) => n.authorization = v as AuthorizationRequirementSpec, label: 'authorization'),
         SpecSlot.list(() => n.requestMembers, (v) => n.requestMembers = v.cast<ServerOperationMemberEntry>(), label: 'requestMembers'),
         SpecSlot.list(() => n.responseMembers, (v) => n.responseMembers = v.cast<ServerOperationMemberEntry>(), label: 'responseMembers'),
       ];
@@ -17981,6 +18061,7 @@ void registerSpecOps() {
       final n = o as ServerOperationEntry;
       return ServerOperationEntry()
         ..content = n.content
+        ..authorization = n.authorization
         ..requestMembers = n.requestMembers
         ..responseMembers = n.responseMembers;
     },
@@ -20180,11 +20261,17 @@ void registerSpecOps() {
     yamlScalar: (o) => (o as TabBarDefinitionEntry).content,
   ));
   SpecRegistry.register(TabItemEntry, SpecClassOps(
-    slots: (o) => const [],
+    slots: (o) {
+      final n = o as TabItemEntry;
+      return [
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
+      ];
+    },
     cloneShallow: (o) {
       final n = o as TabItemEntry;
       return TabItemEntry()
-        ..content = n.content;
+        ..content = n.content
+        ..access = n.access;
     },
     yamlScalar: (o) => (o as TabItemEntry).content,
   ));
@@ -22293,6 +22380,7 @@ void registerSpecOps() {
       return [
         SpecSlot.node(() => n.action, (v) => n.action = v as DocSpecsSection?, label: 'action'),
         SpecSlot.node(() => n.behavior, (v) => n.behavior = v as DocSpecsSection?, label: 'behavior'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
       ];
     },
     cloneShallow: (o) {
@@ -22300,7 +22388,8 @@ void registerSpecOps() {
       return UtilityMenuItemEntry()
         ..content = n.content
         ..action = n.action
-        ..behavior = n.behavior;
+        ..behavior = n.behavior
+        ..access = n.access;
     },
     yamlScalar: (o) => (o as UtilityMenuItemEntry).content,
   ));
@@ -22324,6 +22413,7 @@ void registerSpecOps() {
       final n = o as UtilityNavigationItemEntry;
       return [
         SpecSlot.node(() => n.display, (v) => n.display = v as DocSpecsSection?, label: 'display'),
+        SpecSlot.node(() => n.access, (v) => n.access = v as AuthorizationRequirementSpec, label: 'access'),
         SpecSlot.node(() => n.behavior, (v) => n.behavior = v as DocSpecsSection?, label: 'behavior'),
         SpecSlot.list(() => n.menuItems, (v) => n.menuItems = v.cast<UtilityMenuItemEntry>(), label: 'menuItems'),
       ];
@@ -22333,6 +22423,7 @@ void registerSpecOps() {
       return UtilityNavigationItemEntry()
         ..content = n.content
         ..display = n.display
+        ..access = n.access
         ..behavior = n.behavior
         ..menuItems = n.menuItems;
     },

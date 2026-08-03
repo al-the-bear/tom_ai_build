@@ -5,6 +5,7 @@ library;
 
 import 'package:tom_specs_core/tom_specs_core.dart';
 
+import '../common/authorization_requirement.dart';
 import '../document_stubs.dart';
 
 /// The closed set of screen-element kinds (CE-EL).
@@ -1418,43 +1419,14 @@ class ScreenEntry extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? classification;
 
-  /// Access control settings.
-  @SectionId('SCEAC')
-  @StandardReferences(
-    [
-      'ISO 9241-110:2020 — controllability governing who may access an interface',
-      'ISO/IEC 25010:2023 — interaction capability constrained by authorization',
-    ],
-    'The access-control settings that determine which roles and permissions may reach a screen.',
-  )
-  @Form([
-    Field(
-      'accessLevel',
-      String,
-      'Access Level',
-      hint: 'Public/Authenticated/Role-specific',
-    ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Authorization roles that may access this screen',
-    ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Specific permissions needed',
-    ),
-    Field(
-      'permissionEffect',
-      String,
-      'Permission Effect',
-      hint: 'Hide-Screen/Show-Readonly/Show-With-Restrictions',
-    ),
-  ])
+  /// Access control — what a caller must satisfy to reach this screen.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+  /// restatement. A screen that is graded rather than simply reachable authors
+  /// the Graded kind; how each access state renders is fixed by the framework
+  /// and is not authored here.
   @SerializationOrder(2)
-  DocSpecsSection? access;
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Traceability metadata.
   @SectionId('SCETR')
@@ -1916,14 +1888,17 @@ class ScreenElementEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? layout;
 
-  /// Visibility and permission rules.
+  /// Visibility and enablement rules.
+  ///
+  /// These are *business* conditions on an element the caller is already
+  /// authorized for. Who may see or use it at all is [access].
   @SectionId('SEEB')
   @StandardReferences(
     [
       'ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only',
       'ISO 9241-110:2020 — controllability governing when an element is interactive',
     ],
-    'The visibility, enablement, and permission rules that determine when a screen element can be seen or used.',
+    'The business conditions that determine when a screen element is visible, interactive, or read-only.',
   )
   @Form([
     Field(
@@ -1944,21 +1919,18 @@ class ScreenElementEntry extends DocSpecsSection {
       'Readonly Condition',
       hint: 'When this element is read-only',
     ),
-    Field(
-      'requiredPermission',
-      String,
-      'Required Permission',
-      hint: 'Permission needed to see/interact',
-    ),
-    Field(
-      'permissionEffect',
-      String,
-      'Permission Effect',
-      hint: 'Hide/Disable/Readonly',
-    ),
   ])
   @SerializationOrder(3)
   DocSpecsSection? behavior;
+
+  /// Access control — what a caller must satisfy to see or use this element.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`). An element whose access
+  /// has degrees — hidden, locked, read-only, interactive — authors the Graded
+  /// kind, which is what the old free-text permission-effect field was trying
+  /// to say.
+  @SerializationOrder(4)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Styling and data binding.
   @SectionId('SCELENPR')
@@ -2001,7 +1973,7 @@ class ScreenElementEntry extends DocSpecsSection {
       hint: 'Design rationale or open questions',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? presentation;
 
   /// 10.2.1.n.m.k.1. Element Action.
@@ -2009,7 +1981,7 @@ class ScreenElementEntry extends DocSpecsSection {
   /// Present only for action-kind elements (`@OneOf` case, csmb6).
   @Case(ScreenElementKind.actionButton)
   @Case(ScreenElementKind.link)
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   ScreenElementAction? elementAction;
 
   /// 10.2.1.n.m.k.2. Element Field Spec.
@@ -2021,7 +1993,7 @@ class ScreenElementEntry extends DocSpecsSection {
   @Case(ScreenElementKind.selectField)
   @Case(ScreenElementKind.checkbox)
   @Case(ScreenElementKind.toggle)
-  @SerializationOrder(6)
+  @SerializationOrder(7)
   ScreenElementFieldSpec? fieldSpec;
 
   /// 10.2.1.n.m.k.3. Element Data Display.
@@ -2036,7 +2008,7 @@ class ScreenElementEntry extends DocSpecsSection {
   @Case(ScreenElementKind.label)
   @Case(ScreenElementKind.image)
   @Case(ScreenElementKind.badge)
-  @SerializationOrder(7)
+  @SerializationOrder(8)
   ScreenElementDataDisplay? dataDisplay;
 
   /// Contains 0+× ElementValidationRule.
@@ -2050,7 +2022,7 @@ class ScreenElementEntry extends DocSpecsSection {
   @SectionId('EVRE-VALI-LST')
   @SectionIdPattern('EVRE-VALI-xxx')
   @ContentHelp('Add one entry per validation rule.')
-  @SerializationOrder(8)
+  @SerializationOrder(9)
   List<ElementValidationRuleEntry> validationRules = [];
 }
 
@@ -3799,38 +3771,14 @@ class NavigationGroupEntry extends DocSpecsSection {
   @SerializationOrder(1)
   DocSpecsSection? display;
 
-  /// Access-control settings.
-  @SectionId('NGEA')
-  @StandardReferences(
-    [
-      'ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context',
-      'ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility',
-    ],
-    'Access-control settings such as required roles and permission behavior for a navigation group.',
-  )
-  @Form([
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Comma-separated role IDs',
-      refersTo: ['AZRO.roleName'],
-    ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Specific permissions required',
-    ),
-    Field(
-      'permissionBehavior',
-      String,
-      'Permission Behavior',
-      hint: 'Hide/Disable/Collapse when unauthorized',
-    ),
-  ])
+  /// Access control — what a caller must satisfy to see this navigation group.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`). A group that should be
+  /// visible-but-locked rather than hidden authors the Graded kind; the
+  /// hide/disable rendering follows from the access state and is not authored
+  /// here.
   @SerializationOrder(2)
-  DocSpecsSection? access;
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Badge and hierarchy settings.
   @SectionId('NGES')
@@ -4000,14 +3948,18 @@ class NavigationItemEntry extends DocSpecsSection {
   @SerializationOrder(2)
   DocSpecsSection? routing;
 
-  /// Access control settings.
+  /// Business conditions governing when the item is shown and interactive.
+  ///
+  /// These are *business* conditions, not authorization — who may reach the
+  /// item is authored in [access]. A condition here narrows an item the caller
+  /// is already authorized for.
   @SectionId('NIEA')
   @StandardReferences(
     [
       'ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context',
-      'ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility',
+      'ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context',
     ],
-    'Access-control settings such as roles, permissions, and visibility conditions for a navigation item.',
+    'The business conditions under which a navigation item is shown and interactive.',
   )
   @Form([
     Field(
@@ -4022,27 +3974,16 @@ class NavigationItemEntry extends DocSpecsSection {
       'Enabled Condition',
       hint: 'When item is visible but non-interactive',
     ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Comma-separated roles',
-    ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Specific permissions',
-    ),
-    Field(
-      'permissionBehavior',
-      String,
-      'Permission Behavior',
-      hint: 'Hide/Disable/Show-Locked-Icon',
-    ),
   ])
   @SerializationOrder(3)
-  DocSpecsSection? access;
+  DocSpecsSection? visibility;
+
+  /// Access control — what a caller must satisfy to reach this item.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`). An item that should be
+  /// shown locked rather than hidden authors the Graded kind.
+  @SerializationOrder(4)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Badge configuration.
   @SectionId('NIEB')
@@ -4068,7 +4009,7 @@ class NavigationItemEntry extends DocSpecsSection {
       hint: 'Error/Warning/Info/Success/Neutral',
     ),
   ])
-  @SerializationOrder(4)
+  @SerializationOrder(5)
   DocSpecsSection? badge;
 
   /// Interaction settings.
@@ -4106,7 +4047,7 @@ class NavigationItemEntry extends DocSpecsSection {
       hint: 'Routes that keep this item highlighted',
     ),
   ])
-  @SerializationOrder(5)
+  @SerializationOrder(6)
   DocSpecsSection? interaction;
 }
 
@@ -4487,24 +4428,19 @@ class TabItemEntry extends DocSpecsSection {
       'Visibility Condition',
       hint: 'Business rule for visibility',
     ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Tab-level access control',
-    ),
-    Field(
-      'permissionBehavior',
-      String,
-      'Permission Behavior',
-      hint: 'Hide/Disable',
-    ),
     Field('badgeType', String, 'Badge Type', hint: 'None/Count/Dot'),
     Field('badgeSource', String, 'Badge Source', hint: 'Data source for badge'),
   ])
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// Access control — what a caller must satisfy to reach this tab.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+  /// disabled rather than hidden authors the Graded kind.
+  @SerializationOrder(1)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 }
 
 // ---------------------------------------------------------------------------
@@ -4613,14 +4549,13 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
   @SerializationOrder(0)
   String? content;
 
-  /// Ordering, rendering, and access rules.
+  /// Ordering and rendering.
   @SectionId('UNIED')
   @StandardReferences(
     [
       'ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options',
-      'ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles',
     ],
-    'The display order, presentation kind, and access rules governing a utility navigation item.',
+    'The display order and presentation kind governing a utility navigation item.',
   )
   @Form([
     Field('displayOrder', int, 'Display Order', hint: 'Sort position'),
@@ -4634,12 +4569,18 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       'visibilityCondition',
       String,
       'Visibility Condition',
-      hint: 'When shown',
+      hint: 'Business condition for when it is shown — who may see it is '
+          'authored in the access section',
     ),
-    Field('requiredRoles', String, 'Required Roles', hint: 'Access control'),
   ])
   @SerializationOrder(1)
   DocSpecsSection? display;
+
+  /// Access control — what a caller must satisfy to reach this utility item.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  @SerializationOrder(2)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Badge and interaction behavior.
   @SectionId('UNIEB')
@@ -4672,7 +4613,7 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       refersTo: ['SCREN.screenId'],
     ),
   ])
-  @SerializationOrder(2)
+  @SerializationOrder(3)
   DocSpecsSection? behavior;
 
   /// Contains 0+× UtilityMenuItem.
@@ -4685,7 +4626,7 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
   @SectionId('UMIE-MENU-LST')
   @SectionIdPattern('UMIE-MENU-xxx')
   @ContentHelp('Add one entry per utility menu item.')
-  @SerializationOrder(3)
+  @SerializationOrder(4)
   List<UtilityMenuItemEntry> menuItems = [];
 }
 
@@ -4761,20 +4702,15 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       'ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions',
       'ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions',
     ],
-    'The visibility conditions, permission checks, and confirmation behavior for a utility menu item.',
+    'The visibility conditions and confirmation behavior for a utility menu item.',
   )
   @Form([
     Field(
       'visibilityCondition',
       String,
       'Visibility Condition',
-      hint: 'When shown',
-    ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Access control',
+      hint: 'Business condition for when it is shown — who may use it is '
+          'authored in the access section',
     ),
     Field(
       'isDangerous',
@@ -4791,6 +4727,12 @@ class UtilityMenuItemEntry extends DocSpecsSection {
   ])
   @SerializationOrder(2)
   DocSpecsSection? behavior;
+
+  /// Access control — what a caller must satisfy to use this menu item.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  @SerializationOrder(3)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 }
 
 // ---------------------------------------------------------------------------
@@ -5020,18 +4962,6 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       hint: 'When/why this link is used',
     ),
     Field(
-      'authenticationRequired',
-      String,
-      'Authentication Required',
-      hint: 'Yes/No — redirect to login if unauthenticated',
-    ),
-    Field(
-      'requiredPermissions',
-      String,
-      'Required Permissions',
-      hint: 'Permissions needed to access via deep link',
-    ),
-    Field(
       'fallbackRoute',
       String,
       'Fallback Route',
@@ -5047,6 +4977,14 @@ class DeepLinkPatternEntry extends DocSpecsSection {
   @override
   @SerializationOrder(0)
   String? content;
+
+  /// Access control — what a caller must satisfy to follow this deep link.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`). Authoring the
+  /// Authenticated kind is what makes an unauthenticated visitor redirect to
+  /// sign-in; there is no separate authentication-required flag.
+  @SerializationOrder(1)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 }
 
 // ---------------------------------------------------------------------------
@@ -5918,7 +5856,7 @@ class ReportEntry extends DocSpecsSection {
       'ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties',
       'ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information',
     ],
-    'Security settings covering access levels roles and data-level restrictions for the report.',
+    'Presentation and data-level security settings for the report; who may generate it is authored in the access section.',
   )
   @Form([
     Field(
@@ -5934,26 +5872,21 @@ class ReportEntry extends DocSpecsSection {
       hint: 'Override branding for this report',
     ),
     Field(
-      'accessLevel',
-      String,
-      'Access Level',
-      hint: 'Public / Authenticated / Role-specific / Confidential',
-    ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Roles permitted to generate this report',
-    ),
-    Field(
       'dataLevelSecurity',
       String,
       'Data-Level Security',
-      hint: 'Row/column level security rules',
+      hint: 'Row/column level security rules narrowing what the report shows '
+          'a caller who is already permitted to generate it',
     ),
   ])
   @SerializationOrder(10)
   DocSpecsSection? security;
+
+  /// Access control — what a caller must satisfy to generate this report.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  @SerializationOrder(11)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Lifecycle and archiving.
   @SectionId('RELI')
@@ -5990,7 +5923,7 @@ class ReportEntry extends DocSpecsSection {
       hint: 'Additional design notes or open questions',
     ),
   ])
-  @SerializationOrder(11)
+  @SerializationOrder(12)
   DocSpecsSection? lifecycle;
 
   /// Contains 0+× Report Section.
@@ -6004,7 +5937,7 @@ class ReportEntry extends DocSpecsSection {
   @SectionId('RESEE1-SECT-LST')
   @SectionIdPattern('RESEE1-SECT-xxx')
   @ContentHelp('Add one entry per report section.')
-  @SerializationOrder(12)
+  @SerializationOrder(13)
   List<ReportSectionEntry> sections = [];
 
   /// Contains 0+× Report Filter.
@@ -6014,7 +5947,7 @@ class ReportEntry extends DocSpecsSection {
   @SectionId('REFIEN-FILT-LST')
   @SectionIdPattern('REFIEN-FILT-xxx')
   @ContentHelp('Add one entry per report data filter.')
-  @SerializationOrder(13)
+  @SerializationOrder(14)
   List<ReportFilterEntry> filters = [];
 
   /// Contains 0+× Report Schedule.
@@ -6028,7 +5961,7 @@ class ReportEntry extends DocSpecsSection {
   @SectionId('RESCEN-SCHE-LST')
   @SectionIdPattern('RESCEN-SCHE-xxx')
   @ContentHelp('Add one entry per report generation schedule.')
-  @SerializationOrder(14)
+  @SerializationOrder(15)
   List<ReportScheduleEntry> schedules = [];
 
   /// Contains 0+× Report Distribution.
@@ -6041,7 +5974,7 @@ class ReportEntry extends DocSpecsSection {
   @SectionId('REDIEN-DIST-LST')
   @SectionIdPattern('REDIEN-DIST-xxx')
   @ContentHelp('Add one entry per report distribution channel.')
-  @SerializationOrder(15)
+  @SerializationOrder(16)
   List<ReportDistributionEntry> distributions = [];
 
   /// Contains 0+× Recipient.
@@ -6051,7 +5984,7 @@ class ReportEntry extends DocSpecsSection {
   @SectionId('REREEN-RECI-LST')
   @SectionIdPattern('REREEN-RECI-xxx')
   @ContentHelp('Add one entry per report recipient.')
-  @SerializationOrder(16)
+  @SerializationOrder(17)
   List<ReportRecipientEntry> recipients = [];
 }
 
@@ -8122,21 +8055,9 @@ class ExportFormatEntry extends DocSpecsSection {
       'ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced',
       'ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity',
     ],
-    'Access levels, required roles, and audit-logging settings governing who may run an export.',
+    'Audit-logging and preview settings for an export; who may run it is authored in the access requirement.',
   )
   @Form([
-    Field(
-      'accessLevel',
-      String,
-      'Access Level',
-      hint: 'Public / Authenticated / Role-specific',
-    ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Roles permitted to run this export',
-    ),
     Field(
       'auditLogging',
       String,
@@ -8152,7 +8073,13 @@ class ExportFormatEntry extends DocSpecsSection {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(8)
-  DocSpecsSection? access;
+  DocSpecsSection? audit;
+
+  /// Access control — what a caller must satisfy to run this export.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  @SerializationOrder(9)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 
   /// Contains 0+× Export Field Mapping.
   @StandardReferences(
@@ -8165,7 +8092,7 @@ class ExportFormatEntry extends DocSpecsSection {
   @SectionId('EFME-FIEL-LST')
   @SectionIdPattern('EFME-FIEL-xxx')
   @ContentHelp('Add one entry per export field mapping.')
-  @SerializationOrder(9)
+  @SerializationOrder(10)
   List<ExportFieldMappingEntry> fieldMappings = [];
 }
 
@@ -8699,21 +8626,9 @@ class ExportTemplateEntry extends DocSpecsSection {
       'ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts',
       'ISO 8601-1:2019 — a standardized calendar representation supports template version dating',
     ],
-    'Access-control and metadata settings governing who may use an export template and how it is versioned.',
+    'Reuse and versioning metadata for an export template; who may use it is authored in the access requirement.',
   )
   @Form([
-    Field(
-      'accessLevel',
-      String,
-      'Access Level',
-      hint: 'Public / Authenticated / Role-specific',
-    ),
-    Field(
-      'requiredRoles',
-      String,
-      'Required Roles',
-      hint: 'Roles permitted to use this template',
-    ),
     Field(
       'reusableAcrossReports',
       String,
@@ -8724,7 +8639,13 @@ class ExportTemplateEntry extends DocSpecsSection {
     Field('notes', String, 'Notes', hint: 'Design notes'),
   ])
   @SerializationOrder(4)
-  DocSpecsSection? access;
+  DocSpecsSection? metadata;
+
+  /// Access control — what a caller must satisfy to use this template.
+  ///
+  /// The shared CE-AZ requirement section (`AZREQ`).
+  @SerializationOrder(5)
+  AuthorizationRequirementSpec access = AuthorizationRequirementSpec();
 }
 
 // ---------------------------------------------------------------------------

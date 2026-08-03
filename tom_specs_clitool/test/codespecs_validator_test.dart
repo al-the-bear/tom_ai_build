@@ -1,4 +1,4 @@
-/// Fixtures for the twenty `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the twenty-one `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -80,10 +80,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the twenty checks in table order', () {
+    test('names the twenty-one checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 20; i++) i],
+        [for (var i = 1; i <= 21; i++) i],
       );
     });
 
@@ -1099,6 +1099,137 @@ class ServerConfig {
     });
   });
 
+  group('21 — the graded depth is exactly one level (§3.4.3)', () {
+    _redGreen(
+      21,
+      '§3.4.3',
+      says: contains('graded depth is exactly one level'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+@DocSpec([DocRef('AZREQ', 'the requirement this operation is gated by')])
+@CsEndpoint('customer.save')
+@CsAuthorize(
+  requirement: CsAuthRequirement.graded,
+  graded: CsGradedAccess(
+    full: CsAuthorize(
+      requirement: CsAuthRequirement.graded,
+      graded: CsGradedAccess(
+        full: CsAuthorize(
+          requirement: CsAuthRequirement.role,
+          roles: [CsRoleRef('sales')],
+        ),
+      ),
+    ),
+  ),
+)
+class customerSave {}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+@DocSpec([DocRef('AZREQ', 'the requirement this operation is gated by')])
+@CsEndpoint('customer.save')
+@CsAuthorize(
+  requirement: CsAuthRequirement.graded,
+  graded: CsGradedAccess(
+    full: CsAuthorize(
+      requirement: CsAuthRequirement.role,
+      roles: [CsRoleRef('salesManager')],
+    ),
+    read: CsAuthorize(
+      requirement: CsAuthRequirement.role,
+      roles: [CsRoleRef('sales')],
+    ),
+    disabled: CsAuthorize(requirement: CsAuthRequirement.authenticated),
+  ),
+)
+class customerSave {}
+''',
+        },
+      ),
+    );
+
+    test('names the slot the nested grading sits in', () {
+      // Three slots look alike in a wrapped annotation; without the slot name
+      // the author has to re-read the whole tree to find the one that broke.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsEndpoint('customer.save')
+@CsAuthorize(
+  requirement: CsAuthRequirement.graded,
+  graded: CsGradedAccess(
+    full: CsAuthorize(
+      requirement: CsAuthRequirement.role,
+      roles: [CsRoleRef('salesManager')],
+    ),
+    read: CsAuthorize(
+      requirement: CsAuthRequirement.graded,
+      graded: CsGradedAccess(
+        full: CsAuthorize(requirement: CsAuthRequirement.authenticated),
+      ),
+    ),
+  ),
+)
+class customerSave {}
+''',
+        },
+      );
+      expect(_forCheck(21, input).single.message, contains("'read' slot"));
+    });
+
+    test('a non-graded requirement with no graded slot is not this check', () {
+      // The overwhelming majority of requirements are a single kind with no
+      // grading at all; the check must not have an opinion about them.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsEndpoint('customer.save')
+@CsAuthorize(
+  requirement: CsAuthRequirement.role,
+  roles: [CsRoleRef('sales')],
+)
+class customerSave {}
+''',
+        },
+      );
+      expect(_forCheck(21, input), isEmpty);
+    });
+
+    test('reports every nested grading, not only the outermost', () {
+      // Dart puts no depth limit on the nesting, so stopping at the first
+      // violation would send the author round the loop once per level.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+@CsEndpoint('customer.save')
+@CsAuthorize(
+  requirement: CsAuthRequirement.graded,
+  graded: CsGradedAccess(
+    full: CsAuthorize(
+      requirement: CsAuthRequirement.graded,
+      graded: CsGradedAccess(
+        full: CsAuthorize(
+          requirement: CsAuthRequirement.graded,
+          graded: CsGradedAccess(
+            full: CsAuthorize(requirement: CsAuthRequirement.authenticated),
+          ),
+        ),
+      ),
+    ),
+  ),
+)
+class customerSave {}
+''',
+        },
+      );
+      expect(_forCheck(21, input), hasLength(2));
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
           shared: {
@@ -1169,7 +1300,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 20 checks passed');
+      expect(report.summary, 'codespecs: 21 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -1201,7 +1332,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 20 checks'));
+      expect(report.summary, contains('across 2 of 21 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(report.lines.join('\n'), contains('codespecs check 6 [§2.4]'));
     });

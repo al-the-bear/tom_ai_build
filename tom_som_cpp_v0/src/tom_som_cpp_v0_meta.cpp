@@ -122,6 +122,7 @@ void buildAuthorizationComplianceFollowUpChildren(som::SomMetaNode& parent, std:
 void buildAuthorizationEventPolicyChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuthorizationGroupEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuthorizationModelChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildAuthorizationRequirementSpecChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAuthorizationRoleEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildAvailabilityChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildBackupAndRecoverySectionChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -527,6 +528,8 @@ void buildGoalRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
 void buildGoalRisksChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGoalsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildGovernanceModelChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildGradedAccessLevelEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
+void buildGradedAuthorizationRequirementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildHandlingRequirementEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildHardwareRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
 void buildHealthCheckEndpointsChildren(som::SomMetaNode& parent, std::vector<std::string>& stack);
@@ -6555,6 +6558,117 @@ void buildAuthorizationModelChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 6;
     (*n).contentType = som::SomContentTypeMeta{"text", ""};
     (*n).docComment = "Authorization Model Notes (text).";
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildAuthorizationRequirementSpecChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementKind", "AuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.", 0, std::vector<std::string>{"role", "group", "entitlement", "resourceKey", "custom", "graded", "denied", "public", "authenticated", "guest"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale", false, "Why this requirement and not a wider or narrower one", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "roleRequirement";
+    (*n).sectionId = "AZREQ-ROLE";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).docComment = "Role requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roles", "String", "Roles", true, "Comma-separated role names from the role catalogue; the caller must hold at least one", 0, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.role\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "groupRequirement";
+    (*n).sectionId = "AZREQ-GRUP";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).docComment = "Group requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"groups", "String", "Groups", true, "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.group\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "entitlementRequirement";
+    (*n).sectionId = "AZREQ-ENTL";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Entitlement requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"patterns", "String", "Entitlement Patterns", true, "Comma-separated entitlement match patterns; the caller must match at least one", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.entitlement\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "resourceKeyRequirement";
+    (*n).sectionId = "AZREQ-RKEY";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Resource-key requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceKey", "String", "Resource Key", true, "The resource key from the resource-key catalogue the caller must hold a grant on", 0, std::vector<std::string>{}, std::vector<std::string>{"RESKEY.resourceKey"}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.resourceKey\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "AuthorizationRequirementSpec";
+    (*n).memberName = "customRequirement";
+    (*n).sectionId = "AZREQ-CUST";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Custom requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.custom\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("GradedAuthorizationRequirement", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "GradedAuthorizationRequirement";
+        n.memberName = "gradedRequirement";
+        n.classSectionId = "AZGRD";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "GradedAuthorizationRequirement";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 6;
+        n.docComment = "Graded requirement payload — a promoted `@OneOf` case.";
+        n.classDocComment = "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.";
+        n.extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"AuthorizationRequirementKind.graded\"}", nullptr)});
+      },
+      buildGradedAuthorizationRequirementChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -26170,7 +26284,6 @@ void buildDecisionPointsChildren(som::SomMetaNode& parent, std::vector<std::stri
 }
 
 void buildDeepLinkPatternEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "DeepLinkPatternEntry";
@@ -26184,10 +26297,24 @@ void buildDeepLinkPatternEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"urlPattern", "String", "URL Pattern", true, "Route pattern, e.g., /orders/:orderId", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "Screen to open", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "When/why this link is used", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"authenticationRequired", "String", "Authentication Required", false, "Yes/No — redirect to login if unauthenticated", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Permissions needed to access via deep link", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackRoute", "String", "Fallback Route", false, "Where to go if target is unavailable", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"shareEnabled", "String", "Share Enabled", false, "Yes/No — can users share this link", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackRoute", "String", "Fallback Route", false, "Where to go if target is unavailable", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"shareEnabled", "String", "Share Enabled", false, "Yes/No — can users share this link", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 1;
+        n.docComment = "Access control — what a caller must satisfy to follow this deep link.\n\nThe shared CE-AZ requirement section (`AZREQ`). Authoring the\nAuthenticated kind is what makes an unauthenticated visitor redirect to\nsign-in; there is no separate authentication-required flag.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -34492,7 +34619,7 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExportFormatEntry";
-    (*n).memberName = "access";
+    (*n).memberName = "audit";
     (*n).sectionId = "EXAC";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
@@ -34500,12 +34627,26 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 8;
     (*n).docComment = "Access and audit.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Roles permitted to run this export", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"auditLogging", "String", "Audit Logging", false, "Yes / No — log export executions", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"previewAvailable", "String", "Preview Available", false, "Yes / No — allow user to preview", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Design notes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced\",\"ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity\"],\"connotation\":\"Access levels, required roles, and audit-logging settings governing who may run an export.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"auditLogging", "String", "Audit Logging", false, "Yes / No — log export executions", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"previewAvailable", "String", "Preview Available", false, "Yes / No — allow user to preview", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Design notes", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced\",\"ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity\"],\"connotation\":\"Audit-logging and preview settings for an export; who may run it is authored in the access requirement.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 9;
+        n.docComment = "Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -34517,7 +34658,7 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ExportFieldMappingEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 9;
+    (*ln).serializationOrder = 10;
     (*ln).contentHelp = "Add one entry per export field mapping.";
     (*ln).docComment = "Contains 0+× Export Field Mapping.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line\",\"ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data\"],\"connotation\":\"The collection of export field-mapping entries that bind source fields to output columns.\"}", nullptr)});
@@ -34554,7 +34695,6 @@ void buildExportSizeSettingsChildren(som::SomMetaNode& parent, std::vector<std::
 }
 
 void buildExportTemplateEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExportTemplateEntry";
@@ -34628,7 +34768,7 @@ void buildExportTemplateEntryChildren(som::SomMetaNode& parent, std::vector<std:
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "ExportTemplateEntry";
-    (*n).memberName = "access";
+    (*n).memberName = "metadata";
     (*n).sectionId = "ETEA";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
@@ -34636,12 +34776,26 @@ void buildExportTemplateEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 4;
     (*n).docComment = "Access and metadata.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Roles permitted to use this template", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reusableAcrossReports", "String", "Reusable Across Reports", false, "Yes / No — can this template be used by multiple reports/exports", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "Template version, e.g. 1.0", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Design notes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts\",\"ISO 8601-1:2019 — a standardized calendar representation supports template version dating\"],\"connotation\":\"Access-control and metadata settings governing who may use an export template and how it is versioned.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reusableAcrossReports", "String", "Reusable Across Reports", false, "Yes / No — can this template be used by multiple reports/exports", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "Template version, e.g. 1.0", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Design notes", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts\",\"ISO 8601-1:2019 — a standardized calendar representation supports template version dating\"],\"connotation\":\"Reuse and versioning metadata for an export template; who may use it is authored in the access requirement.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 5;
+        n.docComment = "Access control — what a caller must satisfy to use this template.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -38608,6 +38762,143 @@ void buildGovernanceModelChildren(som::SomMetaNode& parent, std::vector<std::str
         n.classDocComment = "A decision authority entry.";
       },
       buildDecisionAuthorityEntryChildren);
+    parent.addChild(std::move(ln));
+  }
+}
+
+void buildGradedAccessLevelEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  (void)stack;
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevel", "GradedAccessLevel", "Access Level", true, "The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.", 0, std::vector<std::string>{"full", "read", "disabled"}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementKind", "BasicAuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy to reach this access state — selects the payload subsection below", 1, std::vector<std::string>{"role", "group", "entitlement", "resourceKey", "custom", "denied", "public", "authenticated", "guest"}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "roleRequirement";
+    (*n).sectionId = "AZLVL-ROLE";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 1;
+    (*n).docComment = "Role requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roles", "String", "Roles", true, "Comma-separated role names from the role catalogue; the caller must hold at least one", 0, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.role\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "groupRequirement";
+    (*n).sectionId = "AZLVL-GRUP";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 2;
+    (*n).docComment = "Group requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"groups", "String", "Groups", true, "Comma-separated group names the caller must belong to (at least one)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.group\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "entitlementRequirement";
+    (*n).sectionId = "AZLVL-ENTL";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 3;
+    (*n).docComment = "Entitlement requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"patterns", "String", "Entitlement Patterns", true, "Comma-separated entitlement match patterns; the caller must match at least one", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.entitlement\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "resourceKeyRequirement";
+    (*n).sectionId = "AZLVL-RKEY";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 4;
+    (*n).docComment = "Resource-key requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceKey", "String", "Resource Key", true, "The resource key from the resource-key catalogue the caller must hold a grant on", 0, std::vector<std::string>{}, std::vector<std::string>{"RESKEY.resourceKey"}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.resourceKey\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAccessLevelEntry";
+    (*n).memberName = "customRequirement";
+    (*n).sectionId = "AZLVL-CUST";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 5;
+    (*n).docComment = "Custom requirement payload — a promoted `@OneOf` case.";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"handler", "String", "Handler", true, "The registered access handler that decides", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"BasicAuthorizationRequirementKind.custom\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+}
+
+void buildGradedAuthorizationRequirementChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
+  {
+    auto n = std::make_unique<som::SomMetaNode>();
+    (*n).className = "GradedAuthorizationRequirement";
+    (*n).memberName = "content";
+    (*n).kind = som::kSomMetaKindForm;
+    (*n).typeName = "String";
+    (*n).hasSerializationOrder = true;
+    (*n).serializationOrder = 0;
+    (*n).contentHelp = "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n";
+    (*n).form = som::SomFormMeta{};
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gradingRationale", "String", "Grading Rationale", false, "Why this thing is graded rather than simply reachable or not", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto ln = std::make_unique<som::SomMetaNode>();
+    (*ln).className = "GradedAuthorizationRequirement";
+    (*ln).memberName = "accessLevels";
+    (*ln).sectionId = "AZLVL-LEVE-LST";
+    (*ln).sectionIdPattern = "AZLVL-LEVE-xxx";
+    (*ln).kind = som::kSomMetaKindList;
+    (*ln).typeName = "GradedAccessLevelEntry";
+    (*ln).hasSerializationOrder = true;
+    (*ln).serializationOrder = 1;
+    (*ln).hasMin = true;
+    (*ln).min = 1;
+    (*ln).contentHelp = "Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.";
+    (*ln).docComment = "The authored rungs of the ladder — contains 1..3× Graded Access Level.";
+    ln->elementNode = metaCx("GradedAccessLevelEntry", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "GradedAccessLevelEntry";
+        n.classSectionId = "AZLVL";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "GradedAccessLevelEntry";
+        n.docComment = "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.";
+        n.classDocComment = "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.";
+      },
+      buildGradedAccessLevelEntryChildren);
     parent.addChild(std::move(ln));
   }
 }
@@ -49922,20 +50213,19 @@ void buildNavigationGroupEntryChildren(som::SomMetaNode& parent, std::vector<std
     parent.addChild(std::move(n));
   }
   {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "NavigationGroupEntry";
-    (*n).memberName = "access";
-    (*n).sectionId = "NGEA";
-    (*n).kind = som::kSomMetaKindForm;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 2;
-    (*n).docComment = "Access-control settings.";
-    (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Comma-separated role IDs", 0, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Specific permissions required", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable/Collapse when unauthorized", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context\",\"ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility\"],\"connotation\":\"Access-control settings such as required roles and permission behavior for a navigation group.\"}", nullptr)});
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "Access control — what a caller must satisfy to see this navigation group.\n\nThe shared CE-AZ requirement section (`AZREQ`). A group that should be\nvisible-but-locked rather than hidden authors the Graded kind; the\nhide/disable rendering follows from the access state and is not authored\nhere.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -50143,7 +50433,6 @@ void buildNavigationHierarchyChildren(som::SomMetaNode& parent, std::vector<std:
 }
 
 void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "NavigationItemEntry";
@@ -50197,20 +50486,33 @@ void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std:
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "NavigationItemEntry";
-    (*n).memberName = "access";
+    (*n).memberName = "visibility";
     (*n).sectionId = "NIEA";
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
-    (*n).docComment = "Access control settings.";
+    (*n).docComment = "Business conditions governing when the item is shown and interactive.\n\nThese are *business* conditions, not authorization — who may reach the\nitem is authored in [access]. A condition here narrows an item the caller\nis already authorized for.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "Business condition for visibility", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enabledCondition", "String", "Enabled Condition", false, "When item is visible but non-interactive", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Comma-separated roles", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Specific permissions", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable/Show-Locked-Icon", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context\",\"ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility\"],\"connotation\":\"Access-control settings such as roles, permissions, and visibility conditions for a navigation item.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context\",\"ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context\"],\"connotation\":\"The business conditions under which a navigation item is shown and interactive.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 4;
+        n.docComment = "Access control — what a caller must satisfy to reach this item.\n\nThe shared CE-AZ requirement section (`AZREQ`). An item that should be\nshown locked rather than hidden authors the Graded kind.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -50221,7 +50523,7 @@ void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 5;
     (*n).docComment = "Badge configuration.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot/Text/Icon", 0, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -50238,7 +50540,7 @@ void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 5;
+    (*n).serializationOrder = 6;
     (*n).docComment = "Interaction settings.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"keyboardShortcut", "String", "Keyboard Shortcut", false, "Global shortcut, e.g., Ctrl+Shift+C", 0, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -62661,10 +62963,24 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"localization", "String", "Localization", false, "Locales supported, e.g. de-DE, en-US, fr-FR", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"brandingOverride", "String", "Branding Override", false, "Override branding for this report", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific / Confidential", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Roles permitted to generate this report", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataLevelSecurity", "String", "Data-Level Security", false, "Row/column level security rules", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties\",\"ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information\"],\"connotation\":\"Security settings covering access levels roles and data-level restrictions for the report.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataLevelSecurity", "String", "Data-Level Security", false, "Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties\",\"ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information\"],\"connotation\":\"Presentation and data-level security settings for the report; who may generate it is authored in the access section.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 11;
+        n.docComment = "Access control — what a caller must satisfy to generate this report.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -62675,7 +62991,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 11;
+    (*n).serializationOrder = 12;
     (*n).docComment = "Lifecycle and archiving.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"archiveRetention", "String", "Archive Retention", false, "Retention policy for generated instances, e.g. 90 days", 0, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -62694,7 +63010,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportSectionEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 12;
+    (*ln).serializationOrder = 13;
     (*ln).contentHelp = "Add one entry per report section.";
     (*ln).docComment = "Contains 0+× Report Section.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-125:2017 — presentation of information groups related content in sections\",\"ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units\"],\"connotation\":\"The collection of report-section entries composing the body of the report.\"}", nullptr)});
@@ -62719,7 +63035,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportFilterEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 13;
+    (*ln).serializationOrder = 14;
     (*ln).contentHelp = "Add one entry per report data filter.";
     (*ln).docComment = "Contains 0+× Report Filter.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data\"],\"connotation\":\"The collection of filters that restrict the data included in the report.\"}", nullptr)});
@@ -62744,7 +63060,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportScheduleEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 14;
+    (*ln).serializationOrder = 15;
     (*ln).contentHelp = "Add one entry per report generation schedule.";
     (*ln).docComment = "Contains 0+× Report Schedule.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 8601-1:2019 — expresses the dates and times at which the report is generated\",\"ISO/IEC 25010:2023 — functional suitability supports scheduled report production\"],\"connotation\":\"The collection of schedules controlling automated generation of the report.\"}", nullptr)});
@@ -62769,7 +63085,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportDistributionEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 15;
+    (*ln).serializationOrder = 16;
     (*ln).contentHelp = "Add one entry per report distribution channel.";
     (*ln).docComment = "Contains 0+× Report Distribution.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience\"],\"connotation\":\"The collection of distribution channels through which the report is delivered.\"}", nullptr)});
@@ -62794,7 +63110,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ReportRecipientEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 16;
+    (*ln).serializationOrder = 17;
     (*ln).contentHelp = "Add one entry per report recipient.";
     (*ln).docComment = "Contains 0+× Recipient.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information\"],\"connotation\":\"The collection of recipients who receive the generated report.\"}", nullptr)});
@@ -68449,14 +68765,28 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 3;
-    (*n).docComment = "Visibility and permission rules.";
+    (*n).docComment = "Visibility and enablement rules.\n\nThese are *business* conditions on an element the caller is already\nauthorized for. Who may see or use it at all is [access].";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "When this element is shown", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enabledCondition", "String", "Enabled Condition", false, "When this element is interactive", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"readonlyCondition", "String", "Readonly Condition", false, "When this element is read-only", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermission", "String", "Required Permission", false, "Permission needed to see/interact", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionEffect", "String", "Permission Effect", false, "Hide/Disable/Readonly", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only\",\"ISO 9241-110:2020 — controllability governing when an element is interactive\"],\"connotation\":\"The visibility, enablement, and permission rules that determine when a screen element can be seen or used.\"}", nullptr)});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only\",\"ISO 9241-110:2020 — controllability governing when an element is interactive\"],\"connotation\":\"The business conditions that determine when a screen element is visible, interactive, or read-only.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 4;
+        n.docComment = "Access control — what a caller must satisfy to see or use this element.\n\nThe shared CE-AZ requirement section (`AZREQ`). An element whose access\nhas degrees — hidden, locked, read-only, interactive — authors the Graded\nkind, which is what the old free-text permission-effect field was trying\nto say.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -68467,7 +68797,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 4;
+    (*n).serializationOrder = 5;
     (*n).docComment = "Styling and data binding.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"styleVariant", "String", "Style Variant", false, "Primary/Secondary/Danger/Subtle/Custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -68487,7 +68817,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenElementAction";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 5;
+        n.serializationOrder = 6;
         n.docComment = "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.";
         n.extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenElementKind.actionButton\"}", nullptr)});
@@ -68505,7 +68835,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenElementFieldSpec";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.";
         n.extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenElementKind.textField\"}", nullptr)});
@@ -68527,7 +68857,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "ScreenElementDataDisplay";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.";
         n.extra.push_back(som::SomMetaExtra{"Case", som::jsonParse("{\"value\":\"ScreenElementKind.dataDisplay\"}", nullptr)});
@@ -68552,7 +68882,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ElementValidationRuleEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 8;
+    (*ln).serializationOrder = 9;
     (*ln).contentHelp = "Add one entry per validation rule.";
     (*ln).docComment = "Contains 0+× ElementValidationRule.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-143:2012 — validation of user input in form-based interaction\",\"ISO 9241-110:2020 — use error tolerance through input validation\"],\"connotation\":\"The collection of validation rules that constrain and check the input for a screen element.\"}", nullptr)});
@@ -68758,21 +69088,19 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     parent.addChild(std::move(n));
   }
   {
-    auto n = std::make_unique<som::SomMetaNode>();
-    (*n).className = "ScreenEntry";
-    (*n).memberName = "access";
-    (*n).sectionId = "SCEAC";
-    (*n).kind = som::kSomMetaKindForm;
-    (*n).typeName = "String";
-    (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 2;
-    (*n).docComment = "Access control settings.";
-    (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessLevel", "String", "Access Level", false, "Public/Authenticated/Role-specific", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Authorization roles that may access this screen", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Specific permissions needed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionEffect", "String", "Permission Effect", false, "Hide-Screen/Show-Readonly/Show-With-Restrictions", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — controllability governing who may access an interface\",\"ISO/IEC 25010:2023 — interaction capability constrained by authorization\"],\"connotation\":\"The access-control settings that determine which roles and permissions may reach a screen.\"}", nullptr)});
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "Access control — what a caller must satisfy to reach this screen.\n\nThe shared CE-AZ requirement section (`AZREQ`), not a screen-local\nrestatement. A screen that is graded rather than simply reachable authors\nthe Graded kind; how each access state renders is fixed by the framework\nand is not authored here.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -71530,11 +71858,24 @@ void buildServerOperationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"operationName", "String", "Operation Name", true, "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"authorizationRequirement", "String", "Authorization Requirement", true, "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement", 4, std::vector<std::string>{}, std::vector<std::string>{"AZRO.roleName"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredResourceKey", "String", "Required Resource Key", false, "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement", 5, std::vector<std::string>{}, std::vector<std::string>{"RESKEY.resourceKey"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 6, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 7, std::vector<std::string>{}, std::vector<std::string>{"ERCEN.code"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 3, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 4, std::vector<std::string>{}, std::vector<std::string>{"ERCEN.code"}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "authorization";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 1;
+        n.docComment = "7.9.x. Authorization — what a caller must satisfy to invoke this\noperation.\n\nThe shared CE-AZ requirement section, not a per-operation restatement.\nThere is no default: an operation with no requirement authored is a\nspecification defect.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -71546,7 +71887,7 @@ void buildServerOperationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ServerOperationMemberEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 1;
+    (*ln).serializationOrder = 2;
     (*ln).contentHelp = "Add one entry per member of the request shape.";
     (*ln).docComment = "7.9.x. Request Members — the members that make up the request shape.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"The members that make up this operation's request shape.\"}", nullptr)});
@@ -71571,7 +71912,7 @@ void buildServerOperationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "ServerOperationMemberEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 2;
+    (*ln).serializationOrder = 3;
     (*ln).contentHelp = "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.";
     (*ln).docComment = "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 11179 — metadata registries / data element definitions\"],\"connotation\":\"The members that make up the success payload this operation returns.\"}", nullptr)});
@@ -80924,7 +81265,6 @@ void buildTabBarDefinitionEntryChildren(som::SomMetaNode& parent, std::vector<st
 }
 
 void buildTabItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "TabItemEntry";
@@ -80940,10 +81280,24 @@ void buildTabItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Position in tab bar", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "Business rule for visibility", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Tab-level access control", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot", 8, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeSource", "String", "Badge Source", false, "Data source for badge", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeSource", "String", "Badge Source", false, "Data source for badge", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 1;
+        n.docComment = "Access control — what a caller must satisfy to reach this tab.\n\nThe shared CE-AZ requirement section (`AZREQ`). A tab that should be shown\ndisabled rather than hidden authors the Graded kind.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -89208,7 +89562,6 @@ void buildUserTrainingRequirementsChildren(som::SomMetaNode& parent, std::vector
 }
 
 void buildUtilityMenuItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& stack) {
-  (void)stack;
   {
     auto n = std::make_unique<som::SomMetaNode>();
     (*n).className = "UtilityMenuItemEntry";
@@ -89252,11 +89605,26 @@ void buildUtilityMenuItemEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 2;
     (*n).docComment = "Visibility and confirmation behavior.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "When shown", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredPermissions", "String", "Required Permissions", false, "Access control", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"isDangerous", "String", "Is Dangerous", false, "Yes/No — show in danger style", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions\"],\"connotation\":\"The visibility conditions, permission checks, and confirmation behavior for a utility menu item.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "Business condition for when it is shown — who may use it is authored in the access section", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"isDangerous", "String", "Is Dangerous", false, "Yes/No — show in danger style", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions\"],\"connotation\":\"The visibility conditions and confirmation behavior for a utility menu item.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 3;
+        n.docComment = "Access control — what a caller must satisfy to use this menu item.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
 }
@@ -89326,13 +89694,28 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 1;
-    (*n).docComment = "Ordering, rendering, and access rules.";
+    (*n).docComment = "Ordering and rendering.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Sort position", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayKind", "String", "Display Kind", false, "Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "When shown", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredRoles", "String", "Required Roles", false, "Access control", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, presentation kind, and access rules governing a utility navigation item.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "Business condition for when it is shown — who may see it is authored in the access section", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\"],\"connotation\":\"The display order and presentation kind governing a utility navigation item.\"}", nullptr)});
+    parent.addChild(std::move(n));
+  }
+  {
+    auto n = metaCx("AuthorizationRequirementSpec", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "AuthorizationRequirementSpec";
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "AuthorizationRequirementSpec";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 2;
+        n.docComment = "Access control — what a caller must satisfy to reach this utility item.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+      },
+      buildAuthorizationRequirementSpecChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -89343,7 +89726,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).kind = som::kSomMetaKindForm;
     (*n).typeName = "String";
     (*n).hasSerializationOrder = true;
-    (*n).serializationOrder = 2;
+    (*n).serializationOrder = 3;
     (*n).docComment = "Badge and interaction behavior.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot", 0, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -89362,7 +89745,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*ln).kind = som::kSomMetaKindList;
     (*ln).typeName = "UtilityMenuItemEntry";
     (*ln).hasSerializationOrder = true;
-    (*ln).serializationOrder = 3;
+    (*ln).serializationOrder = 4;
     (*ln).contentHelp = "Add one entry per utility menu item.";
     (*ln).docComment = "Contains 0+× UtilityMenuItem.";
     (*ln).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown\"],\"connotation\":\"The collection of nested menu item entries belonging to a utility navigation item.\"}", nullptr)});
@@ -91769,6 +92152,9 @@ void* metaNavFactoryGoalMilestoneEntry(const som::SomMetaTree* tree, const std::
 void* metaNavFactoryGoalRiskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavGoalRiskEntry{som::SomMetaRef(tree, path)};
 }
+void* metaNavFactoryGradedAccessLevelEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new NavGradedAccessLevelEntry{som::SomMetaRef(tree, path)};
+}
 void* metaNavFactoryHandlingRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new NavHandlingRequirementEntry{som::SomMetaRef(tree, path)};
 }
@@ -93274,6 +93660,9 @@ void* metaIdFactoryGoalMilestoneEntry(const som::SomMetaTree* tree, const std::s
 }
 void* metaIdFactoryGoalRiskEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdGoalRiskEntry{som::SomMetaRef(tree, path)};
+}
+void* metaIdFactoryGradedAccessLevelEntry(const som::SomMetaTree* tree, const std::string& path) {
+  return new IdGradedAccessLevelEntry{som::SomMetaRef(tree, path)};
 }
 void* metaIdFactoryHandlingRequirementEntry(const som::SomMetaTree* tree, const std::string& path) {
   return new IdHandlingRequirementEntry{som::SomMetaRef(tree, path)};
@@ -95536,6 +95925,27 @@ NavPermissionEvaluationBehavior navAuthorizationModel_permissionEvaluation(NavAu
 }
 som::SomMetaRef navAuthorizationModel_authorizationModelNotes(NavAuthorizationModel x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorizationModelNotes"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_content(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_roleRequirement(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZREQ-ROLE"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_groupRequirement(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZREQ-GRUP"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_entitlementRequirement(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZREQ-ENTL"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_resourceKeyRequirement(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZREQ-RKEY"));
+}
+som::SomMetaRef navAuthorizationRequirementSpec_customRequirement(NavAuthorizationRequirementSpec x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZREQ-CUST"));
+}
+NavGradedAuthorizationRequirement navAuthorizationRequirementSpec_gradedRequirement(NavAuthorizationRequirementSpec x) {
+  return NavGradedAuthorizationRequirement{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "gradedRequirement"))};
 }
 som::SomMetaRef navAuthorizationRoleEntry_content(NavAuthorizationRoleEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -98807,6 +99217,9 @@ som::SomListMetaRef navDecisionPoints_items(NavDecisionPoints x) {
 som::SomMetaRef navDeepLinkPatternEntry_content(NavDeepLinkPatternEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
+NavAuthorizationRequirementSpec navDeepLinkPatternEntry_access(NavDeepLinkPatternEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
+}
 som::SomMetaRef navDeepLinking_content(NavDeepLinking x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -100199,8 +100612,11 @@ som::SomMetaRef navExportFormatEntry_security(NavExportFormatEntry x) {
 som::SomMetaRef navExportFormatEntry_output(NavExportFormatEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXOU"));
 }
-som::SomMetaRef navExportFormatEntry_access(NavExportFormatEntry x) {
+som::SomMetaRef navExportFormatEntry_audit(NavExportFormatEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXAC"));
+}
+NavAuthorizationRequirementSpec navExportFormatEntry_access(NavExportFormatEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomListMetaRef navExportFormatEntry_fieldMappings(NavExportFormatEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFME-FIEL-LST"), metaNavFactoryExportFieldMappingEntry);
@@ -100220,8 +100636,11 @@ som::SomMetaRef navExportTemplateEntry_fields(NavExportTemplateEntry x) {
 som::SomMetaRef navExportTemplateEntry_layout(NavExportTemplateEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ETEL"));
 }
-som::SomMetaRef navExportTemplateEntry_access(NavExportTemplateEntry x) {
+som::SomMetaRef navExportTemplateEntry_metadata(NavExportTemplateEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ETEA"));
+}
+NavAuthorizationRequirementSpec navExportTemplateEntry_access(NavExportTemplateEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomMetaRef navExtensionEntry_content(NavExtensionEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -100885,6 +101304,30 @@ som::SomMetaRef navGovernanceModel_content(NavGovernanceModel x) {
 }
 som::SomListMetaRef navGovernanceModel_decisionAuthorities(NavGovernanceModel x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DCAUT-DECI-LST"), metaNavFactoryDecisionAuthorityEntry);
+}
+som::SomMetaRef navGradedAccessLevelEntry_content(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomMetaRef navGradedAccessLevelEntry_roleRequirement(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-ROLE"));
+}
+som::SomMetaRef navGradedAccessLevelEntry_groupRequirement(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-GRUP"));
+}
+som::SomMetaRef navGradedAccessLevelEntry_entitlementRequirement(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-ENTL"));
+}
+som::SomMetaRef navGradedAccessLevelEntry_resourceKeyRequirement(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-RKEY"));
+}
+som::SomMetaRef navGradedAccessLevelEntry_customRequirement(NavGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-CUST"));
+}
+som::SomMetaRef navGradedAuthorizationRequirement_content(NavGradedAuthorizationRequirement x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+som::SomListMetaRef navGradedAuthorizationRequirement_accessLevels(NavGradedAuthorizationRequirement x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-LEVE-LST"), metaNavFactoryGradedAccessLevelEntry);
 }
 som::SomMetaRef navHandlingRequirementEntry_content(NavHandlingRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
@@ -102782,8 +103225,8 @@ som::SomMetaRef navNavigationGroupEntry_content(NavNavigationGroupEntry x) {
 som::SomMetaRef navNavigationGroupEntry_display(NavNavigationGroupEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGED"));
 }
-som::SomMetaRef navNavigationGroupEntry_access(NavNavigationGroupEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGEA"));
+NavAuthorizationRequirementSpec navNavigationGroupEntry_access(NavNavigationGroupEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomMetaRef navNavigationGroupEntry_structure(NavNavigationGroupEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGES"));
@@ -102827,8 +103270,11 @@ som::SomMetaRef navNavigationItemEntry_display(NavNavigationItemEntry x) {
 som::SomMetaRef navNavigationItemEntry_routing(NavNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NIER"));
 }
-som::SomMetaRef navNavigationItemEntry_access(NavNavigationItemEntry x) {
+som::SomMetaRef navNavigationItemEntry_visibility(NavNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NIEA"));
+}
+NavAuthorizationRequirementSpec navNavigationItemEntry_access(NavNavigationItemEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomMetaRef navNavigationItemEntry_badge(NavNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NIEB"));
@@ -104861,6 +105307,9 @@ som::SomMetaRef navReportEntry_pagination(NavReportEntry x) {
 som::SomMetaRef navReportEntry_security(NavReportEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESE"));
 }
+NavAuthorizationRequirementSpec navReportEntry_access(NavReportEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
+}
 som::SomMetaRef navReportEntry_lifecycle(NavReportEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RELI"));
 }
@@ -105794,6 +106243,9 @@ som::SomMetaRef navScreenElementEntry_layout(NavScreenElementEntry x) {
 som::SomMetaRef navScreenElementEntry_behavior(NavScreenElementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SEEB"));
 }
+NavAuthorizationRequirementSpec navScreenElementEntry_access(NavScreenElementEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
+}
 som::SomMetaRef navScreenElementEntry_presentation(NavScreenElementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCELENPR"));
 }
@@ -105839,8 +106291,8 @@ som::SomMetaRef navScreenEntry_content(NavScreenEntry x) {
 som::SomMetaRef navScreenEntry_classification(NavScreenEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCECL"));
 }
-som::SomMetaRef navScreenEntry_access(NavScreenEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCEAC"));
+NavAuthorizationRequirementSpec navScreenEntry_access(NavScreenEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomMetaRef navScreenEntry_traceability(NavScreenEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCETR"));
@@ -106309,6 +106761,9 @@ som::SomMetaRef navServerEnvironmentEntry_lifecycle(NavServerEnvironmentEntry x)
 }
 som::SomMetaRef navServerOperationEntry_content(NavServerOperationEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
+}
+NavAuthorizationRequirementSpec navServerOperationEntry_authorization(NavServerOperationEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization"))};
 }
 som::SomListMetaRef navServerOperationEntry_requestMembers(NavServerOperationEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOPM-REQM-LST"), metaNavFactoryServerOperationMemberEntry);
@@ -107900,6 +108355,9 @@ som::SomListMetaRef navTabBarDefinitionEntry_tabs(NavTabBarDefinitionEntry x) {
 som::SomMetaRef navTabItemEntry_content(NavTabItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
+NavAuthorizationRequirementSpec navTabItemEntry_access(NavTabItemEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
+}
 som::SomMetaRef navTargetOperatingModel_content(NavTargetOperatingModel x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -109271,6 +109729,9 @@ som::SomMetaRef navUtilityMenuItemEntry_action(NavUtilityMenuItemEntry x) {
 som::SomMetaRef navUtilityMenuItemEntry_behavior(NavUtilityMenuItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UMIEB"));
 }
+NavAuthorizationRequirementSpec navUtilityMenuItemEntry_access(NavUtilityMenuItemEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
+}
 som::SomMetaRef navUtilityNavigation_content(NavUtilityNavigation x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "content"));
 }
@@ -109282,6 +109743,9 @@ som::SomMetaRef navUtilityNavigationItemEntry_content(NavUtilityNavigationItemEn
 }
 som::SomMetaRef navUtilityNavigationItemEntry_display(NavUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIED"));
+}
+NavAuthorizationRequirementSpec navUtilityNavigationItemEntry_access(NavUtilityNavigationItemEntry x) {
+  return NavAuthorizationRequirementSpec{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access"))};
 }
 som::SomMetaRef navUtilityNavigationItemEntry_behavior(NavUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIEB"));
@@ -120204,6 +120668,24 @@ som::SomMetaRef idDecisionPointEntry_DEPOENCR(IdDecisionPointEntry x) {
 som::SomListMetaRef idDecisionPointEntry_DEOPEN_OPTI_LST(IdDecisionPointEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "resolution/DEOPEN-OPTI-LST"), metaIdFactoryDecisionOptionEntry);
 }
+som::SomMetaRef idDeepLinkPatternEntry_AZREQ_ROLE(IdDeepLinkPatternEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idDeepLinkPatternEntry_AZREQ_GRUP(IdDeepLinkPatternEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idDeepLinkPatternEntry_AZREQ_ENTL(IdDeepLinkPatternEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idDeepLinkPatternEntry_AZREQ_RKEY(IdDeepLinkPatternEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idDeepLinkPatternEntry_AZREQ_CUST(IdDeepLinkPatternEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idDeepLinkPatternEntry_AZLVL_LEVE_LST(IdDeepLinkPatternEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomMetaRef idDeliverableEntry_DLVID(IdDeliverableEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "DLVID"));
 }
@@ -120525,6 +121007,24 @@ som::SomMetaRef idExportFormatEntry_EXOU(IdExportFormatEntry x) {
 som::SomMetaRef idExportFormatEntry_EXAC(IdExportFormatEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXAC"));
 }
+som::SomMetaRef idExportFormatEntry_AZREQ_ROLE(IdExportFormatEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idExportFormatEntry_AZREQ_GRUP(IdExportFormatEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idExportFormatEntry_AZREQ_ENTL(IdExportFormatEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idExportFormatEntry_AZREQ_RKEY(IdExportFormatEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idExportFormatEntry_AZREQ_CUST(IdExportFormatEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idExportFormatEntry_AZLVL_LEVE_LST(IdExportFormatEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomListMetaRef idExportFormatEntry_EFME_FIEL_LST(IdExportFormatEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EFME-FIEL-LST"), metaIdFactoryExportFieldMappingEntry);
 }
@@ -120539,6 +121039,24 @@ som::SomMetaRef idExportTemplateEntry_ETEL(IdExportTemplateEntry x) {
 }
 som::SomMetaRef idExportTemplateEntry_ETEA(IdExportTemplateEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "ETEA"));
+}
+som::SomMetaRef idExportTemplateEntry_AZREQ_ROLE(IdExportTemplateEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idExportTemplateEntry_AZREQ_GRUP(IdExportTemplateEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idExportTemplateEntry_AZREQ_ENTL(IdExportTemplateEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idExportTemplateEntry_AZREQ_RKEY(IdExportTemplateEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idExportTemplateEntry_AZREQ_CUST(IdExportTemplateEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idExportTemplateEntry_AZLVL_LEVE_LST(IdExportTemplateEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomListMetaRef idExtensionEntry_EXTST_STEP_LST(IdExtensionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "EXTST-STEP-LST"), metaIdFactoryExtensionStepEntry);
@@ -120836,6 +121354,21 @@ som::SomMetaRef idGoalRiskEntry_GREA(IdGoalRiskEntry x) {
 }
 som::SomMetaRef idGoalRiskEntry_GRER(IdGoalRiskEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "GRER"));
+}
+som::SomMetaRef idGradedAccessLevelEntry_AZLVL_ROLE(IdGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-ROLE"));
+}
+som::SomMetaRef idGradedAccessLevelEntry_AZLVL_GRUP(IdGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-GRUP"));
+}
+som::SomMetaRef idGradedAccessLevelEntry_AZLVL_ENTL(IdGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-ENTL"));
+}
+som::SomMetaRef idGradedAccessLevelEntry_AZLVL_RKEY(IdGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-RKEY"));
+}
+som::SomMetaRef idGradedAccessLevelEntry_AZLVL_CUST(IdGradedAccessLevelEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "AZLVL-CUST"));
 }
 som::SomMetaRef idIdeRequirementEntry_IREC(IdIdeRequirementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "IREC"));
@@ -121263,8 +121796,23 @@ som::SomMetaRef idMustPassCriterionEntry_MPCES(IdMustPassCriterionEntry x) {
 som::SomMetaRef idNavigationGroupEntry_NGED(IdNavigationGroupEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGED"));
 }
-som::SomMetaRef idNavigationGroupEntry_NGEA(IdNavigationGroupEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGEA"));
+som::SomMetaRef idNavigationGroupEntry_AZREQ_ROLE(IdNavigationGroupEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idNavigationGroupEntry_AZREQ_GRUP(IdNavigationGroupEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idNavigationGroupEntry_AZREQ_ENTL(IdNavigationGroupEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idNavigationGroupEntry_AZREQ_RKEY(IdNavigationGroupEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idNavigationGroupEntry_AZREQ_CUST(IdNavigationGroupEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idNavigationGroupEntry_AZLVL_LEVE_LST(IdNavigationGroupEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomMetaRef idNavigationGroupEntry_NGES(IdNavigationGroupEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NGES"));
@@ -121286,6 +121834,24 @@ som::SomMetaRef idNavigationItemEntry_NIER(IdNavigationItemEntry x) {
 }
 som::SomMetaRef idNavigationItemEntry_NIEA(IdNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NIEA"));
+}
+som::SomMetaRef idNavigationItemEntry_AZREQ_ROLE(IdNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idNavigationItemEntry_AZREQ_GRUP(IdNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idNavigationItemEntry_AZREQ_ENTL(IdNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idNavigationItemEntry_AZREQ_RKEY(IdNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idNavigationItemEntry_AZREQ_CUST(IdNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idNavigationItemEntry_AZLVL_LEVE_LST(IdNavigationItemEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomMetaRef idNavigationItemEntry_NIEB(IdNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "NIEB"));
@@ -121734,6 +122300,24 @@ som::SomMetaRef idReportEntry_REPA(IdReportEntry x) {
 som::SomMetaRef idReportEntry_RESE(IdReportEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RESE"));
 }
+som::SomMetaRef idReportEntry_AZREQ_ROLE(IdReportEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idReportEntry_AZREQ_GRUP(IdReportEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idReportEntry_AZREQ_ENTL(IdReportEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idReportEntry_AZREQ_RKEY(IdReportEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idReportEntry_AZREQ_CUST(IdReportEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idReportEntry_AZLVL_LEVE_LST(IdReportEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomMetaRef idReportEntry_RELI(IdReportEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "RELI"));
 }
@@ -122019,6 +122603,24 @@ som::SomMetaRef idScreenElementEntry_SCELENLA(IdScreenElementEntry x) {
 som::SomMetaRef idScreenElementEntry_SEEB(IdScreenElementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SEEB"));
 }
+som::SomMetaRef idScreenElementEntry_AZREQ_ROLE(IdScreenElementEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idScreenElementEntry_AZREQ_GRUP(IdScreenElementEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idScreenElementEntry_AZREQ_ENTL(IdScreenElementEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idScreenElementEntry_AZREQ_RKEY(IdScreenElementEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idScreenElementEntry_AZREQ_CUST(IdScreenElementEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idScreenElementEntry_AZLVL_LEVE_LST(IdScreenElementEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomMetaRef idScreenElementEntry_SCELENPR(IdScreenElementEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCELENPR"));
 }
@@ -122061,8 +122663,23 @@ som::SomListMetaRef idScreenElementEntry_EVRE_VALI_LST(IdScreenElementEntry x) {
 som::SomMetaRef idScreenEntry_SCECL(IdScreenEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCECL"));
 }
-som::SomMetaRef idScreenEntry_SCEAC(IdScreenEntry x) {
-  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCEAC"));
+som::SomMetaRef idScreenEntry_AZREQ_ROLE(IdScreenEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idScreenEntry_AZREQ_GRUP(IdScreenEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idScreenEntry_AZREQ_ENTL(IdScreenEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idScreenEntry_AZREQ_RKEY(IdScreenEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idScreenEntry_AZREQ_CUST(IdScreenEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idScreenEntry_AZLVL_LEVE_LST(IdScreenEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomMetaRef idScreenEntry_SCETR(IdScreenEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SCETR"));
@@ -122204,6 +122821,24 @@ som::SomMetaRef idServerEnvironmentEntry_SEEA(IdServerEnvironmentEntry x) {
 }
 som::SomMetaRef idServerEnvironmentEntry_SEENENLI(IdServerEnvironmentEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SEENENLI"));
+}
+som::SomMetaRef idServerOperationEntry_AZREQ_ROLE(IdServerOperationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/AZREQ-ROLE"));
+}
+som::SomMetaRef idServerOperationEntry_AZREQ_GRUP(IdServerOperationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/AZREQ-GRUP"));
+}
+som::SomMetaRef idServerOperationEntry_AZREQ_ENTL(IdServerOperationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/AZREQ-ENTL"));
+}
+som::SomMetaRef idServerOperationEntry_AZREQ_RKEY(IdServerOperationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/AZREQ-RKEY"));
+}
+som::SomMetaRef idServerOperationEntry_AZREQ_CUST(IdServerOperationEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/AZREQ-CUST"));
+}
+som::SomListMetaRef idServerOperationEntry_AZLVL_LEVE_LST(IdServerOperationEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "authorization/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomListMetaRef idServerOperationEntry_SVOPM_REQM_LST(IdServerOperationEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "SVOPM-REQM-LST"), metaIdFactoryServerOperationMemberEntry);
@@ -122601,6 +123236,24 @@ som::SomMetaRef idTabBarDefinitionEntry_TBDEL(IdTabBarDefinitionEntry x) {
 som::SomListMetaRef idTabBarDefinitionEntry_TAITEN_TABS_LST(IdTabBarDefinitionEntry x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "TAITEN-TABS-LST"), metaIdFactoryTabItemEntry);
 }
+som::SomMetaRef idTabItemEntry_AZREQ_ROLE(IdTabItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idTabItemEntry_AZREQ_GRUP(IdTabItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idTabItemEntry_AZREQ_ENTL(IdTabItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idTabItemEntry_AZREQ_RKEY(IdTabItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idTabItemEntry_AZREQ_CUST(IdTabItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idTabItemEntry_AZLVL_LEVE_LST(IdTabItemEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomMetaRef idTargetPlatformEntry_TPEVR(IdTargetPlatformEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "TPEVR"));
 }
@@ -122988,8 +123641,44 @@ som::SomMetaRef idUtilityMenuItemEntry_UMIEA(IdUtilityMenuItemEntry x) {
 som::SomMetaRef idUtilityMenuItemEntry_UMIEB(IdUtilityMenuItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UMIEB"));
 }
+som::SomMetaRef idUtilityMenuItemEntry_AZREQ_ROLE(IdUtilityMenuItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idUtilityMenuItemEntry_AZREQ_GRUP(IdUtilityMenuItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idUtilityMenuItemEntry_AZREQ_ENTL(IdUtilityMenuItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idUtilityMenuItemEntry_AZREQ_RKEY(IdUtilityMenuItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idUtilityMenuItemEntry_AZREQ_CUST(IdUtilityMenuItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idUtilityMenuItemEntry_AZLVL_LEVE_LST(IdUtilityMenuItemEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
+}
 som::SomMetaRef idUtilityNavigationItemEntry_UNIED(IdUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIED"));
+}
+som::SomMetaRef idUtilityNavigationItemEntry_AZREQ_ROLE(IdUtilityNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ROLE"));
+}
+som::SomMetaRef idUtilityNavigationItemEntry_AZREQ_GRUP(IdUtilityNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-GRUP"));
+}
+som::SomMetaRef idUtilityNavigationItemEntry_AZREQ_ENTL(IdUtilityNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-ENTL"));
+}
+som::SomMetaRef idUtilityNavigationItemEntry_AZREQ_RKEY(IdUtilityNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-RKEY"));
+}
+som::SomMetaRef idUtilityNavigationItemEntry_AZREQ_CUST(IdUtilityNavigationItemEntry x) {
+  return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/AZREQ-CUST"));
+}
+som::SomListMetaRef idUtilityNavigationItemEntry_AZLVL_LEVE_LST(IdUtilityNavigationItemEntry x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), metaIdFactoryGradedAccessLevelEntry);
 }
 som::SomMetaRef idUtilityNavigationItemEntry_UNIEB(IdUtilityNavigationItemEntry x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "UNIEB"));

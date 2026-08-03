@@ -1190,7 +1190,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-DB | Rich SOM `DataModel`/entities/attributes | The **access object model** (repositories/DAOs + query/filter/transaction per service unit): `@CsTable`/`@CsColumn`/`@CsRepository` over the `tom_core_server` persistence model; attribute surface in §5.13. **Placement: server-only** — the persisted entity lives only in `<app>_codespec_server`; the client sees CE-API request/response shapes (shared, the DTO role) + the CE-ST view-model (§5.4), never a DB entity (§5.13). |
 | CE-ST | UI Data Model | Typed view-model state distinct from the DB model: `@CsViewModel` (reuse, no gap class) over `TomObservable`/`TomObject<T>`/`TomClass`/`TomList`/`TomMap` (`tom_core_kernel`) bound via `TomObservingWidget`/`ValueListenableObserver` (`tom_core_flutter`), client project; CE-ST↔CE-DB separation drawn (§5.4). |
 | CE-NV | `TomPageRoute` + destinations; route uniqueness assumed by the substrate | Route identifiers + a **screen-flow model**: `@CsRoute` (reuse) over `TomPageRoute<T>` + the `tom_navigation` destination widgets (`TomNavigationDestination`, `tomId`/`authorizer`) for the route ids; `@CsScreenFlow` combines the interaction scenarios into **screens** — which **form** is assigned to which screen, whether it **replaces** the current screen or **overlays** it as a **popup**, and which CE-AC action triggers navigation with a **conditional** target (success → confirmation or back to the previous screen; error / validation-error → error display). The stable route-id + screen-flow model is a CodeSpecs-only class in `tom_core_codespecs`, authored from the SOM screen route map (`SCRTMP`, D09 XDS); client project (§5.11). |
-| CE-AZ | Auth/authz spec type | Role/permission per operation from SOM `SecurityAccessSpecification`: `@CsAuthorize` (reuse, no gap class) — a **modifier** on `@CsEndpoint` carrying a `TomAccessControl` (role/group/entitlement/resource-key/custom/graded four-state), enforced by the pipeline's `checkAccess`; server project (§5.6.3). Attribute surface: **§5.15** (six `@OneOf`/`@Case` requirement kinds + attribute-less presets + graded four-state levels + field-level authKey). |
+| CE-AZ | Auth/authz spec type | The requirement per operation from the SOM `AuthorizationRequirementSpec` (AZREQ) embedded at each modifier site, citing the `SecurityAccessSpecification` catalogues: `@CsAuthorize` (reuse, no gap class) — a **modifier** on `@CsEndpoint` carrying a `TomAccessControl` (role/group/entitlement/resource-key/custom/graded four-state), enforced by the pipeline's `checkAccess`; server project (§5.6.3). Attribute surface: **§5.15** (a ten-arm `@OneOf` — six attribute-bearing `@Case` kinds + four attribute-less presets — plus the depth-bounded graded level list AZGRD/AZLVL and field-level authKey). |
 | CE-ER | `TomResult<T>` / `TomErrorResult` (`tom_core_kernel` `tombase/result/result.dart`, kernel 1.1.16) | The one canonical **success-or-error envelope** (§7): `@CsError` (reuse, no gap class) over `TomResult<T>` (success/failure arms, explicit `success` wire discriminator) + `TomErrorResult` (`code` — the CE-TX↔CE-ER join key — plus `message`, `fieldErrors`, `retryable`, `severity`) + `TomFieldError` + `TomErrorSeverity`; every CE-API operation returns it; shared project. |
 | CE-CF | `TomBaseServerConfiguration` (`tom_core_server`) | **Server/system config only** — client-machine, device and user settings are CE-CC/CE-DS/CE-UP. `@CsServerConfig` (reuse, no gap class) over `TomBaseServerConfiguration`/`TomServerConfigResourceProvider` (`tom_core_server`), server project; one config-value concept realised as four owner-keyed parts (CE-CF/CE-CC/CE-DS/CE-UP) (§5.5). Attribute surface + precedence: **§5.16** (per-scope spec-authorable split + opt-in most-specific-owner-wins cross-scope precedence). |
 | CE-CC | `TomBaseClientConfiguration` + `TomSetting<T>` (`tom_core_flutter`) | Model **per-machine client configuration** — settings scoped to the machine a client app runs on (endpoints, feature toggles, device options) (§5.16, §11). |
@@ -2253,7 +2253,7 @@ mechanism (§8.2): one
 | 3 | **Entitlement** | `patterns: List<String>` (entitlement match patterns) | `TomEntitlementAccess.patterns` (`:461`) |
 | 4 | **Resource-key** | `key: CsResourceKeyRef` — a typed const from the shared resource-key catalogue (§5.23), lowered to `TomResourceKeyAccess.key` at generation | `TomResourceKeyAccess.key` (`:589`) |
 | 5 | **Custom** | `handler: String` + `resourceId: String` (registered handler ref + resource) | `TomCustomAccess.handler`/`resourceId` (`:414`/`:417`) |
-| 6 | **Graded** | a **three-slot nested tree** `full` / `read` / `disabled`, each itself a requirement (recursion into kinds 1–5 or a preset) | `TomGradedAccess.full`/`read`/`disabled: TomAccessControl` (`:243`–`:250`) |
+| 6 | **Graded** | a **level list** — one entry per authored access state (`full` / `read` / `disabled`), each entry carrying a *non-graded* requirement (kinds 1–5 or a preset) | `TomGradedAccess.full`/`read`/`disabled: TomAccessControl` (`:243`–`:250`) |
 
 Role and resource-key requirements cite **Dart-declared catalogues** and are
 therefore typed refs (§5.23). Group names, entitlement match patterns and the
@@ -2261,10 +2261,42 @@ custom handler/resource ids reference **runtime principal data and runtime
 handler registrations**, not Dart declarations — they stay strings under the
 §5.23 exemption logic, validator-checked (§12).
 
-**Attribute-less presets** (a kind selector with *no* payload — still valid `@Case`
+**Attribute-less presets** (a kind selector with *no* payload — still valid discriminator
 values so the choice is exhaustive): `TomNoAccess` (deny), `TomPublicAccess` (allow),
 `TomAuthenticatedAccess` (any signed-in user), `TomGuestAccess`. These carry no
-spec-authorable attributes — the kind *is* the whole requirement.
+spec-authorable attributes — the kind *is* the whole requirement, so they get **no
+`@Case` arm at all**; the §10.2 validator accepts an uncovered discriminator constant
+as a legal WARN precisely for this shape.
+
+**The SOM sections.** The choice is authored **once**, in
+`tom_specs_model/lib/src/common/authorization_requirement.dart`, and every modifier
+site embeds that one section rather than restating a requirement of its own:
+
+| Section id | Class | Role |
+|------------|-------|------|
+| **`AZREQ`** | `AuthorizationRequirementSpec` | The requirement itself — `@OneOf(discriminator: 'requirementKind')` over the ten-constant `AuthorizationRequirementKind`, with `@Case` arms `AZREQ-ROLE` / `-GRUP` / `-ENTL` / `-RKEY` / `-CUST` for kinds 1–5 and a `gradedRequirement` arm for kind 6 |
+| **`AZGRD`** | `GradedAuthorizationRequirement` | The kind-6 payload — a `gradingRationale` plus the `AZLVL-LEVE-xxx` level list |
+| **`AZLVL`** | `GradedAccessLevelEntry` | One graded rung — an `accessLevel` (`full`/`read`/`disabled`) plus a **non-graded** requirement over the nine-constant `BasicAuthorizationRequirementKind`, with the same five `@Case` arms |
+
+`AZREQ` **names** a role or resource key by reference; it does not define what one
+means. The authoring homes for those stay where §8.5 records them — `RoleMatrix` /
+`ROLPERM` / `ENT` in D08 SAS. Deny is spelled **`denied`**, not `none`: in an authored
+document "None" reads as *no authorization needed*, the exact fail-open misreading the
+§5.16 precedence rules guard against. One derivation row therefore carries the rename,
+`denied → CsAuthRequirement.none`.
+
+**The graded depth is bounded at one level, deliberately.** A level whose requirement
+could itself be graded would make the SOM structurally cyclic, and
+`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the outliner,
+the serializers and the nine generated language runtimes all walk the class graph as a
+tree. The bound is not a workaround for that constraint: a graded thing resolves to one
+of four *terminal* access states, so a second grading nested inside a level has nothing
+left to resolve to. The price is that `AZLVL` restates five of `AZREQ`'s case forms;
+that duplication is deliberate, because the SOM composes by field and not by subtyping
+(§8.2), and removing it by pointing the levels back at `AZREQ` reintroduces the cycle.
+The code side is unbounded (`CsGradedAccess.full`/`read`/`disabled` are each a
+`@CsAuthorize` that may itself be `graded`), so the bound is enforced there by
+`codespecs_derivation_contract.md` §6 check 21 rather than by the type.
 
 **Graded levels** (the outcome dimension). Binary kinds (1–5, presets) resolve to the
 two-state `full`/`none` via the `resolveAuthState` default; **Graded** (kind 6) is the
@@ -2320,8 +2352,15 @@ endpoint). Field-level graded/resource-key requirements ride their host part —
 client for the CE-EL/CE-FM/CE-AC/CE-NV `authorizer`, server for the CE-DB column
 `authKey`. The `TomAccessControl` requirement *type* itself is kernel, visible to both.
 
-**SOM feed.** CE-AZ derives from **D08 SAS** (roles/permissions per operation and
-per resource), per §8.
+**SOM feed.** CE-AZ derives from the **`AZREQ` section embedded at each modifier
+site** — `ServerOperationEntry.authorization` (D00 SBP IMO) for the operation-level
+case, and the `access` member on the D00 SBP XDS screen / screen-element / navigation
+group / navigation item / tab / utility-navigation / utility-menu / deep-link / report /
+export-format / export-template sections for the element- and field-level cases. The
+catalogues those requirements *cite* — roles, entitlements, resource keys — remain
+**D08 SAS** (`RoleMatrix` / `ROLPERM` / `ENT` / `RESKEY`), per §8. A site that carries
+no `AZREQ` is a specification defect, not an implicit allow: the choice has no default
+arm.
 
 ### 5.16 CE-CF / CE-CC / CE-DS / CE-UP config attribute surface + cross-scope source precedence
 
@@ -4286,12 +4325,12 @@ A part is **COVERED** only when both hold.
 | CE-VA | `validation` | `ElementValidationRuleEntry` ELVARUEN · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
 | CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST (under `ProcessStepsAndActorInteractions`) | COVERED |
-| CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorizationRequirement` + role/resource-key refs · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
+| CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
 | CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
 | CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTAENT | COVERED |
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
-| CE-AZ | `authorization` | `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
+| CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPERM · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
 | CE-CF | `serverConfiguration` | `ServerConfigurationSettingEntry` SCSET — the declaration list under `SystemConfigurationManagement` SYCOMA (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`). The surrounding SYCOMA / `ConfigurationManagement` CM forms and the audit-sink band under `AuditLogFormat` AULOFO stay what they are — **operational policy** and fixed-name sink settings | COVERED |
 | CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | COVERED |
@@ -4424,7 +4463,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrc9` | Model the **CE-AZ requirement as the §5.15 closed choice**. `SVOPE` authors it as a kind string plus role / resource-key refs, which covers six of the ten arms; Group, Entitlement, Custom and Graded have no payload, and Graded's three-slot recursion needs an explicit depth bound. |
 | `qrc1` | State what an **optional SOM attribute emits** (§4.1.1 CE-ST, §5.4, §5.13). `tom_core_kernel` ships `TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`; neither this document nor `codespecs_derivation_contract.md` §3.3.2 / §3.5.1 names them, so the contract neither says "emit the nullable type" nor "emit the non-nullable one and lose the null". The only `qrc` item with no `tom_core` dependency. |
 | `qrc2` | Record the **CE-DB transaction-scope contract** (§4.1.1, §4.4.4 slice 3, §5.13) once `tcca14` lands. A declared unit of work currently resolves to a process-wide static, so one isolate holds one transaction. Mode **R**. |
 | `qrc3` | Extend the **CE-AU spec-authorable surface** (§4.1.1, §4.4.4 slice 4, §5.25) once `tcca3`/`tcca4` land. A `@CsAuth` CodeSpec can declare a challenge and a verification and nothing else: there is no enrolment path and the wire result carries one bool and one string. Includes reconsidering whether `@CsAuth` stays note-only. Mode **R**. |

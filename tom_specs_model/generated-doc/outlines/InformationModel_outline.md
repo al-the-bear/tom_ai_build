@@ -96,7 +96,15 @@
   - `ServerOperationRegistry`
     - content
     - operations: `ServerOperationEntry`
-      - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+      - authorization: `AuthorizationRequirementSpec`
+        - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+          resourceKeyRequirement, customRequirement
+        - gradedRequirement: `GradedAuthorizationRequirement`
+          - content @Form(gradingRationale)
+          - [1,] accessLevels: `GradedAccessLevelEntry`
+            - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+              resourceKeyRequirement, customRequirement
       - requestMembers: `ServerOperationMemberEntry`
         - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
       - responseMembers: `ServerOperationMemberEntry`

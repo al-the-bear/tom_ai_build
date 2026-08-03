@@ -3523,6 +3523,64 @@ impl AuthorizationModel {
     // (skipped: authorizationModelNotes has no target type)
 }
 
+/// What a caller must satisfy to reach the thing this section modifies
+/// (`codespecs_mapping.md` §5.15).
+///
+/// Embed this section wherever a guarded thing is authored — do not restate its
+/// fields inline. The kind selects at most one payload subsection; the four
+/// presets select none, which is why four of the ten arms bind no case.
+pub struct AuthorizationRequirementSpec {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpec {
+    /// Binds a AuthorizationRequirementSpec facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> AuthorizationRequirementSpecContentForm {
+        AuthorizationRequirementSpecContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Role requirement payload — a promoted `@OneOf` case.
+    pub fn role_requirement(&self) -> AuthorizationRequirementSpecRoleRequirementForm {
+        AuthorizationRequirementSpecRoleRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZREQ-ROLE"))
+    }
+
+    /// Group requirement payload — a promoted `@OneOf` case.
+    pub fn group_requirement(&self) -> AuthorizationRequirementSpecGroupRequirementForm {
+        AuthorizationRequirementSpecGroupRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZREQ-GRUP"))
+    }
+
+    /// Entitlement requirement payload — a promoted `@OneOf` case.
+    pub fn entitlement_requirement(&self) -> AuthorizationRequirementSpecEntitlementRequirementForm {
+        AuthorizationRequirementSpecEntitlementRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZREQ-ENTL"))
+    }
+
+    /// Resource-key requirement payload — a promoted `@OneOf` case.
+    pub fn resource_key_requirement(&self) -> AuthorizationRequirementSpecResourceKeyRequirementForm {
+        AuthorizationRequirementSpecResourceKeyRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZREQ-RKEY"))
+    }
+
+    /// Custom requirement payload — a promoted `@OneOf` case.
+    pub fn custom_requirement(&self) -> AuthorizationRequirementSpecCustomRequirementForm {
+        AuthorizationRequirementSpecCustomRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZREQ-CUST"))
+    }
+
+    /// Graded requirement payload — a promoted `@OneOf` case.
+    pub fn graded_requirement(&self) -> GradedAuthorizationRequirement {
+        GradedAuthorizationRequirement::new(self.node.doc(), format!("{}/{}", self.node.path(), "gradedRequirement"))
+    }
+}
+
 /// An authorization role entry (form).
 ///
 /// Defines a single authorization role with its category, scope, permission
@@ -15280,6 +15338,15 @@ impl DeepLinkPatternEntry {
     pub fn content(&self) -> DeepLinkPatternEntryContentForm {
         DeepLinkPatternEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+
+    /// Access control — what a caller must satisfy to follow this deep link.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`). Authoring the
+    /// Authenticated kind is what makes an unauthenticated visitor redirect to
+    /// sign-in; there is no separate authentication-required flag.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
+    }
 }
 
 /// 10.3.1.7. Deep Linking.
@@ -20345,8 +20412,15 @@ impl ExportFormatEntry {
     }
 
     /// Access and audit.
-    pub fn access(&self) -> ExportFormatEntryAccessForm {
-        ExportFormatEntryAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXAC"))
+    pub fn audit(&self) -> ExportFormatEntryAuditForm {
+        ExportFormatEntryAuditForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "EXAC"))
+    }
+
+    /// Access control — what a caller must satisfy to run this export.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`).
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Contains 0+× Export Field Mapping.
@@ -20421,8 +20495,15 @@ impl ExportTemplateEntry {
     }
 
     /// Access and metadata.
-    pub fn access(&self) -> ExportTemplateEntryAccessForm {
-        ExportTemplateEntryAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ETEA"))
+    pub fn metadata(&self) -> ExportTemplateEntryMetadataForm {
+        ExportTemplateEntryMetadataForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "ETEA"))
+    }
+
+    /// Access control — what a caller must satisfy to use this template.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`).
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 }
 
@@ -22955,6 +23036,109 @@ impl GovernanceModel {
             format!("{}/{}", self.node.path(), "DCAUT-DECI-LST"),
             Box::new(DecisionAuthorityEntry::new),
             "DCAUT-DECI-xxx".to_string(),
+        )
+    }
+}
+
+/// One rung of a graded access ladder: an access state and the non-graded
+/// requirement that earns it (`codespecs_mapping.md` §5.15).
+///
+/// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+/// See [GradedAuthorizationRequirement] for why that bound exists and why the
+/// case forms are restated rather than shared.
+pub struct GradedAccessLevelEntry {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntry {
+    /// Binds a GradedAccessLevelEntry facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntry {
+        GradedAccessLevelEntry { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> GradedAccessLevelEntryContentForm {
+        GradedAccessLevelEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// Role requirement payload — a promoted `@OneOf` case.
+    pub fn role_requirement(&self) -> GradedAccessLevelEntryRoleRequirementForm {
+        GradedAccessLevelEntryRoleRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZLVL-ROLE"))
+    }
+
+    /// Group requirement payload — a promoted `@OneOf` case.
+    pub fn group_requirement(&self) -> GradedAccessLevelEntryGroupRequirementForm {
+        GradedAccessLevelEntryGroupRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZLVL-GRUP"))
+    }
+
+    /// Entitlement requirement payload — a promoted `@OneOf` case.
+    pub fn entitlement_requirement(&self) -> GradedAccessLevelEntryEntitlementRequirementForm {
+        GradedAccessLevelEntryEntitlementRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZLVL-ENTL"))
+    }
+
+    /// Resource-key requirement payload — a promoted `@OneOf` case.
+    pub fn resource_key_requirement(&self) -> GradedAccessLevelEntryResourceKeyRequirementForm {
+        GradedAccessLevelEntryResourceKeyRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZLVL-RKEY"))
+    }
+
+    /// Custom requirement payload — a promoted `@OneOf` case.
+    pub fn custom_requirement(&self) -> GradedAccessLevelEntryCustomRequirementForm {
+        GradedAccessLevelEntryCustomRequirementForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "AZLVL-CUST"))
+    }
+}
+
+/// A graded requirement: what a caller must satisfy for each access state
+/// (`codespecs_mapping.md` §5.15).
+///
+/// **Why a level takes a [GradedAccessLevelEntry] and not an
+/// [AuthorizationRequirementSpec].** A graded level whose requirement could
+/// itself be graded would make the model structurally cyclic, and
+/// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+/// outliner, the serializers and the nine generated language runtimes all walk
+/// the class graph as a tree. Bounding the depth at one level is not a
+/// workaround for that constraint: a graded thing resolves to one of four
+/// *terminal* access states, so nesting a second grading inside a level has
+/// nothing left to resolve to.
+///
+/// The price is that [GradedAccessLevelEntry] restates five of
+/// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+/// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+/// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+/// reintroduces the cycle.
+pub struct GradedAuthorizationRequirement {
+    pub node: som::SomNode,
+}
+
+impl GradedAuthorizationRequirement {
+    /// Binds a GradedAuthorizationRequirement facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAuthorizationRequirement {
+        GradedAuthorizationRequirement { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        false
+    }
+
+    pub fn content(&self) -> GradedAuthorizationRequirementContentForm {
+        GradedAuthorizationRequirementContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// The authored rungs of the ladder — contains 1..3× Graded Access Level.
+    pub fn access_levels(&self) -> som::SomList<GradedAccessLevelEntry> {
+        som::SomList::new(
+            self.node.doc(),
+            format!("{}/{}", self.node.path(), "AZLVL-LEVE-LST"),
+            Box::new(GradedAccessLevelEntry::new),
+            "AZLVL-LEVE-xxx".to_string(),
         )
     }
 }
@@ -29837,9 +30021,14 @@ impl NavigationGroupEntry {
         NavigationGroupEntryDisplayForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "NGED"))
     }
 
-    /// Access-control settings.
-    pub fn access(&self) -> NavigationGroupEntryAccessForm {
-        NavigationGroupEntryAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "NGEA"))
+    /// Access control — what a caller must satisfy to see this navigation group.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`). A group that should be
+    /// visible-but-locked rather than hidden authors the Graded kind; the
+    /// hide/disable rendering follows from the access state and is not authored
+    /// here.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Badge and hierarchy settings.
@@ -30011,9 +30200,21 @@ impl NavigationItemEntry {
         NavigationItemEntryRoutingForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "NIER"))
     }
 
-    /// Access control settings.
-    pub fn access(&self) -> NavigationItemEntryAccessForm {
-        NavigationItemEntryAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "NIEA"))
+    /// Business conditions governing when the item is shown and interactive.
+    ///
+    /// These are *business* conditions, not authorization — who may reach the
+    /// item is authored in [access]. A condition here narrows an item the caller
+    /// is already authorized for.
+    pub fn visibility(&self) -> NavigationItemEntryVisibilityForm {
+        NavigationItemEntryVisibilityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "NIEA"))
+    }
+
+    /// Access control — what a caller must satisfy to reach this item.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`). An item that should be
+    /// shown locked rather than hidden authors the Graded kind.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Badge configuration.
@@ -37697,6 +37898,13 @@ impl ReportEntry {
         ReportEntrySecurityForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RESE"))
     }
 
+    /// Access control — what a caller must satisfy to generate this report.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`).
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
+    }
+
     /// Lifecycle and archiving.
     pub fn lifecycle(&self) -> ReportEntryLifecycleForm {
         ReportEntryLifecycleForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "RELI"))
@@ -41575,9 +41783,22 @@ impl ScreenElementEntry {
         ScreenElementEntryLayoutForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCELENLA"))
     }
 
-    /// Visibility and permission rules.
+    /// Visibility and enablement rules.
+    ///
+    /// These are *business* conditions on an element the caller is already
+    /// authorized for. Who may see or use it at all is [access].
     pub fn behavior(&self) -> ScreenElementEntryBehaviorForm {
         ScreenElementEntryBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SEEB"))
+    }
+
+    /// Access control — what a caller must satisfy to see or use this element.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`). An element whose access
+    /// has degrees — hidden, locked, read-only, interactive — authors the Graded
+    /// kind, which is what the old free-text permission-effect field was trying
+    /// to say.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Styling and data binding.
@@ -41725,9 +41946,14 @@ impl ScreenEntry {
         ScreenEntryClassificationForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCECL"))
     }
 
-    /// Access control settings.
-    pub fn access(&self) -> ScreenEntryAccessForm {
-        ScreenEntryAccessForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "SCEAC"))
+    /// Access control — what a caller must satisfy to reach this screen.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+    /// restatement. A screen that is graded rather than simply reachable authors
+    /// the Graded kind; how each access state renders is fixed by the framework
+    /// and is not authored here.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Traceability metadata.
@@ -43461,6 +43687,16 @@ impl ServerOperationEntry {
 
     pub fn content(&self) -> ServerOperationEntryContentForm {
         ServerOperationEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
+    }
+
+    /// 7.9.x. Authorization — what a caller must satisfy to invoke this
+    /// operation.
+    ///
+    /// The shared CE-AZ requirement section, not a per-operation restatement.
+    /// There is no default: an operation with no requirement authored is a
+    /// specification defect.
+    pub fn authorization(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "authorization"))
     }
 
     /// 7.9.x. Request Members — the members that make up the request shape.
@@ -48852,6 +49088,14 @@ impl TabItemEntry {
     pub fn content(&self) -> TabItemEntryContentForm {
         TabItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
+
+    /// Access control — what a caller must satisfy to reach this tab.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+    /// disabled rather than hidden authors the Graded kind.
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
+    }
 }
 
 /// SBP.7 Target Operating Model concept.
@@ -53958,6 +54202,13 @@ impl UtilityMenuItemEntry {
     pub fn behavior(&self) -> UtilityMenuItemEntryBehaviorForm {
         UtilityMenuItemEntryBehaviorForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UMIEB"))
     }
+
+    /// Access control — what a caller must satisfy to use this menu item.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`).
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
+    }
 }
 
 /// 10.3.1.5. Utility Navigation.
@@ -54025,9 +54276,16 @@ impl UtilityNavigationItemEntry {
         UtilityNavigationItemEntryContentForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "content"))
     }
 
-    /// Ordering, rendering, and access rules.
+    /// Ordering and rendering.
     pub fn display(&self) -> UtilityNavigationItemEntryDisplayForm {
         UtilityNavigationItemEntryDisplayForm::new(self.node.doc(), format!("{}/{}", self.node.path(), "UNIED"))
+    }
+
+    /// Access control — what a caller must satisfy to reach this utility item.
+    ///
+    /// The shared CE-AZ requirement section (`AZREQ`).
+    pub fn access(&self) -> AuthorizationRequirementSpec {
+        AuthorizationRequirementSpec::new(self.node.doc(), format!("{}/{}", self.node.path(), "access"))
     }
 
     /// Badge and interaction behavior.
@@ -64817,6 +65075,267 @@ impl AuthorizationGroupEntryContentForm {
     pub fn set_membership_criteria(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "membershipCriteria", value);
+    }
+}
+
+/// AuthorizationRequirementSpecContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecContentForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecContentForm {
+    /// Binds a AuthorizationRequirementSpecContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecContentForm {
+        AuthorizationRequirementSpecContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn requirement_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind")
+    }
+
+    pub fn set_requirement_kind(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", value);
+    }
+
+    pub fn rationale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "rationale")
+    }
+
+    pub fn set_rationale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "rationale", value);
+    }
+}
+
+/// AuthorizationRequirementSpecCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecCustomRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecCustomRequirementForm {
+    /// Binds a AuthorizationRequirementSpecCustomRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecCustomRequirementForm {
+        AuthorizationRequirementSpecCustomRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn handler(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "handler")
+    }
+
+    pub fn set_handler(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "handler", value);
+    }
+
+    pub fn resource_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceId")
+    }
+
+    pub fn set_resource_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceId", value);
+    }
+
+    pub fn decision_rule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "decisionRule")
+    }
+
+    pub fn set_decision_rule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "decisionRule", value);
+    }
+}
+
+/// AuthorizationRequirementSpecEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecEntitlementRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecEntitlementRequirementForm {
+    /// Binds a AuthorizationRequirementSpecEntitlementRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecEntitlementRequirementForm {
+        AuthorizationRequirementSpecEntitlementRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn patterns(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "patterns")
+    }
+
+    pub fn set_patterns(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "patterns", value);
+    }
+}
+
+/// AuthorizationRequirementSpecGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecGroupRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecGroupRequirementForm {
+    /// Binds a AuthorizationRequirementSpecGroupRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecGroupRequirementForm {
+        AuthorizationRequirementSpecGroupRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn groups(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "groups")
+    }
+
+    pub fn set_groups(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "groups", value);
+    }
+}
+
+/// AuthorizationRequirementSpecResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecResourceKeyRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecResourceKeyRequirementForm {
+    /// Binds a AuthorizationRequirementSpecResourceKeyRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecResourceKeyRequirementForm {
+        AuthorizationRequirementSpecResourceKeyRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn resource_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceKey")
+    }
+
+    pub fn set_resource_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceKey", value);
+    }
+}
+
+/// AuthorizationRequirementSpecRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct AuthorizationRequirementSpecRoleRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl AuthorizationRequirementSpecRoleRequirementForm {
+    /// Binds a AuthorizationRequirementSpecRoleRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> AuthorizationRequirementSpecRoleRequirementForm {
+        AuthorizationRequirementSpecRoleRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn roles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "roles")
+    }
+
+    pub fn set_roles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "roles", value);
     }
 }
 
@@ -100352,24 +100871,6 @@ impl DeepLinkPatternEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "description", value);
     }
 
-    pub fn authentication_required(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "authenticationRequired")
-    }
-
-    pub fn set_authentication_required(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "authenticationRequired", value);
-    }
-
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
     pub fn fallback_route(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "fallbackRoute")
     }
@@ -117653,16 +118154,16 @@ impl ExportFieldMappingEntryTransformationForm {
     }
 }
 
-/// ExportFormatEntryAccessForm is the generated section facade for the `access` @Form section: its own
+/// ExportFormatEntryAuditForm is the generated section facade for the `audit` @Form section: its own
 /// content text followed by one typed member per form field.
-pub struct ExportFormatEntryAccessForm {
+pub struct ExportFormatEntryAuditForm {
     pub node: som::SomNode,
 }
 
-impl ExportFormatEntryAccessForm {
-    /// Binds a ExportFormatEntryAccessForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ExportFormatEntryAccessForm {
-        ExportFormatEntryAccessForm { node: som::SomNode::new(doc, path) }
+impl ExportFormatEntryAuditForm {
+    /// Binds a ExportFormatEntryAuditForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportFormatEntryAuditForm {
+        ExportFormatEntryAuditForm { node: som::SomNode::new(doc, path) }
     }
 
     /// Whether this section **type** declares the standard `content` text leaf
@@ -117680,24 +118181,6 @@ impl ExportFormatEntryAccessForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn access_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
-    }
-
-    pub fn set_access_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
     }
 
     pub fn audit_logging(&self) -> String {
@@ -118249,81 +118732,6 @@ impl ExportSizeSettingsContentForm {
     }
 }
 
-/// ExportTemplateEntryAccessForm is the generated section facade for the `access` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct ExportTemplateEntryAccessForm {
-    pub node: som::SomNode,
-}
-
-impl ExportTemplateEntryAccessForm {
-    /// Binds a ExportTemplateEntryAccessForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ExportTemplateEntryAccessForm {
-        ExportTemplateEntryAccessForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn access_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
-    }
-
-    pub fn set_access_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
-    pub fn reusable_across_reports(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "reusableAcrossReports")
-    }
-
-    pub fn set_reusable_across_reports(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "reusableAcrossReports", value);
-    }
-
-    pub fn version(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "version")
-    }
-
-    pub fn set_version(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "version", value);
-    }
-
-    pub fn notes(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
-    }
-
-    pub fn set_notes(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
-    }
-}
-
 /// ExportTemplateEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct ExportTemplateEntryContentForm {
@@ -118594,6 +119002,63 @@ impl ExportTemplateEntryLayoutForm {
     pub fn set_compression_format(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "compressionFormat", value);
+    }
+}
+
+/// ExportTemplateEntryMetadataForm is the generated section facade for the `metadata` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct ExportTemplateEntryMetadataForm {
+    pub node: som::SomNode,
+}
+
+impl ExportTemplateEntryMetadataForm {
+    /// Binds a ExportTemplateEntryMetadataForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> ExportTemplateEntryMetadataForm {
+        ExportTemplateEntryMetadataForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn reusable_across_reports(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "reusableAcrossReports")
+    }
+
+    pub fn set_reusable_across_reports(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "reusableAcrossReports", value);
+    }
+
+    pub fn version(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "version")
+    }
+
+    pub fn set_version(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "version", value);
+    }
+
+    pub fn notes(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "notes")
+    }
+
+    pub fn set_notes(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "notes", value);
     }
 }
 
@@ -126509,6 +126974,306 @@ impl GovernanceModelContentForm {
     pub fn set_reporting_frequency(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "reportingFrequency", value);
+    }
+}
+
+/// GradedAccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryContentForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryContentForm {
+    /// Binds a GradedAccessLevelEntryContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryContentForm {
+        GradedAccessLevelEntryContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn access_level(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
+    }
+
+    pub fn set_access_level(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
+    }
+
+    pub fn requirement_kind(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "requirementKind")
+    }
+
+    pub fn set_requirement_kind(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "requirementKind", value);
+    }
+}
+
+/// GradedAccessLevelEntryCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryCustomRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryCustomRequirementForm {
+    /// Binds a GradedAccessLevelEntryCustomRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryCustomRequirementForm {
+        GradedAccessLevelEntryCustomRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn handler(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "handler")
+    }
+
+    pub fn set_handler(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "handler", value);
+    }
+
+    pub fn resource_id(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceId")
+    }
+
+    pub fn set_resource_id(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceId", value);
+    }
+
+    pub fn decision_rule(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "decisionRule")
+    }
+
+    pub fn set_decision_rule(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "decisionRule", value);
+    }
+}
+
+/// GradedAccessLevelEntryEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryEntitlementRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryEntitlementRequirementForm {
+    /// Binds a GradedAccessLevelEntryEntitlementRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryEntitlementRequirementForm {
+        GradedAccessLevelEntryEntitlementRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn patterns(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "patterns")
+    }
+
+    pub fn set_patterns(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "patterns", value);
+    }
+}
+
+/// GradedAccessLevelEntryGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryGroupRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryGroupRequirementForm {
+    /// Binds a GradedAccessLevelEntryGroupRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryGroupRequirementForm {
+        GradedAccessLevelEntryGroupRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn groups(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "groups")
+    }
+
+    pub fn set_groups(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "groups", value);
+    }
+}
+
+/// GradedAccessLevelEntryResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryResourceKeyRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryResourceKeyRequirementForm {
+    /// Binds a GradedAccessLevelEntryResourceKeyRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryResourceKeyRequirementForm {
+        GradedAccessLevelEntryResourceKeyRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn resource_key(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "resourceKey")
+    }
+
+    pub fn set_resource_key(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "resourceKey", value);
+    }
+}
+
+/// GradedAccessLevelEntryRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAccessLevelEntryRoleRequirementForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAccessLevelEntryRoleRequirementForm {
+    /// Binds a GradedAccessLevelEntryRoleRequirementForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAccessLevelEntryRoleRequirementForm {
+        GradedAccessLevelEntryRoleRequirementForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn roles(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "roles")
+    }
+
+    pub fn set_roles(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "roles", value);
+    }
+}
+
+/// GradedAuthorizationRequirementContentForm is the generated section facade for the `content` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct GradedAuthorizationRequirementContentForm {
+    pub node: som::SomNode,
+}
+
+impl GradedAuthorizationRequirementContentForm {
+    /// Binds a GradedAuthorizationRequirementContentForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> GradedAuthorizationRequirementContentForm {
+        GradedAuthorizationRequirementContentForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn grading_rationale(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "gradingRationale")
+    }
+
+    pub fn set_grading_rationale(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "gradingRationale", value);
     }
 }
 
@@ -152284,63 +153049,6 @@ impl NativeAppRequirementsVersionsForm {
     }
 }
 
-/// NavigationGroupEntryAccessForm is the generated section facade for the `access` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct NavigationGroupEntryAccessForm {
-    pub node: som::SomNode,
-}
-
-impl NavigationGroupEntryAccessForm {
-    /// Binds a NavigationGroupEntryAccessForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> NavigationGroupEntryAccessForm {
-        NavigationGroupEntryAccessForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
-    pub fn permission_behavior(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "permissionBehavior")
-    }
-
-    pub fn set_permission_behavior(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "permissionBehavior", value);
-    }
-}
-
 /// NavigationGroupEntryContentForm is the generated section facade for the `content` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct NavigationGroupEntryContentForm {
@@ -152741,81 +153449,6 @@ impl NavigationGuardEntryRoutingForm {
     }
 }
 
-/// NavigationItemEntryAccessForm is the generated section facade for the `access` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct NavigationItemEntryAccessForm {
-    pub node: som::SomNode,
-}
-
-impl NavigationItemEntryAccessForm {
-    /// Binds a NavigationItemEntryAccessForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> NavigationItemEntryAccessForm {
-        NavigationItemEntryAccessForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn visibility_condition(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "visibilityCondition")
-    }
-
-    pub fn set_visibility_condition(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "visibilityCondition", value);
-    }
-
-    pub fn enabled_condition(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "enabledCondition")
-    }
-
-    pub fn set_enabled_condition(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "enabledCondition", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
-    pub fn permission_behavior(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "permissionBehavior")
-    }
-
-    pub fn set_permission_behavior(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "permissionBehavior", value);
-    }
-}
-
 /// NavigationItemEntryBadgeForm is the generated section facade for the `badge` @Form section: its own
 /// content text followed by one typed member per form field.
 pub struct NavigationItemEntryBadgeForm {
@@ -153127,6 +153760,54 @@ impl NavigationItemEntryRoutingForm {
     pub fn set_is_default(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "isDefault", value);
+    }
+}
+
+/// NavigationItemEntryVisibilityForm is the generated section facade for the `visibility` @Form section: its own
+/// content text followed by one typed member per form field.
+pub struct NavigationItemEntryVisibilityForm {
+    pub node: som::SomNode,
+}
+
+impl NavigationItemEntryVisibilityForm {
+    /// Binds a NavigationItemEntryVisibilityForm facade to a document and a path.
+    pub fn new(doc: som::DocRef, path: String) -> NavigationItemEntryVisibilityForm {
+        NavigationItemEntryVisibilityForm { node: som::SomNode::new(doc, path) }
+    }
+
+    /// Whether this section **type** declares the standard `content` text leaf
+    /// (SOM §21) — a **structural** predicate answering "can this section hold
+    /// body text?" as a compile-time constant, without probing the document.
+    pub fn can_have_content(&self) -> bool {
+        true
+    }
+
+    /// The section's own free-text content, before the form fields.
+    pub fn content(&self) -> String {
+        self.node.doc().borrow().content_or(self.node.path())
+    }
+
+    pub fn set_content(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_content(&path, value);
+    }
+
+    pub fn visibility_condition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "visibilityCondition")
+    }
+
+    pub fn set_visibility_condition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "visibilityCondition", value);
+    }
+
+    pub fn enabled_condition(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "enabledCondition")
+    }
+
+    pub fn set_enabled_condition(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "enabledCondition", value);
     }
 }
 
@@ -180327,24 +181008,6 @@ impl ReportEntrySecurityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "brandingOverride", value);
     }
 
-    pub fn access_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
-    }
-
-    pub fn set_access_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
     pub fn data_level_security(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "dataLevelSecurity")
     }
@@ -193699,24 +194362,6 @@ impl ScreenElementEntryBehaviorForm {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "readonlyCondition", value);
     }
-
-    pub fn required_permission(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermission")
-    }
-
-    pub fn set_required_permission(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermission", value);
-    }
-
-    pub fn permission_effect(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "permissionEffect")
-    }
-
-    pub fn set_permission_effect(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "permissionEffect", value);
-    }
 }
 
 /// ScreenElementEntryContentForm is the generated section facade for the `content` @Form section: its own
@@ -194480,72 +195125,6 @@ impl ScreenElementFieldSpecValidationForm {
     pub fn set_clear_button(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "clearButton", value);
-    }
-}
-
-/// ScreenEntryAccessForm is the generated section facade for the `access` @Form section: its own
-/// content text followed by one typed member per form field.
-pub struct ScreenEntryAccessForm {
-    pub node: som::SomNode,
-}
-
-impl ScreenEntryAccessForm {
-    /// Binds a ScreenEntryAccessForm facade to a document and a path.
-    pub fn new(doc: som::DocRef, path: String) -> ScreenEntryAccessForm {
-        ScreenEntryAccessForm { node: som::SomNode::new(doc, path) }
-    }
-
-    /// Whether this section **type** declares the standard `content` text leaf
-    /// (SOM §21) — a **structural** predicate answering "can this section hold
-    /// body text?" as a compile-time constant, without probing the document.
-    pub fn can_have_content(&self) -> bool {
-        true
-    }
-
-    /// The section's own free-text content, before the form fields.
-    pub fn content(&self) -> String {
-        self.node.doc().borrow().content_or(self.node.path())
-    }
-
-    pub fn set_content(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn access_level(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "accessLevel")
-    }
-
-    pub fn set_access_level(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "accessLevel", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
-    pub fn permission_effect(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "permissionEffect")
-    }
-
-    pub fn set_permission_effect(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "permissionEffect", value);
     }
 }
 
@@ -199874,33 +200453,6 @@ impl ServerOperationEntryContentForm {
     pub fn set_primary_data_entity(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "primaryDataEntity", value);
-    }
-
-    pub fn authorization_requirement(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "authorizationRequirement")
-    }
-
-    pub fn set_authorization_requirement(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "authorizationRequirement", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
-    }
-
-    pub fn required_resource_key(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredResourceKey")
-    }
-
-    pub fn set_required_resource_key(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredResourceKey", value);
     }
 
     pub fn description_key(&self) -> String {
@@ -218313,24 +218865,6 @@ impl TabItemEntryContentForm {
         self.node.doc().borrow_mut().set_form_field(&path, "visibilityCondition", value);
     }
 
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
-    pub fn permission_behavior(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "permissionBehavior")
-    }
-
-    pub fn set_permission_behavior(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "permissionBehavior", value);
-    }
-
     pub fn badge_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "badgeType")
     }
@@ -236232,15 +236766,6 @@ impl UtilityMenuItemEntryBehaviorForm {
         self.node.doc().borrow_mut().set_form_field(&path, "visibilityCondition", value);
     }
 
-    pub fn required_permissions(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredPermissions")
-    }
-
-    pub fn set_required_permissions(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredPermissions", value);
-    }
-
     pub fn is_dangerous(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "isDangerous")
     }
@@ -236516,15 +237041,6 @@ impl UtilityNavigationItemEntryDisplayForm {
     pub fn set_visibility_condition(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "visibilityCondition", value);
-    }
-
-    pub fn required_roles(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requiredRoles")
-    }
-
-    pub fn set_required_roles(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requiredRoles", value);
     }
 }
 

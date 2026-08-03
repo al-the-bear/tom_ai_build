@@ -733,7 +733,15 @@
     - `ServerOperationRegistry`
       - content
       - operations: `ServerOperationEntry`
-        - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+        - authorization: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - requestMembers: `ServerOperationMemberEntry`
           - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`
@@ -825,6 +833,14 @@
       - reports: `ReportEntry`
         - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
           grouping, formatting, interactivity, pagination, security, lifecycle
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - sections: `ReportSectionEntry`
           - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
           - columns: `ReportColumnEntry`

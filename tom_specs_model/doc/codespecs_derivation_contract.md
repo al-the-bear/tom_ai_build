@@ -412,7 +412,7 @@ Cites slice 1 only.
 |-------|----------|
 | **1 Input** | `ServerOperationEntry` (`SVOPE`) under the `ServerOperationRegistry` (`SVOPR`) — the application's own operation surface. Consumed: `operationName`, and the `ServerOperationMemberEntry` (`SVOPM`) lists that make up the request and response shapes. `InterfaceOperationEntry` (`IOE`) is **not** an input here: it describes a foreign contract and carries `serverCall` only (`codespecs_mapping.md` §8.5). |
 | **2 Output** | Two things in shared: (i) the **operation-ref catalogue** — one `static const CsOperationRef` per operation; (ii) the **request/response DTOs** — form-2 plain annotated model classes. The endpoint declaration itself is built on `TomApiEndpoint<R,Q>` within a `TomApi` (`tom_core_kernel`), with `R` the response type and `Q` the request type. The response type **is** `TomResult<T>` (§7); a generator that emits a bare `T` has violated the server contract. |
-| **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `authorizationRequirement` + its role/resource-key refs → the `@CsAuthorize` modifier. |
+| **3 Arguments** | `operation` — **first positional, required** ← `SVOPE.operationName`, **verbatim** (N5). §5.14 drops the HTTP method (fixed POST) and the error-response type (5xx only) as spec inputs, and `SVOPE` authors neither, so neither is an argument. `descriptionKey` → CE-TX (not an argument); `SVOPE.authorization` — the embedded `AZREQ` choice — → the `@CsAuthorize` modifier (§3.4.3). |
 | **4 Naming** | Catalogue = `<Document>Operations`; member = N5 over the operation name. DTOs = PascalCase of the operation name + `Request` / `Response`. |
 | **5 Locus** | `shared` (§4.2: request/response types **and** the operation-ref catalogue). The handler half is §3.4.2, server. |
 | **6 Cross-refs** | Emits `CsOperationRef` consts (the edge everything else cites). A member typed by a domain enum (`SVOPM.domainEnum`) or a data entity (`SVOPM.dataEntity`) references that declaration by plain type rather than restating it. |
@@ -656,7 +656,7 @@ CE-DS or CE-UP, authored in that scope's own list.
 | **3 Arguments** | None; `@CsReport({String? note})` unchanged. The whole 22-row surface maps onto `TomReportDefinition`'s constructor and its dimension/measure members (test **b**) — the gap was the *classes*, and §5.28 closed it, so nothing is left for the annotation to carry. Its outbound references do not change that: the source entity is a `Type` literal and the schedule a recurrence expression, both constructor parameters; authorization rides a separate `@CsAuthorize` beside this marker (point 6). §5.28's three generation-time consistency checks are validator checks, not arguments. |
 | **4 Naming** | PascalCase of `REPENT`'s report-name field + `Report`. |
 | **5 Locus** | **Definition `server`**, this slice — that is where the report runs, and it sits with CE-DB because it is a declaration *over* the persistence model rather than server behaviour. **Result envelope and parameter shapes are `shared` at slice 2** (§3.2.10). Emitting the definition here also puts it ahead of both its citers: the slice-4 endpoint that returns it and the slice-7 job that schedules it. |
-| **6 Cross-refs** | Emits `CsReportRef` — and CE-JB is its **only** citer, since the ref is server-owned. Every label is a `CsMessageKey`, never inline text. Its four outbound targets each land differently (`codespecs_mapping.md` §5.28): **source entity** ← the source-entity field, as a **`Type` literal** on `TomReportDefinition.sourceEntity` — an entity is already a Dart type, §5.23 gives it no ref const, and a `Type` costs the gap package no dependency; **schedule** ← the report-schedule section's schedule-expression field, **verbatim** onto `.scheduleExpression`, which is not a reference at all (§5.29 realises the CE-JB job *from* the schedule, so a job id here would be the second source that rule forbids, and the schedule's time zone, effective dates and window lower onto the derived `TomJobDefinition`); **authorization** ← the security section's access level and permitted roles, emitted as a **`@CsAuthorize` beside this marker** per `codespecs_mapping.md` §5.15 — `Public`→`public`, `Authenticated`→`authenticated`, `Role-specific`→`role` with the roles as `CsRoleRef` consts, `Confidential`→`resourceKey`; **drill-through** stays an open route id string on the column (§3.3.9). |
+| **6 Cross-refs** | Emits `CsReportRef` — and CE-JB is its **only** citer, since the ref is server-owned. Every label is a `CsMessageKey`, never inline text. Its four outbound targets each land differently (`codespecs_mapping.md` §5.28): **source entity** ← the source-entity field, as a **`Type` literal** on `TomReportDefinition.sourceEntity` — an entity is already a Dart type, §5.23 gives it no ref const, and a `Type` costs the gap package no dependency; **schedule** ← the report-schedule section's schedule-expression field, **verbatim** onto `.scheduleExpression`, which is not a reference at all (§5.29 realises the CE-JB job *from* the schedule, so a job id here would be the second source that rule forbids, and the schedule's time zone, effective dates and window lower onto the derived `TomJobDefinition`); **authorization** ← `REPENT.access`, the embedded `AZREQ` choice, emitted as a **`@CsAuthorize` beside this marker** by the §3.4.3 rules; the report's own security section keeps only `dataLevelSecurity`, the row-filtering dimension, which is not a requirement kind; **drill-through** stays an open route id string on the column (§3.3.9). |
 | **7 Back-link** | `@DocSpec([DocRef('REPENT', 'supplies the grouped projection this report defines')])`. |
 
 #### 3.3.9 `@CsReportColumn` — CE-RP output column
@@ -718,13 +718,13 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `RoleMatrix` (`ROMA`), `RolePermissionEntry` (`ROLPERM`), `EntitlementEntry` (`ENT`). Consumed: which of the §5.15 requirement kinds applies and its payload. |
+| **1 Input** | `AuthorizationRequirementSpec` (`AZREQ`) — the one reusable closed choice, read from wherever the gated thing embeds it: `ServerOperationEntry.authorization` (`SVOPE`) for the operation-level case, the `access` member on the XDS screen / screen-element / navigation / tab / utility / deep-link / report / export sections for the field- and element-level cases. Consumed: `requirementKind` (which of the ten arms) plus that arm's payload subsection, and for the graded arm `GradedAuthorizationRequirement` (`AZGRD`) → its `GradedAccessLevelEntry` (`AZLVL`) level list. `RoleMatrix` (`ROMA`), `RolePermissionEntry` (`ROLPERM`) and `EntitlementEntry` (`ENT`) are the **catalogues** the payload cites, not the requirement itself — they define what a role or entitlement *means*; `AZREQ` only names one. |
 | **2 Output** | **No declaration of its own** — coding form 4, a modifier on the `@CsEndpoint` it gates (§5.6.3), or on a field for the field-level `authorizer` (slice 5). It feeds `TomEndpointHandler.checkAccess`, over the `TomAccessControl` family + `TomGradedAccess` + `TomPrincipal` (`tom_core_kernel`) and `TomResourceGrant` (`tom_core_server`). Slice 1 separately emits the **role and resource-key catalogues** into shared, since both sides cite them. |
-| **3 Arguments** | `requirement` (**required**) ← `CsAuthRequirement {role, group, entitlement, resourceKey, custom, graded, none, public, authenticated, guest}` — §5.15's six requirement kinds plus its four attribute-less presets (`TomNoAccess`, `TomPublicAccess`, `TomAuthenticatedAccess`, `TomGuestAccess`) folded into one closed enum. Required, and no arm is a default: defaulting an authorization requirement is the exact failure §5.16's fail-safe rule exists to prevent. Per-kind slots, only the declared kind's being non-null (§2.3): `roles: List<CsRoleRef>` (→ `TomRoleAccess.roles`), `groups: List<String>`, `entitlements: List<String>` (the §5.15 patterns), `resourceKey: CsResourceKeyRef`, `handler` + `resourceId: String` for custom, and `graded: CsGradedAccess` — a nested facet value class holding the three slots `full` / `read` / `disabled`, since §5.15's graded arm is a requirement tree, not a scalar. The four states `none < disabled < read < full` and the monotonic defaults `read ⇐ full`, `disabled ⇐ read` are **derived**, not authored. |
+| **3 Arguments** | `requirement` (**required**) ← `AZREQ.requirementKind`, constant-for-constant onto `CsAuthRequirement {role, group, entitlement, resourceKey, custom, graded, none, public, authenticated, guest}` — §5.15's six requirement kinds plus its four attribute-less presets (`TomNoAccess`, `TomPublicAccess`, `TomAuthenticatedAccess`, `TomGuestAccess`) folded into one closed enum. **One constant is renamed across the boundary: SOM `denied` → `CsAuthRequirement.none`.** The SOM spells the deny preset `denied` because in an authored document "None" reads as *no authorization needed*, the exact fail-open misreading §5.16's fail-safe rule exists to prevent; the code side keeps `none` to match `TomNoAccess`. Required, and no arm is a default, on either side. Per-kind slots, only the declared kind's being non-null (§2.3), each read from that kind's `@Case` subsection: `roles: List<CsRoleRef>` ← `AZREQ-ROLE.roles` (→ `TomRoleAccess.roles`), `groups: List<String>` ← `AZREQ-GRUP.groups`, `entitlements: List<String>` ← `AZREQ-ENTL.patterns`, `resourceKey: CsResourceKeyRef` ← `AZREQ-RKEY.resourceKey`, `handler` + `resourceId: String` ← `AZREQ-CUST`, and `graded: CsGradedAccess` ← `AZGRD`. The graded slot is a nested facet value class holding the three slots `full` / `read` / `disabled`, filled by matching each `AZLVL` entry's `accessLevel` to its slot and lowering that entry's own kind + payload into a nested `@CsAuthorize` by the same rules. Because `AZLVL` ranges over the nine-constant `BasicAuthorizationRequirementKind`, **a nested slot's `requirement` is never `graded`** — the SOM bounds the depth structurally (`codespecs_mapping.md` §5.15) and §6 check 21 holds the code side to the same bound. An omitted level is not an omitted requirement: the four states `none < disabled < read < full` and the monotonic defaults `read ⇐ full`, `disabled ⇐ read` are **derived**, not authored, so authoring only `full` is the common and correct case. |
 | **4 Naming** | None — the modifier has no identifier. Catalogue consts are named by N9 over the role / resource-key name. |
 | **5 Locus** | `server` for operation-level; `client` for the field-level `authorizer` (slice 5); the **catalogues** are `shared` (§4.2). |
 | **6 Cross-refs** | `CsRoleRef`, `CsResourceKeyRef`. Groups and entitlement patterns stay strings — they name external directory objects, not generated declarations. |
-| **7 Back-link** | `@DocSpec([DocRef('ROLPERM', 'supplies the requirement this operation is gated by')])`, with `ROMA` / `ENT` substituted by source. |
+| **7 Back-link** | `@DocSpec([DocRef('AZREQ', 'supplies the requirement this operation is gated by')])` — the section that *authored* the requirement, always `AZREQ` regardless of arm, since that is the one editable place a reader must reach to change the gate. The graded arm adds `DocRef('AZGRD', 'supplies the per-level requirements')`. The catalogues (`ROMA` / `ROLPERM` / `ENT`) are not back-linked from here: they are reached through the `CsRoleRef` / `CsResourceKeyRef` consts, which carry their own back-links. |
 
 #### 3.4.4 `@CsAuth` — CE-AU server flow + CE-ID population
 
@@ -1172,7 +1172,7 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Where they run.** All twenty are implemented in
+**Where they run.** All twenty-one are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 `codespecs_validator` drives them) and are invoked by
@@ -1180,8 +1180,8 @@ the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 exits non-zero on any violation. A check numbered below and not implemented
 there is a defect in one of the two.
 
-**Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15 and
-16 are per-instance constraints on a single annotation's arguments, so the obvious
+**Why none of them is a const-constructor `assert`.** Checks 8, 10, 14, 15, 16 and
+21 are per-instance constraints on a single annotation's arguments, so the obvious
 home looks like an `assert` in the marker's const constructor. It does not work:
 Dart const-evaluates a const *expression* and reports a failing assert as a
 compile-time error, but it does **not** const-evaluate an **annotation**. A
@@ -1189,7 +1189,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** twenty.
+validation pass over the resolved annotation for **all** twenty-one.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1213,6 +1213,18 @@ validation pass over the resolved annotation for **all** twenty.
 | 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 |
 | 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 |
 | 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 |
+| 21 | A `CsGradedAccess` slot's `@CsAuthorize` is never itself `graded` — the graded depth is exactly one level | §3.4.3 |
+
+**Check 21 is where the SOM's structural bound is re-imposed on the code.** On the
+SOM side a graded level takes a `GradedAccessLevelEntry`, whose kind enum has no
+`graded` constant, so nesting a second grading is **unauthorable** — the type forbids
+it. On the code side `CsGradedAccess`'s three slots are each a `@CsAuthorize`, which
+*does* have a `graded` arm, so the same nesting is expressible in hand-written
+CodeSpecs even though no generator run can produce it. Without this check the two
+sides would diverge exactly where the SOM was deliberately made strict, and the
+divergence would surface as a runtime access decision rather than a generation error.
+The bound is not arbitrary: a graded requirement resolves to one of four **terminal**
+access states, so a grading nested inside a level has nothing left to resolve to.
 
 **Checks 17 and 18 each carry a whole edge on its own.** Checks 2 and 13 back up
 a compile-time or structural guarantee; these two replace one. The fallback is a

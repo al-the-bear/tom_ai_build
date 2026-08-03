@@ -3400,6 +3400,82 @@ def _mc_AuthorizationModel(s):
     ]
 
 
+def _mc_AuthorizationRequirementSpec(s):
+    return [
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            content_help="What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="requirementKind", type_name="AuthorizationRequirementKind", description="Requirement Kind", required=True, hint="What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.", order=0, enum_values=["role", "group", "entitlement", "resourceKey", "custom", "graded", "denied", "public", "authenticated", "guest"]), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", hint="Why this requirement and not a wider or narrower one", order=1)])),
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="roleRequirement",
+            section_id="AZREQ-ROLE",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=1,
+            doc_comment="Role requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roles", type_name="String", description="Roles", required=True, hint="Comma-separated role names from the role catalogue; the caller must hold at least one", order=0, refers_to=["AZRO.roleName"])]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.role"})]),
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="groupRequirement",
+            section_id="AZREQ-GRUP",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=2,
+            doc_comment="Group requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="groups", type_name="String", description="Groups", required=True, hint="Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.", order=0)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.group"})]),
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="entitlementRequirement",
+            section_id="AZREQ-ENTL",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Entitlement requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="patterns", type_name="String", description="Entitlement Patterns", required=True, hint="Comma-separated entitlement match patterns; the caller must match at least one", order=0)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.entitlement"})]),
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="resourceKeyRequirement",
+            section_id="AZREQ-RKEY",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Resource-key requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceKey", type_name="String", description="Resource Key", required=True, hint="The resource key from the resource-key catalogue the caller must hold a grant on", order=0, refers_to=["RESKEY.resourceKey"])]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.resourceKey"})]),
+         SomMetaNode(
+            class_name="AuthorizationRequirementSpec",
+            member_name="customRequirement",
+            section_id="AZREQ-CUST",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Custom requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="handler", type_name="String", description="Handler", required=True, hint="The registered access handler that decides", order=0), SomFormFieldMeta(name="resourceId", type_name="String", description="Resource ID", hint="The resource id passed to the handler, where it needs one", order=1), SomFormFieldMeta(name="decisionRule", type_name="String", description="Decision Rule", required=True, hint="What the handler must decide, in business terms — this is the specification the handler is implemented against", order=2)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.custom"})]),
+         _cx("GradedAuthorizationRequirement", s, _mc_GradedAuthorizationRequirement,
+            lambda r, c: SomMetaNode(
+                class_name="GradedAuthorizationRequirement",
+                member_name="gradedRequirement",
+                class_section_id="AZGRD",
+                kind=SomMetaKind.COMPLEX,
+                type_name="GradedAuthorizationRequirement",
+                serialization_order=6,
+                doc_comment="Graded requirement payload — a promoted `@OneOf` case.",
+                class_doc_comment="A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.",
+                extra=[SomMetaExtra(annotation="Case", args={"value": "AuthorizationRequirementKind.graded"})],
+                recursive=r,
+                children=c)),
+    ]
+
+
 def _mc_AuthorizationRoleEntry(s):
     return [
          SomMetaNode(
@@ -15675,7 +15751,19 @@ def _mc_DeepLinkPatternEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternId", type_name="String", description="Pattern ID", required=True, hint="Unique identifier, e.g., pattern-order-detail", order=0), SomFormFieldMeta(name="urlPattern", type_name="String", description="URL Pattern", required=True, hint="Route pattern, e.g., /orders/:orderId", order=1), SomFormFieldMeta(name="targetScreenId", type_name="String", description="Target Screen ID", hint="Screen to open", order=2, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="When/why this link is used", order=3), SomFormFieldMeta(name="authenticationRequired", type_name="String", description="Authentication Required", hint="Yes/No — redirect to login if unauthenticated", order=4), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Permissions needed to access via deep link", order=5), SomFormFieldMeta(name="fallbackRoute", type_name="String", description="Fallback Route", hint="Where to go if target is unavailable", order=6), SomFormFieldMeta(name="shareEnabled", type_name="String", description="Share Enabled", hint="Yes/No — can users share this link", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternId", type_name="String", description="Pattern ID", required=True, hint="Unique identifier, e.g., pattern-order-detail", order=0), SomFormFieldMeta(name="urlPattern", type_name="String", description="URL Pattern", required=True, hint="Route pattern, e.g., /orders/:orderId", order=1), SomFormFieldMeta(name="targetScreenId", type_name="String", description="Target Screen ID", hint="Screen to open", order=2, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="When/why this link is used", order=3), SomFormFieldMeta(name="fallbackRoute", type_name="String", description="Fallback Route", hint="Where to go if target is unavailable", order=4), SomFormFieldMeta(name="shareEnabled", type_name="String", description="Share Enabled", hint="Yes/No — can users share this link", order=5)])),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=1,
+                doc_comment="Access control — what a caller must satisfy to follow this deep link.\n\nThe shared CE-AZ requirement section (`AZREQ`). Authoring the\nAuthenticated kind is what makes an unauthenticated visitor redirect to\nsign-in; there is no separate authentication-required flag.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -20971,14 +21059,26 @@ def _mc_ExportFormatEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — portability includes the ease of transferring output to a target environment", "ISO 8601-1:2019 — a standardized time representation underpins scheduling of automated exports"], "connotation": "Output destination and scheduling settings that control where export files are delivered and when they run."})]),
          SomMetaNode(
             class_name="ExportFormatEntry",
-            member_name="access",
+            member_name="audit",
             section_id="EXAC",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=8,
             doc_comment="Access and audit.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Public / Authenticated / Role-specific", order=0), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Roles permitted to run this export", order=1), SomFormFieldMeta(name="auditLogging", type_name="String", description="Audit Logging", hint="Yes / No — log export executions", order=2), SomFormFieldMeta(name="previewAvailable", type_name="String", description="Preview Available", hint="Yes / No — allow user to preview", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=4)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced", "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"], "connotation": "Access levels, required roles, and audit-logging settings governing who may run an export."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="auditLogging", type_name="String", description="Audit Logging", hint="Yes / No — log export executions", order=0), SomFormFieldMeta(name="previewAvailable", type_name="String", description="Preview Available", hint="Yes / No — allow user to preview", order=1), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced", "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"], "connotation": "Audit-logging and preview settings for an export; who may run it is authored in the access requirement."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=9,
+                doc_comment="Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="ExportFormatEntry",
             member_name="fieldMappings",
@@ -20986,7 +21086,7 @@ def _mc_ExportFormatEntry(s):
             section_id_pattern="EFME-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportFieldMappingEntry",
-            serialization_order=9,
+            serialization_order=10,
             content_help="Add one entry per export field mapping.",
             doc_comment="Contains 0+× Export Field Mapping.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line", "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"], "connotation": "The collection of export field-mapping entries that bind source fields to output columns."})],
@@ -21047,14 +21147,26 @@ def _mc_ExportTemplateEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 32000-2:2020 — PDF describes page-level header and footer artifacts for printed output", "ISO/IEC 29500-1:2016 — Office Open XML defines header and footer structures for documents", "W3C CSS Paged Media — page margin boxes carry running headers and footers in paged rendering"], "connotation": "Layout configuration defining header, footer, branding, and compression for a rendered export template."})]),
          SomMetaNode(
             class_name="ExportTemplateEntry",
-            member_name="access",
+            member_name="metadata",
             section_id="ETEA",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=4,
             doc_comment="Access and metadata.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Public / Authenticated / Role-specific", order=0), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Roles permitted to use this template", order=1), SomFormFieldMeta(name="reusableAcrossReports", type_name="String", description="Reusable Across Reports", hint="Yes / No — can this template be used by multiple reports/exports", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Template version, e.g. 1.0", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=4)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts", "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"], "connotation": "Access-control and metadata settings governing who may use an export template and how it is versioned."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="reusableAcrossReports", type_name="String", description="Reusable Across Reports", hint="Yes / No — can this template be used by multiple reports/exports", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Template version, e.g. 1.0", order=1), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Design notes", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts", "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"], "connotation": "Reuse and versioning metadata for an export template; who may use it is authored in the access requirement."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=5,
+                doc_comment="Access control — what a caller must satisfy to use this template.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -23505,6 +23617,94 @@ def _mc_GovernanceModel(s):
             doc_comment="Decision authority matrix.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["PMBOK — RACI / responsibility assignment", "ISO 21500 — project management (governance, roles & responsibilities)"], "connotation": "The decision-authority matrix mapping decision areas to who decides and where each escalates."})],
             element_node=_cx("DecisionAuthorityEntry", s, _mc_DecisionAuthorityEntry, lambda r, c: SomMetaNode(class_name="DecisionAuthorityEntry", class_section_id="DCAUT", kind=SomMetaKind.COMPLEX, type_name="DecisionAuthorityEntry", doc_comment="A decision authority entry.", class_doc_comment="A decision authority entry.", recursive=r, children=c))),
+    ]
+
+
+def _mc_GradedAccessLevelEntry(s):
+    return [
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            content_help="One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="accessLevel", type_name="GradedAccessLevel", description="Access Level", required=True, hint="The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.", order=0, enum_values=["full", "read", "disabled"]), SomFormFieldMeta(name="requirementKind", type_name="BasicAuthorizationRequirementKind", description="Requirement Kind", required=True, hint="What the caller must satisfy to reach this access state — selects the payload subsection below", order=1, enum_values=["role", "group", "entitlement", "resourceKey", "custom", "denied", "public", "authenticated", "guest"])])),
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="roleRequirement",
+            section_id="AZLVL-ROLE",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=1,
+            doc_comment="Role requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roles", type_name="String", description="Roles", required=True, hint="Comma-separated role names from the role catalogue; the caller must hold at least one", order=0, refers_to=["AZRO.roleName"])]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "BasicAuthorizationRequirementKind.role"})]),
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="groupRequirement",
+            section_id="AZLVL-GRUP",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=2,
+            doc_comment="Group requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="groups", type_name="String", description="Groups", required=True, hint="Comma-separated group names the caller must belong to (at least one)", order=0)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "BasicAuthorizationRequirementKind.group"})]),
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="entitlementRequirement",
+            section_id="AZLVL-ENTL",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=3,
+            doc_comment="Entitlement requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="patterns", type_name="String", description="Entitlement Patterns", required=True, hint="Comma-separated entitlement match patterns; the caller must match at least one", order=0)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "BasicAuthorizationRequirementKind.entitlement"})]),
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="resourceKeyRequirement",
+            section_id="AZLVL-RKEY",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=4,
+            doc_comment="Resource-key requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceKey", type_name="String", description="Resource Key", required=True, hint="The resource key from the resource-key catalogue the caller must hold a grant on", order=0, refers_to=["RESKEY.resourceKey"])]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "BasicAuthorizationRequirementKind.resourceKey"})]),
+         SomMetaNode(
+            class_name="GradedAccessLevelEntry",
+            member_name="customRequirement",
+            section_id="AZLVL-CUST",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=5,
+            doc_comment="Custom requirement payload — a promoted `@OneOf` case.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="handler", type_name="String", description="Handler", required=True, hint="The registered access handler that decides", order=0), SomFormFieldMeta(name="resourceId", type_name="String", description="Resource ID", hint="The resource id passed to the handler, where it needs one", order=1), SomFormFieldMeta(name="decisionRule", type_name="String", description="Decision Rule", required=True, hint="What the handler must decide, in business terms", order=2)]),
+            extra=[SomMetaExtra(annotation="Case", args={"value": "BasicAuthorizationRequirementKind.custom"})]),
+    ]
+
+
+def _mc_GradedAuthorizationRequirement(s):
+    return [
+         SomMetaNode(
+            class_name="GradedAuthorizationRequirement",
+            member_name="content",
+            kind=SomMetaKind.FORM,
+            type_name="String",
+            serialization_order=0,
+            content_help="The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="gradingRationale", type_name="String", description="Grading Rationale", hint="Why this thing is graded rather than simply reachable or not", order=0)])),
+         SomMetaNode(
+            class_name="GradedAuthorizationRequirement",
+            member_name="accessLevels",
+            section_id="AZLVL-LEVE-LST",
+            section_id_pattern="AZLVL-LEVE-xxx",
+            kind=SomMetaKind.LIST,
+            type_name="GradedAccessLevelEntry",
+            serialization_order=1,
+            min=1,
+            content_help="Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.",
+            doc_comment="The authored rungs of the ladder — contains 1..3× Graded Access Level.",
+            element_node=_cx("GradedAccessLevelEntry", s, _mc_GradedAccessLevelEntry, lambda r, c: SomMetaNode(class_name="GradedAccessLevelEntry", class_section_id="AZLVL", kind=SomMetaKind.COMPLEX, type_name="GradedAccessLevelEntry", doc_comment="One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.", class_doc_comment="One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.", recursive=r, children=c))),
     ]
 
 
@@ -30416,16 +30616,18 @@ def _mc_NavigationGroupEntry(s):
             doc_comment="Display and expansion behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Sort position among siblings", order=0), SomFormFieldMeta(name="collapsible", type_name="String", description="Collapsible", hint="Yes/No — can the group be collapsed?", order=1), SomFormFieldMeta(name="initiallyExpanded", type_name="String", description="Initially Expanded", hint="Yes/No — default expanded state", order=2), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business rule for visibility", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy", "ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups"], "connotation": "Display order and expansion behavior for a navigation group."})]),
-         SomMetaNode(
-            class_name="NavigationGroupEntry",
-            member_name="access",
-            section_id="NGEA",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=2,
-            doc_comment="Access-control settings.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Comma-separated role IDs", order=0, refers_to=["AZRO.roleName"]), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Specific permissions required", order=1), SomFormFieldMeta(name="permissionBehavior", type_name="String", description="Permission Behavior", hint="Hide/Disable/Collapse when unauthorized", order=2)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context", "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"], "connotation": "Access-control settings such as required roles and permission behavior for a navigation group."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=2,
+                doc_comment="Access control — what a caller must satisfy to see this navigation group.\n\nThe shared CE-AZ requirement section (`AZREQ`). A group that should be\nvisible-but-locked rather than hidden authors the Graded kind; the\nhide/disable rendering follows from the access state and is not authored\nhere.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="NavigationGroupEntry",
             member_name="structure",
@@ -30580,21 +30782,33 @@ def _mc_NavigationItemEntry(s):
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-151:2008 — routes map navigation destinations onto the underlying information architecture", "ISO 9241-110:2020 — conformity with user expectations depends on predictable target routing"], "connotation": "Routing configuration such as target screen, route parameters, and ordering for a navigation item."})]),
          SomMetaNode(
             class_name="NavigationItemEntry",
-            member_name="access",
+            member_name="visibility",
             section_id="NIEA",
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=3,
-            doc_comment="Access control settings.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business condition for visibility", order=0), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="When item is visible but non-interactive", order=1), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Comma-separated roles", order=2), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Specific permissions", order=3), SomFormFieldMeta(name="permissionBehavior", type_name="String", description="Permission Behavior", hint="Hide/Disable/Show-Locked-Icon", order=4)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context", "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"], "connotation": "Access-control settings such as roles, permissions, and visibility conditions for a navigation item."})]),
+            doc_comment="Business conditions governing when the item is shown and interactive.\n\nThese are *business* conditions, not authorization — who may reach the\nitem is authored in [access]. A condition here narrows an item the caller\nis already authorized for.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business condition for visibility", order=0), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="When item is visible but non-interactive", order=1)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context", "ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context"], "connotation": "The business conditions under which a navigation item is shown and interactive."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=4,
+                doc_comment="Access control — what a caller must satisfy to reach this item.\n\nThe shared CE-AZ requirement section (`AZREQ`). An item that should be\nshown locked rather than hidden authors the Graded kind.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="NavigationItemEntry",
             member_name="badge",
             section_id="NIEB",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Badge configuration.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="badgeType", type_name="String", description="Badge Type", hint="None/Count/Dot/Text/Icon", order=0), SomFormFieldMeta(name="badgeSource", type_name="String", description="Badge Source", hint="Data binding for badge, e.g., inbox.unreadCount", order=1), SomFormFieldMeta(name="badgeColor", type_name="String", description="Badge Color", hint="Error/Warning/Info/Success/Neutral", order=2)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — self-descriptiveness is aided by badges that convey status at a glance", "ISO/IEC 25010:2023 — appropriateness recognisability improves when counts and indicators are visible"], "connotation": "Badge configuration such as type, source, and color for a navigation item."})]),
@@ -30604,7 +30818,7 @@ def _mc_NavigationItemEntry(s):
             section_id="NIEI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=5,
+            serialization_order=6,
             doc_comment="Interaction settings.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="keyboardShortcut", type_name="String", description="Keyboard Shortcut", hint="Global shortcut, e.g., Ctrl+Shift+C", order=0), SomFormFieldMeta(name="searchKeywords", type_name="String", description="Search Keywords", hint="Keywords for global search matching", order=1), SomFormFieldMeta(name="openBehavior", type_name="String", description="Open Behavior", hint="Replace/Push/New-Tab/Dialog", order=2), SomFormFieldMeta(name="highlightRules", type_name="String", description="Highlight Rules", hint="Routes that keep this item highlighted", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — supports rapid menu selection through accelerators and shortcuts", "ISO/IEC 25010:2023 — operability improves when destinations respond to search and keyboard input"], "connotation": "Interaction settings such as keyboard shortcuts, search keywords, and open behavior for a navigation item."})]),
@@ -38171,15 +38385,27 @@ def _mc_ReportEntry(s):
             type_name="String",
             serialization_order=10,
             doc_comment="Security and access.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="localization", type_name="String", description="Localization", hint="Locales supported, e.g. de-DE, en-US, fr-FR", order=0), SomFormFieldMeta(name="brandingOverride", type_name="String", description="Branding Override", hint="Override branding for this report", order=1), SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Public / Authenticated / Role-specific / Confidential", order=2), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Roles permitted to generate this report", order=3), SomFormFieldMeta(name="dataLevelSecurity", type_name="String", description="Data-Level Security", hint="Row/column level security rules", order=4)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties", "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"], "connotation": "Security settings covering access levels roles and data-level restrictions for the report."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="localization", type_name="String", description="Localization", hint="Locales supported, e.g. de-DE, en-US, fr-FR", order=0), SomFormFieldMeta(name="brandingOverride", type_name="String", description="Branding Override", hint="Override branding for this report", order=1), SomFormFieldMeta(name="dataLevelSecurity", type_name="String", description="Data-Level Security", hint="Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties", "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"], "connotation": "Presentation and data-level security settings for the report; who may generate it is authored in the access section."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=11,
+                doc_comment="Access control — what a caller must satisfy to generate this report.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="ReportEntry",
             member_name="lifecycle",
             section_id="RELI",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=11,
+            serialization_order=12,
             doc_comment="Lifecycle and archiving.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="archiveRetention", type_name="String", description="Archive Retention", hint="Retention policy for generated instances, e.g. 90 days", order=0), SomFormFieldMeta(name="signatureRequired", type_name="String", description="Signature Required", hint="Yes / No — does the report require a digital signature", order=1), SomFormFieldMeta(name="approvalWorkflow", type_name="String", description="Approval Workflow", hint="Approval steps before distribution, if any", order=2), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional design notes or open questions", order=3)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information", "ISO/IEC 25010:2023 — functional suitability supports controlled report distribution"], "connotation": "Lifecycle settings covering retention signature approval and archiving of the report."})]),
@@ -38190,7 +38416,7 @@ def _mc_ReportEntry(s):
             section_id_pattern="RESEE1-SECT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportSectionEntry",
-            serialization_order=12,
+            serialization_order=13,
             content_help="Add one entry per report section.",
             doc_comment="Contains 0+× Report Section.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — presentation of information groups related content in sections", "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"], "connotation": "The collection of report-section entries composing the body of the report."})],
@@ -38202,7 +38428,7 @@ def _mc_ReportEntry(s):
             section_id_pattern="REFIEN-FILT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportFilterEntry",
-            serialization_order=13,
+            serialization_order=14,
             content_help="Add one entry per report data filter.",
             doc_comment="Contains 0+× Report Filter.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"], "connotation": "The collection of filters that restrict the data included in the report."})],
@@ -38214,7 +38440,7 @@ def _mc_ReportEntry(s):
             section_id_pattern="RESCEN-SCHE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportScheduleEntry",
-            serialization_order=14,
+            serialization_order=15,
             content_help="Add one entry per report generation schedule.",
             doc_comment="Contains 0+× Report Schedule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 8601-1:2019 — expresses the dates and times at which the report is generated", "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"], "connotation": "The collection of schedules controlling automated generation of the report."})],
@@ -38226,7 +38452,7 @@ def _mc_ReportEntry(s):
             section_id_pattern="REDIEN-DIST-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportDistributionEntry",
-            serialization_order=15,
+            serialization_order=16,
             content_help="Add one entry per report distribution channel.",
             doc_comment="Contains 0+× Report Distribution.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"], "connotation": "The collection of distribution channels through which the report is delivered."})],
@@ -38238,7 +38464,7 @@ def _mc_ReportEntry(s):
             section_id_pattern="REREEN-RECI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportRecipientEntry",
-            serialization_order=16,
+            serialization_order=17,
             content_help="Add one entry per report recipient.",
             doc_comment="Contains 0+× Recipient.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"], "connotation": "The collection of recipients who receive the generated report."})],
@@ -41654,16 +41880,28 @@ def _mc_ScreenElementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=3,
-            doc_comment="Visibility and permission rules.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When this element is shown", order=0), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="When this element is interactive", order=1), SomFormFieldMeta(name="readonlyCondition", type_name="String", description="Readonly Condition", hint="When this element is read-only", order=2), SomFormFieldMeta(name="requiredPermission", type_name="String", description="Required Permission", hint="Permission needed to see/interact", order=3), SomFormFieldMeta(name="permissionEffect", type_name="String", description="Permission Effect", hint="Hide/Disable/Readonly", order=4)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only", "ISO 9241-110:2020 — controllability governing when an element is interactive"], "connotation": "The visibility, enablement, and permission rules that determine when a screen element can be seen or used."})]),
+            doc_comment="Visibility and enablement rules.\n\nThese are *business* conditions on an element the caller is already\nauthorized for. Who may see or use it at all is [access].",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When this element is shown", order=0), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="When this element is interactive", order=1), SomFormFieldMeta(name="readonlyCondition", type_name="String", description="Readonly Condition", hint="When this element is read-only", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only", "ISO 9241-110:2020 — controllability governing when an element is interactive"], "connotation": "The business conditions that determine when a screen element is visible, interactive, or read-only."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=4,
+                doc_comment="Access control — what a caller must satisfy to see or use this element.\n\nThe shared CE-AZ requirement section (`AZREQ`). An element whose access\nhas degrees — hidden, locked, read-only, interactive — authors the Graded\nkind, which is what the old free-text permission-effect field was trying\nto say.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="ScreenElementEntry",
             member_name="presentation",
             section_id="SCELENPR",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=4,
+            serialization_order=5,
             doc_comment="Styling and data binding.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="styleVariant", type_name="String", description="Style Variant", hint="Primary/Secondary/Danger/Subtle/Custom", order=0), SomFormFieldMeta(name="accessibilityLabel", type_name="String", description="Accessibility Label", hint="Override for screen readers", order=1), SomFormFieldMeta(name="dataBinding", type_name="String", description="Data Binding", hint="Path to bound data field, e.g., order.customerName", order=2), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Default value or expression", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Design Notes", hint="Design rationale or open questions", order=4)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-125:2017 — visual presentation attributes such as style and colour of information", "ISO 9241-112:2017 — coding of information through visual style variants"], "connotation": "The styling and data-binding attributes that govern how a screen element appears and connects to data."})]),
@@ -41674,7 +41912,7 @@ def _mc_ScreenElementEntry(s):
                 class_section_id="SCELAC",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenElementAction",
-                serialization_order=5,
+                serialization_order=6,
                 doc_comment="10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).",
                 class_doc_comment="Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.",
                 extra=[SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.actionButton"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.link"})],
@@ -41687,7 +41925,7 @@ def _mc_ScreenElementEntry(s):
                 class_section_id="SEFS",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenElementFieldSpec",
-                serialization_order=6,
+                serialization_order=7,
                 doc_comment="10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).",
                 class_doc_comment="Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.",
                 extra=[SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.textField"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.numberField"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.dateField"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.selectField"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.checkbox"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.toggle"})],
@@ -41700,7 +41938,7 @@ def _mc_ScreenElementEntry(s):
                 class_section_id="SEDD",
                 kind=SomMetaKind.COMPLEX,
                 type_name="ScreenElementDataDisplay",
-                serialization_order=7,
+                serialization_order=8,
                 doc_comment="10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).",
                 class_doc_comment="Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.",
                 extra=[SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.dataDisplay"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.dataTable"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.card"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.chart"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.statusIndicator"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.icon"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.label"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.image"}), SomMetaExtra(annotation="Case", args={"value": "ScreenElementKind.badge"})],
@@ -41713,7 +41951,7 @@ def _mc_ScreenElementEntry(s):
             section_id_pattern="EVRE-VALI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ElementValidationRuleEntry",
-            serialization_order=8,
+            serialization_order=9,
             content_help="Add one entry per validation rule.",
             doc_comment="Contains 0+× ElementValidationRule.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — validation of user input in form-based interaction", "ISO 9241-110:2020 — use error tolerance through input validation"], "connotation": "The collection of validation rules that constrain and check the input for a screen element."})],
@@ -41822,16 +42060,18 @@ def _mc_ScreenEntry(s):
             doc_comment="Classification and routing metadata.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="screenCategory", type_name="String", description="Screen Category", hint="List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", order=0), SomFormFieldMeta(name="parentScreenId", type_name="String", description="Parent Screen ID", hint="Parent screen if this is a sub-screen or drill-down", order=1, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="routePattern", type_name="String", description="Route Pattern", hint="Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", order=2, refers_to=["SCRTEN.routeId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"], "connotation": "The classification and routing metadata that categorises a screen and locates it in the navigation structure."})]),
-         SomMetaNode(
-            class_name="ScreenEntry",
-            member_name="access",
-            section_id="SCEAC",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=2,
-            doc_comment="Access control settings.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Public/Authenticated/Role-specific", order=0), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Authorization roles that may access this screen", order=1), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Specific permissions needed", order=2), SomFormFieldMeta(name="permissionEffect", type_name="String", description="Permission Effect", hint="Hide-Screen/Show-Readonly/Show-With-Restrictions", order=3)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — controllability governing who may access an interface", "ISO/IEC 25010:2023 — interaction capability constrained by authorization"], "connotation": "The access-control settings that determine which roles and permissions may reach a screen."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=2,
+                doc_comment="Access control — what a caller must satisfy to reach this screen.\n\nThe shared CE-AZ requirement section (`AZREQ`), not a screen-local\nrestatement. A screen that is graded rather than simply reachable authors\nthe Graded kind; how each access state renders is fixed by the framework\nand is not authored here.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="ScreenEntry",
             member_name="traceability",
@@ -43570,7 +43810,19 @@ def _mc_ServerOperationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationName", type_name="String", description="Operation Name", required=True, hint="Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does, from the caller's point of view", order=1), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", hint="DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="authorizationRequirement", type_name="String", description="Authorization Requirement", required=True, hint="What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.", order=3), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement", order=4, refers_to=["AZRO.roleName"]), SomFormFieldMeta(name="requiredResourceKey", type_name="String", description="Required Resource Key", hint="ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement", order=5, refers_to=["RESKEY.resourceKey"]), SomFormFieldMeta(name="descriptionKey", type_name="String", description="Description Copy Key", hint="MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", order=6, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="errorCodes", type_name="String", description="Error Codes", hint="Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", order=7, refers_to=["ERCEN.code"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationName", type_name="String", description="Operation Name", required=True, hint="Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does, from the caller's point of view", order=1), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", hint="DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="descriptionKey", type_name="String", description="Description Copy Key", hint="MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", order=3, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="errorCodes", type_name="String", description="Error Codes", hint="Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", order=4, refers_to=["ERCEN.code"])])),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="authorization",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=1,
+                doc_comment="7.9.x. Authorization — what a caller must satisfy to invoke this\noperation.\n\nThe shared CE-AZ requirement section, not a per-operation restatement.\nThere is no default: an operation with no requirement authored is a\nspecification defect.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="ServerOperationEntry",
             member_name="requestMembers",
@@ -43578,7 +43830,7 @@ def _mc_ServerOperationEntry(s):
             section_id_pattern="SVOPM-REQM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ServerOperationMemberEntry",
-            serialization_order=1,
+            serialization_order=2,
             content_help="Add one entry per member of the request shape.",
             doc_comment="7.9.x. Request Members — the members that make up the request shape.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The members that make up this operation's request shape."})],
@@ -43590,7 +43842,7 @@ def _mc_ServerOperationEntry(s):
             section_id_pattern="SVOPM-RESM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ServerOperationMemberEntry",
-            serialization_order=2,
+            serialization_order=3,
             content_help="Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.",
             doc_comment="7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO/IEC 11179 — metadata registries / data element definitions"], "connotation": "The members that make up the success payload this operation returns."})],
@@ -49424,7 +49676,19 @@ def _mc_TabItemEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="tabId", type_name="String", description="Tab ID", required=True, hint="Unique within tab bar", order=0), SomFormFieldMeta(name="label", type_name="String", description="Label Resource", required=True, hint="Message key (MSGKR registry) for tab label", order=1, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", hint="Tab icon", order=2), SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in tab bar", order=3), SomFormFieldMeta(name="contentScreenId", type_name="String", description="Content Screen ID", hint="Screen/fragment loaded in tab", order=4, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business rule for visibility", order=5), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Tab-level access control", order=6), SomFormFieldMeta(name="permissionBehavior", type_name="String", description="Permission Behavior", hint="Hide/Disable", order=7), SomFormFieldMeta(name="badgeType", type_name="String", description="Badge Type", hint="None/Count/Dot", order=8), SomFormFieldMeta(name="badgeSource", type_name="String", description="Badge Source", hint="Data source for badge", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="tabId", type_name="String", description="Tab ID", required=True, hint="Unique within tab bar", order=0), SomFormFieldMeta(name="label", type_name="String", description="Label Resource", required=True, hint="Message key (MSGKR registry) for tab label", order=1, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", hint="Tab icon", order=2), SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in tab bar", order=3), SomFormFieldMeta(name="contentScreenId", type_name="String", description="Content Screen ID", hint="Screen/fragment loaded in tab", order=4, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business rule for visibility", order=5), SomFormFieldMeta(name="badgeType", type_name="String", description="Badge Type", hint="None/Count/Dot", order=6), SomFormFieldMeta(name="badgeSource", type_name="String", description="Badge Source", hint="Data source for badge", order=7)])),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=1,
+                doc_comment="Access control — what a caller must satisfy to reach this tab.\n\nThe shared CE-AZ requirement section (`AZREQ`). A tab that should be shown\ndisabled rather than hidden authors the Graded kind.",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -54471,8 +54735,20 @@ def _mc_UtilityMenuItemEntry(s):
             type_name="String",
             serialization_order=2,
             doc_comment="Visibility and confirmation behavior.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When shown", order=0), SomFormFieldMeta(name="requiredPermissions", type_name="String", description="Required Permissions", hint="Access control", order=1), SomFormFieldMeta(name="isDangerous", type_name="String", description="Is Dangerous", hint="Yes/No — show in danger style", order=2), SomFormFieldMeta(name="confirmationRequired", type_name="String", description="Confirmation Required", hint="Yes/No — show confirmation dialog", order=3)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions", "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"], "connotation": "The visibility conditions, permission checks, and confirmation behavior for a utility menu item."})]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business condition for when it is shown — who may use it is authored in the access section", order=0), SomFormFieldMeta(name="isDangerous", type_name="String", description="Is Dangerous", hint="Yes/No — show in danger style", order=1), SomFormFieldMeta(name="confirmationRequired", type_name="String", description="Confirmation Required", hint="Yes/No — show confirmation dialog", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions", "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"], "connotation": "The visibility conditions and confirmation behavior for a utility menu item."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=3,
+                doc_comment="Access control — what a caller must satisfy to use this menu item.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
     ]
 
 
@@ -54517,16 +54793,28 @@ def _mc_UtilityNavigationItemEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=1,
-            doc_comment="Ordering, rendering, and access rules.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Sort position", order=0), SomFormFieldMeta(name="displayKind", type_name="String", description="Display Kind", hint="Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", order=1), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="When shown", order=2), SomFormFieldMeta(name="requiredRoles", type_name="String", description="Required Roles", hint="Access control", order=3)]),
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options", "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"], "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."})]),
+            doc_comment="Ordering and rendering.",
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Sort position", order=0), SomFormFieldMeta(name="displayKind", type_name="String", description="Display Kind", hint="Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", order=1), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Business condition for when it is shown — who may see it is authored in the access section", order=2)]),
+            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options"], "connotation": "The display order and presentation kind governing a utility navigation item."})]),
+         _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
+            lambda r, c: SomMetaNode(
+                class_name="AuthorizationRequirementSpec",
+                member_name="access",
+                class_section_id="AZREQ",
+                kind=SomMetaKind.COMPLEX,
+                type_name="AuthorizationRequirementSpec",
+                serialization_order=2,
+                doc_comment="Access control — what a caller must satisfy to reach this utility item.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+                class_doc_comment="What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+                recursive=r,
+                children=c)),
          SomMetaNode(
             class_name="UtilityNavigationItemEntry",
             member_name="behavior",
             section_id="UNIEB",
             kind=SomMetaKind.FORM,
             type_name="String",
-            serialization_order=2,
+            serialization_order=3,
             doc_comment="Badge and interaction behavior.",
             form=SomFormMeta(fields=[SomFormFieldMeta(name="badgeType", type_name="String", description="Badge Type", hint="None/Count/Dot", order=0), SomFormFieldMeta(name="badgeSource", type_name="String", description="Badge Source", hint="Data binding for badge", order=1), SomFormFieldMeta(name="interactionType", type_name="String", description="Interaction Type", hint="Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog", order=2), SomFormFieldMeta(name="targetScreenId", type_name="String", description="Target Screen ID", hint="Navigation target", order=3, refers_to=["SCREN.screenId"])]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet", "ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting"], "connotation": "The badge display and interaction behavior triggered when a utility navigation item is used."})]),
@@ -54537,7 +54825,7 @@ def _mc_UtilityNavigationItemEntry(s):
             section_id_pattern="UMIE-MENU-xxx",
             kind=SomMetaKind.LIST,
             type_name="UtilityMenuItemEntry",
-            serialization_order=3,
+            serialization_order=4,
             content_help="Add one entry per utility menu item.",
             doc_comment="Contains 0+× UtilityMenuItem.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"], "connotation": "The collection of nested menu item entries belonging to a utility navigation item."})],
@@ -57444,6 +57732,41 @@ class AuthorizationModelNav(SomMetaRef):
     @property
     def authorizationModelNotes(self):
         return SomMetaRef(self.tree, f"{self.path}/authorizationModelNotes")
+
+
+class AuthorizationRequirementSpecNav(SomMetaRef):
+    """Dot-notation accessors of ``AuthorizationRequirementSpec`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def roleRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZREQ-ROLE")
+
+    @property
+    def groupRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZREQ-GRUP")
+
+    @property
+    def entitlementRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZREQ-ENTL")
+
+    @property
+    def resourceKeyRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZREQ-RKEY")
+
+    @property
+    def customRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZREQ-CUST")
+
+    @property
+    def gradedRequirement(self):
+        return GradedAuthorizationRequirementNav(self.tree, f"{self.path}/gradedRequirement")
 
 
 class AuthorizationRoleEntryNav(SomMetaRef):
@@ -63401,6 +63724,10 @@ class DeepLinkPatternEntryNav(SomMetaRef):
     def content(self):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
+
 
 class DeepLinkingNav(SomMetaRef):
     """Dot-notation accessors of ``DeepLinking`` (SOM §8). Every getter is
@@ -66119,8 +66446,12 @@ class ExportFormatEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/EXOU")
 
     @property
-    def access(self):
+    def audit(self):
         return SomMetaRef(self.tree, f"{self.path}/EXAC")
+
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
     @property
     def fieldMappings(self):
@@ -66161,8 +66492,12 @@ class ExportTemplateEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/ETEL")
 
     @property
-    def access(self):
+    def metadata(self):
         return SomMetaRef(self.tree, f"{self.path}/ETEA")
+
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
 
 class ExtensionEntryNav(SomMetaRef):
@@ -67474,6 +67809,52 @@ class GovernanceModelNav(SomMetaRef):
     @property
     def decisionAuthorities(self):
         return SomListMetaRef(self.tree, f"{self.path}/DCAUT-DECI-LST", DecisionAuthorityEntryNav)
+
+
+class GradedAccessLevelEntryNav(SomMetaRef):
+    """Dot-notation accessors of ``GradedAccessLevelEntry`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def roleRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-ROLE")
+
+    @property
+    def groupRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-GRUP")
+
+    @property
+    def entitlementRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-ENTL")
+
+    @property
+    def resourceKeyRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-RKEY")
+
+    @property
+    def customRequirement(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-CUST")
+
+
+class GradedAuthorizationRequirementNav(SomMetaRef):
+    """Dot-notation accessors of ``GradedAuthorizationRequirement`` (SOM §8). Every getter is
+    one navigable position: ``.path`` is the absolute document path, ``.meta``
+    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
+    document positions while ``.meta`` raises (the metadata tree ends there)."""
+
+    @property
+    def content(self):
+        return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def accessLevels(self):
+        return SomListMetaRef(self.tree, f"{self.path}/AZLVL-LEVE-LST", GradedAccessLevelEntryNav)
 
 
 class HandlingRequirementEntryNav(SomMetaRef):
@@ -71153,7 +71534,7 @@ class NavigationGroupEntryNav(SomMetaRef):
 
     @property
     def access(self):
-        return SomMetaRef(self.tree, f"{self.path}/NGEA")
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
     @property
     def structure(self):
@@ -71240,8 +71621,12 @@ class NavigationItemEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/NIER")
 
     @property
-    def access(self):
+    def visibility(self):
         return SomMetaRef(self.tree, f"{self.path}/NIEA")
+
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
     @property
     def badge(self):
@@ -75312,6 +75697,10 @@ class ReportEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RESE")
 
     @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
+
+    @property
     def lifecycle(self):
         return SomMetaRef(self.tree, f"{self.path}/RELI")
 
@@ -77247,6 +77636,10 @@ class ScreenElementEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SEEB")
 
     @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
+
+    @property
     def presentation(self):
         return SomMetaRef(self.tree, f"{self.path}/SCELENPR")
 
@@ -77322,7 +77715,7 @@ class ScreenEntryNav(SomMetaRef):
 
     @property
     def access(self):
-        return SomMetaRef(self.tree, f"{self.path}/SCEAC")
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
     @property
     def traceability(self):
@@ -78231,6 +78624,10 @@ class ServerOperationEntryNav(SomMetaRef):
     @property
     def content(self):
         return SomMetaRef(self.tree, f"{self.path}/content")
+
+    @property
+    def authorization(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/authorization")
 
     @property
     def requestMembers(self):
@@ -81140,6 +81537,10 @@ class TabItemEntryNav(SomMetaRef):
     def content(self):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
+
 
 class TargetOperatingModelNav(SomMetaRef):
     """Dot-notation accessors of ``TargetOperatingModel`` (SOM §8). Every getter is
@@ -83820,6 +84221,10 @@ class UtilityMenuItemEntryNav(SomMetaRef):
     def behavior(self):
         return SomMetaRef(self.tree, f"{self.path}/UMIEB")
 
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
+
 
 class UtilityNavigationNav(SomMetaRef):
     """Dot-notation accessors of ``UtilityNavigation`` (SOM §8). Every getter is
@@ -83849,6 +84254,10 @@ class UtilityNavigationItemEntryNav(SomMetaRef):
     @property
     def display(self):
         return SomMetaRef(self.tree, f"{self.path}/UNIED")
+
+    @property
+    def access(self):
+        return AuthorizationRequirementSpecNav(self.tree, f"{self.path}/access")
 
     @property
     def behavior(self):
@@ -99560,6 +99969,30 @@ class DeepLinkPatternEntryId(SomMetaRef):
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
 
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
+
 
 class DeferredScopeItemEntryId(SomMetaRef):
     """ID-tree accessors of ``DeferredScopeItemEntry`` (SOM §8): getters named by
@@ -100297,6 +100730,30 @@ class ExportFormatEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/EXAC")
 
     @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
+
+    @property
     def EFME_FIEL_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/EFME-FIEL-LST", ExportFieldMappingEntryId)
 
@@ -100329,6 +100786,30 @@ class ExportTemplateEntryId(SomMetaRef):
     @property
     def ETEA(self):
         return SomMetaRef(self.tree, f"{self.path}/ETEA")
+
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
 
 class ExtensionEntryId(SomMetaRef):
@@ -100921,6 +101402,33 @@ class GoalRiskEntryId(SomMetaRef):
     @property
     def GRER(self):
         return SomMetaRef(self.tree, f"{self.path}/GRER")
+
+
+class GradedAccessLevelEntryId(SomMetaRef):
+    """ID-tree accessors of ``GradedAccessLevelEntry`` (SOM §8): getters named by
+    section id (``-`` → ``_``), hoisted through id-less members so every
+    reachable id is one step. ``.path`` and ``.meta`` agree with the
+    dot-notation surface."""
+
+    @property
+    def AZLVL_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-ROLE")
+
+    @property
+    def AZLVL_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-GRUP")
+
+    @property
+    def AZLVL_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-ENTL")
+
+    @property
+    def AZLVL_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-RKEY")
+
+    @property
+    def AZLVL_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/AZLVL-CUST")
 
 
 class HandlingRequirementEntryId(SomMetaRef):
@@ -101939,8 +102447,28 @@ class NavigationGroupEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/NGED")
 
     @property
-    def NGEA(self):
-        return SomMetaRef(self.tree, f"{self.path}/NGEA")
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
     def NGES(self):
@@ -101983,6 +102511,30 @@ class NavigationItemEntryId(SomMetaRef):
     @property
     def NIEA(self):
         return SomMetaRef(self.tree, f"{self.path}/NIEA")
+
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
     def NIEB(self):
@@ -103113,6 +103665,30 @@ class ReportEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RESE")
 
     @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
+
+    @property
     def RELI(self):
         return SomMetaRef(self.tree, f"{self.path}/RELI")
 
@@ -103829,6 +104405,30 @@ class ScreenElementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SEEB")
 
     @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
+
+    @property
     def SCELENPR(self):
         return SomMetaRef(self.tree, f"{self.path}/SCELENPR")
 
@@ -103892,8 +104492,28 @@ class ScreenEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SCECL")
 
     @property
-    def SCEAC(self):
-        return SomMetaRef(self.tree, f"{self.path}/SCEAC")
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
     def SCETR(self):
@@ -104194,6 +104814,30 @@ class ServerOperationEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorization/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorization/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorization/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorization/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/authorization/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/authorization/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
     def SVOPM_REQM_LST(self):
@@ -105016,6 +105660,30 @@ class TabItemEntryId(SomMetaRef):
     section id (``-`` → ``_``), hoisted through id-less members so every
     reachable id is one step. ``.path`` and ``.meta`` agree with the
     dot-notation surface."""
+
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
 
 class TargetPlatformEntryId(SomMetaRef):
@@ -105848,6 +106516,30 @@ class UtilityMenuItemEntryId(SomMetaRef):
     def UMIEB(self):
         return SomMetaRef(self.tree, f"{self.path}/UMIEB")
 
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
+
 
 class UtilityNavigationItemEntryId(SomMetaRef):
     """ID-tree accessors of ``UtilityNavigationItemEntry`` (SOM §8): getters named by
@@ -105858,6 +106550,30 @@ class UtilityNavigationItemEntryId(SomMetaRef):
     @property
     def UNIED(self):
         return SomMetaRef(self.tree, f"{self.path}/UNIED")
+
+    @property
+    def AZREQ_ROLE(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ROLE")
+
+    @property
+    def AZREQ_GRUP(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-GRUP")
+
+    @property
+    def AZREQ_ENTL(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-ENTL")
+
+    @property
+    def AZREQ_RKEY(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-RKEY")
+
+    @property
+    def AZREQ_CUST(self):
+        return SomMetaRef(self.tree, f"{self.path}/access/AZREQ-CUST")
+
+    @property
+    def AZLVL_LEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
     def UNIEB(self):

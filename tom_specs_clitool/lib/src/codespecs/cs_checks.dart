@@ -1519,10 +1519,95 @@ class CsSettingKeyCollisionCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 21 — graded depth is exactly one level
+// ---------------------------------------------------------------------------
+
+/// §6 check 21.
+///
+/// The SOM bounds the graded depth **structurally**: a graded level is a
+/// `GradedAccessLevelEntry`, whose kind enum has no `graded` constant, so a
+/// second grading nested inside a level is unauthorable. `tom_specs_model_rules`
+/// §5.7 leaves no alternative — a self-recursive requirement class is a
+/// structural cycle and a hard error.
+///
+/// The code side has no such type barrier: `CsGradedAccess`'s three slots are
+/// each a `@CsAuthorize`, and `@CsAuthorize` *does* have a `graded` arm. So the
+/// nesting is expressible in hand-written CodeSpecs even though no generator run
+/// can produce it, and without this check the two sides diverge exactly where
+/// the SOM was made deliberately strict — surfacing as a runtime access decision
+/// rather than a generation error.
+///
+/// The bound is not arbitrary. A graded requirement resolves to one of four
+/// **terminal** access states (`none < disabled < read < full`), so a grading
+/// nested inside a level has nothing left to resolve to.
+class CsGradedDepthCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsGradedDepthCheck();
+
+  @override
+  int get number => 21;
+
+  @override
+  String get definedIn => '§3.4.3';
+
+  @override
+  String get title =>
+      "A CsGradedAccess slot's @CsAuthorize is never itself graded — the graded "
+      'depth is exactly one level';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      for (final marker in declaration.markers) {
+        if (marker.name != 'CsAuthorize') continue;
+        final graded = marker.named['graded'];
+        if (graded is! CsConstructionValue) continue;
+        _walkGraded(graded, declaration, marker, out);
+      }
+    }
+    return out;
+  }
+
+  /// Reports every nested `@CsAuthorize` under [graded] that is itself graded.
+  ///
+  /// Recursive so a violation two levels down is still named rather than hidden
+  /// behind the one above it — the whole point of the check is that this nesting
+  /// has no depth limit in Dart.
+  void _walkGraded(
+    CsConstructionValue graded,
+    CsDeclaration declaration,
+    CsMarker marker,
+    List<CodeSpecsViolation> out,
+  ) {
+    for (final slot in const ['full', 'read', 'disabled']) {
+      final nested = graded.named[slot];
+      if (nested is! CsConstructionValue) continue;
+      if (nested.type != 'CsAuthorize') continue;
+      final requirement = enumConstantName(nested.named['requirement']);
+      if (requirement != 'graded') continue;
+      out.add(
+        fail(
+          '@CsAuthorize on ${declaration.path} nests a graded requirement in '
+          "its CsGradedAccess '$slot' slot; the graded depth is exactly one "
+          'level, because a graded requirement resolves to one of four terminal '
+          'access states and the SOM (AZLVL) cannot author a second grading',
+          marker.location,
+        ),
+      );
+      final inner = nested.named['graded'];
+      if (inner is CsConstructionValue) {
+        _walkGraded(inner, declaration, marker, out);
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The twenty checks, in §6 table order.
+/// The twenty-one checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -1544,4 +1629,5 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsDrillThroughRouteCheck(),
   CsSecretIsDeclaredCheck(),
   CsSettingKeyCollisionCheck(),
+  CsGradedDepthCheck(),
 ];

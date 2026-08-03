@@ -3,7 +3,7 @@
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
-  "classCount": 1259,
+  "classCount": 1262,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",
   "roots": [
@@ -16310,6 +16310,361 @@
           ],
           "contentType": "text",
           "sectionType": "TextSection"
+        }
+      ]
+    },
+    "AuthorizationRequirementSpec": {
+      "name": "AuthorizationRequirementSpec",
+      "sectionId": "AZREQ",
+      "doc": "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.",
+      "standardReferences": {
+        "standards": [
+          "ISO/IEC 25010:2023 — security: confidentiality and integrity through access control",
+          "NIST SP 800-162 — attribute-based access control (ABAC)",
+          "NIST RBAC (INCITS 359) — role-based access control"
+        ],
+        "connotation": "The single authorization requirement a caller must satisfy, expressed as one of ten closed kinds with the payload that kind needs."
+      },
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "AZREQ"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "ISO/IEC 25010:2023 — security: confidentiality and integrity through access control",
+              "NIST SP 800-162 — attribute-based access control (ABAC)",
+              "NIST RBAC (INCITS 359) — role-based access control"
+            ],
+            "connotation": "The single authorization requirement a caller must satisfy, expressed as one of ten closed kinds with the payload that kind needs."
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "requirementKind",
+            "note": "Authorization requirement closed choice: the kind selects its payload subsection — a role list, a group list, entitlement patterns, a resource key, a custom handler, or a graded level set. The four presets (Denied, Public, Authenticated, Guest) bind no case because the kind is the whole requirement; a document authoring one of them carries no subsection here."
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "Lowers onto a `@CsAuthorize` whose `requirement` is this kind and whose per-kind slot is filled from the selected case subsection (`codespecs_derivation_contract.md` §3.4.3)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "requirementKind",
+              "label": "Requirement Kind",
+              "hint": "What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.",
+              "type": "AuthorizationRequirementKind",
+              "required": true,
+              "enumValues": [
+                "role",
+                "group",
+                "entitlement",
+                "resourceKey",
+                "custom",
+                "graded",
+                "denied",
+                "public",
+                "authenticated",
+                "guest"
+              ]
+            },
+            {
+              "name": "rationale",
+              "label": "Rationale",
+              "hint": "Why this requirement and not a wider or narrower one",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "roleRequirement",
+          "kind": "form",
+          "doc": "Role requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZREQ-ROLE",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZREQ-ROLE"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.role"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "roles",
+              "label": "Roles",
+              "hint": "Comma-separated role names from the role catalogue; the caller must hold at least one",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "AZRO.roleName"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "groupRequirement",
+          "kind": "form",
+          "doc": "Group requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZREQ-GRUP",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZREQ-GRUP"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.group"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "groups",
+              "label": "Groups",
+              "hint": "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "entitlementRequirement",
+          "kind": "form",
+          "doc": "Entitlement requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZREQ-ENTL",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZREQ-ENTL"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.entitlement"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "patterns",
+              "label": "Entitlement Patterns",
+              "hint": "Comma-separated entitlement match patterns; the caller must match at least one",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "resourceKeyRequirement",
+          "kind": "form",
+          "doc": "Resource-key requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZREQ-RKEY",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZREQ-RKEY"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.resourceKey"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "resourceKey",
+              "label": "Resource Key",
+              "hint": "The resource key from the resource-key catalogue the caller must hold a grant on",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "RESKEY.resourceKey"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "customRequirement",
+          "kind": "form",
+          "doc": "Custom requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZREQ-CUST",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZREQ-CUST"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.custom"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "handler",
+              "label": "Handler",
+              "hint": "The registered access handler that decides",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "resourceId",
+              "label": "Resource ID",
+              "hint": "The resource id passed to the handler, where it needs one",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "decisionRule",
+              "label": "Decision Rule",
+              "hint": "What the handler must decide, in business terms — this is the specification the handler is implemented against",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "gradedRequirement",
+          "kind": "complex",
+          "doc": "Graded requirement payload — a promoted `@OneOf` case.",
+          "serializationOrder": 6,
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "AuthorizationRequirementKind.graded"
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 6
+              }
+            }
+          ],
+          "type": "GradedAuthorizationRequirement"
         }
       ]
     },
@@ -73719,20 +74074,6 @@
               "required": false
             },
             {
-              "name": "authenticationRequired",
-              "label": "Authentication Required",
-              "hint": "Yes/No — redirect to login if unauthenticated",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Permissions needed to access via deep link",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "fallbackRoute",
               "label": "Fallback Route",
               "hint": "Where to go if target is unavailable",
@@ -73747,6 +74088,21 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to follow this deep link.\n\nThe shared CE-AZ requirement section (`AZREQ`). Authoring the\nAuthenticated kind is what makes an unauthenticated visitor redirect to\nsign-in; there is no separate authentication-required flag.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         }
       ]
     },
@@ -100751,7 +101107,7 @@
           ]
         },
         {
-          "name": "access",
+          "name": "audit",
           "kind": "form",
           "doc": "Access and audit.",
           "sectionId": "EXAC",
@@ -100760,7 +101116,7 @@
               "ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced",
               "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"
             ],
-            "connotation": "Access levels, required roles, and audit-logging settings governing who may run an export."
+            "connotation": "Audit-logging and preview settings for an export; who may run it is authored in the access requirement."
           },
           "serializationOrder": 8,
           "annotations": [
@@ -100777,7 +101133,7 @@
                   "ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced",
                   "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"
                 ],
-                "connotation": "Access levels, required roles, and audit-logging settings governing who may run an export."
+                "connotation": "Audit-logging and preview settings for an export; who may run it is authored in the access requirement."
               }
             },
             {
@@ -100794,20 +101150,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "accessLevel",
-              "label": "Access Level",
-              "hint": "Public / Authenticated / Role-specific",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Roles permitted to run this export",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "auditLogging",
               "label": "Audit Logging",
@@ -100832,6 +101174,21 @@
           ]
         },
         {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+          "serializationOrder": 9,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 9
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
+        },
+        {
           "name": "fieldMappings",
           "kind": "list",
           "doc": "Contains 0+× Export Field Mapping.",
@@ -100845,7 +101202,7 @@
             ],
             "connotation": "The collection of export field-mapping entries that bind source fields to output columns."
           },
-          "serializationOrder": 9,
+          "serializationOrder": 10,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -100878,7 +101235,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 9
+                "order": 10
               }
             }
           ],
@@ -101290,7 +101647,7 @@
           ]
         },
         {
-          "name": "access",
+          "name": "metadata",
           "kind": "form",
           "doc": "Access and metadata.",
           "sectionId": "ETEA",
@@ -101299,7 +101656,7 @@
               "ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts",
               "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"
             ],
-            "connotation": "Access-control and metadata settings governing who may use an export template and how it is versioned."
+            "connotation": "Reuse and versioning metadata for an export template; who may use it is authored in the access requirement."
           },
           "serializationOrder": 4,
           "annotations": [
@@ -101316,7 +101673,7 @@
                   "ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts",
                   "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"
                 ],
-                "connotation": "Access-control and metadata settings governing who may use an export template and how it is versioned."
+                "connotation": "Reuse and versioning metadata for an export template; who may use it is authored in the access requirement."
               }
             },
             {
@@ -101333,20 +101690,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "accessLevel",
-              "label": "Access Level",
-              "hint": "Public / Authenticated / Role-specific",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Roles permitted to use this template",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "reusableAcrossReports",
               "label": "Reusable Across Reports",
@@ -101369,6 +101712,21 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to use this template.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         }
       ]
     },
@@ -114137,6 +114495,451 @@
           ],
           "elementType": "DecisionAuthorityEntry",
           "elementIsComplex": true
+        }
+      ]
+    },
+    "GradedAccessLevelEntry": {
+      "name": "GradedAccessLevelEntry",
+      "sectionId": "AZLVL",
+      "doc": "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-162 — attribute-based access control (ABAC)",
+          "NIST RBAC (INCITS 359) — role-based access control"
+        ],
+        "connotation": "One rung of a graded access ladder: the access state and the non-graded authorization requirement that earns it."
+      },
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "AZLVL"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-162 — attribute-based access control (ABAC)",
+              "NIST RBAC (INCITS 359) — role-based access control"
+            ],
+            "connotation": "One rung of a graded access ladder: the access state and the non-graded authorization requirement that earns it."
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "requirementKind",
+            "note": "Non-graded authorization requirement closed choice: the same mechanism as AZREQ with the graded arm removed, which is what bounds the graded recursion. The four presets bind no case."
+          }
+        },
+        {
+          "name": "CodeSpecKind",
+          "arguments": {
+            "kinds": [
+              "CodeSpecPart.authorization"
+            ],
+            "note": "Lowers onto the `@CsAuthorize` held in the `CsGradedAccess` slot named by `accessLevel`; its `requirement` is never `graded` (`codespecs_derivation_contract.md` §6 check 21)."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "accessLevel",
+              "label": "Access Level",
+              "hint": "The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.",
+              "type": "GradedAccessLevel",
+              "required": true,
+              "enumValues": [
+                "full",
+                "read",
+                "disabled"
+              ]
+            },
+            {
+              "name": "requirementKind",
+              "label": "Requirement Kind",
+              "hint": "What the caller must satisfy to reach this access state — selects the payload subsection below",
+              "type": "BasicAuthorizationRequirementKind",
+              "required": true,
+              "enumValues": [
+                "role",
+                "group",
+                "entitlement",
+                "resourceKey",
+                "custom",
+                "denied",
+                "public",
+                "authenticated",
+                "guest"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "roleRequirement",
+          "kind": "form",
+          "doc": "Role requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZLVL-ROLE",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-ROLE"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "BasicAuthorizationRequirementKind.role"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "roles",
+              "label": "Roles",
+              "hint": "Comma-separated role names from the role catalogue; the caller must hold at least one",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "AZRO.roleName"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "groupRequirement",
+          "kind": "form",
+          "doc": "Group requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZLVL-GRUP",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-GRUP"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "BasicAuthorizationRequirementKind.group"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "groups",
+              "label": "Groups",
+              "hint": "Comma-separated group names the caller must belong to (at least one)",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "entitlementRequirement",
+          "kind": "form",
+          "doc": "Entitlement requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZLVL-ENTL",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-ENTL"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "BasicAuthorizationRequirementKind.entitlement"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "patterns",
+              "label": "Entitlement Patterns",
+              "hint": "Comma-separated entitlement match patterns; the caller must match at least one",
+              "type": "String",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "resourceKeyRequirement",
+          "kind": "form",
+          "doc": "Resource-key requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZLVL-RKEY",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-RKEY"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "BasicAuthorizationRequirementKind.resourceKey"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "resourceKey",
+              "label": "Resource Key",
+              "hint": "The resource key from the resource-key catalogue the caller must hold a grant on",
+              "type": "String",
+              "required": true,
+              "refersTo": [
+                "RESKEY.resourceKey"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "customRequirement",
+          "kind": "form",
+          "doc": "Custom requirement payload — a promoted `@OneOf` case.",
+          "sectionId": "AZLVL-CUST",
+          "serializationOrder": 5,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-CUST"
+              }
+            },
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "BasicAuthorizationRequirementKind.custom"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 5
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "handler",
+              "label": "Handler",
+              "hint": "The registered access handler that decides",
+              "type": "String",
+              "required": true
+            },
+            {
+              "name": "resourceId",
+              "label": "Resource ID",
+              "hint": "The resource id passed to the handler, where it needs one",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "decisionRule",
+              "label": "Decision Rule",
+              "hint": "What the handler must decide, in business terms",
+              "type": "String",
+              "required": true
+            }
+          ]
+        }
+      ]
+    },
+    "GradedAuthorizationRequirement": {
+      "name": "GradedAuthorizationRequirement",
+      "sectionId": "AZGRD",
+      "doc": "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.",
+      "standardReferences": {
+        "standards": [
+          "NIST SP 800-162 — attribute-based access control (ABAC)"
+        ],
+        "connotation": "The per-level requirements of a graded access rule: what earns full access, what earns read access, and what earns a visible-but-locked view."
+      },
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "AZGRD"
+          }
+        },
+        {
+          "name": "StandardReferences",
+          "arguments": {
+            "standards": [
+              "NIST SP 800-162 — attribute-based access control (ABAC)"
+            ],
+            "connotation": "The per-level requirements of a graded access rule: what earns full access, what earns read access, and what earns a visible-but-locked view."
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "content",
+          "kind": "form",
+          "help": "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n",
+          "serializationOrder": 0,
+          "annotations": [
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n"
+              }
+            },
+            {
+              "name": "Form",
+              "arguments": {
+                "fields": []
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 0
+              }
+            }
+          ],
+          "formFields": [
+            {
+              "name": "gradingRationale",
+              "label": "Grading Rationale",
+              "hint": "Why this thing is graded rather than simply reachable or not",
+              "type": "String",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "accessLevels",
+          "kind": "list",
+          "doc": "The authored rungs of the ladder — contains 1..3× Graded Access Level.",
+          "help": "Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.",
+          "sectionId": "AZLVL-LEVE-LST",
+          "sectionIdPattern": "AZLVL-LEVE-xxx",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SectionId",
+              "arguments": {
+                "id": "AZLVL-LEVE-LST"
+              }
+            },
+            {
+              "name": "SectionIdPattern",
+              "arguments": {
+                "pattern": "AZLVL-LEVE-xxx"
+              }
+            },
+            {
+              "name": "Min",
+              "arguments": {
+                "count": 1
+              }
+            },
+            {
+              "name": "ContentHelp",
+              "arguments": {
+                "guidance": "Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted."
+              }
+            },
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "elementType": "GradedAccessLevelEntry",
+          "elementIsComplex": true,
+          "min": 1
         }
       ]
     },
@@ -151904,40 +152707,10 @@
         },
         {
           "name": "access",
-          "kind": "form",
-          "doc": "Access-control settings.",
-          "sectionId": "NGEA",
-          "standardReferences": {
-            "standards": [
-              "ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context",
-              "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"
-            ],
-            "connotation": "Access-control settings such as required roles and permission behavior for a navigation group."
-          },
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to see this navigation group.\n\nThe shared CE-AZ requirement section (`AZREQ`). A group that should be\nvisible-but-locked rather than hidden authors the Graded kind; the\nhide/disable rendering follows from the access state and is not authored\nhere.",
           "serializationOrder": 2,
           "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "NGEA"
-              }
-            },
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context",
-                  "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"
-                ],
-                "connotation": "Access-control settings such as required roles and permission behavior for a navigation group."
-              }
-            },
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -151945,32 +152718,7 @@
               }
             }
           ],
-          "formFields": [
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Comma-separated role IDs",
-              "type": "String",
-              "required": false,
-              "refersTo": [
-                "AZRO.roleName"
-              ]
-            },
-            {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Specific permissions required",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "permissionBehavior",
-              "label": "Permission Behavior",
-              "hint": "Hide/Disable/Collapse when unauthorized",
-              "type": "String",
-              "required": false
-            }
-          ]
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "structure",
@@ -152844,16 +153592,16 @@
           ]
         },
         {
-          "name": "access",
+          "name": "visibility",
           "kind": "form",
-          "doc": "Access control settings.",
+          "doc": "Business conditions governing when the item is shown and interactive.\n\nThese are *business* conditions, not authorization — who may reach the\nitem is authored in [access]. A condition here narrows an item the caller\nis already authorized for.",
           "sectionId": "NIEA",
           "standardReferences": {
             "standards": [
               "ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context",
-              "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"
+              "ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context"
             ],
-            "connotation": "Access-control settings such as roles, permissions, and visibility conditions for a navigation item."
+            "connotation": "The business conditions under which a navigation item is shown and interactive."
           },
           "serializationOrder": 3,
           "annotations": [
@@ -152868,9 +153616,9 @@
               "arguments": {
                 "standards": [
                   "ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context",
-                  "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"
+                  "ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context"
                 ],
-                "connotation": "Access-control settings such as roles, permissions, and visibility conditions for a navigation item."
+                "connotation": "The business conditions under which a navigation item is shown and interactive."
               }
             },
             {
@@ -152900,29 +153648,23 @@
               "hint": "When item is visible but non-interactive",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Comma-separated roles",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Specific permissions",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "permissionBehavior",
-              "label": "Permission Behavior",
-              "hint": "Hide/Disable/Show-Locked-Icon",
-              "type": "String",
-              "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to reach this item.\n\nThe shared CE-AZ requirement section (`AZREQ`). An item that should be\nshown locked rather than hidden authors the Graded kind.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "badge",
@@ -152936,7 +153678,7 @@
             ],
             "connotation": "Badge configuration such as type, source, and color for a navigation item."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SectionId",
@@ -152963,7 +153705,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 5
               }
             }
           ],
@@ -153003,7 +153745,7 @@
             ],
             "connotation": "Interaction settings such as keyboard shortcuts, search keywords, and open behavior for a navigation item."
           },
-          "serializationOrder": 5,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "SectionId",
@@ -153030,7 +153772,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 6
               }
             }
           ],
@@ -194518,7 +195260,7 @@
               "ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties",
               "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"
             ],
-            "connotation": "Security settings covering access levels roles and data-level restrictions for the report."
+            "connotation": "Presentation and data-level security settings for the report; who may generate it is authored in the access section."
           },
           "serializationOrder": 10,
           "annotations": [
@@ -194535,7 +195277,7 @@
                   "ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties",
                   "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"
                 ],
-                "connotation": "Security settings covering access levels roles and data-level restrictions for the report."
+                "connotation": "Presentation and data-level security settings for the report; who may generate it is authored in the access section."
               }
             },
             {
@@ -194567,27 +195309,28 @@
               "required": false
             },
             {
-              "name": "accessLevel",
-              "label": "Access Level",
-              "hint": "Public / Authenticated / Role-specific / Confidential",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Roles permitted to generate this report",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "dataLevelSecurity",
               "label": "Data-Level Security",
-              "hint": "Row/column level security rules",
+              "hint": "Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it",
               "type": "String",
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to generate this report.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+          "serializationOrder": 11,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 11
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "lifecycle",
@@ -194601,7 +195344,7 @@
             ],
             "connotation": "Lifecycle settings covering retention signature approval and archiving of the report."
           },
-          "serializationOrder": 11,
+          "serializationOrder": 12,
           "annotations": [
             {
               "name": "SectionId",
@@ -194628,7 +195371,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 11
+                "order": 12
               }
             }
           ],
@@ -194677,7 +195420,7 @@
             ],
             "connotation": "The collection of report-section entries composing the body of the report."
           },
-          "serializationOrder": 12,
+          "serializationOrder": 13,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -194710,7 +195453,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 12
+                "order": 13
               }
             }
           ],
@@ -194730,7 +195473,7 @@
             ],
             "connotation": "The collection of filters that restrict the data included in the report."
           },
-          "serializationOrder": 13,
+          "serializationOrder": 14,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -194762,7 +195505,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 13
+                "order": 14
               }
             }
           ],
@@ -194783,7 +195526,7 @@
             ],
             "connotation": "The collection of schedules controlling automated generation of the report."
           },
-          "serializationOrder": 14,
+          "serializationOrder": 15,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -194816,7 +195559,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 14
+                "order": 15
               }
             }
           ],
@@ -194836,7 +195579,7 @@
             ],
             "connotation": "The collection of distribution channels through which the report is delivered."
           },
-          "serializationOrder": 15,
+          "serializationOrder": 16,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -194868,7 +195611,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 15
+                "order": 16
               }
             }
           ],
@@ -194888,7 +195631,7 @@
             ],
             "connotation": "The collection of recipients who receive the generated report."
           },
-          "serializationOrder": 16,
+          "serializationOrder": 17,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -194920,7 +195663,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 16
+                "order": 17
               }
             }
           ],
@@ -215511,14 +216254,14 @@
         {
           "name": "behavior",
           "kind": "form",
-          "doc": "Visibility and permission rules.",
+          "doc": "Visibility and enablement rules.\n\nThese are *business* conditions on an element the caller is already\nauthorized for. Who may see or use it at all is [access].",
           "sectionId": "SEEB",
           "standardReferences": {
             "standards": [
               "ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only",
               "ISO 9241-110:2020 — controllability governing when an element is interactive"
             ],
-            "connotation": "The visibility, enablement, and permission rules that determine when a screen element can be seen or used."
+            "connotation": "The business conditions that determine when a screen element is visible, interactive, or read-only."
           },
           "serializationOrder": 3,
           "annotations": [
@@ -215535,7 +216278,7 @@
                   "ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only",
                   "ISO 9241-110:2020 — controllability governing when an element is interactive"
                 ],
-                "connotation": "The visibility, enablement, and permission rules that determine when a screen element can be seen or used."
+                "connotation": "The business conditions that determine when a screen element is visible, interactive, or read-only."
               }
             },
             {
@@ -215572,22 +216315,23 @@
               "hint": "When this element is read-only",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "requiredPermission",
-              "label": "Required Permission",
-              "hint": "Permission needed to see/interact",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "permissionEffect",
-              "label": "Permission Effect",
-              "hint": "Hide/Disable/Readonly",
-              "type": "String",
-              "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to see or use this element.\n\nThe shared CE-AZ requirement section (`AZREQ`). An element whose access\nhas degrees — hidden, locked, read-only, interactive — authors the Graded\nkind, which is what the old free-text permission-effect field was trying\nto say.",
+          "serializationOrder": 4,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 4
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "presentation",
@@ -215601,7 +216345,7 @@
             ],
             "connotation": "The styling and data-binding attributes that govern how a screen element appears and connects to data."
           },
-          "serializationOrder": 4,
+          "serializationOrder": 5,
           "annotations": [
             {
               "name": "SectionId",
@@ -215628,7 +216372,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 4
+                "order": 5
               }
             }
           ],
@@ -215674,7 +216418,7 @@
           "name": "elementAction",
           "kind": "complex",
           "doc": "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).",
-          "serializationOrder": 5,
+          "serializationOrder": 6,
           "annotations": [
             {
               "name": "Case",
@@ -215691,7 +216435,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 5
+                "order": 6
               }
             }
           ],
@@ -215701,7 +216445,7 @@
           "name": "fieldSpec",
           "kind": "complex",
           "doc": "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).",
-          "serializationOrder": 6,
+          "serializationOrder": 7,
           "annotations": [
             {
               "name": "Case",
@@ -215742,7 +216486,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 6
+                "order": 7
               }
             }
           ],
@@ -215752,7 +216496,7 @@
           "name": "dataDisplay",
           "kind": "complex",
           "doc": "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).",
-          "serializationOrder": 7,
+          "serializationOrder": 8,
           "annotations": [
             {
               "name": "Case",
@@ -215811,7 +216555,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 7
+                "order": 8
               }
             }
           ],
@@ -215831,7 +216575,7 @@
             ],
             "connotation": "The collection of validation rules that constrain and check the input for a screen element."
           },
-          "serializationOrder": 8,
+          "serializationOrder": 9,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -215864,7 +216608,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 8
+                "order": 9
               }
             }
           ],
@@ -216722,40 +217466,10 @@
         },
         {
           "name": "access",
-          "kind": "form",
-          "doc": "Access control settings.",
-          "sectionId": "SCEAC",
-          "standardReferences": {
-            "standards": [
-              "ISO 9241-110:2020 — controllability governing who may access an interface",
-              "ISO/IEC 25010:2023 — interaction capability constrained by authorization"
-            ],
-            "connotation": "The access-control settings that determine which roles and permissions may reach a screen."
-          },
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to reach this screen.\n\nThe shared CE-AZ requirement section (`AZREQ`), not a screen-local\nrestatement. A screen that is graded rather than simply reachable authors\nthe Graded kind; how each access state renders is fixed by the framework\nand is not authored here.",
           "serializationOrder": 2,
           "annotations": [
-            {
-              "name": "SectionId",
-              "arguments": {
-                "id": "SCEAC"
-              }
-            },
-            {
-              "name": "StandardReferences",
-              "arguments": {
-                "standards": [
-                  "ISO 9241-110:2020 — controllability governing who may access an interface",
-                  "ISO/IEC 25010:2023 — interaction capability constrained by authorization"
-                ],
-                "connotation": "The access-control settings that determine which roles and permissions may reach a screen."
-              }
-            },
-            {
-              "name": "Form",
-              "arguments": {
-                "fields": []
-              }
-            },
             {
               "name": "SerializationOrder",
               "arguments": {
@@ -216763,36 +217477,7 @@
               }
             }
           ],
-          "formFields": [
-            {
-              "name": "accessLevel",
-              "label": "Access Level",
-              "hint": "Public/Authenticated/Role-specific",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Authorization roles that may access this screen",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Specific permissions needed",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "permissionEffect",
-              "label": "Permission Effect",
-              "hint": "Hide-Screen/Show-Readonly/Show-With-Restrictions",
-              "type": "String",
-              "required": false
-            }
-          ]
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "traceability",
@@ -225588,33 +226273,6 @@
               ]
             },
             {
-              "name": "authorizationRequirement",
-              "label": "Authorization Requirement",
-              "hint": "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement",
-              "type": "String",
-              "required": false,
-              "refersTo": [
-                "AZRO.roleName"
-              ]
-            },
-            {
-              "name": "requiredResourceKey",
-              "label": "Required Resource Key",
-              "hint": "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement",
-              "type": "String",
-              "required": false,
-              "refersTo": [
-                "RESKEY.resourceKey"
-              ]
-            },
-            {
               "name": "descriptionKey",
               "label": "Description Copy Key",
               "hint": "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)",
@@ -225637,6 +226295,21 @@
           ]
         },
         {
+          "name": "authorization",
+          "kind": "complex",
+          "doc": "7.9.x. Authorization — what a caller must satisfy to invoke this\noperation.\n\nThe shared CE-AZ requirement section, not a per-operation restatement.\nThere is no default: an operation with no requirement authored is a\nspecification defect.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
+        },
+        {
           "name": "requestMembers",
           "kind": "list",
           "doc": "7.9.x. Request Members — the members that make up the request shape.",
@@ -225649,7 +226322,7 @@
             ],
             "connotation": "The members that make up this operation's request shape."
           },
-          "serializationOrder": 1,
+          "serializationOrder": 2,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -225681,7 +226354,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 1
+                "order": 2
               }
             }
           ],
@@ -225701,7 +226374,7 @@
             ],
             "connotation": "The members that make up the success payload this operation returns."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 3,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -225733,7 +226406,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 3
               }
             }
           ],
@@ -254154,20 +254827,6 @@
               "required": false
             },
             {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Tab-level access control",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "permissionBehavior",
-              "label": "Permission Behavior",
-              "hint": "Hide/Disable",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "badgeType",
               "label": "Badge Type",
               "hint": "None/Count/Dot",
@@ -254182,6 +254841,21 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to reach this tab.\n\nThe shared CE-AZ requirement section (`AZREQ`). A tab that should be shown\ndisabled rather than hidden authors the Graded kind.",
+          "serializationOrder": 1,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 1
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         }
       ]
     },
@@ -281607,7 +282281,7 @@
               "ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions",
               "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"
             ],
-            "connotation": "The visibility conditions, permission checks, and confirmation behavior for a utility menu item."
+            "connotation": "The visibility conditions and confirmation behavior for a utility menu item."
           },
           "serializationOrder": 2,
           "annotations": [
@@ -281624,7 +282298,7 @@
                   "ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions",
                   "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"
                 ],
-                "connotation": "The visibility conditions, permission checks, and confirmation behavior for a utility menu item."
+                "connotation": "The visibility conditions and confirmation behavior for a utility menu item."
               }
             },
             {
@@ -281644,14 +282318,7 @@
             {
               "name": "visibilityCondition",
               "label": "Visibility Condition",
-              "hint": "When shown",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredPermissions",
-              "label": "Required Permissions",
-              "hint": "Access control",
+              "hint": "Business condition for when it is shown — who may use it is authored in the access section",
               "type": "String",
               "required": false
             },
@@ -281670,6 +282337,21 @@
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to use this menu item.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+          "serializationOrder": 3,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 3
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         }
       ]
     },
@@ -281871,14 +282553,13 @@
         {
           "name": "display",
           "kind": "form",
-          "doc": "Ordering, rendering, and access rules.",
+          "doc": "Ordering and rendering.",
           "sectionId": "UNIED",
           "standardReferences": {
             "standards": [
-              "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
-              "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
+              "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options"
             ],
-            "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."
+            "connotation": "The display order and presentation kind governing a utility navigation item."
           },
           "serializationOrder": 1,
           "annotations": [
@@ -281892,10 +282573,9 @@
               "name": "StandardReferences",
               "arguments": {
                 "standards": [
-                  "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options",
-                  "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"
+                  "ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options"
                 ],
-                "connotation": "The display order, presentation kind, and access rules governing a utility navigation item."
+                "connotation": "The display order and presentation kind governing a utility navigation item."
               }
             },
             {
@@ -281929,18 +282609,26 @@
             {
               "name": "visibilityCondition",
               "label": "Visibility Condition",
-              "hint": "When shown",
-              "type": "String",
-              "required": false
-            },
-            {
-              "name": "requiredRoles",
-              "label": "Required Roles",
-              "hint": "Access control",
+              "hint": "Business condition for when it is shown — who may see it is authored in the access section",
               "type": "String",
               "required": false
             }
           ]
+        },
+        {
+          "name": "access",
+          "kind": "complex",
+          "doc": "Access control — what a caller must satisfy to reach this utility item.\n\nThe shared CE-AZ requirement section (`AZREQ`).",
+          "serializationOrder": 2,
+          "annotations": [
+            {
+              "name": "SerializationOrder",
+              "arguments": {
+                "order": 2
+              }
+            }
+          ],
+          "type": "AuthorizationRequirementSpec"
         },
         {
           "name": "behavior",
@@ -281954,7 +282642,7 @@
             ],
             "connotation": "The badge display and interaction behavior triggered when a utility navigation item is used."
           },
-          "serializationOrder": 2,
+          "serializationOrder": 3,
           "annotations": [
             {
               "name": "SectionId",
@@ -281981,7 +282669,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 2
+                "order": 3
               }
             }
           ],
@@ -282032,7 +282720,7 @@
             ],
             "connotation": "The collection of nested menu item entries belonging to a utility navigation item."
           },
-          "serializationOrder": 3,
+          "serializationOrder": 4,
           "annotations": [
             {
               "name": "StandardReferences",
@@ -282064,7 +282752,7 @@
             {
               "name": "SerializationOrder",
               "arguments": {
-                "order": 3
+                "order": 4
               }
             }
           ],

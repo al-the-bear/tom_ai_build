@@ -6389,6 +6389,130 @@ public final class TomSomV0Meta {
     }
   }
 
+  // AuthorizationRequirementSpecNav holds the dot-notation accessors of `AuthorizationRequirementSpec` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class AuthorizationRequirementSpecNav extends SomMetaRef {
+    public AuthorizationRequirementSpecNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `AuthorizationRequirementSpec` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("requirementKind", "AuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.", 0, java.util.List.of("role", "group", "entitlement", "resourceKey", "custom", "graded", "denied", "public", "authenticated", "guest")),
+            new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this requirement and not a wider or narrower one", 1)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "roleRequirement";
+        n.sectionId = "AZREQ-ROLE";
+        n.serializationOrder = 1;
+        n.docComment = "Role requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("roles", "String", "Roles", true, "Comma-separated role names from the role catalogue; the caller must hold at least one", 0, java.util.List.of(), java.util.List.of("AZRO.roleName"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.role")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "groupRequirement";
+        n.sectionId = "AZREQ-GRUP";
+        n.serializationOrder = 2;
+        n.docComment = "Group requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("groups", "String", "Groups", true, "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.group")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "entitlementRequirement";
+        n.sectionId = "AZREQ-ENTL";
+        n.serializationOrder = 3;
+        n.docComment = "Entitlement requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("patterns", "String", "Entitlement Patterns", true, "Comma-separated entitlement match patterns; the caller must match at least one", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.entitlement")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "resourceKeyRequirement";
+        n.sectionId = "AZREQ-RKEY";
+        n.serializationOrder = 4;
+        n.docComment = "Resource-key requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "The resource key from the resource-key catalogue the caller must hold a grant on", 0, java.util.List.of(), java.util.List.of("RESKEY.resourceKey"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.resourceKey")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.FORM, "String");
+        n.memberName = "customRequirement";
+        n.sectionId = "AZREQ-CUST";
+        n.serializationOrder = 5;
+        n.docComment = "Custom requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides", 0),
+            new SomFormFieldMeta("resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1),
+            new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms — this is the specification the handler is implemented against", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.custom")));
+        out.add(n);
+      }
+      out.add(metaCx("GradedAuthorizationRequirement", s, GradedAuthorizationRequirementNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("GradedAuthorizationRequirement", SomMetaKind.COMPLEX, "GradedAuthorizationRequirement");
+        n.memberName = "gradedRequirement";
+        n.classSectionId = "AZGRD";
+        n.serializationOrder = 6;
+        n.docComment = "Graded requirement payload — a promoted `@OneOf` case.";
+        n.classDocComment = "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.";
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "AuthorizationRequirementKind.graded")));
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef roleRequirement() {
+      return new SomMetaRef(tree, path + "/AZREQ-ROLE");
+    }
+
+    public SomMetaRef groupRequirement() {
+      return new SomMetaRef(tree, path + "/AZREQ-GRUP");
+    }
+
+    public SomMetaRef entitlementRequirement() {
+      return new SomMetaRef(tree, path + "/AZREQ-ENTL");
+    }
+
+    public SomMetaRef resourceKeyRequirement() {
+      return new SomMetaRef(tree, path + "/AZREQ-RKEY");
+    }
+
+    public SomMetaRef customRequirement() {
+      return new SomMetaRef(tree, path + "/AZREQ-CUST");
+    }
+
+    public GradedAuthorizationRequirementNav gradedRequirement() {
+      return new GradedAuthorizationRequirementNav(tree, path + "/gradedRequirement");
+    }
+  }
+
   // AuthorizationRoleEntryNav holds the dot-notation accessors of `AuthorizationRoleEntry` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -28625,17 +28749,30 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("urlPattern", "String", "URL Pattern", true, "Route pattern, e.g., /orders/:orderId", 1),
             new SomFormFieldMeta("targetScreenId", "String", "Target Screen ID", false, "Screen to open", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("description", "String", "Description", false, "When/why this link is used", 3),
-            new SomFormFieldMeta("authenticationRequired", "String", "Authentication Required", false, "Yes/No — redirect to login if unauthenticated", 4),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Permissions needed to access via deep link", 5),
-            new SomFormFieldMeta("fallbackRoute", "String", "Fallback Route", false, "Where to go if target is unavailable", 6),
-            new SomFormFieldMeta("shareEnabled", "String", "Share Enabled", false, "Yes/No — can users share this link", 7)));
+            new SomFormFieldMeta("fallbackRoute", "String", "Fallback Route", false, "Where to go if target is unavailable", 4),
+            new SomFormFieldMeta("shareEnabled", "String", "Share Enabled", false, "Yes/No — can users share this link", 5)));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 1;
+        n.docComment = "Access control — what a caller must satisfy to follow this deep link.\n\nThe shared CE-AZ requirement section (`AZREQ`). Authoring the\nAuthenticated kind is what makes an unauthenticated visitor redirect to\nsign-in; there is no separate authentication-required flag.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
   }
 
@@ -38525,25 +38662,34 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("ExportFormatEntry", SomMetaKind.FORM, "String");
-        n.memberName = "access";
+        n.memberName = "audit";
         n.sectionId = "EXAC";
         n.serializationOrder = 8;
         n.docComment = "Access and audit.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific", 0),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Roles permitted to run this export", 1),
-            new SomFormFieldMeta("auditLogging", "String", "Audit Logging", false, "Yes / No — log export executions", 2),
-            new SomFormFieldMeta("previewAvailable", "String", "Preview Available", false, "Yes / No — allow user to preview", 3),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Design notes", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced", "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"), "connotation", "Access levels, required roles, and audit-logging settings governing who may run an export.")));
+            new SomFormFieldMeta("auditLogging", "String", "Audit Logging", false, "Yes / No — log export executions", 0),
+            new SomFormFieldMeta("previewAvailable", "String", "Preview Available", false, "Yes / No — allow user to preview", 1),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Design notes", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced", "ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity"), "connotation", "Audit-logging and preview settings for an export; who may run it is authored in the access requirement.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 9;
+        n.docComment = "Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("ExportFormatEntry", SomMetaKind.LIST, "ExportFieldMappingEntry");
         n.memberName = "fieldMappings";
         n.sectionId = "EFME-FIEL-LST";
         n.sectionIdPattern = "EFME-FIEL-xxx";
-        n.serializationOrder = 9;
+        n.serializationOrder = 10;
         n.contentHelp = "Add one entry per export field mapping.";
         n.docComment = "Contains 0+× Export Field Mapping.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line", "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"), "connotation", "The collection of export field-mapping entries that bind source fields to output columns.")));
@@ -38593,8 +38739,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EXOU");
     }
 
-    public SomMetaRef access() {
+    public SomMetaRef audit() {
       return new SomMetaRef(tree, path + "/EXAC");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomListMetaRef<ExportFieldMappingEntryNav> fieldMappings() {
@@ -38702,19 +38852,28 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("ExportTemplateEntry", SomMetaKind.FORM, "String");
-        n.memberName = "access";
+        n.memberName = "metadata";
         n.sectionId = "ETEA";
         n.serializationOrder = 4;
         n.docComment = "Access and metadata.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific", 0),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Roles permitted to use this template", 1),
-            new SomFormFieldMeta("reusableAcrossReports", "String", "Reusable Across Reports", false, "Yes / No — can this template be used by multiple reports/exports", 2),
-            new SomFormFieldMeta("version", "String", "Version", false, "Template version, e.g. 1.0", 3),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Design notes", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts", "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"), "connotation", "Access-control and metadata settings governing who may use an export template and how it is versioned.")));
+            new SomFormFieldMeta("reusableAcrossReports", "String", "Reusable Across Reports", false, "Yes / No — can this template be used by multiple reports/exports", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Template version, e.g. 1.0", 1),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Design notes", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts", "ISO 8601-1:2019 — a standardized calendar representation supports template version dating"), "connotation", "Reuse and versioning metadata for an export template; who may use it is authored in the access requirement.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 5;
+        n.docComment = "Access control — what a caller must satisfy to use this template.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -38734,8 +38893,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/ETEL");
     }
 
-    public SomMetaRef access() {
+    public SomMetaRef metadata() {
       return new SomMetaRef(tree, path + "/ETEA");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
   }
 
@@ -43458,6 +43621,168 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<DecisionAuthorityEntryNav> decisionAuthorities() {
       return new SomListMetaRef<>(tree, path + "/DCAUT-DECI-LST", (t, p) -> new DecisionAuthorityEntryNav(t, p));
+    }
+  }
+
+  // GradedAccessLevelEntryNav holds the dot-notation accessors of `GradedAccessLevelEntry` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class GradedAccessLevelEntryNav extends SomMetaRef {
+    public GradedAccessLevelEntryNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `GradedAccessLevelEntry` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("accessLevel", "GradedAccessLevel", "Access Level", true, "The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.", 0, java.util.List.of("full", "read", "disabled")),
+            new SomFormFieldMeta("requirementKind", "BasicAuthorizationRequirementKind", "Requirement Kind", true, "What the caller must satisfy to reach this access state — selects the payload subsection below", 1, java.util.List.of("role", "group", "entitlement", "resourceKey", "custom", "denied", "public", "authenticated", "guest"))));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "roleRequirement";
+        n.sectionId = "AZLVL-ROLE";
+        n.serializationOrder = 1;
+        n.docComment = "Role requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("roles", "String", "Roles", true, "Comma-separated role names from the role catalogue; the caller must hold at least one", 0, java.util.List.of(), java.util.List.of("AZRO.roleName"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.role")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "groupRequirement";
+        n.sectionId = "AZLVL-GRUP";
+        n.serializationOrder = 2;
+        n.docComment = "Group requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("groups", "String", "Groups", true, "Comma-separated group names the caller must belong to (at least one)", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.group")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "entitlementRequirement";
+        n.sectionId = "AZLVL-ENTL";
+        n.serializationOrder = 3;
+        n.docComment = "Entitlement requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("patterns", "String", "Entitlement Patterns", true, "Comma-separated entitlement match patterns; the caller must match at least one", 0)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.entitlement")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "resourceKeyRequirement";
+        n.sectionId = "AZLVL-RKEY";
+        n.serializationOrder = 4;
+        n.docComment = "Resource-key requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("resourceKey", "String", "Resource Key", true, "The resource key from the resource-key catalogue the caller must hold a grant on", 0, java.util.List.of(), java.util.List.of("RESKEY.resourceKey"))));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.resourceKey")));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.FORM, "String");
+        n.memberName = "customRequirement";
+        n.sectionId = "AZLVL-CUST";
+        n.serializationOrder = 5;
+        n.docComment = "Custom requirement payload — a promoted `@OneOf` case.";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("handler", "String", "Handler", true, "The registered access handler that decides", 0),
+            new SomFormFieldMeta("resourceId", "String", "Resource ID", false, "The resource id passed to the handler, where it needs one", 1),
+            new SomFormFieldMeta("decisionRule", "String", "Decision Rule", true, "What the handler must decide, in business terms", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "BasicAuthorizationRequirementKind.custom")));
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomMetaRef roleRequirement() {
+      return new SomMetaRef(tree, path + "/AZLVL-ROLE");
+    }
+
+    public SomMetaRef groupRequirement() {
+      return new SomMetaRef(tree, path + "/AZLVL-GRUP");
+    }
+
+    public SomMetaRef entitlementRequirement() {
+      return new SomMetaRef(tree, path + "/AZLVL-ENTL");
+    }
+
+    public SomMetaRef resourceKeyRequirement() {
+      return new SomMetaRef(tree, path + "/AZLVL-RKEY");
+    }
+
+    public SomMetaRef customRequirement() {
+      return new SomMetaRef(tree, path + "/AZLVL-CUST");
+    }
+  }
+
+  // GradedAuthorizationRequirementNav holds the dot-notation accessors of `GradedAuthorizationRequirement` (SOM §8).
+  // Every method is one navigable position: `.path` is the absolute document
+  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
+  // remain valid document positions while `.meta()` throws (the metadata tree
+  // ends there).
+  public static final class GradedAuthorizationRequirementNav extends SomMetaRef {
+    public GradedAuthorizationRequirementNav(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    // The metadata children of `GradedAuthorizationRequirement` (SOM §7.2), bridge-identical.
+    static List<SomMetaNode> metaChildren(Set<String> s) {
+      List<SomMetaNode> out = new ArrayList<>();
+      {
+        SomMetaNode n = new SomMetaNode("GradedAuthorizationRequirement", SomMetaKind.FORM, "String");
+        n.memberName = "content";
+        n.serializationOrder = 0;
+        n.contentHelp = "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n";
+        n.form = new SomFormMeta(Arrays.asList(
+            new SomFormFieldMeta("gradingRationale", "String", "Grading Rationale", false, "Why this thing is graded rather than simply reachable or not", 0)));
+        out.add(n);
+      }
+      {
+        SomMetaNode n = new SomMetaNode("GradedAuthorizationRequirement", SomMetaKind.LIST, "GradedAccessLevelEntry");
+        n.memberName = "accessLevels";
+        n.sectionId = "AZLVL-LEVE-LST";
+        n.sectionIdPattern = "AZLVL-LEVE-xxx";
+        n.serializationOrder = 1;
+        n.min = 1;
+        n.contentHelp = "Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.";
+        n.docComment = "The authored rungs of the ladder — contains 1..3× Graded Access Level.";
+        n.elementNode = metaCx("GradedAccessLevelEntry", s, GradedAccessLevelEntryNav::metaChildren, (r, c) -> {
+          SomMetaNode e = new SomMetaNode("GradedAccessLevelEntry", SomMetaKind.COMPLEX, "GradedAccessLevelEntry");
+          e.classSectionId = "AZLVL";
+          e.docComment = "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.";
+          e.classDocComment = "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.";
+          e.recursive = r;
+          e.children = c;
+          return e;
+        });
+        out.add(n);
+      }
+      return out;
+    }
+
+    public SomMetaRef content() {
+      return new SomMetaRef(tree, path + "/content");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryNav> accessLevels() {
+      return new SomListMetaRef<>(tree, path + "/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryNav(t, p));
     }
   }
 
@@ -56793,19 +57118,17 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy", "ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups"), "connotation", "Display order and expansion behavior for a navigation group.")));
         out.add(n);
       }
-      {
-        SomMetaNode n = new SomMetaNode("NavigationGroupEntry", SomMetaKind.FORM, "String");
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
         n.memberName = "access";
-        n.sectionId = "NGEA";
+        n.classSectionId = "AZREQ";
         n.serializationOrder = 2;
-        n.docComment = "Access-control settings.";
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Comma-separated role IDs", 0, java.util.List.of(), java.util.List.of("AZRO.roleName")),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Specific permissions required", 1),
-            new SomFormFieldMeta("permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable/Collapse when unauthorized", 2)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context", "ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility"), "connotation", "Access-control settings such as required roles and permission behavior for a navigation group.")));
-        out.add(n);
-      }
+        n.docComment = "Access control — what a caller must satisfy to see this navigation group.\n\nThe shared CE-AZ requirement section (`AZREQ`). A group that should be\nvisible-but-locked rather than hidden authors the Graded kind; the\nhide/disable rendering follows from the access state and is not authored\nhere.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("NavigationGroupEntry", SomMetaKind.FORM, "String");
         n.memberName = "structure";
@@ -56852,8 +57175,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/NGED");
     }
 
-    public SomMetaRef access() {
-      return new SomMetaRef(tree, path + "/NGEA");
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef structure() {
@@ -57115,24 +57438,32 @@ public final class TomSomV0Meta {
       }
       {
         SomMetaNode n = new SomMetaNode("NavigationItemEntry", SomMetaKind.FORM, "String");
-        n.memberName = "access";
+        n.memberName = "visibility";
         n.sectionId = "NIEA";
         n.serializationOrder = 3;
-        n.docComment = "Access control settings.";
+        n.docComment = "Business conditions governing when the item is shown and interactive.\n\nThese are *business* conditions, not authorization — who may reach the\nitem is authored in [access]. A condition here narrows an item the caller\nis already authorized for.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Business condition for visibility", 0),
-            new SomFormFieldMeta("enabledCondition", "String", "Enabled Condition", false, "When item is visible but non-interactive", 1),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Comma-separated roles", 2),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Specific permissions", 3),
-            new SomFormFieldMeta("permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable/Show-Locked-Icon", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context", "ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility"), "connotation", "Access-control settings such as roles, permissions, and visibility conditions for a navigation item.")));
+            new SomFormFieldMeta("enabledCondition", "String", "Enabled Condition", false, "When item is visible but non-interactive", 1)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context", "ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context"), "connotation", "The business conditions under which a navigation item is shown and interactive.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 4;
+        n.docComment = "Access control — what a caller must satisfy to reach this item.\n\nThe shared CE-AZ requirement section (`AZREQ`). An item that should be\nshown locked rather than hidden authors the Graded kind.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("NavigationItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "badge";
         n.sectionId = "NIEB";
-        n.serializationOrder = 4;
+        n.serializationOrder = 5;
         n.docComment = "Badge configuration.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot/Text/Icon", 0),
@@ -57145,7 +57476,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("NavigationItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "interaction";
         n.sectionId = "NIEI";
-        n.serializationOrder = 5;
+        n.serializationOrder = 6;
         n.docComment = "Interaction settings.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Global shortcut, e.g., Ctrl+Shift+C", 0),
@@ -57170,8 +57501,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/NIER");
     }
 
-    public SomMetaRef access() {
+    public SomMetaRef visibility() {
       return new SomMetaRef(tree, path + "/NIEA");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef badge() {
@@ -72008,17 +72343,26 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("localization", "String", "Localization", false, "Locales supported, e.g. de-DE, en-US, fr-FR", 0),
             new SomFormFieldMeta("brandingOverride", "String", "Branding Override", false, "Override branding for this report", 1),
-            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Public / Authenticated / Role-specific / Confidential", 2),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Roles permitted to generate this report", 3),
-            new SomFormFieldMeta("dataLevelSecurity", "String", "Data-Level Security", false, "Row/column level security rules", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties", "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"), "connotation", "Security settings covering access levels roles and data-level restrictions for the report.")));
+            new SomFormFieldMeta("dataLevelSecurity", "String", "Data-Level Security", false, "Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties", "ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information"), "connotation", "Presentation and data-level security settings for the report; who may generate it is authored in the access section.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 11;
+        n.docComment = "Access control — what a caller must satisfy to generate this report.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.FORM, "String");
         n.memberName = "lifecycle";
         n.sectionId = "RELI";
-        n.serializationOrder = 11;
+        n.serializationOrder = 12;
         n.docComment = "Lifecycle and archiving.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("archiveRetention", "String", "Archive Retention", false, "Retention policy for generated instances, e.g. 90 days", 0),
@@ -72033,7 +72377,7 @@ public final class TomSomV0Meta {
         n.memberName = "sections";
         n.sectionId = "RESEE1-SECT-LST";
         n.sectionIdPattern = "RESEE1-SECT-xxx";
-        n.serializationOrder = 12;
+        n.serializationOrder = 13;
         n.contentHelp = "Add one entry per report section.";
         n.docComment = "Contains 0+× Report Section.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-125:2017 — presentation of information groups related content in sections", "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"), "connotation", "The collection of report-section entries composing the body of the report.")));
@@ -72053,7 +72397,7 @@ public final class TomSomV0Meta {
         n.memberName = "filters";
         n.sectionId = "REFIEN-FILT-LST";
         n.sectionIdPattern = "REFIEN-FILT-xxx";
-        n.serializationOrder = 13;
+        n.serializationOrder = 14;
         n.contentHelp = "Add one entry per report data filter.";
         n.docComment = "Contains 0+× Report Filter.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"), "connotation", "The collection of filters that restrict the data included in the report.")));
@@ -72073,7 +72417,7 @@ public final class TomSomV0Meta {
         n.memberName = "schedules";
         n.sectionId = "RESCEN-SCHE-LST";
         n.sectionIdPattern = "RESCEN-SCHE-xxx";
-        n.serializationOrder = 14;
+        n.serializationOrder = 15;
         n.contentHelp = "Add one entry per report generation schedule.";
         n.docComment = "Contains 0+× Report Schedule.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 8601-1:2019 — expresses the dates and times at which the report is generated", "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"), "connotation", "The collection of schedules controlling automated generation of the report.")));
@@ -72093,7 +72437,7 @@ public final class TomSomV0Meta {
         n.memberName = "distributions";
         n.sectionId = "REDIEN-DIST-LST";
         n.sectionIdPattern = "REDIEN-DIST-xxx";
-        n.serializationOrder = 15;
+        n.serializationOrder = 16;
         n.contentHelp = "Add one entry per report distribution channel.";
         n.docComment = "Contains 0+× Report Distribution.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"), "connotation", "The collection of distribution channels through which the report is delivered.")));
@@ -72113,7 +72457,7 @@ public final class TomSomV0Meta {
         n.memberName = "recipients";
         n.sectionId = "REREEN-RECI-LST";
         n.sectionIdPattern = "REREEN-RECI-xxx";
-        n.serializationOrder = 16;
+        n.serializationOrder = 17;
         n.contentHelp = "Add one entry per report recipient.";
         n.docComment = "Contains 0+× Recipient.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"), "connotation", "The collection of recipients who receive the generated report.")));
@@ -72173,6 +72517,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef security() {
       return new SomMetaRef(tree, path + "/RESE");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef lifecycle() {
@@ -79093,21 +79441,30 @@ public final class TomSomV0Meta {
         n.memberName = "behavior";
         n.sectionId = "SEEB";
         n.serializationOrder = 3;
-        n.docComment = "Visibility and permission rules.";
+        n.docComment = "Visibility and enablement rules.\n\nThese are *business* conditions on an element the caller is already\nauthorized for. Who may see or use it at all is [access].";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "When this element is shown", 0),
             new SomFormFieldMeta("enabledCondition", "String", "Enabled Condition", false, "When this element is interactive", 1),
-            new SomFormFieldMeta("readonlyCondition", "String", "Readonly Condition", false, "When this element is read-only", 2),
-            new SomFormFieldMeta("requiredPermission", "String", "Required Permission", false, "Permission needed to see/interact", 3),
-            new SomFormFieldMeta("permissionEffect", "String", "Permission Effect", false, "Hide/Disable/Readonly", 4)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only", "ISO 9241-110:2020 — controllability governing when an element is interactive"), "connotation", "The visibility, enablement, and permission rules that determine when a screen element can be seen or used.")));
+            new SomFormFieldMeta("readonlyCondition", "String", "Readonly Condition", false, "When this element is read-only", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only", "ISO 9241-110:2020 — controllability governing when an element is interactive"), "connotation", "The business conditions that determine when a screen element is visible, interactive, or read-only.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 4;
+        n.docComment = "Access control — what a caller must satisfy to see or use this element.\n\nThe shared CE-AZ requirement section (`AZREQ`). An element whose access\nhas degrees — hidden, locked, read-only, interactive — authors the Graded\nkind, which is what the old free-text permission-effect field was trying\nto say.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("ScreenElementEntry", SomMetaKind.FORM, "String");
         n.memberName = "presentation";
         n.sectionId = "SCELENPR";
-        n.serializationOrder = 4;
+        n.serializationOrder = 5;
         n.docComment = "Styling and data binding.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("styleVariant", "String", "Style Variant", false, "Primary/Secondary/Danger/Subtle/Custom", 0),
@@ -79122,7 +79479,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementAction", SomMetaKind.COMPLEX, "ScreenElementAction");
         n.memberName = "elementAction";
         n.classSectionId = "SCELAC";
-        n.serializationOrder = 5;
+        n.serializationOrder = 6;
         n.docComment = "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.";
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.actionButton")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.link")));
@@ -79134,7 +79491,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementFieldSpec", SomMetaKind.COMPLEX, "ScreenElementFieldSpec");
         n.memberName = "fieldSpec";
         n.classSectionId = "SEFS";
-        n.serializationOrder = 6;
+        n.serializationOrder = 7;
         n.docComment = "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.";
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.textField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.numberField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dateField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.selectField")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.checkbox")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.toggle")));
@@ -79146,7 +79503,7 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("ScreenElementDataDisplay", SomMetaKind.COMPLEX, "ScreenElementDataDisplay");
         n.memberName = "dataDisplay";
         n.classSectionId = "SEDD";
-        n.serializationOrder = 7;
+        n.serializationOrder = 8;
         n.docComment = "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).";
         n.classDocComment = "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.";
         n.extra = Arrays.asList(new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dataDisplay")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.dataTable")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.card")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.chart")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.statusIndicator")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.icon")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.label")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.image")), new SomMetaExtra("Case", metaArgs("value", "ScreenElementKind.badge")));
@@ -79159,7 +79516,7 @@ public final class TomSomV0Meta {
         n.memberName = "validationRules";
         n.sectionId = "EVRE-VALI-LST";
         n.sectionIdPattern = "EVRE-VALI-xxx";
-        n.serializationOrder = 8;
+        n.serializationOrder = 9;
         n.contentHelp = "Add one entry per validation rule.";
         n.docComment = "Contains 0+× ElementValidationRule.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-143:2012 — validation of user input in form-based interaction", "ISO 9241-110:2020 — use error tolerance through input validation"), "connotation", "The collection of validation rules that constrain and check the input for a screen element.")));
@@ -79191,6 +79548,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef behavior() {
       return new SomMetaRef(tree, path + "/SEEB");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef presentation() {
@@ -79404,20 +79765,17 @@ public final class TomSomV0Meta {
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-151:2008 — navigation structure and routing within the user interface", "ISO 9241-112:2017 — categorisation of information for structured presentation"), "connotation", "The classification and routing metadata that categorises a screen and locates it in the navigation structure.")));
         out.add(n);
       }
-      {
-        SomMetaNode n = new SomMetaNode("ScreenEntry", SomMetaKind.FORM, "String");
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
         n.memberName = "access";
-        n.sectionId = "SCEAC";
+        n.classSectionId = "AZREQ";
         n.serializationOrder = 2;
-        n.docComment = "Access control settings.";
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Public/Authenticated/Role-specific", 0),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Authorization roles that may access this screen", 1),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Specific permissions needed", 2),
-            new SomFormFieldMeta("permissionEffect", "String", "Permission Effect", false, "Hide-Screen/Show-Readonly/Show-With-Restrictions", 3)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — controllability governing who may access an interface", "ISO/IEC 25010:2023 — interaction capability constrained by authorization"), "connotation", "The access-control settings that determine which roles and permissions may reach a screen.")));
-        out.add(n);
-      }
+        n.docComment = "Access control — what a caller must satisfy to reach this screen.\n\nThe shared CE-AZ requirement section (`AZREQ`), not a screen-local\nrestatement. A screen that is graded rather than simply reachable authors\nthe Graded kind; how each access state renders is fixed by the framework\nand is not authored here.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("ScreenEntry", SomMetaKind.FORM, "String");
         n.memberName = "traceability";
@@ -79559,8 +79917,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SCECL");
     }
 
-    public SomMetaRef access() {
-      return new SomMetaRef(tree, path + "/SCEAC");
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef traceability() {
@@ -82674,19 +83032,27 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("operationName", "String", "Operation Name", true, "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", 0),
             new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1),
             new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
-            new SomFormFieldMeta("authorizationRequirement", "String", "Authorization Requirement", true, "What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.", 3),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement", 4, java.util.List.of(), java.util.List.of("AZRO.roleName")),
-            new SomFormFieldMeta("requiredResourceKey", "String", "Required Resource Key", false, "ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement", 5, java.util.List.of(), java.util.List.of("RESKEY.resourceKey")),
-            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 6, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 7, java.util.List.of(), java.util.List.of("ERCEN.code"))));
+            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 4, java.util.List.of(), java.util.List.of("ERCEN.code"))));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "authorization";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 1;
+        n.docComment = "7.9.x. Authorization — what a caller must satisfy to invoke this\noperation.\n\nThe shared CE-AZ requirement section, not a per-operation restatement.\nThere is no default: an operation with no requirement authored is a\nspecification defect.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("ServerOperationEntry", SomMetaKind.LIST, "ServerOperationMemberEntry");
         n.memberName = "requestMembers";
         n.sectionId = "SVOPM-REQM-LST";
         n.sectionIdPattern = "SVOPM-REQM-xxx";
-        n.serializationOrder = 1;
+        n.serializationOrder = 2;
         n.contentHelp = "Add one entry per member of the request shape.";
         n.docComment = "7.9.x. Request Members — the members that make up the request shape.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / data element definitions"), "connotation", "The members that make up this operation's request shape.")));
@@ -82706,7 +83072,7 @@ public final class TomSomV0Meta {
         n.memberName = "responseMembers";
         n.sectionId = "SVOPM-RESM-LST";
         n.sectionIdPattern = "SVOPM-RESM-xxx";
-        n.serializationOrder = 2;
+        n.serializationOrder = 3;
         n.contentHelp = "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.";
         n.docComment = "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC 11179 — metadata registries / data element definitions"), "connotation", "The members that make up the success payload this operation returns.")));
@@ -82726,6 +83092,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public AuthorizationRequirementSpecNav authorization() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/authorization");
     }
 
     public SomListMetaRef<ServerOperationMemberEntryNav> requestMembers() {
@@ -93434,17 +93804,30 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in tab bar", 3),
             new SomFormFieldMeta("contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4, java.util.List.of(), java.util.List.of("SCREN.screenId")),
             new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Business rule for visibility", 5),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Tab-level access control", 6),
-            new SomFormFieldMeta("permissionBehavior", "String", "Permission Behavior", false, "Hide/Disable", 7),
-            new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot", 8),
-            new SomFormFieldMeta("badgeSource", "String", "Badge Source", false, "Data source for badge", 9)));
+            new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot", 6),
+            new SomFormFieldMeta("badgeSource", "String", "Badge Source", false, "Data source for badge", 7)));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 1;
+        n.docComment = "Access control — what a caller must satisfy to reach this tab.\n\nThe shared CE-AZ requirement section (`AZREQ`). A tab that should be shown\ndisabled rather than hidden authors the Graded kind.";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
     public SomMetaRef content() {
       return new SomMetaRef(tree, path + "/content");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
   }
 
@@ -103275,13 +103658,23 @@ public final class TomSomV0Meta {
         n.serializationOrder = 2;
         n.docComment = "Visibility and confirmation behavior.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "When shown", 0),
-            new SomFormFieldMeta("requiredPermissions", "String", "Required Permissions", false, "Access control", 1),
-            new SomFormFieldMeta("isDangerous", "String", "Is Dangerous", false, "Yes/No — show in danger style", 2),
-            new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog", 3)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions", "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"), "connotation", "The visibility conditions, permission checks, and confirmation behavior for a utility menu item.")));
+            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Business condition for when it is shown — who may use it is authored in the access section", 0),
+            new SomFormFieldMeta("isDangerous", "String", "Is Dangerous", false, "Yes/No — show in danger style", 1),
+            new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required", false, "Yes/No — show confirmation dialog", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions", "ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions"), "connotation", "The visibility conditions and confirmation behavior for a utility menu item.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 3;
+        n.docComment = "Access control — what a caller must satisfy to use this menu item.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       return out;
     }
 
@@ -103295,6 +103688,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef behavior() {
       return new SomMetaRef(tree, path + "/UMIEB");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
   }
 
@@ -103380,20 +103777,30 @@ public final class TomSomV0Meta {
         n.memberName = "display";
         n.sectionId = "UNIED";
         n.serializationOrder = 1;
-        n.docComment = "Ordering, rendering, and access rules.";
+        n.docComment = "Ordering and rendering.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Sort position", 0),
             new SomFormFieldMeta("displayKind", "String", "Display Kind", false, "Icon-Button/Avatar/Dropdown/Popup-Menu/Badge-Icon", 1),
-            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "When shown", 2),
-            new SomFormFieldMeta("requiredRoles", "String", "Required Roles", false, "Access control", 3)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options", "ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles"), "connotation", "The display order, presentation kind, and access rules governing a utility navigation item.")));
+            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Business condition for when it is shown — who may see it is authored in the access section", 2)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options"), "connotation", "The display order and presentation kind governing a utility navigation item.")));
         out.add(n);
       }
+      out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("AuthorizationRequirementSpec", SomMetaKind.COMPLEX, "AuthorizationRequirementSpec");
+        n.memberName = "access";
+        n.classSectionId = "AZREQ";
+        n.serializationOrder = 2;
+        n.docComment = "Access control — what a caller must satisfy to reach this utility item.\n\nThe shared CE-AZ requirement section (`AZREQ`).";
+        n.classDocComment = "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       {
         SomMetaNode n = new SomMetaNode("UtilityNavigationItemEntry", SomMetaKind.FORM, "String");
         n.memberName = "behavior";
         n.sectionId = "UNIEB";
-        n.serializationOrder = 2;
+        n.serializationOrder = 3;
         n.docComment = "Badge and interaction behavior.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("badgeType", "String", "Badge Type", false, "None/Count/Dot", 0),
@@ -103408,7 +103815,7 @@ public final class TomSomV0Meta {
         n.memberName = "menuItems";
         n.sectionId = "UMIE-MENU-LST";
         n.sectionIdPattern = "UMIE-MENU-xxx";
-        n.serializationOrder = 3;
+        n.serializationOrder = 4;
         n.contentHelp = "Add one entry per utility menu item.";
         n.docComment = "Contains 0+× UtilityMenuItem.";
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"), "connotation", "The collection of nested menu item entries belonging to a utility navigation item.")));
@@ -103432,6 +103839,10 @@ public final class TomSomV0Meta {
 
     public SomMetaRef display() {
       return new SomMetaRef(tree, path + "/UNIED");
+    }
+
+    public AuthorizationRequirementSpecNav access() {
+      return new AuthorizationRequirementSpecNav(tree, path + "/access");
     }
 
     public SomMetaRef behavior() {
@@ -121154,6 +121565,30 @@ public final class TomSomV0Meta {
     public DeepLinkPatternEntryId(SomMetaTree tree, String path) {
       super(tree, path);
     }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
+    }
   }
 
   // DeferredScopeItemEntryId holds the ID-tree accessors of `DeferredScopeItemEntry` (SOM §8): methods
@@ -122023,6 +122458,30 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EXAC");
     }
 
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
+    }
+
     public SomListMetaRef<ExportFieldMappingEntryId> EFME_FIEL_LST() {
       return new SomListMetaRef<>(tree, path + "/EFME-FIEL-LST", (t, p) -> new ExportFieldMappingEntryId(t, p));
     }
@@ -122061,6 +122520,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef ETEA() {
       return new SomMetaRef(tree, path + "/ETEA");
+    }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
   }
 
@@ -122737,6 +123220,36 @@ public final class TomSomV0Meta {
 
     public SomMetaRef GRER() {
       return new SomMetaRef(tree, path + "/GRER");
+    }
+  }
+
+  // GradedAccessLevelEntryId holds the ID-tree accessors of `GradedAccessLevelEntry` (SOM §8): methods
+  // named by section id (`-` → `_`), hoisted through id-less members so every
+  // reachable id is one step. `.path` and `.meta()` agree with the dot-notation
+  // surface.
+  public static final class GradedAccessLevelEntryId extends SomMetaRef {
+    public GradedAccessLevelEntryId(SomMetaTree tree, String path) {
+      super(tree, path);
+    }
+
+    public SomMetaRef AZLVL_ROLE() {
+      return new SomMetaRef(tree, path + "/AZLVL-ROLE");
+    }
+
+    public SomMetaRef AZLVL_GRUP() {
+      return new SomMetaRef(tree, path + "/AZLVL-GRUP");
+    }
+
+    public SomMetaRef AZLVL_ENTL() {
+      return new SomMetaRef(tree, path + "/AZLVL-ENTL");
+    }
+
+    public SomMetaRef AZLVL_RKEY() {
+      return new SomMetaRef(tree, path + "/AZLVL-RKEY");
+    }
+
+    public SomMetaRef AZLVL_CUST() {
+      return new SomMetaRef(tree, path + "/AZLVL-CUST");
     }
   }
 
@@ -123947,8 +124460,28 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/NGED");
     }
 
-    public SomMetaRef NGEA() {
-      return new SomMetaRef(tree, path + "/NGEA");
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
     public SomMetaRef NGES() {
@@ -123997,6 +124530,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef NIEA() {
       return new SomMetaRef(tree, path + "/NIEA");
+    }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
     public SomMetaRef NIEB() {
@@ -125355,6 +125912,30 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/RESE");
     }
 
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
+    }
+
     public SomMetaRef RELI() {
       return new SomMetaRef(tree, path + "/RELI");
     }
@@ -126215,6 +126796,30 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SEEB");
     }
 
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
+    }
+
     public SomMetaRef SCELENPR() {
       return new SomMetaRef(tree, path + "/SCELENPR");
     }
@@ -126281,8 +126886,28 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SCECL");
     }
 
-    public SomMetaRef SCEAC() {
-      return new SomMetaRef(tree, path + "/SCEAC");
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
     public SomMetaRef SCETR() {
@@ -126631,6 +127256,30 @@ public final class TomSomV0Meta {
   public static final class ServerOperationEntryId extends SomMetaRef {
     public ServerOperationEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/authorization/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/authorization/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/authorization/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/authorization/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/authorization/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/authorization/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
     public SomListMetaRef<ServerOperationMemberEntryId> SVOPM_REQM_LST() {
@@ -127579,6 +128228,30 @@ public final class TomSomV0Meta {
   public static final class TabItemEntryId extends SomMetaRef {
     public TabItemEntryId(SomMetaTree tree, String path) {
       super(tree, path);
+    }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
   }
 
@@ -128546,6 +129219,30 @@ public final class TomSomV0Meta {
     public SomMetaRef UMIEB() {
       return new SomMetaRef(tree, path + "/UMIEB");
     }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
+    }
   }
 
   // UtilityNavigationItemEntryId holds the ID-tree accessors of `UtilityNavigationItemEntry` (SOM §8): methods
@@ -128559,6 +129256,30 @@ public final class TomSomV0Meta {
 
     public SomMetaRef UNIED() {
       return new SomMetaRef(tree, path + "/UNIED");
+    }
+
+    public SomMetaRef AZREQ_ROLE() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ROLE");
+    }
+
+    public SomMetaRef AZREQ_GRUP() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-GRUP");
+    }
+
+    public SomMetaRef AZREQ_ENTL() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-ENTL");
+    }
+
+    public SomMetaRef AZREQ_RKEY() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-RKEY");
+    }
+
+    public SomMetaRef AZREQ_CUST() {
+      return new SomMetaRef(tree, path + "/access/AZREQ-CUST");
+    }
+
+    public SomListMetaRef<GradedAccessLevelEntryId> AZLVL_LEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
     public SomMetaRef UNIEB() {

@@ -37,6 +37,15 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per access restriction.
+  azlvl-leve-lst:
+    prefix: AZLVL_LEVE_LST
+    subsection-types:
+      azlvl-leve:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.
   behav-beha-lst:
     prefix: BEHAV_BEHA_LST
     subsection-types:
@@ -373,6 +382,23 @@ section-types:
       pattern: ^ACRSE-ACCE-.+$
       error-message: IDs of this section must match ACRSE-ACCE-xxx
     description: Add one entry per access restriction.
+  azlvl-leve:
+    prefix: AZLVL_LEVE_
+    subsection-types:
+      azlvl-role:
+        max-count: 1
+      azlvl-grup:
+        max-count: 1
+      azlvl-entl:
+        max-count: 1
+      azlvl-rkey:
+        max-count: 1
+      azlvl-cust:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^AZLVL-LEVE-.+$
+      error-message: IDs of this section must match AZLVL-LEVE-xxx
+    description: Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.
   behav-beha:
     prefix: BEHAV_BEHA_
     pattern-check-id:
@@ -676,6 +702,8 @@ section-types:
   svope-oper:
     prefix: SVOPE_OPER_
     subsection-types:
+      azreq:
+        max-count: 1
       svopm-reqm-lst:
         max-count: 1
       svopm-resm-lst:
@@ -714,6 +742,46 @@ section-types:
       pattern: ^AFOB-AFFE-.+$
       error-message: IDs of this section must match AFOB-AFFE-xxx
     description: Add one entry per affected object.
+  azlvl-cust:
+    prefix: AZLVL_CUST
+    format: azlvl-cust-form
+    description: "Custom requirement payload — a promoted `@OneOf` case."
+  azlvl-entl:
+    prefix: AZLVL_ENTL
+    format: azlvl-entl-form
+    description: "Entitlement requirement payload — a promoted `@OneOf` case."
+  azlvl-grup:
+    prefix: AZLVL_GRUP
+    format: azlvl-grup-form
+    description: "Group requirement payload — a promoted `@OneOf` case."
+  azlvl-rkey:
+    prefix: AZLVL_RKEY
+    format: azlvl-rkey-form
+    description: "Resource-key requirement payload — a promoted `@OneOf` case."
+  azlvl-role:
+    prefix: AZLVL_ROLE
+    format: azlvl-role-form
+    description: "Role requirement payload — a promoted `@OneOf` case."
+  azreq-cust:
+    prefix: AZREQ_CUST
+    format: azreq-cust-form
+    description: "Custom requirement payload — a promoted `@OneOf` case."
+  azreq-entl:
+    prefix: AZREQ_ENTL
+    format: azreq-entl-form
+    description: "Entitlement requirement payload — a promoted `@OneOf` case."
+  azreq-grup:
+    prefix: AZREQ_GRUP
+    format: azreq-grup-form
+    description: "Group requirement payload — a promoted `@OneOf` case."
+  azreq-rkey:
+    prefix: AZREQ_RKEY
+    format: azreq-rkey-form
+    description: "Resource-key requirement payload — a promoted `@OneOf` case."
+  azreq-role:
+    prefix: AZREQ_ROLE
+    format: azreq-role-form
+    description: "Role requirement payload — a promoted `@OneOf` case."
   biru-busi:
     prefix: BIRU_BUSI_
     subsection-types:
@@ -895,6 +963,29 @@ section-types:
     prefix: FUENOP
     format: fuenop-form
     description: Execution profile and criticality.
+  azgrd:
+    prefix: AZGRD
+    subsection-types:
+      azlvl-leve-lst:
+        max-count: 1
+        min-count: 1
+    description: "Graded requirement payload — a promoted `@OneOf` case."
+  azreq:
+    prefix: AZREQ
+    subsection-types:
+      azreq-role:
+        max-count: 1
+      azreq-grup:
+        max-count: 1
+      azreq-entl:
+        max-count: 1
+      azreq-rkey:
+        max-count: 1
+      azreq-cust:
+        max-count: 1
+      azgrd:
+        max-count: 1
+    description: 7.9.x. Authorization — what a caller must satisfy to invoke this
   boaed:
     prefix: BOAED
     format: boaed-form
@@ -1514,6 +1605,66 @@ form-types:
         description: When rule expires (if applicable)
       - fieldname: reviewFrequency
         description: "How often rule is reviewed: Annually | OnChange | Never"
+  azreq-role-form:
+    fields:
+      - fieldname: roles
+        required: true
+        description: Comma-separated role names from the role catalogue; the caller must hold at least one
+  azreq-grup-form:
+    fields:
+      - fieldname: groups
+        required: true
+        description: "Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue."
+  azreq-entl-form:
+    fields:
+      - fieldname: patterns
+        required: true
+        description: Comma-separated entitlement match patterns; the caller must match at least one
+  azreq-rkey-form:
+    fields:
+      - fieldname: resourceKey
+        required: true
+        description: The resource key from the resource-key catalogue the caller must hold a grant on
+  azreq-cust-form:
+    fields:
+      - fieldname: handler
+        required: true
+        description: The registered access handler that decides
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
+      - fieldname: decisionRule
+        required: true
+        description: "What the handler must decide, in business terms — this is the specification the handler is implemented against"
+  azlvl-role-form:
+    fields:
+      - fieldname: roles
+        required: true
+        description: Comma-separated role names from the role catalogue; the caller must hold at least one
+  azlvl-grup-form:
+    fields:
+      - fieldname: groups
+        required: true
+        description: Comma-separated group names the caller must belong to (at least one)
+  azlvl-entl-form:
+    fields:
+      - fieldname: patterns
+        required: true
+        description: Comma-separated entitlement match patterns; the caller must match at least one
+  azlvl-rkey-form:
+    fields:
+      - fieldname: resourceKey
+        required: true
+        description: The resource key from the resource-key catalogue the caller must hold a grant on
+  azlvl-cust-form:
+    fields:
+      - fieldname: handler
+        required: true
+        description: The registered access handler that decides
+      - fieldname: resourceId
+        description: "The resource id passed to the handler, where it needs one"
+      - fieldname: decisionRule
+        required: true
+        description: "What the handler must decide, in business terms"
   scmst-base-form:
     fields:
       - fieldname: createdEntities

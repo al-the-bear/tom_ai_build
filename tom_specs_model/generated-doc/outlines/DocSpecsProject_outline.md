@@ -1304,7 +1304,15 @@
       - `ServerOperationRegistry`
         - content
         - operations: `ServerOperationEntry`
-          - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+          - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+          - authorization: `AuthorizationRequirementSpec`
+            - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+              resourceKeyRequirement, customRequirement
+            - gradedRequirement: `GradedAuthorizationRequirement`
+              - content @Form(gradingRationale)
+              - [1,] accessLevels: `GradedAccessLevelEntry`
+                - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                  entitlementRequirement, resourceKeyRequirement, customRequirement
           - requestMembers: `ServerOperationMemberEntry`
             - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
           - responseMembers: `ServerOperationMemberEntry`
@@ -2376,14 +2384,30 @@
           - `ScreenInventory`
             - content, overview @text
             - [1,] items: `ScreenEntry`
-              - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
+              - content @Form(screenId, screenName, purpose), classification, traceability, presentation,
                 designNotes @text
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
               - sections: `ScreenSections`
                 - content
                 - items: `ScreenSectionEntry`
                   - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
                   - elements: `ScreenElementEntry`
                     - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
+                    - access: `AuthorizationRequirementSpec`
+                      - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
+                      - gradedRequirement: `GradedAuthorizationRequirement`
+                        - content @Form(gradingRationale)
+                        - [1,] accessLevels: `GradedAccessLevelEntry`
+                          - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                            entitlementRequirement, resourceKeyRequirement, customRequirement
                     - elementAction: `ScreenElementAction`
                       - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
                         execution, navigation
@@ -2423,9 +2447,25 @@
             - hierarchy: `NavigationHierarchy`
               - content, overview @text
               - groups: `NavigationGroupEntry`
-                - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
+                - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, structure
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
                 - items: `NavigationItemEntry`
-                  - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
+                  - content @Form(itemId, label, targetRoute), display, routing, visibility, badge, interaction
+                  - access: `AuthorizationRequirementSpec`
+                    - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
+                    - gradedRequirement: `GradedAuthorizationRequirement`
+                      - content @Form(gradingRationale)
+                      - [1,] accessLevels: `GradedAccessLevelEntry`
+                        - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                          entitlementRequirement, resourceKeyRequirement, customRequirement
             - `PrimaryNavigation`
               - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar,
                 designNotes @text
@@ -2434,19 +2474,51 @@
               - tabBars: `TabBarDefinitionEntry`
                 - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
                 - [1,] tabs: `TabItemEntry`
-                  - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
+                  - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, badgeType, badgeSource)
+                  - access: `AuthorizationRequirementSpec`
+                    - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
+                    - gradedRequirement: `GradedAuthorizationRequirement`
+                      - content @Form(gradingRationale)
+                      - [1,] accessLevels: `GradedAccessLevelEntry`
+                        - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                          entitlementRequirement, resourceKeyRequirement, customRequirement
             - `UtilityNavigation`
               - content
               - items: `UtilityNavigationItemEntry`
                 - content @Form(utilityId, label, icon, position), display, behavior
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
                 - menuItems: `UtilityMenuItemEntry`
                   - content @Form(menuItemId, label, icon, displayOrder), action, behavior
+                  - access: `AuthorizationRequirementSpec`
+                    - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
+                    - gradedRequirement: `GradedAuthorizationRequirement`
+                      - content @Form(gradingRationale)
+                      - [1,] accessLevels: `GradedAccessLevelEntry`
+                        - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                          entitlementRequirement, resourceKeyRequirement, customRequirement
             - `ContextualNavigation`
               - content, breadcrumbs, backNavigation @text, relatedLinks @text
             - `DeepLinking`
               - content, strategy @text
               - patterns: `DeepLinkPatternEntry`
-                - content @Form(patternId, urlPattern, targetScreenId, description, authenticationRequired, requiredPermissions, fallbackRoute, shareEnabled)
+                - content @Form(patternId, urlPattern, targetScreenId, description, fallbackRoute, shareEnabled)
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
             - `NavigationGuards`
               - content, overview @text
               - guards: `NavigationGuardEntry`
@@ -2524,6 +2596,14 @@
         - reports: `ReportEntry`
           - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
             grouping, formatting, interactivity, pagination, security, lifecycle
+          - access: `AuthorizationRequirementSpec`
+            - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+              resourceKeyRequirement, customRequirement
+            - gradedRequirement: `GradedAuthorizationRequirement`
+              - content @Form(gradingRationale)
+              - [1,] accessLevels: `GradedAccessLevelEntry`
+                - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                  entitlementRequirement, resourceKeyRequirement, customRequirement
           - sections: `ReportSectionEntry`
             - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
             - columns: `ReportColumnEntry`
@@ -2575,14 +2655,30 @@
             headerFooter, archive
           - exportFormats: `ExportFormatEntry`
             - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security,
-              output, access
+              output, audit
             - sizeSettings: `ExportSizeSettings`
               - content @Form(maxRows, splitLargeFiles, splitThreshold)
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
             - fieldMappings: `ExportFieldMappingEntry`
               - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
                 booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
           - exportTemplates: `ExportTemplateEntry`
-            - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
+            - content @Form(templateId, templateName, baseFormatType), format, fields, layout, metadata
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
         - `UserAssistance`
           - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
           - `ContextualHelp`
@@ -3396,7 +3492,15 @@
     - `ServerOperationRegistry`
       - content
       - operations: `ServerOperationEntry`
-        - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+        - authorization: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - requestMembers: `ServerOperationMemberEntry`
           - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`
@@ -5008,14 +5112,29 @@
       - `ScreenInventory`
         - content, overview @text
         - [1,] items: `ScreenEntry`
-          - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
-            designNotes @text
+          - content @Form(screenId, screenName, purpose), classification, traceability, presentation, designNotes @text
+          - access: `AuthorizationRequirementSpec`
+            - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+              resourceKeyRequirement, customRequirement
+            - gradedRequirement: `GradedAuthorizationRequirement`
+              - content @Form(gradingRationale)
+              - [1,] accessLevels: `GradedAccessLevelEntry`
+                - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                  entitlementRequirement, resourceKeyRequirement, customRequirement
           - sections: `ScreenSections`
             - content
             - items: `ScreenSectionEntry`
               - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
               - elements: `ScreenElementEntry`
                 - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
                 - elementAction: `ScreenElementAction`
                   - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
                     execution, navigation
@@ -5054,9 +5173,25 @@
         - hierarchy: `NavigationHierarchy`
           - content, overview @text
           - groups: `NavigationGroupEntry`
-            - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
+            - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, structure
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
             - items: `NavigationItemEntry`
-              - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
+              - content @Form(itemId, label, targetRoute), display, routing, visibility, badge, interaction
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
         - `PrimaryNavigation`
           - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
         - `SecondaryNavigation`
@@ -5064,19 +5199,51 @@
           - tabBars: `TabBarDefinitionEntry`
             - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
             - [1,] tabs: `TabItemEntry`
-              - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
+              - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, badgeType, badgeSource)
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
         - `UtilityNavigation`
           - content
           - items: `UtilityNavigationItemEntry`
             - content @Form(utilityId, label, icon, position), display, behavior
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
             - menuItems: `UtilityMenuItemEntry`
               - content @Form(menuItemId, label, icon, displayOrder), action, behavior
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
         - `ContextualNavigation`
           - content, breadcrumbs, backNavigation @text, relatedLinks @text
         - `DeepLinking`
           - content, strategy @text
           - patterns: `DeepLinkPatternEntry`
-            - content @Form(patternId, urlPattern, targetScreenId, description, authenticationRequired, requiredPermissions, fallbackRoute, shareEnabled)
+            - content @Form(patternId, urlPattern, targetScreenId, description, fallbackRoute, shareEnabled)
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
         - `NavigationGuards`
           - content, overview @text
           - guards: `NavigationGuardEntry`
@@ -5094,19 +5261,43 @@
         headerFooter, archive
       - exportFormats: `ExportFormatEntry`
         - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security,
-          output, access
+          output, audit
         - sizeSettings: `ExportSizeSettings`
           - content @Form(maxRows, splitLargeFiles, splitThreshold)
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - fieldMappings: `ExportFieldMappingEntry`
           - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
             booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
       - exportTemplates: `ExportTemplateEntry`
-        - content @Form(templateId, templateName, baseFormatType), format, fields, layout, access
+        - content @Form(templateId, templateName, baseFormatType), format, fields, layout, metadata
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
     - `ReportDefinitions`
       - content @description
       - reports: `ReportEntry`
         - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
           grouping, formatting, interactivity, pagination, security, lifecycle
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - sections: `ReportSectionEntry`
           - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
           - columns: `ReportColumnEntry`
@@ -6215,6 +6406,14 @@
       - reports: `ReportEntry`
         - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
           grouping, formatting, interactivity, pagination, security, lifecycle
+        - access: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - sections: `ReportSectionEntry`
           - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
           - columns: `ReportColumnEntry`
@@ -6243,7 +6442,15 @@
     - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
       - content
       - operations: `ServerOperationEntry`
-        - content @Form(operationName, purpose, primaryDataEntity, authorizationRequirement, requiredRoles, requiredResourceKey, descriptionKey, errorCodes)
+        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+        - authorization: `AuthorizationRequirementSpec`
+          - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+            resourceKeyRequirement, customRequirement
+          - gradedRequirement: `GradedAuthorizationRequirement`
+            - content @Form(gradingRationale)
+            - [1,] accessLevels: `GradedAccessLevelEntry`
+              - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
         - requestMembers: `ServerOperationMemberEntry`
           - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`
@@ -6312,14 +6519,30 @@
         - `ScreenInventory`
           - content, overview @text
           - [1,] items: `ScreenEntry`
-            - content @Form(screenId, screenName, purpose), classification, access, traceability, presentation,
+            - content @Form(screenId, screenName, purpose), classification, traceability, presentation,
               designNotes @text
+            - access: `AuthorizationRequirementSpec`
+              - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                resourceKeyRequirement, customRequirement
+              - gradedRequirement: `GradedAuthorizationRequirement`
+                - content @Form(gradingRationale)
+                - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
             - sections: `ScreenSections`
               - content
               - items: `ScreenSectionEntry`
                 - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
                 - elements: `ScreenElementEntry`
                   - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
+                  - access: `AuthorizationRequirementSpec`
+                    - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
+                    - gradedRequirement: `GradedAuthorizationRequirement`
+                      - content @Form(gradingRationale)
+                      - [1,] accessLevels: `GradedAccessLevelEntry`
+                        - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                          entitlementRequirement, resourceKeyRequirement, customRequirement
                   - elementAction: `ScreenElementAction`
                     - content @Form(actionId, actionType, buttonStyle, actionTrigger, actionPayload, keyboardShortcut),
                       execution, navigation
@@ -6358,9 +6581,25 @@
           - hierarchy: `NavigationHierarchy`
             - content, overview @text
             - groups: `NavigationGroupEntry`
-              - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, access, structure
+              - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, structure
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
               - items: `NavigationItemEntry`
-                - content @Form(itemId, label, targetRoute), display, routing, access, badge, interaction
+                - content @Form(itemId, label, targetRoute), display, routing, visibility, badge, interaction
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
           - `PrimaryNavigation`
             - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
           - `SecondaryNavigation`
@@ -6368,19 +6607,51 @@
             - tabBars: `TabBarDefinitionEntry`
               - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
               - [1,] tabs: `TabItemEntry`
-                - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, requiredPermissions, permissionBehavior, badgeType, badgeSource)
+                - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, badgeType, badgeSource)
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
           - `UtilityNavigation`
             - content
             - items: `UtilityNavigationItemEntry`
               - content @Form(utilityId, label, icon, position), display, behavior
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
               - menuItems: `UtilityMenuItemEntry`
                 - content @Form(menuItemId, label, icon, displayOrder), action, behavior
+                - access: `AuthorizationRequirementSpec`
+                  - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
+                    entitlementRequirement, resourceKeyRequirement, customRequirement
+                  - gradedRequirement: `GradedAuthorizationRequirement`
+                    - content @Form(gradingRationale)
+                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                      - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                        entitlementRequirement, resourceKeyRequirement, customRequirement
           - `ContextualNavigation`
             - content, breadcrumbs, backNavigation @text, relatedLinks @text
           - `DeepLinking`
             - content, strategy @text
             - patterns: `DeepLinkPatternEntry`
-              - content @Form(patternId, urlPattern, targetScreenId, description, authenticationRequired, requiredPermissions, fallbackRoute, shareEnabled)
+              - content @Form(patternId, urlPattern, targetScreenId, description, fallbackRoute, shareEnabled)
+              - access: `AuthorizationRequirementSpec`
+                - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
+                  resourceKeyRequirement, customRequirement
+                - gradedRequirement: `GradedAuthorizationRequirement`
+                  - content @Form(gradingRationale)
+                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
+                      entitlementRequirement, resourceKeyRequirement, customRequirement
           - `NavigationGuards`
             - content, overview @text
             - guards: `NavigationGuardEntry`

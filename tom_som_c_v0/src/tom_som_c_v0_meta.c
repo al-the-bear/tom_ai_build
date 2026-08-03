@@ -144,6 +144,7 @@ static SomMetaNode **meta_children_authorization_compliance_follow_up(SomStrList
 static SomMetaNode **meta_children_authorization_event_policy(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_authorization_group_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_authorization_model(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_authorization_requirement_spec(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_authorization_role_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_availability(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_backup_and_recovery_section(SomStrList *stack, size_t *len);
@@ -549,6 +550,8 @@ static SomMetaNode **meta_children_goal_risk_entry(SomStrList *stack, size_t *le
 static SomMetaNode **meta_children_goal_risks(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_goals(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_governance_model(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_graded_access_level_entry(SomStrList *stack, size_t *len);
+static SomMetaNode **meta_children_graded_authorization_requirement(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_handling_requirement_entry(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_hardware_requirements(SomStrList *stack, size_t *len);
 static SomMetaNode **meta_children_health_check_endpoints(SomStrList *stack, size_t *len);
@@ -1634,6 +1637,13 @@ static void meta_build_authorization_model_permission_composition(SomMetaNode *n
 static void meta_build_authorization_model_access_constraints(SomMetaNode *n);
 static void meta_build_authorization_model_permission_evaluation(SomMetaNode *n);
 static void meta_build_authorization_model_authorization_model_notes(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_content(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_role_requirement(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_group_requirement(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_entitlement_requirement(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_resource_key_requirement(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_custom_requirement(SomMetaNode *n);
+static void meta_build_authorization_requirement_spec_graded_requirement(SomMetaNode *n);
 static void meta_build_authorization_role_entry_content(SomMetaNode *n);
 static void meta_build_authorization_role_entry_structure(SomMetaNode *n);
 static void meta_build_authorization_role_entry_governance(SomMetaNode *n);
@@ -2851,6 +2861,7 @@ static void meta_build_decision_points_decision_framework_narrative(SomMetaNode 
 static void meta_build_decision_points_items(SomMetaNode *n);
 static void meta_build_decision_points_items_elem(SomMetaNode *n);
 static void meta_build_deep_link_pattern_entry_content(SomMetaNode *n);
+static void meta_build_deep_link_pattern_entry_access(SomMetaNode *n);
 static void meta_build_deep_linking_content(SomMetaNode *n);
 static void meta_build_deep_linking_strategy(SomMetaNode *n);
 static void meta_build_deep_linking_patterns(SomMetaNode *n);
@@ -3362,6 +3373,7 @@ static void meta_build_export_format_entry_size_settings(SomMetaNode *n);
 static void meta_build_export_format_entry_size_settings_elem(SomMetaNode *n);
 static void meta_build_export_format_entry_security(SomMetaNode *n);
 static void meta_build_export_format_entry_output(SomMetaNode *n);
+static void meta_build_export_format_entry_audit(SomMetaNode *n);
 static void meta_build_export_format_entry_access(SomMetaNode *n);
 static void meta_build_export_format_entry_field_mappings(SomMetaNode *n);
 static void meta_build_export_format_entry_field_mappings_elem(SomMetaNode *n);
@@ -3370,6 +3382,7 @@ static void meta_build_export_template_entry_content(SomMetaNode *n);
 static void meta_build_export_template_entry_format(SomMetaNode *n);
 static void meta_build_export_template_entry_fields(SomMetaNode *n);
 static void meta_build_export_template_entry_layout(SomMetaNode *n);
+static void meta_build_export_template_entry_metadata(SomMetaNode *n);
 static void meta_build_export_template_entry_access(SomMetaNode *n);
 static void meta_build_extension_entry_content(SomMetaNode *n);
 static void meta_build_extension_entry_steps(SomMetaNode *n);
@@ -3618,6 +3631,15 @@ static void meta_build_goals_success_criteria(SomMetaNode *n);
 static void meta_build_governance_model_content(SomMetaNode *n);
 static void meta_build_governance_model_decision_authorities(SomMetaNode *n);
 static void meta_build_governance_model_decision_authorities_elem(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_content(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_role_requirement(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_group_requirement(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_entitlement_requirement(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_resource_key_requirement(SomMetaNode *n);
+static void meta_build_graded_access_level_entry_custom_requirement(SomMetaNode *n);
+static void meta_build_graded_authorization_requirement_content(SomMetaNode *n);
+static void meta_build_graded_authorization_requirement_access_levels(SomMetaNode *n);
+static void meta_build_graded_authorization_requirement_access_levels_elem(SomMetaNode *n);
 static void meta_build_handling_requirement_entry_content(SomMetaNode *n);
 static void meta_build_hardware_requirements_content(SomMetaNode *n);
 static void meta_build_hardware_requirements_server_requirements(SomMetaNode *n);
@@ -4323,6 +4345,7 @@ static void meta_build_navigation_hierarchy_groups_elem(SomMetaNode *n);
 static void meta_build_navigation_item_entry_content(SomMetaNode *n);
 static void meta_build_navigation_item_entry_display(SomMetaNode *n);
 static void meta_build_navigation_item_entry_routing(SomMetaNode *n);
+static void meta_build_navigation_item_entry_visibility(SomMetaNode *n);
 static void meta_build_navigation_item_entry_access(SomMetaNode *n);
 static void meta_build_navigation_item_entry_badge(SomMetaNode *n);
 static void meta_build_navigation_item_entry_interaction(SomMetaNode *n);
@@ -5083,6 +5106,7 @@ static void meta_build_report_entry_formatting(SomMetaNode *n);
 static void meta_build_report_entry_interactivity(SomMetaNode *n);
 static void meta_build_report_entry_pagination(SomMetaNode *n);
 static void meta_build_report_entry_security(SomMetaNode *n);
+static void meta_build_report_entry_access(SomMetaNode *n);
 static void meta_build_report_entry_lifecycle(SomMetaNode *n);
 static void meta_build_report_entry_sections(SomMetaNode *n);
 static void meta_build_report_entry_sections_elem(SomMetaNode *n);
@@ -5436,6 +5460,7 @@ static void meta_build_screen_element_entry_content(SomMetaNode *n);
 static void meta_build_screen_element_entry_resources(SomMetaNode *n);
 static void meta_build_screen_element_entry_layout(SomMetaNode *n);
 static void meta_build_screen_element_entry_behavior(SomMetaNode *n);
+static void meta_build_screen_element_entry_access(SomMetaNode *n);
 static void meta_build_screen_element_entry_presentation(SomMetaNode *n);
 static void meta_build_screen_element_entry_element_action(SomMetaNode *n);
 static void meta_build_screen_element_entry_field_spec(SomMetaNode *n);
@@ -5625,6 +5650,7 @@ static void meta_build_server_environment_entry_scale(SomMetaNode *n);
 static void meta_build_server_environment_entry_access(SomMetaNode *n);
 static void meta_build_server_environment_entry_lifecycle(SomMetaNode *n);
 static void meta_build_server_operation_entry_content(SomMetaNode *n);
+static void meta_build_server_operation_entry_authorization(SomMetaNode *n);
 static void meta_build_server_operation_entry_request_members(SomMetaNode *n);
 static void meta_build_server_operation_entry_request_members_elem(SomMetaNode *n);
 static void meta_build_server_operation_entry_response_members(SomMetaNode *n);
@@ -6206,6 +6232,7 @@ static void meta_build_tab_bar_definition_entry_loading(SomMetaNode *n);
 static void meta_build_tab_bar_definition_entry_tabs(SomMetaNode *n);
 static void meta_build_tab_bar_definition_entry_tabs_elem(SomMetaNode *n);
 static void meta_build_tab_item_entry_content(SomMetaNode *n);
+static void meta_build_tab_item_entry_access(SomMetaNode *n);
 static void meta_build_target_operating_model_content(SomMetaNode *n);
 static void meta_build_target_operating_model_organization_and_process(SomMetaNode *n);
 static void meta_build_target_operating_model_process_steps_and_actor_interactions(SomMetaNode *n);
@@ -6717,11 +6744,13 @@ static void meta_build_user_training_requirements_training_topics_elem(SomMetaNo
 static void meta_build_utility_menu_item_entry_content(SomMetaNode *n);
 static void meta_build_utility_menu_item_entry_action(SomMetaNode *n);
 static void meta_build_utility_menu_item_entry_behavior(SomMetaNode *n);
+static void meta_build_utility_menu_item_entry_access(SomMetaNode *n);
 static void meta_build_utility_navigation_content(SomMetaNode *n);
 static void meta_build_utility_navigation_items(SomMetaNode *n);
 static void meta_build_utility_navigation_items_elem(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_content(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_display(SomMetaNode *n);
+static void meta_build_utility_navigation_item_entry_access(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_menu_items(SomMetaNode *n);
 static void meta_build_utility_navigation_item_entry_menu_items_elem(SomMetaNode *n);
@@ -7790,6 +7819,11 @@ static void *meta_nav_factory_goal_milestone_entry(const SomMetaTree *tree, cons
 }
 static void *meta_nav_factory_goal_risk_entry(const SomMetaTree *tree, const char *path) {
   som_nav_goal_risk_entry *r = (som_nav_goal_risk_entry *)malloc(sizeof(som_nav_goal_risk_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_nav_factory_graded_access_level_entry(const SomMetaTree *tree, const char *path) {
+  som_nav_graded_access_level_entry *r = (som_nav_graded_access_level_entry *)malloc(sizeof(som_nav_graded_access_level_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -10300,6 +10334,11 @@ static void *meta_id_factory_goal_milestone_entry(const SomMetaTree *tree, const
 }
 static void *meta_id_factory_goal_risk_entry(const SomMetaTree *tree, const char *path) {
   som_id_goal_risk_entry *r = (som_id_goal_risk_entry *)malloc(sizeof(som_id_goal_risk_entry));
+  som_meta_ref_init(&r->ref, tree, path);
+  return r;
+}
+static void *meta_id_factory_graded_access_level_entry(const SomMetaTree *tree, const char *path) {
+  som_id_graded_access_level_entry *r = (som_id_graded_access_level_entry *)malloc(sizeof(som_id_graded_access_level_entry));
   som_meta_ref_init(&r->ref, tree, path);
   return r;
 }
@@ -19675,6 +19714,190 @@ static void meta_build_authorization_model_authorization_model_notes(SomMetaNode
   n->content_type->type = som_strdup("text");
   n->content_type->description = som_strdup("");
   meta_set(&n->doc_comment, "Authorization Model Notes (text).");
+}
+static void meta_build_authorization_requirement_spec_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "What a caller must satisfy to reach the guarded thing.\n\n**State it explicitly.** There is no default requirement. A guarded thing with\nno requirement authored is a specification defect, not an open door.\n\n**Pick the narrowest kind that says what you mean.** *Role* and *Resource Key*\nname entries in the security catalogues and are checked against them. *Group*\nand *Entitlement* match runtime principal data, so they are free-text and cannot\nbe checked at specification time — prefer a catalogued kind where one fits.\n\n**Graded** is for a thing that is not simply reachable or unreachable but has\ndegrees — hidden, visible-but-locked, readable, fully interactive. Use it only\nwhen the degrees genuinely differ; a thing that is either reachable or not is\none of the other nine kinds.\n\n**Do not author what the framework fixes.** How an unmet requirement renders —\nhidden, disabled, read-only — follows from the access state and is fixed by the\nframework. It is not something to restate per site.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("requirementKind");
+  n->form->fields[0].type_name = som_strdup("AuthorizationRequirementKind");
+  n->form->fields[0].description = som_strdup("Requirement Kind");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("What the caller must satisfy — selects the payload subsection below. Denied | Public | Authenticated | Guest carry no payload.");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 10;
+  n->form->fields[0].enum_values = (char **)calloc(10, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("role");
+  n->form->fields[0].enum_values[1] = som_strdup("group");
+  n->form->fields[0].enum_values[2] = som_strdup("entitlement");
+  n->form->fields[0].enum_values[3] = som_strdup("resourceKey");
+  n->form->fields[0].enum_values[4] = som_strdup("custom");
+  n->form->fields[0].enum_values[5] = som_strdup("graded");
+  n->form->fields[0].enum_values[6] = som_strdup("denied");
+  n->form->fields[0].enum_values[7] = som_strdup("public");
+  n->form->fields[0].enum_values[8] = som_strdup("authenticated");
+  n->form->fields[0].enum_values[9] = som_strdup("guest");
+  n->form->fields[1].name = som_strdup("rationale");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Rationale");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Why this requirement and not a wider or narrower one");
+  n->form->fields[1].order = 1;
+}
+static void meta_build_authorization_requirement_spec_role_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "roleRequirement");
+  meta_set(&n->section_id, "AZREQ-ROLE");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Role requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("roles");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Roles");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated role names from the role catalogue; the caller must hold at least one");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.role\"}", NULL);
+}
+static void meta_build_authorization_requirement_spec_group_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "groupRequirement");
+  meta_set(&n->section_id, "AZREQ-GRUP");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Group requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("groups");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Groups");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated group names the caller must belong to (at least one). Groups are runtime principal data, so these are not checked against a catalogue.");
+  n->form->fields[0].order = 0;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.group\"}", NULL);
+}
+static void meta_build_authorization_requirement_spec_entitlement_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "entitlementRequirement");
+  meta_set(&n->section_id, "AZREQ-ENTL");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Entitlement requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("patterns");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Entitlement Patterns");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated entitlement match patterns; the caller must match at least one");
+  n->form->fields[0].order = 0;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.entitlement\"}", NULL);
+}
+static void meta_build_authorization_requirement_spec_resource_key_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "resourceKeyRequirement");
+  meta_set(&n->section_id, "AZREQ-RKEY");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Resource-key requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("resourceKey");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Resource Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The resource key from the resource-key catalogue the caller must hold a grant on");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("RESKEY.resourceKey");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.resourceKey\"}", NULL);
+}
+static void meta_build_authorization_requirement_spec_custom_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "customRequirement");
+  meta_set(&n->section_id, "AZREQ-CUST");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Custom requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("handler");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Handler");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The registered access handler that decides");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("resourceId");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Resource ID");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The resource id passed to the handler, where it needs one");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("decisionRule");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Decision Rule");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("What the handler must decide, in business terms — this is the specification the handler is implemented against");
+  n->form->fields[2].order = 2;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.custom\"}", NULL);
+}
+static void meta_build_authorization_requirement_spec_graded_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAuthorizationRequirement");
+  meta_set(&n->member_name, "gradedRequirement");
+  meta_set(&n->class_section_id, "AZGRD");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GradedAuthorizationRequirement");
+  n->has_serialization_order = 1;
+  n->serialization_order = 6;
+  meta_set(&n->doc_comment, "Graded requirement payload — a promoted `@OneOf` case.");
+  meta_set(&n->class_doc_comment, "A graded requirement: what a caller must satisfy for each access state\n(`codespecs_mapping.md` §5.15).\n\n**Why a level takes a [GradedAccessLevelEntry] and not an\n[AuthorizationRequirementSpec].** A graded level whose requirement could\nitself be graded would make the model structurally cyclic, and\n`tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the\noutliner, the serializers and the nine generated language runtimes all walk\nthe class graph as a tree. Bounding the depth at one level is not a\nworkaround for that constraint: a graded thing resolves to one of four\n*terminal* access states, so nesting a second grading inside a level has\nnothing left to resolve to.\n\nThe price is that [GradedAccessLevelEntry] restates five of\n[AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —\nthe SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —\nand removing it by pointing the levels back at [AuthorizationRequirementSpec]\nreintroduces the cycle.");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"AuthorizationRequirementKind.graded\"}", NULL);
 }
 static void meta_build_authorization_role_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "AuthorizationRoleEntry");
@@ -48668,8 +48891,8 @@ static void meta_build_deep_link_pattern_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 6;
+  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("patternId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Pattern ID");
@@ -48697,30 +48920,29 @@ static void meta_build_deep_link_pattern_entry_content(SomMetaNode *n) {
   n->form->fields[3].required = 0;
   n->form->fields[3].hint = som_strdup("When/why this link is used");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("authenticationRequired");
+  n->form->fields[4].name = som_strdup("fallbackRoute");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Authentication Required");
+  n->form->fields[4].description = som_strdup("Fallback Route");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Yes/No — redirect to login if unauthenticated");
+  n->form->fields[4].hint = som_strdup("Where to go if target is unavailable");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("requiredPermissions");
+  n->form->fields[5].name = som_strdup("shareEnabled");
   n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Required Permissions");
+  n->form->fields[5].description = som_strdup("Share Enabled");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Permissions needed to access via deep link");
+  n->form->fields[5].hint = som_strdup("Yes/No — can users share this link");
   n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("fallbackRoute");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Fallback Route");
-  n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Where to go if target is unavailable");
-  n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("shareEnabled");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Share Enabled");
-  n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Yes/No — can users share this link");
-  n->form->fields[7].order = 7;
+}
+static void meta_build_deep_link_pattern_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to follow this deep link.\n\nThe shared CE-AZ requirement section (`AZREQ`). Authoring the\nAuthenticated kind is what makes an unauthenticated visitor redirect to\nsign-in; there is no separate authentication-required flag.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_deep_linking_content(SomMetaNode *n) {
   meta_set(&n->class_name, "DeepLinking");
@@ -62023,9 +62245,9 @@ static void meta_build_export_format_entry_output(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — portability includes the ease of transferring output to a target environment\",\"ISO 8601-1:2019 — a standardized time representation underpins scheduling of automated exports\"],\"connotation\":\"Output destination and scheduling settings that control where export files are delivered and when they run.\"}", NULL);
 }
-static void meta_build_export_format_entry_access(SomMetaNode *n) {
+static void meta_build_export_format_entry_audit(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportFormatEntry");
-  meta_set(&n->member_name, "access");
+  meta_set(&n->member_name, "audit");
   meta_set(&n->section_id, "EXAC");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
@@ -62033,42 +62255,41 @@ static void meta_build_export_format_entry_access(SomMetaNode *n) {
   n->serialization_order = 8;
   meta_set(&n->doc_comment, "Access and audit.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("accessLevel");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("auditLogging");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Access Level");
+  n->form->fields[0].description = som_strdup("Audit Logging");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Public / Authenticated / Role-specific");
+  n->form->fields[0].hint = som_strdup("Yes / No — log export executions");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("requiredRoles");
+  n->form->fields[1].name = som_strdup("previewAvailable");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Required Roles");
+  n->form->fields[1].description = som_strdup("Preview Available");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Roles permitted to run this export");
+  n->form->fields[1].hint = som_strdup("Yes / No — allow user to preview");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("auditLogging");
+  n->form->fields[2].name = som_strdup("notes");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Audit Logging");
+  n->form->fields[2].description = som_strdup("Notes");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Yes / No — log export executions");
+  n->form->fields[2].hint = som_strdup("Design notes");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("previewAvailable");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Preview Available");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Yes / No — allow user to preview");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("notes");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Notes");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Design notes");
-  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced\",\"ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity\"],\"connotation\":\"Access levels, required roles, and audit-logging settings governing who may run an export.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — accountability records the actions of an entity so they can be traced\",\"ISO/IEC 27001 — access control restricts export execution to authorized roles and logs the activity\"],\"connotation\":\"Audit-logging and preview settings for an export; who may run it is authored in the access requirement.\"}", NULL);
+}
+static void meta_build_export_format_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 9;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_export_format_entry_field_mappings(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportFormatEntry");
@@ -62078,7 +62299,7 @@ static void meta_build_export_format_entry_field_mappings(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ExportFieldMappingEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
+  n->serialization_order = 10;
   meta_set(&n->content_help, "Add one entry per export field mapping.");
   meta_set(&n->doc_comment, "Contains 0+× Export Field Mapping.");
   n->extra_len = 1;
@@ -62287,9 +62508,9 @@ static void meta_build_export_template_entry_layout(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 32000-2:2020 — PDF describes page-level header and footer artifacts for printed output\",\"ISO/IEC 29500-1:2016 — Office Open XML defines header and footer structures for documents\",\"W3C CSS Paged Media — page margin boxes carry running headers and footers in paged rendering\"],\"connotation\":\"Layout configuration defining header, footer, branding, and compression for a rendered export template.\"}", NULL);
 }
-static void meta_build_export_template_entry_access(SomMetaNode *n) {
+static void meta_build_export_template_entry_metadata(SomMetaNode *n) {
   meta_set(&n->class_name, "ExportTemplateEntry");
-  meta_set(&n->member_name, "access");
+  meta_set(&n->member_name, "metadata");
   meta_set(&n->section_id, "ETEA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
@@ -62297,42 +62518,41 @@ static void meta_build_export_template_entry_access(SomMetaNode *n) {
   n->serialization_order = 4;
   meta_set(&n->doc_comment, "Access and metadata.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("accessLevel");
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("reusableAcrossReports");
   n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Access Level");
+  n->form->fields[0].description = som_strdup("Reusable Across Reports");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Public / Authenticated / Role-specific");
+  n->form->fields[0].hint = som_strdup("Yes / No — can this template be used by multiple reports/exports");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("requiredRoles");
+  n->form->fields[1].name = som_strdup("version");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Required Roles");
+  n->form->fields[1].description = som_strdup("Version");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Roles permitted to use this template");
+  n->form->fields[1].hint = som_strdup("Template version, e.g. 1.0");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("reusableAcrossReports");
+  n->form->fields[2].name = som_strdup("notes");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Reusable Across Reports");
+  n->form->fields[2].description = som_strdup("Notes");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Yes / No — can this template be used by multiple reports/exports");
+  n->form->fields[2].hint = som_strdup("Design notes");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("version");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Version");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Template version, e.g. 1.0");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("notes");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Notes");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Design notes");
-  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts\",\"ISO 8601-1:2019 — a standardized calendar representation supports template version dating\"],\"connotation\":\"Access-control and metadata settings governing who may use an export template and how it is versioned.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — reusability supports transfer of assets across products and contexts\",\"ISO 8601-1:2019 — a standardized calendar representation supports template version dating\"],\"connotation\":\"Reuse and versioning metadata for an export template; who may use it is authored in the access requirement.\"}", NULL);
+}
+static void meta_build_export_template_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to use this template.\n\nThe shared CE-AZ requirement section (`AZREQ`).");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_extension_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "ExtensionEntry");
@@ -68571,6 +68791,219 @@ static void meta_build_governance_model_decision_authorities_elem(SomMetaNode *n
   meta_set(&n->type_name, "DecisionAuthorityEntry");
   meta_set(&n->doc_comment, "A decision authority entry.");
   meta_set(&n->class_doc_comment, "A decision authority entry.");
+}
+static void meta_build_graded_access_level_entry_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "One access state and what earns it.\n\nThe requirement kinds are the same as for an ungraded requirement, minus\n*Graded* — an access state is already the outcome of a grading, so it cannot\nitself be graded.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("accessLevel");
+  n->form->fields[0].type_name = som_strdup("GradedAccessLevel");
+  n->form->fields[0].description = som_strdup("Access Level");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The state this requirement earns. Full | Read | Disabled — each authored at most once per graded requirement.");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].enum_values_len = 3;
+  n->form->fields[0].enum_values = (char **)calloc(3, sizeof(char *));
+  n->form->fields[0].enum_values[0] = som_strdup("full");
+  n->form->fields[0].enum_values[1] = som_strdup("read");
+  n->form->fields[0].enum_values[2] = som_strdup("disabled");
+  n->form->fields[1].name = som_strdup("requirementKind");
+  n->form->fields[1].type_name = som_strdup("BasicAuthorizationRequirementKind");
+  n->form->fields[1].description = som_strdup("Requirement Kind");
+  n->form->fields[1].required = 1;
+  n->form->fields[1].hint = som_strdup("What the caller must satisfy to reach this access state — selects the payload subsection below");
+  n->form->fields[1].order = 1;
+  n->form->fields[1].enum_values_len = 9;
+  n->form->fields[1].enum_values = (char **)calloc(9, sizeof(char *));
+  n->form->fields[1].enum_values[0] = som_strdup("role");
+  n->form->fields[1].enum_values[1] = som_strdup("group");
+  n->form->fields[1].enum_values[2] = som_strdup("entitlement");
+  n->form->fields[1].enum_values[3] = som_strdup("resourceKey");
+  n->form->fields[1].enum_values[4] = som_strdup("custom");
+  n->form->fields[1].enum_values[5] = som_strdup("denied");
+  n->form->fields[1].enum_values[6] = som_strdup("public");
+  n->form->fields[1].enum_values[7] = som_strdup("authenticated");
+  n->form->fields[1].enum_values[8] = som_strdup("guest");
+}
+static void meta_build_graded_access_level_entry_role_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "roleRequirement");
+  meta_set(&n->section_id, "AZLVL-ROLE");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Role requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("roles");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Roles");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated role names from the role catalogue; the caller must hold at least one");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"BasicAuthorizationRequirementKind.role\"}", NULL);
+}
+static void meta_build_graded_access_level_entry_group_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "groupRequirement");
+  meta_set(&n->section_id, "AZLVL-GRUP");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Group requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("groups");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Groups");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated group names the caller must belong to (at least one)");
+  n->form->fields[0].order = 0;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"BasicAuthorizationRequirementKind.group\"}", NULL);
+}
+static void meta_build_graded_access_level_entry_entitlement_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "entitlementRequirement");
+  meta_set(&n->section_id, "AZLVL-ENTL");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Entitlement requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("patterns");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Entitlement Patterns");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("Comma-separated entitlement match patterns; the caller must match at least one");
+  n->form->fields[0].order = 0;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"BasicAuthorizationRequirementKind.entitlement\"}", NULL);
+}
+static void meta_build_graded_access_level_entry_resource_key_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "resourceKeyRequirement");
+  meta_set(&n->section_id, "AZLVL-RKEY");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Resource-key requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("resourceKey");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Resource Key");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The resource key from the resource-key catalogue the caller must hold a grant on");
+  n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("RESKEY.resourceKey");
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"BasicAuthorizationRequirementKind.resourceKey\"}", NULL);
+}
+static void meta_build_graded_access_level_entry_custom_requirement(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->member_name, "customRequirement");
+  meta_set(&n->section_id, "AZLVL-CUST");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 5;
+  meta_set(&n->doc_comment, "Custom requirement payload — a promoted `@OneOf` case.");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("handler");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Handler");
+  n->form->fields[0].required = 1;
+  n->form->fields[0].hint = som_strdup("The registered access handler that decides");
+  n->form->fields[0].order = 0;
+  n->form->fields[1].name = som_strdup("resourceId");
+  n->form->fields[1].type_name = som_strdup("String");
+  n->form->fields[1].description = som_strdup("Resource ID");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("The resource id passed to the handler, where it needs one");
+  n->form->fields[1].order = 1;
+  n->form->fields[2].name = som_strdup("decisionRule");
+  n->form->fields[2].type_name = som_strdup("String");
+  n->form->fields[2].description = som_strdup("Decision Rule");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("What the handler must decide, in business terms");
+  n->form->fields[2].order = 2;
+  n->extra_len = 1;
+  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
+  n->extra[0].annotation = som_strdup("Case");
+  n->extra[0].args = som_json_parse("{\"value\":\"BasicAuthorizationRequirementKind.custom\"}", NULL);
+}
+static void meta_build_graded_authorization_requirement_content(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAuthorizationRequirement");
+  meta_set(&n->member_name, "content");
+  n->kind = SOM_META_KIND_FORM;
+  meta_set(&n->type_name, "String");
+  n->has_serialization_order = 1;
+  n->serialization_order = 0;
+  meta_set(&n->content_help, "The requirement for each access state, from the most permissive down.\n\n**Author only what differs.** The levels default downwards: a caller who meets\n*Full* also has *Read*, and a caller who meets *Read* also has *Disabled*. Omit\na level to inherit the one above it. A caller meeting none of them gets no\naccess and the thing is not shown, which is why there is no \"none\" level to\nauthor.\n\n**Author each state at most once.** The three states are a ladder, not a set of\nindependent rules.\n\n**What the states mean is fixed by the framework** — no access hides the thing,\ndisabled shows it locked, read shows its value, full makes it interactive. Do\nnot restate that here; author only *who* reaches each state.\n");
+  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
+  n->form->fields[0].name = som_strdup("gradingRationale");
+  n->form->fields[0].type_name = som_strdup("String");
+  n->form->fields[0].description = som_strdup("Grading Rationale");
+  n->form->fields[0].required = 0;
+  n->form->fields[0].hint = som_strdup("Why this thing is graded rather than simply reachable or not");
+  n->form->fields[0].order = 0;
+}
+static void meta_build_graded_authorization_requirement_access_levels(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAuthorizationRequirement");
+  meta_set(&n->member_name, "accessLevels");
+  meta_set(&n->section_id, "AZLVL-LEVE-LST");
+  meta_set(&n->section_id_pattern, "AZLVL-LEVE-xxx");
+  n->kind = SOM_META_KIND_LIST;
+  meta_set(&n->type_name, "GradedAccessLevelEntry");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  n->has_min = 1;
+  n->min = 1;
+  meta_set(&n->content_help, "Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.");
+  meta_set(&n->doc_comment, "The authored rungs of the ladder — contains 1..3× Graded Access Level.");
+}
+static void meta_build_graded_authorization_requirement_access_levels_elem(SomMetaNode *n) {
+  meta_set(&n->class_name, "GradedAccessLevelEntry");
+  meta_set(&n->class_section_id, "AZLVL");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "GradedAccessLevelEntry");
+  meta_set(&n->doc_comment, "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.");
+  meta_set(&n->class_doc_comment, "One rung of a graded access ladder: an access state and the non-graded\nrequirement that earns it (`codespecs_mapping.md` §5.15).\n\nThe requirement half is [AuthorizationRequirementSpec] minus the graded arm.\nSee [GradedAuthorizationRequirement] for why that bound exists and why the\ncase forms are restated rather than shared.");
 }
 static void meta_build_handling_requirement_entry_content(SomMetaNode *n) {
   meta_set(&n->class_name, "HandlingRequirementEntry");
@@ -87496,42 +87929,15 @@ static void meta_build_navigation_group_entry_display(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-14:1997 — collapsible menu groups let users manage the visible extent of the hierarchy\",\"ISO 9241-110:2020 — controllability improves when users can expand or collapse navigation groups\"],\"connotation\":\"Display order and expansion behavior for a navigation group.\"}", NULL);
 }
 static void meta_build_navigation_group_entry_access(SomMetaNode *n) {
-  meta_set(&n->class_name, "NavigationGroupEntry");
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
   meta_set(&n->member_name, "access");
-  meta_set(&n->section_id, "NGEA");
-  n->kind = SOM_META_KIND_FORM;
-  meta_set(&n->type_name, "String");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Access-control settings.");
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("requiredRoles");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Required Roles");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Comma-separated role IDs");
-  n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 1;
-  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("AZRO.roleName");
-  n->form->fields[1].name = som_strdup("requiredPermissions");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Required Permissions");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Specific permissions required");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("permissionBehavior");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Permission Behavior");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Hide/Disable/Collapse when unauthorized");
-  n->form->fields[2].order = 2;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — navigation presents only groups appropriate to the user role and context\",\"ISO 9241-110:2020 — controllability is maintained when access rules govern group visibility\"],\"connotation\":\"Access-control settings such as required roles and permission behavior for a navigation group.\"}", NULL);
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to see this navigation group.\n\nThe shared CE-AZ requirement section (`AZREQ`). A group that should be\nvisible-but-locked rather than hidden authors the Graded kind; the\nhide/disable rendering follows from the access state and is not authored\nhere.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_navigation_group_entry_structure(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationGroupEntry");
@@ -87947,18 +88353,18 @@ static void meta_build_navigation_item_entry_routing(SomMetaNode *n) {
   n->extra[0].annotation = som_strdup("StandardReferences");
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — routes map navigation destinations onto the underlying information architecture\",\"ISO 9241-110:2020 — conformity with user expectations depends on predictable target routing\"],\"connotation\":\"Routing configuration such as target screen, route parameters, and ordering for a navigation item.\"}", NULL);
 }
-static void meta_build_navigation_item_entry_access(SomMetaNode *n) {
+static void meta_build_navigation_item_entry_visibility(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationItemEntry");
-  meta_set(&n->member_name, "access");
+  meta_set(&n->member_name, "visibility");
   meta_set(&n->section_id, "NIEA");
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "Access control settings.");
+  meta_set(&n->doc_comment, "Business conditions governing when the item is shown and interactive.\n\nThese are *business* conditions, not authorization — who may reach the\nitem is authored in [access]. A condition here narrows an item the caller\nis already authorized for.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 2;
+  n->form->fields = (SomFormFieldMeta *)calloc(2, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("visibilityCondition");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Visibility Condition");
@@ -87971,28 +88377,21 @@ static void meta_build_navigation_item_entry_access(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("When item is visible but non-interactive");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("requiredRoles");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Required Roles");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Comma-separated roles");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("requiredPermissions");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Required Permissions");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Specific permissions");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("permissionBehavior");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Permission Behavior");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Hide/Disable/Show-Locked-Icon");
-  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context\",\"ISO/IEC 25010:2023 — controllability is preserved when access rules govern item visibility\"],\"connotation\":\"Access-control settings such as roles, permissions, and visibility conditions for a navigation item.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — navigation exposes only destinations appropriate to the user context\",\"ISO/IEC 25010:2023 — controllability is preserved when item visibility follows context\"],\"connotation\":\"The business conditions under which a navigation item is shown and interactive.\"}", NULL);
+}
+static void meta_build_navigation_item_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to reach this item.\n\nThe shared CE-AZ requirement section (`AZREQ`). An item that should be\nshown locked rather than hidden authors the Graded kind.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_navigation_item_entry_badge(SomMetaNode *n) {
   meta_set(&n->class_name, "NavigationItemEntry");
@@ -88001,7 +88400,7 @@ static void meta_build_navigation_item_entry_badge(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Badge configuration.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 3;
@@ -88036,7 +88435,7 @@ static void meta_build_navigation_item_entry_interaction(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "Interaction settings.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -108609,8 +109008,8 @@ static void meta_build_report_entry_security(SomMetaNode *n) {
   n->serialization_order = 10;
   meta_set(&n->doc_comment, "Security and access.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("localization");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Localization");
@@ -108623,28 +109022,27 @@ static void meta_build_report_entry_security(SomMetaNode *n) {
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Override branding for this report");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("accessLevel");
+  n->form->fields[2].name = som_strdup("dataLevelSecurity");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Access Level");
+  n->form->fields[2].description = som_strdup("Data-Level Security");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Public / Authenticated / Role-specific / Confidential");
+  n->form->fields[2].hint = som_strdup("Row/column level security rules narrowing what the report shows a caller who is already permitted to generate it");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("requiredRoles");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Required Roles");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Roles permitted to generate this report");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("dataLevelSecurity");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Data-Level Security");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Row/column level security rules");
-  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties\",\"ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information\"],\"connotation\":\"Security settings covering access levels roles and data-level restrictions for the report.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC 25010:2023 — confidentiality restricts report access to authorised parties\",\"ISO/IEC/IEEE 29148:2018 — captures data-access requirements for reported information\"],\"connotation\":\"Presentation and data-level security settings for the report; who may generate it is authored in the access section.\"}", NULL);
+}
+static void meta_build_report_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 11;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to generate this report.\n\nThe shared CE-AZ requirement section (`AZREQ`).");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_report_entry_lifecycle(SomMetaNode *n) {
   meta_set(&n->class_name, "ReportEntry");
@@ -108653,7 +109051,7 @@ static void meta_build_report_entry_lifecycle(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 11;
+  n->serialization_order = 12;
   meta_set(&n->doc_comment, "Lifecycle and archiving.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -108695,7 +109093,7 @@ static void meta_build_report_entry_sections(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportSectionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 12;
+  n->serialization_order = 13;
   meta_set(&n->content_help, "Add one entry per report section.");
   meta_set(&n->doc_comment, "Contains 0+× Report Section.");
   n->extra_len = 1;
@@ -108719,7 +109117,7 @@ static void meta_build_report_entry_filters(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportFilterEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 13;
+  n->serialization_order = 14;
   meta_set(&n->content_help, "Add one entry per report data filter.");
   meta_set(&n->doc_comment, "Contains 0+× Report Filter.");
   n->extra_len = 1;
@@ -108743,7 +109141,7 @@ static void meta_build_report_entry_schedules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportScheduleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 14;
+  n->serialization_order = 15;
   meta_set(&n->content_help, "Add one entry per report generation schedule.");
   meta_set(&n->doc_comment, "Contains 0+× Report Schedule.");
   n->extra_len = 1;
@@ -108767,7 +109165,7 @@ static void meta_build_report_entry_distributions(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportDistributionEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 15;
+  n->serialization_order = 16;
   meta_set(&n->content_help, "Add one entry per report distribution channel.");
   meta_set(&n->doc_comment, "Contains 0+× Report Distribution.");
   n->extra_len = 1;
@@ -108791,7 +109189,7 @@ static void meta_build_report_entry_recipients(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ReportRecipientEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 16;
+  n->serialization_order = 17;
   meta_set(&n->content_help, "Add one entry per report recipient.");
   meta_set(&n->doc_comment, "Contains 0+× Recipient.");
   n->extra_len = 1;
@@ -118591,10 +118989,10 @@ static void meta_build_screen_element_entry_behavior(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 3;
-  meta_set(&n->doc_comment, "Visibility and permission rules.");
+  meta_set(&n->doc_comment, "Visibility and enablement rules.\n\nThese are *business* conditions on an element the caller is already\nauthorized for. Who may see or use it at all is [access].");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 5;
-  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("visibilityCondition");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Visibility Condition");
@@ -118613,22 +119011,21 @@ static void meta_build_screen_element_entry_behavior(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("When this element is read-only");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("requiredPermission");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Required Permission");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Permission needed to see/interact");
-  n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("permissionEffect");
-  n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Permission Effect");
-  n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Hide/Disable/Readonly");
-  n->form->fields[4].order = 4;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only\",\"ISO 9241-110:2020 — controllability governing when an element is interactive\"],\"connotation\":\"The visibility, enablement, and permission rules that determine when a screen element can be seen or used.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-161:2016 — states of user-interface elements such as visible, enabled, and read-only\",\"ISO 9241-110:2020 — controllability governing when an element is interactive\"],\"connotation\":\"The business conditions that determine when a screen element is visible, interactive, or read-only.\"}", NULL);
+}
+static void meta_build_screen_element_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 4;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to see or use this element.\n\nThe shared CE-AZ requirement section (`AZREQ`). An element whose access\nhas degrees — hidden, locked, read-only, interactive — authors the Graded\nkind, which is what the old free-text permission-effect field was trying\nto say.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_screen_element_entry_presentation(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenElementEntry");
@@ -118637,7 +119034,7 @@ static void meta_build_screen_element_entry_presentation(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 4;
+  n->serialization_order = 5;
   meta_set(&n->doc_comment, "Styling and data binding.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 5;
@@ -118684,7 +119081,7 @@ static void meta_build_screen_element_entry_element_action(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenElementAction");
   n->has_serialization_order = 1;
-  n->serialization_order = 5;
+  n->serialization_order = 6;
   meta_set(&n->doc_comment, "10.2.1.n.m.k.1. Element Action.\n\nPresent only for action-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Action specification for an action-type element (form).\n\nDefines button/link behavior: action reference, confirmation, navigation.");
   n->extra_len = 2;
@@ -118701,7 +119098,7 @@ static void meta_build_screen_element_entry_field_spec(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenElementFieldSpec");
   n->has_serialization_order = 1;
-  n->serialization_order = 6;
+  n->serialization_order = 7;
   meta_set(&n->doc_comment, "10.2.1.n.m.k.2. Element Field Spec.\n\nPresent only for input-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Field specification for an input-type element (form).\n\nDefines input behavior: data type, constraints, validation trigger, masks.");
   n->extra_len = 6;
@@ -118726,7 +119123,7 @@ static void meta_build_screen_element_entry_data_display(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "ScreenElementDataDisplay");
   n->has_serialization_order = 1;
-  n->serialization_order = 7;
+  n->serialization_order = 8;
   meta_set(&n->doc_comment, "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).");
   meta_set(&n->class_doc_comment, "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.");
   n->extra_len = 9;
@@ -118758,7 +119155,7 @@ static void meta_build_screen_element_entry_validation_rules(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ElementValidationRuleEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
+  n->serialization_order = 9;
   meta_set(&n->content_help, "Add one entry per validation rule.");
   meta_set(&n->doc_comment, "Contains 0+× ElementValidationRule.");
   n->extra_len = 1;
@@ -119192,45 +119589,15 @@ static void meta_build_screen_entry_classification(SomMetaNode *n) {
   n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-151:2008 — navigation structure and routing within the user interface\",\"ISO 9241-112:2017 — categorisation of information for structured presentation\"],\"connotation\":\"The classification and routing metadata that categorises a screen and locates it in the navigation structure.\"}", NULL);
 }
 static void meta_build_screen_entry_access(SomMetaNode *n) {
-  meta_set(&n->class_name, "ScreenEntry");
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
   meta_set(&n->member_name, "access");
-  meta_set(&n->section_id, "SCEAC");
-  n->kind = SOM_META_KIND_FORM;
-  meta_set(&n->type_name, "String");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
   n->has_serialization_order = 1;
   n->serialization_order = 2;
-  meta_set(&n->doc_comment, "Access control settings.");
-  n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
-  n->form->fields[0].name = som_strdup("accessLevel");
-  n->form->fields[0].type_name = som_strdup("String");
-  n->form->fields[0].description = som_strdup("Access Level");
-  n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("Public/Authenticated/Role-specific");
-  n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("requiredRoles");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Required Roles");
-  n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Authorization roles that may access this screen");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("requiredPermissions");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Required Permissions");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Specific permissions needed");
-  n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("permissionEffect");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Permission Effect");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Hide-Screen/Show-Readonly/Show-With-Restrictions");
-  n->form->fields[3].order = 3;
-  n->extra_len = 1;
-  n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
-  n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — controllability governing who may access an interface\",\"ISO/IEC 25010:2023 — interaction capability constrained by authorization\"],\"connotation\":\"The access-control settings that determine which roles and permissions may reach a screen.\"}", NULL);
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to reach this screen.\n\nThe shared CE-AZ requirement section (`AZREQ`), not a screen-local\nrestatement. A screen that is graded rather than simply reachable authors\nthe Graded kind; how each access state renders is fixed by the framework\nand is not authored here.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_screen_entry_traceability(SomMetaNode *n) {
   meta_set(&n->class_name, "ScreenEntry");
@@ -123422,8 +123789,8 @@ static void meta_build_server_operation_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 8;
-  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 5;
+  n->form->fields = (SomFormFieldMeta *)calloc(5, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("operationName");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Operation Name");
@@ -123445,48 +123812,35 @@ static void meta_build_server_operation_entry_content(SomMetaNode *n) {
   n->form->fields[2].refers_to_len = 1;
   n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
   n->form->fields[2].refers_to[0] = som_strdup("DAENT.entityName");
-  n->form->fields[3].name = som_strdup("authorizationRequirement");
+  n->form->fields[3].name = som_strdup("descriptionKey");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Authorization Requirement");
-  n->form->fields[3].required = 1;
-  n->form->fields[3].hint = som_strdup("What a caller must satisfy: Denied | Public | Authenticated | Guest | Role | Group | Entitlement | ResourceKey | Custom | Graded. There is no default — state it explicitly.");
+  n->form->fields[3].description = som_strdup("Description Copy Key");
+  n->form->fields[3].required = 0;
+  n->form->fields[3].hint = som_strdup("MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("requiredRoles");
+  n->form->fields[3].refers_to_len = 1;
+  n->form->fields[3].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[3].refers_to[0] = som_strdup("MSGKE.key");
+  n->form->fields[4].name = som_strdup("errorCodes");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Required Roles");
+  n->form->fields[4].description = som_strdup("Error Codes");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("Comma-separated RoleEntry.roleName values from the role catalogue (AZRO), for a Role requirement");
+  n->form->fields[4].hint = som_strdup("Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope");
   n->form->fields[4].order = 4;
   n->form->fields[4].refers_to_len = 1;
   n->form->fields[4].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[4].refers_to[0] = som_strdup("AZRO.roleName");
-  n->form->fields[5].name = som_strdup("requiredResourceKey");
-  n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Required Resource Key");
-  n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("ResourceKeyEntry.resourceKey from the resource-key catalogue (RESKEY), for a ResourceKey or Graded requirement");
-  n->form->fields[5].order = 5;
-  n->form->fields[5].refers_to_len = 1;
-  n->form->fields[5].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[5].refers_to[0] = som_strdup("RESKEY.resourceKey");
-  n->form->fields[6].name = som_strdup("descriptionKey");
-  n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Description Copy Key");
-  n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)");
-  n->form->fields[6].order = 6;
-  n->form->fields[6].refers_to_len = 1;
-  n->form->fields[6].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[6].refers_to[0] = som_strdup("MSGKE.key");
-  n->form->fields[7].name = som_strdup("errorCodes");
-  n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Error Codes");
-  n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope");
-  n->form->fields[7].order = 7;
-  n->form->fields[7].refers_to_len = 1;
-  n->form->fields[7].refers_to = (char **)calloc(1, sizeof(char *));
-  n->form->fields[7].refers_to[0] = som_strdup("ERCEN.code");
+  n->form->fields[4].refers_to[0] = som_strdup("ERCEN.code");
+}
+static void meta_build_server_operation_entry_authorization(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "authorization");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "7.9.x. Authorization — what a caller must satisfy to invoke this\noperation.\n\nThe shared CE-AZ requirement section, not a per-operation restatement.\nThere is no default: an operation with no requirement authored is a\nspecification defect.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_server_operation_entry_request_members(SomMetaNode *n) {
   meta_set(&n->class_name, "ServerOperationEntry");
@@ -123496,7 +123850,7 @@ static void meta_build_server_operation_entry_request_members(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ServerOperationMemberEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 1;
+  n->serialization_order = 2;
   meta_set(&n->content_help, "Add one entry per member of the request shape.");
   meta_set(&n->doc_comment, "7.9.x. Request Members — the members that make up the request shape.");
   n->extra_len = 1;
@@ -123520,7 +123874,7 @@ static void meta_build_server_operation_entry_response_members(SomMetaNode *n) {
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "ServerOperationMemberEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->content_help, "Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.");
   meta_set(&n->doc_comment, "7.9.x. Response Members — the members the success payload carries.\n\nThese members *are* the success payload the Result envelope wraps; the\nenvelope itself is fixed by `codespecs_mapping.md` §7 and is never\nauthored per operation.");
   n->extra_len = 1;
@@ -138012,8 +138366,8 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 10;
-  n->form->fields = (SomFormFieldMeta *)calloc(10, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 8;
+  n->form->fields = (SomFormFieldMeta *)calloc(8, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("tabId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Tab ID");
@@ -138056,30 +138410,29 @@ static void meta_build_tab_item_entry_content(SomMetaNode *n) {
   n->form->fields[5].required = 0;
   n->form->fields[5].hint = som_strdup("Business rule for visibility");
   n->form->fields[5].order = 5;
-  n->form->fields[6].name = som_strdup("requiredPermissions");
+  n->form->fields[6].name = som_strdup("badgeType");
   n->form->fields[6].type_name = som_strdup("String");
-  n->form->fields[6].description = som_strdup("Required Permissions");
+  n->form->fields[6].description = som_strdup("Badge Type");
   n->form->fields[6].required = 0;
-  n->form->fields[6].hint = som_strdup("Tab-level access control");
+  n->form->fields[6].hint = som_strdup("None/Count/Dot");
   n->form->fields[6].order = 6;
-  n->form->fields[7].name = som_strdup("permissionBehavior");
+  n->form->fields[7].name = som_strdup("badgeSource");
   n->form->fields[7].type_name = som_strdup("String");
-  n->form->fields[7].description = som_strdup("Permission Behavior");
+  n->form->fields[7].description = som_strdup("Badge Source");
   n->form->fields[7].required = 0;
-  n->form->fields[7].hint = som_strdup("Hide/Disable");
+  n->form->fields[7].hint = som_strdup("Data source for badge");
   n->form->fields[7].order = 7;
-  n->form->fields[8].name = som_strdup("badgeType");
-  n->form->fields[8].type_name = som_strdup("String");
-  n->form->fields[8].description = som_strdup("Badge Type");
-  n->form->fields[8].required = 0;
-  n->form->fields[8].hint = som_strdup("None/Count/Dot");
-  n->form->fields[8].order = 8;
-  n->form->fields[9].name = som_strdup("badgeSource");
-  n->form->fields[9].type_name = som_strdup("String");
-  n->form->fields[9].description = som_strdup("Badge Source");
-  n->form->fields[9].required = 0;
-  n->form->fields[9].hint = som_strdup("Data source for badge");
-  n->form->fields[9].order = 9;
+}
+static void meta_build_tab_item_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 1;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to reach this tab.\n\nThe shared CE-AZ requirement section (`AZREQ`). A tab that should be shown\ndisabled rather than hidden authors the Graded kind.");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_target_operating_model_content(SomMetaNode *n) {
   meta_set(&n->class_name, "TargetOperatingModel");
@@ -151789,36 +152142,41 @@ static void meta_build_utility_menu_item_entry_behavior(SomMetaNode *n) {
   n->serialization_order = 2;
   meta_set(&n->doc_comment, "Visibility and confirmation behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("visibilityCondition");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Visibility Condition");
   n->form->fields[0].required = 0;
-  n->form->fields[0].hint = som_strdup("When shown");
+  n->form->fields[0].hint = som_strdup("Business condition for when it is shown — who may use it is authored in the access section");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("requiredPermissions");
+  n->form->fields[1].name = som_strdup("isDangerous");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Required Permissions");
+  n->form->fields[1].description = som_strdup("Is Dangerous");
   n->form->fields[1].required = 0;
-  n->form->fields[1].hint = som_strdup("Access control");
+  n->form->fields[1].hint = som_strdup("Yes/No — show in danger style");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("isDangerous");
+  n->form->fields[2].name = som_strdup("confirmationRequired");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Is Dangerous");
+  n->form->fields[2].description = som_strdup("Confirmation Required");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Yes/No — show in danger style");
+  n->form->fields[2].hint = som_strdup("Yes/No — show confirmation dialog");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("confirmationRequired");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Confirmation Required");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Yes/No — show confirmation dialog");
-  n->form->fields[3].order = 3;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions\"],\"connotation\":\"The visibility conditions, permission checks, and confirmation behavior for a utility menu item.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-110:2020 — use-error tolerance calls for confirmation before potentially destructive actions\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict menu actions by required permissions\"],\"connotation\":\"The visibility conditions and confirmation behavior for a utility menu item.\"}", NULL);
+}
+static void meta_build_utility_menu_item_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 3;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to use this menu item.\n\nThe shared CE-AZ requirement section (`AZREQ`).");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_utility_navigation_content(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigation");
@@ -151899,10 +152257,10 @@ static void meta_build_utility_navigation_item_entry_display(SomMetaNode *n) {
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
   n->serialization_order = 1;
-  meta_set(&n->doc_comment, "Ordering, rendering, and access rules.");
+  meta_set(&n->doc_comment, "Ordering and rendering.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 4;
-  n->form->fields = (SomFormFieldMeta *)calloc(4, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 3;
+  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("displayOrder");
   n->form->fields[0].type_name = som_strdup("int");
   n->form->fields[0].description = som_strdup("Display Order");
@@ -151919,18 +152277,23 @@ static void meta_build_utility_navigation_item_entry_display(SomMetaNode *n) {
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Visibility Condition");
   n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("When shown");
+  n->form->fields[2].hint = som_strdup("Business condition for when it is shown — who may see it is authored in the access section");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("requiredRoles");
-  n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Required Roles");
-  n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("Access control");
-  n->form->fields[3].order = 3;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\",\"ISO/IEC 27001:2022 — Annex A access-control measures restrict utility items to required roles\"],\"connotation\":\"The display order, presentation kind, and access rules governing a utility navigation item.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues address the ordering and grouping of selectable options\"],\"connotation\":\"The display order and presentation kind governing a utility navigation item.\"}", NULL);
+}
+static void meta_build_utility_navigation_item_entry_access(SomMetaNode *n) {
+  meta_set(&n->class_name, "AuthorizationRequirementSpec");
+  meta_set(&n->member_name, "access");
+  meta_set(&n->class_section_id, "AZREQ");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "AuthorizationRequirementSpec");
+  n->has_serialization_order = 1;
+  n->serialization_order = 2;
+  meta_set(&n->doc_comment, "Access control — what a caller must satisfy to reach this utility item.\n\nThe shared CE-AZ requirement section (`AZREQ`).");
+  meta_set(&n->class_doc_comment, "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.");
 }
 static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n) {
   meta_set(&n->class_name, "UtilityNavigationItemEntry");
@@ -151939,7 +152302,7 @@ static void meta_build_utility_navigation_item_entry_behavior(SomMetaNode *n) {
   n->kind = SOM_META_KIND_FORM;
   meta_set(&n->type_name, "String");
   n->has_serialization_order = 1;
-  n->serialization_order = 2;
+  n->serialization_order = 3;
   meta_set(&n->doc_comment, "Badge and interaction behavior.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
   n->form->fields_len = 4;
@@ -151984,7 +152347,7 @@ static void meta_build_utility_navigation_item_entry_menu_items(SomMetaNode *n) 
   n->kind = SOM_META_KIND_LIST;
   meta_set(&n->type_name, "UtilityMenuItemEntry");
   n->has_serialization_order = 1;
-  n->serialization_order = 3;
+  n->serialization_order = 4;
   meta_set(&n->content_help, "Add one entry per utility menu item.");
   meta_set(&n->doc_comment, "Contains 0+× UtilityMenuItem.");
   n->extra_len = 1;
@@ -157021,6 +157384,44 @@ static SomMetaNode **meta_children_authorization_model(SomStrList *stack, size_t
     meta_build_authorization_model_authorization_model_notes(n);
     meta_push(&arr, len, &cap, n);
   }
+  return arr;
+}
+
+static SomMetaNode **meta_children_authorization_requirement_spec(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_role_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_group_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_entitlement_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_resource_key_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_authorization_requirement_spec_custom_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  meta_push(&arr, len, &cap, meta_cx("GradedAuthorizationRequirement", stack, meta_children_graded_authorization_requirement, meta_build_authorization_requirement_spec_graded_requirement));
   return arr;
 }
 
@@ -163204,7 +163605,6 @@ static SomMetaNode **meta_children_decision_points(SomStrList *stack, size_t *le
 }
 
 static SomMetaNode **meta_children_deep_link_pattern_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -163213,6 +163613,7 @@ static SomMetaNode **meta_children_deep_link_pattern_entry(SomStrList *stack, si
     meta_build_deep_link_pattern_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_deep_link_pattern_entry_access));
   return arr;
 }
 
@@ -166131,9 +166532,10 @@ static SomMetaNode **meta_children_export_format_entry(SomStrList *stack, size_t
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_export_format_entry_access(n);
+    meta_build_export_format_entry_audit(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_export_format_entry_access));
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_export_format_entry_field_mappings(ln);
@@ -166157,7 +166559,6 @@ static SomMetaNode **meta_children_export_size_settings(SomStrList *stack, size_
 }
 
 static SomMetaNode **meta_children_export_template_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -166183,9 +166584,10 @@ static SomMetaNode **meta_children_export_template_entry(SomStrList *stack, size
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_export_template_entry_access(n);
+    meta_build_export_template_entry_metadata(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_export_template_entry_access));
   return arr;
 }
 
@@ -167615,6 +168017,62 @@ static SomMetaNode **meta_children_governance_model(SomStrList *stack, size_t *l
     SomMetaNode *ln = som_meta_node_new();
     meta_build_governance_model_decision_authorities(ln);
     ln->element_node = meta_cx("DecisionAuthorityEntry", stack, meta_children_decision_authority_entry, meta_build_governance_model_decision_authorities_elem);
+    meta_push(&arr, len, &cap, ln);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_graded_access_level_entry(SomStrList *stack, size_t *len) {
+  (void)stack;
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_role_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_group_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_entitlement_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_resource_key_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_access_level_entry_custom_requirement(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  return arr;
+}
+
+static SomMetaNode **meta_children_graded_authorization_requirement(SomStrList *stack, size_t *len) {
+  SomMetaNode **arr = NULL;
+  size_t cap = 0;
+  *len = 0;
+  {
+    SomMetaNode *n = som_meta_node_new();
+    meta_build_graded_authorization_requirement_content(n);
+    meta_push(&arr, len, &cap, n);
+  }
+  {
+    SomMetaNode *ln = som_meta_node_new();
+    meta_build_graded_authorization_requirement_access_levels(ln);
+    ln->element_node = meta_cx("GradedAccessLevelEntry", stack, meta_children_graded_access_level_entry, meta_build_graded_authorization_requirement_access_levels_elem);
     meta_push(&arr, len, &cap, ln);
   }
   return arr;
@@ -171736,11 +172194,7 @@ static SomMetaNode **meta_children_navigation_group_entry(SomStrList *stack, siz
     meta_build_navigation_group_entry_display(n);
     meta_push(&arr, len, &cap, n);
   }
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_navigation_group_entry_access(n);
-    meta_push(&arr, len, &cap, n);
-  }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_navigation_group_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_navigation_group_entry_structure(n);
@@ -171825,7 +172279,6 @@ static SomMetaNode **meta_children_navigation_hierarchy(SomStrList *stack, size_
 }
 
 static SomMetaNode **meta_children_navigation_item_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -171846,9 +172299,10 @@ static SomMetaNode **meta_children_navigation_item_entry(SomStrList *stack, size
   }
   {
     SomMetaNode *n = som_meta_node_new();
-    meta_build_navigation_item_entry_access(n);
+    meta_build_navigation_item_entry_visibility(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_navigation_item_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_navigation_item_entry_badge(n);
@@ -176348,6 +176802,7 @@ static SomMetaNode **meta_children_report_entry(SomStrList *stack, size_t *len) 
     meta_build_report_entry_security(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_report_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_report_entry_lifecycle(n);
@@ -178569,6 +179024,7 @@ static SomMetaNode **meta_children_screen_element_entry(SomStrList *stack, size_
     meta_build_screen_element_entry_behavior(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_screen_element_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_screen_element_entry_presentation(n);
@@ -178648,11 +179104,7 @@ static SomMetaNode **meta_children_screen_entry(SomStrList *stack, size_t *len) 
     meta_build_screen_entry_classification(n);
     meta_push(&arr, len, &cap, n);
   }
-  {
-    SomMetaNode *n = som_meta_node_new();
-    meta_build_screen_entry_access(n);
-    meta_push(&arr, len, &cap, n);
-  }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_screen_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_screen_entry_traceability(n);
@@ -179614,6 +180066,7 @@ static SomMetaNode **meta_children_server_operation_entry(SomStrList *stack, siz
     meta_build_server_operation_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_server_operation_entry_authorization));
   {
     SomMetaNode *ln = som_meta_node_new();
     meta_build_server_operation_entry_request_members(ln);
@@ -182707,7 +183160,6 @@ static SomMetaNode **meta_children_tab_bar_definition_entry(SomStrList *stack, s
 }
 
 static SomMetaNode **meta_children_tab_item_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -182716,6 +183168,7 @@ static SomMetaNode **meta_children_tab_item_entry(SomStrList *stack, size_t *len
     meta_build_tab_item_entry_content(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_tab_item_entry_access));
   return arr;
 }
 
@@ -185685,7 +186138,6 @@ static SomMetaNode **meta_children_user_training_requirements(SomStrList *stack,
 }
 
 static SomMetaNode **meta_children_utility_menu_item_entry(SomStrList *stack, size_t *len) {
-  (void)stack;
   SomMetaNode **arr = NULL;
   size_t cap = 0;
   *len = 0;
@@ -185704,6 +186156,7 @@ static SomMetaNode **meta_children_utility_menu_item_entry(SomStrList *stack, si
     meta_build_utility_menu_item_entry_behavior(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_utility_menu_item_entry_access));
   return arr;
 }
 
@@ -185739,6 +186192,7 @@ static SomMetaNode **meta_children_utility_navigation_item_entry(SomStrList *sta
     meta_build_utility_navigation_item_entry_display(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("AuthorizationRequirementSpec", stack, meta_children_authorization_requirement_spec, meta_build_utility_navigation_item_entry_access));
   {
     SomMetaNode *n = som_meta_node_new();
     meta_build_utility_navigation_item_entry_behavior(n);
@@ -189296,6 +189750,55 @@ SomMetaRef authorization_model_nav_authorization_model_notes(som_nav_authorizati
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "authorizationModelNotes");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_content(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_role_requirement(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_group_requirement(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_entitlement_requirement(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_resource_key_requirement(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef authorization_requirement_spec_nav_custom_requirement(som_nav_authorization_requirement_spec x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_graded_authorization_requirement authorization_requirement_spec_nav_graded_requirement(som_nav_authorization_requirement_spec x) {
+  som_nav_graded_authorization_requirement out;
+  char *path = spec_path_join(x.ref.path, "gradedRequirement");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -196929,6 +197432,13 @@ SomMetaRef deep_link_pattern_entry_nav_content(som_nav_deep_link_pattern_entry x
   free(path);
   return out;
 }
+som_nav_authorization_requirement_spec deep_link_pattern_entry_nav_access(som_nav_deep_link_pattern_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef deep_linking_nav_content(som_nav_deep_linking x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -200177,10 +200687,17 @@ SomMetaRef export_format_entry_nav_output(som_nav_export_format_entry x) {
   free(path);
   return out;
 }
-SomMetaRef export_format_entry_nav_access(som_nav_export_format_entry x) {
+SomMetaRef export_format_entry_nav_audit(som_nav_export_format_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "EXAC");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_authorization_requirement_spec export_format_entry_nav_access(som_nav_export_format_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -200226,10 +200743,17 @@ SomMetaRef export_template_entry_nav_layout(som_nav_export_template_entry x) {
   free(path);
   return out;
 }
-SomMetaRef export_template_entry_nav_access(som_nav_export_template_entry x) {
+SomMetaRef export_template_entry_nav_metadata(som_nav_export_template_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ETEA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_authorization_requirement_spec export_template_entry_nav_access(som_nav_export_template_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -201777,6 +202301,62 @@ SomListMetaRef governance_model_nav_decision_authorities(som_nav_governance_mode
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "DCAUT-DECI-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_decision_authority_entry);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_content(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_role_requirement(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_group_requirement(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_entitlement_requirement(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_resource_key_requirement(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_nav_custom_requirement(som_nav_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_authorization_requirement_nav_content(som_nav_graded_authorization_requirement x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "content");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef graded_authorization_requirement_nav_access_levels(som_nav_graded_authorization_requirement x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_nav_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -206204,10 +206784,10 @@ SomMetaRef navigation_group_entry_nav_display(som_nav_navigation_group_entry x) 
   free(path);
   return out;
 }
-SomMetaRef navigation_group_entry_nav_access(som_nav_navigation_group_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "NGEA");
-  som_meta_ref_init(&out, x.ref.tree, path);
+som_nav_authorization_requirement_spec navigation_group_entry_nav_access(som_nav_navigation_group_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -206309,10 +206889,17 @@ SomMetaRef navigation_item_entry_nav_routing(som_nav_navigation_item_entry x) {
   free(path);
   return out;
 }
-SomMetaRef navigation_item_entry_nav_access(som_nav_navigation_item_entry x) {
+SomMetaRef navigation_item_entry_nav_visibility(som_nav_navigation_item_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "NIEA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_authorization_requirement_spec navigation_item_entry_nav_access(som_nav_navigation_item_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -211055,6 +211642,13 @@ SomMetaRef report_entry_nav_security(som_nav_report_entry x) {
   free(path);
   return out;
 }
+som_nav_authorization_requirement_spec report_entry_nav_access(som_nav_report_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef report_entry_nav_lifecycle(som_nav_report_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RELI");
@@ -213232,6 +213826,13 @@ SomMetaRef screen_element_entry_nav_behavior(som_nav_screen_element_entry x) {
   free(path);
   return out;
 }
+som_nav_authorization_requirement_spec screen_element_entry_nav_access(som_nav_screen_element_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef screen_element_entry_nav_presentation(som_nav_screen_element_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCELENPR");
@@ -213337,10 +213938,10 @@ SomMetaRef screen_entry_nav_classification(som_nav_screen_entry x) {
   free(path);
   return out;
 }
-SomMetaRef screen_entry_nav_access(som_nav_screen_entry x) {
-  SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SCEAC");
-  som_meta_ref_init(&out, x.ref.tree, path);
+som_nav_authorization_requirement_spec screen_entry_nav_access(som_nav_screen_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -214433,6 +215034,13 @@ SomMetaRef server_operation_entry_nav_content(som_nav_server_operation_entry x) 
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_authorization_requirement_spec server_operation_entry_nav_authorization(som_nav_server_operation_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "authorization");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -218146,6 +218754,13 @@ SomMetaRef tab_item_entry_nav_content(som_nav_tab_item_entry x) {
   free(path);
   return out;
 }
+som_nav_authorization_requirement_spec tab_item_entry_nav_access(som_nav_tab_item_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef target_operating_model_nav_content(som_nav_target_operating_model x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -221345,6 +221960,13 @@ SomMetaRef utility_menu_item_entry_nav_behavior(som_nav_utility_menu_item_entry 
   free(path);
   return out;
 }
+som_nav_authorization_requirement_spec utility_menu_item_entry_nav_access(som_nav_utility_menu_item_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 SomMetaRef utility_navigation_nav_content(som_nav_utility_navigation x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "content");
@@ -221370,6 +221992,13 @@ SomMetaRef utility_navigation_item_entry_nav_display(som_nav_utility_navigation_
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "UNIED");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+som_nav_authorization_requirement_spec utility_navigation_item_entry_nav_access(som_nav_utility_navigation_item_entry x) {
+  som_nav_authorization_requirement_spec out;
+  char *path = spec_path_join(x.ref.path, "access");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
 }
@@ -246854,6 +247483,48 @@ SomListMetaRef decision_point_entry_id_deopen_opti_lst(som_id_decision_point_ent
   free(path);
   return out;
 }
+SomMetaRef deep_link_pattern_entry_id_azreq_role(som_id_deep_link_pattern_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef deep_link_pattern_entry_id_azreq_grup(som_id_deep_link_pattern_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef deep_link_pattern_entry_id_azreq_entl(som_id_deep_link_pattern_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef deep_link_pattern_entry_id_azreq_rkey(som_id_deep_link_pattern_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef deep_link_pattern_entry_id_azreq_cust(som_id_deep_link_pattern_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef deep_link_pattern_entry_id_azlvl_leve_lst(som_id_deep_link_pattern_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomMetaRef deliverable_entry_id_dlvid(som_id_deliverable_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "DLVID");
@@ -247603,6 +248274,48 @@ SomMetaRef export_format_entry_id_exac(som_id_export_format_entry x) {
   free(path);
   return out;
 }
+SomMetaRef export_format_entry_id_azreq_role(som_id_export_format_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_format_entry_id_azreq_grup(som_id_export_format_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_format_entry_id_azreq_entl(som_id_export_format_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_format_entry_id_azreq_rkey(som_id_export_format_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_format_entry_id_azreq_cust(som_id_export_format_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef export_format_entry_id_azlvl_leve_lst(som_id_export_format_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef export_format_entry_id_efme_fiel_lst(som_id_export_format_entry x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "EFME-FIEL-LST");
@@ -247635,6 +248348,48 @@ SomMetaRef export_template_entry_id_etea(som_id_export_template_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "ETEA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_template_entry_id_azreq_role(som_id_export_template_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_template_entry_id_azreq_grup(som_id_export_template_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_template_entry_id_azreq_entl(som_id_export_template_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_template_entry_id_azreq_rkey(som_id_export_template_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef export_template_entry_id_azreq_cust(som_id_export_template_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef export_template_entry_id_azlvl_leve_lst(som_id_export_template_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -248327,6 +249082,41 @@ SomMetaRef goal_risk_entry_id_grea(som_id_goal_risk_entry x) {
 SomMetaRef goal_risk_entry_id_grer(som_id_goal_risk_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "GRER");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_id_azlvl_role(som_id_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_id_azlvl_grup(som_id_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_id_azlvl_entl(som_id_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_id_azlvl_rkey(som_id_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef graded_access_level_entry_id_azlvl_cust(som_id_graded_access_level_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "AZLVL-CUST");
   som_meta_ref_init(&out, x.ref.tree, path);
   free(path);
   return out;
@@ -249325,10 +250115,45 @@ SomMetaRef navigation_group_entry_id_nged(som_id_navigation_group_entry x) {
   free(path);
   return out;
 }
-SomMetaRef navigation_group_entry_id_ngea(som_id_navigation_group_entry x) {
+SomMetaRef navigation_group_entry_id_azreq_role(som_id_navigation_group_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "NGEA");
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_group_entry_id_azreq_grup(som_id_navigation_group_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_group_entry_id_azreq_entl(som_id_navigation_group_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_group_entry_id_azreq_rkey(som_id_navigation_group_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_group_entry_id_azreq_cust(som_id_navigation_group_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef navigation_group_entry_id_azlvl_leve_lst(som_id_navigation_group_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -249378,6 +250203,48 @@ SomMetaRef navigation_item_entry_id_niea(som_id_navigation_item_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "NIEA");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_item_entry_id_azreq_role(som_id_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_item_entry_id_azreq_grup(som_id_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_item_entry_id_azreq_entl(som_id_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_item_entry_id_azreq_rkey(som_id_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef navigation_item_entry_id_azreq_cust(som_id_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef navigation_item_entry_id_azlvl_leve_lst(som_id_navigation_item_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -250424,6 +251291,48 @@ SomMetaRef report_entry_id_rese(som_id_report_entry x) {
   free(path);
   return out;
 }
+SomMetaRef report_entry_id_azreq_role(som_id_report_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_entry_id_azreq_grup(som_id_report_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_entry_id_azreq_entl(som_id_report_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_entry_id_azreq_rkey(som_id_report_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef report_entry_id_azreq_cust(som_id_report_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef report_entry_id_azlvl_leve_lst(som_id_report_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomMetaRef report_entry_id_reli(som_id_report_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "RELI");
@@ -251089,6 +251998,48 @@ SomMetaRef screen_element_entry_id_seeb(som_id_screen_element_entry x) {
   free(path);
   return out;
 }
+SomMetaRef screen_element_entry_id_azreq_role(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_azreq_grup(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_azreq_entl(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_azreq_rkey(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_element_entry_id_azreq_cust(som_id_screen_element_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef screen_element_entry_id_azlvl_leve_lst(som_id_screen_element_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomMetaRef screen_element_entry_id_scelenpr(som_id_screen_element_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SCELENPR");
@@ -251187,10 +252138,45 @@ SomMetaRef screen_entry_id_scecl(som_id_screen_entry x) {
   free(path);
   return out;
 }
-SomMetaRef screen_entry_id_sceac(som_id_screen_entry x) {
+SomMetaRef screen_entry_id_azreq_role(som_id_screen_entry x) {
   SomMetaRef out;
-  char *path = spec_path_join(x.ref.path, "SCEAC");
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_entry_id_azreq_grup(som_id_screen_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_entry_id_azreq_entl(som_id_screen_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_entry_id_azreq_rkey(som_id_screen_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef screen_entry_id_azreq_cust(som_id_screen_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef screen_entry_id_azlvl_leve_lst(som_id_screen_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -251520,6 +252506,48 @@ SomMetaRef server_environment_entry_id_seenenli(som_id_server_environment_entry 
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "SEENENLI");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_id_azreq_role(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_id_azreq_grup(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_id_azreq_entl(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_id_azreq_rkey(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef server_operation_entry_id_azreq_cust(som_id_server_operation_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef server_operation_entry_id_azlvl_leve_lst(som_id_server_operation_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "authorization/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }
@@ -252447,6 +253475,48 @@ SomListMetaRef tab_bar_definition_entry_id_taiten_tabs_lst(som_id_tab_bar_defini
   free(path);
   return out;
 }
+SomMetaRef tab_item_entry_id_azreq_role(som_id_tab_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef tab_item_entry_id_azreq_grup(som_id_tab_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef tab_item_entry_id_azreq_entl(som_id_tab_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef tab_item_entry_id_azreq_rkey(som_id_tab_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef tab_item_entry_id_azreq_cust(som_id_tab_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef tab_item_entry_id_azlvl_leve_lst(som_id_tab_item_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomMetaRef target_platform_entry_id_tpevr(som_id_target_platform_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "TPEVR");
@@ -253350,10 +254420,94 @@ SomMetaRef utility_menu_item_entry_id_umieb(som_id_utility_menu_item_entry x) {
   free(path);
   return out;
 }
+SomMetaRef utility_menu_item_entry_id_azreq_role(som_id_utility_menu_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_menu_item_entry_id_azreq_grup(som_id_utility_menu_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_menu_item_entry_id_azreq_entl(som_id_utility_menu_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_menu_item_entry_id_azreq_rkey(som_id_utility_menu_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_menu_item_entry_id_azreq_cust(som_id_utility_menu_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef utility_menu_item_entry_id_azlvl_leve_lst(som_id_utility_menu_item_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
+  free(path);
+  return out;
+}
 SomMetaRef utility_navigation_item_entry_id_unied(som_id_utility_navigation_item_entry x) {
   SomMetaRef out;
   char *path = spec_path_join(x.ref.path, "UNIED");
   som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_navigation_item_entry_id_azreq_role(som_id_utility_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ROLE");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_navigation_item_entry_id_azreq_grup(som_id_utility_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-GRUP");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_navigation_item_entry_id_azreq_entl(som_id_utility_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-ENTL");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_navigation_item_entry_id_azreq_rkey(som_id_utility_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-RKEY");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomMetaRef utility_navigation_item_entry_id_azreq_cust(som_id_utility_navigation_item_entry x) {
+  SomMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/AZREQ-CUST");
+  som_meta_ref_init(&out, x.ref.tree, path);
+  free(path);
+  return out;
+}
+SomListMetaRef utility_navigation_item_entry_id_azlvl_leve_lst(som_id_utility_navigation_item_entry x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "access/gradedRequirement/AZLVL-LEVE-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_graded_access_level_entry);
   free(path);
   return out;
 }

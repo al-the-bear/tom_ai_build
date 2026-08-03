@@ -98,6 +98,7 @@ class AuthorizationComplianceFollowUp;
 class AuthorizationEventPolicy;
 class AuthorizationGroupEntry;
 class AuthorizationModel;
+class AuthorizationRequirementSpec;
 class AuthorizationRoleEntry;
 class Availability;
 class BackupAndRecoverySection;
@@ -503,6 +504,8 @@ class GoalRiskEntry;
 class GoalRisks;
 class Goals;
 class GovernanceModel;
+class GradedAccessLevelEntry;
+class GradedAuthorizationRequirement;
 class HandlingRequirementEntry;
 class HardwareRequirements;
 class HealthCheckEndpoints;
@@ -1397,6 +1400,12 @@ class AuthenticationMethodEntryOperationsForm;
 class AuthenticationMethodEntrySecurityForm;
 class AuthorizationEventPolicyContentForm;
 class AuthorizationGroupEntryContentForm;
+class AuthorizationRequirementSpecContentForm;
+class AuthorizationRequirementSpecCustomRequirementForm;
+class AuthorizationRequirementSpecEntitlementRequirementForm;
+class AuthorizationRequirementSpecGroupRequirementForm;
+class AuthorizationRequirementSpecResourceKeyRequirementForm;
+class AuthorizationRequirementSpecRoleRequirementForm;
 class AuthorizationRoleEntryContentForm;
 class AuthorizationRoleEntryGovernanceForm;
 class AuthorizationRoleEntryLifecycleForm;
@@ -2197,7 +2206,7 @@ class ExportFieldMappingEntryNumericOutputForm;
 class ExportFieldMappingEntryTemporalOutputForm;
 class ExportFieldMappingEntryTextOutputForm;
 class ExportFieldMappingEntryTransformationForm;
-class ExportFormatEntryAccessForm;
+class ExportFormatEntryAuditForm;
 class ExportFormatEntryContentForm;
 class ExportFormatEntryDataFormatForm;
 class ExportFormatEntryDelimiterForm;
@@ -2206,11 +2215,11 @@ class ExportFormatEntryIdentityForm;
 class ExportFormatEntryOutputForm;
 class ExportFormatEntrySecurityForm;
 class ExportSizeSettingsContentForm;
-class ExportTemplateEntryAccessForm;
 class ExportTemplateEntryContentForm;
 class ExportTemplateEntryFieldsForm;
 class ExportTemplateEntryFormatForm;
 class ExportTemplateEntryLayoutForm;
+class ExportTemplateEntryMetadataForm;
 class ExtensionEntryContentForm;
 class ExtensionStepEntryContentForm;
 class ExternalActorEntryContentForm;
@@ -2328,6 +2337,13 @@ class GoalRiskEntryAssessmentForm;
 class GoalRiskEntryContentForm;
 class GoalRiskEntryResponseForm;
 class GovernanceModelContentForm;
+class GradedAccessLevelEntryContentForm;
+class GradedAccessLevelEntryCustomRequirementForm;
+class GradedAccessLevelEntryEntitlementRequirementForm;
+class GradedAccessLevelEntryGroupRequirementForm;
+class GradedAccessLevelEntryResourceKeyRequirementForm;
+class GradedAccessLevelEntryRoleRequirementForm;
+class GradedAuthorizationRequirementContentForm;
 class HandlingRequirementEntryContentForm;
 class HealthCheckEndpointsConfigurationForm;
 class HealthCheckEndpointsContentForm;
@@ -2704,19 +2720,18 @@ class NativeAppRequirementsLinkingForm;
 class NativeAppRequirementsPerformanceForm;
 class NativeAppRequirementsStoresForm;
 class NativeAppRequirementsVersionsForm;
-class NavigationGroupEntryAccessForm;
 class NavigationGroupEntryContentForm;
 class NavigationGroupEntryDisplayForm;
 class NavigationGroupEntryStructureForm;
 class NavigationGuardEntryContentForm;
 class NavigationGuardEntryDialogForm;
 class NavigationGuardEntryRoutingForm;
-class NavigationItemEntryAccessForm;
 class NavigationItemEntryBadgeForm;
 class NavigationItemEntryContentForm;
 class NavigationItemEntryDisplayForm;
 class NavigationItemEntryInteractionForm;
 class NavigationItemEntryRoutingForm;
+class NavigationItemEntryVisibilityForm;
 class NavigationOverviewContentForm;
 class NetworkAvailabilityRequirementsContentForm;
 class NetworkAvailabilityRequirementsFailoverForm;
@@ -3312,7 +3327,6 @@ class ScreenElementFieldSpecNumberOptionsForm;
 class ScreenElementFieldSpecSelectOptionsForm;
 class ScreenElementFieldSpecTextOptionsForm;
 class ScreenElementFieldSpecValidationForm;
-class ScreenEntryAccessForm;
 class ScreenEntryClassificationForm;
 class ScreenEntryContentForm;
 class ScreenEntryPresentationForm;
@@ -5396,6 +5410,30 @@ class AuthorizationModel : public som::SomNode {
   // a structural, document-independent override of the `som::SomNode`
   // `canHaveContent` default (`false`).
   bool canHaveContent() const override { return true; }
+};
+
+// What a caller must satisfy to reach the thing this section modifies
+// (`codespecs_mapping.md` §5.15).
+//
+// Embed this section wherever a guarded thing is authored — do not restate its
+// fields inline. The kind selects at most one payload subsection; the four
+// presets select none, which is why four of the ten arms bind no case.
+class AuthorizationRequirementSpec : public som::SomNode {
+ public:
+  AuthorizationRequirementSpec(som::SpecDocument& doc, std::string path);
+  AuthorizationRequirementSpecContentForm content() const;
+  // Role requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecRoleRequirementForm roleRequirement() const;
+  // Group requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecGroupRequirementForm groupRequirement() const;
+  // Entitlement requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecEntitlementRequirementForm entitlementRequirement() const;
+  // Resource-key requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecResourceKeyRequirementForm resourceKeyRequirement() const;
+  // Custom requirement payload — a promoted `@OneOf` case.
+  AuthorizationRequirementSpecCustomRequirementForm customRequirement() const;
+  // Graded requirement payload — a promoted `@OneOf` case.
+  GradedAuthorizationRequirement gradedRequirement() const;
 };
 
 // An authorization role entry (form).
@@ -10169,6 +10207,12 @@ class DeepLinkPatternEntry : public som::SomNode {
  public:
   DeepLinkPatternEntry(som::SpecDocument& doc, std::string path);
   DeepLinkPatternEntryContentForm content() const;
+  // Access control — what a caller must satisfy to follow this deep link.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). Authoring the
+  // Authenticated kind is what makes an unauthenticated visitor redirect to
+  // sign-in; there is no separate authentication-required flag.
+  AuthorizationRequirementSpec access() const;
 };
 
 // 10.3.1.7. Deep Linking.
@@ -12183,7 +12227,11 @@ class ExportFormatEntry : public som::SomNode {
   // Output and scheduling.
   ExportFormatEntryOutputForm output() const;
   // Access and audit.
-  ExportFormatEntryAccessForm access() const;
+  ExportFormatEntryAuditForm audit() const;
+  // Access control — what a caller must satisfy to run this export.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec access() const;
   // Contains 0+× Export Field Mapping.
   // Returns the list view; element type: ExportFieldMappingEntry (construct from item paths).
   som::SomList fieldMappings() const;
@@ -12208,7 +12256,11 @@ class ExportTemplateEntry : public som::SomNode {
   // Layout configuration.
   ExportTemplateEntryLayoutForm layout() const;
   // Access and metadata.
-  ExportTemplateEntryAccessForm access() const;
+  ExportTemplateEntryMetadataForm metadata() const;
+  // Access control — what a caller must satisfy to use this template.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec access() const;
 };
 
 // An extension entry.
@@ -13200,6 +13252,55 @@ class GovernanceModel : public som::SomNode {
   // Decision authority matrix.
   // Returns the list view; element type: DecisionAuthorityEntry (construct from item paths).
   som::SomList decisionAuthorities() const;
+};
+
+// One rung of a graded access ladder: an access state and the non-graded
+// requirement that earns it (`codespecs_mapping.md` §5.15).
+//
+// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+// See [GradedAuthorizationRequirement] for why that bound exists and why the
+// case forms are restated rather than shared.
+class GradedAccessLevelEntry : public som::SomNode {
+ public:
+  GradedAccessLevelEntry(som::SpecDocument& doc, std::string path);
+  GradedAccessLevelEntryContentForm content() const;
+  // Role requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryRoleRequirementForm roleRequirement() const;
+  // Group requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryGroupRequirementForm groupRequirement() const;
+  // Entitlement requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryEntitlementRequirementForm entitlementRequirement() const;
+  // Resource-key requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryResourceKeyRequirementForm resourceKeyRequirement() const;
+  // Custom requirement payload — a promoted `@OneOf` case.
+  GradedAccessLevelEntryCustomRequirementForm customRequirement() const;
+};
+
+// A graded requirement: what a caller must satisfy for each access state
+// (`codespecs_mapping.md` §5.15).
+//
+// **Why a level takes a [GradedAccessLevelEntry] and not an
+// [AuthorizationRequirementSpec].** A graded level whose requirement could
+// itself be graded would make the model structurally cyclic, and
+// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+// outliner, the serializers and the nine generated language runtimes all walk
+// the class graph as a tree. Bounding the depth at one level is not a
+// workaround for that constraint: a graded thing resolves to one of four
+// *terminal* access states, so nesting a second grading inside a level has
+// nothing left to resolve to.
+//
+// The price is that [GradedAccessLevelEntry] restates five of
+// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+// reintroduces the cycle.
+class GradedAuthorizationRequirement : public som::SomNode {
+ public:
+  GradedAuthorizationRequirement(som::SpecDocument& doc, std::string path);
+  GradedAuthorizationRequirementContentForm content() const;
+  // The authored rungs of the ladder — contains 1..3× Graded Access Level.
+  // Returns the list view; element type: GradedAccessLevelEntry (construct from item paths).
+  som::SomList accessLevels() const;
 };
 
 // A data handling requirement entry (form).
@@ -15883,8 +15984,13 @@ class NavigationGroupEntry : public som::SomNode {
   NavigationGroupEntryContentForm content() const;
   // Display and expansion behavior.
   NavigationGroupEntryDisplayForm display() const;
-  // Access-control settings.
-  NavigationGroupEntryAccessForm access() const;
+  // Access control — what a caller must satisfy to see this navigation group.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). A group that should be
+  // visible-but-locked rather than hidden authors the Graded kind; the
+  // hide/disable rendering follows from the access state and is not authored
+  // here.
+  AuthorizationRequirementSpec access() const;
   // Badge and hierarchy settings.
   NavigationGroupEntryStructureForm structure() const;
   // Contains 0+× NavigationItem.
@@ -15952,8 +16058,17 @@ class NavigationItemEntry : public som::SomNode {
   NavigationItemEntryDisplayForm display() const;
   // Routing configuration.
   NavigationItemEntryRoutingForm routing() const;
-  // Access control settings.
-  NavigationItemEntryAccessForm access() const;
+  // Business conditions governing when the item is shown and interactive.
+  //
+  // These are *business* conditions, not authorization — who may reach the
+  // item is authored in [access]. A condition here narrows an item the caller
+  // is already authorized for.
+  NavigationItemEntryVisibilityForm visibility() const;
+  // Access control — what a caller must satisfy to reach this item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). An item that should be
+  // shown locked rather than hidden authors the Graded kind.
+  AuthorizationRequirementSpec access() const;
   // Badge configuration.
   NavigationItemEntryBadgeForm badge() const;
   // Interaction settings.
@@ -18876,6 +18991,10 @@ class ReportEntry : public som::SomNode {
   ReportEntryPaginationForm pagination() const;
   // Security and access.
   ReportEntrySecurityForm security() const;
+  // Access control — what a caller must satisfy to generate this report.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec access() const;
   // Lifecycle and archiving.
   ReportEntryLifecycleForm lifecycle() const;
   // Contains 0+× Report Section.
@@ -20422,8 +20541,18 @@ class ScreenElementEntry : public som::SomNode {
   ScreenElementEntryResourcesForm resources() const;
   // Placement and layout settings.
   ScreenElementEntryLayoutForm layout() const;
-  // Visibility and permission rules.
+  // Visibility and enablement rules.
+  //
+  // These are *business* conditions on an element the caller is already
+  // authorized for. Who may see or use it at all is [access].
   ScreenElementEntryBehaviorForm behavior() const;
+  // Access control — what a caller must satisfy to see or use this element.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). An element whose access
+  // has degrees — hidden, locked, read-only, interactive — authors the Graded
+  // kind, which is what the old free-text permission-effect field was trying
+  // to say.
+  AuthorizationRequirementSpec access() const;
   // Styling and data binding.
   ScreenElementEntryPresentationForm presentation() const;
   // 10.2.1.n.m.k.1. Element Action.
@@ -20494,8 +20623,13 @@ class ScreenEntry : public som::SomNode {
   ScreenEntryContentForm content() const;
   // Classification and routing metadata.
   ScreenEntryClassificationForm classification() const;
-  // Access control settings.
-  ScreenEntryAccessForm access() const;
+  // Access control — what a caller must satisfy to reach this screen.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+  // restatement. A screen that is graded rather than simply reachable authors
+  // the Graded kind; how each access state renders is fixed by the framework
+  // and is not authored here.
+  AuthorizationRequirementSpec access() const;
   // Traceability metadata.
   ScreenEntryTraceabilityForm traceability() const;
   // Presentation metadata.
@@ -21212,6 +21346,13 @@ class ServerOperationEntry : public som::SomNode {
  public:
   ServerOperationEntry(som::SpecDocument& doc, std::string path);
   ServerOperationEntryContentForm content() const;
+  // 7.9.x. Authorization — what a caller must satisfy to invoke this
+  // operation.
+  //
+  // The shared CE-AZ requirement section, not a per-operation restatement.
+  // There is no default: an operation with no requirement authored is a
+  // specification defect.
+  AuthorizationRequirementSpec authorization() const;
   // 7.9.x. Request Members — the members that make up the request shape.
   // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
   som::SomList requestMembers() const;
@@ -23361,6 +23502,11 @@ class TabItemEntry : public som::SomNode {
  public:
   TabItemEntry(som::SpecDocument& doc, std::string path);
   TabItemEntryContentForm content() const;
+  // Access control — what a caller must satisfy to reach this tab.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+  // disabled rather than hidden authors the Graded kind.
+  AuthorizationRequirementSpec access() const;
 };
 
 // SBP.7 Target Operating Model concept.
@@ -25373,6 +25519,10 @@ class UtilityMenuItemEntry : public som::SomNode {
   UtilityMenuItemEntryActionForm action() const;
   // Visibility and confirmation behavior.
   UtilityMenuItemEntryBehaviorForm behavior() const;
+  // Access control — what a caller must satisfy to use this menu item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec access() const;
 };
 
 // 10.3.1.5. Utility Navigation.
@@ -25400,8 +25550,12 @@ class UtilityNavigationItemEntry : public som::SomNode {
  public:
   UtilityNavigationItemEntry(som::SpecDocument& doc, std::string path);
   UtilityNavigationItemEntryContentForm content() const;
-  // Ordering, rendering, and access rules.
+  // Ordering and rendering.
   UtilityNavigationItemEntryDisplayForm display() const;
+  // Access control — what a caller must satisfy to reach this utility item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  AuthorizationRequirementSpec access() const;
   // Badge and interaction behavior.
   UtilityNavigationItemEntryBehaviorForm behavior() const;
   // Contains 0+× UtilityMenuItem.
@@ -28405,6 +28559,84 @@ class AuthorizationGroupEntryContentForm : public som::SomNode {
   void setDescription(const std::string& value);
   std::string membershipCriteria() const;
   void setMembershipCriteria(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecContentForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string requirementKind() const;
+  void setRequirementKind(const std::string& value);
+  std::string rationale() const;
+  void setRationale(const std::string& value);
+};
+
+// Generated section facade for the `customRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecCustomRequirementForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecCustomRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string handler() const;
+  void setHandler(const std::string& value);
+  std::string resourceId() const;
+  void setResourceId(const std::string& value);
+  std::string decisionRule() const;
+  void setDecisionRule(const std::string& value);
+};
+
+// Generated section facade for the `entitlementRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecEntitlementRequirementForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecEntitlementRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string patterns() const;
+  void setPatterns(const std::string& value);
+};
+
+// Generated section facade for the `groupRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecGroupRequirementForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecGroupRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string groups() const;
+  void setGroups(const std::string& value);
+};
+
+// Generated section facade for the `resourceKeyRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecResourceKeyRequirementForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecResourceKeyRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string resourceKey() const;
+  void setResourceKey(const std::string& value);
+};
+
+// Generated section facade for the `roleRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class AuthorizationRequirementSpecRoleRequirementForm : public som::SomNode {
+ public:
+  AuthorizationRequirementSpecRoleRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string roles() const;
+  void setRoles(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -38025,10 +38257,6 @@ class DeepLinkPatternEntryContentForm : public som::SomNode {
   void setTargetScreenId(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
-  std::string authenticationRequired() const;
-  void setAuthenticationRequired(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
   std::string fallbackRoute() const;
   void setFallbackRoute(const std::string& value);
   std::string shareEnabled() const;
@@ -42713,18 +42941,14 @@ class ExportFieldMappingEntryTransformationForm : public som::SomNode {
   void setValueMapping(const std::string& value);
 };
 
-// Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-class ExportFormatEntryAccessForm : public som::SomNode {
+// Generated section facade for the `audit` @Form section: its own `content` text followed by one typed member per form field.
+class ExportFormatEntryAuditForm : public som::SomNode {
  public:
-  ExportFormatEntryAccessForm(som::SpecDocument& doc, std::string path);
+  ExportFormatEntryAuditForm(som::SpecDocument& doc, std::string path);
   bool canHaveContent() const override { return true; }
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string accessLevel() const;
-  void setAccessLevel(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
   std::string auditLogging() const;
   void setAuditLogging(const std::string& value);
   std::string previewAvailable() const;
@@ -42875,26 +43099,6 @@ class ExportSizeSettingsContentForm : public som::SomNode {
   void setSplitThreshold(const std::string& value);
 };
 
-// Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-class ExportTemplateEntryAccessForm : public som::SomNode {
- public:
-  ExportTemplateEntryAccessForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string accessLevel() const;
-  void setAccessLevel(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
-  std::string reusableAcrossReports() const;
-  void setReusableAcrossReports(const std::string& value);
-  std::string version() const;
-  void setVersion(const std::string& value);
-  std::string notes() const;
-  void setNotes(const std::string& value);
-};
-
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class ExportTemplateEntryContentForm : public som::SomNode {
  public:
@@ -42967,6 +43171,22 @@ class ExportTemplateEntryLayoutForm : public som::SomNode {
   void setBrandingOverride(const std::string& value);
   std::string compressionFormat() const;
   void setCompressionFormat(const std::string& value);
+};
+
+// Generated section facade for the `metadata` @Form section: its own `content` text followed by one typed member per form field.
+class ExportTemplateEntryMetadataForm : public som::SomNode {
+ public:
+  ExportTemplateEntryMetadataForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string reusableAcrossReports() const;
+  void setReusableAcrossReports(const std::string& value);
+  std::string version() const;
+  void setVersion(const std::string& value);
+  std::string notes() const;
+  void setNotes(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -45111,6 +45331,96 @@ class GovernanceModelContentForm : public som::SomNode {
   void setMeetingCadence(const std::string& value);
   std::string reportingFrequency() const;
   void setReportingFrequency(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryContentForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string accessLevel() const;
+  void setAccessLevel(const std::string& value);
+  std::string requirementKind() const;
+  void setRequirementKind(const std::string& value);
+};
+
+// Generated section facade for the `customRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryCustomRequirementForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryCustomRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string handler() const;
+  void setHandler(const std::string& value);
+  std::string resourceId() const;
+  void setResourceId(const std::string& value);
+  std::string decisionRule() const;
+  void setDecisionRule(const std::string& value);
+};
+
+// Generated section facade for the `entitlementRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryEntitlementRequirementForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryEntitlementRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string patterns() const;
+  void setPatterns(const std::string& value);
+};
+
+// Generated section facade for the `groupRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryGroupRequirementForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryGroupRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string groups() const;
+  void setGroups(const std::string& value);
+};
+
+// Generated section facade for the `resourceKeyRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryResourceKeyRequirementForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryResourceKeyRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string resourceKey() const;
+  void setResourceKey(const std::string& value);
+};
+
+// Generated section facade for the `roleRequirement` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAccessLevelEntryRoleRequirementForm : public som::SomNode {
+ public:
+  GradedAccessLevelEntryRoleRequirementForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string roles() const;
+  void setRoles(const std::string& value);
+};
+
+// Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+class GradedAuthorizationRequirementContentForm : public som::SomNode {
+ public:
+  GradedAuthorizationRequirementContentForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string gradingRationale() const;
+  void setGradingRationale(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -52029,22 +52339,6 @@ class NativeAppRequirementsVersionsForm : public som::SomNode {
   void setCompileSdkVersion(const std::string& value);
 };
 
-// Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-class NavigationGroupEntryAccessForm : public som::SomNode {
- public:
-  NavigationGroupEntryAccessForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
-  std::string permissionBehavior() const;
-  void setPermissionBehavior(const std::string& value);
-};
-
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 class NavigationGroupEntryContentForm : public som::SomNode {
  public:
@@ -52153,26 +52447,6 @@ class NavigationGuardEntryRoutingForm : public som::SomNode {
   void setPriority(std::optional<long> value);
 };
 
-// Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-class NavigationItemEntryAccessForm : public som::SomNode {
- public:
-  NavigationItemEntryAccessForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string visibilityCondition() const;
-  void setVisibilityCondition(const std::string& value);
-  std::string enabledCondition() const;
-  void setEnabledCondition(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
-  std::string permissionBehavior() const;
-  void setPermissionBehavior(const std::string& value);
-};
-
 // Generated section facade for the `badge` @Form section: its own `content` text followed by one typed member per form field.
 class NavigationItemEntryBadgeForm : public som::SomNode {
  public:
@@ -52257,6 +52531,20 @@ class NavigationItemEntryRoutingForm : public som::SomNode {
   void setDisplayOrder(std::optional<long> value);
   std::string isDefault() const;
   void setIsDefault(const std::string& value);
+};
+
+// Generated section facade for the `visibility` @Form section: its own `content` text followed by one typed member per form field.
+class NavigationItemEntryVisibilityForm : public som::SomNode {
+ public:
+  NavigationItemEntryVisibilityForm(som::SpecDocument& doc, std::string path);
+  bool canHaveContent() const override { return true; }
+  // The section's own free-text content, before the form fields.
+  std::string content() const;
+  void setContent(const std::string& value);
+  std::string visibilityCondition() const;
+  void setVisibilityCondition(const std::string& value);
+  std::string enabledCondition() const;
+  void setEnabledCondition(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -59537,10 +59825,6 @@ class ReportEntrySecurityForm : public som::SomNode {
   void setLocalization(const std::string& value);
   std::string brandingOverride() const;
   void setBrandingOverride(const std::string& value);
-  std::string accessLevel() const;
-  void setAccessLevel(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
   std::string dataLevelSecurity() const;
   void setDataLevelSecurity(const std::string& value);
 };
@@ -63153,10 +63437,6 @@ class ScreenElementEntryBehaviorForm : public som::SomNode {
   void setEnabledCondition(const std::string& value);
   std::string readonlyCondition() const;
   void setReadonlyCondition(const std::string& value);
-  std::string requiredPermission() const;
-  void setRequiredPermission(const std::string& value);
-  std::string permissionEffect() const;
-  void setPermissionEffect(const std::string& value);
 };
 
 // Generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
@@ -63365,24 +63645,6 @@ class ScreenElementFieldSpecValidationForm : public som::SomNode {
   void setRequiredCondition(const std::string& value);
   std::string clearButton() const;
   void setClearButton(const std::string& value);
-};
-
-// Generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-class ScreenEntryAccessForm : public som::SomNode {
- public:
-  ScreenEntryAccessForm(som::SpecDocument& doc, std::string path);
-  bool canHaveContent() const override { return true; }
-  // The section's own free-text content, before the form fields.
-  std::string content() const;
-  void setContent(const std::string& value);
-  std::string accessLevel() const;
-  void setAccessLevel(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
-  std::string permissionEffect() const;
-  void setPermissionEffect(const std::string& value);
 };
 
 // Generated section facade for the `classification` @Form section: its own `content` text followed by one typed member per form field.
@@ -64843,12 +65105,6 @@ class ServerOperationEntryContentForm : public som::SomNode {
   void setPurpose(const std::string& value);
   std::string primaryDataEntity() const;
   void setPrimaryDataEntity(const std::string& value);
-  std::string authorizationRequirement() const;
-  void setAuthorizationRequirement(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
-  std::string requiredResourceKey() const;
-  void setRequiredResourceKey(const std::string& value);
   std::string descriptionKey() const;
   void setDescriptionKey(const std::string& value);
   std::string errorCodes() const;
@@ -69793,10 +70049,6 @@ class TabItemEntryContentForm : public som::SomNode {
   void setContentScreenId(const std::string& value);
   std::string visibilityCondition() const;
   void setVisibilityCondition(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
-  std::string permissionBehavior() const;
-  void setPermissionBehavior(const std::string& value);
   std::string badgeType() const;
   void setBadgeType(const std::string& value);
   std::string badgeSource() const;
@@ -74579,8 +74831,6 @@ class UtilityMenuItemEntryBehaviorForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string visibilityCondition() const;
   void setVisibilityCondition(const std::string& value);
-  std::string requiredPermissions() const;
-  void setRequiredPermissions(const std::string& value);
   std::string isDangerous() const;
   void setIsDangerous(const std::string& value);
   std::string confirmationRequired() const;
@@ -74655,8 +74905,6 @@ class UtilityNavigationItemEntryDisplayForm : public som::SomNode {
   void setDisplayKind(const std::string& value);
   std::string visibilityCondition() const;
   void setVisibilityCondition(const std::string& value);
-  std::string requiredRoles() const;
-  void setRequiredRoles(const std::string& value);
 };
 
 // Generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.

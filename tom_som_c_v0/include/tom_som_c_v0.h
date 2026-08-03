@@ -124,6 +124,7 @@ typedef struct { SomNode node; } AuthorizationComplianceFollowUp;
 typedef struct { SomNode node; } AuthorizationEventPolicy;
 typedef struct { SomNode node; } AuthorizationGroupEntry;
 typedef struct { SomNode node; } AuthorizationModel;
+typedef struct { SomNode node; } AuthorizationRequirementSpec;
 typedef struct { SomNode node; } AuthorizationRoleEntry;
 typedef struct { SomNode node; } Availability;
 typedef struct { SomNode node; } BackupAndRecoverySection;
@@ -529,6 +530,8 @@ typedef struct { SomNode node; } GoalRiskEntry;
 typedef struct { SomNode node; } GoalRisks;
 typedef struct { SomNode node; } Goals;
 typedef struct { SomNode node; } GovernanceModel;
+typedef struct { SomNode node; } GradedAccessLevelEntry;
+typedef struct { SomNode node; } GradedAuthorizationRequirement;
 typedef struct { SomNode node; } HandlingRequirementEntry;
 typedef struct { SomNode node; } HardwareRequirements;
 typedef struct { SomNode node; } HealthCheckEndpoints;
@@ -1423,6 +1426,12 @@ typedef struct { SomNode node; } AuthenticationMethodEntryOperationsForm;
 typedef struct { SomNode node; } AuthenticationMethodEntrySecurityForm;
 typedef struct { SomNode node; } AuthorizationEventPolicyContentForm;
 typedef struct { SomNode node; } AuthorizationGroupEntryContentForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecContentForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecCustomRequirementForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecEntitlementRequirementForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecGroupRequirementForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecResourceKeyRequirementForm;
+typedef struct { SomNode node; } AuthorizationRequirementSpecRoleRequirementForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryContentForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryGovernanceForm;
 typedef struct { SomNode node; } AuthorizationRoleEntryLifecycleForm;
@@ -2223,7 +2232,7 @@ typedef struct { SomNode node; } ExportFieldMappingEntryNumericOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryTemporalOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryTextOutputForm;
 typedef struct { SomNode node; } ExportFieldMappingEntryTransformationForm;
-typedef struct { SomNode node; } ExportFormatEntryAccessForm;
+typedef struct { SomNode node; } ExportFormatEntryAuditForm;
 typedef struct { SomNode node; } ExportFormatEntryContentForm;
 typedef struct { SomNode node; } ExportFormatEntryDataFormatForm;
 typedef struct { SomNode node; } ExportFormatEntryDelimiterForm;
@@ -2232,11 +2241,11 @@ typedef struct { SomNode node; } ExportFormatEntryIdentityForm;
 typedef struct { SomNode node; } ExportFormatEntryOutputForm;
 typedef struct { SomNode node; } ExportFormatEntrySecurityForm;
 typedef struct { SomNode node; } ExportSizeSettingsContentForm;
-typedef struct { SomNode node; } ExportTemplateEntryAccessForm;
 typedef struct { SomNode node; } ExportTemplateEntryContentForm;
 typedef struct { SomNode node; } ExportTemplateEntryFieldsForm;
 typedef struct { SomNode node; } ExportTemplateEntryFormatForm;
 typedef struct { SomNode node; } ExportTemplateEntryLayoutForm;
+typedef struct { SomNode node; } ExportTemplateEntryMetadataForm;
 typedef struct { SomNode node; } ExtensionEntryContentForm;
 typedef struct { SomNode node; } ExtensionStepEntryContentForm;
 typedef struct { SomNode node; } ExternalActorEntryContentForm;
@@ -2354,6 +2363,13 @@ typedef struct { SomNode node; } GoalRiskEntryAssessmentForm;
 typedef struct { SomNode node; } GoalRiskEntryContentForm;
 typedef struct { SomNode node; } GoalRiskEntryResponseForm;
 typedef struct { SomNode node; } GovernanceModelContentForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryContentForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryCustomRequirementForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryEntitlementRequirementForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryGroupRequirementForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryResourceKeyRequirementForm;
+typedef struct { SomNode node; } GradedAccessLevelEntryRoleRequirementForm;
+typedef struct { SomNode node; } GradedAuthorizationRequirementContentForm;
 typedef struct { SomNode node; } HandlingRequirementEntryContentForm;
 typedef struct { SomNode node; } HealthCheckEndpointsConfigurationForm;
 typedef struct { SomNode node; } HealthCheckEndpointsContentForm;
@@ -2730,19 +2746,18 @@ typedef struct { SomNode node; } NativeAppRequirementsLinkingForm;
 typedef struct { SomNode node; } NativeAppRequirementsPerformanceForm;
 typedef struct { SomNode node; } NativeAppRequirementsStoresForm;
 typedef struct { SomNode node; } NativeAppRequirementsVersionsForm;
-typedef struct { SomNode node; } NavigationGroupEntryAccessForm;
 typedef struct { SomNode node; } NavigationGroupEntryContentForm;
 typedef struct { SomNode node; } NavigationGroupEntryDisplayForm;
 typedef struct { SomNode node; } NavigationGroupEntryStructureForm;
 typedef struct { SomNode node; } NavigationGuardEntryContentForm;
 typedef struct { SomNode node; } NavigationGuardEntryDialogForm;
 typedef struct { SomNode node; } NavigationGuardEntryRoutingForm;
-typedef struct { SomNode node; } NavigationItemEntryAccessForm;
 typedef struct { SomNode node; } NavigationItemEntryBadgeForm;
 typedef struct { SomNode node; } NavigationItemEntryContentForm;
 typedef struct { SomNode node; } NavigationItemEntryDisplayForm;
 typedef struct { SomNode node; } NavigationItemEntryInteractionForm;
 typedef struct { SomNode node; } NavigationItemEntryRoutingForm;
+typedef struct { SomNode node; } NavigationItemEntryVisibilityForm;
 typedef struct { SomNode node; } NavigationOverviewContentForm;
 typedef struct { SomNode node; } NetworkAvailabilityRequirementsContentForm;
 typedef struct { SomNode node; } NetworkAvailabilityRequirementsFailoverForm;
@@ -3338,7 +3353,6 @@ typedef struct { SomNode node; } ScreenElementFieldSpecNumberOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecSelectOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecTextOptionsForm;
 typedef struct { SomNode node; } ScreenElementFieldSpecValidationForm;
-typedef struct { SomNode node; } ScreenEntryAccessForm;
 typedef struct { SomNode node; } ScreenEntryClassificationForm;
 typedef struct { SomNode node; } ScreenEntryContentForm;
 typedef struct { SomNode node; } ScreenEntryPresentationForm;
@@ -5369,6 +5383,31 @@ AccessConstraintPolicies authorization_model_access_constraints(const Authorizat
 PermissionEvaluationBehavior authorization_model_permission_evaluation(const AuthorizationModel *self);
 // Authorization Model Notes (text).
 // (skipped: authorizationModelNotes has no target type)
+
+// What a caller must satisfy to reach the thing this section modifies
+// (`codespecs_mapping.md` §5.15).
+//
+// Embed this section wherever a guarded thing is authored — do not restate its
+// fields inline. The kind selects at most one payload subsection; the four
+// presets select none, which is why four of the ten arms bind no case.
+// Binds a AuthorizationRequirementSpec facade to a document and a path (path copied).
+void authorization_requirement_spec_init(AuthorizationRequirementSpec *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_free(AuthorizationRequirementSpec *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int authorization_requirement_spec_can_have_content(const AuthorizationRequirementSpec *self);
+AuthorizationRequirementSpecContentForm authorization_requirement_spec_content(const AuthorizationRequirementSpec *self);
+// Role requirement payload — a promoted `@OneOf` case.
+AuthorizationRequirementSpecRoleRequirementForm authorization_requirement_spec_role_requirement(const AuthorizationRequirementSpec *self);
+// Group requirement payload — a promoted `@OneOf` case.
+AuthorizationRequirementSpecGroupRequirementForm authorization_requirement_spec_group_requirement(const AuthorizationRequirementSpec *self);
+// Entitlement requirement payload — a promoted `@OneOf` case.
+AuthorizationRequirementSpecEntitlementRequirementForm authorization_requirement_spec_entitlement_requirement(const AuthorizationRequirementSpec *self);
+// Resource-key requirement payload — a promoted `@OneOf` case.
+AuthorizationRequirementSpecResourceKeyRequirementForm authorization_requirement_spec_resource_key_requirement(const AuthorizationRequirementSpec *self);
+// Custom requirement payload — a promoted `@OneOf` case.
+AuthorizationRequirementSpecCustomRequirementForm authorization_requirement_spec_custom_requirement(const AuthorizationRequirementSpec *self);
+// Graded requirement payload — a promoted `@OneOf` case.
+GradedAuthorizationRequirement authorization_requirement_spec_graded_requirement(const AuthorizationRequirementSpec *self);
 
 // An authorization role entry (form).
 //
@@ -10070,6 +10109,12 @@ void deep_link_pattern_entry_free(DeepLinkPatternEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int deep_link_pattern_entry_can_have_content(const DeepLinkPatternEntry *self);
 DeepLinkPatternEntryContentForm deep_link_pattern_entry_content(const DeepLinkPatternEntry *self);
+// Access control — what a caller must satisfy to follow this deep link.
+//
+// The shared CE-AZ requirement section (`AZREQ`). Authoring the
+// Authenticated kind is what makes an unauthenticated visitor redirect to
+// sign-in; there is no separate authentication-required flag.
+AuthorizationRequirementSpec deep_link_pattern_entry_access(const DeepLinkPatternEntry *self);
 
 // 10.3.1.7. Deep Linking.
 //
@@ -12046,7 +12091,11 @@ ExportFormatEntrySecurityForm export_format_entry_security(const ExportFormatEnt
 // Output and scheduling.
 ExportFormatEntryOutputForm export_format_entry_output(const ExportFormatEntry *self);
 // Access and audit.
-ExportFormatEntryAccessForm export_format_entry_access(const ExportFormatEntry *self);
+ExportFormatEntryAuditForm export_format_entry_audit(const ExportFormatEntry *self);
+// Access control — what a caller must satisfy to run this export.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+AuthorizationRequirementSpec export_format_entry_access(const ExportFormatEntry *self);
 // Contains 0+× Export Field Mapping.
 // Returns the list view; element type: ExportFieldMappingEntry (construct from item paths).
 SomList export_format_entry_field_mappings(const ExportFormatEntry *self);
@@ -12073,7 +12122,11 @@ ExportTemplateEntryFieldsForm export_template_entry_fields(const ExportTemplateE
 // Layout configuration.
 ExportTemplateEntryLayoutForm export_template_entry_layout(const ExportTemplateEntry *self);
 // Access and metadata.
-ExportTemplateEntryAccessForm export_template_entry_access(const ExportTemplateEntry *self);
+ExportTemplateEntryMetadataForm export_template_entry_metadata(const ExportTemplateEntry *self);
+// Access control — what a caller must satisfy to use this template.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+AuthorizationRequirementSpec export_template_entry_access(const ExportTemplateEntry *self);
 
 // An extension entry.
 // Binds a ExtensionEntry facade to a document and a path (path copied).
@@ -13054,6 +13107,57 @@ GovernanceModelContentForm governance_model_content(const GovernanceModel *self)
 // Decision authority matrix.
 // Returns the list view; element type: DecisionAuthorityEntry (construct from item paths).
 SomList governance_model_decision_authorities(const GovernanceModel *self);
+
+// One rung of a graded access ladder: an access state and the non-graded
+// requirement that earns it (`codespecs_mapping.md` §5.15).
+//
+// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+// See [GradedAuthorizationRequirement] for why that bound exists and why the
+// case forms are restated rather than shared.
+// Binds a GradedAccessLevelEntry facade to a document and a path (path copied).
+void graded_access_level_entry_init(GradedAccessLevelEntry *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_free(GradedAccessLevelEntry *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int graded_access_level_entry_can_have_content(const GradedAccessLevelEntry *self);
+GradedAccessLevelEntryContentForm graded_access_level_entry_content(const GradedAccessLevelEntry *self);
+// Role requirement payload — a promoted `@OneOf` case.
+GradedAccessLevelEntryRoleRequirementForm graded_access_level_entry_role_requirement(const GradedAccessLevelEntry *self);
+// Group requirement payload — a promoted `@OneOf` case.
+GradedAccessLevelEntryGroupRequirementForm graded_access_level_entry_group_requirement(const GradedAccessLevelEntry *self);
+// Entitlement requirement payload — a promoted `@OneOf` case.
+GradedAccessLevelEntryEntitlementRequirementForm graded_access_level_entry_entitlement_requirement(const GradedAccessLevelEntry *self);
+// Resource-key requirement payload — a promoted `@OneOf` case.
+GradedAccessLevelEntryResourceKeyRequirementForm graded_access_level_entry_resource_key_requirement(const GradedAccessLevelEntry *self);
+// Custom requirement payload — a promoted `@OneOf` case.
+GradedAccessLevelEntryCustomRequirementForm graded_access_level_entry_custom_requirement(const GradedAccessLevelEntry *self);
+
+// A graded requirement: what a caller must satisfy for each access state
+// (`codespecs_mapping.md` §5.15).
+//
+// **Why a level takes a [GradedAccessLevelEntry] and not an
+// [AuthorizationRequirementSpec].** A graded level whose requirement could
+// itself be graded would make the model structurally cyclic, and
+// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+// outliner, the serializers and the nine generated language runtimes all walk
+// the class graph as a tree. Bounding the depth at one level is not a
+// workaround for that constraint: a graded thing resolves to one of four
+// *terminal* access states, so nesting a second grading inside a level has
+// nothing left to resolve to.
+//
+// The price is that [GradedAccessLevelEntry] restates five of
+// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+// reintroduces the cycle.
+// Binds a GradedAuthorizationRequirement facade to a document and a path (path copied).
+void graded_authorization_requirement_init(GradedAuthorizationRequirement *self, SpecDocument *doc, const char *path);
+void graded_authorization_requirement_free(GradedAuthorizationRequirement *self);
+// Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
+int graded_authorization_requirement_can_have_content(const GradedAuthorizationRequirement *self);
+GradedAuthorizationRequirementContentForm graded_authorization_requirement_content(const GradedAuthorizationRequirement *self);
+// The authored rungs of the ladder — contains 1..3× Graded Access Level.
+// Returns the list view; element type: GradedAccessLevelEntry (construct from item paths).
+SomList graded_authorization_requirement_access_levels(const GradedAuthorizationRequirement *self);
 
 // A data handling requirement entry (form).
 //
@@ -15745,8 +15849,13 @@ int navigation_group_entry_can_have_content(const NavigationGroupEntry *self);
 NavigationGroupEntryContentForm navigation_group_entry_content(const NavigationGroupEntry *self);
 // Display and expansion behavior.
 NavigationGroupEntryDisplayForm navigation_group_entry_display(const NavigationGroupEntry *self);
-// Access-control settings.
-NavigationGroupEntryAccessForm navigation_group_entry_access(const NavigationGroupEntry *self);
+// Access control — what a caller must satisfy to see this navigation group.
+//
+// The shared CE-AZ requirement section (`AZREQ`). A group that should be
+// visible-but-locked rather than hidden authors the Graded kind; the
+// hide/disable rendering follows from the access state and is not authored
+// here.
+AuthorizationRequirementSpec navigation_group_entry_access(const NavigationGroupEntry *self);
 // Badge and hierarchy settings.
 NavigationGroupEntryStructureForm navigation_group_entry_structure(const NavigationGroupEntry *self);
 // Contains 0+× NavigationItem.
@@ -15810,8 +15919,17 @@ NavigationItemEntryContentForm navigation_item_entry_content(const NavigationIte
 NavigationItemEntryDisplayForm navigation_item_entry_display(const NavigationItemEntry *self);
 // Routing configuration.
 NavigationItemEntryRoutingForm navigation_item_entry_routing(const NavigationItemEntry *self);
-// Access control settings.
-NavigationItemEntryAccessForm navigation_item_entry_access(const NavigationItemEntry *self);
+// Business conditions governing when the item is shown and interactive.
+//
+// These are *business* conditions, not authorization — who may reach the
+// item is authored in [access]. A condition here narrows an item the caller
+// is already authorized for.
+NavigationItemEntryVisibilityForm navigation_item_entry_visibility(const NavigationItemEntry *self);
+// Access control — what a caller must satisfy to reach this item.
+//
+// The shared CE-AZ requirement section (`AZREQ`). An item that should be
+// shown locked rather than hidden authors the Graded kind.
+AuthorizationRequirementSpec navigation_item_entry_access(const NavigationItemEntry *self);
 // Badge configuration.
 NavigationItemEntryBadgeForm navigation_item_entry_badge(const NavigationItemEntry *self);
 // Interaction settings.
@@ -18730,6 +18848,10 @@ ReportEntryInteractivityForm report_entry_interactivity(const ReportEntry *self)
 ReportEntryPaginationForm report_entry_pagination(const ReportEntry *self);
 // Security and access.
 ReportEntrySecurityForm report_entry_security(const ReportEntry *self);
+// Access control — what a caller must satisfy to generate this report.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+AuthorizationRequirementSpec report_entry_access(const ReportEntry *self);
 // Lifecycle and archiving.
 ReportEntryLifecycleForm report_entry_lifecycle(const ReportEntry *self);
 // Contains 0+× Report Section.
@@ -20266,8 +20388,18 @@ ScreenElementEntryContentForm screen_element_entry_content(const ScreenElementEn
 ScreenElementEntryResourcesForm screen_element_entry_resources(const ScreenElementEntry *self);
 // Placement and layout settings.
 ScreenElementEntryLayoutForm screen_element_entry_layout(const ScreenElementEntry *self);
-// Visibility and permission rules.
+// Visibility and enablement rules.
+//
+// These are *business* conditions on an element the caller is already
+// authorized for. Who may see or use it at all is [access].
 ScreenElementEntryBehaviorForm screen_element_entry_behavior(const ScreenElementEntry *self);
+// Access control — what a caller must satisfy to see or use this element.
+//
+// The shared CE-AZ requirement section (`AZREQ`). An element whose access
+// has degrees — hidden, locked, read-only, interactive — authors the Graded
+// kind, which is what the old free-text permission-effect field was trying
+// to say.
+AuthorizationRequirementSpec screen_element_entry_access(const ScreenElementEntry *self);
 // Styling and data binding.
 ScreenElementEntryPresentationForm screen_element_entry_presentation(const ScreenElementEntry *self);
 // 10.2.1.n.m.k.1. Element Action.
@@ -20340,8 +20472,13 @@ int screen_entry_can_have_content(const ScreenEntry *self);
 ScreenEntryContentForm screen_entry_content(const ScreenEntry *self);
 // Classification and routing metadata.
 ScreenEntryClassificationForm screen_entry_classification(const ScreenEntry *self);
-// Access control settings.
-ScreenEntryAccessForm screen_entry_access(const ScreenEntry *self);
+// Access control — what a caller must satisfy to reach this screen.
+//
+// The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+// restatement. A screen that is graded rather than simply reachable authors
+// the Graded kind; how each access state renders is fixed by the framework
+// and is not authored here.
+AuthorizationRequirementSpec screen_entry_access(const ScreenEntry *self);
 // Traceability metadata.
 ScreenEntryTraceabilityForm screen_entry_traceability(const ScreenEntry *self);
 // Presentation metadata.
@@ -21037,6 +21174,13 @@ void server_operation_entry_free(ServerOperationEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int server_operation_entry_can_have_content(const ServerOperationEntry *self);
 ServerOperationEntryContentForm server_operation_entry_content(const ServerOperationEntry *self);
+// 7.9.x. Authorization — what a caller must satisfy to invoke this
+// operation.
+//
+// The shared CE-AZ requirement section, not a per-operation restatement.
+// There is no default: an operation with no requirement authored is a
+// specification defect.
+AuthorizationRequirementSpec server_operation_entry_authorization(const ServerOperationEntry *self);
 // 7.9.x. Request Members — the members that make up the request shape.
 // Returns the list view; element type: ServerOperationMemberEntry (construct from item paths).
 SomList server_operation_entry_request_members(const ServerOperationEntry *self);
@@ -23149,6 +23293,11 @@ void tab_item_entry_free(TabItemEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int tab_item_entry_can_have_content(const TabItemEntry *self);
 TabItemEntryContentForm tab_item_entry_content(const TabItemEntry *self);
+// Access control — what a caller must satisfy to reach this tab.
+//
+// The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+// disabled rather than hidden authors the Graded kind.
+AuthorizationRequirementSpec tab_item_entry_access(const TabItemEntry *self);
 
 // SBP.7 Target Operating Model concept.
 //
@@ -25116,6 +25265,10 @@ UtilityMenuItemEntryContentForm utility_menu_item_entry_content(const UtilityMen
 UtilityMenuItemEntryActionForm utility_menu_item_entry_action(const UtilityMenuItemEntry *self);
 // Visibility and confirmation behavior.
 UtilityMenuItemEntryBehaviorForm utility_menu_item_entry_behavior(const UtilityMenuItemEntry *self);
+// Access control — what a caller must satisfy to use this menu item.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+AuthorizationRequirementSpec utility_menu_item_entry_access(const UtilityMenuItemEntry *self);
 
 // 10.3.1.5. Utility Navigation.
 //
@@ -25141,8 +25294,12 @@ void utility_navigation_item_entry_free(UtilityNavigationItemEntry *self);
 // Returns 1 iff this section type declares the standard `content` text leaf (SOM §21).
 int utility_navigation_item_entry_can_have_content(const UtilityNavigationItemEntry *self);
 UtilityNavigationItemEntryContentForm utility_navigation_item_entry_content(const UtilityNavigationItemEntry *self);
-// Ordering, rendering, and access rules.
+// Ordering and rendering.
 UtilityNavigationItemEntryDisplayForm utility_navigation_item_entry_display(const UtilityNavigationItemEntry *self);
+// Access control — what a caller must satisfy to reach this utility item.
+//
+// The shared CE-AZ requirement section (`AZREQ`).
+AuthorizationRequirementSpec utility_navigation_item_entry_access(const UtilityNavigationItemEntry *self);
 // Badge and interaction behavior.
 UtilityNavigationItemEntryBehaviorForm utility_navigation_item_entry_behavior(const UtilityNavigationItemEntry *self);
 // Contains 0+× UtilityMenuItem.
@@ -27741,6 +27898,66 @@ char *authorization_group_entry_content_form_description(const AuthorizationGrou
 void authorization_group_entry_content_form_set_description(AuthorizationGroupEntryContentForm *self, const char *value);
 char *authorization_group_entry_content_form_membership_criteria(const AuthorizationGroupEntryContentForm *self);
 void authorization_group_entry_content_form_set_membership_criteria(AuthorizationGroupEntryContentForm *self, const char *value);
+
+// AuthorizationRequirementSpecContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_content_form_init(AuthorizationRequirementSpecContentForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_content_form_free(AuthorizationRequirementSpecContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_content_form_content(const AuthorizationRequirementSpecContentForm *self);
+void authorization_requirement_spec_content_form_set_content(AuthorizationRequirementSpecContentForm *self, const char *value);
+char *authorization_requirement_spec_content_form_requirement_kind(const AuthorizationRequirementSpecContentForm *self);
+void authorization_requirement_spec_content_form_set_requirement_kind(AuthorizationRequirementSpecContentForm *self, const char *value);
+char *authorization_requirement_spec_content_form_rationale(const AuthorizationRequirementSpecContentForm *self);
+void authorization_requirement_spec_content_form_set_rationale(AuthorizationRequirementSpecContentForm *self, const char *value);
+
+// AuthorizationRequirementSpecCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_custom_requirement_form_init(AuthorizationRequirementSpecCustomRequirementForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_custom_requirement_form_free(AuthorizationRequirementSpecCustomRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_custom_requirement_form_content(const AuthorizationRequirementSpecCustomRequirementForm *self);
+void authorization_requirement_spec_custom_requirement_form_set_content(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
+char *authorization_requirement_spec_custom_requirement_form_handler(const AuthorizationRequirementSpecCustomRequirementForm *self);
+void authorization_requirement_spec_custom_requirement_form_set_handler(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
+char *authorization_requirement_spec_custom_requirement_form_resource_id(const AuthorizationRequirementSpecCustomRequirementForm *self);
+void authorization_requirement_spec_custom_requirement_form_set_resource_id(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
+char *authorization_requirement_spec_custom_requirement_form_decision_rule(const AuthorizationRequirementSpecCustomRequirementForm *self);
+void authorization_requirement_spec_custom_requirement_form_set_decision_rule(AuthorizationRequirementSpecCustomRequirementForm *self, const char *value);
+
+// AuthorizationRequirementSpecEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_entitlement_requirement_form_init(AuthorizationRequirementSpecEntitlementRequirementForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_entitlement_requirement_form_free(AuthorizationRequirementSpecEntitlementRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_entitlement_requirement_form_content(const AuthorizationRequirementSpecEntitlementRequirementForm *self);
+void authorization_requirement_spec_entitlement_requirement_form_set_content(AuthorizationRequirementSpecEntitlementRequirementForm *self, const char *value);
+char *authorization_requirement_spec_entitlement_requirement_form_patterns(const AuthorizationRequirementSpecEntitlementRequirementForm *self);
+void authorization_requirement_spec_entitlement_requirement_form_set_patterns(AuthorizationRequirementSpecEntitlementRequirementForm *self, const char *value);
+
+// AuthorizationRequirementSpecGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_group_requirement_form_init(AuthorizationRequirementSpecGroupRequirementForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_group_requirement_form_free(AuthorizationRequirementSpecGroupRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_group_requirement_form_content(const AuthorizationRequirementSpecGroupRequirementForm *self);
+void authorization_requirement_spec_group_requirement_form_set_content(AuthorizationRequirementSpecGroupRequirementForm *self, const char *value);
+char *authorization_requirement_spec_group_requirement_form_groups(const AuthorizationRequirementSpecGroupRequirementForm *self);
+void authorization_requirement_spec_group_requirement_form_set_groups(AuthorizationRequirementSpecGroupRequirementForm *self, const char *value);
+
+// AuthorizationRequirementSpecResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_resource_key_requirement_form_init(AuthorizationRequirementSpecResourceKeyRequirementForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_resource_key_requirement_form_free(AuthorizationRequirementSpecResourceKeyRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_resource_key_requirement_form_content(const AuthorizationRequirementSpecResourceKeyRequirementForm *self);
+void authorization_requirement_spec_resource_key_requirement_form_set_content(AuthorizationRequirementSpecResourceKeyRequirementForm *self, const char *value);
+char *authorization_requirement_spec_resource_key_requirement_form_resource_key(const AuthorizationRequirementSpecResourceKeyRequirementForm *self);
+void authorization_requirement_spec_resource_key_requirement_form_set_resource_key(AuthorizationRequirementSpecResourceKeyRequirementForm *self, const char *value);
+
+// AuthorizationRequirementSpecRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void authorization_requirement_spec_role_requirement_form_init(AuthorizationRequirementSpecRoleRequirementForm *self, SpecDocument *doc, const char *path);
+void authorization_requirement_spec_role_requirement_form_free(AuthorizationRequirementSpecRoleRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *authorization_requirement_spec_role_requirement_form_content(const AuthorizationRequirementSpecRoleRequirementForm *self);
+void authorization_requirement_spec_role_requirement_form_set_content(AuthorizationRequirementSpecRoleRequirementForm *self, const char *value);
+char *authorization_requirement_spec_role_requirement_form_roles(const AuthorizationRequirementSpecRoleRequirementForm *self);
+void authorization_requirement_spec_role_requirement_form_set_roles(AuthorizationRequirementSpecRoleRequirementForm *self, const char *value);
 
 // AuthorizationRoleEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void authorization_role_entry_content_form_init(AuthorizationRoleEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -35750,10 +35967,6 @@ char *deep_link_pattern_entry_content_form_target_screen_id(const DeepLinkPatter
 void deep_link_pattern_entry_content_form_set_target_screen_id(DeepLinkPatternEntryContentForm *self, const char *value);
 char *deep_link_pattern_entry_content_form_description(const DeepLinkPatternEntryContentForm *self);
 void deep_link_pattern_entry_content_form_set_description(DeepLinkPatternEntryContentForm *self, const char *value);
-char *deep_link_pattern_entry_content_form_authentication_required(const DeepLinkPatternEntryContentForm *self);
-void deep_link_pattern_entry_content_form_set_authentication_required(DeepLinkPatternEntryContentForm *self, const char *value);
-char *deep_link_pattern_entry_content_form_required_permissions(const DeepLinkPatternEntryContentForm *self);
-void deep_link_pattern_entry_content_form_set_required_permissions(DeepLinkPatternEntryContentForm *self, const char *value);
 char *deep_link_pattern_entry_content_form_fallback_route(const DeepLinkPatternEntryContentForm *self);
 void deep_link_pattern_entry_content_form_set_fallback_route(DeepLinkPatternEntryContentForm *self, const char *value);
 char *deep_link_pattern_entry_content_form_share_enabled(const DeepLinkPatternEntryContentForm *self);
@@ -39648,22 +39861,18 @@ void export_field_mapping_entry_transformation_form_set_transformation_expressio
 char *export_field_mapping_entry_transformation_form_value_mapping(const ExportFieldMappingEntryTransformationForm *self);
 void export_field_mapping_entry_transformation_form_set_value_mapping(ExportFieldMappingEntryTransformationForm *self, const char *value);
 
-// ExportFormatEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-void export_format_entry_access_form_init(ExportFormatEntryAccessForm *self, SpecDocument *doc, const char *path);
-void export_format_entry_access_form_free(ExportFormatEntryAccessForm *self);
+// ExportFormatEntryAuditForm is the generated section facade for the `audit` @Form section: its own `content` text followed by one typed member per form field.
+void export_format_entry_audit_form_init(ExportFormatEntryAuditForm *self, SpecDocument *doc, const char *path);
+void export_format_entry_audit_form_free(ExportFormatEntryAuditForm *self);
 // The section's own free-text content, before the form fields (owned).
-char *export_format_entry_access_form_content(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_content(ExportFormatEntryAccessForm *self, const char *value);
-char *export_format_entry_access_form_access_level(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_access_level(ExportFormatEntryAccessForm *self, const char *value);
-char *export_format_entry_access_form_required_roles(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_required_roles(ExportFormatEntryAccessForm *self, const char *value);
-char *export_format_entry_access_form_audit_logging(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_audit_logging(ExportFormatEntryAccessForm *self, const char *value);
-char *export_format_entry_access_form_preview_available(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_preview_available(ExportFormatEntryAccessForm *self, const char *value);
-char *export_format_entry_access_form_notes(const ExportFormatEntryAccessForm *self);
-void export_format_entry_access_form_set_notes(ExportFormatEntryAccessForm *self, const char *value);
+char *export_format_entry_audit_form_content(const ExportFormatEntryAuditForm *self);
+void export_format_entry_audit_form_set_content(ExportFormatEntryAuditForm *self, const char *value);
+char *export_format_entry_audit_form_audit_logging(const ExportFormatEntryAuditForm *self);
+void export_format_entry_audit_form_set_audit_logging(ExportFormatEntryAuditForm *self, const char *value);
+char *export_format_entry_audit_form_preview_available(const ExportFormatEntryAuditForm *self);
+void export_format_entry_audit_form_set_preview_available(ExportFormatEntryAuditForm *self, const char *value);
+char *export_format_entry_audit_form_notes(const ExportFormatEntryAuditForm *self);
+void export_format_entry_audit_form_set_notes(ExportFormatEntryAuditForm *self, const char *value);
 
 // ExportFormatEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void export_format_entry_content_form_init(ExportFormatEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -39783,23 +39992,6 @@ void export_size_settings_content_form_set_split_large_files(ExportSizeSettingsC
 char *export_size_settings_content_form_split_threshold(const ExportSizeSettingsContentForm *self);
 void export_size_settings_content_form_set_split_threshold(ExportSizeSettingsContentForm *self, const char *value);
 
-// ExportTemplateEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-void export_template_entry_access_form_init(ExportTemplateEntryAccessForm *self, SpecDocument *doc, const char *path);
-void export_template_entry_access_form_free(ExportTemplateEntryAccessForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *export_template_entry_access_form_content(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_content(ExportTemplateEntryAccessForm *self, const char *value);
-char *export_template_entry_access_form_access_level(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_access_level(ExportTemplateEntryAccessForm *self, const char *value);
-char *export_template_entry_access_form_required_roles(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_required_roles(ExportTemplateEntryAccessForm *self, const char *value);
-char *export_template_entry_access_form_reusable_across_reports(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_reusable_across_reports(ExportTemplateEntryAccessForm *self, const char *value);
-char *export_template_entry_access_form_version(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_version(ExportTemplateEntryAccessForm *self, const char *value);
-char *export_template_entry_access_form_notes(const ExportTemplateEntryAccessForm *self);
-void export_template_entry_access_form_set_notes(ExportTemplateEntryAccessForm *self, const char *value);
-
 // ExportTemplateEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void export_template_entry_content_form_init(ExportTemplateEntryContentForm *self, SpecDocument *doc, const char *path);
 void export_template_entry_content_form_free(ExportTemplateEntryContentForm *self);
@@ -39861,6 +40053,19 @@ char *export_template_entry_layout_form_branding_override(const ExportTemplateEn
 void export_template_entry_layout_form_set_branding_override(ExportTemplateEntryLayoutForm *self, const char *value);
 char *export_template_entry_layout_form_compression_format(const ExportTemplateEntryLayoutForm *self);
 void export_template_entry_layout_form_set_compression_format(ExportTemplateEntryLayoutForm *self, const char *value);
+
+// ExportTemplateEntryMetadataForm is the generated section facade for the `metadata` @Form section: its own `content` text followed by one typed member per form field.
+void export_template_entry_metadata_form_init(ExportTemplateEntryMetadataForm *self, SpecDocument *doc, const char *path);
+void export_template_entry_metadata_form_free(ExportTemplateEntryMetadataForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *export_template_entry_metadata_form_content(const ExportTemplateEntryMetadataForm *self);
+void export_template_entry_metadata_form_set_content(ExportTemplateEntryMetadataForm *self, const char *value);
+char *export_template_entry_metadata_form_reusable_across_reports(const ExportTemplateEntryMetadataForm *self);
+void export_template_entry_metadata_form_set_reusable_across_reports(ExportTemplateEntryMetadataForm *self, const char *value);
+char *export_template_entry_metadata_form_version(const ExportTemplateEntryMetadataForm *self);
+void export_template_entry_metadata_form_set_version(ExportTemplateEntryMetadataForm *self, const char *value);
+char *export_template_entry_metadata_form_notes(const ExportTemplateEntryMetadataForm *self);
+void export_template_entry_metadata_form_set_notes(ExportTemplateEntryMetadataForm *self, const char *value);
 
 // ExtensionEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void extension_entry_content_form_init(ExtensionEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -41654,6 +41859,75 @@ char *governance_model_content_form_meeting_cadence(const GovernanceModelContent
 void governance_model_content_form_set_meeting_cadence(GovernanceModelContentForm *self, const char *value);
 char *governance_model_content_form_reporting_frequency(const GovernanceModelContentForm *self);
 void governance_model_content_form_set_reporting_frequency(GovernanceModelContentForm *self, const char *value);
+
+// GradedAccessLevelEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_content_form_init(GradedAccessLevelEntryContentForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_content_form_free(GradedAccessLevelEntryContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_content_form_content(const GradedAccessLevelEntryContentForm *self);
+void graded_access_level_entry_content_form_set_content(GradedAccessLevelEntryContentForm *self, const char *value);
+char *graded_access_level_entry_content_form_access_level(const GradedAccessLevelEntryContentForm *self);
+void graded_access_level_entry_content_form_set_access_level(GradedAccessLevelEntryContentForm *self, const char *value);
+char *graded_access_level_entry_content_form_requirement_kind(const GradedAccessLevelEntryContentForm *self);
+void graded_access_level_entry_content_form_set_requirement_kind(GradedAccessLevelEntryContentForm *self, const char *value);
+
+// GradedAccessLevelEntryCustomRequirementForm is the generated section facade for the `customRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_custom_requirement_form_init(GradedAccessLevelEntryCustomRequirementForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_custom_requirement_form_free(GradedAccessLevelEntryCustomRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_custom_requirement_form_content(const GradedAccessLevelEntryCustomRequirementForm *self);
+void graded_access_level_entry_custom_requirement_form_set_content(GradedAccessLevelEntryCustomRequirementForm *self, const char *value);
+char *graded_access_level_entry_custom_requirement_form_handler(const GradedAccessLevelEntryCustomRequirementForm *self);
+void graded_access_level_entry_custom_requirement_form_set_handler(GradedAccessLevelEntryCustomRequirementForm *self, const char *value);
+char *graded_access_level_entry_custom_requirement_form_resource_id(const GradedAccessLevelEntryCustomRequirementForm *self);
+void graded_access_level_entry_custom_requirement_form_set_resource_id(GradedAccessLevelEntryCustomRequirementForm *self, const char *value);
+char *graded_access_level_entry_custom_requirement_form_decision_rule(const GradedAccessLevelEntryCustomRequirementForm *self);
+void graded_access_level_entry_custom_requirement_form_set_decision_rule(GradedAccessLevelEntryCustomRequirementForm *self, const char *value);
+
+// GradedAccessLevelEntryEntitlementRequirementForm is the generated section facade for the `entitlementRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_entitlement_requirement_form_init(GradedAccessLevelEntryEntitlementRequirementForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_entitlement_requirement_form_free(GradedAccessLevelEntryEntitlementRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_entitlement_requirement_form_content(const GradedAccessLevelEntryEntitlementRequirementForm *self);
+void graded_access_level_entry_entitlement_requirement_form_set_content(GradedAccessLevelEntryEntitlementRequirementForm *self, const char *value);
+char *graded_access_level_entry_entitlement_requirement_form_patterns(const GradedAccessLevelEntryEntitlementRequirementForm *self);
+void graded_access_level_entry_entitlement_requirement_form_set_patterns(GradedAccessLevelEntryEntitlementRequirementForm *self, const char *value);
+
+// GradedAccessLevelEntryGroupRequirementForm is the generated section facade for the `groupRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_group_requirement_form_init(GradedAccessLevelEntryGroupRequirementForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_group_requirement_form_free(GradedAccessLevelEntryGroupRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_group_requirement_form_content(const GradedAccessLevelEntryGroupRequirementForm *self);
+void graded_access_level_entry_group_requirement_form_set_content(GradedAccessLevelEntryGroupRequirementForm *self, const char *value);
+char *graded_access_level_entry_group_requirement_form_groups(const GradedAccessLevelEntryGroupRequirementForm *self);
+void graded_access_level_entry_group_requirement_form_set_groups(GradedAccessLevelEntryGroupRequirementForm *self, const char *value);
+
+// GradedAccessLevelEntryResourceKeyRequirementForm is the generated section facade for the `resourceKeyRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_resource_key_requirement_form_init(GradedAccessLevelEntryResourceKeyRequirementForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_resource_key_requirement_form_free(GradedAccessLevelEntryResourceKeyRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_resource_key_requirement_form_content(const GradedAccessLevelEntryResourceKeyRequirementForm *self);
+void graded_access_level_entry_resource_key_requirement_form_set_content(GradedAccessLevelEntryResourceKeyRequirementForm *self, const char *value);
+char *graded_access_level_entry_resource_key_requirement_form_resource_key(const GradedAccessLevelEntryResourceKeyRequirementForm *self);
+void graded_access_level_entry_resource_key_requirement_form_set_resource_key(GradedAccessLevelEntryResourceKeyRequirementForm *self, const char *value);
+
+// GradedAccessLevelEntryRoleRequirementForm is the generated section facade for the `roleRequirement` @Form section: its own `content` text followed by one typed member per form field.
+void graded_access_level_entry_role_requirement_form_init(GradedAccessLevelEntryRoleRequirementForm *self, SpecDocument *doc, const char *path);
+void graded_access_level_entry_role_requirement_form_free(GradedAccessLevelEntryRoleRequirementForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_access_level_entry_role_requirement_form_content(const GradedAccessLevelEntryRoleRequirementForm *self);
+void graded_access_level_entry_role_requirement_form_set_content(GradedAccessLevelEntryRoleRequirementForm *self, const char *value);
+char *graded_access_level_entry_role_requirement_form_roles(const GradedAccessLevelEntryRoleRequirementForm *self);
+void graded_access_level_entry_role_requirement_form_set_roles(GradedAccessLevelEntryRoleRequirementForm *self, const char *value);
+
+// GradedAuthorizationRequirementContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
+void graded_authorization_requirement_content_form_init(GradedAuthorizationRequirementContentForm *self, SpecDocument *doc, const char *path);
+void graded_authorization_requirement_content_form_free(GradedAuthorizationRequirementContentForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *graded_authorization_requirement_content_form_content(const GradedAuthorizationRequirementContentForm *self);
+void graded_authorization_requirement_content_form_set_content(GradedAuthorizationRequirementContentForm *self, const char *value);
+char *graded_authorization_requirement_content_form_grading_rationale(const GradedAuthorizationRequirementContentForm *self);
+void graded_authorization_requirement_content_form_set_grading_rationale(GradedAuthorizationRequirementContentForm *self, const char *value);
 
 // HandlingRequirementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void handling_requirement_entry_content_form_init(HandlingRequirementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -47443,19 +47717,6 @@ void native_app_requirements_versions_form_set_target_sdk_version(NativeAppRequi
 char *native_app_requirements_versions_form_compile_sdk_version(const NativeAppRequirementsVersionsForm *self);
 void native_app_requirements_versions_form_set_compile_sdk_version(NativeAppRequirementsVersionsForm *self, const char *value);
 
-// NavigationGroupEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-void navigation_group_entry_access_form_init(NavigationGroupEntryAccessForm *self, SpecDocument *doc, const char *path);
-void navigation_group_entry_access_form_free(NavigationGroupEntryAccessForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *navigation_group_entry_access_form_content(const NavigationGroupEntryAccessForm *self);
-void navigation_group_entry_access_form_set_content(NavigationGroupEntryAccessForm *self, const char *value);
-char *navigation_group_entry_access_form_required_roles(const NavigationGroupEntryAccessForm *self);
-void navigation_group_entry_access_form_set_required_roles(NavigationGroupEntryAccessForm *self, const char *value);
-char *navigation_group_entry_access_form_required_permissions(const NavigationGroupEntryAccessForm *self);
-void navigation_group_entry_access_form_set_required_permissions(NavigationGroupEntryAccessForm *self, const char *value);
-char *navigation_group_entry_access_form_permission_behavior(const NavigationGroupEntryAccessForm *self);
-void navigation_group_entry_access_form_set_permission_behavior(NavigationGroupEntryAccessForm *self, const char *value);
-
 // NavigationGroupEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void navigation_group_entry_content_form_init(NavigationGroupEntryContentForm *self, SpecDocument *doc, const char *path);
 void navigation_group_entry_content_form_free(NavigationGroupEntryContentForm *self);
@@ -47546,23 +47807,6 @@ void navigation_guard_entry_routing_form_set_redirect_to(NavigationGuardEntryRou
 long navigation_guard_entry_routing_form_priority(const NavigationGuardEntryRoutingForm *self);
 void navigation_guard_entry_routing_form_set_priority(NavigationGuardEntryRoutingForm *self, long value);
 
-// NavigationItemEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-void navigation_item_entry_access_form_init(NavigationItemEntryAccessForm *self, SpecDocument *doc, const char *path);
-void navigation_item_entry_access_form_free(NavigationItemEntryAccessForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *navigation_item_entry_access_form_content(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_content(NavigationItemEntryAccessForm *self, const char *value);
-char *navigation_item_entry_access_form_visibility_condition(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_visibility_condition(NavigationItemEntryAccessForm *self, const char *value);
-char *navigation_item_entry_access_form_enabled_condition(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_enabled_condition(NavigationItemEntryAccessForm *self, const char *value);
-char *navigation_item_entry_access_form_required_roles(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_required_roles(NavigationItemEntryAccessForm *self, const char *value);
-char *navigation_item_entry_access_form_required_permissions(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_required_permissions(NavigationItemEntryAccessForm *self, const char *value);
-char *navigation_item_entry_access_form_permission_behavior(const NavigationItemEntryAccessForm *self);
-void navigation_item_entry_access_form_set_permission_behavior(NavigationItemEntryAccessForm *self, const char *value);
-
 // NavigationItemEntryBadgeForm is the generated section facade for the `badge` @Form section: its own `content` text followed by one typed member per form field.
 void navigation_item_entry_badge_form_init(NavigationItemEntryBadgeForm *self, SpecDocument *doc, const char *path);
 void navigation_item_entry_badge_form_free(NavigationItemEntryBadgeForm *self);
@@ -47633,6 +47877,17 @@ long navigation_item_entry_routing_form_display_order(const NavigationItemEntryR
 void navigation_item_entry_routing_form_set_display_order(NavigationItemEntryRoutingForm *self, long value);
 char *navigation_item_entry_routing_form_is_default(const NavigationItemEntryRoutingForm *self);
 void navigation_item_entry_routing_form_set_is_default(NavigationItemEntryRoutingForm *self, const char *value);
+
+// NavigationItemEntryVisibilityForm is the generated section facade for the `visibility` @Form section: its own `content` text followed by one typed member per form field.
+void navigation_item_entry_visibility_form_init(NavigationItemEntryVisibilityForm *self, SpecDocument *doc, const char *path);
+void navigation_item_entry_visibility_form_free(NavigationItemEntryVisibilityForm *self);
+// The section's own free-text content, before the form fields (owned).
+char *navigation_item_entry_visibility_form_content(const NavigationItemEntryVisibilityForm *self);
+void navigation_item_entry_visibility_form_set_content(NavigationItemEntryVisibilityForm *self, const char *value);
+char *navigation_item_entry_visibility_form_visibility_condition(const NavigationItemEntryVisibilityForm *self);
+void navigation_item_entry_visibility_form_set_visibility_condition(NavigationItemEntryVisibilityForm *self, const char *value);
+char *navigation_item_entry_visibility_form_enabled_condition(const NavigationItemEntryVisibilityForm *self);
+void navigation_item_entry_visibility_form_set_enabled_condition(NavigationItemEntryVisibilityForm *self, const char *value);
 
 // NavigationOverviewContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void navigation_overview_content_form_init(NavigationOverviewContentForm *self, SpecDocument *doc, const char *path);
@@ -53761,10 +54016,6 @@ char *report_entry_security_form_localization(const ReportEntrySecurityForm *sel
 void report_entry_security_form_set_localization(ReportEntrySecurityForm *self, const char *value);
 char *report_entry_security_form_branding_override(const ReportEntrySecurityForm *self);
 void report_entry_security_form_set_branding_override(ReportEntrySecurityForm *self, const char *value);
-char *report_entry_security_form_access_level(const ReportEntrySecurityForm *self);
-void report_entry_security_form_set_access_level(ReportEntrySecurityForm *self, const char *value);
-char *report_entry_security_form_required_roles(const ReportEntrySecurityForm *self);
-void report_entry_security_form_set_required_roles(ReportEntrySecurityForm *self, const char *value);
 char *report_entry_security_form_data_level_security(const ReportEntrySecurityForm *self);
 void report_entry_security_form_set_data_level_security(ReportEntrySecurityForm *self, const char *value);
 
@@ -56780,10 +57031,6 @@ char *screen_element_entry_behavior_form_enabled_condition(const ScreenElementEn
 void screen_element_entry_behavior_form_set_enabled_condition(ScreenElementEntryBehaviorForm *self, const char *value);
 char *screen_element_entry_behavior_form_readonly_condition(const ScreenElementEntryBehaviorForm *self);
 void screen_element_entry_behavior_form_set_readonly_condition(ScreenElementEntryBehaviorForm *self, const char *value);
-char *screen_element_entry_behavior_form_required_permission(const ScreenElementEntryBehaviorForm *self);
-void screen_element_entry_behavior_form_set_required_permission(ScreenElementEntryBehaviorForm *self, const char *value);
-char *screen_element_entry_behavior_form_permission_effect(const ScreenElementEntryBehaviorForm *self);
-void screen_element_entry_behavior_form_set_permission_effect(ScreenElementEntryBehaviorForm *self, const char *value);
 
 // ScreenElementEntryContentForm is the generated section facade for the `content` @Form section: its own `content` text followed by one typed member per form field.
 void screen_element_entry_content_form_init(ScreenElementEntryContentForm *self, SpecDocument *doc, const char *path);
@@ -56956,21 +57203,6 @@ char *screen_element_field_spec_validation_form_required_condition(const ScreenE
 void screen_element_field_spec_validation_form_set_required_condition(ScreenElementFieldSpecValidationForm *self, const char *value);
 char *screen_element_field_spec_validation_form_clear_button(const ScreenElementFieldSpecValidationForm *self);
 void screen_element_field_spec_validation_form_set_clear_button(ScreenElementFieldSpecValidationForm *self, const char *value);
-
-// ScreenEntryAccessForm is the generated section facade for the `access` @Form section: its own `content` text followed by one typed member per form field.
-void screen_entry_access_form_init(ScreenEntryAccessForm *self, SpecDocument *doc, const char *path);
-void screen_entry_access_form_free(ScreenEntryAccessForm *self);
-// The section's own free-text content, before the form fields (owned).
-char *screen_entry_access_form_content(const ScreenEntryAccessForm *self);
-void screen_entry_access_form_set_content(ScreenEntryAccessForm *self, const char *value);
-char *screen_entry_access_form_access_level(const ScreenEntryAccessForm *self);
-void screen_entry_access_form_set_access_level(ScreenEntryAccessForm *self, const char *value);
-char *screen_entry_access_form_required_roles(const ScreenEntryAccessForm *self);
-void screen_entry_access_form_set_required_roles(ScreenEntryAccessForm *self, const char *value);
-char *screen_entry_access_form_required_permissions(const ScreenEntryAccessForm *self);
-void screen_entry_access_form_set_required_permissions(ScreenEntryAccessForm *self, const char *value);
-char *screen_entry_access_form_permission_effect(const ScreenEntryAccessForm *self);
-void screen_entry_access_form_set_permission_effect(ScreenEntryAccessForm *self, const char *value);
 
 // ScreenEntryClassificationForm is the generated section facade for the `classification` @Form section: its own `content` text followed by one typed member per form field.
 void screen_entry_classification_form_init(ScreenEntryClassificationForm *self, SpecDocument *doc, const char *path);
@@ -58179,12 +58411,6 @@ char *server_operation_entry_content_form_purpose(const ServerOperationEntryCont
 void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_primary_data_entity(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_authorization_requirement(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_authorization_requirement(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_required_roles(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_required_roles(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_required_resource_key(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_required_resource_key(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_description_key(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_description_key(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_error_codes(const ServerOperationEntryContentForm *self);
@@ -62325,10 +62551,6 @@ char *tab_item_entry_content_form_content_screen_id(const TabItemEntryContentFor
 void tab_item_entry_content_form_set_content_screen_id(TabItemEntryContentForm *self, const char *value);
 char *tab_item_entry_content_form_visibility_condition(const TabItemEntryContentForm *self);
 void tab_item_entry_content_form_set_visibility_condition(TabItemEntryContentForm *self, const char *value);
-char *tab_item_entry_content_form_required_permissions(const TabItemEntryContentForm *self);
-void tab_item_entry_content_form_set_required_permissions(TabItemEntryContentForm *self, const char *value);
-char *tab_item_entry_content_form_permission_behavior(const TabItemEntryContentForm *self);
-void tab_item_entry_content_form_set_permission_behavior(TabItemEntryContentForm *self, const char *value);
 char *tab_item_entry_content_form_badge_type(const TabItemEntryContentForm *self);
 void tab_item_entry_content_form_set_badge_type(TabItemEntryContentForm *self, const char *value);
 char *tab_item_entry_content_form_badge_source(const TabItemEntryContentForm *self);
@@ -66361,8 +66583,6 @@ char *utility_menu_item_entry_behavior_form_content(const UtilityMenuItemEntryBe
 void utility_menu_item_entry_behavior_form_set_content(UtilityMenuItemEntryBehaviorForm *self, const char *value);
 char *utility_menu_item_entry_behavior_form_visibility_condition(const UtilityMenuItemEntryBehaviorForm *self);
 void utility_menu_item_entry_behavior_form_set_visibility_condition(UtilityMenuItemEntryBehaviorForm *self, const char *value);
-char *utility_menu_item_entry_behavior_form_required_permissions(const UtilityMenuItemEntryBehaviorForm *self);
-void utility_menu_item_entry_behavior_form_set_required_permissions(UtilityMenuItemEntryBehaviorForm *self, const char *value);
 char *utility_menu_item_entry_behavior_form_is_dangerous(const UtilityMenuItemEntryBehaviorForm *self);
 void utility_menu_item_entry_behavior_form_set_is_dangerous(UtilityMenuItemEntryBehaviorForm *self, const char *value);
 char *utility_menu_item_entry_behavior_form_confirmation_required(const UtilityMenuItemEntryBehaviorForm *self);
@@ -66425,8 +66645,6 @@ char *utility_navigation_item_entry_display_form_display_kind(const UtilityNavig
 void utility_navigation_item_entry_display_form_set_display_kind(UtilityNavigationItemEntryDisplayForm *self, const char *value);
 char *utility_navigation_item_entry_display_form_visibility_condition(const UtilityNavigationItemEntryDisplayForm *self);
 void utility_navigation_item_entry_display_form_set_visibility_condition(UtilityNavigationItemEntryDisplayForm *self, const char *value);
-char *utility_navigation_item_entry_display_form_required_roles(const UtilityNavigationItemEntryDisplayForm *self);
-void utility_navigation_item_entry_display_form_set_required_roles(UtilityNavigationItemEntryDisplayForm *self, const char *value);
 
 // ValidationFeedbackBehaviorForm is the generated section facade for the `behavior` @Form section: its own `content` text followed by one typed member per form field.
 void validation_feedback_behavior_form_init(ValidationFeedbackBehaviorForm *self, SpecDocument *doc, const char *path);

@@ -2459,6 +2459,52 @@ export class AuthorizationModel extends SomNode {
   // (skipped: authorizationModelNotes has no target type)
 }
 
+// What a caller must satisfy to reach the thing this section modifies
+// (`codespecs_mapping.md` §5.15).
+//
+// Embed this section wherever a guarded thing is authored — do not restate its
+// fields inline. The kind selects at most one payload subsection; the four
+// presets select none, which is why four of the ten arms bind no case.
+export class AuthorizationRequirementSpec extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): AuthorizationRequirementSpecContentForm {
+    return new AuthorizationRequirementSpecContentForm(this.doc, this.path + "/content");
+  }
+
+  // Role requirement payload — a promoted `@OneOf` case.
+  get roleRequirement(): AuthorizationRequirementSpecRoleRequirementForm {
+    return new AuthorizationRequirementSpecRoleRequirementForm(this.doc, this.path + "/AZREQ-ROLE");
+  }
+
+  // Group requirement payload — a promoted `@OneOf` case.
+  get groupRequirement(): AuthorizationRequirementSpecGroupRequirementForm {
+    return new AuthorizationRequirementSpecGroupRequirementForm(this.doc, this.path + "/AZREQ-GRUP");
+  }
+
+  // Entitlement requirement payload — a promoted `@OneOf` case.
+  get entitlementRequirement(): AuthorizationRequirementSpecEntitlementRequirementForm {
+    return new AuthorizationRequirementSpecEntitlementRequirementForm(this.doc, this.path + "/AZREQ-ENTL");
+  }
+
+  // Resource-key requirement payload — a promoted `@OneOf` case.
+  get resourceKeyRequirement(): AuthorizationRequirementSpecResourceKeyRequirementForm {
+    return new AuthorizationRequirementSpecResourceKeyRequirementForm(this.doc, this.path + "/AZREQ-RKEY");
+  }
+
+  // Custom requirement payload — a promoted `@OneOf` case.
+  get customRequirement(): AuthorizationRequirementSpecCustomRequirementForm {
+    return new AuthorizationRequirementSpecCustomRequirementForm(this.doc, this.path + "/AZREQ-CUST");
+  }
+
+  // Graded requirement payload — a promoted `@OneOf` case.
+  get gradedRequirement(): GradedAuthorizationRequirement {
+    return new GradedAuthorizationRequirement(this.doc, this.path + "/gradedRequirement");
+  }
+}
+
 // An authorization role entry (form).
 //
 // Defines a single authorization role with its category, scope, permission
@@ -10956,6 +11002,15 @@ export class DeepLinkPatternEntry extends SomNode {
   get content(): DeepLinkPatternEntryContentForm {
     return new DeepLinkPatternEntryContentForm(this.doc, this.path + "/content");
   }
+
+  // Access control — what a caller must satisfy to follow this deep link.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). Authoring the
+  // Authenticated kind is what makes an unauthenticated visitor redirect to
+  // sign-in; there is no separate authentication-required flag.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
+  }
 }
 
 // 10.3.1.7. Deep Linking.
@@ -14520,8 +14575,15 @@ export class ExportFormatEntry extends SomNode {
   }
 
   // Access and audit.
-  get access(): ExportFormatEntryAccessForm {
-    return new ExportFormatEntryAccessForm(this.doc, this.path + "/EXAC");
+  get audit(): ExportFormatEntryAuditForm {
+    return new ExportFormatEntryAuditForm(this.doc, this.path + "/EXAC");
+  }
+
+  // Access control — what a caller must satisfy to run this export.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Contains 0+× Export Field Mapping.
@@ -14567,8 +14629,15 @@ export class ExportTemplateEntry extends SomNode {
   }
 
   // Access and metadata.
-  get access(): ExportTemplateEntryAccessForm {
-    return new ExportTemplateEntryAccessForm(this.doc, this.path + "/ETEA");
+  get metadata(): ExportTemplateEntryMetadataForm {
+    return new ExportTemplateEntryMetadataForm(this.doc, this.path + "/ETEA");
+  }
+
+  // Access control — what a caller must satisfy to use this template.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 }
 
@@ -16286,6 +16355,80 @@ export class GovernanceModel extends SomNode {
   // Decision authority matrix.
   get decisionAuthorities(): SomList<DecisionAuthorityEntry> {
     return new SomList(this.doc, this.path + "/DCAUT-DECI-LST", (d: SpecDocument, p: string) => new DecisionAuthorityEntry(d, p), "DCAUT-DECI-xxx");
+  }
+}
+
+// One rung of a graded access ladder: an access state and the non-graded
+// requirement that earns it (`codespecs_mapping.md` §5.15).
+//
+// The requirement half is [AuthorizationRequirementSpec] minus the graded arm.
+// See [GradedAuthorizationRequirement] for why that bound exists and why the
+// case forms are restated rather than shared.
+export class GradedAccessLevelEntry extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): GradedAccessLevelEntryContentForm {
+    return new GradedAccessLevelEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // Role requirement payload — a promoted `@OneOf` case.
+  get roleRequirement(): GradedAccessLevelEntryRoleRequirementForm {
+    return new GradedAccessLevelEntryRoleRequirementForm(this.doc, this.path + "/AZLVL-ROLE");
+  }
+
+  // Group requirement payload — a promoted `@OneOf` case.
+  get groupRequirement(): GradedAccessLevelEntryGroupRequirementForm {
+    return new GradedAccessLevelEntryGroupRequirementForm(this.doc, this.path + "/AZLVL-GRUP");
+  }
+
+  // Entitlement requirement payload — a promoted `@OneOf` case.
+  get entitlementRequirement(): GradedAccessLevelEntryEntitlementRequirementForm {
+    return new GradedAccessLevelEntryEntitlementRequirementForm(this.doc, this.path + "/AZLVL-ENTL");
+  }
+
+  // Resource-key requirement payload — a promoted `@OneOf` case.
+  get resourceKeyRequirement(): GradedAccessLevelEntryResourceKeyRequirementForm {
+    return new GradedAccessLevelEntryResourceKeyRequirementForm(this.doc, this.path + "/AZLVL-RKEY");
+  }
+
+  // Custom requirement payload — a promoted `@OneOf` case.
+  get customRequirement(): GradedAccessLevelEntryCustomRequirementForm {
+    return new GradedAccessLevelEntryCustomRequirementForm(this.doc, this.path + "/AZLVL-CUST");
+  }
+}
+
+// A graded requirement: what a caller must satisfy for each access state
+// (`codespecs_mapping.md` §5.15).
+//
+// **Why a level takes a [GradedAccessLevelEntry] and not an
+// [AuthorizationRequirementSpec].** A graded level whose requirement could
+// itself be graded would make the model structurally cyclic, and
+// `tom_specs_model_rules.md` §5.7 makes a structural cycle a hard error — the
+// outliner, the serializers and the nine generated language runtimes all walk
+// the class graph as a tree. Bounding the depth at one level is not a
+// workaround for that constraint: a graded thing resolves to one of four
+// *terminal* access states, so nesting a second grading inside a level has
+// nothing left to resolve to.
+//
+// The price is that [GradedAccessLevelEntry] restates five of
+// [AuthorizationRequirementSpec]'s case forms. That duplication is deliberate —
+// the SOM composes by field, not by subtyping (`codespecs_mapping.md` §8.2) —
+// and removing it by pointing the levels back at [AuthorizationRequirementSpec]
+// reintroduces the cycle.
+export class GradedAuthorizationRequirement extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get content(): GradedAuthorizationRequirementContentForm {
+    return new GradedAuthorizationRequirementContentForm(this.doc, this.path + "/content");
+  }
+
+  // The authored rungs of the ladder — contains 1..3× Graded Access Level.
+  get accessLevels(): SomList<GradedAccessLevelEntry> {
+    return new SomList(this.doc, this.path + "/AZLVL-LEVE-LST", (d: SpecDocument, p: string) => new GradedAccessLevelEntry(d, p), "AZLVL-LEVE-xxx");
   }
 }
 
@@ -20978,9 +21121,14 @@ export class NavigationGroupEntry extends SomNode {
     return new NavigationGroupEntryDisplayForm(this.doc, this.path + "/NGED");
   }
 
-  // Access-control settings.
-  get access(): NavigationGroupEntryAccessForm {
-    return new NavigationGroupEntryAccessForm(this.doc, this.path + "/NGEA");
+  // Access control — what a caller must satisfy to see this navigation group.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). A group that should be
+  // visible-but-locked rather than hidden authors the Graded kind; the
+  // hide/disable rendering follows from the access state and is not authored
+  // here.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Badge and hierarchy settings.
@@ -21095,9 +21243,21 @@ export class NavigationItemEntry extends SomNode {
     return new NavigationItemEntryRoutingForm(this.doc, this.path + "/NIER");
   }
 
-  // Access control settings.
-  get access(): NavigationItemEntryAccessForm {
-    return new NavigationItemEntryAccessForm(this.doc, this.path + "/NIEA");
+  // Business conditions governing when the item is shown and interactive.
+  //
+  // These are *business* conditions, not authorization — who may reach the
+  // item is authored in [access]. A condition here narrows an item the caller
+  // is already authorized for.
+  get visibility(): NavigationItemEntryVisibilityForm {
+    return new NavigationItemEntryVisibilityForm(this.doc, this.path + "/NIEA");
+  }
+
+  // Access control — what a caller must satisfy to reach this item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). An item that should be
+  // shown locked rather than hidden authors the Graded kind.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Badge configuration.
@@ -26225,6 +26385,13 @@ export class ReportEntry extends SomNode {
     return new ReportEntrySecurityForm(this.doc, this.path + "/RESE");
   }
 
+  // Access control — what a caller must satisfy to generate this report.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
+  }
+
   // Lifecycle and archiving.
   get lifecycle(): ReportEntryLifecycleForm {
     return new ReportEntryLifecycleForm(this.doc, this.path + "/RELI");
@@ -28832,9 +28999,22 @@ export class ScreenElementEntry extends SomNode {
     return new ScreenElementEntryLayoutForm(this.doc, this.path + "/SCELENLA");
   }
 
-  // Visibility and permission rules.
+  // Visibility and enablement rules.
+  //
+  // These are *business* conditions on an element the caller is already
+  // authorized for. Who may see or use it at all is [access].
   get behavior(): ScreenElementEntryBehaviorForm {
     return new ScreenElementEntryBehaviorForm(this.doc, this.path + "/SEEB");
+  }
+
+  // Access control — what a caller must satisfy to see or use this element.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). An element whose access
+  // has degrees — hidden, locked, read-only, interactive — authors the Graded
+  // kind, which is what the old free-text permission-effect field was trying
+  // to say.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Styling and data binding.
@@ -28953,9 +29133,14 @@ export class ScreenEntry extends SomNode {
     return new ScreenEntryClassificationForm(this.doc, this.path + "/SCECL");
   }
 
-  // Access control settings.
-  get access(): ScreenEntryAccessForm {
-    return new ScreenEntryAccessForm(this.doc, this.path + "/SCEAC");
+  // Access control — what a caller must satisfy to reach this screen.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`), not a screen-local
+  // restatement. A screen that is graded rather than simply reachable authors
+  // the Graded kind; how each access state renders is fixed by the framework
+  // and is not authored here.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Traceability metadata.
@@ -30186,6 +30371,16 @@ export class ServerOperationEntry extends SomNode {
 
   get content(): ServerOperationEntryContentForm {
     return new ServerOperationEntryContentForm(this.doc, this.path + "/content");
+  }
+
+  // 7.9.x. Authorization — what a caller must satisfy to invoke this
+  // operation.
+  //
+  // The shared CE-AZ requirement section, not a per-operation restatement.
+  // There is no default: an operation with no requirement authored is a
+  // specification defect.
+  get authorization(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/authorization");
   }
 
   // 7.9.x. Request Members — the members that make up the request shape.
@@ -34023,6 +34218,14 @@ export class TabItemEntry extends SomNode {
   get content(): TabItemEntryContentForm {
     return new TabItemEntryContentForm(this.doc, this.path + "/content");
   }
+
+  // Access control — what a caller must satisfy to reach this tab.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`). A tab that should be shown
+  // disabled rather than hidden authors the Graded kind.
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
+  }
 }
 
 // SBP.7 Target Operating Model concept.
@@ -37521,6 +37724,13 @@ export class UtilityMenuItemEntry extends SomNode {
   get behavior(): UtilityMenuItemEntryBehaviorForm {
     return new UtilityMenuItemEntryBehaviorForm(this.doc, this.path + "/UMIEB");
   }
+
+  // Access control — what a caller must satisfy to use this menu item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
+  }
 }
 
 // 10.3.1.5. Utility Navigation.
@@ -37562,9 +37772,16 @@ export class UtilityNavigationItemEntry extends SomNode {
     return new UtilityNavigationItemEntryContentForm(this.doc, this.path + "/content");
   }
 
-  // Ordering, rendering, and access rules.
+  // Ordering and rendering.
   get display(): UtilityNavigationItemEntryDisplayForm {
     return new UtilityNavigationItemEntryDisplayForm(this.doc, this.path + "/UNIED");
+  }
+
+  // Access control — what a caller must satisfy to reach this utility item.
+  //
+  // The shared CE-AZ requirement section (`AZREQ`).
+  get access(): AuthorizationRequirementSpec {
+    return new AuthorizationRequirementSpec(this.doc, this.path + "/access");
   }
 
   // Badge and interaction behavior.
@@ -45725,6 +45942,192 @@ export class AuthorizationGroupEntryContentForm extends SomNode {
 
   set membershipCriteria(value: string) {
     this.doc.setFormField(this.path, "membershipCriteria", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get requirementKind(): string {
+    return this.doc.formField(this.path, "requirementKind") || '';
+  }
+
+  set requirementKind(value: string) {
+    this.doc.setFormField(this.path, "requirementKind", value);
+  }
+
+  get rationale(): string {
+    return this.doc.formField(this.path, "rationale") || '';
+  }
+
+  set rationale(value: string) {
+    this.doc.setFormField(this.path, "rationale", value);
+  }
+}
+
+// Generated section facade for the `customRequirement` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecCustomRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get handler(): string {
+    return this.doc.formField(this.path, "handler") || '';
+  }
+
+  set handler(value: string) {
+    this.doc.setFormField(this.path, "handler", value);
+  }
+
+  get resourceId(): string {
+    return this.doc.formField(this.path, "resourceId") || '';
+  }
+
+  set resourceId(value: string) {
+    this.doc.setFormField(this.path, "resourceId", value);
+  }
+
+  get decisionRule(): string {
+    return this.doc.formField(this.path, "decisionRule") || '';
+  }
+
+  set decisionRule(value: string) {
+    this.doc.setFormField(this.path, "decisionRule", value);
+  }
+}
+
+// Generated section facade for the `entitlementRequirement` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecEntitlementRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get patterns(): string {
+    return this.doc.formField(this.path, "patterns") || '';
+  }
+
+  set patterns(value: string) {
+    this.doc.setFormField(this.path, "patterns", value);
+  }
+}
+
+// Generated section facade for the `groupRequirement` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecGroupRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get groups(): string {
+    return this.doc.formField(this.path, "groups") || '';
+  }
+
+  set groups(value: string) {
+    this.doc.setFormField(this.path, "groups", value);
+  }
+}
+
+// Generated section facade for the `resourceKeyRequirement` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecResourceKeyRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resourceKey(): string {
+    return this.doc.formField(this.path, "resourceKey") || '';
+  }
+
+  set resourceKey(value: string) {
+    this.doc.setFormField(this.path, "resourceKey", value);
+  }
+}
+
+// Generated section facade for the `roleRequirement` @Form section: its own content text followed by one typed member per form field.
+export class AuthorizationRequirementSpecRoleRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get roles(): string {
+    return this.doc.formField(this.path, "roles") || '';
+  }
+
+  set roles(value: string) {
+    this.doc.setFormField(this.path, "roles", value);
   }
 }
 
@@ -73079,22 +73482,6 @@ export class DeepLinkPatternEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "description", value);
   }
 
-  get authenticationRequired(): string {
-    return this.doc.formField(this.path, "authenticationRequired") || '';
-  }
-
-  set authenticationRequired(value: string) {
-    this.doc.setFormField(this.path, "authenticationRequired", value);
-  }
-
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
   get fallbackRoute(): string {
     return this.doc.formField(this.path, "fallbackRoute") || '';
   }
@@ -86380,8 +86767,8 @@ export class ExportFieldMappingEntryTransformationForm extends SomNode {
   }
 }
 
-// Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
-export class ExportFormatEntryAccessForm extends SomNode {
+// Generated section facade for the `audit` @Form section: its own content text followed by one typed member per form field.
+export class ExportFormatEntryAuditForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
     super(doc, path);
   }
@@ -86396,22 +86783,6 @@ export class ExportFormatEntryAccessForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get accessLevel(): string {
-    return this.doc.formField(this.path, "accessLevel") || '';
-  }
-
-  set accessLevel(value: string) {
-    this.doc.setFormField(this.path, "accessLevel", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
   }
 
   get auditLogging(): string {
@@ -86840,65 +87211,6 @@ export class ExportSizeSettingsContentForm extends SomNode {
   }
 }
 
-// Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
-export class ExportTemplateEntryAccessForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get accessLevel(): string {
-    return this.doc.formField(this.path, "accessLevel") || '';
-  }
-
-  set accessLevel(value: string) {
-    this.doc.setFormField(this.path, "accessLevel", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
-  get reusableAcrossReports(): string {
-    return this.doc.formField(this.path, "reusableAcrossReports") || '';
-  }
-
-  set reusableAcrossReports(value: string) {
-    this.doc.setFormField(this.path, "reusableAcrossReports", value);
-  }
-
-  get version(): string {
-    return this.doc.formField(this.path, "version") || '';
-  }
-
-  set version(value: string) {
-    this.doc.setFormField(this.path, "version", value);
-  }
-
-  get notes(): string {
-    return this.doc.formField(this.path, "notes") || '';
-  }
-
-  set notes(value: string) {
-    this.doc.setFormField(this.path, "notes", value);
-  }
-}
-
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class ExportTemplateEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -87108,6 +87420,49 @@ export class ExportTemplateEntryLayoutForm extends SomNode {
 
   set compressionFormat(value: string) {
     this.doc.setFormField(this.path, "compressionFormat", value);
+  }
+}
+
+// Generated section facade for the `metadata` @Form section: its own content text followed by one typed member per form field.
+export class ExportTemplateEntryMetadataForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get reusableAcrossReports(): string {
+    return this.doc.formField(this.path, "reusableAcrossReports") || '';
+  }
+
+  set reusableAcrossReports(value: string) {
+    this.doc.setFormField(this.path, "reusableAcrossReports", value);
+  }
+
+  get version(): string {
+    return this.doc.formField(this.path, "version") || '';
+  }
+
+  set version(value: string) {
+    this.doc.setFormField(this.path, "version", value);
+  }
+
+  get notes(): string {
+    return this.doc.formField(this.path, "notes") || '';
+  }
+
+  set notes(value: string) {
+    this.doc.setFormField(this.path, "notes", value);
   }
 }
 
@@ -93238,6 +93593,219 @@ export class GovernanceModelContentForm extends SomNode {
 
   set reportingFrequency(value: string) {
     this.doc.setFormField(this.path, "reportingFrequency", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get accessLevel(): string {
+    return this.doc.formField(this.path, "accessLevel") || '';
+  }
+
+  set accessLevel(value: string) {
+    this.doc.setFormField(this.path, "accessLevel", value);
+  }
+
+  get requirementKind(): string {
+    return this.doc.formField(this.path, "requirementKind") || '';
+  }
+
+  set requirementKind(value: string) {
+    this.doc.setFormField(this.path, "requirementKind", value);
+  }
+}
+
+// Generated section facade for the `customRequirement` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryCustomRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get handler(): string {
+    return this.doc.formField(this.path, "handler") || '';
+  }
+
+  set handler(value: string) {
+    this.doc.setFormField(this.path, "handler", value);
+  }
+
+  get resourceId(): string {
+    return this.doc.formField(this.path, "resourceId") || '';
+  }
+
+  set resourceId(value: string) {
+    this.doc.setFormField(this.path, "resourceId", value);
+  }
+
+  get decisionRule(): string {
+    return this.doc.formField(this.path, "decisionRule") || '';
+  }
+
+  set decisionRule(value: string) {
+    this.doc.setFormField(this.path, "decisionRule", value);
+  }
+}
+
+// Generated section facade for the `entitlementRequirement` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryEntitlementRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get patterns(): string {
+    return this.doc.formField(this.path, "patterns") || '';
+  }
+
+  set patterns(value: string) {
+    this.doc.setFormField(this.path, "patterns", value);
+  }
+}
+
+// Generated section facade for the `groupRequirement` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryGroupRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get groups(): string {
+    return this.doc.formField(this.path, "groups") || '';
+  }
+
+  set groups(value: string) {
+    this.doc.setFormField(this.path, "groups", value);
+  }
+}
+
+// Generated section facade for the `resourceKeyRequirement` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryResourceKeyRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get resourceKey(): string {
+    return this.doc.formField(this.path, "resourceKey") || '';
+  }
+
+  set resourceKey(value: string) {
+    this.doc.setFormField(this.path, "resourceKey", value);
+  }
+}
+
+// Generated section facade for the `roleRequirement` @Form section: its own content text followed by one typed member per form field.
+export class GradedAccessLevelEntryRoleRequirementForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get roles(): string {
+    return this.doc.formField(this.path, "roles") || '';
+  }
+
+  set roles(value: string) {
+    this.doc.setFormField(this.path, "roles", value);
+  }
+}
+
+// Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
+export class GradedAuthorizationRequirementContentForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get gradingRationale(): string {
+    return this.doc.formField(this.path, "gradingRationale") || '';
+  }
+
+  set gradingRationale(value: string) {
+    this.doc.setFormField(this.path, "gradingRationale", value);
   }
 }
 
@@ -113154,49 +113722,6 @@ export class NativeAppRequirementsVersionsForm extends SomNode {
   }
 }
 
-// Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
-export class NavigationGroupEntryAccessForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
-  get permissionBehavior(): string {
-    return this.doc.formField(this.path, "permissionBehavior") || '';
-  }
-
-  set permissionBehavior(value: string) {
-    this.doc.setFormField(this.path, "permissionBehavior", value);
-  }
-}
-
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
 export class NavigationGroupEntryContentForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -113505,65 +114030,6 @@ export class NavigationGuardEntryRoutingForm extends SomNode {
   }
 }
 
-// Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
-export class NavigationItemEntryAccessForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get visibilityCondition(): string {
-    return this.doc.formField(this.path, "visibilityCondition") || '';
-  }
-
-  set visibilityCondition(value: string) {
-    this.doc.setFormField(this.path, "visibilityCondition", value);
-  }
-
-  get enabledCondition(): string {
-    return this.doc.formField(this.path, "enabledCondition") || '';
-  }
-
-  set enabledCondition(value: string) {
-    this.doc.setFormField(this.path, "enabledCondition", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
-  get permissionBehavior(): string {
-    return this.doc.formField(this.path, "permissionBehavior") || '';
-  }
-
-  set permissionBehavior(value: string) {
-    this.doc.setFormField(this.path, "permissionBehavior", value);
-  }
-}
-
 // Generated section facade for the `badge` @Form section: its own content text followed by one typed member per form field.
 export class NavigationItemEntryBadgeForm extends SomNode {
   constructor(doc: SpecDocument, path: string) {
@@ -113801,6 +114267,41 @@ export class NavigationItemEntryRoutingForm extends SomNode {
 
   set isDefault(value: string) {
     this.doc.setFormField(this.path, "isDefault", value);
+  }
+}
+
+// Generated section facade for the `visibility` @Form section: its own content text followed by one typed member per form field.
+export class NavigationItemEntryVisibilityForm extends SomNode {
+  constructor(doc: SpecDocument, path: string) {
+    super(doc, path);
+  }
+
+  get canHaveContent(): boolean {
+    return true;
+  }
+
+  get content(): string {
+    return this.doc.content(this.path) || '';
+  }
+
+  set content(value: string) {
+    this.doc.setContent(this.path, value);
+  }
+
+  get visibilityCondition(): string {
+    return this.doc.formField(this.path, "visibilityCondition") || '';
+  }
+
+  set visibilityCondition(value: string) {
+    this.doc.setFormField(this.path, "visibilityCondition", value);
+  }
+
+  get enabledCondition(): string {
+    return this.doc.formField(this.path, "enabledCondition") || '';
+  }
+
+  set enabledCondition(value: string) {
+    this.doc.setFormField(this.path, "enabledCondition", value);
   }
 }
 
@@ -134958,22 +135459,6 @@ export class ReportEntrySecurityForm extends SomNode {
     this.doc.setFormField(this.path, "brandingOverride", value);
   }
 
-  get accessLevel(): string {
-    return this.doc.formField(this.path, "accessLevel") || '';
-  }
-
-  set accessLevel(value: string) {
-    this.doc.setFormField(this.path, "accessLevel", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
   get dataLevelSecurity(): string {
     return this.doc.formField(this.path, "dataLevelSecurity") || '';
   }
@@ -145285,22 +145770,6 @@ export class ScreenElementEntryBehaviorForm extends SomNode {
   set readonlyCondition(value: string) {
     this.doc.setFormField(this.path, "readonlyCondition", value);
   }
-
-  get requiredPermission(): string {
-    return this.doc.formField(this.path, "requiredPermission") || '';
-  }
-
-  set requiredPermission(value: string) {
-    this.doc.setFormField(this.path, "requiredPermission", value);
-  }
-
-  get permissionEffect(): string {
-    return this.doc.formField(this.path, "permissionEffect") || '';
-  }
-
-  set permissionEffect(value: string) {
-    this.doc.setFormField(this.path, "permissionEffect", value);
-  }
 }
 
 // Generated section facade for the `content` @Form section: its own content text followed by one typed member per form field.
@@ -145884,57 +146353,6 @@ export class ScreenElementFieldSpecValidationForm extends SomNode {
 
   set clearButton(value: string) {
     this.doc.setFormField(this.path, "clearButton", value);
-  }
-}
-
-// Generated section facade for the `access` @Form section: its own content text followed by one typed member per form field.
-export class ScreenEntryAccessForm extends SomNode {
-  constructor(doc: SpecDocument, path: string) {
-    super(doc, path);
-  }
-
-  get canHaveContent(): boolean {
-    return true;
-  }
-
-  get content(): string {
-    return this.doc.content(this.path) || '';
-  }
-
-  set content(value: string) {
-    this.doc.setContent(this.path, value);
-  }
-
-  get accessLevel(): string {
-    return this.doc.formField(this.path, "accessLevel") || '';
-  }
-
-  set accessLevel(value: string) {
-    this.doc.setFormField(this.path, "accessLevel", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
-  get permissionEffect(): string {
-    return this.doc.formField(this.path, "permissionEffect") || '';
-  }
-
-  set permissionEffect(value: string) {
-    this.doc.setFormField(this.path, "permissionEffect", value);
   }
 }
 
@@ -150020,30 +150438,6 @@ export class ServerOperationEntryContentForm extends SomNode {
 
   set primaryDataEntity(value: string) {
     this.doc.setFormField(this.path, "primaryDataEntity", value);
-  }
-
-  get authorizationRequirement(): string {
-    return this.doc.formField(this.path, "authorizationRequirement") || '';
-  }
-
-  set authorizationRequirement(value: string) {
-    this.doc.setFormField(this.path, "authorizationRequirement", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
-  }
-
-  get requiredResourceKey(): string {
-    return this.doc.formField(this.path, "requiredResourceKey") || '';
-  }
-
-  set requiredResourceKey(value: string) {
-    this.doc.setFormField(this.path, "requiredResourceKey", value);
   }
 
   get descriptionKey(): string {
@@ -164285,22 +164679,6 @@ export class TabItemEntryContentForm extends SomNode {
     this.doc.setFormField(this.path, "visibilityCondition", value);
   }
 
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
-  get permissionBehavior(): string {
-    return this.doc.formField(this.path, "permissionBehavior") || '';
-  }
-
-  set permissionBehavior(value: string) {
-    this.doc.setFormField(this.path, "permissionBehavior", value);
-  }
-
   get badgeType(): string {
     return this.doc.formField(this.path, "badgeType") || '';
   }
@@ -178245,14 +178623,6 @@ export class UtilityMenuItemEntryBehaviorForm extends SomNode {
     this.doc.setFormField(this.path, "visibilityCondition", value);
   }
 
-  get requiredPermissions(): string {
-    return this.doc.formField(this.path, "requiredPermissions") || '';
-  }
-
-  set requiredPermissions(value: string) {
-    this.doc.setFormField(this.path, "requiredPermissions", value);
-  }
-
   get isDangerous(): string {
     return this.doc.formField(this.path, "isDangerous") || '';
   }
@@ -178465,14 +178835,6 @@ export class UtilityNavigationItemEntryDisplayForm extends SomNode {
 
   set visibilityCondition(value: string) {
     this.doc.setFormField(this.path, "visibilityCondition", value);
-  }
-
-  get requiredRoles(): string {
-    return this.doc.formField(this.path, "requiredRoles") || '';
-  }
-
-  set requiredRoles(value: string) {
-    this.doc.setFormField(this.path, "requiredRoles", value);
   }
 }
 
