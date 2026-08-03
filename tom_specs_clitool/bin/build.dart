@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
 import 'package:tom_specs_clitool/tom_specs_clitool.dart';
+import 'package:yaml/yaml.dart';
 
 /// TomSpecs editor build & packaging orchestrator
 /// (`som_multiplatform_spec_model.md` §17, N8, B1/B2).
@@ -20,9 +21,13 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 ///   3. Generate `spec_model.json` (`model_json.dart`), tagged with the stamp.
 ///   4. Generate DocSpecs schemas (`docspecs_schema.dart`), versioned from the
 ///      stamp.
-///   5. Embed pre-generated `tom_dart_editor` analyzer **summaries** (B1) — the
-///      summaries are committed assets; the build copies them in (it never runs
-///      the analyzer per-OS).
+///   5. Provide the `tom_dart_editor` analyzer **summaries** (B1). By default
+///      they are pre-generated assets the build copies in (it never runs the
+///      analyzer per-OS); with `--generate-summaries` the build produces them
+///      on this host by invoking **tom_dart_editor_bundler** against the
+///      editor's own `buildkit.yaml`. The bundler is the only generator of this
+///      asset set — it also emits the `summary_scopes.g.dart` helper the app
+///      reads, so the assets and the paths the app asks for cannot disagree.
 ///   6. Bundle assets (model json, schemas, embedded summaries).
 ///   7. `flutter build {linux|windows|macos}`.
 ///
@@ -44,8 +49,9 @@ Future<void> main(List<String> arguments) async {
         help: 'Optional directory of pre-generated Dart-editor summary assets '
             'to embed (B1). Skipped with a notice when absent.')
     ..addFlag('generate-summaries',
-        help: 'Generate the B1 analyzer summaries in-place via '
-            'bin/summaries.dart (against the editor\'s resolved deps) instead '
+        help: 'Generate the B1 analyzer summaries in-place by running '
+            'tom_dart_editor_bundler against the editor\'s buildkit.yaml '
+            '(which declares the scopes and their package closures), instead '
             'of copying a pre-generated --summaries directory. This runs the '
             'analyzer once on the build host; the per-OS build still only '
             'copies the resulting committed assets.',
@@ -199,47 +205,56 @@ Future<void> main(List<String> arguments) async {
   final summaries = args.option('summaries');
   final summariesDest = Directory(p.join(editorDir, 'assets', 'summaries'));
   if (args.flag('generate-summaries')) {
-    // Generate in-place into the editor's own asset dir. Needs the editor's
-    // resolved package_config, so ensure deps are present first.
     if (summaries != null) {
       _fail('--summaries and --generate-summaries are mutually exclusive.');
     }
-    summariesDest.createSync(recursive: true);
-    // tom_flutter_ui lives at <container>/tom_ai/core/tom_flutter_ui. Its
-    // widgets are what the CodeSpecs phase's Dart-code fields reference, so its
-    // dependency closure is merged into packages.sum alongside the editor's
-    // (OE-25). The editor needs no Dart dependency on it — the bundle is loaded
-    // at runtime. Both configs must be resolved first.
-    final flutterUiDir =
-        p.join(p.dirname(aiBuild), 'core', 'tom_flutter_ui');
-    final summaryPackages = <String>[editorDir];
-    if (Directory(flutterUiDir).existsSync()) {
-      summaryPackages.add(flutterUiDir);
-    } else {
-      stdout.writeln('  (tom_flutter_ui not found at $flutterUiDir; '
-          'packages.sum will cover the editor closure only)');
+    // Delegated wholesale to tom_dart_editor_bundler, which is the single
+    // generator of this asset set. It reads the editor's own `buildkit.yaml`
+    // (`dart-editor-bundler` block) for the scopes and their package closures,
+    // writes `<out-dir>/<sdk-summary>` plus `<out-dir>/<scope>/packages.sum`,
+    // and emits the `summary_scopes.g.dart` helper that names those very asset
+    // paths — so what this step produces is by construction what the app asks
+    // for at runtime. The closure (including tom_flutter_ui, OE-25) is declared
+    // in that config and nowhere here.
+    final bundlerDir =
+        p.join(container, 'tom_forge', 'tom_dart_editor_bundler');
+    final editorBuildkit = p.join(editorDir, 'buildkit.yaml');
+    if (!File(editorBuildkit).existsSync()) {
+      _fail('No buildkit.yaml in $editorDir — the summary scopes are declared '
+          'in its `dart-editor-bundler` block.');
     }
-    await _run('flutter', ['pub', 'get'], cwd: editorDir);
-    for (final dir in summaryPackages.skip(1)) {
+    if (!Directory(bundlerDir).existsSync()) {
+      _fail('tom_dart_editor_bundler not found at $bundlerDir.');
+    }
+    // The bundler analyses each configured package *closure*, so every package
+    // dir named in the config must have a resolved package_config first. Read
+    // back from the same config so this step never carries its own list.
+    for (final dir in _bundlerPackageDirs(editorBuildkit)) {
+      if (!Directory(dir).existsSync()) {
+        _fail('buildkit.yaml names a summary package dir that does not exist: '
+            '$dir');
+      }
       await _run('flutter', ['pub', 'get'], cwd: dir);
     }
+    await _run('dart', ['pub', 'get'], cwd: bundlerDir);
     await _run(
       'dart',
       [
         'run',
-        p.join('bin', 'summaries.dart'),
-        for (final dir in summaryPackages) ...['--package', dir],
-        '--out-dir', summariesDest.path,
+        p.join('bin', 'dart_editor_bundler.dart'),
+        '--config', editorBuildkit,
+        '--verbose',
       ],
-      cwd: clitoolRoot,
+      cwd: bundlerDir,
     );
-    stdout.writeln('  → generated summaries into ${summariesDest.path} '
-        '(covering ${summaryPackages.length} package closure(s))');
+    stdout.writeln('  → bundler wrote the summary assets and '
+        'lib/generated/summary_scopes.g.dart under $editorDir');
   } else if (summaries == null) {
     stdout.writeln('  (no --summaries / --generate-summaries given; nothing to '
-        'embed. Pass --generate-summaries to build them on this host, or '
-        '--summaries <dir> to copy pre-generated assets. Code-typed fields '
-        'fall back to a plain text field when the .sum assets are absent.)');
+        'embed. Pass --generate-summaries to build them on this host with '
+        'tom_dart_editor_bundler, or --summaries <dir> to copy a pre-generated '
+        'asset tree. Code-typed fields fall back to a plain text field when the '
+        '.sum assets are absent.)');
   } else if (!Directory(summaries).existsSync()) {
     _fail('--summaries directory not found: $summaries');
   } else {
@@ -289,6 +304,36 @@ String _clitoolRoot() {
   final scriptPath = p.fromUri(Platform.script);
   // .../tom_specs_clitool/bin/build.dart → .../tom_specs_clitool
   return p.normalize(p.dirname(p.dirname(scriptPath)));
+}
+
+/// The package directories every summary scope in [buildkitPath] covers,
+/// resolved against the config file's own directory.
+///
+/// Read back out of the config rather than listed here: `buildkit.yaml` is the
+/// single declaration of the summary closure, and a copy of it in this
+/// orchestrator is exactly the duplication step 5 was rebuilt to remove. Only
+/// the `packages:` lists are read — the output layout stays the bundler's.
+List<String> _bundlerPackageDirs(String buildkitPath) {
+  final baseDir = p.dirname(p.absolute(buildkitPath));
+  final dynamic doc = loadYaml(File(buildkitPath).readAsStringSync());
+  if (doc is! Map) return const [];
+  final block = doc['dart-editor-bundler'];
+  if (block is! Map) {
+    _fail('$buildkitPath has no `dart-editor-bundler` block; there are no '
+        'summary scopes to generate.');
+  }
+  final bundles = block['bundles'];
+  if (bundles is! List) return const [];
+  final dirs = <String>{};
+  for (final bundle in bundles) {
+    if (bundle is! Map) continue;
+    final packages = bundle['packages'];
+    if (packages is! List) continue;
+    for (final pkg in packages) {
+      if (pkg is String) dirs.add(p.normalize(p.join(baseDir, pkg)));
+    }
+  }
+  return dirs.toList(growable: false);
 }
 
 /// Parses the generated stamp produced by `buildkit :versioner` (step 1),

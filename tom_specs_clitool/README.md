@@ -151,7 +151,9 @@ Related entrypoints in `bin/`:
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
 | `docspecs_schema.dart` / `docspecs_yaml_schema.dart` | Emit the DocSpecs / YAML schemas. |
-| `spec_ops.dart` / `summaries.dart` / `build.dart` | Model tooling (spec operations, API summaries, build orchestration). |
+| `spec_ops.dart` | Model tooling (spec operations). |
+| `summaries.dart` | Build an analyzer `sdk_summary.sum` (and, with `--package`, a one-off grouped `packages.sum`) for a single consumer. This is **not** the producer of `tom_specs_editor`'s scoped summary asset set — that set has one generator, `tom_forge/tom_dart_editor_bundler`, which also emits the `summary_scopes.g.dart` helper naming its asset keys. Here it serves `--sdk-only` (see `split_sdk_summary.dart` below). |
+| `build.dart` | Build orchestration for the editor app. Its `--generate-summaries` step *invokes* the bundler against `tom_specs_editor/buildkit.yaml` rather than generating the asset set itself, so the assets and the paths the app asks for cannot disagree. |
 
 And in `tool/` — four entries: two scripts, both still run, and two data files a
 gate reads. A script here is a maintained entry point, not a scratch file:

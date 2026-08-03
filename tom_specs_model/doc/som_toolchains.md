@@ -130,7 +130,7 @@ the outliner / validator / model-JSON exporter, and all nine
 | --- | --- | --- |
 | Embedded SDK summary | `tom_specs_clitool/lib/src/sdk_summary/` — 69 `chunk_NNN.dart` files plus a `sdk_summary_chunks.dart` barrel | The Dart SDK element model (`dart:core`, `dart:async`, …), base64-encoded and split at 60 000 chars per chunk so it compiles into the binary as ordinary `const` strings. ~3.10 MB raw → ~4.14 MB of base64 |
 | Driver bootstrap | `tom_specs_clitool/lib/src/analyzer_bootstrap.dart` | Reassembles the chunks, builds a `SummaryBasedDartSdk` from the bundle, and wires a `SourceFactory` of `DartUriResolver` + `PackageMapUriResolver` + `ResourceUriResolver` |
-| Summary generator | `tom_specs_clitool/bin/summaries.dart` | Produces `sdk_summary.sum` and the grouped `packages.sum`. `--sdk-only` skips the heavy package bundle |
+| Summary generator | `tom_specs_clitool/bin/summaries.dart` | Produces the `sdk_summary.sum` this package's chunk set is split from. `--sdk-only` skips the package bundle, which `tom_specs_clitool` never loads. It is a one-off generator for *this* consumer — the editor's scoped asset set has a different producer (see "The `packages.sum` route") |
 | Chunk splitter | `tom_specs_clitool/tool/split_sdk_summary.dart` | Turns a `.sum` file into the chunk set — the only producer of the embedded summary above |
 | Shared infrastructure | `tom_analyzer_shared` (`tom_ai/basics/`), constraint `>=0.7.2` | The base-first home of the grouped `packages.sum` builder (`GroupedPackageBundleBuilder`) and the package-config helpers (`readPackageRoots`, `mergePackageRootsForDirs`, `SummaryConfigException`), re-exported from the clitool barrel |
 
@@ -159,12 +159,7 @@ dart run bin/summaries.dart --sdk-only --out-dir assets
 dart run tool/split_sdk_summary.dart assets/sdk_summary.sum lib/src/sdk_summary/
 ```
 
-`--sdk-only` skips the heavy `packages.sum`, which this package never loads. The
-same front-end emits both bundles for the other consumer:
-
-```bash
-dart run bin/summaries.dart --package . --out-dir assets/summaries
-```
+`--sdk-only` skips the `packages.sum`, which this package never loads.
 
 `bin/summaries.dart` locates the SDK itself (`getSdkPath()`) and is covered by
 `test/summaries_generator_test.dart`; the intermediate `assets/sdk_summary.sum`
@@ -172,11 +167,28 @@ is gitignored, since only the chunk set is committed.
 
 ### The `packages.sum` route
 
-`packages.sum` (~31 MB) covers every package reachable from a resolved
+`packages.sum` covers every package reachable from a resolved
 `package_config.json`. It exists for the **other** consumer of this
 infrastructure — `tom_dart_editor`, which analyzes user-entered Dart in the
 editor's code-typed fields where no `package_config.json` is available. It is
 not part of the `tom_specs_clitool` path.
+
+For that consumer the bundles are produced by
+**`tom_forge/tom_dart_editor_bundler`**, not by `summaries.dart`. The bundler is
+config-driven from the consuming app's own `buildkit.yaml` and emits a *scoped*
+asset set — one shared `sdk_summary.sum` plus `<out-dir>/<scope>/packages.sum`
+per scope — together with the `summary_scopes.g.dart` helper that names those
+asset keys. Keeping one producer for that set is what makes the helper's paths
+and the files on disk the same statement rather than two:
+
+```bash
+cd tom_forge/tom_specs_editor
+dart run ../tom_dart_editor_bundler/bin/dart_editor_bundler.dart \
+  --config buildkit.yaml --verbose
+```
+
+`tom_specs_clitool/bin/build.dart --generate-summaries` (SOM §17 step 5) runs
+exactly that command; it does not generate the set itself.
 
 Loading one needs a fallback resolver: the standard `InSummaryUriResolver` only
 resolves URIs explicitly registered in `uriToSummaryPath`, so deserializing a
