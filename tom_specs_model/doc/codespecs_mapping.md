@@ -241,7 +241,7 @@ Beyond these, **one deferred candidate part** is reserved for *mapping only*
 | **CE-ER** | Structured error-result contract | shared | One envelope for all operations. Reuses `TomResult<T>`/`TomErrorResult` + `TomFieldError`/`TomErrorSeverity` (`tom_core_kernel`) directly; no new classes (§7). |
 | **CE-CF** | Server / system configuration | server | Reuses `TomBaseServerConfiguration`/`TomServerConfigResourceProvider` (`tom_core_server`) directly; no new classes (§5.5, §5.16). |
 | **CE-CC** | Client configuration — per-machine settings of a client app | client | Reuses `TomBaseClientConfiguration`/`TomSetting<T>`/`TomClientConfigurationStore` (`tom_core_flutter`, `tomclient/configuration/`) directly; no new classes (§5.16, §11). |
-| **CE-DS** | Device settings — user-specific settings of a user-owned device, device-persisted | client | Declared over the `tom_core` property/settings classes (§11, §5.16). **No shipped holder carries the (user, device) scope**: `TomProperty<T>` is read-only, and `TomClientConfigurationStore` excludes a user parameter by design — a runtime gap, not a missing marker (§4.1.1; `tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance -->. |
+| **CE-DS** | Device settings — user-specific settings of a user-owned device, device-persisted | client | Declared over `TomDevicePreferences` (`tom_core_flutter`), the typed device store with a backend per platform (§11, §5.16). Its API carries no principal: the **user half of the scope is the application's**, supplied by the store's `location`, which makes CE-DS CE-CC's substrate at a per-account address. |
 | **CE-UP** | User settings — user-scoped, server-persisted, follow the user | client + server | Reuses the round-trip carrier (`TomGetSettingsMessage`/`TomGetSettingsResult`, `tom_core_kernel`) for the server → client bootstrap; the typed holder `TomUserSettings` and the per-user persistence seam `TomUserSettingsStore` are `tom_core_codespecs` gap classes (§11, §5.16). |
 | **CE-CL** | Client application — which clients exist (Flutter app, CLI, other server) | client | The client-application descriptor `TomClientApplication` is a `tom_core_codespecs` gap class (`client_application.dart`); the four original `tom_core` packages name a client only as an id string on a login or a live connection. |
 | **CE-AU** | Authentication / session — credential flow, token, session (distinct from CE-AZ) | shared + client + server | Pure reuse of the `tom_core` auth stack (no gap class): `TomAuthenticationServer` + the app's `TomAuthenticationService` implementation (server), `TomBearerAuthentication`/`TomClientJwtToken`/wire types (kernel, shared), login endpoint triple + token store (client). Mechanics framework-fixed; the spec surface is binding/methods/flows/policies (§5.25). |
@@ -292,7 +292,7 @@ surface — pillar (a)/(b)):
 | CE-CF | ServerConfiguration | `serverConfiguration` | `@CsServerConfig` | `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`) (§5.5, §5.16) |
 | CE-CC | ClientConfiguration | `clientConfiguration` | `@CsClientConfig` | `TomBaseClientConfiguration` + `TomSetting<T>` + `TomClientConfigurationStore` (`tom_core_flutter`); baseline layer `TomConfigResourceProvider` (`tom_core_kernel`) (§5.16) |
 | CE-UP | UserSettings | `userSettings` | `@CsUserSetting` | `TomUserSettings` + `TomUserSettingsStore` (`tom_core_codespecs`); round-trip substrate `TomGetSettings*` (`tom_core_kernel`) (§5.16) |
-| CE-DS | DeviceSettings | `deviceSettings` | `@CsDeviceSetting` | the `tom_core` property/settings classes (§5.16, §11); the (user, device)-scoped store under them is a runtime gap (§4.1.1; `tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance --> |
+| CE-DS | DeviceSettings | `deviceSettings` | `@CsDeviceSetting` | `TomDevicePreferences` + `TomStoredDevicePreferences` over a per-platform `TomDevicePreferenceStore` (`tom_core_flutter`); the user half of the scope rides the store's `location` (§5.16, §11) |
 | CE-CL | Client | `client` | `@CsClient` | `TomClientApplication` (`tom_core_codespecs`) |
 | CE-AU | Authentication | `authentication` | `@CsAuth` | `TomAuthenticationServer` + `TomAuthenticationService` (`tom_core_server`); `TomBearerAuthentication` / `TomClientJwtToken` / wire types (`tom_core_kernel`); login endpoint triple client-side |
 | CE-ID | Identity | `identity` | `@CsIdentity`, `@CsIdentityAttribute` *(with `placement: public\|encrypted`)* | `TomUser` / `TomPrincipal` (`tom_core_kernel`); **reuse — no new class** — the profile extension is an **ordinary class**, directly reusable and carried as **JSON via reflection** in the user profile (§5.24) |
@@ -457,7 +457,7 @@ resulting position second.
 | **CE-CF** ServerConfiguration | Server/system-scope configuration; precedence config-tree → env → `.env` → cmdline; secret marking. | **Built on:** subclass of `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`). A **plain typed config class**; config keys stay strings (§5.23 exemption).<br>**Annotations:** `@CsServerConfig(key)` per setting member.<br>**Example:** `class AppServerConfig extends TomBaseServerConfiguration { @CsServerConfig('smtp.password', envAlias: 'SMTP_PASSWORD') late String smtpPassword; }` | None. | `@CsServerConfig` carries the setting **key** and its env / cmdline **aliases** — all three verbatim, being §5.23 exemption 1 — plus the required `overridableBy` scope opt-in (§5.16) and the `secret` flag. Type and default are the member declaration and its initialiser; precedence is not an argument, because §5.16 fixes it for every setting and a per-setting override would be a second, disagreeing rule. The SMTP settings (`smtpHost`, `smtpPort`, `smtpSecurity`, `smtpUsername`, `smtpPassword`, `smtpFrom*`, `smtpClientName`) are the live exemplar: declared on `TomBaseServerConfiguration`, with `smtpPassword` secret-bearing — its *declaration* authored, its *value* supplied only through the precedence chain. |
 | **CE-CC** ClientConfiguration | Client-app + machine scope (no user); single-moded per §11. | **Built on:** subclass of `TomBaseClientConfiguration` (`tom_core_flutter`, `tomclient/configuration/client_configuration.dart`) — settings declared in `declareSettings()` as `TomSetting<T>` under dotted keys, baselines resolved from `TomConfigResourceProvider` (`tom_core_kernel`), overrides persisted through a `TomClientConfigurationStore` (memory / JSON-file variants).<br>**Annotations:** `@CsClientConfig(key)` per setting member.<br>**Example:** `class AppClientConfig extends TomBaseClientConfiguration { @CsClientConfig('client.server.url') late final TomSetting<String> serverUrl; @override void declareSettings() { serverUrl = stringSetting('client.server.url', 'https://…'); } }` | None — the holder carries typed access, defaults, load-at-startup, persistence of **overrides only**, and observation both per field and holder-wide. | `@CsClientConfig` carries the setting **key**, its env **alias** and the required `overridableBy` scope opt-in, as CE-CF does. It has no cmdline alias: a client app is launched by its platform, not by a command line the specification controls. |
 | **CE-UP** UserSettings | User-scope, **server-persisted** settings — follows the user (§11). Single-moded: there is no persistence argument, because the scope key alone decides where a value lives. | **Built on:** the round-trip substrate `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`, `tombase/settings/settings_client_authorization.dart`), reused as-is for the server → client bootstrap, plus `TomUserSettings` + `TomUserSettingsStore` (`tom_core_codespecs`).<br>**Annotations:** `@CsUserSetting(key)` per field.<br>**Example:** `@CsUserSetting('user.preferredLanguage') String preferredLanguage = 'de';` — the default is the member initialiser. | Both halves of the **declaration** gap are closed: `TomUserSettings` is the typed holder (with `effectiveValue` applying the persisted-value → default order), and `TomUserSettingsStore` is the server-side per-user persistence seam — the kernel carrier is read-only, so the write-back path has no other home. **The round trip the "reused as-is" claim rests on is not wired.** `TomUserSettingsStore` has one in-memory implementation and no reference in any package outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` — so a generated `@CsUserSetting` holder persists nowhere and bootstraps from nothing. The seam is right; what is absent is a server-side implementation and an endpoint behind it — mode **R** (`tcca10` landed; the residual core-side question is `tspcmp2` — position restated by `qrc7`) <!-- todo-cite: provenance -->. | `@CsUserSetting` carries the setting **key** and its required `overridableBy` scope opt-in (§5.16) — type and default are the member. Single-moded for the §11 reason: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. Both halves of the declaration use the same key and the same member names, so the wire mapping is identity. |
-| **CE-DS** DeviceSettings | (user, device) scope, device-persisted (§11). | **Built on:** the `tom_core` property/settings classes (§5.16).<br>**Annotations:** `@CsDeviceSetting(key)` per field.<br>**Example:** `@CsDeviceSetting('device.lastOpenedTab') int lastOpenedTab = 0;` | **Nothing carries the (user, device) scope this part is defined by.** `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves its value from the config provider **once, at construction**, and states in its own contract that it is eager and immutable — it has no write path, so it cannot hold a value a user changed on this device. `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) does persist, but states equally plainly that **there is no user parameter anywhere in its interface, by design** — its scope is (client app, machine), which is CE-CC's. A `@CsDeviceSetting` therefore emits onto a holder that is either unwritable or unscoped to the user — mode **R** (`tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance -->. | `@CsDeviceSetting` carries the setting **key** and nothing else — CE-DS is the lattice's narrowest scope, so unlike CE-UP it carries no `overridableBy` counterpart (§5.16), and for the same §11 reason there is no persistence-mode argument on either. |
+| **CE-DS** DeviceSettings | (user, device) scope, device-persisted (§11). | **Built on:** the `tom_core` property/settings classes (§5.16).<br>**Annotations:** `@CsDeviceSetting(key)` per field.<br>**Example:** `@CsDeviceSetting('device.lastOpenedTab') int lastOpenedTab = 0;` | **A `@CsDeviceSetting` emits onto `TomDevicePreferences`** (`tom_core_flutter` `tomclient/preferences/device_preferences.dart:160`) — the typed device store, resolved as a bean, implemented by `TomStoredDevicePreferences` over a `TomDevicePreferenceStore` chosen per platform by dependency injection, so the call site never branches on the platform. The **user dimension is the application's, supplied by the store's `location`**: the API carries no principal, a store is one flat key space, and an install on which more than one account signs in gives each its own location. CE-DS is therefore CE-CC's substrate at a different address (§5.16, §11). | `@CsDeviceSetting` carries the setting **key** and nothing else — CE-DS is the lattice's narrowest scope, so unlike CE-UP it carries no `overridableBy` counterpart (§5.16), and for the same §11 reason there is no persistence-mode argument on either. |
 | **CE-CL** Client | A client application of the system: which screens it comprises, its platform targets, its entry route. SOM home CLIAPP (the client-application list under `ClientRequirementsSection` CLRESE, D06 ATS). | **Built on:** `TomClientApplication` (`tom_core_codespecs`, `client_application.dart`) — `clientId` / `displayName` / `platforms` / `entryRoute` / `screenIds` / `serverBaseUrl`. The CodeSpec is a subclass carrying the marker.<br>**Annotations:** `@CsClient` on the descriptor.<br>**Example:** `@CsClient('backoffice', kind: CsClientKind.flutterApp) class BackofficeClient extends TomClientApplication { … }`, its members naming platform targets and its entry route (`CsRouteRef`). | **Gap filled in `tom_core_codespecs`** — the four original `tom_core` packages have no client-application *descriptor*: `TomAuthenticationData` carries a client id string and `TomClientRemoteContext` models a live connection, but neither names the client application as a first-class, spec-authorable unit. `client_application.dart` carries that unit. | `@CsClient` carries the client **id** and its **kind**, the latter required because the kind decides which other parts the client may carry — a CLI has no CE-EL — so defaulting it would silently admit impossible combinations. The kind is the one attribute with **no descriptor member**: platform targets, entry route and screen set are all `TomClientApplication`'s own. The client's **configuration** is not among them either — a CE-CC setting names its owning client (§11), so a client-side list would be the second source the two would disagree through. |
 | **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | None — the second-factor round trip is complete in all three loci, so CE-AU stays pure reuse. **Server:** pass 1 issues a `Tom2FAChallenge` interim token carrying the access-control payload it already resolved, `authenticatePass2` verifies it statelessly through the `Tom2FARegistry` adaptor, and the challenge's `validity` plus its attempt allowance bound the chain; whether a factor is owed and which mechanisms may answer it is `Tom2FAPolicy.decideFor` → `Tom2FADecision` (requirement level, mechanisms in preference order, grace count), with `TomRole2FAPolicy` shipped and `TomPrincipalFlag2FAPolicy` the const fallback; enrolment is `Tom2FAEnrolmentSupport` (`beginEnrolment` / `confirmEnrolment`), implemented by `TomTotp2FAService` with secret generation and the `otpauth://` provisioning URI, persisted through `Tom2FAEnrolmentStore`. **Wire:** `TomAuthenticationResult` carries `requires2FAEnrolment`, `availableTwoFactorMethods` and `twoFactorEnrolmentSkippable` beside the unchanged `requires2FA` / `twoFactorType`. **Client:** `Tom2FAFlowPanel` over the app's `Tom2FAFlowController` owns the chooser, attempt counter and skip affordance, with `Tom2FAClientMechanism` per mechanism (`tom_core_flutter`). See §5.25. | `@CsAuth` stays note-only, on a different §2.3 ground per group. The **set of enabled methods and flows** is test **a**: there is one marked declaration per enabled method/flow, so the set of declarations *is* the enabled set, and a flow-kind argument would invent a closed method catalogue the SOM does not have. The **second-factor policy** — requirement level, mechanism preference order, grace count — is test **b**: those are `TomRole2FAPolicy`'s own constructor parameters (`requirementByRole`, `defaultRequirement`, `mechanisms`, `graceLogins`), so `MfaConfiguration` (`MC`) emits a *further marked declaration*, the deployment's `Tom2FAPolicy` binding, rather than arguments on the first. Whether declining an enrolment offer is allowed is **not authorable at all**: the server derives it as *optional-or-on-grace* (§5.25). Token lifetime, refresh policy and credential policy are values on the `@CsServerConfig` holder. |
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: IdentityAttributePlacement.public)` / `…encrypted` per field — `placement` is a **required** named argument of the closed `IdentityAttributePlacement` enum, never defaulted, because §5.16's fail-safe rule forbids choosing a token-payload arm by omission.<br>**Example:** `@CsIdentity() class EmployeeProfile { @CsIdentityAttribute(placement: IdentityAttributePlacement.encrypted, systemOfRecord: 'hr') String? costCenter; }` | None — reuse; both carriers exist. | `@CsIdentityAttribute` carries the **placement**, the field-level access guard (`CsResourceKeyRef`), the **system of record** and whether the attribute is **required** — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. The attribute's type stays on the member; `@CsIdentity` stays note-only. |
@@ -483,20 +483,21 @@ resulting position second.
   burst of keystrokes — §4.1.1), **CE-EL** (the eleven-kind catalogue maps 1:1
   onto shipped widgets, and an option label resolves through the text-resource
   provider like every other label because the element emits a bundle-labelled
-  source class rather than a literal one — §5.18).
+  source class rather than a literal one — §5.18), **CE-DS** (`TomDevicePreferences`
+  persists a typed value on every platform, and the user half of the scope is
+  supplied by the application through the store's `location` rather than by a
+  principal in the API — §5.16).
 - **NEEDS EXTENSION — the class to build on exists, a capability under it does
-  not.** Each entry names the core-side prerequisite, which has landed, and the
+  not.** The entry names the core-side prerequisite, which has landed, and the
   mapping-side todo that restates the position here:
-  - CE-DS — no (user, device)-scoped store; mode **R**
-    (`tcca11` landed → `tspcmp1` settled → `qrc6`). <!-- todo-cite: provenance -->
   - CE-UP — server side of the round trip unwired; mode **R**
     (`tcca10` landed → `tspcmp2` → `qrc7`). <!-- todo-cite: provenance -->
 
-  **Every remaining gap is of mode R**: both entries emit and compile, and each
+  **One gap remains, and it is of mode R**: the entry emits and compiles, and
   yields an application that does not yet run. Nothing in the matrix is
-  emission-blocking, and nothing is lossy. Both are the NEEDS-EXTENSION class:
-  what they wait on is behaviour in a shipped class, not a class that does not
-  exist, so neither changes the §4.1.2 built-on resolution nor moves a part into
+  emission-blocking, and nothing is lossy. It is the NEEDS-EXTENSION class: what
+  it waits on is behaviour in a shipped class, not a class that does not exist,
+  so it changes neither the §4.1.2 built-on resolution nor which parts live in
   `tom_core_codespecs`.
 - **READY VIA `tom_core_codespecs` — the part reuses `tom_core` plus one
   concrete gap class:** CE-LO (`layout_node.dart`), CE-TX (`message_key.dart`),
@@ -1135,7 +1136,7 @@ therefore classified:
 | **3** | Server persistence & configuration | — (CE-DB, CE-MG, CE-RP's definition and CE-LG are all READY: the aggregation grammar and the schema-diff engine ship, a declared transaction scope resolves per flow through the zone-held current transaction (`tom_core_server` `transactions/transaction_manager.dart:219`), the grouped-projection gap class ships, the `audit` module is pure reuse, and the definition's outbound targets are settled (§5.28) — a `Type` literal for the source entity, a recurrence expression for the schedule, and a `@CsAuthorize` beside the marker for authorization) | — | — |
 | **4** | Server behaviour | — (CE-SU, CE-AU, CE-NT delivery and CE-LG are all READY: **CE-AU's second factor is complete across the trio** — `Tom2FAPolicy` decides requirement level, mechanism preference order and grace, `Tom2FAEnrolmentSupport` enrols with `TomTotp2FAService` generating the secret and the `otpauth://` URI, `TomAuthenticationResult` carries the enrolment state and the method list, and `Tom2FAFlowPanel` runs the client half (§5.25); the `messaging` router, SMTP transport and durable outbox ship; and the audit trail records at a chokepoint no handler can opt out of) | — | — |
 | **5** | Client interaction core | — (CE-SC / CE-AC / CE-FM take their ref parameters and CE-EL carries every per-kind attribute. A `choice` / `multiChoice` field's **per-value** copy resolves through the text-resource provider, because the slice emits a `TomEnumSelectableSource` / `TomEnumNameSelectableSource` rather than a literal option list (§5.18, `codespecs_derivation_contract.md` §3.5.2). The text-controller write path is guarded throughout — `_setControllerText` is the only write, `set()` routes through it and `reset()` has no override (`tom_flutter_ui` `forms/tom_form.dart:1161`, `:1245`)) | — | — |
-| **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS has no substrate for its scope**: `TomProperty<T>` (`tom_core_flutter` `tomclient/resources/tom_properties.dart:28`) resolves from config once at construction and is never written, and `TomClientConfigurationStore` (`…/configuration/client_configuration_store.dart:47`) states in its own contract that there is no user parameter in the interface, by design. **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca11` + `tspcmp1` settled → `qrc6`; `tcca10` landed, `tspcmp2` open → `qrc7` <!-- todo-cite: provenance --> |
+| **6** | Client presentation & shell | CE-CC is **READY** (one holder, `tom_core_flutter`'s `TomBaseClientConfiguration`) and CE-LO is unblocked. **CE-DS is READY too**: `TomDevicePreferences` (`tom_core_flutter` `tomclient/preferences/device_preferences.dart:160`) persists a typed value through a backend chosen per platform, and its scope is its store's `location` — so the user half of the key is an address the application supplies, not a capability the substrate lacks (§5.16). **CE-UP's round trip is unwired**: `TomUserSettingsStore` has one in-memory implementation and no reference outside `tom_core_codespecs`, and no `tom_core_server` code handles `TomGetSettingsMessage` | **R** | `tcca10` landed, `tspcmp2` open → `qrc7` <!-- todo-cite: provenance --> |
 | **7** | Server operational | CE-JB is **READY** on both sides — the declaration envelope, scheduler runtime, job queue, multi-node lease and declarative registration have all landed, §5.29 names the owning class for each of the four scope parts, both target kinds are compiler-checked (`Type` literals for CE-DB, `CsReportRef` consts for CE-RP), and the SOM per-job declaration list `SCJOB` supplies the authored surface | — | — |
 
 **Critical-path consequence.** The `Cs*` annotation family with its constructors,
@@ -1146,12 +1147,15 @@ lossy one — a `choice` / `multiChoice` element's per-value copy — resolves
 through the text-resource provider now that slice 5 emits a bundle-labelled
 source class instead of a literal option list (§5.18).
 
-**Both remaining `tom_core`-side blockers are of mode R, and both sit in slice
-6.** It emits and compiles; what it produces does not yet run against a complete
-substrate. CE-DS has no store scoped to a (user, device) pair, and CE-UP's
-read/write round trip has no server handler. Each is a capability absent under
-the skeleton, not a skeleton that cannot be written; each names its `tom_core`
-todo and its CodeSpecs-side consequence in the table above. **Slice 5 has no
+**One `tom_core`-side blocker remains, of mode R, and it sits in slice 6.** The
+slice emits and compiles; what it produces does not yet fully run against the
+substrate, because CE-UP's read/write round trip has no server handler. That is a
+capability absent under the skeleton, not a skeleton that cannot be written; it
+names its `tom_core` todo and its CodeSpecs-side consequence in the table above.
+**Slice 6's other user-scoped part is clear**: CE-DS persists through
+`TomDevicePreferences` on every platform, and the (user, device) key it is
+defined by is completed by the store's location — an address the generated client
+is given, not a behaviour it waits for. **Slice 5 has no
 runtime blocker**: a programmatic write to a generated text field — the path a
 CE-ST binding and a CE-FM load both take — goes through the field's guarded
 controller write and is not processed as a keystroke.
@@ -1219,7 +1223,7 @@ part (detailed in the referenced §5.x subsections).
 | CE-CF | `TomBaseServerConfiguration` (`tom_core_server`) | **Server/system config only** — client-machine, device and user settings are CE-CC/CE-DS/CE-UP. `@CsServerConfig` (reuse, no gap class) over `TomBaseServerConfiguration`/`TomServerConfigResourceProvider` (`tom_core_server`), server project; one config-value concept realised as four owner-keyed parts (CE-CF/CE-CC/CE-DS/CE-UP) (§5.5). Attribute surface + precedence: **§5.16** (per-scope spec-authorable split + opt-in most-specific-owner-wins cross-scope precedence). |
 | CE-CC | `TomBaseClientConfiguration` + `TomSetting<T>` (`tom_core_flutter`) | Model **per-machine client configuration** — settings scoped to the machine a client app runs on (endpoints, feature toggles, device options) (§5.16, §11). |
 | CE-UP | `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip (`tom_core_kernel`) | Model **user settings** — user-scoped, server-persisted preferences that follow the user (§11); the typed holder and the server-side per-user persistence are a `tom_core_codespecs` gap to specify. |
-| CE-DS | `TomProperty<T>` family + settings holders (`tom_core`) | Model **device settings** — user-specific settings of a user-owned device, persisted on the device and keyed by the signed-in user (§11). The marker and the declaration shape are settled; the holder that persists a value against a (user, device) key is a runtime gap (§4.1.1; `tcca11` landed; `tspcmp1` settled its scope question — position restated by `qrc6`) <!-- todo-cite: provenance -->. |
+| CE-DS | `TomDevicePreferences` (`tom_core_flutter`) | Model **device settings** — user-specific settings of a user-owned device, persisted on the device (§11). The store is scoped by its `location`, so the signed-in user is one segment of the address rather than a parameter in the API, and separating accounts is the **application's** act (§5.16). |
 | CE-CL | `TomClientApplication` (`tom_core_codespecs`) | Enumerate the **client applications** (Flutter app, CLI, other server) with their platform targets, entry route and screen set — each owns its CE-CC and hosts CE-DS/CE-UP. |
 | CE-AU | `TomAuthenticationServer` + `TomAuthenticationService` contract (`tom_core_server`); `TomBearerAuthentication`, `TomClientJwtToken`, `TomAuthenticationMessage`/`TomAuthenticationResult` (`tom_core_kernel`) | **Pure reuse — no gap class.** The mechanics (two-token JWT model, login orchestration, stateless Bearer verification, wire attachment, token store) are framework-fixed; the spec-authorable surface is the service binding, enabled methods/flows, the second-factor policy binding, per-client login flow, and session/token/credential policies. The app's `TomAuthenticationService` implementation **is** the `@CsAuth` CodeSpec, and its `Tom2FAPolicy` binding is a second `@CsAuth` declaration (§5.25). |
 | CE-ID | `TomUser` + `TomPrincipal` (`tom_core_kernel`); both token-payload extension carriers exist in the substrate (public `attributes`, encrypted context) | **Reuse — no new class.** **App-declared identity-attribute extensions** over the fixed principal core: `@CsIdentity` (declaration holder) + `@CsIdentityAttribute(placement: IdentityAttributePlacement.public)` / `…encrypted` per extension; the profile extension is modelled as an **ordinary class**, directly reusable and carried as **JSON via reflection** in the user profile; shared (declaration) + server (population in the CE-AU flow) (§5.24). |
@@ -2520,7 +2524,7 @@ secret, the user's chosen preference) is supplied at deploy/run time, never auth
 |-------|------|-----------------------------------|-----------------------------|--------------------|
 | **Server / system** | CE-CF `@CsServerConfig` | typed setting fields (`appId`, `host`/`port`, `isolateCount`, `logLevel(s)`, `databaseMigrationsDirectory`, server feature flags); secret-bearing fields (`certificateChain`/`privateKey`, `jwtRsaPubKey`/`jwtRsaPrivKey`/`jwtSharedSecretKey`) declared **and marked secret**; per-field source key + precedence | deployment (config-tree/env/`.env`/cmdline) | middleware/handlers, `loggingMiddleware`, provider singletons, self-signed cert literals |
 | **Client install** | CE-CC `@CsClientConfig` | setting `key` (dotted) · value type (`String`/`int`/`double`/`bool`) · declared default | client app config resources (`TomConfigResourceProvider`) **and** this install's persisted overrides (`TomClientConfigurationStore`) | `TomBaseClientConfiguration`'s declaration/baseline machinery, the coercion of loosely-typed external values, the store's write-then-rename |
-| **User + device** | CE-DS `@CsDeviceSetting` | setting `key` · type · default | the user's persisted choice on this device (the device store) | the device-local, user-scoped store |
+| **User + device** | CE-DS `@CsDeviceSetting` | setting `key` · type · default | the user's persisted choice on this device, read through `TomDevicePreferences` (`tom_core_flutter`) | `TomStoredDevicePreferences` over a per-platform `TomDevicePreferenceStore`, and the store's `location` — which is where the user dimension lives |
 | **User** | CE-UP `@CsUserSetting` | setting `key` · type · default | the user's persisted choice (re-materialised via `TomGetSettings*`) | the `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip, the server-side per-user persistence store |
 
 The secret fields (TLS private key, JWT keys) are the exception to "declaration is
@@ -2563,30 +2567,81 @@ tooling supply them out-of-band.
    cross-scope contest arises for it. This makes the model **fail-safe**: broadening a
    value's blast radius is a deliberate authored act, never a default.
 
+**The CE-DS ▸ CE-UP step is one shape with two implementations.** The two
+user-scoped stores are not two unrelated mechanisms that the lattice happens to
+order. `TomDevicePreferences` (C-14, `tom_core_flutter`) and `TomUserPreferences`
+(C-13, `tom_core_server`) carry the **same method set** — `all` / `read` / `get`
+/ `getOr` / `set` / `remove` — over the same `TomUserPreferenceKeys` vocabulary,
+the same `TomUserPreferenceDto` and the same `TomUserPreferenceCodec`, all of
+them the kernel's. So the two ends agree by construction rather than by
+inspection, and a key that turns out to belong to the user rather than the device
+**moves between the scopes without a call site changing** — which is what makes
+re-scoping a setting a specification edit rather than a refactor. (Which of the
+server-side mechanisms CE-UP's own marker resolves against is settled by `qrc7`,
+whose subject that is; the symmetry stated here holds either way, because it is a
+property of the two stores.)
+
+**Neither API takes a principal**, and that is the same design decision twice:
+each store binds the user from its context instead of from an argument — the
+device store from the `location` it was opened at, the server store from the
+principal in the request zone (`user_preferences_service.dart:72`, "the caller is
+the zone, not an argument"). A parameter would invite a caller to pass a
+principal it read off the request, in both places.
+
+The step *between* them is likewise implemented once, in
+`TomDevicePreferences.getPreferred`: the device value wins for as long as it
+exists and the server value answers only a key this device has never written, so
+the account value behaves as a cross-device default and the device value as this
+machine's override. That is the §5.16 lattice's CE-DS ▸ CE-UP edge, resolved in
+the substrate rather than re-derived per call site — and the server arm is passed
+as a **callback**, so a device-only client is never made to carry an HTTP client
+to read a local setting.
+
 **Boundaries drawn.**
 - **CE-CF ↔ CE-CC ↔ CE-DS ↔ CE-UP** are the same config-value concept at four
   owner-keyed scopes (§5.5); this section adds only the *precedence lattice*
   between them, it does not merge them.
 - **CE-CF ↔ CE-AZ / CE-AU** (unchanged from §5.5): config supplies keys/material, not
   the access policy or the credential flow.
-- The deeper CE-CC (`TomBaseClientConfiguration` + its store), CE-DS (device store) and CE-UP
+- The deeper CE-CC (`TomBaseClientConfiguration` + its store), CE-DS
+  (`TomDevicePreferences` + its per-platform store) and CE-UP
   (server-side persistence) per-attribute surfaces are separate (§5.5); this
   section fixes the spec-authorable classification and the cross-scope precedence
   they operate within. The realisation annotations are `@CsServerConfig` /
   `@CsClientConfig` / `@CsDeviceSetting` / `@CsUserSetting` — one per scope.
-- **Substrate status of the two user-scoped resolvers.** The precedence lattice
-  above is stated in full and is what a generator emits against; two of the four
-  resolvers it names do not yet exist behind their marker. **CE-DS's "device-local,
-  user-scoped store" has no implementation** — `TomProperty<T>` resolves from
-  config once at construction and never accepts a write, and
-  `TomClientConfigurationStore` keys on (client app, machine) with no user
-  parameter, by design (`tcca11` landed → `tspcmp1` settled → `qrc6`). <!-- todo-cite: provenance -->
-  **CE-UP's server side is unwired** — `TomUserSettingsStore` has one in-memory
+- **CE-DS's resolver, and who supplies the user dimension.** The persisted arm of
+  CE-DS's chain is **`TomDevicePreferences`** (`tom_core_flutter`
+  `tomclient/preferences/device_preferences.dart:160`) — the interface, resolved
+  as a bean, implemented by **`TomStoredDevicePreferences`**
+  (`stored_device_preferences.dart:36`) over a **`TomDevicePreferenceStore`**
+  (`device_preference_store.dart:22`) chosen per platform by dependency
+  injection. That store is the only platform-specific part, which is what keeps a
+  `@CsDeviceSetting` call site free of an `if (kIsWeb)`.
+
+  **Its API carries no principal, deliberately**, and the user dimension is
+  carried by the store's **address** instead: a store is scoped to its
+  `location` and holds one flat key space, so an application on which more than
+  one account can sign in gives the store a location naming the signed-in account
+  and installs a new store when the account changes. The consequence to state
+  plainly is that **the application supplies the user dimension, not the
+  framework** — an install that gives every account one location gives them one
+  set of settings, and nothing in the substrate detects it, because nothing in it
+  is told a user changed.
+
+  So CE-DS is **the same substrate as CE-CC at a different address**, not a
+  framework-supplied principal key: at a fixed location the store occupies
+  CE-CC's (client app, machine) scope, at a per-account location CE-DS's (user,
+  device) — the user bound the same implicit-by-storage way §11 already binds the
+  device. The account part of a location must be one path segment and stable for
+  the life of the account (a surrogate id, or an address hashed or
+  percent-encoded), since a value carrying a separator addresses a different
+  store than the one intended, silently.
+- **CE-UP's server side is unwired** — `TomUserSettingsStore` has one in-memory
   implementation and no caller outside `tom_core_codespecs`, and no
   `tom_core_server` code handles
   `TomGetSettingsMessage` (`tcca10` landed → `tspcmp2` → `qrc7`). <!-- todo-cite: provenance -->
-  Both are runtime gaps: the declarations emit and compile, and the persisted
-  arm of each precedence chain resolves to nothing at execution time.
+  It is a runtime gap: the declarations emit and compile, and the persisted arm
+  of that precedence chain resolves to nothing at execution time.
 
 **SOM feed.** CE-CF/CE-CC/CE-DS/CE-UP derive from **D06 ATS** (deployment
 topology) + **D08 SAS** (which config carries secrets), per §8; the
@@ -4682,17 +4737,9 @@ specification.
 
 A todo below is paired with its prerequisite in the `tom_core` quest
 (`_ai/quests/tom_core/todos.tom_core.todo.yaml`): the core-side capability has
-to exist before the mapping-side position can be stated. Every `tcca*`
-prerequisite has landed, so for `qrc6` what is left is the work against
-*this* document alone — restating the position the shipped capability now
-supports. `qrc6`'s scope question is settled too
-(`tcca11` landed → `tspcmp1` settled → `qrc6`): <!-- todo-cite: provenance -->
-a device store is scoped by its `location`, not by a principal, so one class
-serves both CE-CC's (client app, machine) scope and CE-DS's (user, device)
-scope — an application on which more than one account signs in gives the store
-a location naming the account, and the API stays principal-free.
-Only `qrc7` still waits, because the capability under it left a seam question
-open in the same quest (`tcca10` landed → `tspcmp2` → `qrc7`). <!-- todo-cite: provenance -->
+to exist before the mapping-side position can be stated. `qrc7` still waits,
+because the capability under it left a seam question open in the same quest
+(`tcca10` landed → `tspcmp2` → `qrc7`). <!-- todo-cite: provenance -->
 A landed prerequisite stays named in the pairing because it is what the
 restatement has to be checked against.
 
@@ -4701,7 +4748,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `qrc6` | Give **CE-DS a (user, device)-scoped store** (§4.1.1, §4.4.4 slice 6, §5.16, §11) now that `tspcmp1` has settled the scope question `tcca11` left open <!-- todo-cite: provenance --> — the store is scoped by its `location`, so the account is one segment of the address rather than a parameter in the API — and name the resolver in §5.16's precedence table by class rather than by description — the description is what let its absence go unnoticed. Mode **R**. |
 | `qrc7` | Wire **CE-UP's server round trip** (§4.1.1, §4.4.4 slice 6, §5.16) once `tspcmp2` settles which seam survives `tcca10` <!-- todo-cite: provenance -->. `TomUserSettingsStore` has one memory implementation and no caller, and no `tom_core_server` code handles `TomGetSettingsMessage`, so the persisted arm of the precedence chain resolves to the default every time. Mode **R**. |
 
 Open todos in these series whose subject is **not** a mapping question are
@@ -4745,13 +4791,17 @@ there at all.
   user-owned device, persisted on the device and never leaving it. The
   discriminator against CE-CC is **user identity in the key** — a value that is
   the same for every user of an install is CE-CC; a value that differs per
-  signed-in user on the same install is CE-DS. Device binding is
-  implicit-by-storage (the store lives on the device, keyed by the signed-in
-  user); no wire-level device identity exists. Server-side enumeration of
-  "user-owned devices" is not modeled. **That store is a runtime gap** — no
-  shipped holder takes a user parameter and persists (§5.16, §4.1.1) — so the
-  scope split above is the design a `@CsDeviceSetting` is authored against, not
-  a behaviour a generated client yet has.
+  signed-in user on the same install is CE-DS. **Both halves of the key are
+  implicit-by-storage**: the store lives on the device, and it lives at a
+  location naming the signed-in account. Neither is a wire-level identity and
+  neither is a parameter — `TomDevicePreferences` takes no principal, so an
+  application on which more than one account can sign in separates them by giving
+  the store a per-account location and installing a new store when the account
+  changes (§5.16). Server-side enumeration of "user-owned devices" is not
+  modeled. The corollary is worth stating because it is the failure mode: a
+  shared install that gives every account one location gives them **one** set of
+  settings, and nothing in the substrate detects it, because nothing in it is
+  told a user changed.
 - **CE-UP** is keyed by the **user**: server-persisted preferences that follow
   the user, re-materialised on any device the user signs into via the
   `TomGetSettingsMessage`/`TomGetSettingsResult` round-trip. A CE-UP setting
