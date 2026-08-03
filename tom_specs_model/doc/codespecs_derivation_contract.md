@@ -963,17 +963,17 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `UserSettingEntry` (`USSET`), the declaration list under `UserSettings` (`USRSET`) — keyed by the **user** alone, so the value follows the user onto any device (`codespecs_mapping.md` §5.16). `LanguageCountrySelection` (`LACOSE`, D09 XDS) is **not** an input: it is the language/country picker screen that *edits* a CE-UP preference, and the preference itself is declared in `USSET`. |
-| **2 Output** | Two halves from one declaration. **Client:** the settings holder over `TomUserSettings` (`tom_core_codespecs`), reading `TomGetSettingsMessage` / `TomGetSettingsResult` (`tom_core_kernel`). **Server:** the persistence, over `TomUserSettingsStore` (`tom_core_codespecs`) backed by the slice-3 repositories. Form 2 both sides. |
+| **2 Output** | Two halves from one declaration, and **neither implements persistence** — the store, its table and its endpoints are the framework's. **Client:** a typed accessor holder over `TomUserPreferencesClient` (`tom_core_flutter`), which reaches the server through `tomUserPreferencesApi`'s four authenticated endpoints carrying `TomUserPreferenceDto` (`tom_core_kernel`). **Server:** the same accessor holder over `TomUserPreferences` (`tom_core_server`), so server code that needs a user's preference reads it through the identical six-method face. Neither half takes a principal: the server binds the user from the request zone (`codespecs_mapping.md` §5.16). Form 2 both sides. |
 | **3 Arguments** | `key` — **first positional, required**, verbatim. `overridableBy` (**required**, undefaulted) ← `USSET`'s opt-in; the only narrower scope it can name is `device`. Single-moded, for the same §11 reason as §3.6.4: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. |
 | **4 Naming** | Holder = `<App>UserSettings`; member = N5 over the key. Both halves use the **same** member names, so the wire mapping is identity. |
-| **5 Locus** | `client` for the shape (slice 6) **and** `server` for the persistence (slice 7). The other parts whose halves are both marked declarations take **one entry per half** — CE-API at §3.2.1/§3.4.2, CE-AU at §3.2.7/§3.4.4/§3.5.10. This one contracts both in a single entry because both derive from one `USSET` declaration and the wire mapping between them is identity, so splitting the entry would state the same derivation twice. |
-| **6 Cross-refs** | Server half cites its store repository by `Type`. |
+| **5 Locus** | `client` for the shape (slice 6) **and** `server` for the accessor (slice 7). The other parts whose halves are both marked declarations take **one entry per half** — CE-API at §3.2.1/§3.4.2, CE-AU at §3.2.7/§3.4.4/§3.5.10. This one contracts both in a single entry because both derive from one `USSET` declaration and the wire mapping between them is identity, so splitting the entry would state the same derivation twice. |
+| **6 Cross-refs** | None. The server half cites no repository: it reads through `TomUserPreferences`, whose `TomUserPreferenceRepository` is the framework's own and is resolved as a bean rather than named by the spec. |
 | **7 Back-link** | `@DocSpec([DocRef('USSET', 'supplies the per-user setting key, type, default and overridability')])` on both halves. |
 
 ### 3.7 Slice 7 — server operational
 
-Cites slices 3 and 4. One entry: CE-UP's server persistence is the other half of
-this slice, contracted with its client shape at §3.6.5.
+Cites slices 3 and 4. One entry: CE-UP's server-side accessor is the other half
+of this slice, contracted with its client shape at §3.6.5.
 
 #### 3.7.1 `@CsJob` — CE-JB background job
 

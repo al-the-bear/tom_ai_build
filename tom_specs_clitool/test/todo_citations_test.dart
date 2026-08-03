@@ -245,8 +245,19 @@ void main() {
         report.violations.map((v) => v.describe(relativeTo: containerRoot)),
         isEmpty,
       );
-      expect(report.countOf(CitationVerdict.open), greaterThan(0),
-          reason: 'a gate that resolves nothing would pass vacuously');
+
+      // The anti-vacuity guard is on the *scan*, not on the citations. A doc
+      // folder that cites no todo at all is the intended steady state — every
+      // document states the current design, and a citation only appears while
+      // work is open against it. What must never pass silently is a gate that
+      // scanned nothing: a moved doc folder or an unmounted quest tree. That
+      // the scanner recognises and classifies a citation is TCC1–TCC3's job,
+      // against fixtures that do not move when the live todos do.
+      expect(report.documentCount, greaterThan(0),
+          reason: 'a gate that scanned no document would pass vacuously');
+      expect(report.corpus.stemCount, greaterThan(0),
+          reason: 'a gate with an empty corpus would resolve nothing to check '
+              'against');
     });
   });
 }
