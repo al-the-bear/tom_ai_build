@@ -2939,16 +2939,6 @@
       - `FeaturePrioritization`
         - content @Form(prioritizationMethodology, prioritizationOwner, reviewCadence), methodology, stakeholder,
           cadence, capacity, backlog, traceability, prioritizationRationale @text
-        - `MoscowAnalysis`
-          - content @Form(mustHaveCount, shouldHaveCount, couldHaveCount, wontHaveCount, mustHaveEffortPercentage, shouldHaveEffortPercentage, classificationRationale, classificationDate, classificationApprovedBy),
-            moscowRationale @text
-          - items: `MoscowEntry`
-            - content @Form(featureId, featureName, featureGroup), classification, value, stageAssignment, traceability
-        - `FeatureStageMatrix`
-          - content @Form(totalMappedFeatures, unmappedFeatures, stageCapacityUtilization, crossStageDependencyCount, matrixLastUpdated, matrixApprovedBy),
-            matrixNarrative @text
-          - items: `FeatureStageMapping`
-            - content @Form(featureId, featureName, featureGroup), assignment, readiness, dependencies, acceptance
         - `FeaturePriorityRegister`
           - content @Form(totalRegisteredFeatures, registerLastUpdated, registerOwner)
           - [1,] items: `FeaturePriorityEntry`
@@ -2956,6 +2946,16 @@
               stageAssignment, dependencies, traceability, status
             - stakeholders: `FeatureStakeholders`
               - content @Form(requestedBy, businessOwner, productOwner, technicalOwner, approvalStatus, approvedBy, approvalDate)
+        - `MoscowAnalysis`
+          - content @Form(mustHaveCount, shouldHaveCount, couldHaveCount, wontHaveCount, mustHaveEffortPercentage, shouldHaveEffortPercentage, classificationRationale, classificationDate, classificationApprovedBy),
+            moscowRationale @text
+          - items: `MoscowEntry`
+            - content @Form(featureId), classification, value, stageAssignment, traceability
+        - `FeatureStageMatrix`
+          - content @Form(totalMappedFeatures, unmappedFeatures, stageCapacityUtilization, crossStageDependencyCount, matrixLastUpdated, matrixApprovedBy),
+            matrixNarrative @text
+          - items: `FeatureStageMapping`
+            - content @Form(featureId), assignment, readiness, dependencies, acceptance
         - `FeatureDependencies`
           - content @Form(totalDependencyCount, crossStageDependencyCount, criticalPathLength, circularDependenciesDetected, dependencyMapLastUpdated),
             dependencyAnalysis @text

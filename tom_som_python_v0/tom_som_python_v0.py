@@ -14719,20 +14719,23 @@ class FeaturePrioritization(SomNode):
     def prioritizationRationale(self):
         return None  # (skipped: no target type)
 
-    # 13.4.1. MoSCoW Analysis.
+    # 13.4.1. Feature Priority Register.
+    #
+    # The register comes first because the three sections after it are views
+    # onto it: each names a feature by the id declared here.
+    @property
+    def featurePriorityRegister(self):
+        return FeaturePriorityRegister(self.doc, f"{self.path}/featurePriorityRegister")
+
+    # 13.4.2. MoSCoW Analysis.
     @property
     def moscowAnalysis(self):
         return MoscowAnalysis(self.doc, f"{self.path}/moscowAnalysis")
 
-    # 13.4.2. Feature-Stage Matrix.
+    # 13.4.3. Feature-Stage Matrix.
     @property
     def featureStageMatrix(self):
         return FeatureStageMatrix(self.doc, f"{self.path}/featureStageMatrix")
-
-    # 13.4.3. Feature Priority Register.
-    @property
-    def featurePriorityRegister(self):
-        return FeaturePriorityRegister(self.doc, f"{self.path}/featurePriorityRegister")
 
     # 13.4.4. Feature Dependencies.
     @property
@@ -14799,11 +14802,16 @@ class FeaturePriorityEntry(SomNode):
         return FeaturePriorityEntryStatusForm(self.doc, f"{self.path}/FS")
 
 class FeaturePriorityRegister(SomNode):
-    """13.4.3. Feature Priority Register.
+    """13.4.1. Feature Priority Register.
     
     Master register of all features with comprehensive priority scoring,
     business value analysis, effort estimates, stakeholder ownership,
-    and traceability. Single source of truth for feature identity.
+    and traceability. Single source of truth for feature identity: a feature
+    exists because it is declared here, and every feature reference elsewhere
+    in the model resolves against `FPE.featureId`. The MoSCoW analysis
+    (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+    (§13.4.4) are views onto this register — they name a registered feature and
+    add their own view's attributes, never a second copy of its identity.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -14851,10 +14859,12 @@ class FeatureStageMapping(SomNode):
         return FeatureStageMappingAcceptanceForm(self.doc, f"{self.path}/FESTMAAC")
 
 class FeatureStageMatrix(SomNode):
-    """13.4.2. Feature-Stage Matrix.
+    """13.4.3. Feature-Stage Matrix.
     
     Maps every feature or feature group to the delivery stage, tracking
-    readiness, confidence, dependencies, and acceptance criteria.
+    readiness, confidence, dependencies, and acceptance criteria. A view onto
+    the Feature Priority Register (§13.4.1): each entry names a registered
+    feature and adds only its staging.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -20234,10 +20244,12 @@ class MonitoringInfrastructure(SomNode):
         return MonitoringInfrastructureAccessForm(self.doc, f"{self.path}/MOINAC")
 
 class MoscowAnalysis(SomNode):
-    """13.4.1. MoSCoW Analysis.
+    """13.4.2. MoSCoW Analysis.
     
     Classifies every feature using the MoSCoW method (Must / Should /
-    Could / Won't) and maps each to its target delivery stage.
+    Could / Won't) and maps each to its target delivery stage. A view onto the
+    Feature Priority Register (§13.4.1): each entry names a registered feature
+    and adds only its classification.
     """
     def __init__(self, doc, path):
         super().__init__(doc, path)
@@ -86988,6 +87000,14 @@ class FeaturePriorityEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "featureDescription", value)
 
     @property
+    def featureGroup(self) -> str:
+        return self.doc.form_field(self.path, "featureGroup") or ""
+
+    @featureGroup.setter
+    def featureGroup(self, value):
+        self.doc.set_form_field(self.path, "featureGroup", value)
+
+    @property
     def featureCategory(self) -> str:
         return self.doc.form_field(self.path, "featureCategory") or ""
 
@@ -87394,22 +87414,6 @@ class FeatureStageMappingContentForm(SomNode):
     @featureId.setter
     def featureId(self, value):
         self.doc.set_form_field(self.path, "featureId", value)
-
-    @property
-    def featureName(self) -> str:
-        return self.doc.form_field(self.path, "featureName") or ""
-
-    @featureName.setter
-    def featureName(self, value):
-        self.doc.set_form_field(self.path, "featureName", value)
-
-    @property
-    def featureGroup(self) -> str:
-        return self.doc.form_field(self.path, "featureGroup") or ""
-
-    @featureGroup.setter
-    def featureGroup(self, value):
-        self.doc.set_form_field(self.path, "featureGroup", value)
 
 class FeatureStageMappingDependenciesForm(SomNode):
     """Generated section facade for the `dependencies` @Form section: its own content text followed by one typed member per form field."""
@@ -109245,22 +109249,6 @@ class MoscowEntryContentForm(SomNode):
     @featureId.setter
     def featureId(self, value):
         self.doc.set_form_field(self.path, "featureId", value)
-
-    @property
-    def featureName(self) -> str:
-        return self.doc.form_field(self.path, "featureName") or ""
-
-    @featureName.setter
-    def featureName(self, value):
-        self.doc.set_form_field(self.path, "featureName", value)
-
-    @property
-    def featureGroup(self) -> str:
-        return self.doc.form_field(self.path, "featureGroup") or ""
-
-    @featureGroup.setter
-    def featureGroup(self, value):
-        self.doc.set_form_field(self.path, "featureGroup", value)
 
 class MoscowEntryStageAssignmentForm(SomNode):
     """Generated section facade for the `stageAssignment` @Form section: its own content text followed by one typed member per form field."""

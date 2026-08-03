@@ -19274,6 +19274,13 @@ FeaturePrioritizationTraceabilityForm feature_prioritization_traceability(const 
   free(path);
   return out;
 }
+FeaturePriorityRegister feature_prioritization_feature_priority_register(const FeaturePrioritization *self) {
+  char *path = spec_path_join(self->node.path, "featurePriorityRegister");
+  FeaturePriorityRegister out;
+  feature_priority_register_init(&out, self->node.doc, path);
+  free(path);
+  return out;
+}
 MoscowAnalysis feature_prioritization_moscow_analysis(const FeaturePrioritization *self) {
   char *path = spec_path_join(self->node.path, "moscowAnalysis");
   MoscowAnalysis out;
@@ -19285,13 +19292,6 @@ FeatureStageMatrix feature_prioritization_feature_stage_matrix(const FeaturePrio
   char *path = spec_path_join(self->node.path, "featureStageMatrix");
   FeatureStageMatrix out;
   feature_stage_matrix_init(&out, self->node.doc, path);
-  free(path);
-  return out;
-}
-FeaturePriorityRegister feature_prioritization_feature_priority_register(const FeaturePrioritization *self) {
-  char *path = spec_path_join(self->node.path, "featurePriorityRegister");
-  FeaturePriorityRegister out;
-  feature_priority_register_init(&out, self->node.doc, path);
   free(path);
   return out;
 }
@@ -91407,6 +91407,13 @@ char *feature_priority_entry_identity_form_feature_description(const FeaturePrio
 void feature_priority_entry_identity_form_set_feature_description(FeaturePriorityEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureDescription", value);
 }
+char *feature_priority_entry_identity_form_feature_group(const FeaturePriorityEntryIdentityForm *self) {
+  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureGroup");
+  return som_strdup(v != NULL ? v : "");
+}
+void feature_priority_entry_identity_form_set_feature_group(FeaturePriorityEntryIdentityForm *self, const char *value) {
+  spec_document_set_form_field(self->node.doc, self->node.path, "featureGroup", value);
+}
 char *feature_priority_entry_identity_form_feature_category(const FeaturePriorityEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureCategory");
   return som_strdup(v != NULL ? v : "");
@@ -91756,20 +91763,6 @@ char *feature_stage_mapping_content_form_feature_id(const FeatureStageMappingCon
 }
 void feature_stage_mapping_content_form_set_feature_id(FeatureStageMappingContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureId", value);
-}
-char *feature_stage_mapping_content_form_feature_name(const FeatureStageMappingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureName");
-  return som_strdup(v != NULL ? v : "");
-}
-void feature_stage_mapping_content_form_set_feature_name(FeatureStageMappingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureName", value);
-}
-char *feature_stage_mapping_content_form_feature_group(const FeatureStageMappingContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureGroup");
-  return som_strdup(v != NULL ? v : "");
-}
-void feature_stage_mapping_content_form_set_feature_group(FeatureStageMappingContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureGroup", value);
 }
 
 void feature_stage_mapping_dependencies_form_init(FeatureStageMappingDependenciesForm *self, SpecDocument *doc, const char *path) {
@@ -110295,20 +110288,6 @@ char *moscow_entry_content_form_feature_id(const MoscowEntryContentForm *self) {
 }
 void moscow_entry_content_form_set_feature_id(MoscowEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureId", value);
-}
-char *moscow_entry_content_form_feature_name(const MoscowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureName");
-  return som_strdup(v != NULL ? v : "");
-}
-void moscow_entry_content_form_set_feature_name(MoscowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureName", value);
-}
-char *moscow_entry_content_form_feature_group(const MoscowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureGroup");
-  return som_strdup(v != NULL ? v : "");
-}
-void moscow_entry_content_form_set_feature_group(MoscowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureGroup", value);
 }
 
 void moscow_entry_stage_assignment_form_init(MoscowEntryStageAssignmentForm *self, SpecDocument *doc, const char *path) {

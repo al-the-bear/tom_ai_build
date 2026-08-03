@@ -20509,7 +20509,7 @@ List<SomMetaNode> _mc$FeatureDependencyEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceFeatureId', typeName: 'String', description: 'Source Feature ID', required: true, hint: 'Feature that has the dependency (the dependent)', order: 0, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'targetFeatureId', typeName: 'String', description: 'Target Feature ID', required: true, hint: 'Feature that must be delivered first (the prerequisite)', order: 1, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'dependencyType', typeName: 'String', description: 'Dependency Type', required: true, hint: 'FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory', order: 2), SomFormFieldMeta(name: 'dependencyStrength', typeName: 'String', description: 'Dependency Strength', hint: 'Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround', order: 3), SomFormFieldMeta(name: 'impactIfBroken', typeName: 'String', description: 'Impact if Broken', hint: 'Consequence if not satisfied — rework, partial functionality, blocking', order: 4), SomFormFieldMeta(name: 'schedulingImpact', typeName: 'String', description: 'Scheduling Impact', hint: 'Days of delay if target feature slips — e.g. 1:1 day-for-day, or buffered', order: 5), SomFormFieldMeta(name: 'crossStageDependency', typeName: 'String', description: 'Cross-Stage', hint: 'Yes / No — whether source and target are in different stages', order: 6), SomFormFieldMeta(name: 'mitigationStrategy', typeName: 'String', description: 'Mitigation Strategy', hint: 'How to handle if at risk — stub/mock, parallel development, interface contract', order: 7), SomFormFieldMeta(name: 'resolutionStatus', typeName: 'String', description: 'Resolution Status', hint: 'Open / Mitigated / Resolved / Accepted — current state', order: 8), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional context or constraints', order: 9)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'sourceFeatureId', typeName: 'String', description: 'Source Feature ID', required: true, hint: 'Feature that has the dependency (the dependent)', order: 0, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'targetFeatureId', typeName: 'String', description: 'Target Feature ID', required: true, hint: 'Feature that must be delivered first (the prerequisite)', order: 1, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'dependencyType', typeName: 'String', description: 'Dependency Type', required: true, hint: 'FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory', order: 2), SomFormFieldMeta(name: 'dependencyStrength', typeName: 'String', description: 'Dependency Strength', hint: 'Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround', order: 3), SomFormFieldMeta(name: 'impactIfBroken', typeName: 'String', description: 'Impact if Broken', hint: 'Consequence if not satisfied — rework, partial functionality, blocking', order: 4), SomFormFieldMeta(name: 'schedulingImpact', typeName: 'String', description: 'Scheduling Impact', hint: 'Days of delay if target feature slips — e.g. 1:1 day-for-day, or buffered', order: 5), SomFormFieldMeta(name: 'crossStageDependency', typeName: 'String', description: 'Cross-Stage', hint: 'Yes / No — whether source and target are in different stages', order: 6), SomFormFieldMeta(name: 'mitigationStrategy', typeName: 'String', description: 'Mitigation Strategy', hint: 'How to handle if at risk — stub/mock, parallel development, interface contract', order: 7), SomFormFieldMeta(name: 'resolutionStatus', typeName: 'String', description: 'Resolution Status', hint: 'Open / Mitigated / Resolved / Accepted — current state', order: 8), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional context or constraints', order: 9)])),
     ];
 
 List<SomMetaNode> _mc$FeatureModuleEntry(Set<String> s) => [
@@ -20649,15 +20649,26 @@ List<SomMetaNode> _mc$FeaturePrioritization(Set<String> s) => [
           contentType: SomContentTypeMeta(type: 'text', description: ''),
           contentHelp: 'Rationale behind feature prioritization approach: stakeholder input process, business value criteria, technical feasibility factors, risk considerations, trade-offs made, and how priorities map to stage planning.',
           docComment: 'Prioritization rationale narrative.'),
+       _cx('FeaturePriorityRegister', s, _mc$FeaturePriorityRegister, (r, c) => SomMetaNode(
+          className: 'FeaturePriorityRegister',
+          memberName: 'featurePriorityRegister',
+          classSectionId: 'FEPRRE',
+          kind: SomMetaKind.complex,
+          typeName: 'FeaturePriorityRegister',
+          serializationOrder: 8,
+          docComment: '13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.',
+          classDocComment: '13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view\'s attributes, never a second copy of its identity.',
+          recursive: r,
+          children: c)),
        _cx('MoscowAnalysis', s, _mc$MoscowAnalysis, (r, c) => SomMetaNode(
           className: 'MoscowAnalysis',
           memberName: 'moscowAnalysis',
           classSectionId: 'MOAN',
           kind: SomMetaKind.complex,
           typeName: 'MoscowAnalysis',
-          serializationOrder: 8,
-          docComment: '13.4.1. MoSCoW Analysis.',
-          classDocComment: '13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won\'t) and maps each to its target delivery stage.',
+          serializationOrder: 9,
+          docComment: '13.4.2. MoSCoW Analysis.',
+          classDocComment: '13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won\'t) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.',
           recursive: r,
           children: c)),
        _cx('FeatureStageMatrix', s, _mc$FeatureStageMatrix, (r, c) => SomMetaNode(
@@ -20666,20 +20677,9 @@ List<SomMetaNode> _mc$FeaturePrioritization(Set<String> s) => [
           classSectionId: 'FESTMA',
           kind: SomMetaKind.complex,
           typeName: 'FeatureStageMatrix',
-          serializationOrder: 9,
-          docComment: '13.4.2. Feature-Stage Matrix.',
-          classDocComment: '13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.',
-          recursive: r,
-          children: c)),
-       _cx('FeaturePriorityRegister', s, _mc$FeaturePriorityRegister, (r, c) => SomMetaNode(
-          className: 'FeaturePriorityRegister',
-          memberName: 'featurePriorityRegister',
-          classSectionId: 'FEPRRE',
-          kind: SomMetaKind.complex,
-          typeName: 'FeaturePriorityRegister',
           serializationOrder: 10,
-          docComment: '13.4.3. Feature Priority Register.',
-          classDocComment: '13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.',
+          docComment: '13.4.3. Feature-Stage Matrix.',
+          classDocComment: '13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.',
           recursive: r,
           children: c)),
        _cx('FeatureDependencies', s, _mc$FeatureDependencies, (r, c) => SomMetaNode(
@@ -20711,8 +20711,8 @@ List<SomMetaNode> _mc$FeaturePriorityEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 1,
           docComment: 'Feature identity.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureDescription', typeName: 'String', description: 'Description', hint: 'Detailed description of the feature capability', order: 0), SomFormFieldMeta(name: 'featureCategory', typeName: 'String', description: 'Category', required: true, hint: 'Functional / NonFunctional / Regulatory / UX / Infrastructure', order: 1), SomFormFieldMeta(name: 'featureSubCategory', typeName: 'String', description: 'Sub-Category', hint: 'Finer classification', order: 2), SomFormFieldMeta(name: 'featureType', typeName: 'String', description: 'Feature Type', hint: 'New / Enhancement / BugFix / TechnicalDebt / Enabler', order: 3), SomFormFieldMeta(name: 'featureSize', typeName: 'String', description: 'Feature Size', hint: 'XS / S / M / L / XL — T-shirt sizing', order: 4), SomFormFieldMeta(name: 'epicLink', typeName: 'String', description: 'Epic Link', hint: 'Parent epic or theme', order: 5)]),
-          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition', 'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management'], 'connotation': 'Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.'})]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureDescription', typeName: 'String', description: 'Description', hint: 'Detailed description of the feature capability', order: 0), SomFormFieldMeta(name: 'featureGroup', typeName: 'String', description: 'Feature Group', hint: 'Logical grouping — e.g. Authentication, Reporting, Payments, User Management', order: 1), SomFormFieldMeta(name: 'featureCategory', typeName: 'String', description: 'Category', required: true, hint: 'Functional / NonFunctional / Regulatory / UX / Infrastructure', order: 2), SomFormFieldMeta(name: 'featureSubCategory', typeName: 'String', description: 'Sub-Category', hint: 'Finer classification', order: 3), SomFormFieldMeta(name: 'featureType', typeName: 'String', description: 'Feature Type', hint: 'New / Enhancement / BugFix / TechnicalDebt / Enabler', order: 4), SomFormFieldMeta(name: 'featureSize', typeName: 'String', description: 'Feature Size', hint: 'XS / S / M / L / XL — T-shirt sizing', order: 5), SomFormFieldMeta(name: 'epicLink', typeName: 'String', description: 'Epic Link', hint: 'Parent epic or theme', order: 6)]),
+          extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition', 'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management'], 'connotation': 'Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic.'})]),
        SomMetaNode(
           className: 'FeaturePriorityEntry',
           memberName: 'businessValue',
@@ -20761,7 +20761,7 @@ List<SomMetaNode> _mc$FeaturePriorityEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 6,
           docComment: 'Dependencies.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dependsOnFeatures', typeName: 'String', description: 'Depends on Features', hint: 'Feature IDs this requires', order: 0, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'blocksFeatures', typeName: 'String', description: 'Blocks Features', hint: 'Feature IDs blocked until this completes', order: 1, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'externalDependencies', typeName: 'String', description: 'External Dependencies', hint: 'External systems, APIs, vendors, or approvals', order: 2), SomFormFieldMeta(name: 'dependencyCriticalPath', typeName: 'String', description: 'On Dependency Critical Path', hint: 'Yes / No', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'dependsOnFeatures', typeName: 'String', description: 'Depends on Features', hint: 'Feature IDs this requires', order: 0, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'blocksFeatures', typeName: 'String', description: 'Blocks Features', hint: 'Feature IDs blocked until this completes', order: 1, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'externalDependencies', typeName: 'String', description: 'External Dependencies', hint: 'External systems, APIs, vendors, or approvals', order: 2), SomFormFieldMeta(name: 'dependencyCriticalPath', typeName: 'String', description: 'On Dependency Critical Path', hint: 'Yes / No', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management', 'ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management'], 'connotation': 'Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.'})]),
        SomMetaNode(
           className: 'FeaturePriorityEntry',
@@ -20827,7 +20827,7 @@ List<SomMetaNode> _mc$FeatureStageMapping(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureId', typeName: 'String', description: 'Feature ID', required: true, hint: 'Feature identifier — matches MoSCoW entry or register', order: 0), SomFormFieldMeta(name: 'featureName', typeName: 'String', description: 'Feature Name', required: true, hint: 'Short descriptive name', order: 1), SomFormFieldMeta(name: 'featureGroup', typeName: 'String', description: 'Feature Group', hint: 'Logical grouping for this feature', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureId', typeName: 'String', description: 'Feature ID', required: true, hint: 'The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001', order: 0, refersTo: ['FPE.featureId'])])),
        SomMetaNode(
           className: 'FeatureStageMapping',
           memberName: 'assignment',
@@ -20856,7 +20856,7 @@ List<SomMetaNode> _mc$FeatureStageMapping(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 3,
           docComment: 'Dependencies.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'prerequisiteFeatures', typeName: 'String', description: 'Prerequisite Features', hint: 'Feature IDs that must complete first — comma-separated', order: 0, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'blockedByExternalDependency', typeName: 'String', description: 'Blocked by External Dependency', hint: 'External systems, vendors, or approvals — None, or description', order: 1), SomFormFieldMeta(name: 'crossStageDependency', typeName: 'String', description: 'Cross-Stage Dependency', hint: 'Does this feature depend on something from a prior stage — Yes/No, plus which stage', order: 2)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'prerequisiteFeatures', typeName: 'String', description: 'Prerequisite Features', hint: 'Feature IDs that must complete first — comma-separated', order: 0, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'blockedByExternalDependency', typeName: 'String', description: 'Blocked by External Dependency', hint: 'External systems, vendors, or approvals — None, or description', order: 1), SomFormFieldMeta(name: 'crossStageDependency', typeName: 'String', description: 'Cross-Stage Dependency', hint: 'Does this feature depend on something from a prior stage — Yes/No, plus which stage', order: 2)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing', 'ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management'], 'connotation': 'Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.'})]),
        SomMetaNode(
           className: 'FeatureStageMapping',
@@ -28439,7 +28439,7 @@ List<SomMetaNode> _mc$MoscowEntry(Set<String> s) => [
           kind: SomMetaKind.form,
           typeName: 'String',
           serializationOrder: 0,
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureId', typeName: 'String', description: 'Feature ID', required: true, hint: 'Unique feature identifier — e.g. FEA-001, or reference to feature register entry', order: 0), SomFormFieldMeta(name: 'featureName', typeName: 'String', description: 'Feature Name', required: true, hint: 'Short descriptive name of the feature', order: 1), SomFormFieldMeta(name: 'featureGroup', typeName: 'String', description: 'Feature Group', hint: 'Logical grouping — e.g. Authentication, Reporting, Payments, User Management', order: 2)])),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'featureId', typeName: 'String', description: 'Feature ID', required: true, hint: 'The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001', order: 0, refersTo: ['FPE.featureId'])])),
        SomMetaNode(
           className: 'MoscowEntry',
           memberName: 'classification',
@@ -28478,7 +28478,7 @@ List<SomMetaNode> _mc$MoscowEntry(Set<String> s) => [
           typeName: 'String',
           serializationOrder: 4,
           docComment: 'Traceability and notes.',
-          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'linkedRequirements', typeName: 'String', description: 'Linked Requirements', hint: 'Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)', order: 0, refersTo: ['FRE.@sectionId', 'TERQ.requirementId', 'SECRQ.requirementId', 'ORRQ.requirementId']), SomFormFieldMeta(name: 'linkedUseCases', typeName: 'String', description: 'Linked Use Cases', hint: 'Use case IDs this feature implements', order: 1, refersTo: ['INEN.interactionId']), SomFormFieldMeta(name: 'dependsOnFeatures', typeName: 'String', description: 'Depends on Features', hint: 'Feature IDs that must be delivered before this one', order: 2, refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId']), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional notes or caveats', order: 3)]),
+          form: SomFormMeta(fields: [SomFormFieldMeta(name: 'linkedRequirements', typeName: 'String', description: 'Linked Requirements', hint: 'Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)', order: 0, refersTo: ['FRE.@sectionId', 'TERQ.requirementId', 'SECRQ.requirementId', 'ORRQ.requirementId']), SomFormFieldMeta(name: 'linkedUseCases', typeName: 'String', description: 'Linked Use Cases', hint: 'Use case IDs this feature implements', order: 1, refersTo: ['INEN.interactionId']), SomFormFieldMeta(name: 'dependsOnFeatures', typeName: 'String', description: 'Depends on Features', hint: 'Feature IDs that must be delivered before this one', order: 2, refersTo: ['FPE.featureId']), SomFormFieldMeta(name: 'notes', typeName: 'String', description: 'Notes', hint: 'Additional notes or caveats', order: 3)]),
           extra: [SomMetaExtra(annotation: 'StandardReferences', args: {'standards': ['DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique', 'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition'], 'connotation': 'Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.'})]),
     ];
 
@@ -58423,9 +58423,9 @@ class FeaturePrioritization$Nav extends SomMetaRef {
   SomMetaRef get backlog => SomMetaRef(tree, '$path/FEPRBA');
   SomMetaRef get traceability => SomMetaRef(tree, '$path/FEPRTR');
   SomMetaRef get prioritizationRationale => SomMetaRef(tree, '$path/prioritizationRationale');
+  FeaturePriorityRegister$Nav get featurePriorityRegister => FeaturePriorityRegister$Nav(tree, '$path/featurePriorityRegister');
   MoscowAnalysis$Nav get moscowAnalysis => MoscowAnalysis$Nav(tree, '$path/moscowAnalysis');
   FeatureStageMatrix$Nav get featureStageMatrix => FeatureStageMatrix$Nav(tree, '$path/featureStageMatrix');
-  FeaturePriorityRegister$Nav get featurePriorityRegister => FeaturePriorityRegister$Nav(tree, '$path/featurePriorityRegister');
   FeatureDependencies$Nav get featureDependencies => FeatureDependencies$Nav(tree, '$path/featureDependencies');
 }
 
@@ -70172,9 +70172,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get FEPRC1 => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRC1');
   SomMetaRef get FEPRBA => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRBA');
   SomMetaRef get FEPRTR => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR');
+  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
   SomListMetaRef<MoscowEntry$Id> get ME_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST', MoscowEntry$Id.new);
   SomListMetaRef<FeatureStageMapping$Id> get FSM_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST', FeatureStageMapping$Id.new);
-  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
   SomListMetaRef<FeatureDependencyEntry$Id> get FDE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST', FeatureDependencyEntry$Id.new);
   SomMetaRef get MIAP => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/dataMigration/MIAP');
   SomMetaRef get MISC => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/dataMigration/MISC');
@@ -71395,9 +71395,9 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
   SomMetaRef get FEPRC1 => SomMetaRef(tree, '$path/featurePrioritization/FEPRC1');
   SomMetaRef get FEPRBA => SomMetaRef(tree, '$path/featurePrioritization/FEPRBA');
   SomMetaRef get FEPRTR => SomMetaRef(tree, '$path/featurePrioritization/FEPRTR');
+  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
   SomListMetaRef<MoscowEntry$Id> get ME_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/moscowAnalysis/ME-ITEM-LST', MoscowEntry$Id.new);
   SomListMetaRef<FeatureStageMapping$Id> get FSM_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureStageMatrix/FSM-ITEM-LST', FeatureStageMapping$Id.new);
-  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
   SomListMetaRef<FeatureDependencyEntry$Id> get FDE_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureDependencies/FDE-ITEM-LST', FeatureDependencyEntry$Id.new);
   SomMetaRef get MIAP => SomMetaRef(tree, '$path/dataMigrationStrategy/MIAP');
   SomMetaRef get MISC => SomMetaRef(tree, '$path/dataMigrationStrategy/MISC');

@@ -15422,19 +15422,22 @@ class FeaturePrioritization extends SomNode {
     return null; // (skipped: no target type)
   }
 
-  // 13.4.1. MoSCoW Analysis.
+  // 13.4.1. Feature Priority Register.
+  //
+  // The register comes first because the three sections after it are views
+  // onto it: each names a feature by the id declared here.
+  get featurePriorityRegister() {
+    return new FeaturePriorityRegister(this.doc, this.path + "/featurePriorityRegister");
+  }
+
+  // 13.4.2. MoSCoW Analysis.
   get moscowAnalysis() {
     return new MoscowAnalysis(this.doc, this.path + "/moscowAnalysis");
   }
 
-  // 13.4.2. Feature-Stage Matrix.
+  // 13.4.3. Feature-Stage Matrix.
   get featureStageMatrix() {
     return new FeatureStageMatrix(this.doc, this.path + "/featureStageMatrix");
-  }
-
-  // 13.4.3. Feature Priority Register.
-  get featurePriorityRegister() {
-    return new FeaturePriorityRegister(this.doc, this.path + "/featurePriorityRegister");
   }
 
   // 13.4.4. Feature Dependencies.
@@ -15503,11 +15506,16 @@ class FeaturePriorityEntry extends SomNode {
   }
 }
 
-// 13.4.3. Feature Priority Register.
+// 13.4.1. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
-// and traceability. Single source of truth for feature identity.
+// and traceability. Single source of truth for feature identity: a feature
+// exists because it is declared here, and every feature reference elsewhere
+// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+// (§13.4.4) are views onto this register — they name a registered feature and
+// add their own view's attributes, never a second copy of its identity.
 class FeaturePriorityRegister extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -15557,10 +15565,12 @@ class FeatureStageMapping extends SomNode {
   }
 }
 
-// 13.4.2. Feature-Stage Matrix.
+// 13.4.3. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
-// readiness, confidence, dependencies, and acceptance criteria.
+// readiness, confidence, dependencies, and acceptance criteria. A view onto
+// the Feature Priority Register (§13.4.1): each entry names a registered
+// feature and adds only its staging.
 class FeatureStageMatrix extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -21232,10 +21242,12 @@ class MonitoringInfrastructure extends SomNode {
   }
 }
 
-// 13.4.1. MoSCoW Analysis.
+// 13.4.2. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
-// Could / Won't) and maps each to its target delivery stage.
+// Could / Won't) and maps each to its target delivery stage. A view onto the
+// Feature Priority Register (§13.4.1): each entry names a registered feature
+// and adds only its classification.
 class MoscowAnalysis extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -90596,6 +90608,14 @@ class FeaturePriorityEntryIdentityForm extends SomNode {
     this.doc.setFormField(this.path, "featureDescription", value);
   }
 
+  get featureGroup() {
+    return this.doc.formField(this.path, "featureGroup") || '';
+  }
+
+  set featureGroup(value) {
+    this.doc.setFormField(this.path, "featureGroup", value);
+  }
+
   get featureCategory() {
     return this.doc.formField(this.path, "featureCategory") || '';
   }
@@ -91018,22 +91038,6 @@ class FeatureStageMappingContentForm extends SomNode {
 
   set featureId(value) {
     this.doc.setFormField(this.path, "featureId", value);
-  }
-
-  get featureName() {
-    return this.doc.formField(this.path, "featureName") || '';
-  }
-
-  set featureName(value) {
-    this.doc.setFormField(this.path, "featureName", value);
-  }
-
-  get featureGroup() {
-    return this.doc.formField(this.path, "featureGroup") || '';
-  }
-
-  set featureGroup(value) {
-    this.doc.setFormField(this.path, "featureGroup", value);
   }
 }
 
@@ -113562,22 +113566,6 @@ class MoscowEntryContentForm extends SomNode {
 
   set featureId(value) {
     this.doc.setFormField(this.path, "featureId", value);
-  }
-
-  get featureName() {
-    return this.doc.formField(this.path, "featureName") || '';
-  }
-
-  set featureName(value) {
-    this.doc.setFormField(this.path, "featureName", value);
-  }
-
-  get featureGroup() {
-    return this.doc.formField(this.path, "featureGroup") || '';
-  }
-
-  set featureGroup(value) {
-    this.doc.setFormField(this.path, "featureGroup", value);
   }
 }
 

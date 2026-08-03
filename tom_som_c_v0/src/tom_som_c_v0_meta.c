@@ -3468,9 +3468,9 @@ static void meta_build_feature_prioritization_capacity(SomMetaNode *n);
 static void meta_build_feature_prioritization_backlog(SomMetaNode *n);
 static void meta_build_feature_prioritization_traceability(SomMetaNode *n);
 static void meta_build_feature_prioritization_prioritization_rationale(SomMetaNode *n);
+static void meta_build_feature_prioritization_feature_priority_register(SomMetaNode *n);
 static void meta_build_feature_prioritization_moscow_analysis(SomMetaNode *n);
 static void meta_build_feature_prioritization_feature_stage_matrix(SomMetaNode *n);
-static void meta_build_feature_prioritization_feature_priority_register(SomMetaNode *n);
 static void meta_build_feature_prioritization_feature_dependencies(SomMetaNode *n);
 static void meta_build_feature_priority_entry_content(SomMetaNode *n);
 static void meta_build_feature_priority_entry_identity(SomMetaNode *n);
@@ -64166,22 +64166,18 @@ static void meta_build_feature_dependency_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Feature that has the dependency (the dependent)");
   n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 3;
-  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("targetFeatureId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Target Feature ID");
   n->form->fields[1].required = 1;
   n->form->fields[1].hint = som_strdup("Feature that must be delivered first (the prerequisite)");
   n->form->fields[1].order = 1;
-  n->form->fields[1].refers_to_len = 3;
-  n->form->fields[1].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[1].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[1].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[1].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[2].name = som_strdup("dependencyType");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("Dependency Type");
@@ -64711,6 +64707,17 @@ static void meta_build_feature_prioritization_prioritization_rationale(SomMetaNo
   meta_set(&n->content_help, "Rationale behind feature prioritization approach: stakeholder input process, business value criteria, technical feasibility factors, risk considerations, trade-offs made, and how priorities map to stage planning.");
   meta_set(&n->doc_comment, "Prioritization rationale narrative.");
 }
+static void meta_build_feature_prioritization_feature_priority_register(SomMetaNode *n) {
+  meta_set(&n->class_name, "FeaturePriorityRegister");
+  meta_set(&n->member_name, "featurePriorityRegister");
+  meta_set(&n->class_section_id, "FEPRRE");
+  n->kind = SOM_META_KIND_COMPLEX;
+  meta_set(&n->type_name, "FeaturePriorityRegister");
+  n->has_serialization_order = 1;
+  n->serialization_order = 8;
+  meta_set(&n->doc_comment, "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.");
+  meta_set(&n->class_doc_comment, "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.");
+}
 static void meta_build_feature_prioritization_moscow_analysis(SomMetaNode *n) {
   meta_set(&n->class_name, "MoscowAnalysis");
   meta_set(&n->member_name, "moscowAnalysis");
@@ -64718,9 +64725,9 @@ static void meta_build_feature_prioritization_moscow_analysis(SomMetaNode *n) {
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "MoscowAnalysis");
   n->has_serialization_order = 1;
-  n->serialization_order = 8;
-  meta_set(&n->doc_comment, "13.4.1. MoSCoW Analysis.");
-  meta_set(&n->class_doc_comment, "13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage.");
+  n->serialization_order = 9;
+  meta_set(&n->doc_comment, "13.4.2. MoSCoW Analysis.");
+  meta_set(&n->class_doc_comment, "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.");
 }
 static void meta_build_feature_prioritization_feature_stage_matrix(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureStageMatrix");
@@ -64729,20 +64736,9 @@ static void meta_build_feature_prioritization_feature_stage_matrix(SomMetaNode *
   n->kind = SOM_META_KIND_COMPLEX;
   meta_set(&n->type_name, "FeatureStageMatrix");
   n->has_serialization_order = 1;
-  n->serialization_order = 9;
-  meta_set(&n->doc_comment, "13.4.2. Feature-Stage Matrix.");
-  meta_set(&n->class_doc_comment, "13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.");
-}
-static void meta_build_feature_prioritization_feature_priority_register(SomMetaNode *n) {
-  meta_set(&n->class_name, "FeaturePriorityRegister");
-  meta_set(&n->member_name, "featurePriorityRegister");
-  meta_set(&n->class_section_id, "FEPRRE");
-  n->kind = SOM_META_KIND_COMPLEX;
-  meta_set(&n->type_name, "FeaturePriorityRegister");
-  n->has_serialization_order = 1;
   n->serialization_order = 10;
-  meta_set(&n->doc_comment, "13.4.3. Feature Priority Register.");
-  meta_set(&n->class_doc_comment, "13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.");
+  meta_set(&n->doc_comment, "13.4.3. Feature-Stage Matrix.");
+  meta_set(&n->class_doc_comment, "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.");
 }
 static void meta_build_feature_prioritization_feature_dependencies(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureDependencies");
@@ -64794,48 +64790,54 @@ static void meta_build_feature_priority_entry_identity(SomMetaNode *n) {
   n->serialization_order = 1;
   meta_set(&n->doc_comment, "Feature identity.");
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 6;
-  n->form->fields = (SomFormFieldMeta *)calloc(6, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 7;
+  n->form->fields = (SomFormFieldMeta *)calloc(7, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("featureDescription");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Description");
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Detailed description of the feature capability");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("featureCategory");
+  n->form->fields[1].name = som_strdup("featureGroup");
   n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Category");
-  n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Functional / NonFunctional / Regulatory / UX / Infrastructure");
+  n->form->fields[1].description = som_strdup("Feature Group");
+  n->form->fields[1].required = 0;
+  n->form->fields[1].hint = som_strdup("Logical grouping — e.g. Authentication, Reporting, Payments, User Management");
   n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("featureSubCategory");
+  n->form->fields[2].name = som_strdup("featureCategory");
   n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Sub-Category");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Finer classification");
+  n->form->fields[2].description = som_strdup("Category");
+  n->form->fields[2].required = 1;
+  n->form->fields[2].hint = som_strdup("Functional / NonFunctional / Regulatory / UX / Infrastructure");
   n->form->fields[2].order = 2;
-  n->form->fields[3].name = som_strdup("featureType");
+  n->form->fields[3].name = som_strdup("featureSubCategory");
   n->form->fields[3].type_name = som_strdup("String");
-  n->form->fields[3].description = som_strdup("Feature Type");
+  n->form->fields[3].description = som_strdup("Sub-Category");
   n->form->fields[3].required = 0;
-  n->form->fields[3].hint = som_strdup("New / Enhancement / BugFix / TechnicalDebt / Enabler");
+  n->form->fields[3].hint = som_strdup("Finer classification");
   n->form->fields[3].order = 3;
-  n->form->fields[4].name = som_strdup("featureSize");
+  n->form->fields[4].name = som_strdup("featureType");
   n->form->fields[4].type_name = som_strdup("String");
-  n->form->fields[4].description = som_strdup("Feature Size");
+  n->form->fields[4].description = som_strdup("Feature Type");
   n->form->fields[4].required = 0;
-  n->form->fields[4].hint = som_strdup("XS / S / M / L / XL — T-shirt sizing");
+  n->form->fields[4].hint = som_strdup("New / Enhancement / BugFix / TechnicalDebt / Enabler");
   n->form->fields[4].order = 4;
-  n->form->fields[5].name = som_strdup("epicLink");
+  n->form->fields[5].name = som_strdup("featureSize");
   n->form->fields[5].type_name = som_strdup("String");
-  n->form->fields[5].description = som_strdup("Epic Link");
+  n->form->fields[5].description = som_strdup("Feature Size");
   n->form->fields[5].required = 0;
-  n->form->fields[5].hint = som_strdup("Parent epic or theme");
+  n->form->fields[5].hint = som_strdup("XS / S / M / L / XL — T-shirt sizing");
   n->form->fields[5].order = 5;
+  n->form->fields[6].name = som_strdup("epicLink");
+  n->form->fields[6].type_name = som_strdup("String");
+  n->form->fields[6].description = som_strdup("Epic Link");
+  n->form->fields[6].required = 0;
+  n->form->fields[6].hint = som_strdup("Parent epic or theme");
+  n->form->fields[6].order = 6;
   n->extra_len = 1;
   n->extra = (SomMetaExtra *)calloc(1, sizeof(SomMetaExtra));
   n->extra[0].annotation = som_strdup("StandardReferences");
-  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.\"}", NULL);
+  n->extra[0].args = som_json_parse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic.\"}", NULL);
 }
 static void meta_build_feature_priority_entry_business_value(SomMetaNode *n) {
   meta_set(&n->class_name, "FeaturePriorityEntry");
@@ -65097,22 +65099,18 @@ static void meta_build_feature_priority_entry_dependencies(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Feature IDs this requires");
   n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 3;
-  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("blocksFeatures");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Blocks Features");
   n->form->fields[1].required = 0;
   n->form->fields[1].hint = som_strdup("Feature IDs blocked until this completes");
   n->form->fields[1].order = 1;
-  n->form->fields[1].refers_to_len = 3;
-  n->form->fields[1].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[1].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[1].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[1].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[1].refers_to_len = 1;
+  n->form->fields[1].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[1].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[2].name = som_strdup("externalDependencies");
   n->form->fields[2].type_name = som_strdup("String");
   n->form->fields[2].description = som_strdup("External Dependencies");
@@ -65326,26 +65324,17 @@ static void meta_build_feature_stage_mapping_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("featureId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Feature ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Feature identifier — matches MoSCoW entry or register");
+  n->form->fields[0].hint = som_strdup("The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("featureName");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Feature Name");
-  n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Short descriptive name");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("featureGroup");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Feature Group");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Logical grouping for this feature");
-  n->form->fields[2].order = 2;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
 }
 static void meta_build_feature_stage_mapping_assignment(SomMetaNode *n) {
   meta_set(&n->class_name, "FeatureStageMapping");
@@ -65435,11 +65424,9 @@ static void meta_build_feature_stage_mapping_dependencies(SomMetaNode *n) {
   n->form->fields[0].required = 0;
   n->form->fields[0].hint = som_strdup("Feature IDs that must complete first — comma-separated");
   n->form->fields[0].order = 0;
-  n->form->fields[0].refers_to_len = 3;
-  n->form->fields[0].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[0].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[0].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[0].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("blockedByExternalDependency");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Blocked by External Dependency");
@@ -87041,26 +87028,17 @@ static void meta_build_moscow_entry_content(SomMetaNode *n) {
   n->has_serialization_order = 1;
   n->serialization_order = 0;
   n->form = (SomFormMeta *)calloc(1, sizeof(SomFormMeta));
-  n->form->fields_len = 3;
-  n->form->fields = (SomFormFieldMeta *)calloc(3, sizeof(SomFormFieldMeta));
+  n->form->fields_len = 1;
+  n->form->fields = (SomFormFieldMeta *)calloc(1, sizeof(SomFormFieldMeta));
   n->form->fields[0].name = som_strdup("featureId");
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Feature ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("Unique feature identifier — e.g. FEA-001, or reference to feature register entry");
+  n->form->fields[0].hint = som_strdup("The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001");
   n->form->fields[0].order = 0;
-  n->form->fields[1].name = som_strdup("featureName");
-  n->form->fields[1].type_name = som_strdup("String");
-  n->form->fields[1].description = som_strdup("Feature Name");
-  n->form->fields[1].required = 1;
-  n->form->fields[1].hint = som_strdup("Short descriptive name of the feature");
-  n->form->fields[1].order = 1;
-  n->form->fields[2].name = som_strdup("featureGroup");
-  n->form->fields[2].type_name = som_strdup("String");
-  n->form->fields[2].description = som_strdup("Feature Group");
-  n->form->fields[2].required = 0;
-  n->form->fields[2].hint = som_strdup("Logical grouping — e.g. Authentication, Reporting, Payments, User Management");
-  n->form->fields[2].order = 2;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
 }
 static void meta_build_moscow_entry_classification(SomMetaNode *n) {
   meta_set(&n->class_name, "MoscowEntry");
@@ -87200,11 +87178,9 @@ static void meta_build_moscow_entry_traceability(SomMetaNode *n) {
   n->form->fields[2].required = 0;
   n->form->fields[2].hint = som_strdup("Feature IDs that must be delivered before this one");
   n->form->fields[2].order = 2;
-  n->form->fields[2].refers_to_len = 3;
-  n->form->fields[2].refers_to = (char **)calloc(3, sizeof(char *));
-  n->form->fields[2].refers_to[0] = som_strdup("ME.featureId");
-  n->form->fields[2].refers_to[1] = som_strdup("FSM.featureId");
-  n->form->fields[2].refers_to[2] = som_strdup("FPE.featureId");
+  n->form->fields[2].refers_to_len = 1;
+  n->form->fields[2].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[2].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[3].name = som_strdup("notes");
   n->form->fields[3].type_name = som_strdup("String");
   n->form->fields[3].description = som_strdup("Notes");
@@ -167109,9 +167085,9 @@ static SomMetaNode **meta_children_feature_prioritization(SomStrList *stack, siz
     meta_build_feature_prioritization_prioritization_rationale(n);
     meta_push(&arr, len, &cap, n);
   }
+  meta_push(&arr, len, &cap, meta_cx("FeaturePriorityRegister", stack, meta_children_feature_priority_register, meta_build_feature_prioritization_feature_priority_register));
   meta_push(&arr, len, &cap, meta_cx("MoscowAnalysis", stack, meta_children_moscow_analysis, meta_build_feature_prioritization_moscow_analysis));
   meta_push(&arr, len, &cap, meta_cx("FeatureStageMatrix", stack, meta_children_feature_stage_matrix, meta_build_feature_prioritization_feature_stage_matrix));
-  meta_push(&arr, len, &cap, meta_cx("FeaturePriorityRegister", stack, meta_children_feature_priority_register, meta_build_feature_prioritization_feature_priority_register));
   meta_push(&arr, len, &cap, meta_cx("FeatureDependencies", stack, meta_children_feature_dependencies, meta_build_feature_prioritization_feature_dependencies));
   return arr;
 }
@@ -201337,6 +201313,13 @@ SomMetaRef feature_prioritization_nav_prioritization_rationale(som_nav_feature_p
   free(path);
   return out;
 }
+som_nav_feature_priority_register feature_prioritization_nav_feature_priority_register(som_nav_feature_prioritization x) {
+  som_nav_feature_priority_register out;
+  char *path = spec_path_join(x.ref.path, "featurePriorityRegister");
+  som_meta_ref_init(&out.ref, x.ref.tree, path);
+  free(path);
+  return out;
+}
 som_nav_moscow_analysis feature_prioritization_nav_moscow_analysis(som_nav_feature_prioritization x) {
   som_nav_moscow_analysis out;
   char *path = spec_path_join(x.ref.path, "moscowAnalysis");
@@ -201347,13 +201330,6 @@ som_nav_moscow_analysis feature_prioritization_nav_moscow_analysis(som_nav_featu
 som_nav_feature_stage_matrix feature_prioritization_nav_feature_stage_matrix(som_nav_feature_prioritization x) {
   som_nav_feature_stage_matrix out;
   char *path = spec_path_join(x.ref.path, "featureStageMatrix");
-  som_meta_ref_init(&out.ref, x.ref.tree, path);
-  free(path);
-  return out;
-}
-som_nav_feature_priority_register feature_prioritization_nav_feature_priority_register(som_nav_feature_prioritization x) {
-  som_nav_feature_priority_register out;
-  char *path = spec_path_join(x.ref.path, "featurePriorityRegister");
   som_meta_ref_init(&out.ref, x.ref.tree, path);
   free(path);
   return out;
@@ -233559,6 +233535,13 @@ SomMetaRef d00_solution_blueprint_id_feprtr(som_id_d00_solution_blueprint x) {
   free(path);
   return out;
 }
+SomListMetaRef d00_solution_blueprint_id_fpe_item_lst(som_id_d00_solution_blueprint x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_priority_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d00_solution_blueprint_id_me_item_lst(som_id_d00_solution_blueprint x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST");
@@ -233570,13 +233553,6 @@ SomListMetaRef d00_solution_blueprint_id_fsm_item_lst(som_id_d00_solution_bluepr
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_stage_mapping);
-  free(path);
-  return out;
-}
-SomListMetaRef d00_solution_blueprint_id_fpe_item_lst(som_id_d00_solution_blueprint x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_priority_entry);
   free(path);
   return out;
 }
@@ -241581,6 +241557,13 @@ SomMetaRef d11_delivery_roadmap_id_feprtr(som_id_d11_delivery_roadmap x) {
   free(path);
   return out;
 }
+SomListMetaRef d11_delivery_roadmap_id_fpe_item_lst(som_id_d11_delivery_roadmap x) {
+  SomListMetaRef out;
+  char *path = spec_path_join(x.ref.path, "featurePrioritization/featurePriorityRegister/FPE-ITEM-LST");
+  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_priority_entry);
+  free(path);
+  return out;
+}
 SomListMetaRef d11_delivery_roadmap_id_me_item_lst(som_id_d11_delivery_roadmap x) {
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "featurePrioritization/moscowAnalysis/ME-ITEM-LST");
@@ -241592,13 +241575,6 @@ SomListMetaRef d11_delivery_roadmap_id_fsm_item_lst(som_id_d11_delivery_roadmap 
   SomListMetaRef out;
   char *path = spec_path_join(x.ref.path, "featurePrioritization/featureStageMatrix/FSM-ITEM-LST");
   som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_stage_mapping);
-  free(path);
-  return out;
-}
-SomListMetaRef d11_delivery_roadmap_id_fpe_item_lst(som_id_d11_delivery_roadmap x) {
-  SomListMetaRef out;
-  char *path = spec_path_join(x.ref.path, "featurePrioritization/featurePriorityRegister/FPE-ITEM-LST");
-  som_list_meta_ref_init(&out, x.ref.tree, path, meta_id_factory_feature_priority_entry);
   free(path);
   return out;
 }

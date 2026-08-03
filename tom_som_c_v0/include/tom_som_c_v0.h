@@ -12442,12 +12442,15 @@ FeaturePrioritizationBacklogForm feature_prioritization_backlog(const FeaturePri
 FeaturePrioritizationTraceabilityForm feature_prioritization_traceability(const FeaturePrioritization *self);
 // Prioritization rationale narrative.
 // (skipped: prioritizationRationale has no target type)
-// 13.4.1. MoSCoW Analysis.
-MoscowAnalysis feature_prioritization_moscow_analysis(const FeaturePrioritization *self);
-// 13.4.2. Feature-Stage Matrix.
-FeatureStageMatrix feature_prioritization_feature_stage_matrix(const FeaturePrioritization *self);
-// 13.4.3. Feature Priority Register.
+// 13.4.1. Feature Priority Register.
+//
+// The register comes first because the three sections after it are views
+// onto it: each names a feature by the id declared here.
 FeaturePriorityRegister feature_prioritization_feature_priority_register(const FeaturePrioritization *self);
+// 13.4.2. MoSCoW Analysis.
+MoscowAnalysis feature_prioritization_moscow_analysis(const FeaturePrioritization *self);
+// 13.4.3. Feature-Stage Matrix.
+FeatureStageMatrix feature_prioritization_feature_stage_matrix(const FeaturePrioritization *self);
 // 13.4.4. Feature Dependencies.
 FeatureDependencies feature_prioritization_feature_dependencies(const FeaturePrioritization *self);
 
@@ -12482,11 +12485,16 @@ FeaturePriorityEntryTraceabilityForm feature_priority_entry_traceability(const F
 // Status.
 FeaturePriorityEntryStatusForm feature_priority_entry_status(const FeaturePriorityEntry *self);
 
-// 13.4.3. Feature Priority Register.
+// 13.4.1. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
-// and traceability. Single source of truth for feature identity.
+// and traceability. Single source of truth for feature identity: a feature
+// exists because it is declared here, and every feature reference elsewhere
+// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+// (§13.4.4) are views onto this register — they name a registered feature and
+// add their own view's attributes, never a second copy of its identity.
 // Binds a FeaturePriorityRegister facade to a document and a path (path copied).
 void feature_priority_register_init(FeaturePriorityRegister *self, SpecDocument *doc, const char *path);
 void feature_priority_register_free(FeaturePriorityRegister *self);
@@ -12516,10 +12524,12 @@ FeatureStageMappingDependenciesForm feature_stage_mapping_dependencies(const Fea
 // Acceptance and notes.
 FeatureStageMappingAcceptanceForm feature_stage_mapping_acceptance(const FeatureStageMapping *self);
 
-// 13.4.2. Feature-Stage Matrix.
+// 13.4.3. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
-// readiness, confidence, dependencies, and acceptance criteria.
+// readiness, confidence, dependencies, and acceptance criteria. A view onto
+// the Feature Priority Register (§13.4.1): each entry names a registered
+// feature and adds only its staging.
 // Binds a FeatureStageMatrix facade to a document and a path (path copied).
 void feature_stage_matrix_init(FeatureStageMatrix *self, SpecDocument *doc, const char *path);
 void feature_stage_matrix_free(FeatureStageMatrix *self);
@@ -15704,10 +15714,12 @@ MonitoringInfrastructureCollectionForm monitoring_infrastructure_collection(cons
 // Access and privacy controls.
 MonitoringInfrastructureAccessForm monitoring_infrastructure_access(const MonitoringInfrastructure *self);
 
-// 13.4.1. MoSCoW Analysis.
+// 13.4.2. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
-// Could / Won't) and maps each to its target delivery stage.
+// Could / Won't) and maps each to its target delivery stage. A view onto the
+// Feature Priority Register (§13.4.1): each entry names a registered feature
+// and adds only its classification.
 // Binds a MoscowAnalysis facade to a document and a path (path copied).
 void moscow_analysis_init(MoscowAnalysis *self, SpecDocument *doc, const char *path);
 void moscow_analysis_free(MoscowAnalysis *self);
@@ -40785,6 +40797,8 @@ char *feature_priority_entry_identity_form_content(const FeaturePriorityEntryIde
 void feature_priority_entry_identity_form_set_content(FeaturePriorityEntryIdentityForm *self, const char *value);
 char *feature_priority_entry_identity_form_feature_description(const FeaturePriorityEntryIdentityForm *self);
 void feature_priority_entry_identity_form_set_feature_description(FeaturePriorityEntryIdentityForm *self, const char *value);
+char *feature_priority_entry_identity_form_feature_group(const FeaturePriorityEntryIdentityForm *self);
+void feature_priority_entry_identity_form_set_feature_group(FeaturePriorityEntryIdentityForm *self, const char *value);
 char *feature_priority_entry_identity_form_feature_category(const FeaturePriorityEntryIdentityForm *self);
 void feature_priority_entry_identity_form_set_feature_category(FeaturePriorityEntryIdentityForm *self, const char *value);
 char *feature_priority_entry_identity_form_feature_sub_category(const FeaturePriorityEntryIdentityForm *self);
@@ -40909,10 +40923,6 @@ char *feature_stage_mapping_content_form_content(const FeatureStageMappingConten
 void feature_stage_mapping_content_form_set_content(FeatureStageMappingContentForm *self, const char *value);
 char *feature_stage_mapping_content_form_feature_id(const FeatureStageMappingContentForm *self);
 void feature_stage_mapping_content_form_set_feature_id(FeatureStageMappingContentForm *self, const char *value);
-char *feature_stage_mapping_content_form_feature_name(const FeatureStageMappingContentForm *self);
-void feature_stage_mapping_content_form_set_feature_name(FeatureStageMappingContentForm *self, const char *value);
-char *feature_stage_mapping_content_form_feature_group(const FeatureStageMappingContentForm *self);
-void feature_stage_mapping_content_form_set_feature_group(FeatureStageMappingContentForm *self, const char *value);
 
 // FeatureStageMappingDependenciesForm is the generated section facade for the `dependencies` @Form section: its own `content` text followed by one typed member per form field.
 void feature_stage_mapping_dependencies_form_init(FeatureStageMappingDependenciesForm *self, SpecDocument *doc, const char *path);
@@ -47474,10 +47484,6 @@ char *moscow_entry_content_form_content(const MoscowEntryContentForm *self);
 void moscow_entry_content_form_set_content(MoscowEntryContentForm *self, const char *value);
 char *moscow_entry_content_form_feature_id(const MoscowEntryContentForm *self);
 void moscow_entry_content_form_set_feature_id(MoscowEntryContentForm *self, const char *value);
-char *moscow_entry_content_form_feature_name(const MoscowEntryContentForm *self);
-void moscow_entry_content_form_set_feature_name(MoscowEntryContentForm *self, const char *value);
-char *moscow_entry_content_form_feature_group(const MoscowEntryContentForm *self);
-void moscow_entry_content_form_set_feature_group(MoscowEntryContentForm *self, const char *value);
 
 // MoscowEntryStageAssignmentForm is the generated section facade for the `stageAssignment` @Form section: its own `content` text followed by one typed member per form field.
 void moscow_entry_stage_assignment_form_init(MoscowEntryStageAssignmentForm *self, SpecDocument *doc, const char *path);

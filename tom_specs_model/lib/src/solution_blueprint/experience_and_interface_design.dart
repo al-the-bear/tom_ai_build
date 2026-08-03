@@ -15809,6 +15809,11 @@ class PrototypeFeatureSubset extends DocSpecsSection {
 @SectionId('PFE')
 class PrototypeFeatureEntry extends DocSpecsSection {
   @Form([
+    // Why: deliberately *not* `refersTo: ['FPE.featureId']`. The feature
+    // register lives in the delivery roadmap, which a standalone Experience
+    // Design Specification (D08) does not carry — annotating this would make
+    // every prototype-feature row of such a document a dangling reference.
+    // See tom_specs_model_rules.md §6.2, "When not to annotate".
     Field(
       'featureId',
       String,

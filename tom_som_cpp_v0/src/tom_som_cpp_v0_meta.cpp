@@ -35905,8 +35905,8 @@ void buildFeatureDependencyEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type", true, "FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyStrength", "String", "Dependency Strength", false, "Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impactIfBroken", "String", "Impact if Broken", false, "Consequence if not satisfied — rework, partial functionality, blocking", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -36157,6 +36157,22 @@ void buildFeaturePrioritizationChildren(som::SomMetaNode& parent, std::vector<st
     parent.addChild(std::move(n));
   }
   {
+    auto n = metaCx("FeaturePriorityRegister", stack,
+      [](som::SomMetaNode& n) {
+        n.className = "FeaturePriorityRegister";
+        n.memberName = "featurePriorityRegister";
+        n.classSectionId = "FEPRRE";
+        n.kind = som::kSomMetaKindComplex;
+        n.typeName = "FeaturePriorityRegister";
+        n.hasSerializationOrder = true;
+        n.serializationOrder = 8;
+        n.docComment = "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.";
+        n.classDocComment = "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.";
+      },
+      buildFeaturePriorityRegisterChildren);
+    parent.addChild(std::move(n));
+  }
+  {
     auto n = metaCx("MoscowAnalysis", stack,
       [](som::SomMetaNode& n) {
         n.className = "MoscowAnalysis";
@@ -36165,9 +36181,9 @@ void buildFeaturePrioritizationChildren(som::SomMetaNode& parent, std::vector<st
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "MoscowAnalysis";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 8;
-        n.docComment = "13.4.1. MoSCoW Analysis.";
-        n.classDocComment = "13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage.";
+        n.serializationOrder = 9;
+        n.docComment = "13.4.2. MoSCoW Analysis.";
+        n.classDocComment = "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.";
       },
       buildMoscowAnalysisChildren);
     parent.addChild(std::move(n));
@@ -36181,27 +36197,11 @@ void buildFeaturePrioritizationChildren(som::SomMetaNode& parent, std::vector<st
         n.kind = som::kSomMetaKindComplex;
         n.typeName = "FeatureStageMatrix";
         n.hasSerializationOrder = true;
-        n.serializationOrder = 9;
-        n.docComment = "13.4.2. Feature-Stage Matrix.";
-        n.classDocComment = "13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.";
+        n.serializationOrder = 10;
+        n.docComment = "13.4.3. Feature-Stage Matrix.";
+        n.classDocComment = "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.";
       },
       buildFeatureStageMatrixChildren);
-    parent.addChild(std::move(n));
-  }
-  {
-    auto n = metaCx("FeaturePriorityRegister", stack,
-      [](som::SomMetaNode& n) {
-        n.className = "FeaturePriorityRegister";
-        n.memberName = "featurePriorityRegister";
-        n.classSectionId = "FEPRRE";
-        n.kind = som::kSomMetaKindComplex;
-        n.typeName = "FeaturePriorityRegister";
-        n.hasSerializationOrder = true;
-        n.serializationOrder = 10;
-        n.docComment = "13.4.3. Feature Priority Register.";
-        n.classDocComment = "13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.";
-      },
-      buildFeaturePriorityRegisterChildren);
     parent.addChild(std::move(n));
   }
   {
@@ -36249,12 +36249,13 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).docComment = "Feature identity.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"featureDescription", "String", "Description", false, "Detailed description of the feature capability", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureCategory", "String", "Category", true, "Functional / NonFunctional / Regulatory / UX / Infrastructure", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureSubCategory", "String", "Sub-Category", false, "Finer classification", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureType", "String", "Feature Type", false, "New / Enhancement / BugFix / TechnicalDebt / Enabler", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureSize", "String", "Feature Size", false, "XS / S / M / L / XL — T-shirt sizing", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"epicLink", "String", "Epic Link", false, "Parent epic or theme", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.\"}", nullptr)});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureGroup", "String", "Feature Group", false, "Logical grouping — e.g. Authentication, Reporting, Payments, User Management", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureCategory", "String", "Category", true, "Functional / NonFunctional / Regulatory / UX / Infrastructure", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureSubCategory", "String", "Sub-Category", false, "Finer classification", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureType", "String", "Feature Type", false, "New / Enhancement / BugFix / TechnicalDebt / Enabler", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureSize", "String", "Feature Size", false, "XS / S / M / L / XL — T-shirt sizing", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"epicLink", "String", "Epic Link", false, "Parent epic or theme", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
   {
@@ -36353,8 +36354,8 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 6;
     (*n).docComment = "Dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalDependencies", "String", "External Dependencies", false, "External systems, APIs, vendors, or approvals", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyCriticalPath", "String", "On Dependency Critical Path", false, "Yes / No", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\",\"ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management\"],\"connotation\":\"Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.\"}", nullptr)});
@@ -36480,9 +36481,7 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Feature identifier — matches MoSCoW entry or register", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureName", "String", "Feature Name", true, "Short descriptive name", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureGroup", "String", "Feature Group", false, "Logical grouping for this feature", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -36530,7 +36529,7 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 3;
     (*n).docComment = "Dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"blockedByExternalDependency", "String", "Blocked by External Dependency", false, "External systems, vendors, or approvals — None, or description", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"crossStageDependency", "String", "Cross-Stage Dependency", false, "Does this feature depend on something from a prior stage — Yes/No, plus which stage", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.\"}", nullptr)});
@@ -49714,9 +49713,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Unique feature identifier — e.g. FEA-001, or reference to feature register entry", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureName", "String", "Feature Name", true, "Short descriptive name of the feature", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureGroup", "String", "Feature Group", false, "Logical grouping — e.g. Authentication, Reporting, Payments, User Management", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -49782,7 +49779,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, std::vector<std::string>{}, std::vector<std::string>{"ME.featureId", "FSM.featureId", "FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional notes or caveats", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\"],\"connotation\":\"Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -100870,14 +100867,14 @@ som::SomMetaRef navFeaturePrioritization_traceability(NavFeaturePrioritization x
 som::SomMetaRef navFeaturePrioritization_prioritizationRationale(NavFeaturePrioritization x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "prioritizationRationale"));
 }
+NavFeaturePriorityRegister navFeaturePrioritization_featurePriorityRegister(NavFeaturePrioritization x) {
+  return NavFeaturePriorityRegister{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePriorityRegister"))};
+}
 NavMoscowAnalysis navFeaturePrioritization_moscowAnalysis(NavFeaturePrioritization x) {
   return NavMoscowAnalysis{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "moscowAnalysis"))};
 }
 NavFeatureStageMatrix navFeaturePrioritization_featureStageMatrix(NavFeaturePrioritization x) {
   return NavFeatureStageMatrix{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featureStageMatrix"))};
-}
-NavFeaturePriorityRegister navFeaturePrioritization_featurePriorityRegister(NavFeaturePrioritization x) {
-  return NavFeaturePriorityRegister{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePriorityRegister"))};
 }
 NavFeatureDependencies navFeaturePrioritization_featureDependencies(NavFeaturePrioritization x) {
   return NavFeatureDependencies{som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featureDependencies"))};
@@ -114680,14 +114677,14 @@ som::SomMetaRef idD00SolutionBlueprint_FEPRBA(IdD00SolutionBlueprint x) {
 som::SomMetaRef idD00SolutionBlueprint_FEPRTR(IdD00SolutionBlueprint x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR"));
 }
+som::SomListMetaRef idD00SolutionBlueprint_FPE_ITEM_LST(IdD00SolutionBlueprint x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), metaIdFactoryFeaturePriorityEntry);
+}
 som::SomListMetaRef idD00SolutionBlueprint_ME_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST"), metaIdFactoryMoscowEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_FSM_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST"), metaIdFactoryFeatureStageMapping);
-}
-som::SomListMetaRef idD00SolutionBlueprint_FPE_ITEM_LST(IdD00SolutionBlueprint x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), metaIdFactoryFeaturePriorityEntry);
 }
 som::SomListMetaRef idD00SolutionBlueprint_FDE_ITEM_LST(IdD00SolutionBlueprint x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST"), metaIdFactoryFeatureDependencyEntry);
@@ -118118,14 +118115,14 @@ som::SomMetaRef idD11DeliveryRoadmap_FEPRBA(IdD11DeliveryRoadmap x) {
 som::SomMetaRef idD11DeliveryRoadmap_FEPRTR(IdD11DeliveryRoadmap x) {
   return som::SomMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/FEPRTR"));
 }
+som::SomListMetaRef idD11DeliveryRoadmap_FPE_ITEM_LST(IdD11DeliveryRoadmap x) {
+  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), metaIdFactoryFeaturePriorityEntry);
+}
 som::SomListMetaRef idD11DeliveryRoadmap_ME_ITEM_LST(IdD11DeliveryRoadmap x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/moscowAnalysis/ME-ITEM-LST"), metaIdFactoryMoscowEntry);
 }
 som::SomListMetaRef idD11DeliveryRoadmap_FSM_ITEM_LST(IdD11DeliveryRoadmap x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/featureStageMatrix/FSM-ITEM-LST"), metaIdFactoryFeatureStageMapping);
-}
-som::SomListMetaRef idD11DeliveryRoadmap_FPE_ITEM_LST(IdD11DeliveryRoadmap x) {
-  return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), metaIdFactoryFeaturePriorityEntry);
 }
 som::SomListMetaRef idD11DeliveryRoadmap_FDE_ITEM_LST(IdD11DeliveryRoadmap x) {
   return som::SomListMetaRef(x.ref.tree, som::specPathJoin(x.ref.path, "featurePrioritization/featureDependencies/FDE-ITEM-LST"), metaIdFactoryFeatureDependencyEntry);

@@ -40209,8 +40209,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
-            new SomFormFieldMeta("targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, java.util.List.of(), java.util.List.of("FPE.featureId")),
+            new SomFormFieldMeta("targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type", true, "FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory", 2),
             new SomFormFieldMeta("dependencyStrength", "String", "Dependency Strength", false, "Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround", 3),
             new SomFormFieldMeta("impactIfBroken", "String", "Impact if Broken", false, "Consequence if not satisfied — rework, partial functionality, blocking", 4),
@@ -40459,13 +40459,24 @@ public final class TomSomV0Meta {
         n.docComment = "Prioritization rationale narrative.";
         out.add(n);
       }
+      out.add(metaCx("FeaturePriorityRegister", s, FeaturePriorityRegisterNav::metaChildren, (r, c) -> {
+        SomMetaNode n = new SomMetaNode("FeaturePriorityRegister", SomMetaKind.COMPLEX, "FeaturePriorityRegister");
+        n.memberName = "featurePriorityRegister";
+        n.classSectionId = "FEPRRE";
+        n.serializationOrder = 8;
+        n.docComment = "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.";
+        n.classDocComment = "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.";
+        n.recursive = r;
+        n.children = c;
+        return n;
+      }));
       out.add(metaCx("MoscowAnalysis", s, MoscowAnalysisNav::metaChildren, (r, c) -> {
         SomMetaNode n = new SomMetaNode("MoscowAnalysis", SomMetaKind.COMPLEX, "MoscowAnalysis");
         n.memberName = "moscowAnalysis";
         n.classSectionId = "MOAN";
-        n.serializationOrder = 8;
-        n.docComment = "13.4.1. MoSCoW Analysis.";
-        n.classDocComment = "13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage.";
+        n.serializationOrder = 9;
+        n.docComment = "13.4.2. MoSCoW Analysis.";
+        n.classDocComment = "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -40474,20 +40485,9 @@ public final class TomSomV0Meta {
         SomMetaNode n = new SomMetaNode("FeatureStageMatrix", SomMetaKind.COMPLEX, "FeatureStageMatrix");
         n.memberName = "featureStageMatrix";
         n.classSectionId = "FESTMA";
-        n.serializationOrder = 9;
-        n.docComment = "13.4.2. Feature-Stage Matrix.";
-        n.classDocComment = "13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.";
-        n.recursive = r;
-        n.children = c;
-        return n;
-      }));
-      out.add(metaCx("FeaturePriorityRegister", s, FeaturePriorityRegisterNav::metaChildren, (r, c) -> {
-        SomMetaNode n = new SomMetaNode("FeaturePriorityRegister", SomMetaKind.COMPLEX, "FeaturePriorityRegister");
-        n.memberName = "featurePriorityRegister";
-        n.classSectionId = "FEPRRE";
         n.serializationOrder = 10;
-        n.docComment = "13.4.3. Feature Priority Register.";
-        n.classDocComment = "13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.";
+        n.docComment = "13.4.3. Feature-Stage Matrix.";
+        n.classDocComment = "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.";
         n.recursive = r;
         n.children = c;
         return n;
@@ -40538,16 +40538,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/prioritizationRationale");
     }
 
+    public FeaturePriorityRegisterNav featurePriorityRegister() {
+      return new FeaturePriorityRegisterNav(tree, path + "/featurePriorityRegister");
+    }
+
     public MoscowAnalysisNav moscowAnalysis() {
       return new MoscowAnalysisNav(tree, path + "/moscowAnalysis");
     }
 
     public FeatureStageMatrixNav featureStageMatrix() {
       return new FeatureStageMatrixNav(tree, path + "/featureStageMatrix");
-    }
-
-    public FeaturePriorityRegisterNav featurePriorityRegister() {
-      return new FeaturePriorityRegisterNav(tree, path + "/featurePriorityRegister");
     }
 
     public FeatureDependenciesNav featureDependencies() {
@@ -40586,12 +40586,13 @@ public final class TomSomV0Meta {
         n.docComment = "Feature identity.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureDescription", "String", "Description", false, "Detailed description of the feature capability", 0),
-            new SomFormFieldMeta("featureCategory", "String", "Category", true, "Functional / NonFunctional / Regulatory / UX / Infrastructure", 1),
-            new SomFormFieldMeta("featureSubCategory", "String", "Sub-Category", false, "Finer classification", 2),
-            new SomFormFieldMeta("featureType", "String", "Feature Type", false, "New / Enhancement / BugFix / TechnicalDebt / Enabler", 3),
-            new SomFormFieldMeta("featureSize", "String", "Feature Size", false, "XS / S / M / L / XL — T-shirt sizing", 4),
-            new SomFormFieldMeta("epicLink", "String", "Epic Link", false, "Parent epic or theme", 5)));
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition", "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"), "connotation", "Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.")));
+            new SomFormFieldMeta("featureGroup", "String", "Feature Group", false, "Logical grouping — e.g. Authentication, Reporting, Payments, User Management", 1),
+            new SomFormFieldMeta("featureCategory", "String", "Category", true, "Functional / NonFunctional / Regulatory / UX / Infrastructure", 2),
+            new SomFormFieldMeta("featureSubCategory", "String", "Sub-Category", false, "Finer classification", 3),
+            new SomFormFieldMeta("featureType", "String", "Feature Type", false, "New / Enhancement / BugFix / TechnicalDebt / Enabler", 4),
+            new SomFormFieldMeta("featureSize", "String", "Feature Size", false, "XS / S / M / L / XL — T-shirt sizing", 5),
+            new SomFormFieldMeta("epicLink", "String", "Epic Link", false, "Parent epic or theme", 6)));
+        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition", "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"), "connotation", "Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic.")));
         out.add(n);
       }
       {
@@ -40670,8 +40671,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 6;
         n.docComment = "Dependencies.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
-            new SomFormFieldMeta("blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, java.util.List.of(), java.util.List.of("FPE.featureId")),
+            new SomFormFieldMeta("blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("externalDependencies", "String", "External Dependencies", false, "External systems, APIs, vendors, or approvals", 2),
             new SomFormFieldMeta("dependencyCriticalPath", "String", "On Dependency Critical Path", false, "Yes / No", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management", "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"), "connotation", "Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.")));
@@ -40845,9 +40846,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Feature identifier — matches MoSCoW entry or register", 0),
-            new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("featureGroup", "String", "Feature Group", false, "Logical grouping for this feature", 2)));
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
         out.add(n);
       }
       {
@@ -40883,7 +40882,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Dependencies.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("blockedByExternalDependency", "String", "Blocked by External Dependency", false, "External systems, vendors, or approvals — None, or description", 1),
             new SomFormFieldMeta("crossStageDependency", "String", "Cross-Stage Dependency", false, "Does this feature depend on something from a prior stage — Yes/No, plus which stage", 2)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"), "connotation", "Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.")));
@@ -56533,9 +56532,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Unique feature identifier — e.g. FEA-001, or reference to feature register entry", 0),
-            new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Short descriptive name of the feature", 1),
-            new SomFormFieldMeta("featureGroup", "String", "Feature Group", false, "Logical grouping — e.g. Authentication, Reporting, Payments, User Management", 2)));
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001", 0, java.util.List.of(), java.util.List.of("FPE.featureId"))));
         out.add(n);
       }
       {
@@ -56585,7 +56582,7 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
             new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
-            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, java.util.List.of(), java.util.List.of("ME.featureId", "FSM.featureId", "FPE.featureId")),
+            new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes or caveats", 3)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition"), "connotation", "Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.")));
         out.add(n);
@@ -113202,16 +113199,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR");
     }
 
+    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
+    }
+
     public SomListMetaRef<MoscowEntryId> ME_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
     }
 
     public SomListMetaRef<FeatureStageMappingId> FSM_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
-    }
-
-    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
     }
 
     public SomListMetaRef<FeatureDependencyEntryId> FDE_ITEM_LST() {
@@ -117896,16 +117893,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/featurePrioritization/FEPRTR");
     }
 
+    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
+    }
+
     public SomListMetaRef<MoscowEntryId> ME_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/featurePrioritization/moscowAnalysis/ME-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
     }
 
     public SomListMetaRef<FeatureStageMappingId> FSM_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
-    }
-
-    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
     }
 
     public SomListMetaRef<FeatureDependencyEntryId> FDE_ITEM_LST() {

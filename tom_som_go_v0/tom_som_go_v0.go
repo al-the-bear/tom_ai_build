@@ -17481,19 +17481,22 @@ func (x *FeaturePrioritization) Traceability() *FeaturePrioritizationTraceabilit
 // Prioritization rationale narrative.
 // (skipped: prioritizationRationale has no target type)
 
-// 13.4.1. MoSCoW Analysis.
+// 13.4.1. Feature Priority Register.
+//
+// The register comes first because the three sections after it are views
+// onto it: each names a feature by the id declared here.
+func (x *FeaturePrioritization) FeaturePriorityRegister() *FeaturePriorityRegister {
+	return NewFeaturePriorityRegister(x.Doc(), x.Path()+"/featurePriorityRegister")
+}
+
+// 13.4.2. MoSCoW Analysis.
 func (x *FeaturePrioritization) MoscowAnalysis() *MoscowAnalysis {
 	return NewMoscowAnalysis(x.Doc(), x.Path()+"/moscowAnalysis")
 }
 
-// 13.4.2. Feature-Stage Matrix.
+// 13.4.3. Feature-Stage Matrix.
 func (x *FeaturePrioritization) FeatureStageMatrix() *FeatureStageMatrix {
 	return NewFeatureStageMatrix(x.Doc(), x.Path()+"/featureStageMatrix")
-}
-
-// 13.4.3. Feature Priority Register.
-func (x *FeaturePrioritization) FeaturePriorityRegister() *FeaturePriorityRegister {
-	return NewFeaturePriorityRegister(x.Doc(), x.Path()+"/featurePriorityRegister")
 }
 
 // 13.4.4. Feature Dependencies.
@@ -17566,11 +17569,16 @@ func (x *FeaturePriorityEntry) Status() *FeaturePriorityEntryStatusForm {
 	return NewFeaturePriorityEntryStatusForm(x.Doc(), x.Path()+"/FS")
 }
 
-// 13.4.3. Feature Priority Register.
+// 13.4.1. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
-// and traceability. Single source of truth for feature identity.
+// and traceability. Single source of truth for feature identity: a feature
+// exists because it is declared here, and every feature reference elsewhere
+// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+// (§13.4.4) are views onto this register — they name a registered feature and
+// add their own view's attributes, never a second copy of its identity.
 type FeaturePriorityRegister struct {
 	som.SomNode
 }
@@ -17628,10 +17636,12 @@ func (x *FeatureStageMapping) Acceptance() *FeatureStageMappingAcceptanceForm {
 	return NewFeatureStageMappingAcceptanceForm(x.Doc(), x.Path()+"/FESTMAAC")
 }
 
-// 13.4.2. Feature-Stage Matrix.
+// 13.4.3. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
-// readiness, confidence, dependencies, and acceptance criteria.
+// readiness, confidence, dependencies, and acceptance criteria. A view onto
+// the Feature Priority Register (§13.4.1): each entry names a registered
+// feature and adds only its staging.
 type FeatureStageMatrix struct {
 	som.SomNode
 }
@@ -24031,10 +24041,12 @@ func (x *MonitoringInfrastructure) Access() *MonitoringInfrastructureAccessForm 
 	return NewMonitoringInfrastructureAccessForm(x.Doc(), x.Path()+"/MOINAC")
 }
 
-// 13.4.1. MoSCoW Analysis.
+// 13.4.2. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
-// Could / Won't) and maps each to its target delivery stage.
+// Could / Won't) and maps each to its target delivery stage. A view onto the
+// Feature Priority Register (§13.4.1): each entry names a registered feature
+// and adds only its classification.
 type MoscowAnalysis struct {
 	som.SomNode
 }
@@ -106289,6 +106301,14 @@ func (x *FeaturePriorityEntryIdentityForm) SetFeatureDescription(value string) {
 	x.Doc().SetFormField(x.Path(), "featureDescription", value)
 }
 
+func (x *FeaturePriorityEntryIdentityForm) FeatureGroup() string {
+	return x.Doc().FormFieldOr(x.Path(), "featureGroup")
+}
+
+func (x *FeaturePriorityEntryIdentityForm) SetFeatureGroup(value string) {
+	x.Doc().SetFormField(x.Path(), "featureGroup", value)
+}
+
 func (x *FeaturePriorityEntryIdentityForm) FeatureCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "featureCategory")
 }
@@ -106767,22 +106787,6 @@ func (x *FeatureStageMappingContentForm) FeatureId() string {
 
 func (x *FeatureStageMappingContentForm) SetFeatureId(value string) {
 	x.Doc().SetFormField(x.Path(), "featureId", value)
-}
-
-func (x *FeatureStageMappingContentForm) FeatureName() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureName")
-}
-
-func (x *FeatureStageMappingContentForm) SetFeatureName(value string) {
-	x.Doc().SetFormField(x.Path(), "featureName", value)
-}
-
-func (x *FeatureStageMappingContentForm) FeatureGroup() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureGroup")
-}
-
-func (x *FeatureStageMappingContentForm) SetFeatureGroup(value string) {
-	x.Doc().SetFormField(x.Path(), "featureGroup", value)
 }
 
 // FeatureStageMappingDependenciesForm is the generated section facade for the `dependencies` @Form section: its own
@@ -134021,22 +134025,6 @@ func (x *MoscowEntryContentForm) FeatureId() string {
 
 func (x *MoscowEntryContentForm) SetFeatureId(value string) {
 	x.Doc().SetFormField(x.Path(), "featureId", value)
-}
-
-func (x *MoscowEntryContentForm) FeatureName() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureName")
-}
-
-func (x *MoscowEntryContentForm) SetFeatureName(value string) {
-	x.Doc().SetFormField(x.Path(), "featureName", value)
-}
-
-func (x *MoscowEntryContentForm) FeatureGroup() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureGroup")
-}
-
-func (x *MoscowEntryContentForm) SetFeatureGroup(value string) {
-	x.Doc().SetFormField(x.Path(), "featureGroup", value)
 }
 
 // MoscowEntryStageAssignmentForm is the generated section facade for the `stageAssignment` @Form section: its own

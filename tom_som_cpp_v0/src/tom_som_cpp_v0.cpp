@@ -7823,14 +7823,14 @@ FeaturePrioritizationBacklogForm FeaturePrioritization::backlog() const {
 FeaturePrioritizationTraceabilityForm FeaturePrioritization::traceability() const {
   return FeaturePrioritizationTraceabilityForm(doc(), som::joinPath(path(), "FEPRTR"));
 }
+FeaturePriorityRegister FeaturePrioritization::featurePriorityRegister() const {
+  return FeaturePriorityRegister(doc(), som::joinPath(path(), "featurePriorityRegister"));
+}
 MoscowAnalysis FeaturePrioritization::moscowAnalysis() const {
   return MoscowAnalysis(doc(), som::joinPath(path(), "moscowAnalysis"));
 }
 FeatureStageMatrix FeaturePrioritization::featureStageMatrix() const {
   return FeatureStageMatrix(doc(), som::joinPath(path(), "featureStageMatrix"));
-}
-FeaturePriorityRegister FeaturePrioritization::featurePriorityRegister() const {
-  return FeaturePriorityRegister(doc(), som::joinPath(path(), "featurePriorityRegister"));
 }
 FeatureDependencies FeaturePrioritization::featureDependencies() const {
   return FeatureDependencies(doc(), som::joinPath(path(), "featureDependencies"));
@@ -53126,6 +53126,12 @@ std::string FeaturePriorityEntryIdentityForm::featureDescription() const {
 void FeaturePriorityEntryIdentityForm::setFeatureDescription(const std::string& value) {
   doc().setFormField(path(), "featureDescription", value);
 }
+std::string FeaturePriorityEntryIdentityForm::featureGroup() const {
+  return doc().formField(path(), "featureGroup");
+}
+void FeaturePriorityEntryIdentityForm::setFeatureGroup(const std::string& value) {
+  doc().setFormField(path(), "featureGroup", value);
+}
 std::string FeaturePriorityEntryIdentityForm::featureCategory() const {
   return doc().formField(path(), "featureCategory");
 }
@@ -53401,18 +53407,6 @@ std::string FeatureStageMappingContentForm::featureId() const {
 }
 void FeatureStageMappingContentForm::setFeatureId(const std::string& value) {
   doc().setFormField(path(), "featureId", value);
-}
-std::string FeatureStageMappingContentForm::featureName() const {
-  return doc().formField(path(), "featureName");
-}
-void FeatureStageMappingContentForm::setFeatureName(const std::string& value) {
-  doc().setFormField(path(), "featureName", value);
-}
-std::string FeatureStageMappingContentForm::featureGroup() const {
-  return doc().formField(path(), "featureGroup");
-}
-void FeatureStageMappingContentForm::setFeatureGroup(const std::string& value) {
-  doc().setFormField(path(), "featureGroup", value);
 }
 
 FeatureStageMappingDependenciesForm::FeatureStageMappingDependenciesForm(som::SpecDocument& doc, std::string path)
@@ -68238,18 +68232,6 @@ std::string MoscowEntryContentForm::featureId() const {
 }
 void MoscowEntryContentForm::setFeatureId(const std::string& value) {
   doc().setFormField(path(), "featureId", value);
-}
-std::string MoscowEntryContentForm::featureName() const {
-  return doc().formField(path(), "featureName");
-}
-void MoscowEntryContentForm::setFeatureName(const std::string& value) {
-  doc().setFormField(path(), "featureName", value);
-}
-std::string MoscowEntryContentForm::featureGroup() const {
-  return doc().formField(path(), "featureGroup");
-}
-void MoscowEntryContentForm::setFeatureGroup(const std::string& value) {
-  doc().setFormField(path(), "featureGroup", value);
 }
 
 MoscowEntryStageAssignmentForm::MoscowEntryStageAssignmentForm(som::SpecDocument& doc, std::string path)

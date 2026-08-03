@@ -2911,27 +2911,32 @@ class FeaturePrioritization extends DocSpecsSection {
   @SerializationOrder(7)
   TextSection prioritizationRationale = TextSection();
 
-  /// 13.4.1. MoSCoW Analysis.
+  /// 13.4.1. Feature Priority Register.
+  ///
+  /// The register comes first because the three sections after it are views
+  /// onto it: each names a feature by the id declared here.
   @SerializationOrder(8)
+  FeaturePriorityRegister featurePriorityRegister = FeaturePriorityRegister();
+
+  /// 13.4.2. MoSCoW Analysis.
+  @SerializationOrder(9)
   MoscowAnalysis moscowAnalysis = MoscowAnalysis();
 
-  /// 13.4.2. Feature-Stage Matrix.
-  @SerializationOrder(9)
-  FeatureStageMatrix featureStageMatrix = FeatureStageMatrix();
-
-  /// 13.4.3. Feature Priority Register.
+  /// 13.4.3. Feature-Stage Matrix.
   @SerializationOrder(10)
-  FeaturePriorityRegister featurePriorityRegister = FeaturePriorityRegister();
+  FeatureStageMatrix featureStageMatrix = FeatureStageMatrix();
 
   /// 13.4.4. Feature Dependencies.
   @SerializationOrder(11)
   FeatureDependencies featureDependencies = FeatureDependencies();
 }
 
-/// 13.4.1. MoSCoW Analysis.
+/// 13.4.2. MoSCoW Analysis.
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
-/// Could / Won't) and maps each to its target delivery stage.
+/// Could / Won't) and maps each to its target delivery stage. A view onto the
+/// Feature Priority Register (§13.4.1): each entry names a registered feature
+/// and adds only its classification.
 @StandardReferences(
   [
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
@@ -3047,24 +3052,10 @@ class MoscowEntry extends DocSpecsSection {
       String,
       'Feature ID',
       hint:
-          'Unique feature identifier — e.g. FEA-001, or '
-          'reference to feature register entry',
+          'The feature this entry classifies — an id declared by the Feature '
+          'Priority Register (§13.4.3), e.g. FEA-001',
       required: true,
-    ),
-    Field(
-      'featureName',
-      String,
-      'Feature Name',
-      hint: 'Short descriptive name of the feature',
-      required: true,
-    ),
-    Field(
-      'featureGroup',
-      String,
-      'Feature Group',
-      hint:
-          'Logical grouping — e.g. Authentication, Reporting, '
-          'Payments, User Management',
+      refersTo: ['FPE.featureId'],
     ),
   ])
   @override
@@ -3205,7 +3196,7 @@ class MoscowEntry extends DocSpecsSection {
       String,
       'Depends on Features',
       hint: 'Feature IDs that must be delivered before this one',
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
@@ -3213,10 +3204,12 @@ class MoscowEntry extends DocSpecsSection {
   DocSpecsSection? traceability;
 }
 
-/// 13.4.2. Feature-Stage Matrix.
+/// 13.4.3. Feature-Stage Matrix.
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
-/// readiness, confidence, dependencies, and acceptance criteria.
+/// readiness, confidence, dependencies, and acceptance criteria. A view onto
+/// the Feature Priority Register (§13.4.1): each entry names a registered
+/// feature and adds only its staging.
 @StandardReferences(
   [
     'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing',
@@ -3315,22 +3308,10 @@ class FeatureStageMapping extends DocSpecsSection {
       String,
       'Feature ID',
       hint:
-          'Feature identifier — matches MoSCoW entry or '
-          'register',
+          'The feature this entry stages — an id declared by the Feature '
+          'Priority Register (§13.4.3), e.g. FEA-001',
       required: true,
-    ),
-    Field(
-      'featureName',
-      String,
-      'Feature Name',
-      hint: 'Short descriptive name',
-      required: true,
-    ),
-    Field(
-      'featureGroup',
-      String,
-      'Feature Group',
-      hint: 'Logical grouping for this feature',
+      refersTo: ['FPE.featureId'],
     ),
   ])
   @override
@@ -3421,7 +3402,7 @@ class FeatureStageMapping extends DocSpecsSection {
       String,
       'Prerequisite Features',
       hint: 'Feature IDs that must complete first — comma-separated',
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field(
       'blockedByExternalDependency',
@@ -3469,11 +3450,16 @@ class FeatureStageMapping extends DocSpecsSection {
   DocSpecsSection? acceptance;
 }
 
-/// 13.4.3. Feature Priority Register.
+/// 13.4.1. Feature Priority Register.
 ///
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
-/// and traceability. Single source of truth for feature identity.
+/// and traceability. Single source of truth for feature identity: a feature
+/// exists because it is declared here, and every feature reference elsewhere
+/// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+/// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+/// (§13.4.4) are views onto this register — they name a registered feature and
+/// add their own view's attributes, never a second copy of its identity.
 @StandardReferences(
   [
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
@@ -3570,7 +3556,7 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition',
       'PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management',
     ],
-    'Captures the descriptive identity of a feature: its description, category, type, size, and parent epic.',
+    'Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic.',
   )
   @Form([
     Field(
@@ -3578,6 +3564,14 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Description',
       hint: 'Detailed description of the feature capability',
+    ),
+    Field(
+      'featureGroup',
+      String,
+      'Feature Group',
+      hint:
+          'Logical grouping — e.g. Authentication, Reporting, '
+          'Payments, User Management',
     ),
     Field(
       'featureCategory',
@@ -3856,14 +3850,14 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Depends on Features',
       hint: 'Feature IDs this requires',
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field(
       'blocksFeatures',
       String,
       'Blocks Features',
       hint: 'Feature IDs blocked until this completes',
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field(
       'externalDependencies',
@@ -4154,7 +4148,7 @@ class FeatureDependencyEntry extends DocSpecsSection {
       'Source Feature ID',
       hint: 'Feature that has the dependency (the dependent)',
       required: true,
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field(
       'targetFeatureId',
@@ -4164,7 +4158,7 @@ class FeatureDependencyEntry extends DocSpecsSection {
           'Feature that must be delivered first (the '
           'prerequisite)',
       required: true,
-      refersTo: ['ME.featureId', 'FSM.featureId', 'FPE.featureId'],
+      refersTo: ['FPE.featureId'],
     ),
     Field(
       'dependencyType',

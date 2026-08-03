@@ -15605,19 +15605,22 @@ public final class TomSomV0 {
     // Prioritization rationale narrative.
     // (skipped: prioritizationRationale has no target type)
 
-    // 13.4.1. MoSCoW Analysis.
+    // 13.4.1. Feature Priority Register.
+    //
+    // The register comes first because the three sections after it are views
+    // onto it: each names a feature by the id declared here.
+    public FeaturePriorityRegister featurePriorityRegister() {
+      return new FeaturePriorityRegister(doc, path + "/featurePriorityRegister");
+    }
+
+    // 13.4.2. MoSCoW Analysis.
     public MoscowAnalysis moscowAnalysis() {
       return new MoscowAnalysis(doc, path + "/moscowAnalysis");
     }
 
-    // 13.4.2. Feature-Stage Matrix.
+    // 13.4.3. Feature-Stage Matrix.
     public FeatureStageMatrix featureStageMatrix() {
       return new FeatureStageMatrix(doc, path + "/featureStageMatrix");
-    }
-
-    // 13.4.3. Feature Priority Register.
-    public FeaturePriorityRegister featurePriorityRegister() {
-      return new FeaturePriorityRegister(doc, path + "/featurePriorityRegister");
     }
 
     // 13.4.4. Feature Dependencies.
@@ -15686,11 +15689,16 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.3. Feature Priority Register.
+  // 13.4.1. Feature Priority Register.
   //
   // Master register of all features with comprehensive priority scoring,
   // business value analysis, effort estimates, stakeholder ownership,
-  // and traceability. Single source of truth for feature identity.
+  // and traceability. Single source of truth for feature identity: a feature
+  // exists because it is declared here, and every feature reference elsewhere
+  // in the model resolves against `FPE.featureId`. The MoSCoW analysis
+  // (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+  // (§13.4.4) are views onto this register — they name a registered feature and
+  // add their own view's attributes, never a second copy of its identity.
   public static final class FeaturePriorityRegister extends SomNode {
     public FeaturePriorityRegister(SpecDocument doc, String path) {
       super(doc, path);
@@ -15740,10 +15748,12 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.2. Feature-Stage Matrix.
+  // 13.4.3. Feature-Stage Matrix.
   //
   // Maps every feature or feature group to the delivery stage, tracking
-  // readiness, confidence, dependencies, and acceptance criteria.
+  // readiness, confidence, dependencies, and acceptance criteria. A view onto
+  // the Feature Priority Register (§13.4.1): each entry names a registered
+  // feature and adds only its staging.
   public static final class FeatureStageMatrix extends SomNode {
     public FeatureStageMatrix(SpecDocument doc, String path) {
       super(doc, path);
@@ -21398,10 +21408,12 @@ public final class TomSomV0 {
     }
   }
 
-  // 13.4.1. MoSCoW Analysis.
+  // 13.4.2. MoSCoW Analysis.
   //
   // Classifies every feature using the MoSCoW method (Must / Should /
-  // Could / Won't) and maps each to its target delivery stage.
+  // Could / Won't) and maps each to its target delivery stage. A view onto the
+  // Feature Priority Register (§13.4.1): each entry names a registered feature
+  // and adds only its classification.
   public static final class MoscowAnalysis extends SomNode {
     public MoscowAnalysis(SpecDocument doc, String path) {
       super(doc, path);
@@ -97836,6 +97848,15 @@ public final class TomSomV0 {
       doc.setFormField(path, "featureDescription", value);
     }
 
+    public String featureGroup() {
+      String v = doc.formField(path, "featureGroup");
+      return v == null ? "" : v;
+    }
+
+    public void featureGroup(String value) {
+      doc.setFormField(path, "featureGroup", value);
+    }
+
     public String featureCategory() {
       String v = doc.formField(path, "featureCategory");
       return v == null ? "" : v;
@@ -98316,24 +98337,6 @@ public final class TomSomV0 {
 
     public void featureId(String value) {
       doc.setFormField(path, "featureId", value);
-    }
-
-    public String featureName() {
-      String v = doc.formField(path, "featureName");
-      return v == null ? "" : v;
-    }
-
-    public void featureName(String value) {
-      doc.setFormField(path, "featureName", value);
-    }
-
-    public String featureGroup() {
-      String v = doc.formField(path, "featureGroup");
-      return v == null ? "" : v;
-    }
-
-    public void featureGroup(String value) {
-      doc.setFormField(path, "featureGroup", value);
     }
   }
 
@@ -123928,24 +123931,6 @@ public final class TomSomV0 {
 
     public void featureId(String value) {
       doc.setFormField(path, "featureId", value);
-    }
-
-    public String featureName() {
-      String v = doc.formField(path, "featureName");
-      return v == null ? "" : v;
-    }
-
-    public void featureName(String value) {
-      doc.setFormField(path, "featureName", value);
-    }
-
-    public String featureGroup() {
-      String v = doc.formField(path, "featureGroup");
-      return v == null ? "" : v;
-    }
-
-    public void featureGroup(String value) {
-      doc.setFormField(path, "featureGroup", value);
     }
   }
 

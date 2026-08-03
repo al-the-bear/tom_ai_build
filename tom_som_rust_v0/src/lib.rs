@@ -21321,19 +21321,22 @@ impl FeaturePrioritization {
     // Prioritization rationale narrative.
     // (skipped: prioritizationRationale has no target type)
 
-    /// 13.4.1. MoSCoW Analysis.
+    /// 13.4.1. Feature Priority Register.
+    ///
+    /// The register comes first because the three sections after it are views
+    /// onto it: each names a feature by the id declared here.
+    pub fn feature_priority_register(&self) -> FeaturePriorityRegister {
+        FeaturePriorityRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePriorityRegister"))
+    }
+
+    /// 13.4.2. MoSCoW Analysis.
     pub fn moscow_analysis(&self) -> MoscowAnalysis {
         MoscowAnalysis::new(self.node.doc(), format!("{}/{}", self.node.path(), "moscowAnalysis"))
     }
 
-    /// 13.4.2. Feature-Stage Matrix.
+    /// 13.4.3. Feature-Stage Matrix.
     pub fn feature_stage_matrix(&self) -> FeatureStageMatrix {
         FeatureStageMatrix::new(self.node.doc(), format!("{}/{}", self.node.path(), "featureStageMatrix"))
-    }
-
-    /// 13.4.3. Feature Priority Register.
-    pub fn feature_priority_register(&self) -> FeaturePriorityRegister {
-        FeaturePriorityRegister::new(self.node.doc(), format!("{}/{}", self.node.path(), "featurePriorityRegister"))
     }
 
     /// 13.4.4. Feature Dependencies.
@@ -21419,11 +21422,16 @@ impl FeaturePriorityEntry {
     }
 }
 
-/// 13.4.3. Feature Priority Register.
+/// 13.4.1. Feature Priority Register.
 ///
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
-/// and traceability. Single source of truth for feature identity.
+/// and traceability. Single source of truth for feature identity: a feature
+/// exists because it is declared here, and every feature reference elsewhere
+/// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+/// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+/// (§13.4.4) are views onto this register — they name a registered feature and
+/// add their own view's attributes, never a second copy of its identity.
 pub struct FeaturePriorityRegister {
     pub node: som::SomNode,
 }
@@ -21502,10 +21510,12 @@ impl FeatureStageMapping {
     }
 }
 
-/// 13.4.2. Feature-Stage Matrix.
+/// 13.4.3. Feature-Stage Matrix.
 ///
 /// Maps every feature or feature group to the delivery stage, tracking
-/// readiness, confidence, dependencies, and acceptance criteria.
+/// readiness, confidence, dependencies, and acceptance criteria. A view onto
+/// the Feature Priority Register (§13.4.1): each entry names a registered
+/// feature and adds only its staging.
 pub struct FeatureStageMatrix {
     pub node: som::SomNode,
 }
@@ -29662,10 +29672,12 @@ impl MonitoringInfrastructure {
     }
 }
 
-/// 13.4.1. MoSCoW Analysis.
+/// 13.4.2. MoSCoW Analysis.
 ///
 /// Classifies every feature using the MoSCoW method (Must / Should /
-/// Could / Won't) and maps each to its target delivery stage.
+/// Could / Won't) and maps each to its target delivery stage. A view onto the
+/// Feature Priority Register (§13.4.1): each entry names a registered feature
+/// and adds only its classification.
 pub struct MoscowAnalysis {
     pub node: som::SomNode,
 }
@@ -122232,6 +122244,15 @@ impl FeaturePriorityEntryIdentityForm {
         self.node.doc().borrow_mut().set_form_field(&path, "featureDescription", value);
     }
 
+    pub fn feature_group(&self) -> String {
+        self.node.doc().borrow().form_field_or(self.node.path(), "featureGroup")
+    }
+
+    pub fn set_feature_group(&self, value: &str) {
+        let path = self.node.path().to_string();
+        self.node.doc().borrow_mut().set_form_field(&path, "featureGroup", value);
+    }
+
     pub fn feature_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "featureCategory")
     }
@@ -122776,24 +122797,6 @@ impl FeatureStageMappingContentForm {
     pub fn set_feature_id(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "featureId", value);
-    }
-
-    pub fn feature_name(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureName")
-    }
-
-    pub fn set_feature_name(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureName", value);
-    }
-
-    pub fn feature_group(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureGroup")
-    }
-
-    pub fn set_feature_group(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureGroup", value);
     }
 }
 
@@ -151965,24 +151968,6 @@ impl MoscowEntryContentForm {
     pub fn set_feature_id(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "featureId", value);
-    }
-
-    pub fn feature_name(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureName")
-    }
-
-    pub fn set_feature_name(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureName", value);
-    }
-
-    pub fn feature_group(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureGroup")
-    }
-
-    pub fn set_feature_group(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureGroup", value);
     }
 }
 

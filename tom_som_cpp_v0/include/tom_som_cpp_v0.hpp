@@ -12573,12 +12573,15 @@ class FeaturePrioritization : public som::SomNode {
   FeaturePrioritizationTraceabilityForm traceability() const;
   // Prioritization rationale narrative.
   // (skipped: prioritizationRationale has no target type)
-  // 13.4.1. MoSCoW Analysis.
-  MoscowAnalysis moscowAnalysis() const;
-  // 13.4.2. Feature-Stage Matrix.
-  FeatureStageMatrix featureStageMatrix() const;
-  // 13.4.3. Feature Priority Register.
+  // 13.4.1. Feature Priority Register.
+  //
+  // The register comes first because the three sections after it are views
+  // onto it: each names a feature by the id declared here.
   FeaturePriorityRegister featurePriorityRegister() const;
+  // 13.4.2. MoSCoW Analysis.
+  MoscowAnalysis moscowAnalysis() const;
+  // 13.4.3. Feature-Stage Matrix.
+  FeatureStageMatrix featureStageMatrix() const;
   // 13.4.4. Feature Dependencies.
   FeatureDependencies featureDependencies() const;
 };
@@ -12613,11 +12616,16 @@ class FeaturePriorityEntry : public som::SomNode {
   FeaturePriorityEntryStatusForm status() const;
 };
 
-// 13.4.3. Feature Priority Register.
+// 13.4.1. Feature Priority Register.
 //
 // Master register of all features with comprehensive priority scoring,
 // business value analysis, effort estimates, stakeholder ownership,
-// and traceability. Single source of truth for feature identity.
+// and traceability. Single source of truth for feature identity: a feature
+// exists because it is declared here, and every feature reference elsewhere
+// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+// (§13.4.4) are views onto this register — they name a registered feature and
+// add their own view's attributes, never a second copy of its identity.
 class FeaturePriorityRegister : public som::SomNode {
  public:
   FeaturePriorityRegister(som::SpecDocument& doc, std::string path);
@@ -12645,10 +12653,12 @@ class FeatureStageMapping : public som::SomNode {
   FeatureStageMappingAcceptanceForm acceptance() const;
 };
 
-// 13.4.2. Feature-Stage Matrix.
+// 13.4.3. Feature-Stage Matrix.
 //
 // Maps every feature or feature group to the delivery stage, tracking
-// readiness, confidence, dependencies, and acceptance criteria.
+// readiness, confidence, dependencies, and acceptance criteria. A view onto
+// the Feature Priority Register (§13.4.1): each entry names a registered
+// feature and adds only its staging.
 class FeatureStageMatrix : public som::SomNode {
  public:
   FeatureStageMatrix(som::SpecDocument& doc, std::string path);
@@ -15841,10 +15851,12 @@ class MonitoringInfrastructure : public som::SomNode {
   MonitoringInfrastructureAccessForm access() const;
 };
 
-// 13.4.1. MoSCoW Analysis.
+// 13.4.2. MoSCoW Analysis.
 //
 // Classifies every feature using the MoSCoW method (Must / Should /
-// Could / Won't) and maps each to its target delivery stage.
+// Could / Won't) and maps each to its target delivery stage. A view onto the
+// Feature Priority Register (§13.4.1): each entry names a registered feature
+// and adds only its classification.
 class MoscowAnalysis : public som::SomNode {
  public:
   MoscowAnalysis(som::SpecDocument& doc, std::string path);
@@ -44047,6 +44059,8 @@ class FeaturePriorityEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureDescription() const;
   void setFeatureDescription(const std::string& value);
+  std::string featureGroup() const;
+  void setFeatureGroup(const std::string& value);
   std::string featureCategory() const;
   void setFeatureCategory(const std::string& value);
   std::string featureSubCategory() const;
@@ -44195,10 +44209,6 @@ class FeatureStageMappingContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureId() const;
   void setFeatureId(const std::string& value);
-  std::string featureName() const;
-  void setFeatureName(const std::string& value);
-  std::string featureGroup() const;
-  void setFeatureGroup(const std::string& value);
 };
 
 // Generated section facade for the `dependencies` @Form section: its own `content` text followed by one typed member per form field.
@@ -52047,10 +52057,6 @@ class MoscowEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureId() const;
   void setFeatureId(const std::string& value);
-  std::string featureName() const;
-  void setFeatureName(const std::string& value);
-  std::string featureGroup() const;
-  void setFeatureGroup(const std::string& value);
 };
 
 // Generated section facade for the `stageAssignment` @Form section: its own `content` text followed by one typed member per form field.

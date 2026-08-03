@@ -105103,8 +105103,6 @@
               "type": "String",
               "required": true,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },
@@ -105115,8 +105113,6 @@
               "type": "String",
               "required": true,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },
@@ -106122,9 +106118,9 @@
           "sectionType": "TextSection"
         },
         {
-          "name": "moscowAnalysis",
+          "name": "featurePriorityRegister",
           "kind": "complex",
-          "doc": "13.4.1. MoSCoW Analysis.",
+          "doc": "13.4.1. Feature Priority Register.\n\nThe register comes first because the three sections after it are views\nonto it: each names a feature by the id declared here.",
           "serializationOrder": 8,
           "annotations": [
             {
@@ -106134,12 +106130,12 @@
               }
             }
           ],
-          "type": "MoscowAnalysis"
+          "type": "FeaturePriorityRegister"
         },
         {
-          "name": "featureStageMatrix",
+          "name": "moscowAnalysis",
           "kind": "complex",
-          "doc": "13.4.2. Feature-Stage Matrix.",
+          "doc": "13.4.2. MoSCoW Analysis.",
           "serializationOrder": 9,
           "annotations": [
             {
@@ -106149,12 +106145,12 @@
               }
             }
           ],
-          "type": "FeatureStageMatrix"
+          "type": "MoscowAnalysis"
         },
         {
-          "name": "featurePriorityRegister",
+          "name": "featureStageMatrix",
           "kind": "complex",
-          "doc": "13.4.3. Feature Priority Register.",
+          "doc": "13.4.3. Feature-Stage Matrix.",
           "serializationOrder": 10,
           "annotations": [
             {
@@ -106164,7 +106160,7 @@
               }
             }
           ],
-          "type": "FeaturePriorityRegister"
+          "type": "FeatureStageMatrix"
         },
         {
           "name": "featureDependencies",
@@ -106265,7 +106261,7 @@
               "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
               "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
             ],
-            "connotation": "Captures the descriptive identity of a feature: its description, category, type, size, and parent epic."
+            "connotation": "Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic."
           },
           "serializationOrder": 1,
           "annotations": [
@@ -106282,7 +106278,7 @@
                   "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition",
                   "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management"
                 ],
-                "connotation": "Captures the descriptive identity of a feature: its description, category, type, size, and parent epic."
+                "connotation": "Captures the descriptive identity of a feature: its description, grouping, category, type, size, and parent epic."
               }
             },
             {
@@ -106303,6 +106299,13 @@
               "name": "featureDescription",
               "label": "Description",
               "hint": "Detailed description of the feature capability",
+              "type": "String",
+              "required": false
+            },
+            {
+              "name": "featureGroup",
+              "label": "Feature Group",
+              "hint": "Logical grouping — e.g. Authentication, Reporting, Payments, User Management",
               "type": "String",
               "required": false
             },
@@ -106781,8 +106784,6 @@
               "type": "String",
               "required": false,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },
@@ -106793,8 +106794,6 @@
               "type": "String",
               "required": false,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },
@@ -107050,7 +107049,7 @@
     "FeaturePriorityRegister": {
       "name": "FeaturePriorityRegister",
       "sectionId": "FEPRRE",
-      "doc": "13.4.3. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity.",
+      "doc": "13.4.1. Feature Priority Register.\n\nMaster register of all features with comprehensive priority scoring,\nbusiness value analysis, effort estimates, stakeholder ownership,\nand traceability. Single source of truth for feature identity: a feature\nexists because it is declared here, and every feature reference elsewhere\nin the model resolves against `FPE.featureId`. The MoSCoW analysis\n(§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map\n(§13.4.4) are views onto this register — they name a registered feature and\nadd their own view's attributes, never a second copy of its identity.",
       "standardReferences": {
         "standards": [
           "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
@@ -107234,23 +107233,12 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "Feature identifier — matches MoSCoW entry or register",
+              "hint": "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001",
               "type": "String",
-              "required": true
-            },
-            {
-              "name": "featureName",
-              "label": "Feature Name",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "featureGroup",
-              "label": "Feature Group",
-              "hint": "Logical grouping for this feature",
-              "type": "String",
-              "required": false
+              "required": true,
+              "refersTo": [
+                "FPE.featureId"
+              ]
             }
           ]
         },
@@ -107439,8 +107427,6 @@
               "type": "String",
               "required": false,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },
@@ -107532,7 +107518,7 @@
     "FeatureStageMatrix": {
       "name": "FeatureStageMatrix",
       "sectionId": "FESTMA",
-      "doc": "13.4.2. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria.",
+      "doc": "13.4.3. Feature-Stage Matrix.\n\nMaps every feature or feature group to the delivery stage, tracking\nreadiness, confidence, dependencies, and acceptance criteria. A view onto\nthe Feature Priority Register (§13.4.1): each entry names a registered\nfeature and adds only its staging.",
       "standardReferences": {
         "standards": [
           "PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing",
@@ -150694,7 +150680,7 @@
     "MoscowAnalysis": {
       "name": "MoscowAnalysis",
       "sectionId": "MOAN",
-      "doc": "13.4.1. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage.",
+      "doc": "13.4.2. MoSCoW Analysis.\n\nClassifies every feature using the MoSCoW method (Must / Should /\nCould / Won't) and maps each to its target delivery stage. A view onto the\nFeature Priority Register (§13.4.1): each entry names a registered feature\nand adds only its classification.",
       "standardReferences": {
         "standards": [
           "DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique",
@@ -150936,23 +150922,12 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "Unique feature identifier — e.g. FEA-001, or reference to feature register entry",
+              "hint": "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.3), e.g. FEA-001",
               "type": "String",
-              "required": true
-            },
-            {
-              "name": "featureName",
-              "label": "Feature Name",
-              "hint": "Short descriptive name of the feature",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "featureGroup",
-              "label": "Feature Group",
-              "hint": "Logical grouping — e.g. Authentication, Reporting, Payments, User Management",
-              "type": "String",
-              "required": false
+              "required": true,
+              "refersTo": [
+                "FPE.featureId"
+              ]
             }
           ]
         },
@@ -151224,8 +151199,6 @@
               "type": "String",
               "required": false,
               "refersTo": [
-                "ME.featureId",
-                "FSM.featureId",
                 "FPE.featureId"
               ]
             },

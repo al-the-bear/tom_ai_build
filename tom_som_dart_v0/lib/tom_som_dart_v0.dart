@@ -10247,14 +10247,17 @@ class FeaturePrioritization extends SomNode {
   /// Prioritization rationale narrative.
   // (skipped: prioritizationRationale has no target type)
 
-  /// 13.4.1. MoSCoW Analysis.
+  /// 13.4.1. Feature Priority Register.
+  /// 
+  /// The register comes first because the three sections after it are views
+  /// onto it: each names a feature by the id declared here.
+  FeaturePriorityRegister get featurePriorityRegister => FeaturePriorityRegister(doc, '$path/featurePriorityRegister');
+
+  /// 13.4.2. MoSCoW Analysis.
   MoscowAnalysis get moscowAnalysis => MoscowAnalysis(doc, '$path/moscowAnalysis');
 
-  /// 13.4.2. Feature-Stage Matrix.
+  /// 13.4.3. Feature-Stage Matrix.
   FeatureStageMatrix get featureStageMatrix => FeatureStageMatrix(doc, '$path/featureStageMatrix');
-
-  /// 13.4.3. Feature Priority Register.
-  FeaturePriorityRegister get featurePriorityRegister => FeaturePriorityRegister(doc, '$path/featurePriorityRegister');
 
   /// 13.4.4. Feature Dependencies.
   FeatureDependencies get featureDependencies => FeatureDependencies(doc, '$path/featureDependencies');
@@ -10298,11 +10301,16 @@ class FeaturePriorityEntry extends SomNode {
   FeaturePriorityEntryStatusForm get status => FeaturePriorityEntryStatusForm(doc, '$path/FS');
 }
 
-/// 13.4.3. Feature Priority Register.
+/// 13.4.1. Feature Priority Register.
 /// 
 /// Master register of all features with comprehensive priority scoring,
 /// business value analysis, effort estimates, stakeholder ownership,
-/// and traceability. Single source of truth for feature identity.
+/// and traceability. Single source of truth for feature identity: a feature
+/// exists because it is declared here, and every feature reference elsewhere
+/// in the model resolves against `FPE.featureId`. The MoSCoW analysis
+/// (§13.4.2), the feature-stage matrix (§13.4.3) and the dependency map
+/// (§13.4.4) are views onto this register — they name a registered feature and
+/// add their own view's attributes, never a second copy of its identity.
 class FeaturePriorityRegister extends SomNode {
   FeaturePriorityRegister(super.doc, super.path);
 
@@ -10334,10 +10342,12 @@ class FeatureStageMapping extends SomNode {
   FeatureStageMappingAcceptanceForm get acceptance => FeatureStageMappingAcceptanceForm(doc, '$path/FESTMAAC');
 }
 
-/// 13.4.2. Feature-Stage Matrix.
+/// 13.4.3. Feature-Stage Matrix.
 /// 
 /// Maps every feature or feature group to the delivery stage, tracking
-/// readiness, confidence, dependencies, and acceptance criteria.
+/// readiness, confidence, dependencies, and acceptance criteria. A view onto
+/// the Feature Priority Register (§13.4.1): each entry names a registered
+/// feature and adds only its staging.
 class FeatureStageMatrix extends SomNode {
   FeatureStageMatrix(super.doc, super.path);
 
@@ -13934,10 +13944,12 @@ class MonitoringInfrastructure extends SomNode {
   MonitoringInfrastructureAccessForm get access => MonitoringInfrastructureAccessForm(doc, '$path/MOINAC');
 }
 
-/// 13.4.1. MoSCoW Analysis.
+/// 13.4.2. MoSCoW Analysis.
 /// 
 /// Classifies every feature using the MoSCoW method (Must / Should /
-/// Could / Won't) and maps each to its target delivery stage.
+/// Could / Won't) and maps each to its target delivery stage. A view onto the
+/// Feature Priority Register (§13.4.1): each entry names a registered feature
+/// and adds only its classification.
 class MoscowAnalysis extends SomNode {
   MoscowAnalysis(super.doc, super.path);
 
@@ -50379,6 +50391,9 @@ class FeaturePriorityEntryIdentityForm extends SomNode {
   String get featureDescription => doc.formField(path, 'featureDescription') ?? '';
   set featureDescription(String value) => doc.setFormField(path, 'featureDescription', value);
 
+  String get featureGroup => doc.formField(path, 'featureGroup') ?? '';
+  set featureGroup(String value) => doc.setFormField(path, 'featureGroup', value);
+
   String get featureCategory => doc.formField(path, 'featureCategory') ?? '';
   set featureCategory(String value) => doc.setFormField(path, 'featureCategory', value);
 
@@ -50584,12 +50599,6 @@ class FeatureStageMappingContentForm extends SomNode {
 
   String get featureId => doc.formField(path, 'featureId') ?? '';
   set featureId(String value) => doc.setFormField(path, 'featureId', value);
-
-  String get featureName => doc.formField(path, 'featureName') ?? '';
-  set featureName(String value) => doc.setFormField(path, 'featureName', value);
-
-  String get featureGroup => doc.formField(path, 'featureGroup') ?? '';
-  set featureGroup(String value) => doc.setFormField(path, 'featureGroup', value);
 }
 
 /// Generated section facade for the `dependencies` `@Form` section:
@@ -61504,12 +61513,6 @@ class MoscowEntryContentForm extends SomNode {
 
   String get featureId => doc.formField(path, 'featureId') ?? '';
   set featureId(String value) => doc.setFormField(path, 'featureId', value);
-
-  String get featureName => doc.formField(path, 'featureName') ?? '';
-  set featureName(String value) => doc.setFormField(path, 'featureName', value);
-
-  String get featureGroup => doc.formField(path, 'featureGroup') ?? '';
-  set featureGroup(String value) => doc.setFormField(path, 'featureGroup', value);
 }
 
 /// Generated section facade for the `stageAssignment` `@Form` section:

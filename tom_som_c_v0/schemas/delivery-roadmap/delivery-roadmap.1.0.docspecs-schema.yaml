@@ -681,7 +681,7 @@ section-types:
       fpe-item-lst:
         max-count: 1
         min-count: 1
-    description: 13.4.3. Feature Priority Register.
+    description: 13.4.1. Feature Priority Register.
   feprsc:
     prefix: FEPRSC
     format: feprsc-form
@@ -703,7 +703,7 @@ section-types:
     subsection-types:
       fsm-item-lst:
         max-count: 1
-    description: 13.4.2. Feature-Stage Matrix.
+    description: 13.4.3. Feature-Stage Matrix.
   indefl:
     prefix: INDEFL
     description: Initial development flow.
@@ -1048,11 +1048,11 @@ section-types:
         max-count: 1
       feprtr:
         max-count: 1
+      feprre:
+        max-count: 1
       moan:
         max-count: 1
       festma:
-        max-count: 1
-      feprre:
         max-count: 1
       fede:
         max-count: 1
@@ -1117,7 +1117,7 @@ section-types:
     subsection-types:
       me-item-lst:
         max-count: 1
-    description: 13.4.1. MoSCoW Analysis.
+    description: 13.4.2. MoSCoW Analysis.
   mpds:
     prefix: MPDS
     format: mpds-form
@@ -1779,79 +1779,12 @@ form-types:
         description: How features link to business case
       - fieldname: traceabilityToRequirements
         description: How features map to requirements
-  moencl-form:
-    fields:
-      - fieldname: moscowCategory
-        required: true
-        description: Must / Should / Could / Wont
-      - fieldname: justification
-        required: true
-        description: "Why this feature has this classification — business rationale, regulatory need, user demand"
-      - fieldname: reclassificationRisk
-        description: Low / Medium / High — likelihood the category will change before delivery
-  moenva-form:
-    fields:
-      - fieldname: businessValue
-        description: "Relative business value — 1-10, Fibonacci, or qualitative High/Medium/Low"
-      - fieldname: effortEstimate
-        description: "Relative effort — story points, T-shirt size, or person-days"
-      - fieldname: costOfDelay
-        description: "Impact of not delivering on time — revenue loss, penalty, competitive risk"
-  mesa-form:
-    fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature is planned for delivery
-      - fieldname: earliestPossibleStage
-        description: Earliest stage where prerequisites allow delivery
-  moentr-form:
-    fields:
-      - fieldname: linkedRequirements
-        description: "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
-      - fieldname: linkedUseCases
-        description: Use case IDs this feature implements
-      - fieldname: dependsOnFeatures
-        description: Feature IDs that must be delivered before this one
-      - fieldname: notes
-        description: Additional notes or caveats
-  fsma-form:
-    fields:
-      - fieldname: targetStage
-        required: true
-        description: Stage in which this feature will be delivered
-      - fieldname: stagePhase
-        description: Sub-phase within the stage — Alpha / Beta / GA / Full rollout
-      - fieldname: fallbackStage
-        description: Stage to which this feature moves if cut from target stage
-  fsmr-form:
-    fields:
-      - fieldname: readinessStatus
-        required: true
-        description: NotReady / InProgress / DesignComplete / ReadyForDev / ReadyForTest / ReadyForRelease
-      - fieldname: deliveryConfidence
-        description: High / Medium / Low — confidence that this feature will be delivered in the target stage
-      - fieldname: confidenceRationale
-        description: "Why confidence is at this level — blockers, unknowns, resource gaps"
-  fsmd-form:
-    fields:
-      - fieldname: prerequisiteFeatures
-        description: Feature IDs that must complete first — comma-separated
-      - fieldname: blockedByExternalDependency
-        description: "External systems, vendors, or approvals — None, or description"
-      - fieldname: crossStageDependency
-        description: "Does this feature depend on something from a prior stage — Yes/No, plus which stage"
-  festmaac-form:
-    fields:
-      - fieldname: acceptanceCriteriaSummary
-        description: High-level criteria for this feature to be accepted
-      - fieldname: definitionOfDone
-        description: "DoD for this feature — code complete, tests pass, docs updated, deployed"
-      - fieldname: notes
-        description: Additional context or caveats
   feid-form:
     fields:
       - fieldname: featureDescription
         description: Detailed description of the feature capability
+      - fieldname: featureGroup
+        description: "Logical grouping — e.g. Authentication, Reporting, Payments, User Management"
       - fieldname: featureCategory
         required: true
         description: Functional / NonFunctional / Regulatory / UX / Infrastructure
@@ -1971,6 +1904,75 @@ form-types:
         description: When last reviewed in prioritization
       - fieldname: changeHistory
         description: Brief log of priority/stage changes
+  moencl-form:
+    fields:
+      - fieldname: moscowCategory
+        required: true
+        description: Must / Should / Could / Wont
+      - fieldname: justification
+        required: true
+        description: "Why this feature has this classification — business rationale, regulatory need, user demand"
+      - fieldname: reclassificationRisk
+        description: Low / Medium / High — likelihood the category will change before delivery
+  moenva-form:
+    fields:
+      - fieldname: businessValue
+        description: "Relative business value — 1-10, Fibonacci, or qualitative High/Medium/Low"
+      - fieldname: effortEstimate
+        description: "Relative effort — story points, T-shirt size, or person-days"
+      - fieldname: costOfDelay
+        description: "Impact of not delivering on time — revenue loss, penalty, competitive risk"
+  mesa-form:
+    fields:
+      - fieldname: targetStage
+        required: true
+        description: Stage in which this feature is planned for delivery
+      - fieldname: earliestPossibleStage
+        description: Earliest stage where prerequisites allow delivery
+  moentr-form:
+    fields:
+      - fieldname: linkedRequirements
+        description: "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
+      - fieldname: linkedUseCases
+        description: Use case IDs this feature implements
+      - fieldname: dependsOnFeatures
+        description: Feature IDs that must be delivered before this one
+      - fieldname: notes
+        description: Additional notes or caveats
+  fsma-form:
+    fields:
+      - fieldname: targetStage
+        required: true
+        description: Stage in which this feature will be delivered
+      - fieldname: stagePhase
+        description: Sub-phase within the stage — Alpha / Beta / GA / Full rollout
+      - fieldname: fallbackStage
+        description: Stage to which this feature moves if cut from target stage
+  fsmr-form:
+    fields:
+      - fieldname: readinessStatus
+        required: true
+        description: NotReady / InProgress / DesignComplete / ReadyForDev / ReadyForTest / ReadyForRelease
+      - fieldname: deliveryConfidence
+        description: High / Medium / Low — confidence that this feature will be delivered in the target stage
+      - fieldname: confidenceRationale
+        description: "Why confidence is at this level — blockers, unknowns, resource gaps"
+  fsmd-form:
+    fields:
+      - fieldname: prerequisiteFeatures
+        description: Feature IDs that must complete first — comma-separated
+      - fieldname: blockedByExternalDependency
+        description: "External systems, vendors, or approvals — None, or description"
+      - fieldname: crossStageDependency
+        description: "Does this feature depend on something from a prior stage — Yes/No, plus which stage"
+  festmaac-form:
+    fields:
+      - fieldname: acceptanceCriteriaSummary
+        description: High-level criteria for this feature to be accepted
+      - fieldname: definitionOfDone
+        description: "DoD for this feature — code complete, tests pass, docs updated, deployed"
+      - fieldname: notes
+        description: Additional context or caveats
   miap-form:
     fields:
       - fieldname: migrationRationale
