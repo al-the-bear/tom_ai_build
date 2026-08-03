@@ -871,4 +871,61 @@ void main() {
       );
     });
   });
+
+  group('SpecModel.isGenerationInput (tom_specs_editor_specification.md §14)',
+      () {
+    SpecModel modelWithRoots({required bool markProjection}) =>
+        SpecModel.fromJson(<String, dynamic>{
+          'roots': <dynamic>[
+            {'type': 'Authored', 'title': 'Authored Doc', 'sectionId': 'A00'},
+            {'type': 'Projected', 'title': 'Projected Doc', 'sectionId': 'P00'},
+          ],
+          'classes': <String, dynamic>{
+            'Authored': {
+              'name': 'Authored',
+              'annotations': [
+                {'name': 'Document', 'arguments': <String, dynamic>{}},
+              ],
+              'fields': <dynamic>[],
+            },
+            'Projected': {
+              'name': 'Projected',
+              'annotations': [
+                {'name': 'Document', 'arguments': <String, dynamic>{}},
+                if (markProjection)
+                  {
+                    'name': 'CodeSpecsProjection',
+                    'arguments': <String, dynamic>{},
+                  },
+              ],
+              'fields': <dynamic>[],
+            },
+          },
+        });
+
+    test('a root marked @CodeSpecsProjection is a generation input', () {
+      final model = modelWithRoots(markProjection: true);
+      expect(model.isGenerationInput(model.rootByType('Projected')), isTrue);
+      expect(model.isGenerationInput(model.rootByType('Authored')), isFalse);
+    });
+
+    test('presence of the marker is the whole statement', () {
+      // The same two roots with the marker removed: the classification follows
+      // the model annotation, not the root's name.
+      final model = modelWithRoots(markProjection: false);
+      expect(model.isGenerationInput(model.rootByType('Projected')), isFalse);
+    });
+
+    test('an unresolvable class is not a generation input', () {
+      // A synthetic or truncated export carries roots whose classes are absent.
+      // An unknown class is not evidence, so the root stays authored.
+      final model = SpecModel.fromJson(<String, dynamic>{
+        'roots': <dynamic>[
+          {'type': 'Ghost', 'title': 'Ghost Doc'},
+        ],
+        'classes': <String, dynamic>{},
+      });
+      expect(model.isGenerationInput(model.rootByType('Ghost')), isFalse);
+    });
+  });
 }

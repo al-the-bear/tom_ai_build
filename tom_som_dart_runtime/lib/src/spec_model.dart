@@ -837,6 +837,25 @@ class SpecModel {
 
   SpecClass? classNamed(String? name) => name == null ? null : classes[name];
 
+  /// Whether [root] is a **generation input** rather than an authored document.
+  ///
+  /// A generation input is an `@Document` root whose audience is a generator,
+  /// not a spec author: it projects existing Solution Blueprint sections into
+  /// the shape a downstream phase consumes. `D13CodeSpecsProjection` is the
+  /// only one today — it is `@CodeSpecKind`-driven, flat, locus-grouped, and
+  /// carries no document identity anybody would sit down and write.
+  ///
+  /// Derived from the class's `@CodeSpecsProjection()` marker, which the export
+  /// already carries losslessly in `classes[type].annotations`. Reading it here
+  /// keeps the classification single-sourced in the model — a consumer that
+  /// hard-coded the root's type name would silently misclassify the next
+  /// projection to be added.
+  ///
+  /// A root whose class is absent from [classes] (a synthetic or truncated
+  /// model) is *not* a generation input: an unknown class is not evidence.
+  bool isGenerationInput(SpecRoot root) =>
+      classNamed(root.type)?.hasAnnotation('CodeSpecsProjection') ?? false;
+
   /// The document root whose [SpecRoot.type] equals [type] (SOM §21).
   ///
   /// Replaces the recurring `roots.firstWhere((r) => r.type == …)` boilerplate.
