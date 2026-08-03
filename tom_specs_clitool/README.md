@@ -176,10 +176,10 @@ serialises members in the authored order. Re-run it after any model edit that
 adds, removes, or reorders fields; it is idempotent (old annotations are stripped
 and renumbered).
 
-**Doc-folder todo citations.** The TomSpecs documents cite quest-todo ids inline
-(`` `qrc4` ``) to say who owns an open question. Such a citation decays silently:
-the todo completes, is archived, and the document goes on pointing a reader at
-finished work. `check_todo_citations.dart` closes that by resolving every
+**Doc-folder todo citations.** The TomSpecs documents cite quest-todo ids inline,
+as a backticked id, to say who owns an open question. Such a citation decays
+silently: the todo completes, is archived, and the document goes on pointing a
+reader at finished work. `check_todo_citations.dart` closes that by resolving every
 backticked id-shaped token in `tom_specs_model/doc` against the active, archived
 and deleted todo files of the quests those documents cite
 (`defaultCitedQuests` — `tom_specs` and `tom_core`).
@@ -195,8 +195,11 @@ Three things about it are deliberate:
 - **Two exemptions, both inline**, so an exemption travels with the line rather
   than blanket-exempting a file. `<!-- todo-cite: provenance -->` allows a
   closed citation *only when the same line also cites an open todo* — the
-  legitimate case is a provenance note ("`tcca15` landed — restated by
-  `qrc4`"), where the raiser is history and what it raised is open. A
+  legitimate case is a provenance note ("`<landed prerequisite>` landed —
+  restated by `<open todo>`"), where the raiser is history and what it raised is
+  open. The example is written schematically on purpose: an earlier version
+  named a real pair, and each todo that closed had to re-point it at the next
+  one, which then closed in its turn. A
   `<!-- todo-cite: history -->` standing alone on its own line exempts the whole
   document, for a changelog.
 - **It checks citations, not claims.** That a cited id still *exists and is
