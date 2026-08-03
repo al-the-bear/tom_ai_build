@@ -482,7 +482,7 @@ class CsEnumMirror {
   });
 }
 
-/// Everything the eighteen checks read.
+/// Everything the twenty checks read.
 class CodeSpecsValidationInput {
   /// The shared project.
   final CsLocusProject shared;

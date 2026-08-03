@@ -3016,7 +3016,7 @@ section-types:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
+    description: "Add one entry per server configuration setting **this application owns** — a setting whose key you invent. Declare the setting: key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey. This list is the only place a secret may be declared: the security, encryption, key-management and audit-sink policy sections name their own settings and carry values only, so a credential they need — a remote log sink password, a KMS access key — is authored here as its own entry."
   secct-cont-lst:
     prefix: SECCT_CONT_LST
     subsection-types:
@@ -8648,7 +8648,7 @@ section-types:
     pattern-check-id:
       pattern: ^SCSET-SETT-.+$
       error-message: IDs of this section must match SCSET-SETT-xxx
-    description: "Add one entry per server configuration setting. Declare the setting — key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey."
+    description: "Add one entry per server configuration setting **this application owns** — a setting whose key you invent. Declare the setting: key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey. This list is the only place a secret may be declared: the security, encryption, key-management and audit-sink policy sections name their own settings and carry values only, so a credential they need — a remote log sink password, a KMS access key — is authored here as its own entry."
   secct-cont:
     prefix: SECCT_CONT_
     subsection-types:

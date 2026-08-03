@@ -1,4 +1,4 @@
-/// Fixtures for the eighteen `codespecs_derivation_contract.md` §6 checks.
+/// Fixtures for the twenty `codespecs_derivation_contract.md` §6 checks.
 ///
 /// Every check gets **two** fixtures: one that violates the rule and one that
 /// satisfies it. A check exercised only against clean input is
@@ -80,10 +80,10 @@ void _redGreen(
 
 void main() {
   group('§6 check catalogue', () {
-    test('names the eighteen checks in table order', () {
+    test('names the twenty checks in table order', () {
       expect(
         codeSpecsChecks.map((c) => c.number),
-        [for (var i = 1; i <= 18; i++) i],
+        [for (var i = 1; i <= 20; i++) i],
       );
     });
 
@@ -942,6 +942,163 @@ class SalesReport {
     });
   });
 
+  group('19 — a secret is only ever declared (§3.3.6)', () {
+    _redGreen(
+      19,
+      '§3.3.6',
+      says: contains('rather than SCSET'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('LOSTPO', 'the audit sink storage policy')])
+  @CsServerConfig('logStorage.sinkPassword',
+      overridableBy: CsOverridableBy.none, secret: true)
+  static late final String sinkPassword;
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('SCSET', 'declares the audit sink credential')])
+  @CsServerConfig('audit.sink.password',
+      overridableBy: CsOverridableBy.none, secret: true)
+  static late final String sinkPassword;
+}
+''',
+        },
+      ),
+    );
+
+    test('a fixed-band setting that is not secret is untouched', () {
+      // The fixed shape is the majority of CE-CF; the check must not fire on
+      // the 41 bands merely for being fixed.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('LOREPO', 'the audit sink retention policy')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String minimumRetention = 'P1Y';
+}
+''',
+        },
+      );
+      expect(_forCheck(19, input), isEmpty);
+    });
+
+    test('a secret with no back-link at all fires', () {
+      // An untraceable secret is the same defect seen from further away: the
+      // back-link is what says which shape authored it.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @CsServerConfig('audit.sink.password',
+      overridableBy: CsOverridableBy.none, secret: true)
+  static late final String sinkPassword;
+}
+''',
+        },
+      );
+      expect(_forCheck(19, input), isNotEmpty);
+      expect(
+        _forCheck(19, input).first.message,
+        contains('no @DocSpec back-link'),
+      );
+    });
+  });
+
+  group('20 — setting keys share one namespace (§2.1 N10)', () {
+    _redGreen(
+      20,
+      '§2.1 N10',
+      says: contains('claimed twice'),
+      red: _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('LOREPO', 'the audit sink retention policy')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String minimumRetention = 'P1Y';
+
+  @DocSpec([DocRef('SCSET', 'the application retention floor')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String retentionFloor = 'P30D';
+}
+''',
+        },
+      ),
+      green: _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('LOREPO', 'the audit sink retention policy')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String minimumRetention = 'P1Y';
+
+  @DocSpec([DocRef('SCSET', 'the application retention floor')])
+  @CsServerConfig('audit.retentionFloor', overridableBy: CsOverridableBy.none)
+  static const String retentionFloor = 'P30D';
+}
+''',
+        },
+      ),
+    );
+
+    test('the message names both contributing sections', () {
+      // The collision is between two *shapes*, so a message naming only the
+      // symbols would leave the author guessing which band derived the key.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @DocSpec([DocRef('LOREPO', 'the audit sink retention policy')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String minimumRetention = 'P1Y';
+
+  @DocSpec([DocRef('SCSET', 'the application retention floor')])
+  @CsServerConfig('logRetention.minimumRetention',
+      overridableBy: CsOverridableBy.none)
+  static const String retentionFloor = 'P30D';
+}
+''',
+        },
+      );
+      final message = _forCheck(20, input).single.message;
+      expect(message, contains('LOREPO'));
+      expect(message, contains('SCSET'));
+    });
+
+    test('a blank key is check 4, not this one', () {
+      // Two blank keys are indistinguishable as keys; reporting them as a
+      // collision would name the wrong rule.
+      final input = _input(
+        server: {
+          'lib/a.dart': '''
+class ServerConfig {
+  @CsServerConfig('', overridableBy: CsOverridableBy.none)
+  static const String one = 'a';
+
+  @CsServerConfig('', overridableBy: CsOverridableBy.none)
+  static const String two = 'b';
+}
+''',
+        },
+      );
+      expect(_forCheck(20, input), isEmpty);
+      expect(_forCheck(4, input), isNotEmpty);
+    });
+  });
+
   group('the pass as a whole', () {
     CodeSpecsValidationInput cleanTrio() => _input(
           shared: {
@@ -1012,7 +1169,7 @@ class PlaceOrderHandler {
       final report = runCodeSpecsChecks(cleanTrio());
       expect(report.violations, isEmpty, reason: report.lines.join('\n'));
       expect(report.passed, isTrue);
-      expect(report.summary, 'codespecs: 18 checks passed');
+      expect(report.summary, 'codespecs: 20 checks passed');
     });
 
     test('assertCodeSpecsValid passes a clean trio', () {
@@ -1044,7 +1201,7 @@ class Order {
       );
       final report = runCodeSpecsChecks(broken);
       expect(report.violations.map((v) => v.check), containsAll([4, 6]));
-      expect(report.summary, contains('across 2 of 18 checks'));
+      expect(report.summary, contains('across 2 of 20 checks'));
       expect(report.lines.join('\n'), contains('codespecs check 4 [§2.1 N5]'));
       expect(report.lines.join('\n'), contains('codespecs check 6 [§2.4]'));
     });

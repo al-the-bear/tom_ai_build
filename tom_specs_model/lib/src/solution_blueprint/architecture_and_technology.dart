@@ -27962,8 +27962,13 @@ class AdminInterfaceRequirements extends DocSpecsSection {
 @CodeSpecKind(
   [CodeSpecPart.serverConfiguration],
   note:
-      'CE-CF — server / system configuration only (narrowed csm2r5); '
-      'never carries user or client-machine settings.',
+      'CE-CF — server / system configuration only; never carries user or '
+      'client-machine settings. Its SCSET list is the declared shape of CE-CF '
+      '(codespecs_mapping.md §5.16): the application owns the key, the author '
+      'invents it, and every property of the setting is authored — including '
+      'the secret mark, which is expressible here and nowhere else. The other '
+      'CE-CF sections are the fixed shape: the model owns the key, one per '
+      'form field, and the author supplies the value only.',
 )
 class SystemConfigurationManagement extends DocSpecsSection {
   @Form([
@@ -28108,13 +28113,18 @@ class SystemConfigurationManagement extends DocSpecsSection {
   @SectionId('SCSET-SETT-LST')
   @SectionIdPattern('SCSET-SETT-xxx')
   @ContentHelp(
-    'Add one entry per server configuration setting. Declare the setting — '
-    'key, value type, default, the source key it is read from, whether it '
-    'carries a secret, and whether narrower scopes may shadow it. Never write '
-    'the value: it is supplied per deployment, and a secret-bearing setting '
-    'declares only its presence and shape, never its content. Typical keys: '
-    'server.host, server.port, server.isolateCount, log.level, '
-    'database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey.',
+    'Add one entry per server configuration setting **this application owns** — '
+    'a setting whose key you invent. Declare the setting: key, value type, '
+    'default, the source key it is read from, whether it carries a secret, and '
+    'whether narrower scopes may shadow it. Never write the value: it is '
+    'supplied per deployment, and a secret-bearing setting declares only its '
+    'presence and shape, never its content. Typical keys: server.host, '
+    'server.port, server.isolateCount, log.level, '
+    'database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey. '
+    'This list is the only place a secret may be declared: the security, '
+    'encryption, key-management and audit-sink policy sections name their own '
+    'settings and carry values only, so a credential they need — a remote log '
+    'sink password, a KMS access key — is authored here as its own entry.',
   )
   @SerializationOrder(4)
   List<ServerConfigurationSettingEntry> settings = [];

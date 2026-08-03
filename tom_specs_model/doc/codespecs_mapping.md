@@ -2411,9 +2411,10 @@ topology) + **D08 SAS** (which config carries secrets), per §8; the
 user-facing settings scopes (CE-DS/CE-UP) additionally from **D09 XDS**
 (preferences surfaced in UI).
 
-**Authoring homes.** Each scope has exactly one repeating declaration list, and
-the scope is expressed by *which list a setting is written in* — there is no
-`scope` column and no persistence discriminator anywhere (§11):
+**Authoring homes.** Each scope has exactly one repeating **declaration list**,
+and the scope is expressed by *which list a setting is written in* — there is no
+`scope` column and no persistence discriminator anywhere (§11). CE-CF has a
+second authoring shape beside its list; the two are separated below.
 
 | Scope | Declaration list (`@SectionId`) | Under | Authored per entry |
 |-------|--------------------------------|-------|--------------------|
@@ -2442,6 +2443,55 @@ CE-CF-only. The first two are the deployment sources the server scope reads a
 value from, one-to-one with `@CsServerConfig`'s `envAlias` / `cmdlineAlias`; the
 third marks a setting whose content is supplied out of band, so only its presence
 and shape are authored.
+
+**CE-CF's two authoring shapes, and the discriminator between them.** The
+declaration list above is not CE-CF's only authoring home, and it is not even
+its common one. **41 of the 42 CE-CF-mapped SOM sections** author settings as
+**fixed-name form fields** — the audit sink (`EVATPO` / `LOSTPO` / `LOPRPO` /
+`LOREPO`), encryption at rest and in transit (`ENATRE`, `ENDACA`, `DAENPO`,
+`FSEP`, `BAENPO`, `ENINTR`, `TLPRPO`, `MUTLPO`, `COCHEN`), key management
+(`KEGEPO`, `KESTPO`, `KEROPO`, `KEABP`, `KCRP`), API and file/storage security
+(`APSE`, `APCOSE`, `APABPR`, `FASS`, `FUVP`, `STENPO`, `COSCPO`, `FDSP`), and
+D09's print-and-export band (`PRLA`, `EFE`, `ETE`, `EXSISE`, `EXFIMAEN`).
+`SCSET` is the **single** keyed list. The two shapes are kept apart, not merged,
+because they answer different questions:
+
+| | **Declared** (`SCSET`) | **Fixed** (the 41 policy/layout bands) |
+|---|---|---|
+| Who owns the setting's identity | the **application** — the author invents the key | the **model** — the SOM names the setting, one per form field |
+| Key set | open; grows with the application | closed; one member per `Field` in the band |
+| Author supplies | the whole declaration: key · type · default · sources · secret · overridability | the **value** only |
+| Key | authored, verbatim (§5.23 exemption 1, N5) | derived `<band>.<field>` (N10) |
+| `environmentVariable` / `commandLineOption` | authorable | absent — CE-CF-only *and* declared-only |
+| `secret` | authorable | always `false` |
+| `overridableBy` | authored, required, no default | always `none` |
+
+The discriminator is **who owns the setting's identity**, and it decides which
+of a setting's properties can be authored at all. This is why the fixed shape
+cannot be collapsed into `SCSET`: doing so would require an author to invent a
+key for every setting the model already names — 41 sections' worth of security
+and deployment policy re-entered as free strings, with the model's own inventory
+demoted to a hint. It is equally why `SCSET` cannot be collapsed into fixed
+bands: an application's own settings are, by definition, not ones the model
+knows in advance.
+
+**Corollary — a secret is only ever declared.** A credential's identity is
+application-specific, so `secret: true` is expressible in exactly one place: an
+`SCSET` entry. `SCSET`'s own authoring help already names `tls.privateKey` and
+`jwt.rsaPrivateKey` among its typical keys, and `AULOFO`'s says to never log
+secrets at all — the model was already answering this question, it just was not
+written down. An audit sink needing credentials for a remote store authors them
+as `SCSET` entries (`audit.sink.password`); `LOSTPO` names the storage *policy*,
+never the credential to reach it. `codespecs_derivation_contract.md` §6 check 19
+enforces this from the emitted code, since a `secret: true` member's `@DocSpec`
+back-link names the band it came from.
+
+**Corollary — a fixed setting is never overridable.** Every fixed band is
+security, infrastructure or environment-wide deployment policy, which the
+fail-safe rule above already declares CE-CF-only and non-overridable. `none` is
+therefore not a default chosen by omission but the only value the class admits.
+A setting that genuinely should follow a user or a client install is not a fixed
+band: it is CE-CC, CE-DS or CE-UP, authored in that scope's own list.
 
 The surrounding sections keep their existing jobs: `SYCOMA` and
 `ConfigurationManagement` (`CM`) author *how configuration is operated* (source,
@@ -4374,8 +4424,6 @@ per-part verdict, and each gap it records appears below as its own todo.
 
 | Todo | Open work |
 |------|-----------|
-| `csrc5` | Implement the **eighteen validator checks** `codespecs_derivation_contract.md` §6 names — including §2.3's per-kind slot exclusivity on `@CsTrigger` / `@CsAuthorize` / `@CsJob`, §5.3's mirrored-enum completeness against `tom_core`, and the two edge-replacing checks 17 (CE-NT fallback) and 18 (CE-RP drill-through). All eighteen are stated as rules and enforced nowhere; §6 records why a const-constructor `assert` cannot serve (Dart does not const-evaluate annotations) and check 9 needs a host that may see both `tom_code_specs` and `tom_core`. |
-| `csrc8` | Collapse or justify **CE-CF's two authoring shapes**. §5.16's `SCSET` list is the general keyed key/type/default declaration; the audit-sink band under `AuditLogFormat` (`AULOFO`) is fixed-name form fields. Both realise `@CsServerConfig`, so one part has two derivation paths, and the fixed-name one cannot declare `secret` or `overridableBy` — a log sink's credentials being the textbook case for the first. |
 | `csrc9` | Model the **CE-AZ requirement as the §5.15 closed choice**. `SVOPE` authors it as a kind string plus role / resource-key refs, which covers six of the ten arms; Group, Entitlement, Custom and Graded have no payload, and Graded's three-slot recursion needs an explicit depth bound. |
 | `qrc1` | State what an **optional SOM attribute emits** (§4.1.1 CE-ST, §5.4, §5.13). `tom_core_kernel` ships `TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`; neither this document nor `codespecs_derivation_contract.md` §3.3.2 / §3.5.1 names them, so the contract neither says "emit the nullable type" nor "emit the non-nullable one and lose the null". The only `qrc` item with no `tom_core` dependency. |
 | `qrc2` | Record the **CE-DB transaction-scope contract** (§4.1.1, §4.4.4 slice 3, §5.13) once `tcca14` lands. A declared unit of work currently resolves to a process-wide static, so one isolate holds one transaction. Mode **R**. |
@@ -4400,7 +4448,7 @@ where a value lives):
 
 | Part | Scope key | Persisted where | Declared in (`@SectionId`) | Example |
 |------|-----------|-----------------|----------------------------|---------|
-| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | `SCSET` under `SYCOMA` | DB connection, worker counts, feature flags (config toggles) |
+| **CE-CF** ServerConfiguration | server/system — no user, no machine | Server (deployment) | `SCSET` under `SYCOMA`, **plus the 41 fixed-name policy/layout bands** (§5.16) | DB connection, worker counts, feature flags (config toggles); TLS/key/audit-sink policy |
 | **CE-CC** ClientConfiguration | (client app, machine) — no user | Client machine | `CCSET` under `CLICON` | API base URL, device options, per-install toggles |
 | **CE-DS** DeviceSettings | (user, device) | The device, per signed-in user | `DSSET` under `DEVSET` | window layout, last-opened, machine-local cache preferences |
 | **CE-UP** UserSettings | (user) | Server (per user) | `USSET` under `USRSET` | theme, language, notification prefs — restored on any device |
@@ -4409,6 +4457,10 @@ The four declaration lists are the mechanism that makes "no persistence
 discriminator" true rather than merely intended: the scope is carried by *which
 list a setting is declared in*, so there is nothing on a setting for an author to
 set wrongly, and no shared section on which a `scope` column could grow (§5.16).
+CE-CF's fixed-name bands do not weaken this: a band's scope is carried by the
+band's own `@CodeSpecKind`, which is again a placement rather than a field, and
+§5.16 fixes their `overridableBy` at `none` so no scope decision is authorable
+there at all.
 
 - **CE-CF is server configuration only** — it never carries user or client-machine
   settings.

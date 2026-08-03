@@ -1,4 +1,4 @@
-/// The eighteen validator checks `codespecs_derivation_contract.md` §6 names.
+/// The twenty validator checks `codespecs_derivation_contract.md` §6 names.
 ///
 /// One [CodeSpecsCheck] per numbered row, each carrying the §-reference of the
 /// rule that defines it so a failure cites the rule rather than a symptom. The
@@ -1390,10 +1390,139 @@ class CsDrillThroughRouteCheck extends CodeSpecsCheck {
 }
 
 // ---------------------------------------------------------------------------
+// 19 — a secret is only ever declared
+// ---------------------------------------------------------------------------
+
+/// §6 check 19.
+///
+/// CE-CF has two authoring shapes (`codespecs_mapping.md` §5.16): the
+/// *declared* shape, where the application owns the setting key and authors
+/// every property of it, and the *fixed* shape, where the model owns the key
+/// and the author supplies the value only. `secret: true` is authorable on the
+/// declared shape alone, so a secret member's `@DocSpec` back-link must name
+/// [_declaredShapeSection]. One traced to a fixed band means a credential slot
+/// was invented in a policy section.
+class CsSecretIsDeclaredCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsSecretIsDeclaredCheck();
+
+  /// The SOM section id of CE-CF's declared shape.
+  static const _declaredShapeSection = 'SCSET';
+
+  @override
+  int get number => 19;
+
+  @override
+  String get definedIn => '§3.3.6';
+
+  @override
+  String get title =>
+      'A @CsServerConfig(secret: true) member is traced to $_declaredShapeSection';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    for (final declaration in input.declarations) {
+      final marker = declaration.marker('CsServerConfig');
+      if (marker == null) continue;
+      final secret = marker.named['secret'];
+      if (secret is! CsBoolValue || !secret.value) continue;
+      final docSpec = declaration.docSpec;
+      if (docSpec == null) {
+        out.add(
+          fail(
+            '${declaration.path} is a secret setting with no @DocSpec '
+            'back-link — a secret is only ever authored as a '
+            '$_declaredShapeSection entry, and the back-link is what says so',
+            declaration.location,
+          ),
+        );
+        continue;
+      }
+      final sections = docSpec.map((r) => r.sectionId).toSet();
+      if (sections.contains(_declaredShapeSection)) continue;
+      out.add(
+        fail(
+          '${declaration.path} is a secret setting traced to '
+          '{${sections.join(', ')}} rather than $_declaredShapeSection — the '
+          'fixed-shape CE-CF bands name settings the model owns and carry '
+          'values only, so a credential slot there is a specification defect',
+          declaration.location,
+        ),
+      );
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 20 — setting keys share one namespace
+// ---------------------------------------------------------------------------
+
+/// §6 check 20.
+///
+/// N10 puts CE-CF's derived keys (`<band>.<field>`, the fixed shape) and its
+/// authored keys (`SCSET`, the declared shape) in **one** namespace under one
+/// collision rule. Neither shape can see the other while it is being authored:
+/// a band's key is derived from a class name whose `Policy`/`Settings`/
+/// `Selection`/`Entry` suffix is dropped — so two differently-named bands can
+/// reduce to the same `<band>` — and an `SCSET` author writes free strings with
+/// no view of what the bands derived. The trio is the first place both are
+/// visible, which is why the collision is caught here and not in either shape.
+///
+/// This is N4 applied to the key rather than the identifier, so like check 1 it
+/// never auto-suffixes: a deployment key is a contract with the operator and
+/// silently renaming one loses whichever value was set against it.
+class CsSettingKeyCollisionCheck extends CodeSpecsCheck {
+  /// Creates the check.
+  const CsSettingKeyCollisionCheck();
+
+  @override
+  int get number => 20;
+
+  @override
+  String get definedIn => '§2.1 N10';
+
+  @override
+  String get title =>
+      'Two @CsServerConfig members claiming the same setting key fail, naming '
+      'both section ids';
+
+  @override
+  List<CodeSpecsViolation> run(CodeSpecsValidationInput input) {
+    final out = <CodeSpecsViolation>[];
+    final seen = <String, CsDeclaration>{};
+    for (final declaration in input.declarations) {
+      final marker = declaration.marker('CsServerConfig');
+      if (marker == null) continue;
+      final key = marker.firstPositionalString?.trim();
+      // A blank key is check 4's violation, not this one's.
+      if (key == null || key.isEmpty) continue;
+      final first = seen[key];
+      if (first == null) {
+        seen[key] = declaration;
+        continue;
+      }
+      out.add(
+        fail(
+          "setting key '$key' is claimed twice — by ${first.path} from "
+          'section(s) ${sectionsOf(first)} (${first.location}) and by '
+          '${declaration.path} from section(s) ${sectionsOf(declaration)}; '
+          'derived and authored setting keys share one namespace (N10) and '
+          'N4 never auto-suffixes',
+          declaration.location,
+        ),
+      );
+    }
+    return out;
+  }
+}
+
+// ---------------------------------------------------------------------------
 // The catalogue
 // ---------------------------------------------------------------------------
 
-/// The eighteen checks, in §6 table order.
+/// The twenty checks, in §6 table order.
 const codeSpecsChecks = <CodeSpecsCheck>[
   CsIdentifierCollisionCheck(),
   CsReferenceResolutionCheck(),
@@ -1413,4 +1542,6 @@ const codeSpecsChecks = <CodeSpecsCheck>[
   CsSecretInitialiserCheck(),
   CsFallbackChannelCheck(),
   CsDrillThroughRouteCheck(),
+  CsSecretIsDeclaredCheck(),
+  CsSettingKeyCollisionCheck(),
 ];

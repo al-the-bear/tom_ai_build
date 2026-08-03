@@ -131,6 +131,32 @@ in the family that has such targets, and `CsElementRef.path` composes it. A
 generation-time validator resolves every ref string to a declaration; an
 unresolved ref is a generation error, never a warning.
 
+**N10 — derived setting keys.** N5 governs keys the *author* invents. A setting
+whose identity is owned by the **model** instead — §3.3.6's fixed shape, where
+the SOM names the setting and the author supplies only its value — has no
+authored key, so its key is **derived**:
+
+```
+<band>.<field>                     fixed band
+<band>.<entryName>.<field>         repeating fixed band
+```
+
+`<band>` is camelCase of the contributing section's class name with a trailing
+`Policy`, `Settings`, `Selection` or `Entry` dropped (`LogRetentionPolicy` →
+`logRetention`, `EncryptedDataCategoryEntry` → `encryptedDataCategory`);
+`<field>` is the form field's name; `<entryName>` is N2/N3 over the repeating
+entry's required name field. Exactly **one** segment comes from the band and
+never its ancestor chain — a deployment key must not change because a section
+moved in the document tree, and the band's class name is already globally unique.
+Derived and authored keys share one namespace and one collision rule (N4). The
+suffix drop makes the reduction non-injective (`LogRetentionPolicy` and a
+hypothetical `LogRetentionSettings` reduce alike), and an `SCSET` author writes
+free strings with no view of what the bands derived — so the generated trio is
+the first place both key sets are visible, and **§6 check 20** is where the
+collision is caught. Like N4's identifier rule it never auto-suffixes: a
+deployment key is a contract with the operator, and silently renaming one
+abandons whatever value was set against it.
+
 ### 2.2 Locus assignment
 
 Locus is not per-entry judgement — it is read off `codespecs_mapping.md` §4.2 by
@@ -570,13 +596,44 @@ Never cites the client.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `ServerConfigurationSettingEntry` (`SCSET`), the declaration list under `SystemConfigurationManagement` (`SYCOMA`) — one entry per server setting (`codespecs_mapping.md` §5.16). A second CE-CF band arrives differently: the audit-sink settings under `AuditLogFormat` (`AULOFO`) — record shape (`EVATPO`), storage (`LOSTPO`), tamper protection (`LOPRPO`) and retention (`LOREPO`) — are fixed-name form fields rather than a key/type/default list, so their member names come from the form, not from N5 over a key. |
-| **2 Output** | A **configuration holder** (form 2) built on `TomBaseServerConfiguration` with `TomServerConfigResourceProvider` (`tom_core_server`), one `@CsServerConfig`-marked member per setting. Feature flags take the same shape — §5.5 lists them as a settings sub-case, not a separate mechanism. |
-| **3 Arguments** | `key` — **first positional, required** ← `SCSET`'s setting key, **verbatim** (§5.23 exemption 1). `envAlias` / `cmdlineAlias` ← `SCSET`'s environment variable and command-line option, verbatim (same exemption). `secret` ← the secret mark, default `false` — the safe arm: a setting wrongly marked secret is merely stripped, one wrongly left unmarked ships its value. `overridableBy` (**required**, `CsOverridableBy {none, client, user, device}`) ← `SCSET`'s overridability opt-in; no default, because choosing a value's blast radius by omission is the exact failure §5.16's fail-safe rule prevents. The setting's **type** is the member type and its **default** the member initialiser (test **a**). *Precedence* is not an argument — §5.16 fixes intra- and cross-scope precedence for everyone; `overridableBy` grants the **permission** to contest, it does not order the contest. |
-| **4 Naming** | Holder = `<App>ServerConfig`; member = N5 over the setting key. |
+CE-CF has **two derivation paths**, discriminated by **who owns the setting's
+identity** (`codespecs_mapping.md` §5.16). They are not two spellings of one
+input: the two answer different questions, and the discriminator decides which
+of a setting's properties can be authored at all.
+
+- **Declared** — the *application* owns the key. `SCSET`'s open list; the author
+  invents the key, so every property of the setting must be authored.
+- **Fixed** — the *model* owns the key. The 41 policy and layout bands whose
+  form fields each name one setting the SOM already knows exists; the author
+  supplies only the value, so nothing per-setting is authorable.
+
+| Point | Contract |
+|-------|----------|
+| **1 Input** | **Declared:** `ServerConfigurationSettingEntry` (`SCSET`), the declaration list under `SystemConfigurationManagement` (`SYCOMA`) — one entry per application-owned server setting. **Fixed:** the CE-CF-mapped policy and layout bands — the audit sink (`EVATPO` / `LOSTPO` / `LOPRPO` / `LOREPO` under `AULOFO`), encryption at rest and in transit, key management, API and file/storage security, and D09's print-and-export band — one setting per form field. The fixed shape is the **majority**: 41 of the 42 CE-CF-mapped sections are fixed, `SCSET` is the single declared one. |
+| **2 Output** | A **configuration holder** (form 2) built on `TomBaseServerConfiguration` with `TomServerConfigResourceProvider` (`tom_core_server`), one `@CsServerConfig`-marked member per setting — **one holder for both paths**, since the discriminator is about authoring, not about runtime. Feature flags take the same shape — §5.5 lists them as a settings sub-case, not a separate mechanism. |
+| **3 Arguments** | **Declared:** `key` — **first positional, required** ← `SCSET`'s setting key, **verbatim** (§5.23 exemption 1). `envAlias` / `cmdlineAlias` ← `SCSET`'s environment variable and command-line option, verbatim (same exemption). `secret` ← the secret mark, default `false` — the safe arm: a setting wrongly marked secret is merely stripped, one wrongly left unmarked ships its value. `overridableBy` (**required**, `CsOverridableBy {none, client, user, device}`) ← `SCSET`'s overridability opt-in; no default, because choosing a value's blast radius by omission is the exact failure §5.16's fail-safe rule prevents. **Fixed:** `key` ← **derived** per N10; `envAlias` / `cmdlineAlias` **absent** — §5.16 already makes them `SCSET`-only; `secret` **always `false`** and `overridableBy` **always `none`**, both by the §5.16 rules below, neither authorable. For both paths the setting's **type** is the member type and its **default** the member initialiser (test **a**). *Precedence* is not an argument — §5.16 fixes intra- and cross-scope precedence for everyone; `overridableBy` grants the **permission** to contest, it does not order the contest. |
+| **4 Naming** | Holder = `<App>ServerConfig`. Member = **N5** over the authored key (declared) or **N2/N3 over the N10-derived key** (fixed) — both paths converge on the same member-naming rule, applied to a key that is authored in one and derived in the other. |
 | **5 Locus** | `server`. Deployment-environment names appearing in values are §5.23 exemption 2 — verbatim strings, not refs. |
 | **6 Cross-refs** | None typed. Log format, storage, protection and retention land here rather than on CE-LG — they are sink deployment settings. The compliance *report* lands on neither: reviewing and reporting from the log is a follow-up process, not generated code (`codespecs_mapping.md` §4.3.2). |
-| **7 Back-link** | `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. |
+| **7 Back-link** | **Declared:** `@DocSpec([DocRef('SCSET', 'supplies the setting key, type, default, sources, secret mark and overridability')])`. **Fixed:** `@DocSpec([DocRef('<band section id>', 'supplies the value of this model-named setting')])` — the band's own id, which is what makes check 19 decidable from the emitted code alone. |
+
+**Why a secret is only ever declared.** A credential's *identity* is
+application-specific — no model can name a particular sink's password in
+advance — so `secret: true` is expressible on the declared path and nowhere
+else. An audit sink that needs credentials to reach a remote store authors them
+as `SCSET` entries (`audit.sink.password`); `LOSTPO` names the storage
+*policy*, never the credential to reach it. This is the model's own existing
+answer, not a new one: `SCSET`'s authoring help already lists `tls.privateKey`
+and `jwt.rsaPrivateKey` among its typical keys, and `AULOFO`'s says to never log
+secrets at all. **Check 19** enforces it from the emitted code.
+
+**Why a fixed setting is never overridable.** Every fixed band is security,
+infrastructure or environment-wide deployment policy — TLS, keys, encryption,
+the audit sink, print and export defaults. §5.16 already declares that class of
+setting CE-CF-only and non-overridable, so `none` is not a default chosen by
+omission but the only value the class admits. A setting that genuinely should
+follow a user or a client install is not a fixed band at all: it is CE-CC,
+CE-DS or CE-UP, authored in that scope's own list.
 
 #### 3.3.7 `@CsAudited` — CE-LG audited element
 
@@ -1115,7 +1172,7 @@ rather than id strings.
 Each is named here so the generator implements them as a check rather than as a
 convention.
 
-**Where they run.** All eighteen are implemented in
+**Where they run.** All twenty are implemented in
 `tom_specs_clitool/lib/src/codespecs/` (`cs_reader` reads the generated trio via
 the analyzer, `cs_model` resolves it, `cs_checks` holds the checks,
 `codespecs_validator` drives them) and are invoked by
@@ -1132,7 +1189,7 @@ violating `@CsTrigger(kind: userGesture, form: …)` therefore passes `dart
 analyze` untouched — and the annotation is the only site these markers are ever
 written at. An assert there would enforce nothing while reading as if it did,
 which is worse than no guard, so the enforcement point is the generator's
-validation pass over the resolved annotation for **all** eighteen.
+validation pass over the resolved annotation for **all** twenty.
 
 | # | Check | Defined in |
 |---|-------|------------|
@@ -1154,6 +1211,8 @@ validation pass over the resolved annotation for **all** eighteen.
 | 16 | A `@CsServerConfig(secret: true)` member has **no initialiser** — a secret declares presence and shape only, so a default is a credential in the source tree | §3.3.6 |
 | 17 | Every `TomNotificationChannelDeclaration.fallbackChannelId` resolves to a channel declared in the same catalogue | §3.2.9 |
 | 18 | Every `TomReportColumn.drillThroughRouteId` resolves to a CE-NV route declared in the **client** project | §3.3.9 |
+| 19 | A `@CsServerConfig(secret: true)` member's `@DocSpec` names **`SCSET`** — a secret is only ever authored on the declared path, so one traced to a fixed band means a credential slot was invented in a policy section | §3.3.6 |
+| 20 | Two `@CsServerConfig` members never claim the same setting key — derived and authored keys share one namespace, and neither shape can see the other while it is authored | §2.1 N10 |
 
 **Checks 17 and 18 each carry a whole edge on its own.** Checks 2 and 13 back up
 a compile-time or structural guarantee; these two replace one. The fallback is a

@@ -52,7 +52,7 @@ class CodeSpecsValidationReport {
   }
 }
 
-/// Runs [checks] (by default all eighteen) over [input].
+/// Runs [checks] (by default all twenty) over [input].
 ///
 /// Every check runs even when an earlier one fails — an author fixing a
 /// generated tree wants the whole list, not the first breach.

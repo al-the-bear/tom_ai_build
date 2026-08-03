@@ -14106,6 +14106,11 @@ parsability, and forensic utility.
 - Centralized log aggregation (ELK, Splunk, CloudWatch)
 - Separate storage from application data
 - Cross-region replication for availability
+- Name the storage *policy* here, never a credential to reach it. The fields in
+  this band are settings the model already names, so they carry values only and
+  cannot be marked secret. A remote sink's password or access key is authored as
+  its own server configuration setting entry (SCSET, under System Configuration
+  Management), which is the one place a secret may be declared.
 
 **Log protection:**
 - Append-only storage (no modification or deletion)
