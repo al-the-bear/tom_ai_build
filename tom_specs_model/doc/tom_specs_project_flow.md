@@ -1,8 +1,7 @@
 # TomSpecs Project Flow — From Idea to Running System
 
-**Version:** 1.0
-**Status:** Active
 **Quest:** tom_specs
+**Status:** Active
 
 ---
 
@@ -1700,11 +1699,3 @@ CodeSpecs is **two documents, split by question**.
 | Tom Provisioning | Cloud resource provisioning for multi-tenant systems |
 | Tom SQM | Subscriptions and quotas for the subscriber model |
 | Tom Forge | The shell hosting the specification editor |
-
----
-
-## Revision History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2026-07-26 | Initial version. Consolidates the phase flow, quality-gate framework, iteration model, role model, tooling, issue workflow, and upgrade cycle into a single process description grounded in the current specification object model. |

@@ -16,6 +16,16 @@ Quest bookkeeping — progress logs, todo yamls, session trails — lives in
 `_ai/quests/tom_specs/` and is deliberately **not** part of this folder. So does
 campaign history: these documents state the current design only.
 
+That applies to a document's own header as much as to its prose. A document here
+opens with `**Quest:** tom_specs` and a `**Status:**` line saying what it is —
+normative, implemented, planned — plus whatever `**Scope:**` / `**Audience:**` /
+`**Project:**` lines its subject needs. It carries **no version field and no
+revision history**, not even when it is formally sectioned with its own section
+ids: git is the revision authority for a file under version control, and a
+version number no reader can act on is worse than none. What a document *used to
+say* is recoverable from history; what it says now is the only thing it should
+be asked to carry.
+
 ## How to cite these documents
 
 Code comments and documents cite a section of
