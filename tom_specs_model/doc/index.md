@@ -26,6 +26,31 @@ version number no reader can act on is worse than none. What a document *used to
 say* is recoverable from history; what it says now is the only thing it should
 be asked to carry.
 
+**Not everything that mentions the past is history.** A formally structured
+specification carries constructs that *look* like a record but are load-bearing
+now, and the test is one question: **would deleting it change what the document
+says about the present, or only what it says about the past?**
+
+- A **decision register** whose ids the body cites inline —
+  `tom_specs_editor_specification.md` §2, cited some fifty times as `(N12)`,
+  `(Q9)`, `(IO2)` — is the referent table those citations resolve against.
+  Deleting it makes the body unreadable, so it stays. It earns that by stating
+  each decision in the present tense: *what the design is*, not *what was
+  agreed when*.
+- A **`Done:` condition** on a plan step (`tom_specs_editor_specification.md`
+  §20) is an **acceptance criterion**, not a claim that the step is finished.
+  Which steps *are* finished is progress state and lives in
+  `_ai/quests/tom_specs/progress.tom_specs.md`. A plan step that marks itself
+  complete has crossed the line and gets stripped.
+- A **hazard list** of API names that are easy to get wrong
+  (`codespecs_mapping.md` §4.1.2) states current facts about the framework, and
+  is kept. A table of *what a name used to be* states nothing current and is
+  not — that is precisely what git is for.
+
+So: keep the construct, phrase it in the present tense, and say in the document
+why it is not history. An unexplained exception gets re-flagged by the next
+sweep and re-argued from scratch.
+
 ## How to cite these documents
 
 Code comments and documents cite a section of

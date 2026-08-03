@@ -1,13 +1,13 @@
 # Agent Guidelines — Authoring D4rt Scripts to Process a TomSpecs Document
 
 **Quest:** tom_specs
-**Status:** **Reconciled with the shipped `tom_spec_engine` scripting surface
-** Every API name, signature, and worked example in §3–§6 below
-matches the engine's `spec` / `files` / `memory` scope bindings as shipped, and
-the §6 examples are run **verbatim** by
-`tom_spec_engine/test/guidelines_examples_test.dart`. Two capabilities from the
-original draft are not yet exposed as *script* APIs and have been narrowed to
-match the code — see the reconciliation record in §10.
+**Status:** Normative — describes the shipped `tom_spec_engine` scripting
+surface. Every API name, signature and worked example in §3–§6 matches the
+engine's `spec` / `files` / `memory` scope bindings, and the §6 examples are run
+**verbatim** by `tom_spec_engine/test/guidelines_examples_test.dart`, so this
+document cannot drift from the engine without a test going red. Two capabilities
+a script author might reach for are not script APIs at all; §10 says what they
+are instead.
 
 **Role of this document.** This is the source for the **system / context prompt**
 that briefs the in-editor LLM agent. It tells the model two things: *what it is*
@@ -277,26 +277,28 @@ with it — so do not assume capabilities beyond what the current context grants
 
 ---
 
-## 10. Reconciliation record
+## 10. What the script scope does not expose
 
-This document was reconciled against the **shipped** `tom_spec_engine` scripting
-surface. Every API name and signature in §3–§8 now matches the engine's
+Every API name and signature in §3–§8 matches the **shipped** `tom_spec_engine`
 `spec` / `files` / `memory` scope bindings, and the §6 examples run verbatim in
-`tom_spec_engine/test/guidelines_examples_test.dart`.
+`tom_spec_engine/test/guidelines_examples_test.dart` — so the guidelines cannot
+drift from the engine without a test going red.
 
-Two capabilities from the original draft are **not yet exposed as *script* APIs**
-and were narrowed to match the code:
+Two capabilities a script author might reasonably reach for are **not script
+APIs**. Both are reachable, elsewhere:
 
-1. **In-script reflection / typed facade.** The draft's §4 `model.classOf` /
+1. **In-script reflection / typed facade.** A `model.classOf` /
    `model.allowedChildren` / `model.annotations` layer and the typed
-   `tom_som_dart_v0` facade are not bound into the `spec` scope. The reflection
-   data is reachable today only through the author-time `model_get_section` /
-   `model_children` / `model_search` MCP tools. A script discovers structure by
-   attempting `spec.addChild` (which validates and throws) and by `listItems`.
-2. **In-script structural search cursor.** The draft's §5 `spec.search(...)`
-   lexical/structural cursor is not a script API. The equivalent grep-like query
-   lives in the editor's `model_search` MCP tool; in a script, use the `memory`
-   scope's `recall` / `recallPaths` plus plain Dart iteration over `listItems`.
+   `tom_som_dart_v0` facade are **not** bound into the `spec` scope. Reflection
+   data is reachable through the author-time `model_get_section` /
+   `model_children` / `model_search` MCP tools. Inside a script, discover
+   structure by attempting `spec.addChild` — it validates against the object
+   model and throws — and by `listItems`.
+2. **In-script structural search cursor.** There is no `spec.search(...)`
+   lexical/structural cursor. The equivalent grep-like query lives in the
+   editor's `model_search` MCP tool; inside a script, use the `memory` scope's
+   `recall` / `recallPaths` plus plain Dart iteration over `listItems`.
 
-If these are later promoted to script APIs, extend §4/§5 and add tested examples
-to the §6 suite rather than re-introducing the old draft signatures.
+Promoting either to a script API means extending §4/§5 **and** adding tested
+examples to the §6 suite — the suite is what keeps this document honest, so a
+capability that is documented but not exercised there is not shipped.

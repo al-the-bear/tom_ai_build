@@ -32,7 +32,14 @@ Objectives (with the originating requirement letters):
 
 ---
 
-## 2. Resolved Decisions
+## 2. Decision Register
+
+This register is **normative, not a record of past deliberation**. Its ids are
+cited inline throughout the body — `(N12)`, `(Q9)`, `(IO2)` and some fifty
+others — so it is the referent table those citations resolve against: remove it
+and the body stops being readable. Each row states, in the present tense, what
+the design *is* and the constraint it answers to. A history-phrasing sweep
+(`index.md`, *Documents state the current design only*) must not flag it.
 
 | # | Decision |
 | --- | --- |
@@ -73,7 +80,7 @@ Objectives (with the originating requirement letters):
 | D3 | The **section-ID path root→leaf is globally unique**; list items carry `-1`, `-2` index suffixes, so the full path stays unique. |
 | D4 | **Empty = "no value"**. |
 | D5 | **Review-state badges sit next to section headlines**; **empty-node chips render below**, under the section content (or under the last existing subsection). |
-| V1 | Confirmed — all roots share a **single object tree**. |
+| V1 | All roots share a **single object tree**. |
 | V2 | Add **one new top-level root class that points to all 14 document roots**, so the entire spec is a single object model/tree with one true root (resolves the root-local-data concern: everything hangs off the one tree). |
 | IO1 | Import is always a **full overwrite** (of the whole document or the sub-document's covered part); approve-style merge is a possible *later* feature. |
 | IO2 | Round-trip formatting preserved by using **multi-line YAML scalars for ALL keys** (eases diff/merge of small text changes too). |
@@ -90,7 +97,7 @@ Objectives (with the originating requirement letters):
 | N1 | On transport failure there is no way to hold the socket open; instead, **after reconnect re-send the interrupted prompt with an editable prefix** ("this was interrupted due to a technical error"). The prefix text is an editable template. |
 | N2 | **No bridge/API key is involved.** The **VS Code workspace and the document workspace may and will differ** — that's expected. There is **no third root**; just those two. |
 | N3 | A result is treated as a **session error** (→ refresh the session id) when its error text **contains `session`, `message`, or `msg`** (case-insensitive). Matched against `error_during_execution`/`is_error` results and thrown bridge errors (§7.2). |
-| N4 | Confirmed — the YAML save is **human-readable**; the document can be read directly in YAML form because every key is a block scalar. |
+| N4 | The YAML save is **human-readable**; the document can be read directly in YAML form because every key is a block scalar. |
 | N5 | **Modify `tom_specs_model`** as needed to give the editor simple immutable/copy-on-write handling for snapshotting — implement whatever shape is cleanest for the editor. |
 | N6 | **After a document save**, only entries in the **editor undo queue** can be undone (these can include edits that were earlier in the now-cleared change log); the change log itself is empty. |
 | N7 | The generic provider abstraction (`LlmProvider` interface + `AgentSdkLlmProvider` + `AgentSdkSessionStrategy`/`AgentSdkSessionStore`) lives in **`tom_core_agentic`** (single source of truth); `tom_core_agentic` depends on `tom_vscode_scripting_api`. The HTTP/stub providers (`OllamaLlmProvider`, `OpenAiPassthroughProvider`, `StubLlmProvider`) stay in `tom_brain_substrate` and consume the abstraction from `tom_core_agentic`. **`tom_forge_agentic` holds UI only** (§4.3). |
@@ -99,7 +106,7 @@ Objectives (with the originating requirement letters):
 | N10 | The **interrupted-prompt re-send prefix** is a **field on the Anthropic profile**, edited in the profile editor. When copying profiles from the VS Code extension, set it to a **reasonable default** ("This was interrupted due to a technical error."). |
 | N11 | Serialization via **`toYaml` methods on the model**. The **global root's `toYaml` writes only the Solution Blueprint content** (the native `*.docspecs.yaml`). Each other root also has a `toYaml`, used **only when writing that root's individual file**. **Before** writing an individual root, the global root runs a **connect pass** binding the projection root's (possibly-null) references to the live SBP sections — connecting *before write* (not after read) avoids keeping copies in sync and always binds to whatever is currently in SBP. |
 | N12 | The connection is the existing **`@MapsTo` / `@DetailedIn`** links. A **null section is null in the SBP target too** (one shared tree — no divergence). This is only ever a question at the root level; the underlying **invariant** is that **a projection root contains no content that is not also in the Solution Blueprint** — this **must be validated** (added to the `tom_specs_model_rules.md` §10.2 validator). |
-| N13 | `tom_core_agentic` (with the provider abstraction + `tom_vscode_scripting_api` dep) is published and consumed by `tom_brain_*`; the moved code is deleted and the HTTP providers re-export the abstraction from `tom_core_agentic`, so no `tom_assistant` consumer pins old provider classes. |
+| N13 | `tom_core_agentic` (with the provider abstraction + `tom_vscode_scripting_api` dep) is published and consumed by `tom_brain_*`. The abstraction has **exactly one home** — no copy lives under `tom_brain_*`; the HTTP providers re-export it from `tom_core_agentic`, so no `tom_assistant` consumer pins a `tom_brain` provider class. |
 
 ---
 
@@ -454,8 +461,8 @@ The document editor walks the `SpecClass` graph for the active root and renders 
 - **Canonical-path identity primitive.** Because an aggregated annotated class has a **globally-unique `@SectionId`**, the same underlying section is named identically no matter which root reaches it. `SpecDocumentController.canonicalPathFor(path)` walks a structural path and anchors on the **deepest** node whose resolved class carries **both** a section id **and** a projection annotation (`@MapsTo` *or* `@DetailedIn`), rewriting the path to `<anchor-section-id>/<segments-below>`. So a section reached via a projection route and via the SBP route collapse to the same canonical path (segments below the anchor are preserved verbatim, keeping list-item/nested-field positions). `SpecDocumentController.isProjectionRoot(rootSeg)` is `false` for the SBP master and unknown roots, `true` for the thirteen projection roots (the twelve Phase-3 documents and `D13CodeSpecsProjection`). **Conflation guard:** a class with a section id but **no** projection annotation (e.g. each document's own `DocumentHeader`) is *not* a projection node — every document genuinely owns its instance — so it keeps its route-local prefix and is never merged. **The anchor scan stops at the first list item:** below an item, identity is positional (*which* item), so anchoring there would collapse every item of a list onto one name; the item's suffix is instead carried verbatim under the anchor that owns the list.
 - **Storage-path key — one section, one store entry.** `canonicalPathFor` is the **identity** primitive ("are these two routes the same section?"); the **storage key** is `SpecDocumentController.storagePathFor(path)`, which resolves the *same* anchor but re-roots it on where that anchored section sits in the **Solution Blueprint master** tree. So `RSP/functionalRequirements` and `SBP/systemOverview/requirements/functionalRequirements` both store as the latter: an edit made through any projection mutates the byte-identical value, and the change log, review decisions and undo snapshots fold with it. The master-path form is what makes this safe — the store's emptiness and purge logic (`hasValuesUnder` / `removeValuesUnder`, §13.1 D4) is a **prefix scan**, so its key space must be a tree: a subtree of paths must map to a subtree of keys. Anchor-id-rooted canonical paths are not (everything above the anchor is replaced); master structural paths are the fixed point — the rewrite is the identity on the master route, every projection route folds *into* the master tree rather than out of it, and prefix scans keep working unchanged. It is also the key space the `*.docspecs.yaml` codec, the validator, the markdown codec and `SpecNodeCreator` already walk, so they see projection edits for free. The mapping is **derived, not hand-authored**: the anchor class is literally the same class object on both routes, so its globally-unique `@SectionId` is the meeting point and a walk of the SBP tree supplies the field path.
 - **Where the key is applied.** `SpecDocument` takes an injectable host-supplied **path normalizer** (`installPathNormalizer`) rather than knowing about projections itself — it is a generic pure-Dart store shared by the nine generated language facades, and unset means identity. `ReviewStore` takes the same mapper via `installKeyMapper`. Both are installed by `SpecDocumentController.ensureLoaded` and both **re-key whatever they already hold** at that moment, which is simultaneously the migration for review passes recorded before the fold: the mapping is derived from the model and so cannot exist at construction, and `storagePathFor` is the identity until the model resolves. A normalizer must be idempotent and prefix-preserving; where two old keys collapse onto one, the first in sorted-key order wins (they name the same section, so the loser is a duplicate, not a decision).
-- **Confirmed (V1):** the projection model — one SolutionBlueprint store, 12 read/write views — is the intended semantics for **both authoring and agent mutation**. All roots share a single object tree.
-- **Single true root (V2):** rather than leaving the 14 roots as 14 disconnected entry points, `tom_specs_model` gains a **new top-level container class** whose fields are the 14 document roots. The editor loads/serializes/snapshots **that one object**, so:
+- **One store, many views (V1):** the projection model — one SolutionBlueprint store, 12 read/write views — is the semantics for **both authoring and agent mutation**. All roots share a single object tree.
+- **Single true root (V2):** the 14 roots are **not** 14 disconnected entry points. `tom_specs_model` carries a **top-level container class** whose fields are the 14 document roots, and the editor loads/serializes/snapshots **that one object**, so:
   - the whole spec is genuinely one tree (no special-casing of "which root am I in" for save/undo/snapshot);
   - any **root-local** data a Phase 3 root might carry (beyond pure SBP projections) has a guaranteed home on the single tree;
   - the **root navigator** simply selects which child of the top container to render (in the two bands above).
@@ -569,13 +576,21 @@ the boundary in §4.4 is where document editing stops.
 
 ## 20. Implementation Plan
 
-Ordered, numbered steps to build the TomSpecs Editor from scratch. The order follows the dependency graph — each step's foundations are laid by earlier steps. Steps map onto the §18 phases (noted as `[1a]…[2]`). Every step lists its **done** condition; `dart analyze` clean + `testkit :test` green is an implicit gate for every code step. Tests are written **before** the implementation they cover (red→green→refactor).
+Ordered, numbered steps to build the TomSpecs Editor from scratch. The order follows the dependency graph — each step's foundations are laid by earlier steps. Steps map onto the §18 phases (noted as `[1a]…[2]`). `dart analyze` clean + `testkit :test` green is an implicit gate for every code step. Tests are written **before** the implementation they cover (red→green→refactor).
+
+Every step states a **`Done:`** condition. That condition is the step's
+**acceptance criterion** — what has to be true for the step to count as
+finished — **not** an assertion that it already is. Which steps are finished is
+progress state, and progress state lives in
+`_ai/quests/tom_specs/progress.tom_specs.md`, never here; so no step in this
+plan is marked complete, and a history-phrasing sweep must not read `Done:` as
+one.
 
 ### Stage A — Shared foundations (`tom_core_agentic`, model, tooling)
 
-1. **Provider layer in `tom_core_agentic` (T3, N7) — done.** `tom_core_agentic` (v1.8.0) owns `LlmProvider` + message/stream-event models, `AgentSdkLlmProvider`, and `AgentSdkSessionStrategy`/`AgentSdkSessionStore`, and depends on `tom_vscode_scripting_api (>=1.1.0)`. The HTTP/stub providers (`OllamaLlmProvider`, `OpenAiPassthroughProvider`, `StubLlmProvider`) stay in `tom_brain_substrate` and consume the abstraction. **Verify:** the editor build resolves the provider API from `tom_core_agentic` with no duplicate copies.
+1. **Provider layer in `tom_core_agentic` (T3, N7).** `tom_core_agentic` (v1.8.0) owns `LlmProvider` + message/stream-event models, `AgentSdkLlmProvider`, and `AgentSdkSessionStrategy`/`AgentSdkSessionStore`, and depends on `tom_vscode_scripting_api (>=1.1.0)`. The HTTP/stub providers (`OllamaLlmProvider`, `OpenAiPassthroughProvider`, `StubLlmProvider`) stay in `tom_brain_substrate` and consume the abstraction. **Done:** the editor build resolves the provider API from `tom_core_agentic` with no duplicate copies.
 2. **Add the agent data models to `tom_core_agentic`.** Anthropic profile/options model (incl. the editor-specific `interruptRetryPrefix`, N10), prompt-queue model (`QueuedPrompt`/`QueuedPrePrompt`/`QueuedFollowUpPrompt`), chat-message/trail model, `ReminderTemplate`/`TimedRequest`, and editor-facing placeholder bindings over the existing `PlaceholderResolver` (no JS — `${{…}}` left unwired, §11.5). **Done:** models round-trip through YAML in unit tests.
-3. **`tom_brain_*` consumes `tom_core_agentic` (T3) — done.** `tom_brain_substrate`/`tom_brain_run` depend on the published `tom_core_agentic` and re-export the abstraction; the moved code is deleted, and no `tom_assistant` consumer pins old provider classes. **Verify:** `tom_brain_*` builds + tests green against `tom_core_agentic`; no duplicated provider code remains.
+3. **`tom_brain_*` consumes `tom_core_agentic` (T3).** `tom_brain_substrate`/`tom_brain_run` depend on the published `tom_core_agentic` and re-export the abstraction; no provider copy lives under `tom_brain_*`, and no `tom_assistant` consumer pins a `tom_brain` provider class. **Done:** `tom_brain_*` builds + tests green against `tom_core_agentic`; no duplicated provider code remains.
 4. **Add the canonical container root to `tom_specs_model` (V2, N9).** New top-level class referencing all 14 document roots; **no `@SectionId`**, not a document node. **Done:** class compiles; the existing model test suite still passes.
 5. **Give the model immutable / copy-on-write handling for snapshotting (N5, U1).** Reshape `tom_specs_model` nodes so the editor can take cheap structurally-shared snapshots. **Done:** a snapshot/restore unit test demonstrates unchanged leaves are shared by identity.
 6. **Add `toYaml` + the connect pass to the model (N11, N12).** Global root `toYaml` writes **only** Solution Blueprint content (each section once); projection roots' `toYaml` used only for their individual-file write, preceded by the connect pass that binds `@MapsTo`/`@DetailedIn` references to live SBP sections. **Done:** unit tests prove (a) global save emits no duplicate subtrees, (b) an individual projection write reflects current SBP content, (c) a null SBP section stays null in the projection.
