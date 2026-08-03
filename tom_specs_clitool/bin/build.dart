@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:path/path.dart' as p;
+import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// TomSpecs editor build & packaging orchestrator
 /// (`som_multiplatform_spec_model.md` §17, N8, B1/B2).
@@ -52,9 +53,6 @@ Future<void> main(List<String> arguments) async {
     ..addOption('buildkit',
         help: 'buildkit executable (on PATH or absolute). Default: buildkit.',
         defaultsTo: 'buildkit')
-    ..addOption('model-version',
-        help: 'Override the integer model-version stamp. '
-            'Default: major component of the model pubspec version.')
     ..addFlag('no-flutter-build',
         help: 'Run steps 1–6 (versioner, spec-ops, json, schemas, summaries, '
             'bundle) but skip the final `flutter build` — generation only.',
@@ -101,8 +99,11 @@ Future<void> main(List<String> arguments) async {
   _step(1, 'buildkit :versioner → model version stamp');
   await _run(buildkit, ['--nested', ':versioner'], cwd: modelDir);
   final stamp = _readStamp(modelDir);
-  final modelVersion =
-      int.tryParse(args.option('model-version') ?? '') ?? stamp.majorVersion;
+  // The stamp is *derived*, never supplied: every artifact this build writes —
+  // the editor's spec_model.json, the DocSpecs schemas — takes its version from
+  // this one file, so they cannot drift apart and a caller cannot inject a
+  // version the model does not actually carry.
+  final modelVersion = stamp.majorVersion;
   if (modelVersion < 1) {
     _fail('Resolved model version $modelVersion is invalid (must be ≥ 1).');
   }
@@ -126,17 +127,26 @@ Future<void> main(List<String> arguments) async {
   );
 
   // ── Step 3: spec_model.json, stamped (B2) ─────────────────────────────────
+  // Written through the named `editor` target, which owns both the path and the
+  // stamp — the two committed spec_model.json assets carry different frozen
+  // stamps, and naming the target is what stops this build from re-exporting
+  // one of them at the other's version.
   _step(3, 'generate spec_model.json (stamped)');
   final modelJsonOut = p.join(editorDir, 'assets', 'spec_model.json');
+  final targetJsonOut = ModelJsonTarget.editor.outputPathIn(container);
+  if (p.normalize(modelJsonOut) != targetJsonOut) {
+    _fail('--editor points at $editorDir, whose asset '
+        '(${p.normalize(modelJsonOut)}) is not the committed editor asset '
+        '($targetJsonOut). The committed asset is refreshed by target, so a '
+        'relocated editor cannot be stamped from here.');
+  }
   await _run(
     'dart',
     [
       'run',
       p.join('bin', 'model_json.dart'),
+      '--target', ModelJsonTarget.editor.id,
       '--package', modelDir,
-      '--output', modelJsonOut,
-      '--model-version', '$modelVersion',
-      '--model-label', stamp.label,
     ],
     cwd: clitoolRoot,
   );
@@ -281,40 +291,14 @@ String _clitoolRoot() {
   return p.normalize(p.dirname(p.dirname(scriptPath)));
 }
 
-/// The parsed model version stamp from `version.versioner.dart`.
-class _Stamp {
-  _Stamp(this.version, this.buildNumber, this.gitCommit);
-  final String version;
-  final int buildNumber;
-  final String gitCommit;
-
-  /// The integer model version counter (S2): the major component of [version].
-  int get majorVersion =>
-      int.tryParse(version.split('.').first.trim()) ?? 1;
-
-  /// A human-readable build label (e.g. `1.0.0+3.abc1234`).
-  String get label {
-    final commit = gitCommit.isEmpty ? '' : '.$gitCommit';
-    return '$version+$buildNumber$commit';
+/// Parses the generated stamp produced by `buildkit :versioner` (step 1),
+/// reporting a missing or unparseable stamp as a build failure.
+ModelVersionStamp _readStamp(String modelDir) {
+  try {
+    return readModelVersionStamp(modelDir);
+  } on ModelVersionStampException catch (e) {
+    _fail('${e.message} (did step 1 run?)');
   }
-}
-
-/// Parses the generated stamp produced by `buildkit :versioner`.
-_Stamp _readStamp(String modelDir) {
-  final file = File(p.join(modelDir, 'lib', 'src', 'version.versioner.dart'));
-  if (!file.existsSync()) {
-    _fail('Version stamp not found at ${file.path} (did step 1 run?).');
-  }
-  final src = file.readAsStringSync();
-  String str(String field) =>
-      RegExp("$field\\s*=\\s*'([^']*)'").firstMatch(src)?.group(1) ?? '';
-  int num(String field) =>
-      int.tryParse(RegExp('$field\\s*=\\s*(\\d+)').firstMatch(src)?.group(1) ??
-              '') ??
-          0;
-  final version = str('version');
-  if (version.isEmpty) _fail('Could not parse `version` from ${file.path}.');
-  return _Stamp(version, num('buildNumber'), str('gitCommit'));
 }
 
 Future<void> _run(String exe, List<String> args, {required String cwd}) async {

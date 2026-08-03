@@ -514,7 +514,7 @@ The build is driven by the **`buildkit`** tool (N8), which can run **all** build
   `buildkit :versioner` generates `lib/src/version.versioner.dart` (`TomSpecsModelVersionInfo.version/buildNumber/gitCommit/buildTime`); the **build number auto-increments** (persisted in `tom_build_state.json`) and **`version`** is bumped on **official builds**. This single stamp is the source for both the bundled `spec_model.json` version and the schema version (S2).
 - **Build steps (each a buildkit command / script step):**
   1. `buildkit :versioner` in `tom_specs_model` → version stamp.
-  2. Generate `spec_model.json` (`tom_specs_clitool/bin/model_json.dart`), tagged with the stamp.
+  2. Generate `spec_model.json` (`tom_specs_clitool/bin/model_json.dart --target editor`), tagged with the stamp. The stamp is not passed in — it follows from the named target, so this build cannot write the editor's asset at the reviewer's pinned version or vice versa (`tom_specs_model_meta_schema.md`, "Refreshing the committed assets").
   3. Generate DocSpecs schemas (§16), versioned from the stamp.
   4. **Embed pre-generated** `tom_dart_editor` analyzer **summaries** covering `tom_d4rt_flutter` (+ phase-2 `tom_flutter_ui`). Per **B1** the summaries are **pre-generated and committed/embedded as assets** — the build does *not* run the analyzer per-OS, so no per-platform analyzer toolchain is required at build time.
   5. Bundle assets (model json, schemas, embedded summaries).

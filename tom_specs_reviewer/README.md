@@ -20,17 +20,17 @@ one command, run from `tom_specs_clitool`:
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/model_json.dart \
-  --package ../tom_specs_model \
-  --output ../tom_specs_reviewer/assets/spec_model.json \
-  --model-version 9 \
-  --model-label "1.0.0+9"
+dart run bin/model_json.dart --target reviewer
 ```
 
-`--model-version` is **fixed at 9** and must never be bumped here: refreshing
-is a re-export of the current model, not a change to it. (Do not refresh via
-`tom_specs_clitool/bin/build.dart` — it writes the editor's copy of the asset
-and derives the model version from the model package's pubspec major.)
+Naming the target is what keeps the stamp right. This snapshot is pinned at
+model version **9** because refreshing is a re-export of the current model, not
+a change to it — while the editor's copy of the same export is stamped from the
+build. The target carries that policy, so the stamp cannot be supplied wrongly
+and the two assets cannot be re-exported at each other's version. The full
+procedure for both targets lives in one place:
+`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed
+assets".
 
 Expected stamp after a clean refresh:
 

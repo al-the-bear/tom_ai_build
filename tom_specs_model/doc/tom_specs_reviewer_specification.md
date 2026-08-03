@@ -51,21 +51,20 @@ not a build artifact**. It is produced by
 `tom_specs_clitool/bin/model_json.dart` from the `tom_specs_model` package
 sources via the Dart analyzer.
 
-Refreshing is a re-export of the current model, never a renumbering of it:
+Refreshing is a re-export of the current model, never a renumbering of it, so
+the snapshot is pinned at model version 9. That policy is carried by the named
+export target rather than by the caller:
 
 ```bash
 cd ../tom_specs_clitool
-dart run bin/model_json.dart \
-  --package ../tom_specs_model \
-  --output ../tom_specs_reviewer/assets/spec_model.json \
-  --model-version 9 \
-  --model-label "1.0.0+9"
+dart run bin/model_json.dart --target reviewer
 ```
 
 `tom_specs_clitool/bin/build.dart` is **not** the reviewer's refresh path: it
-writes the editor's copy of the asset, and it derives the model version from
-the model package's pubspec major rather than from the fixed model-version
-counter.
+refreshes the editor's copy of the same export, which is stamped from the
+build. The procedure for both committed assets, and the reason they carry
+different stamps, is stated once in `tom_specs_model_meta_schema.md`,
+"Refreshing the committed assets".
 
 The snapshot stamp — model version and label, meta-schema version, class and
 root counts, container root — is recorded in the project README, so a refresh

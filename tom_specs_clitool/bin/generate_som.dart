@@ -414,37 +414,14 @@ String _clitoolRoot() {
   return p.normalize(p.dirname(p.dirname(scriptPath)));
 }
 
-/// The parsed model version stamp from `version.versioner.dart`.
-class _Stamp {
-  _Stamp(this.version, this.buildNumber, this.gitCommit, this.buildTime);
-  final String version;
-  final int buildNumber;
-  final String gitCommit;
-  final String buildTime;
-
-  int get majorVersion => int.tryParse(version.split('.').first.trim()) ?? 1;
-
-  String get label {
-    final commit = gitCommit.isEmpty ? '' : '.$gitCommit';
-    return '$version+$buildNumber$commit';
+/// Parses the generated stamp produced by `buildkit :versioner`, reporting a
+/// missing or unparseable stamp as a generation failure.
+ModelVersionStamp _readStamp(String modelDir) {
+  try {
+    return readModelVersionStamp(modelDir);
+  } on ModelVersionStampException catch (e) {
+    _fail(e.message);
   }
-}
-
-_Stamp _readStamp(String modelDir) {
-  final file = File(p.join(modelDir, 'lib', 'src', 'version.versioner.dart'));
-  if (!file.existsSync()) {
-    _fail('Version stamp not found at ${file.path}.');
-  }
-  final src = file.readAsStringSync();
-  String str(String field) =>
-      RegExp("$field\\s*=\\s*'([^']*)'").firstMatch(src)?.group(1) ?? '';
-  int num(String field) =>
-      int.tryParse(RegExp('$field\\s*=\\s*(\\d+)').firstMatch(src)?.group(1) ??
-              '') ??
-          0;
-  final version = str('version');
-  if (version.isEmpty) _fail('Could not parse `version` from ${file.path}.');
-  return _Stamp(version, num('buildNumber'), str('gitCommit'), str('buildTime'));
 }
 
 Never _fail(String msg) {

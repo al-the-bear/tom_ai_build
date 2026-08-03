@@ -30,13 +30,49 @@ The document-side counterpart of `modelVersion` lives in each
 `*.docspecs.yaml` under its own `modelVersion` key (beside the on-disk
 `formatVersion`), recording the authoring model `major.minor` of that document.
 
+## Refreshing the committed assets
+
+Two copies of this export are **tracked in git**, and they carry *different*
+frozen stamps:
+
+| Target | Path | `modelVersion` / `modelVersionLabel` |
+| --- | --- | --- |
+| `editor` | `tom_forge/tom_specs_editor/assets/spec_model.json` | derived from `tom_specs_model/lib/src/version.versioner.dart` |
+| `reviewer` | `tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json` | pinned `9` / `1.0.0+9` |
+
+The editor's copy tracks the build, so it must move with the versioner stamp
+alongside the SOM metas and the DocSpecs schemas. The reviewer's copy is a
+snapshot whose refresh is a *re-export of the current model, never a
+renumbering of it*, so its stamp is frozen.
+
+Refresh either one by **naming the target**, from `tom_specs_clitool`:
+
+```bash
+dart run bin/model_json.dart --target editor
+dart run bin/model_json.dart --target reviewer
+```
+
+The target determines both the output path and the stamp, so neither can be
+given wrongly. `--output`, `--model-version` and `--model-label` are rejected
+with `--target`, and an export that names one of the two committed paths via a
+hand-written `--output` is refused. `ModelJsonTarget` in
+`tom_specs_clitool/lib/src/model_json_target.dart` is the machine-readable form
+of the table above; `test/model_json_target_test.dart` checks both assets on
+disk against it, so a wrong-stamp re-export of either fails there.
+
+`bin/build.dart` refreshes the editor's copy as step 3 by calling the same
+target. It is not the reviewer's refresh path.
+
+Ad-hoc exports to any other location stay freely stampable and default to
+`modelVersion: 0`.
+
 ## Top-level keys
 
 | Key | Type | Required | Description |
 | --- | --- | --- | --- |
 | `generatedAt` | `String` (ISO-8601 UTC) | yes | Emission timestamp. |
 | `metaSchemaVersion` | `int` | yes | This file format's version. Currently `1`. |
-| `modelVersion` | `int` | yes | Model-version counter the export was generated against. `0` = unstamped (manual run). |
+| `modelVersion` | `int` | yes | Model-version counter the export was generated against. `0` means an unstamped ad-hoc export and is never valid in a committed asset — see "Refreshing the committed assets" below. |
 | `modelVersionLabel` | `String` | no | Human-readable model build label (e.g. `v0.7`). Omitted when unstamped. |
 | `classCount` | `int` | yes | Number of entries in `classes`. |
 | `rootCount` | `int` | yes | Number of entries in `roots`. |

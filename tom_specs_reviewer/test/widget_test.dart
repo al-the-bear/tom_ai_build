@@ -2008,12 +2008,18 @@ entries:
       expect(documented('containerRoot'), '`${stamp['containerRoot']}`');
     });
 
-    test('the documented refresh command pins the shipped model version', () {
-      // The refresh must re-export the model, never renumber it — so the
-      // command in the README carries the version the asset already declares.
-      expect(readme, contains('--model-version ${stamp['modelVersion']}'));
-      expect(
-          readme, contains('--model-label "${stamp['modelVersionLabel']}"'));
+    test('the documented refresh names the target that pins the version', () {
+      // The refresh must re-export the model, never renumber it. That pin now
+      // lives on the named export target rather than in a hand-typed flag —
+      // a hand-typed stamp is exactly what let this asset and the editor's
+      // copy of the same export be written at each other's version. So the
+      // README must teach the target, and the baseline it records must be the
+      // stamp the shipped asset actually carries.
+      expect(readme, contains('--target reviewer'));
+      expect(documented('modelVersion'),
+          '`${stamp['modelVersion']}` / `${stamp['modelVersionLabel']}`');
+      expect(readme, isNot(contains('--model-version')),
+          reason: 'the README must not document a hand-supplied stamp');
     });
 
     test('lists every document root the snapshot carries', () {

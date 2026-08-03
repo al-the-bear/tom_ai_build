@@ -1345,7 +1345,10 @@ validation, undo and traceability as a human edit. This is what makes
   ancestor `@MapsTo`, root-independent section-ID resolution, and per-document
   detail counts
 - **Model JSON export** (`bin/model_json.dart`) — serializes the resolved class
-  graph for the editor and the reviewer
+  graph for the editor and the reviewer. Both committed copies are refreshed by
+  naming their target (`--target editor` / `--target reviewer`), which carries
+  the version stamp each is pinned at; see `tom_specs_model_meta_schema.md`,
+  "Refreshing the committed assets"
 
 Because the validator runs on the model rather than on rendered output, a
 structural defect is caught at the source — before it can propagate into twelve

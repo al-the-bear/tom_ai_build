@@ -145,7 +145,7 @@ Related entrypoints in `bin/`:
 | Entrypoint | Purpose |
 | --- | --- |
 | `generate_som.dart` | Generate the per-language `tom_som_<slug>_<label>` projects (this section). |
-| `model_json.dart` | Export the resolved meta-data class graph (`spec_model.meta.json`) alone. |
+| `model_json.dart` | Export the resolved meta-data class graph alone. Refresh either **committed** asset with `--target editor` / `--target reviewer` — the target owns both the path and the version stamp, which the two assets pin differently (`tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed assets"). `--package` + `--output` is for ad-hoc exports elsewhere. |
 | `outliner.dart` | Render a class-tree outline of the model from any document root. |
 | `stamp_serialization_order.dart` | Re-stamp `@SerializationOrder(n)` on every model member in source declaration order (SOM §5.2). Run this on `tom_specs_model` after editing the model, before regenerating. |
 | `validate_codespecs.dart` | Run the `codespecs_derivation_contract.md` §6 checks over a generated CodeSpecs project trio. Takes `--shared` / `--client` / `--server`; exits `0` clean, `1` on any violation, `2` on bad usage. |
